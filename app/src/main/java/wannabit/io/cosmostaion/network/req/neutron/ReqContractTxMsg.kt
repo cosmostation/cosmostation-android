@@ -14,7 +14,13 @@ data class MultiVote(val proposal_id: Int?, val vote: WeightVote?)
 data class WeightVote(val option_id: Int?)
 
 data class SwapReq(val swap: Swap)
-data class Swap(val offer_asset: Offer)
+data class Swap(val belief_price:String, val offer_asset: Offer)
 data class Offer(val info: InfoData, val amount: String)
 data class InfoData(val native_token: NativeData)
 data class NativeData(val denom: String)
+
+data class SwapMsg(val swap: SwapBelief)
+data class SwapBelief(val belief_price: String)
+
+data class ContractSwapReq(val send: Send)
+data class Send(val amount: String, val contract: String, val msg: String)

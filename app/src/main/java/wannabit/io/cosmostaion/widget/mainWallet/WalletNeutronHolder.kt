@@ -11,11 +11,11 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
 import wannabit.io.cosmostaion.activities.QRcodeActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoListActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronDefiActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.vault.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.makeToast
 import wannabit.io.cosmostaion.widget.BaseHolder
 
 class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
@@ -56,11 +56,9 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
             }
 
             btnDefi.setOnClickListener {
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
-//                Intent(mainActivity, NeutronDefiActivity::class.java).apply {
-//                    mainActivity.startActivity(this)
-//                }
+                Intent(mainActivity, NeutronDefiActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnWalletConnect.setOnClickListener {

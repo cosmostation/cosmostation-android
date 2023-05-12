@@ -1341,6 +1341,7 @@
     <string name="str_dao_single_vote">Dao 投票です (シングル)</string>
     <string name="str_dao_multi_vote">ダオ投票 (複数)</string>
     <string name="str_dao_overrule_vote">ダオ投票 (オーバールール)</string>
+    <string name="str_astro_swap">交換する</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

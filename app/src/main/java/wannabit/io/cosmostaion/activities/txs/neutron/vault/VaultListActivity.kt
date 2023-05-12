@@ -56,7 +56,6 @@ class VaultListActivity : BaseActivity() {
             adapter = VaultListAdapter(this@VaultListActivity, mChainConfig, baseDao, listener = vaultClickAction)
 
             loadDataObserve()
-            vaultViewModel.loadVaultListData(mChainConfig)
         }
     }
 
@@ -85,14 +84,11 @@ class VaultListActivity : BaseActivity() {
     }
 
     private fun loadDataObserve() {
-        vaultViewModel.vaultListData.observe(this) { response ->
-            response?.let { vaultDataList ->
-                adapter.vaultDataList = vaultDataList
-                vaultDataList.forEach { vaultData ->
-                    vaultData?.let {
-                        vaultViewModel.loadVaultDepositData(mChainConfig, it.address)
-                    }
-                }
+        adapter.vaultDataList = baseDao.mVaultDatas
+        baseDao.mVaultDatas.forEach { vaultData ->
+            vaultData?.let {
+                vaultViewModel.loadVaultDepositData(mChainConfig, it.address)
+
             } ?: run {
                 // github disconncet
             }

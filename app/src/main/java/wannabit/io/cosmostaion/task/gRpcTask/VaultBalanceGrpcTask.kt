@@ -21,7 +21,8 @@ class VaultBalanceGrpcTask(
     app: BaseApplication?,
     listener: TaskListener?,
     val baseChain: BaseChain?,
-    val account: Account?
+    val account: Account?,
+    val contractAddress: String?
 ) : CommonTask(app, listener) {
 
     override fun doInBackground(vararg strings: String?): TaskResult {
@@ -32,7 +33,7 @@ class VaultBalanceGrpcTask(
             val queryData = ByteString.copyFromUtf8(jsonData)
 
             val mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(baseChain)).withDeadlineAfter(ChannelBuilder.TIME_OUT.toLong(), TimeUnit.SECONDS)
-            val request = QueryOuterClass.QuerySmartContractStateRequest.newBuilder().setAddress(BaseConstant.NEUTRON_NTRN_VAULT_TESTNET_ADDRESS).setQueryData(queryData).build()
+            val request = QueryOuterClass.QuerySmartContractStateRequest.newBuilder().setAddress(contractAddress).setQueryData(queryData).build()
             val response: QueryOuterClass.QuerySmartContractStateResponse = mStub.smartContractState(request)
             val json = JSONObject(response.data.toStringUtf8())
 

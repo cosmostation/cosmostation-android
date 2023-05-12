@@ -45,6 +45,7 @@ class NeutronDefiActivity : BaseActivity() {
 
         binding.labViewPager.setCurrentItem(0, false)
         binding.labViewPager.offscreenPageLimit = 1
+        binding.labViewPager.isUserInputEnabled = false
 
         createTab()
         onSetPageSelected()

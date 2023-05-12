@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VAULT_BALANCE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VAULT_LIST;
 
 import android.Manifest;
 import android.app.Activity;
@@ -58,7 +59,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -77,6 +77,7 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
@@ -117,6 +118,7 @@ import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
+import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
@@ -135,6 +137,7 @@ import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
+import wannabit.io.cosmostaion.task.FetchTask.VaultListDataTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
@@ -149,7 +152,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisCheckIcnsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcConfigTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcFeeTask;
-import wannabit.io.cosmostaion.task.gRpcTask.StargazeCheckNSGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
@@ -158,7 +160,6 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -635,7 +636,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new VaultBalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new VaultListDataTask(getBaseApplication(), this, mChainConfig).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (isGRPC(mBaseChain)) {
             mTaskCount = 9;
@@ -795,6 +796,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
             if (getBaseDao().mGrpcBalance.size() <= 0 || getBaseDao().getAvailable(mChainConfig.mainDenom()).compareTo(BigDecimal.ZERO) <= 0) {
                 getBaseDao().mGrpcBalance.add(new Coin(mChainConfig.mainDenom(), "0"));
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_VAULT_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mVaultDatas = (List<ResVaultData>) result.resultData;
+                if (getBaseDao().mVaultDatas != null && getBaseDao().mVaultDatas.size() > 0) {
+                    mTaskCount = mTaskCount + 1;
+                    new VaultBalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, getBaseDao().mVaultDatas.get(0).getAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_VAULT_BALANCE) {

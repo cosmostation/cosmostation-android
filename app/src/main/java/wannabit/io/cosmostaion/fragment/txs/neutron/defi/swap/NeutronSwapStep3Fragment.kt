@@ -21,7 +21,6 @@ import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapStep3Binding
 import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
-import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 
@@ -49,8 +48,8 @@ class NeutronSwapStep3Fragment : BaseFragment() {
             binding.apply {
                 WDp.setDpCoin(requireContext(), baseDao, baseActivity.mChainConfig, it.mTxFee.amount[0], swapFeeAmountSymbol, swapFeeAmount)
 
-                WDp.setDpCoin(context, baseDao, baseActivity.mChainConfig, it.mAmount, swapInSymbol, swapInAmount)
-                WDp.setDpCoin(context, baseDao, baseActivity.mChainConfig, it.mSwapOutCoin, swapOutSymbol, swapOutAmount)
+                WDp.setDpCoin(context, baseDao, baseActivity.mChainConfig, it.inputCoin?.denom, it.mSwapInAmount, swapInSymbol, swapInAmount)
+                WDp.setDpCoin(context, baseDao, baseActivity.mChainConfig, it.outputCoin?.denom, it.mSwapOutAmount, swapOutSymbol, swapOutAmount)
                 binding.memo.text = getSActivity()?.mTxMemo
             }
         }
@@ -83,10 +82,9 @@ class NeutronSwapStep3Fragment : BaseFragment() {
 
     private fun onBroadCastTx() {
         getSActivity()?.let {
-            val req = SwapReq(Swap(Offer(InfoData(NativeData(it.mAmount.denom)), it.mAmount.amount)))
-            val broadcastTxRequest = Signer.getGrpcContractReq(
-                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, it.mContractAddress, it.mAmount,
-                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
+            val broadcastTxRequest = Signer.getGrpcContractSwapReq(
+                WKey.onAuthResponse(it.mBaseChain, it.mAccount), it.mAccount.address, it.selectedPool, it.mInputPair, it.mSwapInAmount, it.mBeliefPrice,
+                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain)
 
             astroViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }

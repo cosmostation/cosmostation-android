@@ -197,9 +197,13 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty())
             imageView.setImageResource(R.drawable.token_default);
         final Asset asset = baseData.getAsset(chainConfig, denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
 
         if (asset != null) {
             Picasso.get().load(CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(imageView);
+
+        } else if (mintscanToken != null) {
+            Picasso.get().load(CHAIN_BASE_URL + mintscanToken.image).error(R.drawable.token_default).into(imageView);
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {

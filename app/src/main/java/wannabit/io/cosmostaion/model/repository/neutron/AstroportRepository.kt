@@ -4,25 +4,42 @@ import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
 import cosmwasm.wasm.v1.QueryOuterClass
+import retrofit2.Response
+import retrofit2.awaitResponse
 import wannabit.io.cosmostaion.base.chains.ChainConfig
-import wannabit.io.cosmostaion.model.type.Coin
+import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.*
+import wannabit.io.cosmostaion.network.res.neutron.Pair
+import wannabit.io.cosmostaion.network.res.neutron.ResPairData
+import wannabit.io.cosmostaion.utils.WLog
 import java.util.concurrent.TimeUnit
 
 class AstroportRepository {
 
-    fun getSwapPairListData(chainConfig: ChainConfig, contractAddress: String?): String? {
-        try {
-            val req = SwapListReq(Pairs())
-            return getData(req, chainConfig, contractAddress)
-        } catch (_: Exception) { }
-        return null
+    suspend fun getSwapPairData(chainConfig: ChainConfig, contractAddress: String): Response<ArrayList<ResPairData>> {
+        return ApiClient.getDevMintscan().getSwapPairData(chainConfig.chainName(), contractAddress).awaitResponse()
     }
 
-    fun getSwapRateData(chainConfig: ChainConfig, offerCoin: Coin, askDenom: String, contractAddress: String?): String? {
+    fun getSwapRateData(chainConfig: ChainConfig, inputCoin: Pair?, inputAmount: String, outputCoin: Pair?, contractAddress: String?): String? {
         try {
-            val req = SwapRateReq(Simulation(OfferAsset(Info(NativeToken(offerCoin.denom)), offerCoin.amount), AskAssetInfo(NativeToken(askDenom))))
+            val req: Any?
+            req = if (inputCoin?.type == "cw20") {
+                if (outputCoin?.type == "cw20") {
+                    SwapRateReq(Simulation(OfferAsset(Info(null, Token(inputCoin.address)), inputAmount), AskAssetInfo(null, Token(outputCoin.address))))
+                } else {
+                    SwapRateReq(Simulation(OfferAsset(Info(null, Token(inputCoin.address)), inputAmount), AskAssetInfo(NativeToken(outputCoin!!.denom), null)))
+                }
+
+            } else {
+                if (outputCoin?.type == "cw20") {
+                    SwapRateReq(Simulation(OfferAsset(Info(NativeToken(inputCoin!!.denom), null), inputAmount), AskAssetInfo(null, Token(outputCoin.address))))
+                } else {
+                    SwapRateReq(Simulation(OfferAsset(Info(NativeToken(inputCoin!!.denom), null), inputAmount), AskAssetInfo(NativeToken(outputCoin!!.denom), null)))
+                }
+            }
+            WLog.w("test1234 : $req")
+
             return getData(req, chainConfig, contractAddress)
         } catch (_: Exception) { }
         return null

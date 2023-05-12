@@ -16,6 +16,9 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapStep0Fragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapStep3Fragment
+import wannabit.io.cosmostaion.network.res.neutron.Pair
+import wannabit.io.cosmostaion.network.res.neutron.ResPairData
+import java.math.BigDecimal
 
 class NeutronSwapActivity : BaseBroadCastActivity() {
 
@@ -23,8 +26,10 @@ class NeutronSwapActivity : BaseBroadCastActivity() {
 
     private lateinit var mPageAdapter: ProposalPageAdapter
 
-    var inputDenom: String? = ""
-    var outputDenom: String? = ""
+    var selectedPool: ResPairData? = null
+    var inputCoin: Pair? = null
+    var outputCoin: Pair? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +61,9 @@ class NeutronSwapActivity : BaseBroadCastActivity() {
         mTxType = BaseConstant.CONST_PW_TX_NEUTRON_SWAP
 
         intent.apply {
-            inputDenom = getStringExtra("inputDenom")
-            outputDenom = getStringExtra("outputDenom")
+            selectedPool = getParcelableExtra("selectedPool")
+            inputCoin = getParcelableExtra("inputCoin")
+            outputCoin = getParcelableExtra("outputCoin")
         }
     }
 

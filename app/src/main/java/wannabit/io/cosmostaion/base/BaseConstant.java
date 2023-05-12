@@ -135,7 +135,8 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_OSMOSIS_ICNS = 4310;
     public final static int TASK_GRPC_FETCH_STARGAZE_NS = 4311;
-    public final static int TASK_GRPC_FETCH_VAULT_BALANCE = 4312;
+    public final static int TASK_GRPC_FETCH_VAULT_LIST = 4312;
+    public final static int TASK_GRPC_FETCH_VAULT_BALANCE = 4313;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX = "auth/StdTx";
@@ -295,11 +296,7 @@ public class BaseConstant {
     public final static String NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr";
 
     // Neutron Contract Address
-    public final static String NEUTRON_NTRN_VAULT_TESTNET_ADDRESS = "neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e";
-    public final static String NEUTRON_NTRN_DAO_SINGLE_TESTNET_ADDRESS = "neutron1436kxs0w2es6xlqpp9rd35e3d0cjnw4sv8j3a7483sgks29jqwgshlt6zh";
-    public final static String NEUTRON_NTRN_DAO_MULTI_TESTNET_ADDRESS = "neutron1pvrwmjuusn9wh34j7y520g8gumuy9xtl3gvprlljfdpwju3x7ucsj3fj40";
-    public final static String NEUTRON_NTRN_DAO_OVERRULE_TESTNET_ADDRESS = "neutron12pwnhtv7yat2s30xuf4gdk9qm85v4j3e6p44let47pdffpklcxlq56v0te";
-    public final static String NEUTRON_PAIR_ADDRESS = "neutron1elmg309fvdas002z2yausyygsyfht9qpyxeadqxjx38tazryjtvql3v69x";
+    public final static String NEUTRON_TESTNET_ROUTER_ADDRESS = "neutron12jm24l9lr9cupufqjuxpdjnnweana4h66tsx5cl800mke26td26sq7m05p";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 

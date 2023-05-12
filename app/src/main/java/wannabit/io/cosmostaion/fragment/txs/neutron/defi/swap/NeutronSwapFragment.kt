@@ -9,16 +9,18 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
+import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapBinding
+import wannabit.io.cosmostaion.dialog.SelectChainListDialog
 import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
-import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
+import wannabit.io.cosmostaion.network.res.neutron.Pair
+import wannabit.io.cosmostaion.network.res.neutron.ResPairData
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 class NeutronSwapFragment : BaseFragment() {
 
@@ -27,115 +29,130 @@ class NeutronSwapFragment : BaseFragment() {
 
     private lateinit var astroportViewModel: AstroportViewModel
 
-    private var mAllDenoms = ArrayList<String>()
-    private lateinit var inputCoinDenom: String
-    private lateinit var outputCoinDenom: String
-
-    private var mAvailableMaxAmount: BigDecimal = BigDecimal.ZERO
-    private var mSwapableDenoms = ArrayList<String>()
+    private var swapPools: ArrayList<ResPairData> = arrayListOf()
+    private var allPairs: ArrayList<Pair> = arrayListOf()
+    private var swapAblePairs = arrayListOf<Pair>()
+    private var selectedPool: ResPairData? = null
+    private var inputCoin: Pair? = null
+    private var outputCoin: Pair? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentNeutronSwapBinding.inflate(layoutInflater, container, false)
         val astroportViewModelProviderFactory = AstroportViewModelProviderFactory(AstroportRepository())
         astroportViewModel = ViewModelProvider(this, astroportViewModelProviderFactory)[AstroportViewModel::class.java]
 
-        inputCoinDenom = baseActivity.mChainConfig.mainDenom()
-        outputCoinDenom = "ibc/EFB00E728F98F0C4BBE8CA362123ACAB466EDA2826DC6837E49F4C1902F21BBA"
-        astroportViewModel.loadSwapRateData(baseActivity.mChainConfig, Coin(inputCoinDenom, "1000000"), outputCoinDenom, "neutron1vwrktvvxnevy7s5t7v44z72pdxncnq9gdsjwq9607cdd6vl2lfcs33fpah")
+        baseActivity.onShowWaitDialog()
+        loadDataObserve()
+        astroportViewModel.loadSwapPairData(baseActivity.mChainConfig, BaseConstant.NEUTRON_TESTNET_ROUTER_ADDRESS)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnToggle.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.color_neutron)
-        loadDataObserve()
         onClick()
     }
 
     private fun loadDataObserve() {
-        astroportViewModel.swapRateData.observe(viewLifecycleOwner) { response ->
-            response?.let {
-                onUpdateView(it.return_amount)
+        astroportViewModel.swapPairData.observe(viewLifecycleOwner) { response ->
+            response?.let { pairDataList ->
+                swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
+
+                swapPools.forEach { pool ->
+                    pool.pairs.forEach { pair ->
+                        if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
+                            allPairs.add(pair)
+                        }
+                    }
+                }
+                selectedPool = swapPools[0]
+                selectedPool?.let {
+                    inputCoin = it.pairs[0]
+                    outputCoin = it.pairs[1]
+                }
+                onUpdateView()
             }
         }
     }
 
-//    private fun onDataObserve() {
-//        neutronViewModel.pair.observe(viewLifecycleOwner) { response ->
-//            response?.let { data ->
-//                data.pairs.forEach { pair ->
-//                    pair.asset_infos.forEach { assetInfo ->
-//                        assetInfo.native_token?.let {
-//                            if (!mAllDenoms.contains(it.denom)) {
-//                                mAllDenoms.add(it.denom)
-//                            }
-//                        }
-//                        assetInfo.token?.let {
-//                            mAllDenoms.add(it.contract_addr)
-//                        }
-//                    }
-//                }
-//            }
-//
-//            mInputCoinDenom = baseActivity.mChainConfig.mainDenom()
-//            mOutputCoinDenom = "ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9"
-//
-////            if (mInputCoinDenom == null || mOutputCoinDenom == null) {
-////                mInputCoinDenom = baseActivity.mChainConfig.mainDenom()
-////                mOutputCoinDenom = "ibc/E8AC6B792CDE60AB208CA060CA010A3881F682A7307F624347AB71B6A0B0BF89"
-////            }
-////
-////            if (mInputCoinDenom?.isNotEmpty() == true && mOutputCoinDenom?.isNotEmpty() == true) {
-////                onUpdateView()
-////            }
-//        }
-//    }
-
-    private fun onUpdateView(swapAmount: String?) {
+    private fun onUpdateView() {
         binding.apply {
-            WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, inputCoinDenom, imgInputCoin)
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, inputCoinDenom, txtInputCoin)
-            inpusAmount.text = WDp.getDpAmount2(baseDao.getAvailable(inputCoinDenom), 6, 6)
+            baseActivity.onHideWaitDialog()
+            WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, inputCoin?.denom, imgInputCoin)
+            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, inputCoin?.denom, txtInputCoin)
+            inpusAmount.text = WDp.getDpAmount2(pairAvailable(), 6, 6)
 
-            WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, outputCoinDenom, imgOutputCoin)
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, outputCoinDenom, txtOutputCoin)
-
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, inputCoinDenom, inputsRateSymbol)
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, outputCoinDenom, outputsRateSymbol)
-            inputsRate.text = WDp.getDpAmount2(BigDecimal.ONE, 0, 6)
-
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, inputCoinDenom, globalInputsRateSymbol)
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, outputCoinDenom, globalOutputsRateSymbol)
-            globalInputsRate.text = WDp.getDpAmount2(BigDecimal.ONE, 0, 6)
-
-            outputsRate.text = WDp.getDpAmount2(BigDecimal(swapAmount), 6, 6)
-            val priceInput = WDp.price(baseDao, baseDao.getAsset(baseActivity.mChainConfig, inputCoinDenom).coinGeckoId)
-            val priceOutput = WDp.price(baseDao, baseDao.getAsset(baseActivity.mChainConfig, outputCoinDenom).coinGeckoId)
-            if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
-                globalOutputsRate.text = "??????"
-            } else {
-                val priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN)
-                globalOutputsRate.text = WDp.getDpAmount2(priceRate, 0, 6)
-            }
+            WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, outputCoin?.denom, imgOutputCoin)
+            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig,  outputCoin?.denom, txtOutputCoin)
         }
     }
 
     fun onClick() {
         binding.apply {
             btnToInputCoin.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putSerializable(SelectChainListDialog.SELECT_PAIR_LIST_BUNDLE_KEY, allPairs)
+                bundle.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_INPUT_PAIR_CHAIN)
+                val dialog = SelectChainListDialog.newInstance(bundle)
+                dialog.show(parentFragmentManager, SelectChainListDialog::class.java.name)
 
+                parentFragmentManager.setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, viewLifecycleOwner) { _, bundle ->
+                    val position = bundle.getInt(BaseConstant.POSITION)
+                    inputCoin = allPairs[position]
+                    inputCoin?.let {
+                        swapPools.forEach { pool ->
+                            pool.pairs.firstOrNull { item -> item.type == it.type && item.address == it.address && item.denom == it.denom }?.let {
+                                selectedPool = pool
+                            }
+                        }
+                        selectedPool?.let { pool ->
+                            outputCoin = pool.pairs.firstOrNull { item -> item.type != it.type || item.address != it.address || item.denom != it.denom }
+                        }
+                    }
+                    onUpdateView()
+                }
             }
 
             btnToggle.setOnClickListener {
-                val temp = inputCoinDenom
-                inputCoinDenom = outputCoinDenom
-                outputCoinDenom = temp
-
-                astroportViewModel.loadSwapRateData(baseActivity.mChainConfig, Coin(inputCoinDenom, "1000000"), outputCoinDenom, "neutron1vwrktvvxnevy7s5t7v44z72pdxncnq9gdsjwq9607cdd6vl2lfcs33fpah")
+                val temp = inputCoin
+                inputCoin = outputCoin
+                outputCoin = temp
+                onUpdateView()
             }
 
             btnToOutputCoin.setOnClickListener {
+                val swapAblePools: ArrayList<ResPairData> = arrayListOf()
+                swapAblePairs.clear()
 
+                swapPools.forEach { pool ->
+                    pool.pairs.firstOrNull { item -> item.type == inputCoin?.type && item.address == inputCoin?.address && item.denom == inputCoin?.denom }?.let {
+                        swapAblePools.add(pool)
+                    }
+                }
+                swapAblePools.forEach { pool ->
+                    pool.pairs.filter { item -> item.type != inputCoin?.type || item.address != inputCoin?.address || item.denom != inputCoin?.denom }.forEach { pair ->
+                        swapAblePairs.add(pair)
+                    }
+                }
+
+                val bundle = Bundle()
+                bundle.putSerializable(SelectChainListDialog.SELECT_PAIR_LIST_BUNDLE_KEY, swapAblePairs)
+                bundle.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_OUTPUT_PAIR_CHAIN)
+                val dialog = SelectChainListDialog.newInstance(bundle)
+                dialog.show(parentFragmentManager, SelectChainListDialog::class.java.name)
+
+                parentFragmentManager.setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, viewLifecycleOwner) { _, bundle ->
+                    val position = bundle.getInt(BaseConstant.POSITION)
+                    outputCoin = swapAblePairs[position]
+                    swapPools.forEach { pool ->
+                        pool.pairs.firstOrNull { item -> item.type == inputCoin?.type && item.address == inputCoin?.address && item.denom == inputCoin?.denom }?.let {
+                            pool.pairs.firstOrNull {item -> item.type == outputCoin?.type && item.address == outputCoin?.address && item.denom == outputCoin?.denom }?.let {
+                                selectedPool = pool
+                            }
+                        }
+                    }
+                    onUpdateView()
+                }
             }
 
             btnStartSwap.setOnClickListener {
@@ -145,7 +162,7 @@ class NeutronSwapFragment : BaseFragment() {
     }
 
     private fun onClickSwap() {
-        if (!baseActivity.mAccount.hasPrivateKey && !baseActivity.mAccount.isLedger()) {
+        if (!baseActivity.mAccount.hasPrivateKey && !baseActivity.mAccount.isLedger) {
             baseActivity.onInsertKeyDialog()
             return
         }
@@ -154,17 +171,32 @@ class NeutronSwapFragment : BaseFragment() {
             return
         }
 
-        val inputBalance = baseDao.getAvailable(inputCoinDenom)
-        if (BigDecimal.ZERO >= inputBalance) {
+        if (BigDecimal.ZERO >= pairAvailable()) {
             requireContext().makeToast(R.string.error_not_enough_to_balance)
             return
         }
 
         Intent(requireContext(), NeutronSwapActivity::class.java).apply {
-            putExtra("inputDenom", inputCoinDenom)
-            putExtra("outputDenom", outputCoinDenom)
+            putExtra("selectedPool", selectedPool)
+            putExtra("inputCoin", inputCoin)
+            putExtra("outputCoin", outputCoin)
             startActivity(this)
         }
+    }
+
+    private fun pairAvailable(): BigDecimal {
+        selectedPool?.let {
+            it.pairs.forEach { pair ->
+                if (pair.denom == inputCoin?.denom) {
+                    return if (pair.type == "cw20") {
+                        baseDao.getCw20Asset(baseActivity.mChainConfig, inputCoin?.denom).getAmount()
+                    } else {
+                        baseDao.getAvailable(inputCoin?.denom)
+                    }
+                }
+            }
+        }
+        return BigDecimal.ZERO
     }
 
     override fun onDestroyView() {

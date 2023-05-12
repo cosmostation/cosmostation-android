@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.walletconnect.util.Empty
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
 import wannabit.io.cosmostaion.base.BaseFragment
@@ -20,7 +22,6 @@ import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
 import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -36,6 +37,7 @@ class NeutronSwapStep0Fragment : BaseFragment() {
     private var inputCoinDecimal = 0
     private var outputCoinDecimal = 0
     private var availableMaxAmount = BigDecimal.ZERO
+    private var beliefPrice = BigDecimal.ZERO
 
     private var inDecimalChecker = ""
     private var inDecimalSetter = ""
@@ -59,24 +61,26 @@ class NeutronSwapStep0Fragment : BaseFragment() {
 
     private fun onUpdateView() {
         binding.apply {
-            inputCoinDecimal = WDp.getDenomDecimal(baseDao, baseActivity.mChainConfig, getSActivity()?.inputDenom)
-            outputCoinDecimal = WDp.getDenomDecimal(baseDao, baseActivity.mChainConfig, getSActivity()?.outputDenom)
-            setDpDecimals(inputCoinDecimal)
+            getSActivity()?.let {
+                inputCoinDecimal = WDp.getDenomDecimal(baseDao, baseActivity.mChainConfig, it.inputCoin?.denom)
+                outputCoinDecimal = WDp.getDenomDecimal(baseDao, baseActivity.mChainConfig, it.outputCoin?.denom)
+                setDpDecimals(inputCoinDecimal)
 
-            availableMaxAmount = baseDao.getAvailable(getSActivity()?.inputDenom)
-            if (getSActivity()?.inputDenom == baseActivity.mChainConfig.mainDenom()) {
-                availableMaxAmount = availableMaxAmount.subtract(WDp.getMainDenomFee(requireContext(), baseDao, baseActivity.mChainConfig))
-            }
+                availableMaxAmount = pairAvailable()
+                if (it.inputCoin?.denom == baseActivity.mChainConfig.mainDenom()) {
+                    availableMaxAmount = availableMaxAmount.subtract(WDp.getMainDenomFee(requireContext(), baseDao, baseActivity.mChainConfig))
+                }
 
-            getSActivity()?.inputDenom?.let {
-                swapAvailable.text = "${WDp.getDpAmount2(availableMaxAmount, inputCoinDecimal, outputCoinDecimal)} ${WDp.getDpSymbol(baseDao, baseActivity.mChainConfig, it)}"
-                WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, it, swapInputIcon)
-                swapInputSymbol.text = WDp.getDpSymbol(baseDao, baseActivity.mChainConfig, it)
-            }
+                it.inputCoin?.denom?.let { denom ->
+                    swapAvailable.text = "${WDp.getDpAmount2(availableMaxAmount, inputCoinDecimal, outputCoinDecimal)} ${WDp.getDpSymbol(baseDao, baseActivity.mChainConfig, denom)}"
+                    WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, denom, swapInputIcon)
+                    swapInputSymbol.text = WDp.getDpSymbol(baseDao, baseActivity.mChainConfig, denom)
+                }
 
-            getSActivity()?.outputDenom?.let {
-                WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, it, swapOutputIcon)
-                WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, it, swapOutputSymbol)
+                it.outputCoin?.denom.let { denom ->
+                    WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, denom, swapOutputIcon)
+                    WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, denom, swapOutputSymbol)
+                }
             }
         }
     }
@@ -86,21 +90,23 @@ class NeutronSwapStep0Fragment : BaseFragment() {
             swapInputAmount.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-                var lasttime = 0L
+                var lastTime = 0L
                 override fun onTextChanged(et: CharSequence?, start: Int, before: Int, count: Int) {
-                    lasttime = Date().time
-                    var inputAmount = BigDecimal.ZERO
-                    if (et?.trim().toString().isNotEmpty()) {
-                        inputAmount = BigDecimal(et?.trim().toString()).movePointRight(inputCoinDecimal)
-                    }
-
+                    lastTime = Date().time
+                    astroportViewModel.resetSwapRateDate()
                     Handler(Looper.getMainLooper()).postDelayed({
                         getSActivity()?.let {
-                            if (lasttime + 400 <= Date().time) {
-                                astroportViewModel.loadSwapRateData(baseActivity.mChainConfig, Coin(it.inputDenom, inputAmount.toPlainString()), it.outputDenom!!, "neutron1vwrktvvxnevy7s5t7v44z72pdxncnq9gdsjwq9607cdd6vl2lfcs33fpah")
+                            if (lastTime + 950 <= Date().time) {
+                                var inputAmount = BigDecimal.ZERO
+                                if (et?.trim().toString().isNotEmpty()) {
+                                    inputAmount = BigDecimal(et?.trim().toString()).movePointRight(inputCoinDecimal)
+                                }
+                                if (inputAmount > BigDecimal.ZERO && it.outputCoin?.denom?.isNotEmpty() == true && it.inputCoin?.denom?.isNotEmpty() == true) {
+                                    astroportViewModel.loadSwapRateData(baseActivity.mChainConfig, it.inputCoin, inputAmount.toPlainString(), it.outputCoin, it.selectedPool?.contract_address!!)
+                                }
                             }
                         }
-                    }, 500)
+                    }, 1000)
                 }
 
                 override fun afterTextChanged(et: Editable?) {
@@ -141,7 +147,8 @@ class NeutronSwapStep0Fragment : BaseFragment() {
                                 swapInputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box)
                             }
                             swapInputAmount.setSelection(swapInputAmount.text.length)
-                        } catch (_: Exception) { }
+                        } catch (_: Exception) {
+                        }
                     }
                 }
             })
@@ -149,11 +156,17 @@ class NeutronSwapStep0Fragment : BaseFragment() {
     }
 
     private fun loadDataObserve() {
-        binding.apply {
-            astroportViewModel.swapRateData.observe(viewLifecycleOwner) { response ->
-                response?.let {
-                    onUpdateOutputTextView(it.return_amount)
-                }
+        astroportViewModel.loading.observe(viewLifecycleOwner) {
+            if (it && binding.swapInputAmount.text.trim().isNotEmpty()) {
+                onUpdateOutputTextView("Calculating...")
+            }
+        }
+
+        astroportViewModel.swapRateData.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                onUpdateOutputTextView(it.return_amount)
+            } ?: run {
+                onUpdateOutputTextView(StringUtils.EMPTY)
             }
         }
     }
@@ -163,16 +176,17 @@ class NeutronSwapStep0Fragment : BaseFragment() {
             btnCancel.setOnClickListener { getSActivity()?.onBeforeStep() }
 
             btnNext.setOnClickListener {
-                if (isValidateSwapInputAmount()) {
+                if (validateAndSetSwapAmount()) {
                     getSActivity()?.onNextStep()
                 } else {
+                    getSActivity()?.mAmount = null
                     requireContext().makeToast(R.string.error_invalid_amounts)
                 }
             }
 
             btnClear.setOnClickListener {
                 swapInputAmount.setText("")
-                swapOutputAmount.text = ""
+                onUpdateOutputTextView("")
             }
 
             btn14.setOnClickListener { onSetCalAmount("0.25") }
@@ -190,39 +204,83 @@ class NeutronSwapStep0Fragment : BaseFragment() {
     private fun onUpdateOutputTextView(outAmount: String) {
         binding.apply {
             try {
+                beliefPrice = BigDecimal.ZERO
                 val inputAmount = BigDecimal(swapInputAmount.text.toString().trim { it <= ' ' })
                 if (inputAmount.compareTo(BigDecimal.ZERO) == 0) {
-                    swapOutputAmount.text = ""
+                    swapOutputAmount.text = String.Empty
                     return
                 }
-                swapOutputAmount.text = WDp.getDpAmount2(BigDecimal(outAmount), outputCoinDecimal, outputCoinDecimal)
-            } catch (_: Exception) { }
+
+                val dpOutputAmount = BigDecimal(outAmount).movePointLeft(outputCoinDecimal)
+                if (dpOutputAmount <= BigDecimal.ZERO) {
+                    swapOutputAmount.text = ""
+                    swapOutputAmount.background = ContextCompat.getDrawable(requireContext(), R.drawable.edittext_box_error)
+                } else {
+                    swapOutputAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorBlackDayNight))
+                    swapOutputAmount.text = BigDecimal(outAmount).movePointLeft(outputCoinDecimal).toPlainString()
+                    beliefPrice = inputAmount.movePointRight(inputCoinDecimal).divide(BigDecimal(outAmount), 18, RoundingMode.UP)
+                }
+
+            } catch (_: Exception) {
+                swapOutputAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorGray1))
+                swapOutputAmount.text = outAmount
+            }
         }
     }
 
-    private fun isValidateSwapInputAmount(): Boolean {
-        return try {
-            binding.apply {
-                val inputAmount = BigDecimal(swapInputAmount.text.trim().toString()).movePointRight(inputCoinDecimal)
-                val outputAmount = BigDecimal(swapOutputAmount.text.trim().toString()).movePointRight(outputCoinDecimal)
+    private fun validateAndSetSwapAmount(): Boolean {
+        if (astroportViewModel.swapRateData.value == null || astroportViewModel.loading.value == true) {
+            return false
+        }
+        if (beliefPrice <= BigDecimal.ZERO) {
+            requireContext().makeToast(R.string.error_invalid_amount)
+            return false
+        }
 
-                getSActivity()?.mAmount = Coin(getSActivity()?.inputDenom, inputAmount.toPlainString())
-                getSActivity()?.mSwapOutCoin = Coin(getSActivity()?.outputDenom, outputAmount.toPlainString())
-                getSActivity()?.mContractAddress = "neutron1vwrktvvxnevy7s5t7v44z72pdxncnq9gdsjwq9607cdd6vl2lfcs33fpah"
+        return try {
+            val inputAmount = BigDecimal(binding.swapInputAmount.text.trim().toString()).movePointRight(inputCoinDecimal)
+            val outputAmount = BigDecimal(binding.swapOutputAmount.text.trim().toString()).movePointRight(outputCoinDecimal)
+
+            if (inputAmount > BigDecimal(0) && outputAmount > BigDecimal(0)) {
+                getSActivity()?.mSelectedPool = getSActivity()?.selectedPool
+                getSActivity()?.mInputPair = getSActivity()?.inputCoin
+                getSActivity()?.mSwapInAmount = inputAmount.toPlainString()
+                getSActivity()?.mSwapOutAmount = outputAmount.toPlainString()
+                getSActivity()?.mBeliefPrice = beliefPrice.toPlainString()
+                true
+            } else {
+                false
             }
-            true
-        } catch (e: java.lang.Exception) {
-            getSActivity()?.mAmount = null
-            getSActivity()?.mSwapOutCoin = null
+        } catch (e: Exception) {
             false
         }
     }
 
+    private fun pairAvailable(): BigDecimal {
+        getSActivity()?.selectedPool?.let {
+            it.pairs.forEach { pair ->
+                if (pair.denom == getSActivity()?.inputCoin?.denom) {
+                    return if (pair.type == "cw20") {
+                        baseDao.getCw20Asset(baseActivity.mChainConfig, getSActivity()?.inputCoin?.denom).getAmount()
+                    } else {
+                        baseDao.getAvailable(getSActivity()?.inputCoin?.denom)
+                    }
+                }
+            }
+        }
+        return BigDecimal.ZERO
+    }
+
+
     private fun setDpDecimals(indecimals: Int) {
         inDecimalChecker = "0."
         inDecimalSetter = "0."
-        for (i in 0 until indecimals) { inDecimalChecker += "0" }
-        for (i in 0 until indecimals - 1) { inDecimalSetter += "0" }
+        for (i in 0 until indecimals) {
+            inDecimalChecker += "0"
+        }
+        for (i in 0 until indecimals - 1) {
+            inDecimalSetter += "0"
+        }
     }
 
     private fun getSActivity(): NeutronSwapActivity? {

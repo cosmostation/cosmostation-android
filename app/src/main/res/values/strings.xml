@@ -1449,6 +1449,7 @@
     <string name="str_dao_single_vote">Dao Vote (Single)</string>
     <string name="str_dao_multi_vote">Dao Vote (Multi)</string>
     <string name="str_dao_overrule_vote">Dao Vote (Overrule)</string>
+    <string name="str_astro_swap">Swap</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>
@@ -1517,6 +1518,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

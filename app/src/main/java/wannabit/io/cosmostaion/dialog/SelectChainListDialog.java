@@ -35,6 +35,8 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.FeeInfo;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.res.neutron.Pair;
+import wannabit.io.cosmostaion.network.res.neutron.ResPairData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
@@ -47,6 +49,8 @@ public class SelectChainListDialog extends DialogFragment {
     public static int SELECT_IBC_CHAIN_VALUE = 8504;
     public static int SELECT_LIQUIDITY_STAKING_COIN_VALUE = 8505;
     public static int SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE = 8506;
+    public static int SELECT_INPUT_PAIR_CHAIN = 8507;
+    public static int SELECT_OUTPUT_PAIR_CHAIN = 8508;
 
     public final static String SELECT_CHAIN_LIST_BUNDLE_KEY = "selectChainList";
     public final static String TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY = "toSendCoins";
@@ -55,6 +59,7 @@ public class SelectChainListDialog extends DialogFragment {
     public final static String FEE_DATA_LIST_BUNDLE_KEY = "feeDatas";
     public final static String SWAP_COIN_LIST_BUNDLE_KEY = "denoms";
     public final static String SELECT_LIQUIDITY_STAKE_BUNDLE_KEY = "liquidity";
+    public final static String SELECT_PAIR_LIST_BUNDLE_KEY = "selectPairList";
 
     private int keyValue;
 
@@ -72,6 +77,7 @@ public class SelectChainListDialog extends DialogFragment {
     private String mWatchAddress = "";
     private ArrayList<ChainConfig> mToSendableChainConfig;
     private ArrayList<HostZoneOuterClass.HostZone> mHostZones;
+    private ArrayList<Pair> mPairDataList;
 
     private Set<BaseChain> selectedSet = Sets.newHashSet();
 
@@ -91,6 +97,7 @@ public class SelectChainListDialog extends DialogFragment {
         mWatchAddress = getArguments().getString(WATCH_ADDRESS_BUNDLE_KEY);
         mToSendableChainConfig = (ArrayList<ChainConfig>) getArguments().getSerializable(SelectChainListDialog.TO_SENDABLE_CHAIN_CONFIG_BUNDLE_KEY);
         mHostZones = (ArrayList<HostZoneOuterClass.HostZone>) getArguments().getSerializable(SelectChainListDialog.SELECT_LIQUIDITY_STAKE_BUNDLE_KEY);
+        mPairDataList = (ArrayList<Pair>) getArguments().getSerializable(SelectChainListDialog.SELECT_PAIR_LIST_BUNDLE_KEY);
 
         keyValue = getArguments().getInt(SELECT_CHAIN_LIST_BUNDLE_KEY);
 
@@ -99,9 +106,9 @@ public class SelectChainListDialog extends DialogFragment {
         mBtnLeft = view.findViewById(R.id.btn_left);
         mBtnRight = view.findViewById(R.id.btn_right);
 
-        if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE) {
+        if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SELECT_INPUT_PAIR_CHAIN) {
             mDialogTitle.setText(R.string.str_select_coin_swap_in);
-        } else if (keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) {
+        } else if (keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE || keyValue == SELECT_OUTPUT_PAIR_CHAIN) {
             mDialogTitle.setText(R.string.str_select_coin_swap_out);
         } else if (keyValue == SelectChainListDialog.SELECT_FEE_DENOM_VALUE) {
             mDialogTitle.setText(R.string.str_select_fee_denom);
@@ -140,6 +147,7 @@ public class SelectChainListDialog extends DialogFragment {
         private static final int TYPE_WATCHING_ADDRESS_LIST = 3;
         private static final int TYPE_SEND_CHAIN_LIST = 4;
         private static final int TYPE_LIQUIDITY_COIN_LIST = 5;
+        private static final int TYPE_SWAP_PAIR_LIST = 6;
 
 
         @NonNull
@@ -166,6 +174,8 @@ public class SelectChainListDialog extends DialogFragment {
                 onBindRecipientChainListItemViewHolder(holder, position);
             } else if (getItemViewType(position) == TYPE_LIQUIDITY_COIN_LIST) {
                 onBindLiquidityCoinListItemViewHolder(holder, position);
+            } else if (getItemViewType(position) == TYPE_SWAP_PAIR_LIST) {
+                onBindSwapPairItemViewHolder(holder, position);
             }
         }
 
@@ -280,6 +290,20 @@ public class SelectChainListDialog extends DialogFragment {
             });
         }
 
+        private void onBindSwapPairItemViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            final SwapChainHolder holder = (SwapChainHolder) viewHolder;
+            final Pair pairCoin = mPairDataList.get(position);
+            WDp.setDpSymbolImg(getSActivity().getBaseDao(), getSActivity().mChainConfig, pairCoin.getDenom(), holder.coinImg);
+            WDp.setDpSymbol(getSActivity(), getSActivity().getBaseDao(), getSActivity().mChainConfig, pairCoin.getDenom(), holder.coinName);
+
+            holder.rootLayer.setOnClickListener(v -> {
+                Bundle result = new Bundle();
+                result.putInt(BaseConstant.POSITION, position);
+                getParentFragmentManager().setFragmentResult(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, result);
+                dismiss();
+            });
+        }
+
         @Override
         public int getItemCount() {
             if (keyValue == SelectChainListDialog.SELECT_INPUT_CHAIN_VALUE || keyValue == SelectChainListDialog.SELECT_OUTPUT_CHAIN_VALUE) return mSwapCoinList.size();
@@ -287,6 +311,7 @@ public class SelectChainListDialog extends DialogFragment {
             else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return mSendCoinList.size();
             else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return mToSendableChainConfig.size();
             else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_STAKING_COIN_VALUE || keyValue == SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE) return mHostZones.size();
+            else if (keyValue == SelectChainListDialog.SELECT_INPUT_PAIR_CHAIN || keyValue == SELECT_OUTPUT_PAIR_CHAIN) return mPairDataList.size();
             else return WDp.getChainsFromAddress(mWatchAddress).size();
         }
 
@@ -297,6 +322,7 @@ public class SelectChainListDialog extends DialogFragment {
             else if (keyValue == SelectChainListDialog.SELECT_SEND_COIN_VALUE) return TYPE_SEND_COIN_LIST;
             else if (keyValue == SelectChainListDialog.SELECT_IBC_CHAIN_VALUE) return TYPE_SEND_CHAIN_LIST;
             else if (keyValue == SelectChainListDialog.SELECT_LIQUIDITY_STAKING_COIN_VALUE || keyValue == SELECT_LIQUIDITY_UNSTAKING_COIN_VALUE) return TYPE_LIQUIDITY_COIN_LIST;
+            else if (keyValue == SelectChainListDialog.SELECT_INPUT_PAIR_CHAIN || keyValue == SELECT_OUTPUT_PAIR_CHAIN) return TYPE_SWAP_PAIR_LIST;
             else return TYPE_WATCHING_ADDRESS_LIST;
         }
 

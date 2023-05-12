@@ -91,26 +91,6 @@
         android:padding="@dimen/space_6"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Swap Fee" />
-
-            <TextView
-                android:id="@+id/token_swap_fee"
-                style="@style/font_rr_11_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-        </LinearLayout>
-
         <ImageButton
             android:id="@+id/btn_toggle"
             android:layout_width="@dimen/space_40"
@@ -119,29 +99,10 @@
             android:layout_marginRight="@dimen/space_20"
             android:background="@drawable/btn_round_button"
             android:src="@drawable/icon_swap" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/font_rr_12_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Max Slippage" />
-
-            <TextView
-                android:id="@+id/swap_slippage"
-                style="@style/font_rr_11_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-" />
-        </LinearLayout>
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_15"
@@ -205,148 +166,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorTransBg"
-        app:cardCornerRadius="@dimen/space_8"
-        app:cardElevation="0dp"
-        android:layout_marginHorizontal="@dimen/space_11"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/btn_start_swap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/space_8">
-
-            <TextView
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:text="Neutron Swap Rate" />
-
-            <TextView
-                style="@style/font_rr_10_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(Swap rate on this Pool)" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/inputs_rate"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-
-                <TextView
-                    android:id="@+id/inputs_rate_symbol"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:text="-" />
-
-                <TextView
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/space_8"
-                    android:text="=" />
-
-                <TextView
-                    android:id="@+id/outputs_rate"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-
-                <TextView
-                    android:id="@+id/outputs_rate_symbol"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:text="-" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_view"
-                android:layout_marginVertical="@dimen/space_16"
-                android:background="@color/colorGrayDayNight" />
-
-            <TextView
-                style="@style/font_rr_12_black_daynight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Global Swap Rate" />
-
-            <TextView
-                style="@style/font_rr_10_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(Average Swap Rate on global exchanges)" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/global_inputs_rate"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-
-                <TextView
-                    android:id="@+id/global_inputs_rate_symbol"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:text="-" />
-
-                <TextView
-                    style="@style/font_rr_12_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/space_8"
-                    android:text="=" />
-
-                <TextView
-                    android:id="@+id/global_outputs_rate"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-
-                <TextView
-                    android:id="@+id/global_outputs_rate_symbol"
-                    style="@style/font_rr_10_black_daynight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:text="-" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <Button
         android:id="@+id/btn_start_swap"
         style="@style/font_rr_14_photon_daynight"
@@ -357,7 +176,7 @@
         android:layout_weight="1"
         android:background="@drawable/btn_trans_with_photon_border"
         android:minHeight="@dimen/space_45"
-        android:text="@string/str_token_swap_start"
+        android:text="@string/str_astro_swap"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

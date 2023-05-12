@@ -1343,6 +1343,7 @@
     <string name="str_dao_single_vote">다오 투표 (싱글)</string>
     <string name="str_dao_multi_vote">다오 투표 (멀티)</string>
     <string name="str_dao_overrule_vote">다오 투표 (오버룰)</string>
+    <string name="str_astro_swap">스왑</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

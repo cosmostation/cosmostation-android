@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -84,6 +85,7 @@ import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
+import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -389,6 +391,7 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Config mGrpcStarNameConfig;
 
     //Neutron
+    public List<ResVaultData> mVaultDatas = new ArrayList<>();
     public String mVaultAmount = null;
 
     //gRPC funcs
