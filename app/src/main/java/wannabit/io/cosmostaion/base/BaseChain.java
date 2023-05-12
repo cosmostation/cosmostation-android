@@ -96,7 +96,8 @@ public enum BaseChain {
     QUASAR_MAIN("quasar-mainnet"),
     NOBLE_MAIN("noble-mainnet"),
     STAFI_MAIN("stafi-mainnet"),
-    NEUTRON_TEST("neutron-testnet");
+    NEUTRON_TEST("neutron-testnet"),
+    NEUTRON_MAIN("neutron-mainnet");
 
 
     private final String chainName;
@@ -317,6 +318,9 @@ public enum BaseChain {
         if (chainName.equals(NEUTRON_TEST.chainName)) {
             return NEUTRON_TEST;
         }
+        if (chainName.equals(NEUTRON_MAIN.chainName)) {
+            return NEUTRON_MAIN;
+        }
         return null;
     }
 
@@ -355,6 +359,7 @@ public enum BaseChain {
         result.add(LUM_MAIN);
         result.add(MARS_MAIN);
         result.add(MEDI_MAIN);
+        result.add(NEUTRON_MAIN);
         result.add(NOBLE_MAIN);
         result.add(NYX_MAIN);
         result.add(OKEX_MAIN);
@@ -380,8 +385,8 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
         result.add(XPLA_MAIN);
-        result.add(STATION_TEST);
         result.add(NEUTRON_TEST);
+        result.add(STATION_TEST);
         result.add(CERBERUS_MAIN);
 
         return result;

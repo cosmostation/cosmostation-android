@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.DESMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.NOBLE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -264,7 +265,7 @@ public class MainSendFragment extends BaseFragment {
                     getMainActivity().mChainConfig.baseChain().equals(DESMOS_MAIN)) return 6;
             else if (getMainActivity().mChainConfig.baseChain().equals(NOBLE_MAIN)) return 4;
             else if (getMainActivity().mChainConfig.authzSupport()) return 5;
-            else if (getMainActivity().mChainConfig.baseChain().equals(NEUTRON_TEST)) return 3;
+            else if (getMainActivity().mChainConfig.baseChain().equals(NEUTRON_MAIN) || getMainActivity().mChainConfig.baseChain().equals(NEUTRON_TEST)) return 3;
             else if (isGRPC(getMainActivity().mChainConfig.baseChain())) return 4;
             else return 3;
         }
@@ -315,7 +316,7 @@ public class MainSendFragment extends BaseFragment {
 
             } else {
                 if (position == 0) {
-                    if (getMainActivity().mChainConfig.baseChain().equals(NEUTRON_TEST)) return TYPE_NEUTRON;
+                    if (getMainActivity().mChainConfig.baseChain().equals(NEUTRON_MAIN) || getMainActivity().mChainConfig.baseChain().equals(NEUTRON_TEST)) return TYPE_NEUTRON;
                     else if (getMainActivity().mChainConfig.baseChain().equals(BNB_MAIN)) return TYPE_BINANCE;
                     else return TYPE_OKEX;
                 } else if (position == 1) return TYPE_PRICE;

@@ -80,7 +80,7 @@ public class TokenDetailHolder extends BaseHolder {
         final int stakingDivideDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(chain), denom);
         final int stakingDisplayDecimal = WDp.mainDisplayDecimal(chain);
 
-        if (chain.equals(BaseChain.NEUTRON_TEST)) {
+        if (chain.equals(BaseChain.NEUTRON_MAIN) || chain.equals(BaseChain.NEUTRON_TEST)) {
             BigDecimal availableAmount = baseData.getAvailable(denom);
             BigDecimal bondAmount = BigDecimal.ZERO;
             BigDecimal totalAmount = availableAmount.add(bondAmount);
