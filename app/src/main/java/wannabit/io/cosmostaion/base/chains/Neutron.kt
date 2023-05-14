@@ -31,7 +31,7 @@ class Neutron: ChainConfig() {
     override fun authzSupport(): Boolean { return false }
 
     override fun grpcUrl(): String { return "grpc-neutron.cosmostation.io" }
-    override fun explorerUrl(): String { return BaseConstant.EXPLORER_TESTNET_URL + "neutron/" }
+    override fun explorerUrl(): String { return BaseConstant.EXPLORER_BASE_URL + "neutron/" }
     override fun homeInfoLink(): String { return "https://neutron.org/" }
     override fun blogInfoLink(): String { return "https://blog.neutron.org/" }
     override fun coingeckoLink(): String { return "" }

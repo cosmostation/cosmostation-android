@@ -2,12 +2,15 @@ package wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronDefiActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
@@ -56,21 +59,29 @@ class NeutronSwapFragment : BaseFragment() {
     private fun loadDataObserve() {
         astroportViewModel.swapPairData.observe(viewLifecycleOwner) { response ->
             response?.let { pairDataList ->
-                swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
+                if (pairDataList.size <= 0) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        getSActivity()?.finish()
+                        return@postDelayed
+                    },500)
 
-                swapPools.forEach { pool ->
-                    pool.pairs.forEach { pair ->
-                        if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
-                            allPairs.add(pair)
+                } else {
+                    swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
+
+                    swapPools.forEach { pool ->
+                        pool.pairs.forEach { pair ->
+                            if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
+                                allPairs.add(pair)
+                            }
                         }
                     }
+                    selectedPool = swapPools[0]
+                    selectedPool?.let {
+                        inputCoin = it.pairs[0]
+                        outputCoin = it.pairs[1]
+                    }
+                    onUpdateView()
                 }
-                selectedPool = swapPools[0]
-                selectedPool?.let {
-                    inputCoin = it.pairs[0]
-                    outputCoin = it.pairs[1]
-                }
-                onUpdateView()
             }
         }
     }
@@ -202,5 +213,9 @@ class NeutronSwapFragment : BaseFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun getSActivity(): NeutronDefiActivity? {
+        return baseActivity as NeutronDefiActivity?
     }
 }

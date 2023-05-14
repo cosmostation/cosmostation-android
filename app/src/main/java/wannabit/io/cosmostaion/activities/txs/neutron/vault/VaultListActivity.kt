@@ -119,6 +119,7 @@ class VaultListActivity : BaseActivity() {
         }
         if (!WDp.isTxFeePayable(this, baseDao, mChainConfig)) {
             makeToast(R.string.error_not_enough_fee)
+            return
         }
         val availableMaxAmount = baseDao.getAvailable(mChainConfig.mainDenom())
         if (BigDecimal.ZERO >= availableMaxAmount) {
@@ -140,6 +141,7 @@ class VaultListActivity : BaseActivity() {
         }
         if (!WDp.isTxFeePayable(this, baseDao, mChainConfig)) {
             makeToast(R.string.error_not_enough_fee)
+            return
         }
         if (BigDecimal(baseDao.mVaultAmount) <= BigDecimal.ZERO) {
             makeToast(R.string.error_no_withdraw_vault)
