@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.model.viewModel.neutron
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
@@ -16,9 +17,9 @@ class AstroportViewModel(private val astroportRepository: AstroportRepository) :
     private var _swapPairData = MutableLiveData<ArrayList<ResPairData>>()
     val swapPairData: LiveData<ArrayList<ResPairData>> get() = _swapPairData
 
-    fun loadSwapPairData(chainConfig: ChainConfig, contractAddress: String) = backScope.launch {
+    fun loadSwapPairData(c: Context, chainConfig: ChainConfig) = backScope.launch {
         try {
-            astroportRepository.getSwapPairData(chainConfig, contractAddress).let { response ->
+            astroportRepository.getSwapPairData(c, chainConfig).let { response ->
                 if (response.isSuccessful) {
                     _swapPairData.postValue(response.body())
                 }

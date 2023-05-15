@@ -46,7 +46,7 @@ class NeutronSwapFragment : BaseFragment() {
 
         baseActivity.onShowWaitDialog()
         loadDataObserve()
-        astroportViewModel.loadSwapPairData(baseActivity.mChainConfig, BaseConstant.NEUTRON_TESTNET_ROUTER_ADDRESS)
+        astroportViewModel.loadSwapPairData(requireContext(), baseActivity.mChainConfig)
         return binding.root
     }
 

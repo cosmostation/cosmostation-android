@@ -82,7 +82,7 @@ class DaoProposalListActivity : BaseActivity() {
             response?.let {
                 adapter.pairs = getProposals(it)
                 header.pairs = getProposals(it)
-                daoViewModel.loadDaoProposalMyVoteData(mChainConfig, mAccount)
+                daoViewModel.loadDaoProposalMyVoteData(this, mChainConfig, mAccount)
             }
         }
 

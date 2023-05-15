@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.model.repository.neutron
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
@@ -12,13 +13,12 @@ import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.network.res.neutron.Pair
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData
-import wannabit.io.cosmostaion.utils.WLog
 import java.util.concurrent.TimeUnit
 
 class AstroportRepository {
 
-    suspend fun getSwapPairData(chainConfig: ChainConfig, contractAddress: String): Response<ArrayList<ResPairData>> {
-        return ApiClient.getDevMintscan().getSwapPairData(chainConfig.chainName(), contractAddress).awaitResponse()
+    suspend fun getSwapPairData(c: Context, chainConfig: ChainConfig): Response<ArrayList<ResPairData>> {
+        return ApiClient.getMintscan(c).getSwapPairData(chainConfig.chainName()).awaitResponse()
     }
 
     fun getSwapRateData(chainConfig: ChainConfig, inputCoin: Pair?, inputAmount: String, outputCoin: Pair?, contractAddress: String?): String? {
@@ -38,7 +38,6 @@ class AstroportRepository {
                     SwapRateReq(Simulation(OfferAsset(Info(NativeToken(inputCoin!!.denom), null), inputAmount), AskAssetInfo(NativeToken(outputCoin!!.denom), null)))
                 }
             }
-            WLog.w("test1234 : $req")
 
             return getData(req, chainConfig, contractAddress)
         } catch (_: Exception) { }

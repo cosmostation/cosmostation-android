@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.model.repository.neutron
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
@@ -29,8 +30,8 @@ class DaoRepository {
         return null
     }
 
-    suspend fun getMyVoteStatus(chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
-        return ApiClient.getDevMintscan().getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
+    suspend fun getMyVoteStatus(c: Context, chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
+        return ApiClient.getMintscan(c).getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
     }
 
     fun getListMemberData(chainConfig: ChainConfig, contractAddress: String?): String? {

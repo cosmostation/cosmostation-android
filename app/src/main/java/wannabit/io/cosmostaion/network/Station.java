@@ -61,8 +61,8 @@ public interface Station {
     @GET("v1/{chain}/dao/address/{address}/votes")
     Call<List<ResMyVoteStatus>> getDaoMyVoteStatus(@Path("chain") String chain, @Path("address") String address);
 
-    @GET("v1/{chain}/astroport/{router_address}")
-    Call<ArrayList<ResPairData>> getSwapPairData(@Path("chain") String chain, @Path("router_address") String address);
+    @GET("v1/{chain}/astroport")
+    Call<ArrayList<ResPairData>> getSwapPairData(@Path("chain") String chain);
 
     @GET("v1/{chain}/evm/tx/{etherTxHash}")
     Call<Object> getEvmTxHash(@Path("chain") String chain, @Path("etherTxHash") String etherTxHash);

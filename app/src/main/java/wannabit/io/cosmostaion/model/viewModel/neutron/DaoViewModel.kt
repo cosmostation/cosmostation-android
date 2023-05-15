@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.model.viewModel.neutron
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
@@ -44,9 +45,9 @@ class DaoViewModel(private val daoRepository: DaoRepository) : BaseViewModel() {
     private var _daoMyVoteStatusData = MutableLiveData<List<ResMyVoteStatus>>()
     val daoMyVoteStatusData: LiveData<List<ResMyVoteStatus>> get() = _daoMyVoteStatusData
 
-    fun loadDaoProposalMyVoteData(chainConfig: ChainConfig, account: Account) = backScope.launch {
+    fun loadDaoProposalMyVoteData(c: Context, chainConfig: ChainConfig, account: Account) = backScope.launch {
         try {
-            daoRepository.getMyVoteStatus(chainConfig, account).let { response ->
+            daoRepository.getMyVoteStatus(c, chainConfig, account).let { response ->
                 if (response.isSuccessful) {
                     _daoMyVoteStatusData.postValue(response.body())
                 }

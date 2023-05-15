@@ -4,21 +4,13 @@ import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
 import cosmwasm.wasm.v1.QueryOuterClass
-import retrofit2.Response
-import retrofit2.awaitResponse
 import wannabit.io.cosmostaion.base.chains.ChainConfig
-import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.TotalPower
 import wannabit.io.cosmostaion.network.req.neutron.TotalPowerReq
-import wannabit.io.cosmostaion.network.res.neutron.ResVaultData
 import java.util.concurrent.TimeUnit
 
 class VaultRepository {
-
-    suspend fun getVaultData(chainConfig: ChainConfig): Response<List<ResVaultData>> {
-        return ApiClient.getNeutron().getVaultData(chainConfig.chainName()).awaitResponse()
-    }
 
     fun getVaultDepositData(chainConfig: ChainConfig, contractAddress: String?): String? {
         try {
