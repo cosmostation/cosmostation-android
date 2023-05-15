@@ -58,7 +58,10 @@ public class SelectCWTokenDialog extends BottomSheetDialogFragment implements Vi
 
         mDialogTitle.setText(getString(R.string.str_select_contract_token));
         ArrayList<MintscanToken> mintscanTokenList = new ArrayList<>();
-        if (getSActivity().mChainConfig.baseChain().equals(BaseChain.JUNO_MAIN)) mintscanTokenList = getSActivity().getBaseDao().mCw20Tokens;
+        if (getSActivity().mChainConfig.baseChain().equals(BaseChain.JUNO_MAIN) || getSActivity().mChainConfig.baseChain().equals(BaseChain.NEUTRON_MAIN) ||
+                getSActivity().mChainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
+            mintscanTokenList = getSActivity().getBaseDao().mCw20Tokens;
+        }
         else mintscanTokenList = getSActivity().getBaseDao().mErc20Tokens;
         for (MintscanToken asset : mintscanTokenList) {
             if (!asset.default_show) {

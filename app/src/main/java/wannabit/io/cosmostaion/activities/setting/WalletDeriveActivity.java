@@ -181,7 +181,7 @@ public class WalletDeriveActivity extends BaseActivity implements View.OnClickLi
                     status = 0;
                 }
                 Derive derive = new Derive(chain, i, mPath, chainConfig.getHdPath(i, String.valueOf(mPath)), dpAddress, status);
-                if (mDerives.stream().noneMatch(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress))) {
+                if (mDerives.stream().noneMatch(item -> item.dpAddress.equalsIgnoreCase(derive.dpAddress) && item.baseChain.equals(derive.baseChain))) {
                     mDerives.add(derive);
                     mSearchList.add(derive);
                 }

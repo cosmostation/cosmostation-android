@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/choice_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_weight="0.3"
+        android:background="@drawable/box_vote_quorum"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/choice_option_id"
+            style="@style/font_rm_14_gray_daynight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_15"
+            android:layout_marginTop="@dimen/space_12"
+            android:text="0." />
+
+        <TextView
+            android:id="@+id/choice_title"
+            style="@style/font_rr_14_gray_daynight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_toRightOf="@+id/choice_option_id"
+            android:text="Test" />
+
+        <TextView
+            android:id="@+id/choice_description"
+            style="@style/font_rr_12_gray1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choice_title"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginLeft="@dimen/space_15"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_12"
+            />
+
+        <ImageView
+            android:id="@+id/choice_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_vote_not_selection" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/input_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginRight="@dimen/space_14">
+
+            <EditText
+                android:id="@+id/et_amount_coin"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_44"
+                android:background="@drawable/edittext_box"
+                android:gravity="center_vertical|left"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:maxLength="46"
+                android:paddingRight="@dimen/space_60"
+                android:textColorHint="@color/colorGray4"
+                android:textCursorDrawable="@drawable/white_cursor" />
+
+            <ImageView
+                android:id="@+id/clearAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/space_10"
+                android:src="@drawable/close_btn" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_14">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/available_title"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2"
+                    android:text="@string/str_vault_max_depositable" />
+
+                <TextView
+                    android:id="@+id/tv_max_coin"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/tv_symbol_coin"
+                    style="@style/font_rr_12_atom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_2" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/btns_layer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_14"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_add_01"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_no_padding"
+                android:text="@string/str_add01"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_add_1"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_no_padding"
+                android:text="@string/str_add1"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_add_10"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_no_padding"
+                android:text="@string/str_add10"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_add_100"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_no_padding"
+                android:text="@string/str_add100"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_add_half"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_no_padding"
+                android:text="@string/str_add_half"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_add_all"
+                style="@style/font_rr_12_black_daynight"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_36"
+                android:layout_marginLeft="@dimen/space_8"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_no_padding"
+                android:text="@string/str_add_max"
+                android:textAllCaps="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_14"
+        android:layout_marginRight="@dimen/space_14"
+        android:layout_marginBottom="@dimen/space_24"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/font_rr_14_black_daynight"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_cancel"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/font_rr_14_photon_daynight"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_photon_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_next"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</RelativeLayout>

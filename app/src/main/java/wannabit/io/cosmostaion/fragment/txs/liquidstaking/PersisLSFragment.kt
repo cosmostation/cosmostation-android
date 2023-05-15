@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentPersisLsBinding
 import wannabit.io.cosmostaion.databinding.ItemToastMsgBinding
+import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import java.math.BigDecimal
 

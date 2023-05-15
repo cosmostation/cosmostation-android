@@ -30,12 +30,6 @@
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:fullBackupContent">
         <activity
-            android:name=".DaoListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.IntroActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -564,12 +558,37 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.neutron.VaultListActivity"
+            android:name=".activities.txs.neutron.vault.VaultListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activities.txs.neutron.DaoListActivity"
+            android:name=".activities.txs.neutron.dao.DaoListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activities.txs.neutron.defi.NeutronDefiActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activities.txs.neutron.defi.NeutronSwapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activities.txs.neutron.vault.VaultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activities.txs.neutron.dao.DaoProposalListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activities.txs.neutron.dao.DaoProposalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />

@@ -197,9 +197,13 @@ public class WDp {
         if (chainConfig == null || denom == null || denom.isEmpty())
             imageView.setImageResource(R.drawable.token_default);
         final Asset asset = baseData.getAsset(chainConfig, denom);
+        final MintscanToken mintscanToken = baseData.getCw20Asset(chainConfig, denom);
 
         if (asset != null) {
             Picasso.get().load(CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(imageView);
+
+        } else if (mintscanToken != null) {
+            Picasso.get().load(CHAIN_BASE_URL + mintscanToken.image).error(R.drawable.token_default).into(imageView);
 
         } else {
             if (chainConfig.mainDenom().equalsIgnoreCase(denom)) {
@@ -411,7 +415,7 @@ public class WDp {
     public static void showChainDp(Context c, ChainConfig chainConfig, CardView cardName, CardView cardBody, CardView cardRewardAddress) {
         if (chainConfig.baseChain().equals(OKEX_MAIN) || chainConfig.baseChain().equals(BNB_MAIN) ||
                 chainConfig.baseChain().equals(FETCHAI_MAIN) || chainConfig.baseChain().equals(ONOMY_MAIN) ||
-                chainConfig.baseChain().equals(NEUTRON_TEST)) {
+                chainConfig.baseChain().equals(NEUTRON_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);

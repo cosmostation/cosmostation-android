@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.fragment;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -52,6 +54,7 @@ import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.SelectCWTokenDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainTokensFragment extends BaseFragment {
@@ -228,7 +231,8 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        if (mChainConfig.baseChain().equals(JUNO_MAIN)) mCwGrpc = getBaseDao().mCw20MyTokens;
+        if (mChainConfig.baseChain().equals(JUNO_MAIN) || mChainConfig.baseChain().equals(NEUTRON_MAIN) ||
+                mChainConfig.baseChain().equals(NEUTRON_TEST)) mCwGrpc = getBaseDao().mCw20MyTokens;
         else mCwGrpc = getBaseDao().mErc20MyTokens;
         mNativeGrpc.clear();
         mIbcGrpc.clear();
@@ -563,7 +567,10 @@ public class MainTokensFragment extends BaseFragment {
             int defaultCount = mNativeGrpc.size() + mIbcGrpc.size();
             if (isGRPC(mBaseChain)) {
                 if (mChainConfig.bridgeCoinSupport()) return defaultCount + mEtherGrpc.size();
-                else if (mChainConfig.erc20CoinSupport()) return defaultCount + mCwGrpc.size() + 1;
+                else if (mChainConfig.erc20CoinSupport()) {
+                    if (mCwGrpc.size() > 0) return defaultCount + mCwGrpc.size() + 1;
+                    else return defaultCount + mCwGrpc.size();
+                }
                 else return defaultCount;
             } else {
                 if (mChainConfig.erc20CoinSupport()) {

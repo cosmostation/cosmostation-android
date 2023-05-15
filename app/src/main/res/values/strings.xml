@@ -136,6 +136,7 @@
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">Wallet</string>
     <string name="str_vote_show_all">Show all</string>
+    <string name="str_no_period_proposal">No Period Proposals</string>
 
     <string name="str_mnemonic_manage">Manage Mnemonic / Add Wallet</string>
     <string name="str_mnemonic_detail">Mnemonic Detail</string>
@@ -688,6 +689,7 @@
     <string name="str_deposit">Deposit</string>
     <string name="str_withdraw">Withdraw</string>
     <string name="str_bonded">Bonded</string>
+    <string name="str_vaulted_amount">Vault Bonded Amount</string>
     <string name="str_vote_for_validator">Vote for Validator</string>
     <string name="str_name_service">Starname Service</string>
     <string name="str_promotion_title">START DELEGATING FOR REWARDS</string>
@@ -943,7 +945,7 @@
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">Rate</string>
     <string name="str_token_swap_fee">Swap Fee</string>
-    <string name="str_token_swap_start">START SWAP</string>
+    <string name="str_token_swap_start">Start Swap</string>
     <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
     <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
     <string name="str_pool_total_liquidity_value">Total Deposited Value (TVL)</string>
@@ -1187,6 +1189,9 @@
     <string name="error_closure_network_msg">This network is no longer operational.\n\nNote that Cosmostation Wallet is showing archived data only.</string>
     <string name="error_ledger_open_msg">Open Cosmos app on Ledger.</string>
     <string name="error_no_staking">The chain does not support staking.</string>
+    <string name="error_no_withdraw_vault">No amount deposited in the vault.</string>
+    <string name="error_no_revote">No amount deposited in the vault.</string>
+    <string name="error_not_dao_member">You are not this Dao member.</string>
 
 
     <string name="tx_send">Send</string>
@@ -1433,6 +1438,20 @@
     <string name="tx_persis_liquid_unstake">Liquid Unstake</string>
     <string name="tx_persis_liquid_redeem">Liquid Redeem</string>
     <string name="tx_persis_liquid_claim">Liquid Unstaked Claim</string>
+
+    <string name="str_vault_list">Vault List</string>
+    <string name="str_vault_deposit">Vault Deposit</string>
+    <string name="str_vault_withdraw">Vault Withdraw</string>
+    <string name="str_dao_list">Dao List</string>
+    <string name="str_dao_single_list" translatable="false">Single Proposal</string>
+    <string name="str_dao_multi_list" translatable="false">Multi Proposal</string>
+    <string name="str_vault_max_depositable" translatable="false">Max Depositable</string>
+    <string name="str_vault_max_withdrawable" translatable="false">Max Withdrawable</string>
+    <string name="str_dao_single_vote">Dao Vote (Single)</string>
+    <string name="str_dao_multi_vote">Dao Vote (Multi)</string>
+    <string name="str_dao_overrule_vote">Dao Vote (Overrule)</string>
+    <string name="str_astro_swap">Swap</string>
+    <string name="str_astro_description" translatable="false">Astroport is an AMM(Automated Market Maker)-style\ndecentralized exchange built with\nCosmWasm smart contracts.</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

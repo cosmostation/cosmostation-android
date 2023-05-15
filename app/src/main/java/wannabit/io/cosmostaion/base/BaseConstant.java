@@ -135,6 +135,8 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_OSMOSIS_ICNS = 4310;
     public final static int TASK_GRPC_FETCH_STARGAZE_NS = 4311;
+    public final static int TASK_GRPC_FETCH_VAULT_LIST = 4312;
+    public final static int TASK_GRPC_FETCH_VAULT_BALANCE = 4313;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX = "auth/StdTx";
@@ -228,6 +230,13 @@ public class BaseConstant {
     public final static int CONST_PW_TX_PERSIS_LIQUID_STAKING = 5084;
     public final static int CONST_PW_TX_PERSIS_LIQUID_REDEEM = 5085;
 
+    public final static int CONST_PW_TX_VAULT_DEPOSIT = 5086;
+    public final static int CONST_PW_TX_VAULT_WITHDRAW = 5087;
+    public final static int CONST_PW_TX_DAO_SINGLE_PROPOSAL = 5088;
+    public final static int CONST_PW_TX_DAO_MULTI_PROPOSAL = 5089;
+    public final static int CONST_PW_TX_DAO_OVERRULE_PROPOSAL = 5090;
+    public final static int CONST_PW_TX_NEUTRON_SWAP = 5091;
+
 
     public final static int ERROR_CODE_UNKNOWN = 8000;
     public final static int ERROR_CODE_NETWORK = 8001;
@@ -286,6 +295,9 @@ public class BaseConstant {
     public final static String ICNS_OSMOSIS_ADDRESS = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd";
     public final static String NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr";
 
+    // Neutron Contract Address
+    public final static String NEUTRON_TESTNET_ROUTER_ADDRESS = "neutron12jm24l9lr9cupufqjuxpdjnnweana4h66tsx5cl800mke26td26sq7m05p";
+
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 
     public final static String NFT_INFURA = "https://ipfs.infura.io/ipfs/";
@@ -307,6 +319,9 @@ public class BaseConstant {
 
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM = "station";
+
+    //Dev Mintscan Api
+    public final static String DEV_MINTSCAN_API_URL = "https://dev.api.mintscan.io/";
 
 
     public final static BigDecimal DAY_SEC = new BigDecimal("86400");

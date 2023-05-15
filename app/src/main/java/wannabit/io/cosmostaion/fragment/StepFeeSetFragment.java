@@ -24,6 +24,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_PO
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_MINT_NFT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_NEUTRON_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PERSIS_LIQUID_REDEEM;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING;
@@ -95,6 +96,15 @@ import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.req.neutron.Bond;
+import wannabit.io.cosmostaion.network.req.neutron.BondReq;
+import wannabit.io.cosmostaion.network.req.neutron.MultiVote;
+import wannabit.io.cosmostaion.network.req.neutron.MultiVoteReq;
+import wannabit.io.cosmostaion.network.req.neutron.Unbond;
+import wannabit.io.cosmostaion.network.req.neutron.UnbondReq;
+import wannabit.io.cosmostaion.network.req.neutron.Vote;
+import wannabit.io.cosmostaion.network.req.neutron.VoteReq;
+import wannabit.io.cosmostaion.network.req.neutron.WeightVote;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionGrpcTask;
@@ -106,6 +116,8 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzUndelegateGrpcTa
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzVoteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulContractExecuteGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulContractSwapExecuteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20IbcSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulCw20SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
@@ -529,6 +541,26 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         } else if (getSActivity().mTxType == CONST_PW_TX_PERSIS_LIQUID_STAKING || getSActivity().mTxType == CONST_PW_TX_PERSIS_LIQUID_REDEEM) {
             new SimulPersisLiquidGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mSwapInCoin,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_NEUTRON_SWAP){
+            new SimulContractSwapExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mSelectedPool, getSActivity().mInputPair, getSActivity().mSwapInAmount, getSActivity().mBeliefPrice,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else {
+            Object req = null;
+            if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
+                req = new BondReq(new Bond());
+            } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_WITHDRAW) {
+                req = new UnbondReq(new Unbond(getSActivity().mAmount.amount));
+            } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_SINGLE_PROPOSAL) {
+                req = new VoteReq(new Vote(Integer.parseInt(getSActivity().mProposalData.getId()), getSActivity().mOpinion));
+                getSActivity().mContractAddress = getSActivity().mProposalModule.getAddress();
+            } else if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_DAO_MULTI_PROPOSAL) {
+                req = new MultiVoteReq(new MultiVote(Integer.parseInt(getSActivity().mProposalData.getId()), new WeightVote(getSActivity().mOptionId)));
+                getSActivity().mContractAddress = getSActivity().mProposalModule.getAddress();
+            }
+            new SimulContractExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, req, getSActivity().mContractAddress, getSActivity().mAmount,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }

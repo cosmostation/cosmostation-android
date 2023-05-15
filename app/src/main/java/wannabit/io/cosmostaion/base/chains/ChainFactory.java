@@ -137,6 +137,9 @@ public class ChainFactory {
                 case MEDI_MAIN:
                     return new Medibloc();
 
+                case NEUTRON_MAIN:
+                    return new Neutron();
+
                 case NOBLE_MAIN:
                     return new Noble();
 

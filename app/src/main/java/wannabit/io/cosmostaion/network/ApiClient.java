@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
+import wannabit.io.cosmostaion.network.res.neutron.Neutron;
 
 public class ApiClient {
 
@@ -33,6 +34,34 @@ public class ApiClient {
             }
         }
         return mintscan;
+    }
+
+    private static Station devMintscan = null;
+    public static Station getDevMintscan() {
+        if (devMintscan == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BaseConstant.DEV_MINTSCAN_API_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                devMintscan = retrofit.create(Station.class);
+            }
+        }
+        return devMintscan;
+    }
+
+    private static Neutron neutron = null;
+    public static Neutron getNeutron(){
+        if (neutron == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BaseConstant.CHAIN_BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                neutron = retrofit.create(Neutron.class);
+            }
+        }
+        return neutron;
     }
 
     private static Station chainBase = null;

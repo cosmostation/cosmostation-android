@@ -102,6 +102,7 @@
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">지갑</string>
     <string name="str_vote_show_all">모두 표시</string>
+    <string name="str_no_period_proposal">보팅 기간 의제가 없습니다.</string>
 
     <string name="str_mnemonic_manage">니모닉 관리 / 지갑 추가</string>
     <string name="str_mnemonic_detail">니모닉 상세</string>
@@ -589,6 +590,7 @@
     <string name="str_deposit">예금 하기</string>
     <string name="str_withdraw">출금 하기</string>
     <string name="str_bonded">예치된 수량</string>
+    <string name="str_vaulted_amount">볼트 예치된 수량</string>
     <string name="str_vote_for_validator">검증인 선출</string>
     <string name="str_name_service">스타네임 서비스</string>
     <string name="str_promotion_title">위임하고 이자받기</string>
@@ -1087,6 +1089,9 @@
     <string name="error_closure_network_msg">이 네트워크는 더 이상 작동하지 않습니다.\n\n코스모스테이션 월렛은 보관된 데이터만 보여드리고 있으니 참고하세요.</string>
     <string name="error_ledger_open_msg">레저에서 코스모스 앱을 실행하세요.</string>
     <string name="error_no_staking">해당 체인은 스테이킹을 지원하지 않습니다.</string>
+    <string name="error_no_withdraw_vault">볼트에 예치된 양이 없습니다.</string>
+    <string name="error_no_revote">재투표를 지원하지 않는 프로포절 입니다.</string>
+    <string name="error_not_dao_member">이 Dao의 회원이 아닙니다.</string>
 
 
     <string name="tx_send">보내기</string>
@@ -1331,6 +1336,15 @@
     <string name="tx_persis_liquid_unstake">유동성 언스테이크</string>
     <string name="tx_persis_liquid_redeem">유동성 상환</string>
     <string name="tx_persis_liquid_claim">언스테이크 유동성 받기</string>
+
+    <string name="str_vault_list">볼트 목록</string>
+    <string name="str_vault_deposit">볼트 입금</string>
+    <string name="str_vault_withdraw">볼트 출금</string>
+    <string name="str_dao_list">다오 목록</string>
+    <string name="str_dao_single_vote">다오 투표 (싱글)</string>
+    <string name="str_dao_multi_vote">다오 투표 (멀티)</string>
+    <string name="str_dao_overrule_vote">다오 투표 (오버룰)</string>
+    <string name="str_astro_swap">스왑</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

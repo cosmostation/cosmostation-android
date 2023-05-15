@@ -6,6 +6,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.LUM_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -40,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -83,8 +86,10 @@ import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
+import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseData {
@@ -149,7 +154,8 @@ public class BaseData {
     }
 
     public MintscanToken getCw20Asset(ChainConfig chainConfig, String denom) {
-        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN) || chainConfig.baseChain().equals(NEUTRON_MAIN) ||
+                chainConfig.baseChain().equals(NEUTRON_TEST)) {
             if (mCw20Tokens != null && mCw20Tokens.size() > 0) {
                 for (MintscanToken asset : mCw20Tokens) {
                     if (asset.symbol.equalsIgnoreCase(denom)) {
@@ -172,7 +178,7 @@ public class BaseData {
 
     public void setMyTokens(ChainConfig chainConfig, String address) {
         Set<String> listingContractAddressSet = getUserFavoTokens(address);
-        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN) || chainConfig.baseChain().equals(NEUTRON_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
             listingContractAddressSet.addAll(mCw20Tokens.stream().filter(item -> item.default_show).map(item -> item.address).collect(Collectors.toSet()));
             mCw20MyTokens.addAll(mCw20Tokens.stream().filter(item -> listingContractAddressSet.contains(item.address)).collect(Collectors.toList()));
         } else {
@@ -182,7 +188,7 @@ public class BaseData {
     }
 
     public void setMyTokenBalance(ChainConfig chainConfig, String contractAddress, String amount) {
-        if (chainConfig.baseChain().equals(JUNO_MAIN)) {
+        if (chainConfig.baseChain().equals(JUNO_MAIN) || chainConfig.baseChain().equals(NEUTRON_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
             for (MintscanToken myAsset : mCw20MyTokens) {
                 if (myAsset.address.equalsIgnoreCase(contractAddress)) {
                     myAsset.setAmount(amount);
@@ -386,8 +392,9 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Fees mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config mGrpcStarNameConfig;
 
-    //Osmosis pool list
-    public ArrayList<BalancerPool.Pool> mGrpcOsmosisPool = new ArrayList<>();
+    //Neutron
+    public List<ResVaultData> mVaultDatas = new ArrayList<>();
+    public String mVaultAmount = null;
 
     //gRPC funcs
     public String getChainIdGrpc() {
@@ -604,6 +611,14 @@ public class BaseData {
 
     public BigDecimal getAllMainAsset(String denom) {
         return getAvailable(denom).add(getVesting(denom)).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
+    }
+
+    public BigDecimal getVaultAmount() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (mVaultAmount != null) {
+            result = new BigDecimal(mVaultAmount);
+        }
+        return result;
     }
 
     public Staking.Validator getValidatorInfo(String valOpAddress) {

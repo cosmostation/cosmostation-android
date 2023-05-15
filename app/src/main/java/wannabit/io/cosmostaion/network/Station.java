@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.network;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,13 +13,15 @@ import wannabit.io.cosmostaion.dao.SupportPool;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResAssets;
 import wannabit.io.cosmostaion.network.res.ResMintscanAssets;
-import wannabit.io.cosmostaion.network.res.ResMyProposal;
 import wannabit.io.cosmostaion.network.res.ResNotice;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResProposal;
-import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResRelayer;
+import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.network.res.ResVoteStatus;
+import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus;
+import wannabit.io.cosmostaion.network.res.neutron.ResPairData;
+import wannabit.io.cosmostaion.network.res.neutron.ResSwapRateData;
 
 public interface Station {
 
@@ -54,6 +57,12 @@ public interface Station {
 
     @GET("v2/relayer/{chainId}/{channelId}")
     Call<ResRelayer> getRelayer(@Path("chainId") String chainId, @Path("channelId") String channelId);
+
+    @GET("v1/{chain}/dao/address/{address}/votes")
+    Call<List<ResMyVoteStatus>> getDaoMyVoteStatus(@Path("chain") String chain, @Path("address") String address);
+
+    @GET("v1/{chain}/astroport/{router_address}")
+    Call<ArrayList<ResPairData>> getSwapPairData(@Path("chain") String chain, @Path("router_address") String address);
 
     @GET("v1/{chain}/evm/tx/{etherTxHash}")
     Call<Object> getEvmTxHash(@Path("chain") String chain, @Path("etherTxHash") String etherTxHash);

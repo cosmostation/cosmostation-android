@@ -102,6 +102,7 @@
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_title">ウォーレット</string>
     <string name="str_vote_show_all">すべて表示</string>
+    <string name="str_no_period_proposal">ボーティング期間の議題がありません。</string>
 
     <string name="str_mnemonic_manage">ニーモニック管理 / ウォレット追加</string>
     <string name="str_mnemonic_detail">ニーモニック詳細</string>
@@ -590,6 +591,7 @@
     <string name="str_deposit">貯金する</string>
     <string name="str_withdraw">出金</string>
     <string name="str_bonded">預けられた</string>
+    <string name="str_vaulted_amount">ボルトの預け入れ数量</string>
     <string name="str_vote_for_validator">検証人投票</string>
     <string name="str_name_service">スターネームサービス</string>
     <string name="str_promotion_title">委任して利子をもらう</string>
@@ -1085,6 +1087,9 @@
     <string name="error_closure_network_msg">このネットワークはもう機能しません。\n\nCosmostationウォレットはアーカイブされたデータのみを表示していますのでご注意ください。</string>
     <string name="error_ledger_open_msg">Ledger で Cosmos アプリを開きます。</string>
     <string name="error_no_staking">このチェーンはステーキングをサポートしていません。</string>
+    <string name="error_no_withdraw_vault">ボルトに預けられた量がありません。</string>
+    <string name="error_no_revote">ボルトに入金された金額はありません。</string>
+    <string name="error_not_dao_member">あなたはこのDAOのメンバーではありません。</string>
 
 
     <string name="tx_send">送る</string>
@@ -1329,6 +1334,15 @@
     <string name="tx_persis_liquid_unstake">流動性アンステーキ</string>
     <string name="tx_persis_liquid_redeem">流動性償還</string>
     <string name="tx_persis_liquid_claim">アンステーキの流動性を受ける</string>
+
+    <string name="str_vault_list">ボルトの一覧</string>
+    <string name="str_vault_deposit">ボルト入金</string>
+    <string name="str_vault_withdraw">ボルト出金</string>
+    <string name="str_dao_list">ダオリスト</string>
+    <string name="str_dao_single_vote">Dao 投票です (シングル)</string>
+    <string name="str_dao_multi_vote">ダオ投票 (複数)</string>
+    <string name="str_dao_overrule_vote">ダオ投票 (オーバールール)</string>
+    <string name="str_astro_swap">交換する</string>
 
     <string name="str_dp_time_format1">yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2">yyyy-MM-dd HH:mm</string>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.txs.neutron.VaultListActivity">
+    tools:context=".activities.txs.neutron.vault.VaultListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -22,7 +22,16 @@
             android:id="@+id/toolbar_title"
             style="@style/font_rm_17_black_daynight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/str_dao_list"/>
+
+        <ImageView
+            android:id="@+id/btn_explorer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_explorer"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/space_14" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

@@ -1,14 +1,22 @@
 package wannabit.io.cosmostaion.widget.mainWallet
 
+import android.Manifest
+import android.content.Intent
 import android.view.View
+import android.widget.Toast
+import com.google.zxing.integration.android.IntentIntegrator
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.MainActivity
+import wannabit.io.cosmostaion.activities.QRcodeActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoListActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronDefiActivity
+import wannabit.io.cosmostaion.activities.txs.neutron.vault.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
-import wannabit.io.cosmostaion.utils.makeToast
 import wannabit.io.cosmostaion.widget.BaseHolder
-import java.math.BigDecimal
 
 class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
 
@@ -24,7 +32,7 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
         val decimal = WDp.getDenomDecimal(baseData, chainConfig, denom)
 
         val availableAmount = baseData.getAvailable(denom)
-        val bondAmount = BigDecimal.ZERO
+        val bondAmount = baseData.vaultAmount
         val totalAmount = availableAmount.add(bondAmount)
 
         binding.apply {
@@ -36,26 +44,42 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
             baseData.onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString())
 
             btnValut.setOnClickListener {
-//                Intent(mainActivity, VaultListActivity::class.java).apply {
-//                    mainActivity.startActivity(this)
-//                }
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                Intent(mainActivity, VaultListActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnDao.setOnClickListener {
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                Intent(mainActivity, DaoListActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnDefi.setOnClickListener {
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                Intent(mainActivity, NeutronDefiActivity::class.java).apply {
+                    mainActivity.startActivity(this)
+                }
             }
 
             btnWalletConnect.setOnClickListener {
-                mainActivity.makeToast(R.string.error_prepare)
-                return@setOnClickListener
+                if (!mainActivity.mAccount.hasPrivateKey) {
+                    mainActivity.onInsertKeyDialog()
+                    return@setOnClickListener
+
+                } else {
+                    TedPermission(mainActivity).setPermissionListener(object : PermissionListener {
+                        override fun onPermissionGranted() {
+                            val integrator = IntentIntegrator(mainActivity)
+                            integrator.setOrientationLocked(true)
+                            integrator.captureActivity = QRcodeActivity::class.java
+                            mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent())
+                        }
+
+                        override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
+                            Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show()
+                        }
+                    }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(mainActivity.getString(R.string.str_permission_qr)).check()
+                }
             }
         }
     }

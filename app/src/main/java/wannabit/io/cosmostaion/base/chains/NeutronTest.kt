@@ -24,13 +24,15 @@ class NeutronTest: ChainConfig() {
     override fun mainSymbol(): String { return "NTRN" }
     override fun addressPrefix(): String { return "neutron" }
 
+    override fun erc20CoinSupport(): Boolean { return true }
     override fun dexSupport(): Boolean { return false }
-    override fun wcSupport(): Boolean { return false }
+    override fun wasmSupport(): Boolean { return true }
+    override fun wcSupport(): Boolean { return true }
     override fun authzSupport(): Boolean { return false }
 
     override fun grpcUrl(): String { return "grpc-office-neutron.cosmostation.io" }
     override fun explorerUrl(): String { return BaseConstant.EXPLORER_TESTNET_URL + "neutron-testnet/" }
     override fun homeInfoLink(): String { return "https://neutron.org/" }
-    override fun blogInfoLink(): String { return "https://neutron.org/" }
+    override fun blogInfoLink(): String { return "https://blog.neutron.org/" }
     override fun coingeckoLink(): String { return "" }
 }

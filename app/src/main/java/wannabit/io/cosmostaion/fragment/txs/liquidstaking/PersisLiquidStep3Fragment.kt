@@ -10,7 +10,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import cosmos.base.abci.v1beta1.Abci.TxResponse
-import cosmos.tx.v1beta1.ServiceOuterClass
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
@@ -19,10 +18,9 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.databinding.FragmentLiquidStep3Binding
-import wannabit.io.cosmostaion.task.TaskResult
+import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
-import wannabit.io.cosmostaion.utils.WLog
 
 class PersisLiquidStep3Fragment : BaseFragment() {
 
