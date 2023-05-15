@@ -1007,7 +1007,7 @@
     <string name="error_small_reward">現在、利子が少なすぎます。</string>
     <string name="error_tx_time_out">ブロックチェーンが忙しすぎてタイムアウトされました。\n要請したトランザクションが実行しました。\nヒストリーを参照してください。</string>
     <string name="error_invalid_amounts">不可能な数量</string>
-    <string name="error_prepare">準備中...</string>
+    <string name="error_prepare">準備中</string>
     <string name="error_not_enough_fee">Tx手数料を支払う利用可能金額が不足しています。</string>
     <string name="error_network_error">ネットワーク接続ができません。</string>
     <string name="error_disabled_jailed">投獄中のノードに委任する機能はサポートしていません。</string>

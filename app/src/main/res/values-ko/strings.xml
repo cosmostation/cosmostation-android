@@ -1009,7 +1009,7 @@
     <string name="error_small_reward">현재 이자가 너무 적습니다.</string>
     <string name="error_tx_time_out">블록 체인이 너무 바빠서 시간이 초과되었습니다. \ n요청한 트랜잭션이 수행되었을 것입니다. \ n히스토리를 참조하십시오.</string>
     <string name="error_invalid_amounts">불가능한 수량</string>
-    <string name="error_prepare">준비중...</string>
+    <string name="error_prepare">준비중</string>
     <string name="error_not_enough_fee">Tx 수수료를 지불 할 사용가능 금액이 부족합니다.</string>
     <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
     <string name="error_disabled_jailed">수감중인 노드에 위임하는 기능은 지원하지 않습니다.</string>

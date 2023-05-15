@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityNeutronDefiBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.neutron.defi.NeutronLiquidityFragment
+import wannabit.io.cosmostaion.fragment.txs.neutron.defi.liquidity.NeutronLiquidityFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapFragment
 import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository

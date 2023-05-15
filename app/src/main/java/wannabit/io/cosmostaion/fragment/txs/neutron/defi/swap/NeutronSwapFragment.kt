@@ -58,14 +58,16 @@ class NeutronSwapFragment : BaseFragment() {
 
     private fun loadDataObserve() {
         astroportViewModel.swapPairData.observe(viewLifecycleOwner) { response ->
+            baseActivity.onHideWaitDialog()
             response?.let { pairDataList ->
                 if (pairDataList.size <= 0) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        getSActivity()?.finish()
-                        return@postDelayed
-                    },500)
+                    binding.emptyLayout.visibility = View.VISIBLE
+                    binding.swapLayout.visibility = View.GONE
 
                 } else {
+                    binding.emptyLayout.visibility = View.GONE
+                    binding.swapLayout.visibility = View.VISIBLE
+
                     swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
 
                     swapPools.forEach { pool ->
@@ -88,7 +90,6 @@ class NeutronSwapFragment : BaseFragment() {
 
     private fun onUpdateView() {
         binding.apply {
-            baseActivity.onHideWaitDialog()
             WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, inputCoin?.denom, imgInputCoin)
             WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, inputCoin?.denom, txtInputCoin)
             inpusAmount.text = WDp.getDpAmount2(pairAvailable(), 6, 6)
