@@ -82,7 +82,7 @@ public class TokenDetailHolder extends BaseHolder {
 
         if (chain.equals(BaseChain.NEUTRON_MAIN) || chain.equals(BaseChain.NEUTRON_TEST)) {
             BigDecimal availableAmount = baseData.getAvailable(denom);
-            BigDecimal bondAmount = BigDecimal.ZERO;
+            BigDecimal bondAmount = baseData.getVaultAmount();
             BigDecimal totalAmount = availableAmount.add(bondAmount);
 
             mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
