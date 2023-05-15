@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapStep0Binding
 import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
-import wannabit.io.cosmostaion.model.type.Coin
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
@@ -240,6 +239,10 @@ class NeutronSwapStep0Fragment : BaseFragment() {
         return try {
             val inputAmount = BigDecimal(binding.swapInputAmount.text.trim().toString()).movePointRight(inputCoinDecimal)
             val outputAmount = BigDecimal(binding.swapOutputAmount.text.trim().toString()).movePointRight(outputCoinDecimal)
+            if (inputAmount > availableMaxAmount) {
+                requireContext().makeToast(R.string.error_invalid_amounts)
+                return false
+            }
 
             if (inputAmount > BigDecimal(0) && outputAmount > BigDecimal(0)) {
                 getSActivity()?.mSelectedPool = getSActivity()?.selectedPool
