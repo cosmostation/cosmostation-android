@@ -422,10 +422,8 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private val processGetAccounts: (Long) -> Unit = { id: Long ->
-        if (mBaseChain == BaseChain.KAVA_MAIN) {
-            showAccountDialog(listOf("kava_2222-10"), mutableListOf()) {
-                wcV1Client?.approveRequest(id, it.map { WCAccount(459, it.address) })
-            }
+        showAccountDialog(listOf("kava_2222-10"), mutableListOf()) { accounts ->
+            wcV1Client?.approveRequest(id, accounts.map { WCAccount(459, it.address) })
         }
     }
 
