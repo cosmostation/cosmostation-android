@@ -1,37 +1,36 @@
-package wannabit.io.cosmostaion.fragment.txs.liquidstaking
+package wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.Observer
-import cosmos.base.abci.v1beta1.Abci.TxResponse
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLiquidActivity
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.databinding.FragmentLiquidStep3Binding
-import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
+import wannabit.io.cosmostaion.model.viewModel.persistence.PersisViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
+import wannabit.io.cosmostaion.utils.getTxResultIntent
 
+@AndroidEntryPoint
 class PersisLiquidStep3Fragment : BaseFragment() {
 
     private var _binding: FragmentLiquidStep3Binding? = null
     private val binding get() = _binding!!
 
-    private lateinit var persisLUSViewModel: PersisViewModel
+    private val persisLUSViewModel: PersisViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLiquidStep3Binding.inflate(layoutInflater, container, false)
-        persisLUSViewModel = PersisViewModel()
         return binding.root
     }
 
@@ -52,10 +51,7 @@ class PersisLiquidStep3Fragment : BaseFragment() {
 
     private fun onClick() {
         binding.btnBefore.setOnClickListener { getSActivity()?.onBeforeStep() }
-
-        binding.btnConfirm.setOnClickListener {
-            onStartLiquid()
-        }
+        binding.btnConfirm.setOnClickListener { onStartLiquid() }
     }
 
     private fun onStartLiquid() {
@@ -82,24 +78,8 @@ class PersisLiquidStep3Fragment : BaseFragment() {
                 it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain)
             persisLUSViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
-        persisLUSViewModel.txResponse.observe(viewLifecycleOwner, Observer { response ->
-            intentInfo(response)
-        })
-    }
-
-    private fun intentInfo(txResponse: TxResponse) {
-        Intent(requireContext(), TxDetailgRPCActivity::class.java).apply {
-            if (txResponse.code > 0) {
-                putExtra("isSuccess", false)
-            } else {
-                putExtra("isSuccess", true)
-            }
-            putExtra("errorCode", txResponse.code)
-            putExtra("errorMsg", txResponse.rawLog)
-
-            val hash = txResponse.txhash
-            if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-            startActivity(this)
+        persisLUSViewModel.txResponse.observe(viewLifecycleOwner) {
+            getTxResultIntent(requireContext(), it)
         }
     }
 

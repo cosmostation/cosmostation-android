@@ -3,18 +3,17 @@ package wannabit.io.cosmostaion.activities.txs.neutron.vault
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityVaultListBinding
-import wannabit.io.cosmostaion.model.factory.neutron.VaultViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.VaultRepository
+import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.viewModel.neutron.VaultViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ResVaultData
 import wannabit.io.cosmostaion.network.res.neutron.ResVotingData
@@ -22,11 +21,12 @@ import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 
+@AndroidEntryPoint
 class VaultListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityVaultListBinding
 
-    private lateinit var vaultViewModel: VaultViewModel
+    private val vaultViewModel: VaultViewModel by viewModels()
 
     private lateinit var adapter: VaultListAdapter
 
@@ -34,9 +34,6 @@ class VaultListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVaultListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val vaultViewModelFactory = VaultViewModelProviderFactory(VaultRepository())
-        vaultViewModel = ViewModelProvider(this, vaultViewModelFactory)[VaultViewModel::class.java]
 
         initView()
         onClick()
@@ -95,9 +92,15 @@ class VaultListActivity : BaseActivity() {
         }
 
         vaultViewModel.vaultDepositData.observe(this) { response ->
-            response?.let {
-                adapter.voteData = Gson().fromJson(it, ResVotingData::class.java)
-                onUpdateView()
+            when (response) {
+                is NetworkResult.Success -> {
+                    adapter.voteData = Gson().fromJson(response.data, ResVotingData::class.java)
+                    onUpdateView()
+                }
+                is NetworkResult.Error -> {
+                    makeToast(response.message ?: "Unknown error message")
+                    finish()
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.liquidstaking;
+package wannabit.io.cosmostaion.fragment.txs.liquidstaking.stride;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_STRIDE_LIQUID_STAKING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_HOST_ZONE_CHAINID;

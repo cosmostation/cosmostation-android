@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.liquidstaking
+package wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,87 +7,91 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLSActivity
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLiquidActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
-import wannabit.io.cosmostaion.databinding.FragmentPersisLsBinding
+import wannabit.io.cosmostaion.databinding.FragmentPersisLusBinding
 import wannabit.io.cosmostaion.databinding.ItemToastMsgBinding
-import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
+import wannabit.io.cosmostaion.model.NetworkResult
+import wannabit.io.cosmostaion.model.viewModel.persistence.PersisViewModel
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
+import java.math.RoundingMode
 
-class PersisLSFragment : BaseFragment() {
+class PersisLUSFragment : BaseFragment() {
 
-    private var _binding: FragmentPersisLsBinding? = null
+    private var _binding: FragmentPersisLusBinding? = null
     private val binding get() = _binding!!
 
     private val persisViewModel: PersisViewModel by activityViewModels()
 
     private var mInputCoinDenom: String? = null
-    private var mOutputCoinDenom: String? = null
     private var mAvailableMaxAmount: BigDecimal = BigDecimal.ZERO
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentPersisLsBinding.inflate(layoutInflater, container, false)
-        getSActivity()?.onShowWaitDialog()
+        _binding = FragmentPersisLusBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        persisViewModel.cValue.observe(viewLifecycleOwner, Observer { cValue ->
-            getSActivity()?.onHideWaitDialog()
-            onUpdateView(cValue)
-        })
-        onClickLiquidStake()
+        persisViewModel.cValue.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> onUpdateView(response.data)
+                is NetworkResult.Error -> requireContext().makeToast(response.message ?: "Unknown error message")
+            }
+        }
+        onClickLiquidRedeem()
     }
 
     override fun onRefreshTab() {
-        super.onRefreshTab()
-        persisViewModel.cValue.value?.let {
-            onUpdateView(it)
+        persisViewModel.cValue.value?.let { response ->
+            when (response) {
+                is NetworkResult.Success -> onUpdateView(response.data)
+                is NetworkResult.Error -> requireContext().makeToast(response.message ?: "Unknown error message")
+            }
         }
     }
 
     fun onUpdateView(cValue: String) {
-        mInputCoinDenom = "ibc/C8A74ABBE2AF892E15680D916A7C22130585CE5704F9B17A10F184A90D53BECA"
-        mOutputCoinDenom = "stk/uatom"
+        mInputCoinDenom = "stk/uatom"
+        val mOutputCoinDenom = "ibc/C8A74ABBE2AF892E15680D916A7C22130585CE5704F9B17A10F184A90D53BECA"
         val inputDecimal = WDp.getDenomDecimal(baseDao, baseActivity.mChainConfig, mInputCoinDenom)
 
         WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, mInputCoinDenom, binding.imgInputCoin)
         WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, mInputCoinDenom, binding.txtInputCoin)
-        WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, mOutputCoinDenom, binding.imgOutputCoin)
-        WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, mOutputCoinDenom, binding.txtOutputCoin)
 
         mAvailableMaxAmount = baseDao.getAvailable(mInputCoinDenom)
         binding.inputAmount.text = WDp.getDpAmount2(requireActivity(), mAvailableMaxAmount, inputDecimal, inputDecimal)
 
         binding.inputsRate.text = WDp.getDpAmount2(BigDecimal.ONE, 0, 6)
         WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, mInputCoinDenom, binding.inputsRateSymbol)
-        binding.outputsRate.text = WDp.getDpAmount2(BigDecimal(cValue), 18, 6)
+        val rate = BigDecimal(cValue).movePointLeft(18)
+        val redeemFee = BigDecimal("0.005")
+        val outAmount = BigDecimal.ONE.divide(rate, 12, RoundingMode.DOWN).subtract(redeemFee)
+
+        binding.outputsRate.text = WDp.getDpAmount2(outAmount, 0, 6)
         WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, mOutputCoinDenom, binding.outputsRateSymbol)
     }
 
-    fun onClickLiquidStake() {
-        binding.btnStartStake.setOnClickListener {
+    private fun onClickLiquidRedeem() {
+        binding.btnStartRedeem.setOnClickListener {
             if (!baseActivity.mAccount.hasPrivateKey) {
                 baseActivity.onInsertKeyDialog()
             }
             if (mAvailableMaxAmount <= BigDecimal.ZERO) {
                 val bindingLayout = ItemToastMsgBinding.inflate(layoutInflater)
-                bindingLayout.toastMsg.text = getString(R.string.error_not_enough_liquid_stake)
+                bindingLayout.toastMsg.text = getString(R.string.error_not_enough_to_balance)
                 val toast = Toast(requireContext())
                 toast.view = bindingLayout.root
                 toast.show()
-                return@setOnClickListener
             }
 
             Intent(requireContext(), PersisLiquidActivity::class.java).apply {
                 putExtra("inputDenom", mInputCoinDenom)
-                putExtra("txType", BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING)
+                putExtra("txType", BaseConstant.CONST_PW_TX_PERSIS_LIQUID_REDEEM)
                 startActivity(this)
             }
         }
@@ -96,9 +100,5 @@ class PersisLSFragment : BaseFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun getSActivity(): PersisLSActivity? {
-        return baseActivity as PersisLSActivity
     }
 }

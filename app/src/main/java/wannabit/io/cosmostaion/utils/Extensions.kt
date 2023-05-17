@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.utils
 
 import android.content.Context
+import android.content.Intent
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -9,8 +10,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
+import cosmos.base.abci.v1beta1.Abci
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -28,6 +30,30 @@ fun AppCompatActivity.makeToast(id: Int) {
 
 fun Context.makeToast(id: Int) {
     Toast.makeText(this, this.getString(id), Toast.LENGTH_SHORT).show()
+}
+
+fun AppCompatActivity.makeToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.makeToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun getTxResultIntent(c: Context, txResponse: Abci.TxResponse) {
+    Intent(c, TxDetailgRPCActivity::class.java).apply {
+        if (txResponse.code > 0) {
+            putExtra("isSuccess", false)
+        } else {
+            putExtra("isSuccess", true)
+        }
+        putExtra("errorCode", txResponse.code)
+        putExtra("errorMsg", txResponse.rawLog)
+
+        val hash = txResponse.txhash
+        if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+        c.startActivity(this)
+    }
 }
 
 fun EditText.amountWatcher(

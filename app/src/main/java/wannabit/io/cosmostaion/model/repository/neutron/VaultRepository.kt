@@ -9,8 +9,9 @@ import wannabit.io.cosmostaion.network.ChannelBuilder
 import wannabit.io.cosmostaion.network.req.neutron.TotalPower
 import wannabit.io.cosmostaion.network.req.neutron.TotalPowerReq
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class VaultRepository {
+class VaultRepository @Inject constructor() {
 
     fun getVaultDepositData(chainConfig: ChainConfig, contractAddress: String?): String? {
         try {

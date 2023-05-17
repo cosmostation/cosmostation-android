@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -15,10 +16,11 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityLiquidListBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisLSFragment
-import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisLUSFragment
-import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
+import wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence.PersisLSFragment
+import wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence.PersisLUSFragment
+import wannabit.io.cosmostaion.model.viewModel.persistence.PersisViewModel
 
+@AndroidEntryPoint
 class PersisLSActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLiquidListBinding

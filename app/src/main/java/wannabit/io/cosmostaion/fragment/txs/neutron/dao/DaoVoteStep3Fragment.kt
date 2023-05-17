@@ -2,17 +2,14 @@ package wannabit.io.cosmostaion.fragment.txs.neutron.dao
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import cosmos.base.abci.v1beta1.Abci
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoProposalActivity
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseConstant
@@ -25,6 +22,7 @@ import wannabit.io.cosmostaion.model.viewModel.neutron.DaoViewModel
 import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
+import wannabit.io.cosmostaion.utils.getTxResultIntent
 
 class DaoVoteStep3Fragment : BaseFragment() {
 
@@ -100,23 +98,7 @@ class DaoVoteStep3Fragment : BaseFragment() {
         }
 
         daoViewModel.txResponse.observe(requireActivity()) {
-            intentInfo(it)
-        }
-    }
-
-    private fun intentInfo(txResponse: Abci.TxResponse) {
-        Intent(requireContext(), TxDetailgRPCActivity::class.java).apply {
-            if (txResponse.code > 0) {
-                putExtra("isSuccess", false)
-            } else {
-                putExtra("isSuccess", true)
-            }
-            putExtra("errorCode", txResponse.code)
-            putExtra("errorMsg", txResponse.rawLog)
-
-            val hash = txResponse.txhash
-            if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-            startActivity(this)
+            getTxResultIntent(requireContext(), it)
         }
     }
 

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.liquidstaking;
+package wannabit.io.cosmostaion.fragment.txs.liquidstaking.stride;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

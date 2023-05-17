@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.liquidstaking;
+package wannabit.io.cosmostaion.fragment.txs.liquidstaking.stride;
 
 import android.app.Activity;
 import android.content.ClipboardManager;

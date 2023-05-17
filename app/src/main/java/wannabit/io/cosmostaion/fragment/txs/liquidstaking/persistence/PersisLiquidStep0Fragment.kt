@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.liquidstaking
+package wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,24 +9,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLiquidActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentLiquidStep0Binding
-import wannabit.io.cosmostaion.model.viewModel.PersisViewModel
+import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.type.Coin
+import wannabit.io.cosmostaion.model.viewModel.persistence.PersisViewModel
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class PersisLiquidStep0Fragment() : BaseFragment() {
+@AndroidEntryPoint
+class PersisLiquidStep0Fragment : BaseFragment() {
 
     private var _binding: FragmentLiquidStep0Binding? = null
     private val binding get() = _binding!!
 
-    private lateinit var persisLUSViewModel: PersisViewModel
+    private val persisLUSViewModel: PersisViewModel by viewModels()
 
     private var mOutputDenom: String? = null
     private var mInputCoinDecimal = 0
@@ -38,18 +42,25 @@ class PersisLiquidStep0Fragment() : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLiquidStep0Binding.inflate(layoutInflater, container, false)
-        persisLUSViewModel = PersisViewModel()
         persisLUSViewModel.loadCValue(baseActivity.mBaseChain)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        persisLUSViewModel.cValue.observe(viewLifecycleOwner, Observer { cValue ->
-            onUpdateView()
-            onAddAmountWatcher(cValue.toString())
-            onClick(cValue.toString())
-        })
+        persisLUSViewModel.cValue.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    onUpdateView()
+                    onAddAmountWatcher(response.data)
+                    onClick(response.data)
+                }
+                is NetworkResult.Error -> {
+                    requireContext().makeToast(response.message ?: "Unknown error message")
+                    getSActivity()?.finish()
+                }
+            }
+        }
     }
 
     fun onUpdateView() {

@@ -20,11 +20,13 @@ import com.walletconnect.sign.client.SignClient;
 
 import java.util.UUID;
 
+import dagger.hilt.android.HiltAndroidApp;
 import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.utils.DeviceUuidFactory;
 import wannabit.io.cosmostaion.utils.ThemeUtil;
 
+@HiltAndroidApp
 public class BaseApplication extends Application {
 
     private BaseData mBaseData;

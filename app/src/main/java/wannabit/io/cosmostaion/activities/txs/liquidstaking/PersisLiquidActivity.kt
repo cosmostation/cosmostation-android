@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -14,9 +15,10 @@ import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityTxStepBinding
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
-import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisLiquidStep0Fragment
-import wannabit.io.cosmostaion.fragment.txs.liquidstaking.PersisLiquidStep3Fragment
+import wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence.PersisLiquidStep0Fragment
+import wannabit.io.cosmostaion.fragment.txs.liquidstaking.persistence.PersisLiquidStep3Fragment
 
+@AndroidEntryPoint
 class PersisLiquidActivity : BaseBroadCastActivity() {
 
     private lateinit var binding: ActivityTxStepBinding

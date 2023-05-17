@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.fragment.StepMemoFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.vault.VaultStep0Fragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.vault.VaultStep3Fragment
 
+@AndroidEntryPoint
 class VaultActivity : BaseBroadCastActivity() {
 
     private lateinit var binding: ActivityTxStepBinding
