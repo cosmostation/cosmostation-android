@@ -288,16 +288,12 @@ class WalletConnectActivity : BaseActivity() {
                                 )
                             }
                         }
-                        val approveProposal = Sign.Params.Approve(
-                            proposerPublicKey = sessionProposal.proposerPublicKey, namespaces = sessionNamespaces
-                        )
+                        val approveProposal = Sign.Params.Approve(proposerPublicKey = sessionProposal.proposerPublicKey, namespaces = sessionNamespaces)
 
                         if (!connectType.isDapp()) {
                             setupConnectInfoView(sessionProposal)
                         } else {
-                            changeDappConnectStatus(
-                                true
-                            )
+                            changeDappConnectStatus(true)
                             binding.loadingLayer.apply {
                                 postDelayed({ visibility = View.GONE }, 2500)
                             }
@@ -337,20 +333,14 @@ class WalletConnectActivity : BaseActivity() {
                             showAccountDialog(listOf(chainId), mutableListOf()) { accounts ->
                                 val v2Accounts = accounts.map { toV2Account(it) }
                                 val response = Sign.Params.Response(
-                                    sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
-                                        id, Gson().toJson(v2Accounts)
-                                    )
+                                    sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(id, Gson().toJson(v2Accounts))
                                 )
                                 SignClient.respond(response) { error ->
                                     Log.e("WCV2", error.throwable.stackTraceToString())
                                 }
                             }
                         } ?: run {
-                            val response = Sign.Params.Response(
-                                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
-                                    id, 500, "No account"
-                                )
-                            )
+                            val response = Sign.Params.Response(sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(id, 500, "No account"))
                             SignClient.respond(response) { error ->
                                 Log.e("WCV2", error.throwable.stackTraceToString())
                             }
@@ -579,23 +569,12 @@ class WalletConnectActivity : BaseActivity() {
         runOnUiThread {
             var url: String? = wcPeerMeta.url
             if (connectType.isDapp()) {
-                url = Uri.parse(
-                    binding.dappWebView.url
-                ).host
+                url = Uri.parse(binding.dappWebView.url).host
             }
-            if (getWhiteList(
-                    this
-                ).contains(
-                    url
-                )
-            ) {
-                processSessionRequest(
-                    wcPeerMeta
-                )
+            if (getWhiteList(this).contains(url)) {
+                processSessionRequest(wcPeerMeta)
             } else {
-                showWhitelistAlert(
-                    url, wcPeerMeta
-                )
+                showWhitelistAlert(url, wcPeerMeta)
             }
         }
     }
@@ -703,9 +682,7 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private fun processSessionRequest(
-        wcPeerMeta: WCPeerMeta
-    ) {
+    private fun processSessionRequest(wcPeerMeta: WCPeerMeta) {
         wcV1PeerMeta = wcPeerMeta
         if (!connectType.isDapp()) {
             setupConnectInfoView(wcPeerMeta)
@@ -732,9 +709,7 @@ class WalletConnectActivity : BaseActivity() {
             }
         }
 
-        wcV1Client?.approveSession(
-            listOf(), 1
-        )
+        wcV1Client?.approveSession(listOf(), 1)
     }
 
     private fun processEthSign(id: Long, signMessage: WCEthereumSignMessage) {
