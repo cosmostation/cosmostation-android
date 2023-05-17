@@ -34,7 +34,7 @@ public class MintScanCw20AssetsTask extends CommonTask {
                 return mResult;
             }
 
-            Response<ResMintscanAssets> response = ApiClient.getMintscan(mApp).getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
+            Response<ResMintscanAssets> response = ApiClient.getMintscan().getCw20Assets(ChainFactory.getChain(mBaseChain).chainName()).execute();
             if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;

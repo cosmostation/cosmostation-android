@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
@@ -30,7 +29,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMintscan(mApp).getNewAccountTxCustom(mChain, mAddress, "30", mId).execute();
+            Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMintscan().getNewAccountTxCustom(mChain, mAddress, "30", mId).execute();
             if (response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body();
                 mResult.isSuccess = true;

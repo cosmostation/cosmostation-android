@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.model.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.common.collect.Lists
@@ -111,9 +110,9 @@ class SendViewModel : BaseViewModel() {
     private var _lastPing = MutableLiveData<String>()
     val lastPing: LiveData<String> get() = _lastPing
 
-    fun loadLastPing(c: Context, assetPath: AssetPath, chainId: String) = backScope.launch {
+    fun loadLastPing(assetPath: AssetPath, chainId: String) = backScope.launch {
         try {
-            val response = ApiClient.getMintscan(c).getRelayer(chainId, assetPath.channel).awaitResponse()
+            val response = ApiClient.getMintscan().getRelayer(chainId, assetPath.channel).awaitResponse()
             if (response.isSuccessful) {
                 response.body()?.let {
                     _lastPing.postValue(it.relayer.last_ping_at)

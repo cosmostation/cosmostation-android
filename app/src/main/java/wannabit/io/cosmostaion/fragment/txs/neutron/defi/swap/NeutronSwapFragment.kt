@@ -2,22 +2,19 @@ package wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronDefiActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapBinding
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog
-import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
+import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 import wannabit.io.cosmostaion.network.res.neutron.Pair
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData
@@ -25,12 +22,13 @@ import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
 import java.math.BigDecimal
 
+@AndroidEntryPoint
 class NeutronSwapFragment : BaseFragment() {
 
     private var _binding: FragmentNeutronSwapBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var astroportViewModel: AstroportViewModel
+    private val astroportViewModel: AstroportViewModel by viewModels()
 
     private var swapPools: ArrayList<ResPairData> = arrayListOf()
     private var allPairs: ArrayList<Pair> = arrayListOf()
@@ -41,12 +39,9 @@ class NeutronSwapFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentNeutronSwapBinding.inflate(layoutInflater, container, false)
-        val astroportViewModelProviderFactory = AstroportViewModelProviderFactory(AstroportRepository())
-        astroportViewModel = ViewModelProvider(this, astroportViewModelProviderFactory)[AstroportViewModel::class.java]
-
         baseActivity.onShowWaitDialog()
         loadDataObserve()
-        astroportViewModel.loadSwapPairData(requireContext(), baseActivity.mChainConfig)
+        astroportViewModel.loadSwapPairData(baseActivity.mChainConfig)
         return binding.root
     }
 
@@ -59,30 +54,40 @@ class NeutronSwapFragment : BaseFragment() {
     private fun loadDataObserve() {
         astroportViewModel.swapPairData.observe(viewLifecycleOwner) { response ->
             baseActivity.onHideWaitDialog()
-            response?.let { pairDataList ->
-                if (pairDataList.size <= 0) {
-                    binding.emptyLayout.visibility = View.VISIBLE
-                    binding.swapLayout.visibility = View.GONE
+            response?.let {
+                when (response) {
+                    is NetworkResult.Success -> {
+                        response.data?.let { pairDataList ->
+                            if (pairDataList.size <= 0) {
+                                binding.emptyLayout.visibility = View.VISIBLE
+                                binding.swapLayout.visibility = View.GONE
 
-                } else {
-                    binding.emptyLayout.visibility = View.GONE
-                    binding.swapLayout.visibility = View.VISIBLE
+                            } else {
+                                binding.emptyLayout.visibility = View.GONE
+                                binding.swapLayout.visibility = View.VISIBLE
 
-                    swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
+                                swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
 
-                    swapPools.forEach { pool ->
-                        pool.pairs.forEach { pair ->
-                            if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
-                                allPairs.add(pair)
+                                swapPools.forEach { pool ->
+                                    pool.pairs.forEach { pair ->
+                                        if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
+                                            allPairs.add(pair)
+                                        }
+                                    }
+                                }
+                                selectedPool = swapPools[0]
+                                selectedPool?.let {
+                                    inputCoin = it.pairs[0]
+                                    outputCoin = it.pairs[1]
+                                }
+                                onUpdateView()
                             }
                         }
                     }
-                    selectedPool = swapPools[0]
-                    selectedPool?.let {
-                        inputCoin = it.pairs[0]
-                        outputCoin = it.pairs[1]
+                    is NetworkResult.Error -> {
+                        requireContext().makeToast(response.message ?: "Unknown error message")
+                        requireActivity().finish()
                     }
-                    onUpdateView()
                 }
             }
         }
@@ -95,7 +100,7 @@ class NeutronSwapFragment : BaseFragment() {
             inpusAmount.text = WDp.getDpAmount2(pairAvailable(), 6, 6)
 
             WDp.setDpSymbolImg(baseDao, baseActivity.mChainConfig, outputCoin?.denom, imgOutputCoin)
-            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig,  outputCoin?.denom, txtOutputCoin)
+            WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, outputCoin?.denom, txtOutputCoin)
         }
     }
 
@@ -158,7 +163,7 @@ class NeutronSwapFragment : BaseFragment() {
                     outputCoin = swapAblePairs[position]
                     swapPools.forEach { pool ->
                         pool.pairs.firstOrNull { item -> item.type == inputCoin?.type && item.address == inputCoin?.address && item.denom == inputCoin?.denom }?.let {
-                            pool.pairs.firstOrNull {item -> item.type == outputCoin?.type && item.address == outputCoin?.address && item.denom == outputCoin?.denom }?.let {
+                            pool.pairs.firstOrNull { item -> item.type == outputCoin?.type && item.address == outputCoin?.address && item.denom == outputCoin?.denom }?.let {
                                 selectedPool = pool
                             }
                         }
@@ -214,9 +219,5 @@ class NeutronSwapFragment : BaseFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun getSActivity(): NeutronDefiActivity? {
-        return baseActivity as NeutronDefiActivity?
     }
 }

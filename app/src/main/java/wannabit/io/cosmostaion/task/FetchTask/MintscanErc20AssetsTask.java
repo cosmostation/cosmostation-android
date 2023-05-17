@@ -33,7 +33,7 @@ public class MintscanErc20AssetsTask extends CommonTask {
                 mResult.isSuccess = false;
                 return mResult;
             }
-            Response<ResMintscanAssets> response = ApiClient.getMintscan(mApp).getErc20Assets(chainConfig.chainName()).execute();
+            Response<ResMintscanAssets> response = ApiClient.getMintscan().getErc20Assets(chainConfig.chainName()).execute();
             if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;

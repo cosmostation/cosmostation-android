@@ -254,7 +254,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
     private String mEthTxHash;
     private void getEthTxHash(String hash) {
-        ApiClient.getMintscan(this).getEvmTxHash(mChainConfig.chainName(), hash).enqueue(new Callback<Object>() {
+        ApiClient.getMintscan().getEvmTxHash(mChainConfig.chainName(), hash).enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 try {

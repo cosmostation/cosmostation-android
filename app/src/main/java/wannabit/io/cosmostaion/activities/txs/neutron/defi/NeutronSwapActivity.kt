@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -20,6 +21,7 @@ import wannabit.io.cosmostaion.network.res.neutron.Pair
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData
 import java.math.BigDecimal
 
+@AndroidEntryPoint
 class NeutronSwapActivity : BaseBroadCastActivity() {
 
     private lateinit var binding: ActivityNeutronSwapBinding

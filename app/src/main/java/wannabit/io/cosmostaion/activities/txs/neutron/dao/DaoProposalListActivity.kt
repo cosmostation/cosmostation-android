@@ -2,17 +2,17 @@ package wannabit.io.cosmostaion.activities.txs.neutron.dao
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityDaoProposalListBinding
-import wannabit.io.cosmostaion.model.factory.neutron.DaoViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
+import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.viewModel.neutron.DaoViewModel
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
@@ -21,11 +21,12 @@ import wannabit.io.cosmostaion.utils.makeToast
 import wannabit.io.cosmostaion.utils.visibleOrGone
 import java.math.BigDecimal
 
+@AndroidEntryPoint
 class DaoProposalListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDaoProposalListBinding
 
-    private lateinit var daoViewModel: DaoViewModel
+    private val daoViewModel: DaoViewModel by viewModels()
 
     private lateinit var adapter: DaoProposalListAdapter
     private lateinit var header: DaoProposalListHeader
@@ -36,10 +37,6 @@ class DaoProposalListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDaoProposalListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val daoViewModelFactory = DaoViewModelProviderFactory(DaoRepository())
-        daoViewModel = ViewModelProvider(this, daoViewModelFactory)[DaoViewModel::class.java]
-
         initView()
         onShowWaitDialog()
         onCheckShowAll()
@@ -64,58 +61,101 @@ class DaoProposalListActivity : BaseActivity() {
 
     private fun loadDataObserve() {
         daoViewModel.daoListData.observe(this) { response ->
-            response?.let { daoData ->
-                val contractAddressList = mutableListOf<String?>()
-                adapter.proposalModuleList = daoData[intent.getIntExtra("position", -1)]?.proposal_modules!!
-                adapter.proposalModuleList.forEach {
-                    contractAddressList.add(it?.address)
-                }
-                daoViewModel.loadDaoProposalListData(mChainConfig, contractAddressList)
-                val groupContractAddress = daoData[intent.getIntExtra("position", -1)]?.group_contract_address
-                if (groupContractAddress != null) {
-                    daoViewModel.loadMemberList(mChainConfig, groupContractAddress)
+            response?.let {
+                when (response) {
+                    is NetworkResult.Success -> {
+                        response.data?.let { daoData ->
+                            val contractAddressList = mutableListOf<String?>()
+                            adapter.proposalModuleList = daoData[intent.getIntExtra("position", -1)]?.proposal_modules!!
+                            adapter.proposalModuleList.forEach {
+                                contractAddressList.add(it?.address)
+                            }
+
+                            daoViewModel.loadDaoProposalListData(mChainConfig, contractAddressList)
+                            val groupContractAddress = daoData[intent.getIntExtra("position", -1)]?.group_contract_address
+                            if (groupContractAddress != null) {
+                                daoViewModel.loadMemberList(mChainConfig, groupContractAddress)
+                            }
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        makeToast(response.message ?: "Unknown error message")
+                        finish()
+                    }
                 }
             }
         }
 
         daoViewModel.daoProposalListData.observe(this) { response ->
             response?.let {
-                adapter.pairs = getProposals(it)
-                header.pairs = getProposals(it)
-                daoViewModel.loadDaoProposalMyVoteData(this, mChainConfig, mAccount)
+                when (response) {
+                    is NetworkResult.Success -> {
+                        adapter.pairs = getProposals(response.data)
+                        header.pairs = getProposals(response.data)
+                        daoViewModel.loadDaoProposalMyVoteData(mChainConfig, mAccount)
+                    }
+                    is NetworkResult.Error -> {
+                        makeToast(response.message ?: "Unknown error message")
+                        finish()
+                    }
+                }
             }
         }
 
         daoViewModel.daoMyVoteStatusData.observe(this) { response ->
             response?.let {
-                adapter.proposalMyVoteStatus = it
-                onHideWaitDialog()
-                onUpdateView()
+                when (response) {
+                    is NetworkResult.Success -> {
+                        response.data?.let {
+                            adapter.proposalMyVoteStatus = it
+                            onHideWaitDialog()
+                            onUpdateView()
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        makeToast(response.message ?: "Unknown error message")
+                        finish()
+                    }
+                }
             }
         }
 
         daoViewModel.daoMemberStatus.observe(this) { response ->
             response?.let {
-                val daoMemberList: MutableList<String?> = mutableListOf()
-                it.members.forEach { member ->
-                    if (!daoMemberList.contains(member.addr)) {
-                        daoMemberList.add(member.addr)
+                when (response) {
+                    is NetworkResult.Success -> {
+                        val daoMemberList: MutableList<String?> = mutableListOf()
+                        response.data?.let {
+                            it.members.forEach { member ->
+                                if (!daoMemberList.contains(member.addr)) {
+                                    daoMemberList.add(member.addr)
+                                }
+                            }
+                            adapter.daoMemberList = daoMemberList
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        makeToast(response.message ?: "Unknown error message")
+                        finish()
                     }
                 }
-                adapter.daoMemberList = daoMemberList
             }
         }
     }
 
     private fun onUpdateView() {
         binding.apply {
-            daoViewModel.daoProposalListData.value?.let { pairs ->
-                recycler.layoutManager = LinearLayoutManager(this@DaoProposalListActivity)
-                recycler.adapter = adapter
-                recycler.addItemDecoration(header)
+            daoViewModel.daoProposalListData.value?.let { value ->
+                when (value) {
+                    is NetworkResult.Success -> {
+                        recycler.layoutManager = LinearLayoutManager(this@DaoProposalListActivity)
+                        recycler.adapter = adapter
+                        recycler.addItemDecoration(header)
 
-                emptyProposal.visibleOrGone(getProposals(pairs).isEmpty())
-                recycler.adapter?.notifyDataSetChanged()
+                        emptyProposal.visibleOrGone(getProposals(value.data).isEmpty())
+                        recycler.adapter?.notifyDataSetChanged()
+                    }
+                }
             }
         }
     }
@@ -155,10 +195,14 @@ class DaoProposalListActivity : BaseActivity() {
     private fun onCheckShowAll() {
         binding.apply {
             checkShowAll.setOnCheckedChangeListener { _, _ ->
-                daoViewModel.daoProposalListData.value?.let {
-                    isShowAll = !isShowAll
-                    adapter.pairs = getProposals(it)
-                    header.pairs = getProposals(it)
+                daoViewModel.daoProposalListData.value?.let { value ->
+                    when (value) {
+                        is NetworkResult.Success -> {
+                            isShowAll = !isShowAll
+                            adapter.pairs = getProposals(value.data)
+                            header.pairs = getProposals(value.data)
+                        }
+                    }
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -172,10 +216,19 @@ class DaoProposalListActivity : BaseActivity() {
             }
 
             override fun sectionHeader(pairs: List<Pair<String?, ProposalData?>>, position: Int): String {
-                daoViewModel.daoListData.value?.let { resDaoData ->
-                    resDaoData[intent.getIntExtra("position", -1)]?.proposal_modules?.forEach { proposalModule ->
-                        if (proposalModule?.address.equals(pairs[position].first)) {
-                            return proposalModule?.name!!
+                daoViewModel.daoListData.value?.let { value ->
+                    when (value) {
+                        is NetworkResult.Success -> {
+                            value.data?.let { resDaoData ->
+                                resDaoData[intent.getIntExtra("position", -1)]?.proposal_modules?.forEach { proposalModule ->
+                                    if (proposalModule?.address.equals(pairs[position].first)) {
+                                        return proposalModule?.name!!
+                                    }
+                                }
+                            }
+                        }
+                        is NetworkResult.Error -> {
+                            return ""
                         }
                     }
                 }
@@ -183,10 +236,19 @@ class DaoProposalListActivity : BaseActivity() {
             }
 
             override fun sectionCnt(pairs: List<Pair<String?, ProposalData?>>, position: Int): String {
-                daoViewModel.daoListData.value?.let { resDaoData ->
-                    resDaoData[intent.getIntExtra("position", -1)]?.proposal_modules?.forEach { proposalModule ->
-                        if (proposalModule?.address.equals(pairs[position].first)) {
-                            return (pairs.filter { item -> item.first.equals(proposalModule?.address) }.lastIndex + 1).toString()
+                daoViewModel.daoListData.value?.let { value ->
+                    when (value) {
+                        is NetworkResult.Success -> {
+                            value.data?.let { resDaoData ->
+                                resDaoData[intent.getIntExtra("position", -1)]?.proposal_modules?.forEach { proposalModule ->
+                                    if (proposalModule?.address.equals(pairs[position].first)) {
+                                        return (pairs.filter { item -> item.first.equals(proposalModule?.address) }.lastIndex + 1).toString()
+                                    }
+                                }
+                            }
+                        }
+                        is NetworkResult.Error -> {
+                            return ""
                         }
                     }
                 }
@@ -195,7 +257,7 @@ class DaoProposalListActivity : BaseActivity() {
         }
     }
 
-    private fun getProposals(pairs: List<Pair<String?, ProposalData?>>) : MutableList<Pair<String?, ProposalData?>> {
+    private fun getProposals(pairs: List<Pair<String?, ProposalData?>>): MutableList<Pair<String?, ProposalData?>> {
         var proposalPairs = mutableListOf<Pair<String?, ProposalData?>>()
         if (isShowAll) {
             proposalPairs = pairs.toMutableList()

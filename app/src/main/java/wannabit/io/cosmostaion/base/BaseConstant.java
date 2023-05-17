@@ -317,6 +317,8 @@ public class BaseConstant {
     //NFT Denom Default config
     public final static String STATION_NFT_DENOM = "station";
 
+    // Mintscan Api
+    public final static String MINTSCAN_API_URL = "https://api.mintscan.io/";
     //Dev Mintscan Api
     public final static String DEV_MINTSCAN_API_URL = "https://dev.api.mintscan.io/";
 

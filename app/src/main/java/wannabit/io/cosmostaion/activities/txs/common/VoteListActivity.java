@@ -161,7 +161,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
         if (mAccount == null) return;
         onShowWaitDialog();
 
-        ApiClient.getMintscan(VoteListActivity.this).getProposalLists(mChain).enqueue(new Callback<ArrayList<ResV1Proposal>>() {
+        ApiClient.getMintscan().getProposalLists(mChain).enqueue(new Callback<ArrayList<ResV1Proposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResV1Proposal>> call, Response<ArrayList<ResV1Proposal>> response) {
                 if (response.body() != null && response.isSuccessful()) {
@@ -215,7 +215,7 @@ public class VoteListActivity extends BaseActivity implements Serializable, View
     }
 
     private void loadStatus() {
-        ApiClient.getMintscan(VoteListActivity.this).getVoteStatus(mChain, mAccount.address).enqueue(new Callback<ResVoteStatus>() {
+        ApiClient.getMintscan().getVoteStatus(mChain, mAccount.address).enqueue(new Callback<ResVoteStatus>() {
             @Override
             public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
                 if (response.body() != null && response.isSuccessful() && response.body().votes != null) {

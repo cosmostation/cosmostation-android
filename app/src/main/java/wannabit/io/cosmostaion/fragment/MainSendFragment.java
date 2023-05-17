@@ -160,7 +160,7 @@ public class MainSendFragment extends BaseFragment {
 
     private void onNoticeView() {
         mNoticeView.setCardBackgroundColor(ContextCompat.getColor(getMainActivity(), mChainConfig.chainBgColor()));
-        ApiClient.getMintscan(getContext()).getNotice(mChainConfig.chainName(), true).enqueue(new Callback<ResNotice>() {
+        ApiClient.getMintscan().getNotice(mChainConfig.chainName(), true).enqueue(new Callback<ResNotice>() {
             @Override
             public void onResponse(Call<ResNotice> call, Response<ResNotice> response) {
                 if (response != null && response.body() != null && response.isSuccessful()) {

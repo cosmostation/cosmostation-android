@@ -114,7 +114,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
     private void loadProposals() {
         mVotingPeriodProposalsList.clear();
 
-        ApiClient.getMintscan(getActivity()).getProposalLists(getSActivity().mChainConfig.chainName()).enqueue(new Callback<ArrayList<ResV1Proposal>>() {
+        ApiClient.getMintscan().getProposalLists(getSActivity().mChainConfig.chainName()).enqueue(new Callback<ArrayList<ResV1Proposal>>() {
             @Override
             public void onResponse(Call<ArrayList<ResV1Proposal>> call, Response<ArrayList<ResV1Proposal>> response) {
                 if (response.body() != null && response.isSuccessful()) {
@@ -140,7 +140,7 @@ public class AuthzVoteStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private void loadStatus() {
-        ApiClient.getMintscan(getActivity()).getVoteStatus(getSActivity().mChainConfig.chainName(), mGranter).enqueue(new Callback<ResVoteStatus>() {
+        ApiClient.getMintscan().getVoteStatus(getSActivity().mChainConfig.chainName(), mGranter).enqueue(new Callback<ResVoteStatus>() {
             @Override
             public void onResponse(Call<ResVoteStatus> call, Response<ResVoteStatus> response) {
                 if (response.body() != null && response.isSuccessful() && response.body().votes != null) {

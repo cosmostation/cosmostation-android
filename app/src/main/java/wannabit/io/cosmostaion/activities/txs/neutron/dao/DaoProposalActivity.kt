@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -21,6 +22,7 @@ import wannabit.io.cosmostaion.fragment.txs.neutron.dao.DaoVoteStep3Fragment
 import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
 
+@AndroidEntryPoint
 class DaoProposalActivity : BaseBroadCastActivity() {
 
     private lateinit var binding: ActivityDaoProposalBinding

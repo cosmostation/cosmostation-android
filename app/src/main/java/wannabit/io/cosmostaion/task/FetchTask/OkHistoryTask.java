@@ -23,7 +23,7 @@ public class OkHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResOkHistory> response = ApiClient.getMintscan(mApp).getNewOkcTxs("ANDROID","okc", mAddress,"50").execute();
+            Response<ResOkHistory> response = ApiClient.getMintscan().getNewOkcTxs("ANDROID","okc", mAddress,"50").execute();
             if (response.isSuccessful() && response.body() != null) {
                 mResult.resultData = response.body().data.get(0).transactionLists;
                 mResult.isSuccess = true;

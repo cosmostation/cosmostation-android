@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
@@ -15,24 +16,21 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapStep3Binding
-import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.getTxResultIntent
 
+@AndroidEntryPoint
 class NeutronSwapStep3Fragment : BaseFragment() {
 
     private var _binding: FragmentNeutronSwapStep3Binding? = null
     private val binding get() = _binding!!
 
-    private lateinit var astroViewModel: AstroportViewModel
+    private val astroViewModel: AstroportViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentNeutronSwapStep3Binding.inflate(layoutInflater, container, false)
-        val astroportViewModelProviderFactory = AstroportViewModelProviderFactory(AstroportRepository())
-        astroViewModel = ViewModelProvider(this, astroportViewModelProviderFactory)[AstroportViewModel::class.java]
         return binding.root
     }
 

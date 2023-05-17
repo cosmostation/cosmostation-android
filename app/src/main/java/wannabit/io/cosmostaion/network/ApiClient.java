@@ -3,15 +3,11 @@ package wannabit.io.cosmostaion.network;
 import android.content.Context;
 
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.Map;
 
-import io.grpc.ManagedChannel;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -23,11 +19,11 @@ public class ApiClient {
 
     //Services for station mintscan api
     private static Station mintscan = null;
-    public static Station getMintscan(Context c) {
+    public static Station getMintscan() {
         if (mintscan == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_mintscan))
+                        .baseUrl(BaseConstant.MINTSCAN_API_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 mintscan = retrofit.create(Station.class);

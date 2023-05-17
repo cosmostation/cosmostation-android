@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.model.repository.neutron
 
-import android.content.Context
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
@@ -11,12 +10,16 @@ import wannabit.io.cosmostaion.base.chains.ChainConfig
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
-import wannabit.io.cosmostaion.network.req.neutron.*
+import wannabit.io.cosmostaion.network.req.neutron.ListMember
+import wannabit.io.cosmostaion.network.req.neutron.ListMemberReq
+import wannabit.io.cosmostaion.network.req.neutron.ProposalList
+import wannabit.io.cosmostaion.network.req.neutron.ProposalListReq
 import wannabit.io.cosmostaion.network.res.neutron.ResDaoData
 import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class DaoRepository {
+class DaoRepository @Inject constructor() {
 
     suspend fun getDaoData(chainConfig: ChainConfig): Response<List<ResDaoData>> {
         return ApiClient.getNeutron().getDaoData(chainConfig.chainName()).awaitResponse()
@@ -30,8 +33,8 @@ class DaoRepository {
         return null
     }
 
-    suspend fun getMyVoteStatus(c: Context, chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
-        return ApiClient.getMintscan(c).getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
+    suspend fun getMyVoteStatus(chainConfig: ChainConfig, account: Account): Response<List<ResMyVoteStatus>> {
+        return ApiClient.getMintscan().getDaoMyVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
     }
 
     fun getListMemberData(chainConfig: ChainConfig, contractAddress: String?): String? {

@@ -76,8 +76,8 @@ class VoteDetailActivity : BaseActivity() {
     }
 
     private fun onFetchProposal() {
-        voteViewModel.loadProposal(this, mChainConfig, mProposalId)
-        voteViewModel.loadMyVoteProposal(this, mChainConfig, mAccount)
+        voteViewModel.loadProposal(mChainConfig, mProposalId)
+        voteViewModel.loadMyVoteProposal(mChainConfig, mAccount)
     }
 
     private fun onObserve() {

@@ -3,10 +3,10 @@ package wannabit.io.cosmostaion.activities.txs.neutron.defi
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
@@ -16,17 +16,13 @@ import wannabit.io.cosmostaion.databinding.ActivityNeutronDefiBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.liquidity.NeutronLiquidityFragment
 import wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap.NeutronSwapFragment
-import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
-import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 
+@AndroidEntryPoint
 class NeutronDefiActivity : BaseActivity() {
 
     private lateinit var binding: ActivityNeutronDefiBinding
 
     private lateinit var mPageAdapter: NeutronDefiPageAdapter
-
-    private lateinit var astroportViewModel: AstroportViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +45,6 @@ class NeutronDefiActivity : BaseActivity() {
 
         createTab()
         onSetPageSelected()
-
-        val astroportViewModelProviderFactory = AstroportViewModelProviderFactory(AstroportRepository())
-        astroportViewModel = ViewModelProvider(this, astroportViewModelProviderFactory)[AstroportViewModel::class.java]
     }
 
     private fun onSetPageSelected() {

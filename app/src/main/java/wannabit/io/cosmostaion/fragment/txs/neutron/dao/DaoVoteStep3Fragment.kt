@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.dao.DaoProposalActivity
@@ -16,25 +17,22 @@ import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.databinding.FragmentDaoVoteStep3Binding
-import wannabit.io.cosmostaion.model.factory.neutron.DaoViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
 import wannabit.io.cosmostaion.model.viewModel.neutron.DaoViewModel
 import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.getTxResultIntent
 
+@AndroidEntryPoint
 class DaoVoteStep3Fragment : BaseFragment() {
 
     private var _binding: FragmentDaoVoteStep3Binding? = null
     private val binding get() = _binding!!
 
-    private lateinit var daoViewModel: DaoViewModel
+    private val daoViewModel: DaoViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDaoVoteStep3Binding.inflate(layoutInflater, container, false)
-        val daoViewModelFactory = DaoViewModelProviderFactory(DaoRepository())
-        daoViewModel = ViewModelProvider(this, daoViewModelFactory)[DaoViewModel::class.java]
         return binding.root
     }
 
@@ -92,8 +90,8 @@ class DaoVoteStep3Fragment : BaseFragment() {
             }
 
             val broadcastTxRequest = Signer.getGrpcContractReq(
-                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, it.mProposalModule.address, it.mAmount,
-                it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType)
+                WKey.onAuthResponse(it.mBaseChain, it.mAccount), req, it.mAccount.address, it.mProposalModule.address, it.mAmount, it.mTxFee, it.mTxMemo, WKey.getECKey(baseApplication, it.mAccount), baseDao.chainIdGrpc, it.mAccount.customPath, it.mBaseChain, it.mTxType
+            )
             daoViewModel.broadCastTx(it.mBaseChain, broadcastTxRequest)
         }
 

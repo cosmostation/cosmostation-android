@@ -3,31 +3,28 @@ package wannabit.io.cosmostaion.activities.txs.neutron.dao
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityDaoListBinding
-import wannabit.io.cosmostaion.model.factory.neutron.DaoViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.DaoRepository
+import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.viewModel.neutron.DaoViewModel
+import wannabit.io.cosmostaion.utils.makeToast
 
+@AndroidEntryPoint
 class DaoListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDaoListBinding
 
-    private lateinit var daoViewModel: DaoViewModel
+    private val daoViewModel: DaoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDaoListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val daoViewModelFactory = DaoViewModelProviderFactory(DaoRepository())
-        daoViewModel = ViewModelProvider(this, daoViewModelFactory)[DaoViewModel::class.java]
-
         initView()
         onSwipeRefresh()
         onClick()
@@ -72,10 +69,20 @@ class DaoListActivity : BaseActivity() {
 
     private fun loadDataObserve() {
         daoViewModel.daoListData.observe(this) { response ->
-            response?.let { daoData ->
-                binding.recycler.layoutManager = LinearLayoutManager(this@DaoListActivity)
-                binding.recycler.adapter = DaoListAdapter(this@DaoListActivity, baseDao, mChainConfig, daoData)
-                onUpdateView()
+            response?.let {
+                when (response) {
+                    is NetworkResult.Success -> {
+                        response.data?.let {
+                            binding.recycler.layoutManager = LinearLayoutManager(this@DaoListActivity)
+                            binding.recycler.adapter = DaoListAdapter(this@DaoListActivity, baseDao, mChainConfig, it)
+                        }
+                        onUpdateView()
+                    }
+                    is NetworkResult.Error -> {
+                        makeToast(response.message ?: "Unknown error message")
+                        finish()
+                    }
+                }
             } ?: run {
                 // github disconncet
             }

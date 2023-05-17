@@ -360,7 +360,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             getBaseDao().setCurrency(value);
             onUpdateCurrency();
 
-            ApiClient.getMintscan(getBaseApplication()).getPrice(getBaseDao().getCurrencyString().toLowerCase()).enqueue(new Callback<ArrayList<Price>>() {
+            ApiClient.getMintscan().getPrice(getBaseDao().getCurrencyString().toLowerCase()).enqueue(new Callback<ArrayList<Price>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Price>> call, Response<ArrayList<Price>> response) {
                     if (response.isSuccessful() && response.body() != null) {

@@ -20,7 +20,7 @@ public class MintScanAssetsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResAssets> response = ApiClient.getMintscan(mApp).getAssets().execute();
+            Response<ResAssets> response = ApiClient.getMintscan().getAssets().execute();
             if (!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = ERROR_CODE_NETWORK;

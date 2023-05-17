@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.model.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
@@ -16,8 +15,8 @@ class VoteViewModel : BaseViewModel() {
     private var _proposal = MutableLiveData<ResProposal>()
     val proposal: LiveData<ResProposal> get() = _proposal
 
-    fun loadProposal(c: Context, chainConfig: ChainConfig, proposalId: String) = scope.launch {
-        val response = ApiClient.getMintscan(c).getProposal(chainConfig.chainName(), proposalId).awaitResponse()
+    fun loadProposal(chainConfig: ChainConfig, proposalId: String) = scope.launch {
+        val response = ApiClient.getMintscan().getProposal(chainConfig.chainName(), proposalId).awaitResponse()
 
         if (response.isSuccessful) {
             _proposal.postValue(response.body())
@@ -27,8 +26,8 @@ class VoteViewModel : BaseViewModel() {
     private var _myVote = MutableLiveData<ResVoteStatus>()
     val myVote: LiveData<ResVoteStatus> get() = _myVote
 
-    fun loadMyVoteProposal(c: Context, chainConfig: ChainConfig, account: Account) = scope.launch {
-        val response = ApiClient.getMintscan(c).getVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
+    fun loadMyVoteProposal(chainConfig: ChainConfig, account: Account) = scope.launch {
+        val response = ApiClient.getMintscan().getVoteStatus(chainConfig.chainName(), account.address).awaitResponse()
 
         if (response.isSuccessful) {
             _myVote.postValue(response.body())

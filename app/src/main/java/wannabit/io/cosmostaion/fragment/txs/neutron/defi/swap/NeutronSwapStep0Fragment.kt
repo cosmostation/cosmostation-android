@@ -10,15 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.walletconnect.util.Empty
+import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentNeutronSwapStep0Binding
-import wannabit.io.cosmostaion.model.factory.neutron.AstroportViewModelProviderFactory
-import wannabit.io.cosmostaion.model.repository.neutron.AstroportRepository
+import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.viewModel.neutron.AstroportViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
@@ -26,12 +26,13 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 
+@AndroidEntryPoint
 class NeutronSwapStep0Fragment : BaseFragment() {
 
     private var _binding: FragmentNeutronSwapStep0Binding? = null
     private val binding get() = _binding!!
 
-    private lateinit var astroportViewModel: AstroportViewModel
+    private val astroportViewModel: AstroportViewModel by viewModels()
 
     private var inputCoinDecimal = 0
     private var outputCoinDecimal = 0
@@ -43,8 +44,6 @@ class NeutronSwapStep0Fragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentNeutronSwapStep0Binding.inflate(layoutInflater, container, false)
-        val astroportViewModelProviderFactory = AstroportViewModelProviderFactory(AstroportRepository())
-        astroportViewModel = ViewModelProvider(this, astroportViewModelProviderFactory)[AstroportViewModel::class.java]
         return binding.root
     }
 
@@ -163,7 +162,17 @@ class NeutronSwapStep0Fragment : BaseFragment() {
 
         astroportViewModel.swapRateData.observe(viewLifecycleOwner) { response ->
             response?.let {
-                onUpdateOutputTextView(it.return_amount)
+                when (response) {
+                    is NetworkResult.Success -> {
+                        response.data?.let { data ->
+                            onUpdateOutputTextView(data.return_amount)
+                        }
+                    }
+                    is NetworkResult.Error -> {
+                        requireContext().makeToast(response.message ?: "Unknown error message")
+                        requireActivity().finish()
+                    }
+                }
             } ?: run {
                 onUpdateOutputTextView(StringUtils.EMPTY)
             }

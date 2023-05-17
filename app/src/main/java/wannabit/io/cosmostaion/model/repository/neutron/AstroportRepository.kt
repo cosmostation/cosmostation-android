@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.model.repository.neutron
 
-import android.content.Context
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import cosmwasm.wasm.v1.QueryGrpc
@@ -14,11 +13,12 @@ import wannabit.io.cosmostaion.network.req.neutron.*
 import wannabit.io.cosmostaion.network.res.neutron.Pair
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class AstroportRepository {
+class AstroportRepository @Inject constructor() {
 
-    suspend fun getSwapPairData(c: Context, chainConfig: ChainConfig): Response<ArrayList<ResPairData>> {
-        return ApiClient.getMintscan(c).getSwapPairData(chainConfig.chainName()).awaitResponse()
+    suspend fun getSwapPairData(chainConfig: ChainConfig): Response<ArrayList<ResPairData>> {
+        return ApiClient.getMintscan().getSwapPairData(chainConfig.chainName()).awaitResponse()
     }
 
     fun getSwapRateData(chainConfig: ChainConfig, inputCoin: Pair?, inputAmount: String, outputCoin: Pair?, contractAddress: String?): String? {
