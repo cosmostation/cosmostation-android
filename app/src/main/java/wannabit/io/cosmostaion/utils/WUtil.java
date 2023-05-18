@@ -1092,14 +1092,8 @@ public class WUtil {
     }
 
     public static BigDecimal getKavaPrice(BaseData baseData, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        if ("usdx".equals(denom)) {
-            result = BigDecimal.ONE;
-        } else {
-            Hard.Params hardParam = baseData.mHardParams;
-            result = baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, denom));
-        }
-        return result;
+        Hard.Params hardParam = baseData.mHardParams;
+        return baseData.getKavaOraclePrice(WUtil.getSpotMarketId(hardParam, denom));
     }
 
     public static BigDecimal getHardSuppliedAmountByDenom(Context context, BaseData baseData, String denom, ArrayList<kava.hard.v1beta1.QueryOuterClass.DepositResponse> myDeposit) {
@@ -1160,14 +1154,8 @@ public class WUtil {
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue = BigDecimal.ZERO;
-                if ("usdx".equalsIgnoreCase(coin.getDenom())) {
-                    depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
-
-                } else {
-                    BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
-                    depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
-
-                }
+                BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
+                depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
                 ltvValue = depositValue.multiply(LTV);
                 totalLTVValue = totalLTVValue.add(ltvValue);
             }
@@ -1177,14 +1165,8 @@ public class WUtil {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
                 int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal borrowedValue = BigDecimal.ZERO;
-                if ("usdx".equalsIgnoreCase(coin.getDenom())) {
-                    borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
-
-                } else {
-                    BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
-                    borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
-
-                }
+                BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
+                borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
                 totalBorrowedValue = totalBorrowedValue.add(borrowedValue);
             }
         }
@@ -1220,7 +1202,6 @@ public class WUtil {
         BigDecimal totalLTVValue = BigDecimal.ZERO;
         BigDecimal totalBorrowedValue = BigDecimal.ZERO;
         BigDecimal totalBorrowAbleValue = BigDecimal.ZERO;
-        BigDecimal totalBorrowAbleAmount = BigDecimal.ZERO;
 
         BigDecimal SystemBorrowableAmount = BigDecimal.ZERO;
         BigDecimal SystemBorrowableValue = BigDecimal.ZERO;
@@ -1238,14 +1219,8 @@ public class WUtil {
                 BigDecimal LTV = WUtil.getLTV(hardParam, coin.getDenom());
                 BigDecimal depositValue = BigDecimal.ZERO;
                 BigDecimal ltvValue = BigDecimal.ZERO;
-                if ("usdx".equalsIgnoreCase(coin.getDenom())) {
-                    depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
-
-                } else {
-                    BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
-                    depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
-
-                }
+                BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
+                depositValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
                 ltvValue = depositValue.multiply(LTV);
                 totalLTVValue = totalLTVValue.add(ltvValue);
 
@@ -1256,19 +1231,12 @@ public class WUtil {
             for (CoinOuterClass.Coin coin : myBorrow.get(0).getAmountList()) {
                 int innnerDecimal = WDp.getDenomDecimal(baseData, ChainFactory.getChain(KAVA_MAIN), coin.getDenom());
                 BigDecimal borrowedValue = BigDecimal.ZERO;
-                if ("usdx".equals(coin.getDenom())) {
-                    borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal);
-
-                } else {
-                    BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
-                    borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
-
-                }
+                BigDecimal innerPrice = getKavaPrice(baseData, coin.getDenom());
+                borrowedValue = (new BigDecimal(coin.getAmount())).movePointLeft(innnerDecimal).multiply(innerPrice);
                 totalBorrowedValue = totalBorrowedValue.add(borrowedValue);
             }
         }
         totalBorrowAbleValue = (totalLTVValue.subtract(totalBorrowedValue)).max(BigDecimal.ZERO);
-        totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal).divide(denomPrice, decimal, RoundingMode.DOWN);
 
         if (moduleCoins != null) {
             for (Coin coin : moduleCoins) {

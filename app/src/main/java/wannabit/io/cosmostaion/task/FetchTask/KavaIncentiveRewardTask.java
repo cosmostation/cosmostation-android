@@ -4,8 +4,8 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -24,9 +24,9 @@ public class KavaIncentiveRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResKavaIncentiveReward> response = ApiClient.getKavaChain().getIncentiveReward5(mAccount.address).execute();
-            if (response.isSuccessful() && response.body() != null && response.body().result != null) {
-                mResult.resultData = response.body().result;
+            Response<IncentiveReward> response = ApiClient.getKavaChain().getIncentiveReward5(mAccount.address).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                mResult.resultData = response.body();
                 mResult.isSuccess = true;
             }
 

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.txs.kava;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_INTEREST_RATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_BORROW;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_HARD_MY_DEPOSIT;
@@ -34,11 +35,12 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.network.res.kava.ResKavaModuleAccount;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardModuleAccountTask;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardInterestRateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardMyBorrowGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.KavaHardMyDepositGrpcTask;
@@ -125,7 +127,6 @@ public class HardDetailActivity extends BaseActivity {
     }
 
     private int mTaskCount = 0;
-
     public void onFetchHardInfo() {
         mInterestRates.clear();
         mModuleCoins.clear();
@@ -155,8 +156,9 @@ public class HardDetailActivity extends BaseActivity {
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT) {
             if (result.isSuccess && result.resultData != null) {
-                mModuleCoins = (ArrayList<Coin>) result.resultData;
-                getBaseDao().mModuleCoins = mModuleCoins;
+                ResKavaModuleAccount moduleAccount = (ResKavaModuleAccount) result.resultData;
+                mTaskCount += 1;
+                new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, moduleAccount.getAccounts().get(0).getAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_KAVA_HARD_RESERVES) {
@@ -187,6 +189,14 @@ public class HardDetailActivity extends BaseActivity {
                 getBaseDao().mMyHardBorrows = mMyBorrow;
             }
 
+        } else if (result.taskType == TASK_GRPC_FETCH_BALANCE) {
+            if (result.isSuccess && result.resultData != null) {
+                ArrayList<CoinOuterClass.Coin> tempList = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                for (CoinOuterClass.Coin coin : tempList) {
+                    mModuleCoins.add(new Coin(coin.getDenom(), coin.getAmount()));
+                }
+                getBaseDao().mModuleCoins = mModuleCoins;
+            }
         }
 
         if (mTaskCount == 0) {
