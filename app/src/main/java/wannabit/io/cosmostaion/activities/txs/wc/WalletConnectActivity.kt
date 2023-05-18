@@ -288,16 +288,12 @@ class WalletConnectActivity : BaseActivity() {
                                 )
                             }
                         }
-                        val approveProposal = Sign.Params.Approve(
-                            proposerPublicKey = sessionProposal.proposerPublicKey, namespaces = sessionNamespaces
-                        )
+                        val approveProposal = Sign.Params.Approve(proposerPublicKey = sessionProposal.proposerPublicKey, namespaces = sessionNamespaces)
 
                         if (!connectType.isDapp()) {
                             setupConnectInfoView(sessionProposal)
                         } else {
-                            changeDappConnectStatus(
-                                true
-                            )
+                            changeDappConnectStatus(true)
                             binding.loadingLayer.apply {
                                 postDelayed({ visibility = View.GONE }, 2500)
                             }
@@ -337,20 +333,14 @@ class WalletConnectActivity : BaseActivity() {
                             showAccountDialog(listOf(chainId), mutableListOf()) { accounts ->
                                 val v2Accounts = accounts.map { toV2Account(it) }
                                 val response = Sign.Params.Response(
-                                    sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
-                                        id, Gson().toJson(v2Accounts)
-                                    )
+                                    sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(id, Gson().toJson(v2Accounts))
                                 )
                                 SignClient.respond(response) { error ->
                                     Log.e("WCV2", error.throwable.stackTraceToString())
                                 }
                             }
                         } ?: run {
-                            val response = Sign.Params.Response(
-                                sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(
-                                    id, 500, "No account"
-                                )
-                            )
+                            val response = Sign.Params.Response(sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcError(id, 500, "No account"))
                             SignClient.respond(response) { error ->
                                 Log.e("WCV2", error.throwable.stackTraceToString())
                             }
@@ -422,7 +412,9 @@ class WalletConnectActivity : BaseActivity() {
     }
 
     private val processGetAccounts: (Long) -> Unit = { id: Long ->
-        wcV1Client?.approveRequest(id, generateWCDefaultAccount())
+        showAccountDialog(listOf("kava_2222-10"), mutableListOf()) { accounts ->
+            wcV1Client?.approveRequest(id, accounts.map { WCAccount(459, it.address) })
+        }
     }
 
     private val processKeplrEnable = { id: Long, chains: List<String> ->
@@ -577,23 +569,12 @@ class WalletConnectActivity : BaseActivity() {
         runOnUiThread {
             var url: String? = wcPeerMeta.url
             if (connectType.isDapp()) {
-                url = Uri.parse(
-                    binding.dappWebView.url
-                ).host
+                url = Uri.parse(binding.dappWebView.url).host
             }
-            if (getWhiteList(
-                    this
-                ).contains(
-                    url
-                )
-            ) {
-                processSessionRequest(
-                    wcPeerMeta
-                )
+            if (getWhiteList(this).contains(url)) {
+                processSessionRequest(wcPeerMeta)
             } else {
-                showWhitelistAlert(
-                    url, wcPeerMeta
-                )
+                showWhitelistAlert(url, wcPeerMeta)
             }
         }
     }
@@ -701,65 +682,37 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private fun processSessionRequest(
-        wcPeerMeta: WCPeerMeta
-    ) {
+    private fun processSessionRequest(wcPeerMeta: WCPeerMeta) {
         wcV1PeerMeta = wcPeerMeta
         if (!connectType.isDapp()) {
             setupConnectInfoView(wcPeerMeta)
         } else {
-            changeDappConnectStatus(
-                true
-            )
+            changeDappConnectStatus(true)
             binding.loadingLayer.apply {
-                postDelayed(
-                    {
-                        visibility = View.GONE
-                    }, 2500
-                )
+                postDelayed({ visibility = View.GONE }, 2500)
             }
         }
-        Toast.makeText(
-            baseContext, getString(
-                R.string.str_wc_connected
-            ), Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(baseContext, getString(R.string.str_wc_connected), Toast.LENGTH_SHORT).show()
 
         mBaseChain?.let { baseChain ->
             loadedAccountMap[mBaseChain.chain]?.let { account ->
                 when (baseChain) {
                     BaseChain.EVMOS_MAIN -> {
-                        wcV1Client?.approveSession(
-                            listOf(
-                                WKey.generateEthAddressFromPrivateKey(
-                                    getPrivateKey(
-                                        account
-                                    )
-                                )
-                            ), 9001
-                        )
+                        wcV1Client?.approveSession(listOf(WKey.generateEthAddressFromPrivateKey(getPrivateKey(account))), 9001)
                         return
                     }
                     else -> {
-                        wcV1Client?.approveSession(
-                            listOf(
-                                account.address
-                            ), 1
-                        )
+                        wcV1Client?.approveSession(listOf(account.address), 1)
                         return
                     }
                 }
             }
         }
 
-        wcV1Client?.approveSession(
-            listOf(), 1
-        )
+        wcV1Client?.approveSession(listOf(), 1)
     }
 
-    private fun processEthSign(
-        id: Long, signMessage: WCEthereumSignMessage
-    ) {
+    private fun processEthSign(id: Long, signMessage: WCEthereumSignMessage) {
         try {
             loadedAccountMap[mBaseChain.chain]?.let { account ->
                 val credentials = Credentials.create(
@@ -876,20 +829,6 @@ class WalletConnectActivity : BaseActivity() {
         }
     }
 
-    private fun generateWCDefaultAccount(): List<WCAccount> {
-        if (mBaseChain == BaseChain.KAVA_MAIN) {
-            loadedAccountMap[mBaseChain.chain]?.let {
-                return listOf(
-                    WCAccount(
-                        459, it.address
-                    )
-                )
-            }
-        }
-
-        return listOf()
-    }
-
     private fun convertKavaTx(txString: String): JSONObject {
         val kavaTx = JSONObject()
         val jsonTx = JSONObject(txString)
@@ -924,19 +863,13 @@ class WalletConnectActivity : BaseActivity() {
     fun approveTrustRequest(id: Long, wcSignTransaction: String) {
         try {
             val kavaTx = convertKavaTx(wcSignTransaction)
-            val broadcaseReq = MsgGenerator.getKavaWcBroadcastReq(
-                kavaTx, getKey(WDp.getChainTypeByChainId(kavaTx.getString("chain_id")).chain)
-            )
+            val broadcaseReq = MsgGenerator.getKavaWcBroadcastReq(kavaTx, getKey(WDp.getChainTypeByChainId(kavaTx.getString("chain_id")).chain))
             val result = GsonBuilder().disableHtmlEscaping().create().toJson(broadcaseReq)
             wcV1Client?.approveRequest(id, result)
-            Toast.makeText(
-                baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
             wcV1Client?.rejectRequest(id, "Signing error.")
-            Toast.makeText(
-                baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(baseContext, getString(R.string.str_unknown_error), Toast.LENGTH_SHORT).show()
         }
         moveToBackIfNeed()
     }
