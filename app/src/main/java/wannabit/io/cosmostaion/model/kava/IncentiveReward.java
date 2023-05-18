@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class IncentiveReward {
-    @SerializedName("hard_claims")
+    @SerializedName("hard_liquidity_provider_claims")
     public ArrayList<HardClaim> hard_claims;
 
     @SerializedName("usdx_minting_claims")
