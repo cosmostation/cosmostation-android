@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.base.chains;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import wannabit.io.cosmostaion.R;
@@ -30,7 +31,7 @@ public class Omniflix extends ChainConfig {
     public String grpcUrl() { return "grpc-omniflix.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "omniflix/"; }
-    public String homeInfoLink() { return  "https://www.omniflix.network"; }
-    public String blogInfoLink() { return  "https://blog.omniflix.network"; }
-    public String coingeckoLink() { return  ""; }
+    public String homeInfoLink() { return "https://www.omniflix.network"; }
+    public String blogInfoLink() { return "https://blog.omniflix.network"; }
+    public String coingeckoLink() { return COINGECKO_URL + "omniflix-network"; }
 }
