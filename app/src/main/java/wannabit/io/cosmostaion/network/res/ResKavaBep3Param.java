@@ -10,11 +10,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResKavaBep3Param {
-    @SerializedName("height")
-    public String height;
-
-    @SerializedName("result")
-    public KavaBep3AssetParams result;
+    @SerializedName("params")
+    public KavaBep3AssetParams params;
 
 
     public class KavaBep3AssetParams {
@@ -72,7 +69,7 @@ public class ResKavaBep3Param {
 
 
     public KavaBep3AssetParam getSupportedSwapAsset(String denom) {
-        for (KavaBep3AssetParam asset:result.asset_params) {
+        for (KavaBep3AssetParam asset:params.asset_params) {
             if (denom.toLowerCase().startsWith(asset.denom.toLowerCase())) {
                 return asset;
             }

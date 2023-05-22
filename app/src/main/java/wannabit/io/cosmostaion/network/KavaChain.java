@@ -13,13 +13,13 @@ import wannabit.io.cosmostaion.network.res.kava.ResKavaModuleAccount;
 
 public interface KavaChain {
 
-    @GET("bep3/parameters")
+    @GET("kava/bep3/v1beta1/params")
     Call<ResKavaBep3Param> getSwapParams2();
 
-    @GET("bep3/swap/{swapId}")
+    @GET("kava/bep3/v1beta1/atomicswap/{swapId}")
     Call<ResKavaSwapInfo> getSwapById(@Path("swapId") String swapId);
 
-    @GET("bep3/supplies")
+    @GET("kava/bep3/v1beta1/assetsupplies")
     Call<ResKavaSwapSupply> getSupplies2();
 
     @GET("cdp/cdps/cdp/deposits/{address}/{denom}")
