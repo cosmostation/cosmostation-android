@@ -22,7 +22,7 @@ public interface KavaChain {
     @GET("kava/bep3/v1beta1/assetsupplies")
     Call<ResKavaSwapSupply> getSupplies2();
 
-    @GET("cdp/cdps/cdp/deposits/{address}/{denom}")
+    @GET("kava/cdp/v1beta1/cdps/deposits/{address}/{denom}")
     Call<ResCdpDepositStatus> getCdpDepositStatus(@Path("address") String address, @Path("denom") String denom);
 
     @GET("kava/incentive/v1beta1/rewards")
