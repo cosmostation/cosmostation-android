@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Asset;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
@@ -81,7 +82,9 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mChainConfig = ChainFactory.getChain(BaseChain.getChain(mAccount.baseChain));
         mMainDenom = mChainConfig.mainDenom();
 
-        if (getBaseDao().onParseRemainVestingsByDenom(mChainConfig.mainDenom()).size() > 0) mHasVesting = true;
+        if (getBaseDao().onParseRemainVestingsByDenom(mChainConfig.mainDenom()).size() > 0 || getBaseDao().mResVestingData.getVestingAmount() != null) {
+            mHasVesting = true;
+        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

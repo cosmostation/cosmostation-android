@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -83,11 +84,17 @@ public class TokenDetailHolder extends BaseHolder {
         if (chain.equals(BaseChain.NEUTRON_MAIN) || chain.equals(BaseChain.NEUTRON_TEST)) {
             BigDecimal availableAmount = baseData.getAvailable(denom);
             BigDecimal bondAmount = baseData.getVaultAmount();
-            BigDecimal totalAmount = availableAmount.add(bondAmount);
+            BigDecimal vestingAmount = baseData.getNeutronVestingAmount();
+            BigDecimal totalAmount = availableAmount.add(bondAmount).add(vestingAmount);
 
             mTotalAmount.setText(WDp.getDpAmount2(totalAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mAvailableAmount.setText(WDp.getDpAmount2(availableAmount, stakingDivideDecimal, stakingDisplayDecimal));
             mBondedAmount.setText(WDp.getDpAmount2(bondAmount, stakingDivideDecimal, stakingDisplayDecimal));
+
+            if (vestingAmount.compareTo(BigDecimal.ZERO) > 0) {
+                mVestingLayer.setVisibility(View.VISIBLE);
+                mVestingAmount.setText(WDp.getDpAmount2(vestingAmount, stakingDivideDecimal, stakingDisplayDecimal));
+            }
 
         } else if (chain.equals(BaseChain.NOBLE_MAIN)) {
             BigDecimal availableAmount = baseData.getAvailable(denom);

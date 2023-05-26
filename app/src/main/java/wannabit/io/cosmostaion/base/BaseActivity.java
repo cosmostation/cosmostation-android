@@ -29,6 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_KAVA_PRICES;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NEUTRON_VESTING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ICNS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARGAZE_NS;
@@ -120,6 +121,7 @@ import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
+import wannabit.io.cosmostaion.network.res.neutron.ResVestingData;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
@@ -157,6 +159,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.VaultBalanceGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.VestingGrpcTask;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -571,6 +574,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mNameServices.clear();
 
         getBaseDao().mVaultAmount = null;
+        getBaseDao().mResVestingData = null;
 
 
         if (mBaseChain.equals(BNB_MAIN)) {
@@ -633,11 +637,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new KavaIncentiveRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(NEUTRON_MAIN) || mBaseChain.equals(NEUTRON_TEST)) {
-            mTaskCount = 4;
+            mTaskCount = 5;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new VaultListDataTask(getBaseApplication(), this, mChainConfig).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new VestingGrpcTask(getBaseApplication(), this, mChainConfig, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (isGRPC(mBaseChain)) {
             mTaskCount = 9;
@@ -900,6 +905,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (!TextUtils.isEmpty(icnsName)) {
                     mNameServices.add(new NameService(NameService.NameServiceType.STARGAZE, icnsName, mAccount.address));
                 }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_NEUTRON_VESTING) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mResVestingData = (ResVestingData) result.resultData;
             }
         }
 

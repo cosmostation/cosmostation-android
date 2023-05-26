@@ -65,35 +65,43 @@ public class VestingHolder extends BaseHolder {
     private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
         final ChainConfig chainConfig = ChainFactory.getChain(chain);
         int decimal = WDp.getDenomDecimal(baseData, chainConfig, denom);
-        ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
-        mVestingCnt.setText("" + vps.size());
+        if (chainConfig.baseChain().equals(BaseChain.NEUTRON_MAIN) || chainConfig.baseChain().equals(BaseChain.NEUTRON_TEST)) {
+            mVestingCnt.setText("1");
+            mVestingTime0.setText(WDp.getDpTime(c, baseData.getNeutronVestingDuration()));
+            mVestingGap0.setText(WDp.getGapTime(baseData.getNeutronVestingDuration()));
+            mVestingAmount0.setText(WDp.getDpAmount2(baseData.getNeutronVestingAmount(), decimal, decimal));
 
-        mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
-        mVestingGap0.setText(WDp.getGapTime(vps.get(0).getLength()));
-        mVestingAmount0.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(0), denom), decimal, decimal));
-        if (vps.size() > 1) {
-            mVestingLayer1.setVisibility(View.VISIBLE);
-            mVestingTime1.setText(WDp.getDpTime(c, vps.get(1).getLength()));
-            mVestingGap1.setText(WDp.getGapTime(vps.get(1).getLength()));
-            mVestingAmount1.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(1), denom), decimal, decimal));
-        }
-        if (vps.size() > 2) {
-            mVestingLayer2.setVisibility(View.VISIBLE);
-            mVestingTime2.setText(WDp.getDpTime(c, vps.get(2).getLength()));
-            mVestingGap2.setText(WDp.getGapTime(vps.get(2).getLength()));
-            mVestingAmount2.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(2), denom), decimal, decimal));
-        }
-        if (vps.size() > 3) {
-            mVestingLayer3.setVisibility(View.VISIBLE);
-            mVestingTime3.setText(WDp.getDpTime(c, vps.get(3).getLength()));
-            mVestingGap3.setText(WDp.getGapTime(vps.get(3).getLength()));
-            mVestingAmount3.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(3), denom), decimal, decimal));
-        }
-        if (vps.size() > 4) {
-            mVestingLayer4.setVisibility(View.VISIBLE);
-            mVestingTime4.setText(WDp.getDpTime(c, vps.get(4).getLength()));
-            mVestingGap4.setText(WDp.getGapTime(vps.get(4).getLength()));
-            mVestingAmount4.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(4), denom), decimal, decimal));
+        } else {
+            ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
+            mVestingCnt.setText("" + vps.size());
+
+            mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
+            mVestingGap0.setText(WDp.getGapTime(vps.get(0).getLength()));
+            mVestingAmount0.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(0), denom), decimal, decimal));
+            if (vps.size() > 1) {
+                mVestingLayer1.setVisibility(View.VISIBLE);
+                mVestingTime1.setText(WDp.getDpTime(c, vps.get(1).getLength()));
+                mVestingGap1.setText(WDp.getGapTime(vps.get(1).getLength()));
+                mVestingAmount1.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(1), denom), decimal, decimal));
+            }
+            if (vps.size() > 2) {
+                mVestingLayer2.setVisibility(View.VISIBLE);
+                mVestingTime2.setText(WDp.getDpTime(c, vps.get(2).getLength()));
+                mVestingGap2.setText(WDp.getGapTime(vps.get(2).getLength()));
+                mVestingAmount2.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(2), denom), decimal, decimal));
+            }
+            if (vps.size() > 3) {
+                mVestingLayer3.setVisibility(View.VISIBLE);
+                mVestingTime3.setText(WDp.getDpTime(c, vps.get(3).getLength()));
+                mVestingGap3.setText(WDp.getGapTime(vps.get(3).getLength()));
+                mVestingAmount3.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(3), denom), decimal, decimal));
+            }
+            if (vps.size() > 4) {
+                mVestingLayer4.setVisibility(View.VISIBLE);
+                mVestingTime4.setText(WDp.getDpTime(c, vps.get(4).getLength()));
+                mVestingGap4.setText(WDp.getGapTime(vps.get(4).getLength()));
+                mVestingAmount4.setText(WDp.getDpAmount2(WDp.getAmountVp(vps.get(4), denom), decimal, decimal));
+            }
         }
     }
 }

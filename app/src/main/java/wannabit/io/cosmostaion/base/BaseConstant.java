@@ -137,6 +137,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_STARGAZE_NS = 4311;
     public final static int TASK_GRPC_FETCH_VAULT_LIST = 4312;
     public final static int TASK_GRPC_FETCH_VAULT_BALANCE = 4313;
+    public final static int TASK_GRPC_FETCH_NEUTRON_VESTING = 4314;
 
 
     public final static String COSMOS_AUTH_TYPE_STDTX = "auth/StdTx";
@@ -294,6 +295,10 @@ public class BaseConstant {
     // ICNS Contract Address
     public final static String ICNS_OSMOSIS_ADDRESS = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd";
     public final static String NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr";
+
+
+    // Neutron Contract Address
+    public final static String NEUTRON_VESTING_CONTRACT_ADDRESS = "neutron1h6828as2z5av0xqtlh4w9m75wxewapk8z9l2flvzc29zeyzhx6fqgp648z";
 
     public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
 
