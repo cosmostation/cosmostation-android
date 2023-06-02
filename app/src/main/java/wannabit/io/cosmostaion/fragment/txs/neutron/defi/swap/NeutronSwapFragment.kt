@@ -2,15 +2,12 @@ package wannabit.io.cosmostaion.fragment.txs.neutron.defi.swap
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronDefiActivity
 import wannabit.io.cosmostaion.activities.txs.neutron.defi.NeutronSwapActivity
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.BaseFragment
@@ -60,30 +57,30 @@ class NeutronSwapFragment : BaseFragment() {
         astroportViewModel.swapPairData.observe(viewLifecycleOwner) { response ->
             baseActivity.onHideWaitDialog()
             response?.let { pairDataList ->
-                if (pairDataList.size <= 0) {
+                swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
+
+                if (swapPools.size <= 0) {
                     binding.emptyLayout.visibility = View.VISIBLE
                     binding.swapLayout.visibility = View.GONE
+                    return@let
 
                 } else {
                     binding.emptyLayout.visibility = View.GONE
                     binding.swapLayout.visibility = View.VISIBLE
-
-                    swapPools = pairDataList.filter { item -> BigDecimal(item.total_share) != BigDecimal.ZERO } as ArrayList<ResPairData>
-
-                    swapPools.forEach { pool ->
-                        pool.pairs.forEach { pair ->
-                            if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
-                                allPairs.add(pair)
-                            }
+                }
+                swapPools.forEach { pool ->
+                    pool.pairs.forEach { pair ->
+                        if (allPairs.firstOrNull { item -> item.type == pair.type && item.address == pair.address && item.denom == pair.denom } == null) {
+                            allPairs.add(pair)
                         }
                     }
-                    selectedPool = swapPools[0]
-                    selectedPool?.let {
-                        inputCoin = it.pairs[0]
-                        outputCoin = it.pairs[1]
-                    }
-                    onUpdateView()
                 }
+                selectedPool = swapPools[0]
+                selectedPool?.let {
+                    inputCoin = it.pairs[0]
+                    outputCoin = it.pairs[1]
+                }
+                onUpdateView()
             }
         }
     }
@@ -214,9 +211,5 @@ class NeutronSwapFragment : BaseFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun getSActivity(): NeutronDefiActivity? {
-        return baseActivity as NeutronDefiActivity?
     }
 }
