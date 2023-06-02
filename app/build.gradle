@@ -111,7 +111,7 @@ dependencies {
     //shimmer
     implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
     //for qr code
-    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     //permission check
     implementation 'gun0912.ted:tedpermission:1.0.3'
     //circle Image

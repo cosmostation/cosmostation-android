@@ -2,23 +2,17 @@ package wannabit.io.cosmostaion.widget.mainWallet;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 
-import android.Manifest;
-import android.text.Html;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -26,7 +20,6 @@ import wannabit.io.cosmostaion.activities.QRcodeActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -66,23 +59,11 @@ public class WalletBinanceHolder extends BaseHolder {
                 mainActivity.onInsertKeyDialog();
                 return;
             }
-            new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
-                        @Override
-                        public void onPermissionGranted() {
-                            IntentIntegrator integrator = new IntentIntegrator(mainActivity);
-                            integrator.setOrientationLocked(true);
-                            integrator.setCaptureActivity(QRcodeActivity.class);
-                            mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent());
-                        }
-
-                        @Override
-                        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                            Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .setRationaleMessage(mainActivity.getString(R.string.str_permission_qr))
-                    .check();
+            
+            IntentIntegrator integrator = new IntentIntegrator(mainActivity);
+            integrator.setOrientationLocked(true);
+            integrator.setCaptureActivity(QRcodeActivity.class);
+            mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent());
         });
         mBtnBep3Send.setOnClickListener(v -> mainActivity.onStartHTLCSendActivity(TOKEN_HTLC_BINANCE_BNB));
     }
