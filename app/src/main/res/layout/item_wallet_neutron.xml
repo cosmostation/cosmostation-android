@@ -103,6 +103,30 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/vesting_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8">
+
+                <TextView
+                    android:id="@+id/vesting_title"
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_vesting" />
+
+                <TextView
+                    android:id="@+id/chain_vesting"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/vesting_title"
+                    android:gravity="end"
+                    android:text="-" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">

@@ -85,6 +85,31 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/vesting_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/font_rr_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_vesting" />
+
+                <TextView
+                    android:id="@+id/vesting_amount"
+                    style="@style/font_rr_12_black_daynight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:ellipsize="middle"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:text="-" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/bonded_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -16,7 +16,10 @@ import wannabit.io.cosmostaion.activities.txs.neutron.vault.VaultListActivity
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ItemWalletNeutronBinding
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WLog
+import wannabit.io.cosmostaion.utils.visibleOrGone
 import wannabit.io.cosmostaion.widget.BaseHolder
+import java.math.BigDecimal
 
 class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
 
@@ -32,15 +35,18 @@ class WalletNeutronHolder(itemView: View) : BaseHolder(itemView) {
         val decimal = WDp.getDenomDecimal(baseData, chainConfig, denom)
 
         val availableAmount = baseData.getAvailable(denom)
+        val vestingAmount = baseData.neutronVestingAmount
         val bondAmount = baseData.vaultAmount
-        val totalAmount = availableAmount.add(bondAmount)
+        val totalAmount = availableAmount.add(bondAmount).add(vestingAmount)
 
         binding.apply {
             chainAmount.text = WDp.getDpAmount2(totalAmount, decimal, 6)
             chainValue.text = WDp.dpAssetValue(baseData, WDp.getGeckoId(baseData, chainConfig), totalAmount, decimal)
             chainAvailable.text = WDp.getDpAmount2(availableAmount, decimal, 6)
+            chainVesting.text = WDp.getDpAmount2(vestingAmount, decimal, 6)
             chainBond.text = WDp.getDpAmount2(bondAmount, decimal, 6)
 
+            vestingLayer.visibleOrGone(vestingAmount != BigDecimal.ZERO)
             baseData.onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString())
 
             btnValut.setOnClickListener {

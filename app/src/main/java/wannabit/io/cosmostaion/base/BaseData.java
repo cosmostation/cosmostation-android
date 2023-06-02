@@ -87,6 +87,7 @@ import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
+import wannabit.io.cosmostaion.network.res.neutron.ResVestingData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -395,6 +396,7 @@ public class BaseData {
     //Neutron
     public List<ResVaultData> mVaultDatas = new ArrayList<>();
     public String mVaultAmount = null;
+    public ResVestingData mResVestingData = null;
 
     //gRPC funcs
     public String getChainIdGrpc() {
@@ -617,6 +619,22 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         if (mVaultAmount != null) {
             result = new BigDecimal(mVaultAmount);
+        }
+        return result;
+    }
+
+    public BigDecimal getNeutronVestingAmount() {
+        BigDecimal result = BigDecimal.ZERO;
+        if (mResVestingData != null) {
+            result = mResVestingData.getVestingAmount();
+        }
+        return result;
+    }
+
+    public long getNeutronVestingDuration() {
+        long result = 0;
+        if (mResVestingData != null && mResVestingData.getSchedule() != null) {
+            return mResVestingData.getSchedule().getVestingDuration();
         }
         return result;
     }
