@@ -38,13 +38,17 @@
                 android:src="@drawable/icon_close" />
 
             <TextView
+                android:background="@drawable/box_chain_trans_border"
                 android:id="@+id/wc_peer"
                 style="@style/font_rm_14_black_daynight"
+                android:paddingVertical="7dp"
+                android:paddingHorizontal="10dp"
                 android:layout_width="wrap_content"
+                android:layout_marginEnd="6dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:layout_marginLeft="@dimen/space_6"
                 android:layout_toRightOf="@+id/dapp_close"
+                android:layout_toLeftOf="@+id/dapp_refresh"
                 android:maxWidth="220dp"
                 android:lines="1"
                 android:layout_centerVertical="true"
@@ -54,9 +58,10 @@
                 android:id="@+id/dapp_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/wc_peer"
+                android:layout_toLeftOf="@+id/dapp_left"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/space_6"
+                android:padding="5dp"
+                android:layout_marginEnd="@dimen/space_10"
                 android:src="@drawable/icon_refresh" />
 
             <ImageView
