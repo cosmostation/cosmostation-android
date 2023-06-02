@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.fragment.txs.nft;
 import static wannabit.io.cosmostaion.base.BaseConstant.NFT_INFURA;
 import static wannabit.io.cosmostaion.base.BaseConstant.STATION_NFT_DENOM;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,13 +22,10 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import io.ipfs.api.IPFS;
@@ -41,15 +37,15 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClickListener {
-    private File        tempFile;
+    private File tempFile;
 
-    private Button      mBtnCancel, mBtnNext;
+    private Button mBtnCancel, mBtnNext;
 
-    private ImageView   mNftImg, mNftImgDel;
-    private TextView    mNftImgAdd;
-    private EditText    mNftName, mNftContent, mNftDenomId, mNftDenomName;
+    private ImageView mNftImg, mNftImgDel;
+    private TextView mNftImgAdd;
+    private EditText mNftName, mNftContent, mNftDenomId, mNftDenomName;
 
-    private String      mHash;
+    private String mHash;
 
     public static NFTCreateStep0Fragment newInstance() {
         return new NFTCreateStep0Fragment();
@@ -63,13 +59,13 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_issue_nft_step0, container, false);
-        mBtnCancel  = rootView.findViewById(R.id.btn_cancel);
-        mBtnNext    = rootView.findViewById(R.id.btn_next);
+        mBtnCancel = rootView.findViewById(R.id.btn_cancel);
+        mBtnNext = rootView.findViewById(R.id.btn_next);
 
-        mNftImg     = rootView.findViewById(R.id.nft_img);
-        mNftImgAdd  = rootView.findViewById(R.id.add_btn);
-        mNftImgDel  = rootView.findViewById(R.id.delete_btn);
-        mNftName    = rootView.findViewById(R.id.nft_name);
+        mNftImg = rootView.findViewById(R.id.nft_img);
+        mNftImgAdd = rootView.findViewById(R.id.add_btn);
+        mNftImgDel = rootView.findViewById(R.id.delete_btn);
+        mNftName = rootView.findViewById(R.id.nft_name);
         mNftContent = rootView.findViewById(R.id.nft_content);
         mNftDenomId = rootView.findViewById(R.id.nft_denom_id);
         mNftDenomName = rootView.findViewById(R.id.nft_denom_name);
@@ -116,25 +112,11 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
             getSActivity().onNextStep();
 
         } else if (v.equals(mNftImgAdd)) {
-            tedPermission();
+            goToAlbum();
 
         } else if (v.equals(mNftImgDel)) {
             onUpdateImgView(null);
         }
-    }
-
-    private void tedPermission() {
-        new TedPermission(getSActivity()).setPermissionListener(new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                goToAlbum();
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(getSActivity(), getSActivity().getString(R.string.str_permission_photo_title), Toast.LENGTH_SHORT).show();
-            }
-        }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(getSActivity().getString(R.string.str_permission_photo_title)).check();
     }
 
     private void goToAlbum() {
@@ -214,7 +196,7 @@ public class NFTCreateStep0Fragment extends BaseFragment implements View.OnClick
     }
 
     private NFTCreateActivity getSActivity() {
-        return (NFTCreateActivity)getBaseActivity();
+        return (NFTCreateActivity) getBaseActivity();
     }
 
 }

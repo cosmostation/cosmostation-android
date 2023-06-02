@@ -8,7 +8,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,8 +30,6 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -318,20 +315,12 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             onLedgerConnect();
 
         } else if (v.equals(mainSettingBinding.cardStarnameWalletConnect)) {
-            CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> new TedPermission(getMainActivity()).setPermissionListener(new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
-                    integrator.setOrientationLocked(true);
-                    integrator.setCaptureActivity(QRcodeActivity.class);
-                    wcQrcodeResultLauncher.launch(integrator.createScanIntent());
-                }
-
-                @Override
-                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                    Toast.makeText(getContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                }
-            }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(getString(R.string.str_permission_qr)).check());
+            CommonAlertDialog.showDoubleButton(getMainActivity(), getString(R.string.str_starname_walletconnect_alert_title), getString(R.string.str_starname_walletconnect_alert_msg), getString(R.string.str_cancel), null, getString(R.string.str_continue), view -> {
+                IntentIntegrator integrator = IntentIntegrator.forSupportFragment(MainSettingFragment.this);
+                integrator.setOrientationLocked(true);
+                integrator.setCaptureActivity(QRcodeActivity.class);
+                wcQrcodeResultLauncher.launch(integrator.createScanIntent());
+            });
         }
     }
 

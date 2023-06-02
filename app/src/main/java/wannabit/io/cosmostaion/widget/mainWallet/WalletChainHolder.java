@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.Manifest;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,13 +12,10 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -129,22 +125,11 @@ public class WalletChainHolder extends BaseHolder {
         mBtnWalletConnect.setOnClickListener(v -> {
             if (!mainActivity.mAccount.hasPrivateKey) {
                 mainActivity.onInsertKeyDialog();
-                return;
             } else {
-                new TedPermission(mainActivity).setPermissionListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        IntentIntegrator integrator = new IntentIntegrator(mainActivity);
-                        integrator.setOrientationLocked(true);
-                        integrator.setCaptureActivity(QRcodeActivity.class);
-                        mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent());
-                    }
-
-                    @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                        Toast.makeText(mainActivity, R.string.error_permission, Toast.LENGTH_SHORT).show();
-                    }
-                }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(mainActivity.getString(R.string.str_permission_qr)).check();
+                IntentIntegrator integrator = new IntentIntegrator(mainActivity);
+                integrator.setOrientationLocked(true);
+                integrator.setCaptureActivity(QRcodeActivity.class);
+                mainActivity.walletConnectResultLauncher.launch(integrator.createScanIntent());
             }
         });
     }

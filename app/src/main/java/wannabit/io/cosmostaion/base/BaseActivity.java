@@ -41,7 +41,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGA
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VAULT_BALANCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VAULT_LIST;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -68,8 +67,6 @@ import com.google.protobuf2.Any;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
@@ -290,8 +287,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onClickQrCopy(ChainConfig chainConfig, Account account) {
         String nickName;
-        if (TextUtils.isEmpty(account.nickName))
-            nickName = getString(R.string.str_my_wallet) + account.id;
+        if (TextUtils.isEmpty(account.nickName)) nickName = getString(R.string.str_my_wallet) + account.id;
         else nickName = account.nickName;
 
         if (chainConfig.evmSupport()) {
@@ -404,37 +400,26 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             try {
                 final Bitmap mBitmap = WUtil.toBitmap(qrCodeWriter.encode(address, BarcodeFormat.QR_CODE, 480, 480));
-                new TedPermission(this).setPermissionListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        try {
-                            ContentValues values = new ContentValues();
-                            values.put(MediaStore.Images.Media.TITLE, address);
-                            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                            Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                            OutputStream outstream = getContentResolver().openOutputStream(uri);
-                            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                            outstream.close();
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, address);
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                    Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    OutputStream outstream = getContentResolver().openOutputStream(uri);
+                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                    outstream.close();
 
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, address);
-                            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                            shareIntent.setType("image/jpeg");
-                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            startActivity(Intent.createChooser(shareIntent, "send"));
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, address);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareIntent.setType("image/jpeg");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(shareIntent, "send"));
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                        Toast.makeText(getBaseContext(), R.string.error_permission, Toast.LENGTH_SHORT).show();
-                    }
-                }).setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE).setRationaleMessage(getString(R.string.str_permission_qr)).check();
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } catch (WriterException e) {
                 e.printStackTrace();
             }
@@ -1035,7 +1020,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (mChainConfig.baseChain().equals(INJ_MAIN)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + query + "&onRevCurrency=" + "USDT"));
             startActivity(intent);
-        } else if(mChainConfig.baseChain().equals(COSMOS_MAIN)) {
+        } else if (mChainConfig.baseChain().equals(COSMOS_MAIN)) {
             String cosmosQuery = "?apiKey=" + getString(R.string.kado_money_public_key) + "&network=" + "cosmos hub" + "&networkList=" + "cosmos hub" + "&onToAddress=" + mAccount.address;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_kado_money) + cosmosQuery + "&onRevCurrency=" + "ATOM"));
             startActivity(intent);
