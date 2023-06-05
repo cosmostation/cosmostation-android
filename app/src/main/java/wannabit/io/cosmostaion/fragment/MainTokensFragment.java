@@ -345,7 +345,12 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = BigDecimal.ZERO;
             if (asset != null) {
-                if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                if (chainConfig.baseChain().equals(NEUTRON_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
+                    BigDecimal availableAmount = getBaseDao().getAvailable(chainConfig.mainDenom());
+                    BigDecimal vestingAmount = getBaseDao().getNeutronVestingAmount();
+                    BigDecimal bondAmount = getBaseDao().getVaultAmount();
+                    totalAmount = availableAmount.add(bondAmount).add(vestingAmount);
+                } else if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                     totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
                 } else {
                     totalAmount = getBaseDao().getAvailable(asset.origin_denom).add(getBaseDao().getVesting(asset.origin_denom));
