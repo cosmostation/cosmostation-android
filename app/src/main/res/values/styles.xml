@@ -1,93 +1,49 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorGray9</item>
-        <item name="android:actionButtonStyle">@style/MenuActionButtonStyle</item>
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar" />
 
-    <style name="AppTheme.Intro" >
-        <item name="android:windowBackground">@drawable/intro_bg</item>
+    <style name="AppTheme.Intro">
         <item name="android:windowDisablePreview">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/colorWhite2DayNight</item>
-        <item name="android:textColor">@color/colorBlackDayNight</item>
-        <item name="android:textColorPrimary">@color/colorBlackDayNight</item>
-        <item name="colorAccent">@color/colorBlackDayNight</item>
-        <item name="textColorAlertDialogListItem">@color/colorBlackDayNight</item>
+    <style name="TextViewH1" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="MenuActionButtonStyle" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:minWidth">20dip</item>
-        <item name="android:padding">6dip</item>
+    <style name="TextViewH2" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_semibold</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="WhiteToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlNormal">@color/colorWhite</item>
+    <style name="TextViewH3" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_semibold</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
-
-    <style name="ScrollingPagerIndicator">
-        <item name="spi_dotColor">@color/colorGray1</item>
-        <item name="spi_dotSelectedColor">@color/colorWhite</item>
-        <item name="spi_dotSize">4dp</item>
-        <item name="spi_dotSelectedSize">4dp</item>
-        <item name="spi_dotSpacing">4dp</item>
-        <item name="spi_visibleDotCount">5</item>
-        <item name="spi_visibleDotThreshold">2</item>
-        <item name="spi_looped">false</item>
+    <style name="TextViewH4" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_semibold</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
-
-    <style name="Animation.Design.TopSheetDialog" parent="Animation.AppCompat.Dialog">
-        <item name="android:windowEnterAnimation">@anim/top_sheet_slide_in</item>
-        <item name="android:windowExitAnimation">@anim/top_sheet_slide_out</item>
+    <style name="TextViewH5" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_semibold</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Widget.Design.TopSheet.Modal" parent="android:Widget">
-        <item name="android:background">?android:attr/colorBackground</item>
-        <item name="android:elevation">@dimen/top_sheet_modal_elevation</item>
-        <item name="behavior_peekHeight">@dimen/top_sheet_modal_peek_height</item>
-        <item name="behavior_hideable">true</item>
+    <style name="TextViewH6" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_semibold</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="ColorSwitchStyles">
-        <item name="android:colorForeground">@color/colorGrayDayNight</item>
-        <item name="colorControlActivated">@color/colorPhoton</item>
+    <style name="TextViewH7" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_medium</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="ColorSwitchStylesIov">
-        <item name="android:colorForeground">@color/colorGrayDayNight</item>
-        <item name="colorControlActivated">@color/color_starname</item>
+    <style name="TextViewH8" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/font_semibold</item>
+        <item name="android:textSize">12sp</item>
     </style>
-
-    <style name="Theme.AppCompat.Translucent">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/round_dialog</item>
-    </style>
-
-    <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/AppModalStyle</item>
-        <item name="android:windowIsFloating">false</item>
-    </style>
-
 </resources>
