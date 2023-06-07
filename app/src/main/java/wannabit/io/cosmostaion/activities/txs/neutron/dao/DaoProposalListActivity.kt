@@ -133,6 +133,7 @@ class DaoProposalListActivity : BaseActivity() {
         }
         if (!WDp.isTxFeePayable(this, baseDao, mChainConfig)) {
             makeToast(R.string.error_not_enough_fee)
+            return
         }
         val availableMaxAmount = baseDao.getAvailable(mChainConfig.mainDenom())
         if (BigDecimal.ZERO >= availableMaxAmount) {
