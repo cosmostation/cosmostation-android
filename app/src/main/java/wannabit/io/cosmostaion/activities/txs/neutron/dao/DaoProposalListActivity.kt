@@ -159,6 +159,7 @@ class DaoProposalListActivity : BaseActivity() {
                     isShowAll = !isShowAll
                     adapter.pairs = getProposals(it)
                     header.pairs = getProposals(it)
+                    emptyProposal.visibleOrGone(getProposals(it).size <= 0)
                 }
                 adapter.notifyDataSetChanged()
             }

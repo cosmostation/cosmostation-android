@@ -164,7 +164,11 @@ class VaultStep0Fragment : BaseFragment() {
     }
 
     private fun onShowEmptyBalanceWarnDialog() {
-        CommonAlertDialog.showSingleButton(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_close), null)
+        if (getSActivity()?.mTxType == CONST_PW_TX_VAULT_DEPOSIT) {
+            CommonAlertDialog.showSingleButton(getSActivity(), getString(R.string.str_empty_warnning_title), getString(R.string.str_empty_warnning_msg), getString(R.string.str_close), null)
+        } else {
+            return
+        }
     }
 
     private fun isValidateVaultAmount(): Boolean {

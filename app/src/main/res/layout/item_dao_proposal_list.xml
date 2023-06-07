@@ -68,8 +68,7 @@
                         android:id="@+id/proposal_expiration"
                         style="@style/font_rr_11_gray1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"/>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>
