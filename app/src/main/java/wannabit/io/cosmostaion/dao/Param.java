@@ -153,6 +153,9 @@ public class Param {
 
         @SerializedName("omniflix_alloc_params")
         public OmniflixAllocParams mOmniflixAllocParams;
+
+        @SerializedName("stargaze_annual_provisions")
+        public String mStargazeAnnualProvision;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -180,8 +183,7 @@ public class Param {
 
             } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
                 if (mParams.mStargazeMintingParams != null && mParams.mStargazeMintingParams.params != null) {
-                    BigDecimal initialProvision = new BigDecimal(mParams.mStargazeMintingParams.params.initial_annual_provisions);
-                    return initialProvision.divide(getMainSupply(), 18, RoundingMode.DOWN);
+                    return new BigDecimal(mParams.mStargazeAnnualProvision).divide(getMainSupply(), 18, RoundingMode.DOWN);
                 }
 
             } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
