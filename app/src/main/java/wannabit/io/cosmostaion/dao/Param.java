@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.QUICKSILVER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SOMMELIER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -152,6 +153,9 @@ public class Param {
 
         @SerializedName("omniflix_alloc_params")
         public OmniflixAllocParams mOmniflixAllocParams;
+
+        @SerializedName("stargaze_annual_provisions")
+        public String mStargazeAnnualProvision;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -179,8 +183,7 @@ public class Param {
 
             } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
                 if (mParams.mStargazeMintingParams != null && mParams.mStargazeMintingParams.params != null) {
-                    BigDecimal initialProvision = new BigDecimal(mParams.mStargazeMintingParams.params.initial_annual_provisions);
-                    return initialProvision.divide(getMainSupply(), 18, RoundingMode.DOWN);
+                    return new BigDecimal(mParams.mStargazeAnnualProvision).divide(getMainSupply(), 18, RoundingMode.DOWN);
                 }
 
             } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
@@ -394,7 +397,7 @@ public class Param {
                     }
                 } else {
                     BigDecimal ap;
-                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN))
+                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN) || chainConfig.baseChain().equals(ONOMY_MAIN))
                         ap = getMainSupply().multiply(getMintInflation(chainConfig));
                     else ap = getAnnualProvision();
                     if (ap.compareTo(BigDecimal.ZERO) > 0) {
