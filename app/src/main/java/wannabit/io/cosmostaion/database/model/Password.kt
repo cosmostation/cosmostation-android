@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.database.entity
+package wannabit.io.cosmostaion.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

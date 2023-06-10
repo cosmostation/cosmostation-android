@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.database.dao
 
 import androidx.room.*
-import wannabit.io.cosmostaion.database.entity.Password
+import wannabit.io.cosmostaion.database.model.Password
 
 @Dao
 interface PasswordDao {

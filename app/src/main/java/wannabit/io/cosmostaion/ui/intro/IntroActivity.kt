@@ -1,9 +1,9 @@
-package wannabit.io.cosmostaion.ui.main
+package wannabit.io.cosmostaion.ui.intro
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,13 +12,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import wannabit.io.cosmostaion.BuildConfig
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
 import wannabit.io.cosmostaion.network.AppVersion
 import wannabit.io.cosmostaion.network.CosmostationService
-import wannabit.io.cosmostaion.ui.common.selector.SelectorFragment
+import wannabit.io.cosmostaion.ui.main.DashboardActivity
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
@@ -27,27 +28,9 @@ class IntroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupViews()
-        migrateDatabaseIfNeed()
         initFirebase()
         checkAppVersion()
-    }
-
-    private fun setupViews() {
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        binding.createWallet.setOnClickListener {
-
-        }
-
-        binding.loadWallet.setOnClickListener {
-            SelectorFragment("Load Wallet", listOf("Load PrivateKey", "Load Mnemonic")) { position, item ->
-                when (position) {
-                    0 -> {}
-                    else -> {}
-                }
-            }.show(supportFragmentManager, SelectorFragment::class.java.name)
-        }
+        migrateDatabaseIfNeed()
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
@@ -59,8 +42,7 @@ class IntroActivity : AppCompatActivity() {
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
         if (AppDatabase.getInstance().walletDao().selectAll().isEmpty()) {
             CoroutineScope(Dispatchers.Main).launch {
-                binding.createWallet.visibility = View.VISIBLE
-                binding.loadWallet.visibility = View.VISIBLE
+                supportFragmentManager.beginTransaction().add(R.id.fragment_container, EmptyWalletFragment()).commit()
             }
         } else {
             CoroutineScope(Dispatchers.Main).launch {
@@ -136,6 +118,11 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun showNetworkErrorDialog() {
+        val snackBar = Snackbar.make(binding.root, "Network error", Snackbar.LENGTH_INDEFINITE)
+        snackBar.setAction("Retry") {
+            checkAppVersion()
+        }
+        snackBar.show()
     }
 
     private fun showDisableDialog() {

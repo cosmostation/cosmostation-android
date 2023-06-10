@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import wannabit.io.cosmostaion.database.dao.PasswordDao
 import wannabit.io.cosmostaion.database.dao.WalletDao
-import wannabit.io.cosmostaion.database.entity.Password
-import wannabit.io.cosmostaion.database.entity.Wallet
+import wannabit.io.cosmostaion.database.model.Password
+import wannabit.io.cosmostaion.database.model.Wallet
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
 @Database(entities = [Wallet::class, Password::class], version = 1, exportSchema = false)

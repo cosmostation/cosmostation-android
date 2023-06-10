@@ -5,9 +5,9 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.legacy.model.Account
 import wannabit.io.cosmostaion.database.legacy.model.MWords
-import wannabit.io.cosmostaion.database.entity.Password
-import wannabit.io.cosmostaion.database.entity.Wallet
-import wannabit.io.cosmostaion.database.entity.WalletType
+import wannabit.io.cosmostaion.database.model.Password
+import wannabit.io.cosmostaion.database.model.Wallet
+import wannabit.io.cosmostaion.database.model.WalletType
 
 object LegacyMigrationHelper {
     private fun getDatabase(): SQLiteDatabase {

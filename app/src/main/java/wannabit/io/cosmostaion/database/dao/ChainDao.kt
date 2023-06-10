@@ -4,7 +4,7 @@ import androidx.room.*
 import wannabit.io.cosmostaion.database.model.Wallet
 
 @Dao
-interface WalletDao {
+interface ChainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(wallet: Wallet): Long
 
