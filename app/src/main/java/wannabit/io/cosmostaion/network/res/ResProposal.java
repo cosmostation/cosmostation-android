@@ -208,8 +208,10 @@ public class ResProposal {
             Message message = messages.get(position);
             if (message.type.contains("MsgExecLegacyContent") && message.content != null && message.content.amount != null) {
                 return message.content.amount.get(0);
-            } else if (message.amount != null) {
+            } else if (message.amount != null && !message.amount.isEmpty()) {
                 return message.amount.get(0);
+            } else {
+                return null;
             }
         }
         return null;
