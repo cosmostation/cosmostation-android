@@ -5,43 +5,21 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.i2p.crypto.eddsa.Utils
-import org.bitcoinj.crypto.MnemonicCode
-import wannabit.io.cosmostaion.common.CosmostationConstants
-import wannabit.io.cosmostaion.database.AppDatabase
-import wannabit.io.cosmostaion.database.CryptoHelper
-import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.database.model.Wallet
-import wannabit.io.cosmostaion.database.model.WalletType
-import java.security.SecureRandom
-import java.util.*
+import wannabit.io.cosmostaion.database.model.Chain
+import wannabit.io.cosmostaion.database.model.ChainConfig
 
 class DashboardViewModel : ViewModel() {
-    val mnemonic = MutableLiveData<List<String>>()
-    val generated = MutableLiveData(false)
+    val balances = MutableLiveData<List<String>>()
 
-    fun create(name: String) = CoroutineScope(Dispatchers.IO).launch {
-        mnemonic.value?.let { mnemonic ->
-            val uuid = UUID.randomUUID().toString()
-            val entropy = MnemonicCode().toEntropy(mnemonic)
-            val hex = Utils.bytesToHex(entropy)
-            val encryptData = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, hex, false)
-            encryptData?.let { data ->
-                data.encDataString?.let { resource ->
-                    data.ivDataString?.let { spec ->
-                        val wallet = Wallet(0, UUID.randomUUID().toString(), resource, spec, name, mnemonic.size, WalletType.MNEMONIC, 0, Date().time)
-                        val id = AppDatabase.getInstance().walletDao().insert(wallet)
-                        Prefs.lastUserId = id
-                        generated.postValue(true)
-                    }
+    fun loadBalances() = CoroutineScope(Dispatchers.IO).launch {
+        Chain.allChains().forEach {
+            when (it.chainConfig) {
+                is ChainConfig.Cosmos -> {
+                    //TODO balanceDao.update()
                 }
+                is ChainConfig.Ethereum -> {}
+                else -> {}
             }
         }
-    }
-
-    fun generateMnemonic() = CoroutineScope(Dispatchers.IO).launch {
-        val seed = ByteArray(32)
-        SecureRandom().nextBytes(seed)
-        mnemonic.postValue(MnemonicCode.INSTANCE.toMnemonic(seed))
     }
 }

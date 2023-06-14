@@ -8,11 +8,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.network.model.AppVersion
+import wannabit.io.cosmostaion.network.model.PushStatusRequest
+import wannabit.io.cosmostaion.network.model.PushStatusResponse
+import wannabit.io.cosmostaion.network.model.PushSyncRequest
 import java.util.concurrent.TimeUnit
 
-interface CosmostationService {
+interface WalletService {
     companion object {
-        fun create(): CosmostationService {
+        fun create(): WalletService {
             val builder = Retrofit.Builder().baseUrl(CosmostationConstants.WALLET_API_URL).addConverterFactory(GsonConverterFactory.create())
 
             if (BuildConfig.DEBUG) {
@@ -22,7 +26,7 @@ interface CosmostationService {
                 builder.client(client)
             }
 
-            return builder.build().create(CosmostationService::class.java)
+            return builder.build().create(WalletService::class.java)
         }
     }
 
@@ -39,8 +43,3 @@ interface CosmostationService {
     fun getPushStatus(@Path("fcmToken") fcmToken: String): Call<PushStatusResponse>
 }
 
-data class AppVersion(val app_name: String, val device_type: String, val enable: Boolean, val version: Int, val timestamp: String)
-data class PushSyncRequest(val fcm_token: String, val accounts: List<PushAccount>)
-data class PushAccount(val address: String, val chain: String)
-data class PushStatusResponse(val subscribe: Boolean, val timestamp: String)
-data class PushStatusRequest(val subscribe: Boolean, val fcm_token: String)

@@ -3,24 +3,23 @@ package wannabit.io.cosmostaion.database.model
 class Chain(val chainName: String, val imageUrl: String, val bip44: String, val chainConfig: ChainConfig) {
     companion object {
         fun allChains(): List<Chain> {
+            val chains = mutableListOf<Chain>()
             //add all cosmos chains
-            Chain("Cosmos", "", "", ChainConfig.Cosmos("", "", "", "", 6, "", "", "", ""))
-            Chain("Cosmos", "", "", ChainConfig.Cosmos("", "", "", "", 6, "", "", "", ""))
-            Chain("Cosmos", "", "", ChainConfig.Cosmos("", "", "", "", 6, "", "", "", ""))
+            val cosmos = Chain("Cosmos", "", "118", ChainConfig.Cosmos("cosmoshub-4", "cosmos", "uatom", "", 6, "ATOM", "", "", "", "grpc-cosmos.cosmostation.io"))
+            chains.add(cosmos)
 
             //add all ethereum chains
-            Chain("Ethereum", "", "", ChainConfig.Ethereum("", "", "", "", 18, ""))
+            val ethereum = Chain("Ethereum", "", "60", ChainConfig.Ethereum("", "", "", "", 18, ""))
+            chains.add(ethereum)
 
             //add all sui
-            Chain("Ethereum", "", "", ChainConfig.Ethereum("", "", "", "", 18, ""))
 
             //add all aptos
-            Chain("Ethereum", "", "", ChainConfig.Ethereum("", "", "", "", 18, ""))
 
             //add custom chains from database
 
             //filter unchecked chains
-            return listOf()
+            return chains
         }
     }
 }

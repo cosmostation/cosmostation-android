@@ -17,8 +17,8 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
-import wannabit.io.cosmostaion.network.AppVersion
-import wannabit.io.cosmostaion.network.CosmostationService
+import wannabit.io.cosmostaion.network.model.AppVersion
+import wannabit.io.cosmostaion.network.WalletService
 import wannabit.io.cosmostaion.ui.main.DashboardActivity
 
 class IntroActivity : AppCompatActivity() {
@@ -76,7 +76,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun checkAppVersion() {
-        CosmostationService.create().getVersion().enqueue(object : Callback<AppVersion> {
+        WalletService.create().getVersion().enqueue(object : Callback<AppVersion> {
             override fun onResponse(call: Call<AppVersion>, response: Response<AppVersion>) {
                 if (response.isSuccessful) {
                     response.body()?.let {

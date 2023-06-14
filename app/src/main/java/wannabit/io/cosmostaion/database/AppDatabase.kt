@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
-import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.dao.PasswordDao
 import wannabit.io.cosmostaion.database.dao.WalletDao
 import wannabit.io.cosmostaion.database.model.Password
@@ -24,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
             if (instance == null) {
                 synchronized(AppDatabase::class) {
                     val builder = Room.databaseBuilder(CosmostationApp.instance, AppDatabase::class.java, "cosmostation_wallet.db")
-                    val factory = SupportFactory(SQLiteDatabase.getBytes(CipherHelper.encrypt(CosmostationConstants.DATABASE_PASSPHRASE).toCharArray()))
+                    val factory = SupportFactory(SQLiteDatabase.getBytes(Prefs.passphrase.toCharArray()))
                     builder.openHelperFactory(factory)
                     instance = builder.build()
                 }

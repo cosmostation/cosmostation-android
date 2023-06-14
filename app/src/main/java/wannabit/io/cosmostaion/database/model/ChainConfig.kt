@@ -10,7 +10,8 @@ sealed class ChainConfig {
         val displayDenom: String,
         val gasInfo: String,
         val gasRate: String,
-        val restUrl: String
+        val restUrl: String,
+        val grpcUrl: String
     ) : ChainConfig()
 
     data class Ethereum(

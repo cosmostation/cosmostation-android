@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.database.model.Chain
 import wannabit.io.cosmostaion.databinding.BottomSheetSelectorBinding
 
-class ChainSwitchFragment(private val title: String, private val items: List<String>, private val listener: (position: Int, item: String) -> Unit) : BottomSheetDialogFragment() {
+class ChainSwitchFragment : BottomSheetDialogFragment() {
     private lateinit var adapter: ChainSwitchAdapter
     private lateinit var binding: BottomSheetSelectorBinding
 
@@ -20,14 +21,12 @@ class ChainSwitchFragment(private val title: String, private val items: List<Str
     }
 
     private fun setupViews() {
-        binding.title.text = title
+        binding.title.text = "Chain Selector"
     }
 
     private fun setupRecyclerView() {
-        adapter = ChainSwitchAdapter(requireContext(), items) {
-            dismiss()
-            listener(items.indexOf(it), it)
-        }
+        val items = listOf<Chain>()
+        adapter = ChainSwitchAdapter(requireContext(), items)
         binding.recycler.layoutManager = LinearLayoutManager(activity)
         binding.recycler.adapter = adapter
         adapter.notifyDataSetChanged()
