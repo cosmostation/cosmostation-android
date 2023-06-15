@@ -1205,9 +1205,9 @@ class WalletConnectActivity : BaseActivity() {
         val key = getKey(account.baseChain)
         return key?.let {
             V2Account(
-                account.address,
-                Utils.bytesToHex(it.pubKey),
                 "secp256k1",
+                Utils.bytesToHex(it.pubKey),
+                account.address,
             )
         }
     }
