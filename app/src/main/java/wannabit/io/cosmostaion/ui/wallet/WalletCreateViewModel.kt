@@ -26,9 +26,9 @@ class WalletCreateViewModel : ViewModel() {
         mnemonic.value?.let { mnemonic ->
             val uuid = UUID.randomUUID().toString()
             val entropy = MnemonicCode.INSTANCE.toEntropy(mnemonic)
+            val seed = MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "")
             val hex = Utils.bytesToHex(entropy)
             val encryptData = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, hex, false)
-            val seed = MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "")
             val encSeed = CipherHelper.encrypt(Utils.bytesToHex(seed))
             encryptData?.let { data ->
                 data.encDataString?.let { resource ->

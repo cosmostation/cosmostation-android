@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.database.legacy
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.CipherHelper
+import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.legacy.model.Account
 import wannabit.io.cosmostaion.database.legacy.model.MWords
 import wannabit.io.cosmostaion.database.model.Password
@@ -36,7 +38,9 @@ object LegacyMigrationHelper {
         val legacyAccounts = getLegacyAccounts()
         val newWallets = mutableListOf<Wallet>()
         legacyMnemonics.forEach {
-            newWallets.add(Wallet(0, it.uuid, it.resource, it.spec, it.nickName, it.wordsCnt, WalletType.MNEMONIC, 0, it.importTime))
+            val hexEntropy = CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY, it.resource, it.spec)
+            val encSeed = CipherHelper.encrypt(hexEntropy!!)
+            newWallets.add(Wallet(0, it.uuid, it.resource, it.spec, encSeed, it.nickName, it.wordsCnt, WalletType.MNEMONIC, 0, it.importTime))
         }
         legacyAccounts.filter { it.hasPrivateKey && !it.fromMnemonic }.forEach {
             //TODO private key accounts
