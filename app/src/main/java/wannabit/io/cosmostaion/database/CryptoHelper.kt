@@ -62,15 +62,13 @@ object CryptoHelper {
         }
     }
 
-    fun doDecryptData(alias: String, resource: String?, iv: String?): String? {
-        var result: String? = null
-        result = try {
+    fun doDecryptData(alias: String, resource: String, iv: String): String? {
+        return try {
             val cipher = getDecodeCipher(alias, Base64.decode(iv, Base64.DEFAULT))
             String(cipher.doFinal(Base64.decode(resource, Base64.DEFAULT)), Charsets.UTF_8)
         } catch (e: Exception) {
             null
         }
-        return result
     }
 
     fun signData(inputStr: String, alias: String): String? {
