@@ -15,10 +15,13 @@ import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.database.model.Balance
 import wannabit.io.cosmostaion.database.model.Chain
 import wannabit.io.cosmostaion.database.model.ChainConfig
+import wannabit.io.cosmostaion.database.model.Wallet
 import wannabit.io.cosmostaion.network.MintscanService
 import wannabit.io.cosmostaion.network.model.Price
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class ApplicationViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,7 +30,11 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
             get() = CosmostationApp.instance.applicationViewModel
     }
 
-    var pricesLiveData = MutableLiveData<List<Price>>()
+    val pricesLiveData = MutableLiveData<List<Price>>()
+    val balancesLiveData = MutableLiveData<List<Balance>>()
+    //TODO apply to Transformations.map
+
+    val currentWalletLiveData = MutableLiveData<Wallet>()
 
     fun loadPrices() = CoroutineScope(Dispatchers.IO).launch {
         try {
@@ -40,32 +47,31 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
 
     fun loadBalances() = CoroutineScope(Dispatchers.IO).launch {
         val wallet = AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId)!!
-
-
-        Chain.allChains().forEach {
-            when (it.chainConfig) {
+        Chain.allChains().forEach { chain ->
+            when (chain.chainConfig) {
                 is ChainConfig.Cosmos -> {
-                    val address = it.chainConfig.getAddress(wallet.seed!!)
-                    val channel = ManagedChannelBuilder.forAddress(it.chainConfig.grpcUrl, 443).useTransportSecurity().build()
+                    val address = chain.chainConfig.getAddress(wallet.seed!!)
+//                    val balance = chain.chainConfig.getBalance(address)
+                    val channel = ManagedChannelBuilder.forAddress(chain.chainConfig.grpcUrl, 443).useTransportSecurity().build()
                     val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(5, TimeUnit.SECONDS)
                     val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
                     val request = QueryProto.QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address).build()
                     val response = stub.allBalances(request)
                     response.balancesList.forEach {
-                        it.denom
-                        it.amount
+                        AppDatabase.getInstance().balanceDao().insert(Balance(wallet.id, chain.chainName, it.denom, it.amount, Date().time))
                     }
                 }
 
                 is ChainConfig.Ethereum -> {
+                    val address = chain.chainConfig.getAddress(wallet.seed!!)
                     val web3 = Web3j.build(HttpService("https://rpc.flashbots.net"))
-                    val address = it.chainConfig.getAddress(wallet.seed!!)
                     val response = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get()
-                    response.balance
+                    AppDatabase.getInstance().balanceDao().insert(Balance(wallet.id, chain.chainName, chain.chainConfig.displayDenom, response.balance.toString(), Date().time))
                 }
 
                 else -> {}
             }
+            balancesLiveData.postValue(AppDatabase.getInstance().balanceDao().selectAll())
         }
     }
 

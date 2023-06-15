@@ -35,8 +35,27 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupViewModels() {
-        ApplicationViewModel.shared.pricesLiveData.observe(this) {
+        ApplicationViewModel.shared.currentWalletLiveData.observe(this) {
+            binding.account.text = it.nickname
+        }
 
+        ApplicationViewModel.shared.pricesLiveData.observe(this) {
+            calculateTotalBalance()
+            adapter.notifyDataSetChanged()
+        }
+
+        ApplicationViewModel.shared.balancesLiveData.observe(this) {
+            calculateTotalBalance()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun calculateTotalBalance() {
+        ApplicationViewModel.shared.pricesLiveData.value?.let { prices ->
+            ApplicationViewModel.shared.balancesLiveData.value?.let { balances ->
+                //TODO calculate total balance
+                binding.total.text = "$ 10,000.00"
+            }
         }
     }
 

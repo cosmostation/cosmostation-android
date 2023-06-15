@@ -17,8 +17,9 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
-import wannabit.io.cosmostaion.network.model.AppVersion
 import wannabit.io.cosmostaion.network.WalletService
+import wannabit.io.cosmostaion.network.model.AppVersion
+import wannabit.io.cosmostaion.ui.main.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.main.DashboardActivity
 
 class IntroActivity : AppCompatActivity() {
@@ -46,6 +47,7 @@ class IntroActivity : AppCompatActivity() {
             }
         } else {
             CoroutineScope(Dispatchers.Main).launch {
+                ApplicationViewModel.shared.currentWalletLiveData.postValue(AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId))
                 startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
                 finish()
             }

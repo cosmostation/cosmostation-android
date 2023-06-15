@@ -5,16 +5,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import wannabit.io.cosmostaion.database.dao.BalanceDao
 import wannabit.io.cosmostaion.database.dao.PasswordDao
 import wannabit.io.cosmostaion.database.dao.WalletDao
+import wannabit.io.cosmostaion.database.model.Balance
 import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.database.model.Wallet
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
-@Database(entities = [Wallet::class, Password::class], version = 1, exportSchema = false)
+@Database(entities = [Wallet::class, Password::class, Balance::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun walletDao(): WalletDao
     abstract fun passwordDao(): PasswordDao
+    abstract fun balanceDao(): BalanceDao
 
     companion object {
         private var instance: AppDatabase? = null

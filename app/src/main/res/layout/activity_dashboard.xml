@@ -6,13 +6,25 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/account"
+        style="@style/TextViewH4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_mode_base05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Account" />
+
+    <TextView
         android:id="@+id/total"
         style="@style/TextViewH1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/color_mode_base05"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account"
         tools:text="$ 10.00" />
 
     <Button

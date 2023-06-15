@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.database.model
 
-import java.math.BigInteger
+import androidx.room.Entity
 
-data class Balance(val chainName: String, val amount: BigInteger, val price: Int)
+@Entity(primaryKeys = ["walletId", "chain", "denom"])
+data class Balance(val walletId: Long, val chain: String, val denom: String, val amount: String, val lastModifyTime: Long)

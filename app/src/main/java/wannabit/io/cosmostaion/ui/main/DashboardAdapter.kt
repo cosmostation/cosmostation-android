@@ -20,15 +20,51 @@ class DashboardAdapter(private val context: Context, val chains: MutableList<Cha
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
         val chain = chains[position]
         holder.binding.apply {
-            word.text = chain.chainName
+            name.text = chain.chainName
+            ApplicationViewModel.shared.pricesLiveData.value?.let {
+                it.find {
+                    when (chain.chainConfig) {
+                        is ChainConfig.Cosmos -> {
+                            it.coinGeckoId.lowercase() == chain.chainConfig.chainName.lowercase()
+                        }
+
+                        is ChainConfig.Ethereum -> {
+                            it.coinGeckoId.lowercase() == chain.chainConfig.chainName.lowercase()
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+                }?.let { price.text = "${it.current_price}" }
+            }
+            ApplicationViewModel.shared.balancesLiveData.value?.let {
+                it.find {
+                    when (chain.chainConfig) {
+                        is ChainConfig.Cosmos -> {
+                            it.denom.lowercase() == chain.chainConfig.baseDenom.lowercase()
+                        }
+
+                        is ChainConfig.Ethereum -> {
+                            it.denom.lowercase() == chain.chainConfig.displayDenom.lowercase()
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+                }?.let { amount.text = it.amount }
+            }
             root.setOnClickListener {
                 when (chain.chainConfig) {
                     is ChainConfig.Cosmos -> {
                         context.startActivity(Intent(context, CosmosLineActivity::class.java))
                     }
+
                     is ChainConfig.Ethereum -> {
                         context.startActivity(Intent(context, EthereumLineActivity::class.java))
                     }
+
                     else -> {}
                 }
             }

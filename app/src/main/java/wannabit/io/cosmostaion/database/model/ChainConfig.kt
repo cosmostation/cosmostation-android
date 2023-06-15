@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.database.model
 
+import com.cosmos.bank.v1beta1.QueryGrpc
+import com.cosmos.bank.v1beta1.QueryProto
+import com.cosmos.base.query.v1beta1.PaginationProto
+import io.grpc.ManagedChannelBuilder
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.crypto.ChildNumber
@@ -10,6 +14,7 @@ import org.web3j.crypto.Credentials
 import wannabit.io.cosmostaion.common.ByteUtils
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.concurrent.TimeUnit
 
 sealed class ChainConfig {
     data class Cosmos(
@@ -38,6 +43,14 @@ sealed class ChainConfig {
             val bitConvertedHash = ByteUtils.convertBits(digestResult, 8, 5, true)
             return Bech32.encode(Bech32.Encoding.BECH32, "cosmos", bitConvertedHash)
         }
+
+//        fun getBalance(address: String) {
+//            val channel = ManagedChannelBuilder.forAddress(grpcUrl, 443).useTransportSecurity().build()
+//            val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(5, TimeUnit.SECONDS)
+//            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
+//            val request = QueryProto.QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address).build()
+//            val response = stub.allBalances(request)
+//        }
     }
 
     data class Ethereum(

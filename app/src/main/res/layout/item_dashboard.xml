@@ -11,19 +11,38 @@
     android:paddingVertical="3dp">
 
     <TextView
-        android:id="@+id/number"
-        style="@style/TextViewH5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_blue01"
-        tools:text="1" />
-
-    <TextView
-        android:id="@+id/word"
+        android:id="@+id/name"
         style="@style/TextViewH5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textColor="@color/color_mode_base05"
-        tools:text="word" />
+        tools:text="Chain" />
+
+    <TextView
+        android:id="@+id/denom"
+        style="@style/TextViewH5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/color_mode_base05"
+        tools:text="Chain" />
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/TextViewH5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/color_mode_base05"
+        tools:text="Chain" />
+
+    <TextView
+        android:id="@+id/amount"
+        style="@style/TextViewH5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/color_mode_base05"
+        tools:text="Chain" />
 </LinearLayout>
