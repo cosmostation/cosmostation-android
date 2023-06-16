@@ -4,10 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.database.model.Chain
+import wannabit.io.cosmostaion.chain.Line
 import wannabit.io.cosmostaion.databinding.ItemSelectorBinding
 
-class ChainSwitchAdapter(private val context: Context, private val items: List<Chain>) : RecyclerView.Adapter<ChainSwitchViewHolder>() {
+class ChainSwitchAdapter(private val context: Context, private val items: List<Line>) : RecyclerView.Adapter<ChainSwitchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChainSwitchViewHolder {
         val binding = ItemSelectorBinding.inflate(LayoutInflater.from(context), parent, false)
         return ChainSwitchViewHolder(binding)

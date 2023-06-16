@@ -5,31 +5,32 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.database.model.Chain
-import wannabit.io.cosmostaion.database.model.ChainConfig
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.Line
 import wannabit.io.cosmostaion.databinding.ItemDashboardBinding
 import wannabit.io.cosmostaion.ui.line.CosmosLineActivity
 import wannabit.io.cosmostaion.ui.line.EthereumLineActivity
 
-class DashboardAdapter(private val context: Context, val chains: MutableList<Chain> = mutableListOf()) : RecyclerView.Adapter<DashboardViewHolder>() {
+class DashboardAdapter(private val context: Context, val lines: MutableList<Line> = mutableListOf()) : RecyclerView.Adapter<DashboardViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardViewHolder {
         val binding = ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
         return DashboardViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
-        val chain = chains[position]
+        val chain = lines[position]
         holder.binding.apply {
             name.text = chain.chainName
             ApplicationViewModel.shared.pricesLiveData.value?.let {
                 it.find {
-                    when (chain.chainConfig) {
-                        is ChainConfig.Cosmos -> {
-                            it.coinGeckoId.lowercase() == chain.chainConfig.chainName.lowercase()
+                    when (chain) {
+                        is CosmosLine -> {
+                            it.coinGeckoId.lowercase() == chain.config.chainName.lowercase()
                         }
 
-                        is ChainConfig.Ethereum -> {
-                            it.coinGeckoId.lowercase() == chain.chainConfig.chainName.lowercase()
+                        is EthereumLine -> {
+                            it.coinGeckoId.lowercase() == chain.config.chainName.lowercase()
                         }
 
                         else -> {
@@ -40,13 +41,13 @@ class DashboardAdapter(private val context: Context, val chains: MutableList<Cha
             }
             ApplicationViewModel.shared.balancesLiveData.value?.let {
                 it.find {
-                    when (chain.chainConfig) {
-                        is ChainConfig.Cosmos -> {
-                            it.denom.lowercase() == chain.chainConfig.baseDenom.lowercase()
+                    when (chain) {
+                        is CosmosLine -> {
+                            it.denom.lowercase() == chain.config.baseDenom.lowercase()
                         }
 
-                        is ChainConfig.Ethereum -> {
-                            it.denom.lowercase() == chain.chainConfig.displayDenom.lowercase()
+                        is EthereumLine -> {
+                            it.denom.lowercase() == chain.config.displayDenom.lowercase()
                         }
 
                         else -> {
@@ -56,12 +57,12 @@ class DashboardAdapter(private val context: Context, val chains: MutableList<Cha
                 }?.let { amount.text = it.amount }
             }
             root.setOnClickListener {
-                when (chain.chainConfig) {
-                    is ChainConfig.Cosmos -> {
+                when (chain) {
+                    is CosmosLine -> {
                         context.startActivity(Intent(context, CosmosLineActivity::class.java))
                     }
 
-                    is ChainConfig.Ethereum -> {
+                    is EthereumLine -> {
                         context.startActivity(Intent(context, EthereumLineActivity::class.java))
                     }
 
@@ -72,6 +73,6 @@ class DashboardAdapter(private val context: Context, val chains: MutableList<Cha
     }
 
     override fun getItemCount(): Int {
-        return chains.size
+        return lines.size
     }
 }

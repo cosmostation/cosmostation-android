@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import wannabit.io.cosmostaion.database.model.Chain
 import wannabit.io.cosmostaion.databinding.ActivityDashboardBinding
 import wannabit.io.cosmostaion.ui.chain.ChainSwitchFragment
 
@@ -24,8 +23,8 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
+        ApplicationViewModel.shared.loadSupportChains()
         ApplicationViewModel.shared.loadPrices()
-        ApplicationViewModel.shared.loadBalances()
     }
 
     private fun setupViews() {
@@ -37,6 +36,7 @@ class DashboardActivity : AppCompatActivity() {
     private fun setupViewModels() {
         ApplicationViewModel.shared.currentWalletLiveData.observe(this) {
             binding.account.text = it.nickname
+            ApplicationViewModel.shared.loadBalances()
         }
 
         ApplicationViewModel.shared.pricesLiveData.observe(this) {
@@ -47,6 +47,13 @@ class DashboardActivity : AppCompatActivity() {
         ApplicationViewModel.shared.balancesLiveData.observe(this) {
             calculateTotalBalance()
             adapter.notifyDataSetChanged()
+        }
+
+        ApplicationViewModel.shared.supportChains.observe(this) {
+            adapter.lines.clear()
+            adapter.lines.addAll(it)
+            adapter.notifyDataSetChanged()
+            ApplicationViewModel.shared.loadBalances()
         }
     }
 
@@ -63,7 +70,5 @@ class DashboardActivity : AppCompatActivity() {
         adapter = DashboardAdapter(this)
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = adapter
-        adapter.chains.addAll(Chain.allChains())
-        adapter.notifyDataSetChanged()
     }
 }
