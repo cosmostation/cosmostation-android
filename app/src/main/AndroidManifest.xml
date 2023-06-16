@@ -35,10 +35,10 @@
             android:name=".ui.main.DashboardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.line.CosmosLineActivity"
+            android:name=".ui.line.cosmos.CosmosLineActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.line.EthereumLineActivity"
+            android:name=".ui.line.ethereum.EthereumLineActivity"
             android:screenOrientation="portrait" />
     </application>
 

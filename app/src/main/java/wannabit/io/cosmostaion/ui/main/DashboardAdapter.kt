@@ -9,8 +9,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.Line
 import wannabit.io.cosmostaion.databinding.ItemDashboardBinding
-import wannabit.io.cosmostaion.ui.line.CosmosLineActivity
-import wannabit.io.cosmostaion.ui.line.EthereumLineActivity
+import wannabit.io.cosmostaion.ui.line.cosmos.CosmosLineActivity
+import wannabit.io.cosmostaion.ui.line.ethereum.EthereumLineActivity
 
 class DashboardAdapter(private val context: Context, val lines: MutableList<Line> = mutableListOf()) : RecyclerView.Adapter<DashboardViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardViewHolder {
@@ -59,11 +59,11 @@ class DashboardAdapter(private val context: Context, val lines: MutableList<Line
             root.setOnClickListener {
                 when (chain) {
                     is CosmosLine -> {
-                        context.startActivity(Intent(context, CosmosLineActivity::class.java))
+                        context.startActivity(Intent(context, CosmosLineActivity::class.java).putExtra("chain", chain))
                     }
 
                     is EthereumLine -> {
-                        context.startActivity(Intent(context, EthereumLineActivity::class.java))
+                        context.startActivity(Intent(context, EthereumLineActivity::class.java).putExtra("chain", chain))
                     }
 
                     else -> {}

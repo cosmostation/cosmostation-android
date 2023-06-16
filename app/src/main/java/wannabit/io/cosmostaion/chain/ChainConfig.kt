@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.chain
 
-sealed class ChainConfig {
+import java.io.Serializable
+
+sealed class ChainConfig : Serializable {
     data class Cosmos(
         val chainId: String,
         val bech32Prefix: String,
