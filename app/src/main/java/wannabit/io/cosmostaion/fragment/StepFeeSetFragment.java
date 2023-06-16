@@ -262,9 +262,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
                     mFeeCoin = new Coin(mFeeData.denom, "100000000000000000");
                 } else if (mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
-                    if (mSelectedFeeInfo == 0) mFeeCoin = new Coin(mFeeData.denom, "1000000");
-                    else if (mSelectedFeeInfo == 1) mFeeCoin = new Coin(mFeeData.denom, "5000000");
-                    else mFeeCoin = new Coin(mFeeData.denom, "10000000");
+                    if (mSelectedFeeInfo == 0) mFeeCoin = new Coin(mFeeData.denom, "100000000");
+                    else if (mSelectedFeeInfo == 1) mFeeCoin = new Coin(mFeeData.denom, "250000000");
+                    else mFeeCoin = new Coin(mFeeData.denom, "500000000");
                 } else {
                     BigDecimal amount = mFeeData.gasRate.multiply(mFeeGasAmount).setScale(0, RoundingMode.UP);
                     mFeeCoin = new Coin(mFeeData.denom, amount.toPlainString());
