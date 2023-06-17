@@ -88,6 +88,16 @@
         "bug",
         "maintenance"
       ]
+    },
+    {
+      "login": "williamchong",
+      "name": "William Chong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6198816?v=4",
+      "profile": "https://github.com/williamchong",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -95,5 +105,7 @@
   "projectOwner": "cosmostation",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }
