@@ -1206,7 +1206,7 @@ class WalletConnectActivity : BaseActivity() {
         return key?.let {
             V2Account(
                 "secp256k1",
-                Utils.bytesToHex(it.pubKey),
+                Base64.encodeToString(it.pubKey, Base64.NO_WRAP),
                 account.address,
             )
         }
