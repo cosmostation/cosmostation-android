@@ -369,9 +369,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         if (mBaseChain.equals(BaseChain.SIF_MAIN)) {
             feeCoin = new Coin(feeData.denom, "100000000000000000");
         } else if (mBaseChain.equals(BaseChain.CHIHUAHUA_MAIN)) {
-            if (selectFee == 0) feeCoin = new Coin(feeData.denom, "1000000");
-            else if (selectFee == 1) feeCoin = new Coin(feeData.denom, "5000000");
-            else feeCoin = new Coin(feeData.denom, "10000000");
+            if (selectFee == 0) feeCoin = new Coin(feeData.denom, "100000000");
+            else if (selectFee == 1) feeCoin = new Coin(feeData.denom, "250000000");
+            else feeCoin = new Coin(feeData.denom, "500000000");
         } else {
             BigDecimal amount = feeData.gasRate.multiply(feeGasAmount).setScale(0, RoundingMode.UP);
             feeCoin = new Coin(feeData.denom, amount.toPlainString());
