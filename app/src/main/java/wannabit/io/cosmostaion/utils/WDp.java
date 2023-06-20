@@ -460,7 +460,7 @@ public class WDp {
         if (address != null) {
             if (address.startsWith("0x")) {
                 if (WKey.isValidEthAddress(address)) {
-                    return Lists.newArrayList(EVMOS_MAIN, KAVA_MAIN, OKEX_MAIN, XPLA_MAIN, CANTO_MAIN);
+                    return Lists.newArrayList(EVMOS_MAIN, OKEX_MAIN, XPLA_MAIN, CANTO_MAIN);
                 }
                 return null;
             }
