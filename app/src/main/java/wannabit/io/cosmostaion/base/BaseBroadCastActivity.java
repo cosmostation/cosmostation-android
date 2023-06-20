@@ -7,9 +7,7 @@ import java.util.Map;
 import irismod.nft.QueryOuterClass;
 import kava.swap.v1beta1.QueryOuterClass.DepositResponse;
 import kava.swap.v1beta1.QueryOuterClass.PoolResponse;
-import osmosis.gamm.v1beta1.BalancerPool;
 import osmosis.gamm.v1beta1.Tx;
-import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import stride.stakeibc.HostZoneOuterClass;
 import wannabit.io.cosmostaion.dao.AssetPath;
@@ -49,14 +47,6 @@ public class BaseBroadCastActivity extends BaseActivity {
     public long                         mOsmosisPoolId;
     public Coin                         mSwapInCoin;
     public Coin                         mSwapOutCoin;
-
-    public sifnode.clp.v1.Types.Pool    mSifPool;                                   // sif swap
-    public Coin                         mSifSwapInCoin;
-    public Coin                         mSifSwapOutCoin;
-    public Coin                         mSifDepositCoin0;
-    public Coin                         mSifDepositCoin1;
-    public Coin                         mSifWithdrawCoin;
-    public Querier.LiquidityProviderRes mMyProvider;
 
     public MintscanToken                mMintscanToken;
     public AssetPath                    mAssetPath;

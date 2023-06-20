@@ -50,7 +50,6 @@ import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteAccountHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameDeleteDomainHolder;
 import wannabit.io.cosmostaion.widget.txDetail.Starname.TxStarnameRegisterAccountHolder;
@@ -66,6 +65,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxSetAddressHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxTransferHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
@@ -97,9 +97,6 @@ import wannabit.io.cosmostaion.widget.txDetail.nft.TxIssueDenomHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxMintNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.nft.TxTransferNFTHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
-import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
-import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar mToolbar;
@@ -294,10 +291,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_SWAP_COIN = 43;
 
-        private static final int TYPE_TX_ADD_LIQUIDITY = 70;
-        private static final int TYPE_TX_REMOVE_LIQUIDITY = 71;
-        private static final int TYPE_TX_SWAP = 72;
-
         private static final int TYPE_TX_ISSUE_DENOM = 90;
         private static final int TYPE_TX_MINT_NFT = 91;
         private static final int TYPE_TX_TRANSFER_NFT = 92;
@@ -389,18 +382,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_SWAP_COIN) {
                 return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
-
-            }
-
-            // sifchain
-            else if (viewType == TYPE_TX_ADD_LIQUIDITY) {
-                return new TxAddLiquidityHolder(getLayoutInflater().inflate(R.layout.item_tx_add_liquidity, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_REMOVE_LIQUIDITY) {
-                return new TxRemoveLiquidityHolder(getLayoutInflater().inflate(R.layout.item_tx_remove_liquidity, viewGroup, false));
-
-            } else if (viewType == TYPE_TX_SWAP) {
-                return new TxSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_swap, viewGroup, false));
 
             }
 
@@ -582,15 +563,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
                             msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
                         return TYPE_TX_SWAP_COIN;
-                    }
-
-                    // sifchain msg
-                    else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgAddLiquidity.getDescriptor().getFullName())) {
-                        return TYPE_TX_ADD_LIQUIDITY;
-                    } else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgRemoveLiquidity.getDescriptor().getFullName())) {
-                        return TYPE_TX_REMOVE_LIQUIDITY;
-                    } else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgSwap.getDescriptor().getFullName())) {
-                        return TYPE_TX_SWAP;
                     }
 
                     // nft msg

@@ -13,18 +13,12 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.swap.v1beta1.QueryOuterClass;
-import osmosis.gamm.v1beta1.BalancerPool;
-import sifnode.clp.v1.Querier;
-import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.CdpDetailActivity;
 import wannabit.io.cosmostaion.activities.txs.kava.HardDetailActivity;
-import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.fragment.txs.kava.ListCdpFragment;
-import wannabit.io.cosmostaion.fragment.txs.kava.ListHardFragment;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Coin;
 
@@ -78,11 +72,4 @@ public class BaseHolder extends RecyclerView.ViewHolder {
 
     public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, QueryOuterClass.PoolResponse otherPool) {
     }
-
-    public void onBindSifMyPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool myPool, Querier.LiquidityProviderRes myProvider) {
-    }
-
-    public void onBindSifOtherPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool otherPool) {
-    }
-
 }

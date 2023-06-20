@@ -889,14 +889,6 @@
     <string name="str_ibc_recipient_chain">受信チェーン</string>
     <string name="str_select_starname_domain">スターネームのドメイン選択</string>
     <string name="str_picker_dialog_title">指定経路を選択してください。</string>
-    <string name="str_sif_dex_title">SifChain De-Fi</string>
-    <string name="str_sif_dex_swap">スワップ</string>
-    <string name="str_sif_dex_ibc_pool">IBC Pool</string>
-    <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">Sif Dex スワップレート</string>
-    <string name="str_sif_swap_step_0">スワップ数量を入力してください。</string>
-    <string name="str_sif_deposit_pool_step_0">入金数量を入力してください。</string>
-    <string name="str_sif_withdraw_pool_step_0">出金数量を入力してください。</string>
 
     <string name="str_nft_c">NFT</string>
     <string name="str_no_nfts">NFTなし</string>

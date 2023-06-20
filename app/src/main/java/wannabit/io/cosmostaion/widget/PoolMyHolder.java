@@ -15,18 +15,13 @@ import java.math.RoundingMode;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
-import sifnode.clp.v1.Querier;
-import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
-import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PoolMyHolder extends BaseHolder {
     CardView itemRoot;
@@ -115,50 +110,5 @@ public class PoolMyHolder extends BaseHolder {
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 
         itemRoot.setOnClickListener(v -> ((DAppsList5Activity)activity).onClickMyPool(myPool, myDeposit));
-    }
-
-    @Override
-    public void onBindSifMyPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool myPool, Querier.LiquidityProviderRes myProvider) {
-        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.SIF_MAIN);
-        itemRoot.setCardBackgroundColor(ContextCompat.getColor(context, chainConfig.chainBgColor()));
-        itemMyPoolTypeLayer.setVisibility(View.GONE);
-        itemMyPoolImgLayer.setVisibility(View.VISIBLE);
-
-        int rowanDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
-        BigDecimal rowanAmount = new BigDecimal(myPool.getNativeAssetBalance());
-
-        int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, myPool.getExternalAsset().getSymbol());
-        BigDecimal externalAmount = new BigDecimal(myPool.getExternalAssetBalance());
-        String exteranlDenom = myPool.getExternalAsset().getSymbol();
-        BigDecimal poolValue = WUtil.getSifPoolValue(baseData, myPool);
-
-        WDp.setDpSymbolImg(baseData, chainConfig, exteranlDenom, itemExternalImg);
-        itemMyPoolSifType.setText("ROWAN : " + WDp.getDpSymbol(baseData, chainConfig, exteranlDenom).toUpperCase());
-        itemMyTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
-
-        WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemMyTotalDepositSymbol0);
-        WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemMyTotalDepositSymbol1);
-        itemMyTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
-        itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
-
-        //dp my lp info
-        if (myPool != null && myProvider != null) {
-            BigDecimal myShareValue = WUtil.getSifMyShareValue(baseData, myPool, myProvider);
-            itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, myShareValue, 2));
-            WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemMyDepositSymbol0);
-            WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemMyDepositSymbol1);
-            itemMyDepositAmount0.setText(WDp.getDpAmount2(context, new BigDecimal(myProvider.getNativeAssetBalance()), rowanDecimal, 6));
-            itemMyDepositAmount1.setText(WDp.getDpAmount2(context, new BigDecimal(myProvider.getExternalAssetBalance()), externalDecimal, 6));
-        }
-
-        //dp available
-        BigDecimal availableRowan = baseData.getAvailable(chainConfig.mainDenom());
-        BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
-        WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemMyAvailableSymbol0);
-        WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemMyAvailableSymbol1);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
-
-        itemRoot.setOnClickListener(v -> ((SifDexListActivity)activity).onClickMyPool(myPool, myProvider));
     }
 }

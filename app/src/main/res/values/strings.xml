@@ -991,14 +991,6 @@
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
     <string name="str_picker_dialog_title">Select Custom Path</string>
-    <string name="str_sif_dex_title">SifChain De-Fi</string>
-    <string name="str_sif_dex_swap">Swap</string>
-    <string name="str_sif_dex_ibc_pool">IBC Pool</string>
-    <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
-    <string name="str_sif_swap_step_0">Insert amount to swap</string>
-    <string name="str_sif_deposit_pool_step_0">Insert amount to deposit</string>
-    <string name="str_sif_withdraw_pool_step_0">Insert amount to withdraw</string>
 
     <string name="str_nft_c">NFT</string>
     <string name="str_no_nfts">No NFT</string>
