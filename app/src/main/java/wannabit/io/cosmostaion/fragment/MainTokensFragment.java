@@ -54,7 +54,6 @@ import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dialog.SelectCWTokenDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class MainTokensFragment extends BaseFragment {
@@ -161,18 +160,10 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public boolean isSection(BaseChain baseChain, int position) {
                 if (isGRPC(mChainConfig.baseChain())) {
-                    if (mChainConfig.bridgeCoinSupport() || mChainConfig.erc20CoinSupport()) {
-                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcGrpc.size();
-                    } else {
-                        return position == 0 || position == mNativeGrpc.size();
-                    }
-
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcGrpc.size() ||
+                            position == mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size();
                 } else {
-                    if (mChainConfig.bridgeCoinSupport() || mChainConfig.erc20CoinSupport()) {
-                        return position == 0 || position == mNative.size() || position == mNative.size() + mEtc.size();
-                    } else {
-                        return position == 0 || position == mNative.size();
-                    }
+                    return position == 0 || position == mNative.size() || position == mNative.size() + mEtc.size();
                 }
             }
 
@@ -310,16 +301,13 @@ public class MainTokensFragment extends BaseFragment {
                     onNativeGrpcItem(viewHolder, mChainConfig, position);
                 } else if (getItemViewType(position) == SECTION_IBC_GRPC) {
                     onBindIbcAuthToken(viewHolder, mChainConfig, position - mNativeGrpc.size());
-                } else {
-                    if (mChainConfig.bridgeCoinSupport() && getItemViewType(position) == SECTION_ETHER_GRPC) {
-                        onBindEthToken(viewHolder, mChainConfig, position - mNativeGrpc.size() - mIbcGrpc.size());
-
-                    } else if (mChainConfig.erc20CoinSupport()) {
-                        if (getItemViewType(position) == SECTION_CW_GRPC) {
-                            onBindErcGrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size());
-                        } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
-                            onBindEdit(viewHolder);
-                        }
+                } else if (getItemViewType(position) == SECTION_ETHER_GRPC) {
+                    onBindEthToken(viewHolder, mChainConfig, position - mNativeGrpc.size() - mIbcGrpc.size());
+                } else if (mChainConfig.erc20CoinSupport()) {
+                    if (getItemViewType(position) == SECTION_CW_GRPC) {
+                        onBindErcGrpcToken(viewHolder, position - mNativeGrpc.size() - mIbcGrpc.size() - mEtherGrpc.size());
+                    } else if (getItemViewType(position) == SECITON_CONTRACT_EDIT) {
+                        onBindEdit(viewHolder);
                     }
                 }
 
@@ -571,12 +559,12 @@ public class MainTokensFragment extends BaseFragment {
         public int getItemCount() {
             int defaultCount = mNativeGrpc.size() + mIbcGrpc.size();
             if (isGRPC(mBaseChain)) {
-                if (mChainConfig.bridgeCoinSupport()) return defaultCount + mEtherGrpc.size();
-                else if (mChainConfig.erc20CoinSupport()) {
-                    if (mCwGrpc.size() > 0) return defaultCount + mCwGrpc.size() + 1;
-                    else return defaultCount + mCwGrpc.size();
+                if (mChainConfig.erc20CoinSupport()) {
+                    if (mCwGrpc.size() > 0) return defaultCount + mEtherGrpc.size() + mCwGrpc.size() + 1;
+                    else return defaultCount + mEtherGrpc.size() + mCwGrpc.size();
+                } else {
+                    return defaultCount + mEtherGrpc.size();
                 }
-                else return defaultCount;
             } else {
                 if (mChainConfig.erc20CoinSupport()) {
                     if (mAccount.hasPrivateKey && mAccount.customPath == 2) {
@@ -593,19 +581,11 @@ public class MainTokensFragment extends BaseFragment {
         @Override
         public int getItemViewType(int position) {
             if (isGRPC(mChainConfig.baseChain())) {
-                if (mChainConfig.bridgeCoinSupport()) {
-                    if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size()) return SECTION_ETHER_GRPC;
-                } else if (mChainConfig.erc20CoinSupport()) {
-                    if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
-                    else return SECITON_CONTRACT_EDIT;
-                } else {
-                    if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
-                    else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
-                }
+                if (position < mNativeGrpc.size()) return SECTION_NATIVE_GRPC;
+                else if (position < mNativeGrpc.size() + mIbcGrpc.size()) return SECTION_IBC_GRPC;
+                else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size()) return SECTION_ETHER_GRPC;
+                else if (position < mNativeGrpc.size() + mIbcGrpc.size() + mEtherGrpc.size() + mCwGrpc.size()) return SECTION_CW_GRPC;
+                else return SECITON_CONTRACT_EDIT;
 
             } else {
                 if (mChainConfig.erc20CoinSupport()) {

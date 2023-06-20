@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import org.bitcoinj.core.ECKey;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
@@ -49,8 +48,7 @@ public class Erc20BalanceGrpcTask extends CommonTask {
             if (mAccount.address.startsWith("0x")) {
                 ethAddress = mAccount.address;
             } else {
-                ECKey ecKey = WKey.getECKey(mApp, mAccount);
-                ethAddress = WKey.generateEthAddressFromPrivateKey(ecKey.getPrivateKeyAsHex());
+                ethAddress = WKey.convertBech32ToEvm(mAccount.address);
             }
             List<Type> params = new ArrayList<>();
             params.add(new Address(ethAddress));

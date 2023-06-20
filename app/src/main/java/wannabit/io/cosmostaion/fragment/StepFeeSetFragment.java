@@ -77,7 +77,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import cosmos.base.abci.v1beta1.Abci;
-import cosmos.tx.v1beta1.ServiceGrpc;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -92,7 +91,6 @@ import wannabit.io.cosmostaion.dao.StationNFTData;
 import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.req.neutron.Bond;
 import wannabit.io.cosmostaion.network.req.neutron.BondReq;
 import wannabit.io.cosmostaion.network.req.neutron.MultiVote;
@@ -182,7 +180,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private Integer mSelectedFeeInfo = 1;
     private Integer mSelectedFeeData = 0;
 
-    private ServiceGrpc.ServiceBlockingStub txService;
     public static StepFeeSetFragment newInstance() {
         return new StepFeeSetFragment();
     }
@@ -214,7 +211,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mChainConfig = ChainFactory.getChain(mBaseChain);
         mFeeInfo = WDp.getFeeInfos(getActivity(), getBaseDao());
-        txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
 
         mFeeTotalCard.setCardBackgroundColor(ContextCompat.getColor(getActivity(), mChainConfig.chainBgColor()));
         WDp.setDpSymbolImg(getBaseDao(), mChainConfig, mChainConfig.mainDenom(), mFeeCoinImg);
@@ -546,8 +542,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onTaskResponse(TaskResult result) {
         if (result.isSuccess && result.resultData != null) {
-            if ((mChainConfig.baseChain().equals(BaseChain.EVMOS_MAIN) && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) ||
-                mChainConfig.baseChain().equals(BaseChain.CANTO_MAIN) && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
+            if (mChainConfig.erc20CoinSupport() && getSActivity().mTxType == CONST_PW_TX_EVM_TRANSFER) {
                 BigDecimal gasLimit = new BigDecimal((String) result.resultData);
                 BigDecimal gasPrice = new BigDecimal(result.resultData2);
                 getSActivity().mHexValue = result.resultData3;
