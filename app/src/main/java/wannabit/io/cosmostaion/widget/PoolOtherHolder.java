@@ -14,17 +14,13 @@ import java.math.RoundingMode;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import kava.swap.v1beta1.QueryOuterClass;
-import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.txs.kava.DAppsList5Activity;
-import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PoolOtherHolder extends BaseHolder {
     CardView itemRoot;
@@ -90,43 +86,5 @@ public class PoolOtherHolder extends BaseHolder {
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableCoin1, coin1Decimal, 6));
 
         itemRoot.setOnClickListener(v -> ((DAppsList5Activity) activity).onCheckStartJoinPool(otherPool));
-    }
-
-    @Override
-    public void onBindSifOtherPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool otherPool) {
-        final ChainConfig chainConfig = ChainFactory.getChain(BaseChain.SIF_MAIN);
-        itemPoolTypeLayer.setVisibility(View.GONE);
-        itemPoolImgLayer.setVisibility(View.VISIBLE);
-
-        int rowanDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
-        BigDecimal rowanAmount = new BigDecimal(otherPool.getNativeAssetBalance());
-
-        BigDecimal externalAmount = new BigDecimal(otherPool.getExternalAssetBalance());
-        String exteranlDenom = otherPool.getExternalAsset().getSymbol();
-        int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, exteranlDenom);
-        BigDecimal poolValue = WUtil.getSifPoolValue(baseData, otherPool);
-
-        WDp.setDpSymbolImg(baseData, chainConfig, exteranlDenom, itemExternalImg);
-        itemPoolSifType.setText("ROWAN : " + WDp.getDpSymbol(baseData, chainConfig, exteranlDenom).toUpperCase());
-        itemTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
-
-        WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemTotalDepositSymbol0);
-        WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemTotalDepositSymbol1);
-        itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
-        if ("UNKNOWN".equalsIgnoreCase(WDp.getDpSymbol(baseData, chainConfig, exteranlDenom))) {
-            itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, BigDecimal.ZERO, externalDecimal, 6));
-        } else {
-            itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
-        }
-
-        //dp available
-        BigDecimal availableRowan = baseData.getAvailable(chainConfig.mainDenom());
-        BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
-        WDp.setDpSymbol(context, baseData, chainConfig, chainConfig.mainDenom(), itemMyAvailableSymbol0);
-        WDp.setDpSymbol(context, baseData, chainConfig, exteranlDenom, itemMyAvailableSymbol1);
-        itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
-        itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
-
-        itemRoot.setOnClickListener(v -> ((SifDexListActivity) activity).onCheckStartDepositPool(otherPool));
     }
 }

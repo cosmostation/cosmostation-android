@@ -99,11 +99,6 @@ public class BaseConstant {
     public final static int TASK_FETCH_OSMOSIS_POOL_LIST = 4201;
     public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO = 4202;
 
-    public final static int TASK_GRPC_FETCH_SIF_POOL_LIST = 4250;
-    public final static int TASK_GRPC_FETCH_SIF_POOL_INFO = 4251;
-    public final static int TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST = 4252;
-    public final static int TASK_GRPC_FETCH_SIF_MY_PROVIDER = 4253;
-
     public final static int TASK_GRPC_FETCH_NFTOKEN_LIST = 4270;
     public final static int TASK_GRPC_FETCH_NFTOKEN_INFO = 4271;
 
@@ -204,9 +199,6 @@ public class BaseConstant {
     public final static int CONST_PW_TX_KAVA_JOIN_POOL = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL = 5045;
     public final static int CONST_PW_TX_IBC_TRANSFER = 5049;
-    public final static int CONST_PW_TX_SIF_SWAP = 5051;
-    public final static int CONST_PW_TX_SIF_JOIN_POOL = 5052;
-    public final static int CONST_PW_TX_SIF_EXIT_POOL = 5053;
     public final static int CONST_PW_TX_MINT_NFT = 5055;
     public final static int CONST_PW_TX_SEND_NFT = 5056;
     public final static int CONST_PW_TX_EXECUTE_CONTRACT = 5057;

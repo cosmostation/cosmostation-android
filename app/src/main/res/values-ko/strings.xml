@@ -891,14 +891,6 @@
     <string name="str_ibc_recipient_chain">수신 체인</string>
     <string name="str_select_starname_domain">도메인 선택</string>
     <string name="str_picker_dialog_title">지정 경로를 선택 하세요</string>
-    <string name="str_sif_dex_title">SifChain De-Fi</string>
-    <string name="str_sif_dex_swap">Swap</string>
-    <string name="str_sif_dex_ibc_pool">IBC Pool</string>
-    <string name="str_sif_dex_eth_pol">Eth Pool</string>
-    <string name="str_sif_swap_rate">Sif Dex Swap Rate</string>
-    <string name="str_sif_swap_step_0">스왑 수량을 입력해주세요</string>
-    <string name="str_sif_deposit_pool_step_0">입금 수량을 입력해주세요</string>
-    <string name="str_sif_withdraw_pool_step_0">출금 수량을 입력해주세요</string>
 
     <string name="str_nft_c">NFT</string>
     <string name="str_no_nfts">No NFT</string>

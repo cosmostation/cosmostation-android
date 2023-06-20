@@ -100,8 +100,6 @@ import cosmos.vesting.v1beta1.Vesting;
 import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import okhttp3.OkHttpClient;
-import osmosis.gamm.v1beta1.BalancerPool;
-import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
@@ -111,7 +109,6 @@ import wannabit.io.cosmostaion.activities.txs.liquidstaking.PersisLSActivity;
 import wannabit.io.cosmostaion.activities.txs.liquidstaking.StrideLSActivity;
 import wannabit.io.cosmostaion.activities.txs.nft.NFTListActivity;
 import wannabit.io.cosmostaion.activities.txs.osmosis.SwapViewActivity;
-import wannabit.io.cosmostaion.activities.txs.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -660,103 +657,6 @@ public class WUtil {
     public static ArrayList<String> getExchangeAddressList() {
         return Lists.newArrayList(EXCHANGE_BINANCE_ADDRESS_01, EXCHANGE_BINANCE_ADDRESS_02, EXCHANGE_BINANCE_ADDRESS_03, EXCHANGE_BITHUMB_ADDRESS, EXCHANGE_UPBIT_ADDRESS,
                 EXCHANGE_COINONE_ADDRESS, EXCHANGE_MEXC_ADDRESS, EXCHANGE_HITBTC_ADDRESS, EXCHANGE_DIGFINEX_ADDRESS);
-    }
-
-    /**
-     * About Osmosis
-     */
-    public static BigDecimal getMyShareLpAmount(BaseData baseData, BalancerPool.Pool pool, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        BigDecimal myShare = baseData.getAvailable("gamm/pool/" + pool.getId());
-        String totalLpCoin = "";
-        if (pool.getPoolAssets(0).getToken().getDenom().equalsIgnoreCase(denom)) {
-            totalLpCoin = pool.getPoolAssets(0).getToken().getAmount();
-        } else {
-            totalLpCoin = pool.getPoolAssets(1).getToken().getAmount();
-        }
-        result = new BigDecimal(totalLpCoin).multiply(myShare).divide(new BigDecimal(pool.getTotalShares().getAmount()), 18, RoundingMode.DOWN);
-        return result;
-    }
-
-    public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, BalancerPool.Pool pool) {
-        try {
-            BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
-            return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
-        } catch (Exception e) {
-            return BigDecimal.ZERO;
-        }
-    }
-
-    public static BigDecimal getPoolValue(BaseData baseData, BalancerPool.Pool pool) {
-        ChainConfig chainConfig = ChainFactory.getChain(BaseChain.OSMOSIS_MAIN);
-        Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
-        Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
-        BigDecimal coin0Value = WDp.usdValue(baseData, coin0.denom, new BigDecimal(coin0.amount), WDp.getDenomDecimal(baseData, chainConfig, coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, coin1.denom, new BigDecimal(coin1.amount), WDp.getDenomDecimal(baseData, chainConfig, coin1.denom));
-        return coin0Value.add(coin1Value);
-    }
-
-    /**
-     * About Sif
-     */
-    public static BigDecimal getNativeAmount(sifnode.clp.v1.Types.Pool pool) {
-        return new BigDecimal(pool.getNativeAssetBalance());
-    }
-
-    public static BigDecimal getExternalAmount(sifnode.clp.v1.Types.Pool pool) {
-        return new BigDecimal(pool.getExternalAssetBalance());
-    }
-
-    public static BigDecimal getUnitAmount(sifnode.clp.v1.Types.Pool pool) {
-        return new BigDecimal(pool.getPoolUnits());
-    }
-
-    public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
-        if (denom != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(SIF_MAIN);
-            if (denom.equals(chainConfig.mainDenom())) {
-                return getNativeAmount(pool);
-            } else {
-                return getExternalAmount(pool);
-            }
-        }
-        return BigDecimal.ONE;
-    }
-
-    public static BigDecimal getSifPoolPrice(sifnode.clp.v1.Types.Pool pool, String denom) {
-        if (denom != null) {
-            ChainConfig chainConfig = ChainFactory.getChain(SIF_MAIN);
-            if (denom.equals(chainConfig.mainDenom())) {
-                return new BigDecimal(pool.getSwapPriceNative());
-            } else {
-                return new BigDecimal(pool.getSwapPriceExternal());
-            }
-        }
-        return BigDecimal.ONE;
-    }
-
-    public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
-        final ChainConfig chainConfig = ChainFactory.getChain(SIF_MAIN);
-
-        int rowanDecimal = WDp.getDenomDecimal(baseData, chainConfig, chainConfig.mainDenom());
-        BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());
-        BigDecimal rowanPrice = WDp.perUsdValue(baseData, chainConfig.mainDenom());
-
-        int externalDecimal = WDp.getDenomDecimal(baseData, chainConfig, pool.getExternalAsset().getSymbol());
-        BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
-        String exteranlBaseDenom = pool.getExternalAsset().getSymbol();
-        BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);
-
-        BigDecimal rowanValue = rowanAmount.multiply(rowanPrice).movePointLeft(rowanDecimal);
-        BigDecimal externalValue = externalAmount.multiply(exteranlPrice).movePointLeft(externalDecimal).setScale(2, RoundingMode.DOWN);
-        return rowanValue.add(externalValue);
-    }
-
-    public static BigDecimal getSifMyShareValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool, Querier.LiquidityProviderRes myLp) {
-        BigDecimal poolValue = getSifPoolValue(baseData, pool);
-        BigDecimal totalUnit = new BigDecimal(pool.getPoolUnits());
-        BigDecimal myUnit = new BigDecimal(myLp.getLiquidityProvider().getLiquidityProviderUnits());
-        return poolValue.multiply(myUnit).divide(totalUnit, 2, RoundingMode.DOWN);
     }
 
     /**
@@ -1477,9 +1377,6 @@ public class WUtil {
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.cdp_s_ic), null, null, null);
             dexTitle.setText(R.string.str_kava_dapp);
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_sifdex), null, null, null);
-            dexTitle.setText(R.string.str_sif_dex_title);
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             dexTitle.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mainActivity, R.drawable.icon_osmosislab), null, null, null);
             dexTitle.setText(R.string.str_osmosis_defi_lab);
@@ -1496,8 +1393,6 @@ public class WUtil {
             return new Intent(mainActivity, StarNameListActivity.class);
         } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
             return new Intent(mainActivity, DAppsList5Activity.class);
-        } else if (chainConfig.baseChain().equals(SIF_MAIN)) {
-            return new Intent(mainActivity, SifDexListActivity.class);
         } else if (chainConfig.baseChain().equals(OSMOSIS_MAIN)) {
             return new Intent(mainActivity, SwapViewActivity.class);
         } else if (chainConfig.baseChain().equals(STRIDE_MAIN)) {
