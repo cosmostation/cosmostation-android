@@ -5,8 +5,8 @@ import java.math.BigDecimal
 data class ResVestingData(val allocated_amount: String?, val withdrawn_amount: String?, val schedule: Schedule?) {
 
     fun getVestingAmount(): BigDecimal? {
-        return if (allocated_amount != null) {
-            BigDecimal(allocated_amount)
+        return if (allocated_amount != null && withdrawn_amount != null) {
+            BigDecimal(allocated_amount).subtract(BigDecimal(withdrawn_amount))
         } else {
             BigDecimal.ZERO
         }
