@@ -11,7 +11,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.JsResult
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebStorage
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -65,9 +72,13 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
-import wannabit.io.cosmostaion.dialog.*
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog
+import wannabit.io.cosmostaion.dialog.DappSignDialog
 import wannabit.io.cosmostaion.dialog.DappSignDialog.WcSignRawDataListener
+import wannabit.io.cosmostaion.dialog.DappUrlDialog
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
@@ -150,12 +161,15 @@ class WalletConnectActivity : BaseActivity() {
                     WC_URL_SCHEME_HOST_WC -> {
                         connectType = ConnectType.DeepLinkWalletConnect
                     }
+
                     WC_URL_SCHEME_HOST_DAPP_EXTERNAL -> {
                         connectType = ConnectType.ExternalDapp
                     }
+
                     WC_URL_SCHEME_HOST_DAPP_INTERNAL -> {
                         connectType = ConnectType.InternalDapp
                     }
+
                     else -> {}
                 }
             } else if (fromCommonWalletConnectScheme(data)) {
@@ -346,6 +360,7 @@ class WalletConnectActivity : BaseActivity() {
                             }
                         }
                     }
+
                     "cosmos_signDirect" -> {
                         val signBundle = generateSignBundle(id, params)
                         showSignDialog(signBundle, object : WcSignRawDataListener {
@@ -358,6 +373,7 @@ class WalletConnectActivity : BaseActivity() {
                             }
                         })
                     }
+
                     "cosmos_signAmino" -> {
                         val signBundle = generateSignBundle(id, params)
                         showSignDialog(signBundle, object : WcSignRawDataListener {
@@ -701,6 +717,7 @@ class WalletConnectActivity : BaseActivity() {
                         wcV1Client?.approveSession(listOf(WKey.generateEthAddressFromPrivateKey(getPrivateKey(account))), 9001)
                         return
                     }
+
                     else -> {
                         wcV1Client?.approveSession(listOf(account.address), 1)
                         return
@@ -970,10 +987,28 @@ class WalletConnectActivity : BaseActivity() {
             val jsonObject = Gson().fromJson(transaction, JsonObject::class.java)
             val signDocJson = jsonObject["signDoc"].asJsonObject
             val chainId = signDocJson["chain_id"].asString
+
+            try {
+                val chainType = WDp.getChainTypeByChainId(chainId)
+                val chainConfig = ChainFactory.getChain(chainType)
+                val denom = chainConfig.mainDenom()
+                val fee = signDocJson.get("fee").asJsonObject
+                val gas = fee.get("gas").asString
+                val amounts = fee.get("amount").asJsonArray
+                if (amounts.size() == 0) {
+                    val jsonObject = JsonObject()
+                    jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+                    jsonObject.addProperty("denom", denom)
+                    amounts.add(jsonObject)
+                }
+                val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
+                mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+            } catch (_: Exception) {
+            }
             val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain))
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
-                    id, Gson().toJson(signModel.signature)
+                    id, Gson().toJson(signModel)
                 )
             )
             SignClient.respond(response) { error ->
@@ -1353,7 +1388,8 @@ class WalletConnectActivity : BaseActivity() {
         ): Boolean {
             AlertDialog.Builder(
                 view.context, R.style.DialogTheme
-            ).setMessage(message).setPositiveButton("OK") { dialog: DialogInterface?, which: Int -> result.confirm() }.setOnDismissListener { dialog: DialogInterface? -> result.confirm() }.create().show()
+            ).setMessage(message).setPositiveButton("OK") { dialog: DialogInterface?, which: Int -> result.confirm() }.setOnDismissListener { dialog: DialogInterface? -> result.confirm() }.create()
+                .show()
             return true
         }
 
@@ -1362,7 +1398,8 @@ class WalletConnectActivity : BaseActivity() {
         ): Boolean {
             AlertDialog.Builder(
                 view.context, R.style.DialogTheme
-            ).setMessage(message).setPositiveButton("OK") { _: DialogInterface?, _: Int -> result.confirm() }.setNegativeButton("Cancel") { _: DialogInterface?, _: Int -> result.cancel() }.setOnDismissListener { dialog: DialogInterface? -> result.cancel() }.create().show()
+            ).setMessage(message).setPositiveButton("OK") { _: DialogInterface?, _: Int -> result.confirm() }.setNegativeButton("Cancel") { _: DialogInterface?, _: Int -> result.cancel() }
+                .setOnDismissListener { dialog: DialogInterface? -> result.cancel() }.create().show()
             return true
         }
     }
@@ -1400,6 +1437,9 @@ class WalletConnectActivity : BaseActivity() {
             } else if (modifiedUrl.startsWith("keplrwallet://wcV1")) {
                 processConnectScheme(modifiedUrl)
                 return true
+            } else if (modifiedUrl.startsWith("keplrwallet://wcV2")) {
+                processConnectScheme(modifiedUrl)
+                return true
             } else if (modifiedUrl.startsWith("intent:")) {
                 if (modifiedUrl.contains("intent://wcV1")) {
                     modifiedUrl = modifiedUrl.replace(
@@ -1407,6 +1447,17 @@ class WalletConnectActivity : BaseActivity() {
                     )
                     modifiedUrl = modifiedUrl.replace(
                         "intent://wcV1", "intent://wc"
+                    )
+                    modifiedUrl = modifiedUrl.replace(
+                        "scheme=keplrwallet", "scheme=cosmostation"
+                    )
+                }
+                if (modifiedUrl.contains("intent://wcV2")) {
+                    modifiedUrl = modifiedUrl.replace(
+                        "#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;", "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;"
+                    )
+                    modifiedUrl = modifiedUrl.replace(
+                        "intent://wcV2", "intent://wc"
                     )
                     modifiedUrl = modifiedUrl.replace(
                         "scheme=keplrwallet", "scheme=cosmostation"
@@ -1462,24 +1513,29 @@ class WalletConnectActivity : BaseActivity() {
                         appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
                     }
                 }
+
                 "cos_supportedChainIds" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1")))
+                    dataJson.put("official", JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1", "crescent-1")))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
                 }
-                "cos_supportedChainNames" -> {
+
+                "cos_supportedChainNames", "ten_supportedChainNames" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix")))
+                    dataJson.put("official", JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix", "crescent")))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
                 }
+
                 "cos_activatedChainIds" -> {
-                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1")), messageId)
+                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1", "crescent-1")), messageId)
                 }
+
                 "cos_activatedChainNames" -> {
-                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix")), messageId)
+                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix", "crescent")), messageId)
                 }
+
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val doc = params.getJSONObject("doc")
@@ -1500,6 +1556,7 @@ class WalletConnectActivity : BaseActivity() {
                         }
                     })
                 }
+
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val doc = params.getJSONObject("doc")
@@ -1525,6 +1582,7 @@ class WalletConnectActivity : BaseActivity() {
                         }
                     })
                 }
+
                 "cos_sendTransaction" -> {
                     appToWebError("Not implemented", messageId)
                 }
@@ -1541,7 +1599,10 @@ class WalletConnectActivity : BaseActivity() {
         accountJson.put("isKeystone", false)
         accountJson.put("isEthermint", false)
         accountJson.put("isLedger", false)
-        val baseChain = WDp.getChainTypeByChainId(chainId)
+        var baseChain = WDp.getChainTypeByChainId(chainId)
+        if (baseChain == null) {
+            baseChain = WDp.getChainTypeByChainName(chainId)
+        }
         val key = getBaseAccountKey()
         accountJson.put("address", WKey.genTendermintBech32Address(baseChain, Utils.bytesToHex(key.pubKey)))
         accountJson.put("name", WUtil.getWalletName(this, baseDao.onSelectAccount(baseDao.lastUser)))
