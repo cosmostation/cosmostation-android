@@ -436,6 +436,17 @@ public class WDp {
         }
         return null;
     }
+    public static BaseChain getChainTypeByChainName(String chainName) {
+        if (chainName != null) {
+            ArrayList<ChainConfig> allConfigs = ChainFactory.SUPPRT_CONFIG();
+            for (ChainConfig chainConfig : allConfigs) {
+                if (chainName.contains(chainConfig.chainName())) {
+                    return chainConfig.baseChain();
+                }
+            }
+        }
+        return null;
+    }
 
     public static boolean isValidChainAddress(ChainConfig chainConfig, String address) {
         if (chainConfig == null) return false;
