@@ -970,10 +970,28 @@ class WalletConnectActivity : BaseActivity() {
             val jsonObject = Gson().fromJson(transaction, JsonObject::class.java)
             val signDocJson = jsonObject["signDoc"].asJsonObject
             val chainId = signDocJson["chain_id"].asString
+
+            try {
+                val chainType = WDp.getChainTypeByChainId(chainId)
+                val chainConfig = ChainFactory.getChain(chainType)
+                val denom = chainConfig.mainDenom()
+                val fee = signDocJson.get("fee").asJsonObject
+                val gas = fee.get("gas").asString
+                val amounts = fee.get("amount").asJsonArray
+                if (amounts.size() == 0) {
+                    val jsonObject = JsonObject()
+                    jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+                    jsonObject.addProperty("denom", denom)
+                    amounts.add(jsonObject)
+                }
+                val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
+                mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+            } catch (_: Exception) {
+            }
             val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain))
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
-                    id, Gson().toJson(signModel.signature)
+                    id, Gson().toJson(signModel)
                 )
             )
             SignClient.respond(response) { error ->
@@ -1400,6 +1418,9 @@ class WalletConnectActivity : BaseActivity() {
             } else if (modifiedUrl.startsWith("keplrwallet://wcV1")) {
                 processConnectScheme(modifiedUrl)
                 return true
+            } else if (modifiedUrl.startsWith("keplrwallet://wcV2")) {
+                processConnectScheme(modifiedUrl)
+                return true
             } else if (modifiedUrl.startsWith("intent:")) {
                 if (modifiedUrl.contains("intent://wcV1")) {
                     modifiedUrl = modifiedUrl.replace(
@@ -1407,6 +1428,17 @@ class WalletConnectActivity : BaseActivity() {
                     )
                     modifiedUrl = modifiedUrl.replace(
                         "intent://wcV1", "intent://wc"
+                    )
+                    modifiedUrl = modifiedUrl.replace(
+                        "scheme=keplrwallet", "scheme=cosmostation"
+                    )
+                }
+                if (modifiedUrl.contains("intent://wcV2")) {
+                    modifiedUrl = modifiedUrl.replace(
+                        "#Intent;package=com.chainapsis.keplr;scheme=keplrwallet;end;", "#Intent;package=wannabit.io.cosmostaion;scheme=cosmostation;end;"
+                    )
+                    modifiedUrl = modifiedUrl.replace(
+                        "intent://wcV2", "intent://wc"
                     )
                     modifiedUrl = modifiedUrl.replace(
                         "scheme=keplrwallet", "scheme=cosmostation"
