@@ -97,7 +97,8 @@ public enum BaseChain {
     NOBLE_MAIN("noble-mainnet"),
     STAFI_MAIN("stafi-mainnet"),
     NEUTRON_TEST("neutron-testnet"),
-    NEUTRON_MAIN("neutron-mainnet");
+    NEUTRON_MAIN("neutron-mainnet"),
+    ARCHWAY_MAIN("archway-mainnet");
 
 
     private final String chainName;
@@ -321,6 +322,9 @@ public enum BaseChain {
         if (chainName.equals(NEUTRON_MAIN.chainName)) {
             return NEUTRON_MAIN;
         }
+        if (chainName.equals(ARCHWAY_MAIN.chainName)) {
+            return ARCHWAY_MAIN;
+        }
         return null;
     }
 
@@ -329,6 +333,7 @@ public enum BaseChain {
         result.add(COSMOS_MAIN);
         result.add(IRIS_MAIN);
         result.add(AKASH_MAIN);
+        result.add(ARCHWAY_MAIN);
         result.add(ASSETMANTLE_MAIN);
         result.add(AXELAR_MAIN);
         result.add(BAND_MAIN);
