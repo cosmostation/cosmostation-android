@@ -1594,12 +1594,8 @@ class WalletConnectActivity : BaseActivity() {
         }
         val key = getBaseAccountKey()
         if (baseChain == null) {
-            baseDao.mSupportConfig.customChains.find { chainId.equals(it.chainId, true) }?.let {
-                if (it.default_address_type == true) {
-                    accountJson.put("address", WKey.genTendermintBech32Address(it.prefix, Utils.bytesToHex(key.pubKey)))
-                } else {
-                    accountJson.put("address", WKey.genEthermintBech32Address(it.prefix, key.privateKeyAsHex))
-                }
+            baseDao.mSupportConfig.customChains?.find { chainId.equals(it.chainId, true) }?.let {
+                accountJson.put("address", WKey.genTendermintBech32Address(it.prefix, Utils.bytesToHex(key.pubKey)))
             }
         } else {
             accountJson.put("address", WKey.genTendermintBech32Address(baseChain, Utils.bytesToHex(key.pubKey)))

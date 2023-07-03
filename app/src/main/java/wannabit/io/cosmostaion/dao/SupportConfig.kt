@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.dao
 data class SupportConfig(
     val supportChainNames: List<String>?,
     val supportChainIds: List<String>?,
-    val customChains: List<CustomChain>
+    val customChains: List<CustomChain>?
 )
 
 data class CustomChain(
