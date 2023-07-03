@@ -134,6 +134,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_VAULT_BALANCE = 4313;
     public final static int TASK_GRPC_FETCH_NEUTRON_VESTING = 4314;
 
+    public final static int TASK_FETCH_DAPP_CONFIG_LIST = 4330;
+
 
     public final static String COSMOS_AUTH_TYPE_STDTX = "auth/StdTx";
     public final static String COSMOS_AUTH_TYPE_OKEX_ACCOUNT = "okexchain/EthAccount";

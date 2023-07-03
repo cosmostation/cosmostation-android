@@ -74,6 +74,7 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dao.SupportConfig;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
@@ -397,6 +398,8 @@ public class BaseData {
     public List<ResVaultData> mVaultDatas = new ArrayList<>();
     public String mVaultAmount = null;
     public ResVestingData mResVestingData = null;
+
+    public SupportConfig mSupportConfig = null;
 
     //gRPC funcs
     public String getChainIdGrpc() {

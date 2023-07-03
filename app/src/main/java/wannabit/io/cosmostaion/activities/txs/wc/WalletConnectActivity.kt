@@ -11,14 +11,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.webkit.JavascriptInterface
-import android.webkit.JsResult
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebSettings
-import android.webkit.WebStorage
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -72,13 +65,9 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
-import wannabit.io.cosmostaion.dialog.CommonAlertDialog
-import wannabit.io.cosmostaion.dialog.DappSignDialog
+import wannabit.io.cosmostaion.dialog.*
 import wannabit.io.cosmostaion.dialog.DappSignDialog.WcSignRawDataListener
-import wannabit.io.cosmostaion.dialog.DappUrlDialog
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
-import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
@@ -1516,24 +1505,24 @@ class WalletConnectActivity : BaseActivity() {
 
                 "cos_supportedChainIds" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1", "crescent-1")))
+                    dataJson.put("official", JSONArray(baseDao.mSupportConfig.supportChainIds))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
                 }
 
                 "cos_supportedChainNames", "ten_supportedChainNames" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix", "crescent")))
+                    dataJson.put("official", JSONArray(baseDao.mSupportConfig.supportChainNames))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
                 }
 
                 "cos_activatedChainIds" -> {
-                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmoshub-4", "osmosis-1", "stride-1", "stargaze-1", "omniflixhub-1", "crescent-1")), messageId)
+                    appToWebResult(messageJson, JSONArray(baseDao.mSupportConfig.supportChainIds), messageId)
                 }
 
                 "cos_activatedChainNames" -> {
-                    appToWebResult(messageJson, JSONArray(arrayListOf("cosmos", "osmosis", "stride", "stargaze", "omniflix", "crescent")), messageId)
+                    appToWebResult(messageJson, JSONArray(baseDao.mSupportConfig.supportChainNames), messageId)
                 }
 
                 "cos_signAmino" -> {
@@ -1605,11 +1594,13 @@ class WalletConnectActivity : BaseActivity() {
         }
         val key = getBaseAccountKey()
         if (baseChain == null) {
-            val prefix = when (chainId) {
-                "constantine-3" -> "archway"
-                else -> ""
+            baseDao.mSupportConfig.customChains.find { chainId.equals(it.chainId, true) }?.let {
+                if (it.default_address_type == true) {
+                    accountJson.put("address", WKey.genTendermintBech32Address(it.prefix, Utils.bytesToHex(key.pubKey)))
+                } else {
+                    accountJson.put("address", WKey.genEthermintBech32Address(it.prefix, key.privateKeyAsHex))
+                }
             }
-            accountJson.put("address", WKey.genTendermintBech32Address(prefix, Utils.bytesToHex(key.pubKey)))
         } else {
             accountJson.put("address", WKey.genTendermintBech32Address(baseChain, Utils.bytesToHex(key.pubKey)))
         }

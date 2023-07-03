@@ -14,6 +14,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_DAPP_CONFIG_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_CW20_ASSETS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINTSCAN_ERC20_ASSETS;
@@ -103,6 +104,7 @@ import wannabit.io.cosmostaion.dao.MWords;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.dao.NameService;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dao.SupportConfig;
 import wannabit.io.cosmostaion.dialog.AccountShowDialog;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
 import wannabit.io.cosmostaion.dialog.FilledVerticalButtonAlertDialog;
@@ -124,6 +126,7 @@ import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.DappConfigListTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanAssetsTask;
 import wannabit.io.cosmostaion.task.FetchTask.MintScanCw20AssetsTask;
@@ -161,6 +164,7 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.LanguageUtil;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
@@ -561,6 +565,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mVaultAmount = null;
         getBaseDao().mResVestingData = null;
 
+        getBaseDao().mSupportConfig = null;
+
 
         if (mBaseChain.equals(BNB_MAIN)) {
             mTaskCount = 6;
@@ -739,12 +745,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             tendermint.p2p.Types.NodeInfo tempNodeInfo = (tendermint.p2p.Types.NodeInfo) result.resultData;
             if (tempNodeInfo != null) {
                 getBaseDao().mGRpcNodeInfo = tempNodeInfo;
-                mTaskCount = mTaskCount + 5;
+                mTaskCount = mTaskCount + 6;
                 new MintScanAssetsTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanCw20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintscanErc20AssetsTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new MintScanUtilityParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new OsmosisCheckIcnsGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new DappConfigListTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //                new StargazeCheckNSGrpcTask(getBaseApplication(), this, mChainConfig, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
@@ -895,6 +902,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_NEUTRON_VESTING) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mResVestingData = (ResVestingData) result.resultData;
+            }
+        }
+
+        else if (result.taskType == TASK_FETCH_DAPP_CONFIG_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mSupportConfig = (SupportConfig) result.resultData;
             }
         }
 
