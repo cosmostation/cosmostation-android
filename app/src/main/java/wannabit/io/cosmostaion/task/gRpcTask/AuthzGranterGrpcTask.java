@@ -42,7 +42,7 @@ public class AuthzGranterGrpcTask extends CommonTask {
                     mResultData.add(grant.getGranter());
                 }
             }
-
+            WLog.w("Test1234 : " + response.getGrantsList());
             mResult.isSuccess = true;
             mResult.resultData = mResultData;
 

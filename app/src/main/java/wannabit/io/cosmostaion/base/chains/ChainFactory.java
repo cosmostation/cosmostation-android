@@ -30,6 +30,9 @@ public class ChainFactory {
                 case AKASH_MAIN:
                     return new Akash();
 
+                case ARCHWAY_MAIN:
+                    return new Archway();
+
                 case ASSETMANTLE_MAIN:
                     return new Assetmantle();
 
