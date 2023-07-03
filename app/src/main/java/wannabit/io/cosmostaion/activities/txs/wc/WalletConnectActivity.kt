@@ -256,7 +256,6 @@ class WalletConnectActivity : BaseActivity() {
                 webChromeClient = dappWebChromeClient
                 webViewClient = dappWebViewClient
                 setOnTouchListener(webViewTouchListener)
-                setOnScrollChangeListener(webViewScrollChangeListener)
             }
         }
         setSupportActionBar(binding.toolBar)
@@ -1364,22 +1363,6 @@ class WalletConnectActivity : BaseActivity() {
             lastClickPositionY = -1
         }
         false
-    }
-
-    private val webViewScrollChangeListener = View.OnScrollChangeListener { _: View?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
-        if (lastClickPositionY == -1) {
-            lastClickPositionY = oldScrollY
-        }
-        if (lastClickPositionY > scrollY && Math.abs(scrollY - oldScrollY) > 50 && isHideToolbar) {
-            isHideToolbar = false
-            supportActionBar?.show()
-        } else if (lastClickPositionY < scrollY && Math.abs(
-                scrollY - oldScrollY
-            ) > 50 && !isHideToolbar
-        ) {
-            isHideToolbar = true
-            supportActionBar?.hide()
-        }
     }
 
     private val dappWebChromeClient = object : WebChromeClient() {
