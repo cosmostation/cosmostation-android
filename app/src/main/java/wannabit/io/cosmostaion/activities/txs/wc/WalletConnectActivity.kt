@@ -1604,7 +1604,15 @@ class WalletConnectActivity : BaseActivity() {
             baseChain = WDp.getChainTypeByChainName(chainId)
         }
         val key = getBaseAccountKey()
-        accountJson.put("address", WKey.genTendermintBech32Address(baseChain, Utils.bytesToHex(key.pubKey)))
+        if (baseChain == null) {
+            val prefix = when (chainId) {
+                "constantine-3" -> "archway"
+                else -> ""
+            }
+            accountJson.put("address", WKey.genTendermintBech32Address(prefix, Utils.bytesToHex(key.pubKey)))
+        } else {
+            accountJson.put("address", WKey.genTendermintBech32Address(baseChain, Utils.bytesToHex(key.pubKey)))
+        }
         accountJson.put("name", WUtil.getWalletName(this, baseDao.onSelectAccount(baseDao.lastUser)))
         accountJson.put("publicKey", Utils.bytesToHex(key.pubKey))
         return accountJson

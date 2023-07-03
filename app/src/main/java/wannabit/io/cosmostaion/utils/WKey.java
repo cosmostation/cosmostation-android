@@ -333,6 +333,11 @@ public class WKey {
 
     // ripemd160 + bech32 for base cosmos sdk style (cosmos1.........)
     public static String genTendermintBech32Address(BaseChain chain, String pubHex) {
+        ChainConfig chainConfig = ChainFactory.getChain(chain);
+        return genTendermintBech32Address(chainConfig.addressPrefix(), pubHex);
+    }
+
+    public static String genTendermintBech32Address(String prefix, String pubHex) {
         String result = null;
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] hash = digest.digest(WUtil.HexStringToByteArray(pubHex));
@@ -345,10 +350,7 @@ public class WKey {
 
         try {
             byte[] converted = convertBits(hash3, 8, 5, true);
-            if (chain != null) {
-                ChainConfig chainConfig = ChainFactory.getChain(chain);
-                result = bech32Encode(chainConfig.addressPrefix().getBytes(), converted);
-            }
+            result = bech32Encode(prefix.getBytes(), converted);
         } catch (Exception e) {
             WLog.w("Secp256k1 genDPAddress Error");
         }
