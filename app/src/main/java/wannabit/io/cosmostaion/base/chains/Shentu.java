@@ -31,7 +31,7 @@ public class Shentu extends ChainConfig {
     public String grpcUrl() { return "grpc-shentu.cosmostation.io"; }
 
     public String explorerUrl() { return EXPLORER_BASE_URL + "shentu/"; }
-    public String homeInfoLink() { return  "https://www.certik.com"; }
+    public String homeInfoLink() { return  "https://www.shentu.technology"; }
     public String blogInfoLink() { return  "https://medium.com/shentu-foundation"; }
     public String coingeckoLink() { return  COINGECKO_URL + "shentu"; }
 }
