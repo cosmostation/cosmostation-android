@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.dao;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OMNIFLIX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.QUICKSILVER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SOMMELIER_MAIN;
@@ -400,7 +399,9 @@ public class Param {
                     if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN) || chainConfig.baseChain().equals(ONOMY_MAIN))
                         ap = getMainSupply().multiply(getMintInflation(chainConfig));
                     else ap = getAnnualProvision();
-                    if (ap.compareTo(BigDecimal.ZERO) > 0) {
+                    if (chainConfig.baseChain().equals(BaseChain.ARCHWAY_MAIN)) {
+                        return new BigDecimal("0.075").divide(bondingRate, 6, RoundingMode.DOWN);
+                    } else if (ap.compareTo(BigDecimal.ZERO) > 0) {
                         if (chainConfig.baseChain().equals(BaseChain.OMNIFLIX_MAIN)) {
                             return ap.multiply(calTax).multiply(new BigDecimal(mParams.mOmniflixAllocParams.mDistributionProportions.staking_rewards)).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                         } else {
