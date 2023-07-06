@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.dao;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ARCHWAY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
@@ -155,6 +156,12 @@ public class Param {
 
         @SerializedName("stargaze_annual_provisions")
         public String mStargazeAnnualProvision;
+
+        @SerializedName("archway_staking_inflation")
+        public Double mArchway_staking_inflation = 0.0;
+
+        @SerializedName("onomy_protocol_treasury_balance")
+        public ArrayList<Coin> mOnomy_protocol_treasury_balance;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -394,14 +401,25 @@ public class Param {
                         BigDecimal stakingDistribution = new BigDecimal(mParams.mQuicksilverMintingParams.params.mDistributionProportion.staking);
                         return inflation.multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
                     }
+
+                } else if (chainConfig.baseChain().equals(ARCHWAY_MAIN)) {
+                    return new BigDecimal(mParams.mArchway_staking_inflation).divide(bondingRate, 6, RoundingMode.DOWN);
+
+                } else if (chainConfig.baseChain().equals(ONOMY_MAIN)) {
+                    if (mParams.mOnomy_protocol_treasury_balance != null && mParams.mOnomy_protocol_treasury_balance.size() > 0) {
+                        BigDecimal activeSupply = getMainSupply().subtract(new BigDecimal(mParams.mOnomy_protocol_treasury_balance.get(0).amount));
+                        bondingRate = getBondedAmount().divide(activeSupply, 6, RoundingMode.DOWN);
+                        return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                    } else {
+                        return BigDecimal.ZERO;
+                    }
+
                 } else {
                     BigDecimal ap;
-                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN) || chainConfig.baseChain().equals(ONOMY_MAIN))
+                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN))
                         ap = getMainSupply().multiply(getMintInflation(chainConfig));
                     else ap = getAnnualProvision();
-                    if (chainConfig.baseChain().equals(BaseChain.ARCHWAY_MAIN)) {
-                        return new BigDecimal("0.075").divide(bondingRate, 6, RoundingMode.DOWN);
-                    } else if (ap.compareTo(BigDecimal.ZERO) > 0) {
+                    if (ap.compareTo(BigDecimal.ZERO) > 0) {
                         if (chainConfig.baseChain().equals(BaseChain.OMNIFLIX_MAIN)) {
                             return ap.multiply(calTax).multiply(new BigDecimal(mParams.mOmniflixAllocParams.mDistributionProportions.staking_rewards)).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                         } else {
