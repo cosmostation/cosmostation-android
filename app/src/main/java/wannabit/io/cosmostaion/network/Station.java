@@ -9,6 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.Param;
 import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dao.SupportConfig;
 import wannabit.io.cosmostaion.dao.SupportPool;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResAssets;
@@ -51,6 +52,9 @@ public interface Station {
 
     @GET("/cosmostation/chainlist/master/chain/{chain}/pool.json")
     Call<ArrayList<SupportPool>> getSupportPools(@Path("chain") String chain);
+
+    @GET("/cosmostation/chainlist/master/dapp/config.json")
+    Call<SupportConfig> getSupportConfigs();
 
     @GET("v1/boards")
     Call<ResNotice> getNotice(@Query("chain") String chain, @Query("dashboard") boolean dashboard);
