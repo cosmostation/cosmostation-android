@@ -165,6 +165,7 @@ public class BaseConstant {
 
     public final static String COSMOS_KEY_TYPE_PUBLIC = "tendermint/PubKeySecp256k1";
     public final static String ETHERMINT_KEY_TYPE_PUBLIC = "ethermint/PubKeyEthSecp256k1";
+    public final static String INJECTIVE_KEY_TYPE_PUBLIC = "injective/PubKeyEthSecp256k1";
 
     public final static String CONST_PW_PURPOSE = "CONST_PW_PURPOSE";
     public final static int CONST_PW_DELETE_WALLET = 5001;

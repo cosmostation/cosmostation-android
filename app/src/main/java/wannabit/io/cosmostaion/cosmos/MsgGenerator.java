@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.model.type.WcSignature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -482,16 +483,24 @@ public class MsgGenerator {
         return signature;
     }
 
-    public static WcSignature getWcKeplrBroadcaseReq(ECKey key, JsonObject txMsg) {
+    public static WcSignature getWcKeplrBroadcaseReq(ECKey key, JsonObject txMsg, String chainId) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+        BaseChain baseChain = WDp.getChainTypeByChainId(chainId);
         try {
-            String test = mapper.writeValueAsString(mapper.readValue(txMsg.toString(), TreeMap.class));
-            String signatureTx = MsgGenerator.getSignature(key, test.getBytes(Charset.forName("UTF-8")));
-
             WcSignature signature = new WcSignature();
             Pub_key pubKey = new Pub_key();
-            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+
+            String sign = mapper.writeValueAsString(mapper.readValue(txMsg.toString(), TreeMap.class));
+            String signatureTx;
+
+            if (baseChain.equals(BaseChain.INJ_MAIN)) {
+                signatureTx = MsgGenerator.getEthermintSignature(key, sign.getBytes(Charset.forName("UTF-8")));
+                pubKey.type = BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC;
+            } else {
+                signatureTx = MsgGenerator.getSignature(key, sign.getBytes(Charset.forName("UTF-8")));
+                pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+            }
             pubKey.value = WKey.getPubKeyValue(key);
             signature.pub_key = pubKey;
             signature.signature = signatureTx;
