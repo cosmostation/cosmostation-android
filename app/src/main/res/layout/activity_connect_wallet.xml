@@ -56,12 +56,12 @@
 
             <ImageView
                 android:id="@+id/dapp_refresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/space_24"
+                android:layout_height="@dimen/space_24"
                 android:layout_toLeftOf="@+id/dapp_left"
                 android:layout_centerVertical="true"
-                android:padding="5dp"
                 android:layout_marginEnd="@dimen/space_10"
+                android:layout_marginStart="@dimen/space_10"
                 android:src="@drawable/icon_refresh" />
 
             <ImageView
