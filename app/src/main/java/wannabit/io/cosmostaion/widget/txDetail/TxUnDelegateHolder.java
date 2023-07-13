@@ -60,7 +60,7 @@ public class TxUnDelegateHolder extends TxHolder {
             itemMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
             WDp.setDpCoin(c, baseData, chainConfig, msg.getAmount().getDenom(), msg.getAmount().getAmount(), itemUnDelegateAmountDenom, itemUndelegateAmount);
 
-            ArrayList<Coin> commissionCoins = WDp.onParseAutoReward(response, address, position);
+            ArrayList<Coin> commissionCoins = WDp.onParseAutoReward(response, address, position, msg.getAmount().getAmount());
             if (commissionCoins.size() > 0) {
                 commission0Layer.setVisibility(View.VISIBLE);
                 WDp.setDpCoin(c, baseData, chainConfig, commissionCoins.get(0), itemCommissionDenom0, itemCommissionAmount0);

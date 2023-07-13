@@ -64,7 +64,7 @@ public class TxReDelegateHolder extends TxHolder {
             itemToMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorDstAddress()).getDescription().getMoniker() + ")");
             WDp.setDpCoin(c, baseData, chainConfig, msg.getAmount().getDenom(), msg.getAmount().getAmount(), itemReDelegateAmountDenom, itemRedelegateAmount);
 
-            ArrayList<Coin> commissionCoins = WDp.onParseAutoReward(response, address, position);
+            ArrayList<Coin> commissionCoins = WDp.onParseAutoReward(response, address, position, msg.getAmount().getAmount());
             if (commissionCoins.size() > 0) {
                 commission0Layer.setVisibility(View.VISIBLE);
                 WDp.setDpCoin(c, baseData, chainConfig, commissionCoins.get(0), itemCommissionDenom0, itemCommissionAmount0);

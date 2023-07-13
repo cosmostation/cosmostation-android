@@ -1273,7 +1273,7 @@ public class WDp {
         }
     }
 
-    public static ArrayList<Coin> onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
+    public static ArrayList<Coin> onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position, String msgAmount) {
         ArrayList<Coin> result = new ArrayList<>();
         if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
             for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
@@ -1289,7 +1289,9 @@ public class WDp {
                                         if (m.find()) {
                                             String amount = m.group();
                                             String denom = rawCoin.substring(m.end());
-                                            result.add(new Coin(denom, amount));
+                                            if (!msgAmount.equals(amount)) {
+                                                result.add(new Coin(denom, amount));
+                                            }
                                         }
                                     }
                                 }
