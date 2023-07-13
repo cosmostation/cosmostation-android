@@ -76,6 +76,7 @@ import wannabit.io.cosmostaion.utils.WKey
 import wannabit.io.cosmostaion.utils.WUtil
 import wannabit.io.cosmostaion.utils.WalletConnectManager.addWhiteList
 import wannabit.io.cosmostaion.utils.WalletConnectManager.getWhiteList
+import wannabit.io.cosmostaion.utils.makeToast
 import java.io.BufferedReader
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -884,7 +885,7 @@ class WalletConnectActivity : BaseActivity() {
             val transactionJson = Gson().fromJson(transaction, JsonArray::class.java)
             val chainId = transactionJson[0].asString
             val txMsg = transactionJson[2].asJsonObject
-            val signModel = WcSignModel(txMsg, getKey(WDp.getChainTypeByChainId(chainId).chain))
+            val signModel = WcSignModel(txMsg, getKey(WDp.getChainTypeByChainId(chainId).chain), chainId)
             wcV1Client?.approveRequest(id, listOf(signModel))
             Toast.makeText(
                 baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
@@ -991,9 +992,8 @@ class WalletConnectActivity : BaseActivity() {
                 }
                 val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
                 mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
-            } catch (_: Exception) {
-            }
-            val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain))
+            } catch (_: Exception) { }
+            val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain), chainId)
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
                     id, Gson().toJson(signModel)
@@ -1146,9 +1146,15 @@ class WalletConnectActivity : BaseActivity() {
                 return
             }
 
-            loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
-                selectedAccounts.add(it)
-                showAccountDialog(chains, selectedAccounts, index + 1, action)
+            if (WDp.getChainTypeByChainId(chains[index]) != null) {
+                loadedAccountMap[WDp.getChainTypeByChainId(chains[index]).chain]?.let {
+                    selectedAccounts.add(it)
+                    showAccountDialog(chains, selectedAccounts, index + 1, action)
+                    return
+                }
+            } else {
+                makeToast(R.string.error_not_support_cosmostation)
+                binding.loadingLayer.visibility = View.GONE
                 return
             }
 
@@ -1515,7 +1521,7 @@ class WalletConnectActivity : BaseActivity() {
                     showSignDialog(signBundle, object : WcSignRawDataListener {
                         override fun sign(id: Long, transaction: String) {
                             val transactionJson = Gson().fromJson(transaction, JsonObject::class.java)
-                            val signModel = WcSignModel(transactionJson, getBaseAccountKey())
+                            val signModel = WcSignModel(transactionJson, getBaseAccountKey(), transactionJson.get("chain_id").asString)
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))

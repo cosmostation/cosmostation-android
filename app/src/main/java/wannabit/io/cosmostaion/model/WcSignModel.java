@@ -11,14 +11,13 @@ import java.io.IOException;
 import java.util.TreeMap;
 
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
-import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.model.type.WcSignature;
 
 public class WcSignModel {
     public TreeMap<String, Object> signed;
     public WcSignature signature;
 
-    public WcSignModel(JsonObject txMsg, ECKey key) {
+    public WcSignModel(JsonObject txMsg, ECKey key, String chainId) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
 
@@ -28,6 +27,6 @@ public class WcSignModel {
             this.signed = Maps.newTreeMap();
             e.printStackTrace();
         }
-        this.signature = MsgGenerator.getWcKeplrBroadcaseReq(key, txMsg);
+        this.signature = MsgGenerator.getWcKeplrBroadcaseReq(key, txMsg, chainId);
     }
 }

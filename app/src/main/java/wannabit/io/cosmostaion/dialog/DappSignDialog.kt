@@ -69,15 +69,15 @@ class DappSignDialog(private val id: Long, private val data: String, private val
     }
 
     private fun fillTxData(transaction: String?) {
-        val txJsonArray = JsonParser.parseString(transaction).asJsonArray
-        val chainId = txJsonArray.get(0).asString
-        val address = txJsonArray.get(1).asString
-        val txJsonObject = txJsonArray.get(2).asJsonObject
-        val msgJsonArray = txJsonObject.getAsJsonArray("msgs")
-        binding.chainName.text = if (StringUtils.isNotEmpty(chainId)) chainId else getString(R.string.str_wc_sign_title)
+        val txJsonObject = JsonParser.parseString(transaction).asJsonObject
+        val txJsonSignDoc = txJsonObject.getAsJsonObject("signDoc")
+        val address = txJsonObject.get("signerAddress").asString
+        val chainId = txJsonSignDoc.get("chain_id").asString
+        val msgJsonArray = txJsonSignDoc.getAsJsonArray("msgs")
+        binding.chainName.text = getString(R.string.str_wc_sign_title)
         binding.addressDetail.text = address
-        binding.memoDetail.text = txJsonObject["memo"].asString
-        binding.totalFeeAmount.text = makeFeeString(chainId, txJsonObject)
+        binding.memoDetail.text = txJsonSignDoc.get("memo").asString
+        binding.totalFeeAmount.text = makeFeeString(chainId, txJsonSignDoc)
         binding.wcRawData.text = GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
         binding.wcDetail.text = GsonBuilder().setPrettyPrinting().create().toJson(msgJsonArray)
         enableTab(0)
