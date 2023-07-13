@@ -58,7 +58,6 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity
 import wannabit.io.cosmostaion.base.BaseActivity
-import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.cosmos.MsgGenerator
@@ -1482,14 +1481,9 @@ class WalletConnectActivity : BaseActivity() {
             val messageJson = requestJson.getJSONObject("message")
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
-                    if (mChainConfig.defaultPath() != "m/44'/118'/0'/0/X") {
-                        Toast.makeText(baseContext, getString(R.string.str_wc_not_support_wallet), Toast.LENGTH_SHORT).show()
-                        appToWebError(getString(R.string.str_wc_not_support_wallet), messageId)
-                    } else {
-                        val params = messageJson.getJSONObject("params")
-                        val chainId = params.getString("chainName")
-                        appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
-                    }
+                    val params = messageJson.getJSONObject("params")
+                    val chainId = params.getString("chainName")
+                    appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
                 }
 
                 "cos_supportedChainIds" -> {
@@ -1517,11 +1511,15 @@ class WalletConnectActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val doc = params.getJSONObject("doc")
+                    var dappBaseChain = WDp.getChainTypeByChainId(doc.getString("chain_id"))
+                    if (dappBaseChain == null) {
+                        dappBaseChain = WDp.getChainTypeByChainName(params.getString("chainName"))
+                    }
                     val signBundle = generateSignBundle(0, doc.toString())
                     showSignDialog(signBundle, object : WcSignRawDataListener {
                         override fun sign(id: Long, transaction: String) {
                             val transactionJson = Gson().fromJson(transaction, JsonObject::class.java)
-                            val signModel = WcSignModel(transactionJson, getBaseAccountKey(), transactionJson.get("chain_id").asString)
+                            val signModel = WcSignModel(transactionJson, getBaseAccountKey(dappBaseChain), transactionJson.get("chain_id").asString)
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
@@ -1538,6 +1536,10 @@ class WalletConnectActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val doc = params.getJSONObject("doc")
+                    var dappBaseChain = WDp.getChainTypeByChainId(doc.getString("chain_id"))
+                    if (dappBaseChain == null) {
+                        dappBaseChain = WDp.getChainTypeByChainName(params.getString("chainName"))
+                    }
                     val signBundle = generateSignBundle(0, doc.toString())
                     showSignDialog(signBundle, object : WcSignRawDataListener {
                         override fun sign(id: Long, transaction: String) {
@@ -1547,7 +1549,7 @@ class WalletConnectActivity : BaseActivity() {
                             val authInfo = TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
                             val accountNumber = transactionJson["account_number"].asLong
                             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
-                            val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey())
+                            val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey(dappBaseChain))
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
@@ -1577,27 +1579,40 @@ class WalletConnectActivity : BaseActivity() {
         accountJson.put("isKeystone", false)
         accountJson.put("isEthermint", false)
         accountJson.put("isLedger", false)
-        var baseChain = WDp.getChainTypeByChainId(chainId)
-        if (baseChain == null) {
-            baseChain = WDp.getChainTypeByChainName(chainId)
+        var dappBaseChain = WDp.getChainTypeByChainId(chainId)
+        if (dappBaseChain == null) {
+            dappBaseChain = WDp.getChainTypeByChainName(chainId)
         }
-        val key = getBaseAccountKey()
-        if (baseChain == null) {
+        val dappChainConfig = ChainFactory.getChain(dappBaseChain)
+        val currentAccount = baseDao.onSelectAccount(baseDao.lastUser)
+
+        if (dappChainConfig.baseChain() == null) {
+            val key = ECKey.fromPrivate(BigInteger(getPrivateKey(currentAccount), 16))
             baseDao.mSupportConfig.customChains?.find { chainId.equals(it.chainId, true) }?.let {
                 accountJson.put("address", WKey.genTendermintBech32Address(it.prefix, Utils.bytesToHex(key.pubKey)))
             }
+
         } else {
-            accountJson.put("address", WKey.genTendermintBech32Address(baseChain, Utils.bytesToHex(key.pubKey)))
+            val key = getBaseAccountKey(dappBaseChain)
+            if (dappChainConfig.ethAccountType()) {
+                accountJson.put("address", WKey.generateAddressFromPub(dappChainConfig.addressPrefix(), Utils.bytesToHex(key.pubKey)))
+            } else {
+                accountJson.put("address", WKey.genTendermintBech32Address(dappBaseChain, Utils.bytesToHex(key.pubKey)))
+            }
+            accountJson.put("name", WUtil.getWalletName(this, baseDao.onSelectAccount(baseDao.lastUser)))
+            accountJson.put("publicKey", Utils.bytesToHex(key.pubKey))
         }
-        accountJson.put("name", WUtil.getWalletName(this, baseDao.onSelectAccount(baseDao.lastUser)))
-        accountJson.put("publicKey", Utils.bytesToHex(key.pubKey))
         return accountJson
     }
 
-    private fun getBaseAccountKey(): ECKey {
-        val baseDao = BaseApplication.getInstance().baseDao
-        val account = baseDao.onSelectAccount(baseDao.lastUser)
-        return ECKey.fromPrivate(BigInteger(getPrivateKey(account), 16))
+    private fun getBaseAccountKey(dappBaseChain: BaseChain): ECKey {
+        val currentAccount = baseDao.onSelectAccount(baseDao.lastUser)
+        return if (currentAccount.hasPrivateKey && currentAccount.fromMnemonic) {
+            val entropy = CryptoHelper.doDecryptData(getString(R.string.key_mnemonic) + currentAccount.uuid, currentAccount.resource, currentAccount.spec)
+            WKey.getCreateKeyWithPathfromEntropy(dappBaseChain, entropy, 0, 0)
+        } else {
+            ECKey.fromPrivate(BigInteger(getPrivateKey(currentAccount), 16))
+        }
     }
 
     private fun appToWebError(error: String?, messageId: Long) {
