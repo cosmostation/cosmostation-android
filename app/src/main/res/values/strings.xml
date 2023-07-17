@@ -1186,6 +1186,8 @@
     <string name="error_no_withdraw_vault">No amount deposited in the vault.</string>
     <string name="error_no_revote">No amount deposited in the vault.</string>
     <string name="error_not_dao_member">You are not this Dao member.</string>
+    <string name="error_terminate_title">Partial Service Termination Notice</string>
+    <string name="error_terminate_content">The address you are currently using will no longer be available.\n\nIf you wish to continue using your current wallet, we kindly recommend reviewing the wallet platforms recommended by the foundation.</string>
 
 
     <string name="tx_send">Send</string>

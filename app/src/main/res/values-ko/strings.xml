@@ -1085,6 +1085,8 @@
     <string name="error_no_withdraw_vault">볼트에 예치된 양이 없습니다.</string>
     <string name="error_no_revote">재투표를 지원하지 않는 프로포절 입니다.</string>
     <string name="error_not_dao_member">이 Dao의 회원이 아닙니다.</string>
+    <string name="error_terminate_title">일부 서비스 중단 안내</string>
+    <string name="error_terminate_content">현재 접속하신 주소는 지원종료될 예정입니다.\n\n현재 지갑을 계속 사용하려면 재단에서 권장하는 지갑 플랫폼을 검토해 보시기 바랍니다.</string>
 
 
     <string name="tx_send">보내기</string>

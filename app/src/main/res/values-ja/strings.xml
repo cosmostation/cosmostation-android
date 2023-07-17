@@ -1083,6 +1083,8 @@
     <string name="error_no_withdraw_vault">ボルトに預けられた量がありません。</string>
     <string name="error_no_revote">ボルトに入金された金額はありません。</string>
     <string name="error_not_dao_member">あなたはこのDAOのメンバーではありません。</string>
+    <string name="error_terminate_title">一部のサービス中断のご案内です</string>
+    <string name="error_terminate_content">現在接続しているアドレスはまもなくサポートが終了する予定です。\n\n現在のウォレットを使い続けるには、当財団が推奨するウォレットプラットフォームをご検討ください。</string>
 
 
     <string name="tx_send">送る</string>
