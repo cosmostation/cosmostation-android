@@ -11,7 +11,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.JsResult
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebStorage
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -64,9 +71,13 @@ import wannabit.io.cosmostaion.cosmos.MsgGenerator
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
-import wannabit.io.cosmostaion.dialog.*
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog
+import wannabit.io.cosmostaion.dialog.DappSignDialog
 import wannabit.io.cosmostaion.dialog.DappSignDialog.WcSignRawDataListener
+import wannabit.io.cosmostaion.dialog.DappUrlDialog
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
@@ -79,6 +90,7 @@ import wannabit.io.cosmostaion.utils.makeToast
 import java.io.BufferedReader
 import java.math.BigDecimal
 import java.math.BigInteger
+import java.net.URLDecoder
 import java.util.concurrent.TimeUnit
 
 
@@ -991,7 +1003,8 @@ class WalletConnectActivity : BaseActivity() {
                 }
                 val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
                 mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
             val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain), chainId)
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
@@ -1401,7 +1414,7 @@ class WalletConnectActivity : BaseActivity() {
         override fun shouldOverrideUrlLoading(
             view: WebView, request: WebResourceRequest
         ): Boolean {
-            var modifiedUrl = request.url.toString()
+            var modifiedUrl = URLDecoder.decode(request.url.toString(), "UTF-8")
             if (isFinishing) {
                 return true
             }
@@ -1412,10 +1425,10 @@ class WalletConnectActivity : BaseActivity() {
                 processConnectScheme(modifiedUrl)
                 return true
             } else if (modifiedUrl.startsWith("keplrwallet://wcV1")) {
-                processConnectScheme(modifiedUrl)
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl.replace("keplrwallet://wcV1", "cosmostation://wc"))))
                 return true
             } else if (modifiedUrl.startsWith("keplrwallet://wcV2")) {
-                processConnectScheme(modifiedUrl)
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl.replace("keplrwallet://wcV2", "cosmostation://wc"))))
                 return true
             } else if (modifiedUrl.startsWith("intent:")) {
                 if (modifiedUrl.contains("intent://wcV1")) {
