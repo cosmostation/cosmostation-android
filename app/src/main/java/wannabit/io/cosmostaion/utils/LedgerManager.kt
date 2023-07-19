@@ -24,7 +24,6 @@ import com.ledger.live.ble.model.BleError
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxRequest
 import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxResponse
 import org.apache.commons.lang3.StringUtils
-import org.bouncycastle.asn1.x500.style.RFC4519Style.title
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseApplication
 import wannabit.io.cosmostaion.base.chains.ChainFactory
@@ -363,7 +362,7 @@ class LedgerManager {
 
                 Thread {
                     val broadcastTxRequest = ledgerSignListener.makeBroadcastTxRequest(signature)
-                    val response = Signer.getGrpcLedgerBroadcastResponse(broadcastTxRequest, ChainFactory.getChain(account.baseChain))
+                    val response = Signer.broadcastTxRequest(broadcastTxRequest, ChainFactory.getChain(account.baseChain))
                     val mResult = TaskResult()
                     mResult.resultData = response.txResponse.txhash
 
