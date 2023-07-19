@@ -1,7 +1,11 @@
 package wannabit.io.cosmostaion.cosmos;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.XPLA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -472,13 +476,24 @@ public class MsgGenerator {
         return reqBroadCast;
     }
 
-    public static Signature getWcSignDiectBroadcaseReq(ECKey key, byte[] signBytes) {
-        String signatureTx = MsgGenerator.getSignature(key, signBytes);
+    public static Signature getWcSignDiectBroadcaseReq(ECKey key, byte[] signBytes, String chainId) {
+        BaseChain baseChain = WDp.getChainTypeByChainId(chainId);
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();
-        pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+        String signatureTx = "";
         pubKey.value = WKey.getPubKeyValue(key);
         signature.pub_key = pubKey;
+
+        if (baseChain.equals(EVMOS_MAIN) || baseChain.equals(CANTO_MAIN) || baseChain.equals(XPLA_MAIN)) {
+            signatureTx = MsgGenerator.getEthermintSignature(key, signBytes);
+            pubKey.type = BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC;
+        } else if (baseChain.equals(INJ_MAIN)) {
+            signatureTx = MsgGenerator.getEthermintSignature(key, signBytes);
+            pubKey.type = BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC;
+        } else {
+            signatureTx = MsgGenerator.getSignature(key, signBytes);
+            pubKey.type = BaseConstant.COSMOS_KEY_TYPE_PUBLIC;
+        }
         signature.signature = signatureTx;
         return signature;
     }
@@ -494,7 +509,10 @@ public class MsgGenerator {
             String sign = mapper.writeValueAsString(mapper.readValue(txMsg.toString(), TreeMap.class));
             String signatureTx;
 
-            if (baseChain.equals(BaseChain.INJ_MAIN)) {
+            if (baseChain.equals(EVMOS_MAIN) || baseChain.equals(CANTO_MAIN) || baseChain.equals(XPLA_MAIN)) {
+                signatureTx = MsgGenerator.getEthermintSignature(key, sign.getBytes(Charset.forName("UTF-8")));
+                pubKey.type = BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC;
+            } else if (baseChain.equals(INJ_MAIN)) {
                 signatureTx = MsgGenerator.getEthermintSignature(key, sign.getBytes(Charset.forName("UTF-8")));
                 pubKey.type = BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC;
             } else {

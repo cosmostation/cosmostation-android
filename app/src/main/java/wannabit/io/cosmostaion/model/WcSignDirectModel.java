@@ -11,8 +11,8 @@ public class WcSignDirectModel {
     public JsonObject signed;
     public Signature signature;
 
-    public WcSignDirectModel(byte[] signBytes, JsonObject txMsg, ECKey key) {
+    public WcSignDirectModel(byte[] signBytes, JsonObject txMsg, ECKey key, String chainId) {
         this.signed = txMsg;
-        this.signature = MsgGenerator.getWcSignDiectBroadcaseReq(key, signBytes);
+        this.signature = MsgGenerator.getWcSignDiectBroadcaseReq(key, signBytes, chainId);
     }
 }

@@ -926,7 +926,7 @@ class WalletConnectActivity : BaseActivity() {
             val accountNumber = jsonObject["accountNumber"].asLong
             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
-            val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key)
+            val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key, chainId)
             wcV1Client?.approveRequest(id, signModel)
             Toast.makeText(
                 baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
@@ -952,7 +952,7 @@ class WalletConnectActivity : BaseActivity() {
             val accountNumber = signDocJson["accountNumber"].asLong
             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
-            val signModel = WcSignDirectModel(signDoc.toByteArray(), signDocJson, key)
+            val signModel = WcSignDirectModel(signDoc.toByteArray(), signDocJson, key, chainId)
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
                     id, Gson().toJson(signModel.signature)
@@ -1562,7 +1562,7 @@ class WalletConnectActivity : BaseActivity() {
                             val authInfo = TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
                             val accountNumber = transactionJson["account_number"].asLong
                             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
-                            val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey(dappBaseChain))
+                            val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey(dappBaseChain), chainId)
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
