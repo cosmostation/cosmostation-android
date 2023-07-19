@@ -29,6 +29,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.protobuf.ByteString
+import com.google.protobuf.util.JsonFormat
 import com.squareup.picasso.Picasso
 import com.trustwallet.walletconnect.WCClient
 import com.trustwallet.walletconnect.models.WCAccount
@@ -44,6 +46,7 @@ import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import com.walletconnect.sign.client.SignInterface
+import cosmos.tx.v1beta1.ServiceOuterClass.BroadcastTxRequest
 import cosmos.tx.v1beta1.TxOuterClass
 import cosmos.tx.v1beta1.TxOuterClass.SignDoc
 import cosmos.tx.v1beta1.TxOuterClass.TxBody
@@ -68,6 +71,7 @@ import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.cosmos.MsgGenerator
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
@@ -926,7 +930,7 @@ class WalletConnectActivity : BaseActivity() {
             val accountNumber = jsonObject["accountNumber"].asLong
             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
-            val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key)
+            val signModel = WcSignDirectModel(signDoc.toByteArray(), jsonObject, key, chainId)
             wcV1Client?.approveRequest(id, signModel)
             Toast.makeText(
                 baseContext, getString(R.string.str_wc_request_responsed), Toast.LENGTH_SHORT
@@ -952,7 +956,7 @@ class WalletConnectActivity : BaseActivity() {
             val accountNumber = signDocJson["accountNumber"].asLong
             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
             val key = getKey(WDp.getChainTypeByChainId(chainId).chain)
-            val signModel = WcSignDirectModel(signDoc.toByteArray(), signDocJson, key)
+            val signModel = WcSignDirectModel(signDoc.toByteArray(), signDocJson, key, chainId)
             val response = Sign.Params.Response(
                 sessionTopic = sessionRequest.topic, jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
                     id, Gson().toJson(signModel.signature)
@@ -1536,7 +1540,7 @@ class WalletConnectActivity : BaseActivity() {
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
-                            signed.put("signed_doc", JSONObject(transaction))
+                            signed.put("signed_doc", JSONObject(signModel.signed))
                             appToWebResult(messageJson, signed, messageId)
                         }
 
@@ -1562,7 +1566,7 @@ class WalletConnectActivity : BaseActivity() {
                             val authInfo = TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
                             val accountNumber = transactionJson["account_number"].asLong
                             val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
-                            val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey(dappBaseChain))
+                            val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey(dappBaseChain), chainId)
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
                             signed.put("pub_key", JSONObject(Gson().toJson(signModel.signature.pub_key)))
@@ -1577,7 +1581,18 @@ class WalletConnectActivity : BaseActivity() {
                 }
 
                 "cos_sendTransaction" -> {
-                    appToWebError("Not implemented", messageId)
+                    try {
+                        val params = messageJson.getJSONObject("params")
+                        val txBytes = params.getString("txBytes")
+                        val chainId = params.getString("chainName")
+                        val chain = WDp.getChainTypeByChainId(chainId)
+                        val mode = params.getInt("mode")
+                        val request = BroadcastTxRequest.newBuilder().setModeValue(mode).setTxBytes(ByteString.copyFrom(Base64.decode(txBytes, Base64.DEFAULT))).build()
+                        val response = Signer.broadcastTxRequest(request, ChainFactory.getChain(chain))
+                        appToWebResult(messageJson, JSONObject(JsonFormat.printer().includingDefaultValueFields().preservingProtoFieldNames().print(response)), messageId)
+                    } catch (e: Exception) {
+                        appToWebError("Unknown", messageId)
+                    }
                 }
             }
         } catch (e: Exception) {

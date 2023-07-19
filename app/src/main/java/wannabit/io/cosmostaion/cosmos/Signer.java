@@ -1253,7 +1253,7 @@ public class Signer {
         return TxOuterClass.SignerInfo.newBuilder().setPublicKey(pubkeyValue).setModeInfo(modeInfo).setSequence((Long) onParseAuthGrpc(auth).get(2)).build();
     }
 
-    public static ServiceOuterClass.BroadcastTxResponse getGrpcLedgerBroadcastResponse(ServiceOuterClass.BroadcastTxRequest request, ChainConfig chainConfig) {
+    public static ServiceOuterClass.BroadcastTxResponse broadcastTxRequest(ServiceOuterClass.BroadcastTxRequest request, ChainConfig chainConfig) {
         ServiceGrpc.ServiceBlockingStub txService = newBlockingStub(ChannelBuilder.getChain(chainConfig.baseChain()));
         return txService.broadcastTx(request);
     }
