@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.model.type.WcSignature;
 public class WcSignModel {
     public TreeMap<String, Object> signed;
     public WcSignature signature;
+    public TreeMap<String, Object> signDoc;
 
     public WcSignModel(JsonObject txMsg, ECKey key, String chainId) {
         ObjectMapper mapper = new ObjectMapper();
@@ -27,6 +28,7 @@ public class WcSignModel {
             this.signed = Maps.newTreeMap();
             e.printStackTrace();
         }
+        this.signDoc = signed;
         this.signature = MsgGenerator.getWcKeplrBroadcaseReq(key, txMsg, chainId);
     }
 }
