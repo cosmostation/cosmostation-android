@@ -6,7 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_HOMEPAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TELEGRAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_EN;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOSTATION_TERM_KR;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_NOTICE_MINTSCAN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import android.app.Activity;
 import android.content.Context;
@@ -52,7 +52,6 @@ import wannabit.io.cosmostaion.activities.setting.WatchingWalletAddActivity;
 import wannabit.io.cosmostaion.activities.txs.starname.StarNameWalletConnectActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.databinding.FragmentMainSettingBinding;
 import wannabit.io.cosmostaion.dialog.CommonAlertDialog;
@@ -277,7 +276,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(intent);
 
         } else if (v.equals(mainSettingBinding.cardNotice)) {
-            String url = EXPLORER_NOTICE_MINTSCAN + ChainFactory.getChain(getMainActivity().mBaseChain).chainName();
+            String url = EXPLORER_BASE_URL + "cosmostation/notice/all";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
 

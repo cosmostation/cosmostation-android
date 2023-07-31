@@ -151,6 +151,6 @@ abstract public class ChainConfig {
     }
 
     public String noticeLink() {
-        return BaseConstant.EXPLORER_NOTICE_MINTSCAN + chainName() + "/";
+        return BaseConstant.EXPLORER_BASE_URL + "cosmostation/notice/" + chainName() + "/";
     }
 }

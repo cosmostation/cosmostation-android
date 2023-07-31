@@ -295,8 +295,6 @@ public class BaseConstant {
     // Neutron Contract Address
     public final static String NEUTRON_VESTING_CONTRACT_ADDRESS = "neutron1h6828as2z5av0xqtlh4w9m75wxewapk8z9l2flvzc29zeyzhx6fqgp648z";
 
-    public final static String EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/";
-
     public final static String NFT_INFURA = "https://ipfs.infura.io/ipfs/";
 
     public final static String EXPLORER_BASE_URL = "https://www.mintscan.io/";
