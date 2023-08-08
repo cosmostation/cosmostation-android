@@ -19,10 +19,7 @@ import starnamed.x.starname.v1beta1.QueryOuterClass.QueryStarnameRequest
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseConstant
 import wannabit.io.cosmostaion.base.chains.ChainConfig
-import wannabit.io.cosmostaion.dao.AssetPath
-import wannabit.io.cosmostaion.dao.ICNSInfoReq
-import wannabit.io.cosmostaion.dao.NSStargazeInfoReq
-import wannabit.io.cosmostaion.dao.NameService
+import wannabit.io.cosmostaion.dao.*
 import wannabit.io.cosmostaion.dao.NameService.NameServiceType
 import wannabit.io.cosmostaion.network.ApiClient
 import wannabit.io.cosmostaion.network.ChannelBuilder
@@ -60,6 +57,18 @@ class SendViewModel : BaseViewModel() {
             if (icnsAll[1].isNotEmpty()) nameServiceList.add(NameService(NameServiceType.STARGAZE, userInput, icnsAll[1]))
 
             _nameServices.postValue(nameServiceList)
+
+        } else if (chainConfig.baseChain().equals(BaseChain.ARCHWAY_MAIN)) {
+            val osIcns = async { getOSIcnsAddress(userInput) }
+            val awIcns = async { getAWIcnsAddress(userInput) }
+
+            val icnsAll = awaitAll(osIcns, awIcns)
+
+            if (icnsAll[0].isNotEmpty()) nameServiceList.add(NameService(NameServiceType.ICNS, userInput, icnsAll[0]))
+            if (icnsAll[1].isNotEmpty()) nameServiceList.add(NameService(NameServiceType.ARCHWAY, userInput, icnsAll[1]))
+
+            _nameServices.postValue(nameServiceList)
+
         } else {
             val address = getOSIcnsAddress(userInput)
             if (address.isNotEmpty()) nameServiceList.add(NameService(NameServiceType.ICNS, userInput, address))
@@ -67,7 +76,7 @@ class SendViewModel : BaseViewModel() {
         }
     }
 
-    private suspend fun getOSIcnsAddress(userInput: String): String {
+    private fun getOSIcnsAddress(userInput: String): String {
         try {
             val mStub = newBlockingStub(ChannelBuilder.getChain(BaseChain.OSMOSIS_MAIN)).withDeadlineAfter(TIME_OUT.toLong(), TimeUnit.SECONDS)
             val infoReq = ICNSInfoReq(userInput)
@@ -82,7 +91,7 @@ class SendViewModel : BaseViewModel() {
         return ""
     }
 
-    private suspend fun getSGIcnsAddress(userInput: String): String {
+    private fun getSGIcnsAddress(userInput: String): String {
         try {
             val mStub = newBlockingStub(ChannelBuilder.getChain(BaseChain.STARGAZE_MAIN)).withDeadlineAfter(TIME_OUT.toLong(), TimeUnit.SECONDS)
             val infoReq = NSStargazeInfoReq(userInput)
@@ -91,6 +100,21 @@ class SendViewModel : BaseViewModel() {
 
             mStub.smartContractState(request).apply {
                 return data.toStringUtf8().replace("\"".toRegex(), "")
+            }
+        } catch (_: Exception) { }
+        return ""
+    }
+
+    private fun getAWIcnsAddress(userInput: String): String {
+        try {
+            val mStub = newBlockingStub(ChannelBuilder.getChain(BaseChain.ARCHWAY_MAIN)).withDeadlineAfter(TIME_OUT.toLong(), TimeUnit.SECONDS)
+            val infoReq = NSArchwayReq(ResolveRecord(userInput))
+            val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
+            val request = QueryOuterClass.QuerySmartContractStateRequest.newBuilder().setAddress(BaseConstant.NS_ARCHWAY_ADDRESS).setQueryData(queryData).build()
+
+            mStub.smartContractState(request).apply {
+                val json = JSONObject(data.toStringUtf8())
+                return json.getString("address")
             }
         } catch (_: Exception) { }
         return ""
