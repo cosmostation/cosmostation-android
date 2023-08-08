@@ -1043,6 +1043,7 @@
     <string name="str_authz_reward_step_0">Confirm your staking reward info</string>
     <string name="str_authz_commission_title">Authz Claim Commission</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
+    <string name="str_authz_no_revoke_msg">Select the grant to revoke.</string>
 
     <string name="str_select_contract_token_title">Edit Token List</string>
     <string name="str_select_contract_token">Select token to Display</string>

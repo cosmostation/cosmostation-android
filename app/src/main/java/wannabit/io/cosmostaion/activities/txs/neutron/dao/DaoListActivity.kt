@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.activities.txs.neutron.dao
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.base.BaseActivity

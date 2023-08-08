@@ -26,6 +26,9 @@
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:fullBackupContent">
         <activity
+            android:name=".AuthzListActivity2"
+            android:exported="false" />
+        <activity
             android:name=".activities.IntroActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -466,6 +469,11 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activities.txs.authz.AuthzListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activities.txs.authz.AuthzListActivity2"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden" />

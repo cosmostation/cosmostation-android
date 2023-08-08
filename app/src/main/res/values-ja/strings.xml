@@ -940,6 +940,7 @@
     <string name="str_authz_reward_step_0">受け取る利子情報確認してください。</string>
     <string name="str_authz_commission_title">Authz コミッションをもらう。</string>
     <string name="str_authz_commission_step_0">ステーキングコミッション情報確認</string>
+    <string name="str_authz_no_revoke_msg">キャンセルする権限を選択してください。</string>
 
     <string name="str_select_contract_token_title">トークンの編集</string>
     <string name="str_select_contract_token">表示するトークンを選択してください</string>

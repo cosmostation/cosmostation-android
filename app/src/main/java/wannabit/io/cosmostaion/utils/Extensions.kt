@@ -9,8 +9,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.model.NetworkResult
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -28,6 +30,27 @@ fun AppCompatActivity.makeToast(id: Int) {
 
 fun Context.makeToast(id: Int) {
     Toast.makeText(this, this.getString(id), Toast.LENGTH_SHORT).show()
+}
+
+fun Context.makeToast(msg: String?) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+suspend fun <T> safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val response = apiCall.invoke()
+
+            response?.let {
+                NetworkResult.Success(it)
+            } ?: run {
+                NetworkResult.Error("Response Empty", "No Response")
+            }
+
+        } catch (e: Exception) {
+            NetworkResult.Error("Unknown Error", e.message ?: "Unknown error occurred.")
+        }
+    }
 }
 
 fun EditText.amountWatcher(
