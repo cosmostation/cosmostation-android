@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.granter
+package wannabit.io.cosmostaion.fragment.txs.authz.grantee
 
 import androidx.recyclerview.widget.RecyclerView
 import cosmos.authz.v1beta1.Authz

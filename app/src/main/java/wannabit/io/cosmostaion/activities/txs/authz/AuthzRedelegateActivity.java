@@ -35,9 +35,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.grantee.AuthzRedelegateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.grantee.AuthzRedelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.grantee.AuthzRedelegateStep4Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzRedelegateStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzRedelegateStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzRedelegateStep4Fragment;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzRedelegateGrpcTask;
 
 public class AuthzRedelegateActivity extends BaseBroadCastActivity {

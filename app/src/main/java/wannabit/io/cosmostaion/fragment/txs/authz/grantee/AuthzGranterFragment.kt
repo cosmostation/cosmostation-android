@@ -1,5 +1,6 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.granter
+package wannabit.io.cosmostaion.fragment.txs.authz.grantee
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import cosmos.authz.v1beta1.Authz.GrantAuthorization
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzRevokeActivity
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.databinding.FragmentAuthzGranterBinding
 import wannabit.io.cosmostaion.model.NetworkResult
 import wannabit.io.cosmostaion.model.viewModel.authz.AuthzViewModel
 import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
+import java.io.Serializable
 import java.util.*
 
 class AuthzGranterFragment : BaseFragment() {
@@ -95,7 +98,10 @@ class AuthzGranterFragment : BaseFragment() {
                     requireContext().makeToast(R.string.str_authz_no_revoke_msg)
                     return@setOnClickListener
                 } else {
-                    // Tx action
+                    Intent(requireContext(), AuthzRevokeActivity::class.java).apply {
+                        putExtra("selectedItems", selectedItems as Serializable)
+                        startActivity(this)
+                    }
                 }
             }
         }

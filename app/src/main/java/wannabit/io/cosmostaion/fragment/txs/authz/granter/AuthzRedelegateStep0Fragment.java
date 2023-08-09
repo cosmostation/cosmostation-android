@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.grantee;
+package wannabit.io.cosmostaion.fragment.txs.authz.granter;
 
 import android.content.Context;
 import android.graphics.Canvas;

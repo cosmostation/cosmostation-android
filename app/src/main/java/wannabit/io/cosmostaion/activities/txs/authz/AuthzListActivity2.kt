@@ -13,8 +13,8 @@ import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityAuthzList2Binding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.authz.grantee.AuthzGranteeFragment
-import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzGranterFragment
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzGranteeFragment
+import wannabit.io.cosmostaion.fragment.txs.authz.grantee.AuthzGranterFragment
 import wannabit.io.cosmostaion.model.factory.authz.AuthzViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.authz.AuthzRepositoryImpl
 import wannabit.io.cosmostaion.model.viewModel.authz.AuthzViewModel
@@ -67,8 +67,8 @@ class AuthzListActivity2 : BaseActivity() {
             TabLayoutMediator(labTab, labViewPager) { tab, position ->
                 val tabBinding = ViewTabMyvalidatorBinding.inflate(layoutInflater)
                 when (position) {
-                    0 -> tabBinding.tabItemText.text = "Master"
-                    else -> tabBinding.tabItemText.text = "Slave"
+                    0 -> tabBinding.tabItemText.text = "Slave"
+                    else -> tabBinding.tabItemText.text = "Master"
                 }
                 tabBinding.tabItemText.setTextColor(
                     ContextCompat.getColorStateList(

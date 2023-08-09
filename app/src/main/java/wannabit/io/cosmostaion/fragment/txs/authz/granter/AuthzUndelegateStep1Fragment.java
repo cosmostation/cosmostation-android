@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.grantee;
+package wannabit.io.cosmostaion.fragment.txs.authz.granter;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,66 +10,46 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
-import cosmos.authz.v1beta1.Authz;
-import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.staking.v1beta1.Authz;
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzSendActivity;
-import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzUndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.SelectChainListDialog;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class AuthzUndelegateStep1Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mBefore, mNextBtn;
-    private RelativeLayout mSelectCoinBtn;
-    private ImageView mSendCoinImg;
-    private TextView mSendCoinDenom;
+    private Button mCancel, mNextBtn;
     private EditText mAmountInput;
     private TextView mAvailableAmount;
     private TextView mDenomTitle;
     private ImageView mClearAll;
     private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
-    private BigDecimal mMaxAvailable = BigDecimal.ZERO;
 
-    private Authz.Grant mGrant;
-    private ArrayList<Coin> mGrantAvailable = new ArrayList<>();
-    private Coin mSelectedCoin;
-
+    private BigDecimal mGranterUndelegatable = BigDecimal.ZERO;
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static AuthzSendStep1Fragment newInstance() {
-        return new AuthzSendStep1Fragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static AuthzUndelegateStep1Fragment newInstance() {
+        return new AuthzUndelegateStep1Fragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_authz_send_step1, container, false);
-        mBefore = rootView.findViewById(R.id.btn_before);
+        View rootView = inflater.inflate(R.layout.fragment_authz_undelegate_step1, container, false);
+        mCancel = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
-        mSelectCoinBtn = rootView.findViewById(R.id.btn_select_coin);
-        mSendCoinImg = rootView.findViewById(R.id.send_coin_img);
-        mSendCoinDenom = rootView.findViewById(R.id.send_coin_denom);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
         mAvailableAmount = rootView.findViewById(R.id.tv_max_coin);
         mDenomTitle = rootView.findViewById(R.id.tv_symbol_coin);
@@ -81,12 +61,8 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
         mAddHalf = rootView.findViewById(R.id.btn_add_half);
         mAddMax = rootView.findViewById(R.id.btn_add_all);
 
-        mGrant = getSActivity().mGrant;
-        mGrantAvailable = getSActivity().mGrantAvailable;
-
-        mBefore.setOnClickListener(this);
+        mCancel.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
-        mSelectCoinBtn.setOnClickListener(this);
         mClearAll.setOnClickListener(this);
         mAdd01.setOnClickListener(this);
         mAdd1.setOnClickListener(this);
@@ -98,47 +74,34 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
+    public void onRefreshTab() {
+        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
             getSActivity().onBackPressed();
+        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
+        setDpDecimals(mDpDecimal);
+
+        String selectedValAddress = getSActivity().mValAddress;
+        if (getSActivity().mGranterDelegations != null && getSActivity().mGranterDelegations.size() > 0) {
+            Staking.DelegationResponse delegated = getSActivity().mGranterDelegations.stream().filter(item -> item.getDelegation().getValidatorAddress().equalsIgnoreCase(selectedValAddress)).findFirst().get();
+            mGranterUndelegatable = new BigDecimal(delegated.getBalance().getAmount());
         }
 
-        mGrantAvailable.sort((o1, o2) -> {
-            if (o1.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return -1;
-            if (o2.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())) return 1;
-            else return 0;
-        });
-        mSelectedCoin = mGrantAvailable.get(0);
-        onUpdateView();
-    }
-
-    private void onUpdateView() {
-        mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, mSelectedCoin.denom);
-        mMaxAvailable = new BigDecimal(mSelectedCoin.amount);
-        if (mGrant.getAuthorization().getTypeUrl().contains(cosmos.bank.v1beta1.Authz.SendAuthorization.getDescriptor().getFullName())) {
+        if (getSActivity().mGrant.getAuthorization().getTypeUrl().contains(Authz.StakeAuthorization.getDescriptor().getFullName())) {
             try {
-                cosmos.bank.v1beta1.Authz.SendAuthorization transAuthz = cosmos.bank.v1beta1.Authz.SendAuthorization.parseFrom(mGrant.getAuthorization().getValue());
-                for (CoinOuterClass.Coin coin : transAuthz.getSpendLimitList()) {
-                    if (coin.getDenom().equalsIgnoreCase(mSelectedCoin.denom)) {
-                        BigDecimal limitAmount = new BigDecimal(coin.getAmount());
-                        if (limitAmount.compareTo(mMaxAvailable) <= 0) {
-                            mMaxAvailable = limitAmount;
-                        }
+                Authz.StakeAuthorization stakeAuth = Authz.StakeAuthorization.parseFrom(getSActivity().mGrant.getAuthorization().getValue());
+                if (stakeAuth.hasMaxTokens()) {
+                    BigDecimal maxAmount = new BigDecimal(stakeAuth.getMaxTokens().getAmount());
+                    if (maxAmount.compareTo(mGranterUndelegatable) <= 0) {
+                        mGranterUndelegatable = maxAmount;
                     }
                 }
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
         }
-        WDp.setDpSymbolImg(getBaseDao(), getSActivity().mChainConfig, mSelectedCoin.denom, mSendCoinImg);
-        WDp.setDpSymbol(getActivity(), getBaseDao(), getSActivity().mChainConfig, mSelectedCoin.denom, mSendCoinDenom);
-        WDp.setDpCoin(getContext(), getBaseDao(), getSActivity().mChainConfig, mSelectedCoin.denom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount);
-
-        setDisplayDecimals(mDpDecimal);
+        WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mGranterUndelegatable.toPlainString(), mDenomTitle, mAvailableAmount);
         onAddAmountWatcher();
     }
-
 
     private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
@@ -186,7 +149,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
                             return;
                         }
 
-                        if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
+                        if (inputAmount.compareTo(mGranterUndelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                             mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
                             mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
@@ -199,28 +162,15 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBefore)) {
+        if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (isValidateSendAmount()) {
+            if (isValidateDelegateAmount()) {
                 getSActivity().onNextStep();
             } else {
-                Toast.makeText(getContext(), R.string.error_invalid_amount, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
             }
-
-        } else if (v.equals(mSelectCoinBtn) && !getSActivity().isFinishing()) {
-            Bundle bundleData = new Bundle();
-            bundleData.putSerializable(SelectChainListDialog.SEND_COIN_LIST_BUNDLE_KEY, mGrantAvailable);
-            bundleData.putInt(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, SelectChainListDialog.SELECT_SEND_COIN_VALUE);
-            SelectChainListDialog dialog = SelectChainListDialog.newInstance(bundleData);
-            dialog.show(getParentFragmentManager(), SelectChainListDialog.class.getName());
-            getParentFragmentManager().setFragmentResultListener(SelectChainListDialog.SELECT_CHAIN_LIST_BUNDLE_KEY, this, (requestKey, bundle) -> {
-                int result = bundle.getInt(BaseConstant.POSITION);
-                mSelectedCoin = mGrantAvailable.get(result);
-                mAmountInput.setText("");
-                onUpdateView();
-            });
 
         } else if (v.equals(mAdd01)) {
             BigDecimal existed = BigDecimal.ZERO;
@@ -255,11 +205,12 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            BigDecimal half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
+            BigDecimal half = mGranterUndelegatable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
             mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            mAmountInput.setText(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN).toPlainString());
+            BigDecimal max = mGranterUndelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
+            mAmountInput.setText(max.toPlainString());
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
@@ -268,23 +219,23 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
 
     }
 
-    private boolean isValidateSendAmount() {
+    private boolean isValidateDelegateAmount() {
         try {
-            BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-            if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+            BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+            if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (amountTemp.compareTo(mGranterUndelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
                 return false;
-            Coin toSendCoin = new Coin(mSelectedCoin.denom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-            getSActivity().mAmount = toSendCoin;
+            Coin coin = new Coin(getSActivity().mChainConfig.mainDenom(), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
+            getSActivity().mAmount = coin;
             return true;
 
         } catch (Exception e) {
-            mSelectedCoin = null;
+            getSActivity().mAmount = null;
             return false;
         }
     }
 
-    private void setDisplayDecimals(int decimals) {
+    private void setDpDecimals(int decimals) {
         mDecimalChecker = "0.";
         mDecimalSetter = "0.";
         for (int i = 0; i < decimals; i++) {
@@ -295,7 +246,7 @@ public class AuthzSendStep1Fragment extends BaseFragment implements View.OnClick
         }
     }
 
-    private AuthzSendActivity getSActivity() {
-        return (AuthzSendActivity) getBaseActivity();
+    private AuthzUndelegateActivity getSActivity() {
+        return (AuthzUndelegateActivity) getBaseActivity();
     }
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Map;
 
+import cosmos.authz.v1beta1.Authz;
 import irismod.nft.QueryOuterClass;
 import kava.swap.v1beta1.QueryOuterClass.DepositResponse;
 import kava.swap.v1beta1.QueryOuterClass.PoolResponse;
@@ -76,6 +77,7 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     // Authz
     public String mGranter;
+    public ArrayList<Authz.GrantAuthorization> mGrantees = new ArrayList<>();
 
     // Evm
     public String mHexValue;

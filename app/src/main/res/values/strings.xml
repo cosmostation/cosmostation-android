@@ -1044,6 +1044,7 @@
     <string name="str_authz_commission_title">Authz Claim Commission</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
     <string name="str_authz_no_revoke_msg">Select the grant to revoke.</string>
+    <string name="str_authz_revoke">Revoke</string>
 
     <string name="str_select_contract_token_title">Edit Token List</string>
     <string name="str_select_contract_token">Select token to Display</string>
@@ -1517,4 +1518,6 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

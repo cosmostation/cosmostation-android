@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.granter
+package wannabit.io.cosmostaion.fragment.txs.authz.grantee
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

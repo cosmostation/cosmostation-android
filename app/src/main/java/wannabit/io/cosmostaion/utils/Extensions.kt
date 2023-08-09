@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.utils
 
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -13,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.model.NetworkResult
+import java.io.Serializable
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -50,6 +53,14 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
         } catch (e: Exception) {
             NetworkResult.Error("Unknown Error", e.message ?: "Unknown error occurred.")
         }
+    }
+}
+
+fun <T: Serializable> Intent.intentSerializable(key: String, clazz: Class<T>): T? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        this.getSerializableExtra(key, clazz)
+    } else {
+        this.getSerializableExtra(key) as T?
     }
 }
 

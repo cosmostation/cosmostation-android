@@ -1,6 +1,7 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.grantee;
+package wannabit.io.cosmostaion.fragment.txs.authz.granter;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,15 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzClaimCommissionActivity;
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 
-public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class AuthzClaimRewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mTvRewardAmount;
     private TextView mFeeAmount;
@@ -28,8 +29,8 @@ public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements V
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mRewardDenom, mFeeDenom;
 
-    public static AuthzClaimCommissionStep3Fragment newInstance() {
-        return new AuthzClaimCommissionStep3Fragment();
+    public static AuthzClaimRewardStep3Fragment newInstance() {
+        return new AuthzClaimRewardStep3Fragment();
     }
 
     @Override
@@ -39,15 +40,15 @@ public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements V
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_authz_commission_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_authz_reward_step3, container, false);
         mTvRewardAmount = rootView.findViewById(R.id.reward_amount);
-        mFeeAmount = rootView.findViewById(R.id.commission_fees);
-        mTvFromValidators = rootView.findViewById(R.id.commission_moniker);
-        mTvGoalLayer = rootView.findViewById(R.id.commission_receive_layer);
-        mTvGoalAddress = rootView.findViewById(R.id.commission_receive_address);
+        mFeeAmount = rootView.findViewById(R.id.reward_fees);
+        mTvFromValidators = rootView.findViewById(R.id.reward_moniker);
+        mTvGoalLayer = rootView.findViewById(R.id.reward_receive_layer);
+        mTvGoalAddress = rootView.findViewById(R.id.reward_receive_address);
         mMemo = rootView.findViewById(R.id.memo);
         mRewardDenom = rootView.findViewById(R.id.reward_denom);
-        mFeeDenom = rootView.findViewById(R.id.commission_fees_type);
+        mFeeDenom = rootView.findViewById(R.id.reward_fees_type);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
 
@@ -58,13 +59,23 @@ public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements V
 
     @Override
     public void onRefreshTab() {
-        Coin mainCommission = getSActivity().mGranterCommission;
-        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mainCommission, mRewardDenom, mTvRewardAmount);
+        Coin mainReward = getSActivity().mGranterRewardSum;
+        WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, mainReward, mRewardDenom, mTvRewardAmount);
         WDp.setDpCoin(getSActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mTxFee.amount.get(0), mFeeDenom, mFeeAmount);
 
-        String opAddress = WKey.convertDpOpAddressToDpAddress(getSActivity().mGranter, getSActivity().mChainConfig);
-        Staking.Validator validatorInfo = getBaseDao().mGRpcAllValidators.stream().filter(item -> item.getOperatorAddress().equalsIgnoreCase(opAddress)).findFirst().get();
-        mTvFromValidators.setText(validatorInfo.getDescription().getMoniker());
+        String monikers = "";
+        for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+            for (Distribution.DelegationDelegatorReward myValidator : getSActivity().mGranterRewards) {
+                if (validator.getOperatorAddress().equalsIgnoreCase(myValidator.getValidatorAddress())) {
+                    if (!TextUtils.isEmpty(monikers)) {
+                        monikers = monikers + ",    " + validator.getDescription().getMoniker();
+                    } else {
+                        monikers = validator.getDescription().getMoniker();
+                    }
+                }
+            }
+        }
+        mTvFromValidators.setText(monikers);
 
         mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
         if (getSActivity().mGranter.equalsIgnoreCase(getSActivity().mWithdrawAddress)) {
@@ -82,11 +93,11 @@ public class AuthzClaimCommissionStep3Fragment extends BaseFragment implements V
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onAuthzClaimCommission();
+            getSActivity().onAuthzClaimReward();
         }
     }
 
-    private AuthzClaimCommissionActivity getSActivity() {
-        return (AuthzClaimCommissionActivity) getBaseActivity();
+    private AuthzClaimRewardActivity getSActivity() {
+        return (AuthzClaimRewardActivity) getBaseActivity();
     }
 }

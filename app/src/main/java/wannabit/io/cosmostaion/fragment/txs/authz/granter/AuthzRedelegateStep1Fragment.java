@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.txs.authz.grantee;
+package wannabit.io.cosmostaion.fragment.txs.authz.granter;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,13 +21,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import cosmos.staking.v1beta1.Authz;
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzDelegateActivity;
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzRedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class AuthzRedelegateStep1Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancel, mNextBtn;
     private EditText mAmountInput;
@@ -36,19 +37,17 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
     private ImageView mClearAll;
     private Button mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
 
-    private BigDecimal mAvailable = BigDecimal.ZERO;
-    private BigDecimal mVesting = BigDecimal.ZERO;
-    private BigDecimal mGranterDelegatable = BigDecimal.ZERO;
+    private BigDecimal mGranterRedelegatable = BigDecimal.ZERO;
     private int mDpDecimal = 6;
     private String mDecimalChecker, mDecimalSetter;
 
-    public static AuthzDelegateStep1Fragment newInstance() {
-        return new AuthzDelegateStep1Fragment();
+    public static AuthzRedelegateStep1Fragment newInstance() {
+        return new AuthzRedelegateStep1Fragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_authz_delegate_step1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_authz_redelegate_step1, container, false);
         mCancel = rootView.findViewById(R.id.btn_cancel);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mAmountInput = rootView.findViewById(R.id.et_amount_coin);
@@ -75,39 +74,32 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onRefreshTab() {
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null)
             getSActivity().onBackPressed();
         mDpDecimal = WDp.getDenomDecimal(getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom());
         setDpDecimals(mDpDecimal);
 
-        if (getSActivity().mGrantAvailable != null && getSActivity().mGrantAvailable.size() > 0) {
-            Coin availableCoin = getSActivity().mGrantAvailable.stream().filter(item -> item.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())).findFirst().get();
-            mAvailable = new BigDecimal(availableCoin.amount);
+        String selectedValAddress = getSActivity().mValAddress;
+        if (getSActivity().mGranterDelegations != null && getSActivity().mGranterDelegations.size() > 0) {
+            Staking.DelegationResponse delegated = getSActivity().mGranterDelegations.stream().filter(item -> item.getDelegation().getValidatorAddress().equalsIgnoreCase(selectedValAddress)).findFirst().get();
+            mGranterRedelegatable = new BigDecimal(delegated.getBalance().getAmount());
         }
-        if (getSActivity().mGrantVesting != null && getSActivity().mGrantVesting.size() > 0) {
-            Coin vestingCoin = getSActivity().mGrantVesting.stream().filter(item -> item.denom.equalsIgnoreCase(getSActivity().mChainConfig.mainDenom())).findFirst().get();
-            mVesting = new BigDecimal(vestingCoin.amount);
-        }
-
-        mGranterDelegatable = mAvailable.add(mVesting);
-        mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mGranterDelegatable, mDpDecimal, mDpDecimal));
 
         if (getSActivity().mGrant.getAuthorization().getTypeUrl().contains(Authz.StakeAuthorization.getDescriptor().getFullName())) {
             try {
                 Authz.StakeAuthorization stakeAuth = Authz.StakeAuthorization.parseFrom(getSActivity().mGrant.getAuthorization().getValue());
                 if (stakeAuth.hasMaxTokens()) {
                     BigDecimal maxAmount = new BigDecimal(stakeAuth.getMaxTokens().getAmount());
-                    if (maxAmount.compareTo(mGranterDelegatable) <= 0) {
-                        mGranterDelegatable = maxAmount;
+                    if (maxAmount.compareTo(mGranterRedelegatable) <= 0) {
+                        mGranterRedelegatable = maxAmount;
                     }
                 }
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
         }
-        WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mGranterDelegatable.toPlainString(), mDenomTitle, mAvailableAmount);
+        WDp.setDpCoin(getActivity(), getBaseDao(), getSActivity().mChainConfig, getSActivity().mChainConfig.mainDenom(), mGranterRedelegatable.toPlainString(), mDenomTitle, mAvailableAmount);
         onAddAmountWatcher();
     }
 
@@ -157,7 +149,7 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
                             return;
                         }
 
-                        if (inputAmount.compareTo(mGranterDelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
+                        if (inputAmount.compareTo(mGranterRedelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                             mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box_error));
                         } else {
                             mAmountInput.setBackground(ContextCompat.getDrawable(getSActivity(), R.drawable.edittext_box));
@@ -213,11 +205,11 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            BigDecimal half = mGranterDelegatable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
+            BigDecimal half = mGranterRedelegatable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
             mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            BigDecimal max = mGranterDelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
+            BigDecimal max = mGranterRedelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
             mAmountInput.setText(max.toPlainString());
 
         } else if (v.equals(mClearAll)) {
@@ -231,7 +223,7 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
         try {
             BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (amountTemp.compareTo(mGranterDelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
+            if (amountTemp.compareTo(mGranterRedelegatable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0)
                 return false;
             Coin coin = new Coin(getSActivity().mChainConfig.mainDenom(), amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
             getSActivity().mAmount = coin;
@@ -254,7 +246,7 @@ public class AuthzDelegateStep1Fragment extends BaseFragment implements View.OnC
         }
     }
 
-    private AuthzDelegateActivity getSActivity() {
-        return (AuthzDelegateActivity) getBaseActivity();
+    private AuthzRedelegateActivity getSActivity() {
+        return (AuthzRedelegateActivity) getBaseActivity();
     }
 }
