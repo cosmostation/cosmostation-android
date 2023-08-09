@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import cosmos.authz.v1beta1.Authz
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
@@ -62,6 +63,42 @@ fun <T: Serializable> Intent.intentSerializable(key: String, clazz: Class<T>): T
     } else {
         this.getSerializableExtra(key) as T?
     }
+}
+
+// Authz Type
+fun setAuthzType(grant: Authz.GrantAuthorization): String? {
+    grant.authorization.typeUrl?.let { url ->
+        val authorizationValue = grant.authorization.value
+        return when {
+            url.contains(Authz.GenericAuthorization.getDescriptor().fullName) -> {
+                Authz.GenericAuthorization.parseFrom(authorizationValue)?.let { generic ->
+                    when {
+                        generic.msg.contains("Send") -> "Send"
+                        generic.msg.contains("Delegate") -> "Delegate"
+                        generic.msg.contains("Undelegate") -> "Undelegate"
+                        generic.msg.contains("Redelegate") -> "Redelegate"
+                        generic.msg.equals("/cosmos.gov.v1beta1.MsgVote") -> "Vote"
+                        generic.msg.equals("/cosmos.gov.v1beta1.MsgVoteWeighted") -> "Vote Weighted"
+                        generic.msg.contains("WithdrawDelegatorReward") -> "Claim Reward"
+                        generic.msg.contains("WithdrawValidatorCommission") -> "Claim Commission"
+                        else -> "Unknown"
+                    }
+                }
+            }
+            url.contains(cosmos.bank.v1beta1.Authz.SendAuthorization.getDescriptor().fullName) -> "Send"
+            else -> {
+                cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(authorizationValue)?.let { stake ->
+                    when (stake.authorizationType) {
+                        cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_DELEGATE -> "Delegate"
+                        cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE -> "Redelegate"
+                        cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE -> "Undelegate"
+                        else -> "Unknown"
+                    }
+                }
+            }
+        }
+    }
+    return "Unknown"
 }
 
 fun EditText.amountWatcher(

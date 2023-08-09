@@ -1045,6 +1045,11 @@
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
     <string name="str_authz_no_revoke_msg">Select the grant to revoke.</string>
     <string name="str_authz_revoke">Revoke</string>
+    <string name="str_authz_grantee">Grantee</string>
+    <string name="str_authz_grant_type">Grant Type</string>
+    <string name="str_authz_revoke_step0">Check the Grant to Revoke</string>
+    <string name="str_authz_granter">Granter</string>
+    <string name="str_authz_grant_revoke">Grant Revoke</string>
 
     <string name="str_select_contract_token_title">Edit Token List</string>
     <string name="str_select_contract_token">Select token to Display</string>

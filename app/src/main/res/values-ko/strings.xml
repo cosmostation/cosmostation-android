@@ -944,6 +944,11 @@
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
     <string name="str_authz_no_revoke_msg">취소할 권한을 선택하세요.</string>
     <string name="str_authz_revoke">권한 취소</string>
+    <string name="str_authz_grantee">권한 수혜자</string>
+    <string name="str_authz_grant_type">권한 타입</string>
+    <string name="str_authz_revoke_step0">취소할 권한을 확인하세요.</string>
+    <string name="str_authz_granter">권한 수여자</string>
+    <string name="str_authz_grant_revoke">권한 취소</string>
 
     <string name="str_select_contract_token_title">토큰 편집</string>
     <string name="str_select_contract_token">표시할 토큰을 선택하세요</string>

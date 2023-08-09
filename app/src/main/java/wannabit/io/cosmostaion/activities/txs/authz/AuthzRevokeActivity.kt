@@ -4,12 +4,14 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import cosmos.authz.v1beta1.Authz.GrantAuthorization
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity
 import wannabit.io.cosmostaion.base.BaseChain
+import wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REVOKE
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
 import wannabit.io.cosmostaion.databinding.ActivityAuthzRevokeBinding
@@ -17,6 +19,9 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment
 import wannabit.io.cosmostaion.fragment.StepMemoFragment
 import wannabit.io.cosmostaion.fragment.txs.authz.grantee.RevokeStep0Fragment
 import wannabit.io.cosmostaion.fragment.txs.authz.grantee.RevokeStep3Fragment
+import wannabit.io.cosmostaion.model.factory.authz.AuthzViewModelProviderFactory
+import wannabit.io.cosmostaion.model.repository.authz.AuthzRepositoryImpl
+import wannabit.io.cosmostaion.model.viewModel.authz.AuthzViewModel
 import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.intentSerializable
 import java.util.ArrayList
@@ -27,6 +32,8 @@ class AuthzRevokeActivity : BaseBroadCastActivity() {
 
     private lateinit var mPageAdapter: RevokePageAdapter
 
+    private lateinit var authzViewModel: AuthzViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthzRevokeBinding.inflate(layoutInflater)
@@ -35,6 +42,10 @@ class AuthzRevokeActivity : BaseBroadCastActivity() {
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val authzRepository = AuthzRepositoryImpl()
+        val authzViewModelProviderFactory = AuthzViewModelProviderFactory(authzRepository)
+        authzViewModel = ViewModelProvider(this, authzViewModelProviderFactory)[AuthzViewModel::class.java]
 
         initView()
         initData()
@@ -58,6 +69,7 @@ class AuthzRevokeActivity : BaseBroadCastActivity() {
         mAccount = baseDao.onSelectAccount(baseDao.lastUser)
         mBaseChain = BaseChain.getChain(mAccount.baseChain)
         mChainConfig = ChainFactory.getChain(mBaseChain)
+        mTxType = CONST_PW_TX_AUTHZ_REVOKE
 
         mGrantees = intent.intentSerializable("selectedItems", T::class.java) as ArrayList<GrantAuthorization>
     }
@@ -74,7 +86,7 @@ class AuthzRevokeActivity : BaseBroadCastActivity() {
                 )
 
                 val stepMessages = arrayOf(
-                    R.string.str_vote_step_0,
+                    R.string.str_authz_revoke_step0,
                     R.string.str_tx_step_memo,
                     R.string.str_tx_step_fee,
                     R.string.str_tx_step_confirm

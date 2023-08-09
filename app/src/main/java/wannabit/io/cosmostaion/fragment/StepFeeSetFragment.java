@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_CLAIM_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_REVOKE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_AUTHZ_VOTE;
@@ -106,6 +107,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimCommissionG
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzClaimRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzRedelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzRevokeGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulAuthzVoteGrpcTask;
@@ -515,9 +517,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             new SimulPersisLiquidGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mSwapInCoin,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (getSActivity().mTxType == CONST_PW_TX_NEUTRON_SWAP){
-            new SimulContractSwapExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mSelectedPool, getSActivity().mInputPair, getSActivity().mSwapInAmount, getSActivity().mBeliefPrice,
-                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else if (getSActivity().mTxType == CONST_PW_TX_AUTHZ_REVOKE) {
+            new SimulAuthzRevokeGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mGrantees,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
             Object req = null;
