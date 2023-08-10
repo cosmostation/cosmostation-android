@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.txs.authz.AuthzListActivity2;
+import wannabit.io.cosmostaion.activities.txs.authz.AuthzListActivity;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -33,7 +33,7 @@ public class WalletAuthzHolder extends BaseHolder {
         mAuthzTitleImg.setColorFilter(ContextCompat.getColor(mainActivity, chainConfig.chainColor()), android.graphics.PorterDuff.Mode.SRC_IN);
 
         mBtnAuthz.setOnClickListener(v -> {
-            Intent intent = new Intent(mainActivity, AuthzListActivity2.class);
+            Intent intent = new Intent(mainActivity, AuthzListActivity.class);
             mainActivity.startActivity(intent);
         });
     }

@@ -919,6 +919,7 @@
     <string name="str_authz_othervalidator_title">別の検証人</string>
     <string name="str_authz_select_msg">検証人を選択してください。</string>
     <string name="str_authz_empty_title">グラントを受け取り、AUTHZ を開始する</string>
+    <string name="str_authz_grantee_empty_title">グラントをください、AUTHZ を開始する</string>
     <string name="str_authz_empty_msg">現在、管理しているグラントがありません。\nウェブウォレットから管理してください</string>
     <string name="str_authz_delegate_title">Authz 委任する</string>
     <string name="str_authz_delegate_step_0">検証人を選択してください。</string>

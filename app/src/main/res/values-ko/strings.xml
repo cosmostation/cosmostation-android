@@ -921,6 +921,7 @@
     <string name="str_authz_othervalidator_title">다른 검증인</string>
     <string name="str_authz_select_msg">검증인을 선택하세요</string>
     <string name="str_authz_empty_title">그랜트를 받고 AUTHZ 시작하기</string>
+    <string name="str_authz_grantee_empty_title">그랜트를 주고 AUTHZ 시작하기</string>
     <string name="str_authz_empty_msg">현재 관리하고 있는 그랜트가 없습니다.\n웹지갑에서 그랜트를 관리하세요.</string>
     <string name="str_authz_delegate_title">Authz 위임하기</string>
     <string name="str_authz_delegate_step_0">검증인을 선택하세요</string>

@@ -11,24 +11,24 @@ import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseFragment
 import wannabit.io.cosmostaion.base.chains.ChainFactory
-import wannabit.io.cosmostaion.databinding.ActivityAuthzList2Binding
+import wannabit.io.cosmostaion.databinding.ActivityAuthzListBinding
 import wannabit.io.cosmostaion.databinding.ViewTabMyvalidatorBinding
-import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzGranteeFragment
 import wannabit.io.cosmostaion.fragment.txs.authz.grantee.AuthzGranterFragment
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzGranteeFragment
 import wannabit.io.cosmostaion.model.factory.authz.AuthzViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.authz.AuthzRepositoryImpl
 import wannabit.io.cosmostaion.model.viewModel.authz.AuthzViewModel
 
-class AuthzListActivity2 : BaseActivity() {
+class AuthzListActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityAuthzList2Binding
+    private lateinit var binding: ActivityAuthzListBinding
     private lateinit var mPageAdapter: AuthzListPageAdapter
 
     private lateinit var authzViewModel: AuthzViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAuthzList2Binding.inflate(layoutInflater)
+        binding = ActivityAuthzListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         mAccount = baseDao.onSelectAccount(baseDao.lastUser)
@@ -72,13 +72,13 @@ class AuthzListActivity2 : BaseActivity() {
                 }
                 tabBinding.tabItemText.setTextColor(
                     ContextCompat.getColorStateList(
-                        this@AuthzListActivity2, mChainConfig.chainTabColor()
+                        this@AuthzListActivity, mChainConfig.chainTabColor()
                     )
                 )
                 tab.customView = tabBinding.root
                 labTab.setSelectedTabIndicatorColor(
                     ContextCompat.getColor(
-                        this@AuthzListActivity2, mChainConfig.chainColor()
+                        this@AuthzListActivity, mChainConfig.chainColor()
                     )
                 )
             }.attach()

@@ -1019,6 +1019,7 @@
     <string name="str_authz_list_title">Authz List</string>
     <string name="str_authz_detail_title">Authz Detail</string>
     <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
+    <string name="str_authz_grantee_empty_title">GIVE GRANT TO START AUTHZ</string>
     <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
     <string name="str_authz_delegate_title">Authz Delegate</string>
     <string name="str_authz_myvalidator_title">My Validator</string>

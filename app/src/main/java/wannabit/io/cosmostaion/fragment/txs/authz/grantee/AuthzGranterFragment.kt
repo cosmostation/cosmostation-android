@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import cosmos.authz.v1beta1.Authz.GrantAuthorization
@@ -41,6 +42,7 @@ class AuthzGranterFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         baseActivity.onShowWaitDialog()
+        binding.emptyRoot.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), baseActivity.mChainConfig.chainBgColor()))
         initRecyclerView()
 
         authzViewModel.granterData(baseActivity.mChainConfig, baseActivity.mAccount.address)
@@ -63,6 +65,14 @@ class AuthzGranterFragment : BaseFragment() {
                 is NetworkResult.Success -> {
                     baseActivity.onHideWaitDialog()
                     val data = mutableListOf<GrantAuthorization>()
+
+                    if (response.data.size > 0) {
+                        binding.recycler.visibility = View.VISIBLE
+                        binding.emptyRoot.visibility = View.GONE
+                    } else {
+                        binding.recycler.visibility = View.GONE
+                        binding.emptyRoot.visibility = View.VISIBLE
+                    }
 
                     val now = Calendar.getInstance().timeInMillis
                     response.data.forEach { grant ->
