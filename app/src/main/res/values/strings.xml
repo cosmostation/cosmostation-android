@@ -6,7 +6,7 @@
     <string name="url_kado_money" translatable="false">https://app.kado.money</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
-    <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
+    <string name="url_mintscan" translatable="false">https://front.api.mintscan.io/</string>
 
     <string name="url_main_bnb" translatable="false">https://dex.binance.org/</string>
 
