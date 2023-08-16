@@ -35,9 +35,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzDelegateStep4Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzDelegateStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzDelegateStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzDelegateStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzDelegateGrpcTask;
 

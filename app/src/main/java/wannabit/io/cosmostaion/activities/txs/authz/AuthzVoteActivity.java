@@ -34,10 +34,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.chains.ChainFactory;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep0Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep1Fragment;
-import wannabit.io.cosmostaion.fragment.txs.authz.AuthzVoteStep4Fragment;
-import wannabit.io.cosmostaion.network.res.ResProposal;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzVoteStep0Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzVoteStep1Fragment;
+import wannabit.io.cosmostaion.fragment.txs.authz.granter.AuthzVoteStep4Fragment;
 import wannabit.io.cosmostaion.network.res.ResV1Proposal;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.AuthzVoteGrpcTask;
 

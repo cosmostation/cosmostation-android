@@ -1021,6 +1021,7 @@
     <string name="str_authz_list_title">Authz List</string>
     <string name="str_authz_detail_title">Authz Detail</string>
     <string name="str_authz_empty_title">RECEIVE GRANT TO START AUTHZ</string>
+    <string name="str_authz_grantee_empty_title">GIVE GRANT TO START AUTHZ</string>
     <string name="str_authz_empty_msg">You do not have any grants at the moment\nPlease manage your grants from a web wallet</string>
     <string name="str_authz_delegate_title">Authz Delegate</string>
     <string name="str_authz_myvalidator_title">My Validator</string>
@@ -1045,6 +1046,13 @@
     <string name="str_authz_reward_step_0">Confirm your staking reward info</string>
     <string name="str_authz_commission_title">Authz Claim Commission</string>
     <string name="str_authz_commission_step_0">Confirm your staking commission info</string>
+    <string name="str_authz_no_revoke_msg">Select the grant to revoke.</string>
+    <string name="str_authz_revoke">Revoke</string>
+    <string name="str_authz_grantee">Grantee</string>
+    <string name="str_authz_grant_type">Grant Type</string>
+    <string name="str_authz_revoke_step0">Check the Grant to Revoke</string>
+    <string name="str_authz_granter">Granter</string>
+    <string name="str_authz_grant_revoke">Grant Revoke</string>
 
     <string name="str_select_contract_token_title">Edit Token List</string>
     <string name="str_select_contract_token">Select token to Display</string>
@@ -1518,4 +1526,6 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -34,6 +34,7 @@ import java.util.Map;
 
 import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryOuterClass;
+import cosmos.authz.v1beta1.Authz;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
@@ -71,6 +72,7 @@ import wannabit.io.cosmostaion.network.req.neutron.SwapMsg;
 import wannabit.io.cosmostaion.network.req.neutron.SwapReq;
 import wannabit.io.cosmostaion.network.res.neutron.Pair;
 import wannabit.io.cosmostaion.network.res.neutron.ResPairData;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -1045,6 +1047,23 @@ public class Signer {
 
         cosmos.authz.v1beta1.Tx.MsgExec msgExec = cosmos.authz.v1beta1.Tx.MsgExec.newBuilder().setGrantee(grantee).addMsgs(innerMsg).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgExec").setValue(msgExec.toByteString()).build());
+        return msgAnys;
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcAuthzRevokeReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Authz.GrantAuthorization> grantsList, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getAuthzRevokeMsg(grantsList), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcAuthzRevokeSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Authz.GrantAuthorization> grantsList, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getAuthzRevokeMsg(grantsList), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    }
+
+    public static ArrayList<Any> getAuthzRevokeMsg(ArrayList<Authz.GrantAuthorization> grantsList) {
+        ArrayList<Any> msgAnys = new ArrayList<>();
+        for (Authz.GrantAuthorization grant : grantsList) {
+            cosmos.authz.v1beta1.Tx.MsgRevoke msgRevoke = cosmos.authz.v1beta1.Tx.MsgRevoke.newBuilder().setGranter(grant.getGranter()).setGrantee(grant.getGrantee()).setMsgTypeUrl(WDp.getAuthzGrantType(grant)).build();
+            msgAnys.add(Any.newBuilder().setTypeUrl("/cosmos.authz.v1beta1.MsgRevoke").setValue(msgRevoke.toByteString()).build());
+        }
         return msgAnys;
     }
 

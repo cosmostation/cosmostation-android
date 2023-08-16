@@ -920,6 +920,7 @@
     <string name="str_authz_othervalidator_title">別の検証人</string>
     <string name="str_authz_select_msg">検証人を選択してください。</string>
     <string name="str_authz_empty_title">グラントを受け取り、AUTHZ を開始する</string>
+    <string name="str_authz_grantee_empty_title">グラントをください、AUTHZ を開始する</string>
     <string name="str_authz_empty_msg">現在、管理しているグラントがありません。\nウェブウォレットから管理してください</string>
     <string name="str_authz_delegate_title">Authz 委任する</string>
     <string name="str_authz_delegate_step_0">検証人を選択してください。</string>
@@ -941,6 +942,13 @@
     <string name="str_authz_reward_step_0">受け取る利子情報確認してください。</string>
     <string name="str_authz_commission_title">Authz コミッションをもらう。</string>
     <string name="str_authz_commission_step_0">ステーキングコミッション情報確認</string>
+    <string name="str_authz_no_revoke_msg">キャンセルする権限を選択してください。</string>
+    <string name="str_authz_revoke">権限の取り消しです</string>
+    <string name="str_authz_grantee">権限のある受益者です</string>
+    <string name="str_authz_grant_type">権限タイプです</string>
+    <string name="str_authz_revoke_step0">キャンセルする権限を確認してください。</string>
+    <string name="str_authz_granter">権限授与者です</string>
+    <string name="str_authz_grant_revoke">権限の取り消しです</string>
 
     <string name="str_select_contract_token_title">トークンの編集</string>
     <string name="str_select_contract_token">表示するトークンを選択してください</string>
