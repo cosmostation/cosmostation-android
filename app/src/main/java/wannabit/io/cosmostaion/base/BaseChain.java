@@ -361,8 +361,6 @@ public enum BaseChain {
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
-        result.add(KONSTELL_MAIN);
-        result.add(KUJIRA_MAIN);
         result.add(KYVE_MAIN);
         result.add(LIKECOIN_MAIN);
         result.add(LUM_MAIN);
@@ -386,7 +384,6 @@ public enum BaseChain {
         result.add(SEI_MAIN);
         result.add(SENTINEL_MAIN);
         result.add(CERTIK_MAIN);
-        result.add(SIF_MAIN);
         result.add(SOMMELIER_MAIN);
         result.add(STAFI_MAIN);
         result.add(STARGAZE_MAIN);
@@ -398,6 +395,9 @@ public enum BaseChain {
         result.add(NEUTRON_TEST);
         result.add(STATION_TEST);
         result.add(CERBERUS_MAIN);
+        result.add(KONSTELL_MAIN);
+        result.add(KUJIRA_MAIN);
+        result.add(SIF_MAIN);
 
         return result;
     }
