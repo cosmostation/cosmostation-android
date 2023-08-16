@@ -342,7 +342,7 @@ class SendStep0Fragment : BaseFragment() {
             binding.receiverAccount.text.trim().toString().let { userInput ->
                 if (chainConfig.baseChain().equals(BaseChain.ARCHWAY_MAIN)) {
                     return if (userInput.contains(".arch")) {
-                        userInput.split(".")[0] + ".arch"
+                        userInput
                     } else if (userInput.contains(".")) {
                         userInput + "arch"
                     } else {

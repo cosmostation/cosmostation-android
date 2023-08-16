@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.utils.WDp
 import wannabit.io.cosmostaion.utils.makeToast
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AuthzGranterFragment : BaseFragment() {
 
@@ -109,7 +110,7 @@ class AuthzGranterFragment : BaseFragment() {
                     return@setOnClickListener
                 } else {
                     Intent(requireContext(), AuthzRevokeActivity::class.java).apply {
-                        putExtra("selectedItems", selectedItems as Serializable)
+                        putExtra("selectedItems", ArrayList(selectedItems))
                         startActivity(this)
                     }
                 }

@@ -408,7 +408,7 @@ public class ResApiNewTxListCustom {
                 }
 
                 // osmosis msg type
-                else if (msgType.contains("osmosis.") && msgType.contains("gamm")) {
+                else if (msgType.contains("osmosis.") && msgType.contains("gamm") || msgType.contains("osmosis.") && msgType.contains("poolmanager")) {
                     if (msgType.contains("MsgSwapExactAmountIn")) {
                         result = c.getString(R.string.tx_osmosis_coin_swap);
                     } else if (msgType.contains("MsgSwapExactAmountOut")) {

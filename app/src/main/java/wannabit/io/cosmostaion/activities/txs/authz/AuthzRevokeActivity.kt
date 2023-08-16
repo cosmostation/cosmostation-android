@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities.txs.authz
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -22,9 +21,6 @@ import wannabit.io.cosmostaion.fragment.txs.authz.grantee.RevokeStep3Fragment
 import wannabit.io.cosmostaion.model.factory.authz.AuthzViewModelProviderFactory
 import wannabit.io.cosmostaion.model.repository.authz.AuthzRepositoryImpl
 import wannabit.io.cosmostaion.model.viewModel.authz.AuthzViewModel
-import wannabit.io.cosmostaion.utils.WLog
-import wannabit.io.cosmostaion.utils.intentSerializable
-import java.util.ArrayList
 
 class AuthzRevokeActivity : BaseBroadCastActivity() {
 
@@ -71,7 +67,7 @@ class AuthzRevokeActivity : BaseBroadCastActivity() {
         mChainConfig = ChainFactory.getChain(mBaseChain)
         mTxType = CONST_PW_TX_AUTHZ_REVOKE
 
-        mGrantees = intent.intentSerializable("selectedItems", T::class.java) as ArrayList<GrantAuthorization>
+        mGrantees = intent.getSerializableExtra("selectedItems") as? java.util.ArrayList<GrantAuthorization>
     }
 
     private fun onSetPageSelected() {
