@@ -1423,6 +1423,9 @@ class WalletConnectActivity : BaseActivity() {
             } else if (modifiedUrl.startsWith("keplrwallet://wcV2")) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl.replace("keplrwallet://wcV2", "cosmostation://wc"))))
                 return true
+            } else if (modifiedUrl.startsWith("keplrwalletwcv2://wcV2")) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl.replace("keplrwalletwcv2://wcV2", "cosmostation://wc"))))
+                return true
             } else if (modifiedUrl.startsWith("intent:")) {
                 if (modifiedUrl.contains("intent://wcV1")) {
                     modifiedUrl = modifiedUrl.replace(
