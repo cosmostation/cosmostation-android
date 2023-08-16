@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseActivity
 import wannabit.io.cosmostaion.base.BaseChain
 import wannabit.io.cosmostaion.base.BaseFragment
@@ -67,8 +68,8 @@ class AuthzListActivity : BaseActivity() {
             TabLayoutMediator(labTab, labViewPager) { tab, position ->
                 val tabBinding = ViewTabMyvalidatorBinding.inflate(layoutInflater)
                 when (position) {
-                    0 -> tabBinding.tabItemText.text = "Slave"
-                    else -> tabBinding.tabItemText.text = "Master"
+                    0 -> tabBinding.tabItemText.text = getString(R.string.str_authz_grantee)
+                    else -> tabBinding.tabItemText.text = getString(R.string.str_authz_granter)
                 }
                 tabBinding.tabItemText.setTextColor(
                     ContextCompat.getColorStateList(
