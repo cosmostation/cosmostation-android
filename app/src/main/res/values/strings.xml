@@ -319,6 +319,7 @@
     <string name="str_front_guide_title_stafi" translatable="false"><![CDATA[STAFI HUB]]></string>
     <string name="str_front_guide_title_neutron" translatable="false"><![CDATA[NEUTRON]]></string>
     <string name="str_front_guide_title_archway" translatable="false"><![CDATA[ARCHWAY]]></string>
+    <string name="str_front_guide_title_sei" translatable="false"><![CDATA[SEI]]></string>
 
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
@@ -384,6 +385,7 @@
     <string name="str_front_guide_msg_stafi"><![CDATA[StaFi Hub is a sovereign Cosmos SDK based blockchain designed for cross-chain liquid staking.]]></string>
     <string name="str_front_guide_msg_neutron"><![CDATA[Neutron is a permissionless CosmWasm platform secured by Cosmos Hub’s Interchain Security.]]></string>
     <string name="str_front_guide_msg_archway"><![CDATA[Archway is a persmissionless smart contract blockchain designed to incentivize the deployments of dApps.]]></string>
+    <string name="str_front_guide_msg_sei"><![CDATA[Sei is a Cosmos SDK-based layer 1 blockchain network designed for speed, security and scalability.]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>

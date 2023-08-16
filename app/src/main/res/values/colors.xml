@@ -74,6 +74,7 @@
     <color name="colorTransBgStafi">#ECEBFF</color>
     <color name="colorTransBgNeutron">#ECEFFE</color>
     <color name="colorTransBgArchway">#FFF2ED</color>
+    <color name="colorTransBgSei">#FBF4EA</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -242,6 +243,8 @@
     <color name="color_neutron">#465DF3</color>
 
     <color name="color_archway">#FF8F69</color>
+
+    <color name="color_sei">#BA364D</color>
 
 
     <color name="colorRed">#f31963</color>
