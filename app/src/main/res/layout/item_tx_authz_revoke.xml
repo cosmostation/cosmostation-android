@@ -31,7 +31,7 @@
                     android:id="@+id/authz_revoke_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_authz_send" />
+                    android:src="@drawable/icon_authz_revoke" />
 
                 <TextView
                     style="@style/font_rr_15_black_daynight"
