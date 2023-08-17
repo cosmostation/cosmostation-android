@@ -1586,6 +1586,9 @@ class WalletConnectActivity : BaseActivity() {
                         appToWebError("Unknown", messageId)
                     }
                 }
+                else -> {
+                    appToWebError("Not implemented", messageId)
+                }
             }
         } catch (e: Exception) {
             if (isCosmostation) {
