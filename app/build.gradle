@@ -19,8 +19,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 215
-        versionName "1.9.25"
+        versionCode 216
+        versionName "1.9.26"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
