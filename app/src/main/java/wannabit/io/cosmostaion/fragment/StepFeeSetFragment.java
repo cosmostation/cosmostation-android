@@ -521,6 +521,9 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             new SimulAuthzRevokeGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mGrantees,
                     getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc(), getSActivity().mTxType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (getSActivity().mTxType == CONST_PW_TX_NEUTRON_SWAP) {
+            new SimulContractSwapExecuteGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mSelectedPool, getSActivity().mInputPair, getSActivity().mSwapInAmount, getSActivity().mBeliefPrice,
+                    getSActivity().mTxMemo, mFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
             Object req = null;
             if (getSActivity().mTxType == BaseConstant.CONST_PW_TX_VAULT_DEPOSIT) {
