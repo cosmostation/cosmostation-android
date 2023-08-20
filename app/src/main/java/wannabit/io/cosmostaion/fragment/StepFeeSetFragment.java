@@ -235,6 +235,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
         mButtonGroup.setPosition(mSelectedFeeInfo, false);
         mButtonGroup.setOnPositionChangedListener(position -> {
+            if (mChainConfig.baseChain().equals(BaseChain.ASSETMANTLE_MAIN)) { return; }
             mSelectedFeeInfo = position;
             onCalculateFees();
             onCheckTxType();
@@ -278,6 +279,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onRefreshTab() {
+        if (mChainConfig.baseChain().equals(BaseChain.ASSETMANTLE_MAIN)) {
+            onUpdateView();
+            WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
+            mSimulPassed = true;
+            return;
+        }
         onCheckTxType();
     }
 
