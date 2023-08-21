@@ -99,7 +99,8 @@ public enum BaseChain {
     NEUTRON_TEST("neutron-testnet"),
     NEUTRON_MAIN("neutron-mainnet"),
     ARCHWAY_MAIN("archway-mainnet"),
-    SEI_MAIN("sei-mainnet");
+    SEI_MAIN("sei-mainnet"),
+    TERRA_MAIN ("terra-mainnet");
 
 
     private final String chainName;
@@ -329,6 +330,9 @@ public enum BaseChain {
         if (chainName.equals(SEI_MAIN.chainName)) {
             return SEI_MAIN;
         }
+        if (chainName.equals(TERRA_MAIN.chainName)) {
+            return TERRA_MAIN;
+        }
         return null;
     }
 
@@ -388,6 +392,7 @@ public enum BaseChain {
         result.add(STAFI_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(STRIDE_MAIN);
+        result.add(TERRA_MAIN);
         result.add(TERITORI_MAIN);
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);

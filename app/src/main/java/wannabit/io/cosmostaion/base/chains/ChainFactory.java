@@ -215,6 +215,9 @@ public class ChainFactory {
                 case TERITORI_MAIN:
                     return new Teritori();
 
+                case TERRA_MAIN:
+                    return new Terra();
+
                 case UMEE_MAIN:
                     return new Umee();
 

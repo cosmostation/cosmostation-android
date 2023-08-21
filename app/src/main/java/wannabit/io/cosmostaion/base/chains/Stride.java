@@ -26,7 +26,7 @@ public class Stride extends ChainConfig {
 
     public boolean dexSupport() { return true; }
     public boolean wcSupport() { return true; }
-    public boolean authzSupport() { return true; }
+    public boolean authzSupport() { return false; }
 
     public String grpcUrl() { return "grpc-stride.cosmostation.io"; }
 
