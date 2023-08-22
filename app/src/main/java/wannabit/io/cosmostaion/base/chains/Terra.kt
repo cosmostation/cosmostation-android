@@ -26,7 +26,9 @@ class Terra : ChainConfig() {
     override fun mainSymbol(): String { return "LUNA" }
     override fun addressPrefix(): String { return "terra" }
 
+    override fun erc20CoinSupport(): Boolean { return true }
     override fun dexSupport(): Boolean { return false }
+    override fun wasmSupport(): Boolean { return true }
     override fun wcSupport(): Boolean { return false }
     override fun authzSupport(): Boolean { return true }
 

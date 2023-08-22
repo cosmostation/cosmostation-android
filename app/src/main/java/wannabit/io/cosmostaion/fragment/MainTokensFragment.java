@@ -6,6 +6,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.TERRA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 import android.content.Context;
@@ -222,7 +223,7 @@ public class MainTokensFragment extends BaseFragment {
 
     private void onUpdateView() {
         final String mainDenom = mChainConfig.mainDenom();
-        if (mChainConfig.baseChain().equals(JUNO_MAIN) || mChainConfig.baseChain().equals(NEUTRON_MAIN) ||
+        if (mChainConfig.baseChain().equals(JUNO_MAIN) || mChainConfig.baseChain().equals(NEUTRON_MAIN) || mChainConfig.baseChain().equals(TERRA_MAIN) ||
                 mChainConfig.baseChain().equals(NEUTRON_TEST)) mCwGrpc = getBaseDao().mCw20MyTokens;
         else mCwGrpc = getBaseDao().mErc20MyTokens;
         mNativeGrpc.clear();
