@@ -34,7 +34,7 @@ class Terra : ChainConfig() {
 
     override fun grpcUrl(): String { return "grpc-terra.cosmostation.io" }
     override fun explorerUrl(): String { return BaseConstant.EXPLORER_BASE_URL + "terra/" }
-    override fun homeInfoLink(): String { return "https://www.terra.money/" }
+    override fun homeInfoLink(): String { return "" }
     override fun blogInfoLink(): String { return "https://medium.com/terra-money/" }
     override fun coingeckoLink(): String { return COINGECKO_URL + "terra"; }
 
