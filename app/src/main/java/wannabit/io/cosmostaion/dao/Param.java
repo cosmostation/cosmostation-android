@@ -337,8 +337,13 @@ public class Param {
 
                 } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
                     if (mParams.mStargazeAllocParams != null && mParams.mStargazeAllocParams.params != null && mParams.mStargazeAllocParams.params.mDistributionProportions != null) {
-                        BigDecimal reductionFactor = new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.nft_incentives).add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.developer_rewards));
-                        return inflation.multiply(calTax).multiply(BigDecimal.ONE.subtract(reductionFactor)).divide(bondingRate, 6, RoundingMode.DOWN);
+                        BigDecimal blockPerYear = new BigDecimal(mParams.mMintingParams.params.blocks_per_year);
+                        BigDecimal supplementAmount = new BigDecimal(mParams.mStargazeAllocParams.params.mSupplementamount.get(0).amount);
+                        BigDecimal annualSupplement = blockPerYear.multiply(supplementAmount);
+                        BigDecimal reductionFactor = new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.nft_incentives).
+                                        add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.developer_rewards).
+                                        add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.community_pool)));
+                        return (getAnnualProvision().add(annualSupplement)).multiply(BigDecimal.ONE.subtract(reductionFactor)).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                     }
 
                 } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
@@ -768,7 +773,13 @@ public class Param {
 
                 @SerializedName("developer_rewards")
                 public String developer_rewards;
+
+                @SerializedName("community_pool")
+                public String community_pool;
             }
+
+            @SerializedName("supplement_amount")
+            public ArrayList<Coin> mSupplementamount;
         }
     }
 
