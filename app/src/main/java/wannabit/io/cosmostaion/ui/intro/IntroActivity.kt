@@ -1,12 +1,17 @@
 package wannabit.io.cosmostaion.ui.intro
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +26,7 @@ import wannabit.io.cosmostaion.network.WalletService
 import wannabit.io.cosmostaion.network.model.AppVersion
 import wannabit.io.cosmostaion.ui.main.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.main.DashboardActivity
+import wannabit.io.cosmostaion.ui.main.MainActivity
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
@@ -29,9 +35,25 @@ class IntroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initFullScreen()
         initFirebase()
         checkAppVersion()
         migrateDatabaseIfNeed()
+    }
+
+    private fun initFullScreen() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            supportActionBar?.hide()
+            val controller = window.insetsController
+            if (controller != null) {
+                controller.hide(WindowInsets.Type.navigationBars())
+                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            window.decorView.systemUiVisibility =
+                (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+        }
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
@@ -39,18 +61,24 @@ class IntroActivity : AppCompatActivity() {
         LegacyMigrationHelper.migrateWallet()
     }
 
-
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
+        delay(2000)
         if (AppDatabase.getInstance().walletDao().selectAll().isEmpty()) {
             CoroutineScope(Dispatchers.Main).launch {
                 supportFragmentManager.beginTransaction().add(R.id.fragment_container, EmptyWalletFragment()).commit()
             }
         } else {
             CoroutineScope(Dispatchers.Main).launch {
-                ApplicationViewModel.shared.currentWalletLiveData.postValue(AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId))
-                startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
-                finish()
+                Intent(this@IntroActivity, MainActivity::class.java).apply {
+                    startActivity(this)
+                    finish()
+                }
             }
+//            CoroutineScope(Dispatchers.Main).launch {
+//                ApplicationViewModel.shared.currentWalletLiveData.postValue(AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId))
+//                startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
+//                finish()
+//            }
 //                if (CosmostationApp.instance.needShowLockScreen()) {
 //                    val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
 //                    startActivity(intent)

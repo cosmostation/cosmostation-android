@@ -4,9 +4,6 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
-
     def localPropertiesFile = rootProject.file("local.properties")
     def walletConnectDevApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
     def walletConnectApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
@@ -17,6 +14,8 @@ android {
     }
 
     defaultConfig {
+        compileSdk 33
+        buildToolsVersion = "30.0.3"
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 33
@@ -158,4 +157,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+
+    //navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
 }

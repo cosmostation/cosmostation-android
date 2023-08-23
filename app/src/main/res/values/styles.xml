@@ -4,11 +4,22 @@
         <item name="colorPrimary">@color/color_mode_base05</item>
         <item name="colorPrimaryDark">@color/color_mode_base01</item>
         <item name="colorAccent">@color/color_blue01</item>
-        <item name="android:windowBackground">@color/color_mode_base01</item>
         <item name="fontFamily">@font/font_bold</item>
         <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>
-        <item name="android:statusBarColor">@color/color_mode_base01</item>
-        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppTheme.Intro">
+        <item name="android:windowBackground">@mipmap/intro_bg</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="BaseBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -26,11 +37,6 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
-    </style>
-
-    <style name="AppTheme.Intro">
-        <item name="android:windowDisablePreview">true</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Widget.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">

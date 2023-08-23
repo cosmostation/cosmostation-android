@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_base01">#ffffff</color>
+    <color name="color_base03">#838493</color>
+    <color name="color_base05">#414158</color>
+
+
     <color name="color_accent">#F8DDDD</color>
     <color name="color_blue01">#3182F5</color>
     <color name="color_blue02">#2051A3</color>

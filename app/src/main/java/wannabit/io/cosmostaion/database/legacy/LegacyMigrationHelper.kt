@@ -38,7 +38,7 @@ object LegacyMigrationHelper {
         val legacyAccounts = getLegacyAccounts()
         val newWallets = mutableListOf<Wallet>()
         legacyMnemonics.forEach {
-            val hexEntropy = CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY, it.resource, it.spec)
+            val hexEntropy = CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + it.uuid, it.resource, it.spec)
             val encSeed = CipherHelper.encrypt(hexEntropy!!)
             newWallets.add(Wallet(0, it.uuid, it.resource, it.spec, encSeed, it.nickName, it.wordsCnt, WalletType.MNEMONIC, 0, it.importTime))
         }

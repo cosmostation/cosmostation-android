@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="wannabit.io.cosmostaion.ui.main.DashboardFragment"
+        android:label="DashboardFragment"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/swapFragment"
+        android:name="wannabit.io.cosmostaion.ui.main.SwapFragment"
+        android:label="SwapFragment"
+        tools:layout="@layout/fragment_swap" />
+
+    <fragment
+        android:id="@+id/dappFragment"
+        android:name="wannabit.io.cosmostaion.ui.main.DappFragment"
+        android:label="DappFragment"
+        tools:layout="@layout/fragment_dapp" />
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="wannabit.io.cosmostaion.ui.main.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting" />
+
+</navigation>

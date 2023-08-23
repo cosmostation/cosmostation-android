@@ -35,7 +35,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun setupViewModels() {
         ApplicationViewModel.shared.currentWalletLiveData.observe(this) {
-            binding.account.text = it.nickname
+//            binding.account.text = it.nickname
             ApplicationViewModel.shared.loadBalances()
         }
 
