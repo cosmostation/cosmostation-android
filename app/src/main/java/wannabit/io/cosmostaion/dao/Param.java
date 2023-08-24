@@ -503,9 +503,7 @@ public class Param {
     }
 
     public BigDecimal getQuorum(ChainConfig chainConfig, ResProposal resProposal) {
-        if (chainConfig.baseChain().equals(CERTIK_MAIN) && mParams.mShentuGovTallyParams != null) {
-            return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.quorum);
-        } else if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null && resProposal != null) {
+        if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null && resProposal != null) {
             if (resProposal.is_expedited) {
                 return new BigDecimal(mParams.mGovTallyParams.mTallyParams.expedited_threshold);
             } else {
@@ -561,9 +559,7 @@ public class Param {
 
     public BigDecimal getThreshold(ChainConfig chainConfig) {
         if (mParams != null && mParams.mGovTallyParams != null) {
-            if (chainConfig.baseChain().equals(CERTIK_MAIN)) {
-                return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.threshold);
-            } else if (isGRPC(chainConfig.baseChain())) {
+            if (isGRPC(chainConfig.baseChain())) {
                 return new BigDecimal(mParams.mGovTallyParams.mTallyParams.threshold);
             } else {
                 return new BigDecimal(mParams.mGovTallyParams.threshold);
@@ -574,11 +570,7 @@ public class Param {
 
     public BigDecimal getVetoThreshold(ChainConfig chainConfig) {
         if (mParams != null && mParams.mGovTallyParams != null) {
-            if (chainConfig.baseChain().equals(CERTIK_MAIN)) {
-                return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.veto_threshold);
-            } else {
-                return new BigDecimal(mParams.mGovTallyParams.mTallyParams.veto_threshold);
-            }
+            return new BigDecimal(mParams.mGovTallyParams.mTallyParams.veto_threshold);
         }
         return BigDecimal.ZERO;
     }
