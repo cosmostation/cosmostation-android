@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_8"
+    android:layout_marginHorizontal="@dimen/space_12">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dash_view"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:cardPreventCornerOverlap="true"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="@dimen/space_10"
+            android:paddingHorizontal="@dimen/space_12">
+
+            <ImageView
+                android:id="@+id/chain_img"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/chain_cosmos" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/chain_img"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:textSize="@dimen/text_size_14"
+                android:textColor="@color/color_base01"
+                android:layout_marginLeft="@dimen/space_8" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

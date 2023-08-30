@@ -1,78 +1,87 @@
 package wannabit.io.cosmostaion.ui.main
 
-import android.content.Context
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.Line
-import wannabit.io.cosmostaion.databinding.ItemDashboardBinding
-import wannabit.io.cosmostaion.ui.line.cosmos.CosmosLineActivity
-import wannabit.io.cosmostaion.ui.line.ethereum.EthereumLineActivity
+import wannabit.io.cosmostaion.databinding.ItemDashBinding
+import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
-class DashboardAdapter(private val context: Context, val lines: MutableList<Line> = mutableListOf()) : RecyclerView.Adapter<DashboardViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardViewHolder {
-        val binding = ItemDashboardBinding.inflate(LayoutInflater.from(context), parent, false)
-        return DashboardViewHolder(binding)
+class DashboardAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
+
+    companion object {
+        const val VIEW_TYPE_COSMOS_HEADER = 0
+        const val VIEW_TYPE_COSMOS_ITEM = 1
     }
 
-    override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
-        val chain = lines[position]
-        holder.binding.apply {
-            name.text = chain.chainName
-            ApplicationViewModel.shared.pricesLiveData.value?.let {
-                it.find {
-                    when (chain) {
-                        is CosmosLine -> {
-                            it.coinGeckoId.lowercase() == chain.config.chainName.lowercase()
-                        }
+    private var onItemClickListener: ((Int) -> Unit)? = null
 
-                        is EthereumLine -> {
-                            it.coinGeckoId.lowercase() == chain.config.chainName.lowercase()
-                        }
-
-                        else -> {
-                            false
-                        }
-                    }
-                }?.let { price.text = "${it.current_price}" }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_COSMOS_HEADER -> {
+                val binding = ItemStickyHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                DashboardHeaderViewHolder(binding)
             }
-            ApplicationViewModel.shared.balancesLiveData.value?.let {
-                it.find {
-                    when (chain) {
-                        is CosmosLine -> {
-                            it.denom.lowercase() == chain.config.baseDenom.lowercase()
-                        }
 
-                        is EthereumLine -> {
-                            it.denom.lowercase() == chain.config.displayDenom.lowercase()
-                        }
-
-                        else -> {
-                            false
-                        }
-                    }
-                }?.let { amount.text = it.amount }
+            VIEW_TYPE_COSMOS_ITEM -> {
+                val binding =
+                    ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                DashboardViewHolder(binding)
             }
-            root.setOnClickListener {
-                when (chain) {
-                    is CosmosLine -> {
-                        context.startActivity(Intent(context, CosmosLineActivity::class.java).putExtra("chain", chain))
-                    }
 
-                    is EthereumLine -> {
-                        context.startActivity(Intent(context, EthereumLineActivity::class.java).putExtra("chain", chain))
-                    }
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+    }
 
-                    else -> {}
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is DashboardHeaderViewHolder -> {
+                holder.bind(position)
+            }
+
+            is DashboardViewHolder -> {
+                val item = currentList[position - 1]
+                holder.bind(item)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let { it(position - 1) }
                 }
             }
         }
     }
 
-    override fun getItemCount(): Int {
-        return lines.size
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) VIEW_TYPE_COSMOS_HEADER else VIEW_TYPE_COSMOS_ITEM
+    }
+
+    private class DashboardDiffCallback : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    inner class DashboardHeaderViewHolder(
+        private val binding: ItemStickyHeaderBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(position: Int) {
+            binding.apply {
+                if (getItemViewType(position) == VIEW_TYPE_COSMOS_HEADER) {
+                    headerTitle.text = "Cosmos"
+                }
+            }
+        }
+    }
+
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        onItemClickListener = listener
     }
 }

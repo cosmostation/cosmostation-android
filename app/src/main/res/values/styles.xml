@@ -1,25 +1,33 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/color_mode_base05</item>
-        <item name="colorPrimaryDark">@color/color_mode_base01</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_base01</item>
+        <item name="colorPrimaryDark">@color/color_base01</item>
         <item name="colorAccent">@color/color_blue01</item>
-        <item name="fontFamily">@font/font_bold</item>
-        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>
+<!--        <item name="fontFamily">@font/font_bold</item>-->
+<!--        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>-->
 
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <item name="android:windowBackground">@null</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentTransitions">true</item>
+
+<!--        <item name="android:windowBackground">@color/color_base01</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--        <item name="android:windowIsTranslucent">true</item>-->
     </style>
 
     <style name="AppTheme.Intro">
         <item name="android:windowBackground">@mipmap/intro_bg</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="BaseBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">

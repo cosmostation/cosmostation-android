@@ -9,7 +9,7 @@ import wannabit.io.cosmostaion.ui.chain.ChainSwitchFragment
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
-    private lateinit var adapter: DashboardAdapter
+    private lateinit var adapter: DashboardAdapter1
     private val viewModel: DashboardViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = DashboardAdapter(this)
+        adapter = DashboardAdapter1(this)
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = adapter
     }

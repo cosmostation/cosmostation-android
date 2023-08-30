@@ -9,7 +9,17 @@
         android:id="@+id/dashboardFragment"
         android:name="wannabit.io.cosmostaion.ui.main.DashboardFragment"
         android:label="DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_cosmosDetailFragment"
+            app:destination="@id/cosmosDetailFragment"
+            app:enterAnim="@animator/to_right"
+            app:exitAnim="@animator/from_right"
+            app:popEnterAnim="@animator/to_left"
+            app:popExitAnim="@animator/from_left"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/swapFragment"
@@ -28,5 +38,11 @@
         android:name="wannabit.io.cosmostaion.ui.main.SettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/cosmosDetailFragment"
+        android:name="wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment"
+        android:label="CosmosDetailFragment"
+        tools:layout="@layout/fragment_cosmos_detail" />
 
 </navigation>

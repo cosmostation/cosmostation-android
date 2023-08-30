@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
@@ -71,7 +72,7 @@ class IntroActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 Intent(this@IntroActivity, MainActivity::class.java).apply {
                     startActivity(this)
-                    finish()
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 }
             }
 //            CoroutineScope(Dispatchers.Main).launch {

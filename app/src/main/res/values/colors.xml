@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_base01">#ffffff</color>
+    <color name="color_base02">#BED1F2</color>
     <color name="color_base03">#838493</color>
+    <color name="color_base04">#6C7585</color>
     <color name="color_base05">#414158</color>
+
+
+    <color name="color_blur">#0fffffff</color>
 
 
     <color name="color_accent">#F8DDDD</color>
