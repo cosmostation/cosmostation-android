@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.database.model.Wallet
 import java.math.BigInteger
 import java.util.Date
 
-class EthereumLine(chainName: String, imageUrl: String, bip44: String, val config: ChainConfig.Ethereum) : Line(chainName, imageUrl, bip44) {
+class EthereumLine(chainName: String, imageUrl: String, bip44: String, val config: BaseChain.Ethereum) : Line(chainName, imageUrl, bip44) {
     override suspend fun loadBalances(wallet: Wallet) {
         wallet.seed?.let {
             val address = getAddress(it)

@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import java.io.Serializable
 
-sealed class ChainConfig : Serializable {
+sealed class BaseChain : Serializable {
     data class Cosmos(
         val chainId: String,
         val bech32Prefix: String,
@@ -14,7 +14,7 @@ sealed class ChainConfig : Serializable {
         val gasRate: String,
         val restUrl: String,
         val grpcUrl: String
-    ) : ChainConfig()
+    ) : BaseChain()
 
     data class Ethereum(
         val chainId: String,
@@ -23,7 +23,7 @@ sealed class ChainConfig : Serializable {
         val chainName: String,
         val decimal: Int,
         val displayDenom: String,
-    ) : ChainConfig()
+    ) : BaseChain()
 
     data class Sui(
         val chainId: String,
@@ -32,5 +32,5 @@ sealed class ChainConfig : Serializable {
         val chainName: String,
         val decimal: Int,
         val displayDenom: String,
-    ) : ChainConfig()
+    ) : BaseChain()
 }

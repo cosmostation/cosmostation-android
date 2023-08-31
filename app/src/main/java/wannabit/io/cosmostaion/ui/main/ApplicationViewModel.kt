@@ -6,12 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import wannabit.io.cosmostaion.chain.ChainConfig
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.Line
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Balance
+import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.Wallet
 import wannabit.io.cosmostaion.network.MintscanService
 import wannabit.io.cosmostaion.network.model.Price
@@ -28,14 +29,15 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     //TODO apply to Transformations.map
 
     val currentWalletLiveData = MutableLiveData<Wallet>()
+    val currentBaseAccountLiveData = MutableLiveData<BaseAccount>()
 
     fun loadSupportChains() = CoroutineScope(Dispatchers.IO).launch {
         val lines = mutableListOf<Line>()
-        val cosmos = CosmosLine("Cosmos", "", "118", ChainConfig.Cosmos("cosmoshub-4", "cosmos", "uatom", "Cosmos", 6, "ATOM", "", "", "", "grpc-cosmos.cosmostation.io"))
+        val cosmos = CosmosLine("Cosmos", "", "118", BaseChain.Cosmos("cosmoshub-4", "cosmos", "uatom", "Cosmos", 6, "ATOM", "", "", "", "grpc-cosmos.cosmostation.io"))
         lines.add(cosmos)
-        val osmosis = CosmosLine("Osmosis", "", "118", ChainConfig.Cosmos("osmosis-1", "osmo", "uosmo", "Osmosis", 6, "OSMO", "", "", "", "grpc-osmosis.cosmostation.io"))
+        val osmosis = CosmosLine("Osmosis", "", "118", BaseChain.Cosmos("osmosis-1", "osmo", "uosmo", "Osmosis", 6, "OSMO", "", "", "", "grpc-osmosis.cosmostation.io"))
         lines.add(osmosis)
-        val ethereum = EthereumLine("Ethereum", "", "60", ChainConfig.Ethereum("", "", "https://rpc.flashbots.net", "Ethereum", 18, "ETH"))
+        val ethereum = EthereumLine("Ethereum", "", "60", BaseChain.Ethereum("", "", "https://rpc.flashbots.net", "Ethereum", 18, "ETH"))
         lines.add(ethereum)
         supportChains.postValue(lines)
     }

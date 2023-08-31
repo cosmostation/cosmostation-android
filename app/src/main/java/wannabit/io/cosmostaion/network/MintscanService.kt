@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.network
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -13,7 +13,8 @@ import java.util.concurrent.TimeUnit
 interface MintscanService {
     companion object {
         fun create(): MintscanService {
-            val builder = Retrofit.Builder().baseUrl(CosmostationConstants.MINTSCAN_API_URL).addConverterFactory(GsonConverterFactory.create())
+            val builder = Retrofit.Builder().baseUrl(CosmostationConstants.MINTSCAN_API_URL).addConverterFactory(
+                MoshiConverterFactory.create())
 
             if (BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor()

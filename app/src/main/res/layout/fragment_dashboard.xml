@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:textSize="@dimen/text_size_16"
-            android:textColor="@color/color_base01"
-            android:text="bright"/>
+            android:textColor="@color/color_base01" />
 
         <ImageView
             android:layout_width="@dimen/space_28"
@@ -46,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Total Value"
+        android:text="@string/str_total_value"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:textSize="@dimen/text_size_12"
         android:textColor="@color/color_base02"

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 
 
@@ -33,9 +34,16 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
         initRecyclerView()
         loadDataObserve()
         viewModel.loadChainList()
+    }
+
+    private fun initView() {
+        binding.apply {
+            accountName.text = BaseData.baseAccount?.name
+        }
     }
 
     private fun initRecyclerView() {

@@ -32,12 +32,12 @@ class WalletCreateViewModel : ViewModel() {
             val encSeed = CipherHelper.encrypt(Utils.bytesToHex(seed))
             encryptData?.let { data ->
                 data.encDataString?.let { resource ->
-                    data.ivDataString?.let { spec ->
-                        val wallet = Wallet(0, uuid, resource, spec, encSeed, name, mnemonic.size, WalletType.MNEMONIC, 0, Date().time)
-                        val id = AppDatabase.getInstance().walletDao().insert(wallet)
-                        Prefs.lastUserId = id
-                        generated.postValue(true)
-                    }
+//                    data.ivDataString?.let { spec ->
+//                        val wallet = Wallet(0, uuid, resource, spec, encSeed, name, mnemonic.size, WalletType.MNEMONIC, 0, Date().time)
+//                        val id = AppDatabase.getInstance().walletDao().insert(wallet)
+//                        Prefs.lastUserId = id
+//                        generated.postValue(true)
+//                    }
                 }
             }
         }

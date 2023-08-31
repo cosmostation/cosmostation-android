@@ -24,7 +24,6 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun loadData() {
         ApplicationViewModel.shared.loadSupportChains()
-        ApplicationViewModel.shared.loadPrices()
     }
 
     private fun setupViews() {

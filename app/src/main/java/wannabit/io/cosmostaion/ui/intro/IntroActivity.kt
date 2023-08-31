@@ -6,40 +6,43 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.data.repository.wallet.IntroRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
-import wannabit.io.cosmostaion.network.WalletService
-import wannabit.io.cosmostaion.network.model.AppVersion
-import wannabit.io.cosmostaion.ui.main.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.main.DashboardActivity
 import wannabit.io.cosmostaion.ui.main.MainActivity
+import wannabit.io.cosmostaion.ui.viewmodel.intro.IntroViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.IntroViewModelProviderFactory
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
+
+    private lateinit var introViewModel: IntroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initFullScreen()
+        initViewModel()
         initFirebase()
         checkAppVersion()
         migrateDatabaseIfNeed()
+
+        introViewModel.walletAppVersion()
+        initPriceInfo()
     }
 
     private fun initFullScreen() {
@@ -49,12 +52,20 @@ class IntroActivity : AppCompatActivity() {
             val controller = window.insetsController
             if (controller != null) {
                 controller.hide(WindowInsets.Type.navigationBars())
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                controller.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         } else {
             window.decorView.systemUiVisibility =
                 (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
         }
+    }
+
+    private fun initViewModel() {
+        val walletRepository = IntroRepositoryImpl()
+        val introViewModelProviderFactory = IntroViewModelProviderFactory(walletRepository)
+        introViewModel =
+            ViewModelProvider(this, introViewModelProviderFactory)[IntroViewModel::class.java]
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
@@ -64,29 +75,37 @@ class IntroActivity : AppCompatActivity() {
 
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
         delay(2000)
-        if (AppDatabase.getInstance().walletDao().selectAll().isEmpty()) {
-            CoroutineScope(Dispatchers.Main).launch {
-                supportFragmentManager.beginTransaction().add(R.id.fragment_container, EmptyWalletFragment()).commit()
-            }
-        } else {
-            CoroutineScope(Dispatchers.Main).launch {
-                Intent(this@IntroActivity, MainActivity::class.java).apply {
-                    startActivity(this)
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        val account = BaseData.getLastAccount()
+        account?.let {
+            BaseData.baseAccount = account
+
+            if (AppDatabase.getInstance().baseAccountDao().selectAll().isEmpty()) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    supportFragmentManager.beginTransaction()
+                        .add(R.id.fragment_container, EmptyWalletFragment()).commit()
                 }
-            }
-//            CoroutineScope(Dispatchers.Main).launch {
-//                ApplicationViewModel.shared.currentWalletLiveData.postValue(AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId))
-//                startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
-//                finish()
-//            }
+            } else {
+                CoroutineScope(Dispatchers.Main).launch {
+                    Intent(this@IntroActivity, MainActivity::class.java).apply {
+                        startActivity(this)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                }
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    ApplicationViewModel.shared.currentWalletLiveData.postValue(
+//                        AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId)
+//                    )
+//                    startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
+//                    finish()
+//                }
 //                if (CosmostationApp.instance.needShowLockScreen()) {
 //                    val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
 //                    startActivity(intent)
 //                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out)
 //                } else {
 //                    if (intent.extras != null) if (intent.extras!!.getString("address") != null) {
-//                        val account = baseDao.onSelectExistAccount2(intent.extras!!.getString("address"))
+//                        val account =
+//                            baseDao.onSelectExistAccount2(intent.extras!!.getString("address"))
 //                        if (account != null) {
 //                            Prefs.lastUserId = account.id
 //                            IntentUtils.startMainActivity(this@IntroActivity, 2)
@@ -103,33 +122,31 @@ class IntroActivity : AppCompatActivity() {
 //                        return@launch
 //                    }
 //                    IntentUtils.startMainActivity(this@IntroActivity, 0)
+                }
         }
     }
 
     private fun checkAppVersion() {
-        WalletService.create().getVersion().enqueue(object : Callback<AppVersion> {
-            override fun onResponse(call: Call<AppVersion>, response: Response<AppVersion>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        if (!it.enable) {
-                            showDisableDialog()
-                        } else if (it.version > BuildConfig.VERSION_CODE) {
-                            showUpdateDialog()
-                        } else {
-                            postProcessAppVersion()
-                        }
-                    } ?: run {
-                        showNetworkErrorDialog()
-                    }
+        introViewModel.wallAppVersionResult.observe(this) { appVersion ->
+            appVersion?.let { response ->
+                if (!response.enable) {
+                    showDisableDialog()
+                } else if (response.version > BuildConfig.VERSION_CODE) {
+                    showUpdateDialog()
                 } else {
-                    showNetworkErrorDialog()
+                    postProcessAppVersion()
                 }
             }
+        }
 
-            override fun onFailure(call: Call<AppVersion>, t: Throwable) {
-                showNetworkErrorDialog()
-            }
-        })
+        introViewModel.errorMessage.observe(this) {
+            showNetworkErrorDialog()
+        }
+    }
+
+    private fun initPriceInfo() {
+        introViewModel.price()
+        introViewModel.asset()
     }
 
     private fun initFirebase() {
@@ -160,5 +177,10 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun showUpdateDialog() {
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        introViewModel.clearDisposables()
     }
 }

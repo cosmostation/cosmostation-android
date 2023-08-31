@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cosmostation</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="str_total_value" translatable="false">Total value</string>
 </resources>

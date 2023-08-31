@@ -19,7 +19,7 @@ import java.security.MessageDigest
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
-class CosmosLine(chainName: String, imageUrl: String, bip44: String, val config: ChainConfig.Cosmos) : Line(chainName, imageUrl, bip44) {
+class CosmosLine(chainName: String, imageUrl: String, bip44: String, val config: BaseChain.Cosmos) : Line(chainName, imageUrl, bip44) {
     override suspend fun loadBalances(wallet: Wallet) {
         val channel = ManagedChannelBuilder.forAddress(config.grpcUrl, 443).useTransportSecurity().build()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(5, TimeUnit.SECONDS)

@@ -3,13 +3,12 @@ package wannabit.io.cosmostaion.database.legacy
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
-import wannabit.io.cosmostaion.database.CipherHelper
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.legacy.model.Account
 import wannabit.io.cosmostaion.database.legacy.model.MWords
+import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.database.model.Password
-import wannabit.io.cosmostaion.database.model.Wallet
-import wannabit.io.cosmostaion.database.model.WalletType
 
 object LegacyMigrationHelper {
     private fun getDatabase(): SQLiteDatabase {
@@ -30,18 +29,30 @@ object LegacyMigrationHelper {
     }
 
     suspend fun migrateWallet() {
-        if (AppDatabase.getInstance().walletDao().selectAll().isNotEmpty()) {
+        if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
             return
         }
 
-        val legacyMnemonics = getLegacyMnemonics()
-        val legacyAccounts = getLegacyAccounts()
-        val newWallets = mutableListOf<Wallet>()
-        legacyMnemonics.forEach {
+        val legacyAllMnemonics = getLegacyAllMnemonics()
+        val legacyAccounts = getLegacyAllAccounts()
+        val legacyAccountsByPrivateKey = getLegacyAccountsByPrivateKey()
+
+        val newBaseAccount = mutableListOf<BaseAccount>()
+        legacyAllMnemonics.forEach {
             val hexEntropy = CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + it.uuid, it.resource, it.spec)
-            val encSeed = CipherHelper.encrypt(hexEntropy!!)
-            newWallets.add(Wallet(0, it.uuid, it.resource, it.spec, encSeed, it.nickName, it.wordsCnt, WalletType.MNEMONIC, 0, it.importTime))
+            newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName, BaseAccountType.MNEMONIC, "0"))
         }
+
+        val pkeyList = mutableListOf<String>()
+        legacyAccountsByPrivateKey.forEach {
+            CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + it.uuid, it.resource, it.spec)?.let { pKey ->
+                if (!pkeyList.contains(pKey)) {
+                    pkeyList.add(pKey)
+                    newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName, BaseAccountType.PRIVATE_KEY, "0"))
+                }
+            }
+        }
+
         legacyAccounts.filter { it.hasPrivateKey && !it.fromMnemonic }.forEach {
             //TODO private key accounts
         }
@@ -51,10 +62,11 @@ object LegacyMigrationHelper {
         legacyAccounts.filter { it.hasPrivateKey && "0" != it.path }.forEach {
             //TODO custom path
         }
-        AppDatabase.getInstance().walletDao().insertAll(newWallets)
+
+        AppDatabase.getInstance().baseAccountDao().insertAll(newBaseAccount)
     }
 
-    private fun getLegacyMnemonics(): MutableList<MWords> {
+    private fun getLegacyAllMnemonics(): MutableList<MWords> {
         val cursor = getDatabase().query(
             CosmostationConstants.LEGACY_DB_TABLE_MNEMONIC, arrayOf("id", "uuid", "resource", "spec", "nickName", "wordsCnt", "isFavo", "importTime"), null, null, null, null, null
         )
@@ -76,7 +88,7 @@ object LegacyMigrationHelper {
         return mnemonics
     }
 
-    private fun getLegacyAccounts(): MutableList<Account> {
+    private fun getLegacyAllAccounts(): MutableList<Account> {
         val cursor = getDatabase().query(
             CosmostationConstants.LEGACY_DB_TABLE_ACCOUNT, arrayOf(
                 "id",
@@ -158,6 +170,16 @@ object LegacyMigrationHelper {
             } while (cursor.moveToNext())
         }
         cursor.close()
+        return accounts
+    }
+
+    private fun getLegacyAccountsByPrivateKey(): MutableList<Account> {
+        val accounts = mutableListOf<Account>()
+        for (account in getLegacyAllAccounts()) {
+            if (account.hasPrivateKey && account.fromMnemonic) {
+                accounts.add(account)
+            }
+        }
         return accounts
     }
 }

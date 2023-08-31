@@ -5,6 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -17,7 +18,8 @@ import java.util.concurrent.TimeUnit
 interface WalletService {
     companion object {
         fun create(): WalletService {
-            val builder = Retrofit.Builder().baseUrl(CosmostationConstants.WALLET_API_URL).addConverterFactory(GsonConverterFactory.create())
+            val builder = Retrofit.Builder().baseUrl(CosmostationConstants.WALLET_API_URL).addConverterFactory(
+                GsonConverterFactory.create())
 
             if (BuildConfig.DEBUG) {
                 val interceptor = HttpLoggingInterceptor()

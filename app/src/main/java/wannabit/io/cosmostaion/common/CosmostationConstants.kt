@@ -11,5 +11,5 @@ object CosmostationConstants {
     const val ENCRYPT_PASSWORD_KEY = "PASSWORD_KEY"
 
     const val WALLET_API_URL = "https://api-wallet.cosmostation.io"
-    const val MINTSCAN_API_URL = "https://api.mintscan.io"
+    const val MINTSCAN_API_URL = "https://front.api.mintscan.io"
 }
