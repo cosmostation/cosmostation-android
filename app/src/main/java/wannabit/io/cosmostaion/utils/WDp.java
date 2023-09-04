@@ -1049,7 +1049,7 @@ public class WDp {
             } else if (left >= BaseConstant.CONSTANT_M) {
                 result = "(" + (left / BaseConstant.CONSTANT_M) + " minutes ago)";
             } else {
-                result = "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
+                result = "(0 days)";
             }
 
         } catch (Exception e) {

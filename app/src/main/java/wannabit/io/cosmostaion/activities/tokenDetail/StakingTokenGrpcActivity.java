@@ -83,7 +83,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
         mMainDenom = mChainConfig.mainDenom();
 
         if (getBaseDao().onParseRemainVestingsByDenom(mChainConfig.mainDenom()).size() > 0 ||
-                (getBaseDao().mResVestingData != null && getBaseDao().mResVestingData.getVestingAmount() != null)) {
+                (getBaseDao().mResVestingData != null && !getBaseDao().mResVestingData.getVestingAmount().equals(BigDecimal.ZERO))) {
             mHasVesting = true;
         }
 
