@@ -44,29 +44,8 @@ public class TxTokenSwapHolder extends TxHolder {
                 itemSwapCoinSender.setText(msg.getSender());
                 itemSwapCoinPoolId.setText("" + msg.getRoutes(0).getPoolId());
 
-                Coin inCoin = null;
-                if (response.getTxResponse().getLogsCount() > position) {
-                    for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
-                        if (event.getType().equals("transfer")) {
-                            if (event.getAttributesCount() >= 6) {
-                                String value = event.getAttributes(2).getValue();
-                                Pattern p = Pattern.compile("([0-9])+");
-                                Matcher m1 = p.matcher(value);
-                                if (m1.find()) {
-                                    String amount = m1.group();
-                                    String denom = value.substring(m1.end());
-                                    inCoin = new Coin(denom, amount);
-                                }
-                            }
-                        }
-                    }
-                }
-                if (inCoin != null) {
-                    WDp.setDpCoin(c, baseData, chainConfig, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount );
-                } else {
-                    itemSwapTokenInAmount.setText("");
-                    itemSwapTokenInAmountSymbol.setText("");
-                }
+                Coin inCoin = new Coin(msg.getTokenIn().getDenom(), msg.getTokenIn().getAmount());
+                WDp.setDpCoin(c, baseData, chainConfig, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount );
 
                 Coin outCoin = null;
                 if (response.getTxResponse().getLogsCount() > position) {
@@ -91,7 +70,6 @@ public class TxTokenSwapHolder extends TxHolder {
                     itemSwapTokenOutAmount.setText("");
                     itemSwapTokenOutAmountSymbol.setText("");
                 }
-                return;
             } catch (Exception e) { }
 
         } else {

@@ -5,7 +5,7 @@ import android.graphics.PorterDuff
 import android.view.View
 import androidx.core.content.ContextCompat
 import cosmos.tx.v1beta1.ServiceOuterClass
-import pstake.lscosmos.v1beta1.Msgs
+import pstake.liquidstakeibc.v1beta1.Msgs
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.base.BaseData
 import wannabit.io.cosmostaion.base.chains.ChainConfig

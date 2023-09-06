@@ -62,8 +62,7 @@ class PersisLUSFragment : BaseFragment() {
         binding.inputsRate.text = WDp.getDpAmount2(BigDecimal.ONE, 0, 6)
         WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, mInputCoinDenom, binding.inputsRateSymbol)
         val rate = BigDecimal(cValue).movePointLeft(18)
-        val redeemFee = BigDecimal("0.005")
-        val outAmount = BigDecimal.ONE.divide(rate, 12, RoundingMode.DOWN).subtract(redeemFee)
+        val outAmount = BigDecimal.ONE.divide(rate, 12, RoundingMode.DOWN)
 
         binding.outputsRate.text = WDp.getDpAmount2(outAmount, 0, 6)
         WDp.setDpSymbol(requireContext(), baseDao, baseActivity.mChainConfig, mOutputCoinDenom, binding.outputsRateSymbol)

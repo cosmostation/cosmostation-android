@@ -170,8 +170,7 @@ class PersisLiquidStep0Fragment() : BaseFragment() {
             val outputAmount: BigDecimal = if (getSActivity()?.mTxType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
                 inputAmountTemp.multiply(rate).setScale(12, RoundingMode.DOWN)
             } else {
-                val redeemFee = inputAmountTemp.multiply(BigDecimal("0.005"))
-                inputAmountTemp.divide(rate, 12, RoundingMode.DOWN).subtract(redeemFee)
+                inputAmountTemp.divide(rate, 12, RoundingMode.DOWN)
             }
             binding.lsPoolOutput.text = outputAmount.setScale(mOutputCoinDecimal, RoundingMode.DOWN).toPlainString()
         } catch (_: Exception) { }

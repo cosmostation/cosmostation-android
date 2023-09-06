@@ -154,6 +154,18 @@ public class ResApiNewTxListCustom {
                         return c.getString(R.string.tx_ibc_receive);
                     }
 
+                    if (msgType0.contains("pstake.") && msgType0.contains("liquidstakeibc") || msgType0.contains("pstake.") && msgType0.contains("lscosmos")) {
+                        if (msgType0.contains("MsgLiquidStake")) {
+                            result = c.getString(R.string.tx_persis_liquid_stake);
+                        } else if (msgType0.contains("MsgLiquidUnstake")) {
+                            result = c.getString(R.string.tx_persis_liquid_unstake);
+                        } else if (msgType0.contains("MsgRedeem")) {
+                            result = c.getString(R.string.tx_persis_liquid_redeem);
+                        } else if (msgType0.contains("MsgClaim")) {
+                            result = c.getString(R.string.tx_persis_liquid_claim);
+                        }
+                    }
+
                 }
                 String msgType = "";
                 try {
@@ -779,7 +791,7 @@ public class ResApiNewTxListCustom {
                 }
 
                 // persistence msg type
-                else if (msgType.contains("pstake.") && msgType.contains("lscosmos")) {
+                else if (msgType.contains("pstake.") && msgType.contains("lscosmos") || msgType.contains("pstake.") && msgType.contains("liquidstakeibc")) {
                     if (msgType.contains("MsgLiquidStake")) {
                         result = c.getString(R.string.tx_persis_liquid_stake);
                     } else if (msgType.contains("MsgLiquidUnstake")) {

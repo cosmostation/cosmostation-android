@@ -45,7 +45,7 @@ import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
 import cosmwasm.wasm.v1.Tx.MsgExecuteContract;
 import ibc.core.client.v1.Client;
-import pstake.lscosmos.v1beta1.Msgs;
+import pstake.liquidstakeibc.v1beta1.Msgs;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -1110,10 +1110,10 @@ public class Signer {
         CoinOuterClass.Coin stakeCoin = CoinOuterClass.Coin.newBuilder().setAmount(coin.amount).setDenom(coin.denom).build();
         if (txType == BaseConstant.CONST_PW_TX_PERSIS_LIQUID_STAKING) {
             Msgs.MsgLiquidStake msgLiquidStake = Msgs.MsgLiquidStake.newBuilder().setDelegatorAddress(delegator_address).setAmount(stakeCoin).build();
-            msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
+            msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.liquidstakeibc.v1beta1.MsgLiquidStake").setValue(msgLiquidStake.toByteString()).build());
         } else {
             Msgs.MsgRedeem msgRedeem = Msgs.MsgRedeem.newBuilder().setDelegatorAddress(delegator_address).setAmount(stakeCoin).build();
-            msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.lscosmos.v1beta1.MsgRedeem").setValue(msgRedeem.toByteString()).build());
+            msgAnys.add(Any.newBuilder().setTypeUrl("/pstake.liquidstakeibc.v1beta1.MsgRedeem").setValue(msgRedeem.toByteString()).build());
         }
         return msgAnys;
     }
