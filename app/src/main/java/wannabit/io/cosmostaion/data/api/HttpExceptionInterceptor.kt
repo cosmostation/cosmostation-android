@@ -16,7 +16,6 @@ class HttpExceptionInterceptor: Interceptor {
 
         when (response.code) {
             204 -> {
-                // No Content
                 throw HttpException(error<Any>(response.body ?: EmptyResponseBody(), response))
             }
         }

@@ -64,8 +64,7 @@ class IntroActivity : AppCompatActivity() {
     private fun initViewModel() {
         val walletRepository = IntroRepositoryImpl()
         val introViewModelProviderFactory = IntroViewModelProviderFactory(walletRepository)
-        introViewModel =
-            ViewModelProvider(this, introViewModelProviderFactory)[IntroViewModel::class.java]
+        introViewModel = ViewModelProvider(this, introViewModelProviderFactory)[IntroViewModel::class.java]
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {

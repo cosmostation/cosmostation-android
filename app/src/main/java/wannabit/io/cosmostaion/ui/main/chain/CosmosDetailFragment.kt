@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
 
@@ -21,6 +22,8 @@ class CosmosDetailFragment : Fragment() {
 
     private lateinit var pagerAdapter: AccountPageAdapter
 
+    private var selectedPosition: Int = -1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,8 +34,10 @@ class CosmosDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initTab()
-        onClick()
+        initData()
+        onClickAction()
     }
 
     private fun initTab() {
@@ -51,13 +56,21 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    private fun onClick() {
+    private fun initData() {
+        val baseAccount = BaseData.baseAccount
+        val args = arguments
+        if (args != null) {
+            selectedPosition = arguments?.getInt("selectPosition") ?: -1
+        }
+    }
+
+    private fun onClickAction() {
         // bottom bar
         view?.isFocusableInTouchMode = true
         view?.requestFocus()
         view?.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
                 (activity as MainActivity?)?.onBackVisibleBottomNavi()
                 return@setOnKeyListener true
             }
@@ -66,7 +79,7 @@ class CosmosDetailFragment : Fragment() {
 
         binding.apply {
             btnBack.setOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
                 (activity as MainActivity?)?.onBackVisibleBottomNavi()
             }
 

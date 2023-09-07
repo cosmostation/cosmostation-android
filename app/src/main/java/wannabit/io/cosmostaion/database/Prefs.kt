@@ -8,6 +8,7 @@ object Prefs {
     private const val PREFERENCES_NAME = "PREFS"
     private const val LAST_ACCOUNT = "PRE_LAST_ACCOUNT"
     private const val LAST_PRICE_TIME = "PRE_LAST_PRICE_TIME"
+    private const val LAST_CURRENCY = "PRE_CURRENCY"
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
     private const val CURRENT_USER_ID = "PRE_USER_ID"
@@ -37,4 +38,8 @@ object Prefs {
     var lastPriceTime: String
         get() = preference.getString(LAST_PRICE_TIME, "0") ?: "0"
         set(value) = preference.edit().putString(LAST_PRICE_TIME, value).apply()
+
+    var currency: Int
+        get() = preference.getInt(LAST_CURRENCY, 0)
+        set(value) = preference.edit().putInt(LAST_CURRENCY, value).apply()
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="font_sb_32" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+    </style>
+
+    <style name="font_sb_24" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_24</item>
+    </style>
+
+    <style name="font_sm_24" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_24</item>
+    </style>
+
+    <style name="font_sb_18" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+    </style>
+
+    <style name="font_sm_18" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+    </style>
+
+    <style name="font_sb_16" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="font_sm_16" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
+
+    <style name="font_sb_14" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_sm_14" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_sb_12" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_sm_12" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="font_sb_10" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+    </style>
+
+    <style name="font_sm_10" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_10</item>
+    </style>
+
+</resources>

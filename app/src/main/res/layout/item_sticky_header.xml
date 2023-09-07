@@ -5,10 +5,18 @@
 
     <TextView
         android:id="@+id/header_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:textSize="@dimen/text_size_12"
+        android:layout_marginLeft="@dimen/space_20"
+        style="@style/font_sb_12"
         android:textColor="@color/color_base01" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sb_12"
+        android:textColor="@color/color_base02"
+        android:text="1"
+        android:layout_marginLeft="@dimen/space_2"
+        android:layout_toRightOf="@+id/header_title"/>
 </RelativeLayout>

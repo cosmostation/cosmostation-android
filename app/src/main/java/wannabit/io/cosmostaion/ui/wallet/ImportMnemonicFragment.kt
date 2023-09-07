@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import wannabit.io.cosmostaion.databinding.FragmentWalletCreateBinding
-import wannabit.io.cosmostaion.ui.main.DashboardActivity
 
 class ImportMnemonicFragment : Fragment() {
     private lateinit var binding: FragmentWalletCreateBinding
@@ -47,11 +46,6 @@ class ImportMnemonicFragment : Fragment() {
         viewModel.generated.observe(viewLifecycleOwner) { generated ->
             if (!generated) {
                 return@observe
-            }
-
-            activity?.let {
-                startActivity(Intent(it, DashboardActivity::class.java))
-                it.finish()
             }
         }
     }

@@ -15,7 +15,7 @@ class ChainSwitchAdapter(private val context: Context, private val items: List<L
 
     override fun onBindViewHolder(viewHolder: ChainSwitchViewHolder, position: Int) {
         val item = items[position]
-        viewHolder.binding.item.text = item.chainName
+//        viewHolder.binding.item.text = item.chainName
         viewHolder.binding.wrap.setOnClickListener {
 
         }

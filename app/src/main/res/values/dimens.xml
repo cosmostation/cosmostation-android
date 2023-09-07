@@ -11,6 +11,7 @@
     <dimen name="space_11">11dp</dimen>
     <dimen name="space_12">12dp</dimen>
     <dimen name="space_14">14dp</dimen>
+    <dimen name="space_15">15dp</dimen>
     <dimen name="space_16">16dp</dimen>
     <dimen name="space_17">17dp</dimen>
     <dimen name="space_18">18dp</dimen>
@@ -39,6 +40,7 @@
     <dimen name="text_size_21">21sp</dimen>
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_32">32sp</dimen>
     <dimen name="text_size_33">33sp</dimen>
     
     

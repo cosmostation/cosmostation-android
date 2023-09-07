@@ -1,36 +1,28 @@
 package wannabit.io.cosmostaion.chain
 
-import java.io.Serializable
+open class BaseChain {
 
-sealed class BaseChain : Serializable {
-    data class Cosmos(
-        val chainId: String,
-        val bech32Prefix: String,
-        val baseDenom: String,
-        val chainName: String,
-        val decimal: Int,
-        val displayDenom: String,
-        val gasInfo: String,
-        val gasRate: String,
-        val restUrl: String,
-        val grpcUrl: String
-    ) : BaseChain()
+    open var chainType: ChainType? = null
+    open var name: String = ""
+    open var id: String = ""
+    open var logo: Int = -1
+    open var swipeLogo: Int = -1
+    open var isDefault: Boolean = true
+    open var apiName: String = ""
+    open var accountPrefix: String? = ""
+    open var grpcHost: String = ""
 
-    data class Ethereum(
-        val chainId: String,
-        val networkName: String,
-        val rpcUrl: String,
-        val chainName: String,
-        val decimal: Int,
-        val displayDenom: String,
-    ) : BaseChain()
+    open var accountKeyType: AccountKeyType? = null
+    open var address: String? = ""
 
-    data class Sui(
-        val chainId: String,
-        val networkName: String,
-        val rpcUrl: String,
-        val chainName: String,
-        val decimal: Int,
-        val displayDenom: String,
-    ) : BaseChain()
+    open var fetched = false
 }
+
+enum class ChainType { COSMOS_TYPE, ETH_TYPE, SUI_TYPE }
+
+data class AccountKeyType(
+    var pubkeyType: PubKeyType,
+    var hdPath: String
+)
+
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, SUI_ED25519, NONE }

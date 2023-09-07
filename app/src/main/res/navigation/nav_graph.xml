@@ -17,7 +17,7 @@
             app:exitAnim="@animator/from_right"
             app:popEnterAnim="@animator/to_left"
             app:popExitAnim="@animator/from_left"
-            app:popUpTo="@id/dashboardFragment"
+            app:popUpTo="@id/cosmosDetailFragment"
             app:popUpToInclusive="false" />
     </fragment>
 

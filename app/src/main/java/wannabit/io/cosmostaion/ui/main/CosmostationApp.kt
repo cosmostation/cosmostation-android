@@ -10,6 +10,7 @@ import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.database.CipherHelper
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.util.UUID
 
 class CosmostationApp : Application(), ViewModelStoreOwner {

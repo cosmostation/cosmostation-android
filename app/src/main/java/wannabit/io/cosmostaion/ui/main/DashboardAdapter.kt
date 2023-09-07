@@ -1,19 +1,22 @@
 package wannabit.io.cosmostaion.ui.main
 
-import android.util.Log
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
-class DashboardAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
+class DashboardAdapter(val context: Context) : ListAdapter<Any, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE_COSMOS_HEADER = 0
         const val VIEW_TYPE_COSMOS_ITEM = 1
+        const val VIEW_TYPE_COSMOS_ETHEREUM_ITEM = 2
     }
 
     private var onItemClickListener: ((Int) -> Unit)? = null
@@ -28,9 +31,8 @@ class DashboardAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DashboardD
             }
 
             VIEW_TYPE_COSMOS_ITEM -> {
-                val binding =
-                    ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                DashboardViewHolder(binding)
+                val binding = ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                DashboardViewHolder(context, binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -44,8 +46,8 @@ class DashboardAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DashboardD
             }
 
             is DashboardViewHolder -> {
-                val item = currentList[position - 1]
-                holder.bind(item)
+                val line = currentList[position - 1] as CosmosLine
+                holder.bind(line)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let { it(position - 1) }
@@ -58,12 +60,21 @@ class DashboardAdapter : ListAdapter<String, RecyclerView.ViewHolder>(DashboardD
         return if (position == 0) VIEW_TYPE_COSMOS_HEADER else VIEW_TYPE_COSMOS_ITEM
     }
 
-    private class DashboardDiffCallback : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+    override fun getItemCount(): Int {
+        return currentList.size + 1
+    }
+
+    private class DashboardDiffCallback : DiffUtil.ItemCallback<Any>() {
+
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
+            return when {
+                oldItem is CosmosLine && newItem is CosmosLine -> oldItem.id == newItem.id
+                else -> false
+            }
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return oldItem == newItem
         }
     }

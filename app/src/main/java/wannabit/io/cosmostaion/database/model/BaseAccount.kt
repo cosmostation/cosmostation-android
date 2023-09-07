@@ -2,8 +2,10 @@ package wannabit.io.cosmostaion.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import java.util.UUID
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.allCosmosLines
 
 @Entity(tableName = "account")
 data class BaseAccount(
@@ -17,22 +19,30 @@ data class BaseAccount(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
-    constructor(
-        uuid: String,
-        resource: String,
-        spec: String,
-        name: String,
-        type: BaseAccountType,
-        lastHDPath: String,
-        id: Long
-    ) : this(uuid, resource, spec, name, type, lastHDPath) {
-        this.id = id
-    }
-
 //    @delegate:Ignore
 //    val seed: ByteArray? by lazy {
 //        Utils.hexToBytes(CipherHelper.decrypt(encSeed))
 //    }
+
+    @Ignore
+    lateinit var allCosmosLineChains: MutableList<CosmosLine>
+
+    fun initAllData() {
+        allCosmosLineChains = mutableListOf()
+        allCosmosLineChains.clear()
+        allCosmosLines().forEach { line ->
+            allCosmosLineChains.add(line)
+        }
+
+        if (type == BaseAccountType.MNEMONIC) {
+            allCosmosLineChains.forEach { line ->
+                line.loadAuth()
+            }
+
+        } else if (type == BaseAccountType.PRIVATE_KEY) {
+
+        }
+    }
 }
 
 enum class BaseAccountType { MNEMONIC, PRIVATE_KEY, LEDGER, NONE }
