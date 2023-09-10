@@ -11,27 +11,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
+import java.math.BigDecimal
 
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentDashboardBinding? get() = _binding
 
     private lateinit var dashAdapter: DashboardAdapter
 
     private var baseAccount: BaseAccount? = null
-
-    private var savedState: Bundle? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDashboardBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,22 +46,25 @@ class DashboardFragment : Fragment() {
         baseAccount = BaseData.baseAccount
         baseAccount?.initAllData()
 
-        binding.apply {
+        binding?.apply {
             accountName.text = BaseData.baseAccount?.name
         }
     }
 
     private fun initRecyclerView() {
-        dashAdapter = DashboardAdapter(requireContext())
-        binding.recycler.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = dashAdapter
-            dashAdapter.submitList(baseAccount?.allCosmosLineChains as List<Any>?)
+        baseAccount?.let { baseAccount ->
+            dashAdapter = DashboardAdapter(requireContext(), baseAccount)
 
-            dashAdapter.setOnItemClickListener {
-                findNavController().navigate(R.id.action_dashboardFragment_to_cosmosDetailFragment, bundleOf("selectPosition" to it))
-                (activity as MainActivity?)?.onNextHideBottomNavi()
+            binding?.recycler?.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = dashAdapter
+                dashAdapter.submitList(baseAccount.allCosmosLineChains as List<Any>?)
+
+                dashAdapter.setOnItemClickListener {
+                    findNavController().navigate(R.id.action_dashboardFragment_to_cosmosDetailFragment, bundleOf("selectPosition" to it))
+                    (activity as MainActivity?)?.onNextHideBottomNavi()
+                }
             }
         }
     }
@@ -76,13 +79,28 @@ class DashboardFragment : Fragment() {
                                 dashAdapter.notifyDataSetChanged()
                             }
                         }
+                        onUpdateTotal()
                     }
                 })
             }
+            onUpdateTotal()
         }
     }
+
+    private fun onUpdateTotal() {
+        var sum = BigDecimal.ZERO
+        baseAccount?.let {
+            it.allCosmosLineChains.forEach { line ->
+                sum = sum.add(line.allAssetValue())
+            }
+            requireActivity().runOnUiThread {
+                binding?.totalValue?.text = formatAssetValue(sum)
+            }
+        }
+    }
+
     private fun clickAction() {
-        binding.apply {
+        binding?.apply {
             btnEdit.setOnClickListener {
 
             }

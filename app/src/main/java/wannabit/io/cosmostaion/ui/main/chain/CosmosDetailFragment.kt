@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -10,7 +12,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseConstant.EXPLORER_BASE_URL
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
 
@@ -23,6 +29,7 @@ class CosmosDetailFragment : Fragment() {
     private lateinit var pagerAdapter: AccountPageAdapter
 
     private var selectedPosition: Int = -1
+    private lateinit var selectedChain: CosmosLine
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,22 +42,22 @@ class CosmosDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initTab()
         initData()
+        initTab()
         onClickAction()
     }
 
     private fun initTab() {
         binding.apply {
-            pagerAdapter = AccountPageAdapter(requireActivity())
+            pagerAdapter = AccountPageAdapter(requireActivity(), selectedPosition)
             viewPager.adapter = pagerAdapter
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
-                    0 -> tab.text = "Coin"
-                    else -> tab.text = "History"
+                    0 -> tab.text = getString(R.string.str_coin)
+                    else -> tab.text = getString(R.string.str_history)
                 }
             }.attach()
         }
@@ -62,10 +69,14 @@ class CosmosDetailFragment : Fragment() {
         if (args != null) {
             selectedPosition = arguments?.getInt("selectPosition") ?: -1
         }
+        baseAccount?.let {
+            selectedChain = baseAccount.allCosmosLineChains[selectedPosition]
+            binding.accountAddress.text = selectedChain.address
+            binding.accountValue.text = formatAssetValue(selectedChain.allAssetValue())
+        }
     }
 
     private fun onClickAction() {
-        // bottom bar
         view?.isFocusableInTouchMode = true
         view?.requestFocus()
         view?.setOnKeyListener { _, keyCode, event ->
@@ -84,13 +95,14 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-
+                val accountUrl = EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/" + selectedChain.address
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
             }
         }
     }
 
-    class AccountPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
-        private val fragments = listOf(CoinFragment(), HistoryFragment())
+    class AccountPageAdapter(fragmentActivity: FragmentActivity, selectedPosition: Int) : FragmentStateAdapter(fragmentActivity) {
+        private val fragments = listOf(CoinFragment(selectedPosition), HistoryFragment(selectedPosition))
 
         override fun getItemCount(): Int {
             return fragments.size

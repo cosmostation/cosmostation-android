@@ -19,7 +19,7 @@
     </style>
 
     <style name="AppTheme.Intro">
-        <item name="android:windowBackground">@mipmap/intro_bg</item>
+        <item name="android:windowBackground">@drawable/intro_bg</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="windowNoTitle">true</item>
     </style>

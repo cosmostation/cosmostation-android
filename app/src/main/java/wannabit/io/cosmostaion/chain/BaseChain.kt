@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.chain
 
+import org.bitcoinj.crypto.ChildNumber
+import wannabit.io.cosmostaion.common.BaseKey
+
 open class BaseChain {
 
     open var chainType: ChainType? = null
@@ -12,10 +15,26 @@ open class BaseChain {
     open var accountPrefix: String? = ""
     open var grpcHost: String = ""
 
-    open var accountKeyType: AccountKeyType? = null
+    open lateinit var accountKeyType: AccountKeyType
+    open var setParentPath: List<ChildNumber> = mutableListOf()
     open var address: String? = ""
 
     open var fetched = false
+
+    fun getHDPath(lastPath: String): String {
+        return accountKeyType.hdPath.replace("X", lastPath)
+    }
+
+    fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
+        val privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
+        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
+    }
+
+    fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
+    }
 }
 
 enum class ChainType { COSMOS_TYPE, ETH_TYPE, SUI_TYPE }

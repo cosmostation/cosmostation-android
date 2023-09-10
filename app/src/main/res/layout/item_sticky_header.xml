@@ -12,11 +12,11 @@
         android:textColor="@color/color_base01" />
 
     <TextView
+        android:id="@+id/header_cnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/font_sb_12"
         android:textColor="@color/color_base02"
-        android:text="1"
-        android:layout_marginLeft="@dimen/space_2"
+        android:layout_marginLeft="@dimen/space_3"
         android:layout_toRightOf="@+id/header_title"/>
 </RelativeLayout>

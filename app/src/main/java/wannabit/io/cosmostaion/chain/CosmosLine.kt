@@ -15,14 +15,16 @@ import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.database.model.Wallet
+import wannabit.io.cosmostaion.common.BaseUtils
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
@@ -35,7 +37,7 @@ open class CosmosLine : BaseChain() {
     private var duration = 8L
 
     var cosmosAuth: com.google.protobuf.Any? = null
-    var cosmosBalances: MutableList<Coin> = mutableListOf()
+    var cosmosBalances = mutableListOf<Coin>()
     var cosmosVestings = mutableListOf<Coin>()
     var cosmosDelegations = mutableListOf<DelegationResponse>()
     var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
@@ -54,7 +56,7 @@ open class CosmosLine : BaseChain() {
     fun loadAuth() = CoroutineScope(Dispatchers.IO).launch {
         val channel = ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress("cosmos1ze2ye5u5k3qdlexvt2e0nn0508p04094j0vmx8").build()
+        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
 
         try {
             stub.account(request)?.let { response ->
@@ -78,24 +80,23 @@ open class CosmosLine : BaseChain() {
     }
 
     private fun loadData(channel: ManagedChannel) = runBlocking {
-        CoroutineScope(Dispatchers.Default).let { coroutineScope ->
-            val balance = coroutineScope.async { loadBalance(channel) }
-            val delegation = coroutineScope.async { loadDelegation(channel) }
-            val unbonding = coroutineScope.async { loadUnbonding(channel) }
-            val reward = coroutineScope.async { loadReward(channel) }
+        CoroutineScope(Dispatchers.Default).let {
+            loadBalance(channel)
+            loadDelegation(channel)
+            loadUnbonding(channel)
+            loadReward(channel)
 
-            awaitAll(balance, delegation, unbonding, reward).let {
-                loadDataCallback?.onDataLoaded(true)
-                fetched = true
-            }
-            coroutineScope.cancel()
+            BaseUtils.onParseVestingAccount(this@CosmosLine)
+            loadDataCallback?.onDataLoaded(true)
+            fetched = true
+            it.cancel()
         }
     }
 
     private fun loadBalance(channel: ManagedChannel) {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress("cosmos1ze2ye5u5k3qdlexvt2e0nn0508p04094j0vmx8").build()
+        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address).build()
 
         stub.allBalances(request)?.let { response ->
             cosmosBalances = response.balancesList
@@ -104,7 +105,7 @@ open class CosmosLine : BaseChain() {
 
     private fun loadDelegation(channel: ManagedChannel) {
         val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr("cosmos1ze2ye5u5k3qdlexvt2e0nn0508p04094j0vmx8").build()
+        val request = QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
 
         stub.delegatorDelegations(request)?.let { response ->
             cosmosDelegations = response.delegationResponsesList
@@ -113,7 +114,7 @@ open class CosmosLine : BaseChain() {
 
     private fun loadUnbonding(channel: ManagedChannel) {
         val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr("cosmos1ze2ye5u5k3qdlexvt2e0nn0508p04094j0vmx8").build()
+        val request = QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
 
         stub.delegatorUnbondingDelegations(request)?.let { response ->
             cosmosUnbondings = response.unbondingResponsesList
@@ -122,26 +123,26 @@ open class CosmosLine : BaseChain() {
 
     private fun loadReward(channel: ManagedChannel) {
         val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress("cosmos1ze2ye5u5k3qdlexvt2e0nn0508p04094j0vmx8").build()
+        val request = com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(address).build()
 
         stub.delegationTotalRewards(request)?.let { response ->
             cosmosRewards = response.rewardsList
         }
     }
 
-    fun balanceAmount(denom: String): BigDecimal? {
+    fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances.isNotEmpty()) {
             return cosmosBalances.first { it.denom == denom }.amount.toBigDecimal()
         }
         return BigDecimal.ZERO
     }
 
-    fun balanceValue(denom: String): BigDecimal? {
+    fun balanceValue(denom: String): BigDecimal {
         BaseData.getAsset(apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId!!)
+            val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = balanceAmount(denom)
             asset.decimals?.let { decimal ->
-                return price?.multiply(amount)?.movePointLeft(decimal)?.setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
             } ?: run {
                 return BigDecimal.ZERO
             }
@@ -166,12 +167,12 @@ open class CosmosLine : BaseChain() {
         return BigDecimal.ZERO
     }
 
-    fun vestingValue(denom: String): BigDecimal? {
+    fun vestingValue(denom: String): BigDecimal {
         BaseData.getAsset(apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId!!)
+            val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = vestingAmount(denom)
             asset.decimals?.let { decimal ->
-                return price?.multiply(amount)?.movePointLeft(decimal)?.setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
             }
         }
         return BigDecimal.ZERO
@@ -193,12 +194,12 @@ open class CosmosLine : BaseChain() {
         return sum
     }
 
-    fun delegationValueSum(): BigDecimal? {
+    fun delegationValueSum(): BigDecimal {
         BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId!!)
+            val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = delegationAmountSum()
             asset.decimals?.let { decimal ->
-                return price?.multiply(amount)?.movePointLeft(decimal)?.setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
             }
         }
         return BigDecimal.ZERO
@@ -214,18 +215,18 @@ open class CosmosLine : BaseChain() {
         return sum
     }
 
-    fun unbondingValueSum(): BigDecimal? {
+    fun unbondingValueSum(): BigDecimal {
         BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId!!)
+            val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = unbondingAmountSum()
             asset.decimals?.let { decimal ->
-                return price?.multiply(amount)?.movePointLeft(decimal)?.setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
             }
         }
         return BigDecimal.ZERO
     }
 
-    fun rewardAmountSum(denom: String): BigDecimal? {
+    fun rewardAmountSum(denom: String): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosRewards.forEach { reward ->
             val matchReward = reward.rewardList.firstOrNull { it.denom == denom }
@@ -235,12 +236,12 @@ open class CosmosLine : BaseChain() {
         return sum.movePointLeft(18).setScale(0, RoundingMode.HALF_UP)
     }
 
-    fun rewardValue(denom: String): BigDecimal? {
+    fun rewardValue(denom: String): BigDecimal {
         BaseData.getAsset(apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId!!)
+            val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = rewardAmountSum(denom)
             asset.decimals?.let { decimal ->
-                return price?.multiply(amount)?.movePointLeft(decimal)?.setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
             }
         }
         return BigDecimal.ZERO
@@ -266,7 +267,7 @@ open class CosmosLine : BaseChain() {
                 otherDenoms.add(coin.denom)
             }
         }
-        otherDenoms.removeAll { it == stakeDenom}
+        otherDenoms.removeAll { it == stakeDenom }
         return otherDenoms.size
     }
 
@@ -274,9 +275,9 @@ open class CosmosLine : BaseChain() {
         var sum = BigDecimal.ZERO
         rewardAllCoins().forEach { rewardCoin ->
             BaseData.getAsset(apiName, rewardCoin.denom)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId!!)
+                val price = BaseData.getPrice(asset.coinGeckoId)
                 val amount = rewardCoin.amount.toBigDecimal()
-                val value = asset.decimals?.let { price?.multiply(amount)?.movePointLeft(it)?.setScale(6, RoundingMode.HALF_UP) }
+                val value = asset.decimals?.let { price.multiply(amount)?.movePointLeft(it)?.setScale(6, RoundingMode.HALF_UP) }
                 sum = sum.add(value)
             }
         }
@@ -284,34 +285,34 @@ open class CosmosLine : BaseChain() {
     }
 
     fun allStakingDenomAmount(): BigDecimal? {
-        return balanceAmount(stakeDenom)?.add(vestingAmount(stakeDenom))?.add(delegationAmountSum())?.add(unbondingAmountSum())?.add(rewardAmountSum(stakeDenom))
+        return balanceAmount(stakeDenom).add(vestingAmount(stakeDenom))?.add(delegationAmountSum())?.
+        add(unbondingAmountSum())?.add(rewardAmountSum(stakeDenom))
     }
 
     fun allAssetValue(): BigDecimal {
-        val allValue = balanceValueSum().add(vestingValueSum()).add(delegationValueSum()).add(unbondingValueSum()).add(rewardValueSum())
+        val allValue = balanceValueSum().add(vestingValueSum()).add(delegationValueSum()).
+        add(unbondingValueSum()).add(rewardValueSum())
         return allValue
     }
 
+    fun denomValue(denom: String): BigDecimal {
+        return if (denom == stakeDenom) {
+            balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom)).
+            add(delegationValueSum()).add(unbondingValueSum())
 
-    fun getAddress(seed: ByteArray): String {
-
-//        val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
-//        val targetKey = DeterministicHierarchy(masterKey).deriveChild(listOf(ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO), true, true, ChildNumber(0))
-//        val key = ECKey.fromPrivate(BigInteger(targetKey.privateKeyAsHex, 16))
-//        val digest = MessageDigest.getInstance("SHA-256")
-//        val hash = digest.digest(key.pubKey)
-//        val rDigest = RIPEMD160Digest()
-//        rDigest.update(hash, 0, hash.size)
-//        val digestResult = ByteArray(rDigest.digestSize)
-//        rDigest.doFinal(digestResult, 0)
-//        val bitConvertedHash = ByteUtils.convertBits(digestResult, 8, 5, true)
-//        return Bech32.encode(Bech32.Encoding.BECH32, config.bech32Prefix, bitConvertedHash)
-        return ""
+        } else {
+            balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
+        }
     }
 }
+
 
 fun allCosmosLines(): List<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
+    lines.add(ChainAkash())
+    lines.add(ChainEvmos())
+    lines.add(ChainKava459())
+    lines.add(ChainLum118())
     return lines
 }

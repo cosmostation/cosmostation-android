@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="@dimen/space_32"
             android:layout_height="@dimen/space_32"
-            android:src="@mipmap/icon_profile"
+            android:src="@drawable/icon_profile"
             android:layout_marginLeft="@dimen/space_20"
             android:layout_marginRight="@dimen/space_8"/>
 
@@ -57,7 +57,7 @@
                 android:id="@+id/total_value_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_30"
+                android:layout_marginTop="@dimen/space_20"
                 style="@style/font_sm_12"
                 android:text="@string/str_total_value"
                 android:textColor="@color/color_base02"
@@ -69,7 +69,6 @@
                 android:id="@+id/total_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:gravity="center"
                 style="@style/font_sb_24"
                 android:textColor="@color/color_base01"

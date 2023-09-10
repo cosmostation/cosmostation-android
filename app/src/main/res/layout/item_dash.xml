@@ -33,25 +33,64 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/chain_name"
+            <ImageView
+                android:id="@+id/chain_swipe_img"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginVertical="@dimen/space_10"
+                android:layout_marginStart="@dimen/space_12"
+                android:src="@drawable/chain_swipe_cosmos"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"/>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/space_8"
-                android:layout_toRightOf="@+id/chain_img"
-                android:textColor="@color/color_base01"
-                style="@style/font_sb_14"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chain_img"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/chain_name"
+                    style="@style/font_sb_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_base01" />
+
+                <TextView
+                    android:id="@+id/chain_path"
+                    style="@style/font_sm_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_base02"
+                    android:layout_marginTop="@dimen/space_5"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/chain_legacy"
+                    style="@style/font_sm_9"
+                    android:background="@drawable/round_box_path"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:textColor="@color/color_base02"
+                    android:layout_toRightOf="@+id/chain_name"
+                    android:text="@string/str_legacy"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/chain_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/chain_img"
                 android:textColor="@color/color_base01"
                 android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_16"
@@ -64,11 +103,9 @@
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/space_5"
                 android:layout_marginEnd="@dimen/space_16"
                 android:layout_marginBottom="@dimen/space_15"
-                android:layout_toRightOf="@+id/chain_img"
                 android:gravity="end"
                 android:textColor="@color/color_accent_green"
                 app:layout_constraintBottom_toBottomOf="parent"

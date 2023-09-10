@@ -9,10 +9,16 @@ import android.text.TextWatcher
 import android.text.style.RelativeSizeSpan
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.data.model.Asset
 import wannabit.io.cosmostaion.data.model.NetworkResult
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -29,12 +35,12 @@ fun formatString(input: String, point: Int): SpannableString {
     return spannableString
 }
 
-fun assetValue(value: BigDecimal?): SpannableString {
+fun assetValue(value: BigDecimal): SpannableString {
     val formatted = BaseData.currencySymbol() + " " + getDecimalFormat(3).format(value)
     return formatString(formatted, 3)
 }
 
-fun formatAssetValue(value: BigDecimal?): SpannableString {
+fun formatAssetValue(value: BigDecimal): SpannableString {
     val spannableString = assetValue(value)
     spannableString.setSpan(RelativeSizeSpan(0.8f), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
     return spannableString
@@ -46,6 +52,18 @@ fun priceChangeStatus(lastUpDown: BigDecimal): SpannableString {
     } else {
         formatString("+ $lastUpDown%", 3)
     }
+}
+
+fun TextView.priceChangeStatusColor(lastUpDown: BigDecimal) {
+    if (BigDecimal.ZERO > lastUpDown) {
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
+    } else {
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
+    }
+}
+
+fun ImageView.setTokenImg(asset: Asset) {
+    Picasso.get().load(BaseConstant.CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(this)
 }
 
 fun AppCompatActivity.makeToast(id: Int) {
@@ -87,6 +105,10 @@ fun String.parseDecimal(decimal: Int = 9): BigInteger {
 
 fun View.visibleOrGone(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+fun View.goneOrVisible(visible: Boolean) {
+    visibility = if (visible) View.GONE else View.VISIBLE
 }
 
 fun View.visibleOrInvisible(visible: Boolean) {

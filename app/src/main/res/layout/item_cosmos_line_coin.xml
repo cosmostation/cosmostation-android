@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/stake_coin_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        android:elevation="0dp"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginVertical="@dimen/space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/space_16"
+            android:paddingVertical="@dimen/space_14">
+
+            <ImageView
+                android:id="@+id/token_img"
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40"
+                android:src="@drawable/token_default"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/token_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sb_14"
+                android:textColor="@color/color_base01"
+                android:layout_marginTop="@dimen/space_1"
+                android:layout_marginStart="@dimen/space_12"
+                app:layout_constraintStart_toEndOf="@+id/token_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/token_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sb_12"
+                android:textColor="@color/color_base02"
+                android:layout_marginStart="@dimen/space_12"
+                app:layout_constraintStart_toEndOf="@+id/token_img"
+                app:layout_constraintTop_toBottomOf="@+id/token_name" />
+
+            <TextView
+                android:id="@+id/token_price_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sb_12"
+                android:layout_marginStart="@dimen/space_6"
+                app:layout_constraintStart_toEndOf="@+id/token_price"
+                app:layout_constraintTop_toBottomOf="@+id/token_name" />
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sb_14"
+                android:textColor="@color/color_base01"
+                android:gravity="end"
+                android:layout_marginTop="@dimen/space_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/total_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sb_12"
+                android:textColor="@color/color_base02"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="@color/color_base04"
+                android:layout_marginTop="@dimen/space_14"
+                app:layout_constraintTop_toBottomOf="@+id/token_img"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16"
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center_vertical">
+
+                <RelativeLayout
+                    android:id="@+id/available_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/available_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:text="@string/str_available"/>
+
+                    <TextView
+                        android:id="@+id/available"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sb_14"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toRightOf="@+id/available_title" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/vesting_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/vesting_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:text="@string/str_vesting"/>
+
+                    <TextView
+                        android:id="@+id/vesting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sb_14"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toRightOf="@+id/vesting_title" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/staked_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/staked_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:text="@string/str_staked"/>
+
+                    <TextView
+                        android:id="@+id/staked"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sb_14"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toRightOf="@+id/staked_title" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/unstaking_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/unstaking_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:text="@string/str_unstaking"/>
+
+                    <TextView
+                        android:id="@+id/unstaking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sb_14"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toRightOf="@+id/unstaking_title" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/reward_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/reward_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:text="@string/str_vesting"/>
+
+                    <TextView
+                        android:id="@+id/reward"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sb_14"
+                        android:textColor="@color/color_base01"
+                        android:layout_centerVertical="true"
+                        android:maxLines="1"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toRightOf="@+id/reward_title" />
+
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

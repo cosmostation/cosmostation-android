@@ -1,9 +1,19 @@
 package wannabit.io.cosmostaion.common
 
+import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
 
 object ByteUtils {
+
+    fun hashToRIPMD160(sha256Hash: ByteArray): ByteArray {
+        val rDigest = RIPEMD160Digest()
+        rDigest.update(sha256Hash, 0, sha256Hash.size)
+        val digestResult = ByteArray(rDigest.digestSize)
+        rDigest.doFinal(digestResult, 0)
+        return digestResult
+    }
+
     fun convertBits(data: ByteArray, fromBits: Int, toBits: Int, pad: Boolean): ByteArray {
         var acc = 0
         var bits = 0

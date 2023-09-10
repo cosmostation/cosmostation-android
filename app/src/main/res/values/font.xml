@@ -66,4 +66,9 @@
         <item name="android:textSize">@dimen/text_size_10</item>
     </style>
 
+    <style name="font_sm_9" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_9</item>
+    </style>
+
 </resources>

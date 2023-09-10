@@ -2,6 +2,7 @@
 <resources>
     <dimen name="space_1">1dp</dimen>
     <dimen name="space_2">2dp</dimen>
+    <dimen name="space_3">3dp</dimen>
     <dimen name="space_4">4dp</dimen>
     <dimen name="space_5">5dp</dimen>
     <dimen name="space_6">6dp</dimen>
@@ -21,6 +22,7 @@
     <dimen name="space_30">30dp</dimen>
     <dimen name="space_32">32dp</dimen>
     <dimen name="space_40">40dp</dimen>
+    <dimen name="space_130">130dp</dimen>
 
 
 

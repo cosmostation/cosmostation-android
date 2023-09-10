@@ -14,7 +14,7 @@ object BaseData {
     var prices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
 
-    fun getPrice(coinGeckoId: String): BigDecimal? {
+    fun getPrice(coinGeckoId: String?): BigDecimal {
         val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
         if (price != null) {
             val currentPrice = price.currentPrice ?: 0.0

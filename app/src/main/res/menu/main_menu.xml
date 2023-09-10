@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/dashboardFragment"
-        android:icon="@mipmap/icon_wallet"
+        android:icon="@drawable/icon_wallet"
         android:title=""/>
 
     <item
         android:id="@+id/swapFragment"
-        android:icon="@mipmap/icon_swap"
+        android:icon="@drawable/icon_swap"
         android:title=""/>
 
     <item
         android:id="@+id/dappFragment"
-        android:icon="@mipmap/icon_dapp"
+        android:icon="@drawable/icon_dapp"
         android:title=""/>
 
     <item
         android:id="@+id/settingFragment"
-        android:icon="@mipmap/icon_setting"
+        android:icon="@drawable/icon_setting"
         android:title=""/>
 </menu>

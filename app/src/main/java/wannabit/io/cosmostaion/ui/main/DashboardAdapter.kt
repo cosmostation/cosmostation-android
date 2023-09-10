@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
-class DashboardAdapter(val context: Context) : ListAdapter<Any, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
+class DashboardAdapter(
+    val context: Context,
+    val account: BaseAccount
+) : ListAdapter<Any, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE_COSMOS_HEADER = 0
@@ -47,10 +52,11 @@ class DashboardAdapter(val context: Context) : ListAdapter<Any, RecyclerView.Vie
 
             is DashboardViewHolder -> {
                 val line = currentList[position - 1] as CosmosLine
-                holder.bind(line)
+                holder.bind(account, line)
 
                 holder.itemView.setOnClickListener {
-                    onItemClickListener?.let { it(position - 1) }
+                    if (line.fetched) onItemClickListener?.let { it(position - 1) }
+                    else return@setOnClickListener
                 }
             }
         }
@@ -86,7 +92,8 @@ class DashboardAdapter(val context: Context) : ListAdapter<Any, RecyclerView.Vie
         fun bind(position: Int) {
             binding.apply {
                 if (getItemViewType(position) == VIEW_TYPE_COSMOS_HEADER) {
-                    headerTitle.text = "Cosmos"
+                    headerTitle.text = context.getString(R.string.str_cosmos_class)
+                    headerCnt.text = currentList.size.toString()
                 }
             }
         }

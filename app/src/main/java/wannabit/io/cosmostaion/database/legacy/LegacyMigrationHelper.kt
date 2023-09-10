@@ -39,7 +39,6 @@ object LegacyMigrationHelper {
 
         val newBaseAccount = mutableListOf<BaseAccount>()
         legacyAllMnemonics.forEach {
-            val hexEntropy = CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + it.uuid, it.resource, it.spec)
             newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName, BaseAccountType.MNEMONIC, "0"))
         }
 
