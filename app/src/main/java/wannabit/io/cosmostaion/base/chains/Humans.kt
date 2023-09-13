@@ -18,8 +18,6 @@ class Humans : ChainConfig() {
     override fun chainTabColor(): Int { return R.color.color_tab_myvalidator_humans }
     override fun chainName(): String { return "humans" }
     override fun chainKoreanName(): String { return "휴먼스" }
-    override fun chainTitle(): String { return "(Humans.ai)" }
-    override fun chainTitleToUp(): String { return "HUMANS.AI" }
     override fun chainIdPrefix(): String { return "humans_" }
 
     override fun mainDenomImg(): Int { return R.drawable.token_humans }

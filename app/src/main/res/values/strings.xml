@@ -321,7 +321,7 @@
     <string name="str_front_guide_title_archway" translatable="false"><![CDATA[ARCHWAY]]></string>
     <string name="str_front_guide_title_sei" translatable="false"><![CDATA[SEI]]></string>
     <string name="str_front_guide_title_terra" translatable="false"><![CDATA[TERRA]]></string>
-    <string name="str_front_guide_title_humans" translatable="false"><![CDATA[HUMANS.AI]]></string>
+    <string name="str_front_guide_title_humans" translatable="false"><![CDATA[HUMANS]]></string>
 
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
