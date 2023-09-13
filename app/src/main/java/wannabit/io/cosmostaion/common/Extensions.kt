@@ -26,8 +26,12 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 fun formatString(input: String, point: Int): SpannableString {
     val spannableString = SpannableString(input)
@@ -66,6 +70,10 @@ fun ImageView.setTokenImg(asset: Asset) {
     Picasso.get().load(BaseConstant.CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(this)
 }
 
+fun ImageView.setTokenImg(tokenImg: String) {
+    Picasso.get().load(tokenImg).error(R.drawable.token_default).into(this)
+}
+
 fun AppCompatActivity.makeToast(id: Int) {
     Toast.makeText(this, this.getString(id), Toast.LENGTH_SHORT).show()
 }
@@ -76,6 +84,37 @@ fun Context.makeToast(id: Int) {
 
 fun Context.makeToast(msg: String?) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+fun formatCurrentTimeToYear(): String {
+    val locale = Locale.getDefault()
+    val date = Calendar.getInstance()
+    val dateFormat = SimpleDateFormat(
+        if (locale == Locale.US) "MMMM dd, yyyy" else "yyyy.M.d",
+        locale
+    )
+    return dateFormat.format(date.time)
+}
+
+fun formatTxTimeToYear(context: Context, timeString: String): String {
+    val locale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_format))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = inputFormat.parse(timeString)
+
+    val outputFormat = SimpleDateFormat(
+        if (locale == Locale.US) "MMMM dd, yyyy" else "yyyy.M.d",
+        locale
+    )
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
+fun formatTxTimeToHour(context: Context, timeString: String): String {
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_format))
+    val outputFormat = SimpleDateFormat(context.getString(R.string.str_dp_time_format2))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return outputFormat.format(inputFormat.parse(timeString))
 }
 
 fun Date.formatToViewTimeDefaults(): String {

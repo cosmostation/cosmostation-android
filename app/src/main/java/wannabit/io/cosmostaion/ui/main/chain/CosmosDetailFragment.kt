@@ -47,22 +47,6 @@ class CosmosDetailFragment : Fragment() {
         onClickAction()
     }
 
-    private fun initTab() {
-        binding.apply {
-            pagerAdapter = AccountPageAdapter(requireActivity(), selectedPosition)
-            viewPager.adapter = pagerAdapter
-            viewPager.isUserInputEnabled = false
-            tabLayout.bringToFront()
-
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                when (position) {
-                    0 -> tab.text = getString(R.string.str_coin)
-                    else -> tab.text = getString(R.string.str_history)
-                }
-            }.attach()
-        }
-    }
-
     private fun initData() {
         val baseAccount = BaseData.baseAccount
         val args = arguments
@@ -73,6 +57,26 @@ class CosmosDetailFragment : Fragment() {
             selectedChain = baseAccount.allCosmosLineChains[selectedPosition]
             binding.accountAddress.text = selectedChain.address
             binding.accountValue.text = formatAssetValue(selectedChain.allAssetValue())
+        }
+    }
+
+    private fun initTab() {
+        binding.apply {
+            pagerAdapter = AccountPageAdapter(requireActivity(), selectedChain, selectedPosition)
+            viewPager.adapter = pagerAdapter
+            viewPager.isUserInputEnabled = false
+            tabLayout.bringToFront()
+
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                val supportToken = selectedChain.supportCw20 || selectedChain.supportErc20
+
+                tab.text = when {
+                    position == 0 -> getString(R.string.str_coin)
+                    supportToken && position == 1 -> getString(R.string.str_token)
+                    !supportToken && position == 1 || supportToken && position == 2 -> getString(R.string.str_history)
+                    else -> getString(R.string.str_about)
+                }
+            }.attach()
         }
     }
 
@@ -101,8 +105,19 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    class AccountPageAdapter(fragmentActivity: FragmentActivity, selectedPosition: Int) : FragmentStateAdapter(fragmentActivity) {
-        private val fragments = listOf(CoinFragment(selectedPosition), HistoryFragment(selectedPosition))
+    class AccountPageAdapter(fragmentActivity: FragmentActivity, selectedChain: CosmosLine, selectedPosition: Int) : FragmentStateAdapter(fragmentActivity) {
+        private val fragments = mutableListOf<Fragment>()
+
+        init {
+            fragments.add(CoinFragment(selectedPosition))
+            fragments.add(HistoryFragment(selectedPosition))
+
+            if (selectedChain.supportCw20 || selectedChain.supportErc20) {
+                fragments.add(1, TokenFragment(selectedPosition))
+            }
+
+            fragments.add(AboutFragment())
+        }
 
         override fun getItemCount(): Int {
             return fragments.size

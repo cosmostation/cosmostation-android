@@ -1,20 +1,16 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.AppVersion
 import wannabit.io.cosmostaion.data.model.NetworkResult
 import wannabit.io.cosmostaion.data.repository.wallet.IntroRepository
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
 
 class IntroViewModel(private val walletRepository: IntroRepository) : ViewModel() {
 

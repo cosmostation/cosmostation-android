@@ -6,34 +6,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cosmos.base.v1beta1.CoinProto.Coin
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.data.model.Coin
+import wannabit.io.cosmostaion.data.model.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 
 class CoinAdapter(
     val context: Context,
-    val line: CosmosLine,
-    private val nativeCoins: MutableList<Coin>,
-    private val ibcCoins: MutableList<Coin>
+    val line: CosmosLine
 ) : ListAdapter<Coin, RecyclerView.ViewHolder>(CoinDiffCallback()) {
-
-    companion object {
-        const val VIEW_TYPE_STAKE_ITEM = 0
-        const val VIEW_TYPE_NATIVE_ITEM = 1
-        const val VIEW_TYPE_IBC_ITEM = 2
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_STAKE_ITEM -> {
+            CoinType.STAKE.ordinal -> {
                 val binding = ItemCosmosLineCoinBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 CoinCosmosLineViewHolder(binding)
             }
 
-            VIEW_TYPE_NATIVE_ITEM, VIEW_TYPE_IBC_ITEM -> {
+            CoinType.NATIVE.ordinal, CoinType.IBC.ordinal, CoinType.BRIDGE.ordinal -> {
                 val binding = ItemCosmosLineTokenBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -45,49 +38,33 @@ class CoinAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder.itemViewType) {
-            VIEW_TYPE_STAKE_ITEM -> {
+        val coin = getItem(position)
+        when (coin.type) {
+            CoinType.STAKE -> {
                 if (holder is CoinCosmosLineViewHolder) {
                     holder.bind(context, line)
                 }
             }
 
-            VIEW_TYPE_NATIVE_ITEM -> {
+            CoinType.NATIVE, CoinType.IBC, CoinType.BRIDGE ->  {
                 if (holder is CoinViewHolder) {
-                    val nativeCoins = nativeCoins.filter { it.denom != line.stakeDenom }
-                    val nativePosition = position -1
-                    holder.bindNativeAsset(line, nativeCoins[nativePosition], nativePosition, nativeCoins.size)
-                }
-            }
-
-            VIEW_TYPE_IBC_ITEM -> {
-                if (holder is CoinViewHolder) {
-                    val ibcPosition = position - nativeCoins.size
-                    holder.bindNativeAsset(line, ibcCoins[ibcPosition], ibcPosition, ibcCoins.size)
+                    val coinType = coin.type
+                    val coinPosition = currentList.filter { it.type == coinType }.indexOf(coin)
+                    val coinCount = currentList.count { it.type == coinType }
+                    holder.bind(line, coin, coinPosition, coinCount)
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0) {
-            return VIEW_TYPE_STAKE_ITEM
-        } else if (position < nativeCoins.size) {
-            return VIEW_TYPE_NATIVE_ITEM
-        } else if (position < nativeCoins.size + ibcCoins.size) {
-            return VIEW_TYPE_IBC_ITEM
-        }
-        return 0
-    }
-
-    override fun getItemCount(): Int {
-        return nativeCoins.size + ibcCoins.size
+        return getItem(position).type.ordinal
     }
 
     private class CoinDiffCallback : DiffUtil.ItemCallback<Coin>() {
 
         override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-            return oldItem == newItem
+            return oldItem.denom == newItem.denom
         }
 
         override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {

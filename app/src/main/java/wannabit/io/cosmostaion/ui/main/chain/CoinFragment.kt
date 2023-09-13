@@ -1,14 +1,14 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cosmos.base.v1beta1.CoinProto.Coin
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.data.model.Coin
+import wannabit.io.cosmostaion.data.model.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 
 class CoinFragment(position: Int) : Fragment() {
@@ -19,6 +19,7 @@ class CoinFragment(position: Int) : Fragment() {
     private lateinit var coinAdapter: CoinAdapter
     private val selectedPosition = position
 
+    private val stakeCoins = mutableListOf<Coin>()
     private val nativeCoins = mutableListOf<Coin>()
     private val bridgeCoins = mutableListOf<Coin>()
     private val ibcCoins = mutableListOf<Coin>()
@@ -45,21 +46,24 @@ class CoinFragment(position: Int) : Fragment() {
                 val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                 if (coinType != null) {
                     when (coinType) {
-                        "staking", "native" -> {
-                            nativeCoins.add(coin)
+                        "staking" -> {
+                            stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
+                        }
+                        "native" -> {
+                            nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
                         }
                         "bep", "bridge" -> {
-                            bridgeCoins.add(coin)
+                            bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
                         }
                         "ibc" -> {
-                            ibcCoins.add(coin)
+                            ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                         }
                     }
                 }
             }
 
-            if (nativeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
-                nativeCoins.add(Coin.newBuilder().setDenom(selectedChain.stakeDenom).setAmount("0").build())
+            if (stakeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
+                stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
             }
             nativeCoins.sortWith { o1, o2 ->
                 when {
@@ -87,12 +91,22 @@ class CoinFragment(position: Int) : Fragment() {
                 }
             }
 
-            coinAdapter = CoinAdapter(requireContext(), selectedChain, nativeCoins, ibcCoins)
+            bridgeCoins.sortWith { o1, o2 ->
+                val value0 = selectedChain.balanceValue(o1.denom)
+                val value1 = selectedChain.balanceValue(o2.denom)
+                when {
+                    value0 > value1 -> -1
+                    value0 < value1 -> 1
+                    else -> 0
+                }
+            }
+
+            coinAdapter = CoinAdapter(requireContext(), selectedChain)
             binding.recycler.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = coinAdapter
-                coinAdapter.submitList(nativeCoins + ibcCoins)
+                coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
             }
         }
     }

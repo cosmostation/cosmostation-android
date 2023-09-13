@@ -77,9 +77,9 @@ class DashboardFragment : Fragment() {
                         if (isLoaded) {
                             requireActivity().runOnUiThread {
                                 dashAdapter.notifyDataSetChanged()
+                                onUpdateTotal()
                             }
                         }
-                        onUpdateTotal()
                     }
                 })
             }

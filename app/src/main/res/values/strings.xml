@@ -1,19 +1,255 @@
 <resources>
     <string name="app_name">Cosmostation</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="str_total_value" translatable="false">Total value</string>
     <string name="str_cosmos_class" translatable="false">Cosmos Class</string>
     <string name="str_legacy" translatable="false">LEGACY</string>
     <string name="str_coin" translatable="false">Coins</string>
+    <string name="str_token" translatable="false">Tokens</string>
     <string name="str_history" translatable="false">History</string>
+    <string name="str_about" translatable="false">About</string>
     <string name="str_available" translatable="false">Available</string>
     <string name="str_vesting" translatable="false">Vesting</string>
     <string name="str_staked" translatable="false">Staked</string>
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
+    <string name="str_today">Today</string>
+    <string name="str_back">BACK</string>
+
+
+    <string name="str_title_no_history" translatable="false">No History</string>
+    <string name="str_title_no_token" translatable="false">No Token</string>
+    <string name="str_msg_no_history">There are no coin transactions.</string>
 
     // header
     <string name="str_native_coins" translatable="false">Native Coins</string>
     <string name="str_ibc_coins" translatable="false">Ibc Coins</string>
+    <string name="str_bridge_coins" translatable="false">Bridged Coins</string>
+    <string name="str_contract_coins" translatable="false">Contract Coins</string>
+    <string name="str_unknown_coins" translatable="false">Unknown Coins</string>
+
+    // tx
+    <string name="tx_unknown">Unknown</string>
+    <string name="tx_send">Send</string>
+    <string name="tx_receive">Received</string>
+    <string name="tx_transfer">Transfer</string>
+    <string name="tx_delegate">Delegate</string>
+    <string name="tx_cancel_undelegate">Cancel Undelegate</string>
+    <string name="tx_undelegate">Undelegate</string>
+    <string name="tx_redelegate">Redelegate</string>
+    <string name="tx_get_reward">Get Reward</string>
+    <string name="tx_get_commission">Get Commission</string>
+    <string name="tx_fund_pool">Funding Community Pool</string>
+    <string name="tx_change_reward_address">Edit Address</string>
+    <string name="tx_vote">Vote</string>
+    <string name="tx_submit_proposal">Proposal</string>
+    <string name="tx_deposit_proposal">Proposal Deposit</string>
+    <string name="tx_vote_weighted">Vote Weighted</string>
+    <string name="tx_deposit">Deposit</string>
+    <string name="tx_withdraw">Withdraw</string>
+    <string name="tx_authz_grant">Authz Grant</string>
+    <string name="tx_authz_revoke">Authz Revoke</string>
+    <string name="tx_authz_exe">Authz Execute</string>
+    <string name="tx_authz_grant_allow">Fee Grant Allowance</string>
+    <string name="tx_authz_grant_revoke">Fee Grant Revoke</string>
+    <string name="tx_create_validator">Create Val</string>
+    <string name="tx_edit_validator">Edit Val</string>
+    <string name="tx_unjail">Unjail</string>
+
+    <string name="tx_ibc_update_client">IBC Update Client</string>
+    <string name="tx_ibc_send">IBC Send</string>
+    <string name="tx_ibc_receive">IBC Received</string>
+    <string name="tx_ibc_acknowledgement">IBC Acknowledgement</string>
+    <string name="tx_reinvest">Compounding</string>
+    <string name="tx_new_order">New Order</string>
+    <string name="tx_Cancel_order">Cancel Order</string>
+
+    <string name="tx_kava_create_cdp">CDP Open</string>
+    <string name="tx_kava_deposit_cdp">CDP Deposit</string>
+    <string name="tx_kava_withdraw_cdp">CDP Withdraw</string>
+    <string name="tx_kava_drawdebt_cdp">CDP Borrow</string>
+    <string name="tx_kava_repaydebt_cdp">CDP Repay</string>
+    <string name="tx_kava_liquidate_cdp">CDP Liquidate</string>
+    <string name="tx_send_htlc">BEP3 Send</string>
+    <string name="tx_receive_htlc">BEP3 Receive</string>
+    <string name="tx_create_htlc">BEP3 Create</string>
+    <string name="tx_claim_htlc">BEP3 Claim</string>
+    <string name="tx_refund_htlc">BEP3 Refund</string>
+    <string name="tx_kava_bep3_create">BEP3 Send</string>
+    <string name="tx_kava_bep3_claim">BEP3 Claim</string>
+    <string name="tx_kava_bep3_refund">BEP3 Refund</string>
+    <string name="tx_kava_hard_deposit">Hard Lend Deposit</string>
+    <string name="tx_kava_hard_withdraw">Hard Lend Withdraw</string>
+    <string name="tx_kava_hard_borrow">Hard Lend Borrow</string>
+    <string name="tx_kava_hard_repay">Hard Lend Repay</string>
+    <string name="tx_kava_hard_liquidate">Hard Lend Liquidate</string>
+    <string name="tx_kava_swap_token">Swap Coin</string>
+    <string name="tx_kava_swap_deposit">Swap Pool Deposit</string>
+    <string name="tx_kava_swap_withdraw">Swap Pool Withdraw</string>
+    <string name="tx_kava_swap_incentive">Swap Pool Incentive</string>
+    <string name="tx_kava_delegator_incentive">Delegator Incentive</string>
+    <string name="tx_kava_auction_bid">Auction Bid</string>
+    <string name="tx_kava_save_deposit">Saving Deposit</string>
+    <string name="tx_kava_save_withdraw">Saving Withdraw</string>
+    <string name="tx_kava_hard_mint_incentive">USDX Minting Incentive</string>
+    <string name="tx_kava_hard_hard_incentive">Hard Lend Incentive</string>
+    <string name="tx_kava_hard_save_incentive">Incentive Saving</string>
+    <string name="tx_kava_hard_earn_incentive">Earn Incentive</string>
+    <string name="tx_post_price">Post Price</string>
+
+    <string name="tx_kava_create_cdp2">CDP Open</string>
+    <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
+    <string name="tx_kava_withdraw_cdp2">CDP Withdraw</string>
+    <string name="tx_kava_drawdebt_cdp2">CDP Borrow</string>
+    <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
+    <string name="tx_kava_liquidate_cdp2">CDP Liquidate</string>
+    <string name="tx_kava_incentive_reward">Incentive Minting</string>
+    <string name="tx_kava_incentive_hard">Hard Lend Incentive</string>
+    <string name="tx_kava_hard_deposit2">Hard Lend Deposit</string>
+    <string name="tx_kava_hard_withdraw2">Hard Lend Withdraw</string>
+    <string name="tx_kava_hard_borrow2">Hard Lend Borrow</string>
+    <string name="tx_kava_hard_repay2">Hard Lend Repay</string>
+    <string name="tx_kava_hard_liquidate2">Hard Lend Liquidate</string>
+    <string name="tx_kava_swap_incentive2">Swap Pool Incentive</string>
+    <string name="tx_kava_delegator_incentive2">Delegator Incentive</string>
+    <string name="tx_kava_earn_incentive2">Earn Incentive</string>
+    <string name="tx_kava_swap_deposit2">Swap Pool Deposit</string>
+    <string name="tx_kava_swap_withdraw2">Swap Pool Withdraw</string>
+
+    <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
+    <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
+    <string name="tx_kava_earn_deposit">Earn Liquidate\nDeposit</string>
+
+    <string name="tx_starname_registe_domain">Register Domain</string>
+    <string name="tx_starname_registe_account">Register Account</string>
+    <string name="tx_starname_delete_domain">Delete Domain</string>
+    <string name="tx_starname_delete_account">Delete Account</string>
+    <string name="tx_starname_renew_domain">Renew Domain</string>
+    <string name="tx_starname_renew_account">Renew Account</string>
+    <string name="tx_starname_update_resource">Replace Address</string>
+
+    <string name="tx_create_bid">Create Bid</string>
+    <string name="tx_close_bid">Close Bid</string>
+    <string name="tx_create_lease">Create Lease</string>
+    <string name="tx_withdraw_lease">Withdraw Lease</string>
+    <string name="tx_close_lease">Withdraw Lease</string>
+    <string name="tx_create_deployment">Create Deployment</string>
+    <string name="tx_deposit_deployment">Deposit Deployment</string>
+    <string name="tx_close_deployment">Close Deployment</string>
+    <string name="tx_update_deployment">Update Deployment</string>
+    <string name="tx_close_group">Close Group</string>
+    <string name="tx_pause_group">Pause Group</string>
+    <string name="tx_start_group">Start Group</string>
+    <string name="tx_create_certificate">Create Certificate</string>
+    <string name="tx_revoke_certificate">Revoke Certificate</string>
+
+    <string name="tx_osmosis_create_pool">Create Pool</string>
+    <string name="tx_osmosis_join_pool">Join Pool</string>
+    <string name="tx_osmosis_exit_pool">Exit Pool</string>
+    <string name="tx_osmosis_coin_swap">Swap Coin</string>
+    <string name="tx_osmosis_token_lockup">Lock Coin(Start Earning)</string>
+    <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
+    <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
+
+    <string name="tx_add_record">Add Record</string>
+    <string name="tx_create_did">Create Did</string>
+    <string name="tx_create_topic">Create Topic</string>
+    <string name="tx_add_writer">Add Writer</string>
+
+    <string name="tx_create_distribution_run">Distribution Run</string>
+
+    <string name="tx_task_response">Task Response</string>
+    <string name="tx_create_task">Create Task</string>
+
+    <string name="tx_issue_denom">Issue NFT Denom</string>
+    <string name="tx_issue_denom_id">Denom ID</string>
+    <string name="tx_issue_denom_name">Denom Name</string>
+    <string name="tx_issue_denom_schema">Schema</string>
+    <string name="tx_mint_nft">Mint NFT</string>
+    <string name="tx_mint_nft_token_id">Token ID</string>
+    <string name="tx_mint_nft_denom_id">Denom ID</string>
+    <string name="tx_mint_nft_name">NFT Name</string>
+    <string name="tx_mint_nft_description">NFT Description</string>
+    <string name="tx_mint_nft_url">NFT URI</string>
+    <string name="tx_send_nft">NFT Send</string>
+    <string name="tx_receive_nft">NFT Receive</string>
+    <string name="tx_transfer_nft">NFT Transfer</string>
+    <string name="tx_send_nft_sender">Sender</string>
+    <string name="tx_send_nft_recipient">Recipient</string>
+    <string name="tx_send_nft_token_id">Token ID</string>
+    <string name="tx_send_nft_denom_id">Denom ID</string>
+    <string name="tx_irismod_farm_stake">Stake</string>
+    <string name="tx_irismod_farm_Harvest">Harvest</string>
+
+    <string name="tx_save_profile">Save Profile</string>
+    <string name="tx_link_chain_account">Link Account</string>
+    <string name="tx_save_profile_dtag">Dtag</string>
+    <string name="tx_save_profile_nickname">Nickname</string>
+    <string name="tx_save_profile_bio">Bio</string>
+    <string name="tx_save_profile_url">Profile Uri</string>
+    <string name="tx_save_profile_cover_url">Cover Uri</string>
+    <string name="tx_delete_profile">Delete Profile</string>
+    <string name="tx_create_relation">Create Relationship</string>
+    <string name="tx_delete_relation">Delete Relationship</string>
+    <string name="tx_block_user">Block User</string>
+    <string name="tx_unblock_user">Unblock User</string>
+
+    <string name="tx_cosmwasm_store_code">Store Contract Code</string>
+    <string name="tx_cosmwasm_instantiate">Instantiate Contract</string>
+    <string name="tx_cosmwasm_execontract">Execute Contract</string>
+    <string name="tx_cosmwasm_store_code_title">Store Contract Code</string>
+    <string name="tx_cosmwasm_instantiate_title">Instantiate Contract</string>
+    <string name="tx_cosmwasm_execontract_title">Execute Contract</string>
+
+    <string name="tx_crescent_liquid_stake">Liquid Stake</string>
+    <string name="tx_crescent_liquid_unstake">Liquid Unstake</string>
+    <string name="tx_crescent_liquidity_deposit">Liquidity Deposit</string>
+    <string name="tx_crescent_liquidity_withdraw">Liquidity Withdraw</string>
+    <string name="tx_crescent_liquidity_create_pair">Liquidity Create Pair</string>
+    <string name="tx_crescent_liquidity_create_pool">Liquidity Create Pool</string>
+    <string name="tx_crescent_liquidity_limit_order">Limit Order</string>
+    <string name="tx_crescent_liquidity_market_order">Market Order</string>
+    <string name="tx_crescent_liquidity_cancel_order">Cancel Order</string>
+    <string name="tx_crescent_liquidity_cancelall_order">Cancel All Order</string>
+    <string name="tx_crescent_farming_stake">Farming Stake</string>
+    <string name="tx_crescent_farming_unstake">Farming Unstake</string>
+    <string name="tx_crescent_farming_harvest">Farming Harvest</string>
+    <string name="tx_crescent_farming_create_fixed_amount_plan">Farming Create Plain(Amount)</string>
+    <string name="tx_crescent_farming_create_ratio_plan">Farming Create Plain(Ratio)</string>
+    <string name="tx_crescent_farming_remove_plan">Farming Remove Plain</string>
+    <string name="tx_crescent_farming_advance_epoch">Farming Epoch</string>
+    <string name="tx_crescent_farming_claim">Airdrop</string>
+
+    <string name="tx_osmosis_super_fluid_delegate">SuperFluid Staking</string>
+    <string name="tx_osmosis_super_fluid_undelegate">SuperFluid Unstaking</string>
+    <string name="tx_osmosis_super_fluid_unbondinglock">SuperFluid Unbonding Lock</string>
+    <string name="tx_osmosis_super_fluid_lockanddelegate">SuperFluid Lock <![CDATA[ & ]]> Staking</string>
+
+    <string name="tx_axelar_refund_msg_request">Refund Msg Request</string>
+    <string name="tx_axelar_link_request">Link Request</string>
+    <string name="tx_axelar_confirm_deposit_request">Confirm Deposit Request</string>
+    <string name="tx_axelar_route_ibc_request">Route IBC Request</string>
+
+    <string name="tx_ethermint_evm">Ethereum Tx</string>
+
+    <string name="tx_injective_batch_update_order">Update Order</string>
+    <string name="tx_injective_create_limit_order">Create Derivative Order</string>
+    <string name="tx_injective_create_spot_order">Create Spot Order</string>
+    <string name="tx_injective_cancel_limit_order">Cancel Derivative Order</string>
+    <string name="tx_injective_cancel_spot_order">Cancel Spot Order</string>
+
+    <string name="tx_stride_liquid_stake">Liquid Stake</string>
+    <string name="tx_stride_redeem_stake">Redeem Stake</string>
+
+    <string name="tx_persis_liquid_stake">Liquid Stake</string>
+    <string name="tx_persis_liquid_unstake">Liquid Unstake</string>
+    <string name="tx_persis_liquid_redeem">Liquid Redeem</string>
+    <string name="tx_persis_liquid_claim">Liquid Unstaked Claim</string>
+
+
+    // time
+    <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
+
+    <string name="str_dp_time_format1" translatable="false">yyyy-MM-dd</string>
+    <string name="str_dp_time_format2" translatable="false">HH:mm:ss</string>
 </resources>

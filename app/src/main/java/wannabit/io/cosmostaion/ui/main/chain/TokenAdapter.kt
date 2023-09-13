@@ -1,0 +1,37 @@
+package wannabit.io.cosmostaion.ui.main.chain
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.data.model.Token
+import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
+
+class TokenAdapter(
+    val context: Context,
+    val line: CosmosLine
+) : ListAdapter<Token, TokenViewHolder>(TokenDiffCallback()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TokenViewHolder {
+        val binding = ItemCosmosLineTokenBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TokenViewHolder(parent.context, binding)
+    }
+
+    override fun onBindViewHolder(holder: TokenViewHolder, position: Int) {
+        val token = currentList[position]
+        holder.bind(line, token, currentList.size, position)
+    }
+
+    private class TokenDiffCallback : DiffUtil.ItemCallback<Token>() {
+
+        override fun areItemsTheSame(oldItem: Token, newItem: Token): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Token, newItem: Token): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
