@@ -287,6 +287,7 @@
     <string name="str_front_guide_msg_archway"><![CDATA[Archwayは、dAppの貢献度に応じてリワードが開発者に分配されるように設計されたスマートコントラクトブロックチェーンです。]]></string>
     <string name="str_front_guide_msg_sei"><![CDATA[Seiは速度、セキュリティ、および拡張性のために設計されたCosmosSDKベースのレイヤー1ブロックチェーンネットワークです。]]></string>
     <string name="str_front_guide_msg_terra"><![CDATA[Terraネットワークは、Terra ClassicでハードフォークされたCosmos SDKベースの非許可型ブロックチェーンネットワークです。]]></string>
+    <string name="str_front_guide_msg_humans"><![CDATA[Humans.ai はAIアルゴリズムとAIモデルの生成を促すために設計された分散型AI生態系です。]]></string>
 
 
     <string name="str_current_reward_address">現在利子支給アドレス</string>
