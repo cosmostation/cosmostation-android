@@ -15,11 +15,14 @@
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_today">Today</string>
     <string name="str_back">BACK</string>
+    <string name="str_share_address">Share Address</string>
 
-
+    // msg
     <string name="str_title_no_history" translatable="false">No History</string>
     <string name="str_title_no_token" translatable="false">No Token</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
+    <string name="str_msg_copy" translatable="false">Tap the card to copy it.</string>
+    <string name="str_msg_address_copied" >Address copied</string>
 
     // header
     <string name="str_native_coins" translatable="false">Native Coins</string>

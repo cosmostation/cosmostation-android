@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.gms.dynamic.SupportFragmentWrapper
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -18,6 +20,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.EXPLORER_BASE_URL
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
+import wannabit.io.cosmostaion.ui.dialog.QrCodeFragment
 import wannabit.io.cosmostaion.ui.main.MainActivity
 
 
@@ -101,6 +104,11 @@ class CosmosDetailFragment : Fragment() {
             btnAccount.setOnClickListener {
                 val accountUrl = EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/" + selectedChain.address
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
+            }
+
+            accountAddress.setOnClickListener {
+                val bottomSheet = QrCodeFragment(selectedChain)
+                bottomSheet.show(parentFragmentManager, QrCodeFragment::class.java.name)
             }
         }
     }

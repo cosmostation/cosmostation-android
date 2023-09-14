@@ -21,7 +21,7 @@ class DashboardViewHolder(
 
     fun bind(account: BaseAccount, line: CosmosLine) {
         binding.apply {
-            dashView.setBackgroundResource(R.drawable.item_dash_bg)
+            dashView.setBackgroundResource(R.drawable.item_bg)
 
             when (line.chainType) {
                 ChainType.COSMOS_TYPE -> {

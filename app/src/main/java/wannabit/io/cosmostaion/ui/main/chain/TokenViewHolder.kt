@@ -22,7 +22,7 @@ class TokenViewHolder(
 
     fun bind(line: CosmosLine, token: Token, cnt: Int, position: Int) {
         binding.apply {
-            coinView.setBackgroundResource(R.drawable.item_dash_bg)
+            coinView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(position == 0)
             headerTitle.text = context.getString(R.string.str_contract_coins)
             headerCnt.text = cnt.toString()

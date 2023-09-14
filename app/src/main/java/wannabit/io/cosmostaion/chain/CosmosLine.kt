@@ -33,6 +33,7 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
@@ -258,7 +259,7 @@ open class CosmosLine : BaseChain() {
 
     fun vestingAmount(denom: String): BigDecimal {
         if (cosmosVestings.isNotEmpty()) {
-            return cosmosVestings.first { it.denom == denom }.amount.toBigDecimal()
+            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -419,6 +420,7 @@ open class CosmosLine : BaseChain() {
             add(delegationValueSum()).add(unbondingValueSum())
 
         } else {
+            Log.e("test1234 : ", vestingValue(denom).toPlainString())
             balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
         }
     }
@@ -430,6 +432,7 @@ fun allCosmosLines(): List<CosmosLine> {
 //    lines.add(ChainCosmos())
 //    lines.add(ChainAkash())
 //    lines.add(ChainEvmos())
+    lines.add(ChainInjective())
     lines.add(ChainJuno())
     lines.add(ChainKava459())
 //    lines.add(ChainLum118())

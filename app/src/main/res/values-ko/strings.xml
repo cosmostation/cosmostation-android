@@ -2,9 +2,12 @@
 <resources>
     <string name="app_name">Cosmostation</string>
     <string name="str_today">오늘</string>
-
-    <string name="str_msg_no_history">거래 내역이 없습니다.</string>
     <string name="str_back">뒤로</string>
+    <string name="str_share_address">주소 공유</string>
+
+    // msg
+    <string name="str_msg_no_history">거래 내역이 없습니다.</string>
+    <string name="str_msg_address_copied" >주소 복사</string>
 
     // tx
     <string name="tx_unknown">알 수 없음</string>

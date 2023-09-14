@@ -1,11 +1,11 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_base01</item>
         <item name="colorPrimaryDark">@color/color_base01</item>
         <item name="colorAccent">@color/color_blue01</item>
-<!--        <item name="fontFamily">@font/font_bold</item>-->
-<!--        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>-->
+
+        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>
 
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -30,13 +30,18 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="BaseBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="BaseBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
 
-    <style name="BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
-        <item name="backgroundTint">@color/color_mode_base01</item>
-        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottomsheet_bg</item>
+    </style>
+
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="CustomShapeAppearanceBottomSheetDialog" parent="">

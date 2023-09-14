@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,6 +13,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
+import wannabit.io.cosmostaion.ui.dialog.QrDialog
 
 class DashboardAdapter(
     val context: Context,
@@ -57,6 +59,30 @@ class DashboardAdapter(
                 holder.itemView.setOnClickListener {
                     if (line.fetched) onItemClickListener?.let { it(position - 1) }
                     else return@setOnClickListener
+                }
+
+                holder.itemView.setOnLongClickListener { view ->
+                    if (line.fetched) {
+                        val scaleX = view.scaleX
+                        val scaleY = view.scaleY
+                        val customDialog = QrDialog(context, line)
+
+                        if (scaleX == 1.0f && scaleY == 1.0f) {
+                            view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                            val handler = Handler()
+                            handler.postDelayed({
+                                customDialog.show()
+                            },200)
+                        }
+
+                        customDialog.setOnDismissListener {
+                            view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                        }
+                        true
+
+                    } else {
+                        false
+                    }
                 }
             }
         }

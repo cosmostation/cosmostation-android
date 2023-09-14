@@ -33,7 +33,7 @@ class CoinViewHolder(
                     else -> headerTitle.text = context.getString(R.string.str_unknown_coins)
                 }
             }
-            coinView.setBackgroundResource(R.drawable.item_dash_bg)
+            coinView.setBackgroundResource(R.drawable.item_bg)
 
             BaseData.getAsset(line.apiName, coin.denom)?.let { asset ->
                 tokenImg.setTokenImg(asset)

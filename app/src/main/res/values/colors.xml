@@ -2,11 +2,14 @@
 <resources>
     <color name="color_base01">#ffffff</color>
     <color name="color_base02">#BED1F2</color>
-    <color name="color_base03">#838493</color>
+    <color name="color_base03">#8A99AE</color>
     <color name="color_base04">#6C7585</color>
     <color name="color_base05">#505267</color>
     <color name="color_base06">#414158</color>
+    <color name="color_base07">#393A50</color>
+    <color name="color_base08">#2C2D44</color>
 
+    <color name="color_accent_purple">#7C4FFC</color>
     <color name="color_accent_green">#5BFF89</color>
     <color name="color_accent_red">#FF4D36</color>
 

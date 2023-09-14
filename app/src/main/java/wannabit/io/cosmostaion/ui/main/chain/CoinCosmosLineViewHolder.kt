@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
 import android.content.Context
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -23,7 +22,7 @@ class CoinCosmosLineViewHolder(
 
     fun bind(context: Context, line: CosmosLine) {
         binding.apply {
-            stakeCoinView.setBackgroundResource(R.drawable.item_dash_bg)
+            stakeCoinView.setBackgroundResource(R.drawable.item_bg)
 
             val stakeDenom = line.stakeDenom
             BaseData.getAsset(line.apiName, stakeDenom)?.let { asset ->

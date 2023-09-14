@@ -25,7 +25,7 @@ class HistoryViewHolder(
 
     fun bind(line: CosmosLine, historyGroup: Pair<String, CosmosHistory>, headerIndex: Int, cnt: Int, position: Int) {
         binding.apply {
-            historyView.setBackgroundResource(R.drawable.item_dash_bg)
+            historyView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(headerIndex == position)
             historyGroup.second.header?.let { header ->
                 val headerDate = formatTxTimeToYear(context, header.timestamp)
