@@ -75,7 +75,8 @@ class SendStep0Fragment : BaseFragment() {
                     }
                 } else if (asset.counter_party != null && asset.counter_party.denom.equals(getSActivity().mDenom, ignoreCase = true)) {
                     for (chainConfig in allChainConfig) {
-                        if (chainConfig.chainName().equals(asset.chain, ignoreCase = true) && !mToSendableChains.contains(chainConfig)) {
+                        if (chainConfig.chainName().equals(asset.chain, ignoreCase = true) && !mToSendableChains.contains(chainConfig) &&
+                            asset.beforeChain(chainConfig) == getSActivity().mChainConfig.chainName()) {
                             mToSendableChains.add(chainConfig)
                         }
                     }
