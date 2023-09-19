@@ -4,6 +4,7 @@
     <string name="str_today">오늘</string>
     <string name="str_back">뒤로</string>
     <string name="str_share_address">주소 공유</string>
+    <string name="str_address">주소</string>
 
     // msg
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>

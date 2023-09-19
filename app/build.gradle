@@ -114,6 +114,7 @@ dependencies {
 
     //coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     //ktx
     implementation 'androidx.activity:activity-ktx:1.6.1'

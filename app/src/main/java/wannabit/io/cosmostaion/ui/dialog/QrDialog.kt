@@ -19,7 +19,9 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.DialogQrBinding
 
-class QrDialog(context: Context, val line: CosmosLine) : Dialog(context, R.style.CustomDialogTheme) {
+class QrDialog(
+    context: Context, val line: CosmosLine
+) : Dialog(context, R.style.CustomDialogTheme) {
 
     private lateinit var binding: DialogQrBinding
 
@@ -29,7 +31,7 @@ class QrDialog(context: Context, val line: CosmosLine) : Dialog(context, R.style
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
 
-        context.dialogResize(this, 1f, 0.7f)
+        context.dialogResize(this, 1f, 0.75f)
 
         initData()
         clickAction()
@@ -38,19 +40,25 @@ class QrDialog(context: Context, val line: CosmosLine) : Dialog(context, R.style
     private fun initData() {
         val baseAccount = BaseData.baseAccount
         binding.apply {
-            chainName.text = line.name
-            accountName.text = "(" + baseAccount?.name + ")"
-            addressView.setBackgroundResource(R.drawable.cell_bg)
-            address.text = line.address
-            chainImg.setImageResource(line.logo)
+            baseAccount?.let { account ->
+                chainName.text = line.name
+                accountName.text = "(" + account.name + ")"
+                addressView.setBackgroundResource(R.drawable.cell_bg)
+                address.text = line.address
+                accountPath.text = line.getHDPath(account.lastHDPath)
+                chainImg.setImageResource(line.logo)
 
-            line.address?.let { qrCodeData ->
-                val hints = mutableMapOf<EncodeHintType, Int>()
-                hints[EncodeHintType.MARGIN] = 0
+                line.address?.let { qrCodeData ->
+                    val hints = mutableMapOf<EncodeHintType, Int>()
+                    hints[EncodeHintType.MARGIN] = 0
 
-                val barcodeEncoder = BarcodeEncoder()
-                val bitmap = barcodeEncoder.encodeBitmap(qrCodeData, BarcodeFormat.QR_CODE, 550, 550, hints)
-                qrImg.setImageBitmap(bitmap)
+                    val barcodeEncoder = BarcodeEncoder()
+                    val bitmap =
+                        barcodeEncoder.encodeBitmap(qrCodeData, BarcodeFormat.QR_CODE, 540, 540, hints)
+                    qrImg.setImageBitmap(bitmap)
+                }
+                qrView.radius = context.resources.getDimension(R.dimen.space_12)
+                qrImg.clipToOutline = true
             }
         }
     }
@@ -62,7 +70,8 @@ class QrDialog(context: Context, val line: CosmosLine) : Dialog(context, R.style
             }
 
             addressView.setOnClickListener {
-                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboard =
+                    context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("address", line.address)
                 clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
@@ -80,13 +89,13 @@ class QrDialog(context: Context, val line: CosmosLine) : Dialog(context, R.style
     }
 }
 
-fun Context.dialogResize(dialog: Dialog, width: Float, height: Float){
+fun Context.dialogResize(dialog: Dialog, width: Float, height: Float) {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val marginInDp = 8
     val dpi = 160
     val marginRatio = marginInDp.toFloat() / dpi.toFloat()
 
-    if (Build.VERSION.SDK_INT < 30){
+    if (Build.VERSION.SDK_INT < 30) {
         val display = windowManager.defaultDisplay
         val size = Point()
 

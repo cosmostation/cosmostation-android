@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.chain
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
@@ -24,31 +23,21 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.supervisorScope
-import okhttp3.internal.concurrent.Task
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.model.AccountResponse
+import wannabit.io.cosmostaion.data.model.BnbToken
 import wannabit.io.cosmostaion.data.model.Cw20Balance
 import wannabit.io.cosmostaion.data.model.NetworkResult
 import wannabit.io.cosmostaion.data.model.Token
-import wannabit.io.cosmostaion.data.model.TokenResponse
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.sql.DriverManager.getConnection
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.timerTask
 
 open class CosmosLine : BaseChain() {
 
@@ -68,6 +57,9 @@ open class CosmosLine : BaseChain() {
 
     var tokens = mutableListOf<Token>()
 
+    var lcdAccountInfo: AccountResponse? = null
+    var lcdBeaconTokens = mutableListOf<BnbToken>()
+
     interface LoadDataCallback {
         fun onDataLoaded(isLoaded: Boolean)
     }
@@ -82,7 +74,30 @@ open class CosmosLine : BaseChain() {
         return ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
     }
 
-    fun loadAuth() = CoroutineScope(Dispatchers.IO).launch {
+    fun allAssetValue(): BigDecimal {
+        var allValue: BigDecimal
+        if (this is ChainBinanceBeacon) {
+            allValue = lcdBalanceValue(stakeDenom)
+
+        } else {
+            allValue = balanceValueSum().add(vestingValueSum()).add(delegationValueSum()).
+            add(unbondingValueSum()).add(rewardValueSum()).add(allCw20ValueSum())
+            if (supportCw20) {
+                allValue = allValue.add(allCw20ValueSum())
+            }
+        }
+        return allValue
+    }
+
+    fun loadData() {
+        if (this is ChainBinanceBeacon) {
+            loadLcdData()
+        } else {
+            loadGrpcData()
+        }
+    }
+
+    private fun loadGrpcData() = CoroutineScope(Dispatchers.IO).launch {
         val channel = getChannel()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
@@ -90,7 +105,7 @@ open class CosmosLine : BaseChain() {
         try {
             stub.account(request)?.let { response ->
                 cosmosAuth = response.account
-                loadData(channel)
+                loadGrpcMoreData(channel)
             } ?: run {
                 fetched = true
             }
@@ -108,7 +123,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadData(channel: ManagedChannel) = runBlocking {
+    private suspend fun loadGrpcMoreData(channel: ManagedChannel) = runBlocking {
         CoroutineScope(Dispatchers.Default).let {
             if (supportCw20) {
                 loadCw20Token()
@@ -163,23 +178,17 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadCw20Token() {
-        RetrofitInstance.mintscanApi.cw20token(this.apiName).enqueue(object : Callback<TokenResponse> {
-            override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        tokens = it.assets
-                        loadAllCw20Balance()
-                    }
-                } else {
-                    return
-                }
+    private suspend fun loadCw20Token() {
+        when (val response = safeApiCall { RetrofitInstance.mintscanApi.cw20token(this.apiName) }) {
+            is NetworkResult.Success -> {
+                tokens = response.data.assets
+                loadAllCw20Balance()
             }
 
-            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+            is NetworkResult.Error -> {
                 return
             }
-        })
+        }
     }
 
     private fun loadCw20Balance(channel: ManagedChannel, token: Token) {
@@ -405,24 +414,105 @@ open class CosmosLine : BaseChain() {
         return sumValue
     }
 
-    fun allAssetValue(): BigDecimal {
-        var allValue = balanceValueSum().add(vestingValueSum()).add(delegationValueSum()).
-        add(unbondingValueSum()).add(rewardValueSum()).add(allCw20ValueSum())
-        if (supportCw20) {
-            allValue = allValue.add(allCw20ValueSum())
-        }
-        return allValue
-    }
-
     fun denomValue(denom: String): BigDecimal {
         return if (denom == stakeDenom) {
             balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom)).
             add(delegationValueSum()).add(unbondingValueSum())
 
         } else {
-            Log.e("test1234 : ", vestingValue(denom).toPlainString())
             balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
         }
+    }
+
+    private fun loadLcdData() = runBlocking {
+        CoroutineScope(Dispatchers.Default).let {
+            if (this@CosmosLine is ChainBinanceBeacon) {
+                loadNodeInfo()
+                loadAccountInfo()
+                loadBeaconTokens()
+            }
+
+            loadDataCallback?.onDataLoaded(true)
+            fetched = true
+            it.cancel()
+        }
+    }
+
+    private suspend fun loadNodeInfo() {
+        when (val response = safeApiCall { RetrofitInstance.beaconApi.nodeInfo() }) {
+            is NetworkResult.Success -> {
+
+            }
+
+            is NetworkResult.Error -> {
+                return
+            }
+        }
+    }
+
+    private suspend fun loadAccountInfo() {
+        when (val response = safeApiCall { RetrofitInstance.beaconApi.accountInfo(address) }) {
+            is NetworkResult.Success -> {
+                lcdAccountInfo = response.data
+            }
+
+            is NetworkResult.Error -> {
+                return
+            }
+        }
+    }
+
+    private suspend fun loadBeaconTokens() {
+        when (val response = safeApiCall { RetrofitInstance.beaconApi.beaconTokens("1000") }) {
+            is NetworkResult.Success -> {
+                lcdBeaconTokens = response.data
+            }
+
+            is NetworkResult.Error -> {
+                return
+            }
+        }
+    }
+
+    fun lcdBalanceAmount(denom: String): BigDecimal {
+        val balance = lcdAccountInfo?.balances?.firstOrNull { it.symbol == denom }
+        if (balance != null) {
+            return balance.free.toBigDecimal()
+        }
+        return BigDecimal.ZERO
+    }
+
+    fun lcdBnbFrozenAmount(denom: String): BigDecimal {
+        val balance = lcdAccountInfo?.balances?.firstOrNull { it.symbol == denom }
+        if (balance != null) {
+            return balance.frozen.toBigDecimal()
+        }
+        return BigDecimal.ZERO
+    }
+
+    fun lcdBnbLockedAmount(denom: String): BigDecimal {
+        val balance = lcdAccountInfo?.balances?.firstOrNull { it.symbol == denom }
+        if (balance != null) {
+            return balance.locked.toBigDecimal()
+        }
+        return BigDecimal.ZERO
+    }
+
+    fun lcdBalanceValue(denom: String): BigDecimal {
+        if (denom == stakeDenom) {
+            val amount = lcdBalanceAmount(denom)
+            val price = BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID)
+            return price.multiply(amount).setScale(6, RoundingMode.HALF_UP)
+        }
+        return BigDecimal.ZERO
+    }
+
+    fun lcdBalanceValueSum(): BigDecimal {
+        var sumValue = BigDecimal.ZERO
+        lcdAccountInfo?.balances?.forEach { balance ->
+            sumValue = sumValue.add(lcdBalanceValue(balance.symbol))
+        }
+        return sumValue
     }
 }
 
@@ -431,10 +521,10 @@ fun allCosmosLines(): List<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
 //    lines.add(ChainCosmos())
 //    lines.add(ChainAkash())
+    lines.add(ChainBinanceBeacon())
 //    lines.add(ChainEvmos())
-    lines.add(ChainInjective())
-    lines.add(ChainJuno())
+//    lines.add(ChainInjective())
+//    lines.add(ChainJuno())
     lines.add(ChainKava459())
-//    lines.add(ChainLum118())
     return lines
 }

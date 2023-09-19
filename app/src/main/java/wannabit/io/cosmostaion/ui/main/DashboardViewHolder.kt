@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.goneOrVisible
@@ -37,11 +38,17 @@ class DashboardViewHolder(
                     chainLegacy.goneOrVisible(line.isDefault)
 
                     if (line.fetched) {
-                        BaseData.getAsset(line.apiName, line.stakeDenom)?.let {
-                            BaseData.lastUpDown(it.coinGeckoId).let { lastUpDown ->
-                                chainPrice.priceChangeStatusColor(lastUpDown)
-                                chainPrice.text = priceChangeStatus(lastUpDown)
+                        var coinGeckoId: String? = ""
+                        if (line is ChainBinanceBeacon) {
+                            coinGeckoId = ChainBinanceBeacon().BNB_GECKO_ID
+                        } else {
+                            BaseData.getAsset(line.apiName, line.stakeDenom)?.let { asset ->
+                                coinGeckoId = asset.coinGeckoId
                             }
+                        }
+                        BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
+                            chainPrice.priceChangeStatusColor(lastUpDown)
+                            chainPrice.text = priceChangeStatus(lastUpDown)
                         }
                     } else {
                         chainPrice.text = priceChangeStatus("0.00".toBigDecimal())

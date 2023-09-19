@@ -1,11 +1,14 @@
 package wannabit.io.cosmostaion.data.api
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
 
@@ -39,9 +42,19 @@ object RetrofitInstance {
     private val mintScanRetrofit: Retrofit by lazy {
         Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
         .baseUrl(CosmostationConstants.MINTSCAN_API_URL)
         .build()
+    }
+
+    private val beaconRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(ChainBinanceBeacon().lcdUrl)
+            .build()
     }
 
     val walletApi: WalletApi by lazy {
@@ -50,5 +63,9 @@ object RetrofitInstance {
 
     val mintscanApi: MintscanApi by lazy {
         mintScanRetrofit.create(MintscanApi::class.java)
+    }
+
+    val beaconApi: LcdApi by lazy {
+        beaconRetrofit.create(LcdApi::class.java)
     }
 }

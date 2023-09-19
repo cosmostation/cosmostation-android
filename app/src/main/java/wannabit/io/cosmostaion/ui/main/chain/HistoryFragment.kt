@@ -9,14 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.model.BnbHistory
 import wannabit.io.cosmostaion.data.model.CosmosHistory
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModelProviderFactory
+import java.util.Calendar
 
 class HistoryFragment(position: Int) : Fragment() {
 
@@ -24,15 +27,17 @@ class HistoryFragment(position: Int) : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var historyViewModel: HistoryViewModel
+    private lateinit var selectedChain: CosmosLine
+    private val selectedPosition = position
 
     private lateinit var historyAdapter: HistoryAdapter
-    private val selectedPosition = position
 
     private var historyId: Int = 0
     private var hasMore = false
     private val BATCH_CNT = 50
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
+    private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,33 +64,45 @@ class HistoryFragment(position: Int) : Fragment() {
     private fun initRecyclerView() {
         val baseAccount = BaseData.baseAccount
         baseAccount?.let { account ->
-            val selectedChain = account.allCosmosLineChains[selectedPosition]
-            historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), historyId)
+            selectedChain = account.allCosmosLineChains[selectedPosition]
+            if (selectedChain is ChainBinanceBeacon) {
+                historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
 
-            historyAdapter = HistoryAdapter(requireContext(), selectedChain)
-            binding.recycler.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = historyAdapter
+                historyAdapter = HistoryAdapter(requireContext(), selectedChain)
+                binding.recycler.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = historyAdapter
+                }
 
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        if (adapter != null && adapter!!.itemCount == 0) {
-                            return
-                        }
+            } else {
+                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), historyId)
 
-                        val lastVisibleItemPosition =
-                            (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                        val itemTotalCount = adapter!!.itemCount - 1
+                historyAdapter = HistoryAdapter(requireContext(), selectedChain)
+                binding.recycler.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = historyAdapter
 
-                        if (lastVisibleItemPosition == itemTotalCount) {
-                            if (hasMore) {
-                                hasMore = false
-                                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, "50", historyId)
+                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            if (adapter != null && adapter!!.itemCount == 0) {
+                                return
+                            }
+
+                            val lastVisibleItemPosition =
+                                (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                            val itemTotalCount = adapter!!.itemCount - 1
+
+                            if (lastVisibleItemPosition == itemTotalCount) {
+                                if (hasMore) {
+                                    hasMore = false
+                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, "50", historyId)
+                                }
                             }
                         }
-                    }
-                })
+                    })
+                }
             }
         }
     }
@@ -95,7 +112,7 @@ class HistoryFragment(position: Int) : Fragment() {
             allHistoryGroup.addAll(response)
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
-                    historyAdapter.submitList(allHistoryGroup)
+                    historyAdapter.submitList(allHistoryGroup as List<Any>?)
                     historyId = historyGroup.lastOrNull()?.second?.header?.id ?:0
                     hasMore = historyGroup.size >= BATCH_CNT
                 } else {
@@ -109,8 +126,21 @@ class HistoryFragment(position: Int) : Fragment() {
             }
         }
 
+        historyViewModel.bnbHistoryResult.observe(viewLifecycleOwner) { response ->
+            allBnbHistoryGroup.addAll(response)
+            response?.let {
+                historyAdapter.submitList(allBnbHistoryGroup as List<Any>?)
+            }
+
+            binding.recycler.visibleOrGone(allBnbHistoryGroup.isNotEmpty())
+            binding.emptyLayout.visibleOrGone(allBnbHistoryGroup.isEmpty())
+            historyAdapter.notifyDataSetChanged()
+        }
+
         historyViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
-            requireActivity().makeToast(errorMsg)
+            binding.recycler.visibility = View.GONE
+            binding.emptyLayout.visibility = View.VISIBLE
+            Log.e("error : ", errorMsg)
             return@observe
         }
     }
@@ -124,4 +154,15 @@ class HistoryFragment(position: Int) : Fragment() {
         super.onDestroy()
         historyViewModel.clearDisposables()
     }
+}
+
+fun currentTime(): String {
+    val cTime = Calendar.getInstance()
+    return cTime.timeInMillis.toString()
+}
+
+fun threeMonthAgoTime(): String {
+    val cTime = Calendar.getInstance()
+    cTime.add(Calendar.MONTH, -3)
+    return cTime.timeInMillis.toString()
 }

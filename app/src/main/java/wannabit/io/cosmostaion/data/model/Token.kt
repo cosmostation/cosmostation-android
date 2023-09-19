@@ -21,7 +21,6 @@ data class Token(
     val default: Boolean,
     val totalSupply: String,
     val coinGeckoId: String
-
 ) {
 
     var amount: String? = null

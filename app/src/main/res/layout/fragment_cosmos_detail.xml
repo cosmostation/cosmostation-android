@@ -81,6 +81,7 @@
         app:tabTextAppearance="@style/tab_text"
         app:tabTextColor="@color/color_base03"
         app:tabSelectedTextColor="@color/color_base01"
+        app:tabIndicatorColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_value"

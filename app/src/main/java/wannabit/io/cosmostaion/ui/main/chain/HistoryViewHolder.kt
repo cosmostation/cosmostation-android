@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.formatTxTimeToHour
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.model.BnbHistory
 import wannabit.io.cosmostaion.data.model.CosmosHistory
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
 import java.math.RoundingMode
@@ -23,7 +24,7 @@ class HistoryViewHolder(
     private val binding: ItemHistoryBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: CosmosLine, historyGroup: Pair<String, CosmosHistory>, headerIndex: Int, cnt: Int, position: Int) {
+    fun bindHistory(line: CosmosLine, historyGroup: Pair<String, CosmosHistory>, headerIndex: Int, cnt: Int, position: Int) {
         binding.apply {
             historyView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(headerIndex == position)
@@ -87,6 +88,48 @@ class HistoryViewHolder(
 
             historyView.setOnClickListener {
                 val historyUrl = BaseConstant.EXPLORER_BASE_URL + "/" + line.apiName + "/transactions/" + historyGroup.second.data?.txhash
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+            }
+        }
+    }
+
+    fun bindBnbHistory(line: CosmosLine, historyBnbGroup: Pair<String, BnbHistory>, headerIndex: Int, cnt: Int, position: Int) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            historyBnbGroup.second.timeStamp?.let { timeStamp ->
+                val headerDate = formatTxTimeToYear(context, timeStamp)
+                val currentDate = formatCurrentTimeToYear()
+
+                if (headerDate == currentDate) {
+                    headerTitle.text = context.getString(R.string.str_today)
+                } else {
+                    headerTitle.text = headerDate
+                }
+                headerCnt.text = "(" + cnt.toString() + ")"
+            }
+
+            if (historyBnbGroup.second.isSuccess()) {
+                txSuccessImg.setImageResource(R.drawable.icon_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_fail)
+            }
+
+            txMessage.text = historyBnbGroup.second.bnbTxType(context, line.address)
+            txHash.text = historyBnbGroup.second.txHash
+            historyBnbGroup.second.timeStamp?.let { timeStamp ->
+                txTime.text = formatTxTimeToHour(context, timeStamp)
+            }
+            historyBnbGroup.second.blockHeight?.let { height ->
+                txHeight.text = "(" + height + ")"
+                txHeight.visibility = View.VISIBLE
+            } ?: run {
+                txHeight.visibility = View.GONE
+            }
+            txDenom.text = "-"
+
+            historyView.setOnClickListener {
+                val historyUrl = BaseConstant.EXPLORER_BINANCE_URL + "txs" + historyBnbGroup.second.txHash
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
             }
         }

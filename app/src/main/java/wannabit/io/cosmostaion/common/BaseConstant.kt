@@ -235,6 +235,7 @@ object BaseConstant {
     const val EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/"
     const val NFT_INFURA = "https://ipfs.infura.io/ipfs/"
     const val EXPLORER_BASE_URL = "https://www.mintscan.io/"
+    const val EXPLORER_BINANCE_URL = "https://binance.mintscan.io/"
     const val EXPLORER_TESTNET_URL = "https://testnet.mintscan.io/"
     const val CHAIN_BASE_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
     const val COINGECKO_URL = "https://www.coingecko.com/en/coins/"

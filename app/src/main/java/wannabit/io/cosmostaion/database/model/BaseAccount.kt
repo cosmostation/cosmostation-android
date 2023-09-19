@@ -53,13 +53,13 @@ data class BaseAccount(
         if (type == BaseAccountType.MNEMONIC) {
             allCosmosLineChains.forEach { line ->
                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                line.loadAuth()
+                line.loadData()
             }
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
             allCosmosLines().forEach { line ->
                 line.setInfoWithPrivateKey(privateKey)
-                line.loadAuth()
+                line.loadData()
             }
         }
     }

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/dashboardFragment"
         android:icon="@drawable/icon_wallet"
-        android:title=""/>
+        android:title=""
+        app:itemRippleColor="@null" />
 
     <item
         android:id="@+id/swapFragment"
         android:icon="@drawable/icon_swap"
-        android:title=""/>
+        android:title=""
+        app:itemRippleColor="@null" />
 
     <item
         android:id="@+id/dappFragment"
         android:icon="@drawable/icon_dapp"
-        android:title=""/>
+        android:title=""
+        app:itemRippleColor="@null" />
 
     <item
         android:id="@+id/settingFragment"
         android:icon="@drawable/icon_setting"
-        android:title=""/>
+        android:title=""
+        app:itemRippleColor="@null" />
 </menu>

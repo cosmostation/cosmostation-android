@@ -4,17 +4,39 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@color/color_base04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/chain_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_27"
+        android:layout_marginTop="@dimen/space_16"
         style="@style/font_sb_14"
         android:textColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
         android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/account_path"
+        style="@style/font_sm_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_6"
+        android:textAllCaps="false"
+        android:textColor="@color/color_base02"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chain_name" />
 
     <ImageView
         android:id="@+id/qr_box_img"
@@ -22,38 +44,54 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chain_name"
+        app:layout_constraintTop_toBottomOf="@+id/account_path"
         android:padding="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_4"
         android:src="@drawable/icon_qr_box"/>
 
-    <ImageView
-        android:id="@+id/qr_img"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/qr_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/qr_box_img"
         app:layout_constraintEnd_toEndOf="@+id/qr_box_img"
         app:layout_constraintStart_toStartOf="@+id/qr_box_img"
-        app:layout_constraintTop_toTopOf="@+id/qr_box_img" />
+        app:layout_constraintTop_toTopOf="@+id/qr_box_img">
 
-    <ImageView
-        android:id="@+id/chain_img"
-        android:layout_width="@dimen/space_60"
-        android:layout_height="@dimen/space_60"
-        app:layout_constraintBottom_toBottomOf="@+id/qr_box_img"
-        app:layout_constraintEnd_toEndOf="@+id/qr_box_img"
-        app:layout_constraintStart_toStartOf="@+id/qr_box_img"
-        app:layout_constraintTop_toTopOf="@+id/qr_box_img" />
+        <ImageView
+            android:id="@+id/qr_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/chain_img"
+            android:layout_width="@dimen/space_60"
+            android:layout_height="@dimen/space_60"
+            android:layout_gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/address_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_base01"
+        style="@style/font_sb_12"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qr_box_img"
+        android:text="@string/str_address"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/address_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_30"
+        android:layout_marginTop="@dimen/space_8"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
-        app:layout_constraintTop_toBottomOf="@id/qr_box_img"
+        app:layout_constraintTop_toBottomOf="@id/address_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -62,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16"
-            android:gravity="center_horizontal"
+            android:gravity="center_vertical"
             android:textColor="@color/color_base01"/>
 
     </androidx.cardview.widget.CardView>
@@ -83,13 +121,13 @@
     <Button
         android:id="@+id/btn_share"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_16"
-        android:layout_marginBottom="16dp"
+        android:layout_height="@dimen/space_54"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
         android:background="@drawable/button_bg"
         android:text="@string/str_share_address"
         android:textAllCaps="false"
-        style="@style/font_sb_14"
+        style="@style/font_sb_16"
         android:textColor="@color/color_base01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -13,9 +13,12 @@
     <string name="str_staked" translatable="false">Staked</string>
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
+    <string name="str_frozen" translatable="false">Frozen</string>
+    <string name="str_locked" translatable="false">Locked</string>
     <string name="str_today">Today</string>
     <string name="str_back">BACK</string>
     <string name="str_share_address">Share Address</string>
+    <string name="str_address">Address</string>
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>

@@ -18,7 +18,7 @@ interface MintscanApi {
     suspend fun asset(): Response<AssetResponse>
 
     @GET("v3/assets/{chain}/cw20")
-    fun cw20token(@Path("chain") chain:String): Call<TokenResponse>
+    suspend fun cw20token(@Path("chain") chain:String): TokenResponse
 
     @GET("v1/{chain}/account/{address}/txs")
     suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("from") id: Int): Response<List<CosmosHistory>>

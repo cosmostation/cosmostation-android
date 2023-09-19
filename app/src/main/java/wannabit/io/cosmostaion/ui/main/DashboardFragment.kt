@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -15,6 +12,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
+import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment
 import java.math.BigDecimal
 
 
@@ -46,7 +44,6 @@ class DashboardFragment : Fragment() {
     private fun initView() {
         baseAccount = BaseData.baseAccount
         baseAccount?.initAllData()
-
         binding?.apply {
             accountName.text = baseAccount?.name
         }
@@ -63,7 +60,19 @@ class DashboardFragment : Fragment() {
                 dashAdapter.submitList(baseAccount.allCosmosLineChains as List<Any>?)
 
                 dashAdapter.setOnItemClickListener {
-                    findNavController().navigate(R.id.action_dashboardFragment_to_cosmosDetailFragment, bundleOf("selectPosition" to it))
+                    val bundle = Bundle()
+                    bundle.putInt("selectPosition", it)
+                    val fragment = CosmosDetailFragment()
+                    fragment.arguments = bundle
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left)
+                        .add(R.id.fragment_container, fragment)
+                        .hide(this@DashboardFragment)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss()
+
                     (activity as MainActivity?)?.onNextHideBottomNavi()
                 }
             }
@@ -94,8 +103,10 @@ class DashboardFragment : Fragment() {
             it.allCosmosLineChains.forEach { line ->
                 sum = sum.add(line.allAssetValue())
             }
-            requireActivity().runOnUiThread {
-                binding?.totalValue?.text = formatAssetValue(sum)
+            if (isAdded) {
+                requireActivity().runOnUiThread {
+                    binding?.totalValue?.text = formatAssetValue(sum)
+                }
             }
         }
     }

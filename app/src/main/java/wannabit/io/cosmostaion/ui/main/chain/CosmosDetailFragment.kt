@@ -9,10 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.gms.dynamic.SupportFragmentWrapper
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -52,6 +49,7 @@ class CosmosDetailFragment : Fragment() {
 
     private fun initData() {
         val baseAccount = BaseData.baseAccount
+        selectedPosition = 1
         val args = arguments
         if (args != null) {
             selectedPosition = arguments?.getInt("selectPosition") ?: -1
@@ -88,16 +86,15 @@ class CosmosDetailFragment : Fragment() {
         view?.requestFocus()
         view?.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
-                findNavController().navigateUp()
+                requireActivity().supportFragmentManager.popBackStack()
                 (activity as MainActivity?)?.onBackVisibleBottomNavi()
-                return@setOnKeyListener true
             }
             false
         }
 
         binding.apply {
             btnBack.setOnClickListener {
-                findNavController().navigateUp()
+                requireActivity().supportFragmentManager.popBackStack()
                 (activity as MainActivity?)?.onBackVisibleBottomNavi()
             }
 
@@ -123,8 +120,6 @@ class CosmosDetailFragment : Fragment() {
             if (selectedChain.supportCw20 || selectedChain.supportErc20) {
                 fragments.add(1, TokenFragment(selectedPosition))
             }
-
-            fragments.add(AboutFragment())
         }
 
         override fun getItemCount(): Int {

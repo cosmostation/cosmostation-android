@@ -1,6 +1,12 @@
 package wannabit.io.cosmostaion.common
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.renderscript.Allocation
+import android.renderscript.Element
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -13,6 +19,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,8 +33,6 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -206,6 +211,23 @@ suspend fun <T> safeApiCall(
     }
 }
 
+suspend fun <T> safeApiCall(
+    apiCall: suspend () -> T
+): NetworkResult<T> {
+    return try {
+        val response = apiCall.invoke()
+
+        response?.let {
+            NetworkResult.Success(it)
+        } ?: run {
+            NetworkResult.Error("Response Empty", "No Response")
+        }
+
+    } catch (e: Exception) {
+        NetworkResult.Error("Unknown Error", e.message ?: "Unknown error occurred.")
+    }
+}
+
 fun getDecimalFormat(cnt: Int): DecimalFormat {
     val formatter = NumberFormat.getNumberInstance(Locale.US)
     val decimalFormat = formatter as DecimalFormat
@@ -234,3 +256,4 @@ fun getDecimalFormat(cnt: Int): DecimalFormat {
     }
     return decimalFormat
 }
+
