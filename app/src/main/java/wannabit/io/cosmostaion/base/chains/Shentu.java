@@ -22,7 +22,7 @@ public class Shentu extends ChainConfig {
 
     public int mainDenomImg() { return R.drawable.token_shentu; }
     public String mainDenom() { return "uctk"; }
-    public String addressPrefix() { return "certik"; }
+    public String addressPrefix() { return "shentu"; }
 
     public boolean dexSupport() { return false; }
     public boolean wcSupport() { return false; }

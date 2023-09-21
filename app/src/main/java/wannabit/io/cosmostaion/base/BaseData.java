@@ -56,7 +56,6 @@ import kava.cdp.v1beta1.Genesis;
 import kava.hard.v1beta1.Hard;
 import kava.pricefeed.v1beta1.QueryOuterClass;
 import kava.swap.v1beta1.Swap;
-import osmosis.gamm.v1beta1.BalancerPool;
 import stride.vesting.Vesting.StridePeriodicVestingAccount;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.chains.Binance;
@@ -92,7 +91,6 @@ import wannabit.io.cosmostaion.network.res.neutron.ResVaultData;
 import wannabit.io.cosmostaion.network.res.neutron.ResVestingData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class BaseData {
@@ -1592,6 +1590,17 @@ public class BaseData {
                         onUpdateMnemonicId(account);
                     }
                 }
+            }
+        }
+    }
+
+    public void onChangeAddressByShentu() {
+        ChainConfig shentuChainConfig = ChainFactory.getChain(BaseChain.CERTIK_MAIN);
+        ArrayList<Account> shentuAccounts = onSelectAccountsByChain(shentuChainConfig.baseChain());
+        for (Account account : shentuAccounts) {
+            if (account.address.startsWith("certik")) {
+                account.address = WKey.convertDpOpAddressToDpAddress(account.address, shentuChainConfig);
+                updateAccountAddress(account);
             }
         }
     }
