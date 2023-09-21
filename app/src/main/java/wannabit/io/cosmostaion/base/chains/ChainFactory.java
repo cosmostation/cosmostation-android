@@ -187,6 +187,9 @@ public class ChainFactory {
                 case SECRET_MAIN:
                     return new Secret();
 
+                case SEI_MAIN:
+                    return new Sei();
+
                 case SENTINEL_MAIN:
                     return new Sentinel();
 
@@ -211,6 +214,9 @@ public class ChainFactory {
 
                 case TERITORI_MAIN:
                     return new Teritori();
+
+                case TERRA_MAIN:
+                    return new Terra();
 
                 case UMEE_MAIN:
                     return new Umee();

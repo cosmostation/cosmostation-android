@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.txs.authz.grantee.RevokeStep0Fragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginBottom="@dimen/space_8"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_control"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/font_rr_14_black_daynight"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_cancel"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/font_rr_14_photon_daynight"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_photon_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_next"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

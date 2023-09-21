@@ -337,8 +337,13 @@ public class Param {
 
                 } else if (chainConfig.baseChain().equals(BaseChain.STARGAZE_MAIN)) {
                     if (mParams.mStargazeAllocParams != null && mParams.mStargazeAllocParams.params != null && mParams.mStargazeAllocParams.params.mDistributionProportions != null) {
-                        BigDecimal reductionFactor = new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.nft_incentives).add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.developer_rewards));
-                        return inflation.multiply(calTax).multiply(BigDecimal.ONE.subtract(reductionFactor)).divide(bondingRate, 6, RoundingMode.DOWN);
+                        BigDecimal blockPerYear = new BigDecimal(mParams.mMintingParams.params.blocks_per_year);
+                        BigDecimal supplementAmount = new BigDecimal(mParams.mStargazeAllocParams.params.mSupplementamount.get(0).amount);
+                        BigDecimal annualSupplement = blockPerYear.multiply(supplementAmount);
+                        BigDecimal reductionFactor = new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.nft_incentives).
+                                        add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.developer_rewards).
+                                        add(new BigDecimal(mParams.mStargazeAllocParams.params.mDistributionProportions.community_pool)));
+                        return (getAnnualProvision().add(annualSupplement)).multiply(BigDecimal.ONE.subtract(reductionFactor)).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                     }
 
                 } else if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
@@ -498,9 +503,7 @@ public class Param {
     }
 
     public BigDecimal getQuorum(ChainConfig chainConfig, ResProposal resProposal) {
-        if (chainConfig.baseChain().equals(CERTIK_MAIN) && mParams.mShentuGovTallyParams != null) {
-            return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.quorum);
-        } else if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null && resProposal != null) {
+        if (isGRPC(chainConfig.baseChain()) && mParams.mGovTallyParams.mTallyParams != null && resProposal != null) {
             if (resProposal.is_expedited) {
                 return new BigDecimal(mParams.mGovTallyParams.mTallyParams.expedited_threshold);
             } else {
@@ -556,9 +559,7 @@ public class Param {
 
     public BigDecimal getThreshold(ChainConfig chainConfig) {
         if (mParams != null && mParams.mGovTallyParams != null) {
-            if (chainConfig.baseChain().equals(CERTIK_MAIN)) {
-                return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.threshold);
-            } else if (isGRPC(chainConfig.baseChain())) {
+            if (isGRPC(chainConfig.baseChain())) {
                 return new BigDecimal(mParams.mGovTallyParams.mTallyParams.threshold);
             } else {
                 return new BigDecimal(mParams.mGovTallyParams.threshold);
@@ -569,11 +570,7 @@ public class Param {
 
     public BigDecimal getVetoThreshold(ChainConfig chainConfig) {
         if (mParams != null && mParams.mGovTallyParams != null) {
-            if (chainConfig.baseChain().equals(CERTIK_MAIN)) {
-                return new BigDecimal(mParams.mShentuGovTallyParams.mTallyParams.mDefaultTally.veto_threshold);
-            } else {
-                return new BigDecimal(mParams.mGovTallyParams.mTallyParams.veto_threshold);
-            }
+            return new BigDecimal(mParams.mGovTallyParams.mTallyParams.veto_threshold);
         }
         return BigDecimal.ZERO;
     }
@@ -768,7 +765,13 @@ public class Param {
 
                 @SerializedName("developer_rewards")
                 public String developer_rewards;
+
+                @SerializedName("community_pool")
+                public String community_pool;
             }
+
+            @SerializedName("supplement_amount")
+            public ArrayList<Coin> mSupplementamount;
         }
     }
 

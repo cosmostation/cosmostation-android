@@ -542,12 +542,12 @@ class WalletConnectActivity : BaseActivity() {
             val amounts = fee.get("amount").asJsonArray
             if (amounts.size() == 0) {
                 val jsonObject = JsonObject()
-                jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+                jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toBigInteger().toString())
                 jsonObject.addProperty("denom", denom)
                 amounts.add(jsonObject)
             }
             val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
-            mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+            mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toBigInteger().toString())
         } catch (_: Exception) {
         }
         runOnUiThread {
@@ -990,12 +990,12 @@ class WalletConnectActivity : BaseActivity() {
                 val amounts = fee.get("amount").asJsonArray
                 if (amounts.size() == 0) {
                     val jsonObject = JsonObject()
-                    jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+                    jsonObject.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toBigInteger().toString())
                     jsonObject.addProperty("denom", denom)
                     amounts.add(jsonObject)
                 }
                 val mainDenomFee = amounts.firstOrNull { it.asJsonObject["denom"].asString == denom && it.asJsonObject["amount"].asString == "0" }
-                mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toPlainString())
+                mainDenomFee?.asJsonObject?.addProperty("amount", BigDecimal(gas).divide(BigDecimal(40)).toBigInteger().toString())
             } catch (_: Exception) {
             }
             val signModel = WcSignModel(signDocJson, getKey(WDp.getChainTypeByChainId(chainId).chain), chainId)
@@ -1423,6 +1423,9 @@ class WalletConnectActivity : BaseActivity() {
             } else if (modifiedUrl.startsWith("keplrwallet://wcV2")) {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl.replace("keplrwallet://wcV2", "cosmostation://wc"))))
                 return true
+            } else if (modifiedUrl.startsWith("keplrwalletwcv2://wcV2")) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(modifiedUrl.replace("keplrwalletwcv2://wcV2", "cosmostation://wc"))))
+                return true
             } else if (modifiedUrl.startsWith("intent:")) {
                 if (modifiedUrl.contains("intent://wcV1")) {
                     modifiedUrl = modifiedUrl.replace(
@@ -1582,6 +1585,9 @@ class WalletConnectActivity : BaseActivity() {
                     } catch (e: Exception) {
                         appToWebError("Unknown", messageId)
                     }
+                }
+                else -> {
+                    appToWebError("Not implemented", messageId)
                 }
             }
         } catch (e: Exception) {

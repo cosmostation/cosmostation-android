@@ -232,6 +232,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_DAO_MULTI_PROPOSAL = 5089;
     public final static int CONST_PW_TX_DAO_OVERRULE_PROPOSAL = 5090;
     public final static int CONST_PW_TX_NEUTRON_SWAP = 5091;
+    public final static int CONST_PW_TX_AUTHZ_REVOKE = 5092;
 
 
     public final static int ERROR_CODE_UNKNOWN = 8000;
@@ -290,6 +291,7 @@ public class BaseConstant {
     // ICNS Contract Address
     public final static String ICNS_OSMOSIS_ADDRESS = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd";
     public final static String NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr";
+    public final static String NS_ARCHWAY_ADDRESS = "archway1275jwjpktae4y4y0cdq274a2m0jnpekhttnfuljm6n59wnpyd62qppqxq0";
 
 
     // Neutron Contract Address

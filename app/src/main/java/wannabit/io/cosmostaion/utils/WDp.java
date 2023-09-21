@@ -1,8 +1,29 @@
 package wannabit.io.cosmostaion.utils;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static wannabit.io.cosmostaion.base.BaseChain.*;
-import static wannabit.io.cosmostaion.base.BaseConstant.*;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRESCENT_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EVMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.NEUTRON_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.NYX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.XPLA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.BASE_GAS_AMOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CHAIN_BASE_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OKC_BASE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
 
 import android.content.Context;
 import android.text.SpannableString;
@@ -18,6 +39,7 @@ import androidx.core.content.ContextCompat;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -36,6 +58,7 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cosmos.authz.v1beta1.Authz;
 import cosmos.base.abci.v1beta1.Abci;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.staking.v1beta1.Staking;
@@ -816,6 +839,30 @@ public class WDp {
         }
     }
 
+    public static String getAuthzGrantType(Authz.GrantAuthorization grant) {
+        if (grant.getAuthorization().getTypeUrl().contains(Authz.GenericAuthorization.getDescriptor().getFullName())) {
+            try {
+                Authz.GenericAuthorization genericAuth = Authz.GenericAuthorization.parseFrom(grant.getAuthorization().getValue());
+                return genericAuth.getMsg();
+            } catch (InvalidProtocolBufferException e) { return ""; }
+
+        } else if (grant.getAuthorization().getTypeUrl().contains(cosmos.bank.v1beta1.Authz.SendAuthorization.getDescriptor().getFullName())) {
+            return "/cosmos.bank.v1beta1.MsgSend";
+        } else {
+            try {
+                cosmos.staking.v1beta1.Authz.StakeAuthorization stakeAuth = cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(grant.getAuthorization().getValue());
+                if (stakeAuth.getAuthorizationType().equals(cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_DELEGATE)) {
+                    return "/cosmos.staking.v1beta1.MsgDelegate";
+                } else if (stakeAuth.getAuthorizationType().equals(cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE)) {
+                    return "/cosmos.staking.v1beta1.MsgRedelegate";
+                } else if (stakeAuth.getAuthorizationType().equals(cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE)) {
+                    return "/cosmos.staking.v1beta1.MsgUndelegate";
+                }
+            } catch (InvalidProtocolBufferException e) { e.printStackTrace(); }
+            return "/cosmos.bank.v1beta1.MsgSend";
+        }
+    }
+
     public static SpannableString getSelfBondRate(String total, String self) {
         BigDecimal result = new BigDecimal(self).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
         return getPercentDp(result);
@@ -1002,7 +1049,7 @@ public class WDp {
             } else if (left >= BaseConstant.CONSTANT_M) {
                 result = "(" + (left / BaseConstant.CONSTANT_M) + " minutes ago)";
             } else {
-                result = "(" + (left / BaseConstant.CONSTANT_S) + " seconds ago)";
+                result = "(0 days)";
             }
 
         } catch (Exception e) {

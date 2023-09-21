@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.utils
 
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -9,8 +11,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
+import cosmos.authz.v1beta1.Authz
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.model.NetworkResult
+import java.io.Serializable
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -28,6 +34,71 @@ fun AppCompatActivity.makeToast(id: Int) {
 
 fun Context.makeToast(id: Int) {
     Toast.makeText(this, this.getString(id), Toast.LENGTH_SHORT).show()
+}
+
+fun Context.makeToast(msg: String?) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+suspend fun <T> safeApiCall(apiCall: suspend () -> T): NetworkResult<T> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val response = apiCall.invoke()
+
+            response?.let {
+                NetworkResult.Success(it)
+            } ?: run {
+                NetworkResult.Error("Response Empty", "No Response")
+            }
+
+        } catch (e: Exception) {
+            NetworkResult.Error("Unknown Error", e.message ?: "Unknown error occurred.")
+        }
+    }
+}
+
+fun <T: Serializable> Intent.intentSerializable(key: String, clazz: Class<T>): T? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        this.getSerializableExtra(key, clazz)
+    } else {
+        this.getSerializableExtra(key) as T?
+    }
+}
+
+// Authz Type
+fun setAuthzType(grant: Authz.GrantAuthorization): String? {
+    grant.authorization.typeUrl?.let { url ->
+        val authorizationValue = grant.authorization.value
+        return when {
+            url.contains(Authz.GenericAuthorization.getDescriptor().fullName) -> {
+                Authz.GenericAuthorization.parseFrom(authorizationValue)?.let { generic ->
+                    when {
+                        generic.msg.contains("Send") -> "Send"
+                        generic.msg.contains("Delegate") -> "Delegate"
+                        generic.msg.contains("Undelegate") -> "Undelegate"
+                        generic.msg.contains("Redelegate") -> "Redelegate"
+                        generic.msg.equals("/cosmos.gov.v1beta1.MsgVote") -> "Vote"
+                        generic.msg.equals("/cosmos.gov.v1beta1.MsgVoteWeighted") -> "Vote Weighted"
+                        generic.msg.contains("WithdrawDelegatorReward") -> "Claim Reward"
+                        generic.msg.contains("WithdrawValidatorCommission") -> "Claim Commission"
+                        else -> "Unknown"
+                    }
+                }
+            }
+            url.contains(cosmos.bank.v1beta1.Authz.SendAuthorization.getDescriptor().fullName) -> "Send"
+            else -> {
+                cosmos.staking.v1beta1.Authz.StakeAuthorization.parseFrom(authorizationValue)?.let { stake ->
+                    when (stake.authorizationType) {
+                        cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_DELEGATE -> "Delegate"
+                        cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_REDELEGATE -> "Redelegate"
+                        cosmos.staking.v1beta1.Authz.AuthorizationType.AUTHORIZATION_TYPE_UNDELEGATE -> "Undelegate"
+                        else -> "Unknown"
+                    }
+                }
+            }
+        }
+    }
+    return "Unknown"
 }
 
 fun EditText.amountWatcher(

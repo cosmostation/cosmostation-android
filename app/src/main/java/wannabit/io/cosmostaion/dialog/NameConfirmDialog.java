@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.NameService;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class NameConfirmDialog extends DialogFragment {
 
@@ -90,8 +91,12 @@ public class NameConfirmDialog extends DialogFragment {
                     holder.icnsImg.setImageResource(R.drawable.icon_icns);
                 } else if (nameService.type.equals(NameServiceType.STARGAZE)) {
                     holder.icnsImg.setImageResource(R.drawable.icon_stargaze_ns);
-                } else {
+                } else if (nameService.type.equals(NameServiceType.ARCHWAY)) {
+                    holder.icnsImg.setImageResource(R.drawable.icon_archway_ns);
+                } else if (nameService.type.equals(NameServiceType.ICNS_STARGAZE)) {
                     holder.icnsImg.setImageResource(R.drawable.icon_ns);
+                } else {
+                    holder.icnsImg.setImageResource(R.drawable.icon_icns_archway);
                 }
 
                 if (mKeyValue == SELECT_NAME_SERVICE_NAME) {

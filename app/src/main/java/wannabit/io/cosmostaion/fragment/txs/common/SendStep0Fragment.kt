@@ -75,7 +75,8 @@ class SendStep0Fragment : BaseFragment() {
                     }
                 } else if (asset.counter_party != null && asset.counter_party.denom.equals(getSActivity().mDenom, ignoreCase = true)) {
                     for (chainConfig in allChainConfig) {
-                        if (chainConfig.chainName().equals(asset.chain, ignoreCase = true) && !mToSendableChains.contains(chainConfig)) {
+                        if (chainConfig.chainName().equals(asset.chain, ignoreCase = true) && !mToSendableChains.contains(chainConfig) &&
+                            asset.beforeChain(chainConfig) == getSActivity().mChainConfig.chainName()) {
                             mToSendableChains.add(chainConfig)
                         }
                     }
@@ -291,7 +292,11 @@ class SendStep0Fragment : BaseFragment() {
                     return@observe
                 }
                 if (nameServices.size == 2 && nameServices[0].address.equals(nameServices[1].address, ignoreCase = true)) {
-                    nameServices[0].type = NameServiceType.ICNS_STARGAZE
+                    if (it.baseChain().equals(BaseChain.ARCHWAY_MAIN)) {
+                        nameServices[0].type = NameServiceType.ICNS_ARCHWAY
+                    } else {
+                        nameServices[0].type = NameServiceType.ICNS_STARGAZE
+                    }
                     nameServices.removeAt(nameServices.size - 1)
                 }
                 onSetICNS(it, nameServices, nameServices[0].address)
@@ -336,12 +341,23 @@ class SendStep0Fragment : BaseFragment() {
     private fun userInput(chainConfig: ChainConfig): String {
         chainConfig.let {
             binding.receiverAccount.text.trim().toString().let { userInput ->
-                if (userInput.contains("." + it.addressPrefix())) {
-                    return userInput
-                } else if (userInput.contains(".")) {
-                    return userInput + it.addressPrefix()
+                if (chainConfig.baseChain().equals(BaseChain.ARCHWAY_MAIN)) {
+                    return if (userInput.contains(".arch")) {
+                        userInput
+                    } else if (userInput.contains(".")) {
+                        userInput + "arch"
+                    } else {
+                        "$userInput.arch"
+                    }
+
                 } else {
-                    return userInput + "." + it.addressPrefix()
+                    return if (userInput.contains("." + it.addressPrefix())) {
+                        userInput
+                    } else if (userInput.contains(".")) {
+                        userInput + it.addressPrefix()
+                    } else {
+                        userInput + "." + it.addressPrefix()
+                    }
                 }
             }
         }

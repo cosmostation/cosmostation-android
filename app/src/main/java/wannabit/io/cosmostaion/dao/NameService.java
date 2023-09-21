@@ -14,6 +14,6 @@ public class NameService implements Serializable {
     }
 
     public enum NameServiceType{
-        STARNAME, ICNS, STARGAZE, ICNS_STARGAZE;
+        STARNAME, ICNS, STARGAZE, ARCHWAY, ICNS_STARGAZE, ICNS_ARCHWAY
     }
 }

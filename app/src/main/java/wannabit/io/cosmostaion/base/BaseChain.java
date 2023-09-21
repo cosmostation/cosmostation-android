@@ -98,7 +98,9 @@ public enum BaseChain {
     STAFI_MAIN("stafi-mainnet"),
     NEUTRON_TEST("neutron-testnet"),
     NEUTRON_MAIN("neutron-mainnet"),
-    ARCHWAY_MAIN("archway-mainnet");
+    ARCHWAY_MAIN("archway-mainnet"),
+    SEI_MAIN("sei-mainnet"),
+    TERRA_MAIN ("terra-mainnet");
 
 
     private final String chainName;
@@ -325,6 +327,12 @@ public enum BaseChain {
         if (chainName.equals(ARCHWAY_MAIN.chainName)) {
             return ARCHWAY_MAIN;
         }
+        if (chainName.equals(SEI_MAIN.chainName)) {
+            return SEI_MAIN;
+        }
+        if (chainName.equals(TERRA_MAIN.chainName)) {
+            return TERRA_MAIN;
+        }
         return null;
     }
 
@@ -357,8 +365,6 @@ public enum BaseChain {
         result.add(JUNO_MAIN);
         result.add(KAVA_MAIN);
         result.add(KI_MAIN);
-        result.add(KONSTELL_MAIN);
-        result.add(KUJIRA_MAIN);
         result.add(KYVE_MAIN);
         result.add(LIKECOIN_MAIN);
         result.add(LUM_MAIN);
@@ -379,13 +385,14 @@ public enum BaseChain {
         result.add(REGEN_MAIN);
         result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
+        result.add(SEI_MAIN);
         result.add(SENTINEL_MAIN);
         result.add(CERTIK_MAIN);
-        result.add(SIF_MAIN);
         result.add(SOMMELIER_MAIN);
         result.add(STAFI_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(STRIDE_MAIN);
+        result.add(TERRA_MAIN);
         result.add(TERITORI_MAIN);
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
@@ -393,6 +400,9 @@ public enum BaseChain {
         result.add(NEUTRON_TEST);
         result.add(STATION_TEST);
         result.add(CERBERUS_MAIN);
+        result.add(KONSTELL_MAIN);
+        result.add(KUJIRA_MAIN);
+        result.add(SIF_MAIN);
 
         return result;
     }
