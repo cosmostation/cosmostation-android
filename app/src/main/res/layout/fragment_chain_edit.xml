@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="@dimen/space_120"
+        android:layout_height="@dimen/space_120"
+        app:layout_constraintBottom_toTopOf="@+id/checking_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_loop="true" />
+
+    <LinearLayout
+        android:id="@+id/checking_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/checking_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_sb_14"
+            android:textColor="@color/color_base01"
+            android:text="@string/str_checking"/>
+
+        <TextView
+            android:id="@+id/checking_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_sb_14"
+            android:textColor="@color/color_base02"
+            android:layout_marginStart="@dimen/space_4"
+            app:layout_constraintStart_toEndOf="@+id/checking_title"
+            app:layout_constraintTop_toTopOf="@+id/checking_title"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/check_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sm_12"
+        android:textColor="@color/color_base03"
+        android:layout_marginTop="@dimen/space_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checking_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/str_msg_checking" />
+
+    <TextView
+        android:id="@+id/check_power"
+        style="@style/font_sb_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/space_40"
+        android:text="@string/str_msg_by_cosmostation"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_centerHorizontal="true"
+            android:background="@color/color_base04" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/view"
+            android:layout_above="@+id/btn_confirm"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_bg"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false"
+            style="@style/font_sb_16"
+            android:textColor="@color/color_base01"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

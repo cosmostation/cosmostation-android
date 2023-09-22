@@ -38,7 +38,7 @@ class TokenFragment(position: Int) : Fragment() {
         val tokens = mutableListOf<Token>()
         val baseAccount = BaseData.baseAccount
         baseAccount?.let { account ->
-            val selectedChain = account.allCosmosLineChains[selectedPosition]
+            val selectedChain = account.displayCosmosLineChains[selectedPosition]
             selectedChain.tokens.forEach { token ->
                 if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
                     tokens.add(token)

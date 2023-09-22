@@ -56,7 +56,7 @@ class QrCodeFragment(val line: CosmosLine) : BottomSheetDialogFragment() {
         baseAccount?.let { account ->
             binding.apply {
                 addressView.setBackgroundResource(R.drawable.cell_bg)
-                chainName.text = line.name + " (" + account.name + ")"
+                chainName.text = line.name
                 address.text = line.address
                 accountPath.text = line.getHDPath(account.lastHDPath)
                 chainImg.setImageResource(line.logo)
@@ -69,7 +69,7 @@ class QrCodeFragment(val line: CosmosLine) : BottomSheetDialogFragment() {
                     val bitmap = barcodeEncoder.encodeBitmap(qrCodeData, BarcodeFormat.QR_CODE, 540, 540, hints)
                     qrImg.setImageBitmap(bitmap)
                 }
-                qrView.radius = resources.getDimension(R.dimen.space_12)
+                qrView.radius = resources.getDimension(R.dimen.space_8)
                 qrImg.clipToOutline = true
             }
         }

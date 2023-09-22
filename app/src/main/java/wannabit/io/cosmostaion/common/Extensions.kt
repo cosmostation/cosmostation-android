@@ -1,12 +1,6 @@
 package wannabit.io.cosmostaion.common
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.renderscript.Allocation
-import android.renderscript.Element
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -19,7 +13,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
@@ -41,6 +34,12 @@ import java.util.TimeZone
 fun formatString(input: String, point: Int): SpannableString {
     val spannableString = SpannableString(input)
     spannableString.setSpan(RelativeSizeSpan(0.8f), spannableString.length - point, spannableString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    return spannableString
+}
+
+fun formatAmount(input: String, decimal: Int): SpannableString {
+    val spannableString = SpannableString(getDecimalFormat(decimal).format(input.toBigDecimal()))
+    spannableString.setSpan(RelativeSizeSpan(0.8f), spannableString.length - decimal, spannableString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
     return spannableString
 }
 

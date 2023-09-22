@@ -24,8 +24,15 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -106,11 +113,10 @@ open class CosmosLine : BaseChain() {
             stub.account(request)?.let { response ->
                 cosmosAuth = response.account
                 loadGrpcMoreData(channel)
-            } ?: run {
-                fetched = true
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            loadDataCallback?.onDataLoaded(true)
+            fetched = true
         } finally {
             channel.shutdown()
             try {
@@ -123,7 +129,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private suspend fun loadGrpcMoreData(channel: ManagedChannel) = runBlocking {
+    private fun loadGrpcMoreData(channel: ManagedChannel) = runBlocking {
         CoroutineScope(Dispatchers.Default).let {
             if (supportCw20) {
                 loadCw20Token()
@@ -135,6 +141,20 @@ open class CosmosLine : BaseChain() {
             loadReward(channel)
 
             BaseUtils.onParseVestingAccount(this@CosmosLine)
+            loadDataCallback?.onDataLoaded(true)
+            fetched = true
+            it.cancel()
+        }
+    }
+
+    private fun loadLcdData() = runBlocking {
+        CoroutineScope(Dispatchers.Default).let {
+            if (this@CosmosLine is ChainBinanceBeacon) {
+//                loadNodeInfo()
+                loadAccountInfo()
+                loadBeaconTokens()
+            }
+
             loadDataCallback?.onDataLoaded(true)
             fetched = true
             it.cancel()
@@ -205,7 +225,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    fun loadAllCw20Balance() {
+    private fun loadAllCw20Balance() {
         val channel = getChannel()
         val scope = CoroutineScope(Dispatchers.Default)
         val deferredList = mutableListOf<Deferred<Unit>>()
@@ -424,20 +444,6 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadLcdData() = runBlocking {
-        CoroutineScope(Dispatchers.Default).let {
-            if (this@CosmosLine is ChainBinanceBeacon) {
-                loadNodeInfo()
-                loadAccountInfo()
-                loadBeaconTokens()
-            }
-
-            loadDataCallback?.onDataLoaded(true)
-            fetched = true
-            it.cancel()
-        }
-    }
-
     private suspend fun loadNodeInfo() {
         when (val response = safeApiCall { RetrofitInstance.beaconApi.nodeInfo() }) {
             is NetworkResult.Success -> {
@@ -519,12 +525,16 @@ open class CosmosLine : BaseChain() {
 
 fun allCosmosLines(): List<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
-//    lines.add(ChainCosmos())
-//    lines.add(ChainAkash())
+    lines.add(ChainCosmos())
+    lines.add(ChainAkash())
     lines.add(ChainBinanceBeacon())
-//    lines.add(ChainEvmos())
-//    lines.add(ChainInjective())
-//    lines.add(ChainJuno())
+    lines.add(ChainEvmos())
+    lines.add(ChainInjective())
+    lines.add(ChainJuno())
     lines.add(ChainKava459())
+    lines.add(ChainLum118())
+    lines.add(ChainOsmosis())
     return lines
 }
+
+val DEFAULT_DISPLAY_COSMOS = mutableListOf("cosmos118", "osmosis118", "binance714", "evmos60")

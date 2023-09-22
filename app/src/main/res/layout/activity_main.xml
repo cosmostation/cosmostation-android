@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_01">
+    android:background="@drawable/bg_03">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -20,7 +20,7 @@
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:itemBackground="@color/color_base05"
+        app:itemBackground="@color/color_base06"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

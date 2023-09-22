@@ -221,7 +221,7 @@
                         android:layout_height="wrap_content"
                         style="@style/font_sm_12"
                         android:textColor="@color/color_base01"
-                        android:text="@string/str_vesting"/>
+                        android:text="@string/str_reward"/>
 
                     <TextView
                         android:id="@+id/reward"

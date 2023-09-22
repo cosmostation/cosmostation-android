@@ -45,7 +45,7 @@ class CoinFragment(position: Int) : Fragment() {
     private fun initSortAssets() {
         val baseAccount = BaseData.baseAccount
         baseAccount?.let { account ->
-            selectedChain = account.allCosmosLineChains[selectedPosition]
+            selectedChain = account.displayCosmosLineChains[selectedPosition]
 
             if (selectedChain is ChainBinanceBeacon) {
                 selectedChain.lcdAccountInfo?.balances?.forEach { balance ->

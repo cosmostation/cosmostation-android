@@ -55,7 +55,8 @@ class CosmosDetailFragment : Fragment() {
             selectedPosition = arguments?.getInt("selectPosition") ?: -1
         }
         baseAccount?.let {
-            selectedChain = baseAccount.allCosmosLineChains[selectedPosition]
+            binding.accountName.text = baseAccount.name
+            selectedChain = baseAccount.displayCosmosLineChains[selectedPosition]
             binding.accountAddress.text = selectedChain.address
             binding.accountValue.text = formatAssetValue(selectedChain.allAssetValue())
         }

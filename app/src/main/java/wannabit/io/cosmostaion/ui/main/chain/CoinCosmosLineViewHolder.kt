@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.chain
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import okhttp3.internal.format
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -58,8 +57,8 @@ class CoinCosmosLineViewHolder(
                         unstaking.text = formatString(unStakingAmount.toPlainString(), 6)
 
                         val rewardAmount = line.rewardAmountSum(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                        rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
                         if (line.rewardAllCoins().isNotEmpty()) {
-                            rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
                             if (line.rewardOtherDenoms() > 0) {
                                 rewardTitle.text = context.getString(R.string.str_reward) + " +" + line.rewardOtherDenoms()
                             } else {

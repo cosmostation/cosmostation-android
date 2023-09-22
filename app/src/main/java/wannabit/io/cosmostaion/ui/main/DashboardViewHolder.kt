@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.ChainType
@@ -29,7 +30,6 @@ class DashboardViewHolder(
                     chainImg.setImageResource(line.logo)
                     chainSwipeImg.setImageResource(line.swipeLogo)
                     chainName.text = line.name.uppercase()
-                    chainValue.text = formatAssetValue(line.allAssetValue())
 
                     if (!line.isDefault) {
                         chainPath.text = line.getHDPath(account.lastHDPath)
@@ -38,6 +38,10 @@ class DashboardViewHolder(
                     chainLegacy.goneOrVisible(line.isDefault)
 
                     if (line.fetched) {
+                        skeletonChainValue.visibility = View.GONE
+                        skeletonChainPrice.visibility = View.GONE
+                        chainValue.text = formatAssetValue(line.allAssetValue())
+
                         var coinGeckoId: String? = ""
                         if (line is ChainBinanceBeacon) {
                             coinGeckoId = ChainBinanceBeacon().BNB_GECKO_ID

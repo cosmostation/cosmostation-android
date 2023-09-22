@@ -42,7 +42,6 @@ class QrDialog(
         binding.apply {
             baseAccount?.let { account ->
                 chainName.text = line.name
-                accountName.text = "(" + account.name + ")"
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 address.text = line.address
                 accountPath.text = line.getHDPath(account.lastHDPath)

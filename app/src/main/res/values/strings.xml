@@ -19,6 +19,8 @@
     <string name="str_back">BACK</string>
     <string name="str_share_address">Share Address</string>
     <string name="str_address">Address</string>
+    <string name="str_checking" translatable="false">CHECKING</string>
+    <string name="str_confirm" translatable="false">Confirm</string>
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>
@@ -26,6 +28,8 @@
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_copy" translatable="false">Tap the card to copy it.</string>
     <string name="str_msg_address_copied" >Address copied</string>
+    <string name="str_msg_checking" translatable="false">Checking your all asset with onchain</string>
+    <string name="str_msg_by_cosmostation" translatable="false">Powered by\nCosmostation Web3 Infrastructure</string>
 
     // header
     <string name="str_native_coins" translatable="false">Native Coins</string>

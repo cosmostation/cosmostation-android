@@ -14,7 +14,7 @@ class ChainBinanceBeacon : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "BNB Beacon"
-    override var id: String = ""
+    override var id: String = "binance714"
     override var logo: Int = R.drawable.chain_binance
     override var swipeLogo: Int = R.drawable.chain_swipe_binance
     override var apiName: String = ""

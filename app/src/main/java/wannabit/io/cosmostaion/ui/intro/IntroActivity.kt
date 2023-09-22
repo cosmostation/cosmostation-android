@@ -16,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.IntroRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -68,8 +69,10 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
-        LegacyMigrationHelper.migratePassword()
-        LegacyMigrationHelper.migrateWallet()
+        if (Prefs.version < BaseConstant.DB_VERSION) {
+            LegacyMigrationHelper.migratePassword()
+            LegacyMigrationHelper.migrateWallet()
+        }
     }
 
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {

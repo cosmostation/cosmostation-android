@@ -17,7 +17,6 @@ class ChainCosmos : CosmosLine() {
     override var swipeLogo: Int = R.drawable.chain_swipe_cosmos
     override var apiName: String = "cosmos"
     override var stakeDenom: String = "uatom"
-    override var grpcHost: String = "grpc-cosmos.cosmostation.io"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -27,4 +26,6 @@ class ChainCosmos : CosmosLine() {
         ChildNumber.ZERO
     )
     override var accountPrefix: String? = "cosmos"
+
+    override var grpcHost: String = "grpc-cosmos.cosmostation.io"
 }

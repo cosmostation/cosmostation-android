@@ -1,11 +1,17 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
@@ -13,6 +19,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment
+import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
 import java.math.BigDecimal
 
 
@@ -36,14 +43,27 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
-        initRecyclerView()
-        onUpdateLoadData()
+        clickAction()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("baseAccount : ", baseAccount.toString())
+        var needFetch = false
+        if (baseAccount == null) {
+            needFetch = true
+        }
+
+        if (needFetch) {
+            initView()
+            initRecyclerView()
+            onUpdateLoadData()
+        }
     }
 
     private fun initView() {
         baseAccount = BaseData.baseAccount
-        baseAccount?.initAllData()
+        baseAccount?.initDisplayData()
         binding?.apply {
             accountName.text = baseAccount?.name
         }
@@ -57,23 +77,32 @@ class DashboardFragment : Fragment() {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = dashAdapter
-                dashAdapter.submitList(baseAccount.allCosmosLineChains as List<Any>?)
+                dashAdapter.submitList(baseAccount.displayCosmosLineChains as List<Any>?)
 
+                var isClickable = true
                 dashAdapter.setOnItemClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt("selectPosition", it)
-                    val fragment = CosmosDetailFragment()
-                    fragment.arguments = bundle
+                    if (isClickable) {
+                        isClickable = false
 
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left)
-                        .add(R.id.fragment_container, fragment)
-                        .hide(this@DashboardFragment)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss()
+                        val bundle = Bundle()
+                        bundle.putInt("selectPosition", it)
+                        val fragment = CosmosDetailFragment()
+                        fragment.arguments = bundle
 
-                    (activity as MainActivity?)?.onNextHideBottomNavi()
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left)
+                            .add(R.id.fragment_container, fragment)
+                            .hide(this@DashboardFragment)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commitAllowingStateLoss()
+
+                        (activity as MainActivity?)?.onNextHideBottomNavi()
+
+                        Handler().postDelayed({
+                            isClickable = true
+                        }, 1000)
+                    }
                 }
             }
         }
@@ -81,13 +110,15 @@ class DashboardFragment : Fragment() {
 
     private fun onUpdateLoadData() {
         baseAccount?.let {
-            it.allCosmosLineChains.forEach { line ->
+            it.displayCosmosLineChains.forEach { line ->
                 line.setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
                     override fun onDataLoaded(isLoaded: Boolean) {
-                        if (isLoaded) {
-                            requireActivity().runOnUiThread {
-                                dashAdapter.notifyDataSetChanged()
-                                onUpdateTotal()
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main) {
+                                if (line.fetched) {
+                                    dashAdapter.notifyDataSetChanged()
+                                    onUpdateTotal()
+                                }
                             }
                         }
                     }
@@ -100,7 +131,7 @@ class DashboardFragment : Fragment() {
     private fun onUpdateTotal() {
         var sum = BigDecimal.ZERO
         baseAccount?.let {
-            it.allCosmosLineChains.forEach { line ->
+            it.displayCosmosLineChains.forEach { line ->
                 sum = sum.add(line.allAssetValue())
             }
             if (isAdded) {
@@ -112,9 +143,16 @@ class DashboardFragment : Fragment() {
     }
 
     private fun clickAction() {
-        binding?.apply {
-            btnEdit.setOnClickListener {
+        var isClickable = true
+        binding?.btnEdit?.setOnClickListener {
+            val bottomSheet = ChainEditFragment()
+            if (isClickable) {
+                isClickable = false
+                bottomSheet.show(parentFragmentManager, ChainEditFragment::class.java.name)
 
+                Handler().postDelayed({
+                    isClickable = true
+                }, 1000)
             }
         }
     }

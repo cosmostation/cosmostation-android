@@ -9,8 +9,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.formatTxTimeToHour
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -75,7 +75,7 @@ class HistoryViewHolder(
                     BaseData.getAsset(line.apiName, dpCoins[0].denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
                             val amount = dpCoins[0].amount.toBigDecimal().movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
-                            txAmount.text = formatString(amount.toString(), decimal)
+                            txAmount.text = formatAmount(amount.toString(), decimal)
                             txDenom.text = asset.symbol
                         }
                     }

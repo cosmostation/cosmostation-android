@@ -6,8 +6,9 @@
     <color name="color_base04">#6C7585</color>
     <color name="color_base05">#505267</color>
     <color name="color_base06">#414158</color>
-    <color name="color_base07">#393A50</color>
-    <color name="color_base08">#2C2D44</color>
+    <color name="color_base07">#2C2D44</color>
+    <color name="color_base08">#393A50</color>
+    <color name="color_base09">#464758</color>
 
     <color name="color_accent_purple">#7C4FFC</color>
     <color name="color_accent_green">#5BFF89</color>

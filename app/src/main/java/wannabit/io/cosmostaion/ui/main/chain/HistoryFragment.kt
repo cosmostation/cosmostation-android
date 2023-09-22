@@ -64,7 +64,7 @@ class HistoryFragment(position: Int) : Fragment() {
     private fun initRecyclerView() {
         val baseAccount = BaseData.baseAccount
         baseAccount?.let { account ->
-            selectedChain = account.allCosmosLineChains[selectedPosition]
+            selectedChain = account.displayCosmosLineChains[selectedPosition]
             if (selectedChain is ChainBinanceBeacon) {
                 historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
 

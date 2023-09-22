@@ -17,7 +17,6 @@ class ChainInjective : CosmosLine() {
     override var swipeLogo: Int = R.drawable.chain_swipe_injective
     override var apiName: String = "injective"
     override var stakeDenom: String = "inj"
-    override var grpcHost: String = "grpc-injective.cosmostation.io"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -27,4 +26,6 @@ class ChainInjective : CosmosLine() {
         ChildNumber.ZERO
     )
     override var accountPrefix: String? = "inj"
+
+    override var grpcHost: String = "grpc-injective.cosmostation.io"
 }

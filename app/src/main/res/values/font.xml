@@ -71,4 +71,9 @@
         <item name="android:textSize">@dimen/text_size_9</item>
     </style>
 
+    <style name="font_sm_8" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/text_size_8</item>
+    </style>
+
 </resources>

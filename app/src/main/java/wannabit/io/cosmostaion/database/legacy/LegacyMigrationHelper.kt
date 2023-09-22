@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.database.legacy
 
 import net.sqlcipher.database.SQLiteDatabase
+import wannabit.io.cosmostaion.common.BaseConstant
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.model.Account
 import wannabit.io.cosmostaion.database.legacy.model.MWords
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -63,6 +66,7 @@ object LegacyMigrationHelper {
         }
 
         AppDatabase.getInstance().baseAccountDao().insertAll(newBaseAccount)
+        Prefs.version = BaseConstant.DB_VERSION
     }
 
     private fun getLegacyAllMnemonics(): MutableList<MWords> {

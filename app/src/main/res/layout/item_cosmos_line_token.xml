@@ -57,13 +57,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/token_info_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_1"
-                android:orientation="horizontal"
                 android:gravity="bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/token_img"
@@ -74,62 +72,73 @@
                     android:id="@+id/token_name"
                     style="@style/font_sb_14"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/space_18"
                     android:textColor="@color/color_base01"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/coin_amount"/>
 
                 <TextView
                     android:id="@+id/coin_amount"
                     style="@style/font_sb_14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_base01"
-                    android:gravity="end"
-                    android:maxLines="1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_20"
                     android:ellipsize="end"
-                    android:layout_marginStart="@dimen/space_12" />
+                    android:gravity="end|bottom"
+                    android:maxLines="1"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/token_name" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/token_value_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_5"
-                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/space_2"
                 android:gravity="bottom"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/token_img"
-                app:layout_constraintTop_toBottomOf="@+id/token_info_layout">
+                app:layout_constraintTop_toBottomOf="@+id/token_info_layout"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:id="@+id/token_price"
                     style="@style/font_sb_12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_base02" />
+                    android:layout_height="@dimen/space_15"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/token_price_change"
                     style="@style/font_sb_12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_6" />
+                    android:layout_height="@dimen/space_15"
+                    android:layout_marginStart="@dimen/space_6"
+                    app:layout_constraintStart_toEndOf="@+id/token_price"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/token_price" />
 
                 <TextView
                     android:id="@+id/coin_amount_value"
                     style="@style/font_sb_12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_12"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_15"
+                    android:layout_marginStart="@dimen/space_10"
                     android:ellipsize="end"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:textColor="@color/color_base02" />
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/token_price_change"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/token_price"/>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
