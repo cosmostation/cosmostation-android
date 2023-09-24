@@ -21,6 +21,14 @@
     <string name="str_address">Address</string>
     <string name="str_checking" translatable="false">CHECKING</string>
     <string name="str_confirm" translatable="false">Confirm</string>
+    <string name="str_select_account" translatable="false">Select account</string>
+    <string name="str_mnemonic_account">Mnemonic Account</string>
+    <string name="str_private_account">Private key Account</string>
+    <string name="str_governance" translatable="false">Governance</string>
+    <string name="str_reward_claim" translatable="false">Claim reward</string>
+    <string name="str_stake" translatable="false">Stake</string>
+    <string name="str_receive" translatable="false">Receive</string>
+    <string name="str_send" translatable="false">Send</string>
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>

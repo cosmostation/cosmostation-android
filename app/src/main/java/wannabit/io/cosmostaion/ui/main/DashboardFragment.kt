@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
+import wannabit.io.cosmostaion.ui.main.setting.AccountSelectFragment
 import java.math.BigDecimal
 
 
@@ -144,15 +145,29 @@ class DashboardFragment : Fragment() {
 
     private fun clickAction() {
         var isClickable = true
-        binding?.btnEdit?.setOnClickListener {
-            val bottomSheet = ChainEditFragment()
-            if (isClickable) {
-                isClickable = false
-                bottomSheet.show(parentFragmentManager, ChainEditFragment::class.java.name)
+        binding?.apply {
+            btnEdit.setOnClickListener {
+                val bottomSheet = ChainEditFragment()
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(parentFragmentManager, ChainEditFragment::class.java.name)
 
-                Handler().postDelayed({
-                    isClickable = true
-                }, 1000)
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
+
+            accountLayout.setOnClickListener {
+                val bottomSheet = AccountSelectFragment()
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(parentFragmentManager, AccountSelectFragment::class.java.name)
+
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
             }
         }
     }

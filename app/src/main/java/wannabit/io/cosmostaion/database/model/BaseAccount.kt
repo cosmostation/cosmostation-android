@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.database.model
 
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -33,7 +34,7 @@ data class BaseAccount(
 
     @delegate:Ignore
     val privateKey: ByteArray? by lazy {
-        CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, resource, spec)?.toByteArray()
+        Utils.hexToBytes(CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, resource, spec))
     }
 
     @Ignore

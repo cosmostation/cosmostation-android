@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -16,6 +17,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant.EXPLORER_BASE_URL
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.QrCodeFragment
 import wannabit.io.cosmostaion.ui.main.MainActivity
@@ -48,6 +50,7 @@ class CosmosDetailFragment : Fragment() {
     }
 
     private fun initData() {
+        binding.fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
         val baseAccount = BaseData.baseAccount
         selectedPosition = 1
         val args = arguments
@@ -107,6 +110,47 @@ class CosmosDetailFragment : Fragment() {
             accountAddress.setOnClickListener {
                 val bottomSheet = QrCodeFragment(selectedChain)
                 bottomSheet.show(parentFragmentManager, QrCodeFragment::class.java.name)
+            }
+
+            fabMenu.setOnMenuToggleListener { opened ->
+                fabMenu.bringToFront()
+                backdropLayout.visibleOrGone(opened)
+                if (opened) {
+                    tabLayout.elevation = 0.1f
+                    requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_background_dialog)
+                } else {
+                    tabLayout.elevation = 0f
+                    requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
+                }
+            }
+
+            backdropLayout.setOnClickListener {
+                fabMenu.close(true)
+                backdropLayout.visibility = View.GONE
+                tabLayout.elevation = 0f
+                requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
+            }
+
+            fabVote.setOnClickListener {
+
+            }
+
+            fabClaimReward.setOnClickListener {
+
+            }
+
+            fabStake.setOnClickListener {
+
+            }
+
+            fabReceive.setOnClickListener {
+                val bottomSheet = QrCodeFragment(selectedChain)
+                bottomSheet.show(parentFragmentManager, QrCodeFragment::class.java.name)
+                fabMenu.close(true)
+            }
+
+            fabSend.setOnClickListener {
+
             }
         }
     }

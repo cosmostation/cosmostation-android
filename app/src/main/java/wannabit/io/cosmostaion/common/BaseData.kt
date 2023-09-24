@@ -41,7 +41,7 @@ object BaseData {
 
     suspend fun getLastAccount(): BaseAccount? {
         val id = Prefs.lastAccountId
-        val account = AppDatabase.getInstance().baseAccountDao().selectById(id)
+        val account = AppDatabase.getInstance().baseAccountDao().selectAccount(id)
         return account ?: AppDatabase.getInstance().baseAccountDao().selectAll().firstOrNull()
     }
 

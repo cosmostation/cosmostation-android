@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.database.legacy.model
 data class Account(
     var id: Long,
     var uuid: String,
-    var nickName: String,
+    var nickName: String?,
     var isFavo: Boolean,
     var address: String,
     var baseChain: String,

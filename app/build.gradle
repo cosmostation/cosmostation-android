@@ -167,4 +167,7 @@ dependencies {
 
     //skeleton
     implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    //fab
+    implementation 'com.github.clans:fab:1.6.4'
 }

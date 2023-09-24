@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cosmostation</string>
+
     <string name="str_today">오늘</string>
     <string name="str_back">뒤로</string>
     <string name="str_share_address">주소 공유</string>
     <string name="str_address">주소</string>
+    <string name="str_mnemonic_account">니모닉 계정</string>
+    <string name="str_private_account">개인키 계정</string>
 
     // msg
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>

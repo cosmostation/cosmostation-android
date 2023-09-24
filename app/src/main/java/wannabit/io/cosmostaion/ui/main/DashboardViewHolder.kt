@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 
@@ -37,9 +38,11 @@ class DashboardViewHolder(
                     chainPath.goneOrVisible(line.isDefault)
                     chainLegacy.goneOrVisible(line.isDefault)
 
+                    skeletonChainValue.goneOrVisible(line.fetched)
+                    skeletonChainPrice.goneOrVisible(line.fetched)
+                    chainPrice.visibleOrGone(line.fetched)
+
                     if (line.fetched) {
-                        skeletonChainValue.visibility = View.GONE
-                        skeletonChainPrice.visibility = View.GONE
                         chainValue.text = formatAssetValue(line.allAssetValue())
 
                         var coinGeckoId: String? = ""

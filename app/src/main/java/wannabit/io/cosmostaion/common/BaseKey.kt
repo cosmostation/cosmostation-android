@@ -38,7 +38,7 @@ object BaseKey {
         return words
     }
 
-    fun getHDSeed(entropy: ByteArray?): ByteArray? {
+    private fun getHDSeed(entropy: ByteArray?): ByteArray? {
         return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "")
     }
 

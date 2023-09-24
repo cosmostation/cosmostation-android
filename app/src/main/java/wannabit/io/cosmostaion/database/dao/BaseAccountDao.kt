@@ -19,8 +19,8 @@ interface BaseAccountDao {
     suspend fun delete(baseAccount: BaseAccount)
 
     @Query("select * from account")
-    suspend fun selectAll(): List<BaseAccount>
+    fun selectAll(): List<BaseAccount>
 
     @Query("select * from account where id = :id")
-    suspend fun selectById(id: Long): BaseAccount?
+    fun selectAccount(id: Long): BaseAccount?
 }

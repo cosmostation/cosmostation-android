@@ -12,16 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.onStartMain
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
-import wannabit.io.cosmostaion.ui.main.DashboardFragment
 
 class ChainEditFragment : BottomSheetDialogFragment() {
 
@@ -32,6 +34,8 @@ class ChainEditFragment : BottomSheetDialogFragment() {
 
     private var baseAccount: BaseAccount? = null
     private var displayChainLines: MutableList<String> = mutableListOf()
+
+    private var job = Job()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -78,30 +82,30 @@ class ChainEditFragment : BottomSheetDialogFragment() {
                     if (line.fetched) fetchedCnt ++
                     line.setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
                         override fun onDataLoaded(isLoaded: Boolean) {
-                            lifecycleScope.launch {
+                            CoroutineScope(Dispatchers.IO + job).launch {
                                 withContext(Dispatchers.Main) {
                                     if (isLoaded) {
                                         fetchedCnt++
                                         checkingCnt.text = "($fetchedCnt / ${account.allCosmosLineChains.size})"
                                     }
-                                }
 
-                                if (fetchedCnt == account.allCosmosLineChains.size) {
-                                    account.sortCosmosLine()
-                                    lottieAnimationView.visibility = View.GONE
-                                    checkingLayout.visibility = View.GONE
-                                    checkMsg.visibility = View.GONE
-                                    checkPower.visibility = View.GONE
+                                    if (fetchedCnt == account.allCosmosLineChains.size) {
+                                        account.sortCosmosLine()
+                                        lottieAnimationView.visibility = View.GONE
+                                        checkingLayout.visibility = View.GONE
+                                        checkMsg.visibility = View.GONE
+                                        checkPower.visibility = View.GONE
 
-                                    editLayout.visibility = View.VISIBLE
-                                    chainEditAdapter = ChainEditAdapter(requireContext(), account, displayChainLines)
+                                        editLayout.visibility = View.VISIBLE
+                                        chainEditAdapter = ChainEditAdapter(requireContext(), account, displayChainLines)
 
-                                   recycler.apply {
-                                       setHasFixedSize(true)
-                                       layoutManager = LinearLayoutManager(requireContext())
-                                       adapter = chainEditAdapter
-                                       chainEditAdapter.submitList(account.allCosmosLineChains as List<Any>?)
-                                   }
+                                        recycler.apply {
+                                            setHasFixedSize(true)
+                                            layoutManager = LinearLayoutManager(requireContext())
+                                            adapter = chainEditAdapter
+                                            chainEditAdapter.submitList(account.allCosmosLineChains as List<Any>?)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -136,11 +140,7 @@ class ChainEditFragment : BottomSheetDialogFragment() {
                 Prefs.setDisplayChains(account, saveChainLine)
             }
             dialog?.dismiss()
-
-            val transaction = parentFragmentManager.beginTransaction()
-            val dashboardFragment = DashboardFragment()
-            transaction.replace(R.id.fragment_container, dashboardFragment)
-            transaction.commit()
+            onStartMain(parentFragmentManager)
         }
     }
 
@@ -193,5 +193,6 @@ class ChainEditFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        job.cancel()
     }
 }

@@ -5,7 +5,7 @@
         <item name="colorPrimaryDark">@color/color_base01</item>
         <item name="colorAccent">@color/color_blue01</item>
 
-        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -30,12 +30,19 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="BaseBottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppBottomStyle</item>
+        <item name="android:windowIsFloating">false</item>
     </style>
 
-    <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+    <style name="AppBottomStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottomsheet_bg</item>
+    </style>
+
+    <style name="FabLabelStyle">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textSize">@dimen/space_10</item>
+        <item name="android:textColor">@color/color_base01</item>
     </style>
 
     <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog">
@@ -67,7 +74,7 @@
         <item name="colorAccent">@color/color_blue01</item>
         <item name="android:statusBarColor">@color/color_mode_base01</item>
         <item name="android:windowBackground">@color/color_mode_base01</item>
-        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>
+<!--        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>-->
         <item name="android:windowLightStatusBar">true</item>
         <item name="fontFamily">@font/font_bold</item>
         <item name="actionBarStyle">@style/SolidActionBar</item>

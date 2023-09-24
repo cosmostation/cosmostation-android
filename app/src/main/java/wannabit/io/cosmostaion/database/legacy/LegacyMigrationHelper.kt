@@ -1,8 +1,8 @@
 package wannabit.io.cosmostaion.database.legacy
 
+import android.util.Log
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.common.BaseConstant
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
@@ -37,12 +37,12 @@ object LegacyMigrationHelper {
         }
 
         val legacyAllMnemonics = getLegacyAllMnemonics()
-        val legacyAccounts = getLegacyAllAccounts()
         val legacyAccountsByPrivateKey = getLegacyAccountsByPrivateKey()
+        Log.e("test1234 : ", legacyAccountsByPrivateKey.size.toString())
 
         val newBaseAccount = mutableListOf<BaseAccount>()
         legacyAllMnemonics.forEach {
-            newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName, BaseAccountType.MNEMONIC, "0"))
+            newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName ?: "Wallet", BaseAccountType.MNEMONIC, "0"))
         }
 
         val pkeyList = mutableListOf<String>()
@@ -50,19 +50,9 @@ object LegacyMigrationHelper {
             CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + it.uuid, it.resource, it.spec)?.let { pKey ->
                 if (!pkeyList.contains(pKey)) {
                     pkeyList.add(pKey)
-                    newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName, BaseAccountType.PRIVATE_KEY, "0"))
+                    newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName ?: "Wallet" , BaseAccountType.PRIVATE_KEY, "0"))
                 }
             }
-        }
-
-        legacyAccounts.filter { it.hasPrivateKey && !it.fromMnemonic }.forEach {
-            //TODO private key accounts
-        }
-        legacyAccounts.filter { it.hasPrivateKey && it.customPath != 0 }.forEach {
-            //TODO custom chains
-        }
-        legacyAccounts.filter { it.hasPrivateKey && "0" != it.path }.forEach {
-            //TODO custom path
         }
 
         AppDatabase.getInstance().baseAccountDao().insertAll(newBaseAccount)
@@ -179,7 +169,7 @@ object LegacyMigrationHelper {
     private fun getLegacyAccountsByPrivateKey(): MutableList<Account> {
         val accounts = mutableListOf<Account>()
         for (account in getLegacyAllAccounts()) {
-            if (account.hasPrivateKey && account.fromMnemonic) {
+            if (account.hasPrivateKey && !account.fromMnemonic) {
                 accounts.add(account)
             }
         }

@@ -16,19 +16,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="@dimen/space_32"
-            android:layout_height="@dimen/space_32"
-            android:src="@drawable/icon_profile"
-            android:layout_marginLeft="@dimen/space_20"
-            android:layout_marginRight="@dimen/space_8"/>
-
-        <TextView
-            android:id="@+id/account_name"
+        <LinearLayout
+            android:id="@+id/account_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_sb_16"
-            android:textColor="@color/color_base01" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/space_32"
+                android:layout_height="@dimen/space_32"
+                android:src="@drawable/icon_profile"
+                android:layout_marginLeft="@dimen/space_20" />
+
+            <TextView
+                android:id="@+id/account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_4"
+                style="@style/font_sb_16"
+                android:textColor="@color/color_base01" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/btn_edit"

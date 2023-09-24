@@ -14,12 +14,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.Asset
 import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.ui.main.DashboardFragment
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -30,6 +32,14 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+
+
+fun onStartMain(parentFragmentManager: FragmentManager) {
+    val transaction = parentFragmentManager.beginTransaction()
+    val dashboardFragment = DashboardFragment()
+    transaction.replace(R.id.fragment_container, dashboardFragment)
+    transaction.commit()
+}
 
 fun formatString(input: String, point: Int): SpannableString {
     val spannableString = SpannableString(input)
