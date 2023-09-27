@@ -2,18 +2,20 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -21,6 +23,7 @@ import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
 import wannabit.io.cosmostaion.ui.main.setting.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 
@@ -32,6 +35,8 @@ class DashboardFragment : Fragment() {
     private lateinit var dashAdapter: DashboardAdapter
 
     private var baseAccount: BaseAccount? = null
+
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,17 +50,12 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         clickAction()
+        checkPriceStatus()
     }
 
     override fun onResume() {
         super.onResume()
-        Log.e("baseAccount : ", baseAccount.toString())
-        var needFetch = false
-        if (baseAccount == null) {
-            needFetch = true
-        }
-
-        if (needFetch) {
+        CoroutineScope(Dispatchers.Main).launch {
             initView()
             initRecyclerView()
             onUpdateLoadData()
@@ -139,6 +139,21 @@ class DashboardFragment : Fragment() {
                 requireActivity().runOnUiThread {
                     binding?.totalValue?.text = formatAssetValue(sum)
                 }
+            }
+        }
+    }
+
+    private fun checkPriceStatus() {
+        walletViewModel.walletPriceResult.observe(viewLifecycleOwner) { result ->
+            if (result == BaseConstant.SUCCESS) {
+                onUpdateTotal()
+                dashAdapter.notifyDataSetChanged()
+            }
+        }
+
+        walletViewModel.changeResult.observe(viewLifecycleOwner) { result ->
+            if (result == BaseConstant.SUCCESS) {
+                dashAdapter.notifyDataSetChanged()
             }
         }
     }

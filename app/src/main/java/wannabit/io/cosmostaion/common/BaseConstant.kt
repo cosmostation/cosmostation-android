@@ -4,8 +4,6 @@ import java.math.BigDecimal
 
 object BaseConstant {
     const val SUPPORT_BEP3_SWAP = true
-    const val LOG_TAG = "Cosmostation"
-    const val POSITION = "position"
     const val DB_NAME = "WannaBit"
     const val DB_VERSION = 7
     const val DB_TABLE_PASSWORD = "paswd"
@@ -14,28 +12,8 @@ object BaseConstant {
     const val DB_TABLE_BALANCE = "balan"
     const val DB_TABLE_BONDING = "bondi"
     const val DB_TABLE_UNBONDING = "unbond"
-    const val PRE_USER_ID = "PRE_USER_ID"
-    const val PRE_SELECTED_CHAINS = "PRE_SELECTED_CHAINS"
-    const val PRE_VALIDATOR_SORTING = "PRE_VALIDATOR_SORTING"
-    const val PRE_MY_VALIDATOR_SORTING = "PRE_MY_VALIDATOR_SORTING"
-    const val PRE_ALARM_STATUS = "PRE_ALARM_STATUS"
-    const val PRE_CURRENCY = "PRE_CURRENCY"
-    const val PRE_USING_APP_LOCK = "PRE_USING_APP_LOCK"
-    const val PRE_USING_FINGERPRINT = "PRE_USING_FINGERPRINT"
-    const val PRE_USING_PASS = "PRE_USING_AUTO_PASS"
-    const val PRE_LAST_PASS_TIME = "PRE_LAST_PASS_TIME"
-    const val PRE_LAST_PRICE_TIME = "PRE_LAST_PRICE_TiME"
-    const val PRE_FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
-    const val PRE_USER_HIDEN_CHAINS = "PRE_USER_HIDEN_CHAINS"
-    const val PRE_USER_SORTED_CHAINS = "PRE_USER_SORTED_CHAINS"
-    const val PRE_USER_EXPENDED_CHAINS = "PRE_USER_EXPENDED_CHAINS"
-    const val PRE_USER_FAVO_TOKENS = "PRE_USER_FAVO_TOKENS"
-    const val PRE_DB_VERSION = "PRE_DB_VERSION"
-    const val PRE_THEME_MOD = "PRE_THEME_MOD"
-    const val PRE_LANGUAGE = "PRE_LANGUAGE"
-    const val PRE_AUTO_SIGN = "PRE_AUTO_SIGN"
-    const val PRE_WC_WHITE_LIST = "PRE_WC_WHITE_LIST"
-    const val PRE_PRICE_COLOR = "PRE_PRICE_COLOR"
+
+    const val SUCCESS = "Success"
 
     //gRPC
     const val TASK_GRPC_FETCH_BALANCE = 4001

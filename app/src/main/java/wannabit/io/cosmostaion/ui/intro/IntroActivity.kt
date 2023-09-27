@@ -18,19 +18,19 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.data.repository.wallet.IntroRepositoryImpl
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.viewmodel.intro.IntroViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.IntroViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
 
-    private lateinit var introViewModel: IntroViewModel
+    private lateinit var introViewModel: WalletViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +63,9 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val walletRepository = IntroRepositoryImpl()
-        val introViewModelProviderFactory = IntroViewModelProviderFactory(walletRepository)
-        introViewModel = ViewModelProvider(this, introViewModelProviderFactory)[IntroViewModel::class.java]
+        val walletRepository = WalletRepositoryImpl()
+        val introViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        introViewModel = ViewModelProvider(this, introViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
@@ -129,7 +129,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun checkAppVersion() {
-        introViewModel.wallAppVersionResult.observe(this) { appVersion ->
+        introViewModel.walletAppVersionResult.observe(this) { appVersion ->
             appVersion?.let { response ->
                 if (!response.enable) {
                     showDisableDialog()
@@ -147,7 +147,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun initPriceInfo() {
-        introViewModel.price()
+        introViewModel.price(BaseData.currencyName().lowercase())
         introViewModel.asset()
     }
 

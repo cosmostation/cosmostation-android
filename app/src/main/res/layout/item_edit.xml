@@ -75,7 +75,7 @@
 
             <TextView
                 android:id="@+id/switch_view"
-                android:layout_width="44dp"
+                android:layout_width="@dimen/space_48"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/space_16"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_5"
-                android:layout_marginEnd="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_12"
                 app:layout_constraintEnd_toStartOf="@+id/switch_view"
                 app:layout_constraintStart_toEndOf="@id/chain_img"
                 app:layout_constraintTop_toTopOf="parent">
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_7"
-                android:layout_marginEnd="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_12"
                 app:layout_constraintEnd_toStartOf="@+id/switch_view"
                 app:layout_constraintStart_toEndOf="@id/chain_img"
                 app:layout_constraintTop_toBottomOf="@+id/chain_info_layout">

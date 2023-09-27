@@ -32,9 +32,9 @@ class HistoryFragment(position: Int) : Fragment() {
 
     private lateinit var historyAdapter: HistoryAdapter
 
-    private var historyId: Int = 0
+    private var searchAfter: String = ""
     private var hasMore = false
-    private val BATCH_CNT = 50
+    private val BATCH_CNT = 30
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
     private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
@@ -76,7 +76,7 @@ class HistoryFragment(position: Int) : Fragment() {
                 }
 
             } else {
-                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), historyId)
+                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchAfter)
 
                 historyAdapter = HistoryAdapter(requireContext(), selectedChain)
                 binding.recycler.apply {
@@ -97,7 +97,7 @@ class HistoryFragment(position: Int) : Fragment() {
                             if (lastVisibleItemPosition == itemTotalCount) {
                                 if (hasMore) {
                                     hasMore = false
-                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, "50", historyId)
+                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, "50", searchAfter)
                                 }
                             }
                         }
@@ -113,10 +113,10 @@ class HistoryFragment(position: Int) : Fragment() {
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(allHistoryGroup as List<Any>?)
-                    historyId = historyGroup.lastOrNull()?.second?.header?.id ?:0
+                    searchAfter = historyGroup.lastOrNull()?.second?.searchAfter ?: ""
                     hasMore = historyGroup.size >= BATCH_CNT
                 } else {
-                    historyId = 0
+                    searchAfter = ""
                     hasMore = false
                 }
 

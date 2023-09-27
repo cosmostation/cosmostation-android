@@ -28,7 +28,39 @@
     <string name="str_reward_claim" translatable="false">Claim reward</string>
     <string name="str_stake" translatable="false">Stake</string>
     <string name="str_receive" translatable="false">Receive</string>
-    <string name="str_send" translatable="false">Send</string>
+    <string name="str_send" translatable="false">Setting</string>
+    <string name="str_setting" translatable="false">Send</string>
+    <string name="str_wallet">Wallet</string>
+    <string name="str_account">Account</string>
+    <string name="str_chain">Chain</string>
+    <string name="str_address_book">Address book</string>
+    <string name="str_general">General</string>
+    <string name="str_language">Language</string>
+    <string name="str_currency">Currency</string>
+    <string name="str_price_change_color">Price change color</string>
+    <string name="str_notification">Notification</string>
+    <string name="str_app_lock" translatable="false">App lock</string>
+    <string name="str_support">Support</string>
+    <string name="str_mintscan" translatable="false">Mintscan</string>
+    <string name="str_homepage" translatable="false">Homepage</string>
+    <string name="str_blog" translatable="false">Blog</string>
+    <string name="str_telegram">Telegram</string>
+    <string name="str_term">Term</string>
+    <string name="str_privacy">Privacy</string>
+    <string name="str_github" translatable="false">Github</string>
+    <string name="str_version">Version</string>
+    <string name="str_select_language">Select language</string>
+    <string name="str_select_currency">Select currency</string>
+    <string name="str_auto_pass">PIN auto pass</string>
+    <string name="str_system" translatable="false">System</string>
+    <string name="str_language_en" translatable="false">English(United States)</string>
+    <string name="str_language_kr" translatable="false">한국어(대한민국)</string>
+    <string name="str_up" translatable="false">Up</string>
+    <string name="str_down" translatable="false">Down</string>
+    <string name="str_never">Never(recommend)</string>
+    <string name="str_5_min">5min</string>
+    <string name="str_10_min">10min</string>
+    <string name="str_30_min">30min</string>
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>
@@ -266,8 +298,52 @@
 
 
     // time
+    <string name="str_tx_time_grpc_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
     <string name="str_dp_time_format1" translatable="false">yyyy-MM-dd</string>
     <string name="str_dp_time_format2" translatable="false">HH:mm:ss</string>
+
+
+    // currecny
+    <string-array name="currency_unit_array" translatable="false">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>KRW</item>
+        <item>JPY</item>
+        <item>CNY</item>
+        <item>RUB</item>
+        <item>GBP</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>IDR</item>
+        <item>DKK</item>
+        <item>NOK</item>
+        <item>SEK</item>
+        <item>CHF</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>MYR</item>
+    </string-array>
+
+    <string-array name="currency_country_array" translatable="false">
+        <item>United States</item>
+        <item>Euro</item>
+        <item>Korea</item>
+        <item>Japan</item>
+        <item>China</item>
+        <item>Russia</item>
+        <item>United Kingdom</item>
+        <item>India</item>
+        <item>Brazil</item>
+        <item>Indonesia</item>
+        <item>Denmark</item>
+        <item>Norway</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Australia</item>
+        <item>Canada</item>
+        <item>Malaysia</item>
+    </string-array>
+
 </resources>

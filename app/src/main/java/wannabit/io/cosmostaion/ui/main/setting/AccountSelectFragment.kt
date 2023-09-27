@@ -11,13 +11,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.onStartMain
 import wannabit.io.cosmostaion.database.AppDatabase
-import wannabit.io.cosmostaion.databinding.FragmentAccountSelectBinding
+import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import wannabit.io.cosmostaion.ui.main.DashboardFragment
 
 class AccountSelectFragment : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentAccountSelectBinding? = null
+    private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var accountSelectAdapter: AccountSelectAdapter
@@ -25,7 +25,7 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAccountSelectBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentCommonBottomBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -56,8 +56,11 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
                                 withContext(Dispatchers.Main) {
                                     BaseData.setLastAccount(toAccount!!)
                                     BaseData.baseAccount = toAccount
-                                    onStartMain(parentFragmentManager)
                                 }
+                                val fragment = parentFragmentManager.fragments.firstOrNull { dashboardFragment ->
+                                    dashboardFragment is DashboardFragment
+                                } as? DashboardFragment
+                                fragment?.onResume()
                             }
                         }
                         dismiss()

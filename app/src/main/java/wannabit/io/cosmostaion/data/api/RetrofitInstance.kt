@@ -13,7 +13,6 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    private const val CONNECT_TIMEOUT_SEC = 10L
 
     private val okHttpClient: OkHttpClient by lazy {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -23,7 +22,7 @@ object RetrofitInstance {
         OkHttpClient.Builder()
             .addInterceptor(httpExceptionInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(CONNECT_TIMEOUT_SEC, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
             .build()
     }
 

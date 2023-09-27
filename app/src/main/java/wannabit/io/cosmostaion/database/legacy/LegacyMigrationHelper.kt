@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.database.legacy
 
-import android.util.Log
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -38,7 +37,6 @@ object LegacyMigrationHelper {
 
         val legacyAllMnemonics = getLegacyAllMnemonics()
         val legacyAccountsByPrivateKey = getLegacyAccountsByPrivateKey()
-        Log.e("test1234 : ", legacyAccountsByPrivateKey.size.toString())
 
         val newBaseAccount = mutableListOf<BaseAccount>()
         legacyAllMnemonics.forEach {

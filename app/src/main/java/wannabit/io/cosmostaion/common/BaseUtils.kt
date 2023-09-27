@@ -1,12 +1,17 @@
 package wannabit.io.cosmostaion.common
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.stride.vesting.VestingProto.StridePeriodicVestingAccount
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Calendar
+import java.util.Locale
 
 object BaseUtils {
     fun onParseVestingAccount(line: CosmosLine) {
@@ -269,7 +274,7 @@ object BaseUtils {
         return result
     }
 
-    fun onParsePeriodicRemainVestingAmountByDenom(
+    private fun onParsePeriodicRemainVestingAmountByDenom(
         vestingAccount: VestingProto.PeriodicVestingAccount,
         denom: String
     ): BigDecimal {
@@ -320,5 +325,31 @@ object BaseUtils {
             }
         }
         return result
+    }
+
+    const val LANGUAGE_ENGLISH = 1
+    const val LANGUAGE_KOREAN = 2
+    const val LANGUAGE_JAPANESE = 3
+
+    fun updateResources(context: Context?): Context? {
+        val locale: Locale =
+            when (Prefs.language) {
+                LANGUAGE_ENGLISH -> {
+                    Locale("en")
+                }
+                LANGUAGE_KOREAN -> {
+                    Locale("ko")
+                }
+                LANGUAGE_JAPANESE -> {
+                    Locale("ja")
+                }
+                else -> {
+                    Resources.getSystem().configuration.locales[0]
+                }
+            }
+        Locale.setDefault(locale)
+        val config = Configuration(context?.resources?.configuration)
+        config.setLocale(locale)
+        return context?.createConfigurationContext(config)
     }
 }

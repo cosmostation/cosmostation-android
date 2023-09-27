@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
@@ -530,6 +531,7 @@ fun allCosmosLines(): List<CosmosLine> {
     lines.add(ChainBinanceBeacon())
     lines.add(ChainEvmos())
     lines.add(ChainInjective())
+    lines.add(ChainIris())
     lines.add(ChainJuno())
     lines.add(ChainKava459())
     lines.add(ChainLum118())

@@ -7,7 +7,6 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -20,10 +19,10 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.onStartMain
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
+import wannabit.io.cosmostaion.ui.main.DashboardFragment
 
 class ChainEditFragment : BottomSheetDialogFragment() {
 
@@ -139,8 +138,12 @@ class ChainEditFragment : BottomSheetDialogFragment() {
                 }
                 Prefs.setDisplayChains(account, saveChainLine)
             }
-            dialog?.dismiss()
-            onStartMain(parentFragmentManager)
+
+            val fragment = parentFragmentManager.fragments.firstOrNull { dashboardFragment ->
+                dashboardFragment is DashboardFragment
+            } as? DashboardFragment
+            fragment?.onResume()
+            dismiss()
         }
     }
 

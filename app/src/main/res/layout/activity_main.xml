@@ -22,6 +22,7 @@
         android:layout_height="60dp"
         app:itemBackground="@color/color_base06"
         app:labelVisibilityMode="unlabeled"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

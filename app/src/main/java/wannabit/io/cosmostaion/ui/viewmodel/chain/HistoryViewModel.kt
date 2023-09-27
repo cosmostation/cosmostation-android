@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.common.formatGrpcTxTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.data.model.BnbHistory
 import wannabit.io.cosmostaion.data.model.CosmosHistory
@@ -24,15 +25,15 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _historyResult = MutableLiveData<MutableList<Pair<String, CosmosHistory>>>()
     val historyResult: LiveData<MutableList<Pair<String, CosmosHistory>>> get() = _historyResult
 
-    fun history(context: Context, chain: String, address: String?, limit: String, id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = historyRepository.cosmosHistory(chain, address, limit, id)) {
+    fun history(context: Context, chain: String, address: String?, limit: String, searchAfter: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = historyRepository.cosmosHistory(chain, address, limit, searchAfter)) {
             is NetworkResult.Success -> {
                 response.data.let { data ->
                     if (data.isSuccessful) {
                         val result: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
                         data.body()?.forEach { history ->
                             history.header?.let {
-                                val headerDate = formatTxTimeToYear(context, it.timestamp)
+                                val headerDate = formatGrpcTxTimeToYear(context, it.timestamp)
                                 result.add(Pair(headerDate, history))
                             }
                         }

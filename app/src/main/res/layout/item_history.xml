@@ -76,6 +76,7 @@
                     android:layout_width="@dimen/space_12"
                     android:layout_height="@dimen/space_12"
                     android:src="@drawable/icon_success"
+                    android:layout_marginEnd="@dimen/space_4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tx_hash"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -91,8 +92,9 @@
                     android:maxLines="1"
                     android:textColor="@color/color_base01"
                     android:typeface="monospace"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="12321312312312312DFDFFAF"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

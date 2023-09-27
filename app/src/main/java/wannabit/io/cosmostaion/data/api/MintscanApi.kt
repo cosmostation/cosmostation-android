@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.data.model.TokenResponse
 
 interface MintscanApi {
     @GET("v2/utils/market/prices")
-    suspend fun price(): Response<List<Price>>
+    suspend fun price(@Query("currency") currency: String): Response<List<Price>>
 
     @GET("v3/assets")
     suspend fun asset(): Response<AssetResponse>
@@ -20,6 +20,6 @@ interface MintscanApi {
     @GET("v3/assets/{chain}/cw20")
     suspend fun cw20token(@Path("chain") chain:String): TokenResponse
 
-    @GET("v1/{chain}/account/{address}/txs")
-    suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("from") id: Int): Response<List<CosmosHistory>>
+    @GET("v2/{chain}/account/{address}/txs")
+    suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String): Response<List<CosmosHistory>>
 }

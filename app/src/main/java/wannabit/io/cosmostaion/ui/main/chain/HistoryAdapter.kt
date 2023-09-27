@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.common.formatGrpcTxTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.data.model.BnbHistory
 import wannabit.io.cosmostaion.data.model.CosmosHistory
@@ -42,7 +43,7 @@ class HistoryAdapter(
             val historyGroup = cosmosHistoryList[position]
 
             historyGroup.second.header?.let { header ->
-                val headerDate = formatTxTimeToYear(context, header.timestamp)
+                val headerDate = formatGrpcTxTimeToYear(context, header.timestamp)
                 val headerIndex = cosmosHistoryList.indexOfFirst { it.first == headerDate }
                 val headerCnt = cosmosHistoryList.filter { it.first == headerDate }.size
                 holder.bindHistory(line, historyGroup, headerIndex, headerCnt, position)

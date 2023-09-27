@@ -21,6 +21,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.Asset
 import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.main.DashboardFragment
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -32,14 +33,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-
-
-fun onStartMain(parentFragmentManager: FragmentManager) {
-    val transaction = parentFragmentManager.beginTransaction()
-    val dashboardFragment = DashboardFragment()
-    transaction.replace(R.id.fragment_container, dashboardFragment)
-    transaction.commit()
-}
 
 fun formatString(input: String, point: Int): SpannableString {
     val spannableString = SpannableString(input)
@@ -74,9 +67,18 @@ fun priceChangeStatus(lastUpDown: BigDecimal): SpannableString {
 
 fun TextView.priceChangeStatusColor(lastUpDown: BigDecimal) {
     if (BigDecimal.ZERO > lastUpDown) {
-        setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
+        if (Prefs.priceStyle == 0) {
+            setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
+        } else {
+            setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
+        }
+
     } else {
-        setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
+        if (Prefs.priceStyle == 0) {
+            setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
+        } else {
+            setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
+        }
     }
 }
 
@@ -86,6 +88,10 @@ fun ImageView.setTokenImg(asset: Asset) {
 
 fun ImageView.setTokenImg(tokenImg: String) {
     Picasso.get().load(tokenImg).error(R.drawable.token_default).into(this)
+}
+
+fun ImageView.setImg(resourceId: Int) {
+    Picasso.get().load(resourceId).into(this)
 }
 
 fun AppCompatActivity.makeToast(id: Int) {
@@ -108,6 +114,27 @@ fun formatCurrentTimeToYear(): String {
         locale
     )
     return dateFormat.format(date.time)
+}
+
+fun formatGrpcTxTimeToYear(context: Context, timeString: String): String {
+    val locale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = inputFormat.parse(timeString)
+
+    val outputFormat = SimpleDateFormat(
+        if (locale == Locale.US) "MMMM dd, yyyy" else "yyyy.M.d",
+        locale
+    )
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
+fun formatGrpcTxTimeToHour(context: Context, timeString: String): String {
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
+    val outputFormat = SimpleDateFormat(context.getString(R.string.str_dp_time_format2))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return outputFormat.format(inputFormat.parse(timeString))
 }
 
 fun formatTxTimeToYear(context: Context, timeString: String): String {

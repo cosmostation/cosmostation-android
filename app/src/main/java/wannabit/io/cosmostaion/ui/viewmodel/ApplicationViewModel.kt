@@ -1,15 +1,7 @@
 package wannabit.io.cosmostaion.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import java.math.BigDecimal
 

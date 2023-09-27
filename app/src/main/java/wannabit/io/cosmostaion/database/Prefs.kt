@@ -16,10 +16,15 @@ object Prefs {
     private const val DISPLAY_CHAINS = "PRE_DISPLAY_CHAINS"
     private const val LAST_PRICE_TIME = "PRE_LAST_PRICE_TIME"
     private const val LAST_CURRENCY = "PRE_CURRENCY"
+    private const val LANGUAGE = "PRE_LANGUAGE"
+    private const val PRICE_STYLE = "PRE_PRICE_STYLE"
+    private const val LAST_TIME = "PRE_LAST_TIME"
+    private const val AUTO_PASS = "PRE_AUTO_PASS"
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
     private const val CURRENT_USER_ID = "PRE_USER_ID"
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
+
     private val preference = CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
     var lastUserId: Long
@@ -84,4 +89,20 @@ object Prefs {
     var currency: Int
         get() = preference.getInt(LAST_CURRENCY, 0)
         set(value) = preference.edit().putInt(LAST_CURRENCY, value).apply()
+
+    var language: Int
+        get() = preference.getInt(LANGUAGE, 0)
+        set(value) = preference.edit().putInt(LANGUAGE, value).apply()
+
+    var priceStyle: Int
+        get() = preference.getInt(PRICE_STYLE, 0)
+        set(value) = preference.edit().putInt(PRICE_STYLE, value).apply()
+
+    var lastTime: Long
+        get() = preference.getLong(LAST_TIME, 0)
+        set(value) = preference.edit().putLong(LAST_TIME, value).apply()
+
+    var autoPass: Int
+        get() = preference.getInt(AUTO_PASS, 0)
+        set(value) = preference.edit().putInt(AUTO_PASS, value).apply()
 }

@@ -38,9 +38,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.DashboardActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.line.cosmos.CosmosLineActivity"
             android:screenOrientation="portrait" />
         <activity

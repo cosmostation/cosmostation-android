@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.common
 
+import android.content.Context
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.Asset
 import wannabit.io.cosmostaion.data.model.Price
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -7,6 +9,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.Calendar
 
 object BaseData {
 
@@ -39,7 +42,7 @@ object BaseData {
         Prefs.lastAccountId = account.id
     }
 
-    suspend fun getLastAccount(): BaseAccount? {
+    fun getLastAccount(): BaseAccount? {
         val id = Prefs.lastAccountId
         val account = AppDatabase.getInstance().baseAccountDao().selectAccount(id)
         return account ?: AppDatabase.getInstance().baseAccountDao().selectAll().firstOrNull()
@@ -56,6 +59,11 @@ object BaseData {
         val min: Long = 60000
         val last = Prefs.lastPriceTime.toLong() + (min * 2)
         return last < now
+    }
+
+    fun setLastTime() {
+        val now = Calendar.getInstance().timeInMillis
+        Prefs.lastTime = now
     }
 
     fun currencyName(): String {
@@ -101,6 +109,15 @@ object BaseData {
             15 -> return "$"
             16 -> return "RM"
             else -> return ""
+        }
+    }
+
+    fun autoPass(c: Context): String {
+        return when (Prefs.autoPass) {
+            0 -> c.getString(R.string.str_never)
+            1 -> c.getString(R.string.str_5_min)
+            2 -> c.getString(R.string.str_10_min)
+            else -> c.getString(R.string.str_30_min)
         }
     }
 }

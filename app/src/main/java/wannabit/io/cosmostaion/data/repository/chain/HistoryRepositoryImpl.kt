@@ -14,10 +14,10 @@ class HistoryRepositoryImpl : HistoryRepository {
         chain: String,
         address: String?,
         limit: String,
-        id: Int
+        searchAfter: String
     ): NetworkResult<Response<List<CosmosHistory>>> {
         return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.mintscanApi.cosmosHistory(chain, address, limit, id)
+            RetrofitInstance.mintscanApi.cosmosHistory(chain, address, limit, searchAfter)
         }
     }
 

@@ -86,6 +86,12 @@ data class BaseAccount(
         }
     }
 
+    fun updateAllValue() {
+        displayCosmosLineChains.forEach { line ->
+            line.allAssetValue()
+        }
+    }
+
     fun sortCosmosLine() {
         allCosmosLineChains.sortWith { o1, o2 ->
             when {

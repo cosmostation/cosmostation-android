@@ -46,7 +46,7 @@
             android:layout_height="@dimen/space_28"
             android:layout_gravity="end"
             android:layout_marginRight="@dimen/space_20"
-            android:src="@drawable/icon_account" />
+            android:src="@drawable/btn_account" />
 
     </androidx.appcompat.widget.Toolbar>
 

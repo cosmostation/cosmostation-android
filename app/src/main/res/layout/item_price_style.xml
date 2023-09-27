@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:background="@color/color_base06"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/select_title"
+        style="@style/font_sb_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginVertical="@dimen/space_25"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/price_down_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/icon_price_down"/>
+
+    <TextView
+        android:id="@+id/price_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sm_10"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/price_down_img"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/str_down"/>
+
+    <ImageView
+        android:id="@+id/price_up_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/price_down"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/icon_price_up"/>
+
+    <TextView
+        android:id="@+id/price_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sm_10"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/price_up_img"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/str_up"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
 class MainActivity : BaseActivity() {
 
@@ -16,6 +20,8 @@ class MainActivity : BaseActivity() {
     private var swapFragment: SwapFragment? = null
     private var dappFragment: DappFragment? = null
     private var settingFragment: SettingFragment? = null
+
+    private lateinit var walletViewModel: WalletViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +33,14 @@ class MainActivity : BaseActivity() {
                 .replace(R.id.fragment_container, DashboardFragment())
                 .commit()
         }
+        initViewModel()
         initView()
+    }
+
+    private fun initViewModel() {
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initView() {
