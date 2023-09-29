@@ -1,14 +1,13 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
 import com.google.common.collect.ImmutableList
-import com.squareup.picasso.Picasso
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.common.BaseConstant
+import wannabit.io.cosmostaion.common.CosmostationConstants
 
 class ChainBinanceBeacon : CosmosLine() {
 
@@ -33,6 +32,6 @@ class ChainBinanceBeacon : CosmosLine() {
     val BNB_GECKO_ID = "binancecoin"
 
     fun assetImg(originSymbol: String): String {
-        return BaseConstant.CHAIN_BASE_URL + "bnb-beacon-chain/asset/" + originSymbol.lowercase() + ".png"
+        return CosmostationConstants.CHAIN_BASE_URL + "bnb-beacon-chain/asset/" + originSymbol.lowercase() + ".png"
     }
 }

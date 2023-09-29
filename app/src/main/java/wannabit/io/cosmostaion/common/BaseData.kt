@@ -66,6 +66,22 @@ object BaseData {
         Prefs.lastTime = now
     }
 
+    fun isAutoPass(): Boolean {
+        val now = Calendar.getInstance().timeInMillis
+        return when (Prefs.autoPass) {
+            1 -> {
+                Prefs.lastTime + BaseConstant.CONSTANT_M * 5 > now
+            }
+            2 -> {
+                Prefs.lastTime + BaseConstant.CONSTANT_M * 10 > now
+            }
+            3 -> {
+                Prefs.lastTime + BaseConstant.CONSTANT_M * 30 > now
+            }
+            else -> false
+        }
+    }
+
     fun currencyName(): String {
         when (Prefs.currency) {
             0 -> return "USD"

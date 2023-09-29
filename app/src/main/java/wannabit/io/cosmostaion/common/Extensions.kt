@@ -14,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -22,15 +21,12 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.Asset
 import wannabit.io.cosmostaion.data.model.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.ui.main.DashboardFragment
 import java.math.BigDecimal
-import java.math.BigInteger
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
@@ -83,7 +79,7 @@ fun TextView.priceChangeStatusColor(lastUpDown: BigDecimal) {
 }
 
 fun ImageView.setTokenImg(asset: Asset) {
-    Picasso.get().load(BaseConstant.CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(this)
+    Picasso.get().load(CosmostationConstants.CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(this)
 }
 
 fun ImageView.setTokenImg(tokenImg: String) {
@@ -156,31 +152,6 @@ fun formatTxTimeToHour(context: Context, timeString: String): String {
     val outputFormat = SimpleDateFormat(context.getString(R.string.str_dp_time_format2))
     inputFormat.timeZone = TimeZone.getTimeZone("UTC")
     return outputFormat.format(inputFormat.parse(timeString))
-}
-
-fun Date.formatToViewTimeDefaults(): String {
-    val sdf = SimpleDateFormat("MMM dd, hh:mm aa", Locale.US)
-    return sdf.format(this)
-}
-
-fun BigInteger.formatGasDecimal(): String {
-    return this.formatDecimal(9, 9)
-}
-
-fun String.formatDecimal(decimal: Int = 9, trim: Int = 3): String {
-    return BigInteger(this).formatDecimal(decimal, trim)
-}
-
-fun BigInteger.formatDecimal(decimal: Int = 9, trim: Int = 3): String {
-    if (this <= BigInteger("0")) {
-        return "0.0"
-    }
-    return BigDecimal(this).multiply(BigDecimal(0.1).pow(decimal)).setScale(trim, RoundingMode.DOWN)
-        .toString()
-}
-
-fun String.parseDecimal(decimal: Int = 9): BigInteger {
-    return BigDecimal(this).multiply(BigDecimal(10).pow(decimal)).toBigInteger()
 }
 
 fun View.visibleOrGone(visible: Boolean) {

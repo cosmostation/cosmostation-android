@@ -14,8 +14,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseConstant.EXPLORER_BASE_URL
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
@@ -103,7 +103,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                val accountUrl = EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/" + selectedChain.address
+                val accountUrl = CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/" + selectedChain.address
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
             }
 

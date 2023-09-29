@@ -9,9 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.data.model.AppVersion
 import wannabit.io.cosmostaion.data.model.NetworkResult
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
+import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.CryptoHelper
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
 
@@ -93,6 +96,20 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     fun changeObserve() = viewModelScope.launch(Dispatchers.IO) {
         _changeResult.postValue(BaseConstant.SUCCESS)
+    }
+
+    private var _pwCheckResult = MutableLiveData<String>()
+    val pwCheckResult: LiveData<String> get() = _pwCheckResult
+
+    fun checkPassword(input: String) = viewModelScope.launch(Dispatchers.IO) {
+        val checkPw = AppDatabase.getInstance().passwordDao().selectAll()
+        checkPw.forEach { password ->
+            if (!CryptoHelper.verifyData(input, password.resource, CosmostationConstants.ENCRYPT_PASSWORD_KEY)) {
+                _pwCheckResult.postValue(BaseConstant.FAIL)
+            } else {
+                _pwCheckResult.postValue(BaseConstant.SUCCESS)
+            }
+        }
     }
 
     fun clearDisposables() {

@@ -19,6 +19,7 @@ object Prefs {
     private const val LANGUAGE = "PRE_LANGUAGE"
     private const val PRICE_STYLE = "PRE_PRICE_STYLE"
     private const val LAST_TIME = "PRE_LAST_TIME"
+    private const val APP_LOCK = "PRE_APP_LOCK"
     private const val AUTO_PASS = "PRE_AUTO_PASS"
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
@@ -101,6 +102,10 @@ object Prefs {
     var lastTime: Long
         get() = preference.getLong(LAST_TIME, 0)
         set(value) = preference.edit().putLong(LAST_TIME, value).apply()
+
+    var appLock: Boolean
+        get() = preference.getBoolean(APP_LOCK, false)
+        set(value) = preference.edit().putBoolean(APP_LOCK, value).apply()
 
     var autoPass: Int
         get() = preference.getInt(AUTO_PASS, 0)

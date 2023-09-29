@@ -23,7 +23,9 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
+import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
+import wannabit.io.cosmostaion.ui.password.AppLockActivity
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
@@ -39,8 +41,8 @@ class IntroActivity : AppCompatActivity() {
         initFullScreen()
         initViewModel()
         initFirebase()
-        checkAppVersion()
         migrateDatabaseIfNeed()
+        checkAppVersion()
 
         introViewModel.walletAppVersion()
         initPriceInfo()
@@ -68,6 +70,13 @@ class IntroActivity : AppCompatActivity() {
         introViewModel = ViewModelProvider(this, introViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
+    override fun onPostResume() {
+        super.onPostResume()
+        if (Prefs.version >= BaseConstant.DB_VERSION) {
+            checkAppVersion()
+        }
+    }
+
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
         if (Prefs.version < BaseConstant.DB_VERSION) {
             LegacyMigrationHelper.migratePassword()
@@ -76,55 +85,30 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
-        delay(2000)
+        delay(1500)
         val account = BaseData.getLastAccount()
         account?.let {
             BaseData.baseAccount = account
+            if (CosmostationApp.instance.needShowLockScreen()) {
+                val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
 
-            if (AppDatabase.getInstance().baseAccountDao().selectAll().isEmpty()) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, EmptyWalletFragment()).commit()
-                }
             } else {
-                CoroutineScope(Dispatchers.Main).launch {
-                    Intent(this@IntroActivity, MainActivity::class.java).apply {
-                        startActivity(this)
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                if (AppDatabase.getInstance().baseAccountDao().selectAll().isEmpty()) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragment_container, EmptyWalletFragment()).commit()
+                    }
+                } else {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Intent(this@IntroActivity, MainActivity::class.java).apply {
+                            startActivity(this)
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
                     }
                 }
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    ApplicationViewModel.shared.currentWalletLiveData.postValue(
-//                        AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId)
-//                    )
-//                    startActivity(Intent(this@IntroActivity, DashboardActivity::class.java))
-//                    finish()
-//                }
-//                if (CosmostationApp.instance.needShowLockScreen()) {
-//                    val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
-//                    startActivity(intent)
-//                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out)
-//                } else {
-//                    if (intent.extras != null) if (intent.extras!!.getString("address") != null) {
-//                        val account =
-//                            baseDao.onSelectExistAccount2(intent.extras!!.getString("address"))
-//                        if (account != null) {
-//                            Prefs.lastUserId = account.id
-//                            IntentUtils.startMainActivity(this@IntroActivity, 2)
-//                            return@launch
-//                        }
-//                    } else if (intent.extras!!.getString("url") != null) {
-//                        IntentUtils.startMainActivity(this@IntroActivity, 0)
-//                        val intent = Intent(this@IntroActivity, AlertDialogActivity::class.java)
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        intent.putExtra("title", getString(R.string.app_name))
-//                        intent.putExtra("body", getIntent().extras!!.getString("body"))
-//                        intent.putExtra("link", getIntent().extras!!.getString("url"))
-//                        startActivity(intent)
-//                        return@launch
-//                    }
-//                    IntentUtils.startMainActivity(this@IntroActivity, 0)
-                }
+            }
         }
     }
 

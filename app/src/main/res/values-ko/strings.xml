@@ -33,6 +33,10 @@
     // msg
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>
     <string name="str_msg_address_copied" >주소 복사</string>
+    <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
+
+    // error
+    <string name="error_invalid_password">PIN 번호가 틀렸습니다.</string>
 
     // tx
     <string name="tx_unknown">알 수 없음</string>

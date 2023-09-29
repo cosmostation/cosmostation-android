@@ -14,6 +14,7 @@ object BaseConstant {
     const val DB_TABLE_UNBONDING = "unbond"
 
     const val SUCCESS = "Success"
+    const val FAIL = "Fail"
 
     //gRPC
     const val TASK_GRPC_FETCH_BALANCE = 4001
@@ -212,20 +213,7 @@ object BaseConstant {
     const val NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr"
     const val EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/"
     const val NFT_INFURA = "https://ipfs.infura.io/ipfs/"
-    const val EXPLORER_BASE_URL = "https://www.mintscan.io/"
-    const val EXPLORER_BINANCE_URL = "https://binance.mintscan.io/"
-    const val EXPLORER_TESTNET_URL = "https://testnet.mintscan.io/"
-    const val CHAIN_BASE_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
     const val COINGECKO_URL = "https://www.coingecko.com/en/coins/"
-
-    //cosmostation
-    const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"
-    const val COSMOSTATION_BLOG = "https://medium.com/cosmostation"
-    const val COSMOSTATION_TELEGRAM = "https://t.me/cosmostation"
-    const val COSMOSTATION_TERM_EN = "https://cosmostation.io/service_en"
-    const val COSMOSTATION_TERM_KR = "https://cosmostation.io/service_kr"
-    const val COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacy-policy"
-    const val COSMOSTATION_GITHUB = "https://github.com/cosmostation/cosmostation-android"
 
     //NFT Denom Default config
     const val STATION_NFT_DENOM = "station"

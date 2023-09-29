@@ -7,8 +7,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
 import wannabit.io.cosmostaion.common.formatGrpcTxTimeToHour
@@ -91,7 +91,7 @@ class HistoryViewHolder(
             }
 
             historyView.setOnClickListener {
-                val historyUrl = BaseConstant.EXPLORER_BASE_URL + "/" + line.apiName + "/transactions/" + historyGroup.second.data?.txhash
+                val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + "/" + line.apiName + "/transactions/" + historyGroup.second.data?.txhash
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
             }
         }
@@ -133,7 +133,7 @@ class HistoryViewHolder(
             txDenom.text = "-"
 
             historyView.setOnClickListener {
-                val historyUrl = BaseConstant.EXPLORER_BINANCE_URL + "txs" + historyBnbGroup.second.txHash
+                val historyUrl = CosmostationConstants.EXPLORER_BINANCE_URL + "txs" + historyBnbGroup.second.txHash
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
             }
         }

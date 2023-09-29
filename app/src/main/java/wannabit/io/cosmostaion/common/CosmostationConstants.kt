@@ -12,4 +12,19 @@ object CosmostationConstants {
 
     const val WALLET_API_URL = "https://api-wallet.cosmostation.io"
     const val MINTSCAN_API_URL = "https://front.api.mintscan.io"
+
+
+    // explorer & github
+    const val EXPLORER_BASE_URL = "https://www.mintscan.io/"
+    const val EXPLORER_BINANCE_URL = "https://binance.mintscan.io/"
+    const val CHAIN_BASE_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
+
+    //cosmostation
+    const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"
+    const val COSMOSTATION_BLOG = "https://medium.com/cosmostation"
+    const val COSMOSTATION_TELEGRAM = "https://t.me/cosmostation"
+    const val COSMOSTATION_TERM_EN = "https://cosmostation.io/service_en"
+    const val COSMOSTATION_TERM_KR = "https://cosmostation.io/service_kr"
+    const val COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacy-policy"
+    const val COSMOSTATION_GITHUB = "https://github.com/cosmostation/cosmostation-android"
 }

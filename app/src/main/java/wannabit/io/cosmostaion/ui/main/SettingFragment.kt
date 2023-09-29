@@ -1,27 +1,30 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.goneOrVisible
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.util.Locale
 
@@ -78,6 +81,11 @@ class SettingFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        onUpdateSwitch()
+    }
+
     private fun walletUpdateView() {
         val baseAccount = BaseData.baseAccount
         baseAccount?.let { account ->
@@ -102,7 +110,6 @@ class SettingFragment : Fragment() {
                     language.text = getString(R.string.str_system)
                 }
             }
-
             currency.text = BaseData.currencyName()
             when (Prefs.priceStyle) {
                 0 -> {
@@ -114,7 +121,6 @@ class SettingFragment : Fragment() {
                     priceDownImg.setImageResource(R.drawable.icon_price_down_reverse)
                 }
             }
-
             autoPass.text = BaseData.autoPass(requireContext())
         }
     }
@@ -139,7 +145,10 @@ class SettingFragment : Fragment() {
                 if (isClickable) {
                     isClickable = false
                     bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-                    parentFragmentManager.setFragmentResultListener("currency", this@SettingFragment) { _, _ ->
+                    parentFragmentManager.setFragmentResultListener(
+                        "currency",
+                        this@SettingFragment
+                    ) { _, _ ->
                         currency.text = BaseData.currencyName()
                         walletViewModel.price(BaseData.currencyName(), true)
                     }
@@ -155,7 +164,10 @@ class SettingFragment : Fragment() {
                 if (isClickable) {
                     isClickable = false
                     bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-                    parentFragmentManager.setFragmentResultListener("price", this@SettingFragment) { _, _ ->
+                    parentFragmentManager.setFragmentResultListener(
+                        "price",
+                        this@SettingFragment
+                    ) { _, _ ->
                         walletViewModel.changeObserve()
                         generalUpdateView()
                     }
@@ -171,7 +183,10 @@ class SettingFragment : Fragment() {
                 if (isClickable) {
                     isClickable = false
                     bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-                    parentFragmentManager.setFragmentResultListener("autoPass", this@SettingFragment) { _, _ ->
+                    parentFragmentManager.setFragmentResultListener(
+                        "autoPass",
+                        this@SettingFragment
+                    ) { _, _ ->
                         generalUpdateView()
                     }
 
@@ -182,39 +197,89 @@ class SettingFragment : Fragment() {
             }
 
             mintscanView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.EXPLORER_BASE_URL)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.EXPLORER_BASE_URL)
+                    )
+                )
             }
 
             homepageView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_HOMEPAGE)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
+                    )
+                )
             }
 
             blogView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_BLOG)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_BLOG)
+                    )
+                )
             }
 
             telegramView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_TELEGRAM)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_TELEGRAM)
+                    )
+                )
             }
 
             termView.setOnClickListener {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_TERM_KR)))
+                    startActivity(
+                        Intent(Intent.ACTION_VIEW,
+                            Uri.parse(CosmostationConstants.COSMOSTATION_TERM_KR)
+                        )
+                    )
                 } else {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_TERM_EN)))
+                    startActivity(
+                        Intent(Intent.ACTION_VIEW,
+                            Uri.parse(CosmostationConstants.COSMOSTATION_TERM_EN)
+                        )
+                    )
                 }
             }
 
             privacyView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_PRIVACY_POLICY)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_PRIVACY_POLICY)
+                    )
+                )
             }
 
             githubView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BaseConstant.COSMOSTATION_GITHUB)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_GITHUB)
+                    )
+                )
             }
 
             versionView.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + requireActivity().packageName)))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=" + requireActivity().packageName)
+                    )
+                )
+            }
+        }
+    }
+
+    private fun onUpdateSwitch() {
+        binding.apply {
+            Log.e("test1234 : ", Prefs.appLock.toString())
+            appLockSwitch.isChecked = Prefs.appLock
+            if (appLockSwitch.isChecked) {
+                appLockSwitch.thumbDrawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+            } else {
+                appLockSwitch.thumbDrawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
             }
         }
     }
@@ -222,39 +287,52 @@ class SettingFragment : Fragment() {
     private fun switchAction() {
         binding.apply {
             if (alarmSwitch.isChecked) {
-                alarmSwitch.thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                alarmSwitch.thumbDrawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
             } else {
-                alarmSwitch.thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                alarmSwitch.thumbDrawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
             }
 
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->
                 val thumbDrawable: Drawable?
                 if (isChecked) {
-                    thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
                 } else {
-                    thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 }
                 alarmSwitch.thumbDrawable = thumbDrawable
             }
 
-            if (appLockSwitch.isChecked) {
-                appLockSwitch.thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
-            } else {
-                appLockSwitch.thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
-            }
-
+            onUpdateSwitch()
             appLockSwitch.setOnCheckedChangeListener { _, isChecked ->
-                val thumbDrawable: Drawable?
                 if (isChecked) {
-                    thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    appLockSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    Prefs.appLock = true
+
                 } else {
-                    thumbDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
+                    appLockCheckResultLauncher.launch(intent)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom,
+                        R.anim.anim_fade_out
+                    )
                 }
-                appLockSwitch.thumbDrawable = thumbDrawable
             }
         }
-
     }
+
+    private val appLockCheckResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                binding.appLockSwitch.thumbDrawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                Prefs.appLock = false
+            }
+        }
 
     override fun onDestroyView() {
         _binding = null

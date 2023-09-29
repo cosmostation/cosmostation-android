@@ -12,5 +12,5 @@ interface PasswordDao {
     suspend fun delete(password: Password)
 
     @Query("select * from password")
-    suspend fun selectAll(): List<Password>
+    fun selectAll(): List<Password>
 }

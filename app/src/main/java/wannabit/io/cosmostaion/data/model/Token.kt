@@ -1,9 +1,7 @@
 package wannabit.io.cosmostaion.data.model
 
 import com.squareup.moshi.JsonClass
-import wannabit.io.cosmostaion.common.BaseConstant
-import wannabit.io.cosmostaion.database.Prefs
-import java.math.BigDecimal
+import wannabit.io.cosmostaion.common.CosmostationConstants
 
 
 @JsonClass(generateAdapter = true)
@@ -27,6 +25,6 @@ data class Token(
         get() = field ?: "0"
 
     fun assetImg(): String {
-        return BaseConstant.CHAIN_BASE_URL + image
+        return CosmostationConstants.CHAIN_BASE_URL + image
     }
 }

@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
-import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.main.SettingType
 
 class SettingBottomFragment(private val settingType: SettingType) : BottomSheetDialogFragment() {
@@ -47,7 +46,6 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                     settingAdapter.submitList(languageList)
 
                     settingAdapter.setOnItemClickListener {
-                        BaseUtils.updateResources(requireContext())
                         Prefs.language = it
                         dismiss()
                     }
@@ -106,6 +104,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                     settingAdapter.submitList(autoPassList)
 
                     settingAdapter.setOnItemClickListener {
+                        BaseData.setLastTime()
                         if (Prefs.autoPass != it) {
                             Prefs.autoPass = it
                         }

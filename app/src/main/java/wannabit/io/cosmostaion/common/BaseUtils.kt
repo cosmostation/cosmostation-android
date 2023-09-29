@@ -12,6 +12,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Calendar
 import java.util.Locale
+import java.util.regex.Pattern
 
 object BaseUtils {
     fun onParseVestingAccount(line: CosmosLine) {
@@ -325,6 +326,14 @@ object BaseUtils {
             }
         }
         return result
+    }
+
+    fun checkPasscodePattern(pinCode: String): Boolean {
+        if (pinCode.length != 5) return false
+        val regex = "^\\d{4}+[A-Z]{1}$"
+        val p = Pattern.compile(regex)
+        val m = p.matcher(pinCode)
+        return m.matches()
     }
 
     const val LANGUAGE_ENGLISH = 1

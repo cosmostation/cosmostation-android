@@ -22,7 +22,7 @@ object RetrofitInstance {
         OkHttpClient.Builder()
             .addInterceptor(httpExceptionInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 
