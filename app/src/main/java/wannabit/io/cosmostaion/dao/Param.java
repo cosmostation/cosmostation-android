@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ARCHWAY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.QUICKSILVER_MAIN;
@@ -30,24 +29,13 @@ public class Param {
     @SerializedName("block_time")
     public Double block_time;
 
-    @SerializedName("gas_price")
-    public GasPrice mGasPrice;
-
     @SerializedName("params")
     public Params mParams;
 
-    public class GasPrice {
-        @SerializedName("chain")
-        public String chain;
-
-        @SerializedName("base")
-        public String base;
-
-        @SerializedName("rate")
-        public ArrayList<String> rate;
-    }
-
     public class Params {
+        @SerializedName("chainlist_params")
+        public ChainListParam mChainListParam;
+
         @SerializedName("iris_minting_params")
         public IrisMintingParams mIrisMintingParams;
 
@@ -542,8 +530,8 @@ public class Param {
     }
 
     public ArrayList<String> getGasRate() {
-        if (mGasPrice != null && mGasPrice.rate.size() > 0) {
-            return mGasPrice.rate;
+        if (mParams.mChainListParam != null && mParams.mChainListParam.fee != null) {
+            return mParams.mChainListParam.fee.rate;
         }
         return null;
     }
@@ -573,6 +561,31 @@ public class Param {
             return new BigDecimal(mParams.mGovTallyParams.mTallyParams.veto_threshold);
         }
         return BigDecimal.ZERO;
+    }
+
+    public class ChainListParam {
+        @SerializedName("fee")
+        public Fee fee;
+
+        @SerializedName("isSimulable")
+        public Boolean isSimulable;
+
+        @SerializedName("simul_gas_multiply")
+        public String simulGasMultiply;
+
+        @SerializedName("fee_threshold")
+        public String feeThreshold;
+
+        @SerializedName("endpoint_url")
+        public ArrayList<String> endpointUrlList;
+
+        public class Fee {
+            @SerializedName("base")
+            public String base;
+
+            @SerializedName("rate")
+            public ArrayList<String> rate;
+        }
     }
 
     public class IrisMintingParams {

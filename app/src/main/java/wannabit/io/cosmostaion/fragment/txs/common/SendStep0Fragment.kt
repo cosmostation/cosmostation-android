@@ -331,6 +331,7 @@ class SendStep0Fragment : BaseFragment() {
             }
         }
         getSActivity().mAsset = mAsset
+        getSActivity().mToChainConfig = mToSendChainConfig
         getSActivity().mMintscanToken = mMintscanToken
     }
 

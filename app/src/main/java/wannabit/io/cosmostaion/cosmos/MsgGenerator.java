@@ -52,7 +52,6 @@ import java.util.TreeMap;
 
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
-import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -226,7 +225,7 @@ public class MsgGenerator {
         return result;
     }
 
-    public static ArrayList<Msg> genIbcTransferMsgs(String sender, String receiver, Coin amount, AssetPath assetPath, Client.Height lastHeight) {
+    public static ArrayList<Msg> genIbcTransferMsgs(String sender, String receiver, Coin amount, AssetPath assetPath, long revisionNumber, long revisionHeight) {
         ArrayList<Msg> result = new ArrayList<>();
         Msg msg  = new Msg();
         Msg.Value value = new Msg.Value();
@@ -235,7 +234,7 @@ public class MsgGenerator {
         value.source_channel = assetPath.channel;
         value.source_port = assetPath.port;
         value.token = amount;
-        value.time_height = new Msg.TimeoutHeight(String.valueOf(lastHeight.getRevisionHeight() + 1000), String.valueOf(lastHeight.getRevisionNumber()));
+        value.time_height = new Msg.TimeoutHeight(String.valueOf(revisionHeight + 200), String.valueOf(revisionNumber));
 
         msg.type = BaseConstant.COSMOS_MSG_TYPE_IBC_TRANSFER;
         msg.value = value;

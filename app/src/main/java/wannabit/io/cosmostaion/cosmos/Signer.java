@@ -446,21 +446,21 @@ public class Signer {
         return msgAnys;
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcIbcTransferReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        return getSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pKey, chainId, pubKeyType, baseChain);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcIbcTransferReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, long revisionNumber, long revisionHeight, Fee fee, String memo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
+        return getSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, revisionNumber, revisionHeight), fee, memo, pKey, chainId, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, int pubKeyType, BaseChain baseChain) {
-        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pubKeyType, baseChain);
+    public static ServiceOuterClass.SimulateRequest getGrpcIbcTransferSimulateReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, long revisionNumber, long revisionHeight, Fee fee, String memo, int pubKeyType, BaseChain baseChain) {
+        return getSignSimulTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, revisionNumber, revisionHeight), fee, memo, pubKeyType, baseChain);
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerIbcTransferSimulReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
-        return getLedgerSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, lastHeight), fee, memo, pubkeybyte, sigbyte);
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcLedgerIbcTransferSimulReq(QueryOuterClass.QueryAccountResponse auth, String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, long revisionNumber, long revisionHeight, Fee fee, String memo, byte[] pubkeybyte, byte[] sigbyte) {
+        return getLedgerSignTx(auth, getIbcTransferMsg(sender, receiver, ibcSendDenom, ibcSendAmount, assetPath, revisionNumber, revisionHeight), fee, memo, pubkeybyte, sigbyte);
     }
 
-    public static ArrayList<Any> getIbcTransferMsg(String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, Client.Height lastHeight) {
+    public static ArrayList<Any> getIbcTransferMsg(String sender, String receiver, String ibcSendDenom, String ibcSendAmount, AssetPath assetPath, long revisionNumber, long revisionHeight) {
         ArrayList<Any> msgAnys = new ArrayList<>();
-        Client.Height height = Client.Height.newBuilder().setRevisionNumber(lastHeight.getRevisionNumber()).setRevisionHeight(lastHeight.getRevisionHeight() + 1000).build();
+        Client.Height height = Client.Height.newBuilder().setRevisionNumber(revisionNumber).setRevisionHeight(revisionHeight + 200).build();
         CoinOuterClass.Coin token = CoinOuterClass.Coin.newBuilder().setAmount(ibcSendAmount).setDenom(ibcSendDenom).build();
         ibc.applications.transfer.v1.Tx.MsgTransfer msgIbcTransfer = ibc.applications.transfer.v1.Tx.MsgTransfer.newBuilder().setSender(sender).setReceiver(receiver).setSourcePort(assetPath.port).setSourceChannel(assetPath.channel).setToken(token).setTimeoutHeight(height).setTimeoutTimestamp(0).build();
         msgAnys.add(Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer").setValue(msgIbcTransfer.toByteString()).build());
@@ -1203,7 +1203,7 @@ public class Signer {
     }
 
     public static TxOuterClass.Tx getGrpcSimulTx(QueryOuterClass.QueryAccountResponse auth, TxOuterClass.TxBody txBody, TxOuterClass.AuthInfo authInfo, ECKey pKey, String chainId, int pubKeyType, BaseChain baseChain) {
-        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
+        TxOuterClass.SignDoc signDoc = TxOuterClass.SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setChainId(chainId).setAccountNumber((Long) onParseAuthGrpc(auth).get(1)).build();
         byte[] sigbyte = Signer.getGrpcByteSingleSignature(pKey, signDoc.toByteArray(), pubKeyType, baseChain);
         return TxOuterClass.Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody).addSignatures(ByteString.copyFrom(sigbyte)).build();
     }
