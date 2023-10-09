@@ -96,7 +96,7 @@ class ChainEditFragment : BottomSheetDialogFragment() {
                                         checkPower.visibility = View.GONE
 
                                         editLayout.visibility = View.VISIBLE
-                                        chainEditAdapter = ChainEditAdapter(requireContext(), account, displayChainLines)
+                                        chainEditAdapter = ChainEditAdapter(account, displayChainLines)
 
                                         recycler.apply {
                                             setHasFixedSize(true)

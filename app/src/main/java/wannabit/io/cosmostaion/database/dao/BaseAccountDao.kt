@@ -10,7 +10,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 @Dao
 interface BaseAccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(baseAccount: BaseAccount): Long
+    fun insert(baseAccount: BaseAccount): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(baseAccounts: List<BaseAccount>): List<Long>

@@ -16,6 +16,10 @@ object BaseConstant {
     const val SUCCESS = "Success"
     const val FAIL = "Fail"
 
+    const val CONST_PW_DELETE_ACCOUNT = 1000
+    const val CONST_PW_CONFIRM_MNEMONIC = 1001
+    const val CONST_PW_CONFIRM_PRIVATE = 1002
+
     //gRPC
     const val TASK_GRPC_FETCH_BALANCE = 4001
     const val TASK_GRPC_FETCH_BONDED_VALIDATORS = 4002
@@ -100,8 +104,6 @@ object BaseConstant {
     const val COSMOS_KEY_TYPE_PUBLIC = "tendermint/PubKeySecp256k1"
     const val ETHERMINT_KEY_TYPE_PUBLIC = "ethermint/PubKeyEthSecp256k1"
     const val CONST_PW_PURPOSE = "CONST_PW_PURPOSE"
-    const val CONST_PW_DELETE_WALLET = 5001
-    const val CONST_PW_TX_SIMPLE_SEND = 5003
     const val CONST_PW_TX_SIMPLE_DELEGATE = 5004
     const val CONST_PW_TX_SIMPLE_UNDELEGATE = 5005
     const val CONST_PW_TX_SIMPLE_REWARD = 5006

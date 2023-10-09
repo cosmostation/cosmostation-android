@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.common.KeyboardListener
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityPasswordCheckBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
@@ -28,7 +29,9 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
 
     private val ivCircle = arrayOfNulls<ImageView>(5)
     private var userInput = ""
-    private var askQuite = true
+    private var askQuite = false
+
+    private var checkPwType = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +65,8 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             pagerKeyboard.isUserInputEnabled = false
             pagerKeyboard.offscreenPageLimit = 2
         }
+
+        checkPwType = intent.getIntExtra("checkPwType", 0)
     }
 
     private fun onUpdateView() {
@@ -116,9 +121,17 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
     private fun checkPwObserve() {
         walletViewModel.pwCheckResult.observe(this) { result ->
             if (result == BaseConstant.SUCCESS) {
+                ApplicationViewModel.shared.apply {
+                    when (checkPwType) {
+                        BaseConstant.CONST_PW_DELETE_ACCOUNT -> { this.checkPwDelete() }
+                        BaseConstant.CONST_PW_CONFIRM_MNEMONIC -> { this.checkPwMnemonic() }
+                        BaseConstant.CONST_PW_CONFIRM_PRIVATE -> { this.checkPwPrivate() }
+                    }
+                }
                 setResult(RESULT_OK, intent)
                 finish()
                 overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+
             } else {
                 onUpdateView()
                 makeToast(R.string.error_invalid_password)

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain
 
+import com.trustwallet.walletconnect.extensions.toHex
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.common.BaseKey
 
@@ -16,6 +17,7 @@ open class BaseChain {
     open var grpcHost: String = ""
 
     open lateinit var accountKeyType: AccountKeyType
+    open var privateKey: ByteArray? = null
     open var setParentPath: List<ChildNumber> = mutableListOf()
     open var address: String? = ""
 
@@ -26,7 +28,7 @@ open class BaseChain {
     }
 
     fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
-        val privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
+        privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
         val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }

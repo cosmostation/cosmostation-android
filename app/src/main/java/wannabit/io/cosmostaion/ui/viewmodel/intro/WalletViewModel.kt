@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -17,8 +16,6 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
-
-    private val disposables = CompositeDisposable()
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -110,9 +107,5 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 _pwCheckResult.postValue(BaseConstant.SUCCESS)
             }
         }
-    }
-
-    fun clearDisposables() {
-        disposables.clear()
     }
 }

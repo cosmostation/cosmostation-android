@@ -12,7 +12,7 @@ import java.util.regex.Pattern
 data class CosmosHistory(
     val header: HistoryHeader?,
     val data: HistoryData?,
-    val logs: List<HistoryLog>?,
+//    val logs: List<HistoryLog>?,
     @Json(name = "search_after") val searchAfter: String?
 ) {
     @JsonClass(generateAdapter = true)
@@ -693,103 +693,103 @@ data class CosmosHistory(
     fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin>? {
         val result = mutableListOf<CoinProto.Coin>()
         if (getMsgCnt() > 0) {
-            var allReward = true
-            getMsgs()?.let { msgs ->
-                for (element in msgs) {
-                    val msgType = element.type
-                    if (!msgType.contains("MsgWithdrawDelegatorReward")) {
-                        allReward = false
-                    }
-                }
-            }
-            if (allReward) {
-                logs?.forEach { log ->
-                    log.events.forEach { event ->
-                        if (event.type == "transfer") {
-                            event.attributes.forEach { attribute ->
-                                if (attribute.key == "amount") {
-                                    val value = attribute.value as String
-                                    value.split(",").forEach { rawCoin ->
-                                        val p = Pattern.compile("([0-9])+")
-                                        val m = p.matcher(rawCoin)
-                                        if (m.find()) {
-                                            val amount = m.group()
-                                            val denom: String = rawCoin.substring(m.end())
-                                            val coin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                                .setAmount(amount).build()
-                                            result.add(coin)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                return sortedCoins(line, result)
-            }
+//            var allReward = true
+//            getMsgs()?.let { msgs ->
+//                for (element in msgs) {
+//                    val msgType = element.type
+//                    if (!msgType.contains("MsgWithdrawDelegatorReward")) {
+//                        allReward = false
+//                    }
+//                }
+//            }
+//            if (allReward) {
+//                logs?.forEach { log ->
+//                    log.events.forEach { event ->
+//                        if (event.type == "transfer") {
+//                            event.attributes.forEach { attribute ->
+//                                if (attribute.key == "amount") {
+//                                    val value = attribute.value as String
+//                                    value.split(",").forEach { rawCoin ->
+//                                        val p = Pattern.compile("([0-9])+")
+//                                        val m = p.matcher(rawCoin)
+//                                        if (m.find()) {
+//                                            val amount = m.group()
+//                                            val denom: String = rawCoin.substring(m.end())
+//                                            val coin = CoinProto.Coin.newBuilder().setDenom(denom)
+//                                                .setAmount(amount).build()
+//                                            result.add(coin)
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                return sortedCoins(line, result)
+//            }
 
-            var ibcReceived = false
-            getMsgs()?.let { msgs ->
-                for (element in msgs) {
-                    val msgType = element.type
-                    if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
-                        ibcReceived = true
-                    }
-                }
-            }
-            if (ibcReceived) {
-                logs?.forEach { log ->
-                    log.events.forEach { event ->
-                        if (event.type == "transfer") {
-                            val value = event.attributes[2].value as String
-                            value.split(",").forEach { rawCoin ->
-                                val p = Pattern.compile("([0-9])+")
-                                val m = p.matcher(rawCoin)
-                                if (m.find()) {
-                                    val amount = m.group()
-                                    val denom: String = rawCoin.substring(m.end())
-                                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-                                    result.add(coin)
-                                }
-                            }
-                        }
-                    }
-                }
-                return sortedCoins(line, result)
-            }
-        }
+//            var ibcReceived = false
+//            getMsgs()?.let { msgs ->
+//                for (element in msgs) {
+//                    val msgType = element.type
+//                    if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
+//                        ibcReceived = true
+//                    }
+//                }
+//            }
+//            if (ibcReceived) {
+//                logs?.forEach { log ->
+//                    log.events.forEach { event ->
+//                        if (event.type == "transfer") {
+//                            val value = event.attributes[2].value as String
+//                            value.split(",").forEach { rawCoin ->
+//                                val p = Pattern.compile("([0-9])+")
+//                                val m = p.matcher(rawCoin)
+//                                if (m.find()) {
+//                                    val amount = m.group()
+//                                    val denom: String = rawCoin.substring(m.end())
+//                                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
+//                                    result.add(coin)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                return sortedCoins(line, result)
+//            }
+//        }
 
-        if (getMsgCnt() == 2) {
-            getMsgs()?.let { msgs ->
-                val msgType0 = msgs[0].type
-                val msgType1 = msgs[1].type
-                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-                    logs?.forEach { log ->
-                        log.events.forEach { event ->
-                            if (event.type == "transfer") {
-                                event.attributes.forEach { attribute ->
-                                    if (attribute.key == "amount") {
-                                        val value = attribute.value as String
-                                        value.split(",").forEach { rawCoin ->
-                                            val p = Pattern.compile("([0-9])+")
-                                            val m = p.matcher(rawCoin)
-                                            if (m.find()) {
-                                                val amount = m.group()
-                                                val denom: String = rawCoin.substring(m.end())
-                                                val coin =
-                                                    CoinProto.Coin.newBuilder().setDenom(denom)
-                                                        .setAmount(amount).build()
-                                                result.add(coin)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return sortedCoins(line, result)
+//        if (getMsgCnt() == 2) {
+//            getMsgs()?.let { msgs ->
+//                val msgType0 = msgs[0].type
+//                val msgType1 = msgs[1].type
+//                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+//                    logs?.forEach { log ->
+//                        log.events.forEach { event ->
+//                            if (event.type == "transfer") {
+//                                event.attributes.forEach { attribute ->
+//                                    if (attribute.key == "amount") {
+//                                        val value = attribute.value as String
+//                                        value.split(",").forEach { rawCoin ->
+//                                            val p = Pattern.compile("([0-9])+")
+//                                            val m = p.matcher(rawCoin)
+//                                            if (m.find()) {
+//                                                val amount = m.group()
+//                                                val denom: String = rawCoin.substring(m.end())
+//                                                val coin =
+//                                                    CoinProto.Coin.newBuilder().setDenom(denom)
+//                                                        .setAmount(amount).build()
+//                                                result.add(coin)
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            return sortedCoins(line, result)
         }
 
         if (getMsgCnt() == 0 || getMsgCnt() > 1) {

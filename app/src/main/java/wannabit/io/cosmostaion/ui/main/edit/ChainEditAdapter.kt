@@ -12,7 +12,6 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 
 class ChainEditAdapter(
-    val context: Context,
     val account: BaseAccount,
     private val displayChainLines: MutableList<String>
 ) : ListAdapter<Any, ChainEditHolder>(ChainEditDiffCallback()) {

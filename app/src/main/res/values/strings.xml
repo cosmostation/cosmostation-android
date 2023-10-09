@@ -20,7 +20,7 @@
     <string name="str_share_address">Share Address</string>
     <string name="str_address">Address</string>
     <string name="str_checking" translatable="false">CHECKING</string>
-    <string name="str_confirm" translatable="false">Confirm</string>
+    <string name="str_confirm">Confirm</string>
     <string name="str_select_account" translatable="false">Select account</string>
     <string name="str_mnemonic_account">Mnemonic Account</string>
     <string name="str_private_account">Private key Account</string>
@@ -32,6 +32,7 @@
     <string name="str_setting" translatable="false">Send</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_account">Account</string>
+    <string name="str_add_account" translatable="false">Add account</string>
     <string name="str_chain">Chain</string>
     <string name="str_address_book">Address book</string>
     <string name="str_general">General</string>
@@ -61,17 +62,30 @@
     <string name="str_5_min">5min</string>
     <string name="str_10_min">10min</string>
     <string name="str_30_min">30min</string>
+    <string name="str_change_name">Change name</string>
+    <string name="str_delete_account">Delete account</string>
+    <string name="str_check_mnemonic">Check mnemonic</string>
+    <string name="str_check_private">Check private key for\neach chain</string>
+    <string name="str_only_private">Check private key</string>
+    <string name="str_account_name">Account name</string>
+    <string name="str_delete_name">Delete %1$s</string>
+    <string name="str_seed_phrase" translatable="false">Seed phrase</string>
+    <string name="str_phrase_cnt" translatable="false">%1$s words</string>
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>
     <string name="str_title_no_token" translatable="false">No Token</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_copy" translatable="false">Tap the card to copy it.</string>
+    <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
     <string name="str_msg_address_copied" >Address copied</string>
+    <string name="str_msg_mnemonic_copied" >Mnemonic copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_checking" translatable="false">Checking your all asset with onchain</string>
     <string name="str_msg_by_cosmostation" translatable="false">Powered by\nCosmostation Web3 Infrastructure</string>
     <string name="str_msg_enter_pin" translatable="false">Enter PIN</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
+    <string name="str_empty_account_name" translatable="false">Please insert account name.</string>
+    <string name="str_delete_account_msg">All information in your account will be deleted.\nIf you have not backed up your mnemonic or private key, you will not be able to permanently restore your wallet!</string>
 
     // header
     <string name="str_native_coins" translatable="false">Native Coins</string>

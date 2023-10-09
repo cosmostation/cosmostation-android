@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.dialog
+package wannabit.io.cosmostaion.ui.dialog.qr
 
 import android.app.Activity
 import android.app.Dialog

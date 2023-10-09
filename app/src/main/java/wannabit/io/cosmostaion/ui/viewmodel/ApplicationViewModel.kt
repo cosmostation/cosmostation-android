@@ -1,9 +1,16 @@
 package wannabit.io.cosmostaion.ui.viewmodel
 
+import SingleLiveEvent
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import java.math.BigDecimal
 
 class ApplicationViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
@@ -11,40 +18,22 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
             get() = CosmostationApp.instance.applicationViewModel
     }
 
+    private val _checkPwDeleteResult = MutableLiveData<String>()
+    val checkPwDeleteResult: LiveData<String> get() = _checkPwDeleteResult
 
+    fun checkPwDelete() = viewModelScope.launch(Dispatchers.IO) {
+        _checkPwDeleteResult.postValue(BaseConstant.SUCCESS)
+    }
 
-//    fun loadBalances() = CoroutineScope(Dispatchers.IO).launch {
-//        val wallet = AppDatabase.getInstance().walletDao().selectById(Prefs.lastUserId)!!
-//        Chain.allChains().forEach { chain ->
-//            when (chain.chainConfig) {
-//                is ChainConfig.Cosmos -> {
-//                    val address = chain.chainConfig.getAddress(wallet.seed!!)
-////                    val balance = chain.chainConfig.getBalance(address)
-//                    val channel = ManagedChannelBuilder.forAddress(chain.chainConfig.grpcUrl, 443).useTransportSecurity().build()
-//                    val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(5, TimeUnit.SECONDS)
-//                    val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
-//                    val request = QueryProto.QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address).build()
-//                    val response = stub.allBalances(request)
-//                    response.balancesList.forEach {
-//                        AppDatabase.getInstance().balanceDao().insert(Balance(wallet.id, chain.chainName, it.denom, it.amount, Date().time))
-//                    }
-//                }
-//
-//                is ChainConfig.Ethereum -> {
-//                    val address = chain.chainConfig.getAddress(wallet.seed!!)
-//                    val web3 = Web3j.build(HttpService("https://rpc.flashbots.net"))
-//                    val response = web3.ethGetBalance(address, DefaultBlockParameterName.LATEST).sendAsync().get()
-//                    AppDatabase.getInstance().balanceDao().insert(Balance(wallet.id, chain.chainName, chain.chainConfig.displayDenom, response.balance.toString(), Date().time))
-//                }
-//
-//                else -> {}
-//            }
-//            balancesLiveData.postValue(AppDatabase.getInstance().balanceDao().selectAll())
-//        }
-//    }
+    val checkPwMnemonicResult = SingleLiveEvent<String>()
 
+    fun checkPwMnemonic() = viewModelScope.launch {
+        checkPwMnemonicResult.call()
+    }
 
-    fun test(): BigDecimal {
-        return BigDecimal.ZERO
+    val checkPwPrivateResult = SingleLiveEvent<String>()
+
+    fun checkPwPrivate() = viewModelScope.launch {
+        checkPwPrivateResult.call()
     }
 }

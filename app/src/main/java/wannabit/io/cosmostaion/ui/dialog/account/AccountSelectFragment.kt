@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.setting
+package wannabit.io.cosmostaion.ui.dialog.account
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.formatGrpcTxTimeToYear
@@ -17,15 +17,13 @@ import wannabit.io.cosmostaion.data.repository.chain.HistoryRepository
 
 class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewModel() {
 
-    private val disposables = CompositeDisposable()
-
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
     private var _historyResult = MutableLiveData<MutableList<Pair<String, CosmosHistory>>>()
     val historyResult: LiveData<MutableList<Pair<String, CosmosHistory>>> get() = _historyResult
 
-    fun history(context: Context, chain: String, address: String?, limit: String, searchAfter: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun history(context: Context, chain: String, address: String?, limit: String, searchAfter: String) = CoroutineScope(Dispatchers.IO).launch {
         when (val response = historyRepository.cosmosHistory(chain, address, limit, searchAfter)) {
             is NetworkResult.Success -> {
                 response.data.let { data ->
@@ -54,7 +52,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _bnbHistoryResult = MutableLiveData<MutableList<Pair<String, BnbHistory>>>()
     val bnbHistoryResult: LiveData<MutableList<Pair<String, BnbHistory>>> get() = _bnbHistoryResult
 
-    fun bnbHistory(context: Context, address: String?, startTime: String, endTime: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun bnbHistory(context: Context, address: String?, startTime: String, endTime: String) = CoroutineScope(Dispatchers.IO).launch {
         when (val response = historyRepository.bnbHistory(address, startTime, endTime)) {
             is NetworkResult.Success -> {
                 response.data.let { data ->
@@ -77,9 +75,5 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                 _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
-    }
-
-    fun clearDisposables() {
-        disposables.clear()
     }
 }

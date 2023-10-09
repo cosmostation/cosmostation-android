@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.database.model
 
-import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -115,6 +114,28 @@ data class BaseAccount(
                 else -> 0
             }
         }
+    }
+
+    fun initOnlyKeyData(): MutableList<CosmosLine> {
+        allCosmosLineChains.clear()
+
+        if (type == BaseAccountType.MNEMONIC) {
+            allCosmosLines().forEach { line ->
+                allCosmosLineChains.add(line)
+            }
+            allCosmosLineChains.forEach { line ->
+                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+            }
+
+        } else if (type == BaseAccountType.PRIVATE_KEY) {
+            allCosmosLines().filter { it.isDefault }.forEach { line ->
+                allCosmosLineChains.add(line)
+            }
+            allCosmosLineChains.forEach { line ->
+                line.setInfoWithPrivateKey(privateKey)
+            }
+        }
+        return allCosmosLineChains
     }
 }
 

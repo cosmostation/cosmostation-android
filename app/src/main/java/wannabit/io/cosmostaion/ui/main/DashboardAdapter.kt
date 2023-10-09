@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
-import wannabit.io.cosmostaion.ui.dialog.QrDialog
+import wannabit.io.cosmostaion.ui.dialog.qr.QrDialog
 
 class DashboardAdapter(
     val context: Context,

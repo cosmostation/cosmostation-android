@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -38,6 +39,7 @@ class DashboardViewHolder(
                     chainPath.goneOrVisible(line.isDefault)
                     chainLegacy.goneOrVisible(line.isDefault)
 
+                    Log.e("line fetched : ", line.fetched.toString())
                     skeletonChainValue.goneOrVisible(line.fetched)
                     skeletonChainPrice.goneOrVisible(line.fetched)
                     chainPrice.visibleOrGone(line.fetched)

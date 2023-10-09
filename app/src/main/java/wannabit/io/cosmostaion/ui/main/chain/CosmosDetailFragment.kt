@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
-import wannabit.io.cosmostaion.ui.dialog.QrCodeFragment
+import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.main.MainActivity
 
 

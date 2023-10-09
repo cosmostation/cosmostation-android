@@ -34,7 +34,7 @@ class HistoryFragment(position: Int) : Fragment() {
 
     private var searchAfter: String = ""
     private var hasMore = false
-    private val BATCH_CNT = 30
+    private val BATCH_CNT = 20
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
     private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
@@ -97,7 +97,7 @@ class HistoryFragment(position: Int) : Fragment() {
                             if (lastVisibleItemPosition == itemTotalCount) {
                                 if (hasMore) {
                                     hasMore = false
-                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, "50", searchAfter)
+                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchAfter)
                                 }
                             }
                         }
@@ -148,11 +148,6 @@ class HistoryFragment(position: Int) : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        historyViewModel.clearDisposables()
     }
 }
 

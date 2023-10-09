@@ -164,9 +164,4 @@ class IntroActivity : AppCompatActivity() {
 
     private fun showUpdateDialog() {
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        introViewModel.clearDisposables()
-    }
 }

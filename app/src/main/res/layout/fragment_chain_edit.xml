@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_12"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/button_bg"
+            android:background="@drawable/button_common_bg"
             android:text="@string/str_confirm"
             android:textAllCaps="false"
             style="@style/font_sb_16"

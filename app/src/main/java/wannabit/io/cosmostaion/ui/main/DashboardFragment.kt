@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
-import wannabit.io.cosmostaion.ui.main.setting.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.dialog.account.AccountSelectFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
@@ -55,6 +56,7 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Log.e("baseAccount : ", BaseData.baseAccount.toString())
         CoroutineScope(Dispatchers.Main).launch {
             initView()
             initRecyclerView()

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mnemonic_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/space_22">
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="@dimen/space_20"
+        android:layout_height="@dimen/space_20"
+        style="@style/font_sb_12"
+        android:textColor="@color/color_base02"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/mnemonic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sb_14"
+        android:layout_marginStart="@dimen/space_14"
+        android:textColor="@color/color_base01" />
+</LinearLayout>

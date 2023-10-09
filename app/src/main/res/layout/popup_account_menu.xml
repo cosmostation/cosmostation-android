@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_12"
+        android:paddingVertical="@dimen/space_12"
+        android:paddingHorizontal="@dimen/space_16"
+        android:background="@drawable/item_popup_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/btn_change_name"
+            style="@style/font_sm_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/str_change_name"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="@dimen/space_200"
+            android:layout_height="@dimen/space_1"
+            android:background="@color/color_base06"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/space_12"
+            app:layout_constraintTop_toBottomOf="@+id/btn_change_name" />
+
+        <TextView
+            android:id="@+id/btn_delete_account"
+            style="@style/font_sm_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:text="@string/str_delete_account"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="@dimen/space_200"
+            android:layout_height="@dimen/space_1"
+            android:background="@color/color_base06"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/space_12"
+            app:layout_constraintTop_toBottomOf="@+id/btn_delete_account" />
+
+        <TextView
+            android:id="@+id/btn_check_mnemonic"
+            style="@style/font_sm_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:text="@string/str_check_mnemonic"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="@dimen/space_200"
+            android:layout_height="@dimen/space_1"
+            android:background="@color/color_base06"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="@dimen/space_12"
+            app:layout_constraintTop_toBottomOf="@+id/btn_check_mnemonic" />
+
+        <TextView
+            android:id="@+id/btn_check_private"
+            style="@style/font_sm_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_12"
+            android:text="@string/str_check_private"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +22,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
+import wannabit.io.cosmostaion.ui.main.setting.AccountListFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
@@ -76,7 +76,6 @@ class SettingFragment : Fragment() {
 
             walletUpdateView()
             generalUpdateView()
-
             version.text = "v " + BuildConfig.VERSION_NAME
         }
     }
@@ -128,6 +127,27 @@ class SettingFragment : Fragment() {
     private fun clickAction() {
         var isClickable = true
         binding.apply {
+            accountView.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left)
+                        .add(R.id.fragment_container, AccountListFragment())
+                        .hide(this@SettingFragment)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss()
+
+                    (activity as MainActivity?)?.onNextHideBottomNavi()
+
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
+
+
             languageView.setOnClickListener {
                 val bottomSheet = SettingBottomFragment(SettingType.LANGUAGE)
                 if (isClickable) {
@@ -272,7 +292,6 @@ class SettingFragment : Fragment() {
 
     private fun onUpdateSwitch() {
         binding.apply {
-            Log.e("test1234 : ", Prefs.appLock.toString())
             appLockSwitch.isChecked = Prefs.appLock
             if (appLockSwitch.isChecked) {
                 appLockSwitch.thumbDrawable =
@@ -332,7 +351,7 @@ class SettingFragment : Fragment() {
                     ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 Prefs.appLock = false
             }
-        }
+    }
 
     override fun onDestroyView() {
         _binding = null
