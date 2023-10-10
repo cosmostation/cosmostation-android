@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import cosmos.base.tendermint.v1beta1.Query;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import ibc.core.channel.v1.QueryGrpc;
+import ibc.lightclients.tendermint.v1.Tendermint;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.chains.ChainConfig;
@@ -52,23 +54,18 @@ public class IBCTransferGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            cosmos.base.tendermint.v1beta1.ServiceGrpc.ServiceBlockingStub toStub = cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mToChainConfig.baseChain())).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
-            Query.GetNodeInfoRequest nodeInfoRequest = Query.GetNodeInfoRequest.newBuilder().build();
-            Query.GetNodeInfoResponse nodeInfoResponse = toStub.getNodeInfo(nodeInfoRequest);
-            String[] parts = nodeInfoResponse.getNodeInfo().getNetwork().split("-");
-            long revisionNumber;
-            try {
-                revisionNumber = Long.parseLong(parts[parts.length - 1]);
-            } catch (NumberFormatException e) {
-                revisionNumber = 0;
-            }
+            QueryGrpc.QueryBlockingStub stub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+            ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest req = ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
+            ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateResponse res = stub.channelClientState(req);
+            Tendermint.ClientState value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
 
+            cosmos.base.tendermint.v1beta1.ServiceGrpc.ServiceBlockingStub toStub = cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mToChainConfig.baseChain())).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
             Query.GetLatestBlockRequest blockRequest = Query.GetLatestBlockRequest.newBuilder().build();
             Query.GetLatestBlockResponse blockResponse = toStub.getLatestBlock(blockRequest);
             long revisionHeight = blockResponse.getBlock().getHeader().getHeight();
 
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mReceiver, mTokenDenom, mTokenAmount, mAssetPath, revisionNumber, revisionHeight, mFees, "", WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(WKey.onAuthResponse(mBaseChain, mAccount), mSender, mReceiver, mTokenDenom, mTokenAmount, mAssetPath, value.getLatestHeight().getRevisionNumber(), revisionHeight, mFees, "", WKey.getECKey(mApp, mAccount), mChainId, mAccount.customPath, mBaseChain);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
