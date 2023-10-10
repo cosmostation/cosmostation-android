@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Cerberus extends ChainConfig {
 
@@ -34,4 +35,8 @@ public class Cerberus extends ChainConfig {
     public String homeInfoLink() { return  "https://cerberus.zone"; }
     public String blogInfoLink() { return  "https://medium.com/@cerberus_zone"; }
     public String coingeckoLink() { return  COINGECKO_URL + "cerberus"; }
+
+    public String noticeLink() {
+        return BaseConstant.EXPLORER_BASE_URL + "information/notice/" + chainName() + "/";
+    }
 }

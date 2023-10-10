@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Konstellation extends ChainConfig {
 
@@ -34,4 +35,8 @@ public class Konstellation extends ChainConfig {
     public String homeInfoLink() { return  "https://konstellation.tech"; }
     public String blogInfoLink() { return  "https://konstellation.medium.com"; }
     public String coingeckoLink() { return  COINGECKO_URL + "konstellation"; }
+
+    public String noticeLink() {
+        return BaseConstant.EXPLORER_BASE_URL + "information/notice/" + chainName() + "/";
+    }
 }
