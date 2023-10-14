@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.dialog.account
+package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -19,12 +19,14 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentPrivateCheckBinding
 
-class PrivateCheckFragment(private val account: BaseAccount) :  Fragment() {
+class PrivateCheckFragment(val account: BaseAccount) :  Fragment() {
 
     private var _binding: FragmentPrivateCheckBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var privateAdapter: PrivateAdapter
+
+    private var baseAccount: BaseAccount? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +84,7 @@ class PrivateCheckFragment(private val account: BaseAccount) :  Fragment() {
 
             privateKeyLayout.setOnClickListener {
                 val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("address", "0x" + account.privateKey?.toHex())
+                val clip = ClipData.newPlainText("address", "0x" + baseAccount?.privateKey?.toHex())
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_mnemonic_copied)
             }

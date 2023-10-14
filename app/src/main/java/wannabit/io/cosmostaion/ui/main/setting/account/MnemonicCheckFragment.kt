@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.dialog.account
+package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentMnemonicCheckBinding
 
-class MnemonicCheckFragment(private val account: BaseAccount) :  Fragment() {
+class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
 
     private var _binding: FragmentMnemonicCheckBinding? = null
     private val binding get() = _binding!!
@@ -22,8 +22,7 @@ class MnemonicCheckFragment(private val account: BaseAccount) :  Fragment() {
     private lateinit var mnemonicAdapter: MnemonicAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMnemonicCheckBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -32,20 +31,24 @@ class MnemonicCheckFragment(private val account: BaseAccount) :  Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        setUpViewModels()
         clickAction()
     }
 
-    private fun initView() {
+
+    private fun setUpViewModels() {
         binding.apply {
             accountNameView.setBackgroundResource(R.drawable.item_bg)
             recycler.setBackgroundResource(R.drawable.item_bg)
 
             account.apply {
                 accountName.text = name
-                CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec)?.let {
+                CryptoHelper.doDecryptData(
+                    CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec
+                )?.let {
                     val wordList = BaseKey.getMnemonicWords(Utils.hexToBytes(it))
-                    phraseCnt.text = getString(R.string.str_phrase_cnt, wordList.size.toString())
+                    phraseCnt.text =
+                        getString(R.string.str_phrase_cnt, wordList.size.toString())
 
                     mnemonicAdapter = MnemonicAdapter(requireContext())
                     recycler.setHasFixedSize(true)

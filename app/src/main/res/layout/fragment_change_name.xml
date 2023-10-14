@@ -47,7 +47,7 @@
             style="@style/InputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/str_account_name"
+            android:hint="@string/title_account_name"
             android:inputType="text"
             android:lines="1" />
 

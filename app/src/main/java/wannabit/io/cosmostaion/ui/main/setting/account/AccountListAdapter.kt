@@ -1,10 +1,8 @@
-package wannabit.io.cosmostaion.ui.main.setting
+package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -106,11 +104,11 @@ class AccountListAdapter(
         fun bind(position: Int) {
             binding.apply {
                 if (getItemViewType(position) == VIEW_TYPE_MNEMONIC_HEADER) {
-                    headerTitle.text = context.getString(R.string.str_mnemonic_account)
+                    headerTitle.text = context.getString(R.string.title_mnemonic_account)
                     headerCnt.text = currentList.filter { it.type == BaseAccountType.MNEMONIC }.size.toString()
 
                 } else {
-                    headerTitle.text = context.getString(R.string.str_private_account)
+                    headerTitle.text = context.getString(R.string.title_private_account)
                     headerCnt.text = currentList.filter { it.type == BaseAccountType.PRIVATE_KEY }.size.toString()
                 }
             }

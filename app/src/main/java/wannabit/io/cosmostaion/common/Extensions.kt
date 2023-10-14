@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.common
 
+import android.app.Activity
 import android.content.Context
 import android.text.Editable
 import android.text.Spannable
@@ -14,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -76,6 +79,33 @@ fun TextView.priceChangeStatusColor(lastUpDown: BigDecimal) {
             setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
         }
     }
+}
+
+fun Activity.toMoveAnimation() {
+    this.overridePendingTransition(
+        R.anim.anim_slide_in_left,
+        R.anim.anim_slide_out_right)
+}
+
+fun Activity.toMoveBack() {
+    this.overridePendingTransition(
+        R.anim.anim_slide_in_right,
+        R.anim.anim_slide_out_left)
+}
+
+fun FragmentActivity.toMoveFragment(currentFragment: Fragment, moveFragment: Fragment, stackName: String) {
+    this.supportFragmentManager.beginTransaction()
+        .setCustomAnimations(
+            R.animator.to_right,
+            R.animator.from_right,
+            R.animator.to_left,
+            R.animator.from_left
+        )
+        .add(R.id.fragment_container, moveFragment)
+        .hide(currentFragment)
+        .setReorderingAllowed(true)
+        .addToBackStack(stackName)
+        .commitAllowingStateLoss()
 }
 
 fun ImageView.setTokenImg(asset: Asset) {

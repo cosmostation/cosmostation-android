@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.dialog.account
+package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView

@@ -12,7 +12,7 @@ class ChainEvmos : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Evmos"
-    override var id: String = "evmos60"
+    override var tag: String = "evmos60"
     override var logo: Int = R.drawable.chain_evmos
     override var swipeLogo: Int = R.drawable.chain_swipe_evmos
     override var apiName: String = "evmos"
@@ -26,6 +26,7 @@ class ChainEvmos : CosmosLine() {
         ChildNumber.ZERO
     )
     override var accountPrefix: String? = "evmos"
+    override var evmCompatible: Boolean = true
 
     override var grpcHost: String = "grpc-evmos.cosmostation.io"
 }

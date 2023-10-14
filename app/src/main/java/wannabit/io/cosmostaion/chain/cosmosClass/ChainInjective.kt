@@ -12,7 +12,7 @@ class ChainInjective : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Injective"
-    override var id: String = "injective60"
+    override var tag: String = "injective60"
     override var logo: Int = R.drawable.chain_injective
     override var swipeLogo: Int = R.drawable.chain_swipe_injective
     override var apiName: String = "injective"

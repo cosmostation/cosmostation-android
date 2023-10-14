@@ -43,7 +43,7 @@ class ChainEditHolder(
 
                     selectSwitch.bringToFront()
                     selectSwitch.goneOrVisible(line is ChainCosmos)
-                    selectSwitch.isChecked = displayChains.contains(line.id)
+                    selectSwitch.isChecked = displayChains.contains(line.tag)
 
                     if (selectSwitch.isChecked) {
                         selectSwitch.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_on)
@@ -55,12 +55,12 @@ class ChainEditHolder(
                         val thumbDrawable: Drawable?
                         if (isChecked) {
                             thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_on)
-                            if (!displayChains.contains(line.id)) {
-                                displayChains.add(line.id)
+                            if (!displayChains.contains(line.tag)) {
+                                displayChains.add(line.tag)
                             }
                         } else {
                             thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
-                            displayChains.removeAll { it == line.id }
+                            displayChains.removeAll { it == line.tag }
                         }
                         selectSwitch.thumbDrawable = thumbDrawable
                     }

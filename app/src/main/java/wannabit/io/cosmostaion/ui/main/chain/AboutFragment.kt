@@ -1,22 +1,22 @@
-package wannabit.io.cosmostaion.ui.main
+package wannabit.io.cosmostaion.ui.main.chain
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import wannabit.io.cosmostaion.databinding.FragmentDappBinding
+import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
 
-class DappFragment : Fragment() {
+class AboutFragment(position: Int) : Fragment() {
 
-    private var _binding: FragmentDappBinding? = null
+    private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDappBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

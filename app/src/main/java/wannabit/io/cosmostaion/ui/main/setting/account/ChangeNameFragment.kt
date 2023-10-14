@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.dialog.account
+package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +39,7 @@ class ChangeNameFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragme
             if (inputText.isNotEmpty()) {
                 accountName.setText(baseAccount.name)
             } else {
-                accountName.setText(getString(R.string.str_wallet))
+                accountName.setText(getString(R.string.title_wallet))
             }
         }
     }

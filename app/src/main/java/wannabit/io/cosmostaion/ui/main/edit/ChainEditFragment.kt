@@ -120,8 +120,8 @@ class ChainEditFragment : BottomSheetDialogFragment() {
             baseAccount?.let { account ->
                 account.allCosmosLineChains.sortWith { o1, o2 ->
                     when {
-                        o1.id == "cosmos118" -> -1
-                        o2.id == "cosmos118" -> 1
+                        o1.tag == "cosmos118" -> -1
+                        o2.tag == "cosmos118" -> 1
                         else -> {
                             when {
                                 o1.allAssetValue() > o2.allAssetValue() -> -1
@@ -132,8 +132,8 @@ class ChainEditFragment : BottomSheetDialogFragment() {
                     }
                 }
                 account.allCosmosLineChains.forEach { line ->
-                    if (displayChainLines.contains(line.id)) {
-                        saveChainLine.add(line.id)
+                    if (displayChainLines.contains(line.tag)) {
+                        saveChainLine.add(line.tag)
                     }
                 }
                 Prefs.setDisplayChains(account, saveChainLine)

@@ -37,7 +37,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
             when (settingType) {
                 SettingType.LANGUAGE -> {
                     selectTitle.text = getString(R.string.str_select_language)
-                    val languageList = listOf(getString(R.string.str_system), getString(R.string.str_language_en), getString(R.string.str_language_kr))
+                    val languageList = listOf(getString(R.string.str_system), getString(R.string.title_language_en), getString(R.string.title_language_kr))
 
                     settingAdapter = SettingBottomAdapter(requireContext(), SettingType.LANGUAGE)
                     recycler.setHasFixedSize(true)
@@ -48,6 +48,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                     settingAdapter.setOnItemClickListener {
                         Prefs.language = it
                         dismiss()
+                        requireActivity().recreate()
                     }
                 }
 
@@ -73,7 +74,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                 }
 
                 SettingType.PRICE_STATUS -> {
-                    selectTitle.text = getString(R.string.str_price_change_color)
+                    selectTitle.text = getString(R.string.title_price_change_color)
                     val priceStyleList = listOf("Style1", "Style2")
 
                     settingAdapter = SettingBottomAdapter(requireContext(), SettingType.PRICE_STATUS)

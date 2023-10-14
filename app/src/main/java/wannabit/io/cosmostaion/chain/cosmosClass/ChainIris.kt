@@ -12,7 +12,7 @@ class ChainIris : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Iris"
-    override var id: String = "iris118"
+    override var tag: String = "iris118"
     override var logo: Int = R.drawable.chain_iris
     override var swipeLogo: Int = R.drawable.chain_swipe_iris
     override var apiName: String = "iris"

@@ -3,11 +3,8 @@
 
     <string name="str_total_value" translatable="false">Total value</string>
     <string name="str_cosmos_class" translatable="false">Cosmos Class</string>
-    <string name="str_legacy" translatable="false">LEGACY</string>
-    <string name="str_coin" translatable="false">Coins</string>
-    <string name="str_token" translatable="false">Tokens</string>
-    <string name="str_history" translatable="false">History</string>
-    <string name="str_about" translatable="false">About</string>
+    <string name="str_deprecated" translatable="false">Deprecated</string>
+    <string name="str_evm" translatable="false">EVN Compat</string>
     <string name="str_available" translatable="false">Available</string>
     <string name="str_vesting" translatable="false">Vesting</string>
     <string name="str_staked" translatable="false">Staked</string>
@@ -21,41 +18,12 @@
     <string name="str_address">Address</string>
     <string name="str_checking" translatable="false">CHECKING</string>
     <string name="str_confirm">Confirm</string>
-    <string name="str_select_account" translatable="false">Select account</string>
-    <string name="str_mnemonic_account">Mnemonic Account</string>
-    <string name="str_private_account">Private key Account</string>
-    <string name="str_governance" translatable="false">Governance</string>
-    <string name="str_reward_claim" translatable="false">Claim reward</string>
-    <string name="str_stake" translatable="false">Stake</string>
-    <string name="str_receive" translatable="false">Receive</string>
-    <string name="str_send" translatable="false">Setting</string>
-    <string name="str_setting" translatable="false">Send</string>
-    <string name="str_wallet">Wallet</string>
-    <string name="str_account">Account</string>
-    <string name="str_add_account" translatable="false">Add account</string>
-    <string name="str_chain">Chain</string>
-    <string name="str_address_book">Address book</string>
-    <string name="str_general">General</string>
-    <string name="str_language">Language</string>
-    <string name="str_currency">Currency</string>
-    <string name="str_price_change_color">Price change color</string>
-    <string name="str_notification">Notification</string>
-    <string name="str_app_lock" translatable="false">App lock</string>
-    <string name="str_support">Support</string>
-    <string name="str_mintscan" translatable="false">Mintscan</string>
-    <string name="str_homepage" translatable="false">Homepage</string>
-    <string name="str_blog" translatable="false">Blog</string>
-    <string name="str_telegram">Telegram</string>
-    <string name="str_term">Term</string>
-    <string name="str_privacy">Privacy</string>
-    <string name="str_github" translatable="false">Github</string>
-    <string name="str_version">Version</string>
     <string name="str_select_language">Select language</string>
     <string name="str_select_currency">Select currency</string>
     <string name="str_auto_pass">PIN auto pass</string>
     <string name="str_system" translatable="false">System</string>
-    <string name="str_language_en" translatable="false">English(United States)</string>
-    <string name="str_language_kr" translatable="false">한국어(대한민국)</string>
+    <string name="title_language_en" translatable="false">English(United States)</string>
+    <string name="title_language_kr" translatable="false">한국어(대한민국)</string>
     <string name="str_up" translatable="false">Up</string>
     <string name="str_down" translatable="false">Down</string>
     <string name="str_never">Never(recommend)</string>
@@ -67,10 +35,47 @@
     <string name="str_check_mnemonic">Check mnemonic</string>
     <string name="str_check_private">Check private key for\neach chain</string>
     <string name="str_only_private">Check private key</string>
-    <string name="str_account_name">Account name</string>
+    <string name="title_account_name">Account name</string>
     <string name="str_delete_name">Delete %1$s</string>
     <string name="str_seed_phrase" translatable="false">Seed phrase</string>
     <string name="str_phrase_cnt" translatable="false">%1$s words</string>
+
+    //title
+    <string name="title_coin" translatable="false">Coins</string>
+    <string name="title_token" translatable="false">Tokens</string>
+    <string name="title_history" translatable="false">History</string>
+    <string name="title_about" translatable="false">About</string>
+    <string name="title_select_account" translatable="false">Select account</string>
+    <string name="title_mnemonic_account">Mnemonic Account</string>
+    <string name="title_private_account">Private key Account</string>
+    <string name="title_governance" translatable="false">Governance</string>
+    <string name="title_reward_claim" translatable="false">Claim reward</string>
+    <string name="title_stake" translatable="false">Stake</string>
+    <string name="title_receive" translatable="false">Receive</string>
+    <string name="title_send" translatable="false">Setting</string>
+    <string name="title_setting" translatable="false">Send</string>
+    <string name="title_wallet">Wallet</string>
+    <string name="title_account">Account</string>
+    <string name="title_add_account" translatable="false">Add account</string>
+    <string name="title_chain">Chain</string>
+    <string name="title_address_book">Address book</string>
+    <string name="title_general">General</string>
+    <string name="title_language">Language</string>
+    <string name="title_currency">Currency</string>
+    <string name="title_price_change_color">Price change color</string>
+    <string name="title_notification">Notification</string>
+    <string name="title_app_lock" translatable="false">App lock</string>
+    <string name="title_support">Support</string>
+    <string name="title_mintscan" translatable="false">Mintscan</string>
+    <string name="title_homepage" translatable="false">Homepage</string>
+    <string name="title_blog" translatable="false">Blog</string>
+    <string name="title_telegram">Telegram</string>
+    <string name="title_term">Term</string>
+    <string name="title_privacy">Privacy</string>
+    <string name="title_github" translatable="false">Github</string>
+    <string name="title_version">Version</string>
+    <string name="title_check_mnemonic">Check Mnemonics</string>
+    <string name="str_check_private_each_chain">Check private key for each chain</string>
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>
@@ -78,8 +83,8 @@
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_copy" translatable="false">Tap the card to copy it.</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
-    <string name="str_msg_address_copied" >Address copied</string>
-    <string name="str_msg_mnemonic_copied" >Mnemonic copied\nClear your clipboard after paste it!</string>
+    <string name="str_msg_address_copied">Address copied</string>
+    <string name="str_msg_mnemonic_copied">Mnemonic copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_checking" translatable="false">Checking your all asset with onchain</string>
     <string name="str_msg_by_cosmostation" translatable="false">Powered by\nCosmostation Web3 Infrastructure</string>
     <string name="str_msg_enter_pin" translatable="false">Enter PIN</string>

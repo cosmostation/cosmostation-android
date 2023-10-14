@@ -1,20 +1,13 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
-import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.goneOrVisible
-import wannabit.io.cosmostaion.common.priceChangeStatus
-import wannabit.io.cosmostaion.common.priceChangeStatusColor
-import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 
 
@@ -23,7 +16,7 @@ class DashboardViewHolder(
     private val binding: ItemDashBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(account: BaseAccount, line: CosmosLine) {
+    fun bind(line: CosmosLine) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
 
@@ -32,35 +25,21 @@ class DashboardViewHolder(
                     chainImg.setImageResource(line.logo)
                     chainSwipeImg.setImageResource(line.swipeLogo)
                     chainName.text = line.name.uppercase()
-
-                    if (!line.isDefault) {
-                        chainPath.text = line.getHDPath(account.lastHDPath)
+                    if (line.evmCompatible) {
+                        chainBadge.text = context.getString(R.string.str_evm)
+                        chainBadge.setBackgroundResource(R.drawable.round_box_evm)
+                        chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base01))
+                    } else if (!line.isDefault) {
+                        chainBadge.text = context.getString(R.string.str_deprecated)
+                        chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
+                        chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base02))
+                    } else {
+                        chainBadge.visibility = View.GONE
                     }
-                    chainPath.goneOrVisible(line.isDefault)
-                    chainLegacy.goneOrVisible(line.isDefault)
-
-                    Log.e("line fetched : ", line.fetched.toString())
-                    skeletonChainValue.goneOrVisible(line.fetched)
-                    skeletonChainPrice.goneOrVisible(line.fetched)
-                    chainPrice.visibleOrGone(line.fetched)
 
                     if (line.fetched) {
                         chainValue.text = formatAssetValue(line.allAssetValue())
-
-                        var coinGeckoId: String? = ""
-                        if (line is ChainBinanceBeacon) {
-                            coinGeckoId = ChainBinanceBeacon().BNB_GECKO_ID
-                        } else {
-                            BaseData.getAsset(line.apiName, line.stakeDenom)?.let { asset ->
-                                coinGeckoId = asset.coinGeckoId
-                            }
-                        }
-                        BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
-                            chainPrice.priceChangeStatusColor(lastUpDown)
-                            chainPrice.text = priceChangeStatus(lastUpDown)
-                        }
-                    } else {
-                        chainPrice.text = priceChangeStatus("0.00".toBigDecimal())
+                        skeletonChainValue.visibility = View.GONE
                     }
                 }
 

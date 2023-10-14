@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
@@ -52,6 +53,8 @@ open class CosmosLine : BaseChain() {
     open lateinit var stakeDenom: String
     open var supportCw20 = false
     open var supportErc20 = false
+
+    open var evmCompatible = false
 
     private var grpcPort = 443
     private var duration = 8L
@@ -534,6 +537,7 @@ fun allCosmosLines(): List<CosmosLine> {
     lines.add(ChainIris())
     lines.add(ChainJuno())
     lines.add(ChainKava459())
+    lines.add(ChainKava118())
     lines.add(ChainLum118())
     lines.add(ChainOsmosis())
     return lines

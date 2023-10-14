@@ -16,6 +16,9 @@ import wannabit.io.cosmostaion.ui.password.AppLockActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 
 open class BaseActivity : AppCompatActivity() {
+
+    var isMainActivity: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFullScreen()
@@ -46,6 +49,16 @@ open class BaseActivity : AppCompatActivity() {
                 startActivity(intent)
                 overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (isMainActivity) {
+            moveTaskToBack(true)
+        } else {
+            moveTaskToBack(false)
+            toMoveBack()
         }
     }
 }

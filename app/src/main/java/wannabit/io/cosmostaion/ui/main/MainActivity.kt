@@ -1,25 +1,30 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
-import android.view.View
-import android.view.animation.AnimationUtils
+import android.os.Handler
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
+import wannabit.io.cosmostaion.ui.dialog.account.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    private var dashboardFragment: DashboardFragment? = null
-    private var swapFragment: SwapFragment? = null
-    private var dappFragment: DappFragment? = null
-    private var settingFragment: SettingFragment? = null
 
     private lateinit var walletViewModel: WalletViewModel
 
@@ -28,101 +33,138 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, DashboardFragment())
-                .commit()
-        }
         initViewModel()
         initView()
+        updateView()
+        setupViewModels()
+        clickAction()
     }
 
     private fun initViewModel() {
         val walletRepository = WalletRepositoryImpl()
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+    }
+
+    private fun updateView() {
+        val baseAccount = BaseData.baseAccount
+        binding.accountName.text = baseAccount?.name
+    }
+
+    private fun setupViewModels() {
+        ApplicationViewModel.shared.currentAccountResult.observe(this) {
+            updateView()
+        }
     }
 
     private fun initView() {
-        dashboardFragment = DashboardFragment()
-        showFragment(dashboardFragment!!)
+        isMainActivity = true
+        val mainViewPagerAdapter = MainViewPageAdapter(this)
+        binding.apply {
+            mainViewPager.adapter = mainViewPagerAdapter
+            mainViewPager.setCurrentItem(0, false)
+            mainViewPager.offscreenPageLimit = 2
+            mainViewPager.isUserInputEnabled = false
 
-        binding.navBar.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.dashboardFragment -> {
-                    if (dashboardFragment == null) {
-                        dashboardFragment = DashboardFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.fragment_container, dashboardFragment!!).commitAllowingStateLoss()
-                    }
-                    if (dashboardFragment != null) supportFragmentManager.beginTransaction().show(dashboardFragment!!).commitAllowingStateLoss()
-                    if (swapFragment != null) supportFragmentManager.beginTransaction().hide(swapFragment!!).commitAllowingStateLoss()
-                    if (dappFragment != null) supportFragmentManager.beginTransaction().hide(dappFragment!!).commitAllowingStateLoss()
-                    if (settingFragment != null) supportFragmentManager.beginTransaction().hide(settingFragment!!).commitAllowingStateLoss()
-                }
-
-                R.id.swapFragment -> {
-                    if (swapFragment == null) {
-                        swapFragment = SwapFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.fragment_container, swapFragment!!).commitAllowingStateLoss()
-                    }
-                    if (dashboardFragment != null) supportFragmentManager.beginTransaction().hide(dashboardFragment!!).commitAllowingStateLoss()
-                    if (swapFragment != null) supportFragmentManager.beginTransaction().show(swapFragment!!).commitAllowingStateLoss()
-                    if (dappFragment != null) supportFragmentManager.beginTransaction().hide(dappFragment!!).commitAllowingStateLoss()
-                    if (settingFragment != null) supportFragmentManager.beginTransaction().hide(settingFragment!!).commitAllowingStateLoss()
-                }
-
-                R.id.dappFragment -> {
-                    if (dappFragment == null) {
-                        dappFragment = DappFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.fragment_container, dappFragment!!).commitAllowingStateLoss()
-                    }
-                    if (dashboardFragment != null) supportFragmentManager.beginTransaction().hide(dashboardFragment!!).commitAllowingStateLoss()
-                    if (swapFragment != null) supportFragmentManager.beginTransaction().hide(swapFragment!!).commitAllowingStateLoss()
-                    if (dappFragment != null) supportFragmentManager.beginTransaction().show(dappFragment!!).commitAllowingStateLoss()
-                    if (settingFragment != null) supportFragmentManager.beginTransaction().hide(settingFragment!!).commitAllowingStateLoss()
-                }
-
-                R.id.settingFragment -> {
-                    if (settingFragment == null) {
-                        settingFragment = SettingFragment()
-                        supportFragmentManager.beginTransaction().add(R.id.fragment_container, settingFragment!!).commitAllowingStateLoss()
-                    }
-                    if (dashboardFragment != null) supportFragmentManager.beginTransaction().hide(dashboardFragment!!).commitAllowingStateLoss()
-                    if (swapFragment != null) supportFragmentManager.beginTransaction().hide(swapFragment!!).commitAllowingStateLoss()
-                    if (dappFragment != null) supportFragmentManager.beginTransaction().hide(dappFragment!!).commitAllowingStateLoss()
-                    if (settingFragment != null) supportFragmentManager.beginTransaction().show(settingFragment!!).commitAllowingStateLoss()
+            val tabLayoutMediator = TabLayoutMediator(tabLayout, mainViewPager) { tab, position ->
+                when (position) {
+                    0 -> { tab.setIcon(R.drawable.icon_wallet) }
+                    1 -> { tab.setIcon(R.drawable.icon_dapp) }
+                    2 -> { tab.setIcon(R.drawable.icon_setting) }
                 }
             }
-            true
+            tabLayoutMediator.attach()
+
+            for (i in 0 until tabLayout.tabCount) {
+                val tab = tabLayout.getTabAt(i)
+                if (i == 0) {
+                    tabIconSetColor(tab, true)
+                } else {
+                    tabIconSetColor(tab, false)
+                }
+            }
+
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    val position = tab?.position ?: 0
+                    mainViewPager.setCurrentItem(position, false)
+                    tabIconSetColor(tab, true)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    tabIconSetColor(tab, false)
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            })
         }
     }
 
-    private fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .apply {
-                replace(R.id.fragment_container, fragment)
-                    .commitAllowingStateLoss()
-            }
+    private fun tabIconSetColor(tab: TabLayout.Tab?, isSelected: Boolean) {
+        if (isSelected) {
+            tab?.icon?.colorFilter = PorterDuffColorFilter(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.color_base01
+                ), PorterDuff.Mode.SRC_IN
+            )
+        } else {
+            tab?.icon?.colorFilter = PorterDuffColorFilter(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.color_base03
+                ), PorterDuff.Mode.SRC_IN
+            )
+        }
     }
 
-    fun onNextHideBottomNavi() {
-        val nextAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_nav_slide_out_right)
-        binding.navBar.visibility = View.GONE
-        binding.navBar.startAnimation(nextAnimation)
+    private fun clickAction() {
+        var isClickable = true
+        binding.apply {
+            btnEdit.setOnClickListener {
+                val bottomSheet = ChainEditFragment()
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(supportFragmentManager, ChainEditFragment::class.java.name)
+
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
+
+            accountLayout.setOnClickListener {
+                val bottomSheet = AccountSelectFragment()
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(supportFragmentManager, AccountSelectFragment::class.java.name)
+
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
+        }
+    }
+
+    class MainViewPageAdapter(fragmentActivity: FragmentActivity) :
+        FragmentStateAdapter(fragmentActivity) {
+        private val mainFragments =
+            mutableListOf(DashboardFragment(), ServiceFragment(), SettingFragment())
+
+        override fun getItemCount(): Int {
+            return mainFragments.size
+        }
+
+        override fun createFragment(position: Int): Fragment {
+            return mainFragments[position]
+        }
     }
 
     fun onBackVisibleBottomNavi() {
-        val backAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_nav_slide_in_leff)
-        binding.navBar.visibility = View.VISIBLE
-        binding.navBar.startAnimation(backAnimation)
-    }
-
-    override fun onBackPressed() {
-        val fragmentManager = supportFragmentManager
-        if (fragmentManager.backStackEntryCount > 0) {
-            fragmentManager.popBackStack()
-        } else {
-            moveTaskToBack(true)
-        }
+//        val backAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_nav_slide_in_leff)
+//        binding.navBar.visibility = View.VISIBLE
+//        binding.navBar.startAnimation(backAnimation)
     }
 }

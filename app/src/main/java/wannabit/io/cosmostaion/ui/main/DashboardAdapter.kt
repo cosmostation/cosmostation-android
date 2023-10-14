@@ -10,14 +10,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrDialog
 
 class DashboardAdapter(
-    val context: Context,
-    val account: BaseAccount
+    val context: Context
 ) : ListAdapter<Any, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
 
     companion object {
@@ -54,7 +52,7 @@ class DashboardAdapter(
 
             is DashboardViewHolder -> {
                 val line = currentList[position - 1] as CosmosLine
-                holder.bind(account, line)
+                holder.bind(line)
 
                 holder.itemView.setOnClickListener {
                     if (line.fetched) onItemClickListener?.let { it(position - 1) }
@@ -100,7 +98,7 @@ class DashboardAdapter(
 
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
-                oldItem is CosmosLine && newItem is CosmosLine -> oldItem.id == newItem.id
+                oldItem is CosmosLine && newItem is CosmosLine -> oldItem.tag == newItem.tag
                 else -> false
             }
         }

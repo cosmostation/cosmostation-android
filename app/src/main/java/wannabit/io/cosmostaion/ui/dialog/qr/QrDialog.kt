@@ -8,8 +8,10 @@ import android.content.Intent
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -44,7 +46,19 @@ class QrDialog(
                 chainName.text = line.name
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 address.text = line.address
+                accountName.text = "( " + account.name + ")"
                 accountPath.text = line.getHDPath(account.lastHDPath)
+                if (line.evmCompatible) {
+                    chainBadge.text = context.getString(R.string.str_evm)
+                    chainBadge.setBackgroundResource(R.drawable.round_box_evm)
+                    chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base01))
+                } else if (!line.isDefault) {
+                    chainBadge.text = context.getString(R.string.str_deprecated)
+                    chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
+                    chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base02))
+                } else {
+                    chainBadge.visibility = View.GONE
+                }
                 chainImg.setImageResource(line.logo)
 
                 line.address?.let { qrCodeData ->

@@ -28,15 +28,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/font_sb_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sb_14"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/str_check_mnemonic"/>
+                android:text="@string/title_check_mnemonic"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -47,23 +47,22 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
         android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_8"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar" >
 
         <TextView
             android:id="@+id/account_name"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/space_16"
-            android:maxLines="1"
             android:ellipsize="middle"
-            android:textColor="@color/color_base01"
-            android:layout_gravity="center_vertical" />
+            android:maxLines="1"
+            android:textColor="@color/color_base01" />
 
     </androidx.cardview.widget.CardView>
 
@@ -133,6 +132,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"
         android:text="@string/str_confirm"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

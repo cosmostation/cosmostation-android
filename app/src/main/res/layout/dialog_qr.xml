@@ -33,19 +33,50 @@
             android:textColor="@color/color_base01"
             android:textAllCaps="true" />
 
+        <TextView
+            android:id="@+id/account_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_4"
+            android:maxWidth="@dimen/space_150"
+            android:maxLines="1"
+            android:ellipsize="middle"
+            style="@style/font_sb_14"
+            android:textColor="@color/color_base01"
+            android:textAllCaps="false" />
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/account_path"
-        style="@style/font_sm_12"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/account_info_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_6"
-        android:textAllCaps="false"
-        android:textColor="@color/color_base02"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_layout" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/qr_box_img"
+        app:layout_constraintTop_toBottomOf="@+id/name_layout">
+
+        <TextView
+            android:id="@+id/account_path"
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base02" />
+
+        <TextView
+            android:id="@+id/chain_badge"
+            style="@style/font_sm_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_6"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:layout_marginBottom="@dimen/space_2"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/qr_box_img"
@@ -53,7 +84,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_path"
+        app:layout_constraintTop_toBottomOf="@+id/account_info_layout"
         android:padding="@dimen/space_16"
         android:layout_marginTop="@dimen/space_4"
         android:src="@drawable/icon_qr_box"/>
@@ -98,8 +129,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_16"
         android:layout_marginTop="@dimen/space_8"
-        android:elevation="0dp"
-        app:cardPreventCornerOverlap="true"
         app:layout_constraintTop_toBottomOf="@id/address_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

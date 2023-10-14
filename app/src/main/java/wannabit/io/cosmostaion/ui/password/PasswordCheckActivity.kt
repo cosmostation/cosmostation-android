@@ -123,7 +123,6 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             if (result == BaseConstant.SUCCESS) {
                 ApplicationViewModel.shared.apply {
                     when (checkPwType) {
-                        BaseConstant.CONST_PW_DELETE_ACCOUNT -> { this.checkPwDelete() }
                         BaseConstant.CONST_PW_CONFIRM_MNEMONIC -> { this.checkPwMnemonic() }
                         BaseConstant.CONST_PW_CONFIRM_PRIVATE -> { this.checkPwPrivate() }
                     }

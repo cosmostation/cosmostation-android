@@ -65,7 +65,7 @@ data class BaseAccount(
         displayCosmosLineChains.clear()
         val displayNames = Prefs.getDisplayChains(this)
         displayNames.forEach { chainId ->
-            val displayChain = allCosmosLines().firstOrNull{ it.id == chainId }
+            val displayChain = allCosmosLines().firstOrNull{ it.tag == chainId }
             if (displayChain != null) {
                 displayCosmosLineChains.add(displayChain)
             }
@@ -94,8 +94,8 @@ data class BaseAccount(
     fun sortCosmosLine() {
         allCosmosLineChains.sortWith { o1, o2 ->
             when {
-                o1.id == "cosmos118" -> -1
-                o2.id == "cosmos118" -> 1
+                o1.tag == "cosmos118" -> -1
+                o2.tag == "cosmos118" -> 1
                 else -> {
                     when {
                         o1.allAssetValue() > o2.allAssetValue() -> -1
@@ -108,9 +108,9 @@ data class BaseAccount(
         val displayName = Prefs.getDisplayChains(this)
         allCosmosLineChains.sortWith { o1, o2 ->
             when {
-                o1.id == "cosmos118" -> -1
-                o2.id == "cosmos118" -> 1
-                displayName.contains(o1.id) && !displayName.contains(o2.id) -> -1
+                o1.tag == "cosmos118" -> -1
+                o2.tag == "cosmos118" -> 1
+                displayName.contains(o1.tag) && !displayName.contains(o2.tag) -> -1
                 else -> 0
             }
         }

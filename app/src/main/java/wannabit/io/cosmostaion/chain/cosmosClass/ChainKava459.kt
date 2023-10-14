@@ -12,7 +12,7 @@ class ChainKava459 : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Kava"
-    override var id: String = "kava459"
+    override var tag: String = "kava459"
     override var logo: Int = R.drawable.chain_kava
     override var swipeLogo: Int = R.drawable.chain_swipe_kava
     override var apiName: String = "kava"

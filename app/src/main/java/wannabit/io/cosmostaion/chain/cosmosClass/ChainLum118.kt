@@ -13,7 +13,7 @@ class ChainLum118 : CosmosLine() {
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var isDefault = false
     override var name: String = "Lum"
-    override var id: String = "lum118"
+    override var tag: String = "lum118"
     override var logo: Int = R.drawable.chain_lum
     override var swipeLogo: Int = R.drawable.chain_swipe_lum
     override var apiName: String = "lum"

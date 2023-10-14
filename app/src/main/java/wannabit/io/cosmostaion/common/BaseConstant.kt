@@ -16,7 +16,6 @@ object BaseConstant {
     const val SUCCESS = "Success"
     const val FAIL = "Fail"
 
-    const val CONST_PW_DELETE_ACCOUNT = 1000
     const val CONST_PW_CONFIRM_MNEMONIC = 1001
     const val CONST_PW_CONFIRM_PRIVATE = 1002
 

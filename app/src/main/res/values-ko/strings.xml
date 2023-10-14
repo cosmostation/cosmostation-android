@@ -6,23 +6,7 @@
     <string name="str_back">뒤로</string>
     <string name="str_share_address">주소 공유</string>
     <string name="str_address">주소</string>
-    <string name="str_mnemonic_account">니모닉 계정</string>
-    <string name="str_private_account">개인키 계정</string>
     <string name="str_confirm">확인</string>
-    <string name="str_wallet">지갑</string>
-    <string name="str_account">계정 관리</string>
-    <string name="str_chain">체인 관리</string>
-    <string name="str_address_book">주소록 관리</string>
-    <string name="str_general">일반</string>
-    <string name="str_language">언어</string>
-    <string name="str_currency">통화</string>
-    <string name="str_price_change_color">가격 변동 색상</string>
-    <string name="str_notification">알람</string>
-    <string name="str_support">지원</string>
-    <string name="str_telegram">텔레그렘</string>
-    <string name="str_term">약관</string>
-    <string name="str_privacy">개인정보 보호</string>
-    <string name="str_version">버전</string>
     <string name="str_select_language">언어 선택</string>
     <string name="str_select_currency">통화 선택</string>
     <string name="str_auto_pass">핀코드 자동통과</string>
@@ -35,8 +19,28 @@
     <string name="str_check_mnemonic">니모닉 확인</string>
     <string name="str_check_private">체인별 개인키 확인</string>
     <string name="str_only_private">개인키 확인</string>
-    <string name="str_account_name">계정 이름</string>
     <string name="str_delete_name">%1$s 삭제</string>
+
+    //title
+    <string name="title_mnemonic_account">니모닉 계정</string>
+    <string name="title_private_account">개인키 계정</string>
+    <string name="title_wallet">지갑</string>
+    <string name="title_account">계정 관리</string>
+    <string name="title_chain">체인 관리</string>
+    <string name="title_address_book">주소록 관리</string>
+    <string name="title_general">일반</string>
+    <string name="title_language">언어</string>
+    <string name="title_currency">통화</string>
+    <string name="title_price_change_color">가격 변동 색상</string>
+    <string name="title_notification">알람</string>
+    <string name="title_support">지원</string>
+    <string name="title_telegram">텔레그렘</string>
+    <string name="title_term">약관</string>
+    <string name="title_privacy">개인정보 보호</string>
+    <string name="title_version">버전</string>
+    <string name="title_account_name">계정 이름</string>
+    <string name="title_check_mnemonic">니모닉 확인</string>
+    <string name="str_check_private_each_chain">체인별 개인키 확인</string>
 
     // msg
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>

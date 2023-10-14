@@ -36,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/str_account"/>
+                android:text="@string/title_account"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -46,6 +46,7 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/space_8"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_account"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -56,12 +57,13 @@
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_12"
         android:background="@drawable/button_common_bg"
-        android:text="@string/str_add_account"
+        android:text="@string/title_add_account"
         android:textAllCaps="false"
         style="@style/font_sb_16"
         android:textColor="@color/color_base01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

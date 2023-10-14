@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.chain.CosmosDetailFragment">
+    android:background="@drawable/bg_03"
+    android:fitsSystemWindows="true"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -136,7 +136,7 @@
             app:fab_colorPressed="@color/color_base08"
             android:background="@color/color_transparent"
             android:src="@drawable/icon_send"
-            fab:fab_label="@string/str_send"
+            fab:fab_label="@string/title_send"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -147,7 +147,7 @@
             app:fab_colorPressed="@color/color_base08"
             android:src="@drawable/icon_receive"
             android:textAppearance="@style/FabLabelStyle"
-            fab:fab_label="@string/str_receive"
+            fab:fab_label="@string/title_receive"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -157,7 +157,7 @@
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             android:src="@drawable/icon_stake"
-            fab:fab_label="@string/str_stake"
+            fab:fab_label="@string/title_stake"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -167,7 +167,7 @@
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             android:src="@drawable/icon_claim_reward"
-            fab:fab_label="@string/str_stake"
+            fab:fab_label="@string/title_stake"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -177,7 +177,7 @@
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             android:src="@drawable/icon_governance"
-            fab:fab_label="@string/str_governance"
+            fab:fab_label="@string/title_governance"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

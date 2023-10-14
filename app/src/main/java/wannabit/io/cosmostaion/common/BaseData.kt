@@ -38,10 +38,6 @@ object BaseData {
         return assets?.firstOrNull { asset -> asset.chain == chainName && asset.denom?.lowercase() == denom.lowercase() }
     }
 
-    fun setLastAccount(account: BaseAccount) {
-        Prefs.lastAccountId = account.id
-    }
-
     fun getLastAccount(): BaseAccount? {
         val id = Prefs.lastAccountId
         val account = AppDatabase.getInstance().baseAccountDao().selectAccount(id)

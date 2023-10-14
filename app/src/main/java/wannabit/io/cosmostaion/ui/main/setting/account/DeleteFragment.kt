@@ -1,18 +1,19 @@
-package wannabit.io.cosmostaion.ui.dialog.account
+package wannabit.io.cosmostaion.ui.main.setting.account
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDeleteBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
 class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment() {
@@ -34,7 +35,6 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
 
         initView()
         clickAction()
-        checkPwResult()
     }
 
     private fun initView() {
@@ -45,8 +45,7 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
         binding.apply {
             btnDelete.setOnClickListener {
                 val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
-                intent.putExtra("checkPwType", BaseConstant.CONST_PW_DELETE_ACCOUNT)
-                startActivity(intent)
+                deleteAccountResultLauncher.launch(intent)
                 requireActivity().overridePendingTransition(
                     R.anim.anim_slide_in_bottom,
                     R.anim.anim_fade_out
@@ -55,12 +54,13 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
         }
     }
 
-    private fun checkPwResult() {
-        ApplicationViewModel.shared.checkPwDeleteResult.observe(viewLifecycleOwner) {
-            dismiss()
-            accountViewModel.deleteAccount(baseAccount)
+    private val deleteAccountResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                dismiss()
+                accountViewModel.deleteAccount(baseAccount)
+            }
         }
-    }
 
     override fun onDestroyView() {
         _binding = null

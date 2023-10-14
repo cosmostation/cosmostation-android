@@ -1,8 +1,9 @@
-package wannabit.io.cosmostaion.ui.main.setting
+package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +17,13 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemAccountListBinding
 import wannabit.io.cosmostaion.databinding.PopupAccountMenuBinding
-import wannabit.io.cosmostaion.ui.dialog.account.ChangeNameFragment
-import wannabit.io.cosmostaion.ui.dialog.account.DeleteFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+
 
 class AccountListViewHolder(
     val context: Context,
-    val binding: ItemAccountListBinding
+    val binding: ItemAccountListBinding,
+
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(account: BaseAccount, listener: AccountListAdapter.ClickListener) {
@@ -37,12 +38,17 @@ class AccountListViewHolder(
             accountName.text = account.name
 
             selectImg.setOnClickListener {
-                showPopupMenu(it, account, listener)
+                val location = IntArray(2)
+                it.getLocationOnScreen(location)
+                val x = location[0]
+                val y = location[1]
+
+                showPopupMenu(it, context, account, x, y, listener)
             }
         }
     }
 
-    private fun showPopupMenu(view: View, account: BaseAccount, listener: AccountListAdapter.ClickListener) {
+    private fun showPopupMenu(view: View, context: Context, account: BaseAccount, x: Int, y: Int, listener: AccountListAdapter.ClickListener) {
         val inflater =
             view.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = PopupAccountMenuBinding.inflate(inflater)
@@ -55,7 +61,12 @@ class AccountListViewHolder(
         )
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true
-        popupWindow.showAsDropDown(view)
+
+        if (y > 1200) {
+            popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x, y - 550)
+        } else {
+            popupWindow.showAsDropDown(view)
+        }
 
         binding.apply {
             if (account.type == BaseAccountType.MNEMONIC) {

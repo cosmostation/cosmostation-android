@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
         android:layout_marginHorizontal="@dimen/space_16"
-        android:background="@color/color_base06"
+        android:background="@color/color_base07"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

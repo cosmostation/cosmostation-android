@@ -18,10 +18,10 @@ class AccountSelectViewHolder(
         binding.apply {
             accountName.text = baseAccount.name
             if (baseAccount.type == BaseAccountType.MNEMONIC) {
-                accountType.text = context.getString(R.string.str_mnemonic_account)
+                accountType.text = context.getString(R.string.title_mnemonic_account)
                 accountTypeImg.setImageResource(R.drawable.icon_mnemonic)
             } else if (baseAccount.type == BaseAccountType.PRIVATE_KEY) {
-                accountType.text = context.getString(R.string.str_private_account)
+                accountType.text = context.getString(R.string.title_private_account)
                 accountTypeImg.setImageResource(R.drawable.icon_private)
             }
             selectImg.visibleOrGone(BaseData.baseAccount?.name == baseAccount.name)

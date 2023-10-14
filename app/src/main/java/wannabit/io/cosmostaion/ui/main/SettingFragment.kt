@@ -20,10 +20,12 @@ import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
-import wannabit.io.cosmostaion.ui.main.setting.AccountListFragment
+import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.main.setting.account.AccountActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.util.Locale
@@ -100,10 +102,10 @@ class SettingFragment : Fragment() {
         binding.apply {
             when (Prefs.language) {
                 BaseUtils.LANGUAGE_ENGLISH -> {
-                    language.text = getString(R.string.str_language_en)
+                    language.text = getString(R.string.title_language_en)
                 }
                 BaseUtils.LANGUAGE_KOREAN -> {
-                    language.text = getString(R.string.str_language_kr)
+                    language.text = getString(R.string.title_language_kr)
                 }
                 else -> {
                     language.text = getString(R.string.str_system)
@@ -128,25 +130,11 @@ class SettingFragment : Fragment() {
         var isClickable = true
         binding.apply {
             accountView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left)
-                        .add(R.id.fragment_container, AccountListFragment())
-                        .hide(this@SettingFragment)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .commitAllowingStateLoss()
-
-                    (activity as MainActivity?)?.onNextHideBottomNavi()
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
+                Intent(requireContext(), AccountActivity::class.java).apply {
+                    startActivity(this)
+                    requireActivity().toMoveAnimation()
                 }
             }
-
 
             languageView.setOnClickListener {
                 val bottomSheet = SettingBottomFragment(SettingType.LANGUAGE)

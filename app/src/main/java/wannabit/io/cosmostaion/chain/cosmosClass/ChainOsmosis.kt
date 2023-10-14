@@ -12,7 +12,7 @@ class ChainOsmosis : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Osmosis"
-    override var id: String = "osmosis118"
+    override var tag: String = "osmosis118"
     override var logo: Int = R.drawable.chain_osmosis
     override var swipeLogo: Int = R.drawable.chain_swipe_osmosis
     override var apiName: String = "osmosis"

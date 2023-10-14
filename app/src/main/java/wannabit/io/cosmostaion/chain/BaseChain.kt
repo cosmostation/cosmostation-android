@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.chain
 
-import com.trustwallet.walletconnect.extensions.toHex
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.common.BaseKey
 
@@ -8,7 +7,8 @@ open class BaseChain {
 
     open var chainType: ChainType? = null
     open var name: String = ""
-    open var id: String = ""
+    open var tag: String = ""
+    open var chainId: String = ""
     open var logo: Int = -1
     open var swipeLogo: Int = -1
     open var isDefault: Boolean = true

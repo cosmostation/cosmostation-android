@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/space_36"
-    android:background="@color/color_base06"
+    android:background="@color/color_base07"
     android:orientation="vertical">
 
     <LinearLayout

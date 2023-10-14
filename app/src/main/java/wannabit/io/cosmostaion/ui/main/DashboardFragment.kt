@@ -1,8 +1,7 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
-import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailFragment
-import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
-import wannabit.io.cosmostaion.ui.dialog.account.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailActivity
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
@@ -50,31 +47,24 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickAction()
-        checkPriceStatus()
+        setupViewModels()
+        updateView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.e("baseAccount : ", BaseData.baseAccount.toString())
-        CoroutineScope(Dispatchers.Main).launch {
-            initView()
-            initRecyclerView()
-            onUpdateLoadData()
-        }
+    private fun updateView() {
+        initView()
+        initRecyclerView()
+        onUpdateLoadData()
     }
 
     private fun initView() {
         baseAccount = BaseData.baseAccount
         baseAccount?.initDisplayData()
-        binding?.apply {
-            accountName.text = baseAccount?.name
-        }
     }
 
     private fun initRecyclerView() {
         baseAccount?.let { baseAccount ->
-            dashAdapter = DashboardAdapter(requireContext(), baseAccount)
+            dashAdapter = DashboardAdapter(requireContext())
 
             binding?.recycler?.apply {
                 setHasFixedSize(true)
@@ -82,29 +72,11 @@ class DashboardFragment : Fragment() {
                 adapter = dashAdapter
                 dashAdapter.submitList(baseAccount.displayCosmosLineChains as List<Any>?)
 
-                var isClickable = true
                 dashAdapter.setOnItemClickListener {
-                    if (isClickable) {
-                        isClickable = false
-
-                        val bundle = Bundle()
-                        bundle.putInt("selectPosition", it)
-                        val fragment = CosmosDetailFragment()
-                        fragment.arguments = bundle
-
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .setCustomAnimations(R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left)
-                            .add(R.id.fragment_container, fragment)
-                            .hide(this@DashboardFragment)
-                            .setReorderingAllowed(true)
-                            .addToBackStack(null)
-                            .commitAllowingStateLoss()
-
-                        (activity as MainActivity?)?.onNextHideBottomNavi()
-
-                        Handler().postDelayed({
-                            isClickable = true
-                        }, 1000)
+                    Intent(requireContext(), CosmosDetailActivity::class.java).apply {
+                        putExtra("selectPosition", it)
+                        startActivity(this)
+                        requireActivity().toMoveAnimation()
                     }
                 }
             }
@@ -145,7 +117,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun checkPriceStatus() {
+    private fun setupViewModels() {
         walletViewModel.walletPriceResult.observe(viewLifecycleOwner) { result ->
             if (result == BaseConstant.SUCCESS) {
                 onUpdateTotal()
@@ -158,34 +130,9 @@ class DashboardFragment : Fragment() {
                 dashAdapter.notifyDataSetChanged()
             }
         }
-    }
 
-    private fun clickAction() {
-        var isClickable = true
-        binding?.apply {
-            btnEdit.setOnClickListener {
-                val bottomSheet = ChainEditFragment()
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(parentFragmentManager, ChainEditFragment::class.java.name)
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
-
-            accountLayout.setOnClickListener {
-                val bottomSheet = AccountSelectFragment()
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(parentFragmentManager, AccountSelectFragment::class.java.name)
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
+        ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) {
+            updateView()
         }
     }
 
