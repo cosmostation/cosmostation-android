@@ -15,6 +15,8 @@
     <color name="color_accent_green">#5BFF89</color>
     <color name="color_accent_red">#FF4D36</color>
 
+    <color name="color_black">#000000</color>
+
     <color name="color_box">#4C4B5E</color>
     <color name="color_background_dialog">#80000000</color>
     <color name="color_transparent">@android:color/transparent</color>

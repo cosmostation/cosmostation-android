@@ -23,10 +23,10 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
-import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.account.AccountActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.util.Locale
 
@@ -51,6 +51,7 @@ class SettingFragment : Fragment() {
         initView()
         clickAction()
         switchAction()
+        checkAccountStatus()
     }
 
     private fun initView() {
@@ -95,6 +96,12 @@ class SettingFragment : Fragment() {
                 supportChainCnt.text = allCosmosLines().count().toString()
                 favoriteAddressCnt.text = "0"
             }
+        }
+    }
+
+    private fun checkAccountStatus() {
+        ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) {
+            walletUpdateView()
         }
     }
 

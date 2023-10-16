@@ -13,11 +13,12 @@
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>
     <string name="str_today">Today</string>
-    <string name="str_back">BACK</string>
+    <string name="str_next">Next</string>
     <string name="str_share_address">Share Address</string>
     <string name="str_address">Address</string>
     <string name="str_checking" translatable="false">CHECKING</string>
     <string name="str_confirm">Confirm</string>
+    <string name="str_cancel">Cancel</string>
     <string name="str_select_language">Select language</string>
     <string name="str_select_currency">Select currency</string>
     <string name="str_auto_pass">PIN auto pass</string>
@@ -39,6 +40,13 @@
     <string name="str_delete_name">Delete %1$s</string>
     <string name="str_seed_phrase" translatable="false">Seed phrase</string>
     <string name="str_phrase_cnt" translatable="false">%1$s words</string>
+    <string name="str_account_name">Account name</string>
+    <string name="str_private_key">Private Key</string>
+    <string name="str_warning">Warning</string>
+    <string name="str_12_words" translatable="false">12 words</string>
+    <string name="str_18_words" translatable="false">18 words</string>
+    <string name="str_24_words" translatable="false">24 words</string>
+
 
     //title
     <string name="title_coin" translatable="false">Coins</string>
@@ -75,7 +83,17 @@
     <string name="title_github" translatable="false">Github</string>
     <string name="title_version">Version</string>
     <string name="title_check_mnemonic">Check Mnemonics</string>
-    <string name="str_check_private_each_chain">Check private key for each chain</string>
+    <string name="title_check_private_each_chain">Check private key for each chain</string>
+    <string name="title_create_account">Create account</string>
+    <string name="title_create_wallet">Create a new account</string>
+    <string name="title_import_mnemonic">Import wallet</string>
+    <string name="title_import_private_key">Import Private Key</string>
+    <string name="title_set_account_name">Set Account Name</string>
+    <string name="title_mnemonic_created">Mnemonic Created</string>
+    <string name="title_restore_mnemonic">Restore With Mnemonic</string>
+    <string name="title_hd_path_setting">HD Path Setting</string>
+    <string name="title_restore_private">Restore With PrivateKey</string>
+
 
     // msg
     <string name="str_title_no_history" translatable="false">No History</string>
@@ -83,6 +101,8 @@
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_copy" translatable="false">Tap the card to copy it.</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
+    <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy.</string>
+    <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_address_copied">Address copied</string>
     <string name="str_msg_mnemonic_copied">Mnemonic copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_checking" translatable="false">Checking your all asset with onchain</string>
@@ -91,6 +111,11 @@
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_empty_account_name" translatable="false">Please insert account name.</string>
     <string name="str_delete_account_msg">All information in your account will be deleted.\nIf you have not backed up your mnemonic or private key, you will not be able to permanently restore your wallet!</string>
+    <string name="str_create_wallet_msg">Create an account with a set of mnemonics</string>
+    <string name="str_import_mnemonic_msg">Restore an account with your mnemonics</string>
+    <string name="str_import_private_key_msg">Restore an account with your private key</string>
+    <string name="str_warning_mnemonic_msg">This phrase is the only way to recover your account. Losing this mnemonics could lead to loss of your asset.</string>
+
 
     // header
     <string name="str_native_coins" translatable="false">Native Coins</string>
@@ -99,8 +124,14 @@
     <string name="str_contract_coins" translatable="false">Contract Coins</string>
     <string name="str_unknown_coins" translatable="false">Unknown Coins</string>
 
+
     // error
     <string name="error_invalid_password">Invalid PIN number</string>
+    <string name="error_account_name">Please insert account name.</string>
+    <string name="error_exist_account_name">Already exist name.</string>
+    <string name="error_invalid_menmonic">Please insert valid mnemonics.</string>
+    <string name="error_invalid_private_Key">Invalid private key.</string>
+
 
     // tx
     <string name="tx_unknown">Unknown</string>

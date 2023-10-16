@@ -8,25 +8,26 @@ import org.bitcoinj.crypto.DeterministicHierarchy
 import org.bitcoinj.crypto.HDKeyDerivation
 import org.bitcoinj.crypto.MnemonicCode
 import org.bitcoinj.crypto.MnemonicException.MnemonicLengthException
-import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Keys
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.PubKeyType
+import java.security.SecureRandom
 
 object BaseKey {
 
-//    fun getMnemonicWords() : List<String> {
-//        BaseData.baseAccount?.let { baseAccount ->
-//            val hexEntropy = CryptoHelper.doDecryptData(
-//                CosmostationConstants.ENCRYPT_MNEMONIC_KEY + baseAccount.uuid,
-//                baseAccount.resource,
-//                baseAccount.spec
-//            )
-//            hexEntropy?.let {
-//                return mutableListOf()
-//            }
-//        }
-//    }
+    fun getEntropy(size: Int): ByteArray {
+        val seed = ByteArray(size)
+        SecureRandom().nextBytes(seed)
+        return seed
+    }
+
+    fun getRandomMnemonic(entropy: ByteArray): List<String>? {
+        return MnemonicCode.INSTANCE.toMnemonic(entropy)
+    }
+
+    fun toEntropy(words: List<String>): ByteArray? {
+        return MnemonicCode().toEntropy(words)
+    }
 
     fun getMnemonicWords(hexEntropy: ByteArray?): List<String> {
         var words: List<String> = ArrayList()
@@ -80,5 +81,21 @@ object BaseKey {
             else -> return result
         }
         return result
+    }
+
+    fun isMnemonicWords(words: List<String>): Boolean {
+        var result = true
+        val mnemonics = MnemonicCode.INSTANCE.wordList
+        for (insert in words) {
+            if (!mnemonics.contains(insert)) {
+                result = false
+                break
+            }
+        }
+        return result
+    }
+
+    fun isValidStringHdSeedFromWords(words: List<String>): Boolean {
+        return getByteSeedFromWords(words) != null
     }
 }

@@ -84,7 +84,7 @@ class PrivateCheckFragment(val account: BaseAccount) :  Fragment() {
 
             privateKeyLayout.setOnClickListener {
                 val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("address", "0x" + baseAccount?.privateKey?.toHex())
+                val clip = ClipData.newPlainText("address", "0x" + account.privateKey?.toHex())
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_mnemonic_copied)
             }

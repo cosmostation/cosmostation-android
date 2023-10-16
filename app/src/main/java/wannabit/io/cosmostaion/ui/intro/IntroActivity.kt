@@ -96,10 +96,10 @@ class IntroActivity : AppCompatActivity() {
 
             } else {
                 if (AppDatabase.getInstance().baseAccountDao().selectAll().isEmpty()) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        supportFragmentManager.beginTransaction()
-                            .add(R.id.fragment_container, EmptyWalletFragment()).commit()
-                    }
+//                    CoroutineScope(Dispatchers.Main).launch {
+//                        supportFragmentManager.beginTransaction()
+//                            .add(R.id.fragment_container, EmptyWalletFragment()).commit()
+//                    }
                 } else {
                     CoroutineScope(Dispatchers.Main).launch {
                         Intent(this@IntroActivity, MainActivity::class.java).apply {

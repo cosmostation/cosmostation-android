@@ -36,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/str_check_private_each_chain"/>
+                android:text="@string/title_check_private_each_chain"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

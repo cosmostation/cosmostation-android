@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.Prefs
+import java.util.UUID
 
 @Entity(tableName = "account")
 data class BaseAccount(
@@ -136,6 +137,30 @@ data class BaseAccount(
             }
         }
         return allCosmosLineChains
+    }
+
+    companion object {
+        fun createByMnemonic(name: String, mnemonic: String, lastHDPath: String): BaseAccount? {
+            val uuid = UUID.randomUUID().toString()
+            val wordList = mnemonic.split(" ")
+            val entropy = Utils.bytesToHex(BaseKey.toEntropy(wordList))
+            val encR = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, entropy, false)
+            return if (encR != null) {
+                BaseAccount(uuid, encR.encDataString!!, encR.ivDataString!!, name, BaseAccountType.MNEMONIC, lastHDPath)
+            } else {
+                null
+            }
+        }
+
+        fun createByPrivate(name: String, privateKey: String): BaseAccount? {
+            val uuid = UUID.randomUUID().toString()
+            val encR = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, privateKey, false)
+            return if (encR != null) {
+                BaseAccount(uuid, encR.encDataString!!, encR.ivDataString!!, name, BaseAccountType.PRIVATE_KEY, "0")
+            } else {
+                null
+            }
+        }
     }
 }
 

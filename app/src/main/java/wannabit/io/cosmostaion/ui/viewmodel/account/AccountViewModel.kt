@@ -1,11 +1,14 @@
 package wannabit.io.cosmostaion.ui.viewmodel.account
 
+import SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.data.repository.account.AccountRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -24,4 +27,20 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
         accountRepository.deleteAccount(baseAccount)
         _baseAccounts.postValue(AppDatabase.getInstance().baseAccountDao().selectAll())
     }
+
+    val create = SingleLiveEvent<Any>()
+    fun createByMnemonic(name: String, mnemonic: String, lastHDPath: String) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            accountRepository.createByMnemonic(name, mnemonic, lastHDPath)
+        }
+        create.call()
+    }
+
+    fun createByPrivate(name: String, privateKey: String) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            accountRepository.createByPrivate(name, privateKey)
+        }
+        create.call()
+    }
+
 }

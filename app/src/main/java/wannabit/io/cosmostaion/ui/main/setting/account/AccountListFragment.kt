@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,12 +66,21 @@ class AccountListFragment : Fragment() {
 
     private fun clickAction() {
         binding.apply {
+            var isClickable = true
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
             }
 
             btnAddAccount.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+                    val bottomSheet = AccountInitFragment(this@AccountListFragment)
+                    bottomSheet.show(parentFragmentManager, AccountInitFragment::class.java.name)
 
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
             }
         }
     }

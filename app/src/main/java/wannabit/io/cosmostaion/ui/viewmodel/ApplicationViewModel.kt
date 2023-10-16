@@ -28,9 +28,14 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
         checkPwMnemonicResult.call()
     }
 
-    val checkPwPrivateResult = SingleLiveEvent<String>()
 
+    val checkPwPrivateResult = SingleLiveEvent<String>()
     fun checkPwPrivate() = viewModelScope.launch {
         checkPwPrivateResult.call()
+    }
+
+    val checkCreateAccountResult = SingleLiveEvent<String>()
+    fun checkCreateAccount() = viewModelScope.launch {
+        checkCreateAccountResult.call()
     }
 }
