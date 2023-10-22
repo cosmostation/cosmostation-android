@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
-import wannabit.io.cosmostaion.data.model.AppVersion
-import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.AppVersion
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
@@ -30,6 +30,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 response.data.let { data ->
                     if (data.isSuccessful) {
                         _walletAppVersionResult.postValue(data.body())
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    fun chain() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.chain()) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        BaseData.chains = data.body()?.chains
                     } else {
                         _errorMessage.postValue("Error")
                     }

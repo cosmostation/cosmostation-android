@@ -16,7 +16,7 @@ class ChainIris : CosmosLine() {
     override var logo: Int = R.drawable.chain_iris
     override var swipeLogo: Int = R.drawable.chain_swipe_iris
     override var apiName: String = "iris"
-    override var stakeDenom: String = "uiris"
+    override var stakeDenom: String? = "uiris"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

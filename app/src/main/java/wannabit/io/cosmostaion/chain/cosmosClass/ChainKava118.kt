@@ -17,7 +17,7 @@ class ChainKava118 : CosmosLine() {
     override var logo: Int = R.drawable.chain_kava
     override var swipeLogo: Int = R.drawable.chain_swipe_kava
     override var apiName: String = "kava"
-    override var stakeDenom: String = "ukava"
+    override var stakeDenom: String? = "ukava"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

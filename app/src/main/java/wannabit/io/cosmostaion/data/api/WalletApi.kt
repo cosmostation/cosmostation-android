@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
-import wannabit.io.cosmostaion.data.model.AppVersion
+import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.network.model.PushStatusRequest
 import wannabit.io.cosmostaion.network.model.PushStatusResponse
 import wannabit.io.cosmostaion.network.model.PushSyncRequest

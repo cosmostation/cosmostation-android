@@ -361,4 +361,17 @@ object BaseUtils {
         config.setLocale(locale)
         return context?.createConfigurationContext(config)
     }
+
+    fun isValidChainAddress(line: CosmosLine?, address: String?): Boolean {
+        if (address?.isEmpty() == true) { return false }
+        if (address?.startsWith("0x") == true) {
+
+        }
+
+        if (!BaseKey.isValidBech32(address)) { return false }
+        if (address?.startsWith(line?.accountPrefix + 1) == false) {
+            return false
+        }
+        return true
+    }
 }

@@ -34,8 +34,11 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
         checkPwPrivateResult.call()
     }
 
-    val checkCreateAccountResult = SingleLiveEvent<String>()
-    fun checkCreateAccount() = viewModelScope.launch {
-        checkCreateAccountResult.call()
+
+    var txRecreateResult = SingleLiveEvent<Boolean>()
+//    val txRecreateResult: LiveData<Boolean> get() = _txRecreateResult
+
+    fun txRecreate() = viewModelScope.launch(Dispatchers.IO) {
+        txRecreateResult.postValue(true)
     }
 }

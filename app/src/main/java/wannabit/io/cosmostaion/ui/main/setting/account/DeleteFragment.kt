@@ -10,10 +10,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDeleteBinding
+import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
 class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment() {
@@ -57,8 +65,25 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
     private val deleteAccountResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                dismiss()
                 accountViewModel.deleteAccount(baseAccount)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
+                        if (BaseData.baseAccount?.id == baseAccount.id) {
+                            Prefs.lastAccountId = AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
+                            BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao().selectAccount(Prefs.lastAccountId)
+                            ApplicationViewModel.shared.currentAccount()
+                        }
+
+                    } else {
+                        Prefs.lastAccountId = -1
+                        Intent(requireContext(), IntroActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(this)
+                        }
+                    }
+                    dismiss()
+                }
             }
         }
 

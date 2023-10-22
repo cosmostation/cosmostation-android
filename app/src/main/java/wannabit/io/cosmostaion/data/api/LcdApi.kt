@@ -4,10 +4,10 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import wannabit.io.cosmostaion.data.model.AccountResponse
-import wannabit.io.cosmostaion.data.model.BnbHistoryResponse
-import wannabit.io.cosmostaion.data.model.BnbToken
-import wannabit.io.cosmostaion.data.model.NodeInfoResponse
+import wannabit.io.cosmostaion.data.model.res.AccountResponse
+import wannabit.io.cosmostaion.data.model.res.BnbHistoryResponse
+import wannabit.io.cosmostaion.data.model.res.BnbToken
+import wannabit.io.cosmostaion.data.model.res.NodeInfoResponse
 
 interface LcdApi {
     @GET("api/v1/node-info")

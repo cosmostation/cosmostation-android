@@ -33,6 +33,7 @@
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppBottomStyle</item>
         <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
     <style name="AppBottomStyle" parent="Widget.Design.BottomSheet.Modal">
@@ -40,9 +41,17 @@
     </style>
 
     <style name="FabLabelStyle">
-        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
-        <item name="android:textSize">@dimen/space_10</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
+        <item name="android:textSize">@dimen/space_12</item>
         <item name="android:textColor">@color/color_base01</item>
+    </style>
+
+    <style name="AppTheme.AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:layout_marginStart">@dimen/space_8</item>
+        <item name="android:layout_marginEnd">@dimen/space_8</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="CustomDialogTheme" parent="Theme.AppCompat.Dialog">
@@ -61,8 +70,8 @@
     </style>
 
     <style name="TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginStart">@dimen/space_16</item>
+        <item name="android:layout_marginEnd">@dimen/space_16</item>
         <item name="boxStrokeColor">@color/text_input_layout_stroke_color</item>
         <item name="android:textColorHint">@color/color_base03</item>
         <item name="hintTextColor">@color/color_base01</item>
@@ -79,7 +88,7 @@
         <item name="android:textColor">@color/color_base01</item>
         <item name="android:paddingStart">@dimen/space_16</item>
         <item name="android:paddingEnd">@dimen/space_16</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
         <item name="fontFamily">@font/spoqa_han_sans_neo_bold</item>
         <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
     </style>

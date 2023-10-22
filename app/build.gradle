@@ -170,4 +170,7 @@ dependencies {
 
     //fab
     implementation 'com.github.clans:fab:1.6.4'
+
+    //segment
+    implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
 }

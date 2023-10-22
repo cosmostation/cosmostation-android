@@ -14,8 +14,8 @@ import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.data.model.Coin
-import wannabit.io.cosmostaion.data.model.CoinType
+import wannabit.io.cosmostaion.data.model.res.Coin
+import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 import java.math.RoundingMode
 
@@ -44,7 +44,7 @@ class CoinViewHolder(
 
                 BaseData.getAsset(line.apiName, coin.denom)?.let { asset ->
                     tokenImg.setTokenImg(asset)
-                    tokenName.text = asset.symbol?.uppercase()
+                    tokenName.text = asset.symbol
 
                     tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                     BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->

@@ -86,20 +86,15 @@ class IntroActivity : AppCompatActivity() {
 
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
         delay(1500)
-        val account = BaseData.getLastAccount()
-        account?.let {
-            BaseData.baseAccount = account
-            if (CosmostationApp.instance.needShowLockScreen()) {
-                val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+        if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
+            val account = BaseData.getLastAccount()
+            account?.let {
+                BaseData.baseAccount = account
+                if (CosmostationApp.instance.needShowLockScreen()) {
+                    val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
 
-            } else {
-                if (AppDatabase.getInstance().baseAccountDao().selectAll().isEmpty()) {
-//                    CoroutineScope(Dispatchers.Main).launch {
-//                        supportFragmentManager.beginTransaction()
-//                            .add(R.id.fragment_container, EmptyWalletFragment()).commit()
-//                    }
                 } else {
                     CoroutineScope(Dispatchers.Main).launch {
                         Intent(this@IntroActivity, MainActivity::class.java).apply {
@@ -107,6 +102,17 @@ class IntroActivity : AppCompatActivity() {
                             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                     }
+                }
+            }
+
+        } else {
+            CoroutineScope(Dispatchers.Main).launch {
+                binding.btnCreate.visibility = View.VISIBLE
+            }
+
+            binding.btnCreate.setOnClickListener {
+                Intent(this@IntroActivity, MainActivity::class.java).apply {
+
                 }
             }
         }
@@ -131,6 +137,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun initPriceInfo() {
+        introViewModel.chain()
         introViewModel.price(BaseData.currencyName().lowercase())
         introViewModel.asset()
     }

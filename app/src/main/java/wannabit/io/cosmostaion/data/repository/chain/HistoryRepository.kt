@@ -1,9 +1,9 @@
 package wannabit.io.cosmostaion.data.repository.chain
 
 import retrofit2.Response
-import wannabit.io.cosmostaion.data.model.BnbHistoryResponse
-import wannabit.io.cosmostaion.data.model.CosmosHistory
-import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.BnbHistoryResponse
+import wannabit.io.cosmostaion.data.model.res.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 
 interface HistoryRepository {
 

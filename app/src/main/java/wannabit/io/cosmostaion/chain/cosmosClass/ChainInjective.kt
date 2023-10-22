@@ -16,7 +16,7 @@ class ChainInjective : CosmosLine() {
     override var logo: Int = R.drawable.chain_injective
     override var swipeLogo: Int = R.drawable.chain_swipe_injective
     override var apiName: String = "injective"
-    override var stakeDenom: String = "inj"
+    override var stakeDenom: String? = "inj"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

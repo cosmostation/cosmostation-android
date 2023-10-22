@@ -98,4 +98,13 @@ object BaseKey {
     fun isValidStringHdSeedFromWords(words: List<String>): Boolean {
         return getByteSeedFromWords(words) != null
     }
+
+    fun isValidBech32(address: String?): Boolean {
+        var result = false
+        try {
+            Bech32.decode(address)
+            result = true
+        } catch (_: Exception) { }
+        return result
+    }
 }

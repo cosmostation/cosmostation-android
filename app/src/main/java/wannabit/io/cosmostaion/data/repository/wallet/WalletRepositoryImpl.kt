@@ -5,16 +5,23 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
-import wannabit.io.cosmostaion.data.model.AppVersion
-import wannabit.io.cosmostaion.data.model.AssetResponse
-import wannabit.io.cosmostaion.data.model.NetworkResult
-import wannabit.io.cosmostaion.data.model.Price
+import wannabit.io.cosmostaion.data.model.res.AppVersion
+import wannabit.io.cosmostaion.data.model.res.AssetResponse
+import wannabit.io.cosmostaion.data.model.res.ChainResponse
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.Price
 
 class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun version(): NetworkResult<Response<AppVersion>> {
         return safeApiCall(Dispatchers.IO) {
             walletApi.version()
+        }
+    }
+
+    override suspend fun chain(): NetworkResult<Response<ChainResponse>> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.chain()
         }
     }
 

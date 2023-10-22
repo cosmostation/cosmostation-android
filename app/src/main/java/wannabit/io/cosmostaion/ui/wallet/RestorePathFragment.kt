@@ -13,7 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.databinding.FragmentRestorePathBinding
 import wannabit.io.cosmostaion.ui.dialog.path.HdPathSelectDialog
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -100,7 +102,10 @@ class RestorePathFragment(val name: String, val mnemonic: String) : Fragment() {
             btnCreateAccount.setOnClickListener {
                 requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_background_dialog)
                 backdropLayout.visibility = View.VISIBLE
-                accountViewModel.createByMnemonic(name, mnemonic, lastHDPath)
+
+                val wordList = mnemonic.split(" ")
+                val entropy = Utils.bytesToHex(BaseKey.toEntropy(wordList))
+                accountViewModel.createByMnemonic(name, entropy, lastHDPath)
             }
         }
     }

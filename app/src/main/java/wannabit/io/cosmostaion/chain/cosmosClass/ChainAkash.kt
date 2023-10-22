@@ -16,7 +16,7 @@ class ChainAkash : CosmosLine() {
     override var logo: Int = R.drawable.chain_akash
     override var swipeLogo: Int = R.drawable.chain_swipe_akash
     override var apiName: String = "akash"
-    override var stakeDenom: String = "uakt"
+    override var stakeDenom: String? = "uakt"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

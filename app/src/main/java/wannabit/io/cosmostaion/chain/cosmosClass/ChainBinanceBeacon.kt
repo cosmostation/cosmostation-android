@@ -17,7 +17,7 @@ class ChainBinanceBeacon : CosmosLine() {
     override var logo: Int = R.drawable.chain_binance
     override var swipeLogo: Int = R.drawable.chain_swipe_binance
     override var apiName: String = ""
-    override var stakeDenom: String = "BNB"
+    override var stakeDenom: String? = "BNB"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/714'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

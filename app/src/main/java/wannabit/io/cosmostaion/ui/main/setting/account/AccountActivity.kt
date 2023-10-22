@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
+import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.account.AccountRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityAccountBinding
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
@@ -35,5 +36,10 @@ class AccountActivity : BaseActivity() {
             this,
             accountViewModelProviderFactory
         )[AccountViewModel::class.java]
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        toMoveBack()
     }
 }

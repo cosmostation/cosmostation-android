@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.data.repository.account
 
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 
 class AccountRepositoryImpl : AccountRepository {
 
@@ -12,6 +15,11 @@ class AccountRepositoryImpl : AccountRepository {
     }
 
     override suspend fun deleteAccount(baseAccount: BaseAccount) {
+        if (baseAccount.type == BaseAccountType.MNEMONIC) {
+            CryptoHelper.deleteKey(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + baseAccount.uuid)
+        } else {
+            CryptoHelper.deleteKey(CosmostationConstants.ENCRYPT_PRIVATE_KEY + baseAccount.uuid)
+        }
         AppDatabase.getInstance().baseAccountDao().delete(baseAccount)
     }
 

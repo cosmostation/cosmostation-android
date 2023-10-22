@@ -2,8 +2,9 @@ package wannabit.io.cosmostaion.chain
 
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.common.BaseKey
+import java.io.Serializable
 
-open class BaseChain {
+open class BaseChain : Serializable {
 
     open var chainType: ChainType? = null
     open var name: String = ""

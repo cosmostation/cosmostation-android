@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/space_8"
@@ -12,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/dash_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="74dp"
         app:cardPreventCornerOverlap="true"
         android:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/chain_img"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/space_48"
+                android:layout_height="@dimen/space_48"
                 android:layout_centerVertical="true"
                 android:layout_marginVertical="@dimen/space_10"
                 android:layout_marginStart="@dimen/space_12"
@@ -65,13 +64,13 @@
 
                 <TextView
                     android:id="@+id/chain_badge"
-                    style="@style/font_sm_9"
+                    style="@style/font_sm_8"
                     android:background="@drawable/round_box_deprecated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/space_2"
                     android:paddingHorizontal="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_marginTop="@dimen/space_1"
                     android:textColor="@color/color_base02"
                     android:layout_below="@+id/chain_name"
                     android:textAllCaps="true"/>

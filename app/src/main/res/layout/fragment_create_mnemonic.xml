@@ -179,7 +179,7 @@
     <Button
         android:id="@+id/btn_create_account"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/space_54"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_12"
         android:background="@drawable/button_common_bg"

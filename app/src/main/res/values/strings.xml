@@ -4,7 +4,7 @@
     <string name="str_total_value" translatable="false">Total value</string>
     <string name="str_cosmos_class" translatable="false">Cosmos Class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
-    <string name="str_evm" translatable="false">EVN Compat</string>
+    <string name="str_evm" translatable="false">EVM Compat</string>
     <string name="str_available" translatable="false">Available</string>
     <string name="str_vesting" translatable="false">Vesting</string>
     <string name="str_staked" translatable="false">Staked</string>
@@ -36,7 +36,6 @@
     <string name="str_check_mnemonic">Check mnemonic</string>
     <string name="str_check_private">Check private key for\neach chain</string>
     <string name="str_only_private">Check private key</string>
-    <string name="title_account_name">Account name</string>
     <string name="str_delete_name">Delete %1$s</string>
     <string name="str_seed_phrase" translatable="false">Seed phrase</string>
     <string name="str_phrase_cnt" translatable="false">%1$s words</string>
@@ -46,6 +45,28 @@
     <string name="str_12_words" translatable="false">12 words</string>
     <string name="str_18_words" translatable="false">18 words</string>
     <string name="str_24_words" translatable="false">24 words</string>
+    <string name="str_add_custom_chain">Add custom chain</string>
+    <string name="str_max_available">Max available : </string>
+    <string name="str_send_amount">Send amount</string>
+    <string name="str_1_4" translatable="false">1/4</string>
+    <string name="str_half" translatable="false">HALF</string>
+    <string name="str_max" translatable="false">MAX</string>
+    <string name="str_fixed">Fixed</string>
+    <string name="str_free">Free</string>
+    <string name="str_tiny">Tiny</string>
+    <string name="str_low">Low</string>
+    <string name="str_average">Average</string>
+    <string name="str_high">High</string>
+    <string name="str_send">Send</string>
+    <string name="str_insert_memo">Insert memo (Optional)</string>
+    <string name="str_qr_scan" translatable="false">QR Scan</string>
+    <string name="str_address_book">Address book</string>
+    <string name="str_address_name_service">Address or NameService</string>
+    <string name="str_my_account" translatable="false">My account</string>
+    <string name="str_success" translatable="false">Success</string>
+    <string name="str_fail" translatable="false">Fail</string>
+    <string name="str_close">Close</string>
+    <string name="str_wait">Wait</string>
 
 
     //title
@@ -59,12 +80,12 @@
     <string name="title_governance" translatable="false">Governance</string>
     <string name="title_reward_claim" translatable="false">Claim reward</string>
     <string name="title_stake" translatable="false">Stake</string>
-    <string name="title_receive" translatable="false">Receive</string>
-    <string name="title_send" translatable="false">Setting</string>
-    <string name="title_setting" translatable="false">Send</string>
+    <string name="title_compounding_all" translatable="false">Compounding all</string>
+    <string name="title_claim_reward_all" translatable="false">Claim reward all</string>
     <string name="title_wallet">Wallet</string>
     <string name="title_account">Account</string>
-    <string name="title_add_account" translatable="false">Add account</string>
+    <string name="title_account_name">Account name</string>
+    <string name="title_add_account">Add account</string>
     <string name="title_chain">Chain</string>
     <string name="title_address_book">Address book</string>
     <string name="title_general">General</string>
@@ -93,6 +114,20 @@
     <string name="title_restore_mnemonic">Restore With Mnemonic</string>
     <string name="title_hd_path_setting">HD Path Setting</string>
     <string name="title_restore_private">Restore With PrivateKey</string>
+    <string name="title_coin_send">Asset Send</string>
+    <string name="title_ibc_send">IBC Asset Send</string>
+    <string name="title_recipient_chain" translatable="false">Recipient chain</string>
+    <string name="title_to_send_asset" translatable="false">To send asset</string>
+    <string name="title_recipient_address">Recipient address</string>
+    <string name="title_tx_fee" translatable="false">Tx Fee</string>
+    <string name="title_memo" translatable="false">Memo (Optional)</string>
+    <string name="title_select_recipient_chain">Select recipient chain</string>
+    <string name="title_insert_amount">Insert amount</string>
+    <string name="title_fee_select">Select coin to use as Tx fee</string>
+    <string name="title_address_confirm">Address confirm</string>
+    <string name="title_name_service">Search Result %1$s NameServices</string>
+    <string name="title_tx_result" translatable="false">Tx Reuslt</string>
+    <string name="title_more_wait">Result Display Delayed</string>
 
 
     // msg
@@ -115,6 +150,17 @@
     <string name="str_import_mnemonic_msg">Restore an account with your mnemonics</string>
     <string name="str_import_private_key_msg">Restore an account with your private key</string>
     <string name="str_warning_mnemonic_msg">This phrase is the only way to recover your account. Losing this mnemonics could lead to loss of your asset.</string>
+    <string name="str_tap_for_add_amount_msg">Tap to add amount.</string>
+    <string name="str_tap_for_add_address_msg">Tap to add address.</string>
+    <string name="str_tap_for_add_memo_msg">Tap to add memo.</string>
+    <string name="str_fee_speed_title_tiny">Only a handful of validators will process this Tx.</string>
+    <string name="str_fee_speed_title_low">A few validators will process this Tx.</string>
+    <string name="str_fee_speed_title_average">Most validators will process this Tx.</string>
+    <string name="str_fee_speed_title_zero">This chain support zero Tx fee.</string>
+    <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee.</string>
+    <string name="str_tx_success_msg" translatable="false">The transaction is completed\nYou can view details on Mintscan.</string>
+    <string name="str_view_mintscan_msg" translatable="false">View in Mintscan</string>
+    <string name="str_more_wait_msg">The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. \n\nPlease press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.</string>
 
 
     // header
@@ -131,6 +177,10 @@
     <string name="error_exist_account_name">Already exist name.</string>
     <string name="error_invalid_menmonic">Please insert valid mnemonics.</string>
     <string name="error_invalid_private_Key">Invalid private key.</string>
+    <string name="error_invalid_amount">Invalid amount</string>
+    <string name="error_not_enough_fee">Not enough available balance\nfor fee.</string>
+    <string name="error_invalid_address">Invalid Address, please check again.</string>
+    <string name="error_self_sending">Self sending is not support.</string>
 
 
     // tx

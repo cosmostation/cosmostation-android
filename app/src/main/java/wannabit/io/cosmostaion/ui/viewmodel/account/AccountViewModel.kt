@@ -25,6 +25,7 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
 
     fun deleteAccount(baseAccount: BaseAccount) = CoroutineScope(Dispatchers.IO).launch {
         accountRepository.deleteAccount(baseAccount)
+        AppDatabase.getInstance().refAddressDao().delete(baseAccount.id)
         _baseAccounts.postValue(AppDatabase.getInstance().baseAccountDao().selectAll())
     }
 

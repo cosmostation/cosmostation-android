@@ -105,6 +105,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/space_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
@@ -125,30 +126,10 @@
         fab:menu_colorRipple="@color/color_accent_purple"
         fab:menu_labels_position="left"
         fab:menu_labels_style="@style/FabLabelStyle"
+        android:layout_marginEnd="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
         fab:menu_openDirection="up"
         android:elevation="@dimen/space_2">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/color_base08"
-            app:fab_colorPressed="@color/color_base08"
-            android:background="@color/color_transparent"
-            android:src="@drawable/icon_send"
-            fab:fab_label="@string/title_send"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_receive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/color_base08"
-            app:fab_colorPressed="@color/color_base08"
-            android:src="@drawable/icon_receive"
-            android:textAppearance="@style/FabLabelStyle"
-            fab:fab_label="@string/title_receive"
-            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_stake"
@@ -156,7 +137,9 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
             android:src="@drawable/icon_stake"
+            app:maxImageSize="@dimen/space_100"
             fab:fab_label="@string/title_stake"
             fab:fab_size="mini" />
 
@@ -166,19 +149,29 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
-            android:src="@drawable/icon_claim_reward"
-            fab:fab_label="@string/title_stake"
+            android:src="@drawable/icon_stake"
+            fab:fab_label="@string/title_claim_reward_all"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_vote"
+            android:id="@+id/fab_compounding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
-            android:src="@drawable/icon_governance"
-            fab:fab_label="@string/title_governance"
+            android:src="@drawable/icon_claim_reward"
+            fab:fab_label="@string/title_compounding_all"
             fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_vote"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            android:src="@drawable/icon_success"
+            fab:fab_label="@string/title_governance"
+            app:fab_size="mini"/>
 
     </com.github.clans.fab.FloatingActionMenu>
 

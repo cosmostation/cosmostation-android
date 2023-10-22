@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain
 
+import android.content.Context
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
@@ -11,6 +12,7 @@ import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsRequest
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsRequest
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
+import com.cosmos.tx.v1beta1.TxProto
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
@@ -24,6 +26,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
@@ -35,28 +38,33 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
-import wannabit.io.cosmostaion.data.model.AccountResponse
-import wannabit.io.cosmostaion.data.model.BnbToken
-import wannabit.io.cosmostaion.data.model.Cw20Balance
-import wannabit.io.cosmostaion.data.model.NetworkResult
-import wannabit.io.cosmostaion.data.model.Token
+import wannabit.io.cosmostaion.data.model.res.AccountResponse
+import wannabit.io.cosmostaion.data.model.res.BnbToken
+import wannabit.io.cosmostaion.data.model.res.Cw20Balance
+import wannabit.io.cosmostaion.data.model.res.FeeInfo
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.Param
+import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 open class CosmosLine : BaseChain() {
 
-    open lateinit var stakeDenom: String
+    open var stakeDenom: String? = ""
     open var supportCw20 = false
     open var supportErc20 = false
 
     open var evmCompatible = false
 
-    private var grpcPort = 443
+    open var grpcPort = 443
     private var duration = 8L
 
     var cosmosAuth: com.google.protobuf.Any? = null
@@ -67,9 +75,12 @@ open class CosmosLine : BaseChain() {
     var cosmosRewards = mutableListOf<DelegationDelegatorReward>()
 
     var tokens = mutableListOf<Token>()
+    var param: Param? = null
 
     var lcdAccountInfo: AccountResponse? = null
     var lcdBeaconTokens = mutableListOf<BnbToken>()
+
+    var refAddresses: MutableList<RefAddress> = mutableListOf()
 
     interface LoadDataCallback {
         fun onDataLoaded(isLoaded: Boolean)
@@ -91,8 +102,8 @@ open class CosmosLine : BaseChain() {
             allValue = lcdBalanceValue(stakeDenom)
 
         } else {
-            allValue = balanceValueSum().add(vestingValueSum()).add(delegationValueSum()).
-            add(unbondingValueSum()).add(rewardValueSum()).add(allCw20ValueSum())
+            allValue = balanceValueSum().add(vestingValueSum()).add(delegationValueSum())
+                .add(unbondingValueSum()).add(rewardValueSum()).add(allCw20ValueSum())
             if (supportCw20) {
                 allValue = allValue.add(allCw20ValueSum())
             }
@@ -100,15 +111,19 @@ open class CosmosLine : BaseChain() {
         return allValue
     }
 
-    fun loadData() {
+    fun loadData(id: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            loadParam()
+        }
+
         if (this is ChainBinanceBeacon) {
             loadLcdData()
         } else {
-            loadGrpcData()
+            loadGrpcData(id)
         }
     }
 
-    private fun loadGrpcData() = CoroutineScope(Dispatchers.IO).launch {
+    private fun loadGrpcData(id: Long) = CoroutineScope(Dispatchers.IO).launch {
         val channel = getChannel()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
@@ -116,11 +131,13 @@ open class CosmosLine : BaseChain() {
         try {
             stub.account(request)?.let { response ->
                 cosmosAuth = response.account
-                loadGrpcMoreData(channel)
+                loadGrpcMoreData(channel, id)
             }
         } catch (e: Exception) {
             loadDataCallback?.onDataLoaded(true)
             fetched = true
+            val refAddress = RefAddress(id, tag, address, "0", "0", "0",  0)
+            BaseData.updateRefAddressesMain(id, tag, address, refAddress)
         } finally {
             channel.shutdown()
             try {
@@ -133,10 +150,10 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadGrpcMoreData(channel: ManagedChannel) = runBlocking {
+    private fun loadGrpcMoreData(channel: ManagedChannel, id: Long) = runBlocking {
         CoroutineScope(Dispatchers.Default).let {
             if (supportCw20) {
-                loadCw20Token()
+                loadCw20Token(id)
             }
 
             loadBalance(channel)
@@ -147,8 +164,104 @@ open class CosmosLine : BaseChain() {
             BaseUtils.onParseVestingAccount(this@CosmosLine)
             loadDataCallback?.onDataLoaded(true)
             fetched = true
+
+            if (fetched) {
+                val refAddress = RefAddress(id, tag, address, allStakingDenomAmount().toString(), allAssetValue().toPlainString(), "0", cosmosBalances.size.toLong())
+                BaseData.updateRefAddressesMain(id, tag, address, refAddress)
+            }
             it.cancel()
         }
+    }
+
+    fun getInitFee(c: Context): TxProto.Fee? {
+        var feeCoin: Coin? = null
+        for (i in 0 until getDefaultFeeCoins(c).size) {
+            val fee = getDefaultFeeCoins(c)[i]
+            if (balanceAmount(fee.denom) >= BigDecimal(fee.amount)) {
+                feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
+                break
+            }
+        }
+
+        if (feeCoin != null) {
+            return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin).build()
+        }
+        return null
+    }
+
+    fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
+        val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
+        val feeDatas = getFeeInfos(c)[position].feeDatas
+        val rate = feeDatas.firstOrNull { it.denom == denom }?.gasRate
+        val coinAmount = rate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(
+            Coin.newBuilder().setDenom(denom).setAmount(coinAmount.toString()).build()
+        ).build()
+    }
+
+    fun getFeeBasePosition(): Int {
+        return param?.params?.chainListParam?.fee?.base?.toInt()?: 0
+    }
+
+    fun isTxFeePayable(c: Context): Boolean {
+        getDefaultFeeCoins(c).forEach { fee ->
+            if (balanceAmount(fee.denom) >= BigDecimal(fee.amount)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun getDefaultFeeCoins(c: Context): MutableList<Coin> {
+        val result: MutableList<Coin> = mutableListOf()
+        val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
+        val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
+        feeDatas.forEach { feeData ->
+            val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+            result.add(
+                Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString()).build()
+            )
+        }
+        return result
+    }
+
+    fun getFeeInfos(c: Context): MutableList<FeeInfo> {
+        val result: MutableList<FeeInfo> = mutableListOf()
+        param?.params?.chainListParam?.fee?.rate?.forEach { rate ->
+            result.add(FeeInfo(rate))
+        }
+
+        if (result.size == 1) {
+            result[0].title = c.getString(R.string.str_fixed)
+            result[0].msg = c.getString(R.string.str_fee_speed_title_fixed)
+        } else if (result.size == 2) {
+            result[1].title = c.getString(R.string.str_average)
+            result[1].msg = c.getString(R.string.str_fee_speed_title_average)
+            if (result[0].feeDatas[0].gasRate == BigDecimal.ZERO) {
+                result[0].title = c.getString(R.string.str_free)
+                result[0].msg = c.getString(R.string.str_fee_speed_title_zero)
+            } else {
+                result[0].title = c.getString(R.string.str_tiny)
+                result[0].msg = c.getString(R.string.str_fee_speed_title_tiny)
+            }
+        } else if (result.size == 3) {
+            result[2].title = c.getString(R.string.str_average)
+            result[2].msg = c.getString(R.string.str_fee_speed_title_average)
+            result[1].title = c.getString(R.string.str_low)
+            result[1].msg = c.getString(R.string.str_fee_speed_title_low)
+            if (result[0].feeDatas[0].gasRate == BigDecimal.ZERO) {
+                result[0].title = c.getString(R.string.str_free)
+                result[0].msg = c.getString(R.string.str_fee_speed_title_zero)
+            } else {
+                result[0].title = c.getString(R.string.str_tiny)
+                result[0].msg = c.getString(R.string.str_fee_speed_title_tiny)
+            }
+        }
+        return result
+    }
+
+    fun getSimulGas(): String {
+        return param?.params?.chainListParam?.simulGas?: "0"
     }
 
     private fun loadLcdData() = runBlocking {
@@ -168,7 +281,9 @@ open class CosmosLine : BaseChain() {
     private fun loadBalance(channel: ManagedChannel) {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address).build()
+        val request =
+            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address)
+                .build()
 
         stub.allBalances(request)?.let { response ->
             cosmosBalances = response.balancesList
@@ -176,8 +291,10 @@ open class CosmosLine : BaseChain() {
     }
 
     private fun loadDelegation(channel: ManagedChannel) {
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
+        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request =
+            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
 
         stub.delegatorDelegations(request)?.let { response ->
             cosmosDelegations = response.delegationResponsesList
@@ -185,8 +302,10 @@ open class CosmosLine : BaseChain() {
     }
 
     private fun loadUnbonding(channel: ManagedChannel) {
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
+        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request =
+            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
 
         stub.delegatorUnbondingDelegations(request)?.let { response ->
             cosmosUnbondings = response.unbondingResponsesList
@@ -194,19 +313,34 @@ open class CosmosLine : BaseChain() {
     }
 
     private fun loadReward(channel: ManagedChannel) {
-        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(address).build()
+        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request =
+            com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest.newBuilder()
+                .setDelegatorAddress(address).build()
 
         stub.delegationTotalRewards(request)?.let { response ->
             cosmosRewards = response.rewardsList
         }
     }
 
-    private suspend fun loadCw20Token() {
+    private suspend fun loadParam() {
+        when (val response = safeApiCall { RetrofitInstance.mintscanApi.param(this.apiName) }) {
+            is NetworkResult.Success -> {
+                param = response.data.body()
+            }
+
+            is NetworkResult.Error -> {
+                return
+            }
+        }
+    }
+
+    private suspend fun loadCw20Token(id: Long) {
         when (val response = safeApiCall { RetrofitInstance.mintscanApi.cw20token(this.apiName) }) {
             is NetworkResult.Success -> {
                 tokens = response.data.assets
-                loadAllCw20Balance()
+                loadAllCw20Balance(id)
             }
 
             is NetworkResult.Error -> {
@@ -216,12 +350,14 @@ open class CosmosLine : BaseChain() {
     }
 
     private fun loadCw20Balance(channel: ManagedChannel, token: Token) {
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val req = Cw20Balance(address)
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(token.address).setQueryData(queryData).build()
+        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+            .setAddress(token.address).setQueryData(queryData).build()
 
         stub.smartContractState(request)?.let { response ->
             val json = JSONObject(response.data.toStringUtf8())
@@ -229,7 +365,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadAllCw20Balance() {
+    private fun loadAllCw20Balance(id: Long) {
         val channel = getChannel()
         val scope = CoroutineScope(Dispatchers.Default)
         val deferredList = mutableListOf<Deferred<Unit>>()
@@ -243,6 +379,9 @@ open class CosmosLine : BaseChain() {
 
         runBlocking {
             deferredList.awaitAll()
+
+            val refAddress = RefAddress(id, tag, address, "0", "0", allAssetValue().toPlainString(), 0)
+            BaseData.updateRefAddressesMain(id, tag, address, refAddress)
         }
 
         try {
@@ -272,7 +411,8 @@ open class CosmosLine : BaseChain() {
             val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = balanceAmount(denom)
             asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal)
+                    .setScale(6, RoundingMode.DOWN)
             } ?: run {
                 return BigDecimal.ZERO
             }
@@ -292,7 +432,8 @@ open class CosmosLine : BaseChain() {
 
     fun vestingAmount(denom: String): BigDecimal {
         if (cosmosVestings.isNotEmpty()) {
-            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+                ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -302,7 +443,8 @@ open class CosmosLine : BaseChain() {
             val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = vestingAmount(denom)
             asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal)
+                    .setScale(6, RoundingMode.DOWN)
             }
         }
         return BigDecimal.ZERO
@@ -325,12 +467,16 @@ open class CosmosLine : BaseChain() {
     }
 
     fun delegationValueSum(): BigDecimal {
-        BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId)
-            val amount = delegationAmountSum()
-            asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+        stakeDenom?.let {
+            BaseData.getAsset(apiName, it)?.let { asset ->
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val amount = delegationAmountSum()
+                asset.decimals?.let { decimal ->
+                    return price.multiply(amount).movePointLeft(decimal)
+                        .setScale(6, RoundingMode.DOWN)
+                }
             }
+            return BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -346,12 +492,16 @@ open class CosmosLine : BaseChain() {
     }
 
     fun unbondingValueSum(): BigDecimal {
-        BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId)
-            val amount = unbondingAmountSum()
-            asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+        stakeDenom?.let {
+            BaseData.getAsset(apiName, it)?.let { asset ->
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val amount = unbondingAmountSum()
+                asset.decimals?.let { decimal ->
+                    return price.multiply(amount).movePointLeft(decimal)
+                        .setScale(6, RoundingMode.DOWN)
+                }
             }
+            return BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -363,7 +513,7 @@ open class CosmosLine : BaseChain() {
             val rewardAmount = matchReward?.amount?.toBigDecimalOrNull() ?: BigDecimal.ZERO
             sum = sum.add(rewardAmount)
         }
-        return sum.movePointLeft(18).setScale(0, RoundingMode.HALF_UP)
+        return sum.movePointLeft(18).setScale(0, RoundingMode.DOWN)
     }
 
     fun rewardValue(denom: String): BigDecimal {
@@ -371,7 +521,8 @@ open class CosmosLine : BaseChain() {
             val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = rewardAmountSum(denom)
             asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                return price.multiply(amount).movePointLeft(decimal)
+                    .setScale(6, RoundingMode.DOWN)
             }
         }
         return BigDecimal.ZERO
@@ -381,9 +532,10 @@ open class CosmosLine : BaseChain() {
         val allRewards = mutableListOf<Coin>()
         cosmosRewards.forEach { reward ->
             reward.rewardList.forEach { coin ->
-                val calReward = Coin.newBuilder().
-                setDenom(coin.denom).
-                setAmount(coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.HALF_UP).toString()).build()
+                val calReward = Coin.newBuilder().setDenom(coin.denom).setAmount(
+                    coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                        .toString()
+                ).build()
                 allRewards.add(calReward)
             }
         }
@@ -407,7 +559,9 @@ open class CosmosLine : BaseChain() {
             BaseData.getAsset(apiName, rewardCoin.denom)?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
                 val amount = rewardCoin.amount.toBigDecimal()
-                val value = asset.decimals?.let { price.multiply(amount)?.movePointLeft(it)?.setScale(6, RoundingMode.HALF_UP) }
+                val value = asset.decimals?.let {
+                    price.multiply(amount)?.movePointLeft(it)?.setScale(6, RoundingMode.DOWN)
+                }
                 sum = sum.add(value)
             }
         }
@@ -415,15 +569,19 @@ open class CosmosLine : BaseChain() {
     }
 
     fun allStakingDenomAmount(): BigDecimal? {
-        return balanceAmount(stakeDenom).add(vestingAmount(stakeDenom))?.add(delegationAmountSum())?.
-        add(unbondingAmountSum())?.add(rewardAmountSum(stakeDenom))
+        stakeDenom?.let {
+            return balanceAmount(it).add(vestingAmount(it))?.add(delegationAmountSum())
+                ?.add(unbondingAmountSum())?.add(rewardAmountSum(it))
+        }
+        return BigDecimal.ZERO
     }
 
     fun cw20Value(address: String): BigDecimal {
         val token = tokens.firstOrNull { it.address == address }
         if (token != null) {
             val price = BaseData.getPrice(token.coinGeckoId)
-            return price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals).setScale(6, RoundingMode.HALF_UP)
+            return price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                .setScale(6, RoundingMode.DOWN)
         }
         return BigDecimal.ZERO
     }
@@ -432,7 +590,8 @@ open class CosmosLine : BaseChain() {
         var sumValue = BigDecimal.ZERO
         tokens.forEach { token ->
             val price = BaseData.getPrice(token.coinGeckoId)
-            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals).setScale(6, RoundingMode.HALF_UP)
+            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                .setScale(6, RoundingMode.DOWN)
             sumValue = sumValue.add(value)
         }
         return sumValue
@@ -440,8 +599,8 @@ open class CosmosLine : BaseChain() {
 
     fun denomValue(denom: String): BigDecimal {
         return if (denom == stakeDenom) {
-            balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom)).
-            add(delegationValueSum()).add(unbondingValueSum())
+            balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
+                .add(delegationValueSum()).add(unbondingValueSum())
 
         } else {
             balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
@@ -508,11 +667,13 @@ open class CosmosLine : BaseChain() {
         return BigDecimal.ZERO
     }
 
-    fun lcdBalanceValue(denom: String): BigDecimal {
-        if (denom == stakeDenom) {
-            val amount = lcdBalanceAmount(denom)
-            val price = BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID)
-            return price.multiply(amount).setScale(6, RoundingMode.HALF_UP)
+    fun lcdBalanceValue(denom: String?): BigDecimal {
+        denom?.let { 
+            if (it == stakeDenom) {
+                val amount = lcdBalanceAmount(denom)
+                val price = BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID)
+                return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+            }
         }
         return BigDecimal.ZERO
     }
@@ -540,6 +701,11 @@ fun allCosmosLines(): List<CosmosLine> {
     lines.add(ChainKava118())
     lines.add(ChainLum118())
     lines.add(ChainOsmosis())
+    lines.add(ChainStride())
+
+    lines.forEach { line ->
+        line.chainId = BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+    }
     return lines
 }
 

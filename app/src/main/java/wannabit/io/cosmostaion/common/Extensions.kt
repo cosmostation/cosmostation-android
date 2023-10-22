@@ -2,13 +2,17 @@ package wannabit.io.cosmostaion.common
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextWatcher
 import android.text.style.RelativeSizeSpan
+import android.util.TypedValue
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,8 +25,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.data.model.Asset
-import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.data.model.res.Asset
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -196,6 +201,31 @@ fun View.visibleOrInvisible(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
+fun Button.updateButtonView(isBtnEnabled: Boolean) {
+    if (isBtnEnabled) {
+        isEnabled = true
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+        setBackgroundResource(R.drawable.button_common_bg)
+    } else {
+        isEnabled = false
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_base03))
+        setBackgroundResource(R.drawable.button_disable_bg)
+    }
+}
+
+fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
+    val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain?.apiName +  "/transactions/" + txHash
+    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+}
+
+fun BigDecimal.handlerLeft(decimal: Int, scale: Int): BigDecimal {
+    return this.movePointLeft(decimal).setScale(scale, RoundingMode.HALF_UP)
+}
+
+fun BigDecimal.handlerRight(decimal: Int, scale: Int): BigDecimal {
+    return this.movePointRight(decimal).setScale(scale, RoundingMode.HALF_UP)
+}
+
 fun EditText.addDecimalCheckListener(max: () -> String, decimal: Int) {
     val editText = this
     this.addTextChangedListener(object : TextWatcher {
@@ -292,5 +322,13 @@ fun getDecimalFormat(cnt: Int): DecimalFormat {
         else -> decimalFormat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000")
     }
     return decimalFormat
+}
+
+fun dpToPx(context: Context, dp: Int): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp.toFloat(),
+        context.resources.displayMetrics
+    ).toInt()
 }
 

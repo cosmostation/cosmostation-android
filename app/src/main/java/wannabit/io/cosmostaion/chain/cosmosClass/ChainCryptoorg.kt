@@ -16,7 +16,7 @@ class ChainCryptoorg : CosmosLine() {
     override var logo: Int = R.drawable.chain_cosmos
     override var swipeLogo: Int = R.drawable.chain_swipe_cosmos
     override var apiName: String = "crypto-org"
-    override var stakeDenom: String = "basecro"
+    override var stakeDenom: String? = "basecro"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/394'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

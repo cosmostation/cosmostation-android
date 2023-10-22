@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.data.model.Token
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 import java.math.RoundingMode
 

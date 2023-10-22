@@ -4,9 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
-import wannabit.io.cosmostaion.data.model.BnbHistoryResponse
-import wannabit.io.cosmostaion.data.model.CosmosHistory
-import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.BnbHistoryResponse
+import wannabit.io.cosmostaion.data.model.res.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 
 class HistoryRepositoryImpl : HistoryRepository {
 

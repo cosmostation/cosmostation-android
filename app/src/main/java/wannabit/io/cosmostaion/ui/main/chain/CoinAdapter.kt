@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.data.model.Coin
-import wannabit.io.cosmostaion.data.model.CoinType
+import wannabit.io.cosmostaion.data.model.res.Coin
+import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 
@@ -16,6 +16,8 @@ class CoinAdapter(
     val context: Context,
     val line: CosmosLine
 ) : ListAdapter<Coin, RecyclerView.ViewHolder>(CoinDiffCallback()) {
+
+    private var onItemClickListener: ((CosmosLine, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -43,6 +45,14 @@ class CoinAdapter(
             CoinType.STAKE -> {
                 if (holder is CoinCosmosLineViewHolder) {
                     holder.bind(context, line)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            line.stakeDenom?.let { stakeDenom ->
+                                it(line, stakeDenom)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -70,5 +80,9 @@ class CoinAdapter(
         override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
             return oldItem == newItem
         }
+    }
+
+    fun setOnItemClickListener(listener: (CosmosLine, String) -> Unit) {
+        onItemClickListener = listener
     }
 }

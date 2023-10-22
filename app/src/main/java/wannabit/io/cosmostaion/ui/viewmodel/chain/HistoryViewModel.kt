@@ -4,15 +4,14 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.formatGrpcTxTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
-import wannabit.io.cosmostaion.data.model.BnbHistory
-import wannabit.io.cosmostaion.data.model.CosmosHistory
-import wannabit.io.cosmostaion.data.model.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.BnbHistory
+import wannabit.io.cosmostaion.data.model.res.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepository
 
 class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewModel() {

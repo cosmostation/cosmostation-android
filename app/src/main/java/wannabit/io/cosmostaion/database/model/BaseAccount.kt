@@ -51,13 +51,13 @@ data class BaseAccount(
         if (type == BaseAccountType.MNEMONIC) {
             allCosmosLineChains.forEach { line ->
                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                line.loadData()
+                line.loadData(id)
             }
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
             allCosmosLines().forEach { line ->
                 line.setInfoWithPrivateKey(privateKey)
-                line.loadData()
+                line.loadData(id)
             }
         }
     }
@@ -75,13 +75,13 @@ data class BaseAccount(
         if (type == BaseAccountType.MNEMONIC) {
             displayCosmosLineChains.forEach { line ->
                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                line.loadData()
+                line.loadData(id)
             }
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
             displayCosmosLineChains.forEach { line ->
                 line.setInfoWithPrivateKey(privateKey)
-                line.loadData()
+                line.loadData(id)
             }
         }
     }
@@ -142,9 +142,7 @@ data class BaseAccount(
     companion object {
         fun createByMnemonic(name: String, mnemonic: String, lastHDPath: String): BaseAccount? {
             val uuid = UUID.randomUUID().toString()
-            val wordList = mnemonic.split(" ")
-            val entropy = Utils.bytesToHex(BaseKey.toEntropy(wordList))
-            val encR = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, entropy, false)
+            val encR = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, mnemonic, false)
             return if (encR != null) {
                 BaseAccount(uuid, encR.encDataString!!, encR.ivDataString!!, name, BaseAccountType.MNEMONIC, lastHDPath)
             } else {

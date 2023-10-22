@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.data.model.Coin
-import wannabit.io.cosmostaion.data.model.CoinType
+import wannabit.io.cosmostaion.data.model.res.Coin
+import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.tx.TransferFragment
 
 class CoinFragment(position: Int) : Fragment() {
 
@@ -47,69 +50,71 @@ class CoinFragment(position: Int) : Fragment() {
         baseAccount?.let { account ->
             selectedChain = account.displayCosmosLineChains[selectedPosition]
 
-            if (selectedChain is ChainBinanceBeacon) {
-                selectedChain.lcdAccountInfo?.balances?.forEach { balance ->
-                    if (balance.symbol == selectedChain.stakeDenom) {
-                        stakeCoins.add(Coin(balance.symbol, balance.free, CoinType.STAKE))
-                    } else {
-                        val totalBalance = balance.free.toBigDecimal().add(balance.frozen.toBigDecimal()).add(balance.locked.toBigDecimal())
-                        nativeCoins.add(Coin(balance.symbol, totalBalance.toPlainString(), CoinType.NATIVE))
-                    }
-                }
-                if (stakeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
-                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
-                }
-                nativeCoins.sortWith(compareBy { it.denom })
-
-            } else {
-                selectedChain.cosmosBalances.forEach { coin ->
-                    val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
-                    if (coinType != null) {
-                        when (coinType) {
-                            "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
-                            "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
-                            "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
-                            "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
+            selectedChain.stakeDenom?.let { stakeDenom ->
+                if (selectedChain is ChainBinanceBeacon) {
+                    selectedChain.lcdAccountInfo?.balances?.forEach { balance ->
+                        if (balance.symbol == stakeDenom) {
+                            stakeCoins.add(Coin(balance.symbol, balance.free, CoinType.STAKE))
+                        } else {
+                            val totalBalance = balance.free.toBigDecimal().add(balance.frozen.toBigDecimal()).add(balance.locked.toBigDecimal())
+                            nativeCoins.add(Coin(balance.symbol, totalBalance.toPlainString(), CoinType.NATIVE))
                         }
                     }
-                }
+                    if (stakeCoins.firstOrNull { it.denom == stakeDenom } == null) {
+                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+                    }
+                    nativeCoins.sortWith(compareBy { it.denom })
 
-                if (stakeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
-                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
-                }
-                nativeCoins.sortWith { o1, o2 ->
-                    when {
-                        o1.denom == selectedChain.stakeDenom -> -1
-                        o2.denom == selectedChain.stakeDenom -> 1
-                        else -> {
-                            val value0 = selectedChain.balanceValue(o1.denom)
-                            val value1 = selectedChain.balanceValue(o2.denom)
-                            when {
-                                value0 > value1 -> -1
-                                value0 < value1 -> 1
-                                else -> 0
+                } else {
+                    selectedChain.cosmosBalances.forEach { coin ->
+                        val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
+                        if (coinType != null) {
+                            when (coinType) {
+                                "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
+                                "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
+                                "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
+                                "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                             }
                         }
                     }
-                }
 
-                ibcCoins.sortWith { o1, o2 ->
-                    val value0 = selectedChain.balanceValue(o1.denom)
-                    val value1 = selectedChain.balanceValue(o2.denom)
-                    when {
-                        value0 > value1 -> -1
-                        value0 < value1 -> 1
-                        else -> 0
+                    if (stakeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
+                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
                     }
-                }
+                    nativeCoins.sortWith { o1, o2 ->
+                        when {
+                            o1.denom == selectedChain.stakeDenom -> -1
+                            o2.denom == selectedChain.stakeDenom -> 1
+                            else -> {
+                                val value0 = selectedChain.balanceValue(o1.denom)
+                                val value1 = selectedChain.balanceValue(o2.denom)
+                                when {
+                                    value0 > value1 -> -1
+                                    value0 < value1 -> 1
+                                    else -> 0
+                                }
+                            }
+                        }
+                    }
 
-                bridgeCoins.sortWith { o1, o2 ->
-                    val value0 = selectedChain.balanceValue(o1.denom)
-                    val value1 = selectedChain.balanceValue(o2.denom)
-                    when {
-                        value0 > value1 -> -1
-                        value0 < value1 -> 1
-                        else -> 0
+                    ibcCoins.sortWith { o1, o2 ->
+                        val value0 = selectedChain.balanceValue(o1.denom)
+                        val value1 = selectedChain.balanceValue(o2.denom)
+                        when {
+                            value0 > value1 -> -1
+                            value0 < value1 -> 1
+                            else -> 0
+                        }
+                    }
+
+                    bridgeCoins.sortWith { o1, o2 ->
+                        val value0 = selectedChain.balanceValue(o1.denom)
+                        val value1 = selectedChain.balanceValue(o2.denom)
+                        when {
+                            value0 > value1 -> -1
+                            value0 < value1 -> 1
+                            else -> 0
+                        }
                     }
                 }
             }
@@ -123,6 +128,19 @@ class CoinFragment(position: Int) : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinAdapter
             coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
+
+            var isClickable = true
+            coinAdapter.setOnItemClickListener { line, denom ->
+                val bottomSheet = TransferFragment(line, denom)
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment(line, denom)::class.java.name)
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
         }
     }
 

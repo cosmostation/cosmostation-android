@@ -55,8 +55,10 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
                             CoroutineScope(Dispatchers.IO).launch {
                                 val toAccount = appDatabase.baseAccountDao().selectAccount(toAccountId)
                                 withContext(Dispatchers.Main) {
-                                    Prefs.lastAccountId = toAccount!!.id
-                                    BaseData.baseAccount = toAccount
+                                    toAccount?.let { account ->
+                                        Prefs.lastAccountId = account.id
+                                        BaseData.baseAccount = account
+                                    }
                                 }
                                 ApplicationViewModel.shared.currentAccount()
                             }

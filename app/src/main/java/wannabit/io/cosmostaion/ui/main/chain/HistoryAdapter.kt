@@ -10,8 +10,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.formatGrpcTxTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
-import wannabit.io.cosmostaion.data.model.BnbHistory
-import wannabit.io.cosmostaion.data.model.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.BnbHistory
+import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
 
 class HistoryAdapter(

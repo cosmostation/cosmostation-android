@@ -40,6 +40,11 @@ class MainActivity : BaseActivity() {
         clickAction()
     }
 
+    override fun onResume() {
+        super.onResume()
+        recreateView()
+    }
+
     private fun initViewModel() {
         val walletRepository = WalletRepositoryImpl()
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
@@ -59,11 +64,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
-        isMainActivity = true
         val mainViewPagerAdapter = MainViewPageAdapter(this)
         binding.apply {
             mainViewPager.adapter = mainViewPagerAdapter
-            mainViewPager.setCurrentItem(0, false)
+            mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
             mainViewPager.offscreenPageLimit = 2
             mainViewPager.isUserInputEnabled = false
 
@@ -148,6 +152,18 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun recreateView() {
+        ApplicationViewModel.shared.txRecreateResult.observe(this) { response ->
+            if (response == true) {
+                val mainViewPagerAdapter = MainViewPageAdapter(this)
+                binding.mainViewPager.adapter = mainViewPagerAdapter
+                binding.mainViewPager.offscreenPageLimit = 2
+                binding.mainViewPager.isUserInputEnabled = false
+                mainViewPagerAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+
     class MainViewPageAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
         private val mainFragments =
@@ -162,9 +178,12 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    fun onBackVisibleBottomNavi() {
-//        val backAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_nav_slide_in_leff)
-//        binding.navBar.visibility = View.VISIBLE
-//        binding.navBar.startAnimation(backAnimation)
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        if (fragmentManager.backStackEntryCount <= 0) {
+            moveTaskToBack(true)
+            return
+        }
+        super.onBackPressed()
     }
 }
