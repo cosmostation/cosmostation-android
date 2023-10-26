@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.dao;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ARCHWAY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
@@ -115,15 +116,6 @@ public class Param {
         @SerializedName("cudos_minting_params")
         public CudosMintingParams mCudosMintingParams;
 
-        @SerializedName("axelar_key_mgmt_relative_inflation_rate")
-        public String axelarKeyInflationRate;
-
-        @SerializedName("axelar_external_chain_voting_inflation_rate")
-        public String axelarExternalInflationRate;
-
-        @SerializedName("axelar_evm_chains")
-        public ArrayList<String> axelarEvmChainList;
-
         @SerializedName("canto_inflation_params")
         public CantoInflationParams mCantoInflationParams;
 
@@ -201,17 +193,6 @@ public class Param {
                     }
                     return thisInflation.divide(genesisSupply, 18, RoundingMode.UP);
                 }
-
-            } else if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN)) {
-                BigDecimal baseInflation = new BigDecimal(mParams.mMintingInflation.inflation);
-                BigDecimal keyManageRate = new BigDecimal(mParams.axelarKeyInflationRate);
-                BigDecimal externalRate = new BigDecimal(mParams.axelarExternalInflationRate);
-                BigDecimal evmChainCnt = new BigDecimal(mParams.axelarEvmChainList.size());
-
-                BigDecimal keyManageInflation = baseInflation.multiply(keyManageRate);
-                BigDecimal externalEvmInflation = externalRate.multiply(evmChainCnt);
-                return baseInflation.add(keyManageInflation).add(externalEvmInflation);
-
 
             } else if (chainConfig.baseChain().equals(BaseChain.TERITORI_MAIN)) {
                 if (mParams.mTeritoriMintingParams != null && mParams.mTeritoriMintingParams.params != null) {
@@ -408,14 +389,13 @@ public class Param {
                     }
 
                 } else {
-                    BigDecimal ap;
-                    if (chainConfig.baseChain().equals(BaseChain.AXELAR_MAIN))
-                        ap = getMainSupply().multiply(getMintInflation(chainConfig));
-                    else ap = getAnnualProvision();
+                    BigDecimal ap = getAnnualProvision();
                     if (ap.compareTo(BigDecimal.ZERO) > 0) {
                         if (chainConfig.baseChain().equals(BaseChain.OMNIFLIX_MAIN)) {
                             return ap.multiply(calTax).multiply(new BigDecimal(mParams.mOmniflixAllocParams.mDistributionProportions.staking_rewards)).divide(getBondedAmount(), 6, RoundingMode.DOWN);
-                        } else {
+                        } else if (chainConfig.baseChain().equals(AXELAR_MAIN)) {
+                            return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                        } else  {
                             return ap.multiply(calTax).divide(getBondedAmount(), 6, RoundingMode.DOWN);
                         }
                     } else {
