@@ -204,7 +204,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/btn_trans_with_border"
-                android:minHeight="@dimen/space_40">
+                android:minHeight="@dimen/space_40"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/font_rr_14_black_daynight"
