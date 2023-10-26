@@ -86,6 +86,9 @@ public class ChainFactory {
                 case DESMOS_MAIN:
                     return new Desmos();
 
+                case DYDX_MAIN:
+                    return new Dydx();
+
                 case EMONEY_MAIN:
                     return new Emoney();
 
