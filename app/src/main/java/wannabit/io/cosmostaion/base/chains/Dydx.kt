@@ -29,7 +29,7 @@ class Dydx : ChainConfig() {
     override fun authzSupport(): Boolean { return false }
 
     override fun grpcUrl(): String { return "grpc-dydx.cosmostation.io" }
-    override fun explorerUrl(): String { return BaseConstant.EXPLORER_BASE_URL + "quasar/" }
+    override fun explorerUrl(): String { return BaseConstant.EXPLORER_BASE_URL + "dydx/" }
     override fun homeInfoLink(): String { return "https://dydx.exchange/" }
     override fun blogInfoLink(): String { return "https://dydx.exchange/blog/" }
     override fun coingeckoLink(): String { return "" }
