@@ -76,6 +76,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
                     unBondingTimeImage = R.drawable.img_delegate_28_warning;
                 } else if (dpDay == 7) {
                     unBondingTimeImage = R.drawable.dialogicon_undelegate_7;
+                } else if (dpDay == 30) {
+                    unBondingTimeImage = R.drawable.img_delegate_30_warning;
                 }
             }
             CommonAlertDialog.showHeaderImageDoubleButton(getSActivity(), getString(R.string.str_delegate_warn_title), getString(R.string.str_delegate_warn_msg),
