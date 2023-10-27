@@ -321,6 +321,7 @@
     <string name="str_front_guide_title_archway" translatable="false"><![CDATA[ARCHWAY]]></string>
     <string name="str_front_guide_title_sei" translatable="false"><![CDATA[SEI]]></string>
     <string name="str_front_guide_title_terra" translatable="false"><![CDATA[TERRA]]></string>
+    <string name="str_front_guide_title_mintstation" translatable="false"><![CDATA[MINTSTATION-TESTNET]]></string>
 
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
@@ -388,6 +389,7 @@
     <string name="str_front_guide_msg_archway"><![CDATA[Archway is a persmissionless smart contract blockchain designed to incentivize the deployments of dApps.]]></string>
     <string name="str_front_guide_msg_sei"><![CDATA[Sei is a Cosmos SDK-based layer 1 blockchain network designed for speed, security and scalability.]]></string>
     <string name="str_front_guide_msg_terra"><![CDATA[Terra is a Cosmos SDK-based permissionless blockchain network hard forked from Terra Classic network.]]></string>
+    <string name="str_front_guide_msg_mintstation" translatable="false"><![CDATA[MintStation-Testnet]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>
