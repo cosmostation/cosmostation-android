@@ -229,12 +229,13 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             btnTxt.setText(mFeeInfo.get(i).title);
         }
 
-        if (getBaseDao().mParam != null && getBaseDao().mParam.mParams != null && getBaseDao().mParam.mParams.mChainListParam != null) {
-            mSelectedFeeInfo = Integer.parseInt(getBaseDao().mParam.mParams.mChainListParam.fee.base);
+        if (getBaseDao().mParam != null && getBaseDao().mParam.mGasPrice != null && getBaseDao().mParam.mGasPrice.base != null) {
+            mSelectedFeeInfo = Integer.parseInt(getBaseDao().mParam.mGasPrice.base);
         }
 
         mButtonGroup.setPosition(mSelectedFeeInfo, false);
         mButtonGroup.setOnPositionChangedListener(position -> {
+            if (mChainConfig.baseChain().equals(BaseChain.ASSETMANTLE_MAIN)) { return; }
             mSelectedFeeInfo = position;
             onCalculateFees();
             onCheckTxType();
@@ -278,14 +279,13 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     @Override
     public void onRefreshTab() {
-        if (getBaseDao().mParam.mParams.mChainListParam.isSimulable) {
-            onCheckTxType();
-        } else  {
+        if (mChainConfig.baseChain().equals(BaseChain.ASSETMANTLE_MAIN)) {
             onUpdateView();
             WDp.setDpCoin(getActivity(), getBaseDao(), mChainConfig, mFee.amount.get(0), mGasDenom, mGasAmount);
             mSimulPassed = true;
             return;
         }
+        onCheckTxType();
     }
 
     @Override
@@ -561,7 +561,11 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else {
                 Abci.GasInfo gasInfo = ((Abci.GasInfo) result.resultData);
                 long gasused = gasInfo.getGasUsed();
-                mFeeGasAmount = new BigDecimal((long) ((double) gasused * Double.parseDouble(getBaseDao().mParam.mParams.mChainListParam.simulGasMultiply)));
+                if (mChainConfig.baseChain().equals(BaseChain.IXO_MAIN)) {
+                    mFeeGasAmount = new BigDecimal((long) ((double) gasused * 3d));
+                } else {
+                    mFeeGasAmount = new BigDecimal((long) ((double) gasused * 1.5d));
+                }
             }
             mSimulPassed = true;
             Toast.makeText(getContext(), getString(R.string.str_gas_checked), Toast.LENGTH_SHORT).show();

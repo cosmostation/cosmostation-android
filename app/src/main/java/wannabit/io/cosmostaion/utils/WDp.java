@@ -323,7 +323,7 @@ public class WDp {
 
     public static boolean isTxFeePayable(Context c, BaseData baseData, ChainConfig chainConfig) {
         if (isGRPC(chainConfig.baseChain())) {
-            if (baseData == null || baseData.mParam == null || baseData.mParam.mParams.mChainListParam == null) return false;
+            if (baseData == null || baseData.mParam == null || baseData.mParam.mGasPrice == null) return false;
 
             if (chainConfig.baseChain().equals(SIF_MAIN)) {
                 if (new BigDecimal("100000000000000000").compareTo(baseData.getAvailable(chainConfig.mainDenom())) < 0) {
