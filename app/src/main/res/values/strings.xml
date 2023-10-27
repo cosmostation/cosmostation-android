@@ -321,6 +321,7 @@
     <string name="str_front_guide_title_archway" translatable="false"><![CDATA[ARCHWAY]]></string>
     <string name="str_front_guide_title_sei" translatable="false"><![CDATA[SEI]]></string>
     <string name="str_front_guide_title_terra" translatable="false"><![CDATA[TERRA]]></string>
+    <string name="str_front_guide_title_dydx" translatable="false"><![CDATA[DYDX]]></string>
     <string name="str_front_guide_title_mintstation" translatable="false"><![CDATA[MINTSTATION-TESTNET]]></string>
 
 
@@ -389,6 +390,7 @@
     <string name="str_front_guide_msg_archway"><![CDATA[Archway is a persmissionless smart contract blockchain designed to incentivize the deployments of dApps.]]></string>
     <string name="str_front_guide_msg_sei"><![CDATA[Sei is a Cosmos SDK-based layer 1 blockchain network designed for speed, security and scalability.]]></string>
     <string name="str_front_guide_msg_terra"><![CDATA[Terra is a Cosmos SDK-based permissionless blockchain network hard forked from Terra Classic network.]]></string>
+    <string name="str_front_guide_msg_dydx"><![CDATA[dYdX is a standalone Cosmos appchain designed for a decentralized exchange that supports zero-fee perpetual trading.]]></string>
     <string name="str_front_guide_msg_mintstation" translatable="false"><![CDATA[MintStation-Testnet]]></string>
 
 
@@ -1530,6 +1532,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
