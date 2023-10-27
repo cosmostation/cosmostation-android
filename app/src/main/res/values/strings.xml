@@ -269,7 +269,7 @@
     <string name="str_front_guide_title_persistence" translatable="false"><![CDATA[PERSISTENCE]]></string>
     <string name="str_front_guide_title_sentinel" translatable="false"><![CDATA[SENTINEL]]></string>
     <string name="str_front_guide_title_fetch" translatable="false"><![CDATA[FETCH.AI]]></string>
-    <string name="str_front_guide_title_crypto" translatable="false"><![CDATA[CRYPTO.ORG]]></string>
+    <string name="str_front_guide_title_crypto" translatable="false"><![CDATA[CRONOS POS]]></string>
     <string name="str_front_guide_title_sif" translatable="false"><![CDATA[SIF]]></string>
     <string name="str_front_guide_title_ki" translatable="false"><![CDATA[KI]]></string>
     <string name="str_front_guide_title_kyve" translatable="false"><![CDATA[KYVE]]></string>
@@ -322,6 +322,7 @@
     <string name="str_front_guide_title_sei" translatable="false"><![CDATA[SEI]]></string>
     <string name="str_front_guide_title_terra" translatable="false"><![CDATA[TERRA]]></string>
     <string name="str_front_guide_title_dydx" translatable="false"><![CDATA[DYDX]]></string>
+    <string name="str_front_guide_title_mintstation" translatable="false"><![CDATA[MINTSTATION-TESTNET]]></string>
 
 
     <string name="str_front_guide_msg_cosmos">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
@@ -390,6 +391,7 @@
     <string name="str_front_guide_msg_sei"><![CDATA[Sei is a Cosmos SDK-based layer 1 blockchain network designed for speed, security and scalability.]]></string>
     <string name="str_front_guide_msg_terra"><![CDATA[Terra is a Cosmos SDK-based permissionless blockchain network hard forked from Terra Classic network.]]></string>
     <string name="str_front_guide_msg_dydx"><![CDATA[dYdX is a standalone Cosmos appchain designed for a decentralized exchange that supports zero-fee perpetual trading.]]></string>
+    <string name="str_front_guide_msg_mintstation" translatable="false"><![CDATA[MintStation-Testnet]]></string>
 
 
     <string name="str_current_reward_address">Current Reward Address</string>
@@ -1530,6 +1532,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

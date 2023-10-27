@@ -77,6 +77,7 @@
     <color name="colorTransBgSei">#FBF4EA</color>
     <color name="colorTransBgTerra">#E7EDFF</color>
     <color name="colorTransBgDydx">#F0F0FF</color>
+    <color name="colorTransBgMintstation">#E7EDFD</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -250,6 +251,7 @@
 
     <color name="color_terra">#1E75EE</color>
 
+    <color name="color_mintstation">#376FFF</color>
 
     <color name="color_dydx">#6966FF</color>
 

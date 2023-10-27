@@ -227,8 +227,8 @@ public class ChainFactory {
                 case XPLA_MAIN:
                     return new Xpla();
 
-                case STATION_TEST:
-                    return new StationTest();
+                case MINTSTATION_TEST:
+                    return new MintstationTest();
 
                 case NEUTRON_TEST:
                     return new NeutronTest();
