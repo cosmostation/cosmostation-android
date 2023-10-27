@@ -77,7 +77,6 @@ public enum BaseChain {
     OMNIFLIX_MAIN("omniflix-mainnet"),
     CRESCENT_MAIN("crescent-mainnet"),
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
-    STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
     STRIDE_MAIN("stride-mainnet"),
@@ -100,7 +99,8 @@ public enum BaseChain {
     NEUTRON_MAIN("neutron-mainnet"),
     ARCHWAY_MAIN("archway-mainnet"),
     SEI_MAIN("sei-mainnet"),
-    TERRA_MAIN ("terra-mainnet");
+    TERRA_MAIN ("terra-mainnet"),
+    MINTSTATION_TEST ("mintstation-testnet");
 
 
     private final String chainName;
@@ -261,9 +261,6 @@ public enum BaseChain {
         if (chainName.equals(ASSETMANTLE_MAIN.chainName)) {
             return ASSETMANTLE_MAIN;
         }
-        if (chainName.equals(STATION_TEST.chainName)) {
-            return STATION_TEST;
-        }
         if (chainName.equals(NYX_MAIN.chainName)) {
             return NYX_MAIN;
         }
@@ -333,6 +330,9 @@ public enum BaseChain {
         if (chainName.equals(TERRA_MAIN.chainName)) {
             return TERRA_MAIN;
         }
+        if (chainName.equals(MINTSTATION_TEST.chainName)) {
+            return MINTSTATION_TEST;
+        }
         return null;
     }
 
@@ -397,8 +397,8 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
         result.add(XPLA_MAIN);
+        result.add(MINTSTATION_TEST);
         result.add(NEUTRON_TEST);
-        result.add(STATION_TEST);
         result.add(CERBERUS_MAIN);
         result.add(KONSTELL_MAIN);
         result.add(KUJIRA_MAIN);

@@ -76,6 +76,7 @@
     <color name="colorTransBgArchway">#FFF2ED</color>
     <color name="colorTransBgSei">#FBF4EA</color>
     <color name="colorTransBgTerra">#E7EDFF</color>
+    <color name="colorTransBgMintstation">#E7EDFD</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -248,6 +249,8 @@
     <color name="color_sei">#BA364D</color>
 
     <color name="color_terra">#1E75EE</color>
+
+    <color name="color_mintstation">#376FFF</color>
 
 
     <color name="colorRed">#f31963</color>
