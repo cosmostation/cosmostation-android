@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COINGECKO_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import org.bitcoinj.crypto.ChildNumber;
 
@@ -23,7 +24,8 @@ public class Crytoorg extends ChainConfig {
     public int chainBgColor() { return R.color.colorTransBgCryto; }
     public int chainTabColor() { return R.color.color_tab_myvalidator_cryto; }
     public String chainName() { return "crypto-org"; }
-    public String chainKoreanName() { return "크립토"; }
+    public String chainKoreanName() { return "크로노스포스"; }
+    public List<String> chainNameList() { return Lists.newArrayList("cronos pos", chainKoreanName(), mainSymbol()); }
     public String chainTitle() { return "(Cronos POS)"; }
     public String chainTitleToUp() { return "CRONOS POS"; }
     public String chainIdPrefix() { return "crypto-org-"; }
