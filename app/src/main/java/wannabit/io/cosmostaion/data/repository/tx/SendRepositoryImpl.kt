@@ -6,7 +6,6 @@ import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
-import com.cosmos.tx.v1beta1.ServiceProto.SimulateResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
@@ -73,14 +72,49 @@ class SendRepositoryImpl : SendRepository {
         msgSend: TxProto.MsgSend?,
         fee: Fee?,
         memo: String
-    ): SimulateResponse? {
+    ): Any? {
         return try {
             val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genSendSimulate(account, msgSend, fee, memo)
             simulStub.simulate(simulateTx)
 
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastUnDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genUnDelegateBroadcast(account, msgUnDelegate, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
         } catch (_: Exception) {
             null
+        }
+    }
+
+    override suspend fun simulateUnDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
         }
     }
 }

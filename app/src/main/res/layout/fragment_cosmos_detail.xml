@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_03"
+    android:background="@drawable/bg_00"
     android:fitsSystemWindows="true"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
@@ -138,7 +138,9 @@
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
             android:src="@drawable/icon_stake"
+            android:enabled="false"
             app:maxImageSize="@dimen/space_100"
             fab:fab_label="@string/title_stake"
             fab:fab_size="mini" />
@@ -169,7 +171,7 @@
             android:layout_height="@dimen/space_100"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
-            android:src="@drawable/icon_success"
+            android:src="@drawable/icon_governance"
             fab:fab_label="@string/title_governance"
             app:fab_size="mini"/>
 

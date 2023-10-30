@@ -25,7 +25,7 @@
     <string name="str_private_key">개인키</string>
     <string name="str_warning">위험</string>
     <string name="str_add_custom_chain">커스텀 체인 추가</string>
-    <string name="str_max_available">최대 가능 수량 : </string>
+    <string name="str_max_available">최대 가능 : </string>
     <string name="str_send_amount">송금 수량</string>
     <string name="str_fixed">고정</string>
     <string name="str_free">무료</string>
@@ -39,6 +39,11 @@
     <string name="str_address_name_service">주소 또는 네임서비스</string>
     <string name="str_close">닫기</string>
     <string name="str_wait">기다리기</string>
+    <string name="str_start_stake">스테이킹 시작</string>
+    <string name="str_unstake">언스테이크</string>
+    <string name="str_switch_validator">검증인 변경</string>
+    <string name="str_claim_rewards">이자 받기</string>
+    <string name="str_compounding">컴파운딩</string>
 
 
     //title
@@ -80,11 +85,15 @@
     <string name="title_address_confirm">주소록 확인</string>
     <string name="title_name_service">%1$s 네임 서비스 검색 결과</string>
     <string name="title_more_wait">결과 확인 지연</string>
+    <string name="title_stake_info">스테이킹 정보</string>
+    <string name="title_option">옵션 선택</string>
+    <string name="title_undelegate_amount">위임해제 수량</string>
+    <string name="title_select_validator">검증인 선택</string>
 
 
     // msg
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>
-    <string name="str_msg_address_copied" >주소 복사</string>
+    <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copied" >클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copy">복사하려면 니모닉 문구 상자를 탭하세요.</string>
     <string name="str_msg_private_copy">클립보드에 복사하였습니다.</string>
@@ -103,6 +112,10 @@
     <string name="str_fee_speed_title_zero">이 체인은 무료 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_fixed">이 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_more_wait_msg">요청하신 트랜잭션은 블럭체인에 정확히 전달하였습니다. 하지만 결과값을 보여주는데 시간이 지연되고 있습니다. \n\n\"기다리기\" 버튼을 눌러 현재 화면에서 결과값을 확인하거나, \"닫기\" 버튼을 눌러 잠시 후에 History 탭에서 결과를 확인하세요.</string>
+    <string name="str_unstake_msg">언스테이킹을 시작합니다.</string>
+    <string name="str_switch_validator_msg">스테이킹중인 자산의 검증인을 변경합니다.</string>
+    <string name="str_claim_rewards_msg">쌓인 이자를 받습니다.</string>
+    <string name="str_compounding_msg">쌓인 이자를 즉시 스테이킹 합니다.</string>
 
 
     // error
@@ -115,6 +128,12 @@
     <string name="error_not_enough_fee">Tx 수수료를 지불 할\n사용가능 금액이 부족합니다.</string>
     <string name="error_invalid_address">부정확한 주소입니다. 다시한번 확인해 주세요.</string>
     <string name="error_self_sending">자기 자신의 주소로는 송금할 수 없습니다.</string>
+
+
+    //header
+    <string name="str_reward_address">이자 받는 주소</string>
+    <string name="str_my_staking">내 스테이킹</string>
+    <string name="str_my_unstaking">내 언스테이킹</string>
 
 
     // tx

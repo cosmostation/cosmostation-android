@@ -3,65 +3,59 @@ package wannabit.io.cosmostaion.ui.main.chain
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.toMoveBack
+import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.data.repository.tx.SendRepositoryImpl
-import wannabit.io.cosmostaion.databinding.ActivityCosmosDetailBinding
+import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
-import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 
-class CosmosDetailActivity : BaseActivity() {
+class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
-    private lateinit var binding: ActivityCosmosDetailBinding
+    private var _binding: FragmentCosmosDetailBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var pagerAdapter: AccountPageAdapter
 
-    private var selectedPosition: Int = -1
     private lateinit var selectedChain: CosmosLine
 
-    private lateinit var sendViewModel: SendViewModel
+    private var isStakeLoaded = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCosmosDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        initView()
-        initData()
-        initTab()
-        initViewModel()
-        clickAction()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCosmosDetailBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    private fun initView() {
-        binding.apply {
-            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
-            ContextCompat.getDrawable(this@CosmosDetailActivity, R.drawable.icon_governance)?.let {
-                it.setBounds(100, 100, 100, 100)
-                fabVote.setImageDrawable(it)
-            }
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initData()
+        initTab()
+        clickAction()
+        clickFabMenu()
     }
 
     private fun initData() {
         binding.apply {
+            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
             val baseAccount = BaseData.baseAccount
-            selectedPosition = intent.getIntExtra("selectPosition", -1)
 
             baseAccount?.let {
                 accountName.text = baseAccount.name
@@ -69,13 +63,21 @@ class CosmosDetailActivity : BaseActivity() {
                 accountAddress.text = selectedChain.address
                 accountValue.text = formatAssetValue(selectedChain.allAssetValue())
             }
+            selectedChain.loadStakeData()
+
+            selectedChain.setLoadStakeCallBack(object : CosmosLine.LoadStakeCallback {
+                override fun onStakeLoaded(isLoaded: Boolean) {
+                    isStakeLoaded = isLoaded
+                }
+            })
         }
     }
 
     private fun initTab() {
         binding.apply {
-            pagerAdapter =
-                AccountPageAdapter(this@CosmosDetailActivity, selectedChain, selectedPosition)
+            pagerAdapter = AccountPageAdapter(
+                requireActivity(), selectedChain, selectedPosition
+            )
             viewPager.adapter = pagerAdapter
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
@@ -104,19 +106,10 @@ class CosmosDetailActivity : BaseActivity() {
         }
     }
 
-    private fun initViewModel() {
-        val sendRepository = SendRepositoryImpl()
-        val sendViewModelProviderFactory = SendViewModelProviderFactory(sendRepository)
-        sendViewModel = ViewModelProvider(
-            this,
-            sendViewModelProviderFactory
-        )[SendViewModel::class.java]
-    }
-
     private fun clickAction() {
         binding.apply {
             btnBack.setOnClickListener {
-                onBackPressed()
+                requireActivity().onBackPressed()
             }
 
             btnAccount.setOnClickListener {
@@ -127,7 +120,7 @@ class CosmosDetailActivity : BaseActivity() {
 
             accountAddress.setOnClickListener {
                 val bottomSheet = QrCodeFragment(selectedChain)
-                bottomSheet.show(supportFragmentManager, QrCodeFragment::class.java.name)
+                bottomSheet.show(requireActivity().supportFragmentManager, QrCodeFragment::class.java.name)
             }
 
             fabMenu.setOnMenuToggleListener { opened ->
@@ -135,14 +128,15 @@ class CosmosDetailActivity : BaseActivity() {
                 backdropLayout.visibleOrGone(opened)
                 if (opened) {
                     tabLayout.elevation = 0.1f
-                    window.statusBarColor = ContextCompat.getColor(
-                        this@CosmosDetailActivity,
+                    requireActivity().window.statusBarColor = ContextCompat.getColor(
+                        requireContext(),
                         R.color.color_background_dialog
                     )
                 } else {
                     tabLayout.elevation = 0f
-                    window.statusBarColor =
-                        ContextCompat.getColor(this@CosmosDetailActivity, R.color.color_transparent)
+                    requireActivity().window.statusBarColor = ContextCompat.getColor(
+                        requireContext(),
+                        R.color.color_transparent)
                 }
             }
 
@@ -150,23 +144,29 @@ class CosmosDetailActivity : BaseActivity() {
                 fabMenu.close(true)
                 backdropLayout.visibility = View.GONE
                 tabLayout.elevation = 0f
-                window.statusBarColor =
-                    ContextCompat.getColor(this@CosmosDetailActivity, R.color.color_transparent)
+                requireActivity().window.statusBarColor = ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_transparent)
             }
+        }
+    }
 
-            fabVote.setOnClickListener {
-                fabMenu.close(true)
-            }
-
-            fabClaimReward.setOnClickListener {
-                fabMenu.close(true)
-            }
-
-            fabCompounding.setOnClickListener {
-                fabMenu.close(true)
-            }
-
+    private fun clickFabMenu() {
+        var isClickable = true
+        binding.apply {
             fabStake.setOnClickListener {
+                if (isStakeLoaded) {
+                    if (isClickable) {
+                        isClickable = false
+
+                        requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                            StakeInfoFragment(selectedChain), "StakeInfo")
+                    }
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
                 fabMenu.close(true)
             }
         }
@@ -198,8 +198,8 @@ class CosmosDetailActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

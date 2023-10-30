@@ -4,16 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.TextWatcher
 import android.text.style.RelativeSizeSpan
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -26,6 +23,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
@@ -125,6 +123,10 @@ fun ImageView.setImg(resourceId: Int) {
     Picasso.get().load(resourceId).into(this)
 }
 
+fun ImageView.setMonikerImg(line: CosmosLine, opAddress: String?) {
+    Picasso.get().load(line.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator).into(this)
+}
+
 fun AppCompatActivity.makeToast(id: Int) {
     Toast.makeText(this, this.getString(id), Toast.LENGTH_SHORT).show()
 }
@@ -189,6 +191,35 @@ fun formatTxTimeToHour(context: Context, timeString: String): String {
     return outputFormat.format(inputFormat.parse(timeString))
 }
 
+fun dpTime(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        if (locale == Locale.ENGLISH) "MMM dd, yyyy (HH:mm:ss)" else "yyyy-MM-dd HH:mm:ss",
+        locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
+fun gapTime(finishTime: Long): String {
+    var result = "??"
+    val now = Calendar.getInstance().timeInMillis
+    val left = finishTime - now
+
+    result = if (left >= CONSTANT_D) {
+        "D-" + left / CONSTANT_D
+    } else if (left >= BaseConstant.CONSTANT_H) {
+        (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+    } else if (left >= BaseConstant.CONSTANT_M) {
+        (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+    } else {
+        "0 days"
+    }
+    return result
+}
+
 fun View.visibleOrGone(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
@@ -224,38 +255,6 @@ fun BigDecimal.handlerLeft(decimal: Int, scale: Int): BigDecimal {
 
 fun BigDecimal.handlerRight(decimal: Int, scale: Int): BigDecimal {
     return this.movePointRight(decimal).setScale(scale, RoundingMode.HALF_UP)
-}
-
-fun EditText.addDecimalCheckListener(max: () -> String, decimal: Int) {
-    val editText = this
-    this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            s?.let {
-                if (it.isBlank()) {
-                    return
-                }
-
-                val inputAmount = BigDecimal(it.toString())
-                val available = BigDecimal(max())
-                if (inputAmount > available) {
-                    editText.setText(max())
-                    editText.setSelection(editText.length())
-                }
-                if (inputAmount.scale() > decimal) {
-                    editText.setText(
-                        BigDecimal(it.toString()).setScale(decimal, RoundingMode.DOWN).toString()
-                    )
-                    editText.setSelection(editText.length())
-                }
-            }
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-        }
-    })
 }
 
 suspend fun <T> safeApiCall(

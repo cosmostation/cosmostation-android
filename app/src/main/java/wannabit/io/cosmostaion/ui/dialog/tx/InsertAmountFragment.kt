@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
-import wannabit.io.cosmostaion.ui.tx.TransferAssetType
+import wannabit.io.cosmostaion.ui.tx.step.TransferAssetType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -22,7 +22,7 @@ import java.math.RoundingMode
 class InsertAmountFragment(
     private val transferAssetType: TransferAssetType?,
     private val availAmount: BigDecimal?,
-    private val toSendAmount: String?,
+    private val toAmount: String?,
     private val selectedAsset: Asset?,
     private val selectedToken: Token?,
     val listener: AmountSelectListener
@@ -51,7 +51,7 @@ class InsertAmountFragment(
 
     private fun initView() {
         binding.apply {
-            if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+            if (transferAssetType == TransferAssetType.COIN_TRANSFER || transferAssetType == null) {
                 selectedAsset?.let { asset ->
                     asset.decimals?.let { decimal ->
                         assetDecimal = decimal
@@ -61,12 +61,12 @@ class InsertAmountFragment(
                             availableDenom.text = asset.symbol
                         }
 
-                        toSendAmount?.let {
+                        toAmount?.let {
                             if (it.isNotEmpty()) {
                                 val dpToSendAmount = it.toBigDecimal().movePointLeft(decimal).setScale(decimal).stripTrailingZeros().toPlainString()
                                 amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                             } else {
-                                amountTxt.text = Editable.Factory.getInstance().newEditable(toSendAmount)
+                                amountTxt.text = Editable.Factory.getInstance().newEditable(it)
                             }
                         }
                     }

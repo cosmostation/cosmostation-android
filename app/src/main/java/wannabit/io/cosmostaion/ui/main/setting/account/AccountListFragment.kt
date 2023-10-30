@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAccountListBinding
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
@@ -51,10 +52,12 @@ class AccountListFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 val appDatabase = AppDatabase.getInstance()
                 val selectAllAccount = appDatabase.baseAccountDao().selectAll()
+                val mnemonicAccounts = selectAllAccount.filter { it.type == BaseAccountType.MNEMONIC }
+                val privateAccounts = selectAllAccount.filter { it.type == BaseAccountType.PRIVATE_KEY }
 
                 withContext(Dispatchers.Main) {
                     accountListAdapter =
-                        AccountListAdapter(requireContext(), popupClickAction)
+                        AccountListAdapter(requireContext(), mnemonicAccounts, privateAccounts, popupClickAction)
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = accountListAdapter
@@ -87,7 +90,10 @@ class AccountListFragment : Fragment() {
 
     private fun checkAccountData() {
         accountViewModel.baseAccounts.observe(viewLifecycleOwner) { result ->
-            accountListAdapter = AccountListAdapter(requireContext(), popupClickAction)
+            val mnemonicAccounts = result.filter { it.type == BaseAccountType.MNEMONIC }
+            val privateAccounts = result.filter { it.type == BaseAccountType.PRIVATE_KEY }
+
+            accountListAdapter = AccountListAdapter(requireContext(), mnemonicAccounts, privateAccounts, popupClickAction)
             binding.recycler.setHasFixedSize(true)
             binding.recycler.layoutManager = LinearLayoutManager(requireContext())
             binding.recycler.adapter = accountListAdapter

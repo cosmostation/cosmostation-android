@@ -14,6 +14,8 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class AccountListAdapter(
     val context: Context,
+    val mnemonicAccounts: List<BaseAccount>,
+    val privateAccounts: List<BaseAccount>,
     private var listener: ClickListener
 ) : ListAdapter<BaseAccount, RecyclerView.ViewHolder>(AccountListDiffCallback()) {
 
@@ -47,42 +49,72 @@ class AccountListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is AccountListHeaderViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_MNEMONIC_HEADER) {
-                    holder.bind(position)
+                if (mnemonicAccounts.isNotEmpty()) {
+                    if (holder.itemViewType == VIEW_TYPE_MNEMONIC_HEADER) {
+                        holder.bind(position)
+                    } else {
+                        holder.bind(position - (mnemonicAccounts.size + 1))
+                    }
+
                 } else {
-                    holder.bind(position - (currentList.size + 1))
+                    if (holder.itemViewType == VIEW_TYPE_PRIVATE_HEADER) {
+                        holder.bind(position)
+                    }
                 }
             }
 
             is AccountListViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_MNEMONIC_ITEM) {
-                    val mnemonicAccount = currentList[position - 1]
-                    holder.bind(mnemonicAccount, listener)
+                if (mnemonicAccounts.isNotEmpty()) {
+                    if (holder.itemViewType == VIEW_TYPE_MNEMONIC_ITEM) {
+                        val mnemonicAccount = mnemonicAccounts[position - 1]
+                        holder.bind(mnemonicAccount, listener)
+
+                    } else {
+                        val privateAccount = privateAccounts[position - (mnemonicAccounts.size + 2)]
+                        holder.bind(privateAccount, listener)
+                    }
+
                 } else {
-                    val privateAccount = currentList[position - 2]
-                    holder.bind(privateAccount, listener)
+                    if (holder.itemViewType == VIEW_TYPE_PRIVATE_ITEM) {
+                        val privateAccount = privateAccounts[position - 1]
+                        holder.bind(privateAccount, listener)
+                    }
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) {
-            VIEW_TYPE_MNEMONIC_HEADER
-        } else if (position < currentList.filter { it.type == BaseAccountType.MNEMONIC }.size + 1) {
-            VIEW_TYPE_MNEMONIC_ITEM
-        } else if (position < currentList.filter { it.type == BaseAccountType.MNEMONIC }.size + 2) {
-            VIEW_TYPE_PRIVATE_HEADER
+        if (mnemonicAccounts.isNotEmpty()) {
+            return if (position == 0) {
+                VIEW_TYPE_MNEMONIC_HEADER
+            } else if (position < mnemonicAccounts.size + 1) {
+                VIEW_TYPE_MNEMONIC_ITEM
+            } else if (position < mnemonicAccounts.size + 2) {
+                VIEW_TYPE_PRIVATE_HEADER
+            } else {
+                VIEW_TYPE_PRIVATE_ITEM
+            }
+
         } else {
-            VIEW_TYPE_PRIVATE_ITEM
+            return if (position == 0) {
+                VIEW_TYPE_PRIVATE_HEADER
+            } else {
+                VIEW_TYPE_PRIVATE_ITEM
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return if (currentList.any { it.type == BaseAccountType.PRIVATE_KEY }) {
-            currentList.size + 2
+        if (mnemonicAccounts.isNotEmpty()) {
+            if (privateAccounts.isNotEmpty()) {
+                return currentList.size + 2
+            } else {
+                return currentList.size + 1
+            }
+
         } else {
-            currentList.size + 1
+            return currentList.size + 1
         }
     }
 

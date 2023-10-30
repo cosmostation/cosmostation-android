@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx
+package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
 import android.app.Dialog
@@ -28,10 +28,13 @@ import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.goneOrVisible
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -51,6 +54,7 @@ import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -71,7 +75,6 @@ class TransferFragment(
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
-    private var feeDenom = ""
     private var txFee: TxProto.Fee? = null
 
     private var toSendAmount = ""
@@ -155,18 +158,6 @@ class TransferFragment(
             }
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
-            txFee?.getAmount(0)?.let {
-                feeDenom = it.denom
-                sendAssetView.isEnabled = true
-                tabMsgTxt.text = getString(R.string.str_tap_for_add_amount_msg)
-                tabMsgTxt.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
-
-            } ?: run {
-                feeDenom = toSendDenom
-                sendAssetView.isEnabled = false
-                tabMsgTxt.text = getString(R.string.error_not_enough_fee)
-                tabMsgTxt.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_red))
-            }
         }
     }
 
@@ -266,7 +257,7 @@ class TransferFragment(
 
                 BaseData.getAsset(selectedChain.apiName, toSendDenom)?.let {
                     it.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
                         val price = BaseData.getPrice(selectedAsset?.coinGeckoId)
                         val value = price.multiply(dpAmount)
 
@@ -298,7 +289,6 @@ class TransferFragment(
 
     private fun updateFeeView() {
         binding.apply {
-//            txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, feeDenom)
             txFee?.getAmount(0)?.let { fee ->
                 BaseData.getAsset(selectedChain.apiName, fee.denom)?.let { asset ->
                     feeTokenImg.setTokenImg(asset)
@@ -308,9 +298,9 @@ class TransferFragment(
                     val price = BaseData.getPrice(asset.coinGeckoId)
 
                     asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
                         feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -344,6 +334,7 @@ class TransferFragment(
                 tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
             }
         }
+        txSimul()
     }
 
     private fun clickAction() {
@@ -416,7 +407,16 @@ class TransferFragment(
                     isClickable = false
                     AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
                         override fun select(denom: String) {
-                            feeDenom = denom
+                            var tempCoin: CoinProto.Coin? = null
+                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
+                                if (feeCoin.denom == denom) {
+                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
+                                }
+                            }
+                            val tempTxFee = TxProto.Fee.newBuilder()
+                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                .addAmount(tempCoin).build()
+                            txFee = tempTxFee
                             updateFeeView()
                             txSimul()
                         }
@@ -492,28 +492,38 @@ class TransferFragment(
     }
 
     private fun setUpSimulate() {
-        sendViewModel.simulateSend.observe(viewLifecycleOwner) { gasInfo ->
+        sendViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
+            isBroadCastTx(true)
             updateFeeViewWithSimul(gasInfo)
+        }
+
+        sendViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
+            isBroadCastTx(false)
+            requireContext().makeToast(response)
+            return@observe
         }
     }
 
     private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.getSimulGas().toDouble()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_UP)
+                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_DOWN)
 
                 val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
                 txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
             }
         }
         updateFeeView()
+    }
+
+    private fun isBroadCastTx(isSuccess: Boolean) {
         binding.backdropLayout.visibility = View.GONE
-        binding.btnSend.updateButtonView(true)
+        binding.btnSend.updateButtonView(isSuccess)
     }
 
     private fun setUpBroadcast() {
-        sendViewModel.broadcastSend.observe(viewLifecycleOwner) { txResponse ->
+        sendViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
                 if (txResponse.code > 0) {
                     putExtra("isSuccess", false)

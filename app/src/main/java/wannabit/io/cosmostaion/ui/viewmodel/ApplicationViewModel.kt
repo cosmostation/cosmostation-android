@@ -36,8 +36,6 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
 
 
     var txRecreateResult = SingleLiveEvent<Boolean>()
-//    val txRecreateResult: LiveData<Boolean> get() = _txRecreateResult
-
     fun txRecreate() = viewModelScope.launch(Dispatchers.IO) {
         txRecreateResult.postValue(true)
     }

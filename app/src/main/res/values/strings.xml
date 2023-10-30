@@ -67,6 +67,11 @@
     <string name="str_fail" translatable="false">Fail</string>
     <string name="str_close">Close</string>
     <string name="str_wait">Wait</string>
+    <string name="str_start_stake">Start stake</string>
+    <string name="str_unstake">Unstake</string>
+    <string name="str_switch_validator">Switch validator</string>
+    <string name="str_claim_rewards">Claim rewards</string>
+    <string name="str_compounding">Compounding</string>
 
 
     //title
@@ -114,8 +119,8 @@
     <string name="title_restore_mnemonic">Restore With Mnemonic</string>
     <string name="title_hd_path_setting">HD Path Setting</string>
     <string name="title_restore_private">Restore With PrivateKey</string>
-    <string name="title_coin_send">Asset Send</string>
-    <string name="title_ibc_send">IBC Asset Send</string>
+    <string name="title_coin_send">Asset send</string>
+    <string name="title_ibc_send">IBC Asset send</string>
     <string name="title_recipient_chain" translatable="false">Recipient chain</string>
     <string name="title_to_send_asset" translatable="false">To send asset</string>
     <string name="title_recipient_address">Recipient address</string>
@@ -128,6 +133,10 @@
     <string name="title_name_service">Search Result %1$s NameServices</string>
     <string name="title_tx_result" translatable="false">Tx Reuslt</string>
     <string name="title_more_wait">Result Display Delayed</string>
+    <string name="title_stake_info">Staking Info</string>
+    <string name="title_option">Select option</string>
+    <string name="title_undelegate_amount">Undelegate amount</string>
+    <string name="title_select_validator">Select Validator</string>
 
 
     // msg
@@ -161,6 +170,10 @@
     <string name="str_tx_success_msg" translatable="false">The transaction is completed\nYou can view details on Mintscan.</string>
     <string name="str_view_mintscan_msg" translatable="false">View in Mintscan</string>
     <string name="str_more_wait_msg">The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. \n\nPlease press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.</string>
+    <string name="str_unstake_msg">Start unstaking.</string>
+    <string name="str_switch_validator_msg">Continue staking with changing validators.</string>
+    <string name="str_claim_rewards_msg">You receive accumulated rewards.</string>
+    <string name="str_compounding_msg">Immediately stake the accumulated rewards.</string>
 
 
     // header
@@ -169,6 +182,9 @@
     <string name="str_bridge_coins" translatable="false">Bridged Coins</string>
     <string name="str_contract_coins" translatable="false">Contract Coins</string>
     <string name="str_unknown_coins" translatable="false">Unknown Coins</string>
+    <string name="str_reward_address">Reward Address</string>
+    <string name="str_my_staking">My staking</string>
+    <string name="str_my_unstaking">My Unstaking</string>
 
 
     // error
@@ -408,6 +424,7 @@
 
     <string name="str_dp_time_format1" translatable="false">yyyy-MM-dd</string>
     <string name="str_dp_time_format2" translatable="false">HH:mm:ss</string>
+    <string name="str_dp_time_format3" translatable="false">yyyy-MM-dd HH:mm:ss</string>
 
 
     // currecny

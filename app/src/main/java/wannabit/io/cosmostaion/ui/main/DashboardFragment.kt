@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
-import wannabit.io.cosmostaion.ui.main.chain.CosmosDetailActivity
+import wannabit.io.cosmostaion.ui.main.chain.CosmosActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
@@ -73,7 +73,7 @@ class DashboardFragment : Fragment() {
                 dashAdapter.submitList(baseAccount.displayCosmosLineChains as List<Any>?)
 
                 dashAdapter.setOnItemClickListener {
-                    Intent(requireContext(), CosmosDetailActivity::class.java).apply {
+                    Intent(requireContext(), CosmosActivity::class.java).apply {
                         putExtra("selectPosition", it)
                         startActivity(this)
                         requireActivity().toMoveAnimation()

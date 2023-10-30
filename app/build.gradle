@@ -173,4 +173,7 @@ dependencies {
 
     //segment
     implementation 'com.github.addisonelliott:SegmentedButton:3.1.9'
+
+    // circle
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

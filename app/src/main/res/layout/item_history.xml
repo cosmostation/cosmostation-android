@@ -75,7 +75,7 @@
                     android:id="@+id/tx_success_img"
                     android:layout_width="@dimen/space_12"
                     android:layout_height="@dimen/space_12"
-                    android:src="@drawable/icon_success"
+                    android:src="@drawable/icon_history_success"
                     android:layout_marginEnd="@dimen/space_4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tx_hash"

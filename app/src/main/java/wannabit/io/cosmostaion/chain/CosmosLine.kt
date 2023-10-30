@@ -10,6 +10,7 @@ import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsRequest
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsRequest
+import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
@@ -42,6 +43,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
@@ -65,9 +67,11 @@ open class CosmosLine : BaseChain() {
     open var evmCompatible = false
 
     open var grpcPort = 443
-    private var duration = 8L
+    private var duration = 20L
 
+    var rewardAddress: String? = ""
     var cosmosAuth: com.google.protobuf.Any? = null
+    var cosmosValidators = mutableListOf<StakingProto.Validator>()
     var cosmosBalances = mutableListOf<Coin>()
     var cosmosVestings = mutableListOf<Coin>()
     var cosmosDelegations = mutableListOf<DelegationResponse>()
@@ -90,6 +94,16 @@ open class CosmosLine : BaseChain() {
 
     fun setLoadDataCallBack(callback: LoadDataCallback) {
         loadDataCallback = callback
+    }
+
+    interface LoadStakeCallback {
+        fun onStakeLoaded(isLoaded: Boolean)
+    }
+
+    private var loadStakeCallback: LoadStakeCallback? = null
+
+    fun setLoadStakeCallBack(callback: LoadStakeCallback) {
+        loadStakeCallback = callback
     }
 
     private fun getChannel(): ManagedChannel {
@@ -200,7 +214,7 @@ open class CosmosLine : BaseChain() {
     }
 
     fun getFeeBasePosition(): Int {
-        return param?.params?.chainListParam?.fee?.base?.toInt()?: 0
+        return param?.gasPrice?.base?.toInt() ?: 0
     }
 
     fun isTxFeePayable(c: Context): Boolean {
@@ -212,7 +226,7 @@ open class CosmosLine : BaseChain() {
         return false
     }
 
-    private fun getDefaultFeeCoins(c: Context): MutableList<Coin> {
+    fun getDefaultFeeCoins(c: Context): MutableList<Coin> {
         val result: MutableList<Coin> = mutableListOf()
         val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
         val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
@@ -227,7 +241,7 @@ open class CosmosLine : BaseChain() {
 
     fun getFeeInfos(c: Context): MutableList<FeeInfo> {
         val result: MutableList<FeeInfo> = mutableListOf()
-        param?.params?.chainListParam?.fee?.rate?.forEach { rate ->
+        param?.gasPrice?.rate?.forEach { rate ->
             result.add(FeeInfo(rate))
         }
 
@@ -260,8 +274,8 @@ open class CosmosLine : BaseChain() {
         return result
     }
 
-    fun getSimulGas(): String {
-        return param?.params?.chainListParam?.simulGas?: "0"
+    fun gasMultiply(): Double {
+        return 1.2
     }
 
     private fun loadLcdData() = runBlocking {
@@ -275,6 +289,46 @@ open class CosmosLine : BaseChain() {
             loadDataCallback?.onDataLoaded(true)
             fetched = true
             it.cancel()
+        }
+    }
+
+    fun loadStakeData() {
+        if (cosmosValidators.size > 0) { return }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val channel = getChannel()
+
+            val rewardAddr = async { loadRewardAddress(channel) }
+            val bonded = async { loadBondedValidator(channel) }
+            val unbonding = async { loadUnbondingValidator(channel) }
+            val unbonded = async { loadUnbondedValidator(channel) }
+
+            val response = awaitAll(rewardAddr, bonded, unbonding, unbonded)
+
+            rewardAddress = response[0].toString()
+
+            cosmosValidators.addAll(response[1] as Collection<StakingProto.Validator>)
+            cosmosValidators.addAll(response[2] as Collection<StakingProto.Validator>)
+            cosmosValidators.addAll(response[3] as Collection<StakingProto.Validator>)
+
+            val tempValidators = cosmosValidators.toMutableList()
+            tempValidators.sortWith { o1, o2 ->
+                when {
+                    o1.description.moniker == "Cosmostation" -> -1
+                    o2.description.moniker == "Cosmostation" -> 1
+                    o1.jailed && !o2.jailed -> -1
+                    !o1.jailed && o2.jailed -> 1
+                    o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
+                    else -> 1
+                }
+            }
+            cosmosValidators = tempValidators
+
+            if (response.isNotEmpty()) {
+                loadStakeCallback?.onStakeLoaded(true)
+            } else {
+                loadStakeCallback?.onStakeLoaded(false)
+            }
         }
     }
 
@@ -296,8 +350,13 @@ open class CosmosLine : BaseChain() {
         val request =
             QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
 
+        cosmosDelegations.clear()
         stub.delegatorDelegations(request)?.let { response ->
-            cosmosDelegations = response.delegationResponsesList
+            response.delegationResponsesList.forEach { delegation ->
+                if (delegation.balance.amount != "0") {
+                    cosmosDelegations.add(delegation)
+                }
+            }
         }
     }
 
@@ -334,6 +393,45 @@ open class CosmosLine : BaseChain() {
                 return
             }
         }
+    }
+
+    private fun loadBondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator> {
+        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().
+        setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
+
+        return stub.validators(request).validatorsList
+    }
+
+    private fun loadUnbondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator> {
+        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().
+        setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
+
+        return stub.validators(request).validatorsList
+    }
+
+    private fun loadUnbondingValidator(channel: ManagedChannel): MutableList<StakingProto.Validator> {
+        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+            .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
+
+        return stub.validators(request).validatorsList
+    }
+
+    private fun loadRewardAddress(channel: ManagedChannel): String? {
+        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmos.distribution.v1beta1.QueryProto.QueryDelegatorWithdrawAddressRequest.newBuilder()
+            .setDelegatorAddress(address).build()
+
+        return stub.delegatorWithdrawAddress(request).withdrawAddress
     }
 
     private suspend fun loadCw20Token(id: Long) {
@@ -668,7 +766,7 @@ open class CosmosLine : BaseChain() {
     }
 
     fun lcdBalanceValue(denom: String?): BigDecimal {
-        denom?.let { 
+        denom?.let {
             if (it == stakeDenom) {
                 val amount = lcdBalanceAmount(denom)
                 val price = BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID)
@@ -684,6 +782,10 @@ open class CosmosLine : BaseChain() {
             sumValue = sumValue.add(lcdBalanceValue(balance.symbol))
         }
         return sumValue
+    }
+
+    fun monikerImg(opAddress: String?): String {
+        return "$CHAIN_BASE_URL$apiName/moniker/$opAddress.png"
     }
 }
 

@@ -8,13 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.tx.TransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 
 class CoinFragment(position: Int) : Fragment() {
 
@@ -131,6 +133,11 @@ class CoinFragment(position: Int) : Fragment() {
 
             var isClickable = true
             coinAdapter.setOnItemClickListener { line, denom ->
+                if (!selectedChain.isTxFeePayable(requireContext())) {
+                    requireContext().makeToast(R.string.error_not_enough_fee)
+                    return@setOnItemClickListener
+                }
+
                 val bottomSheet = TransferFragment(line, denom)
                 if (isClickable) {
                     isClickable = false

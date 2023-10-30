@@ -43,9 +43,9 @@ class HistoryViewHolder(
             }
 
             if (historyGroup.second.isSuccess()) {
-                txSuccessImg.setImageResource(R.drawable.icon_success)
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
             } else {
-                txSuccessImg.setImageResource(R.drawable.icon_fail)
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
             }
 
             txMessage.text = historyGroup.second.getMsgType(context, line.address)
@@ -114,9 +114,9 @@ class HistoryViewHolder(
             }
 
             if (historyBnbGroup.second.isSuccess()) {
-                txSuccessImg.setImageResource(R.drawable.icon_success)
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
             } else {
-                txSuccessImg.setImageResource(R.drawable.icon_fail)
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
             }
 
             txMessage.text = historyBnbGroup.second.bnbTxType(context, line.address)

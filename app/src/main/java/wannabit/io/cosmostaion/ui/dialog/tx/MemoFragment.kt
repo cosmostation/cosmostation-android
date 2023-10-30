@@ -35,8 +35,11 @@ class MemoFragment(private val memo: String, val listener: MemoListener) :
     }
 
     private fun initView() {
-        binding.memoTxt.requestFocus()
-        binding.memoTxt.text = Editable.Factory.getInstance().newEditable(memo)
+        binding.memoTxt.apply {
+            requestFocus()
+            text = Editable.Factory.getInstance().newEditable(memo)
+            setSelection(binding.memoTxt.text.toString().length)
+        }
     }
 
     private fun clickAction() {

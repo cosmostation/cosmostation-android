@@ -5,6 +5,7 @@ import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
+import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.signing.v1beta1.SigningProto
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
@@ -52,6 +53,34 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend")
                 .setValue(msgSend?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genUnDelegateBroadcast(
+        auth: QueryAccountResponse?,
+        msgUnDelegate: MsgUndelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, unDelegateMsg(msgUnDelegate), fee, memo, selectedChain)
+    }
+
+    fun genUnDelegateSimulate(
+        auth: QueryAccountResponse?,
+        msgUnDelegate: MsgUndelegate?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, unDelegateMsg(msgUnDelegate), fee, memo)
+    }
+
+    private fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgUndelegate")
+                .setValue(msgUndelegate?.toByteString()).build()
         )
         return msgAnys
     }
