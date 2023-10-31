@@ -101,6 +101,7 @@ public enum BaseChain {
     SEI_MAIN("sei-mainnet"),
     TERRA_MAIN ("terra-mainnet"),
     DYDX_MAIN ("dydx-mainnet"),
+    CELESTIA_MAIN ("celestia-mainnet"),
     MINTSTATION_TEST ("mintstation-testnet");
 
 
@@ -334,6 +335,9 @@ public enum BaseChain {
         if (chainName.equals(DYDX_MAIN.chainName)) {
             return DYDX_MAIN;
         }
+        if (chainName.equals(CELESTIA_MAIN.chainName)) {
+            return CELESTIA_MAIN;
+        }
         if (chainName.equals(MINTSTATION_TEST.chainName)) {
             return MINTSTATION_TEST;
         }
@@ -353,6 +357,7 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
         result.add(CANTO_MAIN);
+        result.add(CELESTIA_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(COREUM_MAIN);

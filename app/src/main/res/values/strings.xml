@@ -322,6 +322,7 @@
     <string name="str_front_guide_title_sei" translatable="false"><![CDATA[SEI]]></string>
     <string name="str_front_guide_title_terra" translatable="false"><![CDATA[TERRA]]></string>
     <string name="str_front_guide_title_dydx" translatable="false"><![CDATA[DYDX]]></string>
+    <string name="str_front_guide_title_celestia" translatable="false"><![CDATA[CELESTIA]]></string>
     <string name="str_front_guide_title_mintstation" translatable="false"><![CDATA[MINTSTATION-TESTNET]]></string>
 
 
@@ -391,6 +392,7 @@
     <string name="str_front_guide_msg_sei"><![CDATA[Sei is a Cosmos SDK-based layer 1 blockchain network designed for speed, security and scalability.]]></string>
     <string name="str_front_guide_msg_terra"><![CDATA[Terra is a Cosmos SDK-based permissionless blockchain network hard forked from Terra Classic network.]]></string>
     <string name="str_front_guide_msg_dydx"><![CDATA[dYdX is a standalone Cosmos appchain designed for a decentralized exchange that supports zero-fee perpetual trading.]]></string>
+    <string name="str_front_guide_msg_celestia"><![CDATA[A modular consensus and data network that enables seamless, scalable Web3 application deployment.]]></string>
     <string name="str_front_guide_msg_mintstation" translatable="false"><![CDATA[MintStation-Testnet]]></string>
 
 

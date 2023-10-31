@@ -288,6 +288,7 @@
     <string name="str_front_guide_msg_sei"><![CDATA[Seiは速度、セキュリティ、および拡張性のために設計されたCosmosSDKベースのレイヤー1ブロックチェーンネットワークです。]]></string>
     <string name="str_front_guide_msg_terra"><![CDATA[Terraネットワークは、Terra ClassicでハードフォークされたCosmos SDKベースの非許可型ブロックチェーンネットワークです。]]></string>
     <string name="str_front_guide_msg_dydx"><![CDATA[dYdXは手数料なしで無期限取引を支援する脱中央化取引所のために設計されたCosmosSDKベースのアプリチェーンです。]]></string>
+    <string name="str_front_guide_msg_celestia"><![CDATA[簡単な脱中央化アプリケーションおよびブロックチェーンの配布を可能にするモジュール型ブロックチェーンネットワークです。]]></string>
 
 
     <string name="str_current_reward_address">現在利子支給アドレス</string>
