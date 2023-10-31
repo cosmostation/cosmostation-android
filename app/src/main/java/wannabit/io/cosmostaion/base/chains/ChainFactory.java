@@ -57,6 +57,9 @@ public class ChainFactory {
                 case CANTO_MAIN:
                     return new Canto();
 
+                case CELESTIA_MAIN:
+                    return new Celestia();
+
                 case CERBERUS_MAIN:
                     return new Cerberus();
 
