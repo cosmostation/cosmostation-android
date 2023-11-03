@@ -19,6 +19,7 @@
     <string name="str_checking" translatable="false">CHECKING</string>
     <string name="str_confirm">Confirm</string>
     <string name="str_cancel">Cancel</string>
+    <string name="str_continue">Continue</string>
     <string name="str_select_language">Select language</string>
     <string name="str_select_currency">Select currency</string>
     <string name="str_auto_pass">PIN auto pass</string>
@@ -67,11 +68,16 @@
     <string name="str_fail" translatable="false">Fail</string>
     <string name="str_close">Close</string>
     <string name="str_wait">Wait</string>
-    <string name="str_start_stake">Start stake</string>
+    <string name="str_stake">Stake</string>
     <string name="str_unstake">Unstake</string>
     <string name="str_switch_validator">Switch validator</string>
     <string name="str_claim_rewards">Claim rewards</string>
     <string name="str_compounding">Compounding</string>
+    <string name="str_voting_power" translatable="false">Voting power</string>
+    <string name="str_commission" translatable="false">Commission</string>
+    <string name="str_get_reward">Get rewards</string>
+    <string name="str_unstake_cancel">Cancel unstake</string>
+    <string name="str_change_reward_address">Change reward address</string>
 
 
     //title
@@ -135,8 +141,14 @@
     <string name="title_more_wait">Result Display Delayed</string>
     <string name="title_stake_info">Staking Info</string>
     <string name="title_option">Select option</string>
+    <string name="title_delegate_amount">Delegate amount</string>
     <string name="title_undelegate_amount">Undelegate amount</string>
     <string name="title_select_validator">Select Validator</string>
+    <string name="title_redelegate_amount">Redelegate amount</string>
+    <string name="title_reward_address_change">Reward address change</string>
+    <string name="title_current_reward_address">Current reward address</string>
+    <string name="title_new_reward_address">New reward address</string>
+    <string name="title_reward_recipient_address">Reward recipient address</string>
 
 
     // msg
@@ -174,6 +186,9 @@
     <string name="str_switch_validator_msg">Continue staking with changing validators.</string>
     <string name="str_claim_rewards_msg">You receive accumulated rewards.</string>
     <string name="str_compounding_msg">Immediately stake the accumulated rewards.</string>
+    <string name="str_unstake_cancel_msg">Cancel unstake and immediately make staked state.</string>
+    <string name="str_reward_address_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.</string>
+    <string name="str_reward_address_msg2">Do not set as exchange address.</string>
 
 
     // header
@@ -197,6 +212,9 @@
     <string name="error_not_enough_fee">Not enough available balance\nfor fee.</string>
     <string name="error_invalid_address">Invalid Address, please check again.</string>
     <string name="error_self_sending">Self sending is not support.</string>
+    <string name="error_not_reward">No enough reward to Claim.</string>
+    <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can use compounding feature after reset your reward address to self.</string>
+    <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
 
 
     // tx

@@ -39,4 +39,12 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     fun txRecreate() = viewModelScope.launch(Dispatchers.IO) {
         txRecreateResult.postValue(true)
     }
+
+
+    private var _checkLoadStakeData = MutableLiveData<String>()
+    val checkLoadStakeData: LiveData<String> get() = _checkLoadStakeData
+
+    fun checkLoadStake() = viewModelScope.launch {
+        _checkLoadStakeData.postValue("")
+    }
 }

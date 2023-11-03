@@ -189,7 +189,7 @@ object BaseConstant {
     const val CONSTANT_M = CONSTANT_S * 60
     const val CONSTANT_H = CONSTANT_M * 60
     const val CONSTANT_D = CONSTANT_H * 24
-    const val BASE_GAS_AMOUNT = "500000"
+    const val BASE_GAS_AMOUNT = "800000"
     const val FEE_BNB_SEND = "0.000075"
     const val FEE_OKC_BASE = "0.0005"
     const val KAVA_SLIPPAGE = "30000000000000000"

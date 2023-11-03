@@ -5,16 +5,16 @@ import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.toMoveBack
-import wannabit.io.cosmostaion.data.repository.tx.SendRepositoryImpl
+import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
-import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 
 class CosmosActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCosmosBinding
 
-    private lateinit var sendViewModel: SendViewModel
+    private lateinit var txViewModel: TxViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +31,12 @@ class CosmosActivity : BaseActivity() {
     }
 
     private fun initViewModel() {
-        val sendRepository = SendRepositoryImpl()
-        val sendViewModelProviderFactory = SendViewModelProviderFactory(sendRepository)
-        sendViewModel = ViewModelProvider(
+        val sendRepository = TxRepositoryImpl()
+        val sendViewModelProviderFactory = TxViewModelProviderFactory(sendRepository)
+        txViewModel = ViewModelProvider(
             this,
             sendViewModelProviderFactory
-        )[SendViewModel::class.java]
+        )[TxViewModel::class.java]
     }
 
     override fun onBackPressed() {
@@ -44,3 +44,5 @@ class CosmosActivity : BaseActivity() {
         toMoveBack()
     }
 }
+
+enum class TxType { TRANSFER, DELEGATE, UN_DELEGATE, RE_DELEGATE }

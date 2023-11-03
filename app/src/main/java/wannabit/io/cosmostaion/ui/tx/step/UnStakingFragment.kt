@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,11 +48,12 @@ import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ValidatorFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.ValidatorListener
+import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorFragment
+import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorListener
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
-import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -74,7 +74,7 @@ class UnStakingFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
-    private val sendViewModel: SendViewModel by activityViewModels()
+    private val txViewModel: TxViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -200,6 +200,7 @@ class UnStakingFragment(
                 tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
             }
         }
+        txSimul()
     }
 
     private fun updateFeeView() {
@@ -259,6 +260,7 @@ class UnStakingFragment(
                 if (isClickable) {
                     isClickable = false
                     InsertAmountFragment(
+                        TxType.UN_DELEGATE,
                         null,
                         availableAmount,
                         toCoin?.amount,
@@ -343,7 +345,7 @@ class UnStakingFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                sendViewModel.broadUnDelegate(getChannel(), selectedChain.address, onBindUnDelegate(), txFee, txMemo, selectedChain)
+                txViewModel.broadUnDelegate(getChannel(), selectedChain.address, onBindUnDelegate(), txFee, txMemo, selectedChain)
             }
         }
 
@@ -351,17 +353,17 @@ class UnStakingFragment(
         binding.apply {
             if (toCoin == null) { return }
             backdropLayout.visibility = View.VISIBLE
-            sendViewModel.simulateUnDelegate(getChannel(), selectedChain.address, onBindUnDelegate(), txFee, txMemo)
+            txViewModel.simulateUnDelegate(getChannel(), selectedChain.address, onBindUnDelegate(), txFee, txMemo)
         }
     }
 
     private fun setUpSimulate() {
-        sendViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
             updateFeeViewWithSimul(gasInfo)
         }
 
-        sendViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
+        txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             isBroadCastTx(false)
             requireContext().makeToast(response)
             return@observe
@@ -387,7 +389,7 @@ class UnStakingFragment(
     }
 
     private fun setUpBroadcast() {
-        sendViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
                 if (txResponse.code > 0) {
                     putExtra("isSuccess", false)

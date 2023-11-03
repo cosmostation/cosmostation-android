@@ -1,0 +1,298 @@
+package wannabit.io.cosmostaion.data.repository.tx
+
+import android.util.Log
+import com.cosmos.auth.v1beta1.QueryGrpc
+import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
+import com.cosmos.bank.v1beta1.TxProto
+import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
+import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
+import com.cosmos.tx.v1beta1.ServiceProto
+import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.google.gson.Gson
+import com.google.protobuf.ByteString
+import io.grpc.ManagedChannel
+import org.json.JSONObject
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
+import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
+import java.util.concurrent.TimeUnit
+
+class TxRepositoryImpl : TxRepository {
+
+    private var duration = 8L
+
+    override suspend fun osIcnsAddress(
+        managedChannel: ManagedChannel?,
+        userInput: String?,
+        prefix: String
+    ): String {
+        try {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val infoReq = ICNSInfoReq("$userInput.$prefix")
+            val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
+            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build()
+
+            stub.smartContractState(request)?.let {
+                val json = JSONObject(it.data.toStringUtf8())
+                return json.get("bech32_address").toString()
+            }
+        } catch (e: Exception) {
+            Log.e("error message : ", e.message.toString())
+        }
+        return ""
+    }
+
+    override suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse {
+        val authStub = QueryGrpc.newBlockingStub(managedChannel)
+        val request = com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
+        return authStub.account(request)
+    }
+
+    override suspend fun broadcastSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgSend: TxProto.MsgSend?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genSendBroadcast(account, msgSend, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgSend: TxProto.MsgSend?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genSendSimulate(account, msgSend, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genDelegateBroadcast(account, msgDelegate, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genDelegateSimulate(account, msgDelegate, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastUnDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genUnDelegateBroadcast(account, msgUnDelegate, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateUnDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastReDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genReDelegateBroadcast(account, msgReDelegate, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateReDelegateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genReDelegateSimulate(account, msgReDelegate, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastGetRewardsTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genClaimRewardsBroadcast(account, rewards, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateGetRewardsTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genClaimRewardsSimulate(account, rewards, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastCompoundingTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        stakingDenom: String?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genCompoundingBroadcast(account, rewards, stakingDenom, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateCompoundingTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        stakingDenom: String?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genCompoundingSimulate(account, rewards, stakingDenom, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastChangeRewardAddressTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genChangeRewardAddressBroadcast(account, msgSetWithdrawAddress, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateChangeRewardAddressTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genChangeRewardAddressSimulate(account, msgSetWithdrawAddress, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+}

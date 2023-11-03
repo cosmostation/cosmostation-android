@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/staking_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -100,7 +99,6 @@
                 app:layout_constraintStart_toEndOf="@+id/staked_amount_title"/>
 
             <ImageView
-                android:id="@+id/btn_validator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_down"
@@ -293,7 +291,7 @@
 
             <TextView
                 android:id="@+id/fee_amount"
-                style="@style/font_sb_14"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/space_4"
@@ -304,7 +302,7 @@
 
             <TextView
                 android:id="@+id/fee_denom"
-                style="@style/font_sb_12"
+                style="@style/font_sb_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base01"
@@ -314,7 +312,7 @@
 
             <TextView
                 android:id="@+id/fee_value"
-                style="@style/font_sb_12"
+                style="@style/font_sb_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base03"

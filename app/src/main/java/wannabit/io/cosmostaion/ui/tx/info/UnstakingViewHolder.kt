@@ -25,6 +25,10 @@ class UnstakingViewHolder(
             headerLayout.visibleOrGone(position == 0)
             headerCnt.text = cnt.toString()
 
+            unstakingView.setOnClickListener {
+                listener.selectUnStakingCancelAction(validator)
+            }
+
             validator?.let { validator ->
                 monikerImg.setMonikerImg(line, validator.operatorAddress)
                 moniker.text = validator.description?.moniker

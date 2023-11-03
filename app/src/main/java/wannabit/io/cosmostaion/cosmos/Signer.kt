@@ -5,6 +5,11 @@ import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
+import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
+import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
+import com.cosmos.distribution.v1beta1.TxProto.MsgWithdrawDelegatorReward
+import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
+import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.signing.v1beta1.SigningProto
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
@@ -19,13 +24,19 @@ import com.cosmos.tx.v1beta1.TxProto.Tx
 import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmos.vesting.v1beta1.VestingProto
+import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
+import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
+import org.web3j.crypto.ECKeyPair
+import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
 import java.math.BigInteger
+import java.math.RoundingMode
 
 object Signer {
 
@@ -53,6 +64,34 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend")
                 .setValue(msgSend?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genDelegateBroadcast(
+        auth: QueryAccountResponse?,
+        msgDelegate: MsgDelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, delegateMsg(msgDelegate), fee, memo, selectedChain)
+    }
+
+    fun genDelegateSimulate(
+        auth: QueryAccountResponse?,
+        msgDelegate: MsgDelegate?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, delegateMsg(msgDelegate), fee, memo)
+    }
+
+    private fun delegateMsg(msgDelegate: MsgDelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
+                .setValue(msgDelegate?.toByteString()).build()
         )
         return msgAnys
     }
@@ -85,23 +124,170 @@ object Signer {
         return msgAnys
     }
 
-
-    private fun generateGrpcPubKeyFromPriv(privateKey: String): Any {
-        val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
-        return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
-            .setValue(pubKey.toByteString()).build()
+    fun genReDelegateBroadcast(
+        auth: QueryAccountResponse?,
+        msgReDelegate: MsgBeginRedelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, reDelegateMsg(msgReDelegate), fee, memo, selectedChain)
     }
 
-    private fun grpcByteSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): ByteArray? {
+    fun genReDelegateSimulate(
+        auth: QueryAccountResponse?,
+        msgReDelegate: MsgBeginRedelegate?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, reDelegateMsg(msgReDelegate), fee, memo)
+    }
+
+    private fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate")
+                .setValue(msgReDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genClaimRewardsBroadcast(
+        auth: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, claimStakingRewardMsg(auth, rewards), fee, memo, selectedChain)
+    }
+
+    fun genClaimRewardsSimulate(
+        auth: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, claimStakingRewardMsg(auth, rewards), fee, memo)
+    }
+
+    private fun claimStakingRewardMsg(auth: QueryAccountResponse?, rewards: MutableList<DelegationDelegatorReward?>): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        rewards.forEach { reward ->
+            val claimMsg = MsgWithdrawDelegatorReward.newBuilder()
+                .setDelegatorAddress(parseAuthGrpc(auth).first)
+                .setValidatorAddress(reward?.validatorAddress).build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward")
+                .setValue(claimMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+        return msgAnys
+    }
+
+    fun genCompoundingBroadcast(
+        auth: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        stakingDenom: String?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, compoundingMsg(auth, rewards, stakingDenom), fee, memo, selectedChain)
+    }
+
+    fun genCompoundingSimulate(
+        auth: QueryAccountResponse?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        stakingDenom: String?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, compoundingMsg(auth, rewards, stakingDenom), fee, memo)
+    }
+
+    private fun compoundingMsg(auth: QueryAccountResponse?, rewards: MutableList<DelegationDelegatorReward?>, stakingDenom: String?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        rewards.forEach { reward ->
+            val claimMsg = MsgWithdrawDelegatorReward.newBuilder()
+                .setDelegatorAddress(parseAuthGrpc(auth).first)
+                .setValidatorAddress(reward?.validatorAddress).build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward")
+                .setValue(claimMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+
+            val rewardCoin = reward?.rewardList?.firstOrNull { it.denom == stakingDenom }
+            val delegateCoin = CoinProto.Coin.newBuilder().setDenom(rewardCoin?.denom).setAmount(rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)?.setScale(0, RoundingMode.DOWN)?.toPlainString())
+            val delegateMsg = MsgDelegate.newBuilder().setDelegatorAddress(parseAuthGrpc(auth).first).setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin).build()
+            val deleAnyMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
+                .setValue(delegateMsg.toByteString()).build()
+            msgAnys.add(deleAnyMsg)
+        }
+        return msgAnys
+    }
+
+    fun genChangeRewardAddressBroadcast(
+        auth: QueryAccountResponse?,
+        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, changeRewardAddress(msgSetWithdrawAddress), fee, memo, selectedChain)
+    }
+
+    fun genChangeRewardAddressSimulate(
+        auth: QueryAccountResponse?,
+        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, changeRewardAddress(msgSetWithdrawAddress), fee, memo)
+    }
+
+    private fun changeRewardAddress(msgSetWithdrawAddress: MsgSetWithdrawAddress?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress")
+                .setValue(msgSetWithdrawAddress?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+
+    private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
+        val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
+        return if (line?.evmCompatible == true) {
+            val pubKey = KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+        } else if (line is ChainInjective){
+            val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+        } else {
+            val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+        }
+    }
+
+    private fun grpcByteSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        val sha256Hash = Sha256Hash.hash(toSignByte)
-        ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
-            System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
-            System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+        if (selectedChain?.evmCompatible == true || selectedChain is ChainInjective) {
+            val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
+            System.arraycopy(sig.r, 0, sigData, 0, 32)
+            System.arraycopy(sig.s, 0, sigData, 32, 32)
+            return sigData
+
+        } else {
+            val sha256Hash = Sha256Hash.hash(toSignByte)
+            ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
+                System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
+                System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+                return sigData
+            }
             return sigData
         }
-        return sigData
     }
 
     private fun parseAuthGrpc(auth: QueryAccountResponse?): Triple<String, Long, Long> {
@@ -127,11 +313,26 @@ object Signer {
                 VestingProto.DelayedVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
                     return Triple(account.address, account.accountNumber, account.sequence)
                 }
-            } else {
 
+            } else if (rawAccount.typeUrl.contains(com.stride.vesting.VestingProto.StridePeriodicVestingAccount.getDescriptor().fullName)) {
+                com.stride.vesting.VestingProto.StridePeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
+                    return Triple(account.address, account.accountNumber, account.sequence)
+                }
+
+            } else if (rawAccount.typeUrl.contains(AccountProto.EthAccount.getDescriptor().fullName)) {
+                AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+                    return Triple(account.address, account.accountNumber, account.sequence)
+                }
+
+            } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
+                com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+                    return Triple(account.address, account.accountNumber, account.sequence)
+                }
+
+            } else {
+                return Triple("", -1, -1)
             }
         }
-        // evmos, injective, stride
         return Triple("", -1, -1)
     }
 
@@ -172,7 +373,7 @@ object Signer {
 
     private fun grpcSignerInfo(auth: QueryAccountResponse?, selectedChain: CosmosLine?): SignerInfo? {
         ECKey.fromPrivate(selectedChain?.privateKey)?.let {
-            val pubKey = generateGrpcPubKeyFromPriv(it.privateKeyAsHex)
+            val pubKey = generateGrpcPubKeyFromPriv(selectedChain, it.privateKeyAsHex)
             val singleMode =
                 ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
             val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
@@ -186,7 +387,16 @@ object Signer {
         val singleMode =
             ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
         val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
-        val pubKey = Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build();
+        var pubKey: Any? = null
+        auth?.let {
+            pubKey = if (it.account.typeUrl.contains("/ethermint")) {
+                Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
+            } else if (it.account.typeUrl.contains("/injective")) {
+                Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
+            } else {
+                Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
+            }
+        }
         return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
             .setSequence(parseAuthGrpc(auth).third).build()
     }

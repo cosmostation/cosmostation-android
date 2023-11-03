@@ -96,16 +96,6 @@ open class CosmosLine : BaseChain() {
         loadDataCallback = callback
     }
 
-    interface LoadStakeCallback {
-        fun onStakeLoaded(isLoaded: Boolean)
-    }
-
-    private var loadStakeCallback: LoadStakeCallback? = null
-
-    fun setLoadStakeCallBack(callback: LoadStakeCallback) {
-        loadStakeCallback = callback
-    }
-
     private fun getChannel(): ManagedChannel {
         return ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
     }
@@ -316,19 +306,13 @@ open class CosmosLine : BaseChain() {
                 when {
                     o1.description.moniker == "Cosmostation" -> -1
                     o2.description.moniker == "Cosmostation" -> 1
-                    o1.jailed && !o2.jailed -> -1
-                    !o1.jailed && o2.jailed -> 1
+                    o1.jailed && !o2.jailed -> 1
+                    !o1.jailed && o2.jailed -> -1
                     o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
                     else -> 1
                 }
             }
             cosmosValidators = tempValidators
-
-            if (response.isNotEmpty()) {
-                loadStakeCallback?.onStakeLoaded(true)
-            } else {
-                loadStakeCallback?.onStakeLoaded(false)
-            }
         }
     }
 
@@ -664,6 +648,20 @@ open class CosmosLine : BaseChain() {
             }
         }
         return sum
+    }
+
+    fun claimableRewards(): MutableList<DelegationDelegatorReward?> {
+        val result = mutableListOf<DelegationDelegatorReward?>()
+        cosmosRewards.forEach { reward ->
+            for (i in 0 until reward.rewardCount) {
+                val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                if (rewardAmount > BigDecimal.ONE) {
+                    result.add(reward)
+                    break
+                }
+            }
+        }
+        return result
     }
 
     fun allStakingDenomAmount(): BigDecimal? {

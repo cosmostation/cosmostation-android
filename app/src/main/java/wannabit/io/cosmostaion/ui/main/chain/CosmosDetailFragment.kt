@@ -19,11 +19,14 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
+import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 
 class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
@@ -33,8 +36,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
     private lateinit var pagerAdapter: AccountPageAdapter
 
     private lateinit var selectedChain: CosmosLine
-
-    private var isStakeLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -64,12 +65,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 accountValue.text = formatAssetValue(selectedChain.allAssetValue())
             }
             selectedChain.loadStakeData()
-
-            selectedChain.setLoadStakeCallBack(object : CosmosLine.LoadStakeCallback {
-                override fun onStakeLoaded(isLoaded: Boolean) {
-                    isStakeLoaded = isLoaded
-                }
-            })
         }
     }
 
@@ -155,18 +150,71 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
         var isClickable = true
         binding.apply {
             fabStake.setOnClickListener {
-                if (isStakeLoaded) {
-                    if (isClickable) {
-                        isClickable = false
-
+                if (isClickable) {
+                    isClickable = false
+                    if (selectedChain.cosmosValidators.size > 0) {
                         requireActivity().toMoveFragment(this@CosmosDetailFragment,
                             StakeInfoFragment(selectedChain), "StakeInfo")
                     }
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
                 }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabClaimReward.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+                    if (selectedChain.cosmosValidators.size > 0) {
+                        if (selectedChain.claimableRewards().size == 0) {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
+                        if (!selectedChain.isTxFeePayable(requireContext())) {
+                            requireContext().makeToast(R.string.error_not_enough_fee)
+                            return@setOnClickListener
+                        }
+                        val bottomSheet = ClaimRewardFragment(selectedChain, selectedChain.claimableRewards())
+                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
+                    }
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabCompounding.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+                    if (selectedChain.cosmosValidators.size > 0) {
+                        if (selectedChain.claimableRewards().size == 0) {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
+                        if (!selectedChain.isTxFeePayable(requireContext())) {
+                            requireContext().makeToast(R.string.error_not_enough_fee)
+                            return@setOnClickListener
+                        }
+                        if (selectedChain.rewardAddress != selectedChain.address) {
+                            requireContext().makeToast(R.string.error_reward_address_changed_msg)
+                            return@setOnClickListener
+                        }
+
+                        val bottomSheet = CompoundingFragment(selectedChain, selectedChain.claimableRewards())
+                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
+                    }
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
                 fabMenu.close(true)
             }
         }

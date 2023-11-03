@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_18"
+        android:layout_marginTop="@dimen/space_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_layout">
@@ -384,17 +384,28 @@
 
             <TextView
                 android:id="@+id/fee_amount"
-                style="@style/font_sb_14"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_4"
                 android:layout_marginTop="@dimen/space_15"
-                android:textColor="@color/color_base02"
+                android:textColor="@color/color_base01"
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                app:layout_constraintEnd_toStartOf="@+id/fee_denom"/>
+
+            <TextView
+                android:id="@+id/fee_denom"
+                style="@style/font_sb_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view1" />
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/fee_amount"/>
 
             <TextView
                 android:id="@+id/fee_value"
-                style="@style/font_sb_12"
+                style="@style/font_sb_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base03"

@@ -120,6 +120,6 @@ class StakingInfoAdapter(
 
     interface ClickListener {
         fun selectStakingAction(validator: StakingProto.Validator?)
-        fun checkPrivateAction(account: BaseAccount)
+        fun selectUnStakingCancelAction(validator: StakingProto.Validator?)
     }
 }

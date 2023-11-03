@@ -14,12 +14,14 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.tx.step.TransferAssetType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 
 class InsertAmountFragment(
+    private val txType: TxType?,
     private val transferAssetType: TransferAssetType?,
     private val availAmount: BigDecimal?,
     private val toAmount: String?,
@@ -51,32 +53,56 @@ class InsertAmountFragment(
 
     private fun initView() {
         binding.apply {
-            if (transferAssetType == TransferAssetType.COIN_TRANSFER || transferAssetType == null) {
-                selectedAsset?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        assetDecimal = decimal
+            if (txType == TxType.TRANSFER) {
+                if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+                    editLayout.setHint(R.string.str_send_amount)
+                    setAssetAmount()
+                } else {
 
-                        availAmount?.movePointLeft(decimal)?.setScale(decimal)?.let { amount ->
-                            available.text = formatString(amount.toPlainString(), decimal)
-                            availableDenom.text = asset.symbol
-                        }
+                }
 
-                        toAmount?.let {
-                            if (it.isNotEmpty()) {
-                                val dpToSendAmount = it.toBigDecimal().movePointLeft(decimal).setScale(decimal).stripTrailingZeros().toPlainString()
-                                amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
-                            } else {
-                                amountTxt.text = Editable.Factory.getInstance().newEditable(it)
-                            }
+            } else if (txType == TxType.DELEGATE) {
+                editLayout.setHint(R.string.title_delegate_amount)
+                setAssetAmount()
+            } else if (txType == TxType.UN_DELEGATE) {
+                editLayout.setHint(R.string.title_undelegate_amount)
+                setAssetAmount()
+            } else if (txType == TxType.RE_DELEGATE) {
+                editLayout.setHint(R.string.title_redelegate_amount)
+                setAssetAmount()
+            } else {
+
+            }
+        }
+    }
+
+    private fun setAssetAmount() {
+        binding.apply {
+            selectedAsset?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    assetDecimal = decimal
+
+                    availAmount?.movePointLeft(decimal)?.setScale(decimal)?.let { amount ->
+                        available.text = formatString(amount.toPlainString(), decimal)
+                        availableDenom.text = asset.symbol
+                    }
+
+                    toAmount?.let {
+                        if (it.isNotEmpty()) {
+                            val dpToSendAmount = it.toBigDecimal().movePointLeft(decimal).setScale(decimal).stripTrailingZeros().toPlainString()
+                            amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                        } else {
+                            amountTxt.text = Editable.Factory.getInstance().newEditable(it)
                         }
                     }
                 }
-
-            } else {
-                selectedToken?.let {
-
-                }
             }
+        }
+    }
+
+    private fun setTokenAmount() {
+        selectedToken?.let {
+
         }
     }
 

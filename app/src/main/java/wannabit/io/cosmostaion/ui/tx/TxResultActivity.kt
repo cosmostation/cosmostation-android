@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import java.util.concurrent.TimeUnit
 
 class TxResultActivity : BaseActivity() {
 
@@ -118,12 +119,16 @@ class TxResultActivity : BaseActivity() {
                 override fun onError(t: Throwable?) {
                     fetchCnt -= 1
                     if (isSuccess && fetchCnt > 0) {
+                        getChannel()?.shutdown()
+                        getChannel()?.awaitTermination(6L, TimeUnit.SECONDS)
                         Handler(Looper.getMainLooper()).postDelayed({
                             fetchTx()
                         }, 6000)
 
                     } else {
-                        showMoreWait()
+                        runOnUiThread {
+                            showMoreWait()
+                        }
                     }
                 }
 
@@ -132,8 +137,11 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain?.grpcHost.toString(), selectedChain!!.grpcPort).useTransportSecurity().build()
+    private fun getChannel(): ManagedChannel? {
+        selectedChain?.let {
+            return ManagedChannelBuilder.forAddress(it.grpcHost, it.grpcPort).useTransportSecurity().build()
+        }
+        return null
     }
 
     private fun showMoreWait() {

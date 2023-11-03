@@ -151,6 +151,8 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
             android:src="@drawable/icon_stake"
             fab:fab_label="@string/title_claim_reward_all"
             fab:fab_size="mini" />
@@ -161,6 +163,8 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
             android:src="@drawable/icon_claim_reward"
             fab:fab_label="@string/title_compounding_all"
             fab:fab_size="mini" />
@@ -171,6 +175,8 @@
             android:layout_height="@dimen/space_100"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
             android:src="@drawable/icon_governance"
             fab:fab_label="@string/title_governance"
             app:fab_size="mini"/>

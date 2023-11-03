@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/send_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/font_sb_16"
+            android:textColor="@color/color_base01"
+            android:text="@string/str_change_reward_address"/>
+
+        <ImageView
+            android:id="@+id/btn_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_qr" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/current_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:id="@+id/current_reward_address_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sm_12"
+                android:textColor="@color/color_base02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/title_current_reward_address"/>
+
+            <TextView
+                android:id="@+id/current_reward_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sb_12"
+                android:maxLines="1"
+                android:ellipsize="middle"
+                android:layout_marginTop="@dimen/space_8"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/current_reward_address_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/new_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_layout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/space_15"
+            android:paddingHorizontal="@dimen/space_16">
+
+            <TextView
+                android:id="@+id/new_reward_address_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_sm_12"
+                android:textColor="@color/color_base02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/title_new_reward_address"/>
+
+            <TextView
+                android:id="@+id/new_reward_address_msg"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/str_tap_for_add_address_msg"
+                android:textColor="@color/color_base03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_reward_address_title" />
+
+            <TextView
+                android:id="@+id/new_reward_address"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_reward_address_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/memo_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_8"
+        app:layout_constraintBottom_toTopOf="@id/fee_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/space_15">
+
+            <TextView
+                android:id="@+id/memo_title"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:text="@string/title_memo"
+                android:textColor="@color/color_base02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tab_memo_msg"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/str_tap_for_add_memo_msg"
+                android:textColor="@color/color_base03"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/memo_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fee_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_20"
+        app:layout_constraintBottom_toTopOf="@+id/btn_change_reward_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_16">
+
+            <TextView
+                android:id="@+id/fee_title"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14"
+                android:text="@string/title_tx_fee"
+                android:textColor="@color/color_base02"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="@color/color_base05"
+                android:layout_marginTop="@dimen/space_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fee_title" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fee_token_layout"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/button_fee_bg"
+                android:paddingHorizontal="@dimen/space_10"
+                android:paddingVertical="@dimen/space_8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1">
+
+                <ImageView
+                    android:id="@+id/fee_token_img"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fee_token"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fee_token_img"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btn_fee"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_18"
+                    android:src="@drawable/icon_down"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/color_base02" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/fee_amount"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_15"
+                android:textColor="@color/color_base01"
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                app:layout_constraintEnd_toStartOf="@+id/fee_denom"/>
+
+            <TextView
+                android:id="@+id/fee_denom"
+                style="@style/font_sb_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                app:layout_constraintBaseline_toBaselineOf="@+id/fee_amount"/>
+
+            <TextView
+                android:id="@+id/fee_value"
+                style="@style/font_sb_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_base03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fee_amount" />
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/fee_segment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/color_transparent"
+                app:borderColor="@color/color_base05"
+                app:borderWidth="1dp"
+                app:radius="@dimen/space_8"
+                app:ripple="true"
+                app:rippleColor="@color/color_transparent"
+                android:layout_marginVertical="@dimen/space_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fee_token_layout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_change_reward_address"
+        style="@style/font_sb_16"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_54"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_disable_bg"
+        android:enabled="false"
+        android:text="@string/str_change_reward_address"
+        android:textAllCaps="false"
+        android:textColor="@color/color_base03"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/backdropLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background_dialog"
+        android:elevation="@dimen/space_5"
+        android:fitsSystemWindows="true"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="@dimen/space_120"
+            android:layout_height="@dimen/space_120"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,19 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.databinding.DialogChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.StakingOptionFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.step.ChangeRewardAddressFragment
+import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 
 class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
 
@@ -80,11 +83,20 @@ class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
                 stakingInfoList.addAll(unBondings)
 
                 withContext(Dispatchers.Main) {
-                    stakingInfoAdapter =
-                        StakingInfoAdapter(requireContext(), selectedChain, rewardAddress, validators, delegations, unBondings, selectClickAction)
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = stakingInfoAdapter
+                    if (stakingInfoList.isNotEmpty()) {
+                        recycler.visibility = View.VISIBLE
+                        emptyStake.visibility = View.GONE
+
+                        stakingInfoAdapter =
+                            StakingInfoAdapter(requireContext(), selectedChain, rewardAddress, validators, delegations, unBondings, selectClickAction)
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = stakingInfoAdapter
+
+                    } else {
+                        emptyStake.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -95,16 +107,60 @@ class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }
+
+            btnChangeRewardAddress.setOnClickListener {
+                if (!selectedChain.isTxFeePayable(requireContext())) {
+                    requireContext().makeToast(R.string.error_not_enough_fee)
+                    return@setOnClickListener
+                }
+                showChangeRewardAddress()
+            }
+
+            btnStake.setOnClickListener {
+                if (!selectedChain.isTxFeePayable(requireContext())) {
+                    requireContext().makeToast(R.string.error_not_enough_fee)
+                    return@setOnClickListener
+                }
+                val bottomSheet = StakingFragment(selectedChain)
+                bottomSheet.show(requireActivity().supportFragmentManager, StakingFragment::class.java.name)
+            }
+        }
+    }
+
+    private fun showChangeRewardAddress() {
+        var isClickable = true
+        val binding = DialogChangeRewardAddressBinding.inflate(requireActivity().layoutInflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.show()
+
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        binding.btnContinue.setOnClickListener {
+            if (isClickable) {
+                isClickable = false
+                val bottomSheet = ChangeRewardAddressFragment(selectedChain)
+                bottomSheet.show(requireActivity().supportFragmentManager, ChangeRewardAddressFragment::class.java.name)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+            }
+            dialog.dismiss()
         }
     }
 
     private val selectClickAction = object : StakingInfoAdapter.ClickListener {
         var isClickable = true
         override fun selectStakingAction(validator: StakingProto.Validator?) {
-            val bottomSheet = StakingOptionFragment(selectedChain, validator)
+            val bottomSheet = StakingOptionFragment(selectedChain, validator, OptionType.STAKE)
             if (isClickable) {
                 isClickable = false
-                bottomSheet.show(requireActivity().supportFragmentManager, StakingOptionFragment(selectedChain, validator)::class.java.name)
+                bottomSheet.show(requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     isClickable = true
@@ -112,14 +168,15 @@ class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
             }
         }
 
-        override fun checkPrivateAction(account: BaseAccount) {
-            ApplicationViewModel.shared.checkPwPrivateResult.observe(viewLifecycleOwner) {
-                lifecycleScope.launch {
-                    delay(300)
-                    withContext(Dispatchers.Main) {
+        override fun selectUnStakingCancelAction(validator: StakingProto.Validator?) {
+            val bottomSheet = StakingOptionFragment(selectedChain, validator, OptionType.UNSTAKE)
+            if (isClickable) {
+                isClickable = false
+                bottomSheet.show(requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name)
 
-                    }
-                }
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
             }
         }
     }
@@ -134,3 +191,5 @@ data class UnBondingEntry(
     val validatorAddress: String?,
     val entry: StakingProto.UnbondingDelegationEntry?
 )
+
+enum class OptionType { STAKE, UNSTAKE }

@@ -33,7 +33,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
-import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -43,8 +42,6 @@ import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AddressFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AddressListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
@@ -53,9 +50,13 @@ import wannabit.io.cosmostaion.ui.dialog.tx.ChainSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
+import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressFragment
+import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressListener
+import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
-import wannabit.io.cosmostaion.ui.viewmodel.tx.SendViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -68,6 +69,7 @@ class TransferFragment(
     private val binding get() = _binding!!
 
     private var recipientAbleChains: MutableList<CosmosLine> = mutableListOf()
+    private var txType: TxType? = null
     private var transferAssetType: TransferAssetType? = null
     private var selectedAsset: Asset? = null
     private var selectedToken: Token? = null
@@ -83,7 +85,7 @@ class TransferFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
-    private val sendViewModel: SendViewModel by activityViewModels()
+    private val txViewModel: TxViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -300,6 +302,7 @@ class TransferFragment(
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
                         feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
@@ -312,7 +315,6 @@ class TransferFragment(
                     val feeAmount = BigDecimal(txFee?.getAmount(0)?.amount)
                     if (feeAmount > balanceAmount) { }
                     balanceAmount.subtract(feeAmount)
-
                 } else {
                     balanceAmount
                 }
@@ -366,6 +368,7 @@ class TransferFragment(
                 if (isClickable) {
                     isClickable = false
                     InsertAmountFragment(
+                        TxType.TRANSFER,
                         transferAssetType,
                         availableAmount,
                         toSendAmount,
@@ -387,7 +390,7 @@ class TransferFragment(
             addressView.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    AddressFragment(selectedChain, selectedRecipientChain, existedAddress, object : AddressListener {
+                    AddressFragment(selectedChain, selectedRecipientChain, existedAddress, AddressType.DEFAULT_TRANSFER, object : AddressListener {
                         override fun address(address: String) {
                             updateAddressView(address)
                         }
@@ -469,7 +472,7 @@ class TransferFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                sendViewModel.broadcastSend(getChannel(), selectedChain.address, onBindSend(), txFee, txMemo, selectedChain)
+                txViewModel.broadcastSend(getChannel(), selectedChain.address, onBindSend(), txFee, txMemo, selectedChain)
             }
         }
 
@@ -482,7 +485,7 @@ class TransferFragment(
 
             if (selectedChain.chainId == selectedRecipientChain?.chainId) {
                 if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                    sendViewModel.simulateSend(getChannel(), selectedChain.address, onBindSend(), txFee, txMemo)
+                    txViewModel.simulateSend(getChannel(), selectedChain.address, onBindSend(), txFee, txMemo)
 
                 } else {
 
@@ -492,12 +495,12 @@ class TransferFragment(
     }
 
     private fun setUpSimulate() {
-        sendViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
             updateFeeViewWithSimul(gasInfo)
         }
 
-        sendViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
+        txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             isBroadCastTx(false)
             requireContext().makeToast(response)
             return@observe
@@ -523,7 +526,7 @@ class TransferFragment(
     }
 
     private fun setUpBroadcast() {
-        sendViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
                 if (txResponse.code > 0) {
                     putExtra("isSuccess", false)
