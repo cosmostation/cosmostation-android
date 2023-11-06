@@ -5,6 +5,7 @@ import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
+import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
@@ -77,6 +78,41 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genSendSimulate(account, msgSend, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastIbcSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genIbcSendBroadcast(account, msgTransfer, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateIbcSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genIbcSendSimulate(account, msgTransfer, fee, memo)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -289,6 +325,41 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genChangeRewardAddressSimulate(account, msgSetWithdrawAddress, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastVoteTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgVotes: MutableList<MsgVote?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genVoteBroadcast(account, msgVotes, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateVoteTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgVotes: MutableList<MsgVote?>?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, memo)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {

@@ -3180,11 +3180,11 @@ public final class GenesisProto {
       "\014proposal_seq\030\006 \001(\004R\013proposalSeq\0227\n\tprop" +
       "osals\030\007 \003(\0132\031.cosmos.group.v1.ProposalR\t" +
       "proposals\022+\n\005votes\030\010 \003(\0132\025.cosmos.group." +
-      "v1.VoteR\005votesB\245\001\n\023com.cosmos.group.v1B\014" +
-      "GenesisProtoZ$github.com/cosmos/cosmos-s" +
-      "dk/x/group\242\002\003CGX\252\002\017Cosmos.Group.V1\312\002\017Cos" +
-      "mos\\Group\\V1\342\002\033Cosmos\\Group\\V1\\GPBMetada" +
-      "ta\352\002\021Cosmos::Group::V1b\006proto3"
+      "v1.VoteR\005votesB\225\001\n\023com.cosmos.group.v1B\014" +
+      "GenesisProtoZ\024cosmossdk.io/x/group\242\002\003CGX" +
+      "\252\002\017Cosmos.Group.V1\312\002\017Cosmos\\Group\\V1\342\002\033C" +
+      "osmos\\Group\\V1\\GPBMetadata\352\002\021Cosmos::Gro" +
+      "up::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

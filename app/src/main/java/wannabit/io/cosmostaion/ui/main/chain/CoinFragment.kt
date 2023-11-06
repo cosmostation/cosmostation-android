@@ -141,7 +141,7 @@ class CoinFragment(position: Int) : Fragment() {
                 val bottomSheet = TransferFragment(line, denom)
                 if (isClickable) {
                     isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment(line, denom)::class.java.name)
+                    bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true

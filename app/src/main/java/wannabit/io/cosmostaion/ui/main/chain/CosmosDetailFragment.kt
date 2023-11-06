@@ -24,9 +24,11 @@ import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
+import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 
 class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
@@ -149,6 +151,23 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
     private fun clickFabMenu() {
         var isClickable = true
         binding.apply {
+            fabSend.setOnClickListener {
+                selectedChain.stakeDenom?.let {
+                    val bottomSheet = TransferFragment(selectedChain, it)
+                    if (isClickable) {
+                        isClickable = false
+                        bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
+                    }
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+
             fabStake.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
@@ -209,6 +228,21 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                         val bottomSheet = CompoundingFragment(selectedChain, selectedChain.claimableRewards())
                         bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
                     }
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabVote.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                        ProposalListFragment(selectedChain), "ProposalList")
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({

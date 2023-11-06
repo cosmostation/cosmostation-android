@@ -14095,7 +14095,7 @@ public final class QueryProto {
 
   }
 
-  public interface QueryCommunityPoolRequestOrBuilder extends
+  @java.lang.Deprecated public interface QueryCommunityPoolRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.QueryCommunityPoolRequest)
       com.google.protobuf.MessageOrBuilder {
   }
@@ -14103,11 +14103,14 @@ public final class QueryProto {
    * <pre>
    * QueryCommunityPoolRequest is the request type for the Query/CommunityPool RPC
    * method.
+   *
+   * Deprecated
+   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolRequest}
    */
-  public static final class QueryCommunityPoolRequest extends
+  @java.lang.Deprecated public static final class QueryCommunityPoolRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryCommunityPoolRequest)
       QueryCommunityPoolRequestOrBuilder {
@@ -14289,6 +14292,9 @@ public final class QueryProto {
      * <pre>
      * QueryCommunityPoolRequest is the request type for the Query/CommunityPool RPC
      * method.
+     *
+     * Deprecated
+     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolRequest}
@@ -14502,7 +14508,7 @@ public final class QueryProto {
 
   }
 
-  public interface QueryCommunityPoolResponseOrBuilder extends
+  @java.lang.Deprecated public interface QueryCommunityPoolResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.QueryCommunityPoolResponse)
       com.google.protobuf.MessageOrBuilder {
 
@@ -14554,11 +14560,14 @@ public final class QueryProto {
    * <pre>
    * QueryCommunityPoolResponse is the response type for the Query/CommunityPool
    * RPC method.
+   *
+   * Deprecated
+   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolResponse}
    */
-  public static final class QueryCommunityPoolResponse extends
+  @java.lang.Deprecated public static final class QueryCommunityPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryCommunityPoolResponse)
       QueryCommunityPoolResponseOrBuilder {
@@ -14815,6 +14824,9 @@ public final class QueryProto {
      * <pre>
      * QueryCommunityPoolResponse is the response type for the Query/CommunityPool
      * RPC method.
+     *
+     * Deprecated
+     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolResponse}
@@ -15590,74 +15602,73 @@ public final class QueryProto {
       "gatorAddress:\010\210\240\037\000\350\240\037\000\"v\n%QueryDelegator" +
       "WithdrawAddressResponse\022C\n\020withdraw_addr" +
       "ess\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\017wit" +
-      "hdrawAddress:\010\210\240\037\000\350\240\037\000\"\033\n\031QueryCommunity" +
-      "PoolRequest\"\210\001\n\032QueryCommunityPoolRespon" +
-      "se\022j\n\004pool\030\001 \003(\0132\034.cosmos.base.v1beta1.D" +
-      "ecCoinB8\310\336\037\000\252\337\037+github.com/cosmos/cosmos" +
-      "-sdk/types.DecCoins\250\347\260*\001R\004pool2\304\021\n\005Query" +
-      "\022\230\001\n\006Params\022/.cosmos.distribution.v1beta" +
-      "1.QueryParamsRequest\0320.cosmos.distributi" +
-      "on.v1beta1.QueryParamsResponse\"+\202\323\344\223\002%\022#" +
-      "/cosmos/distribution/v1beta1/params\022\351\001\n\031" +
-      "ValidatorDistributionInfo\022B.cosmos.distr" +
-      "ibution.v1beta1.QueryValidatorDistributi" +
-      "onInfoRequest\032C.cosmos.distribution.v1be" +
-      "ta1.QueryValidatorDistributionInfoRespon" +
-      "se\"C\202\323\344\223\002=\022;/cosmos/distribution/v1beta1" +
-      "/validators/{validator_address}\022\203\002\n\033Vali" +
-      "datorOutstandingRewards\022D.cosmos.distrib" +
-      "ution.v1beta1.QueryValidatorOutstandingR" +
-      "ewardsRequest\032E.cosmos.distribution.v1be" +
-      "ta1.QueryValidatorOutstandingRewardsResp" +
-      "onse\"W\202\323\344\223\002Q\022O/cosmos/distribution/v1bet" +
-      "a1/validators/{validator_address}/outsta" +
-      "nding_rewards\022\342\001\n\023ValidatorCommission\022<." +
-      "cosmos.distribution.v1beta1.QueryValidat" +
-      "orCommissionRequest\032=.cosmos.distributio" +
-      "n.v1beta1.QueryValidatorCommissionRespon" +
-      "se\"N\202\323\344\223\002H\022F/cosmos/distribution/v1beta1" +
-      "/validators/{validator_address}/commissi" +
-      "on\022\326\001\n\020ValidatorSlashes\0229.cosmos.distrib" +
-      "ution.v1beta1.QueryValidatorSlashesReque" +
-      "st\032:.cosmos.distribution.v1beta1.QueryVa" +
-      "lidatorSlashesResponse\"K\202\323\344\223\002E\022C/cosmos/" +
-      "distribution/v1beta1/validators/{validat" +
-      "or_address}/slashes\022\355\001\n\021DelegationReward" +
-      "s\022:.cosmos.distribution.v1beta1.QueryDel" +
-      "egationRewardsRequest\032;.cosmos.distribut" +
-      "ion.v1beta1.QueryDelegationRewardsRespon" +
-      "se\"_\202\323\344\223\002Y\022W/cosmos/distribution/v1beta1" +
-      "/delegators/{delegator_address}/rewards/" +
-      "{validator_address}\022\350\001\n\026DelegationTotalR" +
-      "ewards\022?.cosmos.distribution.v1beta1.Que" +
-      "ryDelegationTotalRewardsRequest\032@.cosmos" +
-      ".distribution.v1beta1.QueryDelegationTot" +
-      "alRewardsResponse\"K\202\323\344\223\002E\022C/cosmos/distr" +
-      "ibution/v1beta1/delegators/{delegator_ad" +
-      "dress}/rewards\022\342\001\n\023DelegatorValidators\022<" +
-      ".cosmos.distribution.v1beta1.QueryDelega" +
-      "torValidatorsRequest\032=.cosmos.distributi" +
-      "on.v1beta1.QueryDelegatorValidatorsRespo" +
-      "nse\"N\202\323\344\223\002H\022F/cosmos/distribution/v1beta" +
-      "1/delegators/{delegator_address}/validat" +
-      "ors\022\367\001\n\030DelegatorWithdrawAddress\022A.cosmo" +
-      "s.distribution.v1beta1.QueryDelegatorWit" +
-      "hdrawAddressRequest\032B.cosmos.distributio" +
-      "n.v1beta1.QueryDelegatorWithdrawAddressR" +
-      "esponse\"T\202\323\344\223\002N\022L/cosmos/distribution/v1" +
-      "beta1/delegators/{delegator_address}/wit" +
-      "hdraw_address\022\265\001\n\rCommunityPool\0226.cosmos" +
-      ".distribution.v1beta1.QueryCommunityPool" +
-      "Request\0327.cosmos.distribution.v1beta1.Qu" +
-      "eryCommunityPoolResponse\"3\202\323\344\223\002-\022+/cosmo" +
-      "s/distribution/v1beta1/community_poolB\354\001" +
-      "\n\037com.cosmos.distribution.v1beta1B\nQuery" +
-      "ProtoZ1github.com/cosmos/cosmos-sdk/x/di" +
-      "stribution/types\242\002\003CDX\252\002\033Cosmos.Distribu" +
-      "tion.V1beta1\312\002\033Cosmos\\Distribution\\V1bet" +
-      "a1\342\002\'Cosmos\\Distribution\\V1beta1\\GPBMeta" +
-      "data\352\002\035Cosmos::Distribution::V1beta1b\006pr" +
-      "oto3"
+      "hdrawAddress:\010\210\240\037\000\350\240\037\000\"\037\n\031QueryCommunity" +
+      "PoolRequest:\002\030\001\"\214\001\n\032QueryCommunityPoolRe" +
+      "sponse\022j\n\004pool\030\001 \003(\0132\034.cosmos.base.v1bet" +
+      "a1.DecCoinB8\310\336\037\000\252\337\037+github.com/cosmos/co" +
+      "smos-sdk/types.DecCoins\250\347\260*\001R\004pool:\002\030\0012\307" +
+      "\021\n\005Query\022\230\001\n\006Params\022/.cosmos.distributio" +
+      "n.v1beta1.QueryParamsRequest\0320.cosmos.di" +
+      "stribution.v1beta1.QueryParamsResponse\"+" +
+      "\202\323\344\223\002%\022#/cosmos/distribution/v1beta1/par" +
+      "ams\022\351\001\n\031ValidatorDistributionInfo\022B.cosm" +
+      "os.distribution.v1beta1.QueryValidatorDi" +
+      "stributionInfoRequest\032C.cosmos.distribut" +
+      "ion.v1beta1.QueryValidatorDistributionIn" +
+      "foResponse\"C\202\323\344\223\002=\022;/cosmos/distribution" +
+      "/v1beta1/validators/{validator_address}\022" +
+      "\203\002\n\033ValidatorOutstandingRewards\022D.cosmos" +
+      ".distribution.v1beta1.QueryValidatorOuts" +
+      "tandingRewardsRequest\032E.cosmos.distribut" +
+      "ion.v1beta1.QueryValidatorOutstandingRew" +
+      "ardsResponse\"W\202\323\344\223\002Q\022O/cosmos/distributi" +
+      "on/v1beta1/validators/{validator_address" +
+      "}/outstanding_rewards\022\342\001\n\023ValidatorCommi" +
+      "ssion\022<.cosmos.distribution.v1beta1.Quer" +
+      "yValidatorCommissionRequest\032=.cosmos.dis" +
+      "tribution.v1beta1.QueryValidatorCommissi" +
+      "onResponse\"N\202\323\344\223\002H\022F/cosmos/distribution" +
+      "/v1beta1/validators/{validator_address}/" +
+      "commission\022\326\001\n\020ValidatorSlashes\0229.cosmos" +
+      ".distribution.v1beta1.QueryValidatorSlas" +
+      "hesRequest\032:.cosmos.distribution.v1beta1" +
+      ".QueryValidatorSlashesResponse\"K\202\323\344\223\002E\022C" +
+      "/cosmos/distribution/v1beta1/validators/" +
+      "{validator_address}/slashes\022\355\001\n\021Delegati" +
+      "onRewards\022:.cosmos.distribution.v1beta1." +
+      "QueryDelegationRewardsRequest\032;.cosmos.d" +
+      "istribution.v1beta1.QueryDelegationRewar" +
+      "dsResponse\"_\202\323\344\223\002Y\022W/cosmos/distribution" +
+      "/v1beta1/delegators/{delegator_address}/" +
+      "rewards/{validator_address}\022\350\001\n\026Delegati" +
+      "onTotalRewards\022?.cosmos.distribution.v1b" +
+      "eta1.QueryDelegationTotalRewardsRequest\032" +
+      "@.cosmos.distribution.v1beta1.QueryDeleg" +
+      "ationTotalRewardsResponse\"K\202\323\344\223\002E\022C/cosm" +
+      "os/distribution/v1beta1/delegators/{dele" +
+      "gator_address}/rewards\022\342\001\n\023DelegatorVali" +
+      "dators\022<.cosmos.distribution.v1beta1.Que" +
+      "ryDelegatorValidatorsRequest\032=.cosmos.di" +
+      "stribution.v1beta1.QueryDelegatorValidat" +
+      "orsResponse\"N\202\323\344\223\002H\022F/cosmos/distributio" +
+      "n/v1beta1/delegators/{delegator_address}" +
+      "/validators\022\367\001\n\030DelegatorWithdrawAddress" +
+      "\022A.cosmos.distribution.v1beta1.QueryDele" +
+      "gatorWithdrawAddressRequest\032B.cosmos.dis" +
+      "tribution.v1beta1.QueryDelegatorWithdraw" +
+      "AddressResponse\"T\202\323\344\223\002N\022L/cosmos/distrib" +
+      "ution/v1beta1/delegators/{delegator_addr" +
+      "ess}/withdraw_address\022\270\001\n\rCommunityPool\022" +
+      "6.cosmos.distribution.v1beta1.QueryCommu" +
+      "nityPoolRequest\0327.cosmos.distribution.v1" +
+      "beta1.QueryCommunityPoolResponse\"6\210\002\001\202\323\344" +
+      "\223\002-\022+/cosmos/distribution/v1beta1/commun" +
+      "ity_poolB\334\001\n\037com.cosmos.distribution.v1b" +
+      "eta1B\nQueryProtoZ!cosmossdk.io/x/distrib" +
+      "ution/types\242\002\003CDX\252\002\033Cosmos.Distribution." +
+      "V1beta1\312\002\033Cosmos\\Distribution\\V1beta1\342\002\'" +
+      "Cosmos\\Distribution\\V1beta1\\GPBMetadata\352" +
+      "\002\035Cosmos::Distribution::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

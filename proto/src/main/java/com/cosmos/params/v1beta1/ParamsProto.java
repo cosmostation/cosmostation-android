@@ -1988,12 +1988,12 @@ public final class ParamsProto {
       "\212\347\260*\"cosmos-sdk/ParameterChangeProposal\"" +
       "Q\n\013ParamChange\022\032\n\010subspace\030\001 \001(\tR\010subspa" +
       "ce\022\020\n\003key\030\002 \001(\tR\003key\022\024\n\005value\030\003 \001(\tR\005val" +
-      "ueB\326\001\n\031com.cosmos.params.v1beta1B\013Params" +
-      "ProtoZ4github.com/cosmos/cosmos-sdk/x/pa" +
-      "rams/types/proposal\242\002\003CPX\252\002\025Cosmos.Param" +
-      "s.V1beta1\312\002\025Cosmos\\Params\\V1beta1\342\002!Cosm" +
-      "os\\Params\\V1beta1\\GPBMetadata\352\002\027Cosmos::" +
-      "Params::V1beta1\250\342\036\001b\006proto3"
+      "ueB\306\001\n\031com.cosmos.params.v1beta1B\013Params" +
+      "ProtoZ$cosmossdk.io/x/params/types/propo" +
+      "sal\242\002\003CPX\252\002\025Cosmos.Params.V1beta1\312\002\025Cosm" +
+      "os\\Params\\V1beta1\342\002!Cosmos\\Params\\V1beta" +
+      "1\\GPBMetadata\352\002\027Cosmos::Params::V1beta1\250" +
+      "\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

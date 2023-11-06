@@ -640,7 +640,6 @@ public final class QueryGrpc {
     /**
      * <pre>
      * Groups queries all groups in state.
-     * 
      * Since: cosmos-sdk 0.47.1
      * </pre>
      */
@@ -833,7 +832,6 @@ public final class QueryGrpc {
     /**
      * <pre>
      * Groups queries all groups in state.
-     * 
      * Since: cosmos-sdk 0.47.1
      * </pre>
      */
@@ -1000,7 +998,6 @@ public final class QueryGrpc {
     /**
      * <pre>
      * Groups queries all groups in state.
-     * 
      * Since: cosmos-sdk 0.47.1
      * </pre>
      */
@@ -1179,7 +1176,6 @@ public final class QueryGrpc {
     /**
      * <pre>
      * Groups queries all groups in state.
-     * 
      * Since: cosmos-sdk 0.47.1
      * </pre>
      */

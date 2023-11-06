@@ -26,16 +26,15 @@ class CosmosActivity : BaseActivity() {
                 .replace(R.id.fragment_container, CosmosDetailFragment(intent.getIntExtra("selectPosition", -1)))
                 .commitAllowingStateLoss()
         }
-
         initViewModel()
     }
 
     private fun initViewModel() {
-        val sendRepository = TxRepositoryImpl()
-        val sendViewModelProviderFactory = TxViewModelProviderFactory(sendRepository)
+        val txRepository = TxRepositoryImpl()
+        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
         txViewModel = ViewModelProvider(
             this,
-            sendViewModelProviderFactory
+            txViewModelProviderFactory
         )[TxViewModel::class.java]
     }
 

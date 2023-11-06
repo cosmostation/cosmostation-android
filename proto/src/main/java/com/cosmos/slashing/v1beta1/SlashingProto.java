@@ -1240,7 +1240,7 @@ public final class SlashingProto {
     long getSignedBlocksWindow();
 
     /**
-     * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The minSignedPerWindow.
      */
     com.google.protobuf.ByteString getMinSignedPerWindow();
@@ -1261,13 +1261,13 @@ public final class SlashingProto {
     com.google.protobuf.DurationOrBuilder getDowntimeJailDurationOrBuilder();
 
     /**
-     * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The slashFractionDoubleSign.
      */
     com.google.protobuf.ByteString getSlashFractionDoubleSign();
 
     /**
-     * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The slashFractionDowntime.
      */
     com.google.protobuf.ByteString getSlashFractionDowntime();
@@ -1328,7 +1328,7 @@ public final class SlashingProto {
     public static final int MIN_SIGNED_PER_WINDOW_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString minSignedPerWindow_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The minSignedPerWindow.
      */
     @java.lang.Override
@@ -1365,7 +1365,7 @@ public final class SlashingProto {
     public static final int SLASH_FRACTION_DOUBLE_SIGN_FIELD_NUMBER = 4;
     private com.google.protobuf.ByteString slashFractionDoubleSign_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The slashFractionDoubleSign.
      */
     @java.lang.Override
@@ -1376,7 +1376,7 @@ public final class SlashingProto {
     public static final int SLASH_FRACTION_DOWNTIME_FIELD_NUMBER = 5;
     private com.google.protobuf.ByteString slashFractionDowntime_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The slashFractionDowntime.
      */
     @java.lang.Override
@@ -1853,7 +1853,7 @@ public final class SlashingProto {
 
       private com.google.protobuf.ByteString minSignedPerWindow_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @return The minSignedPerWindow.
        */
       @java.lang.Override
@@ -1861,7 +1861,7 @@ public final class SlashingProto {
         return minSignedPerWindow_;
       }
       /**
-       * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @param value The minSignedPerWindow to set.
        * @return This builder for chaining.
        */
@@ -1873,7 +1873,7 @@ public final class SlashingProto {
         return this;
       }
       /**
-       * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes min_signed_per_window = 2 [json_name = "minSignedPerWindow", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @return This builder for chaining.
        */
       public Builder clearMinSignedPerWindow() {
@@ -2004,7 +2004,7 @@ public final class SlashingProto {
 
       private com.google.protobuf.ByteString slashFractionDoubleSign_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @return The slashFractionDoubleSign.
        */
       @java.lang.Override
@@ -2012,7 +2012,7 @@ public final class SlashingProto {
         return slashFractionDoubleSign_;
       }
       /**
-       * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @param value The slashFractionDoubleSign to set.
        * @return This builder for chaining.
        */
@@ -2024,7 +2024,7 @@ public final class SlashingProto {
         return this;
       }
       /**
-       * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes slash_fraction_double_sign = 4 [json_name = "slashFractionDoubleSign", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @return This builder for chaining.
        */
       public Builder clearSlashFractionDoubleSign() {
@@ -2036,7 +2036,7 @@ public final class SlashingProto {
 
       private com.google.protobuf.ByteString slashFractionDowntime_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @return The slashFractionDowntime.
        */
       @java.lang.Override
@@ -2044,7 +2044,7 @@ public final class SlashingProto {
         return slashFractionDowntime_;
       }
       /**
-       * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @param value The slashFractionDowntime to set.
        * @return This builder for chaining.
        */
@@ -2056,7 +2056,7 @@ public final class SlashingProto {
         return this;
       }
       /**
-       * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.encoding) = "cosmos_dec_bytes", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes slash_fraction_downtime = 5 [json_name = "slashFractionDowntime", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
        * @return This builder for chaining.
        */
       public Builder clearSlashFractionDowntime() {
@@ -2161,27 +2161,25 @@ public final class SlashingProto {
       "tampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\013jailedUntil\022\036\n\ntomb" +
       "stoned\030\005 \001(\010R\ntombstoned\0222\n\025missed_block" +
       "s_counter\030\006 \001(\003R\023missedBlocksCounter:\004\350\240" +
-      "\037\001\"\305\004\n\006Params\0220\n\024signed_blocks_window\030\001 " +
-      "\001(\003R\022signedBlocksWindow\022{\n\025min_signed_pe" +
-      "r_window\030\002 \001(\014BH\310\336\037\000\332\336\037&github.com/cosmo" +
-      "s/cosmos-sdk/types.Dec\232\347\260*\020cosmos_dec_by" +
-      "tes\250\347\260*\001R\022minSignedPerWindow\022^\n\026downtime" +
-      "_jail_duration\030\003 \001(\0132\031.google.protobuf.D" +
-      "urationB\r\310\336\037\000\230\337\037\001\250\347\260*\001R\024downtimeJailDura" +
-      "tion\022\205\001\n\032slash_fraction_double_sign\030\004 \001(" +
-      "\014BH\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Dec\232\347\260*\020cosmos_dec_bytes\250\347\260*\001R\027sla" +
-      "shFractionDoubleSign\022\200\001\n\027slash_fraction_" +
-      "downtime\030\005 \001(\014BH\310\336\037\000\332\336\037&github.com/cosmo" +
-      "s/cosmos-sdk/types.Dec\232\347\260*\020cosmos_dec_by" +
-      "tes\250\347\260*\001R\025slashFractionDowntime:!\212\347\260*\034co" +
-      "smos-sdk/x/slashing/ParamsB\333\001\n\033com.cosmo" +
-      "s.slashing.v1beta1B\rSlashingProtoZ-githu" +
-      "b.com/cosmos/cosmos-sdk/x/slashing/types" +
-      "\242\002\003CSX\252\002\027Cosmos.Slashing.V1beta1\312\002\027Cosmo" +
-      "s\\Slashing\\V1beta1\342\002#Cosmos\\Slashing\\V1b" +
-      "eta1\\GPBMetadata\352\002\031Cosmos::Slashing::V1b" +
-      "eta1\250\342\036\001b\006proto3"
+      "\037\001\"\215\004\n\006Params\0220\n\024signed_blocks_window\030\001 " +
+      "\001(\003R\022signedBlocksWindow\022i\n\025min_signed_pe" +
+      "r_window\030\002 \001(\014B6\310\336\037\000\332\336\037\033cosmossdk.io/mat" +
+      "h.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001R\022minSigne" +
+      "dPerWindow\022^\n\026downtime_jail_duration\030\003 \001" +
+      "(\0132\031.google.protobuf.DurationB\r\310\336\037\000\230\337\037\001\250" +
+      "\347\260*\001R\024downtimeJailDuration\022s\n\032slash_frac" +
+      "tion_double_sign\030\004 \001(\014B6\310\336\037\000\332\336\037\033cosmossd" +
+      "k.io/math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001R\027" +
+      "slashFractionDoubleSign\022n\n\027slash_fractio" +
+      "n_downtime\030\005 \001(\014B6\310\336\037\000\332\336\037\033cosmossdk.io/m" +
+      "ath.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001R\025slashF" +
+      "ractionDowntime:!\212\347\260*\034cosmos-sdk/x/slash" +
+      "ing/ParamsB\313\001\n\033com.cosmos.slashing.v1bet" +
+      "a1B\rSlashingProtoZ\035cosmossdk.io/x/slashi" +
+      "ng/types\242\002\003CSX\252\002\027Cosmos.Slashing.V1beta1" +
+      "\312\002\027Cosmos\\Slashing\\V1beta1\342\002#Cosmos\\Slas" +
+      "hing\\V1beta1\\GPBMetadata\352\002\031Cosmos::Slash" +
+      "ing::V1beta1\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2207,7 +2205,6 @@ public final class SlashingProto {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);
-    registry.add(com.amino.AminoProto.encoding);
     registry.add(com.amino.AminoProto.name);
     registry.add(com.cosmos_proto.CosmosProto.scalar);
     registry.add(com.gogoproto.GogoProto.customtype);

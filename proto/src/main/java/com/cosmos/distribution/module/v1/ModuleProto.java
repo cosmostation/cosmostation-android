@@ -774,16 +774,15 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n*cosmos/distribution/module/v1/module.p" +
       "roto\022\035cosmos.distribution.module.v1\032 cos" +
-      "mos/app/v1alpha1/module.proto\"\211\001\n\006Module" +
-      "\022,\n\022fee_collector_name\030\001 \001(\tR\020feeCollect" +
-      "orName\022\034\n\tauthority\030\002 \001(\tR\tauthority:3\272\300" +
-      "\226\332\001-\n+github.com/cosmos/cosmos-sdk/x/dis" +
-      "tributionB\305\001\n!com.cosmos.distribution.mo" +
-      "dule.v1B\013ModuleProto\242\002\003CDM\252\002\035Cosmos.Dist" +
-      "ribution.Module.V1\312\002\035Cosmos\\Distribution" +
-      "\\Module\\V1\342\002)Cosmos\\Distribution\\Module\\" +
-      "V1\\GPBMetadata\352\002 Cosmos::Distribution::M" +
-      "odule::V1b\006proto3"
+      "mos/app/v1alpha1/module.proto\"y\n\006Module\022" +
+      ",\n\022fee_collector_name\030\001 \001(\tR\020feeCollecto" +
+      "rName\022\034\n\tauthority\030\002 \001(\tR\tauthority:#\272\300\226" +
+      "\332\001\035\n\033cosmossdk.io/x/distributionB\305\001\n!com" +
+      ".cosmos.distribution.module.v1B\013ModulePr" +
+      "oto\242\002\003CDM\252\002\035Cosmos.Distribution.Module.V" +
+      "1\312\002\035Cosmos\\Distribution\\Module\\V1\342\002)Cosm" +
+      "os\\Distribution\\Module\\V1\\GPBMetadata\352\002 " +
+      "Cosmos::Distribution::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

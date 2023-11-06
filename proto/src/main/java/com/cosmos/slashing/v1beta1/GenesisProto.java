@@ -4302,13 +4302,12 @@ public final class GenesisProto {
       "issed_blocks\030\002 \003(\0132$.cosmos.slashing.v1b" +
       "eta1.MissedBlockB\t\310\336\037\000\250\347\260*\001R\014missedBlock" +
       "s\";\n\013MissedBlock\022\024\n\005index\030\001 \001(\003R\005index\022\026" +
-      "\n\006missed\030\002 \001(\010R\006missedB\326\001\n\033com.cosmos.sl" +
-      "ashing.v1beta1B\014GenesisProtoZ-github.com" +
-      "/cosmos/cosmos-sdk/x/slashing/types\242\002\003CS" +
-      "X\252\002\027Cosmos.Slashing.V1beta1\312\002\027Cosmos\\Sla" +
-      "shing\\V1beta1\342\002#Cosmos\\Slashing\\V1beta1\\" +
-      "GPBMetadata\352\002\031Cosmos::Slashing::V1beta1b" +
-      "\006proto3"
+      "\n\006missed\030\002 \001(\010R\006missedB\306\001\n\033com.cosmos.sl" +
+      "ashing.v1beta1B\014GenesisProtoZ\035cosmossdk." +
+      "io/x/slashing/types\242\002\003CSX\252\002\027Cosmos.Slash" +
+      "ing.V1beta1\312\002\027Cosmos\\Slashing\\V1beta1\342\002#" +
+      "Cosmos\\Slashing\\V1beta1\\GPBMetadata\352\002\031Co" +
+      "smos::Slashing::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

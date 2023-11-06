@@ -435,13 +435,12 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n$cosmos/params/module/v1/module.proto\022\027" +
       "cosmos.params.module.v1\032 cosmos/app/v1al" +
-      "pha1/module.proto\"7\n\006Module:-\272\300\226\332\001\'\n%git" +
-      "hub.com/cosmos/cosmos-sdk/x/paramsB\247\001\n\033c" +
-      "om.cosmos.params.module.v1B\013ModuleProto\242" +
-      "\002\003CPM\252\002\027Cosmos.Params.Module.V1\312\002\027Cosmos" +
-      "\\Params\\Module\\V1\342\002#Cosmos\\Params\\Module" +
-      "\\V1\\GPBMetadata\352\002\032Cosmos::Params::Module" +
-      "::V1b\006proto3"
+      "pha1/module.proto\"\'\n\006Module:\035\272\300\226\332\001\027\n\025cos" +
+      "mossdk.io/x/paramsB\247\001\n\033com.cosmos.params" +
+      ".module.v1B\013ModuleProto\242\002\003CPM\252\002\027Cosmos.P" +
+      "arams.Module.V1\312\002\027Cosmos\\Params\\Module\\V" +
+      "1\342\002#Cosmos\\Params\\Module\\V1\\GPBMetadata\352" +
+      "\002\032Cosmos::Params::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

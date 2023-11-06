@@ -7,9 +7,11 @@ import retrofit2.http.Query
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
+import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
 interface MintscanApi {
     @GET("v2/utils/market/prices")
@@ -29,4 +31,10 @@ interface MintscanApi {
 
     @GET("v2/{chain}/account/{address}/txs")
     suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String): Response<List<CosmosHistory>>
+
+    @GET("v1/{chain}/proposals")
+    suspend fun cosmosProposal(@Path("chain") chain:String): Response<MutableList<CosmosProposal>>
+
+    @GET("v1/{chain}/account/{account}/votes")
+    suspend fun voteStatus(@Path("chain") chain: String?, @Path("account") account: String?): Response<VoteStatus>
 }

@@ -3058,45 +3058,34 @@ public final class TxProto {
 
     /**
      * <pre>
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
+     * tips have been depreacted and should not be used
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.SignDocDirectAux.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=91
      * @return Whether the tip field is set.
      */
-    boolean hasTip();
+    @java.lang.Deprecated boolean hasTip();
     /**
      * <pre>
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
+     * tips have been depreacted and should not be used
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.SignDocDirectAux.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=91
      * @return The tip.
      */
-    com.cosmos.tx.v1beta1.TxProto.Tip getTip();
+    @java.lang.Deprecated com.cosmos.tx.v1beta1.TxProto.Tip getTip();
     /**
      * <pre>
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
+     * tips have been depreacted and should not be used
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
      */
-    com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder();
+    @java.lang.Deprecated com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder();
   }
   /**
    * <pre>
@@ -3281,52 +3270,41 @@ public final class TxProto {
     private com.cosmos.tx.v1beta1.TxProto.Tip tip_;
     /**
      * <pre>
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
+     * tips have been depreacted and should not be used
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.SignDocDirectAux.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=91
      * @return Whether the tip field is set.
      */
     @java.lang.Override
-    public boolean hasTip() {
+    @java.lang.Deprecated public boolean hasTip() {
       return tip_ != null;
     }
     /**
      * <pre>
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
+     * tips have been depreacted and should not be used
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.SignDocDirectAux.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=91
      * @return The tip.
      */
     @java.lang.Override
-    public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
+    @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
       return tip_ == null ? com.cosmos.tx.v1beta1.TxProto.Tip.getDefaultInstance() : tip_;
     }
     /**
      * <pre>
-     * Tip is the optional tip used for transactions fees paid in another denom.
-     * It should be left empty if the signer is not the tipper for this
-     * transaction.
-     *
-     * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-     * `TipDecorator` in its posthandler.
+     * tips have been depreacted and should not be used
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
      */
     @java.lang.Override
-    public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
+    @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
       return tip_ == null ? com.cosmos.tx.v1beta1.TxProto.Tip.getDefaultInstance() : tip_;
     }
 
@@ -4203,34 +4181,28 @@ public final class TxProto {
           com.cosmos.tx.v1beta1.TxProto.Tip, com.cosmos.tx.v1beta1.TxProto.Tip.Builder, com.cosmos.tx.v1beta1.TxProto.TipOrBuilder> tipBuilder_;
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
+       * @deprecated cosmos.tx.v1beta1.SignDocDirectAux.tip is deprecated.
+       *     See cosmos/tx/v1beta1/tx.proto;l=91
        * @return Whether the tip field is set.
        */
-      public boolean hasTip() {
+      @java.lang.Deprecated public boolean hasTip() {
         return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
+       * @deprecated cosmos.tx.v1beta1.SignDocDirectAux.tip is deprecated.
+       *     See cosmos/tx/v1beta1/tx.proto;l=91
        * @return The tip.
        */
-      public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
+      @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
         if (tipBuilder_ == null) {
           return tip_ == null ? com.cosmos.tx.v1beta1.TxProto.Tip.getDefaultInstance() : tip_;
         } else {
@@ -4239,17 +4211,12 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder setTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
+      @java.lang.Deprecated public Builder setTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
         if (tipBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4264,17 +4231,12 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder setTip(
+      @java.lang.Deprecated public Builder setTip(
           com.cosmos.tx.v1beta1.TxProto.Tip.Builder builderForValue) {
         if (tipBuilder_ == null) {
           tip_ = builderForValue.build();
@@ -4287,17 +4249,12 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder mergeTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
+      @java.lang.Deprecated public Builder mergeTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
         if (tipBuilder_ == null) {
           if (((bitField0_ & 0x00000020) != 0) &&
             tip_ != null &&
@@ -4315,17 +4272,12 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder clearTip() {
+      @java.lang.Deprecated public Builder clearTip() {
         bitField0_ = (bitField0_ & ~0x00000020);
         tip_ = null;
         if (tipBuilder_ != null) {
@@ -4337,34 +4289,24 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
-      public com.cosmos.tx.v1beta1.TxProto.Tip.Builder getTipBuilder() {
+      @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.Tip.Builder getTipBuilder() {
         bitField0_ |= 0x00000020;
         onChanged();
         return getTipFieldBuilder().getBuilder();
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
-      public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
+      @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
         if (tipBuilder_ != null) {
           return tipBuilder_.getMessageOrBuilder();
         } else {
@@ -4374,15 +4316,10 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * Tip is the optional tip used for transactions fees paid in another denom.
-       * It should be left empty if the signer is not the tipper for this
-       * transaction.
-       *
-       * This field is ignored if the chain didn't enable tips, i.e. didn't add the
-       * `TipDecorator` in its posthandler.
+       * tips have been depreacted and should not be used
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.cosmos.tx.v1beta1.TxProto.Tip, com.cosmos.tx.v1beta1.TxProto.Tip.Builder, com.cosmos.tx.v1beta1.TxProto.TipOrBuilder> 
@@ -7024,10 +6961,12 @@ public final class TxProto {
      * Since: cosmos-sdk 0.46
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.AuthInfo.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=145
      * @return Whether the tip field is set.
      */
-    boolean hasTip();
+    @java.lang.Deprecated boolean hasTip();
     /**
      * <pre>
      * Tip is the optional tip used for transactions fees paid in another denom.
@@ -7038,10 +6977,12 @@ public final class TxProto {
      * Since: cosmos-sdk 0.46
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.AuthInfo.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=145
      * @return The tip.
      */
-    com.cosmos.tx.v1beta1.TxProto.Tip getTip();
+    @java.lang.Deprecated com.cosmos.tx.v1beta1.TxProto.Tip getTip();
     /**
      * <pre>
      * Tip is the optional tip used for transactions fees paid in another denom.
@@ -7052,9 +6993,9 @@ public final class TxProto {
      * Since: cosmos-sdk 0.46
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
      */
-    com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder();
+    @java.lang.Deprecated com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder();
   }
   /**
    * <pre>
@@ -7232,11 +7173,13 @@ public final class TxProto {
      * Since: cosmos-sdk 0.46
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.AuthInfo.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=145
      * @return Whether the tip field is set.
      */
     @java.lang.Override
-    public boolean hasTip() {
+    @java.lang.Deprecated public boolean hasTip() {
       return tip_ != null;
     }
     /**
@@ -7249,11 +7192,13 @@ public final class TxProto {
      * Since: cosmos-sdk 0.46
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
+     * @deprecated cosmos.tx.v1beta1.AuthInfo.tip is deprecated.
+     *     See cosmos/tx/v1beta1/tx.proto;l=145
      * @return The tip.
      */
     @java.lang.Override
-    public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
+    @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
       return tip_ == null ? com.cosmos.tx.v1beta1.TxProto.Tip.getDefaultInstance() : tip_;
     }
     /**
@@ -7266,10 +7211,10 @@ public final class TxProto {
      * Since: cosmos-sdk 0.46
      * </pre>
      *
-     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+     * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
      */
     @java.lang.Override
-    public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
+    @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
       return tip_ == null ? com.cosmos.tx.v1beta1.TxProto.Tip.getDefaultInstance() : tip_;
     }
 
@@ -8285,10 +8230,12 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
+       * @deprecated cosmos.tx.v1beta1.AuthInfo.tip is deprecated.
+       *     See cosmos/tx/v1beta1/tx.proto;l=145
        * @return Whether the tip field is set.
        */
-      public boolean hasTip() {
+      @java.lang.Deprecated public boolean hasTip() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
@@ -8301,10 +8248,12 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
+       * @deprecated cosmos.tx.v1beta1.AuthInfo.tip is deprecated.
+       *     See cosmos/tx/v1beta1/tx.proto;l=145
        * @return The tip.
        */
-      public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
+      @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.Tip getTip() {
         if (tipBuilder_ == null) {
           return tip_ == null ? com.cosmos.tx.v1beta1.TxProto.Tip.getDefaultInstance() : tip_;
         } else {
@@ -8321,9 +8270,9 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder setTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
+      @java.lang.Deprecated public Builder setTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
         if (tipBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8346,9 +8295,9 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder setTip(
+      @java.lang.Deprecated public Builder setTip(
           com.cosmos.tx.v1beta1.TxProto.Tip.Builder builderForValue) {
         if (tipBuilder_ == null) {
           tip_ = builderForValue.build();
@@ -8369,9 +8318,9 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder mergeTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
+      @java.lang.Deprecated public Builder mergeTip(com.cosmos.tx.v1beta1.TxProto.Tip value) {
         if (tipBuilder_ == null) {
           if (((bitField0_ & 0x00000004) != 0) &&
             tip_ != null &&
@@ -8397,9 +8346,9 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
-      public Builder clearTip() {
+      @java.lang.Deprecated public Builder clearTip() {
         bitField0_ = (bitField0_ & ~0x00000004);
         tip_ = null;
         if (tipBuilder_ != null) {
@@ -8419,9 +8368,9 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
-      public com.cosmos.tx.v1beta1.TxProto.Tip.Builder getTipBuilder() {
+      @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.Tip.Builder getTipBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
         return getTipFieldBuilder().getBuilder();
@@ -8436,9 +8385,9 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
-      public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
+      @java.lang.Deprecated public com.cosmos.tx.v1beta1.TxProto.TipOrBuilder getTipOrBuilder() {
         if (tipBuilder_ != null) {
           return tipBuilder_.getMessageOrBuilder();
         } else {
@@ -8456,7 +8405,7 @@ public final class TxProto {
        * Since: cosmos-sdk 0.46
        * </pre>
        *
-       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip"];</code>
+       * <code>.cosmos.tx.v1beta1.Tip tip = 3 [json_name = "tip", deprecated = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.cosmos.tx.v1beta1.TxProto.Tip, com.cosmos.tx.v1beta1.TxProto.Tip.Builder, com.cosmos.tx.v1beta1.TxProto.TipOrBuilder> 
@@ -12416,7 +12365,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getAmountList();
@@ -12425,7 +12374,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index);
     /**
@@ -12433,7 +12382,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     int getAmountCount();
     /**
@@ -12441,7 +12390,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getAmountOrBuilderList();
@@ -12450,7 +12399,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
         int index);
@@ -12566,7 +12515,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAmountList() {
@@ -12577,7 +12526,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -12589,7 +12538,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public int getAmountCount() {
@@ -12600,7 +12549,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index) {
@@ -12611,7 +12560,7 @@ public final class TxProto {
      * amount is the amount of coins to be paid as a fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
@@ -13206,7 +13155,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAmountList() {
         if (amountBuilder_ == null) {
@@ -13220,7 +13169,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public int getAmountCount() {
         if (amountBuilder_ == null) {
@@ -13234,7 +13183,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index) {
         if (amountBuilder_ == null) {
@@ -13248,7 +13197,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder setAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -13269,7 +13218,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder setAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -13287,7 +13236,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (amountBuilder_ == null) {
@@ -13307,7 +13256,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -13328,7 +13277,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -13346,7 +13295,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -13364,7 +13313,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAllAmount(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -13383,7 +13332,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearAmount() {
         if (amountBuilder_ == null) {
@@ -13400,7 +13349,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder removeAmount(int index) {
         if (amountBuilder_ == null) {
@@ -13417,7 +13366,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getAmountBuilder(
           int index) {
@@ -13428,7 +13377,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
           int index) {
@@ -13442,7 +13391,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getAmountOrBuilderList() {
@@ -13457,7 +13406,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAmountBuilder() {
         return getAmountFieldBuilder().addBuilder(
@@ -13468,7 +13417,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAmountBuilder(
           int index) {
@@ -13480,7 +13429,7 @@ public final class TxProto {
        * amount is the amount of coins to be paid as a fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getAmountBuilderList() {
@@ -13815,7 +13764,7 @@ public final class TxProto {
 
   }
 
-  public interface TipOrBuilder extends
+  @java.lang.Deprecated public interface TipOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.tx.v1beta1.Tip)
       com.google.protobuf.MessageOrBuilder {
 
@@ -13824,7 +13773,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getAmountList();
@@ -13833,7 +13782,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index);
     /**
@@ -13841,7 +13790,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     int getAmountCount();
     /**
@@ -13849,7 +13798,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getAmountOrBuilderList();
@@ -13858,7 +13807,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
         int index);
@@ -13892,7 +13841,7 @@ public final class TxProto {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.Tip}
    */
-  public static final class Tip extends
+  @java.lang.Deprecated public static final class Tip extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.Tip)
       TipOrBuilder {
@@ -13934,7 +13883,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAmountList() {
@@ -13945,7 +13894,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -13957,7 +13906,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public int getAmountCount() {
@@ -13968,7 +13917,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index) {
@@ -13979,7 +13928,7 @@ public final class TxProto {
      * amount is the amount of the tip
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
@@ -14455,7 +14404,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAmountList() {
         if (amountBuilder_ == null) {
@@ -14469,7 +14418,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public int getAmountCount() {
         if (amountBuilder_ == null) {
@@ -14483,7 +14432,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index) {
         if (amountBuilder_ == null) {
@@ -14497,7 +14446,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder setAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -14518,7 +14467,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder setAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -14536,7 +14485,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (amountBuilder_ == null) {
@@ -14556,7 +14505,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -14577,7 +14526,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -14595,7 +14544,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -14613,7 +14562,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAllAmount(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -14632,7 +14581,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearAmount() {
         if (amountBuilder_ == null) {
@@ -14649,7 +14598,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder removeAmount(int index) {
         if (amountBuilder_ == null) {
@@ -14666,7 +14615,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getAmountBuilder(
           int index) {
@@ -14677,7 +14626,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
           int index) {
@@ -14691,7 +14640,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getAmountOrBuilderList() {
@@ -14706,7 +14655,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAmountBuilder() {
         return getAmountFieldBuilder().addBuilder(
@@ -14717,7 +14666,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAmountBuilder(
           int index) {
@@ -14729,7 +14678,7 @@ public final class TxProto {
        * amount is the amount of the tip
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getAmountBuilderList() {
@@ -16124,75 +16073,78 @@ public final class TxProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\032cosmos/tx/v1beta1/tx.proto\022\021cosmos.tx." +
-      "v1beta1\032\024gogoproto/gogo.proto\032-cosmos/cr" +
-      "ypto/multisig/v1beta1/multisig.proto\032\036co" +
-      "smos/base/v1beta1/coin.proto\032\'cosmos/tx/" +
-      "signing/v1beta1/signing.proto\032\031google/pr" +
-      "otobuf/any.proto\032\031cosmos_proto/cosmos.pr" +
-      "oto\"\215\001\n\002Tx\022-\n\004body\030\001 \001(\0132\031.cosmos.tx.v1b" +
-      "eta1.TxBodyR\004body\0228\n\tauth_info\030\002 \001(\0132\033.c" +
-      "osmos.tx.v1beta1.AuthInfoR\010authInfo\022\036\n\ns" +
-      "ignatures\030\003 \003(\014R\nsignatures\"n\n\005TxRaw\022\035\n\n" +
-      "body_bytes\030\001 \001(\014R\tbodyBytes\022&\n\017auth_info" +
-      "_bytes\030\002 \001(\014R\rauthInfoBytes\022\036\n\nsignature" +
-      "s\030\003 \003(\014R\nsignatures\"\222\001\n\007SignDoc\022\035\n\nbody_" +
-      "bytes\030\001 \001(\014R\tbodyBytes\022&\n\017auth_info_byte" +
-      "s\030\002 \001(\014R\rauthInfoBytes\022\031\n\010chain_id\030\003 \001(\t" +
-      "R\007chainId\022%\n\016account_number\030\004 \001(\004R\raccou" +
-      "ntNumber\"\356\001\n\020SignDocDirectAux\022\035\n\nbody_by" +
-      "tes\030\001 \001(\014R\tbodyBytes\0223\n\npublic_key\030\002 \001(\013" +
-      "2\024.google.protobuf.AnyR\tpublicKey\022\031\n\010cha" +
-      "in_id\030\003 \001(\tR\007chainId\022%\n\016account_number\030\004" +
-      " \001(\004R\raccountNumber\022\032\n\010sequence\030\005 \001(\004R\010s" +
-      "equence\022(\n\003tip\030\006 \001(\0132\026.cosmos.tx.v1beta1" +
-      ".TipR\003tip\"\225\002\n\006TxBody\0220\n\010messages\030\001 \003(\0132\024" +
-      ".google.protobuf.AnyR\010messages\022\022\n\004memo\030\002" +
-      " \001(\tR\004memo\022%\n\016timeout_height\030\003 \001(\004R\rtime" +
-      "outHeight\022B\n\021extension_options\030\377\007 \003(\0132\024." +
-      "google.protobuf.AnyR\020extensionOptions\022Z\n" +
-      "\036non_critical_extension_options\030\377\017 \003(\0132\024" +
-      ".google.protobuf.AnyR\033nonCriticalExtensi" +
-      "onOptions\"\240\001\n\010AuthInfo\022@\n\014signer_infos\030\001" +
-      " \003(\0132\035.cosmos.tx.v1beta1.SignerInfoR\013sig" +
-      "nerInfos\022(\n\003fee\030\002 \001(\0132\026.cosmos.tx.v1beta" +
-      "1.FeeR\003fee\022(\n\003tip\030\003 \001(\0132\026.cosmos.tx.v1be" +
-      "ta1.TipR\003tip\"\227\001\n\nSignerInfo\0223\n\npublic_ke" +
-      "y\030\001 \001(\0132\024.google.protobuf.AnyR\tpublicKey" +
-      "\0228\n\tmode_info\030\002 \001(\0132\033.cosmos.tx.v1beta1." +
-      "ModeInfoR\010modeInfo\022\032\n\010sequence\030\003 \001(\004R\010se" +
-      "quence\"\340\002\n\010ModeInfo\022<\n\006single\030\001 \001(\0132\".co" +
-      "smos.tx.v1beta1.ModeInfo.SingleH\000R\006singl" +
-      "e\0229\n\005multi\030\002 \001(\0132!.cosmos.tx.v1beta1.Mod" +
-      "eInfo.MultiH\000R\005multi\032A\n\006Single\0227\n\004mode\030\001" +
-      " \001(\0162#.cosmos.tx.signing.v1beta1.SignMod" +
-      "eR\004mode\032\220\001\n\005Multi\022K\n\010bitarray\030\001 \001(\0132/.co" +
-      "smos.crypto.multisig.v1beta1.CompactBitA" +
-      "rrayR\010bitarray\022:\n\nmode_infos\030\002 \003(\0132\033.cos" +
-      "mos.tx.v1beta1.ModeInfoR\tmodeInfosB\005\n\003su" +
-      "m\"\353\001\n\003Fee\022c\n\006amount\030\001 \003(\0132\031.cosmos.base." +
-      "v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/" +
-      "cosmos-sdk/types.CoinsR\006amount\022\033\n\tgas_li" +
-      "mit\030\002 \001(\004R\010gasLimit\022.\n\005payer\030\003 \001(\tB\030\322\264-\024" +
-      "cosmos.AddressStringR\005payer\0222\n\007granter\030\004" +
-      " \001(\tB\030\322\264-\024cosmos.AddressStringR\007granter\"" +
-      "\234\001\n\003Tip\022c\n\006amount\030\001 \003(\0132\031.cosmos.base.v1" +
-      "beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/co" +
-      "smos-sdk/types.CoinsR\006amount\0220\n\006tipper\030\002" +
-      " \001(\tB\030\322\264-\024cosmos.AddressStringR\006tipper\"\316" +
-      "\001\n\rAuxSignerData\0222\n\007address\030\001 \001(\tB\030\322\264-\024c" +
-      "osmos.AddressStringR\007address\022>\n\010sign_doc" +
-      "\030\002 \001(\0132#.cosmos.tx.v1beta1.SignDocDirect" +
-      "AuxR\007signDoc\0227\n\004mode\030\003 \001(\0162#.cosmos.tx.s" +
-      "igning.v1beta1.SignModeR\004mode\022\020\n\003sig\030\004 \001" +
-      "(\014R\003sigB\253\001\n\025com.cosmos.tx.v1beta1B\007TxPro" +
-      "toZ%github.com/cosmos/cosmos-sdk/types/t" +
-      "x\242\002\003CTX\252\002\021Cosmos.Tx.V1beta1\312\002\021Cosmos\\Tx\\" +
-      "V1beta1\342\002\035Cosmos\\Tx\\V1beta1\\GPBMetadata\352" +
-      "\002\023Cosmos::Tx::V1beta1b\006proto3"
+      "v1beta1\032\021amino/amino.proto\032\024gogoproto/go" +
+      "go.proto\032-cosmos/crypto/multisig/v1beta1" +
+      "/multisig.proto\032\036cosmos/base/v1beta1/coi" +
+      "n.proto\032\'cosmos/tx/signing/v1beta1/signi" +
+      "ng.proto\032\031google/protobuf/any.proto\032\031cos" +
+      "mos_proto/cosmos.proto\"\215\001\n\002Tx\022-\n\004body\030\001 " +
+      "\001(\0132\031.cosmos.tx.v1beta1.TxBodyR\004body\0228\n\t" +
+      "auth_info\030\002 \001(\0132\033.cosmos.tx.v1beta1.Auth" +
+      "InfoR\010authInfo\022\036\n\nsignatures\030\003 \003(\014R\nsign" +
+      "atures\"n\n\005TxRaw\022\035\n\nbody_bytes\030\001 \001(\014R\tbod" +
+      "yBytes\022&\n\017auth_info_bytes\030\002 \001(\014R\rauthInf" +
+      "oBytes\022\036\n\nsignatures\030\003 \003(\014R\nsignatures\"\222" +
+      "\001\n\007SignDoc\022\035\n\nbody_bytes\030\001 \001(\014R\tbodyByte" +
+      "s\022&\n\017auth_info_bytes\030\002 \001(\014R\rauthInfoByte" +
+      "s\022\031\n\010chain_id\030\003 \001(\tR\007chainId\022%\n\016account_" +
+      "number\030\004 \001(\004R\raccountNumber\"\362\001\n\020SignDocD" +
+      "irectAux\022\035\n\nbody_bytes\030\001 \001(\014R\tbodyBytes\022" +
+      "3\n\npublic_key\030\002 \001(\0132\024.google.protobuf.An" +
+      "yR\tpublicKey\022\031\n\010chain_id\030\003 \001(\tR\007chainId\022" +
+      "%\n\016account_number\030\004 \001(\004R\raccountNumber\022\032" +
+      "\n\010sequence\030\005 \001(\004R\010sequence\022,\n\003tip\030\006 \001(\0132" +
+      "\026.cosmos.tx.v1beta1.TipB\002\030\001R\003tip\"\225\002\n\006TxB" +
+      "ody\0220\n\010messages\030\001 \003(\0132\024.google.protobuf." +
+      "AnyR\010messages\022\022\n\004memo\030\002 \001(\tR\004memo\022%\n\016tim" +
+      "eout_height\030\003 \001(\004R\rtimeoutHeight\022B\n\021exte" +
+      "nsion_options\030\377\007 \003(\0132\024.google.protobuf.A" +
+      "nyR\020extensionOptions\022Z\n\036non_critical_ext" +
+      "ension_options\030\377\017 \003(\0132\024.google.protobuf." +
+      "AnyR\033nonCriticalExtensionOptions\"\244\001\n\010Aut" +
+      "hInfo\022@\n\014signer_infos\030\001 \003(\0132\035.cosmos.tx." +
+      "v1beta1.SignerInfoR\013signerInfos\022(\n\003fee\030\002" +
+      " \001(\0132\026.cosmos.tx.v1beta1.FeeR\003fee\022,\n\003tip" +
+      "\030\003 \001(\0132\026.cosmos.tx.v1beta1.TipB\002\030\001R\003tip\"" +
+      "\227\001\n\nSignerInfo\0223\n\npublic_key\030\001 \001(\0132\024.goo" +
+      "gle.protobuf.AnyR\tpublicKey\0228\n\tmode_info" +
+      "\030\002 \001(\0132\033.cosmos.tx.v1beta1.ModeInfoR\010mod" +
+      "eInfo\022\032\n\010sequence\030\003 \001(\004R\010sequence\"\340\002\n\010Mo" +
+      "deInfo\022<\n\006single\030\001 \001(\0132\".cosmos.tx.v1bet" +
+      "a1.ModeInfo.SingleH\000R\006single\0229\n\005multi\030\002 " +
+      "\001(\0132!.cosmos.tx.v1beta1.ModeInfo.MultiH\000" +
+      "R\005multi\032A\n\006Single\0227\n\004mode\030\001 \001(\0162#.cosmos" +
+      ".tx.signing.v1beta1.SignModeR\004mode\032\220\001\n\005M" +
+      "ulti\022K\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.m" +
+      "ultisig.v1beta1.CompactBitArrayR\010bitarra" +
+      "y\022:\n\nmode_infos\030\002 \003(\0132\033.cosmos.tx.v1beta" +
+      "1.ModeInfoR\tmodeInfosB\005\n\003sum\"\201\002\n\003Fee\022y\n\006" +
+      "amount\030\001 \003(\0132\031.cosmos.base.v1beta1.CoinB" +
+      "F\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/ty" +
+      "pes.Coins\232\347\260*\014legacy_coins\250\347\260*\001R\006amount\022" +
+      "\033\n\tgas_limit\030\002 \001(\004R\010gasLimit\022.\n\005payer\030\003 " +
+      "\001(\tB\030\322\264-\024cosmos.AddressStringR\005payer\0222\n\007" +
+      "granter\030\004 \001(\tB\030\322\264-\024cosmos.AddressStringR" +
+      "\007granter\"\266\001\n\003Tip\022y\n\006amount\030\001 \003(\0132\031.cosmo" +
+      "s.base.v1beta1.CoinBF\310\336\037\000\252\337\037(github.com/" +
+      "cosmos/cosmos-sdk/types.Coins\232\347\260*\014legacy" +
+      "_coins\250\347\260*\001R\006amount\0220\n\006tipper\030\002 \001(\tB\030\322\264-" +
+      "\024cosmos.AddressStringR\006tipper:\002\030\001\"\316\001\n\rAu" +
+      "xSignerData\0222\n\007address\030\001 \001(\tB\030\322\264-\024cosmos" +
+      ".AddressStringR\007address\022>\n\010sign_doc\030\002 \001(" +
+      "\0132#.cosmos.tx.v1beta1.SignDocDirectAuxR\007" +
+      "signDoc\0227\n\004mode\030\003 \001(\0162#.cosmos.tx.signin" +
+      "g.v1beta1.SignModeR\004mode\022\020\n\003sig\030\004 \001(\014R\003s" +
+      "igB\253\001\n\025com.cosmos.tx.v1beta1B\007TxProtoZ%g" +
+      "ithub.com/cosmos/cosmos-sdk/types/tx\242\002\003C" +
+      "TX\252\002\021Cosmos.Tx.V1beta1\312\002\021Cosmos\\Tx\\V1bet" +
+      "a1\342\002\035Cosmos\\Tx\\V1beta1\\GPBMetadata\352\002\023Cos" +
+      "mos::Tx::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.amino.AminoProto.getDescriptor(),
           com.gogoproto.GogoProto.getDescriptor(),
           com.cosmos.crypto.multisig.v1beta1.MultisigProto.getDescriptor(),
           com.cosmos.base.v1beta1.CoinProto.getDescriptor(),
@@ -16280,11 +16232,14 @@ public final class TxProto {
         new java.lang.String[] { "Address", "SignDoc", "Mode", "Sig", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.amino.AminoProto.dontOmitempty);
+    registry.add(com.amino.AminoProto.encoding);
     registry.add(com.cosmos_proto.CosmosProto.scalar);
     registry.add(com.gogoproto.GogoProto.castrepeated);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
+    com.amino.AminoProto.getDescriptor();
     com.gogoproto.GogoProto.getDescriptor();
     com.cosmos.crypto.multisig.v1beta1.MultisigProto.getDescriptor();
     com.cosmos.base.v1beta1.CoinProto.getDescriptor();

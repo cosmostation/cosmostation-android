@@ -2351,12 +2351,12 @@ public final class AuthzProto {
       "LEGATE\020\001\022!\n\035AUTHORIZATION_TYPE_UNDELEGAT" +
       "E\020\002\022!\n\035AUTHORIZATION_TYPE_REDELEGATE\020\003\0222" +
       "\n.AUTHORIZATION_TYPE_CANCEL_UNBONDING_DE" +
-      "LEGATION\020\004B\316\001\n\032com.cosmos.staking.v1beta" +
-      "1B\nAuthzProtoZ,github.com/cosmos/cosmos-" +
-      "sdk/x/staking/types\242\002\003CSX\252\002\026Cosmos.Staki" +
-      "ng.V1beta1\312\002\026Cosmos\\Staking\\V1beta1\342\002\"Co" +
-      "smos\\Staking\\V1beta1\\GPBMetadata\352\002\030Cosmo" +
-      "s::Staking::V1beta1b\006proto3"
+      "LEGATION\020\004B\276\001\n\032com.cosmos.staking.v1beta" +
+      "1B\nAuthzProtoZ\034cosmossdk.io/x/staking/ty" +
+      "pes\242\002\003CSX\252\002\026Cosmos.Staking.V1beta1\312\002\026Cos" +
+      "mos\\Staking\\V1beta1\342\002\"Cosmos\\Staking\\V1b" +
+      "eta1\\GPBMetadata\352\002\030Cosmos::Staking::V1be" +
+      "ta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -7730,12 +7730,12 @@ public final class BankProto {
       "\tR\004base\022\030\n\007display\030\004 \001(\tR\007display\022\022\n\004nam" +
       "e\030\005 \001(\tR\004name\022\026\n\006symbol\030\006 \001(\tR\006symbol\022\031\n" +
       "\003uri\030\007 \001(\tB\007\342\336\037\003URIR\003uri\022&\n\010uri_hash\030\010 \001" +
-      "(\tB\013\342\336\037\007URIHashR\007uriHashB\273\001\n\027com.cosmos." +
-      "bank.v1beta1B\tBankProtoZ)github.com/cosm" +
-      "os/cosmos-sdk/x/bank/types\242\002\003CBX\252\002\023Cosmo" +
-      "s.Bank.V1beta1\312\002\023Cosmos\\Bank\\V1beta1\342\002\037C" +
-      "osmos\\Bank\\V1beta1\\GPBMetadata\352\002\025Cosmos:" +
-      ":Bank::V1beta1b\006proto3"
+      "(\tB\013\342\336\037\007URIHashR\007uriHashB\253\001\n\027com.cosmos." +
+      "bank.v1beta1B\tBankProtoZ\031cosmossdk.io/x/" +
+      "bank/types\242\002\003CBX\252\002\023Cosmos.Bank.V1beta1\312\002" +
+      "\023Cosmos\\Bank\\V1beta1\342\002\037Cosmos\\Bank\\V1bet" +
+      "a1\\GPBMetadata\352\002\025Cosmos::Bank::V1beta1b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

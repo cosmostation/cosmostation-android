@@ -3502,13 +3502,12 @@ public final class QueryProto {
       "params\022\222\001\n\tSubspaces\022,.cosmos.params.v1b" +
       "eta1.QuerySubspacesRequest\032-.cosmos.para" +
       "ms.v1beta1.QuerySubspacesResponse\"(\202\323\344\223\002" +
-      "\"\022 /cosmos/params/v1beta1/subspacesB\321\001\n\031" +
-      "com.cosmos.params.v1beta1B\nQueryProtoZ4g" +
-      "ithub.com/cosmos/cosmos-sdk/x/params/typ" +
-      "es/proposal\242\002\003CPX\252\002\025Cosmos.Params.V1beta" +
-      "1\312\002\025Cosmos\\Params\\V1beta1\342\002!Cosmos\\Param" +
-      "s\\V1beta1\\GPBMetadata\352\002\027Cosmos::Params::" +
-      "V1beta1b\006proto3"
+      "\"\022 /cosmos/params/v1beta1/subspacesB\301\001\n\031" +
+      "com.cosmos.params.v1beta1B\nQueryProtoZ$c" +
+      "osmossdk.io/x/params/types/proposal\242\002\003CP" +
+      "X\252\002\025Cosmos.Params.V1beta1\312\002\025Cosmos\\Param" +
+      "s\\V1beta1\342\002!Cosmos\\Params\\V1beta1\\GPBMet" +
+      "adata\352\002\027Cosmos::Params::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

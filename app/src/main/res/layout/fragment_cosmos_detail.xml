@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_00"
     android:fitsSystemWindows="true"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
@@ -132,6 +131,20 @@
         android:elevation="@dimen/space_2">
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_send"
+            android:enabled="false"
+            app:maxImageSize="@dimen/space_100"
+            fab:fab_label="Send"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_stake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -153,7 +166,7 @@
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
             app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_stake"
+            android:src="@drawable/icon_claim_reward"
             fab:fab_label="@string/title_claim_reward_all"
             fab:fab_size="mini" />
 
@@ -165,7 +178,7 @@
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
             app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_claim_reward"
+            android:src="@drawable/icon_compounding"
             fab:fab_label="@string/title_compounding_all"
             fab:fab_size="mini" />
 

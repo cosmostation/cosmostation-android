@@ -4,11 +4,13 @@ import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
+import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import wannabit.io.cosmostaion.chain.CosmosLine
 
@@ -31,6 +33,23 @@ interface TxRepository {
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
         msgSend: MsgSend?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastIbcSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateIbcSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgTransfer: MsgTransfer?,
         fee: Fee?,
         memo: String
     ): Any?
@@ -135,6 +154,23 @@ interface TxRepository {
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastVoteTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgVotes: MutableList<TxProto.MsgVote?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateVoteTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         memo: String
     ): Any?

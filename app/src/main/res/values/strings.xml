@@ -78,6 +78,7 @@
     <string name="str_get_reward">Get rewards</string>
     <string name="str_unstake_cancel">Cancel unstake</string>
     <string name="str_change_reward_address">Change reward address</string>
+    <string name="str_vote">Vote</string>
 
 
     //title
@@ -149,6 +150,8 @@
     <string name="title_current_reward_address">Current reward address</string>
     <string name="title_new_reward_address">New reward address</string>
     <string name="title_reward_recipient_address">Reward recipient address</string>
+    <string name="title_proposal_list">Proposal list</string>
+    <string name="title_select_opinion">Select opinion</string>
 
 
     // msg
@@ -189,6 +192,9 @@
     <string name="str_unstake_cancel_msg">Cancel unstake and immediately make staked state.</string>
     <string name="str_reward_address_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.</string>
     <string name="str_reward_address_msg2">Do not set as exchange address.</string>
+    <string name="str_swap_msg" translatable="false">Exchange the coins you have for a\nvariety of different coins</string>
+    <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
+    <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
 
 
     // header
@@ -200,6 +206,8 @@
     <string name="str_reward_address">Reward Address</string>
     <string name="str_my_staking">My staking</string>
     <string name="str_my_unstaking">My Unstaking</string>
+    <string name="str_voting_period">Voting period proposals</string>
+    <string name="str_vote_proposals">Finished proposals</string>
 
 
     // error

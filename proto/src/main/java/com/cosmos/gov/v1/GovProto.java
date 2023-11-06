@@ -2582,7 +2582,8 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+     * the recommended format of the metadata is to be found here:
+     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -2592,7 +2593,8 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+     * the recommended format of the metadata is to be found here:
+     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -2684,6 +2686,30 @@ public final class GovProto {
      * @return The expedited.
      */
     boolean getExpedited();
+
+    /**
+     * <pre>
+     * failed_reason defines the reason why the proposal failed
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+     * @return The failedReason.
+     */
+    java.lang.String getFailedReason();
+    /**
+     * <pre>
+     * failed_reason defines the reason why the proposal failed
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+     * @return The bytes for failedReason.
+     */
+    com.google.protobuf.ByteString
+        getFailedReasonBytes();
   }
   /**
    * <pre>
@@ -2709,6 +2735,7 @@ public final class GovProto {
       title_ = "";
       summary_ = "";
       proposer_ = "";
+      failedReason_ = "";
     }
 
     @java.lang.Override
@@ -3096,7 +3123,8 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+     * the recommended format of the metadata is to be found here:
+     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -3118,7 +3146,8 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+     * the recommended format of the metadata is to be found here:
+     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -3309,6 +3338,57 @@ public final class GovProto {
       return expedited_;
     }
 
+    public static final int FAILED_REASON_FIELD_NUMBER = 15;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object failedReason_ = "";
+    /**
+     * <pre>
+     * failed_reason defines the reason why the proposal failed
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+     * @return The failedReason.
+     */
+    @java.lang.Override
+    public java.lang.String getFailedReason() {
+      java.lang.Object ref = failedReason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        failedReason_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * failed_reason defines the reason why the proposal failed
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+     * @return The bytes for failedReason.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFailedReasonBytes() {
+      java.lang.Object ref = failedReason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        failedReason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3364,6 +3444,9 @@ public final class GovProto {
       }
       if (expedited_ != false) {
         output.writeBool(14, expedited_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(failedReason_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 15, failedReason_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3426,6 +3509,9 @@ public final class GovProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(14, expedited_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(failedReason_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, failedReason_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3483,6 +3569,8 @@ public final class GovProto {
           .equals(other.getProposer())) return false;
       if (getExpedited()
           != other.getExpedited()) return false;
+      if (!getFailedReason()
+          .equals(other.getFailedReason())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -3538,6 +3626,8 @@ public final class GovProto {
       hash = (37 * hash) + EXPEDITED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getExpedited());
+      hash = (37 * hash) + FAILED_REASON_FIELD_NUMBER;
+      hash = (53 * hash) + getFailedReason().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3719,6 +3809,7 @@ public final class GovProto {
         summary_ = "";
         proposer_ = "";
         expedited_ = false;
+        failedReason_ = "";
         return this;
       }
 
@@ -3819,6 +3910,9 @@ public final class GovProto {
         }
         if (((from_bitField0_ & 0x00002000) != 0)) {
           result.expedited_ = expedited_;
+        }
+        if (((from_bitField0_ & 0x00004000) != 0)) {
+          result.failedReason_ = failedReason_;
         }
       }
 
@@ -3962,6 +4056,11 @@ public final class GovProto {
         if (other.getExpedited() != false) {
           setExpedited(other.getExpedited());
         }
+        if (!other.getFailedReason().isEmpty()) {
+          failedReason_ = other.failedReason_;
+          bitField0_ |= 0x00004000;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -4084,6 +4183,11 @@ public final class GovProto {
                 bitField0_ |= 0x00002000;
                 break;
               } // case 112
+              case 122: {
+                failedReason_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00004000;
+                break;
+              } // case 122
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -5639,7 +5743,8 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+       * the recommended format of the metadata is to be found here:
+       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5660,7 +5765,8 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+       * the recommended format of the metadata is to be found here:
+       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5682,7 +5788,8 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+       * the recommended format of the metadata is to be found here:
+       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5700,7 +5807,8 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+       * the recommended format of the metadata is to be found here:
+       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5715,7 +5823,8 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+       * the recommended format of the metadata is to be found here:
+       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -6084,6 +6193,108 @@ public final class GovProto {
       public Builder clearExpedited() {
         bitField0_ = (bitField0_ & ~0x00002000);
         expedited_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object failedReason_ = "";
+      /**
+       * <pre>
+       * failed_reason defines the reason why the proposal failed
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+       * @return The failedReason.
+       */
+      public java.lang.String getFailedReason() {
+        java.lang.Object ref = failedReason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          failedReason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * failed_reason defines the reason why the proposal failed
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+       * @return The bytes for failedReason.
+       */
+      public com.google.protobuf.ByteString
+          getFailedReasonBytes() {
+        java.lang.Object ref = failedReason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          failedReason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * failed_reason defines the reason why the proposal failed
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+       * @param value The failedReason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFailedReason(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        failedReason_ = value;
+        bitField0_ |= 0x00004000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * failed_reason defines the reason why the proposal failed
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFailedReason() {
+        failedReason_ = getDefaultInstance().getFailedReason();
+        bitField0_ = (bitField0_ & ~0x00004000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * failed_reason defines the reason why the proposal failed
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
+       * @param value The bytes for failedReason to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFailedReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        failedReason_ = value;
+        bitField0_ |= 0x00004000;
         onChanged();
         return this;
       }
@@ -7379,7 +7590,7 @@ public final class GovProto {
 
     /**
      * <pre>
-     * metadata is any arbitrary metadata to attached to the vote.
+     * metadata is any arbitrary metadata attached to the vote.
      * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
      * </pre>
      *
@@ -7389,7 +7600,7 @@ public final class GovProto {
     java.lang.String getMetadata();
     /**
      * <pre>
-     * metadata is any arbitrary metadata to attached to the vote.
+     * metadata is any arbitrary metadata attached to the vote.
      * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
      * </pre>
      *
@@ -7570,7 +7781,7 @@ public final class GovProto {
     private volatile java.lang.Object metadata_ = "";
     /**
      * <pre>
-     * metadata is any arbitrary metadata to attached to the vote.
+     * metadata is any arbitrary metadata attached to the vote.
      * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
      * </pre>
      *
@@ -7592,7 +7803,7 @@ public final class GovProto {
     }
     /**
      * <pre>
-     * metadata is any arbitrary metadata to attached to the vote.
+     * metadata is any arbitrary metadata attached to the vote.
      * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
      * </pre>
      *
@@ -8516,7 +8727,7 @@ public final class GovProto {
       private java.lang.Object metadata_ = "";
       /**
        * <pre>
-       * metadata is any arbitrary metadata to attached to the vote.
+       * metadata is any arbitrary metadata attached to the vote.
        * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
        * </pre>
        *
@@ -8537,7 +8748,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata to attached to the vote.
+       * metadata is any arbitrary metadata attached to the vote.
        * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
        * </pre>
        *
@@ -8559,7 +8770,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata to attached to the vote.
+       * metadata is any arbitrary metadata attached to the vote.
        * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
        * </pre>
        *
@@ -8577,7 +8788,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata to attached to the vote.
+       * metadata is any arbitrary metadata attached to the vote.
        * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
        * </pre>
        *
@@ -8592,7 +8803,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata to attached to the vote.
+       * metadata is any arbitrary metadata attached to the vote.
        * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
        * </pre>
        *
@@ -11865,6 +12076,34 @@ public final class GovProto {
      * @return The burnVoteVeto.
      */
     boolean getBurnVoteVeto();
+
+    /**
+     * <pre>
+     * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+     * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+     * required.
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The minDepositRatio.
+     */
+    java.lang.String getMinDepositRatio();
+    /**
+     * <pre>
+     * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+     * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+     * required.
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The bytes for minDepositRatio.
+     */
+    com.google.protobuf.ByteString
+        getMinDepositRatioBytes();
   }
   /**
    * <pre>
@@ -11894,6 +12133,7 @@ public final class GovProto {
       proposalCancelDest_ = "";
       expeditedThreshold_ = "";
       expeditedMinDeposit_ = java.util.Collections.emptyList();
+      minDepositRatio_ = "";
     }
 
     @java.lang.Override
@@ -12553,6 +12793,61 @@ public final class GovProto {
       return burnVoteVeto_;
     }
 
+    public static final int MIN_DEPOSIT_RATIO_FIELD_NUMBER = 16;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object minDepositRatio_ = "";
+    /**
+     * <pre>
+     * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+     * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+     * required.
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The minDepositRatio.
+     */
+    @java.lang.Override
+    public java.lang.String getMinDepositRatio() {
+      java.lang.Object ref = minDepositRatio_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        minDepositRatio_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+     * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+     * required.
+     *
+     * Since: cosmos-sdk 0.50
+     * </pre>
+     *
+     * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * @return The bytes for minDepositRatio.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMinDepositRatioBytes() {
+      java.lang.Object ref = minDepositRatio_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        minDepositRatio_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -12611,6 +12906,9 @@ public final class GovProto {
       }
       if (burnVoteVeto_ != false) {
         output.writeBool(15, burnVoteVeto_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(minDepositRatio_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, minDepositRatio_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -12674,6 +12972,9 @@ public final class GovProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(15, burnVoteVeto_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(minDepositRatio_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, minDepositRatio_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -12728,6 +13029,8 @@ public final class GovProto {
           != other.getBurnProposalDepositPrevote()) return false;
       if (getBurnVoteVeto()
           != other.getBurnVoteVeto()) return false;
+      if (!getMinDepositRatio()
+          .equals(other.getMinDepositRatio())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -12782,6 +13085,8 @@ public final class GovProto {
       hash = (37 * hash) + BURN_VOTE_VETO_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getBurnVoteVeto());
+      hash = (37 * hash) + MIN_DEPOSIT_RATIO_FIELD_NUMBER;
+      hash = (53 * hash) + getMinDepositRatio().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -12958,6 +13263,7 @@ public final class GovProto {
         burnVoteQuorum_ = false;
         burnProposalDepositPrevote_ = false;
         burnVoteVeto_ = false;
+        minDepositRatio_ = "";
         return this;
       }
 
@@ -13057,6 +13363,9 @@ public final class GovProto {
         }
         if (((from_bitField0_ & 0x00004000) != 0)) {
           result.burnVoteVeto_ = burnVoteVeto_;
+        }
+        if (((from_bitField0_ & 0x00008000) != 0)) {
+          result.minDepositRatio_ = minDepositRatio_;
         }
       }
 
@@ -13209,6 +13518,11 @@ public final class GovProto {
         if (other.getBurnVoteVeto() != false) {
           setBurnVoteVeto(other.getBurnVoteVeto());
         }
+        if (!other.getMinDepositRatio().isEmpty()) {
+          minDepositRatio_ = other.minDepositRatio_;
+          bitField0_ |= 0x00008000;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -13332,6 +13646,11 @@ public final class GovProto {
                 bitField0_ |= 0x00004000;
                 break;
               } // case 120
+              case 130: {
+                minDepositRatio_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00008000;
+                break;
+              } // case 130
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -15285,6 +15604,118 @@ public final class GovProto {
         onChanged();
         return this;
       }
+
+      private java.lang.Object minDepositRatio_ = "";
+      /**
+       * <pre>
+       * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+       * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+       * required.
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @return The minDepositRatio.
+       */
+      public java.lang.String getMinDepositRatio() {
+        java.lang.Object ref = minDepositRatio_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          minDepositRatio_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+       * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+       * required.
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @return The bytes for minDepositRatio.
+       */
+      public com.google.protobuf.ByteString
+          getMinDepositRatioBytes() {
+        java.lang.Object ref = minDepositRatio_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          minDepositRatio_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+       * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+       * required.
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @param value The minDepositRatio to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinDepositRatio(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        minDepositRatio_ = value;
+        bitField0_ |= 0x00008000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+       * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+       * required.
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMinDepositRatio() {
+        minDepositRatio_ = getDefaultInstance().getMinDepositRatio();
+        bitField0_ = (bitField0_ & ~0x00008000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+       * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+       * required.
+       *
+       * Since: cosmos-sdk 0.50
+       * </pre>
+       *
+       * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * @param value The bytes for minDepositRatio to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMinDepositRatioBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        minDepositRatio_ = value;
+        bitField0_ |= 0x00008000;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -15415,7 +15846,7 @@ public final class GovProto {
       "\013proposal_id\030\001 \001(\004R\nproposalId\0226\n\tdeposi" +
       "tor\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\tdep" +
       "ositor\022<\n\006amount\030\003 \003(\0132\031.cosmos.base.v1b" +
-      "eta1.CoinB\t\310\336\037\000\250\347\260*\001R\006amount\"\337\005\n\010Proposa" +
+      "eta1.CoinB\t\310\336\037\000\250\347\260*\001R\006amount\"\204\006\n\010Proposa" +
       "l\022\016\n\002id\030\001 \001(\004R\002id\0220\n\010messages\030\002 \003(\0132\024.go" +
       "ogle.protobuf.AnyR\010messages\0225\n\006status\030\003 " +
       "\001(\0162\035.cosmos.gov.v1.ProposalStatusR\006stat" +
@@ -15434,66 +15865,68 @@ public final class GovProto {
       "tle\030\013 \001(\tR\005title\022\030\n\007summary\030\014 \001(\tR\007summa" +
       "ry\0224\n\010proposer\030\r \001(\tB\030\322\264-\024cosmos.Address" +
       "StringR\010proposer\022\034\n\texpedited\030\016 \001(\010R\texp" +
-      "edited\"\327\001\n\013TallyResult\022+\n\tyes_count\030\001 \001(" +
-      "\tB\016\322\264-\ncosmos.IntR\010yesCount\0223\n\rabstain_c" +
-      "ount\030\002 \001(\tB\016\322\264-\ncosmos.IntR\014abstainCount" +
-      "\022)\n\010no_count\030\003 \001(\tB\016\322\264-\ncosmos.IntR\007noCo" +
-      "unt\022;\n\022no_with_veto_count\030\004 \001(\tB\016\322\264-\ncos" +
-      "mos.IntR\017noWithVetoCount\"\266\001\n\004Vote\022\037\n\013pro" +
-      "posal_id\030\001 \001(\004R\nproposalId\022.\n\005voter\030\002 \001(" +
-      "\tB\030\322\264-\024cosmos.AddressStringR\005voter\022;\n\007op" +
-      "tions\030\004 \003(\0132!.cosmos.gov.v1.WeightedVote" +
-      "OptionR\007options\022\032\n\010metadata\030\005 \001(\tR\010metad" +
-      "ataJ\004\010\003\020\004\"\335\001\n\rDepositParams\022Y\n\013min_depos" +
-      "it\030\001 \003(\0132\031.cosmos.base.v1beta1.CoinB\035\310\336\037" +
-      "\000\352\336\037\025min_deposit,omitemptyR\nminDeposit\022m" +
-      "\n\022max_deposit_period\030\002 \001(\0132\031.google.prot" +
-      "obuf.DurationB$\352\336\037\034max_deposit_period,om" +
-      "itempty\230\337\037\001R\020maxDepositPeriod:\002\030\001\"X\n\014Vot" +
-      "ingParams\022D\n\rvoting_period\030\001 \001(\0132\031.googl" +
-      "e.protobuf.DurationB\004\230\337\037\001R\014votingPeriod:" +
-      "\002\030\001\"\236\001\n\013TallyParams\022&\n\006quorum\030\001 \001(\tB\016\322\264-" +
-      "\ncosmos.DecR\006quorum\022,\n\tthreshold\030\002 \001(\tB\016" +
-      "\322\264-\ncosmos.DecR\tthreshold\0225\n\016veto_thresh" +
-      "old\030\003 \001(\tB\016\322\264-\ncosmos.DecR\rvetoThreshold" +
-      ":\002\030\001\"\323\007\n\006Params\022E\n\013min_deposit\030\001 \003(\0132\031.c" +
-      "osmos.base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\nminD" +
-      "eposit\022M\n\022max_deposit_period\030\002 \001(\0132\031.goo" +
-      "gle.protobuf.DurationB\004\230\337\037\001R\020maxDepositP" +
-      "eriod\022D\n\rvoting_period\030\003 \001(\0132\031.google.pr" +
-      "otobuf.DurationB\004\230\337\037\001R\014votingPeriod\022&\n\006q" +
-      "uorum\030\004 \001(\tB\016\322\264-\ncosmos.DecR\006quorum\022,\n\tt" +
-      "hreshold\030\005 \001(\tB\016\322\264-\ncosmos.DecR\tthreshol" +
-      "d\0225\n\016veto_threshold\030\006 \001(\tB\016\322\264-\ncosmos.De" +
-      "cR\rvetoThreshold\022I\n\031min_initial_deposit_" +
-      "ratio\030\007 \001(\tB\016\322\264-\ncosmos.DecR\026minInitialD" +
-      "epositRatio\022B\n\025proposal_cancel_ratio\030\010 \001" +
-      "(\tB\016\322\264-\ncosmos.DecR\023proposalCancelRatio\022" +
-      "J\n\024proposal_cancel_dest\030\t \001(\tB\030\322\264-\024cosmo" +
-      "s.AddressStringR\022proposalCancelDest\022W\n\027e" +
-      "xpedited_voting_period\030\n \001(\0132\031.google.pr" +
-      "otobuf.DurationB\004\230\337\037\001R\025expeditedVotingPe" +
-      "riod\022?\n\023expedited_threshold\030\013 \001(\tB\016\322\264-\nc" +
-      "osmos.DecR\022expeditedThreshold\022X\n\025expedit" +
-      "ed_min_deposit\030\014 \003(\0132\031.cosmos.base.v1bet" +
-      "a1.CoinB\t\310\336\037\000\250\347\260*\001R\023expeditedMinDeposit\022" +
-      "(\n\020burn_vote_quorum\030\r \001(\010R\016burnVoteQuoru" +
-      "m\022A\n\035burn_proposal_deposit_prevote\030\016 \001(\010" +
-      "R\032burnProposalDepositPrevote\022$\n\016burn_vot" +
-      "e_veto\030\017 \001(\010R\014burnVoteVeto*\211\001\n\nVoteOptio" +
-      "n\022\033\n\027VOTE_OPTION_UNSPECIFIED\020\000\022\023\n\017VOTE_O" +
-      "PTION_YES\020\001\022\027\n\023VOTE_OPTION_ABSTAIN\020\002\022\022\n\016" +
-      "VOTE_OPTION_NO\020\003\022\034\n\030VOTE_OPTION_NO_WITH_" +
-      "VETO\020\004*\316\001\n\016ProposalStatus\022\037\n\033PROPOSAL_ST" +
-      "ATUS_UNSPECIFIED\020\000\022\"\n\036PROPOSAL_STATUS_DE" +
-      "POSIT_PERIOD\020\001\022!\n\035PROPOSAL_STATUS_VOTING" +
-      "_PERIOD\020\002\022\032\n\026PROPOSAL_STATUS_PASSED\020\003\022\034\n" +
-      "\030PROPOSAL_STATUS_REJECTED\020\004\022\032\n\026PROPOSAL_" +
-      "STATUS_FAILED\020\005B\236\001\n\021com.cosmos.gov.v1B\010G" +
-      "ovProtoZ+github.com/cosmos/cosmos-sdk/x/" +
-      "gov/types/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCos" +
-      "mos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352\002" +
-      "\017Cosmos::Gov::V1b\006proto3"
+      "edited\022#\n\rfailed_reason\030\017 \001(\tR\014failedRea" +
+      "son\"\327\001\n\013TallyResult\022+\n\tyes_count\030\001 \001(\tB\016" +
+      "\322\264-\ncosmos.IntR\010yesCount\0223\n\rabstain_coun" +
+      "t\030\002 \001(\tB\016\322\264-\ncosmos.IntR\014abstainCount\022)\n" +
+      "\010no_count\030\003 \001(\tB\016\322\264-\ncosmos.IntR\007noCount" +
+      "\022;\n\022no_with_veto_count\030\004 \001(\tB\016\322\264-\ncosmos" +
+      ".IntR\017noWithVetoCount\"\266\001\n\004Vote\022\037\n\013propos" +
+      "al_id\030\001 \001(\004R\nproposalId\022.\n\005voter\030\002 \001(\tB\030" +
+      "\322\264-\024cosmos.AddressStringR\005voter\022;\n\007optio" +
+      "ns\030\004 \003(\0132!.cosmos.gov.v1.WeightedVoteOpt" +
+      "ionR\007options\022\032\n\010metadata\030\005 \001(\tR\010metadata" +
+      "J\004\010\003\020\004\"\335\001\n\rDepositParams\022Y\n\013min_deposit\030" +
+      "\001 \003(\0132\031.cosmos.base.v1beta1.CoinB\035\310\336\037\000\352\336" +
+      "\037\025min_deposit,omitemptyR\nminDeposit\022m\n\022m" +
+      "ax_deposit_period\030\002 \001(\0132\031.google.protobu" +
+      "f.DurationB$\352\336\037\034max_deposit_period,omite" +
+      "mpty\230\337\037\001R\020maxDepositPeriod:\002\030\001\"X\n\014Voting" +
+      "Params\022D\n\rvoting_period\030\001 \001(\0132\031.google.p" +
+      "rotobuf.DurationB\004\230\337\037\001R\014votingPeriod:\002\030\001" +
+      "\"\236\001\n\013TallyParams\022&\n\006quorum\030\001 \001(\tB\016\322\264-\nco" +
+      "smos.DecR\006quorum\022,\n\tthreshold\030\002 \001(\tB\016\322\264-" +
+      "\ncosmos.DecR\tthreshold\0225\n\016veto_threshold" +
+      "\030\003 \001(\tB\016\322\264-\ncosmos.DecR\rvetoThreshold:\002\030" +
+      "\001\"\217\010\n\006Params\022E\n\013min_deposit\030\001 \003(\0132\031.cosm" +
+      "os.base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\nminDepo" +
+      "sit\022M\n\022max_deposit_period\030\002 \001(\0132\031.google" +
+      ".protobuf.DurationB\004\230\337\037\001R\020maxDepositPeri" +
+      "od\022D\n\rvoting_period\030\003 \001(\0132\031.google.proto" +
+      "buf.DurationB\004\230\337\037\001R\014votingPeriod\022&\n\006quor" +
+      "um\030\004 \001(\tB\016\322\264-\ncosmos.DecR\006quorum\022,\n\tthre" +
+      "shold\030\005 \001(\tB\016\322\264-\ncosmos.DecR\tthreshold\0225" +
+      "\n\016veto_threshold\030\006 \001(\tB\016\322\264-\ncosmos.DecR\r" +
+      "vetoThreshold\022I\n\031min_initial_deposit_rat" +
+      "io\030\007 \001(\tB\016\322\264-\ncosmos.DecR\026minInitialDepo" +
+      "sitRatio\022B\n\025proposal_cancel_ratio\030\010 \001(\tB" +
+      "\016\322\264-\ncosmos.DecR\023proposalCancelRatio\022J\n\024" +
+      "proposal_cancel_dest\030\t \001(\tB\030\322\264-\024cosmos.A" +
+      "ddressStringR\022proposalCancelDest\022W\n\027expe" +
+      "dited_voting_period\030\n \001(\0132\031.google.proto" +
+      "buf.DurationB\004\230\337\037\001R\025expeditedVotingPerio" +
+      "d\022?\n\023expedited_threshold\030\013 \001(\tB\016\322\264-\ncosm" +
+      "os.DecR\022expeditedThreshold\022X\n\025expedited_" +
+      "min_deposit\030\014 \003(\0132\031.cosmos.base.v1beta1." +
+      "CoinB\t\310\336\037\000\250\347\260*\001R\023expeditedMinDeposit\022(\n\020" +
+      "burn_vote_quorum\030\r \001(\010R\016burnVoteQuorum\022A" +
+      "\n\035burn_proposal_deposit_prevote\030\016 \001(\010R\032b" +
+      "urnProposalDepositPrevote\022$\n\016burn_vote_v" +
+      "eto\030\017 \001(\010R\014burnVoteVeto\022:\n\021min_deposit_r" +
+      "atio\030\020 \001(\tB\016\322\264-\ncosmos.DecR\017minDepositRa" +
+      "tio*\211\001\n\nVoteOption\022\033\n\027VOTE_OPTION_UNSPEC" +
+      "IFIED\020\000\022\023\n\017VOTE_OPTION_YES\020\001\022\027\n\023VOTE_OPT" +
+      "ION_ABSTAIN\020\002\022\022\n\016VOTE_OPTION_NO\020\003\022\034\n\030VOT" +
+      "E_OPTION_NO_WITH_VETO\020\004*\316\001\n\016ProposalStat" +
+      "us\022\037\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000\022\"\n\036P" +
+      "ROPOSAL_STATUS_DEPOSIT_PERIOD\020\001\022!\n\035PROPO" +
+      "SAL_STATUS_VOTING_PERIOD\020\002\022\032\n\026PROPOSAL_S" +
+      "TATUS_PASSED\020\003\022\034\n\030PROPOSAL_STATUS_REJECT" +
+      "ED\020\004\022\032\n\026PROPOSAL_STATUS_FAILED\020\005B\216\001\n\021com" +
+      ".cosmos.gov.v1B\010GovProtoZ\033cosmossdk.io/x" +
+      "/gov/types/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCo" +
+      "smos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352" +
+      "\002\017Cosmos::Gov::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15523,7 +15956,7 @@ public final class GovProto {
     internal_static_cosmos_gov_v1_Proposal_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_Proposal_descriptor,
-        new java.lang.String[] { "Id", "Messages", "Status", "FinalTallyResult", "SubmitTime", "DepositEndTime", "TotalDeposit", "VotingStartTime", "VotingEndTime", "Metadata", "Title", "Summary", "Proposer", "Expedited", });
+        new java.lang.String[] { "Id", "Messages", "Status", "FinalTallyResult", "SubmitTime", "DepositEndTime", "TotalDeposit", "VotingStartTime", "VotingEndTime", "Metadata", "Title", "Summary", "Proposer", "Expedited", "FailedReason", });
     internal_static_cosmos_gov_v1_TallyResult_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_cosmos_gov_v1_TallyResult_fieldAccessorTable = new
@@ -15559,7 +15992,7 @@ public final class GovProto {
     internal_static_cosmos_gov_v1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_Params_descriptor,
-        new java.lang.String[] { "MinDeposit", "MaxDepositPeriod", "VotingPeriod", "Quorum", "Threshold", "VetoThreshold", "MinInitialDepositRatio", "ProposalCancelRatio", "ProposalCancelDest", "ExpeditedVotingPeriod", "ExpeditedThreshold", "ExpeditedMinDeposit", "BurnVoteQuorum", "BurnProposalDepositPrevote", "BurnVoteVeto", });
+        new java.lang.String[] { "MinDeposit", "MaxDepositPeriod", "VotingPeriod", "Quorum", "Threshold", "VetoThreshold", "MinInitialDepositRatio", "ProposalCancelRatio", "ProposalCancelDest", "ExpeditedVotingPeriod", "ExpeditedThreshold", "ExpeditedMinDeposit", "BurnVoteQuorum", "BurnProposalDepositPrevote", "BurnVoteVeto", "MinDepositRatio", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);

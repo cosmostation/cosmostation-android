@@ -1036,7 +1036,7 @@ public final class QueryProto {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
      * @return The consAddress.
      */
     java.lang.String getConsAddress();
@@ -1045,7 +1045,7 @@ public final class QueryProto {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
      * @return The bytes for consAddress.
      */
     com.google.protobuf.ByteString
@@ -1100,7 +1100,7 @@ public final class QueryProto {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
      * @return The consAddress.
      */
     @java.lang.Override
@@ -1121,7 +1121,7 @@ public final class QueryProto {
      * cons_address is the address to query signing info of
      * </pre>
      *
-     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+     * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
      * @return The bytes for consAddress.
      */
     @java.lang.Override
@@ -1476,7 +1476,7 @@ public final class QueryProto {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
        * @return The consAddress.
        */
       public java.lang.String getConsAddress() {
@@ -1496,7 +1496,7 @@ public final class QueryProto {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
        * @return The bytes for consAddress.
        */
       public com.google.protobuf.ByteString
@@ -1517,7 +1517,7 @@ public final class QueryProto {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
        * @param value The consAddress to set.
        * @return This builder for chaining.
        */
@@ -1534,7 +1534,7 @@ public final class QueryProto {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearConsAddress() {
@@ -1548,7 +1548,7 @@ public final class QueryProto {
        * cons_address is the address to query signing info of
        * </pre>
        *
-       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
+       * <code>string cons_address = 1 [json_name = "consAddress", (.cosmos_proto.scalar) = "cosmos.ConsensusAddressString"];</code>
        * @param value The bytes for consAddress to set.
        * @return This builder for chaining.
        */
@@ -4052,38 +4052,38 @@ public final class QueryProto {
       "cosmos_proto/cosmos.proto\032\021amino/amino.p" +
       "roto\"\024\n\022QueryParamsRequest\"Y\n\023QueryParam" +
       "sResponse\022B\n\006params\030\001 \001(\0132\037.cosmos.slash" +
-      "ing.v1beta1.ParamsB\t\310\336\037\000\250\347\260*\001R\006params\"V\n" +
-      "\027QuerySigningInfoRequest\022;\n\014cons_address" +
-      "\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\013consAd" +
-      "dress\"~\n\030QuerySigningInfoResponse\022b\n\020val" +
-      "_signing_info\030\001 \001(\0132-.cosmos.slashing.v1" +
-      "beta1.ValidatorSigningInfoB\t\310\336\037\000\250\347\260*\001R\016v" +
-      "alSigningInfo\"b\n\030QuerySigningInfosReques" +
-      "t\022F\n\npagination\030\001 \001(\0132&.cosmos.base.quer" +
-      "y.v1beta1.PageRequestR\npagination\"\262\001\n\031Qu" +
-      "erySigningInfosResponse\022L\n\004info\030\001 \003(\0132-." +
-      "cosmos.slashing.v1beta1.ValidatorSigning" +
-      "InfoB\t\310\336\037\000\250\347\260*\001R\004info\022G\n\npagination\030\002 \001(" +
-      "\0132\'.cosmos.base.query.v1beta1.PageRespon" +
-      "seR\npagination2\362\003\n\005Query\022\214\001\n\006Params\022+.co" +
-      "smos.slashing.v1beta1.QueryParamsRequest" +
-      "\032,.cosmos.slashing.v1beta1.QueryParamsRe" +
-      "sponse\"\'\202\323\344\223\002!\022\037/cosmos/slashing/v1beta1" +
-      "/params\022\261\001\n\013SigningInfo\0220.cosmos.slashin" +
-      "g.v1beta1.QuerySigningInfoRequest\0321.cosm" +
-      "os.slashing.v1beta1.QuerySigningInfoResp" +
-      "onse\"=\202\323\344\223\0027\0225/cosmos/slashing/v1beta1/s" +
-      "igning_infos/{cons_address}\022\245\001\n\014SigningI" +
-      "nfos\0221.cosmos.slashing.v1beta1.QuerySign" +
-      "ingInfosRequest\0322.cosmos.slashing.v1beta" +
-      "1.QuerySigningInfosResponse\".\202\323\344\223\002(\022&/co" +
-      "smos/slashing/v1beta1/signing_infosB\324\001\n\033" +
-      "com.cosmos.slashing.v1beta1B\nQueryProtoZ" +
-      "-github.com/cosmos/cosmos-sdk/x/slashing" +
-      "/types\242\002\003CSX\252\002\027Cosmos.Slashing.V1beta1\312\002" +
-      "\027Cosmos\\Slashing\\V1beta1\342\002#Cosmos\\Slashi" +
-      "ng\\V1beta1\\GPBMetadata\352\002\031Cosmos::Slashin" +
-      "g::V1beta1b\006proto3"
+      "ing.v1beta1.ParamsB\t\310\336\037\000\250\347\260*\001R\006params\"_\n" +
+      "\027QuerySigningInfoRequest\022D\n\014cons_address" +
+      "\030\001 \001(\tB!\322\264-\035cosmos.ConsensusAddressStrin" +
+      "gR\013consAddress\"~\n\030QuerySigningInfoRespon" +
+      "se\022b\n\020val_signing_info\030\001 \001(\0132-.cosmos.sl" +
+      "ashing.v1beta1.ValidatorSigningInfoB\t\310\336\037" +
+      "\000\250\347\260*\001R\016valSigningInfo\"b\n\030QuerySigningIn" +
+      "fosRequest\022F\n\npagination\030\001 \001(\0132&.cosmos." +
+      "base.query.v1beta1.PageRequestR\npaginati" +
+      "on\"\262\001\n\031QuerySigningInfosResponse\022L\n\004info" +
+      "\030\001 \003(\0132-.cosmos.slashing.v1beta1.Validat" +
+      "orSigningInfoB\t\310\336\037\000\250\347\260*\001R\004info\022G\n\npagina" +
+      "tion\030\002 \001(\0132\'.cosmos.base.query.v1beta1.P" +
+      "ageResponseR\npagination2\362\003\n\005Query\022\214\001\n\006Pa" +
+      "rams\022+.cosmos.slashing.v1beta1.QueryPara" +
+      "msRequest\032,.cosmos.slashing.v1beta1.Quer" +
+      "yParamsResponse\"\'\202\323\344\223\002!\022\037/cosmos/slashin" +
+      "g/v1beta1/params\022\261\001\n\013SigningInfo\0220.cosmo" +
+      "s.slashing.v1beta1.QuerySigningInfoReque" +
+      "st\0321.cosmos.slashing.v1beta1.QuerySignin" +
+      "gInfoResponse\"=\202\323\344\223\0027\0225/cosmos/slashing/" +
+      "v1beta1/signing_infos/{cons_address}\022\245\001\n" +
+      "\014SigningInfos\0221.cosmos.slashing.v1beta1." +
+      "QuerySigningInfosRequest\0322.cosmos.slashi" +
+      "ng.v1beta1.QuerySigningInfosResponse\".\202\323" +
+      "\344\223\002(\022&/cosmos/slashing/v1beta1/signing_i" +
+      "nfosB\304\001\n\033com.cosmos.slashing.v1beta1B\nQu" +
+      "eryProtoZ\035cosmossdk.io/x/slashing/types\242" +
+      "\002\003CSX\252\002\027Cosmos.Slashing.V1beta1\312\002\027Cosmos" +
+      "\\Slashing\\V1beta1\342\002#Cosmos\\Slashing\\V1be" +
+      "ta1\\GPBMetadata\352\002\031Cosmos::Slashing::V1be" +
+      "ta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

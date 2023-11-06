@@ -21995,7 +21995,7 @@ public final class QueryProto {
   /**
    * <pre>
    * QueryGroupsRequest is the Query/Groups request type.
-   * 
+   *
    * Since: cosmos-sdk 0.47.1
    * </pre>
    *
@@ -22236,7 +22236,7 @@ public final class QueryProto {
     /**
      * <pre>
      * QueryGroupsRequest is the Query/Groups request type.
-     * 
+     *
      * Since: cosmos-sdk 0.47.1
      * </pre>
      *
@@ -22711,7 +22711,7 @@ public final class QueryProto {
   /**
    * <pre>
    * QueryGroupsResponse is the Query/Groups response type.
-   * 
+   *
    * Since: cosmos-sdk 0.47.1
    * </pre>
    *
@@ -23027,7 +23027,7 @@ public final class QueryProto {
     /**
      * <pre>
      * QueryGroupsResponse is the Query/Groups response type.
-     * 
+     *
      * Since: cosmos-sdk 0.47.1
      * </pre>
      *
@@ -24094,11 +24094,11 @@ public final class QueryProto {
       "osals/{proposal_id}/tally\022t\n\006Groups\022#.co" +
       "smos.group.v1.QueryGroupsRequest\032$.cosmo" +
       "s.group.v1.QueryGroupsResponse\"\037\202\323\344\223\002\031\022\027" +
-      "/cosmos/group/v1/groupsB\243\001\n\023com.cosmos.g" +
-      "roup.v1B\nQueryProtoZ$github.com/cosmos/c" +
-      "osmos-sdk/x/group\242\002\003CGX\252\002\017Cosmos.Group.V" +
-      "1\312\002\017Cosmos\\Group\\V1\342\002\033Cosmos\\Group\\V1\\GP" +
-      "BMetadata\352\002\021Cosmos::Group::V1b\006proto3"
+      "/cosmos/group/v1/groupsB\223\001\n\023com.cosmos.g" +
+      "roup.v1B\nQueryProtoZ\024cosmossdk.io/x/grou" +
+      "p\242\002\003CGX\252\002\017Cosmos.Group.V1\312\002\017Cosmos\\Group" +
+      "\\V1\342\002\033Cosmos\\Group\\V1\\GPBMetadata\352\002\021Cosm" +
+      "os::Group::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

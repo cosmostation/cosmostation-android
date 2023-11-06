@@ -626,14 +626,14 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n&cosmos/slashing/module/v1/module.proto" +
       "\022\031cosmos.slashing.module.v1\032 cosmos/app/" +
-      "v1alpha1/module.proto\"W\n\006Module\022\034\n\tautho" +
-      "rity\030\001 \001(\tR\tauthority:/\272\300\226\332\001)\n\'github.co" +
-      "m/cosmos/cosmos-sdk/x/slashingB\261\001\n\035com.c" +
-      "osmos.slashing.module.v1B\013ModuleProto\242\002\003" +
-      "CSM\252\002\031Cosmos.Slashing.Module.V1\312\002\031Cosmos" +
-      "\\Slashing\\Module\\V1\342\002%Cosmos\\Slashing\\Mo" +
-      "dule\\V1\\GPBMetadata\352\002\034Cosmos::Slashing::" +
-      "Module::V1b\006proto3"
+      "v1alpha1/module.proto\"G\n\006Module\022\034\n\tautho" +
+      "rity\030\001 \001(\tR\tauthority:\037\272\300\226\332\001\031\n\027cosmossdk" +
+      ".io/x/slashingB\261\001\n\035com.cosmos.slashing.m" +
+      "odule.v1B\013ModuleProto\242\002\003CSM\252\002\031Cosmos.Sla" +
+      "shing.Module.V1\312\002\031Cosmos\\Slashing\\Module" +
+      "\\V1\342\002%Cosmos\\Slashing\\Module\\V1\\GPBMetad" +
+      "ata\352\002\034Cosmos::Slashing::Module::V1b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

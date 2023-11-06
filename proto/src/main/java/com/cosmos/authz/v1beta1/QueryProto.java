@@ -4339,7 +4339,7 @@ public final class QueryProto {
   }
   /**
    * <pre>
-   * QueryGranteeGrantsRequest is the request type for the Query/IssuedGrants RPC method.
+   * QueryGranteeGrantsRequest is the request type for the Query/GranteeGrants RPC method.
    * </pre>
    *
    * Protobuf type {@code cosmos.authz.v1beta1.QueryGranteeGrantsRequest}
@@ -4628,7 +4628,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * QueryGranteeGrantsRequest is the request type for the Query/IssuedGrants RPC method.
+     * QueryGranteeGrantsRequest is the request type for the Query/GranteeGrants RPC method.
      * </pre>
      *
      * Protobuf type {@code cosmos.authz.v1beta1.QueryGranteeGrantsRequest}
@@ -6349,12 +6349,12 @@ public final class QueryProto {
       "cosmos.authz.v1beta1.QueryGranteeGrantsR" +
       "equest\0320.cosmos.authz.v1beta1.QueryGrant" +
       "eeGrantsResponse\"6\202\323\344\223\0020\022./cosmos/authz/" +
-      "v1beta1/grants/grantee/{grantee}B\274\001\n\030com" +
-      ".cosmos.authz.v1beta1B\nQueryProtoZ$githu" +
-      "b.com/cosmos/cosmos-sdk/x/authz\242\002\003CAX\252\002\024" +
-      "Cosmos.Authz.V1beta1\312\002\024Cosmos\\Authz\\V1be" +
-      "ta1\342\002 Cosmos\\Authz\\V1beta1\\GPBMetadata\352\002" +
-      "\026Cosmos::Authz::V1beta1b\006proto3"
+      "v1beta1/grants/grantee/{grantee}B\254\001\n\030com" +
+      ".cosmos.authz.v1beta1B\nQueryProtoZ\024cosmo" +
+      "ssdk.io/x/authz\242\002\003CAX\252\002\024Cosmos.Authz.V1b" +
+      "eta1\312\002\024Cosmos\\Authz\\V1beta1\342\002 Cosmos\\Aut" +
+      "hz\\V1beta1\\GPBMetadata\352\002\026Cosmos::Authz::" +
+      "V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

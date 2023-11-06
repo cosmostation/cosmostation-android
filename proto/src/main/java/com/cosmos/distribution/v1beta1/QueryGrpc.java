@@ -473,8 +473,11 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
+     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     default void communityPool(com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request,
         io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCommunityPoolMethod(), responseObserver);
@@ -617,8 +620,11 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
+     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     public void communityPool(com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request,
         io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -739,8 +745,11 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
+     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     public com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse communityPool(com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCommunityPoolMethod(), getCallOptions(), request);
@@ -869,8 +878,11 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
+     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse> communityPool(
         com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(

@@ -4211,7 +4211,7 @@ public final class TxProto {
 
   }
 
-  public interface MsgFundCommunityPoolOrBuilder extends
+  @java.lang.Deprecated public interface MsgFundCommunityPoolOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.MsgFundCommunityPool)
       com.google.protobuf.MessageOrBuilder {
 
@@ -4255,11 +4255,14 @@ public final class TxProto {
    * <pre>
    * MsgFundCommunityPool allows an account to directly
    * fund the community pool.
+   *
+   * Deprecated: Use x/protocolpool module's MsgFundCommunityPool instead.
+   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgFundCommunityPool}
    */
-  public static final class MsgFundCommunityPool extends
+  @java.lang.Deprecated public static final class MsgFundCommunityPool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgFundCommunityPool)
       MsgFundCommunityPoolOrBuilder {
@@ -4546,6 +4549,9 @@ public final class TxProto {
      * <pre>
      * MsgFundCommunityPool allows an account to directly
      * fund the community pool.
+     *
+     * Deprecated: Use x/protocolpool module's MsgFundCommunityPool instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.MsgFundCommunityPool}
@@ -5151,18 +5157,21 @@ public final class TxProto {
 
   }
 
-  public interface MsgFundCommunityPoolResponseOrBuilder extends
+  @java.lang.Deprecated public interface MsgFundCommunityPoolResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse)
       com.google.protobuf.MessageOrBuilder {
   }
   /**
    * <pre>
    * MsgFundCommunityPoolResponse defines the Msg/FundCommunityPool response type.
+   *
+   * Deprecated
+   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse}
    */
-  public static final class MsgFundCommunityPoolResponse extends
+  @java.lang.Deprecated public static final class MsgFundCommunityPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse)
       MsgFundCommunityPoolResponseOrBuilder {
@@ -5343,6 +5352,9 @@ public final class TxProto {
     /**
      * <pre>
      * MsgFundCommunityPoolResponse defines the Msg/FundCommunityPool response type.
+     *
+     * Deprecated
+     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse}
@@ -6853,7 +6865,7 @@ public final class TxProto {
 
   }
 
-  public interface MsgCommunityPoolSpendOrBuilder extends
+  @java.lang.Deprecated public interface MsgCommunityPoolSpendOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.MsgCommunityPoolSpend)
       com.google.protobuf.MessageOrBuilder {
 
@@ -6915,16 +6927,13 @@ public final class TxProto {
   }
   /**
    * <pre>
-   * MsgCommunityPoolSpend defines a message for sending tokens from the community
-   * pool to another account. This message is typically executed via a governance
-   * proposal with the governance module being the executing authority.
-   *
-   * Since: cosmos-sdk 0.47
+   * Deprecated: Use x/protocolpool module's MsgCommunityPoolSpend instead
+   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgCommunityPoolSpend}
    */
-  public static final class MsgCommunityPoolSpend extends
+  @java.lang.Deprecated public static final class MsgCommunityPoolSpend extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgCommunityPoolSpend)
       MsgCommunityPoolSpendOrBuilder {
@@ -7267,11 +7276,8 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * MsgCommunityPoolSpend defines a message for sending tokens from the community
-     * pool to another account. This message is typically executed via a governance
-     * proposal with the governance module being the executing authority.
-     *
-     * Since: cosmos-sdk 0.47
+     * Deprecated: Use x/protocolpool module's MsgCommunityPoolSpend instead
+     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.MsgCommunityPoolSpend}
@@ -7983,7 +7989,7 @@ public final class TxProto {
 
   }
 
-  public interface MsgCommunityPoolSpendResponseOrBuilder extends
+  @java.lang.Deprecated public interface MsgCommunityPoolSpendResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.MsgCommunityPoolSpendResponse)
       com.google.protobuf.MessageOrBuilder {
   }
@@ -7992,12 +7998,13 @@ public final class TxProto {
    * MsgCommunityPoolSpendResponse defines the response to executing a
    * MsgCommunityPoolSpend message.
    *
-   * Since: cosmos-sdk 0.47
+   * Deprecated
+   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgCommunityPoolSpendResponse}
    */
-  public static final class MsgCommunityPoolSpendResponse extends
+  @java.lang.Deprecated public static final class MsgCommunityPoolSpendResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgCommunityPoolSpendResponse)
       MsgCommunityPoolSpendResponseOrBuilder {
@@ -8180,7 +8187,8 @@ public final class TxProto {
      * MsgCommunityPoolSpendResponse defines the response to executing a
      * MsgCommunityPoolSpend message.
      *
-     * Since: cosmos-sdk 0.47
+     * Deprecated
+     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.MsgCommunityPoolSpendResponse}
@@ -10008,69 +10016,69 @@ public final class TxProto {
       "\022y\n\006amount\030\001 \003(\0132\031.cosmos.base.v1beta1.C" +
       "oinBF\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sd" +
       "k/types.Coins\232\347\260*\014legacy_coins\250\347\260*\001R\006amo" +
-      "unt\"\205\002\n\024MsgFundCommunityPool\022y\n\006amount\030\001" +
+      "unt\"\207\002\n\024MsgFundCommunityPool\022y\n\006amount\030\001" +
       " \003(\0132\031.cosmos.base.v1beta1.CoinBF\310\336\037\000\252\337\037" +
       "(github.com/cosmos/cosmos-sdk/types.Coin" +
       "s\232\347\260*\014legacy_coins\250\347\260*\001R\006amount\0226\n\tdepos" +
       "itor\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\tde" +
-      "positor::\210\240\037\000\350\240\037\000\202\347\260*\tdepositor\212\347\260*\037cosm" +
-      "os-sdk/MsgFundCommunityPool\"\036\n\034MsgFundCo" +
-      "mmunityPoolResponse\"\315\001\n\017MsgUpdateParams\022" +
-      "6\n\tauthority\030\001 \001(\tB\030\322\264-\024cosmos.AddressSt" +
-      "ringR\tauthority\022F\n\006params\030\002 \001(\0132#.cosmos" +
-      ".distribution.v1beta1.ParamsB\t\310\336\037\000\250\347\260*\001R" +
-      "\006params::\202\347\260*\tauthority\212\347\260*\'cosmos-sdk/d" +
-      "istribution/MsgUpdateParams\"\031\n\027MsgUpdate" +
-      "ParamsResponse\"\243\002\n\025MsgCommunityPoolSpend" +
-      "\0226\n\tauthority\030\001 \001(\tB\030\322\264-\024cosmos.AddressS" +
-      "tringR\tauthority\022\034\n\trecipient\030\002 \001(\tR\trec" +
-      "ipient\022y\n\006amount\030\003 \003(\0132\031.cosmos.base.v1b" +
-      "eta1.CoinBF\310\336\037\000\252\337\037(github.com/cosmos/cos" +
-      "mos-sdk/types.Coins\232\347\260*\014legacy_coins\250\347\260*" +
-      "\001R\006amount:9\202\347\260*\tauthority\212\347\260*&cosmos-sdk" +
-      "/distr/MsgCommunityPoolSpend\"\037\n\035MsgCommu" +
-      "nityPoolSpendResponse\"\345\002\n\036MsgDepositVali" +
-      "datorRewardsPool\0226\n\tdepositor\030\001 \001(\tB\030\322\264-" +
-      "\024cosmos.AddressStringR\tdepositor\022N\n\021vali" +
-      "dator_address\030\002 \001(\tB!\322\264-\035cosmos.Validato" +
-      "rAddressStringR\020validatorAddress\022y\n\006amou" +
-      "nt\030\003 \003(\0132\031.cosmos.base.v1beta1.CoinBF\310\336\037" +
-      "\000\252\337\037(github.com/cosmos/cosmos-sdk/types." +
-      "Coins\232\347\260*\014legacy_coins\250\347\260*\001R\006amount:@\210\240\037" +
-      "\000\350\240\037\000\202\347\260*\tdepositor\212\347\260*%cosmos-sdk/distr" +
-      "/MsgDepositValRewards\"(\n&MsgDepositValid" +
-      "atorRewardsPoolResponse2\354\007\n\003Msg\022\204\001\n\022SetW" +
-      "ithdrawAddress\0222.cosmos.distribution.v1b" +
-      "eta1.MsgSetWithdrawAddress\032:.cosmos.dist" +
-      "ribution.v1beta1.MsgSetWithdrawAddressRe" +
-      "sponse\022\223\001\n\027WithdrawDelegatorReward\0227.cos" +
-      "mos.distribution.v1beta1.MsgWithdrawDele" +
-      "gatorReward\032?.cosmos.distribution.v1beta" +
-      "1.MsgWithdrawDelegatorRewardResponse\022\237\001\n" +
-      "\033WithdrawValidatorCommission\022;.cosmos.di" +
-      "stribution.v1beta1.MsgWithdrawValidatorC" +
-      "ommission\032C.cosmos.distribution.v1beta1." +
-      "MsgWithdrawValidatorCommissionResponse\022\201" +
-      "\001\n\021FundCommunityPool\0221.cosmos.distributi" +
-      "on.v1beta1.MsgFundCommunityPool\0329.cosmos" +
-      ".distribution.v1beta1.MsgFundCommunityPo" +
-      "olResponse\022r\n\014UpdateParams\022,.cosmos.dist" +
-      "ribution.v1beta1.MsgUpdateParams\0324.cosmo" +
-      "s.distribution.v1beta1.MsgUpdateParamsRe" +
-      "sponse\022\204\001\n\022CommunityPoolSpend\0222.cosmos.d" +
-      "istribution.v1beta1.MsgCommunityPoolSpen" +
-      "d\032:.cosmos.distribution.v1beta1.MsgCommu" +
-      "nityPoolSpendResponse\022\237\001\n\033DepositValidat" +
-      "orRewardsPool\022;.cosmos.distribution.v1be" +
-      "ta1.MsgDepositValidatorRewardsPool\032C.cos" +
-      "mos.distribution.v1beta1.MsgDepositValid" +
-      "atorRewardsPoolResponse\032\005\200\347\260*\001B\355\001\n\037com.c" +
-      "osmos.distribution.v1beta1B\007TxProtoZ1git" +
-      "hub.com/cosmos/cosmos-sdk/x/distribution" +
-      "/types\242\002\003CDX\252\002\033Cosmos.Distribution.V1bet" +
-      "a1\312\002\033Cosmos\\Distribution\\V1beta1\342\002\'Cosmo" +
-      "s\\Distribution\\V1beta1\\GPBMetadata\352\002\035Cos" +
-      "mos::Distribution::V1beta1\250\342\036\001b\006proto3"
+      "positor:<\030\001\210\240\037\000\350\240\037\000\202\347\260*\tdepositor\212\347\260*\037co" +
+      "smos-sdk/MsgFundCommunityPool\"\"\n\034MsgFund" +
+      "CommunityPoolResponse:\002\030\001\"\315\001\n\017MsgUpdateP" +
+      "arams\0226\n\tauthority\030\001 \001(\tB\030\322\264-\024cosmos.Add" +
+      "ressStringR\tauthority\022F\n\006params\030\002 \001(\0132#." +
+      "cosmos.distribution.v1beta1.ParamsB\t\310\336\037\000" +
+      "\250\347\260*\001R\006params::\202\347\260*\tauthority\212\347\260*\'cosmos" +
+      "-sdk/distribution/MsgUpdateParams\"\031\n\027Msg" +
+      "UpdateParamsResponse\"\245\002\n\025MsgCommunityPoo" +
+      "lSpend\0226\n\tauthority\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressStringR\tauthority\022\034\n\trecipient\030\002 \001(" +
+      "\tR\trecipient\022y\n\006amount\030\003 \003(\0132\031.cosmos.ba" +
+      "se.v1beta1.CoinBF\310\336\037\000\252\337\037(github.com/cosm" +
+      "os/cosmos-sdk/types.Coins\232\347\260*\014legacy_coi" +
+      "ns\250\347\260*\001R\006amount:;\030\001\202\347\260*\tauthority\212\347\260*&co" +
+      "smos-sdk/distr/MsgCommunityPoolSpend\"#\n\035" +
+      "MsgCommunityPoolSpendResponse:\002\030\001\"\345\002\n\036Ms" +
+      "gDepositValidatorRewardsPool\0226\n\tdeposito" +
+      "r\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\tdepos" +
+      "itor\022N\n\021validator_address\030\002 \001(\tB!\322\264-\035cos" +
+      "mos.ValidatorAddressStringR\020validatorAdd" +
+      "ress\022y\n\006amount\030\003 \003(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinBF\310\336\037\000\252\337\037(github.com/cosmos/cosmo" +
+      "s-sdk/types.Coins\232\347\260*\014legacy_coins\250\347\260*\001R" +
+      "\006amount:@\210\240\037\000\350\240\037\000\202\347\260*\tdepositor\212\347\260*%cosm" +
+      "os-sdk/distr/MsgDepositValRewards\"(\n&Msg" +
+      "DepositValidatorRewardsPoolResponse2\361\007\n\003" +
+      "Msg\022\204\001\n\022SetWithdrawAddress\0222.cosmos.dist" +
+      "ribution.v1beta1.MsgSetWithdrawAddress\032:" +
+      ".cosmos.distribution.v1beta1.MsgSetWithd" +
+      "rawAddressResponse\022\223\001\n\027WithdrawDelegator" +
+      "Reward\0227.cosmos.distribution.v1beta1.Msg" +
+      "WithdrawDelegatorReward\032?.cosmos.distrib" +
+      "ution.v1beta1.MsgWithdrawDelegatorReward" +
+      "Response\022\237\001\n\033WithdrawValidatorCommission" +
+      "\022;.cosmos.distribution.v1beta1.MsgWithdr" +
+      "awValidatorCommission\032C.cosmos.distribut" +
+      "ion.v1beta1.MsgWithdrawValidatorCommissi" +
+      "onResponse\022\206\001\n\021FundCommunityPool\0221.cosmo" +
+      "s.distribution.v1beta1.MsgFundCommunityP" +
+      "ool\0329.cosmos.distribution.v1beta1.MsgFun" +
+      "dCommunityPoolResponse\"\003\210\002\001\022r\n\014UpdatePar" +
+      "ams\022,.cosmos.distribution.v1beta1.MsgUpd" +
+      "ateParams\0324.cosmos.distribution.v1beta1." +
+      "MsgUpdateParamsResponse\022\204\001\n\022CommunityPoo" +
+      "lSpend\0222.cosmos.distribution.v1beta1.Msg" +
+      "CommunityPoolSpend\032:.cosmos.distribution" +
+      ".v1beta1.MsgCommunityPoolSpendResponse\022\237" +
+      "\001\n\033DepositValidatorRewardsPool\022;.cosmos." +
+      "distribution.v1beta1.MsgDepositValidator" +
+      "RewardsPool\032C.cosmos.distribution.v1beta" +
+      "1.MsgDepositValidatorRewardsPoolResponse" +
+      "\032\005\200\347\260*\001B\335\001\n\037com.cosmos.distribution.v1be" +
+      "ta1B\007TxProtoZ!cosmossdk.io/x/distributio" +
+      "n/types\242\002\003CDX\252\002\033Cosmos.Distribution.V1be" +
+      "ta1\312\002\033Cosmos\\Distribution\\V1beta1\342\002\'Cosm" +
+      "os\\Distribution\\V1beta1\\GPBMetadata\352\002\035Co" +
+      "smos::Distribution::V1beta1\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

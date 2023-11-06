@@ -6369,12 +6369,11 @@ public final class TxProto {
       "d\032+.cosmos.gov.v1beta1.MsgVoteWeightedRe" +
       "sponse\022Q\n\007Deposit\022\036.cosmos.gov.v1beta1.M" +
       "sgDeposit\032&.cosmos.gov.v1beta1.MsgDeposi" +
-      "tResponse\032\005\200\347\260*\001B\273\001\n\026com.cosmos.gov.v1be" +
-      "ta1B\007TxProtoZ0github.com/cosmos/cosmos-s" +
-      "dk/x/gov/types/v1beta1\242\002\003CGX\252\002\022Cosmos.Go" +
-      "v.V1beta1\312\002\022Cosmos\\Gov\\V1beta1\342\002\036Cosmos\\" +
-      "Gov\\V1beta1\\GPBMetadata\352\002\024Cosmos::Gov::V" +
-      "1beta1b\006proto3"
+      "tResponse\032\005\200\347\260*\001B\253\001\n\026com.cosmos.gov.v1be" +
+      "ta1B\007TxProtoZ cosmossdk.io/x/gov/types/v" +
+      "1beta1\242\002\003CGX\252\002\022Cosmos.Gov.V1beta1\312\002\022Cosm" +
+      "os\\Gov\\V1beta1\342\002\036Cosmos\\Gov\\V1beta1\\GPBM" +
+      "etadata\352\002\024Cosmos::Gov::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

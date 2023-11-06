@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Asset
+import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentTransferBinding
@@ -69,7 +70,6 @@ class TransferFragment(
     private val binding get() = _binding!!
 
     private var recipientAbleChains: MutableList<CosmosLine> = mutableListOf()
-    private var txType: TxType? = null
     private var transferAssetType: TransferAssetType? = null
     private var selectedAsset: Asset? = null
     private var selectedToken: Token? = null
@@ -82,6 +82,7 @@ class TransferFragment(
     private var toSendAmount = ""
     private var existedAddress = ""
     private var txMemo = ""
+    private var assetPath: AssetPath? = null
 
     private var availableAmount = BigDecimal.ZERO
 
@@ -172,6 +173,7 @@ class TransferFragment(
 
                 } ?: run {
                 selectedChain.tokens.first { it.address == toSendDenom }.let { token ->
+                    selectedToken = token
                     transferAssetType = if (toSendDenom.startsWith("0x")) {
                         TransferAssetType.ERC20_TRANSFER
                     } else {
@@ -259,7 +261,8 @@ class TransferFragment(
 
                 BaseData.getAsset(selectedChain.apiName, toSendDenom)?.let {
                     it.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.HALF_DOWN)
                         val price = BaseData.getPrice(selectedAsset?.coinGeckoId)
                         val value = price.multiply(dpAmount)
 
@@ -300,10 +303,12 @@ class TransferFragment(
                     val price = BaseData.getPrice(asset.coinGeckoId)
 
                     asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
+                        val dpAmount =
+                            amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
                         feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
+                        val value = price.multiply(amount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.HALF_DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -313,7 +318,8 @@ class TransferFragment(
                 val balanceAmount = selectedChain.balanceAmount(toSendDenom)
                 if (txFee?.getAmount(0)?.denom == toSendDenom) {
                     val feeAmount = BigDecimal(txFee?.getAmount(0)?.amount)
-                    if (feeAmount > balanceAmount) { }
+                    if (feeAmount > balanceAmount) {
+                    }
                     balanceAmount.subtract(feeAmount)
                 } else {
                     balanceAmount
@@ -330,10 +336,20 @@ class TransferFragment(
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.color_base03
+                    )
+                )
             } else {
                 tabMemoMsg.text = txMemo
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.color_base01
+                    )
+                )
             }
         }
         txSimul()
@@ -351,8 +367,13 @@ class TransferFragment(
                     isClickable = false
                     ChainFragment(recipientAbleChains, object : ChainSelectListener {
                         override fun select(chainId: String) {
-                            selectedRecipientChain = recipientAbleChains.firstOrNull { it.chainId == chainId }
-                            updateChainView()
+                            if (chainId != selectedRecipientChain?.chainId) {
+                                selectedRecipientChain =
+                                    recipientAbleChains.firstOrNull { it.chainId == chainId }
+                                recipientAddress.text = ""
+                                updateChainView()
+                                updateAddressView(recipientAddress.text.toString().trim())
+                            }
                         }
                     }).show(
                         requireActivity().supportFragmentManager, ChainFragment::class.java.name
@@ -379,7 +400,10 @@ class TransferFragment(
                                 updateAmountView(toAmount)
                             }
 
-                        }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
+                        }).show(
+                        requireActivity().supportFragmentManager,
+                        InsertAmountFragment::class.java.name
+                    )
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true
@@ -390,12 +414,17 @@ class TransferFragment(
             addressView.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    AddressFragment(selectedChain, selectedRecipientChain, existedAddress, AddressType.DEFAULT_TRANSFER, object : AddressListener {
-                        override fun address(address: String) {
-                            updateAddressView(address)
-                        }
+                    AddressFragment(
+                        selectedChain,
+                        selectedRecipientChain,
+                        existedAddress,
+                        AddressType.DEFAULT_TRANSFER,
+                        object : AddressListener {
+                            override fun address(address: String) {
+                                updateAddressView(address)
+                            }
 
-                    }).show(
+                        }).show(
                         requireActivity().supportFragmentManager, AddressFragment::class.java.name
                     )
 
@@ -408,23 +437,28 @@ class TransferFragment(
             feeTokenLayout.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            var tempCoin: CoinProto.Coin? = null
-                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
-                                if (feeCoin.denom == denom) {
-                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
-                                }
+                    AssetFragment(
+                        selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                var tempCoin: CoinProto.Coin? = null
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .forEach { feeCoin ->
+                                        if (feeCoin.denom == denom) {
+                                            tempCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
+                                        }
+                                    }
+                                val tempTxFee = TxProto.Fee.newBuilder()
+                                    .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                    .addAmount(tempCoin).build()
+                                txFee = tempTxFee
+                                updateFeeView()
+                                txSimul()
                             }
-                            val tempTxFee = TxProto.Fee.newBuilder()
-                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                .addAmount(tempCoin).build()
-                            txFee = tempTxFee
-                            updateFeeView()
-                            txSimul()
-                        }
 
-                    }).show(
+                        }).show(
                         requireActivity().supportFragmentManager, ChainFragment::class.java.name
                     )
 
@@ -436,7 +470,11 @@ class TransferFragment(
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom)
+                txFee = selectedChain.getBaseFee(
+                    requireContext(),
+                    selectedFeeInfo,
+                    txFee?.getAmount(0)?.denom
+                )
                 updateFeeView()
                 txSimul()
             }
@@ -462,7 +500,10 @@ class TransferFragment(
             btnSend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     sendResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom,
+                        R.anim.anim_fade_out
+                    )
                 }
             }
         }
@@ -472,23 +513,79 @@ class TransferFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadcastSend(getChannel(), selectedChain.address, onBindSend(), txFee, txMemo, selectedChain)
+                if (selectedChain.chainId == selectedRecipientChain?.chainId) {
+                    if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+                        txViewModel.broadcastSend(
+                            getChannel(),
+                            selectedChain.address,
+                            onBindSend(),
+                            txFee,
+                            txMemo,
+                            selectedChain
+                        )
+                    }
+
+                } else {
+                    if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+                        txViewModel.broadcastIbcSend(
+                            getChannel(),
+                            getRecipientChannel(),
+                            existedAddress,
+                            assetPath,
+                            toSendDenom,
+                            toSendAmount,
+                            txFee,
+                            txMemo,
+                            selectedChain
+                        )
+                    }
+                }
             }
         }
 
     private fun txSimul() {
         binding.apply {
-            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
-            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
+            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) {
+                return
+            }
+            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
+                return
+            }
 
             backdropLayout.visibility = View.VISIBLE
 
             if (selectedChain.chainId == selectedRecipientChain?.chainId) {
                 if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                    txViewModel.simulateSend(getChannel(), selectedChain.address, onBindSend(), txFee, txMemo)
+                    txViewModel.simulateSend(
+                        getChannel(),
+                        selectedChain.address,
+                        onBindSend(),
+                        txFee,
+                        txMemo
+                    )
 
                 } else {
 
+                }
+
+            } else {
+                selectedRecipientChain?.let { toChain ->
+                    assetPath = assetPath(selectedChain, toChain, toSendDenom)
+                    if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+                        txViewModel.simulateIbcSend(
+                            getChannel(),
+                            getRecipientChannel(),
+                            selectedChain.address,
+                            existedAddress,
+                            assetPath,
+                            toSendDenom,
+                            toSendAmount,
+                            txFee,
+                            txMemo
+                        )
+                    } else {
+
+                    }
                 }
             }
         }
@@ -509,13 +606,20 @@ class TransferFragment(
 
     private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_DOWN)
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_DOWN)
 
-                val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
-            }
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }
@@ -543,12 +647,23 @@ class TransferFragment(
     }
 
     private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort).useTransportSecurity().build()
+        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort)
+            .useTransportSecurity().build()
+    }
+
+    private fun getRecipientChannel(): ManagedChannel? {
+        selectedRecipientChain?.let {
+            return ManagedChannelBuilder.forAddress(it.grpcHost, it.grpcPort).useTransportSecurity().build()
+        } ?: run {
+            return null
+        }
     }
 
     private fun onBindSend(): MsgSend {
-        val sendCoin = CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
-        return MsgSend.newBuilder().setFromAddress(selectedChain.address).setToAddress(existedAddress).addAmount(sendCoin).build()
+        val sendCoin =
+            CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+        return MsgSend.newBuilder().setFromAddress(selectedChain.address)
+            .setToAddress(existedAddress).addAmount(sendCoin).build()
     }
 
     private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
@@ -605,3 +720,37 @@ class TransferFragment(
 }
 
 enum class TransferAssetType { COIN_TRANSFER, CW20_TRANSFER, ERC20_TRANSFER }
+
+fun assetPath(fromChain: CosmosLine, toChain: CosmosLine, denom: String): AssetPath? {
+    val msAsset = BaseData.assets?.firstOrNull { it.denom?.lowercase() == denom.lowercase() }
+    val msToken = fromChain.tokens.firstOrNull { it.address == denom }
+    var result: AssetPath? = null
+
+    BaseData.assets?.forEach { asset ->
+        if (msAsset != null) {
+            if (asset.chain == fromChain.apiName &&
+                asset.beforeChain(fromChain.apiName) == toChain.apiName &&
+                asset.denom.equals(denom, true)
+            ) {
+                return AssetPath(asset.channel, asset.port)
+            }
+            if (asset.chain == toChain.apiName &&
+                asset.beforeChain(toChain.apiName) == fromChain.apiName &&
+                asset.counterParty?.denom?.equals(denom, true) == true
+            ) {
+                result = AssetPath(asset.counterParty.channel, asset.counterParty.port)
+            }
+
+        } else {
+            if (msToken != null) {
+                if (asset.chain == toChain.apiName &&
+                    asset.beforeChain(toChain.apiName) == fromChain.apiName &&
+                    asset.counterParty?.denom.equals(msToken.address, true)
+                ) {
+                    result = AssetPath(asset.counterParty?.channel, asset.counterParty?.port)
+                }
+            }
+        }
+    }
+    return result
+}

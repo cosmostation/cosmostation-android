@@ -22425,12 +22425,11 @@ public final class TxProto {
       "\022\030.cosmos.group.v1.MsgExec\032 .cosmos.grou" +
       "p.v1.MsgExecResponse\022T\n\nLeaveGroup\022\036.cos" +
       "mos.group.v1.MsgLeaveGroup\032&.cosmos.grou" +
-      "p.v1.MsgLeaveGroupResponse\032\005\200\347\260*\001B\240\001\n\023co" +
-      "m.cosmos.group.v1B\007TxProtoZ$github.com/c" +
-      "osmos/cosmos-sdk/x/group\242\002\003CGX\252\002\017Cosmos." +
-      "Group.V1\312\002\017Cosmos\\Group\\V1\342\002\033Cosmos\\Grou" +
-      "p\\V1\\GPBMetadata\352\002\021Cosmos::Group::V1b\006pr" +
-      "oto3"
+      "p.v1.MsgLeaveGroupResponse\032\005\200\347\260*\001B\220\001\n\023co" +
+      "m.cosmos.group.v1B\007TxProtoZ\024cosmossdk.io" +
+      "/x/group\242\002\003CGX\252\002\017Cosmos.Group.V1\312\002\017Cosmo" +
+      "s\\Group\\V1\342\002\033Cosmos\\Group\\V1\\GPBMetadata" +
+      "\352\002\021Cosmos::Group::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

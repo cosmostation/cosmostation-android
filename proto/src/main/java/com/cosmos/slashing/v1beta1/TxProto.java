@@ -2325,13 +2325,12 @@ public final class TxProto {
       ".v1beta1.MsgUnjailResponse\022j\n\014UpdatePara" +
       "ms\022(.cosmos.slashing.v1beta1.MsgUpdatePa" +
       "rams\0320.cosmos.slashing.v1beta1.MsgUpdate" +
-      "ParamsResponse\032\005\200\347\260*\001B\325\001\n\033com.cosmos.sla" +
-      "shing.v1beta1B\007TxProtoZ-github.com/cosmo" +
-      "s/cosmos-sdk/x/slashing/types\242\002\003CSX\252\002\027Co" +
-      "smos.Slashing.V1beta1\312\002\027Cosmos\\Slashing\\" +
-      "V1beta1\342\002#Cosmos\\Slashing\\V1beta1\\GPBMet" +
-      "adata\352\002\031Cosmos::Slashing::V1beta1\250\342\036\001b\006p" +
-      "roto3"
+      "ParamsResponse\032\005\200\347\260*\001B\305\001\n\033com.cosmos.sla" +
+      "shing.v1beta1B\007TxProtoZ\035cosmossdk.io/x/s" +
+      "lashing/types\242\002\003CSX\252\002\027Cosmos.Slashing.V1" +
+      "beta1\312\002\027Cosmos\\Slashing\\V1beta1\342\002#Cosmos" +
+      "\\Slashing\\V1beta1\\GPBMetadata\352\002\031Cosmos::" +
+      "Slashing::V1beta1\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

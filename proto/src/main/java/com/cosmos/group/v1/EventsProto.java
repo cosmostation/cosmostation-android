@@ -5250,6 +5250,908 @@ public final class EventsProto {
 
   }
 
+  public interface EventProposalPrunedOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.group.v1.EventProposalPruned)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * proposal_id is the unique ID of the proposal.
+     * </pre>
+     *
+     * <code>uint64 proposal_id = 1 [json_name = "proposalId"];</code>
+     * @return The proposalId.
+     */
+    long getProposalId();
+
+    /**
+     * <pre>
+     * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <pre>
+     * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+     * @return The status.
+     */
+    com.cosmos.group.v1.TypesProto.ProposalStatus getStatus();
+
+    /**
+     * <pre>
+     * tally_result is the proposal tally result (when applicable).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+     * @return Whether the tallyResult field is set.
+     */
+    boolean hasTallyResult();
+    /**
+     * <pre>
+     * tally_result is the proposal tally result (when applicable).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+     * @return The tallyResult.
+     */
+    com.cosmos.group.v1.TypesProto.TallyResult getTallyResult();
+    /**
+     * <pre>
+     * tally_result is the proposal tally result (when applicable).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+     */
+    com.cosmos.group.v1.TypesProto.TallyResultOrBuilder getTallyResultOrBuilder();
+  }
+  /**
+   * <pre>
+   * EventProposalPruned is an event emitted when a proposal is pruned.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.group.v1.EventProposalPruned}
+   */
+  public static final class EventProposalPruned extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.group.v1.EventProposalPruned)
+      EventProposalPrunedOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use EventProposalPruned.newBuilder() to construct.
+    private EventProposalPruned(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EventProposalPruned() {
+      status_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new EventProposalPruned();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.cosmos.group.v1.EventsProto.internal_static_cosmos_group_v1_EventProposalPruned_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.cosmos.group.v1.EventsProto.internal_static_cosmos_group_v1_EventProposalPruned_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.cosmos.group.v1.EventsProto.EventProposalPruned.class, com.cosmos.group.v1.EventsProto.EventProposalPruned.Builder.class);
+    }
+
+    public static final int PROPOSAL_ID_FIELD_NUMBER = 1;
+    private long proposalId_ = 0L;
+    /**
+     * <pre>
+     * proposal_id is the unique ID of the proposal.
+     * </pre>
+     *
+     * <code>uint64 proposal_id = 1 [json_name = "proposalId"];</code>
+     * @return The proposalId.
+     */
+    @java.lang.Override
+    public long getProposalId() {
+      return proposalId_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private int status_ = 0;
+    /**
+     * <pre>
+     * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <pre>
+     * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+     * @return The status.
+     */
+    @java.lang.Override public com.cosmos.group.v1.TypesProto.ProposalStatus getStatus() {
+      com.cosmos.group.v1.TypesProto.ProposalStatus result = com.cosmos.group.v1.TypesProto.ProposalStatus.forNumber(status_);
+      return result == null ? com.cosmos.group.v1.TypesProto.ProposalStatus.UNRECOGNIZED : result;
+    }
+
+    public static final int TALLY_RESULT_FIELD_NUMBER = 3;
+    private com.cosmos.group.v1.TypesProto.TallyResult tallyResult_;
+    /**
+     * <pre>
+     * tally_result is the proposal tally result (when applicable).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+     * @return Whether the tallyResult field is set.
+     */
+    @java.lang.Override
+    public boolean hasTallyResult() {
+      return tallyResult_ != null;
+    }
+    /**
+     * <pre>
+     * tally_result is the proposal tally result (when applicable).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+     * @return The tallyResult.
+     */
+    @java.lang.Override
+    public com.cosmos.group.v1.TypesProto.TallyResult getTallyResult() {
+      return tallyResult_ == null ? com.cosmos.group.v1.TypesProto.TallyResult.getDefaultInstance() : tallyResult_;
+    }
+    /**
+     * <pre>
+     * tally_result is the proposal tally result (when applicable).
+     * </pre>
+     *
+     * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.group.v1.TypesProto.TallyResultOrBuilder getTallyResultOrBuilder() {
+      return tallyResult_ == null ? com.cosmos.group.v1.TypesProto.TallyResult.getDefaultInstance() : tallyResult_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (proposalId_ != 0L) {
+        output.writeUInt64(1, proposalId_);
+      }
+      if (status_ != com.cosmos.group.v1.TypesProto.ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED.getNumber()) {
+        output.writeEnum(2, status_);
+      }
+      if (tallyResult_ != null) {
+        output.writeMessage(3, getTallyResult());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (proposalId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, proposalId_);
+      }
+      if (status_ != com.cosmos.group.v1.TypesProto.ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_);
+      }
+      if (tallyResult_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getTallyResult());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.cosmos.group.v1.EventsProto.EventProposalPruned)) {
+        return super.equals(obj);
+      }
+      com.cosmos.group.v1.EventsProto.EventProposalPruned other = (com.cosmos.group.v1.EventsProto.EventProposalPruned) obj;
+
+      if (getProposalId()
+          != other.getProposalId()) return false;
+      if (status_ != other.status_) return false;
+      if (hasTallyResult() != other.hasTallyResult()) return false;
+      if (hasTallyResult()) {
+        if (!getTallyResult()
+            .equals(other.getTallyResult())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PROPOSAL_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getProposalId());
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      if (hasTallyResult()) {
+        hash = (37 * hash) + TALLY_RESULT_FIELD_NUMBER;
+        hash = (53 * hash) + getTallyResult().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.cosmos.group.v1.EventsProto.EventProposalPruned prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * EventProposalPruned is an event emitted when a proposal is pruned.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.group.v1.EventProposalPruned}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.group.v1.EventProposalPruned)
+        com.cosmos.group.v1.EventsProto.EventProposalPrunedOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.cosmos.group.v1.EventsProto.internal_static_cosmos_group_v1_EventProposalPruned_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.cosmos.group.v1.EventsProto.internal_static_cosmos_group_v1_EventProposalPruned_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.cosmos.group.v1.EventsProto.EventProposalPruned.class, com.cosmos.group.v1.EventsProto.EventProposalPruned.Builder.class);
+      }
+
+      // Construct using com.cosmos.group.v1.EventsProto.EventProposalPruned.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        proposalId_ = 0L;
+        status_ = 0;
+        tallyResult_ = null;
+        if (tallyResultBuilder_ != null) {
+          tallyResultBuilder_.dispose();
+          tallyResultBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.cosmos.group.v1.EventsProto.internal_static_cosmos_group_v1_EventProposalPruned_descriptor;
+      }
+
+      @java.lang.Override
+      public com.cosmos.group.v1.EventsProto.EventProposalPruned getDefaultInstanceForType() {
+        return com.cosmos.group.v1.EventsProto.EventProposalPruned.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.cosmos.group.v1.EventsProto.EventProposalPruned build() {
+        com.cosmos.group.v1.EventsProto.EventProposalPruned result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.cosmos.group.v1.EventsProto.EventProposalPruned buildPartial() {
+        com.cosmos.group.v1.EventsProto.EventProposalPruned result = new com.cosmos.group.v1.EventsProto.EventProposalPruned(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.cosmos.group.v1.EventsProto.EventProposalPruned result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.proposalId_ = proposalId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.status_ = status_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.tallyResult_ = tallyResultBuilder_ == null
+              ? tallyResult_
+              : tallyResultBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.cosmos.group.v1.EventsProto.EventProposalPruned) {
+          return mergeFrom((com.cosmos.group.v1.EventsProto.EventProposalPruned)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.cosmos.group.v1.EventsProto.EventProposalPruned other) {
+        if (other == com.cosmos.group.v1.EventsProto.EventProposalPruned.getDefaultInstance()) return this;
+        if (other.getProposalId() != 0L) {
+          setProposalId(other.getProposalId());
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (other.hasTallyResult()) {
+          mergeTallyResult(other.getTallyResult());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                proposalId_ = input.readUInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                status_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 26: {
+                input.readMessage(
+                    getTallyResultFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long proposalId_ ;
+      /**
+       * <pre>
+       * proposal_id is the unique ID of the proposal.
+       * </pre>
+       *
+       * <code>uint64 proposal_id = 1 [json_name = "proposalId"];</code>
+       * @return The proposalId.
+       */
+      @java.lang.Override
+      public long getProposalId() {
+        return proposalId_;
+      }
+      /**
+       * <pre>
+       * proposal_id is the unique ID of the proposal.
+       * </pre>
+       *
+       * <code>uint64 proposal_id = 1 [json_name = "proposalId"];</code>
+       * @param value The proposalId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProposalId(long value) {
+
+        proposalId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * proposal_id is the unique ID of the proposal.
+       * </pre>
+       *
+       * <code>uint64 proposal_id = 1 [json_name = "proposalId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProposalId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        proposalId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <pre>
+       * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        status_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public com.cosmos.group.v1.TypesProto.ProposalStatus getStatus() {
+        com.cosmos.group.v1.TypesProto.ProposalStatus result = com.cosmos.group.v1.TypesProto.ProposalStatus.forNumber(status_);
+        return result == null ? com.cosmos.group.v1.TypesProto.ProposalStatus.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(com.cosmos.group.v1.TypesProto.ProposalStatus value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.ProposalStatus status = 2 [json_name = "status"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.cosmos.group.v1.TypesProto.TallyResult tallyResult_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.group.v1.TypesProto.TallyResult, com.cosmos.group.v1.TypesProto.TallyResult.Builder, com.cosmos.group.v1.TypesProto.TallyResultOrBuilder> tallyResultBuilder_;
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       * @return Whether the tallyResult field is set.
+       */
+      public boolean hasTallyResult() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       * @return The tallyResult.
+       */
+      public com.cosmos.group.v1.TypesProto.TallyResult getTallyResult() {
+        if (tallyResultBuilder_ == null) {
+          return tallyResult_ == null ? com.cosmos.group.v1.TypesProto.TallyResult.getDefaultInstance() : tallyResult_;
+        } else {
+          return tallyResultBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      public Builder setTallyResult(com.cosmos.group.v1.TypesProto.TallyResult value) {
+        if (tallyResultBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          tallyResult_ = value;
+        } else {
+          tallyResultBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      public Builder setTallyResult(
+          com.cosmos.group.v1.TypesProto.TallyResult.Builder builderForValue) {
+        if (tallyResultBuilder_ == null) {
+          tallyResult_ = builderForValue.build();
+        } else {
+          tallyResultBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      public Builder mergeTallyResult(com.cosmos.group.v1.TypesProto.TallyResult value) {
+        if (tallyResultBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            tallyResult_ != null &&
+            tallyResult_ != com.cosmos.group.v1.TypesProto.TallyResult.getDefaultInstance()) {
+            getTallyResultBuilder().mergeFrom(value);
+          } else {
+            tallyResult_ = value;
+          }
+        } else {
+          tallyResultBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      public Builder clearTallyResult() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        tallyResult_ = null;
+        if (tallyResultBuilder_ != null) {
+          tallyResultBuilder_.dispose();
+          tallyResultBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      public com.cosmos.group.v1.TypesProto.TallyResult.Builder getTallyResultBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getTallyResultFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      public com.cosmos.group.v1.TypesProto.TallyResultOrBuilder getTallyResultOrBuilder() {
+        if (tallyResultBuilder_ != null) {
+          return tallyResultBuilder_.getMessageOrBuilder();
+        } else {
+          return tallyResult_ == null ?
+              com.cosmos.group.v1.TypesProto.TallyResult.getDefaultInstance() : tallyResult_;
+        }
+      }
+      /**
+       * <pre>
+       * tally_result is the proposal tally result (when applicable).
+       * </pre>
+       *
+       * <code>.cosmos.group.v1.TallyResult tally_result = 3 [json_name = "tallyResult"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.group.v1.TypesProto.TallyResult, com.cosmos.group.v1.TypesProto.TallyResult.Builder, com.cosmos.group.v1.TypesProto.TallyResultOrBuilder> 
+          getTallyResultFieldBuilder() {
+        if (tallyResultBuilder_ == null) {
+          tallyResultBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.cosmos.group.v1.TypesProto.TallyResult, com.cosmos.group.v1.TypesProto.TallyResult.Builder, com.cosmos.group.v1.TypesProto.TallyResultOrBuilder>(
+                  getTallyResult(),
+                  getParentForChildren(),
+                  isClean());
+          tallyResult_ = null;
+        }
+        return tallyResultBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.group.v1.EventProposalPruned)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.group.v1.EventProposalPruned)
+    private static final com.cosmos.group.v1.EventsProto.EventProposalPruned DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.cosmos.group.v1.EventsProto.EventProposalPruned();
+    }
+
+    public static com.cosmos.group.v1.EventsProto.EventProposalPruned getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EventProposalPruned>
+        PARSER = new com.google.protobuf.AbstractParser<EventProposalPruned>() {
+      @java.lang.Override
+      public EventProposalPruned parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<EventProposalPruned> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EventProposalPruned> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.cosmos.group.v1.EventsProto.EventProposalPruned getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_group_v1_EventCreateGroup_descriptor;
   private static final 
@@ -5295,6 +6197,11 @@ public final class EventsProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_group_v1_EventLeaveGroup_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_group_v1_EventProposalPruned_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_group_v1_EventProposalPruned_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5322,11 +6229,16 @@ public final class EventsProto {
       "salExecutorResultR\006result\022\022\n\004logs\030\003 \001(\tR" +
       "\004logs\"`\n\017EventLeaveGroup\022\031\n\010group_id\030\001 \001" +
       "(\004R\007groupId\0222\n\007address\030\002 \001(\tB\030\322\264-\024cosmos" +
-      ".AddressStringR\007addressB\244\001\n\023com.cosmos.g" +
-      "roup.v1B\013EventsProtoZ$github.com/cosmos/" +
-      "cosmos-sdk/x/group\242\002\003CGX\252\002\017Cosmos.Group." +
-      "V1\312\002\017Cosmos\\Group\\V1\342\002\033Cosmos\\Group\\V1\\G" +
-      "PBMetadata\352\002\021Cosmos::Group::V1b\006proto3"
+      ".AddressStringR\007address\"\260\001\n\023EventProposa" +
+      "lPruned\022\037\n\013proposal_id\030\001 \001(\004R\nproposalId" +
+      "\0227\n\006status\030\002 \001(\0162\037.cosmos.group.v1.Propo" +
+      "salStatusR\006status\022?\n\014tally_result\030\003 \001(\0132" +
+      "\034.cosmos.group.v1.TallyResultR\013tallyResu" +
+      "ltB\224\001\n\023com.cosmos.group.v1B\013EventsProtoZ" +
+      "\024cosmossdk.io/x/group\242\002\003CGX\252\002\017Cosmos.Gro" +
+      "up.V1\312\002\017Cosmos\\Group\\V1\342\002\033Cosmos\\Group\\V" +
+      "1\\GPBMetadata\352\002\021Cosmos::Group::V1b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5388,6 +6300,12 @@ public final class EventsProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_group_v1_EventLeaveGroup_descriptor,
         new java.lang.String[] { "GroupId", "Address", });
+    internal_static_cosmos_group_v1_EventProposalPruned_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_cosmos_group_v1_EventProposalPruned_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_group_v1_EventProposalPruned_descriptor,
+        new java.lang.String[] { "ProposalId", "Status", "TallyResult", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.cosmos_proto.CosmosProto.scalar);

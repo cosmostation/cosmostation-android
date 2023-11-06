@@ -429,6 +429,55 @@ public final class ModuleProto {
      */
     com.google.protobuf.ByteString
         getPrepareCheckStatersBytes(int index);
+
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @return A list containing the preBlockers.
+     */
+    java.util.List<java.lang.String>
+        getPreBlockersList();
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @return The count of preBlockers.
+     */
+    int getPreBlockersCount();
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @param index The index of the element to return.
+     * @return The preBlockers at the given index.
+     */
+    java.lang.String getPreBlockers(int index);
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the preBlockers at the given index.
+     */
+    com.google.protobuf.ByteString
+        getPreBlockersBytes(int index);
   }
   /**
    * <pre>
@@ -462,6 +511,8 @@ public final class ModuleProto {
       precommiters_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
       prepareCheckStaters_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      preBlockers_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
@@ -1025,6 +1076,67 @@ public final class ModuleProto {
       return prepareCheckStaters_.getByteString(index);
     }
 
+    public static final int PRE_BLOCKERS_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList preBlockers_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @return A list containing the preBlockers.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getPreBlockersList() {
+      return preBlockers_;
+    }
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @return The count of preBlockers.
+     */
+    public int getPreBlockersCount() {
+      return preBlockers_.size();
+    }
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @param index The index of the element to return.
+     * @return The preBlockers at the given index.
+     */
+    public java.lang.String getPreBlockers(int index) {
+      return preBlockers_.get(index);
+    }
+    /**
+     * <pre>
+     * pre_blockers specifies the module names of pre blockers
+     * to call in the order in which they should be called. If this is left empty
+     * no pre blocker will be registered.
+     * </pre>
+     *
+     * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the preBlockers at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getPreBlockersBytes(int index) {
+      return preBlockers_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1065,6 +1177,9 @@ public final class ModuleProto {
       }
       for (int i = 0; i < prepareCheckStaters_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 9, prepareCheckStaters_.getRaw(i));
+      }
+      for (int i = 0; i < preBlockers_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, preBlockers_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -1138,6 +1253,14 @@ public final class ModuleProto {
         size += dataSize;
         size += 1 * getPrepareCheckStatersList().size();
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < preBlockers_.size(); i++) {
+          dataSize += computeStringSizeNoTag(preBlockers_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getPreBlockersList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1171,6 +1294,8 @@ public final class ModuleProto {
           .equals(other.getPrecommitersList())) return false;
       if (!getPrepareCheckStatersList()
           .equals(other.getPrepareCheckStatersList())) return false;
+      if (!getPreBlockersList()
+          .equals(other.getPreBlockersList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1215,6 +1340,10 @@ public final class ModuleProto {
       if (getPrepareCheckStatersCount() > 0) {
         hash = (37 * hash) + PREPARE_CHECK_STATERS_FIELD_NUMBER;
         hash = (53 * hash) + getPrepareCheckStatersList().hashCode();
+      }
+      if (getPreBlockersCount() > 0) {
+        hash = (37 * hash) + PRE_BLOCKERS_FIELD_NUMBER;
+        hash = (53 * hash) + getPreBlockersList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -1373,6 +1502,8 @@ public final class ModuleProto {
             com.google.protobuf.LazyStringArrayList.emptyList();
         prepareCheckStaters_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
+        preBlockers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
       }
 
@@ -1449,6 +1580,10 @@ public final class ModuleProto {
         if (((from_bitField0_ & 0x00000100) != 0)) {
           prepareCheckStaters_.makeImmutable();
           result.prepareCheckStaters_ = prepareCheckStaters_;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          preBlockers_.makeImmutable();
+          result.preBlockers_ = preBlockers_;
         }
       }
 
@@ -1597,6 +1732,16 @@ public final class ModuleProto {
           }
           onChanged();
         }
+        if (!other.preBlockers_.isEmpty()) {
+          if (preBlockers_.isEmpty()) {
+            preBlockers_ = other.preBlockers_;
+            bitField0_ |= 0x00000200;
+          } else {
+            ensurePreBlockersIsMutable();
+            preBlockers_.addAll(other.preBlockers_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1683,6 +1828,12 @@ public final class ModuleProto {
                 prepareCheckStaters_.add(s);
                 break;
               } // case 74
+              case 82: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensurePreBlockersIsMutable();
+                preBlockers_.add(s);
+                break;
+              } // case 82
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3276,6 +3427,171 @@ public final class ModuleProto {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.LazyStringArrayList preBlockers_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensurePreBlockersIsMutable() {
+        if (!preBlockers_.isModifiable()) {
+          preBlockers_ = new com.google.protobuf.LazyStringArrayList(preBlockers_);
+        }
+        bitField0_ |= 0x00000200;
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @return A list containing the preBlockers.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getPreBlockersList() {
+        preBlockers_.makeImmutable();
+        return preBlockers_;
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @return The count of preBlockers.
+       */
+      public int getPreBlockersCount() {
+        return preBlockers_.size();
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @param index The index of the element to return.
+       * @return The preBlockers at the given index.
+       */
+      public java.lang.String getPreBlockers(int index) {
+        return preBlockers_.get(index);
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the preBlockers at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getPreBlockersBytes(int index) {
+        return preBlockers_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @param index The index to set the value at.
+       * @param value The preBlockers to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPreBlockers(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensurePreBlockersIsMutable();
+        preBlockers_.set(index, value);
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @param value The preBlockers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPreBlockers(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensurePreBlockersIsMutable();
+        preBlockers_.add(value);
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @param values The preBlockers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllPreBlockers(
+          java.lang.Iterable<java.lang.String> values) {
+        ensurePreBlockersIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, preBlockers_);
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPreBlockers() {
+        preBlockers_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000200);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pre_blockers specifies the module names of pre blockers
+       * to call in the order in which they should be called. If this is left empty
+       * no pre blocker will be registered.
+       * </pre>
+       *
+       * <code>repeated string pre_blockers = 10 [json_name = "preBlockers"];</code>
+       * @param value The bytes of the preBlockers to add.
+       * @return This builder for chaining.
+       */
+      public Builder addPreBlockersBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensurePreBlockersIsMutable();
+        preBlockers_.add(value);
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -4143,7 +4459,7 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n(cosmos/app/runtime/v1alpha1/module.pro" +
       "to\022\033cosmos.app.runtime.v1alpha1\032 cosmos/" +
-      "app/v1alpha1/module.proto\"\334\003\n\006Module\022\031\n\010" +
+      "app/v1alpha1/module.proto\"\377\003\n\006Module\022\031\n\010" +
       "app_name\030\001 \001(\tR\007appName\022%\n\016begin_blocker" +
       "s\030\002 \003(\tR\rbeginBlockers\022!\n\014end_blockers\030\003" +
       " \003(\tR\013endBlockers\022!\n\014init_genesis\030\004 \003(\tR" +
@@ -4153,16 +4469,17 @@ public final class ModuleProto {
       "onfigR\021overrideStoreKeys\022)\n\020order_migrat" +
       "ions\030\007 \003(\tR\017orderMigrations\022\"\n\014precommit" +
       "ers\030\010 \003(\tR\014precommiters\0222\n\025prepare_check" +
-      "_staters\030\t \003(\tR\023prepareCheckStaters:C\272\300\226" +
-      "\332\001=\n$github.com/cosmos/cosmos-sdk/runtim" +
-      "e\022\025\n\023cosmos.app.v1alpha1\"S\n\016StoreKeyConf" +
-      "ig\022\037\n\013module_name\030\001 \001(\tR\nmoduleName\022 \n\014k" +
-      "v_store_key\030\002 \001(\tR\nkvStoreKeyB\273\001\n\037com.co" +
-      "smos.app.runtime.v1alpha1B\013ModuleProto\242\002" +
-      "\003CAR\252\002\033Cosmos.App.Runtime.V1alpha1\312\002\033Cos" +
-      "mos\\App\\Runtime\\V1alpha1\342\002\'Cosmos\\App\\Ru" +
-      "ntime\\V1alpha1\\GPBMetadata\352\002\036Cosmos::App" +
-      "::Runtime::V1alpha1b\006proto3"
+      "_staters\030\t \003(\tR\023prepareCheckStaters\022!\n\014p" +
+      "re_blockers\030\n \003(\tR\013preBlockers:C\272\300\226\332\001=\n$" +
+      "github.com/cosmos/cosmos-sdk/runtime\022\025\n\023" +
+      "cosmos.app.v1alpha1\"S\n\016StoreKeyConfig\022\037\n" +
+      "\013module_name\030\001 \001(\tR\nmoduleName\022 \n\014kv_sto" +
+      "re_key\030\002 \001(\tR\nkvStoreKeyB\273\001\n\037com.cosmos." +
+      "app.runtime.v1alpha1B\013ModuleProto\242\002\003CAR\252" +
+      "\002\033Cosmos.App.Runtime.V1alpha1\312\002\033Cosmos\\A" +
+      "pp\\Runtime\\V1alpha1\342\002\'Cosmos\\App\\Runtime" +
+      "\\V1alpha1\\GPBMetadata\352\002\036Cosmos::App::Run" +
+      "time::V1alpha1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4174,7 +4491,7 @@ public final class ModuleProto {
     internal_static_cosmos_app_runtime_v1alpha1_Module_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_app_runtime_v1alpha1_Module_descriptor,
-        new java.lang.String[] { "AppName", "BeginBlockers", "EndBlockers", "InitGenesis", "ExportGenesis", "OverrideStoreKeys", "OrderMigrations", "Precommiters", "PrepareCheckStaters", });
+        new java.lang.String[] { "AppName", "BeginBlockers", "EndBlockers", "InitGenesis", "ExportGenesis", "OverrideStoreKeys", "OrderMigrations", "Precommiters", "PrepareCheckStaters", "PreBlockers", });
     internal_static_cosmos_app_runtime_v1alpha1_StoreKeyConfig_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_cosmos_app_runtime_v1alpha1_StoreKeyConfig_fieldAccessorTable = new

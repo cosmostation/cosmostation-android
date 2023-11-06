@@ -1168,11 +1168,11 @@ public final class AuthzProto {
       "ist\030\002 \003(\tB\030\322\264-\024cosmos.AddressStringR\tall" +
       "owList:G\312\264-\"cosmos.authz.v1beta1.Authori" +
       "zation\212\347\260*\034cosmos-sdk/SendAuthorizationB" +
-      "\274\001\n\027com.cosmos.bank.v1beta1B\nAuthzProtoZ" +
-      ")github.com/cosmos/cosmos-sdk/x/bank/typ" +
-      "es\242\002\003CBX\252\002\023Cosmos.Bank.V1beta1\312\002\023Cosmos\\" +
-      "Bank\\V1beta1\342\002\037Cosmos\\Bank\\V1beta1\\GPBMe" +
-      "tadata\352\002\025Cosmos::Bank::V1beta1b\006proto3"
+      "\254\001\n\027com.cosmos.bank.v1beta1B\nAuthzProtoZ" +
+      "\031cosmossdk.io/x/bank/types\242\002\003CBX\252\002\023Cosmo" +
+      "s.Bank.V1beta1\312\002\023Cosmos\\Bank\\V1beta1\342\002\037C" +
+      "osmos\\Bank\\V1beta1\\GPBMetadata\352\002\025Cosmos:" +
+      ":Bank::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -296,10 +296,9 @@ open class CosmosLine : BaseChain() {
             val response = awaitAll(rewardAddr, bonded, unbonding, unbonded)
 
             rewardAddress = response[0].toString()
-
-            cosmosValidators.addAll(response[1] as Collection<StakingProto.Validator>)
-            cosmosValidators.addAll(response[2] as Collection<StakingProto.Validator>)
-            cosmosValidators.addAll(response[3] as Collection<StakingProto.Validator>)
+            if (response[1] != null) cosmosValidators.addAll(response[1] as Collection<StakingProto.Validator>)
+            if (response[2] != null) cosmosValidators.addAll(response[2] as Collection<StakingProto.Validator>)
+            if (response[3] != null) cosmosValidators.addAll(response[3] as Collection<StakingProto.Validator>)
 
             val tempValidators = cosmosValidators.toMutableList()
             tempValidators.sortWith { o1, o2 ->
@@ -379,34 +378,43 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadBondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator> {
+    private fun loadBondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator>? {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
         val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().
         setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
-
-        return stub.validators(request).validatorsList
+        return try {
+            stub.validators(request).validatorsList
+        } catch (_: Exception) {
+            null
+        }
     }
 
-    private fun loadUnbondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator> {
+    private fun loadUnbondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator>? {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
         val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().
         setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
-
-        return stub.validators(request).validatorsList
+        return try {
+            stub.validators(request).validatorsList
+        } catch (_: Exception) {
+            null
+        }
     }
 
-    private fun loadUnbondingValidator(channel: ManagedChannel): MutableList<StakingProto.Validator> {
+    private fun loadUnbondingValidator(channel: ManagedChannel): MutableList<StakingProto.Validator>? {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
         val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
             .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
-
-        return stub.validators(request).validatorsList
+        return try {
+            return stub.validators(request).validatorsList
+        } catch (_: Exception) {
+            null
+        }
     }
 
     private fun loadRewardAddress(channel: ManagedChannel): String? {

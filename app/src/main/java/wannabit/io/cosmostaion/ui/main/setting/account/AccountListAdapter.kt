@@ -14,8 +14,8 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class AccountListAdapter(
     val context: Context,
-    val mnemonicAccounts: List<BaseAccount>,
-    val privateAccounts: List<BaseAccount>,
+    private val mnemonicAccounts: List<BaseAccount>,
+    private val privateAccounts: List<BaseAccount>,
     private var listener: ClickListener
 ) : ListAdapter<BaseAccount, RecyclerView.ViewHolder>(AccountListDiffCallback()) {
 
@@ -49,18 +49,7 @@ class AccountListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is AccountListHeaderViewHolder -> {
-                if (mnemonicAccounts.isNotEmpty()) {
-                    if (holder.itemViewType == VIEW_TYPE_MNEMONIC_HEADER) {
-                        holder.bind(position)
-                    } else {
-                        holder.bind(position - (mnemonicAccounts.size + 1))
-                    }
-
-                } else {
-                    if (holder.itemViewType == VIEW_TYPE_PRIVATE_HEADER) {
-                        holder.bind(position)
-                    }
-                }
+                holder.bind(holder.itemViewType)
             }
 
             is AccountListViewHolder -> {
@@ -106,15 +95,15 @@ class AccountListAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (mnemonicAccounts.isNotEmpty()) {
+        return if (mnemonicAccounts.isNotEmpty()) {
             if (privateAccounts.isNotEmpty()) {
-                return currentList.size + 2
+                currentList.size + 2
             } else {
-                return currentList.size + 1
+                currentList.size + 1
             }
 
         } else {
-            return currentList.size + 1
+            currentList.size + 1
         }
     }
 
@@ -133,9 +122,9 @@ class AccountListAdapter(
         private val binding: ItemStickyHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(position: Int) {
+        fun bind(viewType: Int) {
             binding.apply {
-                if (getItemViewType(position) == VIEW_TYPE_MNEMONIC_HEADER) {
+                if (viewType == VIEW_TYPE_MNEMONIC_HEADER) {
                     headerTitle.text = context.getString(R.string.title_mnemonic_account)
                     headerCnt.text = currentList.filter { it.type == BaseAccountType.MNEMONIC }.size.toString()
 

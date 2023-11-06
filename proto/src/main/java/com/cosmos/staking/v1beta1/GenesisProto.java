@@ -51,7 +51,7 @@ public final class GenesisProto {
      * the previous end block.
      * </pre>
      *
-     * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int", (.amino.dont_omitempty) = true];</code>
      * @return The lastTotalPower.
      */
     com.google.protobuf.ByteString getLastTotalPower();
@@ -282,6 +282,10 @@ public final class GenesisProto {
         int index);
 
     /**
+     * <pre>
+     * exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+     * </pre>
+     *
      * <code>bool exported = 8 [json_name = "exported"];</code>
      * @return The exported.
      */
@@ -378,7 +382,7 @@ public final class GenesisProto {
      * the previous end block.
      * </pre>
      *
-     * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int", (.amino.dont_omitempty) = true];</code>
      * @return The lastTotalPower.
      */
     @java.lang.Override
@@ -699,6 +703,10 @@ public final class GenesisProto {
     public static final int EXPORTED_FIELD_NUMBER = 8;
     private boolean exported_ = false;
     /**
+     * <pre>
+     * exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+     * </pre>
+     *
      * <code>bool exported = 8 [json_name = "exported"];</code>
      * @return The exported.
      */
@@ -1602,7 +1610,7 @@ public final class GenesisProto {
        * the previous end block.
        * </pre>
        *
-       * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int", (.amino.dont_omitempty) = true];</code>
        * @return The lastTotalPower.
        */
       @java.lang.Override
@@ -1615,7 +1623,7 @@ public final class GenesisProto {
        * the previous end block.
        * </pre>
        *
-       * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int", (.amino.dont_omitempty) = true];</code>
        * @param value The lastTotalPower to set.
        * @return This builder for chaining.
        */
@@ -1632,7 +1640,7 @@ public final class GenesisProto {
        * the previous end block.
        * </pre>
        *
-       * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes last_total_power = 2 [json_name = "lastTotalPower", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int", (.amino.dont_omitempty) = true];</code>
        * @return This builder for chaining.
        */
       public Builder clearLastTotalPower() {
@@ -3222,6 +3230,10 @@ public final class GenesisProto {
 
       private boolean exported_ ;
       /**
+       * <pre>
+       * exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+       * </pre>
+       *
        * <code>bool exported = 8 [json_name = "exported"];</code>
        * @return The exported.
        */
@@ -3230,6 +3242,10 @@ public final class GenesisProto {
         return exported_;
       }
       /**
+       * <pre>
+       * exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+       * </pre>
+       *
        * <code>bool exported = 8 [json_name = "exported"];</code>
        * @param value The exported to set.
        * @return This builder for chaining.
@@ -3242,6 +3258,10 @@ public final class GenesisProto {
         return this;
       }
       /**
+       * <pre>
+       * exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+       * </pre>
+       *
        * <code>bool exported = 8 [json_name = "exported"];</code>
        * @return This builder for chaining.
        */
@@ -4027,32 +4047,31 @@ public final class GenesisProto {
       "cosmos.staking.v1beta1\032\024gogoproto/gogo.p" +
       "roto\032$cosmos/staking/v1beta1/staking.pro" +
       "to\032\031cosmos_proto/cosmos.proto\032\021amino/ami" +
-      "no.proto\"\232\005\n\014GenesisState\022A\n\006params\030\001 \001(" +
+      "no.proto\"\227\005\n\014GenesisState\022A\n\006params\030\001 \001(" +
       "\0132\036.cosmos.staking.v1beta1.ParamsB\t\310\336\037\000\250" +
-      "\347\260*\001R\006params\022]\n\020last_total_power\030\002 \001(\014B3" +
-      "\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/typ" +
-      "es.Int\250\347\260*\001R\016lastTotalPower\022i\n\025last_vali" +
-      "dator_powers\030\003 \003(\0132*.cosmos.staking.v1be" +
-      "ta1.LastValidatorPowerB\t\310\336\037\000\250\347\260*\001R\023lastV" +
-      "alidatorPowers\022L\n\nvalidators\030\004 \003(\0132!.cos" +
-      "mos.staking.v1beta1.ValidatorB\t\310\336\037\000\250\347\260*\001" +
-      "R\nvalidators\022O\n\013delegations\030\005 \003(\0132\".cosm" +
-      "os.staking.v1beta1.DelegationB\t\310\336\037\000\250\347\260*\001" +
-      "R\013delegations\022k\n\025unbonding_delegations\030\006" +
-      " \003(\0132+.cosmos.staking.v1beta1.UnbondingD" +
-      "elegationB\t\310\336\037\000\250\347\260*\001R\024unbondingDelegatio" +
-      "ns\022U\n\rredelegations\030\007 \003(\0132$.cosmos.staki" +
-      "ng.v1beta1.RedelegationB\t\310\336\037\000\250\347\260*\001R\rrede" +
-      "legations\022\032\n\010exported\030\010 \001(\010R\010exported\"h\n" +
-      "\022LastValidatorPower\0222\n\007address\030\001 \001(\tB\030\322\264" +
-      "-\024cosmos.AddressStringR\007address\022\024\n\005power" +
-      "\030\002 \001(\003R\005power:\010\210\240\037\000\350\240\037\000B\320\001\n\032com.cosmos.s" +
-      "taking.v1beta1B\014GenesisProtoZ,github.com" +
-      "/cosmos/cosmos-sdk/x/staking/types\242\002\003CSX" +
-      "\252\002\026Cosmos.Staking.V1beta1\312\002\026Cosmos\\Staki" +
-      "ng\\V1beta1\342\002\"Cosmos\\Staking\\V1beta1\\GPBM" +
-      "etadata\352\002\030Cosmos::Staking::V1beta1b\006prot" +
-      "o3"
+      "\347\260*\001R\006params\022Z\n\020last_total_power\030\002 \001(\014B0" +
+      "\310\336\037\000\332\336\037\025cosmossdk.io/math.Int\322\264-\ncosmos." +
+      "Int\250\347\260*\001R\016lastTotalPower\022i\n\025last_validat" +
+      "or_powers\030\003 \003(\0132*.cosmos.staking.v1beta1" +
+      ".LastValidatorPowerB\t\310\336\037\000\250\347\260*\001R\023lastVali" +
+      "datorPowers\022L\n\nvalidators\030\004 \003(\0132!.cosmos" +
+      ".staking.v1beta1.ValidatorB\t\310\336\037\000\250\347\260*\001R\nv" +
+      "alidators\022O\n\013delegations\030\005 \003(\0132\".cosmos." +
+      "staking.v1beta1.DelegationB\t\310\336\037\000\250\347\260*\001R\013d" +
+      "elegations\022k\n\025unbonding_delegations\030\006 \003(" +
+      "\0132+.cosmos.staking.v1beta1.UnbondingDele" +
+      "gationB\t\310\336\037\000\250\347\260*\001R\024unbondingDelegations\022" +
+      "U\n\rredelegations\030\007 \003(\0132$.cosmos.staking." +
+      "v1beta1.RedelegationB\t\310\336\037\000\250\347\260*\001R\rredeleg" +
+      "ations\022\032\n\010exported\030\010 \001(\010R\010exported\"h\n\022La" +
+      "stValidatorPower\0222\n\007address\030\001 \001(\tB\030\322\264-\024c" +
+      "osmos.AddressStringR\007address\022\024\n\005power\030\002 " +
+      "\001(\003R\005power:\010\210\240\037\000\350\240\037\000B\300\001\n\032com.cosmos.stak" +
+      "ing.v1beta1B\014GenesisProtoZ\034cosmossdk.io/" +
+      "x/staking/types\242\002\003CSX\252\002\026Cosmos.Staking.V" +
+      "1beta1\312\002\026Cosmos\\Staking\\V1beta1\342\002\"Cosmos" +
+      "\\Staking\\V1beta1\\GPBMetadata\352\002\030Cosmos::S" +
+      "taking::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

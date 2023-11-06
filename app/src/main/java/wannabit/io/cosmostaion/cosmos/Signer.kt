@@ -8,6 +8,7 @@ import com.cosmos.crypto.secp256k1.KeysProto.PubKey
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.distribution.v1beta1.TxProto.MsgWithdrawDelegatorReward
+import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
@@ -28,6 +29,7 @@ import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
+import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
 import org.web3j.crypto.ECKeyPair
@@ -64,6 +66,34 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend")
                 .setValue(msgSend?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genIbcSendBroadcast(
+        auth: QueryAccountResponse?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, ibcSendMsg(msgTransfer), fee, memo, selectedChain)
+    }
+
+    fun genIbcSendSimulate(
+        auth: QueryAccountResponse?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, memo)
+    }
+
+    private fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer")
+                .setValue(msgTransfer?.toByteString()).build()
         )
         return msgAnys
     }
@@ -250,6 +280,35 @@ object Signer {
             Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress")
                 .setValue(msgSetWithdrawAddress?.toByteString()).build()
         )
+        return msgAnys
+    }
+
+    fun genVoteBroadcast(
+        auth: QueryAccountResponse?,
+        msgVotes: MutableList<TxProto.MsgVote?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, voteMsg(msgVotes), fee, memo, selectedChain)
+    }
+
+    fun genVoteSimulate(
+        auth: QueryAccountResponse?,
+        msgVotes: MutableList<TxProto.MsgVote?>?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, voteMsg(msgVotes), fee, memo)
+    }
+
+    private fun voteMsg(msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgVotes?.forEach { msgVote ->
+            val anyMsg = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote")
+                .setValue(msgVote?.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
         return msgAnys
     }
 

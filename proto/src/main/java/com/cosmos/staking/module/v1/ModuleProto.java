@@ -86,6 +86,46 @@ public final class ModuleProto {
      */
     com.google.protobuf.ByteString
         getAuthorityBytes();
+
+    /**
+     * <pre>
+     * bech32_prefix_validator is the bech32 validator prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+     * @return The bech32PrefixValidator.
+     */
+    java.lang.String getBech32PrefixValidator();
+    /**
+     * <pre>
+     * bech32_prefix_validator is the bech32 validator prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+     * @return The bytes for bech32PrefixValidator.
+     */
+    com.google.protobuf.ByteString
+        getBech32PrefixValidatorBytes();
+
+    /**
+     * <pre>
+     * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+     * @return The bech32PrefixConsensus.
+     */
+    java.lang.String getBech32PrefixConsensus();
+    /**
+     * <pre>
+     * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+     * @return The bytes for bech32PrefixConsensus.
+     */
+    com.google.protobuf.ByteString
+        getBech32PrefixConsensusBytes();
   }
   /**
    * <pre>
@@ -107,6 +147,8 @@ public final class ModuleProto {
       hooksOrder_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
       authority_ = "";
+      bech32PrefixValidator_ = "";
+      bech32PrefixConsensus_ = "";
     }
 
     @java.lang.Override
@@ -237,6 +279,100 @@ public final class ModuleProto {
       }
     }
 
+    public static final int BECH32_PREFIX_VALIDATOR_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object bech32PrefixValidator_ = "";
+    /**
+     * <pre>
+     * bech32_prefix_validator is the bech32 validator prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+     * @return The bech32PrefixValidator.
+     */
+    @java.lang.Override
+    public java.lang.String getBech32PrefixValidator() {
+      java.lang.Object ref = bech32PrefixValidator_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bech32PrefixValidator_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * bech32_prefix_validator is the bech32 validator prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+     * @return The bytes for bech32PrefixValidator.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBech32PrefixValidatorBytes() {
+      java.lang.Object ref = bech32PrefixValidator_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bech32PrefixValidator_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BECH32_PREFIX_CONSENSUS_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object bech32PrefixConsensus_ = "";
+    /**
+     * <pre>
+     * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+     * @return The bech32PrefixConsensus.
+     */
+    @java.lang.Override
+    public java.lang.String getBech32PrefixConsensus() {
+      java.lang.Object ref = bech32PrefixConsensus_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bech32PrefixConsensus_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+     * </pre>
+     *
+     * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+     * @return The bytes for bech32PrefixConsensus.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getBech32PrefixConsensusBytes() {
+      java.lang.Object ref = bech32PrefixConsensus_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bech32PrefixConsensus_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -256,6 +392,12 @@ public final class ModuleProto {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(authority_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, authority_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bech32PrefixValidator_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, bech32PrefixValidator_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bech32PrefixConsensus_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, bech32PrefixConsensus_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -277,6 +419,12 @@ public final class ModuleProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(authority_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, authority_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bech32PrefixValidator_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, bech32PrefixValidator_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(bech32PrefixConsensus_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, bech32PrefixConsensus_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -296,6 +444,10 @@ public final class ModuleProto {
           .equals(other.getHooksOrderList())) return false;
       if (!getAuthority()
           .equals(other.getAuthority())) return false;
+      if (!getBech32PrefixValidator()
+          .equals(other.getBech32PrefixValidator())) return false;
+      if (!getBech32PrefixConsensus()
+          .equals(other.getBech32PrefixConsensus())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -313,6 +465,10 @@ public final class ModuleProto {
       }
       hash = (37 * hash) + AUTHORITY_FIELD_NUMBER;
       hash = (53 * hash) + getAuthority().hashCode();
+      hash = (37 * hash) + BECH32_PREFIX_VALIDATOR_FIELD_NUMBER;
+      hash = (53 * hash) + getBech32PrefixValidator().hashCode();
+      hash = (37 * hash) + BECH32_PREFIX_CONSENSUS_FIELD_NUMBER;
+      hash = (53 * hash) + getBech32PrefixConsensus().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -451,6 +607,8 @@ public final class ModuleProto {
         hooksOrder_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
         authority_ = "";
+        bech32PrefixValidator_ = "";
+        bech32PrefixConsensus_ = "";
         return this;
       }
 
@@ -490,6 +648,12 @@ public final class ModuleProto {
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.authority_ = authority_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.bech32PrefixValidator_ = bech32PrefixValidator_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.bech32PrefixConsensus_ = bech32PrefixConsensus_;
         }
       }
 
@@ -552,6 +716,16 @@ public final class ModuleProto {
           bitField0_ |= 0x00000002;
           onChanged();
         }
+        if (!other.getBech32PrefixValidator().isEmpty()) {
+          bech32PrefixValidator_ = other.bech32PrefixValidator_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (!other.getBech32PrefixConsensus().isEmpty()) {
+          bech32PrefixConsensus_ = other.bech32PrefixConsensus_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -589,6 +763,16 @@ public final class ModuleProto {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                bech32PrefixValidator_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                bech32PrefixConsensus_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -862,6 +1046,190 @@ public final class ModuleProto {
         onChanged();
         return this;
       }
+
+      private java.lang.Object bech32PrefixValidator_ = "";
+      /**
+       * <pre>
+       * bech32_prefix_validator is the bech32 validator prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+       * @return The bech32PrefixValidator.
+       */
+      public java.lang.String getBech32PrefixValidator() {
+        java.lang.Object ref = bech32PrefixValidator_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bech32PrefixValidator_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * bech32_prefix_validator is the bech32 validator prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+       * @return The bytes for bech32PrefixValidator.
+       */
+      public com.google.protobuf.ByteString
+          getBech32PrefixValidatorBytes() {
+        java.lang.Object ref = bech32PrefixValidator_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bech32PrefixValidator_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * bech32_prefix_validator is the bech32 validator prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+       * @param value The bech32PrefixValidator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBech32PrefixValidator(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        bech32PrefixValidator_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * bech32_prefix_validator is the bech32 validator prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBech32PrefixValidator() {
+        bech32PrefixValidator_ = getDefaultInstance().getBech32PrefixValidator();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * bech32_prefix_validator is the bech32 validator prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_validator = 3 [json_name = "bech32PrefixValidator"];</code>
+       * @param value The bytes for bech32PrefixValidator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBech32PrefixValidatorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        bech32PrefixValidator_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object bech32PrefixConsensus_ = "";
+      /**
+       * <pre>
+       * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+       * @return The bech32PrefixConsensus.
+       */
+      public java.lang.String getBech32PrefixConsensus() {
+        java.lang.Object ref = bech32PrefixConsensus_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bech32PrefixConsensus_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+       * @return The bytes for bech32PrefixConsensus.
+       */
+      public com.google.protobuf.ByteString
+          getBech32PrefixConsensusBytes() {
+        java.lang.Object ref = bech32PrefixConsensus_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bech32PrefixConsensus_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+       * @param value The bech32PrefixConsensus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBech32PrefixConsensus(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        bech32PrefixConsensus_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBech32PrefixConsensus() {
+        bech32PrefixConsensus_ = getDefaultInstance().getBech32PrefixConsensus();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+       * </pre>
+       *
+       * <code>string bech32_prefix_consensus = 4 [json_name = "bech32PrefixConsensus"];</code>
+       * @param value The bytes for bech32PrefixConsensus to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBech32PrefixConsensusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        bech32PrefixConsensus_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -942,15 +1310,17 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n%cosmos/staking/module/v1/module.proto\022" +
       "\030cosmos.staking.module.v1\032 cosmos/app/v1" +
-      "alpha1/module.proto\"w\n\006Module\022\037\n\013hooks_o" +
-      "rder\030\001 \003(\tR\nhooksOrder\022\034\n\tauthority\030\002 \001(" +
-      "\tR\tauthority:.\272\300\226\332\001(\n&github.com/cosmos/" +
-      "cosmos-sdk/x/stakingB\254\001\n\034com.cosmos.stak" +
-      "ing.module.v1B\013ModuleProto\242\002\003CSM\252\002\030Cosmo" +
-      "s.Staking.Module.V1\312\002\030Cosmos\\Staking\\Mod" +
-      "ule\\V1\342\002$Cosmos\\Staking\\Module\\V1\\GPBMet" +
-      "adata\352\002\033Cosmos::Staking::Module::V1b\006pro" +
-      "to3"
+      "alpha1/module.proto\"\327\001\n\006Module\022\037\n\013hooks_" +
+      "order\030\001 \003(\tR\nhooksOrder\022\034\n\tauthority\030\002 \001" +
+      "(\tR\tauthority\0226\n\027bech32_prefix_validator" +
+      "\030\003 \001(\tR\025bech32PrefixValidator\0226\n\027bech32_" +
+      "prefix_consensus\030\004 \001(\tR\025bech32PrefixCons" +
+      "ensus:\036\272\300\226\332\001\030\n\026cosmossdk.io/x/stakingB\254\001" +
+      "\n\034com.cosmos.staking.module.v1B\013ModulePr" +
+      "oto\242\002\003CSM\252\002\030Cosmos.Staking.Module.V1\312\002\030C" +
+      "osmos\\Staking\\Module\\V1\342\002$Cosmos\\Staking" +
+      "\\Module\\V1\\GPBMetadata\352\002\033Cosmos::Staking" +
+      "::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -962,7 +1332,7 @@ public final class ModuleProto {
     internal_static_cosmos_staking_module_v1_Module_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_staking_module_v1_Module_descriptor,
-        new java.lang.String[] { "HooksOrder", "Authority", });
+        new java.lang.String[] { "HooksOrder", "Authority", "Bech32PrefixValidator", "Bech32PrefixConsensus", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.cosmos.app.v1alpha1.ModuleProto.module);

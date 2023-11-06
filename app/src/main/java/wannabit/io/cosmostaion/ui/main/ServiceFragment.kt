@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 
 class ServiceFragment : Fragment() {
@@ -22,6 +23,33 @@ class ServiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initView()
+        clickAction()
+    }
+
+    private fun initView() {
+        binding.apply {
+            coinSwapView.setBackgroundResource(R.drawable.item_bg)
+            dappView.setBackgroundResource(R.drawable.item_bg)
+            buyView.setBackgroundResource(R.drawable.item_bg)
+        }
+    }
+
+    private fun clickAction() {
+        binding.apply {
+            coinSwapView.setOnClickListener {
+
+            }
+
+            dappView.setOnClickListener {
+
+            }
+
+            buyView.setOnClickListener {
+
+            }
+        }
     }
 
     override fun onDestroyView() {

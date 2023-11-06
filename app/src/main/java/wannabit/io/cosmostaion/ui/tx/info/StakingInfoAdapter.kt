@@ -110,11 +110,11 @@ class StakingInfoAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (rewardAddress != selectedChain.address) {
-            return delegations.size + unBondings.size + 1
+        return if (rewardAddress != selectedChain.address) {
+            delegations.size + unBondings.size + 1
 
         } else {
-            return delegations.size + unBondings.size
+            delegations.size + unBondings.size
         }
     }
 

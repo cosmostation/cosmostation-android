@@ -1970,12 +1970,12 @@ public final class EventProto {
       "\013EventRevoke\022 \n\014msg_type_url\030\002 \001(\tR\nmsgT" +
       "ypeUrl\0222\n\007granter\030\003 \001(\tB\030\322\264-\024cosmos.Addr" +
       "essStringR\007granter\0222\n\007grantee\030\004 \001(\tB\030\322\264-" +
-      "\024cosmos.AddressStringR\007granteeB\274\001\n\030com.c" +
-      "osmos.authz.v1beta1B\nEventProtoZ$github." +
-      "com/cosmos/cosmos-sdk/x/authz\242\002\003CAX\252\002\024Co" +
-      "smos.Authz.V1beta1\312\002\024Cosmos\\Authz\\V1beta" +
-      "1\342\002 Cosmos\\Authz\\V1beta1\\GPBMetadata\352\002\026C" +
-      "osmos::Authz::V1beta1b\006proto3"
+      "\024cosmos.AddressStringR\007granteeB\254\001\n\030com.c" +
+      "osmos.authz.v1beta1B\nEventProtoZ\024cosmoss" +
+      "dk.io/x/authz\242\002\003CAX\252\002\024Cosmos.Authz.V1bet" +
+      "a1\312\002\024Cosmos\\Authz\\V1beta1\342\002 Cosmos\\Authz" +
+      "\\V1beta1\\GPBMetadata\352\002\026Cosmos::Authz::V1" +
+      "beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

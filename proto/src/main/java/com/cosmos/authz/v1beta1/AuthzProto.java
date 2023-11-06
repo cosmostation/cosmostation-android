@@ -3353,12 +3353,12 @@ public final class AuthzProto {
       ".AuthorizationR\rauthorization\022@\n\nexpirat" +
       "ion\030\004 \001(\0132\032.google.protobuf.TimestampB\004\220" +
       "\337\037\001R\nexpiration\"4\n\016GrantQueueItem\022\"\n\rmsg" +
-      "_type_urls\030\001 \003(\tR\013msgTypeUrlsB\300\001\n\030com.co" +
-      "smos.authz.v1beta1B\nAuthzProtoZ$github.c" +
-      "om/cosmos/cosmos-sdk/x/authz\242\002\003CAX\252\002\024Cos" +
-      "mos.Authz.V1beta1\312\002\024Cosmos\\Authz\\V1beta1" +
-      "\342\002 Cosmos\\Authz\\V1beta1\\GPBMetadata\352\002\026Co" +
-      "smos::Authz::V1beta1\310\341\036\000b\006proto3"
+      "_type_urls\030\001 \003(\tR\013msgTypeUrlsB\260\001\n\030com.co" +
+      "smos.authz.v1beta1B\nAuthzProtoZ\024cosmossd" +
+      "k.io/x/authz\242\002\003CAX\252\002\024Cosmos.Authz.V1beta" +
+      "1\312\002\024Cosmos\\Authz\\V1beta1\342\002 Cosmos\\Authz\\" +
+      "V1beta1\\GPBMetadata\352\002\026Cosmos::Authz::V1b" +
+      "eta1\310\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

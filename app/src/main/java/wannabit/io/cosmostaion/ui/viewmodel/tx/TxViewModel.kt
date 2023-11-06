@@ -1,19 +1,27 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
 import SingleLiveEvent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
+import com.cosmos.base.tendermint.v1beta1.QueryProto.GetLatestBlockRequest
+import com.cosmos.base.tendermint.v1beta1.ServiceGrpc
+import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
+import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.SimulateResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
+import com.ibc.core.channel.v1.QueryGrpc
+import com.ibc.core.channel.v1.QueryProto
+import com.ibc.core.client.v1.ClientProto
+import com.ibc.lightclients.tendermint.v1.TendermintProto
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -23,8 +31,10 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.NameService
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
+import java.util.concurrent.TimeUnit
 
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
@@ -47,6 +57,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     private val _broadcastTx = MutableLiveData<AbciProto.TxResponse>()
     val broadcastTx: LiveData<AbciProto.TxResponse> get() = _broadcastTx
 
+    val simulate = SingleLiveEvent<AbciProto.GasInfo>()
+
     fun broadcastSend(
         managedChannel: ManagedChannel?,
         address: String?,
@@ -67,7 +79,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
-    val simulate = SingleLiveEvent<AbciProto.GasInfo>()
     fun simulateSend(
         managedChannel: ManagedChannel?,
         address: String?,
@@ -81,6 +92,101 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
                 val errorResponse = txRepository.simulateSendTx(managedChannel, it, msgSend, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadcastIbcSend(
+        managedChannel: ManagedChannel?,
+        recipientChannel: ManagedChannel?,
+        toAddress: String?,
+        assetPath: AssetPath?,
+        toSendDenom: String?,
+        toSendAmount: String?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, selectedChain?.address)?.let {
+            val blockStub = ServiceGrpc.newBlockingStub(recipientChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val blockRequest = GetLatestBlockRequest.newBuilder().build()
+            val lastBlock = blockStub.getLatestBlock(blockRequest)
+
+            val ibcClientStub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder()
+                .setChannelId(assetPath?.channel)
+                .setPortId(assetPath?.port)
+                .build()
+            val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
+            val lastHeight = TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
+            val height = ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber).setRevisionHeight(lastBlock.block.header.height + 200)
+
+            val sendCoin = Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
+
+            val msgTransfer = MsgTransfer.newBuilder()
+                .setSender(selectedChain?.address)
+                .setReceiver(toAddress)
+                .setSourceChannel(assetPath?.channel)
+                .setSourcePort(assetPath?.port)
+                .setTimeoutHeight(height)
+                .setTimeoutTimestamp(0)
+                .setToken(sendCoin)
+                .build()
+
+            val response = txRepository.broadcastIbcSendTx(
+                managedChannel,
+                it,
+                msgTransfer,
+                fee,
+                memo,
+                selectedChain)
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateIbcSend(
+        managedChannel: ManagedChannel?,
+        recipientChannel: ManagedChannel?,
+        fromAddress: String?,
+        toAddress: String?,
+        assetPath: AssetPath?,
+        toSendDenom: String?,
+        toSendAmount: String?,
+        fee: Fee?,
+        memo: String,
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, fromAddress)?.let {
+            val blockStub = ServiceGrpc.newBlockingStub(recipientChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val blockRequest = GetLatestBlockRequest.newBuilder().build()
+            val lastBlock = blockStub.getLatestBlock(blockRequest)
+
+            val ibcClientStub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder()
+                .setChannelId(assetPath?.channel)
+                .setPortId(assetPath?.port)
+                .build()
+            val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
+            val lastHeight = TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
+            val height = ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber).setRevisionHeight(lastBlock.block.header.height + 200)
+
+            val sendCoin = Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
+
+            val msgTransfer = MsgTransfer.newBuilder()
+                .setSender(fromAddress)
+                .setReceiver(toAddress)
+                .setSourceChannel(assetPath?.channel)
+                .setSourcePort(assetPath?.port)
+                .setTimeoutHeight(height)
+                .setTimeoutTimestamp(0)
+                .setToken(sendCoin)
+                .build()
+
+            try {
+                val response = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
         }
@@ -318,7 +424,45 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
                 val errorResponse = txRepository.simulateChangeRewardAddressTx(managedChannel, it, msgSetWithdrawAddress, fee, memo) as String
-                Log.e("Test1234 : ", errorResponse)
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadVote(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgVotes: MutableList<TxProto.MsgVote?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastVoteTx(
+                managedChannel,
+                it,
+                msgVotes,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateVote(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgVotes: MutableList<TxProto.MsgVote?>?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateVoteTx(managedChannel, it, msgVotes, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateVoteTx(managedChannel, it, msgVotes, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
         }

@@ -410,7 +410,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based proposalID, depositAddr.
+     * Deposit queries single deposit information based on proposalID, depositAddr.
      * </pre>
      */
     default void deposit(com.cosmos.gov.v1.QueryProto.QueryDepositRequest request,
@@ -540,7 +540,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based proposalID, depositAddr.
+     * Deposit queries single deposit information based on proposalID, depositAddr.
      * </pre>
      */
     public void deposit(com.cosmos.gov.v1.QueryProto.QueryDepositRequest request,
@@ -653,7 +653,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based proposalID, depositAddr.
+     * Deposit queries single deposit information based on proposalID, depositAddr.
      * </pre>
      */
     public com.cosmos.gov.v1.QueryProto.QueryDepositResponse deposit(com.cosmos.gov.v1.QueryProto.QueryDepositRequest request) {
@@ -769,7 +769,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based proposalID, depositAddr.
+     * Deposit queries single deposit information based on proposalID, depositAddr.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.gov.v1.QueryProto.QueryDepositResponse> deposit(

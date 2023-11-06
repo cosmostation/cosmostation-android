@@ -4,6 +4,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -74,7 +75,7 @@ class MainActivity : BaseActivity() {
             val tabLayoutMediator = TabLayoutMediator(tabLayout, mainViewPager) { tab, position ->
                 when (position) {
                     0 -> { tab.setIcon(R.drawable.icon_wallet) }
-                    1 -> { tab.setIcon(R.drawable.icon_dapp) }
+                    1 -> { tab.setIcon(R.drawable.icon_service) }
                     2 -> { tab.setIcon(R.drawable.icon_setting) }
                 }
             }
@@ -94,6 +95,9 @@ class MainActivity : BaseActivity() {
                     val position = tab?.position ?: 0
                     mainViewPager.setCurrentItem(position, false)
                     tabIconSetColor(tab, true)
+
+                    if (position == 1 || position == 2) btnEdit.visibility = View.GONE
+                    else btnEdit.visibility = View.VISIBLE
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {

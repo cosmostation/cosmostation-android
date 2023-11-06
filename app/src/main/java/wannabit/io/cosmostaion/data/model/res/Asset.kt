@@ -46,3 +46,8 @@ data class CounterParty(
     val port: String?,
     val denom: String?
 )
+
+data class AssetPath(
+    var channel: String?,
+    var port: String?
+)

@@ -8382,7 +8382,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=149
+     *     See cosmos/gov/v1/query.proto;l=148
      * @return Whether the votingParams field is set.
      */
     @java.lang.Deprecated boolean hasVotingParams();
@@ -8394,7 +8394,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=149
+     *     See cosmos/gov/v1/query.proto;l=148
      * @return The votingParams.
      */
     @java.lang.Deprecated com.cosmos.gov.v1.GovProto.VotingParams getVotingParams();
@@ -8416,7 +8416,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=152
+     *     See cosmos/gov/v1/query.proto;l=151
      * @return Whether the depositParams field is set.
      */
     @java.lang.Deprecated boolean hasDepositParams();
@@ -8428,7 +8428,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=152
+     *     See cosmos/gov/v1/query.proto;l=151
      * @return The depositParams.
      */
     @java.lang.Deprecated com.cosmos.gov.v1.GovProto.DepositParams getDepositParams();
@@ -8450,7 +8450,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=155
+     *     See cosmos/gov/v1/query.proto;l=154
      * @return Whether the tallyParams field is set.
      */
     @java.lang.Deprecated boolean hasTallyParams();
@@ -8462,7 +8462,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=155
+     *     See cosmos/gov/v1/query.proto;l=154
      * @return The tallyParams.
      */
     @java.lang.Deprecated com.cosmos.gov.v1.GovProto.TallyParams getTallyParams();
@@ -8558,7 +8558,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=149
+     *     See cosmos/gov/v1/query.proto;l=148
      * @return Whether the votingParams field is set.
      */
     @java.lang.Override
@@ -8573,7 +8573,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=149
+     *     See cosmos/gov/v1/query.proto;l=148
      * @return The votingParams.
      */
     @java.lang.Override
@@ -8603,7 +8603,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=152
+     *     See cosmos/gov/v1/query.proto;l=151
      * @return Whether the depositParams field is set.
      */
     @java.lang.Override
@@ -8618,7 +8618,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=152
+     *     See cosmos/gov/v1/query.proto;l=151
      * @return The depositParams.
      */
     @java.lang.Override
@@ -8648,7 +8648,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=155
+     *     See cosmos/gov/v1/query.proto;l=154
      * @return Whether the tallyParams field is set.
      */
     @java.lang.Override
@@ -8663,7 +8663,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=155
+     *     See cosmos/gov/v1/query.proto;l=154
      * @return The tallyParams.
      */
     @java.lang.Override
@@ -9188,7 +9188,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=149
+       *     See cosmos/gov/v1/query.proto;l=148
        * @return Whether the votingParams field is set.
        */
       @java.lang.Deprecated public boolean hasVotingParams() {
@@ -9202,7 +9202,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=149
+       *     See cosmos/gov/v1/query.proto;l=148
        * @return The votingParams.
        */
       @java.lang.Deprecated public com.cosmos.gov.v1.GovProto.VotingParams getVotingParams() {
@@ -9356,7 +9356,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=152
+       *     See cosmos/gov/v1/query.proto;l=151
        * @return Whether the depositParams field is set.
        */
       @java.lang.Deprecated public boolean hasDepositParams() {
@@ -9370,7 +9370,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=152
+       *     See cosmos/gov/v1/query.proto;l=151
        * @return The depositParams.
        */
       @java.lang.Deprecated public com.cosmos.gov.v1.GovProto.DepositParams getDepositParams() {
@@ -9524,7 +9524,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=155
+       *     See cosmos/gov/v1/query.proto;l=154
        * @return Whether the tallyParams field is set.
        */
       @java.lang.Deprecated public boolean hasTallyParams() {
@@ -9538,7 +9538,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=155
+       *     See cosmos/gov/v1/query.proto;l=154
        * @return The tallyParams.
        */
       @java.lang.Deprecated public com.cosmos.gov.v1.GovProto.TallyParams getTallyParams() {
@@ -14551,11 +14551,11 @@ public final class QueryProto {
       "s.gov.v1.QueryTallyResultRequest\032\'.cosmo" +
       "s.gov.v1.QueryTallyResultResponse\"4\202\323\344\223\002" +
       ".\022,/cosmos/gov/v1/proposals/{proposal_id" +
-      "}/tallyB\240\001\n\021com.cosmos.gov.v1B\nQueryProt" +
-      "oZ+github.com/cosmos/cosmos-sdk/x/gov/ty" +
-      "pes/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCosmos\\Go" +
-      "v\\V1\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352\002\017Cosmo" +
-      "s::Gov::V1b\006proto3"
+      "}/tallyB\220\001\n\021com.cosmos.gov.v1B\nQueryProt" +
+      "oZ\033cosmossdk.io/x/gov/types/v1\242\002\003CGX\252\002\rC" +
+      "osmos.Gov.V1\312\002\rCosmos\\Gov\\V1\342\002\031Cosmos\\Go" +
+      "v\\V1\\GPBMetadata\352\002\017Cosmos::Gov::V1b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

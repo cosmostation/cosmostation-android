@@ -323,8 +323,11 @@ public final class MsgGrpc {
      * <pre>
      * FundCommunityPool defines a method to allow an account to directly
      * fund the community pool.
+     * Deprecated: Use x/protocolpool module's FundCommunityPool instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     default void fundCommunityPool(com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPool request,
         io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPoolResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFundCommunityPoolMethod(), responseObserver);
@@ -348,7 +351,8 @@ public final class MsgGrpc {
      * the community pool in the x/distribution module to another account, which
      * could be the governance module itself. The authority is defined in the
      * keeper.
-     * Since: cosmos-sdk 0.47
+     * Deprecated: Use x/protocolpool module's CommunityPoolSpend instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
     default void communityPoolSpend(com.cosmos.distribution.v1beta1.TxProto.MsgCommunityPoolSpend request,
@@ -442,8 +446,11 @@ public final class MsgGrpc {
      * <pre>
      * FundCommunityPool defines a method to allow an account to directly
      * fund the community pool.
+     * Deprecated: Use x/protocolpool module's FundCommunityPool instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     public void fundCommunityPool(com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPool request,
         io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPoolResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -469,7 +476,8 @@ public final class MsgGrpc {
      * the community pool in the x/distribution module to another account, which
      * could be the governance module itself. The authority is defined in the
      * keeper.
-     * Since: cosmos-sdk 0.47
+     * Deprecated: Use x/protocolpool module's CommunityPoolSpend instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
     public void communityPoolSpend(com.cosmos.distribution.v1beta1.TxProto.MsgCommunityPoolSpend request,
@@ -548,8 +556,11 @@ public final class MsgGrpc {
      * <pre>
      * FundCommunityPool defines a method to allow an account to directly
      * fund the community pool.
+     * Deprecated: Use x/protocolpool module's FundCommunityPool instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     public com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPoolResponse fundCommunityPool(com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPool request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getFundCommunityPoolMethod(), getCallOptions(), request);
@@ -573,7 +584,8 @@ public final class MsgGrpc {
      * the community pool in the x/distribution module to another account, which
      * could be the governance module itself. The authority is defined in the
      * keeper.
-     * Since: cosmos-sdk 0.47
+     * Deprecated: Use x/protocolpool module's CommunityPoolSpend instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
     public com.cosmos.distribution.v1beta1.TxProto.MsgCommunityPoolSpendResponse communityPoolSpend(com.cosmos.distribution.v1beta1.TxProto.MsgCommunityPoolSpend request) {
@@ -653,8 +665,11 @@ public final class MsgGrpc {
      * <pre>
      * FundCommunityPool defines a method to allow an account to directly
      * fund the community pool.
+     * Deprecated: Use x/protocolpool module's FundCommunityPool instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
+    @java.lang.Deprecated
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPoolResponse> fundCommunityPool(
         com.cosmos.distribution.v1beta1.TxProto.MsgFundCommunityPool request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -680,7 +695,8 @@ public final class MsgGrpc {
      * the community pool in the x/distribution module to another account, which
      * could be the governance module itself. The authority is defined in the
      * keeper.
-     * Since: cosmos-sdk 0.47
+     * Deprecated: Use x/protocolpool module's CommunityPoolSpend instead.
+     * Since: cosmos-sdk 0.50
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.distribution.v1beta1.TxProto.MsgCommunityPoolSpendResponse> communityPoolSpend(

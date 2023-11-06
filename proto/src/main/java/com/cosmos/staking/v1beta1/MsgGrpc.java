@@ -235,6 +235,37 @@ public final class MsgGrpc {
     return getUpdateParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey,
+      com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse> getRotateConsPubKeyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RotateConsPubKey",
+      requestType = com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey.class,
+      responseType = com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey,
+      com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse> getRotateConsPubKeyMethod() {
+    io.grpc.MethodDescriptor<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey, com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse> getRotateConsPubKeyMethod;
+    if ((getRotateConsPubKeyMethod = MsgGrpc.getRotateConsPubKeyMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getRotateConsPubKeyMethod = MsgGrpc.getRotateConsPubKeyMethod) == null) {
+          MsgGrpc.getRotateConsPubKeyMethod = getRotateConsPubKeyMethod =
+              io.grpc.MethodDescriptor.<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey, com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RotateConsPubKey"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("RotateConsPubKey"))
+              .build();
+        }
+      }
+    }
+    return getRotateConsPubKeyMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -362,6 +393,18 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.cosmos.staking.v1beta1.TxProto.MsgUpdateParamsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateParamsMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * RotateConsPubKey defines an operation for rotating the consensus keys
+     * of a validator.
+     * Since: cosmos-sdk 0.48
+     * </pre>
+     */
+    default void rotateConsPubKey(com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey request,
+        io.grpc.stub.StreamObserver<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRotateConsPubKeyMethod(), responseObserver);
+    }
   }
 
   /**
@@ -480,6 +523,19 @@ public final class MsgGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * RotateConsPubKey defines an operation for rotating the consensus keys
+     * of a validator.
+     * Since: cosmos-sdk 0.48
+     * </pre>
+     */
+    public void rotateConsPubKey(com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey request,
+        io.grpc.stub.StreamObserver<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRotateConsPubKeyMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -576,6 +632,18 @@ public final class MsgGrpc {
     public com.cosmos.staking.v1beta1.TxProto.MsgUpdateParamsResponse updateParams(com.cosmos.staking.v1beta1.TxProto.MsgUpdateParams request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * RotateConsPubKey defines an operation for rotating the consensus keys
+     * of a validator.
+     * Since: cosmos-sdk 0.48
+     * </pre>
+     */
+    public com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse rotateConsPubKey(com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRotateConsPubKeyMethod(), getCallOptions(), request);
     }
   }
 
@@ -681,6 +749,19 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * RotateConsPubKey defines an operation for rotating the consensus keys
+     * of a validator.
+     * Since: cosmos-sdk 0.48
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse> rotateConsPubKey(
+        com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRotateConsPubKeyMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_VALIDATOR = 0;
@@ -690,6 +771,7 @@ public final class MsgGrpc {
   private static final int METHODID_UNDELEGATE = 4;
   private static final int METHODID_CANCEL_UNBONDING_DELEGATION = 5;
   private static final int METHODID_UPDATE_PARAMS = 6;
+  private static final int METHODID_ROTATE_CONS_PUB_KEY = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -735,6 +817,10 @@ public final class MsgGrpc {
         case METHODID_UPDATE_PARAMS:
           serviceImpl.updateParams((com.cosmos.staking.v1beta1.TxProto.MsgUpdateParams) request,
               (io.grpc.stub.StreamObserver<com.cosmos.staking.v1beta1.TxProto.MsgUpdateParamsResponse>) responseObserver);
+          break;
+        case METHODID_ROTATE_CONS_PUB_KEY:
+          serviceImpl.rotateConsPubKey((com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey) request,
+              (io.grpc.stub.StreamObserver<com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -803,6 +889,13 @@ public final class MsgGrpc {
               com.cosmos.staking.v1beta1.TxProto.MsgUpdateParams,
               com.cosmos.staking.v1beta1.TxProto.MsgUpdateParamsResponse>(
                 service, METHODID_UPDATE_PARAMS)))
+        .addMethod(
+          getRotateConsPubKeyMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKey,
+              com.cosmos.staking.v1beta1.TxProto.MsgRotateConsPubKeyResponse>(
+                service, METHODID_ROTATE_CONS_PUB_KEY)))
         .build();
   }
 
@@ -858,6 +951,7 @@ public final class MsgGrpc {
               .addMethod(getUndelegateMethod())
               .addMethod(getCancelUnbondingDelegationMethod())
               .addMethod(getUpdateParamsMethod())
+              .addMethod(getRotateConsPubKeyMethod())
               .build();
         }
       }

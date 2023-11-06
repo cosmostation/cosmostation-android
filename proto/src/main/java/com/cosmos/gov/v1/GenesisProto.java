@@ -3373,11 +3373,11 @@ public final class GenesisProto {
       "arams\030\007 \001(\0132\032.cosmos.gov.v1.TallyParamsB" +
       "\002\030\001R\013tallyParams\022-\n\006params\030\010 \001(\0132\025.cosmo" +
       "s.gov.v1.ParamsR\006params\022\"\n\014constitution\030" +
-      "\t \001(\tR\014constitutionB\242\001\n\021com.cosmos.gov.v" +
-      "1B\014GenesisProtoZ+github.com/cosmos/cosmo" +
-      "s-sdk/x/gov/types/v1\242\002\003CGX\252\002\rCosmos.Gov." +
-      "V1\312\002\rCosmos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\GPBMe" +
-      "tadata\352\002\017Cosmos::Gov::V1b\006proto3"
+      "\t \001(\tR\014constitutionB\222\001\n\021com.cosmos.gov.v" +
+      "1B\014GenesisProtoZ\033cosmossdk.io/x/gov/type" +
+      "s/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCosmos\\Gov\\" +
+      "V1\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352\002\017Cosmos:" +
+      ":Gov::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

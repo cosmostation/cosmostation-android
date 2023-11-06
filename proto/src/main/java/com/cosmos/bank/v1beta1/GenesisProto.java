@@ -3841,12 +3841,12 @@ public final class GenesisProto {
       "ddress\022w\n\005coins\030\002 \003(\0132\031.cosmos.base.v1be" +
       "ta1.CoinBF\310\336\037\000\252\337\037(github.com/cosmos/cosm" +
       "os-sdk/types.Coins\232\347\260*\014legacy_coins\250\347\260*\001" +
-      "R\005coins:\010\210\240\037\000\350\240\037\000B\276\001\n\027com.cosmos.bank.v1" +
-      "beta1B\014GenesisProtoZ)github.com/cosmos/c" +
-      "osmos-sdk/x/bank/types\242\002\003CBX\252\002\023Cosmos.Ba" +
-      "nk.V1beta1\312\002\023Cosmos\\Bank\\V1beta1\342\002\037Cosmo" +
-      "s\\Bank\\V1beta1\\GPBMetadata\352\002\025Cosmos::Ban" +
-      "k::V1beta1b\006proto3"
+      "R\005coins:\010\210\240\037\000\350\240\037\000B\256\001\n\027com.cosmos.bank.v1" +
+      "beta1B\014GenesisProtoZ\031cosmossdk.io/x/bank" +
+      "/types\242\002\003CBX\252\002\023Cosmos.Bank.V1beta1\312\002\023Cos" +
+      "mos\\Bank\\V1beta1\342\002\037Cosmos\\Bank\\V1beta1\\G" +
+      "PBMetadata\352\002\025Cosmos::Bank::V1beta1b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

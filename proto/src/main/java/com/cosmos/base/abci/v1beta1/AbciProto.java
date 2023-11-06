@@ -6714,7 +6714,7 @@ public final class AbciProto {
      *
      * <code>bytes data = 1 [json_name = "data", deprecated = true];</code>
      * @deprecated cosmos.base.abci.v1beta1.Result.data is deprecated.
-     *     See cosmos/base/abci/v1beta1/abci.proto;l=100
+     *     See cosmos/base/abci/v1beta1/abci.proto;l=96
      * @return The data.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString getData();
@@ -6897,7 +6897,7 @@ public final class AbciProto {
      *
      * <code>bytes data = 1 [json_name = "data", deprecated = true];</code>
      * @deprecated cosmos.base.abci.v1beta1.Result.data is deprecated.
-     *     See cosmos/base/abci/v1beta1/abci.proto;l=100
+     *     See cosmos/base/abci/v1beta1/abci.proto;l=96
      * @return The data.
      */
     @java.lang.Override
@@ -7593,7 +7593,7 @@ public final class AbciProto {
        *
        * <code>bytes data = 1 [json_name = "data", deprecated = true];</code>
        * @deprecated cosmos.base.abci.v1beta1.Result.data is deprecated.
-       *     See cosmos/base/abci/v1beta1/abci.proto;l=100
+       *     See cosmos/base/abci/v1beta1/abci.proto;l=96
        * @return The data.
        */
       @java.lang.Override
@@ -7610,7 +7610,7 @@ public final class AbciProto {
        *
        * <code>bytes data = 1 [json_name = "data", deprecated = true];</code>
        * @deprecated cosmos.base.abci.v1beta1.Result.data is deprecated.
-       *     See cosmos/base/abci/v1beta1/abci.proto;l=100
+       *     See cosmos/base/abci/v1beta1/abci.proto;l=96
        * @param value The data to set.
        * @return This builder for chaining.
        */
@@ -7631,7 +7631,7 @@ public final class AbciProto {
        *
        * <code>bytes data = 1 [json_name = "data", deprecated = true];</code>
        * @deprecated cosmos.base.abci.v1beta1.Result.data is deprecated.
-       *     See cosmos/base/abci/v1beta1/abci.proto;l=100
+       *     See cosmos/base/abci/v1beta1/abci.proto;l=96
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearData() {

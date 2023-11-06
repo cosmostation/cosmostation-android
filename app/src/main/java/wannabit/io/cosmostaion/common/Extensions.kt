@@ -191,6 +191,12 @@ fun formatTxTimeToHour(context: Context, timeString: String): String {
     return outputFormat.format(inputFormat.parse(timeString))
 }
 
+fun dateToLong(format: String, rawValue: String?): Long {
+    val simpleDateFormat = SimpleDateFormat(format)
+    simpleDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return simpleDateFormat.parse(rawValue).time
+}
+
 fun dpTime(time: Long): String {
     val locale = Locale.getDefault()
     val calendar = Calendar.getInstance()
@@ -198,6 +204,18 @@ fun dpTime(time: Long): String {
 
     val outputFormat = SimpleDateFormat(
         if (locale == Locale.ENGLISH) "MMM dd, yyyy (HH:mm:ss)" else "yyyy-MM-dd HH:mm:ss",
+        locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
+fun voteDpTime(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        if (locale == Locale.ENGLISH) "MMM dd, yyyy HH:mm:ss" else "yyyy-MM-dd HH:mm:ss",
         locale
     )
     return outputFormat.format(calendar.timeInMillis)
