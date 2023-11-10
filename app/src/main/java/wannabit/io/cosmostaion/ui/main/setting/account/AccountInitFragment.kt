@@ -76,7 +76,6 @@ class AccountInitFragment(private val accountListFragment: AccountListFragment) 
         val fragment = CreateNameFragment()
         fragment.arguments = bundle
         requireActivity().toMoveFragment(accountListFragment, fragment, "CreateName")
-
     }
 
     private val createAccountResultLauncher: ActivityResultLauncher<Intent> =

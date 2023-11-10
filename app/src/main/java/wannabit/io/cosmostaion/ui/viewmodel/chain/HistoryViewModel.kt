@@ -22,15 +22,15 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _historyResult = MutableLiveData<MutableList<Pair<String, CosmosHistory>>>()
     val historyResult: LiveData<MutableList<Pair<String, CosmosHistory>>> get() = _historyResult
 
-    fun history(context: Context, chain: String, address: String?, limit: String, searchAfter: String) = CoroutineScope(Dispatchers.IO).launch {
-        when (val response = historyRepository.cosmosHistory(chain, address, limit, searchAfter)) {
+    fun history(context: Context, chain: String, address: String?, limit: String, searchId: Int?) = CoroutineScope(Dispatchers.IO).launch {
+        when (val response = historyRepository.cosmosHistory(chain, address, limit, searchId)) {
             is NetworkResult.Success -> {
                 response.data.let { data ->
                     if (data.isSuccessful) {
                         val result: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
                         data.body()?.forEach { history ->
                             history.header?.let {
-                                val headerDate = formatGrpcTxTimeToYear(context, it.timestamp)
+                                val headerDate = formatTxTimeToYear(context, it.timestamp)
                                 result.add(Pair(headerDate, history))
                             }
                         }

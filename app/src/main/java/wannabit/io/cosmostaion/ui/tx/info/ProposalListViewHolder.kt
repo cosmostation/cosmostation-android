@@ -70,6 +70,7 @@ class ProposalListViewHolder(
                 statusImg.setImageResource(R.drawable.icon_not_voted)
             }
 
+            selectSwitch.setOnCheckedChangeListener(null)
             selectSwitch.setOnCheckedChangeListener { _, isChecked ->
                 val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

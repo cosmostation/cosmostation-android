@@ -163,13 +163,6 @@ fun formatGrpcTxTimeToYear(context: Context, timeString: String): String {
     return outputFormat.format(date)
 }
 
-fun formatGrpcTxTimeToHour(context: Context, timeString: String): String {
-    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
-    val outputFormat = SimpleDateFormat(context.getString(R.string.str_dp_time_format2))
-    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-    return outputFormat.format(inputFormat.parse(timeString))
-}
-
 fun formatTxTimeToYear(context: Context, timeString: String): String {
     val locale = Locale.getDefault()
     val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_format))

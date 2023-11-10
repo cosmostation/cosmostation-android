@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
@@ -38,6 +39,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -63,6 +65,7 @@ open class CosmosLine : BaseChain() {
     open var stakeDenom: String? = ""
     open var supportCw20 = false
     open var supportErc20 = false
+    open var supportStaking = true
 
     open var evmCompatible = false
 
@@ -84,13 +87,11 @@ open class CosmosLine : BaseChain() {
     var lcdAccountInfo: AccountResponse? = null
     var lcdBeaconTokens = mutableListOf<BnbToken>()
 
-    var refAddresses: MutableList<RefAddress> = mutableListOf()
-
     interface LoadDataCallback {
         fun onDataLoaded(isLoaded: Boolean)
     }
 
-    private var loadDataCallback: LoadDataCallback? = null
+    open var loadDataCallback: LoadDataCallback? = null
 
     fun setLoadDataCallBack(callback: LoadDataCallback) {
         loadDataCallback = callback
@@ -100,7 +101,7 @@ open class CosmosLine : BaseChain() {
         return ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
     }
 
-    fun allAssetValue(): BigDecimal {
+    open fun allAssetValue(): BigDecimal {
         var allValue: BigDecimal
         if (this is ChainBinanceBeacon) {
             allValue = lcdBalanceValue(stakeDenom)
@@ -154,16 +155,18 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadGrpcMoreData(channel: ManagedChannel, id: Long) = runBlocking {
+    open fun loadGrpcMoreData(channel: ManagedChannel, id: Long) = runBlocking {
         CoroutineScope(Dispatchers.Default).let {
             if (supportCw20) {
                 loadCw20Token(id)
             }
 
             loadBalance(channel)
-            loadDelegation(channel)
-            loadUnbonding(channel)
-            loadReward(channel)
+            if (supportStaking) {
+                loadDelegation(channel)
+                loadUnbonding(channel)
+                loadReward(channel)
+            }
 
             BaseUtils.onParseVestingAccount(this@CosmosLine)
             loadDataCallback?.onDataLoaded(true)
@@ -315,7 +318,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadBalance(channel: ManagedChannel) {
+    fun loadBalance(channel: ManagedChannel) {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
@@ -491,7 +494,7 @@ open class CosmosLine : BaseChain() {
 
     fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances.isNotEmpty()) {
-            return cosmosBalances.first { it.denom == denom }.amount.toBigDecimal()
+            return cosmosBalances.firstOrNull { it.denom == denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -522,8 +525,7 @@ open class CosmosLine : BaseChain() {
 
     fun vestingAmount(denom: String): BigDecimal {
         if (cosmosVestings.isNotEmpty()) {
-            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
-                ?: BigDecimal.ZERO
+            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -672,7 +674,7 @@ open class CosmosLine : BaseChain() {
         return result
     }
 
-    fun allStakingDenomAmount(): BigDecimal? {
+    open fun allStakingDenomAmount(): BigDecimal? {
         stakeDenom?.let {
             return balanceAmount(it).add(vestingAmount(it))?.add(delegationAmountSum())
                 ?.add(unbondingAmountSum())?.add(rewardAmountSum(it))
@@ -701,7 +703,7 @@ open class CosmosLine : BaseChain() {
         return sumValue
     }
 
-    fun denomValue(denom: String): BigDecimal {
+    open fun denomValue(denom: String): BigDecimal {
         return if (denom == stakeDenom) {
             balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
                 .add(delegationValueSum()).add(unbondingValueSum())
@@ -808,6 +810,7 @@ fun allCosmosLines(): List<CosmosLine> {
     lines.add(ChainKava459())
     lines.add(ChainKava118())
     lines.add(ChainLum118())
+    lines.add(ChainNeutron())
     lines.add(ChainOsmosis())
     lines.add(ChainStride())
 

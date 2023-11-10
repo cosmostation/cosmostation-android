@@ -4,18 +4,20 @@ import android.content.Context
 import com.cosmos.base.v1beta1.CoinProto
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import org.json.JSONArray
+import org.json.JSONException
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import java.util.regex.Pattern
 
 @JsonClass(generateAdapter = true)
 data class CosmosHistory(
     val header: HistoryHeader?,
     val data: HistoryData?,
-//    val logs: List<HistoryLog>?,
-    @Json(name = "search_after") val searchAfter: String?
 ) {
     @JsonClass(generateAdapter = true)
     data class HistoryHeader(
+        val id: Int?,
         @Json(name = "chain_id") val chainId: String,
         val timestamp: String
     )
@@ -25,7 +27,8 @@ data class CosmosHistory(
         val height: String?,
         val txhash: String?,
         val code: Int?,
-        val tx: Tx?
+        val tx: Tx?,
+        val logs: List<HistoryLog>?,
     )
 
     @JsonClass(generateAdapter = true)
@@ -48,65 +51,12 @@ data class CosmosHistory(
     @JsonClass(generateAdapter = true)
     data class Tx(
         @Json(name = "@type") val type: String,
-        @Json(name = "/cosmos-tx-v1beta1-Tx") val txType: TxType
+        val body: Body
     ) {
         @JsonClass(generateAdapter = true)
-        data class TxType(
-            val body: Body
-        ) {
-            @JsonClass(generateAdapter = true)
-            data class Body(
-                val messages: List<Message>
-            ) {
-                @JsonClass(generateAdapter = true)
-                data class Message(
-                    @Json(name = "@type") val type: String,
-                    @Json(name = "/cosmos-bank-v1beta1-MsgSend") val sendTx: SendTx?,
-                    @Json(name = "/cosmos-staking-v1beta1-MsgDelegate") val delegateTx: StakingTx?,
-                    @Json(name = "/cosmos-staking-v1beta1-MsgUndelegate") val unDelegateTx: StakingTx?,
-                    @Json(name = "/cosmos-staking-v1beta1-MsgBeginRedelegate") val reDelegateTx: StakingTx?,
-                    @Json(name = "/ibc-applications-transfer-v1-MsgTransfer") val ibcTx: IbcTx?,
-
-                    @Json(name = "/cosmos-gov-v1beta1-MsgVote") val voteTx: VoteTx?,
-                    @Json(name = "/irismod-nft-MsgTransferNFT") val irisNftSendTx: IrisNftSendTx?,
-                    @Json(name = "/chainmain-nft-v1-MsgTransferNFT") val cryptoNftSendTx: CryptoNftSendTx?
-                ) {
-                    @JsonClass(generateAdapter = true)
-                    data class SendTx(
-                        @Json(name = "from_address") val fromAddress: String?,
-                        @Json(name = "to_address") val toAddress: String?,
-                        val amount: List<Coin>
-                    )
-
-                    @JsonClass(generateAdapter = true)
-                    data class StakingTx(
-                        val amount: Coin
-                    )
-
-                    @JsonClass(generateAdapter = true)
-                    data class IbcTx(
-                        val token: Coin
-                    )
-
-                    @JsonClass(generateAdapter = true)
-                    data class VoteTx(
-                        val option: String
-                    )
-
-                    @JsonClass(generateAdapter = true)
-                    data class IrisNftSendTx(
-                        val sender: String,
-                        val recipient: String
-                    )
-
-                    @JsonClass(generateAdapter = true)
-                    data class CryptoNftSendTx(
-                        val sender: String,
-                        val recipient: String
-                    )
-                }
-            }
-        }
+        data class Body(
+            val messages: List<Any>
+        )
     }
 
     @JsonClass(generateAdapter = true)
@@ -123,16 +73,16 @@ data class CosmosHistory(
         return true
     }
 
-    private fun getMsgs(): List<Tx.TxType.Body.Message>? {
-        if (data?.tx?.txType?.body != null) {
-            return data.tx.txType.body.messages
+    private fun getMsgs(): JSONArray? {
+        if (data?.tx?.body != null) {
+            return JSONArray(data.tx.body.messages)
         }
         return null
     }
 
     private fun getMsgCnt(): Int {
         if (getMsgs() != null) {
-            return getMsgs()?.size ?: 0
+            return getMsgs()?.length() ?: 0
         }
         return 0
     }
@@ -142,14 +92,30 @@ data class CosmosHistory(
         if (getMsgCnt() == 0) {
             c.getString(R.string.tx_unknown)
         }
-
         getMsgs()?.let { msg ->
-            val firstMsgType = msg[0].type
+            val firstMsgType = msg.getJSONObject(0).getString("@type")
             result = firstMsgType.split(".").last().replace("Msg", "")
 
             if (getMsgCnt() >= 2) {
-                val msgType0 = msg[0].type
-                val msgType1 = msg[1].type
+                var msgType0 = ""
+                var msgType1 = ""
+
+                try {
+                    msgType0 = msg.getJSONObject(0).getString("@type")
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType0 = msg.getJSONObject(0).getString("type")
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msg.getJSONObject(1).getString("@type")
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msg.getJSONObject(1).getString("type")
+                } catch (_: Exception) {
+                }
 
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
                     msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")
@@ -177,7 +143,15 @@ data class CosmosHistory(
                 }
 
             }
-            val msgType = msg[0].type
+            var msgType = ""
+            try {
+                msgType = msg.getJSONObject(0).getString("@type")
+            } catch (_: java.lang.Exception) {
+            }
+            try {
+                msgType = msg.getJSONObject(0).getString("type")
+            } catch (_: java.lang.Exception) {
+            }
 
             if (msgType.contains("cosmos.") && msgType.contains("staking")) {
                 if (msgType.contains("MsgCreateValidator")) {
@@ -196,8 +170,20 @@ data class CosmosHistory(
 
             } else if (msgType.contains("cosmos.") && msgType.contains("bank")) {
                 if (msgType.contains("MsgSend")) {
-                    val fromAddress = msg[0].sendTx?.fromAddress
-                    val toAddress = msg[0].sendTx?.toAddress
+                    var fromAddress = ""
+                    var toAddress = ""
+                    try {
+                        toAddress = getMsgs()!!.getJSONObject(0).getString("to_address")
+                        fromAddress = getMsgs()!!.getJSONObject(0).getString("from_address")
+                    } catch (_: java.lang.Exception) {
+                    }
+                    try {
+                        toAddress = getMsgs()!!.getJSONObject(0).getJSONObject("value")
+                            .getString("to_address")
+                        fromAddress = getMsgs()!!.getJSONObject(0).getJSONObject("value")
+                            .getString("from_address")
+                    } catch (_: java.lang.Exception) {
+                    }
                     result = if (toAddress == address) {
                         c.getString(R.string.tx_receive)
                     } else if (fromAddress == address) {
@@ -326,8 +312,8 @@ data class CosmosHistory(
                 if (msgType.contains("MsgMintNFT")) {
                     result = c.getString(R.string.tx_mint_nft)
                 } else if (msgType.contains("MsgTransferNFT")) {
-                    val sender = msg[0].irisNftSendTx?.sender
-                    val recipient = msg[0].irisNftSendTx?.recipient
+                    val sender = msg.getJSONObject(0).getString("sender");
+                    val recipient = msg.getJSONObject(0).getString("recipient");
                     result = if (sender.equals(address, ignoreCase = true)) {
                         c.getString(R.string.tx_send_nft)
                     } else if (recipient.equals(address, ignoreCase = true)) {
@@ -363,8 +349,8 @@ data class CosmosHistory(
                 if (msgType.contains("MsgMintNFT")) {
                     result = c.getString(R.string.tx_mint_nft)
                 } else if (msgType.contains("MsgTransferNFT")) {
-                    val sender = msg[0].cryptoNftSendTx?.sender
-                    val recipient = msg[0].cryptoNftSendTx?.recipient
+                    val sender = msg.getJSONObject(0).getString("sender");
+                    val recipient = msg.getJSONObject(0).getString("recipient");
                     result = if (sender.equals(address, ignoreCase = true)) {
                         c.getString(R.string.tx_send_nft)
                     } else if (recipient.equals(address, ignoreCase = true)) {
@@ -689,172 +675,211 @@ data class CosmosHistory(
         return c.getString(R.string.tx_unknown)
     }
 
-    fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin>? {
+    fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin> {
         val result = mutableListOf<CoinProto.Coin>()
         if (getMsgCnt() > 0) {
-//            var allReward = true
-//            getMsgs()?.let { msgs ->
-//                for (element in msgs) {
-//                    val msgType = element.type
-//                    if (!msgType.contains("MsgWithdrawDelegatorReward")) {
-//                        allReward = false
-//                    }
-//                }
-//            }
-//            if (allReward) {
-//                logs?.forEach { log ->
-//                    log.events.forEach { event ->
-//                        if (event.type == "transfer") {
-//                            event.attributes.forEach { attribute ->
-//                                if (attribute.key == "amount") {
-//                                    val value = attribute.value as String
-//                                    value.split(",").forEach { rawCoin ->
-//                                        val p = Pattern.compile("([0-9])+")
-//                                        val m = p.matcher(rawCoin)
-//                                        if (m.find()) {
-//                                            val amount = m.group()
-//                                            val denom: String = rawCoin.substring(m.end())
-//                                            val coin = CoinProto.Coin.newBuilder().setDenom(denom)
-//                                                .setAmount(amount).build()
-//                                            result.add(coin)
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//                return sortedCoins(line, result)
-//            }
-
-//            var ibcReceived = false
-//            getMsgs()?.let { msgs ->
-//                for (element in msgs) {
-//                    val msgType = element.type
-//                    if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
-//                        ibcReceived = true
-//                    }
-//                }
-//            }
-//            if (ibcReceived) {
-//                logs?.forEach { log ->
-//                    log.events.forEach { event ->
-//                        if (event.type == "transfer") {
-//                            val value = event.attributes[2].value as String
-//                            value.split(",").forEach { rawCoin ->
-//                                val p = Pattern.compile("([0-9])+")
-//                                val m = p.matcher(rawCoin)
-//                                if (m.find()) {
-//                                    val amount = m.group()
-//                                    val denom: String = rawCoin.substring(m.end())
-//                                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-//                                    result.add(coin)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//                return sortedCoins(line, result)
-//            }
-//        }
-
-//        if (getMsgCnt() == 2) {
-//            getMsgs()?.let { msgs ->
-//                val msgType0 = msgs[0].type
-//                val msgType1 = msgs[1].type
-//                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-//                    logs?.forEach { log ->
-//                        log.events.forEach { event ->
-//                            if (event.type == "transfer") {
-//                                event.attributes.forEach { attribute ->
-//                                    if (attribute.key == "amount") {
-//                                        val value = attribute.value as String
-//                                        value.split(",").forEach { rawCoin ->
-//                                            val p = Pattern.compile("([0-9])+")
-//                                            val m = p.matcher(rawCoin)
-//                                            if (m.find()) {
-//                                                val amount = m.group()
-//                                                val denom: String = rawCoin.substring(m.end())
-//                                                val coin =
-//                                                    CoinProto.Coin.newBuilder().setDenom(denom)
-//                                                        .setAmount(amount).build()
-//                                                result.add(coin)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            return sortedCoins(line, result)
-        }
-
-        if (getMsgCnt() == 0 || getMsgCnt() > 1) {
-            return null
-        }
-        getMsgs()?.let { msgs ->
-            val msgType = msgs[0].type
-            var denom: String? = ""
-            var amount: String? = ""
-
-            if (msgType.contains("MsgSend")) {
-                msgs[0].sendTx?.let {
-                    denom = it.amount[0].denom
-                    amount = it.amount[0].amount
-                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-                    result.add(coin)
+            var allReward = true
+            getMsgs()?.let { msgs ->
+                for (i in 0 until msgs.length()) {
+                    var msgType = ""
+                    try {
+                        msgType = msgs.getJSONObject(i).getString("@type")
+                    } catch (_: java.lang.Exception) {
+                    }
+                    try {
+                        msgType = msgs.getJSONObject(i).getString("type")
+                    } catch (_: java.lang.Exception) {
+                    }
+                    if (!msgType.contains("MsgWithdrawDelegatorReward")) {
+                        allReward = false
+                    }
                 }
-
-            } else if (msgType.contains("MsgDelegate")) {
-                msgs[0].delegateTx?.let {
-                    denom = it.amount.denom
-                    amount = it.amount.amount
-                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-                    result.add(coin)
+                if (allReward) {
+                    data?.logs?.forEach { log ->
+                        log.events.forEach { event ->
+                            if (event.type == "transfer") {
+                                event.attributes.forEach { attribute ->
+                                    if (attribute.key == "amount") {
+                                        val value = attribute.value as String
+                                        value.split(",").forEach { rawCoin ->
+                                            val p = Pattern.compile("([0-9])+")
+                                            val m = p.matcher(rawCoin)
+                                            if (m.find()) {
+                                                val amount = m.group()
+                                                val denom: String = rawCoin.substring(m.end())
+                                                val coin =
+                                                    CoinProto.Coin.newBuilder().setDenom(denom)
+                                                        .setAmount(amount).build()
+                                                result.add(coin)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return sortedCoins(line, result)
                 }
-
-            } else if (msgType.contains("MsgUndelegate")) {
-                msgs[0].unDelegateTx?.let {
-                    denom = it.amount.denom
-                    amount = it.amount.amount
-                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-                    result.add(coin)
+                var ibcReceived = false
+                for (i in 0 until msgs.length()) {
+                    var msgType = ""
+                    try {
+                        msgType = msgs.getJSONObject(i).getString("@type")
+                    } catch (_: java.lang.Exception) {
+                    }
+                    try {
+                        msgType = msgs.getJSONObject(i).getString("type")
+                    } catch (_: java.lang.Exception) {
+                    }
+                    if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
+                        ibcReceived = true
+                    }
                 }
-
-            } else if (msgType.contains("MsgBeginRedelegate")) {
-                msgs[0].reDelegateTx?.let {
-                    denom = it.amount.denom
-                    amount = it.amount.amount
-                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-                    result.add(coin)
-                }
-
-            } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
-                msgs[0].ibcTx?.let {
-                    denom = it.token.denom
-                    amount = it.token.amount
-                    val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-                    result.add(coin)
+                if (ibcReceived) {
+                    data?.logs?.forEach { log ->
+                        log.events.forEach { event ->
+                            if (event.type == "transfer") {
+                                val value = event.attributes[2].value as String
+                                value.split(",").forEach { rawCoin ->
+                                    val p = Pattern.compile("([0-9])+")
+                                    val m = p.matcher(rawCoin)
+                                    if (m.find()) {
+                                        val amount = m.group()
+                                        val denom: String = rawCoin.substring(m.end())
+                                        val coin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                            .setAmount(amount).build()
+                                        result.add(coin)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return sortedCoins(line, result)
                 }
             }
-            return sortedCoins(line, result)
         }
-        return null
+
+        if (getMsgCnt() == 2) {
+            getMsgs()?.let { msgs ->
+                var msgType0 = ""
+                var msgType1 = ""
+                try {
+                    msgType0 = msgs.getJSONObject(0).getString("@type")
+                } catch (_: java.lang.Exception) { }
+                try {
+                    msgType0 = msgs.getJSONObject(0).getString("type")
+                } catch (_: java.lang.Exception) { }
+                try {
+                    msgType1 = msgs.getJSONObject(1).getString("@type")
+                } catch (_: java.lang.Exception) { }
+                try {
+                    msgType1 = msgs.getJSONObject(1).getString("type")
+                } catch (_: java.lang.Exception) { }
+                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                    msgs.getJSONObject(1).getJSONObject("amount").let { rawAmount ->
+                        CoinProto.Coin.newBuilder()
+                            .setDenom(rawAmount.getString("denom"))
+                            .setAmount(rawAmount.getString("amount"))
+                            .build()?.let { rawCoin ->
+                                result.add(rawCoin)
+                            }
+                    }
+                    return sortedCoins(line, result)
+                }
+            }
+        }
+
+        if (getMsgCnt() == 0 || getMsgCnt() > 1) { return mutableListOf() }
+
+        var msgType = ""
+        try {
+            msgType = getMsgs()?.getJSONObject(0)?.getString("@type").toString()
+        } catch (_: java.lang.Exception) { }
+        try {
+            msgType = getMsgs()?.getJSONObject(0)?.getString("type").toString()
+        } catch (_: java.lang.Exception) { }
+        var denom: String? = ""
+        var amount: String? = ""
+
+        if (msgType.contains("MsgSend")) {
+            try {
+                denom = getMsgs()?.getJSONObject(0)?.getJSONArray("amount")?.getJSONObject(0)
+                    ?.getString("denom")
+                amount = getMsgs()?.getJSONObject(0)?.getJSONArray("amount")?.getJSONObject(0)
+                    ?.getString("amount")
+            } catch (_: JSONException) { }
+            try {
+                denom =
+                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONArray("amount")
+                        ?.getJSONObject(0)?.getString("denom")
+                amount =
+                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONArray("amount")
+                        ?.getJSONObject(0)?.getString("amount")
+            } catch (_: JSONException) { }
+            val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
+            result.add(coin)
+
+        } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains(
+                "MsgBeginRedelegate"
+            )
+        ) {
+            try {
+                denom = getMsgs()?.getJSONObject(0)?.getJSONObject("amount")?.getString("denom")
+                amount =
+                    getMsgs()?.getJSONObject(0)?.getJSONObject("amount")?.getString("amount")
+            } catch (_: JSONException) { }
+            try {
+                denom =
+                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONObject("amount")
+                        ?.getString("denom")
+                amount =
+                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONObject("amount")
+                        ?.getString("amount")
+            } catch (_: JSONException) { }
+            val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
+            result.add(coin)
+
+        } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
+            denom = getMsgs()?.getJSONObject(0)?.getJSONObject("token")?.getString("denom")
+            amount = getMsgs()?.getJSONObject(0)?.getJSONObject("token")?.getString("amount")
+            val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
+            result.add(coin)
+        }
+        return sortedCoins(line, result)
     }
 
     fun getVoteOption(): String {
+        var result = ""
         getMsgs()?.let { msgs ->
-            return when (msgs[0].voteTx?.option) {
-                "VOTE_OPTION_YES", "Yes" -> "YES"
-                "VOTE_OPTION_NO", "No" -> "NO"
-                "VOTE_OPTION_ABSTAIN", "Abstain" -> "ABSTAIN"
-                "VOTE_OPTION_NO_WITH_VETO", "NoWithVeto" -> "VETO"
-                else -> "WEIGHT"
+            var msgType: String? = ""
+            try {
+                msgType = msgs.getJSONObject(0).getString("@type")
+            } catch (_: java.lang.Exception) {
+            }
+            try {
+                msgType = msgs.getJSONObject(0).getString("type")
+            } catch (_: java.lang.Exception) {
+            }
+            var option: String? = ""
+            try {
+                option = msgs.getJSONObject(0).getString("option")
+            } catch (_: java.lang.Exception) {
+            }
+            try {
+                option = msgs.getJSONObject(0).getJSONObject("value").getString("option")
+            } catch (_: java.lang.Exception) {
+            }
+
+            if (msgType?.contains("MsgVote") == true) {
+                when (option) {
+                    "VOTE_OPTION_YES", "Yes" -> result = "YES"
+                    "VOTE_OPTION_NO", "No" -> result = "NO"
+                    "VOTE_OPTION_ABSTAIN", "Abstain" -> result = "ABSTAIN"
+                    "VOTE_OPTION_NO_WITH_VETO", "NoWithVeto" -> result = "VETO"
+                }
             }
         }
-        return ""
+        return result
     }
 
     private fun sortedCoins(

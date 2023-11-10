@@ -53,7 +53,7 @@ class CoinViewHolder(
                     }
 
                     asset.decimals?.let { decimal ->
-                        val amount = coin.amount.toBigDecimal().movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                        val amount = coin.amount.toBigDecimal().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                         coinAmount.text = formatString(amount.toPlainString(), 6)
                         coinAmountValue.text = formatAssetValue(line.denomValue(coin.denom))
                     }
@@ -80,7 +80,7 @@ class CoinViewHolder(
                 tokenName.text = token.originalSymbol.uppercase()
                 tokenPrice.text = token.name
             }
-            val amount = coin.amount.toBigDecimal().setScale(8, RoundingMode.HALF_UP)
+            val amount = coin.amount.toBigDecimal().setScale(8, RoundingMode.DOWN)
             coinAmount.text = formatString(amount.toPlainString(), 8)
         }
     }

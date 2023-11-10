@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -24,6 +25,8 @@ import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
+import wannabit.io.cosmostaion.ui.dialog.tx.select.VaultSelectFragment
+import wannabit.io.cosmostaion.ui.tx.info.DaoListFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
@@ -66,12 +69,25 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 accountAddress.text = selectedChain.address
                 accountValue.text = formatAssetValue(selectedChain.allAssetValue())
             }
-            selectedChain.loadStakeData()
+            if (selectedChain.supportStaking) {
+                selectedChain.loadStakeData()
+            }
         }
     }
 
     private fun initTab() {
         binding.apply {
+            if (selectedChain is ChainNeutron) {
+                fabStake.visibility = View.GONE
+                fabClaimReward.setImageResource(R.drawable.icon_receive)
+                fabClaimReward.labelText = "Receive"
+
+                fabCompounding.setImageResource(R.drawable.icon_neutron_dao)
+                fabCompounding.labelText = "Dao"
+                fabVote.setImageResource(R.drawable.icon_neutron_vault)
+                fabVote.labelText = "Vault"
+            }
+
             pagerAdapter = AccountPageAdapter(
                 requireActivity(), selectedChain, selectedPosition
             )
@@ -187,17 +203,24 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             fabClaimReward.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    if (selectedChain.cosmosValidators.size > 0) {
-                        if (selectedChain.claimableRewards().size == 0) {
-                            requireContext().makeToast(R.string.error_not_reward)
-                            return@setOnClickListener
+
+                    if (selectedChain is ChainNeutron) {
+                        val bottomSheet = QrCodeFragment(selectedChain)
+                        bottomSheet.show(requireActivity().supportFragmentManager, QrCodeFragment::class.java.name)
+
+                    } else {
+                        if (selectedChain.cosmosValidators.size > 0) {
+                            if (selectedChain.claimableRewards().size == 0) {
+                                requireContext().makeToast(R.string.error_not_reward)
+                                return@setOnClickListener
+                            }
+                            if (!selectedChain.isTxFeePayable(requireContext())) {
+                                requireContext().makeToast(R.string.error_not_enough_fee)
+                                return@setOnClickListener
+                            }
+                            val bottomSheet = ClaimRewardFragment(selectedChain, selectedChain.claimableRewards())
+                            bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
                         }
-                        if (!selectedChain.isTxFeePayable(requireContext())) {
-                            requireContext().makeToast(R.string.error_not_enough_fee)
-                            return@setOnClickListener
-                        }
-                        val bottomSheet = ClaimRewardFragment(selectedChain, selectedChain.claimableRewards())
-                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
                     }
                 }
 
@@ -211,22 +234,29 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             fabCompounding.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    if (selectedChain.cosmosValidators.size > 0) {
-                        if (selectedChain.claimableRewards().size == 0) {
-                            requireContext().makeToast(R.string.error_not_reward)
-                            return@setOnClickListener
-                        }
-                        if (!selectedChain.isTxFeePayable(requireContext())) {
-                            requireContext().makeToast(R.string.error_not_enough_fee)
-                            return@setOnClickListener
-                        }
-                        if (selectedChain.rewardAddress != selectedChain.address) {
-                            requireContext().makeToast(R.string.error_reward_address_changed_msg)
-                            return@setOnClickListener
-                        }
 
-                        val bottomSheet = CompoundingFragment(selectedChain, selectedChain.claimableRewards())
-                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
+                    if (selectedChain is ChainNeutron) {
+                        requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                            DaoListFragment(selectedChain as ChainNeutron), "DaoList")
+
+                    } else {
+                        if (selectedChain.cosmosValidators.size > 0) {
+                            if (selectedChain.claimableRewards().size == 0) {
+                                requireContext().makeToast(R.string.error_not_reward)
+                                return@setOnClickListener
+                            }
+                            if (!selectedChain.isTxFeePayable(requireContext())) {
+                                requireContext().makeToast(R.string.error_not_enough_fee)
+                                return@setOnClickListener
+                            }
+                            if (selectedChain.rewardAddress != selectedChain.address) {
+                                requireContext().makeToast(R.string.error_reward_address_changed_msg)
+                                return@setOnClickListener
+                            }
+
+                            val bottomSheet = CompoundingFragment(selectedChain, selectedChain.claimableRewards())
+                            bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
+                        }
                     }
                 }
 
@@ -241,8 +271,18 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 if (isClickable) {
                     isClickable = false
 
-                    requireActivity().toMoveFragment(this@CosmosDetailFragment,
-                        ProposalListFragment(selectedChain), "ProposalList")
+                    if (selectedChain is ChainNeutron) {
+                        if (!selectedChain.isTxFeePayable(requireContext())) {
+                            requireContext().makeToast(R.string.error_not_enough_fee)
+                            return@setOnClickListener
+                        }
+                        val bottomSheet = VaultSelectFragment(selectedChain)
+                        bottomSheet.show(requireActivity().supportFragmentManager, VaultSelectFragment::class.java.name)
+
+                    } else {
+                        requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                            ProposalListFragment(selectedChain), "ProposalList")
+                    }
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({

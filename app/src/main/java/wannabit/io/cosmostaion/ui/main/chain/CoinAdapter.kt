@@ -62,6 +62,12 @@ class CoinAdapter(
                     val coinPosition = currentList.filter { it.type == coinType }.indexOf(coin)
                     val coinCount = currentList.count { it.type == coinType }
                     holder.bind(line, coin, coinPosition, coinCount)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it (line, coin.denom)
+                        }
+                    }
                 }
             }
         }

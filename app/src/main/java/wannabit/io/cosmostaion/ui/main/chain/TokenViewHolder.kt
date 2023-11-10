@@ -36,7 +36,7 @@ class TokenViewHolder(
                 tokenPriceChange.text = priceChangeStatus(lastUpDown)
             }
 
-            token.amount?.toBigDecimal()?.movePointLeft(token.decimals)?.setScale(6, RoundingMode.HALF_UP)?.let { amount ->
+            token.amount?.toBigDecimal()?.movePointLeft(token.decimals)?.setScale(6, RoundingMode.DOWN)?.let { amount ->
                 coinAmount.text = formatString(amount.toPlainString(), 6)
                 coinAmountValue.text = formatAssetValue(line.cw20Value(token.address))
             }

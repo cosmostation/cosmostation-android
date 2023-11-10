@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
@@ -26,6 +27,9 @@ class CoinCosmosLineViewHolder(
         if (line is ChainBinanceBeacon) {
             bindBeaconAsset(context, line)
 
+        } else if (line is ChainNeutron) {
+            bindNeutron(line)
+
         } else {
             binding.apply {
                 stakeCoinView.setBackgroundResource(R.drawable.item_bg)
@@ -42,21 +46,21 @@ class CoinCosmosLineViewHolder(
                         }
 
                         asset.decimals?.let { decimal ->
-                            val availableAmount = line.balanceAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                            val availableAmount = line.balanceAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             available.text = formatString(availableAmount.toPlainString(), 6)
 
-                            val vestingAmount = line.vestingAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                            val vestingAmount = line.vestingAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
                             vesting.text = formatString(vestingAmount.toPlainString(), 6)
 
-                            val stakedAmount = line.delegationAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                            val stakedAmount = line.delegationAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             staked.text = formatString(stakedAmount.toPlainString(), 6)
 
-                            val unStakingAmount = line.unbondingAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                            val unStakingAmount = line.unbondingAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             unstakingLayout.goneOrVisible(unStakingAmount.compareTo(BigDecimal.ZERO) == 0)
                             unstaking.text = formatString(unStakingAmount.toPlainString(), 6)
 
-                            val rewardAmount = line.rewardAmountSum(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.HALF_UP)
+                            val rewardAmount = line.rewardAmountSum(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
                             if (line.rewardAllCoins().isNotEmpty()) {
                                 if (line.rewardOtherDenoms() > 0) {
@@ -110,6 +114,50 @@ class CoinCosmosLineViewHolder(
                 val totalAmount = availableAmount.add(availableAmount).add(frozenAmount)
                     .add(lockedAmount)
                 total.text = formatString(totalAmount.toPlainString(), 8)
+            }
+        }
+    }
+
+    private fun bindNeutron(line: CosmosLine) {
+        binding.apply {
+            stakeCoinView.setBackgroundResource(R.drawable.item_bg)
+            unstakingLayout.visibility = View.GONE
+            rewardLayout.visibility = View.GONE
+
+            val neutronChain = line as? ChainNeutron
+            neutronChain?.let { neutronChain ->
+                stakedTitle.text = "Vault deposited"
+                neutronChain.stakeDenom?.let { denom ->
+                    BaseData.getAsset(neutronChain.apiName, denom)?.let { asset ->
+                        tokenImg.setTokenImg(asset)
+                        tokenName.text = asset.symbol?.uppercase()
+
+                        tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                            tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                            tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                        }
+
+                        asset.decimals?.let { decimal ->
+                            val availableAmount = line.balanceAmount(denom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                            available.text = formatString(availableAmount.toPlainString(), 6)
+
+                            neutronChain.neutronVestingAmount()?.let { neutronVestingAmount ->
+                                val vestingAmount = neutronVestingAmount.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
+                                vesting.text = formatString(vestingAmount.toPlainString(), 6)
+
+                                val depositedAmount = neutronChain.neutronDeposited.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                staked.text = formatString(depositedAmount.toPlainString(), 6)
+
+                                val totalAmount = availableAmount.add(vestingAmount).add(depositedAmount)
+                                total.text = formatString(totalAmount.toPlainString(), 6)
+                                val value = line.denomValue(denom)
+                                totalValue.text = formatAssetValue(value)
+                            }
+                        }
+                    }
+                }
             }
         }
     }

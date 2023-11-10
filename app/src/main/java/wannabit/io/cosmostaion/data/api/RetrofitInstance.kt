@@ -6,7 +6,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -56,6 +55,15 @@ object RetrofitInstance {
             .build()
     }
 
+    private val chainListRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(CosmostationConstants.CHAIN_BASE_URL)
+            .build()
+    }
+
     val walletApi: WalletApi by lazy {
         walletRetrofit.create(WalletApi::class.java)
     }
@@ -66,5 +74,9 @@ object RetrofitInstance {
 
     val beaconApi: LcdApi by lazy {
         beaconRetrofit.create(LcdApi::class.java)
+    }
+
+    val chainListApi: ChainListApi by lazy {
+        chainListRetrofit.create(ChainListApi::class.java)
     }
 }

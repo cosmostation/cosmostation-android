@@ -152,6 +152,12 @@
     <string name="title_reward_recipient_address">Reward recipient address</string>
     <string name="title_proposal_list">Proposal list</string>
     <string name="title_select_opinion">Select opinion</string>
+    <string name="title_select_vault">Select Vault</string>
+    <string name="title_vault_deposit">Vault deposit</string>
+    <string name="title_vault_withdraw">Vault withdraw</string>
+    <string name="title_vault_deposit_amount">Deposit amount</string>
+    <string name="title_vault_withdraw_amount">Withdraw amount</string>
+    <string name="title_dao_proposal_list">Dao proposal list</string>
 
 
     // msg

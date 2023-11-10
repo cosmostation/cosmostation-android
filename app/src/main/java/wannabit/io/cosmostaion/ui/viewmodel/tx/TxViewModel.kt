@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
 import SingleLiveEvent
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.SimulateResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.ibc.core.channel.v1.QueryGrpc
 import com.ibc.core.channel.v1.QueryProto
@@ -463,6 +465,44 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
                 val errorResponse = txRepository.simulateVoteTx(managedChannel, it, msgVotes, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadcastWasm(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWasms: MutableList<MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastWasmTx(
+                managedChannel,
+                it,
+                msgWasms,
+                fee,
+                memo,
+                selectedChain)
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateWasm(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWasms: MutableList<MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateWasmTx(managedChannel, it, msgWasms, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateWasmTx(managedChannel, it, msgWasms, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
         }

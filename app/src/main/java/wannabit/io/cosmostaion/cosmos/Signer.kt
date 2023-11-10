@@ -25,6 +25,7 @@ import com.cosmos.tx.v1beta1.TxProto.Tx
 import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmos.vesting.v1beta1.VestingProto
+import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
@@ -95,6 +96,36 @@ object Signer {
             Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer")
                 .setValue(msgTransfer?.toByteString()).build()
         )
+        return msgAnys
+    }
+
+    fun genWasmBroadcast(
+        auth: QueryAccountResponse?,
+        msgWasms: MutableList<MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, wasmMsg(msgWasms), fee, memo, selectedChain)
+    }
+
+    fun genWasmSimulate(
+        auth: QueryAccountResponse?,
+        msgWasms: MutableList<MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, wasmMsg(msgWasms), fee, memo)
+    }
+
+    private fun wasmMsg(msgWasms: MutableList<MsgExecuteContract?>?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgWasms?.forEach { msgWasm ->
+            msgAnys.add(
+                Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract")
+                    .setValue(msgWasm?.toByteString()).build()
+            )
+        }
         return msgAnys
     }
 

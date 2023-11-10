@@ -177,7 +177,7 @@ class StakingFragment(
             stakeDenom?.let {
                 BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
                     asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         delegateAmount.text = formatString(dpAmount.toPlainString(), decimal)
                         delegateAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
                         delegateDenom.visibility = View.VISIBLE
@@ -214,10 +214,10 @@ class StakingFragment(
                     val price = BaseData.getPrice(asset.coinGeckoId)
 
                     asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -385,7 +385,7 @@ class StakingFragment(
         txFee?.let { fee ->
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
                 val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_DOWN)
+                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
                 txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()

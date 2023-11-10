@@ -120,6 +120,41 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun broadcastWasmTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWasms: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genWasmBroadcast(account, msgWasms, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateWasmTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWasms: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genWasmSimulate(account, msgWasms, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
     override suspend fun broadcastDelegateTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,

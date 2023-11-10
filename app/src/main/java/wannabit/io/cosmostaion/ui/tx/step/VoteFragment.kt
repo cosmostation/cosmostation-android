@@ -53,7 +53,7 @@ import java.math.RoundingMode
 
 class VoteFragment(
     val selectedChain: CosmosLine,
-    private val proposals: MutableList<CosmosProposal>?
+    val proposals: MutableList<CosmosProposal>?
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentVoteBinding? = null
@@ -117,6 +117,7 @@ class VoteFragment(
                 1 -> { proposals?.get(position)?.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO }
                 2 -> { proposals?.get(position)?.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO_WITH_VETO }
                 3 -> { proposals?.get(position)?.toVoteOption = GovProto.VoteOption.VOTE_OPTION_ABSTAIN }
+                else -> { proposals?.get(position)?.toVoteOption = null }
             }
             voteAdapter.notifyDataSetChanged()
             txSimul()
@@ -178,10 +179,10 @@ class VoteFragment(
                     val price = BaseData.getPrice(asset.coinGeckoId)
 
                     asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_UP)
+                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -247,14 +248,14 @@ class VoteFragment(
 
             btnVote.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    unRelegateResultLauncher.launch(this)
+                    voteResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
                 }
             }
         }
     }
 
-    private val unRelegateResultLauncher: ActivityResultLauncher<Intent> =
+    private val voteResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
@@ -299,7 +300,7 @@ class VoteFragment(
         txFee?.let { fee ->
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
                 val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_UP)
+                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
                 val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
                 txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
             }

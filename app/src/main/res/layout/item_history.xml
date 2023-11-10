@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -36,7 +35,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/history_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_68"
+        android:layout_height="wrap_content"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
         android:layout_marginHorizontal="@dimen/space_12"
@@ -75,8 +74,8 @@
                     android:id="@+id/tx_success_img"
                     android:layout_width="@dimen/space_12"
                     android:layout_height="@dimen/space_12"
-                    android:src="@drawable/icon_history_success"
                     android:layout_marginEnd="@dimen/space_4"
+                    android:src="@drawable/icon_history_success"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tx_hash"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +89,7 @@
                     android:gravity="end"
                     android:maxWidth="@dimen/space_130"
                     android:maxLines="1"
-                    android:textColor="@color/color_base01"
+                    android:textColor="@color/color_base02"
                     android:typeface="monospace"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -101,63 +100,67 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_7"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tx_info_layout">
 
                 <TextView
                     android:id="@+id/tx_time"
+                    style="@style/font_sm_10"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
-                    style="@style/font_sm_10"
                     android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tx_amount" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tx_height"
+                    style="@style/font_sm_10"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
-                    style="@style/font_sm_10"
-                    android:textColor="@color/color_base02"
                     android:layout_marginStart="@dimen/space_2"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tx_time"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tx_amount" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tx_cnt"
+                    style="@style/font_sb_10"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
-                    style="@style/font_sb_10"
-                    android:textColor="@color/color_base01"
                     android:paddingStart="@dimen/space_2"
+                    android:textColor="@color/color_base01"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tx_amount" />
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tx_denom" />
 
                 <TextView
                     android:id="@+id/tx_denom"
+                    style="@style/font_sb_10"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
-                    style="@style/font_sb_10"
                     android:textColor="@color/color_base01"
-                    app:layout_constraintEnd_toStartOf="@+id/tx_cnt"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tx_amount" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tx_cnt" />
 
                 <TextView
                     android:id="@+id/tx_amount"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_15"
-                    style="@style/font_sb_12"
-                    android:maxLines="1"
-                    android:maxWidth="@dimen/space_150"
-                    android:textColor="@color/color_base02"
-                    android:gravity="end|top"
                     android:layout_marginStart="@dimen/space_2"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:gravity="end"
+                    android:maxWidth="@dimen/space_150"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base02"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tx_denom"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginEnd="@dimen/space_2" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

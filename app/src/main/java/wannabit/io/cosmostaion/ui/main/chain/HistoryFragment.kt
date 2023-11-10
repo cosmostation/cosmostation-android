@@ -32,9 +32,9 @@ class HistoryFragment(position: Int) : Fragment() {
 
     private lateinit var historyAdapter: HistoryAdapter
 
-    private var searchAfter: String = ""
+    private var searchId: Int? = 0
     private var hasMore = false
-    private val BATCH_CNT = 20
+    private val BATCH_CNT = 30
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
     private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
@@ -76,7 +76,7 @@ class HistoryFragment(position: Int) : Fragment() {
                 }
 
             } else {
-                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchAfter)
+                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
 
                 historyAdapter = HistoryAdapter(requireContext(), selectedChain)
                 binding.recycler.apply {
@@ -89,7 +89,6 @@ class HistoryFragment(position: Int) : Fragment() {
                             if (adapter != null && adapter!!.itemCount == 0) {
                                 return
                             }
-
                             val lastVisibleItemPosition =
                                 (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                             val itemTotalCount = adapter!!.itemCount - 1
@@ -97,7 +96,7 @@ class HistoryFragment(position: Int) : Fragment() {
                             if (lastVisibleItemPosition == itemTotalCount) {
                                 if (hasMore) {
                                     hasMore = false
-                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchAfter)
+                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
                                 }
                             }
                         }
@@ -113,10 +112,10 @@ class HistoryFragment(position: Int) : Fragment() {
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(allHistoryGroup as List<Any>?)
-                    searchAfter = historyGroup.lastOrNull()?.second?.searchAfter ?: ""
+                    searchId = allHistoryGroup[allHistoryGroup.size - 1].second.header?.id
                     hasMore = historyGroup.size >= BATCH_CNT
                 } else {
-                    searchAfter = ""
+                    searchId = 0
                     hasMore = false
                 }
 

@@ -53,25 +53,36 @@ class InsertAmountFragment(
 
     private fun initView() {
         binding.apply {
-            if (txType == TxType.TRANSFER) {
-                if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+            when (txType) {
+                TxType.TRANSFER -> {
+                    if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+                        setAssetAmount()
+                    } else {
+                        setTokenAmount()
+                    }
                     editLayout.setHint(R.string.str_send_amount)
-                    setAssetAmount()
-                } else {
-
                 }
-
-            } else if (txType == TxType.DELEGATE) {
-                editLayout.setHint(R.string.title_delegate_amount)
-                setAssetAmount()
-            } else if (txType == TxType.UN_DELEGATE) {
-                editLayout.setHint(R.string.title_undelegate_amount)
-                setAssetAmount()
-            } else if (txType == TxType.RE_DELEGATE) {
-                editLayout.setHint(R.string.title_redelegate_amount)
-                setAssetAmount()
-            } else {
-
+                TxType.DELEGATE -> {
+                    editLayout.setHint(R.string.title_delegate_amount)
+                    setAssetAmount()
+                }
+                TxType.UN_DELEGATE -> {
+                    editLayout.setHint(R.string.title_undelegate_amount)
+                    setAssetAmount()
+                }
+                TxType.RE_DELEGATE -> {
+                    editLayout.setHint(R.string.title_redelegate_amount)
+                    setAssetAmount()
+                }
+                TxType.VAULT_DEPOSIT -> {
+                    editLayout.setHint(R.string.title_vault_deposit_amount)
+                    setAssetAmount()
+                }
+                TxType.VAULT_WITHDRAW -> {
+                    editLayout.setHint(R.string.title_vault_withdraw_amount)
+                    setAssetAmount()
+                }
+                else -> {}
             }
         }
     }
@@ -101,8 +112,22 @@ class InsertAmountFragment(
     }
 
     private fun setTokenAmount() {
-        selectedToken?.let {
+        binding.apply {
+            selectedToken?.let { token ->
+                availAmount?.movePointLeft(token.decimals)?.setScale(token.decimals)?.let { amount ->
+                    available.text = formatString(amount.toPlainString(), token.decimals)
+                    availableDenom.text = token.symbol
+                }
 
+                toAmount?.let {
+                    if (it.isNotEmpty()) {
+                        val dpToSendAmount = it.toBigDecimal().movePointLeft(token.decimals).setScale(token.decimals).stripTrailingZeros().toPlainString()
+                        amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                    } else {
+                        amountTxt.text = Editable.Factory.getInstance().newEditable(it)
+                    }
+                }
+            }
         }
     }
 

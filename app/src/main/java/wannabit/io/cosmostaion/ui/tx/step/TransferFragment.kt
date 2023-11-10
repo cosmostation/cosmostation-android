@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Base64
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +21,12 @@ import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
+import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.Gson
+import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
@@ -37,6 +41,9 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.model.req.WasmIbcSendMsg
+import wannabit.io.cosmostaion.data.model.req.WasmIbcSendReq
+import wannabit.io.cosmostaion.data.model.req.WasmSendReq
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
@@ -60,6 +67,7 @@ import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.nio.charset.StandardCharsets
 
 class TransferFragment(
     private val selectedChain: CosmosLine,
@@ -166,19 +174,15 @@ class TransferFragment(
 
     private fun initData() {
         binding.apply {
-            BaseData.assets?.first { it.denom?.lowercase() == toSendDenom.lowercase() }
+            BaseData.assets?.firstOrNull { it.denom?.lowercase() == toSendDenom.lowercase() }
                 ?.let { asset ->
                     selectedAsset = asset
                     transferAssetType = TransferAssetType.COIN_TRANSFER
 
                 } ?: run {
-                selectedChain.tokens.first { it.address == toSendDenom }.let { token ->
+                selectedChain.tokens.firstOrNull { it.address == toSendDenom }.let { token ->
                     selectedToken = token
-                    transferAssetType = if (toSendDenom.startsWith("0x")) {
-                        TransferAssetType.ERC20_TRANSFER
-                    } else {
-                        TransferAssetType.CW20_TRANSFER
-                    }
+                    transferAssetType = TransferAssetType.CW20_TRANSFER
                 }
             }
 
@@ -230,9 +234,11 @@ class TransferFragment(
                     tokenName.text = asset.symbol
                 }
             } else {
-                selectedChain.tokens.first { it.address == toSendDenom }.let { token ->
-                    tokenImg.setTokenImg(token.assetImg())
-                    tokenName.text = token.symbol
+                selectedChain.tokens.firstOrNull { it.address == toSendDenom }.let { token ->
+                    token?.let {
+                        tokenImg.setTokenImg(it.assetImg())
+                        tokenName.text = it.symbol
+                    }
                 }
             }
         }
@@ -254,15 +260,15 @@ class TransferFragment(
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
+            tabMsgTxt.visibility = View.GONE
+            amountLayout.visibility = View.VISIBLE
             toSendAmount = toAmount
-            if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                tabMsgTxt.visibility = View.GONE
-                amountLayout.visibility = View.VISIBLE
 
+            if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
                 BaseData.getAsset(selectedChain.apiName, toSendDenom)?.let {
                     it.decimals?.let { decimal ->
                         val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.HALF_DOWN)
+                            .setScale(decimal, RoundingMode.DOWN)
                         val price = BaseData.getPrice(selectedAsset?.coinGeckoId)
                         val value = price.multiply(dpAmount)
 
@@ -272,7 +278,15 @@ class TransferFragment(
                 }
 
             } else {
+                selectedToken?.let { token ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(token.decimals)
+                        .setScale(token.decimals, RoundingMode.DOWN)
+                    val price = BaseData.getPrice(selectedToken?.coinGeckoId)
+                    val value = price.multiply(dpAmount)
 
+                    sendAmount.text = formatString(dpAmount.toPlainString(), token.decimals)
+                    sendValue.text = formatAssetValue(value)
+                }
             }
         }
         txSimul()
@@ -304,11 +318,11 @@ class TransferFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount =
-                            amount.movePointLeft(decimal).setScale(decimal, RoundingMode.HALF_DOWN)
+                            amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.HALF_DOWN)
+                            .setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -523,6 +537,16 @@ class TransferFragment(
                             txMemo,
                             selectedChain
                         )
+
+                    } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
+                        txViewModel.broadcastWasm(
+                            getChannel(),
+                            selectedChain.address,
+                            onBindWasmSend(),
+                            txFee,
+                            txMemo,
+                            selectedChain
+                        )
                     }
 
                 } else {
@@ -538,6 +562,16 @@ class TransferFragment(
                             txMemo,
                             selectedChain
                         )
+
+                    } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
+                        txViewModel.broadcastWasm(
+                            getChannel(),
+                            selectedChain.address,
+                            onBindWasmIbcSend(),
+                            txFee,
+                            txMemo,
+                            selectedChain
+                        )
                     }
                 }
             }
@@ -545,12 +579,8 @@ class TransferFragment(
 
     private fun txSimul() {
         binding.apply {
-            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) {
-                return
-            }
-            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
-                return
-            }
+            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
+            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
 
             backdropLayout.visibility = View.VISIBLE
 
@@ -564,27 +594,45 @@ class TransferFragment(
                         txMemo
                     )
 
-                } else {
-
+                } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
+                    txViewModel.simulateWasm(
+                        getChannel(),
+                        selectedChain.address,
+                        onBindWasmSend(),
+                        txFee,
+                        txMemo
+                    )
                 }
 
             } else {
                 selectedRecipientChain?.let { toChain ->
                     assetPath = assetPath(selectedChain, toChain, toSendDenom)
-                    if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                        txViewModel.simulateIbcSend(
-                            getChannel(),
-                            getRecipientChannel(),
-                            selectedChain.address,
-                            existedAddress,
-                            assetPath,
-                            toSendDenom,
-                            toSendAmount,
-                            txFee,
-                            txMemo
-                        )
-                    } else {
+                    when (transferAssetType) {
+                        TransferAssetType.COIN_TRANSFER -> {
+                            txViewModel.simulateIbcSend(
+                                getChannel(),
+                                getRecipientChannel(),
+                                selectedChain.address,
+                                existedAddress,
+                                assetPath,
+                                toSendDenom,
+                                toSendAmount,
+                                txFee,
+                                txMemo
+                            )
+                        }
 
+                        TransferAssetType.CW20_TRANSFER -> {
+                            txViewModel.simulateWasm(
+                                getChannel(),
+                                selectedChain.address,
+                                onBindWasmIbcSend(),
+                                txFee,
+                                txMemo
+                            )
+
+                        }
+                        else -> {}
                     }
                 }
             }
@@ -612,7 +660,7 @@ class TransferFragment(
                         (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
                             .toBigDecimal()
                     val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.HALF_DOWN)
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                     val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
                         .setAmount(feeCoinAmount.toString()).build()
@@ -664,6 +712,28 @@ class TransferFragment(
             CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
         return MsgSend.newBuilder().setFromAddress(selectedChain.address)
             .setToAddress(existedAddress).addAmount(sendCoin).build()
+    }
+
+    private fun onBindWasmSend(): MutableList<MsgExecuteContract?>? {
+        val result: MutableList<MsgExecuteContract?> = mutableListOf()
+        val wasmSendReq = WasmSendReq(existedAddress, toSendAmount)
+        val jsonData = Gson().toJson(wasmSendReq)
+        val msg = ByteString.copyFromUtf8(jsonData)
+        result.add(MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(selectedToken?.address).setMsg(msg).build())
+        return result
+    }
+
+    private fun onBindWasmIbcSend(): MutableList<MsgExecuteContract?> {
+        val result: MutableList<MsgExecuteContract?> = mutableListOf()
+        val wasmIbcReq = WasmIbcSendMsg(assetPath?.channel, existedAddress, 900)
+        val msgData = Gson().toJson(wasmIbcReq).toByteArray(StandardCharsets.UTF_8)
+        val encodeMsg = Base64.encodeToString(msgData, Base64.NO_WRAP)
+
+        val wasmIbcSendReq = WasmIbcSendReq(assetPath?.ibcContract(), toSendAmount, encodeMsg)
+        val jsonData = Gson().toJson(wasmIbcSendReq)
+        val msg = ByteString.copyFromUtf8(jsonData)
+        result.add(MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(selectedToken?.address).setMsg(msg).build())
+        return result
     }
 
     private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {

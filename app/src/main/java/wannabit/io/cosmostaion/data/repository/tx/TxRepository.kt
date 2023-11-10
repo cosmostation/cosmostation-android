@@ -10,6 +10,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -50,6 +51,23 @@ interface TxRepository {
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastWasmTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWasms: MutableList<MsgExecuteContract?>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateWasmTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
         memo: String
     ): Any?

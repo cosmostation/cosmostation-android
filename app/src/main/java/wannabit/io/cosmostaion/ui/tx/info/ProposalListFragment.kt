@@ -150,6 +150,7 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
             btnVote.setOnClickListener {
                 val toVoteProposals: MutableList<CosmosProposal> = mutableListOf()
                 votingPeriods.forEach { proposal ->
+                    proposal.toVoteOption = null
                     if (toVoteList?.contains(proposal.id) == true) {
                         toVoteProposals.add(proposal)
                     }

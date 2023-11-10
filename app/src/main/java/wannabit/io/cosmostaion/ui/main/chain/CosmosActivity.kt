@@ -44,4 +44,4 @@ class CosmosActivity : BaseActivity() {
     }
 }
 
-enum class TxType { TRANSFER, DELEGATE, UN_DELEGATE, RE_DELEGATE }
+enum class TxType { TRANSFER, DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW }

@@ -50,4 +50,11 @@ data class CounterParty(
 data class AssetPath(
     var channel: String?,
     var port: String?
-)
+) {
+    fun ibcContract(): String {
+        port?.let {
+            return it.replace("wasm.".toRegex(), "")
+        }
+        return ""
+    }
+}

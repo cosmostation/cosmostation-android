@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
@@ -29,12 +30,15 @@ interface MintscanApi {
     @GET("v3/assets/{chain}/cw20")
     suspend fun cw20token(@Path("chain") chain:String): TokenResponse
 
-    @GET("v2/{chain}/account/{address}/txs")
-    suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String): Response<List<CosmosHistory>>
+    @GET("v1/{chain}/account/{address}/txs")
+    suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("from") searchId: Int?): Response<List<CosmosHistory>>
 
     @GET("v1/{chain}/proposals")
     suspend fun cosmosProposal(@Path("chain") chain:String): Response<MutableList<CosmosProposal>>
 
     @GET("v1/{chain}/account/{account}/votes")
     suspend fun voteStatus(@Path("chain") chain: String?, @Path("account") account: String?): Response<VoteStatus>
+
+    @GET("v1/{chain}/dao/address/{address}/votes")
+    suspend fun daoVoteStatus(@Path("chain") chain: String?, @Path("address") address: String?): Response<MutableList<ResDaoVoteStatus>>
 }

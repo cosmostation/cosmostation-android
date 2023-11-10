@@ -26,7 +26,7 @@
             android:layout_height="@dimen/space_54"
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginBottom="@dimen/space_48"
+            android:layout_marginBottom="@dimen/space_60"
             android:background="@drawable/button_common_bg"
             android:minHeight="@dimen/space_40"
             android:text="@string/str_cancel"

@@ -1,15 +1,20 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentTokenBinding
+import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import java.math.BigDecimal
 
 class TokenFragment(position: Int) : Fragment() {
@@ -61,6 +66,24 @@ class TokenFragment(position: Int) : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = tokenAdapter
                 tokenAdapter.submitList(tokens)
+            }
+
+            var isClickable = true
+            tokenAdapter.setOnItemClickListener { line, denom ->
+                if (!selectedChain.isTxFeePayable(requireContext())) {
+                    requireContext().makeToast(R.string.error_not_enough_fee)
+                    return@setOnItemClickListener
+                }
+
+                val bottomSheet = TransferFragment(line, denom)
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
             }
 
             binding.recycler.visibleOrGone(selectedChain.tokens.isNotEmpty())
