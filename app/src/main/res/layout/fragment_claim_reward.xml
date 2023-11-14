@@ -22,7 +22,7 @@
             android:layout_weight="1"
             style="@style/font_sb_16"
             android:textColor="@color/color_base01"
-            android:text="Claim Rewards"/>
+            android:text="Claim rewards"/>
 
     </LinearLayout>
 

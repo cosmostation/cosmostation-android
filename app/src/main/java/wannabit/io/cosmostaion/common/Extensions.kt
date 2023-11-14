@@ -18,7 +18,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.cosmos.base.v1beta1.CoinProto
+import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
+import com.kava.cdp.v1beta1.QueryProto.CDPResponse
+import com.kava.incentive.v1beta1.QueryProto
+import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import com.squareup.picasso.Picasso
+import io.grpc.ManagedChannel
+import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
@@ -340,5 +347,201 @@ fun dpToPx(context: Context, dp: Int): Int {
         dp.toFloat(),
         context.resources.displayMetrics
     ).toInt()
+}
+
+fun getChannel(selectedChain: CosmosLine): ManagedChannel {
+    return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort).useTransportSecurity().build()
+}
+
+// kava
+fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.Coin> {
+    val result: MutableList<CoinProto.Coin> = mutableListOf()
+
+    usdxMintingClaimsList.forEach { claim ->
+        if (claim.baseClaim.hasReward()) {
+            val usdxReward = claim.baseClaim.reward
+            val amount = usdxReward.amount.toBigDecimal()
+            if (amount > BigDecimal.ZERO) {
+                result.indexOfFirst { it.denom == usdxReward.denom }.let { already ->
+                    if (already != -1) {
+                        val sumReward = result[already].amount.toBigDecimal().add(amount)
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(usdxReward.denom).setAmount(sumReward.toPlainString()).build()
+                    } else {
+                        result.add(usdxReward)
+                    }
+                }
+            }
+        }
+    }
+
+    hardLiquidityProviderClaimsList.forEach { hardIncen ->
+        hardIncen.baseClaim.rewardList.forEach { hardReward ->
+            val amount = hardReward.amount.toBigDecimal()
+            if (amount > BigDecimal.ZERO) {
+                result.indexOfFirst { it.denom == hardReward.denom }.let { already ->
+                    if (already != -1) {
+                        val sumReward = result[already].amount.toBigDecimal().add(amount)
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(hardReward.denom).setAmount(sumReward.toPlainString()).build()
+                    } else {
+                        result.add(hardReward)
+                    }
+                }
+            }
+        }
+    }
+
+    delegatorClaimsList.forEach { claim ->
+        claim.baseClaim.rewardList.forEach { deleClaim ->
+            val amount = deleClaim.amount.toBigDecimal()
+            if (amount > BigDecimal.ZERO) {
+                result.indexOfFirst { it.denom == deleClaim.denom }.let { already ->
+                    if (already != -1) {
+                        val sumReward = result[already].amount.toBigDecimal().add(amount)
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(deleClaim.denom).setAmount(sumReward.toPlainString()).build()
+                    } else {
+                        result.add(deleClaim)
+                    }
+                }
+            }
+        }
+    }
+
+    swapClaimsList.forEach { claim ->
+        claim.baseClaim.rewardList.forEach { swapClaim ->
+            val amount = swapClaim.amount.toBigDecimal()
+            if (amount > BigDecimal.ZERO) {
+                result.indexOfFirst { it.denom == swapClaim.denom }.let { already ->
+                    if (already != -1) {
+                        val sumReward = result[already].amount.toBigDecimal().add(amount)
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(swapClaim.denom).setAmount(sumReward.toPlainString()).build()
+                    } else {
+                        result.add(swapClaim)
+                    }
+                }
+            }
+        }
+    }
+
+    earnClaimsList.forEach { claim ->
+        claim.baseClaim.rewardList.forEach { earnClaim ->
+            val amount = earnClaim.amount.toBigDecimal()
+            if (amount > BigDecimal.ZERO) {
+                result.indexOfFirst { it.denom == earnClaim.denom }.let { already ->
+                    if (already != -1) {
+                        val sumReward = result[already].amount.toBigDecimal().add(amount)
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(earnClaim.denom).setAmount(sumReward.toPlainString()).build()
+                    } else {
+                        result.add(earnClaim)
+                    }
+                }
+            }
+        }
+    }
+    return result
+}
+
+fun QueryProto.QueryRewardsResponse.hasUsdxMinting(): Boolean {
+    if (usdxMintingClaimsCount > 0 && usdxMintingClaimsList[0].hasBaseClaim()
+        && usdxMintingClaimsList[0].baseClaim.hasReward() && usdxMintingClaimsList[0].baseClaim.reward.amount != "0") {
+        return true
+    }
+    return false
+}
+
+fun QueryProto.QueryRewardsResponse.hardRewardDenoms(): MutableList<String> {
+    val result = mutableListOf<String>()
+    hardLiquidityProviderClaimsList.forEach { hardClaim ->
+        hardClaim.baseClaim.rewardList.forEach { coin ->
+            if (!result.contains(coin.denom)) {
+                result.add(coin.denom)
+            }
+        }
+    }
+    return result
+}
+
+fun QueryProto.QueryRewardsResponse.delegatorRewardDenoms(): MutableList<String> {
+    val result = mutableListOf<String>()
+    delegatorClaimsList.forEach { delegClaim ->
+        delegClaim.baseClaim.rewardList.forEach { coin ->
+            if (!result.contains(coin.denom)) {
+                result.add(coin.denom)
+            }
+        }
+    }
+    return result
+}
+
+fun QueryProto.QueryRewardsResponse.swapRewardDenoms(): MutableList<String> {
+    val result = mutableListOf<String>()
+    swapClaimsList.forEach { swapClaim ->
+        swapClaim.baseClaim.rewardList.forEach { coin ->
+            if (!result.contains(coin.denom)) {
+                result.add(coin.denom)
+            }
+        }
+    }
+    return result
+}
+
+fun QueryProto.QueryRewardsResponse.earnRewardDenoms(): MutableList<String> {
+    val result = mutableListOf<String>()
+    earnClaimsList.forEach { earnClaim ->
+        earnClaim.baseClaim.rewardList.forEach { coin ->
+            if (!result.contains(coin.denom)) {
+                result.add(coin.denom)
+            }
+        }
+    }
+    return result
+}
+
+fun CollateralParam.liquidationRatioAmount(): BigDecimal {
+    return liquidationRatio.toBigDecimal().movePointLeft(18).setScale(18, RoundingMode.DOWN)
+}
+
+fun CollateralParam.expectCollateralUSDXValue(collateralAmount: BigDecimal?, priceFeed: QueryPricesResponse?): BigDecimal {
+    val collateralPrice = priceFeed?.kavaOraclePrice(liquidationMarketId)
+    val collateralValue = collateralAmount?.multiply(collateralPrice)?.movePointLeft(conversionFactor.toInt())?.setScale(6, RoundingMode.DOWN)
+    return collateralValue?.movePointRight(6)?.setScale(0, RoundingMode.DOWN) ?: BigDecimal.ZERO
+}
+
+fun CollateralParam.expectUSDXLTV(collateralAmount: BigDecimal?, priceFeed: QueryPricesResponse?): BigDecimal {
+    return expectCollateralUSDXValue(collateralAmount, priceFeed).divide(liquidationRatioAmount(), 0, RoundingMode.DOWN)
+}
+
+fun CDPResponse.collateralUSDXAmount(): BigDecimal {
+    return collateralValue.amount.toBigDecimal().movePointLeft(6).setScale(6, RoundingMode.DOWN)
+}
+
+fun CDPResponse.UsdxLTV(collateralParam: CollateralParam): BigDecimal {
+    return collateralUSDXAmount().divide(collateralParam.liquidationRatioAmount(), 6, RoundingMode.DOWN)
+}
+
+fun CDPResponse.principalAmount(): BigDecimal {
+    return principal.amount.toBigDecimal()
+}
+
+fun CDPResponse.debtAmount(): BigDecimal {
+    return principalAmount().add(accumulatedFees.amount.toBigDecimal())
+}
+
+fun CDPResponse.debtUsdxValue(): BigDecimal {
+    return debtAmount().movePointLeft(6).setScale(6, RoundingMode.DOWN)
+}
+
+fun CDPResponse.liquidationPrice(collateralParam: CollateralParam): BigDecimal {
+    val cDenomDecimal = collateralParam.conversionFactor.toInt()
+    val collateralAmount = collateral.amount.toBigDecimal().movePointLeft(cDenomDecimal).setScale(cDenomDecimal, RoundingMode.DOWN)
+    val rawDebtAmount = debtAmount().multiply(collateralParam.liquidationRatioAmount()).movePointLeft(6).setScale(6, RoundingMode.DOWN)
+    return rawDebtAmount.divide(collateralAmount, 6, RoundingMode.DOWN)
+}
+
+fun QueryPricesResponse.kavaOraclePrice(marketId: String): BigDecimal {
+    pricesList.firstOrNull { it.marketId == marketId }?.let { price ->
+        return price.price.toBigDecimal().movePointLeft(18).setScale(6, RoundingMode.DOWN)
+    } ?: run {
+        return BigDecimal.ZERO
+    }
 }
 

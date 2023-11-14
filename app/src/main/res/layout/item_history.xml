@@ -89,7 +89,7 @@
                     android:gravity="end"
                     android:maxWidth="@dimen/space_130"
                     android:maxLines="1"
-                    android:textColor="@color/color_base02"
+                    android:textColor="@color/color_base01"
                     android:typeface="monospace"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

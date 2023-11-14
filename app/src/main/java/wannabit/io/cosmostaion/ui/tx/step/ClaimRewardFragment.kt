@@ -23,8 +23,6 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -32,6 +30,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -278,14 +277,14 @@ class ClaimRewardFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadGetRewards(getChannel(), selectedChain.address, claimableRewards, txFee, txMemo, selectedChain)
+                txViewModel.broadGetRewards(getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo, selectedChain)
             }
         }
 
     private fun txSimul() {
         binding.apply {
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateGetRewards(getChannel(), selectedChain.address, claimableRewards, txFee, txMemo)
+            txViewModel.simulateGetRewards(getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo)
         }
     }
 
@@ -335,10 +334,6 @@ class ClaimRewardFragment(
                 startActivity(this)
             }
         }
-    }
-
-    private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort).useTransportSecurity().build()
     }
 
     private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {

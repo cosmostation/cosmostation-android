@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
 import SingleLiveEvent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,8 +23,13 @@ import com.ibc.core.channel.v1.QueryGrpc
 import com.ibc.core.channel.v1.QueryProto
 import com.ibc.core.client.v1.ClientProto
 import com.ibc.lightclients.tendermint.v1.TendermintProto
+import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
+import com.kava.cdp.v1beta1.TxProto.MsgDeposit
+import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
+import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
+import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.incentive.v1beta1.QueryProto.QueryRewardsResponse
 import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -33,6 +37,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.NameService
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
@@ -508,7 +513,237 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
-    private fun getChannel(line: CosmosLine): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(line.grpcHost, line.grpcPort).useTransportSecurity().build()
+    fun broadClaimIncentive(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        incentive: QueryRewardsResponse,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastClaimIncentiveTx(
+                managedChannel,
+                it,
+                incentive,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateClaimIncentive(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        incentive: QueryRewardsResponse,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateClaimIncentiveTx(managedChannel, it, incentive, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateClaimIncentiveTx(managedChannel, it, incentive, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadMintCreate(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgCreateCDP: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastMintCreateTx(
+                managedChannel,
+                it,
+                msgCreateCDP,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateMintCreate(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgCreateCDP: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateMintCreateTx(managedChannel, it, msgCreateCDP, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateMintCreateTx(managedChannel, it, msgCreateCDP, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadMintDeposit(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastMintDepositTx(
+                managedChannel,
+                it,
+                msgDeposit,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateMintDeposit(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateMintDepositTx(managedChannel, it, msgDeposit, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateMintDepositTx(managedChannel, it, msgDeposit, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadMintWithdraw(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastMintWithdrawTx(
+                managedChannel,
+                it,
+                msgWithdraw,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateMintWithdraw(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateMintWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateMintWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadMintBorrow(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastMintBorrowTx(
+                managedChannel,
+                it,
+                msgDrawDebt,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateMintBorrow(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateMintBorrowTx(managedChannel, it, msgDrawDebt, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateMintBorrowTx(managedChannel, it, msgDrawDebt, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadMintRepay(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastMintRepayTx(
+                managedChannel,
+                it,
+                msgRepayDebt,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateMintRepay(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateMintRepayTx(managedChannel, it, msgRepayDebt, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateMintRepayTx(managedChannel, it, msgRepayDebt, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
     }
 }

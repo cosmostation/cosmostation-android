@@ -11,6 +11,12 @@ import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
+import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
+import com.kava.cdp.v1beta1.TxProto.MsgDeposit
+import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
+import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
+import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.json.JSONObject
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -395,6 +401,216 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastClaimIncentiveTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        incentive: QueryProto.QueryRewardsResponse,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genClaimIncentiveBroadcast(account, incentive, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateClaimIncentiveTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        incentive: QueryProto.QueryRewardsResponse,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genClaimIncentiveSimulate(account, incentive, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastMintCreateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCreateCDP: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genMintCreateBroadcast(account, msgCreateCDP, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateMintCreateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCreateCDP: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genMintCreateSimulate(account, msgCreateCDP, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastMintDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genMintDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateMintDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genMintDepositSimulate(account, msgDeposit, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastMintWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genMintWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateMintWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastMintBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genMintBorrowBroadcast(account, msgDrawDebt, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateMintBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastMintRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genMintRepayBroadcast(account, msgRepayDebt, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateMintRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genMintRepaySimulate(account, msgRepayDebt, fee, memo)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {

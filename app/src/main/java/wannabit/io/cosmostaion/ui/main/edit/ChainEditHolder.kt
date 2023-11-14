@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.edit
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -39,7 +40,18 @@ class ChainEditHolder(
                     } else {
                         assetCnt.text = line.cosmosBalances.count().toString() + " Coins"
                     }
-                    chainLegacy.goneOrVisible(line.isDefault)
+
+                    if (line.evmCompatible) {
+                        chainLegacy.text = context.getString(R.string.str_evm)
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
+                        chainLegacy.setTextColor(ContextCompat.getColor(context, R.color.color_base01))
+                    } else if (!line.isDefault) {
+                        chainLegacy.text = context.getString(R.string.str_deprecated)
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_deprecated)
+                        chainLegacy.setTextColor(ContextCompat.getColor(context, R.color.color_base02))
+                    } else {
+                        chainLegacy.visibility = View.GONE
+                    }
 
                     selectSwitch.bringToFront()
                     selectSwitch.goneOrVisible(line is ChainCosmos)

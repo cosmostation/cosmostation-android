@@ -31,6 +31,18 @@ import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
+import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
+import com.kava.cdp.v1beta1.TxProto.MsgDeposit
+import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
+import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
+import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.incentive.v1beta1.QueryProto.QueryRewardsResponse
+import com.kava.incentive.v1beta1.TxProto.MsgClaimDelegatorReward
+import com.kava.incentive.v1beta1.TxProto.MsgClaimEarnReward
+import com.kava.incentive.v1beta1.TxProto.MsgClaimHardReward
+import com.kava.incentive.v1beta1.TxProto.MsgClaimSwapReward
+import com.kava.incentive.v1beta1.TxProto.MsgClaimUSDXMintingReward
+import com.kava.incentive.v1beta1.TxProto.Selection
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
 import org.web3j.crypto.ECKeyPair
@@ -38,6 +50,11 @@ import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
+import wannabit.io.cosmostaion.common.delegatorRewardDenoms
+import wannabit.io.cosmostaion.common.earnRewardDenoms
+import wannabit.io.cosmostaion.common.hardRewardDenoms
+import wannabit.io.cosmostaion.common.hasUsdxMinting
+import wannabit.io.cosmostaion.common.swapRewardDenoms
 import java.math.BigInteger
 import java.math.RoundingMode
 
@@ -343,6 +360,235 @@ object Signer {
         return msgAnys
     }
 
+    fun genClaimIncentiveBroadcast(
+        auth: QueryAccountResponse?,
+        incentive: QueryRewardsResponse,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, claimIncentiveMsg(auth, incentive), fee, memo, selectedChain)
+    }
+
+    fun genClaimIncentiveSimulate(
+        auth: QueryAccountResponse?,
+        incentive: QueryRewardsResponse,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, claimIncentiveMsg(auth, incentive), fee, memo)
+    }
+
+    private fun claimIncentiveMsg(auth: QueryAccountResponse?, incentive: QueryRewardsResponse): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+
+        if (incentive.hasUsdxMinting()) {
+            val mintMsg = MsgClaimUSDXMintingReward.newBuilder()
+                .setSender(parseAuthGrpc(auth).first)
+                .setMultiplierName("large")
+                .build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimUSDXMintingReward")
+                .setValue(mintMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+
+        if (incentive.hardRewardDenoms().size > 0) {
+            val denomToClaims: MutableList<Selection> = mutableListOf()
+            incentive.hardRewardDenoms().forEach { denom ->
+                denomToClaims.add(Selection.newBuilder().setDenom(denom).setMultiplierName("large").build())
+            }
+            val hardMsg = MsgClaimHardReward.newBuilder()
+                .setSender(parseAuthGrpc(auth).first)
+                .addAllDenomsToClaim(denomToClaims)
+                .build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimHardReward")
+                .setValue(hardMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+
+        if (incentive.delegatorRewardDenoms().size > 0) {
+            val denomToClaims: MutableList<Selection> = mutableListOf()
+            incentive.delegatorRewardDenoms().forEach { denom ->
+                denomToClaims.add(Selection.newBuilder().setDenom(denom).setMultiplierName("large").build())
+            }
+            val delegateMsg = MsgClaimDelegatorReward.newBuilder()
+                .setSender(parseAuthGrpc(auth).first)
+                .addAllDenomsToClaim(denomToClaims)
+                .build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimDelegatorReward")
+                .setValue(delegateMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+
+        if (incentive.swapRewardDenoms().size > 0) {
+            val denomToClaims: MutableList<Selection> = mutableListOf()
+            incentive.swapRewardDenoms().forEach { denom ->
+                denomToClaims.add(Selection.newBuilder().setDenom(denom).setMultiplierName("large").build())
+            }
+            val swapMsg = MsgClaimSwapReward.newBuilder()
+                .setSender(parseAuthGrpc(auth).first)
+                .addAllDenomsToClaim(denomToClaims)
+                .build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimSwapReward")
+                .setValue(swapMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+
+        if (incentive.earnRewardDenoms().size > 0) {
+            val denomToClaims: MutableList<Selection> = mutableListOf()
+            incentive.earnRewardDenoms().forEach { denom ->
+                denomToClaims.add(Selection.newBuilder().setDenom(denom).setMultiplierName("large").build())
+            }
+            val earnMsg = MsgClaimEarnReward.newBuilder()
+                .setSender(parseAuthGrpc(auth).first)
+                .addAllDenomsToClaim(denomToClaims)
+                .build()
+            val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimEarnReward")
+                .setValue(earnMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+        return msgAnys
+    }
+
+    fun genMintCreateBroadcast(
+        auth: QueryAccountResponse?,
+        msgCreateMint: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, mintCreateMsg(msgCreateMint), fee, memo, selectedChain)
+    }
+
+    fun genMintCreateSimulate(
+        auth: QueryAccountResponse?,
+        msgCreateMint: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, mintCreateMsg(msgCreateMint), fee, memo)
+    }
+
+    private fun mintCreateMsg(msgCreateMint: MsgCreateCDP?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP")
+                .setValue(msgCreateMint?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genMintDepositBroadcast(
+        auth: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, mintDepositMsg(msgDeposit), fee, memo, selectedChain)
+    }
+
+    fun genMintDepositSimulate(
+        auth: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, mintDepositMsg(msgDeposit), fee, memo)
+    }
+
+    private fun mintDepositMsg(msgDeposit: MsgDeposit?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDeposit")
+                .setValue(msgDeposit?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genMintWithdrawBroadcast(
+        auth: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, mintWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
+    }
+
+    fun genMintWithdrawSimulate(
+        auth: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, mintWithdrawMsg(msgWithdraw), fee, memo)
+    }
+
+    private fun mintWithdrawMsg(msgWithdraw: MsgWithdraw?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgWithdraw")
+                .setValue(msgWithdraw?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genMintBorrowBroadcast(
+        auth: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, mintBorrowMsg(msgDrawDebt), fee, memo, selectedChain)
+    }
+
+    fun genMintBorrowSimulate(
+        auth: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, mintBorrowMsg(msgDrawDebt), fee, memo)
+    }
+
+    private fun mintBorrowMsg(msgDrawDebt: MsgDrawDebt?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDrawDebt")
+                .setValue(msgDrawDebt?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genMintRepayBroadcast(
+        auth: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, mintRepayMsg(msgRepayDebt), fee, memo, selectedChain)
+    }
+
+    fun genMintRepaySimulate(
+        auth: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, mintRepayMsg(msgRepayDebt), fee, memo)
+    }
+
+    private fun mintRepayMsg(msgRepayDebt: MsgRepayDebt?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgRepayDebt")
+                .setValue(msgRepayDebt?.toByteString()).build()
+        )
+        return msgAnys
+    }
 
     private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))

@@ -1,0 +1,59 @@
+package wannabit.io.cosmostaion.data.repository.chain
+
+import com.kava.cdp.v1beta1.QueryProto.QueryCdpsRequest
+import com.kava.cdp.v1beta1.QueryProto.QueryParamsRequest
+import com.kava.cdp.v1beta1.QueryProto.QueryParamsResponse
+import com.kava.incentive.v1beta1.QueryGrpc
+import com.kava.incentive.v1beta1.QueryProto
+import com.kava.pricefeed.v1beta1.QueryGrpc.newBlockingStub
+import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesRequest
+import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
+import io.grpc.ManagedChannel
+import kotlinx.coroutines.Dispatchers
+import wannabit.io.cosmostaion.common.safeApiCall
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import java.util.concurrent.TimeUnit
+
+class KavaRepositoryImpl : KavaRepository {
+
+    override suspend fun incentive(
+        managedChannel: ManagedChannel,
+        address: String?
+    ): NetworkResult<QueryProto.QueryRewardsResponse> {
+        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = QueryProto.QueryRewardsRequest.newBuilder().setOwner(address).build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.rewards(request)
+        }
+    }
+
+    override suspend fun priceFeed(managedChannel: ManagedChannel): NetworkResult<QueryPricesResponse> {
+        val stub = newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = QueryPricesRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.prices(request)
+        }
+    }
+
+    override suspend fun mintParam(managedChannel: ManagedChannel): NetworkResult<QueryParamsResponse> {
+        val stub = com.kava.cdp.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = QueryParamsRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.params(request)
+        }
+    }
+
+    override suspend fun myCdp(
+        managedChannel: ManagedChannel,
+        address: String?
+    ): NetworkResult<com.kava.cdp.v1beta1.QueryProto.QueryCdpsResponse> {
+        val stub = com.kava.cdp.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = QueryCdpsRequest.newBuilder().setOwner(address).build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.cdps(request)
+        }
+    }
+}

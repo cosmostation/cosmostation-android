@@ -1,14 +1,12 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +14,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
@@ -37,6 +31,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -64,7 +59,6 @@ import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
-import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.nio.charset.StandardCharsets
@@ -72,7 +66,7 @@ import java.nio.charset.StandardCharsets
 class TransferFragment(
     private val selectedChain: CosmosLine,
     private val toSendDenom: String
-) : BottomSheetDialogFragment() {
+) : BaseTxFragment() {
 
     private var _binding: FragmentTransferBinding? = null
     private val binding get() = _binding!!
@@ -94,22 +88,11 @@ class TransferFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
-    private val txViewModel: TxViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTransferBinding.inflate(layoutInflater, container, false)
         return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            setupRatio(bottomSheetDialog)
-        }
-        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -530,7 +513,7 @@ class TransferFragment(
                 if (selectedChain.chainId == selectedRecipientChain?.chainId) {
                     if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
                         txViewModel.broadcastSend(
-                            getChannel(),
+                            getChannel(selectedChain),
                             selectedChain.address,
                             onBindSend(),
                             txFee,
@@ -540,7 +523,7 @@ class TransferFragment(
 
                     } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
                         txViewModel.broadcastWasm(
-                            getChannel(),
+                            getChannel(selectedChain),
                             selectedChain.address,
                             onBindWasmSend(),
                             txFee,
@@ -552,7 +535,7 @@ class TransferFragment(
                 } else {
                     if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
                         txViewModel.broadcastIbcSend(
-                            getChannel(),
+                            getChannel(selectedChain),
                             getRecipientChannel(),
                             existedAddress,
                             assetPath,
@@ -565,7 +548,7 @@ class TransferFragment(
 
                     } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
                         txViewModel.broadcastWasm(
-                            getChannel(),
+                            getChannel(selectedChain),
                             selectedChain.address,
                             onBindWasmIbcSend(),
                             txFee,
@@ -587,7 +570,7 @@ class TransferFragment(
             if (selectedChain.chainId == selectedRecipientChain?.chainId) {
                 if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
                     txViewModel.simulateSend(
-                        getChannel(),
+                        getChannel(selectedChain),
                         selectedChain.address,
                         onBindSend(),
                         txFee,
@@ -596,7 +579,7 @@ class TransferFragment(
 
                 } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
                     txViewModel.simulateWasm(
-                        getChannel(),
+                        getChannel(selectedChain),
                         selectedChain.address,
                         onBindWasmSend(),
                         txFee,
@@ -610,7 +593,7 @@ class TransferFragment(
                     when (transferAssetType) {
                         TransferAssetType.COIN_TRANSFER -> {
                             txViewModel.simulateIbcSend(
-                                getChannel(),
+                                getChannel(selectedChain),
                                 getRecipientChannel(),
                                 selectedChain.address,
                                 existedAddress,
@@ -624,7 +607,7 @@ class TransferFragment(
 
                         TransferAssetType.CW20_TRANSFER -> {
                             txViewModel.simulateWasm(
-                                getChannel(),
+                                getChannel(selectedChain),
                                 selectedChain.address,
                                 onBindWasmIbcSend(),
                                 txFee,
@@ -694,11 +677,6 @@ class TransferFragment(
         }
     }
 
-    private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort)
-            .useTransportSecurity().build()
-    }
-
     private fun getRecipientChannel(): ManagedChannel? {
         selectedRecipientChain?.let {
             return ManagedChannelBuilder.forAddress(it.grpcHost, it.grpcPort).useTransportSecurity().build()
@@ -734,53 +712,6 @@ class TransferFragment(
         val msg = ByteString.copyFromUtf8(jsonData)
         result.add(MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(selectedToken?.address).setMsg(msg).build())
         return result
-    }
-
-    private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
-        val behavior = BottomSheetBehavior.from(bottomSheet)
-        val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = getBottomSheetDialogDefaultHeight()
-        bottomSheet.layoutParams = layoutParams
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 19 / 20
-    }
-
-    private fun getWindowHeight(): Int {
-        val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-
-        bottomSheet?.let { sheet ->
-            val behavior = BottomSheetBehavior.from(sheet)
-            behavior.isHideable = true
-
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                        }
-
-                        else -> {}
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
-        }
     }
 
     override fun onDestroyView() {

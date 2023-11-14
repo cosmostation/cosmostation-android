@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info
+package wannabit.io.cosmostaion.ui.tx.info.neutron
 
 import android.content.Context
 import android.content.Intent

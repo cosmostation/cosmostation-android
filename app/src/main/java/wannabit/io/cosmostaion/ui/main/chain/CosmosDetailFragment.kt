@@ -16,6 +16,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -26,7 +28,8 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.select.VaultSelectFragment
-import wannabit.io.cosmostaion.ui.tx.info.DaoListFragment
+import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoListFragment
+import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
@@ -86,6 +89,12 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 fabCompounding.labelText = "Dao"
                 fabVote.setImageResource(R.drawable.icon_neutron_vault)
                 fabVote.labelText = "Vault"
+
+            } else if (selectedChain is ChainKava459 || selectedChain is ChainKava118) {
+                fabDefi.visibility = View.VISIBLE
+
+            } else {
+                fabDefi.visibility = View.GONE
             }
 
             pagerAdapter = AccountPageAdapter(
@@ -283,6 +292,21 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                         requireActivity().toMoveFragment(this@CosmosDetailFragment,
                             ProposalListFragment(selectedChain), "ProposalList")
                     }
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabDefi.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                        KavaDefiFragment(selectedChain as ChainKava459), "KavaDefi")
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({

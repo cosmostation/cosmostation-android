@@ -7,8 +7,10 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.common.BaseConstant
+import wannabit.io.cosmostaion.common.CosmostationConstants
 
-class ChainKava459 : CosmosLine() {
+open class ChainKava459 : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Kava"
@@ -29,3 +31,5 @@ class ChainKava459 : CosmosLine() {
 
     override var grpcHost: String = "grpc-kava.cosmostation.io"
 }
+
+var KAVA_CDP_IMG_URL = CosmostationConstants.CHAIN_BASE_URL + "kava/module/mint/";

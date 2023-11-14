@@ -8,7 +8,7 @@ import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
-class ChainKava118 : CosmosLine() {
+class ChainKava118 : ChainKava459() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var isDefault = false

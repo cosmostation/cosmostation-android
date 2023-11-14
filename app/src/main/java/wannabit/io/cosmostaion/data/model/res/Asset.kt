@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.data.model.res
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @JsonClass(generateAdapter = true)
 data class AssetResponse(val assets: List<Asset>?)
@@ -37,6 +38,10 @@ data class Asset(
             }
         }
         return null
+    }
+
+    fun assetImg(): String {
+        return CosmostationConstants.CHAIN_BASE_URL + image
     }
 }
 

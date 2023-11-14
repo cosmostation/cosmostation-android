@@ -74,12 +74,28 @@ class InsertAmountFragment(
                     editLayout.setHint(R.string.title_redelegate_amount)
                     setAssetAmount()
                 }
-                TxType.VAULT_DEPOSIT -> {
+                TxType.VAULT_DEPOSIT, TxType.MINT_DEPOSIT -> {
                     editLayout.setHint(R.string.title_vault_deposit_amount)
                     setAssetAmount()
                 }
-                TxType.VAULT_WITHDRAW -> {
+                TxType.VAULT_WITHDRAW, TxType.MINT_WITHDRAW -> {
                     editLayout.setHint(R.string.title_vault_withdraw_amount)
+                    setAssetAmount()
+                }
+                TxType.MINT_BORROW -> {
+                    editLayout.setHint(R.string.title_borrow_amount)
+                    setAssetAmount()
+                }
+                TxType.MINT_REPAY -> {
+                    editLayout.setHint(R.string.title_repay_amount)
+                    setAssetAmount()
+                }
+                TxType.MINT_CREATE_COLLATERAL -> {
+                    editLayout.setHint(R.string.title_collateral_amount)
+                    setAssetAmount()
+                }
+                TxType.MINT_CREATE_PRINCIPAL -> {
+                    editLayout.setHint(R.string.title_principal_amount)
                     setAssetAmount()
                 }
                 else -> {}

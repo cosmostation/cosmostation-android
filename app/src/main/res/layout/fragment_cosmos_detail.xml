@@ -194,6 +194,19 @@
             fab:fab_label="@string/title_governance"
             app:fab_size="mini"/>
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_defi"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_defi"
+            fab:fab_label="@string/title_defi"
+            app:fab_size="mini"
+            android:visibility="gone"/>
+
     </com.github.clans.fab.FloatingActionMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

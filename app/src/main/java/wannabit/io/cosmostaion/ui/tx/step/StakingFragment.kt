@@ -1,13 +1,11 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,17 +13,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.tx.v1beta1.TxProto
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -33,6 +25,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -54,13 +47,12 @@ import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorFragment
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
-import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 class StakingFragment(
     val selectedChain: CosmosLine
-) : BottomSheetDialogFragment() {
+) : BaseTxFragment() {
 
     private var _binding: FragmentStakingBinding? = null
     private val binding get() = _binding!!
@@ -75,22 +67,11 @@ class StakingFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
-    private val txViewModel: TxViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStakingBinding.inflate(layoutInflater, container, false)
         return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            setupRatio(bottomSheetDialog)
-        }
-        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -356,7 +337,7 @@ class StakingFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadDelegate(getChannel(), selectedChain.address, onBindDelegate(), txFee, txMemo, selectedChain)
+                txViewModel.broadDelegate(getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo, selectedChain)
             }
         }
 
@@ -364,7 +345,7 @@ class StakingFragment(
         binding.apply {
             if (toCoin == null) { return }
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateDelegate(getChannel(), selectedChain.address, onBindDelegate(), txFee, txMemo)
+            txViewModel.simulateDelegate(getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo)
         }
     }
 
@@ -416,59 +397,8 @@ class StakingFragment(
         }
     }
 
-    private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort).useTransportSecurity().build()
-    }
-
     private fun onBindDelegate(): MsgDelegate {
         return MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address).setValidatorAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
-    }
-
-    private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
-        val behavior = BottomSheetBehavior.from(bottomSheet)
-        val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = getBottomSheetDialogDefaultHeight()
-        bottomSheet.layoutParams = layoutParams
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 19 / 20
-    }
-
-    private fun getWindowHeight(): Int {
-        val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-
-        bottomSheet?.let { sheet ->
-            val behavior = BottomSheetBehavior.from(sheet)
-            behavior.isHideable = true
-
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                        }
-
-                        else -> {}
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
-        }
     }
 
     override fun onDestroyView() {

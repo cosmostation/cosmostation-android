@@ -12,6 +12,12 @@ import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
+import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
+import com.kava.cdp.v1beta1.TxProto.MsgDeposit
+import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
+import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
+import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import wannabit.io.cosmostaion.chain.CosmosLine
 
@@ -189,6 +195,108 @@ interface TxRepository {
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastClaimIncentiveTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        incentive: QueryProto.QueryRewardsResponse,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateClaimIncentiveTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        incentive: QueryProto.QueryRewardsResponse,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastMintCreateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCreateCDP: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateMintCreateTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCreateCDP: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastMintDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateMintDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastMintWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateMintWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastMintBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateMintBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastMintRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateMintRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String
     ): Any?

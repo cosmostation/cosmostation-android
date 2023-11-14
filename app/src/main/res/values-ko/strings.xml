@@ -49,6 +49,25 @@
     <string name="str_unstake_cancel">언스테이크 취소</string>
     <string name="str_change_reward_address">이자 주소 변경</string>
     <string name="str_vote">투표</string>
+    <string name="str_claim_incentive">인센티브 청구</string>
+    <string name="str_my_collateral_value">나의 담보 가치</string>
+    <string name="str_my_ltv_value">나의 부채 한도</string>
+    <string name="str_my_debt_value">나의 현재 부채</string>
+    <string name="str_current_price">현재 %1$s 가격</string>
+    <string name="str_liquidation_price">청산 %1$s 가격</string>
+    <string name="str_min_collateral_rate">최소 담보 비율</string>
+    <string name="str_stability_fee">연간 수수료</string>
+    <string name="str_liquidation_penalty">청산시 추가 수수료</string>
+    <string name="str_deposit_denom">%1$s 예치</string>
+    <string name="str_withdraw_denom">%1$s 출금</string>
+    <string name="str_borrow_denom">%1$s 대출</string>
+    <string name="str_repay_denom">%1$s 상환</string>
+    <string name="str_deposit_amount">예치 금액</string>
+    <string name="str_deposit">예치</string>
+    <string name="str_withdraw">출금</string>
+    <string name="str_borrow">대출</string>
+    <string name="str_repay">상환</string>
+    <string name="str_create_mint">Mint 개설</string>
 
 
     //title
@@ -108,6 +127,16 @@
     <string name="title_vault_deposit_amount">예치 금액</string>
     <string name="title_vault_withdraw_amount">출금 금액</string>
     <string name="title_dao_proposal_list">다오 투표 목록</string>
+    <string name="title_mint_list">민팅 목록</string>
+    <string name="title_mint">민팅 선택</string>
+    <string name="title_deposit_collateral">담보 입금</string>
+    <string name="title_withdraw_collateral">담보 출금</string>
+    <string name="title_borrow_usdx">추가 USDX 대출</string>
+    <string name="title_borrow_amount">대출 금액</string>
+    <string name="title_repay_usdx">USDX 상환</string>
+    <string name="title_repay_amount">상환 금액</string>
+    <string name="title_collateral_amount">담보 수량</string>
+    <string name="title_principal_amount">대출 수량</string>
 
 
     // msg
@@ -138,6 +167,9 @@
     <string name="str_unstake_cancel_msg">언스테이킹을 취소하고 즉시 스테이킹 상태로 되돌립니다.</string>
     <string name="str_reward_address_msg">이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다. 니모닉으로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.</string>
     <string name="str_reward_address_msg2">거래소 입금 주소로 설정하지 마세요.</string>
+    <string name="str_mint_msg">CDP 모듈을 이용하여 담보형 USDX 민팅\n기능을 이용해보세요.</string>
+    <string name="str_lend_msg">HARD 랜딩 플랫폼을 이용하여 자산을\n예치하고 LTV를 근거로 다른 자산을 대출받아\n이용하실 수 있습니다.</string>
+    <string name="str_pool_msg">KAVA 플랫폼 상의 AMM 방식의 자산\n스왑 풀에 유동성을 공급하세요.</string>
 
 
     // error

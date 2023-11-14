@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
 
     <string name="str_total_value" translatable="false">Total value</string>
-    <string name="str_cosmos_class" translatable="false">Cosmos Class</string>
+    <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
     <string name="str_evm" translatable="false">EVM Compat</string>
     <string name="str_available" translatable="false">Available</string>
@@ -79,6 +79,25 @@
     <string name="str_unstake_cancel">Cancel unstake</string>
     <string name="str_change_reward_address">Change reward address</string>
     <string name="str_vote">Vote</string>
+    <string name="str_claim_incentive">Claim incentive</string>
+    <string name="str_my_collateral_value">My collateral value</string>
+    <string name="str_my_ltv_value">My LTV</string>
+    <string name="str_my_debt_value">My debt</string>
+    <string name="str_current_price">Current %1$s price</string>
+    <string name="str_liquidation_price">Liquidation %1$s price</string>
+    <string name="str_min_collateral_rate">Min. collateral rate</string>
+    <string name="str_stability_fee">Stability fee (APR)</string>
+    <string name="str_liquidation_penalty">Liquidation penalty</string>
+    <string name="str_deposit_denom">Deposit %1$s</string>
+    <string name="str_withdraw_denom">Withdraw %1$s</string>
+    <string name="str_borrow_denom">Borrow %1$s</string>
+    <string name="str_repay_denom">Repay %1$s</string>
+    <string name="str_deposit_amount">Deposit amount</string>
+    <string name="str_deposit">Deposit</string>
+    <string name="str_withdraw">Withdraw</string>
+    <string name="str_borrow">Borrow</string>
+    <string name="str_repay">Repay</string>
+    <string name="str_create_mint">Open mint</string>
 
 
     //title
@@ -158,6 +177,17 @@
     <string name="title_vault_deposit_amount">Deposit amount</string>
     <string name="title_vault_withdraw_amount">Withdraw amount</string>
     <string name="title_dao_proposal_list">Dao proposal list</string>
+    <string name="title_defi" translatable="false">DeFi</string>
+    <string name="title_mint_list">Mint market list</string>
+    <string name="title_mint">Select mint market</string>
+    <string name="title_deposit_collateral">Deposit collateral</string>
+    <string name="title_withdraw_collateral">Withdraw collateral</string>
+    <string name="title_borrow_usdx">Borrow more USDX</string>
+    <string name="title_borrow_amount">Borrow amount</string>
+    <string name="title_repay_usdx">Repay USDX</string>
+    <string name="title_repay_amount">Repay amount</string>
+    <string name="title_collateral_amount">Collateral amount</string>
+    <string name="title_principal_amount">Principal amount</string>
 
 
     // msg
@@ -201,19 +231,24 @@
     <string name="str_swap_msg" translatable="false">Exchange the coins you have for a\nvariety of different coins</string>
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
+    <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module.</string>
+    <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV.</string>
+    <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform.</string>
 
 
     // header
-    <string name="str_native_coins" translatable="false">Native Coins</string>
-    <string name="str_ibc_coins" translatable="false">Ibc Coins</string>
-    <string name="str_bridge_coins" translatable="false">Bridged Coins</string>
-    <string name="str_contract_coins" translatable="false">Contract Coins</string>
-    <string name="str_unknown_coins" translatable="false">Unknown Coins</string>
-    <string name="str_reward_address">Reward Address</string>
+    <string name="str_native_coins" translatable="false">Native coins</string>
+    <string name="str_ibc_coins" translatable="false">Ibc coins</string>
+    <string name="str_bridge_coins" translatable="false">Bridged coins</string>
+    <string name="str_contract_coins" translatable="false">Contract coins</string>
+    <string name="str_unknown_coins" translatable="false">Unknown coins</string>
+    <string name="str_reward_address">Reward address</string>
     <string name="str_my_staking">My staking</string>
-    <string name="str_my_unstaking">My Unstaking</string>
+    <string name="str_my_unstaking">My unstaking</string>
     <string name="str_voting_period">Voting period proposals</string>
     <string name="str_vote_proposals">Finished proposals</string>
+    <string name="str_my_market_list" translatable="false">My market list</string>
+    <string name="str_market_list" translatable="false">Market list</string>
 
 
     // error
