@@ -104,6 +104,9 @@ public class ChainFactory {
                 case GRABRIDGE_MAIN:
                     return new GravityBridge();
 
+                case HUMANS_MAIN:
+                    return new Humans();
+
                 case INJ_MAIN:
                     return new Injective();
 

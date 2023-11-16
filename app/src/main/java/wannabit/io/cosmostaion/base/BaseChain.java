@@ -100,6 +100,7 @@ public enum BaseChain {
     ARCHWAY_MAIN("archway-mainnet"),
     SEI_MAIN("sei-mainnet"),
     TERRA_MAIN ("terra-mainnet"),
+    HUMANS_MAIN ("humans-mainnet"),
     DYDX_MAIN ("dydx-mainnet"),
     CELESTIA_MAIN ("celestia-mainnet"),
     MINTSTATION_TEST ("mintstation-testnet");
@@ -332,6 +333,9 @@ public enum BaseChain {
         if (chainName.equals(TERRA_MAIN.chainName)) {
             return TERRA_MAIN;
         }
+        if (chainName.equals(HUMANS_MAIN.chainName)) {
+            return HUMANS_MAIN;
+        }
         if (chainName.equals(DYDX_MAIN.chainName)) {
             return DYDX_MAIN;
         }
@@ -370,6 +374,7 @@ public enum BaseChain {
         result.add(EVMOS_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(GRABRIDGE_MAIN);
+        result.add(HUMANS_MAIN);
         result.add(INJ_MAIN);
         result.add(IXO_MAIN);
         result.add(JUNO_MAIN);
