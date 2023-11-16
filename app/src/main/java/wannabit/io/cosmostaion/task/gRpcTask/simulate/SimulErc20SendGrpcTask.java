@@ -119,7 +119,12 @@ public class SimulErc20SendGrpcTask extends CommonTask {
 
                 byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, chainID, credentials);
                 String hexValue = Numeric.toHexString(signedMessage);
-                BigDecimal newGasLimit = new BigDecimal(web3.ethEstimateGas(transaction).send().getAmountUsed().toString()).multiply(new BigDecimal("1.1"));
+                BigDecimal newGasLimit;
+                if (chainConfig.baseChain().equals(BaseChain.EVMOS_MAIN)) {
+                    newGasLimit = new BigDecimal(rawTransaction.getGasLimit());
+                } else  {
+                    newGasLimit = new BigDecimal(web3.ethEstimateGas(transaction).send().getAmountUsed().toString()).multiply(new BigDecimal("1.1"));
+                }
                 BigDecimal gasPrice = new BigDecimal(web3.ethGasPrice().send().getGasPrice().toString());
                 BigDecimal availAmount;
 
