@@ -57,6 +57,9 @@ public class ChainFactory {
                 case CANTO_MAIN:
                     return new Canto();
 
+                case CELESTIA_MAIN:
+                    return new Celestia();
+
                 case CERBERUS_MAIN:
                     return new Cerberus();
 
@@ -85,6 +88,9 @@ public class ChainFactory {
 
                 case DESMOS_MAIN:
                     return new Desmos();
+
+                case DYDX_MAIN:
+                    return new Dydx();
 
                 case EMONEY_MAIN:
                     return new Emoney();
@@ -227,8 +233,8 @@ public class ChainFactory {
                 case XPLA_MAIN:
                     return new Xpla();
 
-                case STATION_TEST:
-                    return new StationTest();
+                case MINTSTATION_TEST:
+                    return new MintstationTest();
 
                 case NEUTRON_TEST:
                     return new NeutronTest();

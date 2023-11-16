@@ -69,6 +69,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         });
 
         getBaseDao().upgradeAaccountAddressforPath();
+        getBaseDao().onChangeAddressByShentu();
     }
 
 

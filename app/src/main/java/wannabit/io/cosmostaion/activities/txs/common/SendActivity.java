@@ -1,10 +1,9 @@
 package wannabit.io.cosmostaion.activities.txs.common;
 
-import static ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateRequest;
-import static ibc.core.channel.v1.QueryOuterClass.QueryChannelClientStateResponse;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,16 +24,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import cosmos.base.tendermint.v1beta1.Query;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import ibc.core.channel.v1.QueryGrpc;
-import ibc.lightclients.tendermint.v1.Tendermint;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
@@ -288,7 +285,7 @@ public class SendActivity extends BaseBroadCastActivity {
     }
 
     private void onBroadCastIbcSendTx() {
-        new IBCTransferGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new IBCTransferGrpcTask(getBaseApplication(), result -> onIntentTx(result), mAccount, mBaseChain, mAccount.address, mToAddress, mToChainConfig, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void onBroadCastSendContractTx() {
@@ -336,28 +333,43 @@ public class SendActivity extends BaseBroadCastActivity {
             @NonNull
             @Override
             public String getMessage() {
-                QueryGrpc.QueryBlockingStub txService = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-                QueryChannelClientStateRequest req = QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
-                QueryChannelClientStateResponse res = txService.channelClientState(req);
-                Tendermint.ClientState value = null;
+                cosmos.base.tendermint.v1beta1.ServiceGrpc.ServiceBlockingStub toStub = cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mToChainConfig.baseChain())).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+                Query.GetNodeInfoRequest nodeInfoRequest = Query.GetNodeInfoRequest.newBuilder().build();
+                Query.GetNodeInfoResponse nodeInfoResponse = toStub.getNodeInfo(nodeInfoRequest);
+                String[] parts = nodeInfoResponse.getNodeInfo().getNetwork().split("-");
+                long revisionNumber;
                 try {
-                    value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
-                } catch (InvalidProtocolBufferException e) { }
-                ArrayList<Msg> ibcTransferMsgs = MsgGenerator.genIbcTransferMsgs(mAccount.address, mToAddress, mAmounts.get(0), mAssetPath, value.getLatestHeight());
+                    revisionNumber = Long.parseLong(parts[parts.length - 1]);
+                } catch (NumberFormatException e) {
+                    revisionNumber = 0;
+                }
+
+                Query.GetLatestBlockRequest blockRequest = Query.GetLatestBlockRequest.newBuilder().build();
+                Query.GetLatestBlockResponse blockResponse = toStub.getLatestBlock(blockRequest);
+                long revisionHeight = blockResponse.getBlock().getHeader().getHeight();
+
+                ArrayList<Msg> ibcTransferMsgs = MsgGenerator.genIbcTransferMsgs(mAccount.address, mToAddress, mAmounts.get(0), mAssetPath, revisionNumber, revisionHeight);
                 return WKey.onGetLedgerMessage(getBaseDao(), mChainConfig, mAccount, ibcTransferMsgs, mTxFee, mTxMemo);
             }
 
             @NonNull
             @Override
             public ServiceOuterClass.BroadcastTxRequest makeBroadcastTxRequest(@NonNull byte[] currentPubKey) {
-                QueryGrpc.QueryBlockingStub txService = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-                QueryChannelClientStateRequest req = QueryChannelClientStateRequest.newBuilder().setChannelId(mAssetPath.channel).setPortId(mAssetPath.port).build();
-                QueryChannelClientStateResponse res = txService.channelClientState(req);
-                Tendermint.ClientState value = null;
+                cosmos.base.tendermint.v1beta1.ServiceGrpc.ServiceBlockingStub toStub = cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mToChainConfig.baseChain())).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+                Query.GetNodeInfoRequest nodeInfoRequest = Query.GetNodeInfoRequest.newBuilder().build();
+                Query.GetNodeInfoResponse nodeInfoResponse = toStub.getNodeInfo(nodeInfoRequest);
+                String[] parts = nodeInfoResponse.getNodeInfo().getNetwork().split("-");
+                long revisionNumber;
                 try {
-                    value = Tendermint.ClientState.parseFrom(res.getIdentifiedClientState().getClientState().getValue());
-                } catch (InvalidProtocolBufferException e) { }
-                return Signer.getGrpcLedgerIbcTransferSimulReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, value.getLatestHeight(), mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
+                    revisionNumber = Long.parseLong(parts[parts.length - 1]);
+                } catch (NumberFormatException e) {
+                    revisionNumber = 0;
+                }
+
+                Query.GetLatestBlockRequest blockRequest = Query.GetLatestBlockRequest.newBuilder().build();
+                Query.GetLatestBlockResponse blockResponse = toStub.getLatestBlock(blockRequest);
+                long revisionHeight = blockResponse.getBlock().getHeader().getHeight();
+                return Signer.getGrpcLedgerIbcTransferSimulReq(WKey.onAuthResponse(mBaseChain, mAccount), mAccount.address, mToAddress, mAmounts.get(0).denom, mAmounts.get(0).amount, mAssetPath, revisionNumber, revisionHeight, mTxFee, mTxMemo, LedgerManager.Companion.getInstance().getCurrentPubKey(), WKey.getLedgerSigData(currentPubKey));
             }
 
             @Override

@@ -77,7 +77,6 @@ public enum BaseChain {
     OMNIFLIX_MAIN("omniflix-mainnet"),
     CRESCENT_MAIN("crescent-mainnet"),
     ASSETMANTLE_MAIN("assetmantle-mainnet"),
-    STATION_TEST("station-testnet"),
     NYX_MAIN("nyx-mainnet"),
     PASSAGE_MAIN("passage-mainnet"),
     STRIDE_MAIN("stride-mainnet"),
@@ -101,7 +100,10 @@ public enum BaseChain {
     ARCHWAY_MAIN("archway-mainnet"),
     SEI_MAIN("sei-mainnet"),
     TERRA_MAIN ("terra-mainnet"),
-    HUMANS_MAIN ("humans-mainnet");
+    HUMANS_MAIN ("humans-mainnet"),
+    DYDX_MAIN ("dydx-mainnet"),
+    CELESTIA_MAIN ("celestia-mainnet"),
+    MINTSTATION_TEST ("mintstation-testnet");
 
 
     private final String chainName;
@@ -262,9 +264,6 @@ public enum BaseChain {
         if (chainName.equals(ASSETMANTLE_MAIN.chainName)) {
             return ASSETMANTLE_MAIN;
         }
-        if (chainName.equals(STATION_TEST.chainName)) {
-            return STATION_TEST;
-        }
         if (chainName.equals(NYX_MAIN.chainName)) {
             return NYX_MAIN;
         }
@@ -337,6 +336,15 @@ public enum BaseChain {
         if (chainName.equals(HUMANS_MAIN.chainName)) {
             return HUMANS_MAIN;
         }
+        if (chainName.equals(DYDX_MAIN.chainName)) {
+            return DYDX_MAIN;
+        }
+        if (chainName.equals(CELESTIA_MAIN.chainName)) {
+            return CELESTIA_MAIN;
+        }
+        if (chainName.equals(MINTSTATION_TEST.chainName)) {
+            return MINTSTATION_TEST;
+        }
         return null;
     }
 
@@ -353,6 +361,7 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(BITSONG_MAIN);
         result.add(CANTO_MAIN);
+        result.add(CELESTIA_MAIN);
         result.add(CHIHUAHUA_MAIN);
         result.add(COMDEX_MAIN);
         result.add(COREUM_MAIN);
@@ -360,6 +369,7 @@ public enum BaseChain {
         result.add(CRYPTO_MAIN);
         result.add(CUDOS_MAIN);
         result.add(DESMOS_MAIN);
+        result.add(DYDX_MAIN);
         result.add(EMONEY_MAIN);
         result.add(EVMOS_MAIN);
         result.add(FETCHAI_MAIN);
@@ -402,8 +412,8 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(UMEE_MAIN);
         result.add(XPLA_MAIN);
+        result.add(MINTSTATION_TEST);
         result.add(NEUTRON_TEST);
-        result.add(STATION_TEST);
         result.add(CERBERUS_MAIN);
         result.add(KONSTELL_MAIN);
         result.add(KUJIRA_MAIN);

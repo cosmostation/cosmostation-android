@@ -11,6 +11,7 @@ import kava.swap.v1beta1.QueryOuterClass.PoolResponse;
 import osmosis.gamm.v1beta1.Tx;
 import starnamed.x.starname.v1beta1.Types;
 import stride.stakeibc.HostZoneOuterClass;
+import wannabit.io.cosmostaion.base.chains.ChainConfig;
 import wannabit.io.cosmostaion.dao.AssetPath;
 import wannabit.io.cosmostaion.dao.MintscanToken;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -25,6 +26,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public int                          mTxType = -1;
     public Fee                          mTxFee;
     public String                       mTxMemo;
+    public ChainConfig                  mToChainConfig;
+
     public String                       mDenom;                             //Transfer
     public String                       mToAddress;                         //Transfer
     public ArrayList<Coin>              mAmounts;                           //Transfer

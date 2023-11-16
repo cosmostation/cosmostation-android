@@ -402,7 +402,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
 
         } else if (getSActivity().mTxType == CONST_PW_TX_IBC_TRANSFER) {
-            new SimulIBCTransferGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress,
+            new SimulIBCTransferGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain, getSActivity().mAccount.address, getSActivity().mToAddress, getSActivity().mToChainConfig,
                     getSActivity().mAmounts.get(0).denom, getSActivity().mAmounts.get(0).amount, getSActivity().mAssetPath, mFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getSActivity().mTxType == CONST_PW_TX_MINT_NFT) {

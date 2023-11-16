@@ -77,6 +77,9 @@
     <color name="colorTransBgSei">#FBF4EA</color>
     <color name="colorTransBgTerra">#E7EDFF</color>
     <color name="colorTransBgHumans">#E8EBEF</color>
+    <color name="colorTransBgDydx">#F0F0FF</color>
+    <color name="colorTransBgMintstation">#E7EDFD</color>
+    <color name="colorTransBgCelestia">#FCF3FF</color>
 
 
     <color name="colorTransBgGray">#E63D3D3D</color>
@@ -251,6 +254,12 @@
     <color name="color_terra">#1E75EE</color>
 
     <color name="color_humans">#8268FB</color>
+
+    <color name="color_mintstation">#376FFF</color>
+
+    <color name="color_dydx">#6966FF</color>
+
+    <color name="color_celestia">#D554F8</color>
 
 
     <color name="colorRed">#f31963</color>

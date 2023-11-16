@@ -5,6 +5,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BASE_URL;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 
 public class Sif extends ChainConfig {
 
@@ -39,4 +40,8 @@ public class Sif extends ChainConfig {
     public String homeInfoLink() { return  "https://sifchain.finance"; }
     public String blogInfoLink() { return  "https://medium.com/sifchain-finance"; }
     public String coingeckoLink() { return  COINGECKO_URL + "sifchain"; }
+
+    public String noticeLink() {
+        return BaseConstant.EXPLORER_BASE_URL + "information/notice/" + chainName() + "/";
+    }
 }
