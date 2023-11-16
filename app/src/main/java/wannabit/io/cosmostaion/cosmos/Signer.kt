@@ -36,6 +36,8 @@ import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
 import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
 import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.hard.v1beta1.TxProto.MsgBorrow
+import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.incentive.v1beta1.QueryProto.QueryRewardsResponse
 import com.kava.incentive.v1beta1.TxProto.MsgClaimDelegatorReward
 import com.kava.incentive.v1beta1.TxProto.MsgClaimEarnReward
@@ -586,6 +588,118 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgRepayDebt")
                 .setValue(msgRepayDebt?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genLendDepositBroadcast(
+        auth: QueryAccountResponse?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, lendDepositMsg(msgDeposit), fee, memo, selectedChain)
+    }
+
+    fun genLendDepositSimulate(
+        auth: QueryAccountResponse?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, lendDepositMsg(msgDeposit), fee, memo)
+    }
+
+    private fun lendDepositMsg(msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgDeposit")
+                .setValue(msgDeposit?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genLendWithdrawBroadcast(
+        auth: QueryAccountResponse?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, lendWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
+    }
+
+    fun genLendWithdrawSimulate(
+        auth: QueryAccountResponse?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, lendWithdrawMsg(msgWithdraw), fee, memo)
+    }
+
+    private fun lendWithdrawMsg(msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgWithdraw")
+                .setValue(msgWithdraw?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genLendBorrowBroadcast(
+        auth: QueryAccountResponse?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, lendBorrowMsg(msgBorrow), fee, memo, selectedChain)
+    }
+
+    fun genLendBorrowSimulate(
+        auth: QueryAccountResponse?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, lendBorrowMsg(msgBorrow), fee, memo)
+    }
+
+    private fun lendBorrowMsg(msgBorrow: MsgBorrow?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgBorrow")
+                .setValue(msgBorrow?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genLendRepayBroadcast(
+        auth: QueryAccountResponse?,
+        msgRepay: MsgRepay?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, lendRepayMsg(msgRepay), fee, memo, selectedChain)
+    }
+
+    fun genLendRepaySimulate(
+        auth: QueryAccountResponse?,
+        msgRepay: MsgRepay?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, lendRepayMsg(msgRepay), fee, memo)
+    }
+
+    private fun lendRepayMsg(msgRepay: MsgRepay?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay")
+                .setValue(msgRepay?.toByteString()).build()
         )
         return msgAnys
     }

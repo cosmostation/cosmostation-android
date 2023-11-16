@@ -137,6 +137,11 @@
     <string name="title_repay_amount">상환 금액</string>
     <string name="title_collateral_amount">담보 수량</string>
     <string name="title_principal_amount">대출 수량</string>
+    <string name="title_lend_list">랜딩 목록</string>
+    <string name="title_lend_deposit">랜딩 서플라이 입금</string>
+    <string name="title_lend_withdraw">랜딩 서플라이 출금</string>
+    <string name="title_lend_borrow">랜딩 대출</string>
+    <string name="title_lend_repay">랜딩 상환</string>
 
 
     // msg
@@ -167,11 +172,11 @@
     <string name="str_unstake_cancel_msg">언스테이킹을 취소하고 즉시 스테이킹 상태로 되돌립니다.</string>
     <string name="str_reward_address_msg">이자 지급 주소를 변경하실 수 있습니다.\n주소 변경 후 이자요청시 모든 이자는 변경된 주소로 지급됩니다. 니모닉으로 접근이 가능하신 주소를 변경주소로 선택하셔야 합니다.</string>
     <string name="str_reward_address_msg2">거래소 입금 주소로 설정하지 마세요.</string>
-    <string name="str_mint_msg">CDP 모듈을 이용하여 담보형 USDX 민팅\n기능을 이용해보세요.</string>
-    <string name="str_lend_msg">HARD 랜딩 플랫폼을 이용하여 자산을\n예치하고 LTV를 근거로 다른 자산을 대출받아\n이용하실 수 있습니다.</string>
+    <string name="str_mint_msg">CDP 모듈을 이용하여 담보형 USDX\n민팅 기능을 이용해보세요.</string>
+    <string name="str_lend_msg">HARD 랜딩 플랫폼을 이용하여 자산을\n예치하고 LTV를 근거로 다른 자산을\n대출 받아 이용하실 수 있습니다.</string>
     <string name="str_pool_msg">KAVA 플랫폼 상의 AMM 방식의 자산\n스왑 풀에 유동성을 공급하세요.</string>
 
-
+아
     // error
     <string name="error_invalid_password">PIN 번호가 틀렸습니다.</string>
     <string name="error_account_name">계정 이름을 정확히 입력하세요.</string>
@@ -185,6 +190,9 @@
     <string name="error_not_reward">쌓인 이자가 충분하지 않습니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 컴파운딩 기능을 사용하실 수 없습니다.</string>
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
+    <string name="error_not_enough_to_withdraw">출금 할 수량이 충분하지 않습니다.</string>
+    <string name="error_no_borrowable_asset">대출이 불가능 합니다.</string>
+    <string name="error_no_repay_asset">상환이 불가능합니다.</string>
 
 
     //header

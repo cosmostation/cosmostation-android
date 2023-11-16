@@ -617,4 +617,144 @@ class TxRepositoryImpl : TxRepository {
             e.message.toString()
         }
     }
+
+    override suspend fun broadcastLendDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genLendDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateLendDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genLendDepositSimulate(account, msgDeposit, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastLendWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genLendWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateLendWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastLendBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genLendBorrowBroadcast(account, msgBorrow, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateLendBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genLendBorrowSimulate(account, msgBorrow, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastLendRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genLendRepayBroadcast(account, msgRepay, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateLendRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genLendRepaySimulate(account, msgRepay, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
 }

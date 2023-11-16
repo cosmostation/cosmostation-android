@@ -28,15 +28,16 @@
                 android:id="@+id/toast_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_6"
                 style="@style/font_sb_14"
                 android:textColor="@color/color_base01"
-                android:text="Error : " />
+                android:text="Error : "
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/toast_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6"
                 style="@style/font_sb_12"
                 android:textColor="@color/color_base01" />
 

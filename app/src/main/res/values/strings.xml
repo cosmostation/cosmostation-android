@@ -188,6 +188,11 @@
     <string name="title_repay_amount">Repay amount</string>
     <string name="title_collateral_amount">Collateral amount</string>
     <string name="title_principal_amount">Principal amount</string>
+    <string name="title_lend_list">Lend List</string>
+    <string name="title_lend_deposit">Deposit lend supply</string>
+    <string name="title_lend_withdraw">Withdraw lend</string>
+    <string name="title_lend_borrow">Borrow from lend</string>
+    <string name="title_lend_repay">Repay to lend</string>
 
 
     // msg
@@ -264,6 +269,9 @@
     <string name="error_not_reward">No enough reward to Claim.</string>
     <string name="error_reward_address_changed_msg">This account has changed its reward address.\nYou can use compounding feature after reset your reward address to self.</string>
     <string name="error_same_reward_address">This address is already registered as your claim reward address.</string>
+    <string name="error_not_enough_to_withdraw">Not enough deposit to withdraw.</string>
+    <string name="error_no_borrowable_asset">Can not borrowable now.</string>
+    <string name="error_no_repay_asset">Can not repay now.</string>
 
 
     // tx

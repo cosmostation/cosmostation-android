@@ -26,9 +26,9 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
+import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
@@ -357,7 +357,7 @@ class StakingFragment(
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             isBroadCastTx(false)
-            requireContext().makeToast(response)
+            requireContext().showToast(view, response, true)
             return@observe
         }
     }

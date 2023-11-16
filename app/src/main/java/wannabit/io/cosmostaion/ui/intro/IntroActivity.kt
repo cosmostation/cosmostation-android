@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 class IntroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIntroBinding
 
-    private lateinit var introViewModel: WalletViewModel
+    private lateinit var walletViewModel: WalletViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class IntroActivity : AppCompatActivity() {
         migrateDatabaseIfNeed()
         checkAppVersion()
 
-        introViewModel.walletAppVersion()
+        walletViewModel.walletAppVersion()
         initPriceInfo()
     }
 
@@ -66,8 +66,8 @@ class IntroActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         val walletRepository = WalletRepositoryImpl()
-        val introViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        introViewModel = ViewModelProvider(this, introViewModelProviderFactory)[WalletViewModel::class.java]
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     override fun onPostResume() {
@@ -119,7 +119,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun checkAppVersion() {
-        introViewModel.walletAppVersionResult.observe(this) { appVersion ->
+        walletViewModel.walletAppVersionResult.observe(this) { appVersion ->
             appVersion?.let { response ->
                 if (!response.enable) {
                     showDisableDialog()
@@ -131,15 +131,15 @@ class IntroActivity : AppCompatActivity() {
             }
         }
 
-        introViewModel.errorMessage.observe(this) {
+        walletViewModel.errorMessage.observe(this) {
             showNetworkErrorDialog()
         }
     }
 
     private fun initPriceInfo() {
-        introViewModel.chain()
-        introViewModel.price(BaseData.currencyName().lowercase())
-        introViewModel.asset()
+        walletViewModel.chain()
+        walletViewModel.price(BaseData.currencyName().lowercase())
+        walletViewModel.asset()
     }
 
     private fun initFirebase() {

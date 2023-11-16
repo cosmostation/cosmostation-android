@@ -32,4 +32,5 @@ open class ChainKava459 : CosmosLine() {
     override var grpcHost: String = "grpc-kava.cosmostation.io"
 }
 
-var KAVA_CDP_IMG_URL = CosmostationConstants.CHAIN_BASE_URL + "kava/module/mint/";
+var KAVA_MINT_IMG_URL = CosmostationConstants.CHAIN_BASE_URL + "kava/module/mint/"
+var KAVA_LEMD_IMG_URL = CosmostationConstants.CHAIN_BASE_URL + "kava/module/lend/"

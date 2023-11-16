@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kava.cdp.v1beta1.GenesisProto
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_CDP_IMG_URL
+import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_MINT_IMG_URL
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.databinding.ItemOtherMintBinding
 import java.math.BigDecimal
@@ -27,9 +27,9 @@ class MintOtherViewHolder(
                     listener.otherMintClick(collateralParam.type)
                 }
 
-                Picasso.get().load(KAVA_CDP_IMG_URL + collateralParam.type + ".png").fit()
+                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit()
                     .into(marketImg)
-                markeyType.text = collateralParam.type.uppercase()
+                marketType.text = collateralParam.type.uppercase()
                 mintType.text = collateralParam.spotMarketId.uppercase()
 
                 val liquidationRatio =

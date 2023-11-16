@@ -161,6 +161,18 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                     isClickable = true
                 }, 1000)
             }
+
+            lendView.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+                    requireActivity().toMoveFragment(this@KavaDefiFragment,
+                        LendListFragment(selectedChain, priceFeed), "LendList")
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+            }
         }
     }
 

@@ -10,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -30,14 +28,13 @@ import wannabit.io.cosmostaion.common.expectUSDXLTV
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
+import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCreateMintBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.databinding.ItemToastBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
@@ -362,13 +359,7 @@ class CreateMintFragment(
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             isBroadCastTx(false)
-            val inflater = LayoutInflater.from(requireContext())
-            val toastBinding = ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
-            toastBinding.toastMsg.text = response
-
-            val toast = Toast(requireContext())
-            toast.view = toastBinding.root
-            toast.show()
+            requireContext().showToast(view, response, true)
             return@observe
         }
     }

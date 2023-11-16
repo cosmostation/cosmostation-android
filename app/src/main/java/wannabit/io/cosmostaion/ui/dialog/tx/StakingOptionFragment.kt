@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
 class StakingOptionFragment(
     val selectedChain: CosmosLine,
     val validator: StakingProto.Validator?,
-    val optionType: OptionType?
+    private val optionType: OptionType?
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentStakingOptionBinding? = null

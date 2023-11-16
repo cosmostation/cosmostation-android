@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentMintOptionBinding
-import wannabit.io.cosmostaion.ui.tx.info.kava.ClickListener
+import wannabit.io.cosmostaion.ui.tx.info.kava.LendClickListener
+import wannabit.io.cosmostaion.ui.tx.info.kava.MintClickListener
 
 class MintOptionFragment(
     val selectedChain: CosmosLine,
     private val mintType: String?,
-    val listener: ClickListener
+    private val denom: String?,
+    private val mintClickListener: MintClickListener?,
+    private val lendClickListener: LendClickListener?
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentMintOptionBinding? = null
@@ -36,10 +40,20 @@ class MintOptionFragment(
 
     private fun initView() {
         binding.apply {
-            deposit.text = getString(R.string.str_deposit_denom, mintType?.split("-")?.firstOrNull()?.uppercase() ?: "")
-            withdraw.text = getString(R.string.str_withdraw_denom, mintType?.split("-")?.firstOrNull()?.uppercase() ?: "")
-            borrow.text = getString(R.string.str_borrow_denom, "USDX")
-            repay.text = getString(R.string.str_repay_denom, "USDX")
+            mintType?.let { type ->
+                deposit.text = getString(R.string.str_deposit_denom, type.split("-").firstOrNull()?.uppercase() ?: "")
+                withdraw.text = getString(R.string.str_withdraw_denom, type.split("-").firstOrNull()?.uppercase() ?: "")
+                borrow.text = getString(R.string.str_borrow_denom, "USDX")
+                repay.text = getString(R.string.str_repay_denom, "USDX")
+
+            } ?: run {
+                BaseData.assets?.firstOrNull { it.denom == denom }?.let { asset ->
+                    deposit.text = getString(R.string.str_deposit_denom, asset.symbol)
+                    withdraw.text = getString(R.string.str_withdraw_denom, asset.symbol)
+                    borrow.text = getString(R.string.str_borrow_denom, asset.symbol)
+                    repay.text = getString(R.string.str_repay_denom, asset.symbol)
+                }
+            }
         }
     }
 
@@ -50,7 +64,11 @@ class MintOptionFragment(
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
-                listener.mintDeposit(mintType)
+                mintType?.let {
+                    mintClickListener?.mintDeposit(mintType)
+                } ?: run {
+                    lendClickListener?.lendDeposit(denom)
+                }
                 dismiss()
             }
 
@@ -59,7 +77,11 @@ class MintOptionFragment(
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
-                listener.mintWithdraw(mintType)
+                mintType?.let {
+                    mintClickListener?.mintWithdraw(mintType)
+                } ?: run {
+                    lendClickListener?.lendWithdraw(denom)
+                }
                 dismiss()
             }
 
@@ -68,7 +90,11 @@ class MintOptionFragment(
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
-                listener.mintBorrow(mintType)
+                mintType?.let {
+                    mintClickListener?.mintBorrow(mintType)
+                } ?: run {
+                    lendClickListener?.lendBorrow(denom)
+                }
                 dismiss()
             }
 
@@ -77,7 +103,11 @@ class MintOptionFragment(
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
-                listener.mintRepay(mintType)
+                mintType?.let {
+                    mintClickListener?.mintRepay(mintType)
+                } ?: run {
+                    lendClickListener?.lendRepay(denom)
+                }
                 dismiss()
             }
         }

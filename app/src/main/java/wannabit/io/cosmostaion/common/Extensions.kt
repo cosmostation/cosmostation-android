@@ -9,6 +9,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -21,6 +22,8 @@ import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
 import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
+import com.kava.hard.v1beta1.HardProto
+import com.kava.hard.v1beta1.HardProto.MoneyMarket
 import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import com.squareup.picasso.Picasso
@@ -34,6 +37,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.ItemToastBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -144,6 +148,28 @@ fun Context.makeToast(id: Int) {
 
 fun Context.makeToast(msg: String?) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.showToast(view: View?, msg: String?, isTx: Boolean) {
+    val inflater = LayoutInflater.from(this)
+    val toastBinding = ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
+    toastBinding.toastTitle.visibleOrGone(isTx)
+    toastBinding.toastMsg.text = msg
+
+    val toast = Toast(this)
+    toast.view = toastBinding.root
+    toast.show()
+}
+
+fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
+    val inflater = LayoutInflater.from(this)
+    val toastBinding = ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
+    toastBinding.toastTitle.visibleOrGone(isTx)
+    toastBinding.toastMsg.text = this.getString(id)
+
+    val toast = Toast(this)
+    toast.view = toastBinding.root
+    toast.show()
 }
 
 fun formatCurrentTimeToYear(): String {
@@ -542,6 +568,26 @@ fun QueryPricesResponse.kavaOraclePrice(marketId: String): BigDecimal {
         return price.price.toBigDecimal().movePointLeft(18).setScale(6, RoundingMode.DOWN)
     } ?: run {
         return BigDecimal.ZERO
+    }
+}
+
+fun HardProto.Params.hardMoneyMarket(denom: String?): MoneyMarket? {
+    return moneyMarketsList.firstOrNull { it.denom == denom }
+}
+
+fun HardProto.Params.getLTV(denom: String?): BigDecimal {
+    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
+        return market.borrowLimit.loanToValue.toBigDecimal().movePointLeft(18)
+    } ?: run {
+        return BigDecimal.ZERO
+    }
+}
+
+fun HardProto.Params.spotMarketId(denom: String?): String {
+    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
+        return market.spotMarketId
+    } ?: run {
+        return ""
     }
 }
 

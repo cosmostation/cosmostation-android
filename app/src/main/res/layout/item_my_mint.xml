@@ -48,7 +48,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/markey_type"
+                        android:id="@+id/market_type"
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

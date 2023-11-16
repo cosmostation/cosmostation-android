@@ -28,6 +28,8 @@ import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
 import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
 import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.hard.v1beta1.TxProto.MsgBorrow
+import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.incentive.v1beta1.QueryProto.QueryRewardsResponse
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
@@ -742,6 +744,162 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
                 val errorResponse = txRepository.simulateMintRepayTx(managedChannel, it, msgRepayDebt, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadLendDeposit(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastLendDepositTx(
+                managedChannel,
+                it,
+                msgDeposit,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateLendDeposit(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateLendDepositTx(managedChannel, it, msgDeposit, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateLendDepositTx(managedChannel, it, msgDeposit, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadLendWithdraw(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastLendWithdrawTx(
+                managedChannel,
+                it,
+                msgWithdraw,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateLendWithdraw(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateLendWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateLendWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadLendBorrow(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastLendBorrowTx(
+                managedChannel,
+                it,
+                msgBorrow,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateLendBorrow(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateLendBorrowTx(managedChannel, it, msgBorrow, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateLendBorrowTx(managedChannel, it, msgBorrow, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadLendRepay(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgRepay: MsgRepay?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastLendRepayTx(
+                managedChannel,
+                it,
+                msgRepay,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateLendRepay(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgRepay: MsgRepay?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateLendRepayTx(managedChannel, it, msgRepay, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateLendRepayTx(managedChannel, it, msgRepay, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
         }

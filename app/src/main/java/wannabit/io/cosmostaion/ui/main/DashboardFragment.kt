@@ -49,6 +49,7 @@ class DashboardFragment : Fragment() {
 
         setupViewModels()
         updateView()
+        refreshData()
     }
 
     private fun updateView() {
@@ -112,6 +113,22 @@ class DashboardFragment : Fragment() {
             if (isAdded) {
                 requireActivity().runOnUiThread {
                     binding?.totalValue?.text = formatAssetValue(sum)
+                }
+            }
+        }
+    }
+
+    private fun refreshData() {
+        binding?.apply {
+            refresher.setOnRefreshListener {
+                baseAccount?.let { account ->
+                    if (account.displayCosmosLineChains.any { !it.fetched }) {
+                        refresher.isRefreshing = false
+                    } else {
+                        walletViewModel.price(BaseData.currencyName().lowercase())
+                        updateView()
+                        refresher.isRefreshing = false
+                    }
                 }
             }
         }

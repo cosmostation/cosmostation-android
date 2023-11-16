@@ -291,30 +291,42 @@ open class CosmosLine : BaseChain() {
         CoroutineScope(Dispatchers.IO).launch {
             val channel = getChannel()
 
-            val rewardAddr = async { loadRewardAddress(channel) }
-            val bonded = async { loadBondedValidator(channel) }
-            val unbonding = async { loadUnbondingValidator(channel) }
-            val unbonded = async { loadUnbondedValidator(channel) }
+            try {
+                val rewardAddr = async { loadRewardAddress(channel) }
+                val bonded = async { loadBondedValidator(channel) }
+                val unbonding = async { loadUnbondingValidator(channel) }
+                val unbonded = async { loadUnbondedValidator(channel) }
 
-            val response = awaitAll(rewardAddr, bonded, unbonding, unbonded)
+                val response = awaitAll(rewardAddr, bonded, unbonding, unbonded)
 
-            rewardAddress = response[0].toString()
-            if (response[1] != null) cosmosValidators.addAll(response[1] as Collection<StakingProto.Validator>)
-            if (response[2] != null) cosmosValidators.addAll(response[2] as Collection<StakingProto.Validator>)
-            if (response[3] != null) cosmosValidators.addAll(response[3] as Collection<StakingProto.Validator>)
+                rewardAddress = response[0].toString()
+                if (response[1] != null) cosmosValidators.addAll(response[1] as Collection<StakingProto.Validator>)
+                if (response[2] != null) cosmosValidators.addAll(response[2] as Collection<StakingProto.Validator>)
+                if (response[3] != null) cosmosValidators.addAll(response[3] as Collection<StakingProto.Validator>)
 
-            val tempValidators = cosmosValidators.toMutableList()
-            tempValidators.sortWith { o1, o2 ->
-                when {
-                    o1.description.moniker == "Cosmostation" -> -1
-                    o2.description.moniker == "Cosmostation" -> 1
-                    o1.jailed && !o2.jailed -> 1
-                    !o1.jailed && o2.jailed -> -1
-                    o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
-                    else -> 1
+                val tempValidators = cosmosValidators.toMutableList()
+                tempValidators.sortWith { o1, o2 ->
+                    when {
+                        o1.description.moniker == "Cosmostation" -> -1
+                        o2.description.moniker == "Cosmostation" -> 1
+                        o1.jailed && !o2.jailed -> 1
+                        !o1.jailed && o2.jailed -> -1
+                        o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
+                        else -> 1
+                    }
+                }
+                cosmosValidators = tempValidators
+
+            } finally {
+                channel.shutdown()
+                try {
+                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                        channel.shutdownNow()
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 }
             }
-            cosmosValidators = tempValidators
         }
     }
 

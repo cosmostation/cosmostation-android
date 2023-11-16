@@ -16,28 +16,25 @@ import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
-import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
-import com.kava.cdp.v1beta1.QueryProto.CDPResponse
-import com.kava.cdp.v1beta1.TxProto.MsgDeposit
-import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
-import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
-import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.hard.v1beta1.HardProto
+import com.kava.hard.v1beta1.TxProto.MsgBorrow
+import com.kava.hard.v1beta1.TxProto.MsgDeposit
+import com.kava.hard.v1beta1.TxProto.MsgRepay
+import com.kava.hard.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.debtAmount
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.liquidationRatioAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
-import wannabit.io.cosmostaion.databinding.FragmentMintActionBinding
+import wannabit.io.cosmostaion.databinding.FragmentLendActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
@@ -53,14 +50,16 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class MintActionFragment(
+class LendActionFragment(
     val selectedChain: CosmosLine,
-    private val mintActionType: MintActionType,
-    private val collateralParam: CollateralParam?,
-    private val myCdp: CDPResponse?
+    private val lendActionType: LendActionType,
+    private val lendMyDeposit: MutableList<CoinProto.Coin>,
+    private val lendMyBorrows: MutableList<CoinProto.Coin>,
+    private val lendMoneyMarket: HardProto.MoneyMarket?,
+    private val borrowAbleAmount: BigDecimal
 ) : BaseTxFragment() {
 
-    private var _binding: FragmentMintActionBinding? = null
+    private var _binding: FragmentLendActionBinding? = null
     private val binding get() = _binding!!
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -68,17 +67,14 @@ class MintActionFragment(
     private var txFee: TxProto.Fee? = null
     private var txMemo = ""
 
-    private var collateralAsset: Asset? = null
-    private var principalAsset: Asset? = null
-    private var collateralAvailableAmount = BigDecimal.ZERO
-    private var principalAvailableAmount = BigDecimal.ZERO
-    private var toCollateralAmount = ""
-    private var toPrincipalAmount = ""
+    private var msAsset: Asset? = null
+    private var availableAmount = BigDecimal.ZERO
+    private var toLendAmount = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMintActionBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentLendActionBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -96,72 +92,66 @@ class MintActionFragment(
 
     private fun initView() {
         binding.apply {
-            mintAmountView.setBackgroundResource(R.drawable.cell_bg)
+            lendAmountView.setBackgroundResource(R.drawable.cell_bg)
             memoView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
 
-            collateralParam?.let { collateralParam ->
-                collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
-                principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
+            lendMoneyMarket?.let { market ->
+                BaseData.getAsset(selectedChain.apiName, market.denom)?.let { asset ->
+                    msAsset = asset
+                    tokenImg.setTokenImg(asset)
+                    tokenName.text = asset.symbol
 
-                when (mintActionType) {
-                    MintActionType.DEPOSIT -> {
-                        mintAmountTitle.text = getString(R.string.title_vault_deposit_amount)
-                        btnMint.text = getString(R.string.str_deposit)
-                        collateralAsset?.let { asset ->
-                            mintActionTitle.text = getString(R.string.title_deposit_collateral)
-                            tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
-                            val balanceAmount = selectedChain.balanceAmount(collateralParam.denom)
-                            if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
+                    when (lendActionType) {
+                        LendActionType.DEPOSIT -> {
+                            lendActionTitle.text = getString(R.string.title_lend_deposit)
+                            lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
+                            btnLend.text = getString(R.string.str_deposit)
+                            val balanceAmount = selectedChain.balanceAmount(market.denom)
+                            if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                collateralAvailableAmount = balanceAmount.subtract(feeAmount)
+                                availableAmount = balanceAmount.subtract(feeAmount)
                             }
-                            collateralAvailableAmount = balanceAmount
+                            availableAmount = balanceAmount
                         }
-                    }
 
-                    MintActionType.WITHDRAW -> {
-                        mintAmountTitle.text = getString(R.string.title_vault_withdraw_amount)
-                        btnMint.text = getString(R.string.str_withdraw)
-                        collateralAsset?.let { asset ->
-                            mintActionTitle.text = getString(R.string.title_withdraw_collateral)
-                            tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
-                            collateralAvailableAmount = myCdp?.collateral?.amount?.toBigDecimal()
+                        LendActionType.WITHDRAW -> {
+                            lendActionTitle.text = getString(R.string.title_lend_withdraw)
+                            lendAmountTitle.text = getString(R.string.title_vault_withdraw_amount)
+                            btnLend.text = getString(R.string.str_withdraw)
+                            availableAmount = lendMyDeposit.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
                         }
-                    }
 
-                    MintActionType.BORROW -> {
-                        mintAmountTitle.text = getString(R.string.title_borrow_amount)
-                        btnMint.text = getString(R.string.str_borrow)
-                        principalAsset?.let { asset ->
-                            mintActionTitle.text = getString(R.string.title_borrow_usdx)
-                            tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
-                            val padding = BigDecimal("0.95")
-                            val collateralValue = myCdp?.collateralValue?.amount
-                            val ltvAmount = collateralValue?.toBigDecimal()?.divide(collateralParam.liquidationRatioAmount(), 0, RoundingMode.DOWN)?.multiply(padding)?.setScale(0, RoundingMode.DOWN)
-                            val currentBorrowed = myCdp?.debtAmount()
-                            ltvAmount?.let {
-                                if (it.subtract(currentBorrowed) > BigDecimal.ZERO) {
-                                    principalAvailableAmount = it.subtract(currentBorrowed)
-                                }
+                        LendActionType.BORROW -> {
+                            lendActionTitle.text = getString(R.string.title_lend_borrow)
+                            lendAmountTitle.text = getString(R.string.title_borrow_amount)
+                            btnLend.text = getString(R.string.str_borrow)
+                            availableAmount = borrowAbleAmount
+                        }
+
+                        LendActionType.REPAY -> {
+                            lendActionTitle.text = getString(R.string.title_lend_repay)
+                            lendAmountTitle.text = getString(R.string.title_repay_amount)
+                            btnLend.text = getString(R.string.str_repay)
+                            var borrowedAmount = lendMyBorrows.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                            borrowedAmount = borrowedAmount.multiply(BigDecimal("1.1")).setScale(0, RoundingMode.DOWN)
+
+                            var balanceAmount = selectedChain.balanceAmount(market.denom)
+                            if (txFee?.getAmount(0)?.denom == market.denom) {
+                                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
+                                balanceAmount = balanceAmount.subtract(feeAmount)
                             }
-                        }
-                    }
-
-                    MintActionType.REPAY -> {
-                        mintAmountTitle.text = getString(R.string.title_repay_amount)
-                        btnMint.text = getString(R.string.str_repay)
-                        principalAsset?.let { asset ->
-                            mintActionTitle.text = getString(R.string.title_repay_usdx)
-                            tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
-                            principalAvailableAmount = selectedChain.balanceAmount("usdx")
+                            availableAmount = if (balanceAmount > borrowedAmount) {
+                                borrowedAmount
+                            } else {
+                                balanceAmount
+                            }
                         }
                     }
                 }
+
+            } ?: run {
+                return
             }
         }
     }
@@ -201,35 +191,16 @@ class MintActionFragment(
             tabMsgTxt.visibility = View.GONE
             amountLayout.visibility = View.VISIBLE
 
-            when (mintActionType) {
-                MintActionType.DEPOSIT, MintActionType.WITHDRAW -> {
-                    toCollateralAmount = toAmount
-                    collateralAsset?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                                .setScale(decimal, RoundingMode.DOWN)
-                            val price = BaseData.getPrice(asset.coinGeckoId)
-                            val value = price.multiply(dpAmount)
+            toLendAmount = toAmount
+            msAsset?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(dpAmount)
 
-                            mintAmount.text = formatString(dpAmount.toPlainString(), decimal)
-                            mintValue.text = formatAssetValue(value)
-                        }
-                    }
-                }
-
-                else -> {
-                    toPrincipalAmount = toAmount
-                    principalAsset?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                                .setScale(decimal, RoundingMode.DOWN)
-                            val price = BaseData.getPrice(asset.coinGeckoId)
-                            val value = price.multiply(dpAmount)
-
-                            mintAmount.text = formatString(dpAmount.toPlainString(), decimal)
-                            mintValue.text = formatAssetValue(value)
-                        }
-                    }
+                    lendAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                    lendValue.text = formatAssetValue(value)
                 }
             }
             txSimul()
@@ -275,18 +246,18 @@ class MintActionFragment(
     private fun clickAction() {
         var isClickable = true
         binding.apply {
-            mintAmountView.setOnClickListener {
+            lendAmountView.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
 
-                    when (mintActionType) {
-                        MintActionType.DEPOSIT -> {
+                    when (lendActionType) {
+                        LendActionType.DEPOSIT -> {
                             InsertAmountFragment(
-                                TxType.MINT_DEPOSIT,
+                                TxType.LEND_DEPOSIT,
                                 null,
-                                collateralAvailableAmount,
-                                toCollateralAmount,
-                                collateralAsset,
+                                availableAmount,
+                                toLendAmount,
+                                msAsset,
                                 null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
@@ -296,13 +267,13 @@ class MintActionFragment(
                                 }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
                         }
 
-                        MintActionType.WITHDRAW -> {
+                        LendActionType.WITHDRAW -> {
                             InsertAmountFragment(
-                                TxType.MINT_WITHDRAW,
+                                TxType.LEND_WITHDRAW,
                                 null,
-                                collateralAvailableAmount,
-                                toCollateralAmount,
-                                collateralAsset,
+                                availableAmount,
+                                toLendAmount,
+                                msAsset,
                                 null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
@@ -312,13 +283,13 @@ class MintActionFragment(
                                 }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
                         }
 
-                        MintActionType.BORROW -> {
+                        LendActionType.BORROW -> {
                             InsertAmountFragment(
-                                TxType.MINT_BORROW,
+                                TxType.LEND_BORROW,
                                 null,
-                                principalAvailableAmount,
-                                toPrincipalAmount,
-                                principalAsset,
+                                availableAmount,
+                                toLendAmount,
+                                msAsset,
                                 null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
@@ -328,13 +299,13 @@ class MintActionFragment(
                                 }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
                         }
 
-                        MintActionType.REPAY -> {
+                        LendActionType.REPAY -> {
                             InsertAmountFragment(
-                                TxType.MINT_REPAY,
+                                TxType.LEND_REPAY,
                                 null,
-                                principalAvailableAmount,
-                                toPrincipalAmount,
-                                principalAsset,
+                                availableAmount,
+                                toLendAmount,
+                                msAsset,
                                 null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
@@ -404,23 +375,23 @@ class MintActionFragment(
                 txSimul()
             }
 
-            btnMint.setOnClickListener {
+            btnLend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    getMintResultLauncher.launch(this)
+                    getLendResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
                 }
             }
         }
     }
 
-    private val getMintResultLauncher: ActivityResultLauncher<Intent> =
+    private val getLendResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-                when (mintActionType) {
-                    MintActionType.DEPOSIT -> {
-                        txViewModel.broadMintDeposit(
+                when (lendActionType) {
+                    LendActionType.DEPOSIT -> {
+                        txViewModel.broadLendDeposit(
                             getChannel(selectedChain),
                             selectedChain.address,
                             onBindDepositMsg(),
@@ -430,8 +401,8 @@ class MintActionFragment(
                         )
                     }
 
-                    MintActionType.WITHDRAW -> {
-                        txViewModel.broadMintWithdraw(
+                    LendActionType.WITHDRAW -> {
+                        txViewModel.broadLendWithdraw(
                             getChannel(selectedChain),
                             selectedChain.address,
                             onBindWithdrawMsg(),
@@ -441,8 +412,8 @@ class MintActionFragment(
                         )
                     }
 
-                    MintActionType.BORROW -> {
-                        txViewModel.broadMintBorrow(
+                    LendActionType.BORROW -> {
+                        txViewModel.broadLendBorrow(
                             getChannel(selectedChain),
                             selectedChain.address,
                             onBindBorrowMsg(),
@@ -452,8 +423,8 @@ class MintActionFragment(
                         )
                     }
 
-                    MintActionType.REPAY -> {
-                        txViewModel.broadMintRepay(
+                    LendActionType.REPAY -> {
+                        txViewModel.broadLendRepay(
                             getChannel(selectedChain),
                             selectedChain.address,
                             onBindRepayMsg(),
@@ -468,13 +439,13 @@ class MintActionFragment(
 
     private fun txSimul() {
         binding.apply {
-            when (mintActionType) {
-                MintActionType.DEPOSIT -> {
-                    if (toCollateralAmount.isEmpty()) { return }
-                    if (toCollateralAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+            if (toLendAmount.isEmpty()) { return }
+            if (toLendAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+            backdropLayout.visibility = View.VISIBLE
 
-                    backdropLayout.visibility = View.VISIBLE
-                    txViewModel.simulateMintDeposit(
+            when (lendActionType) {
+                LendActionType.DEPOSIT -> {
+                    txViewModel.simulateLendDeposit(
                         getChannel(selectedChain),
                         selectedChain.address,
                         onBindDepositMsg(),
@@ -483,12 +454,8 @@ class MintActionFragment(
                     )
                 }
 
-                MintActionType.WITHDRAW -> {
-                    if (toCollateralAmount.isEmpty()) { return }
-                    if (toCollateralAmount.toBigDecimal() == BigDecimal.ZERO) { return }
-
-                    backdropLayout.visibility = View.VISIBLE
-                    txViewModel.simulateMintWithdraw(
+                LendActionType.WITHDRAW -> {
+                    txViewModel.simulateLendWithdraw(
                         getChannel(selectedChain),
                         selectedChain.address,
                         onBindWithdrawMsg(),
@@ -497,12 +464,8 @@ class MintActionFragment(
                     )
                 }
 
-                MintActionType.BORROW -> {
-                    if (toPrincipalAmount.isEmpty()) { return }
-                    if (toPrincipalAmount.toBigDecimal() == BigDecimal.ZERO) { return }
-
-                    backdropLayout.visibility = View.VISIBLE
-                    txViewModel.simulateMintBorrow(
+                LendActionType.BORROW -> {
+                    txViewModel.simulateLendBorrow(
                         getChannel(selectedChain),
                         selectedChain.address,
                         onBindBorrowMsg(),
@@ -511,12 +474,8 @@ class MintActionFragment(
                     )
                 }
 
-                MintActionType.REPAY -> {
-                    if (toPrincipalAmount.isEmpty()) { return }
-                    if (toPrincipalAmount.toBigDecimal() == BigDecimal.ZERO) { return }
-
-                    backdropLayout.visibility = View.VISIBLE
-                    txViewModel.simulateMintRepay(
+                LendActionType.REPAY -> {
+                    txViewModel.simulateLendRepay(
                         getChannel(selectedChain),
                         selectedChain.address,
                         onBindRepayMsg(),
@@ -529,44 +488,39 @@ class MintActionFragment(
     }
 
     private fun onBindDepositMsg(): MsgDeposit? {
-        val collateralCoin =
-            CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom).setAmount(toCollateralAmount).build()
+        val depositCoin =
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
         return MsgDeposit.newBuilder()
-            .setOwner(selectedChain.address)
             .setDepositor(selectedChain.address)
-            .setCollateral(collateralCoin)
-            .setCollateralType(collateralParam?.type)
+            .addAmount(depositCoin)
             .build()
     }
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
-        val collateralCoin =
-            CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom).setAmount(toCollateralAmount).build()
+        val withdrawCoin =
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
         return MsgWithdraw.newBuilder()
-            .setOwner(selectedChain.address)
             .setDepositor(selectedChain.address)
-            .setCollateral(collateralCoin)
-            .setCollateralType(collateralParam?.type)
+            .addAmount(withdrawCoin)
             .build()
     }
 
-    private fun onBindBorrowMsg(): MsgDrawDebt? {
-        val principalCoin =
-            CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
-        return MsgDrawDebt.newBuilder()
-            .setSender(selectedChain.address)
-            .setPrincipal(principalCoin)
-            .setCollateralType(collateralParam?.type)
+    private fun onBindBorrowMsg(): MsgBorrow? {
+        val borrowCoin =
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
+        return MsgBorrow.newBuilder()
+            .setBorrower(selectedChain.address)
+            .addAmount(borrowCoin)
             .build()
     }
 
-    private fun onBindRepayMsg(): MsgRepayDebt? {
-        val paymentCoin =
-            CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
-        return MsgRepayDebt.newBuilder()
+    private fun onBindRepayMsg(): MsgRepay? {
+        val repayCoin =
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
+        return MsgRepay.newBuilder()
             .setSender(selectedChain.address)
-            .setPayment(paymentCoin)
-            .setCollateralType(collateralParam?.type)
+            .setOwner(selectedChain.address)
+            .addAmount(repayCoin)
             .build()
     }
 
@@ -598,7 +552,7 @@ class MintActionFragment(
 
     private fun isBroadCastTx(isSuccess: Boolean) {
         binding.backdropLayout.visibility = View.GONE
-        binding.btnMint.updateButtonView(isSuccess)
+        binding.btnLend.updateButtonView(isSuccess)
     }
 
     private fun setUpBroadcast() {
@@ -624,4 +578,4 @@ class MintActionFragment(
     }
 }
 
-enum class MintActionType { DEPOSIT, WITHDRAW, BORROW, REPAY }
+enum class LendActionType { DEPOSIT, WITHDRAW, BORROW, REPAY }

@@ -17,6 +17,8 @@ import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
 import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
 import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
+import com.kava.hard.v1beta1.TxProto.MsgBorrow
+import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -297,6 +299,74 @@ interface TxRepository {
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastLendDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateLendDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastLendWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateLendWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastLendBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateLendBorrowTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastLendRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepay: MsgRepay?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateLendRepayTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgRepay: MsgRepay?,
         fee: Fee?,
         memo: String
     ): Any?

@@ -116,7 +116,7 @@ class MintListFragment(
         override fun myMintClick(mintType: String?) {
             if (isClickable) {
                 isClickable = false
-                val bottomSheet = MintOptionFragment(selectedChain, mintType, mintOptionClickAction)
+                val bottomSheet = MintOptionFragment(selectedChain, mintType, null, mintOptionClickAction, null)
                 bottomSheet.show(requireActivity().supportFragmentManager, MintOptionFragment::class.java.name)
 
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -147,7 +147,7 @@ class MintListFragment(
         }
     }
 
-    private val mintOptionClickAction = object : ClickListener {
+    private val mintOptionClickAction = object : MintClickListener {
         var isClickable = true
         override fun mintDeposit(mintType: String?) {
             if (!selectedChain.isTxFeePayable(requireContext())) {
@@ -244,7 +244,7 @@ class MintListFragment(
     }
 }
 
-interface ClickListener {
+interface MintClickListener {
     fun mintDeposit(mintType: String?)
     fun mintWithdraw(mintType: String?)
     fun mintBorrow(mintType: String?)
