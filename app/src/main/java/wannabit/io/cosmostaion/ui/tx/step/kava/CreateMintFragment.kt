@@ -25,8 +25,8 @@ import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.expectUSDXLTV
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -128,7 +128,7 @@ class CreateMintFragment(
                 asset.decimals?.let { decimal ->
                     val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
                         .setScale(decimal, RoundingMode.DOWN)
-                    mintAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                    mintAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                     principalAmountView.visibility = View.VISIBLE
                 }
             }
@@ -146,7 +146,7 @@ class CreateMintFragment(
                 asset.decimals?.let { decimal ->
                     val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
                         .setScale(decimal, RoundingMode.DOWN)
-                    principalMintAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                    principalMintAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                     principalAmountView.visibility = View.VISIBLE
                 }
             }
@@ -210,7 +210,7 @@ class CreateMintFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)

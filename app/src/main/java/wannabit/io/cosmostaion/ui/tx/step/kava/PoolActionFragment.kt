@@ -16,11 +16,9 @@ import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
-import com.kava.hard.v1beta1.HardProto
-import com.kava.hard.v1beta1.TxProto.MsgBorrow
-import com.kava.hard.v1beta1.TxProto.MsgDeposit
-import com.kava.hard.v1beta1.TxProto.MsgRepay
-import com.kava.hard.v1beta1.TxProto.MsgWithdraw
+import com.kava.swap.v1beta1.QueryProto
+import com.kava.swap.v1beta1.TxProto.MsgDeposit
+import com.kava.swap.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -34,7 +32,7 @@ import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
-import wannabit.io.cosmostaion.databinding.FragmentLendActionBinding
+import wannabit.io.cosmostaion.databinding.FragmentPoolActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
@@ -43,6 +41,8 @@ import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
+import wannabit.io.cosmostaion.ui.dialog.tx.kava.PoolAmountSelectListener
+import wannabit.io.cosmostaion.ui.dialog.tx.kava.PoolInsertAmountFragment
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -50,16 +50,14 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class LendActionFragment(
+class PoolActionFragment(
     val selectedChain: CosmosLine,
-    private val lendActionType: LendActionType,
-    private val lendMyDeposit: MutableList<CoinProto.Coin>,
-    private val lendMyBorrows: MutableList<CoinProto.Coin>,
-    private val lendMoneyMarket: HardProto.MoneyMarket?,
-    private val borrowAbleAmount: BigDecimal
+    private val poolActionType: PoolActionType,
+    private val swapPool: QueryProto.PoolResponse,
+    private val deposit: QueryProto.DepositResponse?
 ) : BaseTxFragment() {
 
-    private var _binding: FragmentLendActionBinding? = null
+    private var _binding: FragmentPoolActionBinding? = null
     private val binding get() = _binding!!
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -67,14 +65,19 @@ class LendActionFragment(
     private var txFee: TxProto.Fee? = null
     private var txMemo = ""
 
-    private var msAsset: Asset? = null
-    private var availableAmount = BigDecimal.ZERO
-    private var toLendAmount = ""
+    private var pool1Asset: Asset? = null
+    private var pool2Asset: Asset? = null
+    private var swapRate = BigDecimal.ZERO
+    private var coin1AvailableAmount = BigDecimal.ZERO
+    private var coin2AvailableAmount = BigDecimal.ZERO
+    private var coin1ToAmount = ""
+    private var coin2ToAmount = ""
+    private var toWithdrawAmount = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLendActionBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentPoolActionBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -92,66 +95,64 @@ class LendActionFragment(
 
     private fun initView() {
         binding.apply {
-            lendAmountView.setBackgroundResource(R.drawable.cell_bg)
+            poolView.setBackgroundResource(R.drawable.cell_bg)
+            shareAmountView.setBackgroundResource(R.drawable.cell_bg)
             memoView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
 
-            lendMoneyMarket?.let { market ->
-                BaseData.getAsset(selectedChain.apiName, market.denom)?.let { asset ->
-                    msAsset = asset
-                    tokenImg.setTokenImg(asset)
-                    tokenName.text = asset.symbol
+            if (poolActionType == PoolActionType.DEPOSIT) {
+                poolActionTitle.text = getString(R.string.title_pool_deposit)
+                poolView.visibility = View.VISIBLE
+                buttonLayout.visibility = View.VISIBLE
+                shareAmountView.visibility = View.GONE
+                btnPool.text = getString(R.string.str_deposit)
 
-                    when (lendActionType) {
-                        LendActionType.DEPOSIT -> {
-                            lendActionTitle.text = getString(R.string.title_lend_deposit)
-                            lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
-                            btnLend.text = getString(R.string.str_deposit)
-                            val balanceAmount = selectedChain.balanceAmount(market.denom)
-                            if (txFee?.getAmount(0)?.denom == market.denom) {
-                                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                availableAmount = balanceAmount.subtract(feeAmount)
-                            }
-                            availableAmount = balanceAmount
-                        }
+                BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(0).denom)?.let { asset1 ->
+                    BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(1).denom)?.let { asset2 ->
+                        asset1.decimals?.let { decimal1 ->
+                            asset2.decimals?.let { decimal2 ->
+                                pool1Asset = asset1
+                                pool2Asset = asset2
 
-                        LendActionType.WITHDRAW -> {
-                            lendActionTitle.text = getString(R.string.title_lend_withdraw)
-                            lendAmountTitle.text = getString(R.string.title_vault_withdraw_amount)
-                            btnLend.text = getString(R.string.str_withdraw)
-                            availableAmount = lendMyDeposit.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
-                        }
+                                pool1TokenImg.setTokenImg(asset1)
+                                pool1TokenName.text = asset1.symbol
+                                pool1Amount.text = formatAmount(BigDecimal.ZERO.toPlainString(), decimal1)
+                                pool1Value.text = formatAssetValue(BigDecimal.ZERO)
 
-                        LendActionType.BORROW -> {
-                            lendActionTitle.text = getString(R.string.title_lend_borrow)
-                            lendAmountTitle.text = getString(R.string.title_borrow_amount)
-                            btnLend.text = getString(R.string.str_borrow)
-                            availableAmount = borrowAbleAmount
-                        }
+                                pool2TokenImg.setTokenImg(asset2)
+                                pool2TokenName.text = asset2.symbol
+                                pool2Amount.text = formatAmount(BigDecimal.ZERO.toPlainString(), decimal2)
+                                pool2Value.text = formatAssetValue(BigDecimal.ZERO)
 
-                        LendActionType.REPAY -> {
-                            lendActionTitle.text = getString(R.string.title_lend_repay)
-                            lendAmountTitle.text = getString(R.string.title_repay_amount)
-                            btnLend.text = getString(R.string.str_repay)
-                            var borrowedAmount = lendMyBorrows.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
-                            borrowedAmount = borrowedAmount.multiply(BigDecimal("1.1")).setScale(0, RoundingMode.DOWN)
+                                val poolCoin1Amount = swapPool.getCoins(0).amount
+                                val poolCoin2Amount = swapPool.getCoins(1).amount
+                                var availableCoin1Amount = selectedChain.balanceAmount(swapPool.getCoins(0).denom)
+                                if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
+                                    val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
+                                    availableCoin1Amount = availableCoin1Amount.subtract(feeAmount)
+                                }
+                                val availableCoin2Amount = selectedChain.balanceAmount(swapPool.getCoins(1).denom)
 
-                            var balanceAmount = selectedChain.balanceAmount(market.denom)
-                            if (txFee?.getAmount(0)?.denom == market.denom) {
-                                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                balanceAmount = balanceAmount.subtract(feeAmount)
-                            }
-                            availableAmount = if (balanceAmount > borrowedAmount) {
-                                borrowedAmount
-                            } else {
-                                balanceAmount
+                                swapRate = poolCoin1Amount.toBigDecimal().divide(poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN)
+                                val availableRate = availableCoin1Amount.divide(availableCoin2Amount, 24, RoundingMode.DOWN)
+                                if (swapRate > availableRate) {
+                                    coin1AvailableAmount = availableCoin1Amount
+                                    coin2AvailableAmount = availableCoin1Amount.divide(swapRate, 0, RoundingMode.DOWN)
+                                } else {
+                                    coin2AvailableAmount = availableCoin2Amount
+                                    coin1AvailableAmount = availableCoin2Amount.multiply(swapRate).setScale(0, RoundingMode.DOWN)
+                                }
                             }
                         }
                     }
                 }
 
-            } ?: run {
-                return
+            } else {
+                poolActionTitle.text = getString(R.string.title_pool_withdraw)
+                poolView.visibility = View.GONE
+                buttonLayout.visibility = View.GONE
+                btnPool.text = getString(R.string.str_withdraw)
+                shareAmountView.visibility = View.VISIBLE
             }
         }
     }
@@ -186,23 +187,42 @@ class LendActionFragment(
         }
     }
 
-    private fun updateAmountView(toAmount: String) {
+    private fun updateDepositAmountView(amount1: String, amount2: String) {
+        binding.apply {
+            coin1ToAmount = amount1
+            pool1Asset?.decimals?.let { decimal ->
+                val dpAmount = coin1ToAmount.toBigDecimal().movePointLeft(decimal)
+                    .setScale(decimal, RoundingMode.DOWN)
+                val coin1Price = BaseData.getPrice(pool1Asset?.coinGeckoId)
+                val coin1Value = coin1Price.multiply(dpAmount)
+
+                pool1Amount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                pool1Value.text = formatAssetValue(coin1Value)
+            }
+
+            coin2ToAmount = amount2
+            pool2Asset?.decimals?.let { decimal ->
+                val dpAmount = coin2ToAmount.toBigDecimal().movePointLeft(decimal)
+                    .setScale(decimal, RoundingMode.DOWN)
+                val coin2Price = BaseData.getPrice(pool2Asset?.coinGeckoId)
+                val coin2Value = coin2Price.multiply(dpAmount)
+
+                pool2Amount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                pool2Value.text = formatAssetValue(coin2Value)
+            }
+        }
+        txSimul()
+    }
+
+    private fun updateWithdrawAmountView(toAmount: String) {
         binding.apply {
             tabMsgTxt.visibility = View.GONE
             amountLayout.visibility = View.VISIBLE
 
-            toLendAmount = toAmount
-            msAsset?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                        .setScale(decimal, RoundingMode.DOWN)
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val value = price.multiply(dpAmount)
-
-                    lendAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    lendValue.text = formatAssetValue(value)
-                }
-            }
+            toWithdrawAmount = toAmount
+            val dpAmount = toAmount.toBigDecimal().movePointLeft(6)
+                .setScale(6, RoundingMode.DOWN)
+            shareAmount.text = formatAmount(dpAmount.toPlainString(), 6)
             txSimul()
         }
     }
@@ -246,80 +266,72 @@ class LendActionFragment(
     private fun clickAction() {
         var isClickable = true
         binding.apply {
-            lendAmountView.setOnClickListener {
+            poolView.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
 
-                    when (lendActionType) {
-                        LendActionType.DEPOSIT -> {
-                            InsertAmountFragment(
-                                TxType.LEND_DEPOSIT,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
+                    PoolInsertAmountFragment(
+                        pool1Asset,
+                        pool2Asset,
+                        coin1AvailableAmount,
+                        coin2AvailableAmount,
+                        swapRate,
+                        coin1ToAmount,
+                        coin2ToAmount,
+                        object : PoolAmountSelectListener {
+                            override fun select(coin1ToAmount: String, coin2ToAmount: String) {
+                                updateDepositAmountView(coin1ToAmount, coin2ToAmount)
+                            }
 
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-
-                        LendActionType.WITHDRAW -> {
-                            InsertAmountFragment(
-                                TxType.LEND_WITHDRAW,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-
-                        LendActionType.BORROW -> {
-                            InsertAmountFragment(
-                                TxType.LEND_BORROW,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-
-                        LendActionType.REPAY -> {
-                            InsertAmountFragment(
-                                TxType.LEND_REPAY,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-                    }
+                        }).show(requireActivity().supportFragmentManager, PoolInsertAmountFragment::class.java.name)
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true
                     }, 1000)
                 }
+            }
+
+            shareAmountView.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    InsertAmountFragment(
+                        TxType.POOL_WITHDRAW,
+                        null,
+                        deposit?.sharesOwned?.toBigDecimal(),
+                        toWithdrawAmount,
+                        null,
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateWithdrawAmountView(toAmount)
+                            }
+
+                        }).show(
+                        requireActivity().supportFragmentManager,
+                        InsertAmountFragment::class.java.name
+                    )
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
+
+            btnQuarter.setOnClickListener {
+                val coin1QuarterAmount = coin1AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
+                val coin2QuarterAmount = coin2AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
+                updateDepositAmountView(coin1QuarterAmount.toPlainString(), coin2QuarterAmount.toPlainString())
+            }
+
+            btnHalf.setOnClickListener {
+                val coin1HalfAmount = coin1AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
+                val coin2HalfAmount = coin2AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
+                updateDepositAmountView(coin1HalfAmount.toPlainString(), coin2HalfAmount.toPlainString())
+            }
+
+            btnMax.setOnClickListener {
+                updateDepositAmountView(coin1AvailableAmount.toPlainString(), coin2AvailableAmount.toPlainString())
             }
 
             memoView.setOnClickListener {
@@ -375,23 +387,23 @@ class LendActionFragment(
                 txSimul()
             }
 
-            btnLend.setOnClickListener {
+            btnPool.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    getLendResultLauncher.launch(this)
+                    getPoolResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
                 }
             }
         }
     }
 
-    private val getLendResultLauncher: ActivityResultLauncher<Intent> =
+    private val getPoolResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-                when (lendActionType) {
-                    LendActionType.DEPOSIT -> {
-                        txViewModel.broadLendDeposit(
+                when (poolActionType) {
+                    PoolActionType.DEPOSIT -> {
+                        txViewModel.broadPoolDeposit(
                             getChannel(selectedChain),
                             selectedChain.address,
                             onBindDepositMsg(),
@@ -401,33 +413,11 @@ class LendActionFragment(
                         )
                     }
 
-                    LendActionType.WITHDRAW -> {
-                        txViewModel.broadLendWithdraw(
+                    PoolActionType.WITHDRAW -> {
+                        txViewModel.broadPoolWithdraw(
                             getChannel(selectedChain),
                             selectedChain.address,
                             onBindWithdrawMsg(),
-                            txFee,
-                            txMemo,
-                            selectedChain
-                        )
-                    }
-
-                    LendActionType.BORROW -> {
-                        txViewModel.broadLendBorrow(
-                            getChannel(selectedChain),
-                            selectedChain.address,
-                            onBindBorrowMsg(),
-                            txFee,
-                            txMemo,
-                            selectedChain
-                        )
-                    }
-
-                    LendActionType.REPAY -> {
-                        txViewModel.broadLendRepay(
-                            getChannel(selectedChain),
-                            selectedChain.address,
-                            onBindRepayMsg(),
                             txFee,
                             txMemo,
                             selectedChain
@@ -439,13 +429,13 @@ class LendActionFragment(
 
     private fun txSimul() {
         binding.apply {
-            if (toLendAmount.isEmpty()) { return }
-            if (toLendAmount.toBigDecimal() == BigDecimal.ZERO) { return }
-            backdropLayout.visibility = View.VISIBLE
+            when (poolActionType) {
+                PoolActionType.DEPOSIT -> {
+                    if (coin1ToAmount.isEmpty() || coin2ToAmount.isEmpty()) { return }
+                    if (coin1ToAmount.toBigDecimal() == BigDecimal.ZERO || coin2ToAmount.toBigDecimal() == BigDecimal.ZERO) { return }
 
-            when (lendActionType) {
-                LendActionType.DEPOSIT -> {
-                    txViewModel.simulateLendDeposit(
+                    backdropLayout.visibility = View.VISIBLE
+                    txViewModel.simulatePoolDeposit(
                         getChannel(selectedChain),
                         selectedChain.address,
                         onBindDepositMsg(),
@@ -454,31 +444,15 @@ class LendActionFragment(
                     )
                 }
 
-                LendActionType.WITHDRAW -> {
-                    txViewModel.simulateLendWithdraw(
+                PoolActionType.WITHDRAW -> {
+                    if (toWithdrawAmount.isEmpty()) { return }
+                    if (toWithdrawAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+
+                    backdropLayout.visibility = View.VISIBLE
+                    txViewModel.simulatePoolWithdraw(
                         getChannel(selectedChain),
                         selectedChain.address,
                         onBindWithdrawMsg(),
-                        txFee,
-                        txMemo
-                    )
-                }
-
-                LendActionType.BORROW -> {
-                    txViewModel.simulateLendBorrow(
-                        getChannel(selectedChain),
-                        selectedChain.address,
-                        onBindBorrowMsg(),
-                        txFee,
-                        txMemo
-                    )
-                }
-
-                LendActionType.REPAY -> {
-                    txViewModel.simulateLendRepay(
-                        getChannel(selectedChain),
-                        selectedChain.address,
-                        onBindRepayMsg(),
                         txFee,
                         txMemo
                     )
@@ -488,39 +462,35 @@ class LendActionFragment(
     }
 
     private fun onBindDepositMsg(): MsgDeposit? {
-        val depositCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
+        val slippage = "30000000000000000"
+        val deadLine = (System.currentTimeMillis() / 1000) + 300
+        val depositCoin1 =
+            CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom).setAmount(coin1ToAmount).build()
+        val depositCoin2 =
+            CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom).setAmount(coin2ToAmount).build()
         return MsgDeposit.newBuilder()
             .setDepositor(selectedChain.address)
-            .addAmount(depositCoin)
+            .setTokenA(depositCoin1)
+            .setTokenB(depositCoin2)
+            .setSlippage(slippage)
+            .setDeadline(deadLine)
             .build()
     }
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
-        val withdrawCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
+        val totalShare = swapPool.totalShares.toBigDecimal()
+        val padding = BigDecimal("0.97")
+        val poolCoin1Amount = swapPool.getCoins(0).amount.toBigDecimal()
+            .multiply(toWithdrawAmount.toBigDecimal()).divide(totalShare, 0, RoundingMode.DOWN).multiply(padding).setScale(0, RoundingMode.DOWN)
+        val poolCoin2Amount =  swapPool.getCoins(1).amount.toBigDecimal()
+            .multiply(toWithdrawAmount.toBigDecimal()).divide(totalShare, 0, RoundingMode.DOWN).multiply(padding).setScale(0, RoundingMode.DOWN)
+        val deadLine = (System.currentTimeMillis() / 1000) + 300
         return MsgWithdraw.newBuilder()
-            .setDepositor(selectedChain.address)
-            .addAmount(withdrawCoin)
-            .build()
-    }
-
-    private fun onBindBorrowMsg(): MsgBorrow? {
-        val borrowCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
-        return MsgBorrow.newBuilder()
-            .setBorrower(selectedChain.address)
-            .addAmount(borrowCoin)
-            .build()
-    }
-
-    private fun onBindRepayMsg(): MsgRepay? {
-        val repayCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
-        return MsgRepay.newBuilder()
-            .setSender(selectedChain.address)
-            .setOwner(selectedChain.address)
-            .addAmount(repayCoin)
+            .setFrom(selectedChain.address)
+            .setShares(toWithdrawAmount)
+            .setMinTokenA(CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom).setAmount(poolCoin1Amount.toPlainString()))
+            .setMinTokenB(CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom).setAmount(poolCoin2Amount.toPlainString()))
+            .setDeadline(deadLine)
             .build()
     }
 
@@ -552,7 +522,7 @@ class LendActionFragment(
 
     private fun isBroadCastTx(isSuccess: Boolean) {
         binding.backdropLayout.visibility = View.GONE
-        binding.btnLend.updateButtonView(isSuccess)
+        binding.btnPool.updateButtonView(isSuccess)
     }
 
     private fun setUpBroadcast() {
@@ -578,4 +548,4 @@ class LendActionFragment(
     }
 }
 
-enum class LendActionType { DEPOSIT, WITHDRAW, BORROW, REPAY }
+enum class PoolActionType { DEPOSIT, WITHDRAW }

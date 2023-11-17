@@ -22,10 +22,11 @@ import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
 import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
-import com.kava.hard.v1beta1.HardProto
 import com.kava.hard.v1beta1.HardProto.MoneyMarket
 import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
+import com.kava.swap.v1beta1.QueryProto.DepositResponse
+import com.kava.swap.v1beta1.QueryProto.PoolResponse
 import com.squareup.picasso.Picasso
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
@@ -571,23 +572,51 @@ fun QueryPricesResponse.kavaOraclePrice(marketId: String): BigDecimal {
     }
 }
 
-fun HardProto.Params.hardMoneyMarket(denom: String?): MoneyMarket? {
-    return moneyMarketsList.firstOrNull { it.denom == denom }
+fun MutableList<MoneyMarket>.hardMoneyMarket(denom: String?): MoneyMarket? {
+    return firstOrNull { it.denom == denom }
 }
 
-fun HardProto.Params.getLTV(denom: String?): BigDecimal {
-    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
+fun MutableList<MoneyMarket>.getLTV(denom: String?): BigDecimal {
+    firstOrNull { it.denom == denom }?.let { market ->
         return market.borrowLimit.loanToValue.toBigDecimal().movePointLeft(18)
     } ?: run {
         return BigDecimal.ZERO
     }
 }
 
-fun HardProto.Params.spotMarketId(denom: String?): String {
-    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
+fun MutableList<MoneyMarket>.spotMarketId(denom: String?): String {
+    firstOrNull { it.denom == denom }?.let { market ->
         return market.spotMarketId
     } ?: run {
         return ""
     }
+}
+
+//fun HardProto.Params.hardMoneyMarket(denom: String?): MoneyMarket? {
+//    return moneyMarketsList.firstOrNull { it.denom == denom }
+//}
+//
+//fun HardProto.Params.getLTV(denom: String?): BigDecimal {
+//    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
+//        return market.borrowLimit.loanToValue.toBigDecimal().movePointLeft(18)
+//    } ?: run {
+//        return BigDecimal.ZERO
+//    }
+//}
+//
+//fun HardProto.Params.spotMarketId(denom: String?): String {
+//    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
+//        return market.spotMarketId
+//    } ?: run {
+//        return ""
+//    }
+//}
+
+fun DepositResponse.usdxAmount(): BigDecimal {
+    return sharesValueList.firstOrNull { it.denom == "usdx" }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+}
+
+fun PoolResponse.usdxAmount(): BigDecimal {
+    return coinsList.firstOrNull { it.denom == "usdx" }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
 }
 

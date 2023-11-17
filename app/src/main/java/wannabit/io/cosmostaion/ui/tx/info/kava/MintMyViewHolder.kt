@@ -12,8 +12,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_MINT_IMG_URL
 import wannabit.io.cosmostaion.common.UsdxLTV
 import wannabit.io.cosmostaion.common.collateralUSDXAmount
 import wannabit.io.cosmostaion.common.debtUsdxValue
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.kavaOraclePrice
 import wannabit.io.cosmostaion.common.liquidationPrice
 import wannabit.io.cosmostaion.databinding.ItemMyMintBinding
@@ -57,7 +57,7 @@ class MintMyViewHolder(
                 liquidation.text = formatAssetValue(liquidationPrice)
 
                 borrowedValue.divide(ltv, 18, RoundingMode.HALF_UP)?.movePointRight(2)?.setScale(2, RoundingMode.HALF_UP)?.let { riskRate ->
-                    risk.text = formatString(riskRate.toPlainString(), 2)
+                    risk.text = formatAmount(riskRate.toPlainString(), 2)
                     if (riskRate.toFloat() <= 60) {
                         risk.setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
                         liquidation.setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))

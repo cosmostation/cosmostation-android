@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto
-import com.kava.hard.v1beta1.HardProto
+import com.kava.hard.v1beta1.HardProto.MoneyMarket
 import com.kava.hard.v1beta1.QueryProto.MoneyMarketInterestRate
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class LendListAdapter(
     val context: Context,
-    private val lendingParam: HardProto.Params?,
+    private val lendMoneyMarkets: MutableList<MoneyMarket>,
     private val priceFeed: QueryProto.QueryPricesResponse?,
     private val lendMyDeposits: MutableList<CoinProto.Coin>,
     private val lendMyBorrows: MutableList<CoinProto.Coin>,
@@ -65,11 +65,11 @@ class LendListAdapter(
             }
 
             is LendStatusViewHolder -> {
-                holder.bind(lendingParam, priceFeed, lendMyDeposits, lendMyBorrows)
+                holder.bind(lendMoneyMarkets, priceFeed, lendMyDeposits, lendMyBorrows)
             }
 
             is LendListViewHolder -> {
-                holder.bind(lendingParam?.moneyMarketsList?.get(position -3), priceFeed, lendMyDeposits, lendMyBorrows, listener)
+                holder.bind(lendMoneyMarkets[position -3], priceFeed, lendMyDeposits, lendMyBorrows, listener)
             }
         }
     }

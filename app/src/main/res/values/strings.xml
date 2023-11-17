@@ -193,6 +193,10 @@
     <string name="title_lend_withdraw">Withdraw lend</string>
     <string name="title_lend_borrow">Borrow from lend</string>
     <string name="title_lend_repay">Repay to lend</string>
+    <string name="title_swap_pool_list">Swap pool list</string>
+    <string name="title_select_swappool_action">Select swap pool</string>
+    <string name="title_pool_deposit">Deposit to pool</string>
+    <string name="title_pool_withdraw">Withdraw from pool</string>
 
 
     // msg

@@ -22,8 +22,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -160,7 +160,7 @@ class ChangeRewardAddressFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)

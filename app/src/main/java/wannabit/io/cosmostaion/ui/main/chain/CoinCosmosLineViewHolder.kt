@@ -8,8 +8,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
@@ -47,18 +47,18 @@ class CoinCosmosLineViewHolder(
 
                         asset.decimals?.let { decimal ->
                             val availableAmount = line.balanceAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                            available.text = formatString(availableAmount.toPlainString(), 6)
+                            available.text = formatAmount(availableAmount.toPlainString(), 6)
 
                             val vestingAmount = line.vestingAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
-                            vesting.text = formatString(vestingAmount.toPlainString(), 6)
+                            vesting.text = formatAmount(vestingAmount.toPlainString(), 6)
 
                             val stakedAmount = line.delegationAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                            staked.text = formatString(stakedAmount.toPlainString(), 6)
+                            staked.text = formatAmount(stakedAmount.toPlainString(), 6)
 
                             val unStakingAmount = line.unbondingAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             unstakingLayout.goneOrVisible(unStakingAmount.compareTo(BigDecimal.ZERO) == 0)
-                            unstaking.text = formatString(unStakingAmount.toPlainString(), 6)
+                            unstaking.text = formatAmount(unStakingAmount.toPlainString(), 6)
 
                             val rewardAmount = line.rewardAmountSum(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                             rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
@@ -68,12 +68,12 @@ class CoinCosmosLineViewHolder(
                                 } else {
                                     rewardTitle.text = context.getString(R.string.str_reward)
                                 }
-                                reward.text = formatString(rewardAmount.toPlainString(), 6)
+                                reward.text = formatAmount(rewardAmount.toPlainString(), 6)
                             }
 
                             val totalAmount = availableAmount.add(vestingAmount).add(stakedAmount)
                                 .add(unStakingAmount).add(rewardAmount)
-                            total.text = formatString(totalAmount.toPlainString(), 6)
+                            total.text = formatAmount(totalAmount.toPlainString(), 6)
                             val value = line.denomValue(stakeDenom)
                             totalValue.text = formatAssetValue(value)
                         }
@@ -100,20 +100,20 @@ class CoinCosmosLineViewHolder(
                 }
 
                 val availableAmount = line.lcdBalanceAmount(stakeDenom).movePointLeft(0).setScale(8, RoundingMode.HALF_UP)
-                available.text = formatString(availableAmount.toPlainString(), 8)
+                available.text = formatAmount(availableAmount.toPlainString(), 8)
 
                 val frozenAmount = line.lcdBnbFrozenAmount(stakeDenom).movePointLeft(0).setScale(8, RoundingMode.HALF_UP)
-                vesting.text = formatString(frozenAmount.toPlainString(), 8)
+                vesting.text = formatAmount(frozenAmount.toPlainString(), 8)
 
                 val lockedAmount = line.lcdBnbLockedAmount(stakeDenom).movePointLeft(0).setScale(8, RoundingMode.HALF_UP)
-                staked.text = formatString(lockedAmount.toPlainString(), 8)
+                staked.text = formatAmount(lockedAmount.toPlainString(), 8)
 
                 unstakingLayout.visibility = View.GONE
                 rewardLayout.visibility = View.GONE
 
                 val totalAmount = availableAmount.add(availableAmount).add(frozenAmount)
                     .add(lockedAmount)
-                total.text = formatString(totalAmount.toPlainString(), 8)
+                total.text = formatAmount(totalAmount.toPlainString(), 8)
             }
         }
     }
@@ -140,18 +140,18 @@ class CoinCosmosLineViewHolder(
 
                         asset.decimals?.let { decimal ->
                             val availableAmount = line.balanceAmount(denom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                            available.text = formatString(availableAmount.toPlainString(), 6)
+                            available.text = formatAmount(availableAmount.toPlainString(), 6)
 
                             neutronChain.neutronVestingAmount()?.let { neutronVestingAmount ->
                                 val vestingAmount = neutronVestingAmount.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                                 vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
-                                vesting.text = formatString(vestingAmount.toPlainString(), 6)
+                                vesting.text = formatAmount(vestingAmount.toPlainString(), 6)
 
                                 val depositedAmount = neutronChain.neutronDeposited.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                                staked.text = formatString(depositedAmount.toPlainString(), 6)
+                                staked.text = formatAmount(depositedAmount.toPlainString(), 6)
 
                                 val totalAmount = availableAmount.add(vestingAmount).add(depositedAmount)
-                                total.text = formatString(totalAmount.toPlainString(), 6)
+                                total.text = formatAmount(totalAmount.toPlainString(), 6)
                                 val value = line.denomValue(denom)
                                 totalValue.text = formatAssetValue(value)
                             }

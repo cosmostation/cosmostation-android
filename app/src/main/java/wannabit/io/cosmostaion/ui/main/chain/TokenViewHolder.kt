@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -37,7 +37,7 @@ class TokenViewHolder(
             }
 
             token.amount?.toBigDecimal()?.movePointLeft(token.decimals)?.setScale(6, RoundingMode.DOWN)?.let { amount ->
-                coinAmount.text = formatString(amount.toPlainString(), 6)
+                coinAmount.text = formatAmount(amount.toPlainString(), 6)
                 coinAmountValue.text = formatAssetValue(line.cw20Value(token.address))
             }
         }

@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.debtAmount
 import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.liquidationRatioAmount
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -111,7 +111,7 @@ class MintActionFragment(
                         collateralAsset?.let { asset ->
                             mintActionTitle.text = getString(R.string.title_deposit_collateral)
                             tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
+                            tokenName.text = asset.symbol
                             val balanceAmount = selectedChain.balanceAmount(collateralParam.denom)
                             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
@@ -127,7 +127,7 @@ class MintActionFragment(
                         collateralAsset?.let { asset ->
                             mintActionTitle.text = getString(R.string.title_withdraw_collateral)
                             tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
+                            tokenName.text = asset.symbol
                             collateralAvailableAmount = myCdp?.collateral?.amount?.toBigDecimal()
                         }
                     }
@@ -138,7 +138,7 @@ class MintActionFragment(
                         principalAsset?.let { asset ->
                             mintActionTitle.text = getString(R.string.title_borrow_usdx)
                             tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
+                            tokenName.text = asset.symbol
                             val padding = BigDecimal("0.95")
                             val collateralValue = myCdp?.collateralValue?.amount
                             val ltvAmount = collateralValue?.toBigDecimal()?.divide(collateralParam.liquidationRatioAmount(), 0, RoundingMode.DOWN)?.multiply(padding)?.setScale(0, RoundingMode.DOWN)
@@ -157,7 +157,7 @@ class MintActionFragment(
                         principalAsset?.let { asset ->
                             mintActionTitle.text = getString(R.string.title_repay_usdx)
                             tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
+                            tokenName.text = asset.symbol
                             principalAvailableAmount = selectedChain.balanceAmount("usdx")
                         }
                     }
@@ -211,7 +211,7 @@ class MintActionFragment(
                             val price = BaseData.getPrice(asset.coinGeckoId)
                             val value = price.multiply(dpAmount)
 
-                            mintAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                            mintAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                             mintValue.text = formatAssetValue(value)
                         }
                     }
@@ -226,7 +226,7 @@ class MintActionFragment(
                             val price = BaseData.getPrice(asset.coinGeckoId)
                             val value = price.multiply(dpAmount)
 
-                            mintAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                            mintAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                             mintValue.text = formatAssetValue(value)
                         }
                     }
@@ -262,7 +262,7 @@ class MintActionFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)

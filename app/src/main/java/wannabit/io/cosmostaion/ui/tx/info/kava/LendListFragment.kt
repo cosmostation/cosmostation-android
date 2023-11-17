@@ -43,9 +43,10 @@ class LendListFragment(
 
     private lateinit var lendListAdapter: LendListAdapter
 
-    private var lendParams: HardProto.Params? = null
+    private var lendMoneyMarkets: MutableList<HardProto.MoneyMarket> = mutableListOf()
     private var lendMyDeposits: MutableList<CoinProto.Coin> = mutableListOf()
     private var lendMyBorrows: MutableList<CoinProto.Coin> = mutableListOf()
+    private var lendReserve: MutableList<CoinProto.Coin>? = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,31 +78,32 @@ class LendListFragment(
                 response?.let { lendingData ->
                     loading.visibility = View.GONE
 
-                    lendParams = lendingData.lendingParam
                     if (lendingData.lendingMyDeposits?.isNotEmpty() == true) {
                         lendMyDeposits = lendingData.lendingMyDeposits[0].amountList
                     }
                     if (lendingData.lendingMyBorrows?.isNotEmpty() == true) {
                         lendMyBorrows = lendingData.lendingMyBorrows[0].amountList
                     }
+                    lendReserve = lendingData.lendingReserve
 
-                    lendingData.lendingParam?.moneyMarketsList?.toMutableList()?.sortWith { o1, o2 ->
+                    val tempMoneyMarketList = lendingData.lendingParam?.moneyMarketsList?.toMutableList()
+                    tempMoneyMarketList?.sortWith { o1, o2 ->
                         val denom0 = o1.denom
                         val denom1 = o2.denom
                         when {
-                            lendMyDeposits.any { it.denom == denom0 } -> -1
-                            lendMyDeposits.any { it.denom == denom1 } -> 1
-                            lendMyBorrows.any { it.denom == denom0 } -> -1
-                            lendMyBorrows.any { it.denom == denom1 } -> 1
-                            else -> 0
+                            lendMyDeposits.any { it.denom == denom0 } || lendMyBorrows.any { it.denom == denom0 } -> -1
+                            lendMyDeposits.any { it.denom == denom1 } || lendMyBorrows.any { it.denom == denom1 } -> 1
+                            else -> 1
                         }
                     }
-
-                    lendListAdapter = LendListAdapter(requireContext(), lendingData.lendingParam, priceFeed, lendMyDeposits, lendMyBorrows, lendClickAction)
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = lendListAdapter
-                    lendListAdapter.submitList(lendingData.lendingRates)
+                    tempMoneyMarketList?.let { moneyMarkets ->
+                        lendMoneyMarkets = moneyMarkets
+                        lendListAdapter = LendListAdapter(requireContext(), moneyMarkets, priceFeed, lendMyDeposits, lendMyBorrows, lendClickAction)
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = lendListAdapter
+                        lendListAdapter.submitList(lendingData.lendingRates)
+                    }
                 }
             }
         }
@@ -143,7 +145,7 @@ class LendListFragment(
                     LendActionType.DEPOSIT,
                     lendMyDeposits,
                     lendMyBorrows,
-                    lendParams?.hardMoneyMarket(denom),
+                    lendMoneyMarkets.hardMoneyMarket(denom),
                     BigDecimal.ZERO
                 )
                 bottomSheet.show(requireActivity().supportFragmentManager, LendActionFragment::class.java.name)
@@ -172,7 +174,7 @@ class LendListFragment(
                     LendActionType.WITHDRAW,
                     lendMyDeposits,
                     lendMyBorrows,
-                    lendParams?.hardMoneyMarket(denom),
+                    lendMoneyMarkets.hardMoneyMarket(denom),
                     BigDecimal.ZERO
                 )
                 bottomSheet.show(requireActivity().supportFragmentManager, LendActionFragment::class.java.name)
@@ -201,7 +203,7 @@ class LendListFragment(
                     LendActionType.BORROW,
                     lendMyDeposits,
                     lendMyBorrows,
-                    lendParams?.hardMoneyMarket(denom),
+                    lendMoneyMarkets.hardMoneyMarket(denom),
                     borrowableAmount
                 )
                 bottomSheet.show(requireActivity().supportFragmentManager, LendActionFragment::class.java.name)
@@ -230,7 +232,7 @@ class LendListFragment(
                     LendActionType.REPAY,
                     lendMyDeposits,
                     lendMyBorrows,
-                    lendParams?.hardMoneyMarket(denom),
+                    lendMoneyMarkets.hardMoneyMarket(denom),
                     BigDecimal.ZERO
                 )
                 bottomSheet.show(requireActivity().supportFragmentManager, LendActionFragment::class.java.name)
@@ -245,40 +247,47 @@ class LendListFragment(
     private fun remainBorrowAbleAmount(denom: String?): BigDecimal {
         var totalLTVValue = BigDecimal.ZERO
         var totalBorrowedValue = BigDecimal.ZERO
-        lendParams?.let { param ->
-            lendMyDeposits.forEach { coin ->
-                val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
-                val LTV = param.getLTV(coin.denom)
-                val marketIdPrice = priceFeed?.kavaOraclePrice(param.spotMarketId(coin.denom))
-                val depositValue = coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice).setScale(12, RoundingMode.DOWN)
-                val ltvValue = depositValue.multiply(LTV)
-                totalLTVValue = totalLTVValue.add(ltvValue)
-            }
-            lendMyBorrows.forEach { coin ->
-                val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
-                val marketIdPrice = priceFeed?.kavaOraclePrice(param.spotMarketId(coin.denom))
-                val borrowValue = coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice).setScale(12, RoundingMode.DOWN)
-                totalBorrowedValue = totalBorrowedValue.add(borrowValue)
-            }
-
-            totalLTVValue = totalLTVValue.multiply(BigDecimal("0.9")).setScale(0, RoundingMode.DOWN)
-            val tempBorrowAbleValue  = totalLTVValue.subtract(totalBorrowedValue)
-            val totalBorrowAbleValue = if (tempBorrowAbleValue > BigDecimal.ZERO) {
-                tempBorrowAbleValue
-            } else {
-                BigDecimal.ZERO
-            }
-
-            val oraclePrice = priceFeed?.kavaOraclePrice(param.spotMarketId(denom))
-            val decimal = BaseData.assets?.firstOrNull { it.denom == denom }?.decimals ?: 6
-            val totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal).setScale(12, RoundingMode.DOWN).divide(oraclePrice, 0, RoundingMode.DOWN)
-            return if (totalBorrowAbleAmount > BigDecimal.ZERO) {
-                totalBorrowAbleAmount
-            } else {
-                BigDecimal.ZERO
-            }
+        lendMyDeposits.forEach { coin ->
+            val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
+            val LTV = lendMoneyMarkets.getLTV(coin.denom)
+            val marketIdPrice = priceFeed?.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+            val depositValue = coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice).setScale(12, RoundingMode.DOWN)
+            val ltvValue = depositValue.multiply(LTV)
+            totalLTVValue = totalLTVValue.add(ltvValue)
         }
-        return BigDecimal.ZERO
+        lendMyBorrows.forEach { coin ->
+            val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
+            val marketIdPrice = priceFeed?.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+            val borrowValue = coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice).setScale(12, RoundingMode.DOWN)
+            totalBorrowedValue = totalBorrowedValue.add(borrowValue)
+        }
+
+        val oraclePrice = priceFeed?.kavaOraclePrice(lendMoneyMarkets.spotMarketId(denom))
+        val decimal = BaseData.assets?.firstOrNull { it.denom == denom }?.decimals ?: 6
+        val totalBorrowAbleValue = totalLTVValue.subtract(totalBorrowedValue).max(BigDecimal.ZERO)
+        val totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal)
+            .divide(oraclePrice, decimal, RoundingMode.DOWN)
+
+        denom?.let {
+            var reserveAmount = BigDecimal.ZERO
+            val moduleAmount = selectedChain.balanceAmount(denom)
+            lendReserve?.forEach { reserve ->
+                if (reserve.denom == denom) {
+                    reserveAmount = reserve.amount.toBigDecimal()
+                }
+            }
+            val systemBorrowableAmount: BigDecimal?
+            val moduleBorrowable = moduleAmount.subtract(reserveAmount)
+            systemBorrowableAmount = if (lendMoneyMarkets.hardMoneyMarket(denom)?.borrowLimit?.hasMaxLimit == true) {
+                lendMoneyMarkets.hardMoneyMarket(denom)?.borrowLimit?.maximumLimit?.toBigDecimal()
+            } else {
+                moduleBorrowable
+            }
+            return totalBorrowAbleAmount.min(systemBorrowableAmount)
+
+        } ?: run {
+            return BigDecimal.ZERO
+        }
     }
 
     override fun onDestroyView() {

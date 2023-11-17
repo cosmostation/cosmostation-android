@@ -29,8 +29,8 @@ import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -255,7 +255,7 @@ class TransferFragment(
                         val price = BaseData.getPrice(selectedAsset?.coinGeckoId)
                         val value = price.multiply(dpAmount)
 
-                        sendAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        sendAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         sendValue.text = formatAssetValue(value)
                     }
                 }
@@ -267,7 +267,7 @@ class TransferFragment(
                     val price = BaseData.getPrice(selectedToken?.coinGeckoId)
                     val value = price.multiply(dpAmount)
 
-                    sendAmount.text = formatString(dpAmount.toPlainString(), token.decimals)
+                    sendAmount.text = formatAmount(dpAmount.toPlainString(), token.decimals)
                     sendValue.text = formatAssetValue(value)
                 }
             }
@@ -302,7 +302,7 @@ class TransferFragment(
                     asset.decimals?.let { decimal ->
                         val dpAmount =
                             amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal)
                             .setScale(decimal, RoundingMode.DOWN)

@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -141,7 +141,7 @@ class UnStakingFragment(
                         val staked =
                             selectedChain.cosmosDelegations.firstOrNull { it.delegation.validatorAddress == validator?.operatorAddress }?.balance?.amount
                         staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
-                            stakedAmount.text = formatString(it.toPlainString(), decimal)
+                            stakedAmount.text = formatAmount(it.toPlainString(), decimal)
                         }
                     }
                 }
@@ -159,7 +159,7 @@ class UnStakingFragment(
                 BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        undelegateAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        undelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         undelegateAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
                         undelegateDenom.visibility = View.VISIBLE
                         undelegateDenom.text = asset.symbol
@@ -196,7 +196,7 @@ class UnStakingFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)

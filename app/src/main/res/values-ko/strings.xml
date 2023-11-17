@@ -142,6 +142,10 @@
     <string name="title_lend_withdraw">랜딩 서플라이 출금</string>
     <string name="title_lend_borrow">랜딩 대출</string>
     <string name="title_lend_repay">랜딩 상환</string>
+    <string name="title_swap_pool_list">스왑 풀 리스트</string>
+    <string name="title_select_swappool_action">스왑 풀 선택</string>
+    <string name="title_pool_deposit">풀에 자산 넣기</string>
+    <string name="title_pool_withdraw">풀에 자산 빼기</string>
 
 
     // msg

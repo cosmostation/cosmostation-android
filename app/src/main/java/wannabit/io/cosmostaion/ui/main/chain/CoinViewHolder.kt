@@ -8,8 +8,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -54,7 +54,7 @@ class CoinViewHolder(
 
                     asset.decimals?.let { decimal ->
                         val amount = coin.amount.toBigDecimal().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                        coinAmount.text = formatString(amount.toPlainString(), 6)
+                        coinAmount.text = formatAmount(amount.toPlainString(), 6)
                         coinAmountValue.text = formatAssetValue(line.denomValue(coin.denom))
                     }
                 }
@@ -81,7 +81,7 @@ class CoinViewHolder(
                 tokenPrice.text = token.name
             }
             val amount = coin.amount.toBigDecimal().setScale(8, RoundingMode.DOWN)
-            coinAmount.text = formatString(amount.toPlainString(), 8)
+            coinAmount.text = formatAmount(amount.toPlainString(), 8)
         }
     }
 }

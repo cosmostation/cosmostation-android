@@ -114,4 +114,34 @@ class KavaRepositoryImpl : KavaRepository {
             stub.borrows(request)
         }
     }
+
+    override suspend fun lendingReserve(managedChannel: ManagedChannel): NetworkResult<com.kava.hard.v1beta1.QueryProto.QueryReservesResponse> {
+        val stub = com.kava.hard.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.kava.hard.v1beta1.QueryProto.QueryReservesRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.reserves(request)
+        }
+    }
+
+    override suspend fun swapList(managedChannel: ManagedChannel): NetworkResult<com.kava.swap.v1beta1.QueryProto.QueryPoolsResponse> {
+        val stub = com.kava.swap.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.kava.swap.v1beta1.QueryProto.QueryPoolsRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.pools(request)
+        }
+    }
+
+    override suspend fun swapMyDeposit(
+        managedChannel: ManagedChannel,
+        address: String?
+    ): NetworkResult<com.kava.swap.v1beta1.QueryProto.QueryDepositsResponse> {
+        val stub = com.kava.swap.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.kava.swap.v1beta1.QueryProto.QueryDepositsRequest.newBuilder().setOwner(address).build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.deposits(request)
+        }
+    }
 }

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
@@ -98,6 +98,10 @@ class InsertAmountFragment(
                     editLayout.setHint(R.string.title_principal_amount)
                     setAssetAmount()
                 }
+                TxType.POOL_WITHDRAW -> {
+                    editLayout.setHint(R.string.title_vault_withdraw_amount)
+                    setShareAmount()
+                }
                 else -> {}
             }
         }
@@ -109,8 +113,8 @@ class InsertAmountFragment(
                 asset.decimals?.let { decimal ->
                     assetDecimal = decimal
 
-                    availAmount?.movePointLeft(decimal)?.setScale(decimal)?.let { amount ->
-                        available.text = formatString(amount.toPlainString(), decimal)
+                    availAmount?.movePointLeft(decimal)?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                        available.text = formatAmount(amount.toPlainString(), decimal)
                         availableDenom.text = asset.symbol
                     }
 
@@ -131,7 +135,7 @@ class InsertAmountFragment(
         binding.apply {
             selectedToken?.let { token ->
                 availAmount?.movePointLeft(token.decimals)?.setScale(token.decimals)?.let { amount ->
-                    available.text = formatString(amount.toPlainString(), token.decimals)
+                    available.text = formatAmount(amount.toPlainString(), token.decimals)
                     availableDenom.text = token.symbol
                 }
 
@@ -142,6 +146,24 @@ class InsertAmountFragment(
                     } else {
                         amountTxt.text = Editable.Factory.getInstance().newEditable(it)
                     }
+                }
+            }
+        }
+    }
+
+    private fun setShareAmount() {
+        binding.apply {
+            availAmount?.movePointLeft(6)?.setScale(6, RoundingMode.DOWN)?.let { amount ->
+                available.text = formatAmount(amount.toPlainString(), 6)
+                availableDenom.text = "Share"
+            }
+
+            toAmount?.let {
+                if (it.isNotEmpty()) {
+                    val dpToSendAmount = it.toBigDecimal().movePointLeft(6).setScale(6).stripTrailingZeros().toPlainString()
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                } else {
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(it)
                 }
             }
         }

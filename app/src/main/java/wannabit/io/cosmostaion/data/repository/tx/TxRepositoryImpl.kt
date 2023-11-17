@@ -757,4 +757,74 @@ class TxRepositoryImpl : TxRepository {
             e.message.toString()
         }
     }
+
+    override suspend fun broadcastPoolDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genPoolDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulatePoolDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genPoolDepositSimulate(account, msgDeposit, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastPoolWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genPoolWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulatePoolWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
 }

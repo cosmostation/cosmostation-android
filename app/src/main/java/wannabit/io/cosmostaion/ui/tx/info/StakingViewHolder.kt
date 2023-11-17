@@ -46,12 +46,12 @@ class StakingViewHolder(
                         commission.text = formatString("$commissionRate%", 3)
 
                         val stakedAmount = delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
-                        staked.text = formatString(stakedAmount.toPlainString(), decimal)
+                        staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
                         line.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }?.rewardList?.let { rewards ->
                             rewards.firstOrNull { it.denom == denom }?.let { mainDenomReward ->
                                 val mainDenomRewardAmount = mainDenomReward.amount.toBigDecimal().movePointLeft(18).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                                rewardAmount.text = formatString(mainDenomRewardAmount.toPlainString(), decimal)
+                                rewardAmount.text = formatAmount(mainDenomRewardAmount.toPlainString(), decimal)
                             }
 
                             var anotherCnt = 0
@@ -69,7 +69,7 @@ class StakingViewHolder(
 
                         } ?: run {
                             rewardTitle.text = "Reward"
-                            rewardAmount.text = formatString(BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal)
+                            rewardAmount.text = formatAmount(BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal)
                         }
                     }
                 }

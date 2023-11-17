@@ -370,4 +370,38 @@ interface TxRepository {
         fee: Fee?,
         memo: String
     ): Any?
+
+    suspend fun broadcastPoolDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulatePoolDepositTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastPoolWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulatePoolWithdrawTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): Any?
 }

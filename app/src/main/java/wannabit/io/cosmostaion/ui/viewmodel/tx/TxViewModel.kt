@@ -904,4 +904,82 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             }
         }
     }
+
+    fun broadPoolDeposit(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastPoolDepositTx(
+                managedChannel,
+                it,
+                msgDeposit,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulatePoolDeposit(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulatePoolDepositTx(managedChannel, it, msgDeposit, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulatePoolDepositTx(managedChannel, it, msgDeposit, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
+
+    fun broadPoolWithdraw(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastPoolWithdrawTx(
+                managedChannel,
+                it,
+                msgWithdraw,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulatePoolWithdraw(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulatePoolWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulatePoolWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
+    }
 }

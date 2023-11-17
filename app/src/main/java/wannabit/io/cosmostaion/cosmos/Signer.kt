@@ -704,6 +704,62 @@ object Signer {
         return msgAnys
     }
 
+    fun genPoolDepositBroadcast(
+        auth: QueryAccountResponse?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, poolDepositMsg(msgDeposit), fee, memo, selectedChain)
+    }
+
+    fun genPoolDepositSimulate(
+        auth: QueryAccountResponse?,
+        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, poolDepositMsg(msgDeposit), fee, memo)
+    }
+
+    private fun poolDepositMsg(msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgDeposit")
+                .setValue(msgDeposit?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genPoolWithdrawBroadcast(
+        auth: QueryAccountResponse?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, poolWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
+    }
+
+    fun genPoolWithdrawSimulate(
+        auth: QueryAccountResponse?,
+        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, poolWithdrawMsg(msgWithdraw), fee, memo)
+    }
+
+    private fun poolWithdrawMsg(msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw")
+                .setValue(msgWithdraw?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
         return if (line?.evmCompatible == true) {

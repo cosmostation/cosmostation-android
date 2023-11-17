@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.allIncentiveCoins
 import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -80,45 +80,45 @@ class ClaimIncentiveFragment(
             memoView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
 
-            val allIncentives = incentive?.allIncentiveCoins()
-            allIncentives?.firstOrNull { it.denom == "ukava" }?.let { kavaIncentive ->
+            val allIncentives = incentive.allIncentiveCoins()
+            allIncentives.firstOrNull { it.denom == "ukava" }?.let { kavaIncentive ->
                 BaseData.getAsset(selectedChain.apiName, kavaIncentive.denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         kavaLayout.visibility = View.VISIBLE
-                        kavaAmount.text = formatString(
+                        kavaAmount.text = formatAmount(
                             kavaIncentive.amount.toBigDecimal()
                                 .movePointLeft(decimal).toPlainString(), decimal)
                     }
                 }
             }
 
-            allIncentives?.firstOrNull { it.denom == "hard" }?.let { hardIncentive ->
+            allIncentives.firstOrNull { it.denom == "hard" }?.let { hardIncentive ->
                 BaseData.getAsset(selectedChain.apiName, hardIncentive.denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         hardLayout.visibility = View.VISIBLE
-                        hardAmount.text = formatString(
+                        hardAmount.text = formatAmount(
                             hardIncentive.amount.toBigDecimal()
                                 .movePointLeft(decimal).toPlainString(), decimal)
                     }
                 }
             }
 
-            allIncentives?.firstOrNull { it.denom == "usdx" }?.let { usdxIncentive ->
+            allIncentives.firstOrNull { it.denom == "usdx" }?.let { usdxIncentive ->
                 BaseData.getAsset(selectedChain.apiName, usdxIncentive.denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         usdxLayout.visibility = View.VISIBLE
-                        usdxAmount.text = formatString(
+                        usdxAmount.text = formatAmount(
                             usdxIncentive.amount.toBigDecimal()
                                 .movePointLeft(decimal).toPlainString(), decimal)
                     }
                 }
             }
 
-            allIncentives?.firstOrNull { it.denom == "swp" }?.let { swpIncentive ->
+            allIncentives.firstOrNull { it.denom == "swp" }?.let { swpIncentive ->
                 BaseData.getAsset(selectedChain.apiName, swpIncentive.denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         swpLayout.visibility = View.VISIBLE
-                        swpAmount.text = formatString(
+                        swpAmount.text = formatAmount(
                             swpIncentive.amount.toBigDecimal()
                                 .movePointLeft(decimal).toPlainString(), decimal)
                     }
@@ -183,7 +183,7 @@ class ClaimIncentiveFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)

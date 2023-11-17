@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.allIncentiveCoins
-import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
@@ -86,7 +86,7 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                     BaseData.getAsset(selectedChain.apiName, kavaIncentive.denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
                             kavaLayout.visibility = View.VISIBLE
-                            kavaAmount.text = formatString(
+                            kavaAmount.text = formatAmount(
                                 kavaIncentive.amount.toBigDecimal()
                                     .movePointLeft(decimal).toPlainString(), decimal)
                         }
@@ -97,7 +97,7 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                     BaseData.getAsset(selectedChain.apiName, hardIncentive.denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
                             hardLayout.visibility = View.VISIBLE
-                            hardAmount.text = formatString(
+                            hardAmount.text = formatAmount(
                                 hardIncentive.amount.toBigDecimal()
                                     .movePointLeft(decimal).toPlainString(), decimal)
                         }
@@ -108,7 +108,7 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                     BaseData.getAsset(selectedChain.apiName, usdxIncentive.denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
                             usdxLayout.visibility = View.VISIBLE
-                            usdxAmount.text = formatString(
+                            usdxAmount.text = formatAmount(
                                 usdxIncentive.amount.toBigDecimal()
                                     .movePointLeft(decimal).toPlainString(), decimal)
                         }
@@ -119,7 +119,7 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                     BaseData.getAsset(selectedChain.apiName, swpIncentive.denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
                             swpLayout.visibility = View.VISIBLE
-                            swpAmount.text = formatString(
+                            swpAmount.text = formatAmount(
                                 swpIncentive.amount.toBigDecimal()
                                     .movePointLeft(decimal).toPlainString(), decimal)
                         }
@@ -167,6 +167,18 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                     isClickable = false
                     requireActivity().toMoveFragment(this@KavaDefiFragment,
                         LendListFragment(selectedChain, priceFeed), "LendList")
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+            }
+
+            poolView.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+                    requireActivity().toMoveFragment(this@KavaDefiFragment,
+                        PoolListFragment(selectedChain), "PoolList")
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({

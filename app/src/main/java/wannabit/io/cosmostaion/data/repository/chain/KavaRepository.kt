@@ -1,9 +1,8 @@
 package wannabit.io.cosmostaion.data.repository.chain
 
 import com.kava.incentive.v1beta1.QueryProto
-import com.kava.pricefeed.v1beta1.QueryProto.*
+import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import io.grpc.ManagedChannel
-import retrofit2.Response
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 
 interface KavaRepository {
@@ -27,4 +26,10 @@ interface KavaRepository {
     suspend fun lendingMyDeposit(managedChannel: ManagedChannel, address: String?): NetworkResult<com.kava.hard.v1beta1.QueryProto.QueryDepositsResponse>
 
     suspend fun lendingMyBorrow(managedChannel: ManagedChannel, address: String?): NetworkResult<com.kava.hard.v1beta1.QueryProto.QueryBorrowsResponse>
+
+    suspend fun lendingReserve(managedChannel: ManagedChannel): NetworkResult<com.kava.hard.v1beta1.QueryProto.QueryReservesResponse>
+
+    suspend fun swapList(managedChannel: ManagedChannel): NetworkResult<com.kava.swap.v1beta1.QueryProto.QueryPoolsResponse>
+
+    suspend fun swapMyDeposit(managedChannel: ManagedChannel, address: String?): NetworkResult<com.kava.swap.v1beta1.QueryProto.QueryDepositsResponse>
 }

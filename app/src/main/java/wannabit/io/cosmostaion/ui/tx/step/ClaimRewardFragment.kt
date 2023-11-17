@@ -22,8 +22,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -99,7 +99,7 @@ class ClaimRewardFragment(
                             val rawAmount = BigDecimal(reward?.rewardList?.firstOrNull { it.denom == denom }?.amount ?: "0")
                             rewardAmount = rewardAmount.add(rawAmount.movePointLeft(18).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN))
                         }
-                        rewardsAmount.text = formatString(rewardAmount.toPlainString(), decimal)
+                        rewardsAmount.text = formatAmount(rewardAmount.toPlainString(), decimal)
                         rewardsDenom.text = asset.symbol
 
                         val anotherRewardDenoms = mutableListOf<String>()
@@ -180,7 +180,7 @@ class ClaimRewardFragment(
 
                     asset.decimals?.let { decimal ->
                         val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatString(dpAmount.toPlainString(), decimal)
+                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
                         val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)

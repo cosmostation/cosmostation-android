@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pool_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_8"
+        android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/space_12">
+
+            <RelativeLayout
+                android:id="@+id/pool_img_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/pool0_img"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_marginTop="@dimen/space_15"
+                    android:layout_marginStart="@dimen/space_10"/>
+
+                <ImageView
+                    android:id="@+id/pool1_img"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_marginTop="@dimen/space_20"
+                    android:layout_marginStart="@dimen/space_30" />
+
+                <TextView
+                    android:id="@+id/pool_type"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pool0_img"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/space_15"
+                    android:textColor="@color/color_base01" />
+
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tvl_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_24"
+                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginEnd="@dimen/space_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pool_img_layout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvl_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TVL"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvl_value"
+                    style="@style/font_sb_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_24"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pool_img_layout"
+                app:layout_constraintTop_toBottomOf="@+id/tvl_layout">
+
+                <TextView
+                    android:id="@+id/pool_asset_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:text="Pool asset"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/pool0_amount"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toStartOf="@+id/pool0_denom"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/pool0_denom"
+                    style="@style/font_sb_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@id/pool0_amount" />
+
+                <TextView
+                    android:id="@+id/pool1_amount"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toStartOf="@+id/pool1_denom"
+                    app:layout_constraintTop_toBottomOf="@id/pool0_amount" />
+
+                <TextView
+                    android:id="@+id/pool1_denom"
+                    style="@style/font_sb_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@id/pool1_amount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deposit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pool_img_layout"
+                android:layout_marginTop="@dimen/space_16">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1"
+                    android:background="@color/color_base04"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/deposit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_sm_12"
+                    android:textColor="@color/color_base02"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:text="My deposited"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view" />
+
+                <TextView
+                    android:id="@+id/deposit_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_sb_14"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/deposit_title"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
