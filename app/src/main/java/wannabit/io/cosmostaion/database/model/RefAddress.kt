@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.database.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 @Entity(tableName = "refAddress")
 data class RefAddress(
@@ -16,4 +18,8 @@ data class RefAddress(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+
+    fun lastUsdValue(): BigDecimal {
+        return lastMainValue?.toBigDecimal()?.add(lastTokenValue?.toBigDecimal())?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+    }
 }

@@ -13,6 +13,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
+import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.SimulateResponse
@@ -336,6 +337,45 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 selectedChain
             )
             _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun broadCancelUnbonding(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastCancelUnbondingTx(
+                managedChannel,
+                it,
+                msgCancelUnbondingDelegation,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateCancelUnbonding(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateCancelUnbondingTx(managedChannel, it, msgCancelUnbondingDelegation, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateCancelUnbondingTx(managedChannel, it, msgCancelUnbondingDelegation, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
         }
     }
 

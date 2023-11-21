@@ -4,6 +4,7 @@
     <string name="str_total_value" translatable="false">Total value</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
+    <string name="str_legacy" translatable="false">Legacy</string>
     <string name="str_evm" translatable="false">EVM Compat</string>
     <string name="str_available" translatable="false">Available</string>
     <string name="str_vesting" translatable="false">Vesting</string>
@@ -16,7 +17,6 @@
     <string name="str_next">Next</string>
     <string name="str_share_address">Share Address</string>
     <string name="str_address">Address</string>
-    <string name="str_checking" translatable="false">CHECKING</string>
     <string name="str_confirm">Confirm</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_continue">Continue</string>
@@ -69,6 +69,7 @@
     <string name="str_close">Close</string>
     <string name="str_wait">Wait</string>
     <string name="str_stake">Stake</string>
+    <string name="str_start_stake">Stake</string>
     <string name="str_unstake">Unstake</string>
     <string name="str_switch_validator">Switch validator</string>
     <string name="str_claim_rewards">Claim rewards</string>
@@ -98,6 +99,8 @@
     <string name="str_borrow">Borrow</string>
     <string name="str_repay">Repay</string>
     <string name="str_create_mint">Open mint</string>
+    <string name="str_cancel_unstake">Cancel unstake</string>
+    <string name="str_select_valuables">Select wallets with asset</string>
 
 
     //title
@@ -157,9 +160,9 @@
     <string name="title_fee_select">Select coin to use as Tx fee</string>
     <string name="title_address_confirm">Address confirm</string>
     <string name="title_name_service">Search Result %1$s NameServices</string>
-    <string name="title_tx_result" translatable="false">Tx Reuslt</string>
-    <string name="title_more_wait">Result Display Delayed</string>
-    <string name="title_stake_info">Staking Info</string>
+    <string name="title_tx_result">Tx result</string>
+    <string name="title_more_wait">Result display delayed</string>
+    <string name="title_stake_info">Staking info</string>
     <string name="title_option">Select option</string>
     <string name="title_delegate_amount">Delegate amount</string>
     <string name="title_undelegate_amount">Undelegate amount</string>
@@ -209,8 +212,6 @@
     <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_address_copied">Address copied</string>
     <string name="str_msg_mnemonic_copied">Mnemonic copied\nClear your clipboard after paste it!</string>
-    <string name="str_msg_checking" translatable="false">Checking your all asset with onchain</string>
-    <string name="str_msg_by_cosmostation" translatable="false">Powered by\nCosmostation Web3 Infrastructure</string>
     <string name="str_msg_enter_pin" translatable="false">Enter PIN</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_empty_account_name" translatable="false">Please insert account name.</string>
@@ -230,6 +231,7 @@
     <string name="str_tx_success_msg" translatable="false">The transaction is completed\nYou can view details on Mintscan.</string>
     <string name="str_view_mintscan_msg" translatable="false">View in Mintscan</string>
     <string name="str_more_wait_msg">The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. \n\nPlease press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.</string>
+    <string name="str_stake_msg">Add staking quantity.</string>
     <string name="str_unstake_msg">Start unstaking.</string>
     <string name="str_switch_validator_msg">Continue staking with changing validators.</string>
     <string name="str_claim_rewards_msg">You receive accumulated rewards.</string>

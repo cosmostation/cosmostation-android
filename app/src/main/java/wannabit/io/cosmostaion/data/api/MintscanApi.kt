@@ -24,7 +24,7 @@ interface MintscanApi {
     @GET("v1/meta/support/chains")
     suspend fun chain(): Response<ChainResponse>
 
-    @GET("v2/utils/params/{chain}")
+    @GET("v10/utils/params/{chain}")
     suspend fun param(@Path("chain") chain:String): Response<Param>
 
     @GET("v3/assets/{chain}/cw20")

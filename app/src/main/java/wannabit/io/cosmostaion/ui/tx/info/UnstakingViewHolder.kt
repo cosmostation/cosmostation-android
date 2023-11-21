@@ -26,7 +26,7 @@ class UnstakingViewHolder(
             headerCnt.text = cnt.toString()
 
             unstakingView.setOnClickListener {
-                listener.selectUnStakingCancelAction(validator)
+                listener.selectUnStakingCancelAction(entry)
             }
 
             validator?.let { validator ->

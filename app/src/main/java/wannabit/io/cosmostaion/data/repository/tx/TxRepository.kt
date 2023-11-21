@@ -6,6 +6,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
+import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
@@ -127,6 +128,23 @@ interface TxRepository {
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
+        fee: Fee?,
+        memo: String
+    ): Any?
+
+    suspend fun broadcastCancelUnbondingTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
+
+    suspend fun simulateCancelUnbondingTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
         memo: String
     ): Any?

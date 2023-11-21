@@ -10,6 +10,7 @@ import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.distribution.v1beta1.TxProto.MsgWithdrawDelegatorReward
 import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
+import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.signing.v1beta1.SigningProto
@@ -228,6 +229,34 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate")
                 .setValue(msgReDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genCancelUnbondingBroadcast(
+        auth: QueryAccountResponse?,
+        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, memo, selectedChain)
+    }
+
+    fun genCancelUnbondingSimulate(
+        auth: QueryAccountResponse?,
+        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String
+    ): SimulateRequest? {
+        return signSimulTx(auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, memo)
+    }
+
+    private fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation")
+                .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
         )
         return msgAnys
     }

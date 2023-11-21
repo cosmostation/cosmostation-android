@@ -156,7 +156,7 @@ class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
     private val selectClickAction = object : StakingInfoAdapter.ClickListener {
         var isClickable = true
         override fun selectStakingAction(validator: StakingProto.Validator?) {
-            val bottomSheet = StakingOptionFragment(selectedChain, validator, OptionType.STAKE)
+            val bottomSheet = StakingOptionFragment(selectedChain, validator, null, OptionType.STAKE)
             if (isClickable) {
                 isClickable = false
                 bottomSheet.show(requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name)
@@ -167,8 +167,8 @@ class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
             }
         }
 
-        override fun selectUnStakingCancelAction(validator: StakingProto.Validator?) {
-            val bottomSheet = StakingOptionFragment(selectedChain, validator, OptionType.UNSTAKE)
+        override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
+            val bottomSheet = StakingOptionFragment(selectedChain, null, unBondingEntry, OptionType.UNSTAKE)
             if (isClickable) {
                 isClickable = false
                 bottomSheet.show(requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name)

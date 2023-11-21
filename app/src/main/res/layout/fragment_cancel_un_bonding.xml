@@ -16,17 +16,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/vault_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/font_sb_16"
-            android:textColor="@color/color_base01" />
+            android:textColor="@color/color_base01"
+            android:text="Cancel unstaking"/>
 
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/amount_view"
+        android:id="@+id/cancel_unstaking_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
@@ -38,43 +38,68 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/space_15"
-            android:paddingHorizontal="@dimen/space_16">
+            android:paddingBottom="@dimen/space_16">
 
             <TextView
-                android:id="@+id/vault_amount_title"
+                android:id="@+id/validators_title"
+                style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Validators"
+                android:textColor="@color/color_base02"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginStart="@dimen/space_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/validator_name"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="@dimen/space_16"
+                android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cancel_amount_title"
                 style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_20"
+                android:text="Cancel amount"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_vault_deposit_amount"/>
+                app:layout_constraintTop_toBottomOf="@+id/validators_title" />
 
             <TextView
-                android:id="@+id/vault_amount"
-                style="@style/font_sm_12"
-                android:layout_width="wrap_content"
+                android:id="@+id/cancel_amount"
+                style="@style/font_sb_14"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:text="@string/str_tap_for_add_amount_msg"
-                android:textColor="@color/color_base03"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vault_amount_title" />
-
-            <TextView
-                android:id="@+id/vault_denom"
-                style="@style/font_sm_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginStart="@dimen/space_4"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_18"
+                android:gravity="end"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/color_base01"
-                app:layout_constraintStart_toEndOf="@+id/vault_amount"
-                app:layout_constraintTop_toBottomOf="@+id/vault_amount_title"
-                app:layout_constraintBaseline_toBaselineOf="@+id/vault_amount"
-                android:visibility="gone"/>
+                app:layout_constraintEnd_toStartOf="@+id/cancel_denom"
+                app:layout_constraintStart_toEndOf="@+id/cancel_amount_title"
+                app:layout_constraintTop_toBottomOf="@+id/validator_name" />
+
+            <TextView
+                android:id="@+id/cancel_denom"
+                style="@style/font_sb_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginEnd="@dimen/space_16"
+                android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/cancel_amount" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,7 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_20"
-        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cancel_unstake"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -252,7 +277,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btn_confirm"
+        android:id="@+id/btn_cancel_unstake"
         style="@style/font_sb_16"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_54"
@@ -262,7 +287,7 @@
         android:layout_marginBottom="12dp"
         android:background="@drawable/button_disable_bg"
         android:enabled="false"
-        android:text="@string/str_deposit"
+        android:text="@string/str_cancel_unstake"
         android:textAllCaps="false"
         android:textColor="@color/color_base03"
         app:layout_constraintBottom_toBottomOf="parent"

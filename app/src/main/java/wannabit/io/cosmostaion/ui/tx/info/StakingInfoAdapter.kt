@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
@@ -120,6 +119,6 @@ class StakingInfoAdapter(
 
     interface ClickListener {
         fun selectStakingAction(validator: StakingProto.Validator?)
-        fun selectUnStakingCancelAction(validator: StakingProto.Validator?)
+        fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?)
     }
 }

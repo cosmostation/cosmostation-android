@@ -16,14 +16,18 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentStakingOptionBinding
 import wannabit.io.cosmostaion.ui.tx.info.OptionType
+import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
+import wannabit.io.cosmostaion.ui.tx.step.CancelUnBondingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ReDelegateFragment
+import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
 
 class StakingOptionFragment(
     val selectedChain: CosmosLine,
     val validator: StakingProto.Validator?,
+    private val unBondingEntry: UnBondingEntry?,
     private val optionType: OptionType?
 ) : BottomSheetDialogFragment() {
 
@@ -46,12 +50,14 @@ class StakingOptionFragment(
 
     private fun initView() {
         binding.apply {
+            stakeLayout.visibleOrGone(optionType == OptionType.STAKE)
             unstakeLayout.visibleOrGone(optionType == OptionType.STAKE)
             switchValidatorLayout.visibleOrGone(optionType == OptionType.STAKE)
             claimRewardsLayout.visibleOrGone(optionType == OptionType.STAKE)
             compoundingLayout.visibleOrGone(optionType == OptionType.STAKE)
             unstakeCancelLayout.goneOrVisible(optionType == OptionType.STAKE)
 
+            view0.visibleOrGone(optionType == OptionType.STAKE)
             view1.visibleOrGone(optionType == OptionType.STAKE)
             view2.visibleOrGone(optionType == OptionType.STAKE)
             view3.visibleOrGone(optionType == OptionType.STAKE)
@@ -63,6 +69,24 @@ class StakingOptionFragment(
     private fun clickAction() {
         var isClickable = true
         binding.apply {
+            stakeLayout.setOnClickListener {
+                if (!selectedChain.isTxFeePayable(requireContext())) {
+                    requireContext().makeToast(R.string.error_not_enough_fee)
+                    return@setOnClickListener
+                }
+
+                val bottomSheet = StakingFragment(selectedChain)
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(requireActivity().supportFragmentManager, StakingFragment::class.java.name)
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+                dismiss()
+            }
+
             unstakeLayout.setOnClickListener {
                 if (!selectedChain.isTxFeePayable(requireContext())) {
                     requireContext().makeToast(R.string.error_not_enough_fee)
@@ -158,6 +182,17 @@ class StakingOptionFragment(
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
+
+                val bottomSheet = CancelUnBondingFragment(selectedChain, unBondingEntry)
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(requireActivity().supportFragmentManager, CancelUnBondingFragment::class.java.name)
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+                dismiss()
             }
         }
     }

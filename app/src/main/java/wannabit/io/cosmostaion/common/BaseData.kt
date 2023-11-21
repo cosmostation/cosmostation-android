@@ -68,15 +68,9 @@ object BaseData {
     fun isAutoPass(): Boolean {
         val now = Calendar.getInstance().timeInMillis
         return when (Prefs.autoPass) {
-            1 -> {
-                Prefs.lastTime + BaseConstant.CONSTANT_M * 5 > now
-            }
-            2 -> {
-                Prefs.lastTime + BaseConstant.CONSTANT_M * 10 > now
-            }
-            3 -> {
-                Prefs.lastTime + BaseConstant.CONSTANT_M * 30 > now
-            }
+            1 -> { Prefs.lastTime + BaseConstant.CONSTANT_M * 5 > now }
+            2 -> { Prefs.lastTime + BaseConstant.CONSTANT_M * 10 > now }
+            3 -> { Prefs.lastTime + BaseConstant.CONSTANT_M * 30 > now }
             else -> false
         }
     }
@@ -136,12 +130,37 @@ object BaseData {
         }
     }
 
-    suspend fun updateRefAddressesMain(accountId: Long?, chainTag: String?, dpAddress: String?, refAddress: RefAddress) {
+    suspend fun updateRefAddressesMain(refAddress: RefAddress) {
         val refDao = AppDatabase.getInstance().refAddressDao()
 
-        val existRefAddress = refDao.getRefAddress(accountId, chainTag, dpAddress)
+        val existRefAddress =
+            refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
         if (existRefAddress != null) {
-            refDao.update(refAddress)
+            refDao.updateMain(
+                refAddress.lastMainValue,
+                refAddress.lastMainAmount,
+                refAddress.lastCoinCnt,
+                refAddress.accountId,
+                refAddress.chainTag,
+                refAddress.dpAddress
+            )
+        } else {
+            refDao.insert(refAddress)
+        }
+    }
+
+    suspend fun updateRefAddressesToken(refAddress: RefAddress) {
+        val refDao = AppDatabase.getInstance().refAddressDao()
+
+        val existRefAddress =
+            refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
+        if (existRefAddress != null) {
+            refDao.updateToken(
+                refAddress.lastTokenValue,
+                refAddress.accountId,
+                refAddress.chainTag,
+                refAddress.dpAddress
+            )
         } else {
             refDao.insert(refAddress)
         }

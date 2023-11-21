@@ -266,6 +266,41 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun broadcastCancelUnbondingTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genCancelUnbondingBroadcast(account, msgCancelUnbondingDelegation, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun simulateCancelUnbondingTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
+        fee: Fee?,
+        memo: String
+    ): Any? {
+        return try {
+            val simulStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genCancelUnbondingSimulate(account, msgCancelUnbondingDelegation, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
     override suspend fun broadcastGetRewardsTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,

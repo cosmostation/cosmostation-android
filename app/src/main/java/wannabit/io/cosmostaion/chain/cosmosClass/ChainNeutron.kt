@@ -78,8 +78,8 @@ class ChainNeutron : CosmosLine() {
             fetched = true
 
             if (fetched) {
-                val refAddress = RefAddress(id, tag, address, allStakingDenomAmount().toString(), allAssetValue().toPlainString(), "0", cosmosBalances.size.toLong())
-                BaseData.updateRefAddressesMain(id, tag, address, refAddress)
+                val refAddress = RefAddress(id, tag, address, allAssetValue().toPlainString(), allStakingDenomAmount().toString(), "0", cosmosBalances.size.toLong())
+                BaseData.updateRefAddressesMain(refAddress)
             }
             it.cancel()
         }

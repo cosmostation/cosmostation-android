@@ -71,6 +71,10 @@ fun formatAssetValue(value: BigDecimal): SpannableString {
     return spannableString
 }
 
+fun formatPercent(value: String): SpannableString {
+    return formatString("$value%", 3)
+}
+
 fun priceChangeStatus(lastUpDown: BigDecimal): SpannableString {
     return if (BigDecimal.ZERO > lastUpDown) {
         formatString("- " + lastUpDown.toString().replace("-", "") + "%", 3)
