@@ -55,8 +55,8 @@ class AddressFragment(
                 title.text = getString(R.string.title_reward_recipient_address)
                 btnSelf.visibility = View.VISIBLE
             } else {
-                title.text = getString(R.string.title_reward_recipient_address)
-                btnSelf.visibility = View.VISIBLE
+                title.text = getString(R.string.title_recipient_address)
+                btnSelf.visibility = View.GONE
             }
 
             if (existAddress.isNotEmpty()) {
@@ -159,7 +159,7 @@ class AddressFragment(
     }
 }
 
-enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER }
+enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER, BEP3_TRANSFER }
 
 interface AddressListener {
     fun address(address: String)

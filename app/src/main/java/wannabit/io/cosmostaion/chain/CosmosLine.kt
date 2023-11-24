@@ -110,6 +110,10 @@ open class CosmosLine : BaseChain() {
         return allValue
     }
 
+    fun allValue(): BigDecimal {
+        return allAssetValue().add(allTokenValue())
+    }
+
     fun loadData(id: Long) {
         CoroutineScope(Dispatchers.IO).launch {
             val paramData = try {
@@ -479,7 +483,17 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadAllCw20Balance(id: Long) {
+    interface LoadTokenCallback {
+        fun onTokenLoaded(isLoaded: Boolean)
+    }
+
+    open var loadTokenCallback: LoadTokenCallback? = null
+
+    fun setLoadTokenCallBack(callback: LoadTokenCallback) {
+        loadTokenCallback = callback
+    }
+
+    fun loadAllCw20Balance(id: Long) {
         val channel = getChannel()
         val scope = CoroutineScope(Dispatchers.Default)
         val deferredList = mutableListOf<Deferred<Unit>>()
@@ -493,8 +507,9 @@ open class CosmosLine : BaseChain() {
 
         runBlocking {
             deferredList.awaitAll()
+            loadTokenCallback?.onTokenLoaded(true)
 
-            val refAddress = RefAddress(id, tag, address, "0", "0", allAssetValue().toPlainString(), 0)
+            val refAddress = RefAddress(id, tag, address, "0", "0", allTokenValue().toPlainString(), 0)
             BaseData.updateRefAddressesToken(refAddress)
         }
 
@@ -703,14 +718,34 @@ open class CosmosLine : BaseChain() {
         return BigDecimal.ZERO
     }
 
-    fun cw20Value(address: String): BigDecimal {
-        val token = tokens.firstOrNull { it.address == address }
-        if (token != null) {
-            val price = BaseData.getPrice(token.coinGeckoId)
-            return price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                .setScale(6, RoundingMode.DOWN)
+    fun tokenValue(address: String): BigDecimal {
+        if (supportCw20) {
+            tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
+                return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+                    .setScale(6, RoundingMode.DOWN)
+            }
+        }
+        if (supportErc20) {
+
         }
         return BigDecimal.ZERO
+    }
+
+    private fun allTokenValue(): BigDecimal {
+        var result = BigDecimal.ZERO
+        if (supportCw20) {
+            tokens.forEach { tokenInfo ->
+                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
+                val value = price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+                    .setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
+        }
+        if (supportErc20) {
+            result
+        }
+        return result
     }
 
     private fun allCw20ValueSum(): BigDecimal {
@@ -819,11 +854,11 @@ open class CosmosLine : BaseChain() {
 }
 
 
-fun allCosmosLines(): List<CosmosLine> {
+fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
-    lines.add(ChainBinanceBeacon())
+//    lines.add(ChainBinanceBeacon())
     lines.add(ChainEvmos())
     lines.add(ChainInjective())
     lines.add(ChainIris())
@@ -841,4 +876,4 @@ fun allCosmosLines(): List<CosmosLine> {
     return lines
 }
 
-val DEFAULT_DISPLAY_COSMOS = mutableListOf("cosmos118", "osmosis118", "binance714", "evmos60")
+val DEFAULT_DISPLAY_COSMOS = mutableListOf("cosmos118", "evmos60", "osmosis118")

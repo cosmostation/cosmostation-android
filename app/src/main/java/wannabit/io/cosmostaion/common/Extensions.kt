@@ -293,6 +293,18 @@ fun Button.updateButtonView(isBtnEnabled: Boolean) {
     }
 }
 
+fun Button.updateSelectButtonView(isBtnEnabled: Boolean) {
+    if (isBtnEnabled) {
+        isEnabled = true
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+        setBackgroundResource(R.drawable.button_enable_select_bg)
+    } else {
+        isEnabled = false
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_base03))
+        setBackgroundResource(R.drawable.button_select_bg)
+    }
+}
+
 fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
     val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain?.apiName +  "/transactions/" + txHash
     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))

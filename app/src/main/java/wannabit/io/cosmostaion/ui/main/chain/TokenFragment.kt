@@ -8,7 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -36,59 +41,74 @@ class TokenFragment(position: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
+        initData()
     }
 
-    private fun initRecyclerView() {
-        val tokens = mutableListOf<Token>()
+    private fun initData() {
         val baseAccount = BaseData.baseAccount
         baseAccount?.let { account ->
             val selectedChain = account.displayCosmosLineChains[selectedPosition]
-            selectedChain.tokens.forEach { token ->
-                if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                    tokens.add(token)
+            CoroutineScope(Dispatchers.IO).launch {
+                if (selectedChain.supportCw20) {
+                    selectedChain.loadAllCw20Balance(account.id)
+                } else {
+                    // erc20
+                }
+                withContext(Dispatchers.Main) {
+                    if (isAdded) {
+                        initRecyclerView(selectedChain)
+                    }
                 }
             }
-
-            tokens.sortWith { o1, o2 ->
-                val value0 = selectedChain.cw20Value(o1.address)
-                val value1 = selectedChain.cw20Value(o2.address)
-                when {
-                    value0 > value1 -> -1
-                    value0 < value1 -> 1
-                    else -> 0
-                }
-            }
-
-            tokenAdapter = TokenAdapter(requireContext(), selectedChain)
-            binding.recycler.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = tokenAdapter
-                tokenAdapter.submitList(tokens)
-            }
-
-            var isClickable = true
-            tokenAdapter.setOnItemClickListener { line, denom ->
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnItemClickListener
-                }
-
-                val bottomSheet = TransferFragment(line, denom)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
-
-            binding.recycler.visibleOrGone(selectedChain.tokens.isNotEmpty())
-            binding.emptyLayout.visibleOrGone(selectedChain.tokens.isEmpty())
         }
+    }
+
+    private fun initRecyclerView(selectedChain: CosmosLine) {
+        val tokens = mutableListOf<Token>()
+        selectedChain.tokens.forEach { token ->
+            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+                tokens.add(token)
+            }
+        }
+
+        tokens.sortWith { o1, o2 ->
+            val value0 = selectedChain.tokenValue(o1.address)
+            val value1 = selectedChain.tokenValue(o2.address)
+            when {
+                value0 > value1 -> -1
+                value0 < value1 -> 1
+                else -> 0
+            }
+        }
+
+        tokenAdapter = TokenAdapter(requireContext(), selectedChain)
+        binding.recycler.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = tokenAdapter
+            tokenAdapter.submitList(tokens)
+        }
+
+        var isClickable = true
+        tokenAdapter.setOnItemClickListener { line, denom ->
+            if (!selectedChain.isTxFeePayable(requireContext())) {
+                requireContext().makeToast(R.string.error_not_enough_fee)
+                return@setOnItemClickListener
+            }
+
+            val bottomSheet = TransferFragment(line, denom)
+            if (isClickable) {
+                isClickable = false
+                bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+            }
+        }
+
+        binding.recycler.visibleOrGone(selectedChain.tokens.isNotEmpty())
+        binding.emptyLayout.visibleOrGone(selectedChain.tokens.isEmpty())
     }
 
     override fun onDestroyView() {

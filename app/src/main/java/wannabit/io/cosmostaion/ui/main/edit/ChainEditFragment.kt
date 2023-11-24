@@ -1,30 +1,28 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
-import android.app.Activity
-import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.updateSelectButtonView
+import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
-import wannabit.io.cosmostaion.ui.main.DashboardFragment
+import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import java.math.BigDecimal
 
-class ChainEditFragment : BottomSheetDialogFragment() {
+class ChainEditFragment : BaseTxFragment() {
 
     private var _binding: FragmentChainEditBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +30,9 @@ class ChainEditFragment : BottomSheetDialogFragment() {
     private lateinit var chainEditAdapter: ChainEditAdapter
 
     private var baseAccount: BaseAccount? = null
-    private var displayChainLines: MutableList<String> = mutableListOf()
+    private var allCosmosChains: MutableList<CosmosLine> = mutableListOf()
+    private var searchCosmosChains: MutableList<CosmosLine> = mutableListOf()
+    private var toDisplayChainLines: MutableList<String> = mutableListOf()
 
     private var job = Job()
 
@@ -41,15 +41,6 @@ class ChainEditFragment : BottomSheetDialogFragment() {
     ): View {
         _binding = FragmentChainEditBinding.inflate(layoutInflater, container, false)
         return binding.root
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { dialogInterface ->
-            val bottomSheetDialog = dialogInterface as BottomSheetDialog
-            setupRatio(bottomSheetDialog)
-        }
-        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,15 +52,25 @@ class ChainEditFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
-        baseAccount = BaseData.baseAccount
-        baseAccount?.let { account ->
-            displayChainLines = Prefs.getDisplayChains(account)
+        binding.apply {
+            baseAccount = BaseData.baseAccount
+            baseAccount?.let { account ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    account.sortCosmosLine()
+                    account.initAllData()
+                }
 
-            binding.apply {
-                lottieAnimationView.speed = 1.3f
-                checkingCnt.text = "(0 / " + account.allCosmosLineChains.size + ")"
+                allCosmosChains = account.allCosmosLineChains
+                searchCosmosChains = allCosmosChains
+                toDisplayChainLines = Prefs.getDisplayChains(account)
+
+                chainEditAdapter = ChainEditAdapter(account, searchCosmosChains, toDisplayChainLines, editClickAction)
+                recycler.setHasFixedSize(true)
+                recycler.layoutManager = LinearLayoutManager(requireContext())
+                recycler.adapter = chainEditAdapter
+
+                binding.btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
             }
-            account.initAllData()
         }
     }
 
@@ -77,119 +78,82 @@ class ChainEditFragment : BottomSheetDialogFragment() {
         var fetchedCnt = 0
         baseAccount?.let { account ->
             binding.apply {
-                account.allCosmosLineChains.forEach { line ->
-                    if (line.fetched) fetchedCnt ++
-                    line.setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
-                        override fun onDataLoaded(isLoaded: Boolean) {
-                            CoroutineScope(Dispatchers.IO + job).launch {
-                                withContext(Dispatchers.Main) {
-                                    if (isLoaded) {
-                                        fetchedCnt++
-                                        checkingCnt.text = "($fetchedCnt / ${account.allCosmosLineChains.size})"
-                                    }
-
-                                    if (fetchedCnt == account.allCosmosLineChains.size) {
-                                        account.sortCosmosLine()
-                                        lottieAnimationView.visibility = View.GONE
-                                        checkingLayout.visibility = View.GONE
-                                        checkMsg.visibility = View.GONE
-                                        checkPower.visibility = View.GONE
-
-                                        editLayout.visibility = View.VISIBLE
-                                        chainEditAdapter = ChainEditAdapter(account, displayChainLines)
-
-                                        recycler.apply {
-                                            setHasFixedSize(true)
-                                            layoutManager = LinearLayoutManager(requireContext())
-                                            adapter = chainEditAdapter
-                                            chainEditAdapter.submitList(account.allCosmosLineChains as List<Any>?)
+                for (i in 0 until searchCosmosChains.size) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        AppDatabase.getInstance().refAddressDao().selectRefAddress(account.id, searchCosmosChains[i].tag)?.let {
+                            searchCosmosChains[i].setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
+                                override fun onDataLoaded(isLoaded: Boolean) {
+                                    lifecycleScope.launch {
+                                        withContext(Dispatchers.Main) {
+                                            if (isLoaded) {
+                                                fetchedCnt++
+                                                chainEditAdapter.notifyItemChanged(i)
+                                            }
+                                            btnSelect.updateSelectButtonView(fetchedCnt == searchCosmosChains.size - account.displayCosmosLineChains.size)
                                         }
                                     }
                                 }
-                            }
+                            })
                         }
-                    })
+                    }
                 }
             }
+        }
+    }
+
+    private val editClickAction = object : ChainEditAdapter.SelectListener {
+        override fun select(displayChainLines: MutableList<String>) {
+            toDisplayChainLines = displayChainLines
         }
     }
 
     private fun clickAction() {
-        val saveChainLine = mutableListOf<String>()
-        binding.btnConfirm.setOnClickListener {
-            baseAccount?.let { account ->
-                account.allCosmosLineChains.sortWith { o1, o2 ->
-                    when {
-                        o1.tag == "cosmos118" -> -1
-                        o2.tag == "cosmos118" -> 1
-                        else -> {
-                            when {
-                                o1.allAssetValue() > o2.allAssetValue() -> -1
-                                o1.allAssetValue() < o2.allAssetValue() -> 1
-                                else -> 0
+        binding.apply {
+            btnSelect.setOnClickListener {
+                baseAccount?.let { account ->
+                    account.reSortCosmosChains()
+                    allCosmosChains = account.allCosmosLineChains
+
+                    toDisplayChainLines.clear()
+                    toDisplayChainLines.add("cosmos118")
+                    allCosmosChains.forEach { line ->
+                        if (line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118") {
+                            toDisplayChainLines.add(line.tag)
+                        }
+                    }
+
+                    searchCosmosChains.sortWith { o1, o2 ->
+                        when {
+                            o1.tag == "cosmos118" -> -1
+                            o2.tag == "cosmos118" -> 1
+                            else -> {
+                                when {
+                                    o1.allValue() > o2.allValue() -> -1
+                                    o1.allValue() < o2.allValue() -> 1
+                                    else -> 0
+                                }
                             }
                         }
                     }
-                }
-                account.allCosmosLineChains.forEach { line ->
-                    if (displayChainLines.contains(line.tag)) {
-                        saveChainLine.add(line.tag)
-                    }
-                }
-                Prefs.setDisplayChains(account, saveChainLine)
-            }
-
-            val fragment = parentFragmentManager.fragments.firstOrNull { dashboardFragment ->
-                dashboardFragment is DashboardFragment
-            } as? DashboardFragment
-            fragment?.onResume()
-            dismiss()
-        }
-    }
-
-    private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
-        val behavior = BottomSheetBehavior.from(bottomSheet)
-        val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = getBottomSheetDialogDefaultHeight()
-        bottomSheet.layoutParams = layoutParams
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 19 / 20
-    }
-
-    private fun getWindowHeight(): Int {
-        val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
-        return displayMetrics.heightPixels
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val bottomSheetDialog = dialog as BottomSheetDialog
-        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-
-        bottomSheet?.let { sheet ->
-            val behavior = BottomSheetBehavior.from(sheet)
-            behavior.isHideable = true
-
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    searchCosmosChains.sortWith { o1, o2 ->
+                        when {
+                            o1.tag == "cosmos118" -> -1
+                            o2.tag == "cosmos118" -> 1
+                            Prefs.getDisplayChains(account).contains(o1.tag) && !Prefs.getDisplayChains(account).contains(o2.tag) -> -1
+                            else -> 1
                         }
                     }
+                    chainEditAdapter.notifyDataSetChanged()
                 }
+            }
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            btnConfirm.setOnClickListener {
+                baseAccount?.let { baseAccount ->
+                    Prefs.setDisplayChains(baseAccount, toDisplayChainLines)
+                    ApplicationViewModel.shared.walletEdit()
+                    dismiss()
                 }
-            })
+            }
         }
     }
 

@@ -9,8 +9,10 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.Prefs
+import java.math.BigDecimal
 import java.util.UUID
 
 @Entity(tableName = "account")
@@ -42,22 +44,30 @@ data class BaseAccount(
     @Ignore
     var displayCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
-    fun initAllData() {
-        allCosmosLineChains.clear()
-        allCosmosLines().forEach { line ->
-            allCosmosLineChains.add(line)
-        }
+    fun initAccount() {
+        allCosmosLineChains = allCosmosLines()
+        sortCosmosLine()
+    }
 
+    fun initAllData() {
         if (type == BaseAccountType.MNEMONIC) {
             allCosmosLineChains.forEach { line ->
-                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                line.loadData(id)
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                }
+                if (!line.fetched) {
+                    line.loadData(id)
+                }
             }
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
-            allCosmosLines().forEach { line ->
-                line.setInfoWithPrivateKey(privateKey)
-                line.loadData(id)
+            allCosmosLineChains.forEach { line ->
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithPrivateKey(privateKey)
+                }
+                if (!line.fetched) {
+                    line.loadData(id)
+                }
             }
         }
     }
@@ -65,31 +75,43 @@ data class BaseAccount(
     fun initDisplayData() {
         displayCosmosLineChains.clear()
         val displayNames = Prefs.getDisplayChains(this)
-        displayNames.forEach { chainId ->
-            val displayChain = allCosmosLines().firstOrNull{ it.tag == chainId }
+        allCosmosLineChains.forEach { line ->
+            val displayChain = displayNames.firstOrNull { it == line.tag }
             if (displayChain != null) {
-                displayCosmosLineChains.add(displayChain)
+                displayCosmosLineChains.add(line)
             }
         }
 
         if (type == BaseAccountType.MNEMONIC) {
             displayCosmosLineChains.forEach { line ->
-                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                line.loadData(id)
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                }
+                if (!line.fetched) {
+                    line.loadData(id)
+                }
             }
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
             displayCosmosLineChains.forEach { line ->
-                line.setInfoWithPrivateKey(privateKey)
-                line.loadData(id)
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithPrivateKey(privateKey)
+                }
+                if (!line.fetched) {
+                    line.loadData(id)
+                }
             }
         }
     }
 
     fun updateAllValue() {
         displayCosmosLineChains.forEach { line ->
-            line.allAssetValue()
+            line.allValue()
         }
+    }
+
+    private fun lastValue(tag: String): BigDecimal {
+        return AppDatabase.getInstance().refAddressDao().selectRefAddress(id, tag)?.lastUsdValue() ?: BigDecimal.ZERO
     }
 
     fun sortCosmosLine() {
@@ -99,20 +121,34 @@ data class BaseAccount(
                 o2.tag == "cosmos118" -> 1
                 else -> {
                     when {
-                        o1.allAssetValue() > o2.allAssetValue() -> -1
-                        o1.allAssetValue() < o2.allAssetValue() -> 1
+                        lastValue(o1.tag) > lastValue(o2.tag) -> -1
+                        lastValue(o1.tag) < lastValue(o2.tag) -> 1
                         else -> 0
                     }
                 }
             }
         }
-        val displayName = Prefs.getDisplayChains(this)
         allCosmosLineChains.sortWith { o1, o2 ->
             when {
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
-                displayName.contains(o1.tag) && !displayName.contains(o2.tag) -> -1
-                else -> 0
+                Prefs.getDisplayChains(this).contains(o1.tag) && !Prefs.getDisplayChains(this).contains(o2.tag) -> -1
+                else -> 1
+            }
+        }
+    }
+
+    fun reSortCosmosChains() {
+        allCosmosLineChains.sortWith { o1, o2 ->
+            when {
+                o1.tag == "cosmos118" -> -1
+                o2.tag == "cosmos118" -> 1
+                else -> {
+                    when {
+                        o1.allAssetValue() > o2.allAssetValue() -> -1
+                        else -> 1
+                    }
+                }
             }
         }
     }

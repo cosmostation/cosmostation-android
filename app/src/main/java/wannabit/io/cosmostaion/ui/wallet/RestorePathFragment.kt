@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.databinding.FragmentRestorePathBinding
 import wannabit.io.cosmostaion.ui.dialog.path.HdPathSelectDialog
@@ -117,7 +118,7 @@ class RestorePathFragment(val name: String, val mnemonic: String) : Fragment() {
                 withContext(Dispatchers.Main) {
                     binding.backdropLayout.visibility = View.GONE
                     requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
-                    ApplicationViewModel.shared.currentAccount()
+                    ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
 
                     requireActivity().finish()
                     requireActivity().overridePendingTransition(0, 0)

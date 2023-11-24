@@ -13,6 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentRestorePrivateBinding
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -80,7 +81,7 @@ class RestorePrivateFragment(val name: String) : Fragment() {
                 withContext(Dispatchers.Main) {
                     binding.backdropLayout.visibility = View.GONE
                     requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
-                    ApplicationViewModel.shared.currentAccount()
+                    ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
 
                     requireActivity().finish()
                     requireActivity().overridePendingTransition(0, 0)

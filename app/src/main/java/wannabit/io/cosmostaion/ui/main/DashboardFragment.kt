@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,19 +50,20 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModels()
-        updateView()
+        baseAccount = BaseData.baseAccount
+//        updateView()
         refreshData()
     }
 
     private fun updateView() {
-        initView()
+        baseAccount?.initDisplayData()
         initRecyclerView()
         onUpdateLoadData()
     }
 
-    private fun initView() {
-        baseAccount = BaseData.baseAccount
-        baseAccount?.initDisplayData()
+    override fun onResume() {
+        super.onResume()
+        updateView()
     }
 
     private fun initRecyclerView() {
@@ -108,7 +111,7 @@ class DashboardFragment : Fragment() {
         var sum = BigDecimal.ZERO
         baseAccount?.let {
             it.displayCosmosLineChains.forEach { line ->
-                sum = sum.add(line.allAssetValue())
+                sum = sum.add(line.allValue())
             }
             if (isAdded) {
                 requireActivity().runOnUiThread {
@@ -126,7 +129,15 @@ class DashboardFragment : Fragment() {
                         refresher.isRefreshing = false
                     } else {
                         walletViewModel.price(BaseData.currencyName().lowercase())
-                        updateView()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            account.initAccount()
+                            account.displayCosmosLineChains.forEach {
+                                it.fetched = false
+                            }
+                            withContext(Dispatchers.Main) {
+                                updateView()
+                            }
+                        }
                         refresher.isRefreshing = false
                     }
                 }
@@ -148,8 +159,23 @@ class DashboardFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) {
-            updateView()
+        ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) { account ->
+            baseAccount = account
+            CoroutineScope(Dispatchers.IO).launch {
+                baseAccount?.initAccount()
+                withContext(Dispatchers.Main) {
+                    updateView()
+                }
+            }
+        }
+
+        ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) {
+            CoroutineScope(Dispatchers.IO).launch {
+                baseAccount?.sortCosmosLine()
+                withContext(Dispatchers.Main) {
+                    updateView()
+                }
+            }
         }
     }
 

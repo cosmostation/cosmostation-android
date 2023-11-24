@@ -200,6 +200,8 @@
     <string name="title_select_swappool_action">Select swap pool</string>
     <string name="title_pool_deposit">Deposit to pool</string>
     <string name="title_pool_withdraw">Withdraw from pool</string>
+    <string name="title_select_transfer">Select transfer</string>
+    <string name="title_bep3_send">Bep3 send</string>
 
 
     // msg

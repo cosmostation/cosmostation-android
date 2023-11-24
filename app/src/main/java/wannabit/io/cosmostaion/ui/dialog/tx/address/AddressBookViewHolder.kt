@@ -35,7 +35,7 @@ class AddressBookViewHolder(
 
                         } else if (!line.isDefault) {
                             chainBadge.visibility = View.VISIBLE
-                            chainBadge.text = context.getString(R.string.str_deprecated)
+                            chainBadge.text = context.getString(R.string.str_legacy)
                             chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                             chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base02))
 

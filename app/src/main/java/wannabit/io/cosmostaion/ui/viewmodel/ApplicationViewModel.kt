@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
 class ApplicationViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,10 +17,10 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
             get() = CosmostationApp.instance.applicationViewModel
     }
 
-    private var _currentAccountResult = MutableLiveData<String>()
-    val currentAccountResult: LiveData<String> get() = _currentAccountResult
-    fun currentAccount() = viewModelScope.launch(Dispatchers.IO) {
-        _currentAccountResult.postValue("")
+    private var _currentAccountResult = MutableLiveData<BaseAccount?>()
+    val currentAccountResult: LiveData<BaseAccount?> get() = _currentAccountResult
+    fun currentAccount(baseAccount: BaseAccount?) = viewModelScope.launch(Dispatchers.IO) {
+        _currentAccountResult.postValue(baseAccount)
     }
 
 
@@ -41,10 +42,8 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-    private var _checkLoadStakeData = MutableLiveData<String>()
-    val checkLoadStakeData: LiveData<String> get() = _checkLoadStakeData
-
-    fun checkLoadStake() = viewModelScope.launch {
-        _checkLoadStakeData.postValue("")
+    var walletEditResult = SingleLiveEvent<Boolean>()
+    fun walletEdit() = viewModelScope.launch(Dispatchers.IO) {
+        walletEditResult.postValue(true)
     }
 }

@@ -38,7 +38,7 @@ class TokenViewHolder(
 
             token.amount?.toBigDecimal()?.movePointLeft(token.decimals)?.setScale(6, RoundingMode.DOWN)?.let { amount ->
                 coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                coinAmountValue.text = formatAssetValue(line.cw20Value(token.address))
+                coinAmountValue.text = formatAssetValue(line.tokenValue(token.address))
             }
         }
     }

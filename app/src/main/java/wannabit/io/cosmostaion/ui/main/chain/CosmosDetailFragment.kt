@@ -28,10 +28,10 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.select.VaultSelectFragment
-import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoListFragment
-import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
+import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
@@ -56,6 +56,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        updateTokenValue()
         initTab()
         clickAction()
         clickFabMenu()
@@ -70,12 +71,24 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 accountName.text = baseAccount.name
                 selectedChain = baseAccount.displayCosmosLineChains[selectedPosition]
                 accountAddress.text = selectedChain.address
-                accountValue.text = formatAssetValue(selectedChain.allAssetValue())
+                accountValue.text = formatAssetValue(selectedChain.allValue())
             }
             if (selectedChain.supportStaking) {
                 selectedChain.loadStakeData()
             }
         }
+    }
+
+    private fun updateTokenValue() {
+        selectedChain.setLoadTokenCallBack(object : CosmosLine.LoadTokenCallback {
+            override fun onTokenLoaded(isLoaded: Boolean) {
+                if (isAdded) {
+                    requireActivity().runOnUiThread {
+                        binding.accountValue.text = formatAssetValue(selectedChain.allValue())
+                    }
+                }
+            }
+        })
     }
 
     private fun initTab() {
@@ -101,6 +114,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 requireActivity(), selectedChain, selectedPosition
             )
             viewPager.adapter = pagerAdapter
+            viewPager.offscreenPageLimit = 2
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
 

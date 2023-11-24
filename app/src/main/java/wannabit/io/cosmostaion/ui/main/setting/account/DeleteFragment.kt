@@ -72,7 +72,7 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
                         if (BaseData.baseAccount?.id == baseAccount.id) {
                             Prefs.lastAccountId = AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
                             BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao().selectAccount(Prefs.lastAccountId)
-                            ApplicationViewModel.shared.currentAccount()
+                            ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
                         }
 
                     } else {

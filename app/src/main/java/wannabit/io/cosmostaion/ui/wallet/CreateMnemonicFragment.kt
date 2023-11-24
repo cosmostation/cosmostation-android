@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
@@ -134,7 +135,7 @@ class CreateMnemonicFragment(private val name: String) : Fragment() {
                 withContext(Dispatchers.Main) {
                     binding.backdropLayout.visibility = View.GONE
                     requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
-                    ApplicationViewModel.shared.currentAccount()
+                    ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
 
                     requireActivity().finish()
                     requireActivity().overridePendingTransition(0, 0)

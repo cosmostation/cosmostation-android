@@ -60,7 +60,7 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
                                         BaseData.baseAccount = account
                                     }
                                 }
-                                ApplicationViewModel.shared.currentAccount()
+                                ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
                             }
                         }
                         dismiss()

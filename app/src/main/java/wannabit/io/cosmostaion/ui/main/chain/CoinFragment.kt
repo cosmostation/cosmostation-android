@@ -11,12 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 
 class CoinFragment(position: Int) : Fragment() {
 
@@ -131,23 +135,73 @@ class CoinFragment(position: Int) : Fragment() {
             adapter = coinAdapter
             coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
 
-            var isClickable = true
             coinAdapter.setOnItemClickListener { line, denom ->
                 if (!selectedChain.isTxFeePayable(requireContext())) {
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnItemClickListener
                 }
 
-                val bottomSheet = TransferFragment(line, denom)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
+                if (line is ChainKava459) {
+                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                        selectBridgeOption(line, denom)
+                    } else {
+                        startTransfer(line, denom)
+                    }
+                } else if (line is ChainBinanceBeacon) {
+                    startTransfer(line, denom)
+                } else {
+                    startTransfer(line, denom)
                 }
             }
+        }
+    }
+
+    private fun startTransfer(line: CosmosLine, denom: String) {
+        var isClickable = true
+        val bottomSheet = TransferFragment(line, denom)
+        if (isClickable) {
+            isClickable = false
+            bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
+    private fun startBep3Transfer(line: CosmosLine, denom: String) {
+        var isClickable = true
+        val bottomSheet = Bep3Fragment(line, denom)
+        if (isClickable) {
+            isClickable = false
+            bottomSheet.show(requireActivity().supportFragmentManager, Bep3Fragment::class.java.name)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
+    private fun selectBridgeOption(line: CosmosLine, denom: String) {
+        var isClickable = true
+        val bottomSheet = BridgeOptionFragment(line, denom, bridgeClickAction)
+        if (isClickable) {
+            isClickable = false
+            bottomSheet.show(requireActivity().supportFragmentManager, BridgeOptionFragment::class.java.name)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
+    private val bridgeClickAction = object : BridgeClickListener {
+        override fun bep3Transfer(line: CosmosLine, denom: String) {
+            startBep3Transfer(line, denom)
+        }
+
+        override fun simpleTransfer(line: CosmosLine, denom: String) {
+            startTransfer(selectedChain, denom)
         }
     }
 
@@ -155,4 +209,9 @@ class CoinFragment(position: Int) : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+}
+
+interface BridgeClickListener {
+    fun bep3Transfer(line: CosmosLine, denom: String)
+    fun simpleTransfer(line: CosmosLine, denom: String)
 }

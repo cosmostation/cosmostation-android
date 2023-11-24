@@ -7,6 +7,15 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.stride.vesting.VestingProto.StridePeriodicVestingAccount
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_BNB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_BTCB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_BUSD
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_XRPB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_BNB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_BTCB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_BUSD
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_XRPB
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -373,5 +382,24 @@ object BaseUtils {
             return false
         }
         return true
+    }
+
+    fun isHtlcSwappableCoin(line: CosmosLine, denom: String): Boolean {
+        if (line is ChainBinanceBeacon) {
+            when (denom) {
+                TOKEN_HTLC_BINANCE_BNB -> { return true }
+                TOKEN_HTLC_BINANCE_BTCB -> { return true }
+                TOKEN_HTLC_BINANCE_XRPB -> { return true }
+                TOKEN_HTLC_BINANCE_BUSD -> { return true }
+            }
+        } else {
+            when (denom) {
+                TOKEN_HTLC_KAVA_BNB -> { return true }
+                TOKEN_HTLC_KAVA_BTCB -> { return true }
+                TOKEN_HTLC_KAVA_XRPB -> { return true }
+                TOKEN_HTLC_KAVA_BUSD -> { return true }
+            }
+        }
+        return false
     }
 }

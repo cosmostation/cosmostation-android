@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
@@ -36,7 +39,6 @@ class MainActivity : BaseActivity() {
 
         initViewModel()
         initView()
-        updateView()
         setupViewModels()
         clickAction()
     }
@@ -54,8 +56,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun updateView() {
-        val baseAccount = BaseData.baseAccount
-        binding.accountName.text = baseAccount?.name
+        binding.accountName.text = BaseData.baseAccount?.name
     }
 
     private fun setupViewModels() {
@@ -65,6 +66,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
+        CoroutineScope(Dispatchers.IO).launch {
+            BaseData.baseAccount?.initAccount()
+        }
+        updateView()
         val mainViewPagerAdapter = MainViewPageAdapter(this)
         binding.apply {
             mainViewPager.adapter = mainViewPagerAdapter

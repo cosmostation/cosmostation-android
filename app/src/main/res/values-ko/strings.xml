@@ -151,6 +151,8 @@
     <string name="title_select_swappool_action">스왑 풀 선택</string>
     <string name="title_pool_deposit">풀에 자산 넣기</string>
     <string name="title_pool_withdraw">풀에 자산 빼기</string>
+    <string name="title_select_transfer">전송 선택</string>
+    <string name="title_bep3_send">Bep3 전송</string>
 
 
     // msg

@@ -65,6 +65,7 @@ class DaoListViewHolder(
                     proposalData.proposal.expiration?.at_time?.toLong()?.let { expiration ->
                         voteRemainTime.text = voteDpTime(expiration.div(1000000)) + " (" + gapTime(expiration.div(1000000)) + ")"
                         voteRemainTime.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
+                        selectSwitch.visibility = View.VISIBLE
                         selectSwitch.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
                     }
 
@@ -75,6 +76,7 @@ class DaoListViewHolder(
                     }
                     voteRemainTime.text = proposalData.proposal?.status?.uppercase()
                     voteRemainTime.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                    selectSwitch.visibility = View.GONE
                 }
 
                 voteStatus.firstOrNull { it.contract_address == module?.address && it.proposal_id.toString() == proposal.second?.id }?.let { myVote ->
