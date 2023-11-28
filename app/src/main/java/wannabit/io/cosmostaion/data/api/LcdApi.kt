@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.BnbHistoryResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.NodeInfoResponse
+import wannabit.io.cosmostaion.data.model.res.SwapIdResponse
 
 interface LcdApi {
     @GET("api/v1/node-info")
@@ -21,4 +22,7 @@ interface LcdApi {
 
     @GET("api/v1/transactions")
     suspend fun bnbHistory(@Query("address") address: String?, @Query("startTime") startTime: String, @Query("endTime") endTime: String): Response<BnbHistoryResponse>
+
+    @GET("api/v1/atomic-swaps/{swapId}")
+    suspend fun swapById(@Path("swapId") swapId: String?): SwapIdResponse
 }

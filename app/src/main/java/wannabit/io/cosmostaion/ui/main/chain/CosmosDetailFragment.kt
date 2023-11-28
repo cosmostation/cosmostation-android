@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -340,12 +341,18 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
         private val fragments = mutableListOf<Fragment>()
 
         init {
-            fragments.add(CoinFragment(selectedPosition))
-            fragments.add(HistoryFragment(selectedPosition))
-            fragments.add(AboutFragment(selectedPosition))
+            if (selectedChain is ChainBinanceBeacon) {
+                fragments.add(CoinFragment(selectedPosition))
+                fragments.add(HistoryFragment(selectedPosition))
 
-            if (selectedChain.supportCw20 || selectedChain.supportErc20) {
-                fragments.add(1, TokenFragment(selectedPosition))
+            } else {
+                fragments.add(CoinFragment(selectedPosition))
+                fragments.add(HistoryFragment(selectedPosition))
+                fragments.add(AboutFragment(selectedPosition))
+
+                if (selectedChain.supportCw20 || selectedChain.supportErc20) {
+                    fragments.add(1, TokenFragment(selectedPosition))
+                }
             }
         }
 

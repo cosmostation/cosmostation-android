@@ -14,7 +14,6 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.updateSelectButtonView
-import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
@@ -47,7 +46,6 @@ class ChainEditFragment : BaseTxFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        initData()
         clickAction()
     }
 
@@ -58,45 +56,42 @@ class ChainEditFragment : BaseTxFragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     account.sortCosmosLine()
                     account.initAllData()
+
+                    withContext(Dispatchers.Main) {
+                        loading.visibility = View.GONE
+                        allCosmosChains = account.allCosmosLineChains
+                        searchCosmosChains = allCosmosChains
+
+                        toDisplayChainLines = Prefs.getDisplayChains(account)
+
+                        chainEditAdapter = ChainEditAdapter(account, searchCosmosChains, toDisplayChainLines, editClickAction)
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = chainEditAdapter
+
+                        binding.btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
+                        initData()
+                    }
                 }
-
-                allCosmosChains = account.allCosmosLineChains
-                searchCosmosChains = allCosmosChains
-                toDisplayChainLines = Prefs.getDisplayChains(account)
-
-                chainEditAdapter = ChainEditAdapter(account, searchCosmosChains, toDisplayChainLines, editClickAction)
-                recycler.setHasFixedSize(true)
-                recycler.layoutManager = LinearLayoutManager(requireContext())
-                recycler.adapter = chainEditAdapter
-
-                binding.btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
             }
         }
     }
 
     private fun initData() {
-        var fetchedCnt = 0
-        baseAccount?.let { account ->
-            binding.apply {
-                for (i in 0 until searchCosmosChains.size) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        AppDatabase.getInstance().refAddressDao().selectRefAddress(account.id, searchCosmosChains[i].tag)?.let {
-                            searchCosmosChains[i].setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
-                                override fun onDataLoaded(isLoaded: Boolean) {
-                                    lifecycleScope.launch {
-                                        withContext(Dispatchers.Main) {
-                                            if (isLoaded) {
-                                                fetchedCnt++
-                                                chainEditAdapter.notifyItemChanged(i)
-                                            }
-                                            btnSelect.updateSelectButtonView(fetchedCnt == searchCosmosChains.size - account.displayCosmosLineChains.size)
-                                        }
-                                    }
+        binding.apply {
+            for (i in 0 until searchCosmosChains.size) {
+                searchCosmosChains[i].setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
+                    override fun onDataLoaded(isLoaded: Boolean) {
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main) {
+                                if (isLoaded) {
+                                    chainEditAdapter.notifyItemChanged(i)
                                 }
-                            })
+                                btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
+                            }
                         }
                     }
-                }
+                })
             }
         }
     }

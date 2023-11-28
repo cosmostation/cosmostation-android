@@ -13,6 +13,7 @@ import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
+import com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
@@ -422,4 +423,13 @@ interface TxRepository {
         fee: Fee?,
         memo: String
     ): Any?
+
+    suspend fun broadcastCreateSwapTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCreateAtomicSwap: MsgCreateAtomicSwap?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) : BroadcastTxResponse?
 }

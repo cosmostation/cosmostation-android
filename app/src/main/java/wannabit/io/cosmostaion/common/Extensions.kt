@@ -34,6 +34,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -306,8 +307,13 @@ fun Button.updateSelectButtonView(isBtnEnabled: Boolean) {
 }
 
 fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
-    val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain?.apiName +  "/transactions/" + txHash
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+    if (selectedChain is ChainBinanceBeacon) {
+        val historyUrl = CosmostationConstants.EXPLORER_BINANCE_URL + "tx/" + txHash
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+    } else {
+        val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName +  "/transactions/" + txHash
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+    }
 }
 
 fun BigDecimal.handlerLeft(decimal: Int, scale: Int): BigDecimal {
@@ -608,31 +614,15 @@ fun MutableList<MoneyMarket>.spotMarketId(denom: String?): String {
     }
 }
 
-//fun HardProto.Params.hardMoneyMarket(denom: String?): MoneyMarket? {
-//    return moneyMarketsList.firstOrNull { it.denom == denom }
-//}
-//
-//fun HardProto.Params.getLTV(denom: String?): BigDecimal {
-//    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
-//        return market.borrowLimit.loanToValue.toBigDecimal().movePointLeft(18)
-//    } ?: run {
-//        return BigDecimal.ZERO
-//    }
-//}
-//
-//fun HardProto.Params.spotMarketId(denom: String?): String {
-//    moneyMarketsList.firstOrNull { it.denom == denom }?.let { market ->
-//        return market.spotMarketId
-//    } ?: run {
-//        return ""
-//    }
-//}
-
 fun DepositResponse.usdxAmount(): BigDecimal {
     return sharesValueList.firstOrNull { it.denom == "usdx" }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
 }
 
 fun PoolResponse.usdxAmount(): BigDecimal {
     return coinsList.firstOrNull { it.denom == "usdx" }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+}
+
+fun ByteArray.toHex(): String {
+    return joinToString("") { "%02x".format(it) }
 }
 

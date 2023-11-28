@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,21 +14,21 @@ import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentBep3Binding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.dialog.tx.address.Bep3AddressFragment
+import wannabit.io.cosmostaion.ui.dialog.tx.address.Bep3AddressListener
 import wannabit.io.cosmostaion.ui.dialog.tx.kava.Bep3InsertAmountFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
@@ -46,9 +45,10 @@ class Bep3Fragment(
 
     private lateinit var kavaViewModel: KavaViewModel
 
-    private var toChains: CosmosLine? = null
+    private var toChains: MutableList<CosmosLine>? = mutableListOf()
 
     private var availableAmount: BigDecimal = BigDecimal.ZERO
+    private var minAvailableAmount: BigDecimal = BigDecimal.ZERO
     private var toSendAmount = ""
     private var existedAddress = ""
 
@@ -63,9 +63,9 @@ class Bep3Fragment(
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
+        initData()
         initView()
         clickAction()
-        setUpBroadcast()
     }
 
     private fun initViewModel() {
@@ -84,8 +84,7 @@ class Bep3Fragment(
                 if (fromChain is ChainBinanceBeacon) {
 
                 } else {
-                    toChains = baseAccount.allCosmosLineChains.firstOrNull { it.name == "BNB Beacon" }
-//                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "BNB Beacon" }.toMutableList()
+                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "BNB Beacon" }.toMutableList()
                     fromChainImg.setImageResource(R.drawable.chain_kava)
                     fromChainName.text = "KAVA"
 
@@ -97,6 +96,30 @@ class Bep3Fragment(
                         tokenName.text = asset.symbol
                     }
                     availableAmount = fromChain.balanceAmount(denom)
+                }
+            }
+            kavaViewModel.bep3Data(getChannel(ChainKava459()))
+        }
+    }
+
+    private fun initData() {
+        binding.apply {
+            kavaViewModel.bep3Data.observe(viewLifecycleOwner) { response ->
+                loading.visibility = View.GONE
+
+                response?.bep3Param?.let { params ->
+                    params.forEach { param ->
+                        if (fromChain is ChainBinanceBeacon) {
+
+                        } else {
+                            if (param.denom == denom) {
+                                if (availableAmount > param.maxSwapAmount.toBigDecimal()) {
+                                    availableAmount = param.maxSwapAmount.toBigDecimal()
+                                }
+                                minAvailableAmount = param.minSwapAmount.toBigDecimal().add(param.fixedFee.toBigDecimal())
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -124,6 +147,7 @@ class Bep3Fragment(
                 }
             }
         }
+        txValidate()
     }
 
     private fun updateAddressView(address: String) {
@@ -137,6 +161,7 @@ class Bep3Fragment(
             recipientAddressMsg.visibleOrGone(address.isEmpty())
             recipientAddress.visibleOrGone(address.isNotEmpty())
         }
+        txValidate()
     }
 
     private fun clickAction() {
@@ -148,6 +173,7 @@ class Bep3Fragment(
                     Bep3InsertAmountFragment(
                         fromChain,
                         denom,
+                        minAvailableAmount,
                         availableAmount,
                         toSendAmount,
                         object : AmountSelectListener {
@@ -166,18 +192,12 @@ class Bep3Fragment(
             addressView.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    AddressFragment(
-                        fromChain,
-                        toChains,
-                        existedAddress,
-                        AddressType.BEP3_TRANSFER,
-                        object : AddressListener {
-                            override fun address(address: String) {
-                                updateAddressView(address)
-                            }
-                        }).show(
-                        requireActivity().supportFragmentManager, AddressFragment::class.java.name
-                    )
+                    Bep3AddressFragment(toChains, object : Bep3AddressListener {
+                        override fun address(address: String) {
+                            updateAddressView(address)
+                        }
+                    }).show(
+                        requireActivity().supportFragmentManager, Bep3AddressFragment::class.java.name)
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true
@@ -197,30 +217,28 @@ class Bep3Fragment(
     private val bep3SendResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
-                binding.backdropLayout.visibility = View.VISIBLE
-//                txViewModel.broadClaimIncentive(getChannel(selectedChain), selectedChain.address, incentive, txFee, txMemo, selectedChain)
+                Handler().postDelayed({
+                    setUpBroadcast()
+                }, 500)
             }
         }
 
-    private fun isBroadCastTx(isSuccess: Boolean) {
-        binding.backdropLayout.visibility = View.GONE
-        binding.btnSend.updateButtonView(isSuccess)
+    private fun txValidate() {
+        binding.apply {
+            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
+            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
+            binding.btnSend.updateButtonView(true)
+        }
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
-            Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
-                }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", fromChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
-            }
+        Intent(requireContext(), Bep3ResultActivity::class.java).apply {
+            putExtra("fromChain", fromChain.tag)
+            putExtra("toChain", toChains?.firstOrNull { it.address == binding.recipientAddress.text.toString().trim() }?.tag)
+            putExtra("toAddress", binding.recipientAddress.text.toString().trim())
+            putExtra("toSendDenom", denom)
+            putExtra("toSendAmount", toSendAmount)
+            startActivity(this)
         }
     }
 

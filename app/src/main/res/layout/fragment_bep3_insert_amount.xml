@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_centerHorizontal="true"
+        android:background="@color/color_base04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/available_title"
+        style="@style/font_sb_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginEnd="@dimen/space_6"
+        android:layout_marginTop="@dimen/space_16"
+        android:gravity="end"
+        android:text="@string/str_available_amount"
+        android:textColor="@color/color_base02"
+        app:layout_constraintEnd_toStartOf="@+id/min_available"
+        app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+    <TextView
+        android:id="@+id/min_available"
+        style="@style/font_sm_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_4"
+        android:gravity="end"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBaseline_toBaselineOf="@+id/available_title"
+        app:layout_constraintEnd_toStartOf="@+id/flow" />
+
+    <TextView
+        android:id="@+id/flow"
+        style="@style/font_sm_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_4"
+        android:gravity="center"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBaseline_toBaselineOf="@+id/available_title"
+        app:layout_constraintEnd_toStartOf="@+id/available"
+        android:text="~"/>
+
+    <TextView
+        android:id="@+id/available"
+        style="@style/font_sm_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_4"
+        android:gravity="end"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBaseline_toBaselineOf="@+id/available_title"
+        app:layout_constraintEnd_toStartOf="@+id/available_denom" />
+
+    <TextView
+        android:id="@+id/available_denom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sm_10"
+        android:layout_marginEnd="@dimen/space_16"
+        android:textColor="@color/color_base01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/available_title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_layout"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_62"
+        android:layout_marginTop="@dimen/space_8"
+        app:endIconDrawable="@drawable/icon_clear"
+        app:errorTextColor="@color/color_red"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/color_base01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/available_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amount_txt"
+            style="@style/InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_send_amount"
+            android:inputType="numberDecimal"
+            android:lines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_layout">
+
+        <TextView
+            android:id="@+id/invalid_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/font_sb_12"
+            android:textColor="@color/color_red"
+            android:text="@string/error_invalid_amount"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_quarter"
+            style="@style/font_sm_12"
+            android:layout_width="@dimen/space_48"
+            android:layout_height="@dimen/space_30"
+            android:layout_marginEnd="@dimen/space_8"
+            android:background="@drawable/button_amount_bg"
+            android:text="@string/str_1_4"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toStartOf="@+id/btn_half"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_half"
+            style="@style/font_sm_12"
+            android:layout_width="@dimen/space_48"
+            android:layout_height="@dimen/space_30"
+            android:layout_marginEnd="@dimen/space_8"
+            android:background="@drawable/button_amount_bg"
+            android:text="@string/str_half"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toStartOf="@+id/btn_max"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_max"
+            style="@style/font_sm_12"
+            android:layout_width="@dimen/space_48"
+            android:layout_height="@dimen/space_30"
+            android:background="@drawable/button_amount_bg"
+            android:text="@string/str_max"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/font_sb_16"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_54"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_12"
+        android:background="@drawable/button_disable_bg"
+        android:text="@string/str_confirm"
+        android:textAllCaps="false"
+        android:enabled="false"
+        android:textColor="@color/color_base03"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

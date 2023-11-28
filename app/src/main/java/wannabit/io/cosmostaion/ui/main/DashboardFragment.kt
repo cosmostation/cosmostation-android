@@ -51,7 +51,6 @@ class DashboardFragment : Fragment() {
 
         setupViewModels()
         baseAccount = BaseData.baseAccount
-//        updateView()
         refreshData()
     }
 

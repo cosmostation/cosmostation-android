@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
+import wannabit.io.cosmostaion.databinding.FragmentBep3InsertAmountBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -22,12 +22,13 @@ import java.math.RoundingMode
 class Bep3InsertAmountFragment(
     private val fromChain: CosmosLine,
     private val toSendDenom: String,
+    private val minAvailableAmount: BigDecimal?,
     private val availAmount: BigDecimal?,
     private val toAmount: String?,
     val listener: AmountSelectListener
 ) : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentInsertAmountBinding? = null
+    private var _binding: FragmentBep3InsertAmountBinding? = null
     private val binding get() = _binding!!
 
     private var assetDecimal: Int = 6
@@ -35,7 +36,7 @@ class Bep3InsertAmountFragment(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentInsertAmountBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentBep3InsertAmountBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -58,6 +59,10 @@ class Bep3InsertAmountFragment(
                 BaseData.assets?.firstOrNull { it.denom?.lowercase() == toSendDenom }?.let { asset ->
                     asset.decimals?.let { decimal ->
                         assetDecimal = decimal
+
+                        minAvailableAmount?.movePointLeft(decimal)?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                            minAvailable.text = formatAmount(amount.toPlainString(), decimal)
+                        }
 
                         availAmount?.movePointLeft(decimal)?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
                             available.text = formatAmount(amount.toPlainString(), decimal)
@@ -130,20 +135,23 @@ class Bep3InsertAmountFragment(
                 }
 
                 BigDecimal(text).apply {
-                    availAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal)?.let { amount ->
-                        if (this != BigDecimal.ZERO && amount >= this) {
-                            editLayout.error = null
-                            invalidMsg.visibility = View.GONE
-                            btnConfirm.isEnabled = true
-                            btnConfirm.updateButtonView(true)
+                    minAvailableAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal)?.let { minAmount ->
+                        availAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal)?.let { amount ->
+                            if (this != BigDecimal.ZERO && amount >= this && this >= minAmount) {
+                                editLayout.error = null
+                                invalidMsg.visibility = View.GONE
+                                btnConfirm.isEnabled = true
+                                btnConfirm.updateButtonView(true)
 
-                        } else {
-                            editLayout.error = getString(R.string.error_invalid_amount)
-                            invalidMsg.visibility = View.VISIBLE
-                            btnConfirm.isEnabled = false
-                            btnConfirm.updateButtonView(false)
+                            } else {
+                                editLayout.error = getString(R.string.error_invalid_amount)
+                                invalidMsg.visibility = View.VISIBLE
+                                btnConfirm.isEnabled = false
+                                btnConfirm.updateButtonView(false)
+                            }
+                            amountTxt.setSelection(text.length)
                         }
-                        amountTxt.setSelection(text.length)
+
                     }
                 }
             }

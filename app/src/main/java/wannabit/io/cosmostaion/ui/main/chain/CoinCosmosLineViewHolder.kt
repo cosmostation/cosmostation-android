@@ -83,7 +83,7 @@ class CoinCosmosLineViewHolder(
         }
     }
 
-    private fun bindBeaconAsset(context: Context, line: CosmosLine) {
+    private fun bindBeaconAsset(context: Context, line: ChainBinanceBeacon) {
         binding.apply {
             vestingTitle.text = context.getString(R.string.str_frozen)
             stakedTitle.text = context.getString(R.string.str_locked)

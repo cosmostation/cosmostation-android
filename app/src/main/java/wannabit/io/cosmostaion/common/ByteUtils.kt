@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.common
 import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
+import java.nio.ByteBuffer
 
 object ByteUtils {
 
@@ -55,5 +56,22 @@ object ByteUtils {
             return tmp
         }
         return bytes
+    }
+
+    fun longToBytes(x: Long): ByteArray {
+        val buffer = ByteBuffer.allocate(8)
+        buffer.putLong(x)
+        return buffer.array()
+    }
+
+    fun hexStringToByteArray(s: String): ByteArray {
+        val len = s.length
+        val data = ByteArray(len / 2)
+
+        var j = 0
+        for (i in 0 until len step 2) {
+            data[j++] = ((Character.digit(s[i], 16) shl 4) + Character.digit(s[i + 1], 16)).toByte()
+        }
+        return data
     }
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottomsheet_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_title"
+            style="@style/font_sb_16"
+            android:textColor="@color/color_base01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_marginHorizontal="@dimen/space_20"
+            android:gravity="start"
+            android:text="@string/title_swap_error"/>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_1"
+            android:background="@color/color_base07"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_marginHorizontal="@dimen/space_16"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_title"/>
+
+        <TextView
+            android:id="@+id/dialog_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_sb_12"
+            android:textColor="@color/color_base01"
+            android:layout_marginHorizontal="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_20"
+            android:gravity="center"
+            android:text="@string/error_swap_create_tx_msg"/>
+
+        <TextView
+            android:id="@+id/error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_sb_12"
+            android:textColor="@color/color_base01"
+            android:layout_marginHorizontal="@dimen/space_20"
+            android:layout_marginBottom="@dimen/space_40"
+            android:layout_marginTop="@dimen/space_20"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_20"
+            android:layout_marginBottom="@dimen/space_20"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_common_bg"
+                style="@style/font_sb_12"
+                android:textColor="@color/color_base01"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:text="@string/str_confirm"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -144,4 +144,34 @@ class KavaRepositoryImpl : KavaRepository {
             stub.deposits(request)
         }
     }
+
+    override suspend fun bep3Param(managedChannel: ManagedChannel): NetworkResult<com.kava.bep3.v1beta1.QueryProto.QueryParamsResponse> {
+        val stub = com.kava.bep3.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.kava.bep3.v1beta1.QueryProto.QueryParamsRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.params(request)
+        }
+    }
+
+    override suspend fun bep3Supply(managedChannel: ManagedChannel): NetworkResult<com.kava.bep3.v1beta1.QueryProto.QueryAssetSuppliesResponse> {
+        val stub = com.kava.bep3.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.kava.bep3.v1beta1.QueryProto.QueryAssetSuppliesRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.assetSupplies(request)
+        }
+    }
+
+    override suspend fun bep3SwapId(
+        managedChannel: ManagedChannel,
+        expectedSwapId: String?
+    ): NetworkResult<com.kava.bep3.v1beta1.QueryProto.QueryAtomicSwapResponse> {
+        val stub = com.kava.bep3.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.kava.bep3.v1beta1.QueryProto.QueryAtomicSwapRequest.newBuilder().setSwapId(expectedSwapId).build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.atomicSwap(request)
+        }
+    }
 }

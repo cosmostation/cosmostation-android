@@ -16,7 +16,7 @@ object CosmostationConstants {
 
     // explorer & github
     const val EXPLORER_BASE_URL = "https://www.mintscan.io/"
-    const val EXPLORER_BINANCE_URL = "https://binance.mintscan.io/"
+    const val EXPLORER_BINANCE_URL = "https://explorer.bnbchain.org/"
     const val CHAIN_BASE_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
 
     //cosmostation
@@ -27,4 +27,9 @@ object CosmostationConstants {
     const val COSMOSTATION_TERM_KR = "https://cosmostation.io/service_kr"
     const val COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacy-policy"
     const val COSMOSTATION_GITHUB = "https://github.com/cosmostation/cosmostation-android"
+
+
+    //bep3
+    const val SWAP_MEMO_CREATE = "Create Atomic Swap via Cosmostation Wallet"
+    const val SWAP_MEMO_CLAIM = "Claim Atomic Swap via Cosmostation Wallet"
 }

@@ -862,4 +862,22 @@ class TxRepositoryImpl : TxRepository {
             e.message.toString()
         }
     }
+
+    override suspend fun broadcastCreateSwapTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgCreateAtomicSwap: com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genCreateSwapBroadcast(account, msgCreateAtomicSwap, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
 }

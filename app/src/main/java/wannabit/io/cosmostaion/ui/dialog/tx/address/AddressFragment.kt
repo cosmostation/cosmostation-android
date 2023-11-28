@@ -159,7 +159,7 @@ class AddressFragment(
     }
 }
 
-enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER, BEP3_TRANSFER }
+enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER }
 
 interface AddressListener {
     fun address(address: String)

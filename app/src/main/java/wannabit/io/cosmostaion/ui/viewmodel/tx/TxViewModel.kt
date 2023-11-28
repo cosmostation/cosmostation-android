@@ -24,6 +24,7 @@ import com.ibc.core.channel.v1.QueryGrpc
 import com.ibc.core.channel.v1.QueryProto
 import com.ibc.core.client.v1.ClientProto
 import com.ibc.lightclients.tendermint.v1.TendermintProto
+import com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
@@ -1020,6 +1021,29 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulatePoolWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        }
+    }
+
+    private val _broadCreateSwap = MutableLiveData<AbciProto.TxResponse>()
+    val broadCreateSwap: LiveData<AbciProto.TxResponse> get() = _broadCreateSwap
+    fun broadCreateSwap(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgCreateAtomicSwap: MsgCreateAtomicSwap?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastCreateSwapTx(
+                managedChannel,
+                it,
+                msgCreateAtomicSwap,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadCreateSwap.postValue(response?.txResponse)
         }
     }
 }

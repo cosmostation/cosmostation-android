@@ -32,4 +32,10 @@ interface KavaRepository {
     suspend fun swapList(managedChannel: ManagedChannel): NetworkResult<com.kava.swap.v1beta1.QueryProto.QueryPoolsResponse>
 
     suspend fun swapMyDeposit(managedChannel: ManagedChannel, address: String?): NetworkResult<com.kava.swap.v1beta1.QueryProto.QueryDepositsResponse>
+
+    suspend fun bep3Param(managedChannel: ManagedChannel): NetworkResult<com.kava.bep3.v1beta1.QueryProto.QueryParamsResponse>
+
+    suspend fun bep3Supply(managedChannel: ManagedChannel): NetworkResult<com.kava.bep3.v1beta1.QueryProto.QueryAssetSuppliesResponse>
+
+    suspend fun bep3SwapId(managedChannel: ManagedChannel, expectedSwapId: String?): NetworkResult<com.kava.bep3.v1beta1.QueryProto.QueryAtomicSwapResponse>
 }

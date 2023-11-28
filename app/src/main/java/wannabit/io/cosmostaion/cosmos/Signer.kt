@@ -32,6 +32,7 @@ import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
+import com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
@@ -785,6 +786,25 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw")
                 .setValue(msgWithdraw?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun genCreateSwapBroadcast(
+        auth: QueryAccountResponse?,
+        msgCreateAtomicSwap: MsgCreateAtomicSwap?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): BroadcastTxRequest? {
+        return signBroadcastTx(auth, createSwapMsg(msgCreateAtomicSwap), fee, memo, selectedChain)
+    }
+
+    private fun createSwapMsg(msgCreateAtomicSwap: MsgCreateAtomicSwap?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgCreateAtomicSwap")
+                .setValue(msgCreateAtomicSwap?.toByteString()).build()
         )
         return msgAnys
     }

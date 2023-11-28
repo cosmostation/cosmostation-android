@@ -32,3 +32,7 @@ data class BnbToken(
     val symbol: String,
     @Json(name = "original_symbol") val originalSymbol: String
 )
+
+data class SwapIdResponse(
+    val swapId: String
+)

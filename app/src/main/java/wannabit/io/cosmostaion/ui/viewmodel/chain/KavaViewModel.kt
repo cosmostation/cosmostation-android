@@ -1,9 +1,14 @@
 package wannabit.io.cosmostaion.ui.viewmodel.chain
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cosmos.base.v1beta1.CoinProto
+import com.kava.bep3.v1beta1.Bep3Proto
+import com.kava.bep3.v1beta1.QueryProto.AssetSupplyResponse
+import com.kava.bep3.v1beta1.QueryProto.QueryAssetSuppliesResponse
+import com.kava.bep3.v1beta1.QueryProto.QueryAtomicSwapResponse
 import com.kava.cdp.v1beta1.QueryProto.QueryCdpsResponse
 import com.kava.cdp.v1beta1.QueryProto.QueryParamsResponse
 import com.kava.hard.v1beta1.HardProto
@@ -22,7 +27,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.common.safeApiCall
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.SwapIdResponse
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepository
 import java.util.concurrent.TimeUnit
 
@@ -254,6 +265,110 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
                 }
             }
     }
+
+    private val _bep3Data = MutableLiveData<Bep3Data?>()
+    val bep3Data: LiveData<Bep3Data?> get() = _bep3Data
+    fun bep3Data(managedChannel: ManagedChannel) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val bep3ParamDeferred = async { kavaRepository.bep3Param(managedChannel) }
+            val bep3SupplyDeferred = async { kavaRepository.bep3Supply(managedChannel) }
+
+            val responses = awaitAll(bep3ParamDeferred, bep3SupplyDeferred)
+
+            var bep3Params: MutableList<Bep3Proto.AssetParam>? = mutableListOf()
+            var bep3Supplies: MutableList<AssetSupplyResponse>? = mutableListOf()
+
+            responses.forEach { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        when (response.data) {
+                            is com.kava.bep3.v1beta1.QueryProto.QueryParamsResponse -> {
+                                response.data.params.assetParamsList?.let { bep3Params = it }
+                            }
+
+                            is QueryAssetSuppliesResponse -> {
+                                response.data.assetSuppliesList?.let { bep3Supplies = it }
+                            }
+                        }
+                        _bep3Data.postValue(Bep3Data(bep3Params, bep3Supplies))
+                    }
+
+                    is NetworkResult.Error -> {
+                        _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                    }
+                }
+            }
+
+        } finally {
+            managedChannel.shutdown()
+            try {
+                if (!managedChannel.awaitTermination(5, TimeUnit.SECONDS)) {
+                    managedChannel.shutdownNow()
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private var _bnbSwapIdResult = MutableLiveData<SwapIdResponse?>()
+    val bnbSwapIdResult: LiveData<SwapIdResponse?> get() = _bnbSwapIdResult
+
+    private var _kavaSwapIdResult = MutableLiveData<QueryAtomicSwapResponse?>()
+    val kavaSwapIdResult: LiveData<QueryAtomicSwapResponse?> get() = _kavaSwapIdResult
+
+    private val _bep3SwapIdErrorMessage = MutableLiveData<String>()
+    val bep3SwapIdErrorMessage: LiveData<String> get() = _bep3SwapIdErrorMessage
+
+    fun bep3SwapId(managedChannel: ManagedChannel, expectedSwapId: String?, toChain: CosmosLine?) = CoroutineScope(Dispatchers.IO).launch {
+        if (toChain is ChainBinanceBeacon) {
+            when (val response = safeApiCall { RetrofitInstance.beaconApi.swapById(expectedSwapId) }) {
+                is NetworkResult.Success -> {
+                    _bnbSwapIdResult.postValue(response.data)
+                }
+
+                is NetworkResult.Error -> {
+                    _bep3SwapIdErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                }
+            }
+
+        } else {
+            try {
+                when (val response = kavaRepository.bep3SwapId(managedChannel, expectedSwapId)) {
+                    is NetworkResult.Success -> {
+                        _kavaSwapIdResult.postValue(response.data)
+                    }
+
+                    is NetworkResult.Error -> {
+                        _bep3SwapIdErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                    }
+                }
+            } finally {
+                managedChannel.shutdown()
+                try {
+                    if (!managedChannel.awaitTermination(5, TimeUnit.SECONDS)) {
+                        managedChannel.shutdownNow()
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private var _bep3AccountInfoResult = MutableLiveData<AccountResponse?>()
+    val bep3AccountInfoResult: LiveData<AccountResponse?> get() = _bep3AccountInfoResult
+    fun accountInfo(address: String?) = CoroutineScope(Dispatchers.IO).launch {
+        when (val response = safeApiCall { RetrofitInstance.beaconApi.accountInfo(address) }) {
+            is NetworkResult.Success -> {
+                _bep3AccountInfoResult.postValue(response.data)
+            }
+
+            is NetworkResult.Error -> {
+                _bep3AccountInfoResult.postValue(null)
+            }
+        }
+    }
 }
 
 data class LendingData(
@@ -269,4 +384,9 @@ data class LendingData(
 data class SwapData(
     var swapPools: MutableList<com.kava.swap.v1beta1.QueryProto.PoolResponse>?,
     var swapMyDeposits: MutableList<com.kava.swap.v1beta1.QueryProto.DepositResponse>?
+)
+
+data class Bep3Data(
+    var bep3Param: MutableList<Bep3Proto.AssetParam>?,
+    var bep3Supplies: MutableList<AssetSupplyResponse>?
 )

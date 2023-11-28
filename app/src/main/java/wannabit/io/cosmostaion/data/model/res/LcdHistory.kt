@@ -21,10 +21,10 @@ data class BnbHistory(
 
     fun isSuccess(): Boolean {
         code?.let {
-            if (it > 0) {
-                return true
+            if (it != 0) {
+                return false
             }
-            return false
+            return true
         }
         return false
     }

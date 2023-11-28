@@ -48,6 +48,7 @@
     <string name="str_24_words" translatable="false">24 words</string>
     <string name="str_add_custom_chain">Add custom chain</string>
     <string name="str_max_available">Max available : </string>
+    <string name="str_available_amount">Available : </string>
     <string name="str_send_amount">Send amount</string>
     <string name="str_1_4" translatable="false">1/4</string>
     <string name="str_half" translatable="false">HALF</string>
@@ -202,6 +203,8 @@
     <string name="title_pool_withdraw">Withdraw from pool</string>
     <string name="title_select_transfer">Select transfer</string>
     <string name="title_bep3_send">Bep3 send</string>
+    <string name="title_swap_error">Swap tx error</string>
+    <string name="title_more_wait_swap">SwapId confirmation delayed</string>
 
 
     // msg
@@ -247,6 +250,10 @@
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module.</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV.</string>
     <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform.</string>
+    <string name="str_htls_msg0">1/4 Broadcasting BEP3 send Tx from sending chain.</string>
+    <string name="str_htls_msg1">2/4 Confirming swapid.</string>
+    <string name="str_htls_msg2">3/4 Broadcasting BEP3 claim Tx on receiving chain.</string>
+    <string name="str_htls_msg3">4/4 Confirming all Tx on each chain.</string>
 
 
     // header
@@ -280,6 +287,8 @@
     <string name="error_not_enough_to_withdraw">Not enough deposit to withdraw.</string>
     <string name="error_no_borrowable_asset">Can not borrowable now.</string>
     <string name="error_no_repay_asset">Can not repay now.</string>
+    <string name="error_swap_create_tx_msg">Sorry!\nAn error occurred while sending during swap Tx.\nPlease check below.</string>
+    <string name="error_more_wait_swap_msg">The sending chain successfully attempted a swap, but the swap ID has not been found yet.\n\nPress the \"Wait\" button to continue searching for the swap ID to perform the swap.\nIf you press the \"Close\" button, your funds will be refunded to your original wallet after a certain period of time.</string>
 
 
     // tx

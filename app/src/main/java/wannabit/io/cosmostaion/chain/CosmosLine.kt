@@ -136,7 +136,7 @@ open class CosmosLine : BaseChain() {
         }
 
         if (this is ChainBinanceBeacon) {
-            loadLcdData()
+            loadLcdData(id)
         } else {
             loadGrpcData(id)
         }
@@ -285,19 +285,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadLcdData() = runBlocking {
-        CoroutineScope(Dispatchers.Default).let {
-            if (this@CosmosLine is ChainBinanceBeacon) {
-//                loadNodeInfo()
-                loadAccountInfo()
-                loadBeaconTokens()
-            }
-
-            loadDataCallback?.onDataLoaded(true)
-            fetched = true
-            it.cancel()
-        }
-    }
+    open fun loadLcdData(id: Long) = CoroutineScope(Dispatchers.IO).launch {}
 
     fun loadStakeData() {
         if (cosmosValidators.size > 0) { return }
@@ -769,85 +757,6 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private suspend fun loadNodeInfo() {
-        when (val response = safeApiCall { RetrofitInstance.beaconApi.nodeInfo() }) {
-            is NetworkResult.Success -> {
-
-            }
-
-            is NetworkResult.Error -> {
-                return
-            }
-        }
-    }
-
-    private suspend fun loadAccountInfo() {
-        when (val response = safeApiCall { RetrofitInstance.beaconApi.accountInfo(address) }) {
-            is NetworkResult.Success -> {
-                lcdAccountInfo = response.data
-            }
-
-            is NetworkResult.Error -> {
-                return
-            }
-        }
-    }
-
-    private suspend fun loadBeaconTokens() {
-        when (val response = safeApiCall { RetrofitInstance.beaconApi.beaconTokens("1000") }) {
-            is NetworkResult.Success -> {
-                lcdBeaconTokens = response.data
-            }
-
-            is NetworkResult.Error -> {
-                return
-            }
-        }
-    }
-
-    fun lcdBalanceAmount(denom: String): BigDecimal {
-        val balance = lcdAccountInfo?.balances?.firstOrNull { it.symbol == denom }
-        if (balance != null) {
-            return balance.free.toBigDecimal()
-        }
-        return BigDecimal.ZERO
-    }
-
-    fun lcdBnbFrozenAmount(denom: String): BigDecimal {
-        val balance = lcdAccountInfo?.balances?.firstOrNull { it.symbol == denom }
-        if (balance != null) {
-            return balance.frozen.toBigDecimal()
-        }
-        return BigDecimal.ZERO
-    }
-
-    fun lcdBnbLockedAmount(denom: String): BigDecimal {
-        val balance = lcdAccountInfo?.balances?.firstOrNull { it.symbol == denom }
-        if (balance != null) {
-            return balance.locked.toBigDecimal()
-        }
-        return BigDecimal.ZERO
-    }
-
-    fun lcdBalanceValue(denom: String?): BigDecimal {
-        denom?.let {
-            if (it == stakeDenom) {
-                val amount = lcdBalanceAmount(denom)
-                val price = BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID)
-                return price.multiply(amount).setScale(6, RoundingMode.DOWN)
-            }
-        }
-        return BigDecimal.ZERO
-    }
-
-    fun lcdBalanceValueSum(): BigDecimal {
-        var sumValue = BigDecimal.ZERO
-        lcdAccountInfo?.balances?.forEach { balance ->
-            sumValue = sumValue.add(lcdBalanceValue(balance.symbol))
-        }
-        return sumValue
-    }
-
     fun monikerImg(opAddress: String?): String {
         return "$CHAIN_BASE_URL$apiName/moniker/$opAddress.png"
     }
@@ -858,7 +767,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
-//    lines.add(ChainBinanceBeacon())
+    lines.add(ChainBinanceBeacon())
     lines.add(ChainEvmos())
     lines.add(ChainInjective())
     lines.add(ChainIris())
