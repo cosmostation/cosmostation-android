@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
+import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrDialog
 
@@ -29,7 +30,7 @@ class DashboardAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_COSMOS_HEADER -> {
-                val binding = ItemStickyHeaderBinding.inflate(
+                val binding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 DashboardHeaderViewHolder(binding)
@@ -110,7 +111,7 @@ class DashboardAdapter(
     }
 
     inner class DashboardHeaderViewHolder(
-        private val binding: ItemStickyHeaderBinding
+        private val binding: ItemHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {

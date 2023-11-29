@@ -104,6 +104,29 @@ data class BaseAccount(
         }
     }
 
+    fun initTargetChainsData(targetChains: MutableList<CosmosLine>) {
+        if (type == BaseAccountType.MNEMONIC) {
+            targetChains.forEach { line ->
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                }
+                if (!line.fetched) {
+                    line.loadData(id)
+                }
+            }
+
+        } else if (type == BaseAccountType.PRIVATE_KEY) {
+            targetChains.forEach { line ->
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithPrivateKey(privateKey)
+                }
+                if (!line.fetched) {
+                    line.loadData(id)
+                }
+            }
+        }
+    }
+
     fun updateAllValue() {
         displayCosmosLineChains.forEach { line ->
             line.allValue()

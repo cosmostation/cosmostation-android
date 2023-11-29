@@ -126,7 +126,7 @@
         fab:menu_labels_position="left"
         fab:menu_labels_style="@style/FabLabelStyle"
         android:layout_marginEnd="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_24"
         fab:menu_openDirection="up"
         android:elevation="@dimen/space_2">
 

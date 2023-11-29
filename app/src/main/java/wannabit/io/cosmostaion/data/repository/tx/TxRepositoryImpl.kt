@@ -1,6 +1,13 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
 import android.util.Log
+import com.binance.dex.api.client.BinanceDexApiClientFactory
+import com.binance.dex.api.client.BinanceDexEnvironment
+import com.binance.dex.api.client.Wallet
+import com.binance.dex.api.client.domain.TransactionMetadata
+import com.binance.dex.api.client.domain.broadcast.HtltReq
+import com.binance.dex.api.client.domain.broadcast.TransactionOption
+import com.binance.dex.api.client.domain.broadcast.Transfer
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto
@@ -88,6 +95,20 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             e.message.toString()
+        }
+    }
+
+    override suspend fun broadcastBnbSendTx(
+        transfer: Transfer,
+        wallet: Wallet,
+        options: TransactionOption
+    ): MutableList<TransactionMetadata>? {
+        return try {
+            val client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.baseUrl)
+            client.transfer(transfer, wallet, options, true)
+
+        } catch (_: Exception) {
+            mutableListOf()
         }
     }
 
@@ -878,6 +899,38 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (_: Exception) {
             null
+        }
+    }
+
+    override suspend fun broadcastClaimSwapTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgClaimAtomicSwap: com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): ServiceProto.BroadcastTxResponse? {
+        return try {
+            val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genClaimSwapBroadcast(account, msgClaimAtomicSwap, fee, memo, selectedChain)
+            return txStub.broadcastTx(broadcastTx)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    override suspend fun broadcastBnbCreateSwapTx(
+        htltReq: HtltReq,
+        wallet: Wallet,
+        options: TransactionOption
+    ): MutableList<TransactionMetadata>? {
+        return try {
+            val client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.baseUrl)
+            client.htlt(htltReq, wallet, options, true)
+
+        } catch (_: Exception) {
+            mutableListOf()
         }
     }
 }

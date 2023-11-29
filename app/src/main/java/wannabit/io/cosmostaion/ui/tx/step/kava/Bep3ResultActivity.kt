@@ -5,16 +5,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.binance.dex.api.client.BinanceDexApiClientFactory
 import com.binance.dex.api.client.BinanceDexEnvironment
 import com.binance.dex.api.client.Wallet
+import com.binance.dex.api.client.domain.broadcast.HtltReq
 import com.binance.dex.api.client.domain.broadcast.TransactionOption
+import com.binance.dex.api.client.encoding.message.Token
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.kava.bep3.v1beta1.TxProto
+import com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +42,10 @@ import wannabit.io.cosmostaion.common.BaseConstant.KAVA_MAIN_BNB_DEPUTY
 import wannabit.io.cosmostaion.common.BaseConstant.KAVA_MAIN_BTCB_DEPUTY
 import wannabit.io.cosmostaion.common.BaseConstant.KAVA_MAIN_BUSD_DEPUTY
 import wannabit.io.cosmostaion.common.BaseConstant.KAVA_MAIN_XRPB_DEPUTY
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_BNB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_BTCB
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_BUSD
+import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_BINANCE_XRPB
 import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_BNB
 import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_BTCB
 import wannabit.io.cosmostaion.common.BaseConstant.TOKEN_HTLC_KAVA_BUSD
@@ -130,6 +138,7 @@ class Bep3ResultActivity : BaseActivity() {
             toSendAmount = intent.getStringExtra("toSendAmount")?.toBigDecimal()
 
             if (fromChain is ChainBinanceBeacon) {
+                bToKCreateSend()
 
             } else {
                 txViewModel.broadCreateSwap(
@@ -223,7 +232,7 @@ class Bep3ResultActivity : BaseActivity() {
                                 CoroutineScope(Dispatchers.IO).launch {
                                     kToBClaimSend(account)
                                 }
-                            }, 3000)
+                            }, 6000)
 
                         } else {
                             showError(resp[0].log)
@@ -232,6 +241,34 @@ class Bep3ResultActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun bToKCreateSend() {
+        ECKey.fromPrivate(fromChain?.privateKey)?.let {
+            val wallet = Wallet(it.privateKeyAsHex, BinanceDexEnvironment.PROD)
+            fromChain?.lcdAccountInfo?.let { account ->
+                wallet.accountNumber = account.accountNumber
+                wallet.sequence = account.sequence.toLong()
+            }
+
+            val timeStamp = System.currentTimeMillis() / 1000
+            val randomBytes = RandomUtils.nextBytes(32)
+            val originData = ArrayUtils.addAll(randomBytes, *ByteUtils.longToBytes(timeStamp))
+
+            val htltReq = htltReqMsg(timeStamp, originData)
+            randomNumber = randomBytes.toHex().uppercase()
+            val randomNumberHash = htltReq.randomNumberHash
+            expectedSwapId = expectedSwapId(fromChain, toSendDenom, randomNumberHash)
+
+            val options =
+                TransactionOption(SWAP_MEMO_CLAIM, 82, null)
+
+            txViewModel.broadcastBnbCreateSwap(htltReq, wallet, options)
+        }
+    }
+
+    private fun bToKClaimSend(): MsgClaimAtomicSwap? {
+        return MsgClaimAtomicSwap.newBuilder().setFrom(toChain?.address).setSwapId(expectedSwapId).setRandomNumber(randomNumber).build()
     }
 
     private fun txFee(): Fee? {
@@ -281,23 +318,72 @@ class Bep3ResultActivity : BaseActivity() {
         }
 
         kavaViewModel.bep3SwapIdErrorMessage.observe(this) {
-            if (fromChain is ChainBinanceBeacon) {
-
+            if (swapFetchCnt < 15) {
+                Handler().postDelayed({
+                    swapFetchCnt++
+                    kavaViewModel.bep3SwapId(getChannel(ChainKava459()), expectedSwapId, toChain)
+                }, 6000)
             } else {
-                if (swapFetchCnt < 15) {
-                    Handler().postDelayed({
-                        swapFetchCnt++
-                        kavaViewModel.bep3SwapId(getChannel(ChainKava459()), expectedSwapId, toChain)
-                    }, 6000)
-                } else {
-                    showMoreWait()
-                }
+                showMoreWait()
             }
         }
 
         kavaViewModel.bep3AccountInfoResult.observe(this) { response ->
             if (response != null) {
                 kToBClaimSend(response)
+            }
+        }
+
+        txViewModel.broadBnbCreateSwap.observe(this) { response ->
+            response?.let {
+                if (it[0].isOk) {
+                    updateProgress(1)
+                    kavaViewModel.bep3SwapId(getChannel(ChainKava459()), expectedSwapId, toChain)
+                    createTxHash = it[0].hash
+                } else {
+                    showError(it[0].log)
+                }
+            }
+        }
+
+        kavaViewModel.kavaSwapIdResult.observe(this) { response ->
+            if (response != null && response.atomicSwap.id.isNotEmpty()) {
+                txViewModel.broadClaimSwap(
+                    getChannel(ChainKava459()),
+                    toChain?.address,
+                    bToKClaimSend(),
+                    txFee(),
+                    SWAP_MEMO_CREATE,
+                    toChain
+                )
+            }
+        }
+
+        txViewModel.broadClaimSwap.observe(this) { response ->
+            Log.e("Test1234 : ", "여기로 와야돼")
+            updateProgress(3)
+            if (response.code > 0) {
+                if (claimFetchCnt < 20) {
+                    Handler().postDelayed({
+                        claimFetchCnt++
+                        CoroutineScope(Dispatchers.IO).launch {
+                            txViewModel.broadClaimSwap(
+                                getChannel(ChainKava459()),
+                                toChain?.address,
+                                bToKClaimSend(),
+                                txFee(),
+                                SWAP_MEMO_CREATE,
+                                toChain
+                            )
+                        }
+                    }, 6000)
+
+                } else {
+                    showError(response.rawLog)
+                }
+            } else {
+                updateView()
+                claimTxHash = response.txhash
             }
         }
     }
@@ -338,7 +424,23 @@ class Bep3ResultActivity : BaseActivity() {
             }
 
         } else {
-            return ""
+            fromChain?.address?.let { address ->
+                when (toSendDenom) {
+                    TOKEN_HTLC_BINANCE_BNB -> {
+                        return swapId(randomNumberHash, KAVA_MAIN_BNB_DEPUTY, address)
+                    }
+                    TOKEN_HTLC_BINANCE_BTCB -> {
+                        return swapId(randomNumberHash, KAVA_MAIN_BTCB_DEPUTY, address)
+                    }
+                    TOKEN_HTLC_BINANCE_XRPB -> {
+                        return swapId(randomNumberHash, KAVA_MAIN_XRPB_DEPUTY, address)
+                    }
+                    TOKEN_HTLC_BINANCE_BUSD -> {
+                        return swapId(randomNumberHash, KAVA_MAIN_BUSD_DEPUTY, address)
+                    }
+                    else -> ""
+                }
+            }
         }
         return ""
     }
@@ -367,6 +469,40 @@ class Bep3ResultActivity : BaseActivity() {
             return BINANCE_MAIN_BUSD_DEPUTY
         }
         return ""
+    }
+
+    private fun htltReqMsg(timeStamp: Long, originData: ByteArray): HtltReq {
+        val htltReq = HtltReq()
+        when (toSendDenom) {
+            TOKEN_HTLC_BINANCE_BNB -> {
+                htltReq.recipient = BINANCE_MAIN_BNB_DEPUTY
+                htltReq.senderOtherChain = KAVA_MAIN_BNB_DEPUTY
+            }
+            TOKEN_HTLC_BINANCE_BTCB -> {
+                htltReq.recipient = BINANCE_MAIN_BTCB_DEPUTY
+                htltReq.senderOtherChain = KAVA_MAIN_BTCB_DEPUTY
+            }
+            TOKEN_HTLC_BINANCE_XRPB -> {
+                htltReq.recipient = BINANCE_MAIN_XRPB_DEPUTY
+                htltReq.senderOtherChain = KAVA_MAIN_XRPB_DEPUTY
+            }
+            TOKEN_HTLC_BINANCE_BUSD -> {
+                htltReq.recipient = BINANCE_MAIN_BUSD_DEPUTY
+                htltReq.senderOtherChain = KAVA_MAIN_BUSD_DEPUTY
+            }
+        }
+
+        htltReq.recipientOtherChain = toChain?.address
+        htltReq.timestamp = timeStamp
+        htltReq.randomNumberHash = Sha256Hash.hash(originData)
+        val token = Token()
+        token.denom = toSendDenom
+        token.amount = toSendAmount?.movePointRight(8)?.toLong()
+        htltReq.outAmount = listOf(token)
+        htltReq.expectedIncome = toSendAmount?.movePointRight(8)?.toPlainString() + ":" + toSendDenom
+        htltReq.heightSpan = 407547
+        htltReq.isCrossChain = true
+        return htltReq
     }
 
     private fun showError(errorMsg: String) {

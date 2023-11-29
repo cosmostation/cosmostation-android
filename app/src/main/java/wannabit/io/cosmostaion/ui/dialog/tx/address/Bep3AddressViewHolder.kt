@@ -21,9 +21,10 @@ class Bep3AddressViewHolder(
 
             } else {
                 line.stakeDenom?.let { denom ->
-                    val availableAmount = line.balanceAmount(denom)
+                    val availableAmount = line.balanceAmount(denom).movePointLeft(6)
+                    toSendAmount.text = formatAmount(availableAmount.toString(), 6)
+                    toSendDenom.text = "KAVA"
                 }
-                toSendDenom.text = "KAVA"
             }
             chainImg.setImageResource(line.logo)
             toAddress.text = line.address

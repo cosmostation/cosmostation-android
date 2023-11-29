@@ -28,16 +28,9 @@ open class BaseChain : Serializable {
         return accountKeyType.hdPath.replace("X", lastPath)
     }
 
-    fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
-        privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
-        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
-        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-    }
+    open fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {}
 
-    fun setInfoWithPrivateKey(privateKey: ByteArray?) {
-        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
-        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-    }
+    open fun setInfoWithPrivateKey(privateKey: ByteArray?) {}
 }
 
 enum class ChainType { COSMOS_TYPE, ETH_TYPE, SUI_TYPE }

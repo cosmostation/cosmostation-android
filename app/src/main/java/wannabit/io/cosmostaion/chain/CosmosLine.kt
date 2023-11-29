@@ -26,6 +26,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.bitcoinj.crypto.ChildNumber
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -85,6 +87,17 @@ open class CosmosLine : BaseChain() {
 
     var lcdAccountInfo: AccountResponse? = null
     var lcdBeaconTokens = mutableListOf<BnbToken>()
+
+    override fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
+        privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
+        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
+    }
+
+    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
+    }
 
     interface LoadDataCallback {
         fun onDataLoaded(isLoaded: Boolean)
@@ -220,7 +233,7 @@ open class CosmosLine : BaseChain() {
         return param?.params?.chainlistParams?.fee?.base?.toInt() ?: 0
     }
 
-    fun isTxFeePayable(c: Context): Boolean {
+    open fun isTxFeePayable(c: Context): Boolean {
         getDefaultFeeCoins(c).forEach { fee ->
             if (balanceAmount(fee.denom) >= BigDecimal(fee.amount)) {
                 return true

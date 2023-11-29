@@ -36,7 +36,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_6"
+            android:layout_marginStart="@dimen/space_10"
             android:layout_marginEnd="@dimen/space_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
                 android:text="Claim fee payable : "
                 android:textColor="@color/color_base02"
                 app:layout_constraintBottom_toBottomOf="parent"

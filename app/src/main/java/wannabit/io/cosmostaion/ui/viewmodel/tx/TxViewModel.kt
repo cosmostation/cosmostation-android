@@ -4,6 +4,11 @@ import SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.binance.dex.api.client.Wallet
+import com.binance.dex.api.client.domain.TransactionMetadata
+import com.binance.dex.api.client.domain.broadcast.HtltReq
+import com.binance.dex.api.client.domain.broadcast.TransactionOption
+import com.binance.dex.api.client.domain.broadcast.Transfer
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.tendermint.v1beta1.QueryProto.GetLatestBlockRequest
@@ -24,6 +29,7 @@ import com.ibc.core.channel.v1.QueryGrpc
 import com.ibc.core.channel.v1.QueryProto
 import com.ibc.core.client.v1.ClientProto
 import com.ibc.lightclients.tendermint.v1.TendermintProto
+import com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap
 import com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
@@ -106,6 +112,13 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 errorMessage.postValue(errorResponse)
             }
         }
+    }
+
+    private val _broadcastBnbTx = MutableLiveData<MutableList<TransactionMetadata>?>()
+    val broadcastBnbTx: LiveData<MutableList<TransactionMetadata>?> get() = _broadcastBnbTx
+    fun broadcastBnbSend(transfer: Transfer, wallet: Wallet, options: TransactionOption) = CoroutineScope(Dispatchers.IO).launch {
+        val response = txRepository.broadcastBnbSendTx(transfer, wallet, options)
+        _broadcastBnbTx.postValue(response)
     }
 
     fun broadcastIbcSend(
@@ -1045,5 +1058,35 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             )
             _broadCreateSwap.postValue(response?.txResponse)
         }
+    }
+
+    private val _broadClaimSwap = MutableLiveData<AbciProto.TxResponse>()
+    val broadClaimSwap: LiveData<AbciProto.TxResponse> get() = _broadClaimSwap
+    fun broadClaimSwap(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgClaimAtomicSwap: MsgClaimAtomicSwap?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastClaimSwapTx(
+                managedChannel,
+                it,
+                msgClaimAtomicSwap,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadClaimSwap.postValue(response?.txResponse)
+        }
+    }
+
+    private val _broadBnbCreateSwap = MutableLiveData<MutableList<TransactionMetadata>?>()
+    val broadBnbCreateSwap: LiveData<MutableList<TransactionMetadata>?> get() = _broadBnbCreateSwap
+    fun broadcastBnbCreateSwap(htltReq: HtltReq, wallet: Wallet, options: TransactionOption) = CoroutineScope(Dispatchers.IO).launch {
+        val response = txRepository.broadcastBnbCreateSwapTx(htltReq, wallet, options)
+        _broadBnbCreateSwap.postValue(response)
     }
 }

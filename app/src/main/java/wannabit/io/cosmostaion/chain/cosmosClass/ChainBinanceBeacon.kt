@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.content.Context
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +88,11 @@ class ChainBinanceBeacon : CosmosLine() {
         return lcdBalanceValueSum()
     }
 
+    override fun isTxFeePayable(c: Context): Boolean {
+        val availableAmount = lcdBalanceAmount(stakeDenom)
+        return availableAmount > BigDecimal(BNB_BEACON_BASE_FEE)
+    }
+
     private suspend fun loadBeaconTokens() {
         when (val response = safeApiCall { RetrofitInstance.beaconApi.beaconTokens("1000") }) {
             is NetworkResult.Success -> {
@@ -142,3 +148,5 @@ class ChainBinanceBeacon : CosmosLine() {
         return sumValue
     }
 }
+
+const val BNB_BEACON_BASE_FEE = "0.000075"

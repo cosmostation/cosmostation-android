@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
@@ -60,7 +61,12 @@ class TxResultActivity : BaseActivity() {
         errorMsg = intent.getStringExtra("errorMsg") ?: ""
         txHash = intent.getStringExtra("txHash") ?: ""
 
-        binding.apply {
+        if (selectedChain is ChainBinanceBeacon) {
+            if (txHash.isNotEmpty()) {
+                updateView()
+            }
+
+        } else {
             if (isSuccess) {
                 fetchTx()
             } else {
@@ -90,11 +96,19 @@ class TxResultActivity : BaseActivity() {
     private fun clickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+                if (selectedChain is ChainBinanceBeacon) {
+                    historyToMintscan(selectedChain, txHash)
+                } else {
+                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+                }
             }
 
             viewFailMintscan.setOnClickListener {
-                historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+                if (selectedChain is ChainBinanceBeacon) {
+                    historyToMintscan(selectedChain, txHash)
+                } else {
+                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+                }
             }
 
             btnConfirm.setOnClickListener {

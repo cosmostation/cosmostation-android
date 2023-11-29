@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment
+import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 
@@ -141,14 +142,20 @@ class CoinFragment(position: Int) : Fragment() {
                     return@setOnItemClickListener
                 }
 
-                if (line is ChainKava459) {
+                if (line is ChainBinanceBeacon) {
+                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                        selectBridgeOption(line, denom)
+                    } else {
+                        startLegacyTransfer(line, denom)
+                    }
+
+                } else if (line is ChainKava459) {
                     if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
                         selectBridgeOption(line, denom)
                     } else {
                         startTransfer(line, denom)
                     }
-                } else if (line is ChainBinanceBeacon) {
-                    startTransfer(line, denom)
+
                 } else {
                     startTransfer(line, denom)
                 }
@@ -182,6 +189,19 @@ class CoinFragment(position: Int) : Fragment() {
         }
     }
 
+    private fun startLegacyTransfer(line: CosmosLine, denom: String) {
+        var isClickable = true
+        val bottomSheet = LegacyTransferFragment(line, denom)
+        if (isClickable) {
+            isClickable = false
+            bottomSheet.show(requireActivity().supportFragmentManager, LegacyTransferFragment::class.java.name)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
     private fun selectBridgeOption(line: CosmosLine, denom: String) {
         var isClickable = true
         val bottomSheet = BridgeOptionFragment(line, denom, bridgeClickAction)
@@ -201,7 +221,11 @@ class CoinFragment(position: Int) : Fragment() {
         }
 
         override fun simpleTransfer(line: CosmosLine, denom: String) {
-            startTransfer(selectedChain, denom)
+            if (line is ChainBinanceBeacon) {
+                startLegacyTransfer(line, denom)
+            } else {
+                startTransfer(line, denom)
+            }
         }
     }
 

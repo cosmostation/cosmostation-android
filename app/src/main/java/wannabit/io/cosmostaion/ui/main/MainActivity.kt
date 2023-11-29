@@ -163,6 +163,9 @@ class MainActivity : BaseActivity() {
 
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) { response ->
+            BaseData.baseAccount?.displayCosmosLineChains?.forEach {
+                it.fetched = false
+            }
             if (response == true) {
                 val mainViewPagerAdapter = MainViewPageAdapter(this)
                 binding.mainViewPager.adapter = mainViewPagerAdapter

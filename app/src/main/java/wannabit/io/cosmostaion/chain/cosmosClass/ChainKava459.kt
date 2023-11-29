@@ -7,7 +7,6 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.CosmostationConstants
 
 open class ChainKava459 : CosmosLine() {

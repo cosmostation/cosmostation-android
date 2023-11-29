@@ -221,7 +221,7 @@ class InsertAmountFragment(
                 }
 
                 BigDecimal(text).apply {
-                    availAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal)?.let { amount ->
+                    availAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
                         if (this != BigDecimal.ZERO && amount >= this) {
                             editLayout.error = null
                             invalidMsg.visibility = View.GONE
@@ -268,7 +268,7 @@ class InsertAmountFragment(
             }
 
             btnConfirm.setOnClickListener {
-                val originalAmount = BigDecimal(amountTxt.text.toString().trim()).movePointRight(assetDecimal).setScale(0)
+                val originalAmount = BigDecimal(amountTxt.text.toString().trim()).movePointRight(assetDecimal).setScale(0, RoundingMode.DOWN)
                 listener.select(originalAmount.toPlainString())
                 dismiss()
             }

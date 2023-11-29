@@ -11,8 +11,13 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.BNB_BEACON_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.common.BaseData
@@ -82,6 +87,25 @@ class Bep3Fragment(
 
             BaseData.baseAccount?.let { baseAccount ->
                 if (fromChain is ChainBinanceBeacon) {
+                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList()
+                    fromChainImg.setImageResource(R.drawable.chain_binance)
+                    fromChainName.text = "BNB Beacon"
+
+                    toChainImg.setImageResource(R.drawable.chain_kava)
+                    toChainName.text = "Kava"
+
+                    fromChain.lcdBeaconTokens.firstOrNull { it.symbol == denom }?.let { bnbTokenInfo ->
+                        val originalSymbol = bnbTokenInfo.originalSymbol
+                        tokenImg.setTokenImg(fromChain.assetImg(originalSymbol))
+                        tokenName.text = originalSymbol.uppercase()
+
+                        val available = fromChain.lcdBalanceAmount(denom)
+                        availableAmount = if (denom == fromChain.stakeDenom) {
+                            available.subtract(BigDecimal(BNB_BEACON_BASE_FEE)).movePointRight(8)
+                        } else {
+                            available.movePointRight(8)
+                        }
+                    }
 
                 } else {
                     toChains = baseAccount.allCosmosLineChains.filter { it.name == "BNB Beacon" }.toMutableList()
@@ -97,29 +121,56 @@ class Bep3Fragment(
                     }
                     availableAmount = fromChain.balanceAmount(denom)
                 }
+
+                toChains?.let {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        baseAccount.initTargetChainsData(it)
+                        withContext(Dispatchers.Main) {
+                            kavaViewModel.bep3Data(getChannel(ChainKava459()))
+                        }
+                    }
+                }
             }
-            kavaViewModel.bep3Data(getChannel(ChainKava459()))
         }
     }
 
     private fun initData() {
         binding.apply {
             kavaViewModel.bep3Data.observe(viewLifecycleOwner) { response ->
-                loading.visibility = View.GONE
-
                 response?.bep3Param?.let { params ->
                     params.forEach { param ->
                         if (fromChain is ChainBinanceBeacon) {
+                            if (denom.lowercase().startsWith(param.denom.lowercase())
+                                || denom.lowercase().startsWith("xrp") && param.denom.lowercase().startsWith("xrp")) {
+                                val limit = param.supplyLimit.limit.toBigDecimal()
+                                response.bep3Supplies?.forEach { supply ->
+                                    if (denom.lowercase().startsWith(supply.incomingSupply.denom.lowercase())
+                                        || denom.lowercase().startsWith("xrp") && supply.incomingSupply.denom.lowercase().startsWith("xrp")) {
+                                        val remain = limit.subtract(supply.currentSupply.amount.toBigDecimal()).subtract(supply.incomingSupply.amount.toBigDecimal())
+                                        if (availableAmount > remain) {
+                                            availableAmount = remain
+                                        }
+                                        if (availableAmount > param.maxSwapAmount.toBigDecimal()) {
+                                            availableAmount = param.maxSwapAmount.toBigDecimal()
+                                        }
+                                        minAvailableAmount = param.minSwapAmount.toBigDecimal()
+                                            .add(param.fixedFee.toBigDecimal())
+                                    }
+                                }
+                            }
 
                         } else {
-                            if (param.denom == denom) {
+                            if (denom.lowercase().startsWith(param.denom.lowercase())
+                                || denom.lowercase().startsWith("xrp") && param.denom.lowercase().startsWith("xrp")) {
                                 if (availableAmount > param.maxSwapAmount.toBigDecimal()) {
                                     availableAmount = param.maxSwapAmount.toBigDecimal()
                                 }
-                                minAvailableAmount = param.minSwapAmount.toBigDecimal().add(param.fixedFee.toBigDecimal())
+                                minAvailableAmount = param.minSwapAmount.toBigDecimal()
+                                    .add(param.fixedFee.toBigDecimal())
                             }
                         }
                     }
+                    loading.visibility = View.GONE
                 }
             }
         }
@@ -130,8 +181,18 @@ class Bep3Fragment(
             tabMsgTxt.visibility = View.GONE
             amountLayout.visibility = View.VISIBLE
 
-            toSendAmount = toAmount
+            toSendAmount = toAmount.toBigDecimal().movePointLeft(8).toString()
             if (fromChain is ChainBinanceBeacon) {
+                sendAmount.text = formatAmount(toSendAmount, 8)
+
+                if (denom == fromChain.stakeDenom) {
+                    sendValue.visibility = View.VISIBLE
+                    val price = BaseData.getPrice(fromChain.BNB_GECKO_ID)
+                    val toSendValue = price.multiply(toSendAmount.toBigDecimal()).setScale(6, RoundingMode.DOWN)
+                    sendValue.text = formatAssetValue(toSendValue)
+                } else {
+                    sendValue.visibility = View.GONE
+                }
 
             } else {
                 BaseData.getAsset(fromChain.apiName, denom)?.let { asset ->

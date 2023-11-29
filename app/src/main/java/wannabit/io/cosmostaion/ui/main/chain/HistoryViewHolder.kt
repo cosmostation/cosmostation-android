@@ -129,7 +129,7 @@ class HistoryViewHolder(
             txDenom.text = "-"
 
             historyView.setOnClickListener {
-                val historyUrl = CosmostationConstants.EXPLORER_BINANCE_URL + "txs" + historyBnbGroup.second.txHash
+                val historyUrl = CosmostationConstants.EXPLORER_BINANCE_URL + "tx/" + historyBnbGroup.second.txHash
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
             }
         }
