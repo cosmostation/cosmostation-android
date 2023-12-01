@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/space_15">
 
     <View
         android:id="@+id/view"
@@ -50,8 +51,18 @@
         android:layout_marginTop="@dimen/space_8"
         android:layout_marginBottom="@dimen/space_15"
         android:textColor="@color/color_base02"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/account_name" />
+
+    <TextView
+        android:id="@+id/account_sub_address"
+        style="@style/font_sb_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:textColor="@color/color_base03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_address"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

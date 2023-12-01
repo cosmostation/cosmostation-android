@@ -24,11 +24,6 @@
             android:textColor="@color/color_base01"
             android:text="@string/str_change_reward_address"/>
 
-        <ImageView
-            android:id="@+id/btn_qr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_qr" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

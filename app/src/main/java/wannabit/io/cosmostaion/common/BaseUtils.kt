@@ -374,7 +374,10 @@ object BaseUtils {
     fun isValidChainAddress(line: CosmosLine?, address: String?): Boolean {
         if (address?.isEmpty() == true) { return false }
         if (address?.startsWith("0x") == true) {
-
+            if (BaseKey.isValidEthAddress(address)) {
+                return true
+            }
+            return false
         }
 
         if (!BaseKey.isValidBech32(address)) { return false }

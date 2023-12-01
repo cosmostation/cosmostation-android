@@ -9,6 +9,7 @@ import org.bitcoinj.crypto.HDKeyDerivation
 import org.bitcoinj.crypto.MnemonicCode
 import org.bitcoinj.crypto.MnemonicException.MnemonicLengthException
 import org.web3j.crypto.Keys
+import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.PubKeyType
 import java.security.SecureRandom
@@ -106,5 +107,9 @@ object BaseKey {
             result = true
         } catch (_: Exception) { }
         return result
+    }
+
+    fun isValidEthAddress(address: String?): Boolean {
+        return WalletUtils.isValidAddress(address)
     }
 }

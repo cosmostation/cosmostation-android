@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.ItemAddressBinding
@@ -19,7 +20,7 @@ class AddressBookViewHolder(
     private val binding: ItemAddressBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(refAddress: RefAddress) {
+    fun bind(refAddress: RefAddress, addressType: AddressType?) {
         binding.apply {
             CoroutineScope(Dispatchers.IO).launch {
                 val account = AppDatabase.getInstance().baseAccountDao().selectAccount(refAddress.accountId)
@@ -32,20 +33,31 @@ class AddressBookViewHolder(
                             chainBadge.text = context.getString(R.string.str_evm)
                             chainBadge.setBackgroundResource(R.drawable.round_box_evm)
                             chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base01))
+                            accountSubAddress.visibility = View.VISIBLE
+                            if (addressType == AddressType.EVM_TRANSFER) {
+                                accountAddress.text = ByteUtils.convertBech32ToEvm(refAddress.dpAddress)
+                                accountSubAddress.text = "(" + refAddress.dpAddress + ")"
+                            } else {
+                                accountAddress.text = refAddress.dpAddress
+                                accountSubAddress.text = "(" + ByteUtils.convertBech32ToEvm(refAddress.dpAddress) + ")"
+                            }
 
                         } else if (!line.isDefault) {
                             chainBadge.visibility = View.VISIBLE
                             chainBadge.text = context.getString(R.string.str_legacy)
                             chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                             chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base02))
+                            accountSubAddress.visibility = View.GONE
+                            accountAddress.text = refAddress.dpAddress
 
                         } else {
                             chainBadge.visibility = View.GONE
+                            accountSubAddress.visibility = View.GONE
+                            accountAddress.text = refAddress.dpAddress
                         }
                     }
                 }
             }
-            accountAddress.text = refAddress.dpAddress
         }
     }
 }

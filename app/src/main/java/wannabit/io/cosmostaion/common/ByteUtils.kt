@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.common
 
+import org.bitcoinj.core.Bech32
 import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
@@ -73,5 +74,16 @@ object ByteUtils {
             data[j++] = ((Character.digit(s[i], 16) shl 4) + Character.digit(s[i + 1], 16)).toByte()
         }
         return data
+    }
+
+    fun convertBech32ToEvm(address: String?): String {
+        val pub = convertBits(Bech32.decode(address).data, 5, 8, false)
+        return "0x" + pub.toHex()
+    }
+
+    fun convertEvmToBech32(address: String, prefix: String?): String {
+        val pub = hexStringToByteArray(address.replace("0x", ""))
+        val bytes = convertBits(pub, 8, 5, true)
+        return Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
     }
 }

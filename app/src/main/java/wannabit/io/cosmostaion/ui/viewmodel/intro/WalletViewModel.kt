@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -123,6 +124,26 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 _pwCheckResult.postValue(BaseConstant.FAIL)
             } else {
                 _pwCheckResult.postValue(BaseConstant.SUCCESS)
+            }
+        }
+    }
+
+    private var _evmTxHashResult = MutableLiveData<String>()
+    val evmTxHashResult: LiveData<String> get() = _evmTxHashResult
+    fun evmTxHash(chain: String?, evmTxHash: String?) = CoroutineScope(Dispatchers.IO).launch {
+        when (val response = walletRepository.evmTxHash(chain, evmTxHash)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        _evmTxHashResult.postValue(response.data.body())
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }

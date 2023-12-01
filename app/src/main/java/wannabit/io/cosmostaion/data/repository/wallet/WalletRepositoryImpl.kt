@@ -36,4 +36,10 @@ class WalletRepositoryImpl : WalletRepository {
             mintscanApi.asset()
         }
     }
+
+    override suspend fun evmTxHash(chain: String?, evmTxHash: String?): NetworkResult<Response<String>> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.evmTxHash(chain, evmTxHash)
+        }
+    }
 }

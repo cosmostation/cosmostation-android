@@ -163,7 +163,7 @@ class TransferFragment(
                     transferAssetType = TransferAssetType.COIN_TRANSFER
 
                 } ?: run {
-                selectedChain.tokens.firstOrNull { it.address == toSendDenom }.let { token ->
+                selectedChain.cw20tokens.firstOrNull { it.address == toSendDenom }.let { token ->
                     selectedToken = token
                     transferAssetType = TransferAssetType.CW20_TRANSFER
                 }
@@ -217,7 +217,7 @@ class TransferFragment(
                     tokenName.text = asset.symbol
                 }
             } else {
-                selectedChain.tokens.firstOrNull { it.address == toSendDenom }.let { token ->
+                selectedChain.cw20tokens.firstOrNull { it.address == toSendDenom }.let { token ->
                     token?.let {
                         tokenImg.setTokenImg(it.assetImg())
                         tokenName.text = it.symbol
@@ -724,7 +724,7 @@ enum class TransferAssetType { COIN_TRANSFER, CW20_TRANSFER, ERC20_TRANSFER }
 
 fun assetPath(fromChain: CosmosLine, toChain: CosmosLine, denom: String): AssetPath? {
     val msAsset = BaseData.assets?.firstOrNull { it.denom?.lowercase() == denom.lowercase() }
-    val msToken = fromChain.tokens.firstOrNull { it.address == denom }
+    val msToken = fromChain.cw20tokens.firstOrNull { it.address == denom }
     var result: AssetPath? = null
 
     BaseData.assets?.forEach { asset ->

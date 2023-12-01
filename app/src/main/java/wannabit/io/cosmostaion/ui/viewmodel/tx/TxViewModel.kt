@@ -45,11 +45,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.NameService
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
 import java.util.concurrent.TimeUnit
 
@@ -213,6 +215,32 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        }
+    }
+
+    private val _broadcastErc20SendTx = MutableLiveData<String?>()
+    val broadcastErc20SendTx: LiveData<String?> get() = _broadcastErc20SendTx
+    fun broadcastErc20Send(
+        web3j: Web3j,
+        hexValue: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        val response = txRepository.broadcastErcSendTx(web3j, hexValue)
+        _broadcastErc20SendTx.postValue(response)
+    }
+
+    val simulateErc20Send = SingleLiveEvent<Pair<String?, String?>>()
+    val erc20ErrorMessage = SingleLiveEvent<Pair<String?, String?>>()
+    fun simulateErc20Send(
+        toEthAddress: String?,
+        toSendAmount: String?,
+        selectedToken: Token?,
+        selectedChain: CosmosLine
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        val response = txRepository.simulateErcSendTx(toEthAddress, toSendAmount, selectedToken, selectedChain)
+        if (response.second?.isNotEmpty() == true) {
+            simulateErc20Send.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
         }
     }
 

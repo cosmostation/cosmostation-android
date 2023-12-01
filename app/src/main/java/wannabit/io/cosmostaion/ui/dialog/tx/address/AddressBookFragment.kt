@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.databinding.FragmentAddressBookBinding
 class AddressBookFragment(
     private val sendAddress: String?,
     private val targetChain: CosmosLine?,
+    private val addressType: AddressType?,
     val listener: AddressBookSelectListener
 ) : BottomSheetDialogFragment() {
 
@@ -50,7 +51,7 @@ class AddressBookFragment(
 
                             withContext(Dispatchers.Main) {
                                 myAccountCnt.text = refAddresses.size.toString()
-                                addressBookAdapter = AddressBookAdapter()
+                                addressBookAdapter = AddressBookAdapter(addressType)
                                 recycler.setHasFixedSize(true)
                                 recycler.layoutManager = LinearLayoutManager(requireContext())
                                 recycler.adapter = addressBookAdapter

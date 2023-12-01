@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.api
 
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,6 +31,9 @@ interface MintscanApi {
     @GET("v3/assets/{chain}/cw20")
     suspend fun cw20token(@Path("chain") chain:String): TokenResponse
 
+    @GET("v3/assets/{chain}/erc20")
+    suspend fun erc20token(@Path("chain") chain:String): TokenResponse
+
     @GET("v1/{chain}/account/{address}/txs")
     suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("from") searchId: Int?): Response<List<CosmosHistory>>
 
@@ -41,4 +45,7 @@ interface MintscanApi {
 
     @GET("v1/{chain}/dao/address/{address}/votes")
     suspend fun daoVoteStatus(@Path("chain") chain: String?, @Path("address") address: String?): Response<MutableList<ResDaoVoteStatus>>
+
+    @GET("v1/{chain}/evm/tx/{etherTxHash}")
+    suspend fun evmTxHash(@Path("chain") chain: String?, @Path("etherTxHash") etherTxHash: String?): Response<String>
 }

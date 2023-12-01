@@ -15,4 +15,6 @@ interface WalletRepository {
     suspend fun price(currency: String): NetworkResult<Response<List<Price>>>
 
     suspend fun asset(): NetworkResult<Response<AssetResponse>>
+
+    suspend fun evmTxHash(chain: String?, evmTxHash: String?): NetworkResult<Response<String>>
 }

@@ -120,7 +120,7 @@ class StakeInfoFragment(private val selectedChain: CosmosLine) : Fragment() {
                     requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
-                val bottomSheet = StakingFragment(selectedChain)
+                val bottomSheet = StakingFragment(selectedChain, null)
                 bottomSheet.show(requireActivity().supportFragmentManager, StakingFragment::class.java.name)
             }
         }

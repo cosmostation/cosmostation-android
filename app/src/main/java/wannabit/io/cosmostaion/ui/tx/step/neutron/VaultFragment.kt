@@ -141,6 +141,7 @@ class VaultFragment(
                 BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        vaultAmountMsg.visibility = View.GONE
                         vaultAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         vaultAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
                         vaultDenom.visibility = View.VISIBLE

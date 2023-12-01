@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.LegacyInsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
@@ -204,7 +203,7 @@ class LegacyTransferFragment(
 
                         }).show(
                         requireActivity().supportFragmentManager,
-                        InsertAmountFragment::class.java.name
+                        LegacyInsertAmountFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({

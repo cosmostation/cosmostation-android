@@ -52,7 +52,8 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class StakingFragment(
-    val selectedChain: CosmosLine
+    val selectedChain: CosmosLine,
+    private var toValidator: Validator?
 ) : BaseTxFragment() {
 
     private var _binding: FragmentStakingBinding? = null
@@ -62,7 +63,7 @@ class StakingFragment(
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
 
-    private var toValidator: Validator? = null
+//    private var toValidator: Validator? = null
     private var toCoin: CoinProto.Coin? = null
     private var txMemo = ""
 
@@ -93,10 +94,12 @@ class StakingFragment(
             memoView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
 
-            selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.let { vaildator ->
-                toValidator = vaildator
-            } ?: run {
-                toValidator = selectedChain.cosmosValidators[0]
+            if (toValidator == null) {
+                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.let { vaildator ->
+                    toValidator = vaildator
+                } ?: run {
+                    toValidator = selectedChain.cosmosValidators[0]
+                }
             }
             updateValidator()
         }
@@ -160,6 +163,7 @@ class StakingFragment(
                 BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        delegateAmountMsg.visibility = View.GONE
                         delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         delegateAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
                         delegateDenom.visibility = View.VISIBLE

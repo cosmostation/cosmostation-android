@@ -17,7 +17,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
@@ -35,6 +34,7 @@ import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 
 class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
@@ -104,11 +104,15 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 fabVote.setImageResource(R.drawable.icon_neutron_vault)
                 fabVote.labelText = "Vault"
 
-            } else if (selectedChain is ChainKava459 || selectedChain is ChainKava118) {
+            } else if (selectedChain is ChainKava459) {
                 fabDefi.visibility = View.VISIBLE
 
-            } else {
-                fabDefi.visibility = View.GONE
+            } else if (selectedChain is ChainBinanceBeacon) {
+                fabVote.visibility = View.GONE
+                fabCompounding.visibility = View.GONE
+                fabStake.visibility = View.GONE
+                fabClaimReward.setImageResource(R.drawable.icon_receive)
+                fabClaimReward.labelText = "Receive"
             }
 
             pagerAdapter = AccountPageAdapter(
@@ -192,11 +196,18 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
         var isClickable = true
         binding.apply {
             fabSend.setOnClickListener {
-                selectedChain.stakeDenom?.let {
-                    val bottomSheet = TransferFragment(selectedChain, it)
-                    if (isClickable) {
-                        isClickable = false
-                        bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
+                if (isClickable) {
+                    isClickable = false
+
+                    selectedChain.stakeDenom?.let {
+                        if (selectedChain is ChainBinanceBeacon) {
+                            val bottomSheet = LegacyTransferFragment(selectedChain, it)
+                            bottomSheet.show(requireActivity().supportFragmentManager, LegacyTransferFragment::class.java.name)
+
+                        } else {
+                            val bottomSheet = TransferFragment(selectedChain, it)
+                            bottomSheet.show(requireActivity().supportFragmentManager, TransferFragment::class.java.name)
+                        }
                     }
                 }
 
@@ -228,7 +239,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 if (isClickable) {
                     isClickable = false
 
-                    if (selectedChain is ChainNeutron) {
+                    if (selectedChain is ChainNeutron || selectedChain is ChainBinanceBeacon) {
                         val bottomSheet = QrCodeFragment(selectedChain)
                         bottomSheet.show(requireActivity().supportFragmentManager, QrCodeFragment::class.java.name)
 

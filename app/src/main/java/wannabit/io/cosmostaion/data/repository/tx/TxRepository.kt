@@ -29,7 +29,9 @@ import com.kava.hard.v1beta1.TxProto.MsgBorrow
 import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
+import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.data.model.res.Token
 
 interface TxRepository {
 
@@ -93,6 +95,18 @@ interface TxRepository {
         fee: Fee?,
         memo: String
     ): Any?
+
+    suspend fun broadcastErcSendTx(
+        web3j: Web3j,
+        hexValue: String
+    ): String?
+
+    suspend fun simulateErcSendTx(
+        toEthAddress: String?,
+        toSendAmount: String?,
+        selectedToken: Token?,
+        selectedChain: CosmosLine
+    ): Pair<String?, String?>
 
     suspend fun broadcastDelegateTx(
         managedChannel: ManagedChannel?,

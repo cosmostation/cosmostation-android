@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.dialog.tx
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -134,6 +135,8 @@ class InsertAmountFragment(
     private fun setTokenAmount() {
         binding.apply {
             selectedToken?.let { token ->
+                assetDecimal = token.decimals
+
                 availAmount?.movePointLeft(token.decimals)?.setScale(token.decimals)?.let { amount ->
                     available.text = formatAmount(amount.toPlainString(), token.decimals)
                     availableDenom.text = token.symbol

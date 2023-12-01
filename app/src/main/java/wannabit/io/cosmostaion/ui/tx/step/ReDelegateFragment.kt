@@ -188,6 +188,7 @@ class ReDelegateFragment(
                 BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        redelegateAmountMsg.visibility = View.GONE
                         redelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         redelegateAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
                         redelegateDenom.visibility = View.VISIBLE

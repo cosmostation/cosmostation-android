@@ -26,7 +26,9 @@ class ChainEvmos : CosmosLine() {
         ChildNumber.ZERO
     )
     override var accountPrefix: String? = "evmos"
+    override var supportErc20: Boolean = true
     override var evmCompatible: Boolean = true
 
     override var grpcHost: String = "grpc-evmos.cosmostation.io"
+    override var rpcUrl: String = "https://rpc-evmos-app.cosmostation.io"
 }

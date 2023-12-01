@@ -139,7 +139,7 @@
                 android:text="@string/title_undelegate_amount"/>
 
             <TextView
-                android:id="@+id/undelegate_amount"
+                android:id="@+id/undelegate_amount_msg"
                 style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,8 +151,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/undelegate_amount_title" />
 
             <TextView
+                android:id="@+id/undelegate_amount"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/undelegate_amount_title" />
+
+            <TextView
                 android:id="@+id/undelegate_denom"
-                style="@style/font_sm_10"
+                style="@style/font_sb_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"

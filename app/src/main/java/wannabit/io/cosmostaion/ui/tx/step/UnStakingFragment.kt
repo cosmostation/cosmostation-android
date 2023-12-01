@@ -159,6 +159,7 @@ class UnStakingFragment(
                 BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
                     asset.decimals?.let { decimal ->
                         val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        undelegateAmountMsg.visibility = View.GONE
                         undelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         undelegateAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
                         undelegateDenom.visibility = View.VISIBLE

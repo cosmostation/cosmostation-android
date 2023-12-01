@@ -53,6 +53,8 @@ class HistoryFragment(position: Int) : Fragment() {
 
         checkHistory()
         initRecyclerView()
+        scrollView()
+        refreshData()
     }
 
     private fun initViewModel() {
@@ -61,49 +63,57 @@ class HistoryFragment(position: Int) : Fragment() {
         historyViewModel = ViewModelProvider(this, historyViewModelProviderFactory)[HistoryViewModel::class.java]
     }
 
+    private fun refreshData() {
+        binding.refresher.setOnRefreshListener {
+            allHistoryGroup.clear()
+            allBnbHistoryGroup.clear()
+            searchId = 0
+            initData()
+        }
+    }
+
     private fun initRecyclerView() {
-        val baseAccount = BaseData.baseAccount
-        baseAccount?.let { account ->
-            selectedChain = account.displayCosmosLineChains[selectedPosition]
-            if (selectedChain is ChainBinanceBeacon) {
-                historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
-
+        binding.apply {
+            BaseData.baseAccount?.let { baseAccount ->
+                selectedChain = baseAccount.displayCosmosLineChains[selectedPosition]
                 historyAdapter = HistoryAdapter(requireContext(), selectedChain)
-                binding.recycler.apply {
-                    setHasFixedSize(true)
-                    layoutManager = LinearLayoutManager(requireContext())
-                    adapter = historyAdapter
-                }
+                recycler.setHasFixedSize(true)
+                recycler.layoutManager = LinearLayoutManager(requireContext())
+                recycler.adapter = historyAdapter
 
-            } else {
-                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
-
-                historyAdapter = HistoryAdapter(requireContext(), selectedChain)
-                binding.recycler.apply {
-                    setHasFixedSize(true)
-                    layoutManager = LinearLayoutManager(requireContext())
-                    adapter = historyAdapter
-
-                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                            if (adapter != null && adapter!!.itemCount == 0) {
-                                return
-                            }
-                            val lastVisibleItemPosition =
-                                (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                            val itemTotalCount = adapter!!.itemCount - 1
-
-                            if (lastVisibleItemPosition == itemTotalCount) {
-                                if (hasMore) {
-                                    hasMore = false
-                                    historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
-                                }
-                            }
-                        }
-                    })
-                }
+                initData()
             }
         }
+    }
+
+    private fun initData() {
+        if (selectedChain is ChainBinanceBeacon) {
+            historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
+        } else {
+            historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
+        }
+        binding.refresher.isRefreshing = false
+    }
+
+    private fun scrollView() {
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (historyAdapter.itemCount == 0) {
+                    return
+                }
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = historyAdapter.itemCount - 1
+
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    if (hasMore) {
+                        hasMore = false
+                        historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
+                    }
+                }
+            }
+        })
     }
 
     private fun checkHistory() {

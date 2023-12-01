@@ -124,8 +124,10 @@ class ChangeRewardAddressFragment(
         existedAddress = address
         binding.apply {
             if (address.isEmpty()) {
+                newRewardAddressMsg.visibility = View.VISIBLE
                 newRewardAddressMsg.text = getString(R.string.str_tap_for_add_address_msg)
             } else {
+                newRewardAddressMsg.visibility = View.GONE
                 newRewardAddress.text = address
             }
             newRewardAddressMsg.visibleOrGone(address.isEmpty())

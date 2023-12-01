@@ -8,8 +8,10 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.cosmos.tx.v1beta1.ServiceGrpc.newStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import io.grpc.ManagedChannel
@@ -18,6 +20,9 @@ import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.methods.response.TransactionReceipt
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -25,10 +30,14 @@ import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class TxResultActivity : BaseActivity() {
@@ -42,13 +51,26 @@ class TxResultActivity : BaseActivity() {
     private var fetchCnt = 10
     private var txResponse: ServiceProto.GetTxResponse? = null
 
+    private var txResultType: TxResultType? = TxResultType.COSMOS
+
+    private var evmRecipient: TransactionReceipt? = null
+
+    private lateinit var walletViewModel: WalletViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTxResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initViewModel()
         initView()
         clickAction()
+    }
+
+    private fun initViewModel() {
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initView() {
@@ -60,15 +82,26 @@ class TxResultActivity : BaseActivity() {
         isSuccess = intent.getBooleanExtra("isSuccess", false)
         errorMsg = intent.getStringExtra("errorMsg") ?: ""
         txHash = intent.getStringExtra("txHash") ?: ""
+        txResultType = TxResultType.valueOf(intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString())
 
+        binding.btnConfirm.updateButtonView(true)
         if (selectedChain is ChainBinanceBeacon) {
             if (txHash.isNotEmpty()) {
                 updateView()
+            } else {
+                binding.loading.visibility = View.GONE
+                binding.btnConfirm.updateButtonView(true)
+                binding.failLayout.visibility = View.VISIBLE
+                binding.failMsg.text = errorMsg
             }
 
         } else {
             if (isSuccess) {
-                fetchTx()
+                if (txResultType == TxResultType.COSMOS) {
+                    fetchTx()
+                } else {
+                    fetchEvmTx()
+                }
             } else {
                 showError()
             }
@@ -83,12 +116,22 @@ class TxResultActivity : BaseActivity() {
     private fun updateView() {
         binding.apply {
             loading.visibility = View.GONE
-            btnConfirm.updateButtonView(true)
-            if (isSuccess) {
-                successLayout.visibility = View.VISIBLE
+            if (txResultType == TxResultType.COSMOS) {
+                if (isSuccess) {
+                    successLayout.visibility = View.VISIBLE
+                } else {
+                    failLayout.visibility = View.VISIBLE
+                    failMsg.text = errorMsg
+                }
+
             } else {
-                failLayout.visibility = View.VISIBLE
-                failMsg.text = errorMsg
+                walletViewModel.evmTxHash(selectedChain?.apiName, txHash)
+                if (evmRecipient?.isStatusOK == true) {
+                    successLayout.visibility = View.VISIBLE
+                } else {
+                    failLayout.visibility = View.VISIBLE
+                    failMsg.text = evmRecipient?.logsBloom.toString()
+                }
             }
         }
     }
@@ -96,7 +139,16 @@ class TxResultActivity : BaseActivity() {
     private fun clickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (selectedChain is ChainBinanceBeacon) {
+                if (txResultType == TxResultType.EVM) {
+                    walletViewModel.evmTxHashResult.observe(this@TxResultActivity) { txHash ->
+                        historyToMintscan(selectedChain, txHash)
+                    }
+
+                    walletViewModel.errorMessage.observe(this@TxResultActivity) {
+                        viewSuccessMintscan.isEnabled = false
+                    }
+
+                } else if (selectedChain is ChainBinanceBeacon) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -104,7 +156,16 @@ class TxResultActivity : BaseActivity() {
             }
 
             viewFailMintscan.setOnClickListener {
-                if (selectedChain is ChainBinanceBeacon) {
+                if (txResultType == TxResultType.EVM) {
+                    walletViewModel.evmTxHashResult.observe(this@TxResultActivity) { txHash ->
+                        historyToMintscan(selectedChain, txHash)
+                    }
+
+                    walletViewModel.errorMessage.observe(this@TxResultActivity) {
+                        viewSuccessMintscan.isEnabled = false
+                    }
+
+                } else if (selectedChain is ChainBinanceBeacon) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -151,6 +212,46 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
+    private fun fetchEvmTx() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val rpcUrl = selectedChain?.rpcUrl
+            val web3j = Web3j.build(HttpService(rpcUrl))
+            try {
+                val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
+                if (receiptTx.transactionReceipt.isPresent) {
+                    evmRecipient = receiptTx.transactionReceipt.get()
+                }
+                if (evmRecipient == null) {
+                    fetchCnt -= 1
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        fetchEvmTx()
+                    }, 6000)
+                } else {
+                    runOnUiThread {
+                        updateView()
+                    }
+                }
+
+            } catch (e: IOException) {
+                fetchCnt -= 1
+                if (isSuccess && fetchCnt > 0) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        fetchEvmTx()
+                    }, 6000)
+
+                } else {
+                    runOnUiThread {
+                        showMoreWait()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun ethTxHash() {
+
+    }
+
     private fun getChannel(): ManagedChannel? {
         selectedChain?.let {
             return ManagedChannelBuilder.forAddress(it.grpcHost, it.grpcPort).useTransportSecurity().build()
@@ -195,3 +296,5 @@ class TxResultActivity : BaseActivity() {
         ApplicationViewModel.shared.txRecreate()
     }
 }
+
+enum class TxResultType { COSMOS, EVM }

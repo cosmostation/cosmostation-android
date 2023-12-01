@@ -75,7 +75,7 @@ class StakingOptionFragment(
                     return@setOnClickListener
                 }
 
-                val bottomSheet = StakingFragment(selectedChain)
+                val bottomSheet = StakingFragment(selectedChain, validator)
                 if (isClickable) {
                     isClickable = false
                     bottomSheet.show(requireActivity().supportFragmentManager, StakingFragment::class.java.name)

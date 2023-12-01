@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
@@ -28,6 +29,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.bitcoinj.crypto.ChildNumber
 import org.json.JSONObject
+import org.web3j.abi.FunctionEncoder
+import org.web3j.abi.FunctionReturnDecoder
+import org.web3j.abi.TypeReference
+import org.web3j.abi.datatypes.Address
+import org.web3j.abi.datatypes.Function
+import org.web3j.abi.datatypes.Type
+import org.web3j.abi.datatypes.generated.Uint256
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.core.methods.request.Transaction
+import org.web3j.protocol.core.methods.response.EthCall
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -46,6 +59,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -58,6 +72,7 @@ import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
@@ -70,7 +85,9 @@ open class CosmosLine : BaseChain() {
 
     open var evmCompatible = false
 
+    open var grpcHost: String = ""
     open var grpcPort = 443
+    open var rpcUrl = ""
     private var duration = 20L
 
     var rewardAddress: String? = ""
@@ -82,7 +99,8 @@ open class CosmosLine : BaseChain() {
     var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
     var cosmosRewards = mutableListOf<DelegationDelegatorReward>()
 
-    var tokens = mutableListOf<Token>()
+    var cw20tokens = mutableListOf<Token>()
+    var erc20tokens = mutableListOf<Token>()
     var param: Param? = null
 
     var lcdAccountInfo: AccountResponse? = null
@@ -143,7 +161,18 @@ open class CosmosLine : BaseChain() {
                     null
                 }
                 if (cw20s != null) {
-                    tokens = cw20s
+                    cw20tokens = cw20s
+                }
+            }
+
+            if (supportErc20) {
+                val erc20s = try {
+                    loadErc20Token()
+                } catch (e: Exception) {
+                    null
+                }
+                if (erc20s != null) {
+                    erc20tokens = erc20s
                 }
             }
         }
@@ -327,7 +356,8 @@ open class CosmosLine : BaseChain() {
                         o1.jailed && !o2.jailed -> 1
                         !o1.jailed && o2.jailed -> -1
                         o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
-                        else -> 1
+                        o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
+                        else -> 0
                     }
                 }
                 cosmosValidators = tempValidators
@@ -499,7 +529,7 @@ open class CosmosLine : BaseChain() {
         val scope = CoroutineScope(Dispatchers.Default)
         val deferredList = mutableListOf<Deferred<Unit>>()
 
-        tokens.forEach { token ->
+        cw20tokens.forEach { token ->
             val deferred = scope.async {
                 loadCw20Balance(channel, token)
             }
@@ -526,6 +556,57 @@ open class CosmosLine : BaseChain() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    private suspend fun loadErc20Token(): MutableList<Token> {
+        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.erc20token(this.apiName) }) {
+            is NetworkResult.Success -> {
+                response.data.assets
+            }
+
+            is NetworkResult.Error -> {
+                mutableListOf()
+            }
+        }
+    }
+
+    private fun loadErc20Balance(web3j: Web3j, address: String?, token: Token) {
+        val ethAddress = ByteUtils.convertBech32ToEvm(address)
+        val params: MutableList<Type<*>> = ArrayList()
+        params.add(Address(ethAddress))
+
+        val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
+        val function = Function("balanceOf", params, returnTypes)
+
+        val txData = FunctionEncoder.encode(function)
+        val response: EthCall = web3j.ethCall(
+            Transaction.createEthCallTransaction(ethAddress, token.address, txData),
+            DefaultBlockParameterName.LATEST
+        ).sendAsync().get()
+        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+        val balance = results[0].value as BigInteger
+        token.amount = balance.toString()
+    }
+
+    fun loadAllErc20Balance(id: Long) {
+        val web3j = Web3j.build(HttpService(rpcUrl))
+        val scope = CoroutineScope(Dispatchers.Default)
+        val deferredList = mutableListOf<Deferred<Unit>>()
+
+        erc20tokens.forEach { token ->
+            val deferred = scope.async {
+                loadErc20Balance(web3j, address, token)
+            }
+            deferredList.add(deferred)
+        }
+
+        runBlocking {
+            deferredList.awaitAll()
+            loadTokenCallback?.onTokenLoaded(true)
+
+            val refAddress = RefAddress(id, tag, address, "0", "0", allTokenValue().toPlainString(), 0)
+            BaseData.updateRefAddressesToken(refAddress)
         }
     }
 
@@ -721,14 +802,18 @@ open class CosmosLine : BaseChain() {
 
     fun tokenValue(address: String): BigDecimal {
         if (supportCw20) {
-            tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+            cw20tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
                 val price = BaseData.getPrice(tokenInfo.coinGeckoId)
                 return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
                     .setScale(6, RoundingMode.DOWN)
             }
         }
         if (supportErc20) {
-
+            erc20tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
+                return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+                    .setScale(6, RoundingMode.DOWN)
+            }
         }
         return BigDecimal.ZERO
     }
@@ -736,7 +821,7 @@ open class CosmosLine : BaseChain() {
     private fun allTokenValue(): BigDecimal {
         var result = BigDecimal.ZERO
         if (supportCw20) {
-            tokens.forEach { tokenInfo ->
+            cw20tokens.forEach { tokenInfo ->
                 val price = BaseData.getPrice(tokenInfo.coinGeckoId)
                 val value = price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
                     .setScale(6, RoundingMode.DOWN)
@@ -744,20 +829,14 @@ open class CosmosLine : BaseChain() {
             }
         }
         if (supportErc20) {
-            result
+            erc20tokens.forEach { tokenInfo ->
+                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
+                val value = price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+                    .setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
         }
         return result
-    }
-
-    private fun allCw20ValueSum(): BigDecimal {
-        var sumValue = BigDecimal.ZERO
-        tokens.forEach { token ->
-            val price = BaseData.getPrice(token.coinGeckoId)
-            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                .setScale(6, RoundingMode.DOWN)
-            sumValue = sumValue.add(value)
-        }
-        return sumValue
     }
 
     open fun denomValue(denom: String): BigDecimal {

@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -17,6 +20,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
+import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
@@ -31,6 +35,8 @@ class CoinFragment(position: Int) : Fragment() {
     private lateinit var coinAdapter: CoinAdapter
     private lateinit var selectedChain: CosmosLine
     private val selectedPosition = position
+
+    private var baseAccount: BaseAccount? = null
 
     private val stakeCoins = mutableListOf<Coin>()
     private val nativeCoins = mutableListOf<Coin>()
@@ -48,119 +54,149 @@ class CoinFragment(position: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initSortAssets()
+        refreshData()
         initRecyclerView()
+        initData()
     }
 
-    private fun initSortAssets() {
-        val baseAccount = BaseData.baseAccount
-        baseAccount?.let { account ->
-            selectedChain = account.displayCosmosLineChains[selectedPosition]
+    private fun refreshData() {
+        binding.refresher.setOnRefreshListener {
+            if (!selectedChain.fetched) {
+                binding.refresher.isRefreshing = false
+            } else {
+                baseAccount?.let { baseAccount ->
+                    selectedChain.loadData(baseAccount.id)
 
-            selectedChain.stakeDenom?.let { stakeDenom ->
-                if (selectedChain is ChainBinanceBeacon) {
-                    selectedChain.lcdAccountInfo?.balances?.forEach { balance ->
-                        if (balance.symbol == stakeDenom) {
-                            stakeCoins.add(Coin(balance.symbol, balance.free, CoinType.STAKE))
-                        } else {
-                            val totalBalance = balance.free.toBigDecimal().add(balance.frozen.toBigDecimal()).add(balance.locked.toBigDecimal())
-                            nativeCoins.add(Coin(balance.symbol, totalBalance.toPlainString(), CoinType.NATIVE))
-                        }
-                    }
-                    if (stakeCoins.firstOrNull { it.denom == stakeDenom } == null) {
-                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-                    }
-                    nativeCoins.sortWith(compareBy { it.denom })
-
-                } else {
-                    selectedChain.cosmosBalances.forEach { coin ->
-                        val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
-                        if (coinType != null) {
-                            when (coinType) {
-                                "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
-                                "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
-                                "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
-                                "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
-                            }
-                        }
-                    }
-
-                    if (stakeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
-                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-                    }
-                    nativeCoins.sortWith { o1, o2 ->
-                        when {
-                            o1.denom == selectedChain.stakeDenom -> -1
-                            o2.denom == selectedChain.stakeDenom -> 1
-                            else -> {
-                                val value0 = selectedChain.balanceValue(o1.denom)
-                                val value1 = selectedChain.balanceValue(o2.denom)
-                                when {
-                                    value0 > value1 -> -1
-                                    value0 < value1 -> 1
-                                    else -> 0
+                    selectedChain.setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
+                        override fun onDataLoaded(isLoaded: Boolean) {
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                if (selectedChain.fetched) {
+                                    initData()
                                 }
                             }
                         }
-                    }
-
-                    ibcCoins.sortWith { o1, o2 ->
-                        val value0 = selectedChain.balanceValue(o1.denom)
-                        val value1 = selectedChain.balanceValue(o2.denom)
-                        when {
-                            value0 > value1 -> -1
-                            value0 < value1 -> 1
-                            else -> 0
-                        }
-                    }
-
-                    bridgeCoins.sortWith { o1, o2 ->
-                        val value0 = selectedChain.balanceValue(o1.denom)
-                        val value1 = selectedChain.balanceValue(o2.denom)
-                        when {
-                            value0 > value1 -> -1
-                            value0 < value1 -> 1
-                            else -> 0
-                        }
-                    }
+                    })
                 }
             }
         }
     }
 
     private fun initRecyclerView() {
-        coinAdapter = CoinAdapter(requireContext(), selectedChain)
-        binding.recycler.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = coinAdapter
-            coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
+        baseAccount = BaseData.baseAccount
+        baseAccount?.let { baseAccount ->
+            selectedChain = baseAccount.displayCosmosLineChains[selectedPosition]
 
-            coinAdapter.setOnItemClickListener { line, denom ->
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnItemClickListener
-                }
+            coinAdapter = CoinAdapter(requireContext(), selectedChain)
+            binding.recycler.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = coinAdapter
 
-                if (line is ChainBinanceBeacon) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom)
-                    } else {
-                        startLegacyTransfer(line, denom)
+                coinAdapter.setOnItemClickListener { line, denom ->
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnItemClickListener
                     }
 
-                } else if (line is ChainKava459) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom)
+                    if (line is ChainBinanceBeacon) {
+                        if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                            selectBridgeOption(line, denom)
+                        } else {
+                            startLegacyTransfer(line, denom)
+                        }
+
+                    } else if (line is ChainKava459) {
+                        if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                            selectBridgeOption(line, denom)
+                        } else {
+                            startTransfer(line, denom)
+                        }
+
                     } else {
                         startTransfer(line, denom)
                     }
-
-                } else {
-                    startTransfer(line, denom)
                 }
             }
         }
+    }
+
+    private fun initData() {
+        stakeCoins.clear()
+        nativeCoins.clear()
+        ibcCoins.clear()
+        bridgeCoins.clear()
+
+        selectedChain.stakeDenom?.let { stakeDenom ->
+            if (selectedChain is ChainBinanceBeacon) {
+                selectedChain.lcdAccountInfo?.balances?.forEach { balance ->
+                    if (balance.symbol == stakeDenom) {
+                        stakeCoins.add(Coin(balance.symbol, balance.free, CoinType.STAKE))
+                    } else {
+                        val totalBalance = balance.free.toBigDecimal().add(balance.frozen.toBigDecimal()).add(balance.locked.toBigDecimal())
+                        nativeCoins.add(Coin(balance.symbol, totalBalance.toPlainString(), CoinType.NATIVE))
+                    }
+                }
+                if (stakeCoins.firstOrNull { it.denom == stakeDenom } == null) {
+                    stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+                }
+                nativeCoins.sortWith(compareBy { it.denom })
+
+            } else {
+                selectedChain.cosmosBalances.forEach { coin ->
+                    val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
+                    if (coinType != null) {
+                        when (coinType) {
+                            "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
+                            "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
+                            "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
+                            "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
+                        }
+                    }
+                }
+
+                if (stakeCoins.firstOrNull { it.denom == selectedChain.stakeDenom } == null) {
+                    stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+                }
+                nativeCoins.sortWith { o1, o2 ->
+                    when {
+                        o1.denom == selectedChain.stakeDenom -> -1
+                        o2.denom == selectedChain.stakeDenom -> 1
+                        else -> {
+                            val value0 = selectedChain.balanceValue(o1.denom)
+                            val value1 = selectedChain.balanceValue(o2.denom)
+                            when {
+                                value0 > value1 -> -1
+                                value0 < value1 -> 1
+                                else -> 0
+                            }
+                        }
+                    }
+                }
+
+                ibcCoins.sortWith { o1, o2 ->
+                    val value0 = selectedChain.balanceValue(o1.denom)
+                    val value1 = selectedChain.balanceValue(o2.denom)
+                    when {
+                        value0 > value1 -> -1
+                        value0 < value1 -> 1
+                        else -> 0
+                    }
+                }
+
+                bridgeCoins.sortWith { o1, o2 ->
+                    val value0 = selectedChain.balanceValue(o1.denom)
+                    val value1 = selectedChain.balanceValue(o2.denom)
+                    when {
+                        value0 > value1 -> -1
+                        value0 < value1 -> 1
+                        else -> 0
+                    }
+                }
+            }
+            coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
+            coinAdapter.notifyDataSetChanged()
+        }
+        binding.refresher.isRefreshing = false
     }
 
     private fun startTransfer(line: CosmosLine, denom: String) {
