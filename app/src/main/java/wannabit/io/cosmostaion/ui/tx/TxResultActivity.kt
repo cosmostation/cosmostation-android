@@ -8,7 +8,6 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +38,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 class TxResultActivity : BaseActivity() {
 
@@ -106,6 +106,7 @@ class TxResultActivity : BaseActivity() {
                 showError()
             }
         }
+        initQuotes()
     }
 
     override fun onBackPressed() {
@@ -248,8 +249,11 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun ethTxHash() {
-
+    private fun initQuotes() {
+        val num = Random.nextInt(resources.getStringArray(R.array.quotes).size)
+        val quote = resources.getStringArray(R.array.quotes)[num].split("—")
+        binding.quoteMsg.text = quote[0]
+        binding.quoteAuthor.text = "- " + quote[1] + " -".uppercase()
     }
 
     private fun getChannel(): ManagedChannel? {

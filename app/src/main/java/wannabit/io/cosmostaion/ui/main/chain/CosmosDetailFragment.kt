@@ -19,7 +19,9 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
@@ -71,11 +73,18 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             baseAccount?.let {
                 accountName.text = baseAccount.name
                 selectedChain = baseAccount.displayCosmosLineChains[selectedPosition]
-                accountAddress.text = selectedChain.address
+                if (selectedChain is ChainOkt60) {
+                    accountAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
+                } else {
+                    accountAddress.text = selectedChain.address
+                }
                 accountValue.text = formatAssetValue(selectedChain.allValue())
             }
             if (selectedChain.supportStaking) {
                 selectedChain.loadStakeData()
+            }
+            if (selectedChain is ChainOkt60) {
+
             }
         }
     }
@@ -113,6 +122,16 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 fabStake.visibility = View.GONE
                 fabClaimReward.setImageResource(R.drawable.icon_receive)
                 fabClaimReward.labelText = "Receive"
+
+            } else if (selectedChain is ChainOkt60) {
+                fabVote.setImageResource(R.drawable.icon_select_validators)
+                fabVote.labelText = "Select validators"
+                fabCompounding.setImageResource(R.drawable.icon_withdraw)
+                fabCompounding.labelText = "Withdraw"
+                fabClaimReward.setImageResource(R.drawable.icon_deposit)
+                fabClaimReward.labelText = "Deposit"
+                fabStake.setImageResource(R.drawable.icon_receive)
+                fabStake.labelText = "Receive"
             }
 
             pagerAdapter = AccountPageAdapter(
@@ -354,6 +373,11 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
         init {
             if (selectedChain is ChainBinanceBeacon) {
                 fragments.add(CoinFragment(selectedPosition))
+                fragments.add(HistoryFragment(selectedPosition))
+
+            } else if (selectedChain is ChainOkt60) {
+                fragments.add(CoinFragment(selectedPosition))
+                fragments.add(TokenFragment(selectedPosition))
                 fragments.add(HistoryFragment(selectedPosition))
 
             } else {

@@ -63,7 +63,6 @@ class StakingFragment(
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
 
-//    private var toValidator: Validator? = null
     private var toCoin: CoinProto.Coin? = null
     private var txMemo = ""
 

@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
@@ -53,6 +52,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -131,14 +131,11 @@ open class CosmosLine : BaseChain() {
         return ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
     }
 
+    open fun lcdBalanceValue(denom: String?): BigDecimal { return BigDecimal.ZERO }
+
     open fun allAssetValue(): BigDecimal {
-        val allValue: BigDecimal = if (this is ChainBinanceBeacon) {
-            lcdBalanceValue(stakeDenom)
-        } else {
-            balanceValueSum().add(vestingValueSum()).add(delegationValueSum())
-                .add(unbondingValueSum()).add(rewardValueSum())
-        }
-        return allValue
+        return balanceValueSum().add(vestingValueSum()).add(delegationValueSum())
+            .add(unbondingValueSum()).add(rewardValueSum())
     }
 
     fun allValue(): BigDecimal {
@@ -177,7 +174,7 @@ open class CosmosLine : BaseChain() {
             }
         }
 
-        if (this is ChainBinanceBeacon) {
+        if (this is ChainBinanceBeacon || this is ChainOkt60) {
             loadLcdData(id)
         } else {
             loadGrpcData(id)
@@ -859,7 +856,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
-    lines.add(ChainBinanceBeacon())
     lines.add(ChainEvmos())
     lines.add(ChainInjective())
     lines.add(ChainIris())
@@ -870,6 +866,8 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainNeutron())
     lines.add(ChainOsmosis())
     lines.add(ChainStride())
+    lines.add(ChainBinanceBeacon())
+    lines.add(ChainOkt60())
 
     lines.forEach { line ->
         line.chainId = BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()

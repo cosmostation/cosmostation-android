@@ -35,7 +35,9 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
+import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
@@ -182,24 +184,22 @@ fun formatCurrentTimeToYear(): String {
     val locale = Locale.getDefault()
     val date = Calendar.getInstance()
     val dateFormat = SimpleDateFormat(
-        if (locale == Locale.US) "MMMM dd, yyyy" else "yyyy.M.d",
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy.M.d"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy.M.d"
+            }
+        },
         locale
     )
     return dateFormat.format(date.time)
-}
-
-fun formatGrpcTxTimeToYear(context: Context, timeString: String): String {
-    val locale = Locale.getDefault()
-    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
-    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-    val date = inputFormat.parse(timeString)
-
-    val outputFormat = SimpleDateFormat(
-        if (locale == Locale.US) "MMMM dd, yyyy" else "yyyy.M.d",
-        locale
-    )
-    outputFormat.timeZone = TimeZone.getDefault()
-    return outputFormat.format(date)
 }
 
 fun formatTxTimeToYear(context: Context, timeString: String): String {
@@ -207,9 +207,20 @@ fun formatTxTimeToYear(context: Context, timeString: String): String {
     val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_format))
     inputFormat.timeZone = TimeZone.getTimeZone("UTC")
     val date = inputFormat.parse(timeString)
-
     val outputFormat = SimpleDateFormat(
-        if (locale == Locale.US) "MMMM dd, yyyy" else "yyyy.M.d",
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy.M.d"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy.M.d"
+            }
+        },
         locale
     )
     outputFormat.timeZone = TimeZone.getDefault()
@@ -235,7 +246,43 @@ fun dpTime(time: Long): String {
     calendar.timeInMillis = time
 
     val outputFormat = SimpleDateFormat(
-        if (locale == Locale.ENGLISH) "MMM dd, yyyy (HH:mm:ss)" else "yyyy-MM-dd HH:mm:ss",
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy (HH:mm:ss)"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy (HH:mm:ss)"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        },
+        locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
+fun dpTimeToYear(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy-MM-dd"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy-MM-dd"
+            }
+        },
         locale
     )
     return outputFormat.format(calendar.timeInMillis)
@@ -247,7 +294,19 @@ fun voteDpTime(time: Long): String {
     calendar.timeInMillis = time
 
     val outputFormat = SimpleDateFormat(
-        if (locale == Locale.ENGLISH) "MMM dd, yyyy HH:mm:ss" else "yyyy-MM-dd HH:mm:ss",
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy HH:mm:ss"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy HH:mm:ss"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        },
         locale
     )
     return outputFormat.format(calendar.timeInMillis)
@@ -308,7 +367,7 @@ fun Button.updateSelectButtonView(isBtnEnabled: Boolean) {
 
 fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
     if (selectedChain is ChainBinanceBeacon) {
-        val historyUrl = CosmostationConstants.EXPLORER_BINANCE_URL + "tx/" + txHash
+        val historyUrl = EXPLORER_BINANCE_URL + "tx/" + txHash
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
     } else {
         val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName +  "/transactions/" + txHash

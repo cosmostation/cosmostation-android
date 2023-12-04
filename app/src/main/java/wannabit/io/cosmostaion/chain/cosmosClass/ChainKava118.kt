@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.common.BaseKey
 
 class ChainKava118 : ChainKava459() {
     
@@ -18,9 +17,4 @@ class ChainKava118 : ChainKava459() {
         ChildNumber.ZERO_HARDENED,
         ChildNumber.ZERO
     )
-
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
-        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
-        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-    }
 }

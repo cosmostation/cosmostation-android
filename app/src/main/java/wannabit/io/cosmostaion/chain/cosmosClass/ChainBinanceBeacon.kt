@@ -129,7 +129,7 @@ class ChainBinanceBeacon : CosmosLine() {
         return BigDecimal.ZERO
     }
 
-    fun lcdBalanceValue(denom: String?): BigDecimal {
+    override fun lcdBalanceValue(denom: String?): BigDecimal {
         denom?.let {
             if (it == stakeDenom) {
                 val amount = lcdBalanceAmount(denom)
@@ -150,3 +150,4 @@ class ChainBinanceBeacon : CosmosLine() {
 }
 
 const val BNB_BEACON_BASE_FEE = "0.000075"
+const val EXPLORER_BINANCE_URL = "https://explorer.bnbchain.org/"

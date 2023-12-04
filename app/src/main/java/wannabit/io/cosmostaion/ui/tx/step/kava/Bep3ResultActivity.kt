@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -360,7 +359,6 @@ class Bep3ResultActivity : BaseActivity() {
         }
 
         txViewModel.broadClaimSwap.observe(this) { response ->
-            Log.e("Test1234 : ", "여기로 와야돼")
             updateProgress(3)
             if (response.code > 0) {
                 if (claimFetchCnt < 20) {

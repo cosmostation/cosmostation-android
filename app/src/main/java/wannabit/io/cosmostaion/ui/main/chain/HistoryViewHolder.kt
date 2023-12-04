@@ -7,15 +7,22 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.dpTime
+import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTimeToHour
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
 import java.math.RoundingMode
 
@@ -129,7 +136,43 @@ class HistoryViewHolder(
             txDenom.text = "-"
 
             historyView.setOnClickListener {
-                val historyUrl = CosmostationConstants.EXPLORER_BINANCE_URL + "tx/" + historyBnbGroup.second.txHash
+                val historyUrl = EXPLORER_BINANCE_URL + "tx/" + historyBnbGroup.second.txHash
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+            }
+        }
+    }
+
+    fun bindOktHistory(historyOktGroup: Pair<String, TransactionList>, headerIndex: Int, cnt: Int, position: Int) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            historyOktGroup.second.transactionTime.let { timeStamp ->
+                val headerDate = dpTimeToYear(timeStamp.toLong())
+                val currentDate = formatCurrentTimeToYear()
+
+                if (headerDate == currentDate) {
+                    headerTitle.text = context.getString(R.string.str_today)
+                } else {
+                    headerTitle.text = headerDate
+                }
+                headerCnt.text = "(" + cnt.toString() + ")"
+            }
+
+            if (historyOktGroup.second.state == "success") {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+            }
+
+            txMessage.text = historyOktGroup.second.height
+            txHash.text = historyOktGroup.second.txId
+            historyOktGroup.second.transactionTime.let { timeStamp ->
+                txTime.text = voteDpTime(timeStamp.toLong())
+            }
+            txDenom.text = "-"
+
+            historyView.setOnClickListener {
+                val historyUrl = OKT_EXPLORER + "tx/" + historyOktGroup.second.txId
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
             }
         }

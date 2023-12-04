@@ -185,6 +185,28 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/quote_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_tn_14"
+        android:textColor="@color/color_base01"
+        android:layout_marginStart="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_16"
+        app:layout_constraintBottom_toTopOf="@+id/quote_author"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/quote_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_tb_14"
+        android:textColor="@color/color_base03"
+        android:layout_marginEnd="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_16"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/btn_confirm"
         style="@style/font_sb_16"

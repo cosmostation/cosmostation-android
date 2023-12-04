@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
+import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModel
@@ -38,6 +41,7 @@ class HistoryFragment(position: Int) : Fragment() {
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
     private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
+    private val allOktHistoryGroup: MutableList<Pair<String, TransactionList>> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +71,7 @@ class HistoryFragment(position: Int) : Fragment() {
         binding.refresher.setOnRefreshListener {
             allHistoryGroup.clear()
             allBnbHistoryGroup.clear()
+            allOktHistoryGroup.clear()
             searchId = 0
             initData()
         }
@@ -87,10 +92,16 @@ class HistoryFragment(position: Int) : Fragment() {
     }
 
     private fun initData() {
-        if (selectedChain is ChainBinanceBeacon) {
-            historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
-        } else {
-            historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
+        when (selectedChain) {
+            is ChainBinanceBeacon -> {
+                historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
+            }
+            is ChainOkt60 -> {
+                historyViewModel.oktHistory("ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50")
+            }
+            else -> {
+                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
+            }
         }
         binding.refresher.isRefreshing = false
     }
@@ -144,6 +155,18 @@ class HistoryFragment(position: Int) : Fragment() {
             binding.recycler.visibleOrGone(allBnbHistoryGroup.isNotEmpty())
             binding.emptyLayout.visibleOrGone(allBnbHistoryGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()
+        }
+
+        historyViewModel.oktHistoryResult.observe(viewLifecycleOwner) { response ->
+            allOktHistoryGroup.addAll(response)
+            response?.let {
+                historyAdapter.submitList(allOktHistoryGroup as List<Any>?)
+            }
+
+            binding.recycler.visibleOrGone(allOktHistoryGroup.isNotEmpty())
+            binding.emptyLayout.visibleOrGone(allOktHistoryGroup.isEmpty())
+            historyAdapter.notifyDataSetChanged()
+
         }
 
         historyViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->

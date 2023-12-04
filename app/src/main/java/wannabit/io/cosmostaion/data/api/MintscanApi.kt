@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
@@ -48,4 +49,11 @@ interface MintscanApi {
 
     @GET("v1/{chain}/evm/tx/{etherTxHash}")
     suspend fun evmTxHash(@Path("chain") chain: String?, @Path("etherTxHash") etherTxHash: String?): Response<String>
+
+    @GET("v1/utils/proxy/okc-transaction-list")
+    suspend fun oktHistory(
+        @Query("device") device: String?,
+        @Query("address") address: String?,
+        @Query("limit") limit: String?
+    ): Response<OktHistoryResponse>
 }

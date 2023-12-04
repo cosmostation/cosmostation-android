@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.BnbHistoryResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 
 class HistoryRepositoryImpl : HistoryRepository {
 
@@ -28,6 +29,16 @@ class HistoryRepositoryImpl : HistoryRepository {
     ): NetworkResult<Response<BnbHistoryResponse>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.beaconApi.bnbHistory(address, startTime, endTime)
+        }
+    }
+
+    override suspend fun oktHistory(
+        device: String,
+        address: String?,
+        limit: String
+    ): NetworkResult<Response<OktHistoryResponse>> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.mintscanApi.oktHistory(device, address, limit)
         }
     }
 }
