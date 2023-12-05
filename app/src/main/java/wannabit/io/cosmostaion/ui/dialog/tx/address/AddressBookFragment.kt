@@ -51,7 +51,7 @@ class AddressBookFragment(
 
                             withContext(Dispatchers.Main) {
                                 myAccountCnt.text = refAddresses.size.toString()
-                                addressBookAdapter = AddressBookAdapter(addressType)
+                                addressBookAdapter = AddressBookAdapter(targetChain, addressType)
                                 recycler.setHasFixedSize(true)
                                 recycler.layoutManager = LinearLayoutManager(requireContext())
                                 recycler.adapter = addressBookAdapter

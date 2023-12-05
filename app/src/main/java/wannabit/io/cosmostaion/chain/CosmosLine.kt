@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -108,12 +109,12 @@ open class CosmosLine : BaseChain() {
 
     override fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
         privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
-        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }
 
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
-        val publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }
 
@@ -867,10 +868,13 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainOsmosis())
     lines.add(ChainStride())
     lines.add(ChainBinanceBeacon())
+    lines.add(ChainOkt996Secp())
     lines.add(ChainOkt60())
 
     lines.forEach { line ->
-        line.chainId = BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+        if (line.chainId.isEmpty()) {
+            line.chainId = BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+        }
     }
     return lines
 }

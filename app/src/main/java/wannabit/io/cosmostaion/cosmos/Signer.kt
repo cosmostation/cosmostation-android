@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.cosmos
 
+import android.util.Base64.DEFAULT
+import android.util.Base64.encode
 import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
@@ -50,18 +52,36 @@ import com.kava.incentive.v1beta1.TxProto.MsgClaimUSDXMintingReward
 import com.kava.incentive.v1beta1.TxProto.Selection
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
+import org.bouncycastle.util.Strings
+import org.bouncycastle.util.encoders.Base64
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
+import org.web3j.crypto.Sign.SignatureData
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
+import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
+import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
 import wannabit.io.cosmostaion.common.delegatorRewardDenoms
 import wannabit.io.cosmostaion.common.earnRewardDenoms
 import wannabit.io.cosmostaion.common.hardRewardDenoms
 import wannabit.io.cosmostaion.common.hasUsdxMinting
 import wannabit.io.cosmostaion.common.swapRewardDenoms
+import wannabit.io.cosmostaion.common.toHex
+import wannabit.io.cosmostaion.data.model.req.BroadcastReq
+import wannabit.io.cosmostaion.data.model.req.LCoin
+import wannabit.io.cosmostaion.data.model.req.LFee
+import wannabit.io.cosmostaion.data.model.req.Msg
+import wannabit.io.cosmostaion.data.model.req.Signature
+import wannabit.io.cosmostaion.data.model.req.StdSignMsg
+import wannabit.io.cosmostaion.data.model.req.StdTx
+import wannabit.io.cosmostaion.data.model.req.StdTxValue
+import wannabit.io.cosmostaion.data.model.req.Value
 import java.math.BigInteger
 import java.math.RoundingMode
+import java.nio.charset.Charset
 
 object Signer {
 
@@ -1007,5 +1027,93 @@ object Signer {
         val sigByte = ByteArray(64)
         return Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody)
             .addSignatures(ByteString.copyFrom(sigByte)).build()
+    }
+
+
+    // Legacy Tx
+    fun oktBroadcast(
+        msgs: MutableList<Msg>,
+        fee: LFee,
+        memo: String?,
+        selectedChain: ChainOkt60
+    ): BroadcastReq? {
+        if (!selectedChain.evmCompatible) {
+            return null
+
+        } else {
+            val toSign = genToSignMsg(
+                selectedChain.chainId,
+                selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+                selectedChain.oktLcdAccountInfo?.value?.sequence,
+                msgs,
+                fee,
+                memo
+            )
+            val sig = ethermintSignature(selectedChain, toSign.toSignByte())
+            val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
+                ETHERMINT_KEY_TYPE_PUBLIC,
+                Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
+            )
+            val signature = Signature(
+                pubKey,
+                sig,
+                selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+                selectedChain.oktLcdAccountInfo?.value?.sequence
+            )
+            val signatures = mutableListOf<Signature>()
+            signatures.add(signature)
+
+            val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
+            return BroadcastReq("sync", signedTx.value)
+        }
+    }
+
+    fun oktSendMsg(fromAddress: String?, toAddress: String, toAmount: MutableList<LCoin>): MutableList<Msg> {
+        val result: MutableList<Msg> = mutableListOf()
+
+        val req = Msg()
+        req.type = OK_MSG_TYPE_TRANSFER
+        req.value = Value()
+
+        val value = req.value
+        value?.from_address = fromAddress
+        value?.to_address = toAddress
+        value?.amount = toAmount
+
+        result.add(req)
+        return result
+    }
+
+    private fun genToSignMsg(
+        chainId: String,
+        accountNumber: String?,
+        sequence: String?,
+        msgs: MutableList<Msg>,
+        fee: LFee,
+        memo: String?
+    ): StdSignMsg {
+        return StdSignMsg(chainId, accountNumber, sequence, fee, msgs, memo)
+    }
+
+    private fun genStakeSignedTransferTx(
+        msgs: MutableList<Msg>,
+        fee: LFee,
+        memo: String?,
+        signatures: MutableList<Signature>
+    ): StdTx {
+        return StdTx(COSMOS_AUTH_TYPE_STDTX, StdTxValue(msgs, fee, signatures, memo))
+    }
+
+    private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String? {
+        val privateKey = selectedChain?.privateKey?.toHex()?.let { BigInteger(it, 16) }
+        val sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey))
+        return toBase64(sig)
+    }
+
+    private fun toBase64(sig: SignatureData): String? {
+        val sigData = ByteArray(64) // 32 bytes for R + 32 bytes for S
+        System.arraycopy(sig.r, 0, sigData, 0, 32)
+        System.arraycopy(sig.s, 0, sigData, 32, 32)
+        return String(Base64.encode(sigData), Charset.forName("UTF-8"))
     }
 }

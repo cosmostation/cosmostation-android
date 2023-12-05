@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.content.Context
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,7 @@ import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class ChainOkt60: CosmosLine() {
+open class ChainOkt60: CosmosLine() {
 
     var oktLcdAccountInfo: OktAccountResponse? = null
     var oktDepositedInfo: OktDepositedResponse? = null
@@ -90,7 +91,7 @@ class ChainOkt60: CosmosLine() {
                     allAssetValue().toString(),
                     lcdBalanceAmount(stakeDenom).toString(),
                     "0",
-                    lcdAccountInfo?.balances?.size?.toLong())
+                    oktLcdAccountInfo?.value?.coins?.size?.toLong())
                 BaseData.updateRefAddressesMain(refAddress)
             }
             it.cancel()
@@ -137,6 +138,11 @@ class ChainOkt60: CosmosLine() {
         return lcdBalanceValue(stakeDenom).add(lcdOktDepositValue()).add(lcdOktWithdrawValue())
     }
 
+    override fun isTxFeePayable(c: Context): Boolean {
+        val availableAmount = lcdBalanceAmount(stakeDenom)
+        return availableAmount > BigDecimal(OKT_BASE_FEE)
+    }
+
     fun lcdBalanceAmount(denom: String?): BigDecimal {
         val balance = oktLcdAccountInfo?.value?.coins?.firstOrNull { it.denom == denom }
         if (balance != null) {
@@ -160,7 +166,7 @@ class ChainOkt60: CosmosLine() {
         return oktDepositedInfo?.tokens?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
-    fun lcdOktDepositValue(): BigDecimal {
+    private fun lcdOktDepositValue(): BigDecimal {
         val price = BaseData.getPrice(OKT_GECKO_ID)
         val amount = lcdOktDepositAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)
@@ -170,7 +176,7 @@ class ChainOkt60: CosmosLine() {
         return oktWithdrawInfo?.quantity?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
-    fun lcdOktWithdrawValue(): BigDecimal {
+    private fun lcdOktWithdrawValue(): BigDecimal {
         val price = BaseData.getPrice(OKT_GECKO_ID)
         val amount = lcdOktWithdrawAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)
@@ -178,5 +184,5 @@ class ChainOkt60: CosmosLine() {
 }
 
 const val OKT_EXPLORER = "https://www.oklink.com/oktc/"
-const val OKT_BASE_FEE = "0.00008"
+const val OKT_BASE_FEE = "0.000080000000000000"
 const val OKT_GECKO_ID = "oec-token"

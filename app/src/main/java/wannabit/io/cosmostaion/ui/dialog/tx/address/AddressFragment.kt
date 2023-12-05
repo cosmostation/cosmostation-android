@@ -15,6 +15,7 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
@@ -86,7 +87,7 @@ class AddressFragment(
                     isClickable = false
                     AddressBookFragment(selectedChain.address, selectedRecipientChain, addressType, object : AddressBookSelectListener {
                         override fun select(address: String) {
-                            if (addressType == AddressType.EVM_TRANSFER) {
+                            if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
                                 addressTxt.text = Editable.Factory.getInstance().newEditable(ByteUtils.convertBech32ToEvm(address))
                             } else {
                                 addressTxt.text = Editable.Factory.getInstance().newEditable(address)

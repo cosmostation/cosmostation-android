@@ -113,6 +113,9 @@ class CoinFragment(position: Int) : Fragment() {
                             startTransfer(line, denom)
                         }
 
+                    } else if (line is ChainOkt60) {
+                        startLegacyTransfer(line, denom)
+
                     } else {
                         startTransfer(line, denom)
                     }

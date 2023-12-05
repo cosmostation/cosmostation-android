@@ -16,6 +16,7 @@ open class BaseChain : Serializable {
     open var accountPrefix: String? = ""
 
     open lateinit var accountKeyType: AccountKeyType
+    open var publicKey: ByteArray? = null
     open var privateKey: ByteArray? = null
     open var setParentPath: List<ChildNumber> = mutableListOf()
     open var address: String? = ""

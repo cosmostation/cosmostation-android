@@ -10,10 +10,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.BnbToken
+import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -21,6 +23,7 @@ import java.math.RoundingMode
 class LegacyInsertAmountFragment(
     private val selectChain: CosmosLine?,
     private val bnbTokenInfo: BnbToken?,
+    private val oktTokenInfo: OktToken?,
     private val availAmount: BigDecimal?,
     private val toAmount: String?,
     val listener: AmountSelectListener
@@ -51,22 +54,21 @@ class LegacyInsertAmountFragment(
         binding.apply {
             if (selectChain is ChainBinanceBeacon) {
                 assetDecimal = 8
-                availAmount?.setScale(assetDecimal)?.let { amount ->
-                    available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                    availableDenom.text = bnbTokenInfo?.originalSymbol?.uppercase()
+            } else if (selectChain is ChainOkt60) {
+                assetDecimal = 18
+            }
+            availAmount?.setScale(assetDecimal)?.let { amount ->
+                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                availableDenom.text = bnbTokenInfo?.originalSymbol?.uppercase()
+            }
+
+            toAmount?.let {
+                if (it.isNotEmpty()) {
+                    val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal).stripTrailingZeros().toPlainString()
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                } else {
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(it)
                 }
-
-                toAmount?.let {
-                    if (it.isNotEmpty()) {
-                        val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal).stripTrailingZeros().toPlainString()
-                        amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
-                    } else {
-                        amountTxt.text = Editable.Factory.getInstance().newEditable(it)
-                    }
-                }
-
-            } else {
-
             }
         }
     }

@@ -9,7 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.RefAddress
@@ -20,7 +22,7 @@ class AddressBookViewHolder(
     private val binding: ItemAddressBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(refAddress: RefAddress, addressType: AddressType?) {
+    fun bind(targetChain: CosmosLine, refAddress: RefAddress, addressType: AddressType?) {
         binding.apply {
             CoroutineScope(Dispatchers.IO).launch {
                 val account = AppDatabase.getInstance().baseAccountDao().selectAccount(refAddress.accountId)
@@ -34,7 +36,7 @@ class AddressBookViewHolder(
                             chainBadge.setBackgroundResource(R.drawable.round_box_evm)
                             chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base01))
                             accountSubAddress.visibility = View.VISIBLE
-                            if (addressType == AddressType.EVM_TRANSFER) {
+                            if (addressType == AddressType.EVM_TRANSFER || targetChain is ChainOkt60) {
                                 accountAddress.text = ByteUtils.convertBech32ToEvm(refAddress.dpAddress)
                                 accountSubAddress.text = "(" + refAddress.dpAddress + ")"
                             } else {
@@ -47,8 +49,15 @@ class AddressBookViewHolder(
                             chainBadge.text = context.getString(R.string.str_legacy)
                             chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                             chainBadge.setTextColor(ContextCompat.getColor(context, R.color.color_base02))
-                            accountSubAddress.visibility = View.GONE
-                            accountAddress.text = refAddress.dpAddress
+                            if (targetChain is ChainOkt60) {
+                                accountSubAddress.visibility = View.VISIBLE
+                                accountAddress.text = ByteUtils.convertBech32ToEvm(refAddress.dpAddress)
+                                accountSubAddress.text = "(" + refAddress.dpAddress + ")"
+                            } else {
+                                accountSubAddress.visibility = View.GONE
+                                accountAddress.text = refAddress.dpAddress
+                                accountSubAddress.text = "(" + ByteUtils.convertBech32ToEvm(refAddress.dpAddress) + ")"
+                            }
 
                         } else {
                             chainBadge.visibility = View.GONE

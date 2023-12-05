@@ -44,10 +44,15 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
+import wannabit.io.cosmostaion.data.model.req.LFee
+import wannabit.io.cosmostaion.data.model.req.Msg
+import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -95,7 +100,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genSendBroadcast(account, msgSend, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -133,6 +138,21 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun broadcastOktSendTx(
+        msgs: MutableList<Msg>,
+        fee: LFee,
+        memo: String,
+        selectedChain: ChainOkt60
+    ): LegacyRes? {
+        return try {
+            val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
+            RetrofitInstance.oktApi.broadTx(reqBroadCast)
+
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     override suspend fun broadcastIbcSendTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
@@ -144,7 +164,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genIbcSendBroadcast(account, msgTransfer, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -179,7 +199,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genWasmBroadcast(account, msgWasms, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -308,7 +328,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genDelegateBroadcast(account, msgDelegate, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -343,7 +363,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genUnDelegateBroadcast(account, msgUnDelegate, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -378,7 +398,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genReDelegateBroadcast(account, msgReDelegate, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -413,7 +433,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genCancelUnbondingBroadcast(account, msgCancelUnbondingDelegation, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -448,7 +468,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genClaimRewardsBroadcast(account, rewards, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -484,7 +504,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genCompoundingBroadcast(account, rewards, stakingDenom, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -520,7 +540,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genChangeRewardAddressBroadcast(account, msgSetWithdrawAddress, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -555,7 +575,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genVoteBroadcast(account, msgVotes, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -590,7 +610,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genClaimIncentiveBroadcast(account, incentive, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -625,7 +645,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genMintCreateBroadcast(account, msgCreateCDP, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -660,7 +680,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genMintDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -695,7 +715,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genMintWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -730,7 +750,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genMintBorrowBroadcast(account, msgDrawDebt, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -765,7 +785,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genMintRepayBroadcast(account, msgRepayDebt, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -800,7 +820,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genLendDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -835,7 +855,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genLendWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -870,7 +890,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genLendBorrowBroadcast(account, msgBorrow, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -905,7 +925,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genLendRepayBroadcast(account, msgRepay, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -940,7 +960,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genPoolDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -975,7 +995,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genPoolWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -1010,7 +1030,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genCreateSwapBroadcast(account, msgCreateAtomicSwap, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null
@@ -1028,7 +1048,7 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val txStub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genClaimSwapBroadcast(account, msgClaimAtomicSwap, fee, memo, selectedChain)
-            return txStub.broadcastTx(broadcastTx)
+            txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
             null

@@ -47,9 +47,13 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.data.model.req.LFee
+import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.AssetPath
+import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NameService
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
@@ -1116,5 +1120,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     fun broadcastBnbCreateSwap(htltReq: HtltReq, wallet: Wallet, options: TransactionOption) = CoroutineScope(Dispatchers.IO).launch {
         val response = txRepository.broadcastBnbCreateSwapTx(htltReq, wallet, options)
         _broadBnbCreateSwap.postValue(response)
+    }
+
+    private val _broadcastOktTx = MutableLiveData<LegacyRes?>()
+    val broadcastOktTx: LiveData<LegacyRes?> get() = _broadcastOktTx
+    fun broadcastOktSend(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60) = CoroutineScope(Dispatchers.IO).launch {
+        val response = txRepository.broadcastOktSendTx(msgs, fee, memo, selectedChain)
+        _broadcastOktTx.postValue(response)
     }
 }

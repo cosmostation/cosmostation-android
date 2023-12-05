@@ -25,10 +25,12 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
@@ -85,13 +87,14 @@ class TxResultActivity : BaseActivity() {
         txResultType = TxResultType.valueOf(intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString())
 
         binding.btnConfirm.updateButtonView(true)
-        if (selectedChain is ChainBinanceBeacon) {
+        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
             if (txHash.isNotEmpty()) {
                 updateView()
             } else {
                 binding.loading.visibility = View.GONE
                 binding.btnConfirm.updateButtonView(true)
                 binding.failLayout.visibility = View.VISIBLE
+                binding.failMsg.visibleOrGone(errorMsg.isNotEmpty())
                 binding.failMsg.text = errorMsg
             }
 
@@ -122,6 +125,7 @@ class TxResultActivity : BaseActivity() {
                     successLayout.visibility = View.VISIBLE
                 } else {
                     failLayout.visibility = View.VISIBLE
+                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
                     failMsg.text = errorMsg
                 }
 
@@ -149,7 +153,7 @@ class TxResultActivity : BaseActivity() {
                         viewSuccessMintscan.isEnabled = false
                     }
 
-                } else if (selectedChain is ChainBinanceBeacon) {
+                } else if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -166,7 +170,7 @@ class TxResultActivity : BaseActivity() {
                         viewSuccessMintscan.isEnabled = false
                     }
 
-                } else if (selectedChain is ChainBinanceBeacon) {
+                } else if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -288,6 +292,7 @@ class TxResultActivity : BaseActivity() {
         binding.apply {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
+            failMsg.visibleOrGone(errorMsg.isNotEmpty())
             failMsg.text = errorMsg
             btnConfirm.updateButtonView(true)
         }

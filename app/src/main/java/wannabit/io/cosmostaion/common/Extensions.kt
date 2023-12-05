@@ -35,7 +35,9 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
 import wannabit.io.cosmostaion.data.model.res.Asset
@@ -366,13 +368,19 @@ fun Button.updateSelectButtonView(isBtnEnabled: Boolean) {
 }
 
 fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
-    if (selectedChain is ChainBinanceBeacon) {
-        val historyUrl = EXPLORER_BINANCE_URL + "tx/" + txHash
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
-    } else {
-        val historyUrl = CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName +  "/transactions/" + txHash
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+    var historyUrl = ""
+    historyUrl = when (selectedChain) {
+        is ChainBinanceBeacon -> {
+            EXPLORER_BINANCE_URL + "tx/" + txHash
+        }
+        is ChainOkt60 -> {
+            OKT_EXPLORER + "tx/" + txHash
+        }
+        else -> {
+            CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName + "/transactions/" + txHash
+        }
     }
+    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
 }
 
 fun BigDecimal.handlerLeft(decimal: Int, scale: Int): BigDecimal {

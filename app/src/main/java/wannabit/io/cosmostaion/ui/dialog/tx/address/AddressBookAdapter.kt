@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.ItemAddressBinding
 
 class AddressBookAdapter(
+    private val targetChain: CosmosLine,
     private val addressType: AddressType?
 ) : ListAdapter<RefAddress, AddressBookViewHolder>(ChainDiffCallback()) {
 
@@ -20,7 +22,7 @@ class AddressBookAdapter(
 
     override fun onBindViewHolder(holder: AddressBookViewHolder, position: Int) {
         val refAddress = currentList[position]
-        holder.bind(refAddress, addressType)
+        holder.bind(targetChain, refAddress, addressType)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {

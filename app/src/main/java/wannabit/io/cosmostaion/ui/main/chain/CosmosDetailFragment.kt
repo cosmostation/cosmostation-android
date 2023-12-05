@@ -219,7 +219,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     isClickable = false
 
                     selectedChain.stakeDenom?.let {
-                        if (selectedChain is ChainBinanceBeacon) {
+                        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                             val bottomSheet = LegacyTransferFragment(selectedChain, it)
                             bottomSheet.show(requireActivity().supportFragmentManager, LegacyTransferFragment::class.java.name)
 
