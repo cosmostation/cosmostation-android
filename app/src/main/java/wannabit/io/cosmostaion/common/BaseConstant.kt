@@ -99,7 +99,7 @@ object BaseConstant {
     const val OK_MSG_TYPE_MULTI_TRANSFER = "okexchain/token/MsgMultiTransfer"
     const val OK_MSG_TYPE_DEPOSIT = "okexchain/staking/MsgDeposit"
     const val OK_MSG_TYPE_WITHDRAW = "okexchain/staking/MsgWithdraw"
-    const val OK_MSG_TYPE_DIRECT_VOTE = "okexchain/staking/MsgAddShares"
+    const val OK_MSG_TYPE_ADD_SHARES = "okexchain/staking/MsgAddShares"
     const val IOV_MSG_TYPE_DELETE_ACCOUNT = "starname/DeleteAccount"
     const val IOV_MSG_TYPE_DELETE_DOMAIN = "starname/DeleteDomain"
     const val IOV_MSG_TYPE_RENEW_DOMAIN = "starname/RenewDomain"

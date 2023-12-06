@@ -138,7 +138,7 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun broadcastOktSendTx(
+    override suspend fun broadcastOktTx(
         msgs: MutableList<Msg>,
         fee: LFee,
         memo: String,

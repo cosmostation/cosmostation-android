@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
 import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
+import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
@@ -32,6 +33,7 @@ open class ChainOkt60: CosmosLine() {
     var oktDepositedInfo: OktDepositedResponse? = null
     var oktWithdrawInfo: OktWithdrawResponse? = null
     var oktTokenInfo: OktTokenResponse? = null
+    var oktValidatorInfo: MutableList<OktValidatorResponse> = mutableListOf()
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "OKT"
@@ -130,6 +132,32 @@ open class ChainOkt60: CosmosLine() {
 
             is NetworkResult.Error -> {
                 return
+            }
+        }
+    }
+
+    fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
+        if (oktValidatorInfo.size > 0) { return@launch }
+
+        when (val response = safeApiCall { RetrofitInstance.oktApi.oktValidators() }) {
+            is NetworkResult.Success -> {
+                oktValidatorInfo.clear()
+                response.data.sortWith { o1, o2 ->
+                    when {
+                        o1.description?.moniker == "Cosmostation" -> -1
+                        o2.description?.moniker == "Cosmostation" -> 1
+                        o1.jailed == true && o2.jailed == false -> 1
+                        o1.jailed == false && o2.jailed == true -> -1
+                        o1.delegatorShares.toDouble() > o2.delegatorShares.toDouble() -> -1
+                        o1.delegatorShares.toDouble() < o2.delegatorShares.toDouble() -> 1
+                        else -> 0
+                    }
+                }
+                oktValidatorInfo = response.data
+            }
+
+            is NetworkResult.Error -> {
+                return@launch
             }
         }
     }

@@ -1124,8 +1124,9 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     private val _broadcastOktTx = MutableLiveData<LegacyRes?>()
     val broadcastOktTx: LiveData<LegacyRes?> get() = _broadcastOktTx
-    fun broadcastOktSend(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60) = CoroutineScope(Dispatchers.IO).launch {
-        val response = txRepository.broadcastOktSendTx(msgs, fee, memo, selectedChain)
+
+    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60) = CoroutineScope(Dispatchers.IO).launch {
+        val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
         _broadcastOktTx.postValue(response)
     }
 }

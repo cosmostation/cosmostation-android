@@ -66,7 +66,7 @@ interface TxRepository {
         options: TransactionOption
     ) : MutableList<TransactionMetadata>?
 
-    suspend fun broadcastOktSendTx(
+    suspend fun broadcastOktTx(
         msgs: MutableList<Msg>,
         fee: LFee,
         memo: String,

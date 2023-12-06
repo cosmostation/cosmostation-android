@@ -38,6 +38,10 @@ import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
+import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
+import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
+import java.math.BigDecimal
 
 class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
@@ -84,7 +88,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 selectedChain.loadStakeData()
             }
             if (selectedChain is ChainOkt60) {
-
+                (selectedChain as ChainOkt60).loadValidators()
             }
         }
     }
@@ -103,35 +107,30 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
     private fun initTab() {
         binding.apply {
-            if (selectedChain is ChainNeutron) {
+            if (!selectedChain.supportStaking) {
                 fabStake.visibility = View.GONE
-                fabClaimReward.setImageResource(R.drawable.icon_receive)
-                fabClaimReward.labelText = "Receive"
-
-                fabCompounding.setImageResource(R.drawable.icon_neutron_dao)
-                fabCompounding.labelText = "Dao"
-                fabVote.setImageResource(R.drawable.icon_neutron_vault)
-                fabVote.labelText = "Vault"
-
-            } else if (selectedChain is ChainKava459) {
-                fabDefi.visibility = View.VISIBLE
-
-            } else if (selectedChain is ChainBinanceBeacon) {
-                fabVote.visibility = View.GONE
+                fabClaimReward.visibility = View.GONE
                 fabCompounding.visibility = View.GONE
-                fabStake.visibility = View.GONE
-                fabClaimReward.setImageResource(R.drawable.icon_receive)
-                fabClaimReward.labelText = "Receive"
+                fabVote.visibility = View.GONE
 
-            } else if (selectedChain is ChainOkt60) {
-                fabVote.setImageResource(R.drawable.icon_select_validators)
-                fabVote.labelText = "Select validators"
-                fabCompounding.setImageResource(R.drawable.icon_withdraw)
-                fabCompounding.labelText = "Withdraw"
-                fabClaimReward.setImageResource(R.drawable.icon_deposit)
-                fabClaimReward.labelText = "Deposit"
-                fabStake.setImageResource(R.drawable.icon_receive)
-                fabStake.labelText = "Receive"
+                fabReceive.visibility = View.VISIBLE
+            }
+
+            when (selectedChain) {
+                is ChainNeutron -> {
+                    fabDao.visibility = View.VISIBLE
+                    fabVault.visibility = View.VISIBLE
+                }
+
+                is ChainKava459 -> {
+                    fabDefi.visibility = View.VISIBLE
+                }
+
+                is ChainOkt60 -> {
+                    fabDeposit.visibility = View.VISIBLE
+                    fabWithdraw.visibility = View.VISIBLE
+                    fabSelectValidator.visibility = View.VISIBLE
+                }
             }
 
             pagerAdapter = AccountPageAdapter(
@@ -237,6 +236,19 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 fabMenu.close(true)
             }
 
+            fabReceive.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+                    val bottomSheet = QrCodeFragment(selectedChain)
+                    bottomSheet.show(requireActivity().supportFragmentManager, QrCodeFragment::class.java.name)
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
 
             fabStake.setOnClickListener {
                 if (isClickable) {
@@ -258,23 +270,17 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 if (isClickable) {
                     isClickable = false
 
-                    if (selectedChain is ChainNeutron || selectedChain is ChainBinanceBeacon) {
-                        val bottomSheet = QrCodeFragment(selectedChain)
-                        bottomSheet.show(requireActivity().supportFragmentManager, QrCodeFragment::class.java.name)
-
-                    } else {
-                        if (selectedChain.cosmosValidators.size > 0) {
-                            if (selectedChain.claimableRewards().size == 0) {
-                                requireContext().makeToast(R.string.error_not_reward)
-                                return@setOnClickListener
-                            }
-                            if (!selectedChain.isTxFeePayable(requireContext())) {
-                                requireContext().makeToast(R.string.error_not_enough_fee)
-                                return@setOnClickListener
-                            }
-                            val bottomSheet = ClaimRewardFragment(selectedChain, selectedChain.claimableRewards())
-                            bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
+                    if (selectedChain.cosmosValidators.size > 0) {
+                        if (selectedChain.claimableRewards().size == 0) {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
                         }
+                        if (!selectedChain.isTxFeePayable(requireContext())) {
+                            requireContext().makeToast(R.string.error_not_enough_fee)
+                            return@setOnClickListener
+                        }
+                        val bottomSheet = ClaimRewardFragment(selectedChain, selectedChain.claimableRewards())
+                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
                     }
                 }
 
@@ -289,28 +295,22 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 if (isClickable) {
                     isClickable = false
 
-                    if (selectedChain is ChainNeutron) {
-                        requireActivity().toMoveFragment(this@CosmosDetailFragment,
-                            DaoListFragment(selectedChain as ChainNeutron), "DaoList")
-
-                    } else {
-                        if (selectedChain.cosmosValidators.size > 0) {
-                            if (selectedChain.claimableRewards().size == 0) {
-                                requireContext().makeToast(R.string.error_not_reward)
-                                return@setOnClickListener
-                            }
-                            if (!selectedChain.isTxFeePayable(requireContext())) {
-                                requireContext().makeToast(R.string.error_not_enough_fee)
-                                return@setOnClickListener
-                            }
-                            if (selectedChain.rewardAddress != selectedChain.address) {
-                                requireContext().makeToast(R.string.error_reward_address_changed_msg)
-                                return@setOnClickListener
-                            }
-
-                            val bottomSheet = CompoundingFragment(selectedChain, selectedChain.claimableRewards())
-                            bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
+                    if (selectedChain.cosmosValidators.size > 0) {
+                        if (selectedChain.claimableRewards().size == 0) {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
                         }
+                        if (!selectedChain.isTxFeePayable(requireContext())) {
+                            requireContext().makeToast(R.string.error_not_enough_fee)
+                            return@setOnClickListener
+                        }
+                        if (selectedChain.rewardAddress != selectedChain.address) {
+                            requireContext().makeToast(R.string.error_reward_address_changed_msg)
+                            return@setOnClickListener
+                        }
+
+                        val bottomSheet = CompoundingFragment(selectedChain, selectedChain.claimableRewards())
+                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
                     }
                 }
 
@@ -325,18 +325,8 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 if (isClickable) {
                     isClickable = false
 
-                    if (selectedChain is ChainNeutron) {
-                        if (!selectedChain.isTxFeePayable(requireContext())) {
-                            requireContext().makeToast(R.string.error_not_enough_fee)
-                            return@setOnClickListener
-                        }
-                        val bottomSheet = VaultSelectFragment(selectedChain)
-                        bottomSheet.show(requireActivity().supportFragmentManager, VaultSelectFragment::class.java.name)
-
-                    } else {
-                        requireActivity().toMoveFragment(this@CosmosDetailFragment,
-                            ProposalListFragment(selectedChain), "ProposalList")
-                    }
+                    requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                        ProposalListFragment(selectedChain), "ProposalList")
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -352,6 +342,107 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
                     requireActivity().toMoveFragment(this@CosmosDetailFragment,
                         KavaDefiFragment(selectedChain as ChainKava459), "KavaDefi")
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabDao.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    requireActivity().toMoveFragment(this@CosmosDetailFragment,
+                        DaoListFragment(selectedChain as ChainNeutron), "DaoList")
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabVault.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnClickListener
+                    }
+                    val bottomSheet = VaultSelectFragment(selectedChain)
+                    bottomSheet.show(requireActivity().supportFragmentManager, VaultSelectFragment::class.java.name)
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabDeposit.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnClickListener
+                    }
+                    val bottomSheet = OktDepositFragment(selectedChain as ChainOkt60)
+                    bottomSheet.show(requireActivity().supportFragmentManager, OktDepositFragment::class.java.name)
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabWithdraw.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    if ((selectedChain as ChainOkt60).lcdOktDepositAmount() <= BigDecimal.ZERO) {
+                        requireContext().makeToast(R.string.error_no_deposited_asset)
+                        return@setOnClickListener
+                    }
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnClickListener
+                    }
+
+                    val bottomSheet = OktWithdrawFragment(selectedChain as ChainOkt60)
+                    bottomSheet.show(requireActivity().supportFragmentManager, OktWithdrawFragment::class.java.name)
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
+
+                fabMenu.close(true)
+            }
+
+            fabSelectValidator.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    if ((selectedChain as ChainOkt60).lcdOktDepositAmount() <= BigDecimal.ZERO) {
+                        requireContext().makeToast(R.string.error_no_deposited_asset)
+                        return@setOnClickListener
+                    }
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnClickListener
+                    }
+
+                    val bottomSheet = OktSelectValidatorFragment(selectedChain as ChainOkt60)
+                    bottomSheet.show(requireActivity().supportFragmentManager, OktSelectValidatorFragment::class.java.name)
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({

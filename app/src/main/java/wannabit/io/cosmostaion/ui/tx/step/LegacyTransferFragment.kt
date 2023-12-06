@@ -20,6 +20,7 @@ import org.bitcoinj.core.ECKey
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.BNB_BEACON_BASE_FEE
+import wannabit.io.cosmostaion.chain.cosmosClass.BNB_GECKO_ID
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
@@ -132,7 +133,7 @@ class LegacyTransferFragment(
                     feeTokenImg.setTokenImg(selectedChain.assetImg(stakeDenom))
                     feeToken.text = stakeDenom.uppercase()
 
-                    val price = BaseData.getPrice(selectedChain.BNB_GECKO_ID)
+                    val price = BaseData.getPrice(BNB_GECKO_ID)
                     val amount = BigDecimal(BNB_BEACON_BASE_FEE)
                     val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
                     feeAmount.text = formatAmount(amount.toPlainString(), 8)
@@ -169,7 +170,7 @@ class LegacyTransferFragment(
 
                 if (toSendDenom == selectedChain.stakeDenom) {
                     sendValue.visibility = View.VISIBLE
-                    val price = BaseData.getPrice(selectedChain.BNB_GECKO_ID)
+                    val price = BaseData.getPrice(BNB_GECKO_ID)
                     val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
                     sendValue.text = formatAssetValue(toSendValue)
                 } else {
@@ -367,8 +368,10 @@ class LegacyTransferFragment(
                         val sendCoin = LCoin(toSendDenom, toSendAmount)
                         val recipientAddress = binding.recipientAddress.text.toString().trim().replace("(", "").replace(")", "")
 
-                        val oktSendMsg = Signer.oktSendMsg(selectedChain.address, recipientAddress, mutableListOf(sendCoin))
-                        txViewModel.broadcastOktSend(oktSendMsg, fee, txMemo, selectedChain)
+                        selectedChain.address?.let { address ->
+                            val oktSendMsg = Signer.oktSendMsg(address, recipientAddress, mutableListOf(sendCoin))
+                            txViewModel.broadcastOktTx(oktSendMsg, fee, txMemo, selectedChain)
+                        }
                     }
                 }
             }
@@ -397,11 +400,12 @@ class LegacyTransferFragment(
                 if (txResponse != null) {
                     if (txResponse.txhash != null) {
                         putExtra("txHash", txResponse.txhash)
+                        putExtra("isSuccess", true)
                     }
                     if (txResponse.code != null) {
                         putExtra("errorMsg", txResponse.rawLog)
+                        putExtra("isSuccess", false)
                     }
-                    putExtra("isSuccess", true)
                 } else {
                     putExtra("isSuccess", false)
                 }
@@ -409,5 +413,10 @@ class LegacyTransferFragment(
                 startActivity(this)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

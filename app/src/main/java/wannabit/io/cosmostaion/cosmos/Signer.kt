@@ -31,6 +31,7 @@ import com.cosmos.vesting.v1beta1.VestingProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.ethermint.types.v1.AccountProto
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -61,8 +62,12 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
+import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
+import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_ADD_SHARES
+import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_DEPOSIT
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
+import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
 import wannabit.io.cosmostaion.common.delegatorRewardDenoms
 import wannabit.io.cosmostaion.common.earnRewardDenoms
@@ -1029,6 +1034,37 @@ object Signer {
             .addSignatures(ByteString.copyFrom(sigByte)).build()
     }
 
+    private fun broadcast(
+        msgs: MutableList<Msg>,
+        fee: LFee,
+        memo: String?,
+        selectedChain: ChainOkt60
+    ): BroadcastReq {
+        val toSign = genToSignMsg(
+            selectedChain.chainId,
+            selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+            selectedChain.oktLcdAccountInfo?.value?.sequence,
+            msgs,
+            fee,
+            memo
+        )
+        val sig = cosmosSignature(selectedChain, toSign.toSignByte())
+        val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
+            COSMOS_KEY_TYPE_PUBLIC,
+            Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
+        )
+        val signature = Signature(
+            pubKey,
+            sig,
+            selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+            selectedChain.oktLcdAccountInfo?.value?.sequence
+        )
+        val signatures = mutableListOf<Signature>()
+        signatures.add(signature)
+
+        val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
+        return BroadcastReq("sync", signedTx.value)
+    }
 
     // Legacy Tx
     fun oktBroadcast(
@@ -1036,9 +1072,9 @@ object Signer {
         fee: LFee,
         memo: String?,
         selectedChain: ChainOkt60
-    ): BroadcastReq? {
+    ): BroadcastReq {
         if (!selectedChain.evmCompatible) {
-            return null
+            return broadcast(msgs, fee, memo, selectedChain)
 
         } else {
             val toSign = genToSignMsg(
@@ -1068,7 +1104,7 @@ object Signer {
         }
     }
 
-    fun oktSendMsg(fromAddress: String?, toAddress: String, toAmount: MutableList<LCoin>): MutableList<Msg> {
+    fun oktSendMsg(fromAddress: String, toAddress: String, toAmount: MutableList<LCoin>): MutableList<Msg> {
         val result: MutableList<Msg> = mutableListOf()
 
         val req = Msg()
@@ -1079,6 +1115,51 @@ object Signer {
         value?.from_address = fromAddress
         value?.to_address = toAddress
         value?.amount = toAmount
+
+        result.add(req)
+        return result
+    }
+
+    fun oktDepositMsg(address: String, depositCoin: LCoin): MutableList<Msg> {
+        val result: MutableList<Msg> = mutableListOf()
+
+        val req = Msg()
+        req.type = OK_MSG_TYPE_DEPOSIT
+        req.value = Value()
+
+        val value = req.value
+        value?.delegator_address = address
+        value?.quantity = depositCoin
+
+        result.add(req)
+        return result
+    }
+
+    fun oktWithdrawMsg(address: String, withdrawCoin: LCoin): MutableList<Msg> {
+        val result: MutableList<Msg> = mutableListOf()
+
+        val req = Msg()
+        req.type = OK_MSG_TYPE_WITHDRAW
+        req.value = Value()
+
+        val value = req.value
+        value?.delegator_address = address
+        value?.quantity = withdrawCoin
+
+        result.add(req)
+        return result
+    }
+
+    fun oktAddShareMsg(address: String, toValidators: MutableList<String?>): MutableList<Msg> {
+        val result: MutableList<Msg> = mutableListOf()
+
+        val req = Msg()
+        req.type = OK_MSG_TYPE_ADD_SHARES
+        req.value = Value()
+
+        val value = req.value
+        value?.delegator_address = address
+        value?.validator_addresses = toValidators
 
         result.add(req)
         return result
@@ -1104,6 +1185,19 @@ object Signer {
         return StdTx(COSMOS_AUTH_TYPE_STDTX, StdTxValue(msgs, fee, signatures, memo))
     }
 
+    private fun cosmosSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
+        val sha256Hash = Sha256Hash.hash(toSignByte)
+        ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
+            val sigData = ByteArray(64)
+            System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
+            System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+            return String(Base64.encode(sigData), Charset.forName("UTF-8")).replace("\n", "")
+
+        } ?: run {
+            return ""
+        }
+    }
+
     private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String? {
         val privateKey = selectedChain?.privateKey?.toHex()?.let { BigInteger(it, 16) }
         val sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey))
@@ -1115,5 +1209,15 @@ object Signer {
         System.arraycopy(sig.r, 0, sigData, 0, 32)
         System.arraycopy(sig.s, 0, sigData, 32, 32)
         return String(Base64.encode(sigData), Charset.forName("UTF-8"))
+    }
+
+    fun prettyPrinter(any: kotlin.Any): String? {
+        var result: String? = ""
+        result = try {
+            ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(any)
+        } catch (e: Exception) {
+            "Print json error"
+        }
+        return result
     }
 }

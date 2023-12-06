@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.BNB_GECKO_ID
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
@@ -138,8 +139,8 @@ class CoinCosmosLineViewHolder(
                 tokenImg.setTokenImg(ChainBinanceBeacon().assetImg(stakeDenom))
                 tokenName.text = stakeDenom.uppercase()
 
-                tokenPrice.text = formatAssetValue(BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID))
-                BaseData.lastUpDown(ChainBinanceBeacon().BNB_GECKO_ID).let { lastUpDown ->
+                tokenPrice.text = formatAssetValue(BaseData.getPrice(BNB_GECKO_ID))
+                BaseData.lastUpDown(BNB_GECKO_ID).let { lastUpDown ->
                     tokenPriceChange.priceChangeStatusColor(lastUpDown)
                     tokenPriceChange.text = priceChangeStatus(lastUpDown)
                 }

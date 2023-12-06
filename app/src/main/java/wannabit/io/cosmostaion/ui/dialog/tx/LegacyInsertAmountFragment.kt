@@ -52,19 +52,20 @@ class LegacyInsertAmountFragment(
 
     private fun initView() {
         binding.apply {
-            if (selectChain is ChainBinanceBeacon) {
-                assetDecimal = 8
-            } else if (selectChain is ChainOkt60) {
-                assetDecimal = 18
-            }
-            availAmount?.setScale(assetDecimal)?.let { amount ->
+            availAmount?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                if (selectChain is ChainBinanceBeacon) {
+                    assetDecimal = 8
+                    availableDenom.text = bnbTokenInfo?.originalSymbol?.uppercase()
+                } else if (selectChain is ChainOkt60) {
+                    assetDecimal = 18
+                    availableDenom.text = oktTokenInfo?.originalSymbol?.uppercase()
+                }
                 available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                availableDenom.text = bnbTokenInfo?.originalSymbol?.uppercase()
             }
 
             toAmount?.let {
                 if (it.isNotEmpty()) {
-                    val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal).stripTrailingZeros().toPlainString()
+                    val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal, RoundingMode.DOWN).stripTrailingZeros().toPlainString()
                     amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                 } else {
                     amountTxt.text = Editable.Factory.getInstance().newEditable(it)

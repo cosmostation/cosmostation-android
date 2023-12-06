@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
@@ -33,7 +34,15 @@ class StakingViewHolder(
             validator?.let { validator ->
                 monikerImg.setMonikerImg(line, validator.operatorAddress)
                 moniker.text = validator.description?.moniker
-                jailedImg.visibleOrGone(validator.jailed)
+                if (validator.jailed) {
+                    jailedImg.visibility = View.VISIBLE
+                    jailedImg.setImageResource(R.drawable.icon_jailed)
+                } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
+                    jailedImg.visibility = View.VISIBLE
+                    jailedImg.setImageResource(R.drawable.icon_inactive)
+                } else {
+                    jailedImg.visibility = View.GONE
+                }
             }
 
             line.stakeDenom?.let { denom ->

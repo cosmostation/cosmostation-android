@@ -43,7 +43,6 @@ class ChainBinanceBeacon : CosmosLine() {
     override var accountPrefix: String? = "bnb"
 
     val lcdUrl = "https://dex.binance.org/"
-    val BNB_GECKO_ID = "binancecoin"
 
     fun assetImg(originSymbol: String): String {
         return CosmostationConstants.CHAIN_BASE_URL + "bnb-beacon-chain/asset/" + originSymbol.lowercase() + ".png"
@@ -133,7 +132,7 @@ class ChainBinanceBeacon : CosmosLine() {
         denom?.let {
             if (it == stakeDenom) {
                 val amount = lcdBalanceAmount(denom)
-                val price = BaseData.getPrice(ChainBinanceBeacon().BNB_GECKO_ID)
+                val price = BaseData.getPrice(BNB_GECKO_ID)
                 return price.multiply(amount).setScale(6, RoundingMode.DOWN)
             }
         }
@@ -151,3 +150,4 @@ class ChainBinanceBeacon : CosmosLine() {
 
 const val BNB_BEACON_BASE_FEE = "0.000075"
 const val EXPLORER_BINANCE_URL = "https://explorer.bnbchain.org/"
+const val BNB_GECKO_ID = "binancecoin"

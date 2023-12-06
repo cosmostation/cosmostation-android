@@ -18,6 +18,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.BNB_BEACON_BASE_FEE
+import wannabit.io.cosmostaion.chain.cosmosClass.BNB_GECKO_ID
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.common.BaseData
@@ -187,7 +188,7 @@ class Bep3Fragment(
 
                 if (denom == fromChain.stakeDenom) {
                     sendValue.visibility = View.VISIBLE
-                    val price = BaseData.getPrice(fromChain.BNB_GECKO_ID)
+                    val price = BaseData.getPrice(BNB_GECKO_ID)
                     val toSendValue = price.multiply(toSendAmount.toBigDecimal()).setScale(6, RoundingMode.DOWN)
                     sendValue.text = formatAssetValue(toSendValue)
                 } else {

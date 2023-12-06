@@ -38,7 +38,6 @@
 
         </LinearLayout>
 
-
         <ImageView
             android:id="@+id/btn_account"
             android:layout_width="@dimen/space_28"
@@ -145,6 +144,21 @@
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_receive"
+            android:enabled="false"
+            app:maxImageSize="@dimen/space_100"
+            fab:fab_label="Receive"
+            fab:fab_size="mini"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_stake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,6 +218,71 @@
             app:fab_colorDisabled="@color/color_base08"
             android:src="@drawable/icon_defi"
             fab:fab_label="@string/title_defi"
+            app:fab_size="mini"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_dao"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_neutron_dao"
+            fab:fab_label="Dao"
+            app:fab_size="mini"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_vault"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_neutron_vault"
+            fab:fab_label="Vault"
+            app:fab_size="mini"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_deposit"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_deposit"
+            fab:fab_label="Deposit"
+            app:fab_size="mini"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_withdraw"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_withdraw"
+            fab:fab_label="Withdraw"
+            app:fab_size="mini"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_select_validator"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_colorDisabled="@color/color_base08"
+            android:src="@drawable/icon_select_validators"
+            fab:fab_label="Select validator"
             app:fab_size="mini"
             android:visibility="gone"/>
 

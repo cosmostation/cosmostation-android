@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
+import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.TxProto
@@ -133,7 +134,15 @@ class UnStakingFragment(
             validator?.let { validator ->
                 monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
                 monikerName.text = validator.description?.moniker
-                jailedImg.visibleOrGone(validator.jailed)
+                if (validator.jailed) {
+                    jailedImg.visibility = View.VISIBLE
+                    jailedImg.setImageResource(R.drawable.icon_jailed)
+                } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
+                    jailedImg.visibility = View.VISIBLE
+                    jailedImg.setImageResource(R.drawable.icon_inactive)
+                } else {
+                    jailedImg.visibility = View.GONE
+                }
             }
             selectedChain.stakeDenom?.let { denom ->
                 BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->

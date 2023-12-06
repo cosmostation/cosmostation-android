@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.data.model.req
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.google.gson.GsonBuilder
-import com.squareup.moshi.Json
 import java.nio.charset.Charset
 
 data class BroadcastReq(
@@ -52,10 +52,14 @@ class Msg {
     var value: Value? = null
 }
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class Value {
-    var from_address: String? = ""
-    var to_address: String? = ""
-    var amount: MutableList<LCoin> = mutableListOf()
+    var from_address: String? = null
+    var to_address: String? = null
+    var amount: MutableList<LCoin>? = null
+    var delegator_address: String? = null
+    var quantity: LCoin? = null
+    var validator_addresses: MutableList<String?>? = null
 }
 
 data class LCoin(var denom: String, var amount: String)

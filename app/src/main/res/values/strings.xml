@@ -205,6 +205,8 @@
     <string name="title_bep3_send">Bep3 send</string>
     <string name="title_swap_error">Swap tx error</string>
     <string name="title_more_wait_swap">SwapId confirmation delayed</string>
+    <string name="title_to_deposit_asset" translatable="false">To deposit asset</string>
+    <string name="title_to_withdraw_asset" translatable="false">To withdraw asset</string>
 
 
     // msg
@@ -290,6 +292,9 @@
     <string name="error_no_repay_asset">Can not repay now.</string>
     <string name="error_swap_create_tx_msg">Sorry!\nAn error occurred while sending during swap Tx.\nPlease check below.</string>
     <string name="error_more_wait_swap_msg">The sending chain successfully attempted a swap, but the swap ID has not been found yet.\n\nPress the \"Wait\" button to continue searching for the swap ID to perform the swap.\nIf you press the \"Close\" button, your funds will be refunded to your original wallet after a certain period of time.</string>
+    <string name="error_no_deposited_asset">No deposited asset.</string>
+    <string name="error_min_1_validator_msg">Please select more than 1 validator.</string>
+    <string name="error_max_30_validator_msg">You can select max 30 validators.</string>
 
 
     // tx

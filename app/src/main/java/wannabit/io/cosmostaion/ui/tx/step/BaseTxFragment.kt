@@ -29,16 +29,16 @@ open class BaseTxFragment : BottomSheetDialogFragment() {
         val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
         val behavior = BottomSheetBehavior.from(bottomSheet)
         val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = getBottomSheetDialogDefaultHeight()
+        layoutParams.height = bottomSheetDialogDefaultHeight(windowHeight())
         bottomSheet.layoutParams = layoutParams
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 19 / 20
+    open fun bottomSheetDialogDefaultHeight(windowHeight: Int): Int {
+        return windowHeight * 19 / 20
     }
 
-    private fun getWindowHeight(): Int {
+    private fun windowHeight(): Int {
         val displayMetrics = DisplayMetrics()
         (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels

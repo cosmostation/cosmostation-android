@@ -121,7 +121,7 @@ class InsertAmountFragment(
 
                     toAmount?.let {
                         if (it.isNotEmpty()) {
-                            val dpToSendAmount = it.toBigDecimal().movePointLeft(decimal).setScale(decimal).stripTrailingZeros().toPlainString()
+                            val dpToSendAmount = it.toBigDecimal().movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN).stripTrailingZeros().toPlainString()
                             amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                         } else {
                             amountTxt.text = Editable.Factory.getInstance().newEditable(it)
@@ -137,14 +137,14 @@ class InsertAmountFragment(
             selectedToken?.let { token ->
                 assetDecimal = token.decimals
 
-                availAmount?.movePointLeft(token.decimals)?.setScale(token.decimals)?.let { amount ->
+                availAmount?.movePointLeft(token.decimals)?.setScale(token.decimals, RoundingMode.DOWN)?.let { amount ->
                     available.text = formatAmount(amount.toPlainString(), token.decimals)
                     availableDenom.text = token.symbol
                 }
 
                 toAmount?.let {
                     if (it.isNotEmpty()) {
-                        val dpToSendAmount = it.toBigDecimal().movePointLeft(token.decimals).setScale(token.decimals).stripTrailingZeros().toPlainString()
+                        val dpToSendAmount = it.toBigDecimal().movePointLeft(token.decimals).setScale(token.decimals, RoundingMode.DOWN).stripTrailingZeros().toPlainString()
                         amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                     } else {
                         amountTxt.text = Editable.Factory.getInstance().newEditable(it)
@@ -163,7 +163,7 @@ class InsertAmountFragment(
 
             toAmount?.let {
                 if (it.isNotEmpty()) {
-                    val dpToSendAmount = it.toBigDecimal().movePointLeft(6).setScale(6).stripTrailingZeros().toPlainString()
+                    val dpToSendAmount = it.toBigDecimal().movePointLeft(6).setScale(6, RoundingMode.DOWN).stripTrailingZeros().toPlainString()
                     amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                 } else {
                     amountTxt.text = Editable.Factory.getInstance().newEditable(it)

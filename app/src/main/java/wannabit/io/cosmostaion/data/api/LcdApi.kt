@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.api
 
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -12,11 +11,10 @@ import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.BnbHistoryResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
-import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.NodeInfoResponse
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
 import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
+import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.SwapIdResponse
 
@@ -48,6 +46,9 @@ interface LcdApi {
 
     @GET("tokens")
     suspend fun oktTokens(): OktTokenResponse
+
+    @GET("staking/validators?status=all")
+    suspend fun oktValidators(): MutableList<OktValidatorResponse>
 
     @POST("txs")
     suspend fun broadTx(@Body data: BroadcastReq?): LegacyRes

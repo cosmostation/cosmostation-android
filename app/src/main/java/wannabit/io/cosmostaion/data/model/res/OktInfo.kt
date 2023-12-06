@@ -52,3 +52,30 @@ data class TransactionList(
     val transactionTime: String,
     val state: String?
 )
+
+data class OktValidatorResponse(
+    @Json(name = "operator_address") val operatorAddress: String?,
+    @Json(name = "consensus_pubkey") val consensusPubkey: String?,
+    val jailed: Boolean?,
+    val status: Int?,
+    val tokens: String?,
+    @Json(name = "delegator_shares") val delegatorShares: String,
+    val description: Description?,
+    @Json(name = "unbonding_height") val unbondingHeight: String?,
+    @Json(name = "unbonding_time") val unbondingTime: String?,
+    val commission: Commission?,
+    @Json(name = "min_self_delegation") val minSelfDelegation: String?
+) {
+
+    data class Description(val moniker: String?)
+
+    data class Commission(
+        @Json(name = "commission_rates") val commissionRates: CommissionRates
+    ) {
+        data class CommissionRates(
+            val rate: String?,
+            @Json(name = "max_rate") val maxRate: String?,
+            @Json(name = "max_change_rate") val maxChangeRate: String?,
+        )
+    }
+}
