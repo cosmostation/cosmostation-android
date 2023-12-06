@@ -207,6 +207,7 @@
     <string name="title_more_wait_swap">SwapId confirmation delayed</string>
     <string name="title_to_deposit_asset" translatable="false">To deposit asset</string>
     <string name="title_to_withdraw_asset" translatable="false">To withdraw asset</string>
+    <string name="title_buy_crypto">Buy crypto</string>
 
 
     // msg
@@ -249,6 +250,7 @@
     <string name="str_swap_msg" translatable="false">Exchange the coins you have for a\nvariety of different coins</string>
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
+    <string name="str_mintscan_msg" translatable="false">Second generation blockchain analytics\nplatform specialized in on-chain \ndata visualization.</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module.</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV.</string>
     <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform.</string>
@@ -275,6 +277,7 @@
 
 
     // error
+    <string name="error_network_error">Network connection problem.</string>
     <string name="error_invalid_password">Invalid PIN number</string>
     <string name="error_account_name">Please insert account name.</string>
     <string name="error_exist_account_name">Already exist name.</string>

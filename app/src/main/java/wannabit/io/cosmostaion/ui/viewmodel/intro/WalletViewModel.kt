@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
@@ -140,6 +141,20 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         _errorMessage.postValue("Error")
                     }
                 }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private var _moonPayResult = MutableLiveData<String>()
+    val moonPayResult: LiveData<String> get() = _moonPayResult
+    fun moonPay(data: MoonPayReq) = CoroutineScope(Dispatchers.IO).launch {
+        when (val response = walletRepository.moonPay(data)) {
+            is NetworkResult.Success -> {
+                _moonPayResult.postValue(response.data.body()?.signature)
             }
 
             is NetworkResult.Error -> {

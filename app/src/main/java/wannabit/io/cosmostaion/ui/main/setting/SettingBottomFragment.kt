@@ -115,6 +115,24 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                         dismiss()
                     }
                 }
+
+                SettingType.BUY_CRYPTO -> {
+                    selectTitle.text = getString(R.string.title_buy_crypto)
+                    val buyCryptoList = listOf("MOONPAY", "KADO", "BINANCE")
+
+                    settingAdapter = SettingBottomAdapter(requireContext(), SettingType.BUY_CRYPTO)
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.adapter = settingAdapter
+                    settingAdapter.submitList(buyCryptoList)
+
+                    settingAdapter.setOnItemClickListener {
+                        val bundle = Bundle()
+                        bundle.putInt("crypto", it)
+                        parentFragmentManager.setFragmentResult("crypto", bundle)
+                        dismiss()
+                    }
+                }
             }
         }
     }

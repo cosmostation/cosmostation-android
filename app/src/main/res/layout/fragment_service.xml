@@ -6,248 +6,306 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.ServiceFragment">
 
-    <TextView
-        android:id="@+id/service_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/font_sb_12"
-        android:textColor="@color/color_base01"
-        android:text="Service list"
-        android:layout_marginTop="@dimen/space_20"
-        android:layout_marginStart="@dimen/space_20"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/coin_swap_view"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_8"
-        android:layout_marginTop="@dimen/space_8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/service_title">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/space_16"
-            android:background="@drawable/icon_coin_swap">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/coin_swap"
-                style="@style/font_sb_14"
+                android:id="@+id/service_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_20"
-                android:text="COIN SWAP"
+                style="@style/font_sb_12"
                 android:textColor="@color/color_base01"
+                android:text="Service list"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_marginStart="@dimen/space_20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/coin_swap_msg"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mintscan_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/font_sm_12"
-                android:textColor="@color/color_base02"
-                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginHorizontal="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coin_swap"
-                android:text="@string/str_swap_msg"/>
+                app:layout_constraintTop_toBottomOf="@+id/service_title">
 
-            <TextView
-                android:id="@+id/support_title"
-                android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_16"
+                    android:background="@drawable/icon_service_mintscan">
+
+                    <TextView
+                        android:id="@+id/mintsacn"
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:text="MINTSCAN"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/mintscan_msg"
+                        style="@style/font_sm_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_6"
+                        android:layout_marginBottom="@dimen/space_61"
+                        android:text="@string/str_mintscan_msg"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mintsacn" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/coin_swap_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_21"
-                style="@style/font_sm_10"
-                android:textColor="@color/color_base01"
-                android:text="Supported APIs"
+                android:layout_marginHorizontal="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coin_swap_msg" />
+                app:layout_constraintTop_toBottomOf="@+id/mintscan_view">
 
-            <ImageView
-                android:id="@+id/skip_img"
-                android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_16"
+                    android:background="@drawable/icon_coin_swap">
+
+                    <TextView
+                        android:id="@+id/coin_swap"
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:text="COIN SWAP"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/coin_swap_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base02"
+                        android:layout_marginTop="@dimen/space_6"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/coin_swap"
+                        android:text="@string/str_swap_msg"/>
+
+                    <TextView
+                        android:id="@+id/support_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_21"
+                        style="@style/font_sm_10"
+                        android:textColor="@color/color_base01"
+                        android:text="Supported APIs"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/coin_swap_msg" />
+
+                    <ImageView
+                        android:id="@+id/skip_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_16"
+                        android:src="@drawable/icon_skip"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/support_title" />
+
+                    <ImageView
+                        android:id="@+id/osmo_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_8"
+                        app:layout_constraintStart_toEndOf="@+id/skip_img"
+                        app:layout_constraintTop_toBottomOf="@+id/support_title"
+                        android:src="@drawable/icon_osmosis"/>
+
+                    <ImageView
+                        android:id="@+id/astro_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_8"
+                        app:layout_constraintStart_toEndOf="@+id/osmo_img"
+                        app:layout_constraintTop_toBottomOf="@+id/support_title"
+                        android:src="@drawable/icon_astroport"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dapp_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coin_swap_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_16"
+                    android:background="@drawable/icon_dapp">
+
+                    <TextView
+                        android:id="@+id/dapp"
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:text="DAPP"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/dapp_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base02"
+                        android:layout_marginTop="@dimen/space_6"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dapp"
+                        android:text="@string/str_dapp_msg"/>
+
+                    <TextView
+                        android:id="@+id/major_dapp_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_21"
+                        style="@style/font_sm_10"
+                        android:textColor="@color/color_base01"
+                        android:text="Major dapps"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dapp_msg" />
+
+                    <ImageView
+                        android:id="@+id/kava_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_16"
+                        android:src="@drawable/icon_kava_dapp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/major_dapp_title" />
+
+                    <ImageView
+                        android:id="@+id/netron_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_8"
+                        app:layout_constraintStart_toEndOf="@+id/kava_img"
+                        app:layout_constraintTop_toBottomOf="@+id/major_dapp_title"
+                        android:src="@drawable/icon_neutron_dapp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/buy_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginBottom="@dimen/space_16"
-                android:src="@drawable/icon_skip"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/support_title" />
+                app:layout_constraintTop_toBottomOf="@+id/dapp_view">
 
-            <ImageView
-                android:id="@+id/osmo_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                app:layout_constraintStart_toEndOf="@+id/skip_img"
-                app:layout_constraintTop_toBottomOf="@+id/support_title"
-                android:src="@drawable/icon_osmosis"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_16"
+                    android:background="@drawable/icon_buy_coin">
 
-            <ImageView
-                android:id="@+id/astro_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                app:layout_constraintStart_toEndOf="@+id/osmo_img"
-                app:layout_constraintTop_toBottomOf="@+id/support_title"
-                android:src="@drawable/icon_astroport"/>
+                    <TextView
+                        android:id="@+id/buy_crypto"
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:text="BUY CRYPTO"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/buy_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/font_sm_12"
+                        android:textColor="@color/color_base02"
+                        android:layout_marginTop="@dimen/space_6"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/buy_crypto"
+                        android:text="@string/str_buy_msg"/>
 
-    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/support_shop_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_21"
+                        style="@style/font_sm_10"
+                        android:textColor="@color/color_base01"
+                        android:text="Major dapps"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/buy_msg" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/dapp_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_8"
-        android:layout_marginTop="@dimen/space_8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coin_swap_view">
+                    <ImageView
+                        android:id="@+id/moon_pay_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_16"
+                        android:src="@drawable/icon_moonpay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/support_shop_title" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/space_16"
-            android:background="@drawable/icon_dapp">
+                    <ImageView
+                        android:id="@+id/kado_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_8"
+                        app:layout_constraintStart_toEndOf="@+id/moon_pay_img"
+                        app:layout_constraintTop_toBottomOf="@+id/support_shop_title"
+                        android:src="@drawable/icon_kado"/>
 
-            <TextView
-                android:id="@+id/dapp"
-                style="@style/font_sb_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_20"
-                android:text="DAPP"
-                android:textColor="@color/color_base01"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/dapp_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/font_sm_12"
-                android:textColor="@color/color_base02"
-                android:layout_marginTop="@dimen/space_6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dapp"
-                android:text="@string/str_dapp_msg"/>
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/major_dapp_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_21"
-                style="@style/font_sm_10"
-                android:textColor="@color/color_base01"
-                android:text="Major dapps"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dapp_msg" />
+        </LinearLayout>
 
-            <ImageView
-                android:id="@+id/kava_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginBottom="@dimen/space_16"
-                android:src="@drawable/icon_kava_dapp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/major_dapp_title" />
-
-            <ImageView
-                android:id="@+id/netron_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                app:layout_constraintStart_toEndOf="@+id/kava_img"
-                app:layout_constraintTop_toBottomOf="@+id/major_dapp_title"
-                android:src="@drawable/icon_neutron_dapp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/buy_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_8"
-        android:layout_marginTop="@dimen/space_8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dapp_view">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/space_16"
-            android:background="@drawable/icon_buy_coin">
-
-            <TextView
-                android:id="@+id/buy_crypto"
-                style="@style/font_sb_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_20"
-                android:text="BUY CRYPTO"
-                android:textColor="@color/color_base01"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/buy_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/font_sm_12"
-                android:textColor="@color/color_base02"
-                android:layout_marginTop="@dimen/space_6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buy_crypto"
-                android:text="@string/str_buy_msg"/>
-
-            <TextView
-                android:id="@+id/support_shop_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_21"
-                style="@style/font_sm_10"
-                android:textColor="@color/color_base01"
-                android:text="Major dapps"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buy_msg" />
-
-            <ImageView
-                android:id="@+id/moon_pay_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginBottom="@dimen/space_16"
-                android:src="@drawable/icon_moonpay"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/support_shop_title" />
-
-            <ImageView
-                android:id="@+id/kado_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
-                app:layout_constraintStart_toEndOf="@+id/moon_pay_img"
-                app:layout_constraintTop_toBottomOf="@+id/support_shop_title"
-                android:src="@drawable/icon_kado"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

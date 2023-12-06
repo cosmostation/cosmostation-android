@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 import wannabit.io.cosmostaion.databinding.ItemPriceStyleBinding
 import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
@@ -41,6 +42,13 @@ class SettingBottomAdapter(
                 PriceStyleViewHolder(parent.context, binding)
             }
 
+            SettingType.BUY_CRYPTO.ordinal -> {
+                val binding = ItemBuyCryptoBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                BuyCryptoViewHolder(parent.context, binding)
+            }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -73,6 +81,17 @@ class SettingBottomAdapter(
                 if (holder is PriceStyleViewHolder) {
                     val style = currentList[position]
                     holder.bind(style)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let { it(position) }
+                    }
+                }
+            }
+
+            SettingType.BUY_CRYPTO.ordinal -> {
+                if (holder is BuyCryptoViewHolder) {
+                    val buy = currentList[position]
+                    holder.bind(buy)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let { it(position) }

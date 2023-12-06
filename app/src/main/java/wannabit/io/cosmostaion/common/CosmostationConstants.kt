@@ -13,7 +13,6 @@ object CosmostationConstants {
     const val WALLET_API_URL = "https://api-wallet.cosmostation.io"
     const val MINTSCAN_API_URL = "https://front.api.mintscan.io"
 
-
     // explorer & github
     const val EXPLORER_BASE_URL = "https://www.mintscan.io/"
     const val CHAIN_BASE_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
@@ -31,4 +30,11 @@ object CosmostationConstants {
     //bep3
     const val SWAP_MEMO_CREATE = "Create Atomic Swap via Cosmostation Wallet"
     const val SWAP_MEMO_CLAIM = "Claim Atomic Swap via Cosmostation Wallet"
+
+    const val MOON_PAY_URL = "https://buy.moonpay.io"
+    const val KADO_MONEY_URL = "https://app.kado.money"
+    const val BINANCE_BUY_URL = "https://www.binance.com/en/crypto/buy"
+
+    const val MOON_PAY_PUBLIC_KEY = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn"
+    const val KADO_PUBLIC_KEY = "18e55363-1d76-456c-8d4d-ecee7b9517ea"
 }

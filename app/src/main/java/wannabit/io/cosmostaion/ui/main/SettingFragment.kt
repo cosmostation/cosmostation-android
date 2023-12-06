@@ -362,4 +362,4 @@ class SettingFragment : Fragment() {
     }
 }
 
-enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, AUTO_PASS }
+enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, AUTO_PASS, BUY_CRYPTO }

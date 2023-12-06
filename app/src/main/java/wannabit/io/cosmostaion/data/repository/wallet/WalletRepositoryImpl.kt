@@ -5,9 +5,11 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
+import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.ChainResponse
+import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Price
 
@@ -40,6 +42,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun evmTxHash(chain: String?, evmTxHash: String?): NetworkResult<Response<String>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.evmTxHash(chain, evmTxHash)
+        }
+    }
+
+    override suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>> {
+        return safeApiCall(Dispatchers.IO) {
+            walletApi.moonPay(data)
         }
     }
 }

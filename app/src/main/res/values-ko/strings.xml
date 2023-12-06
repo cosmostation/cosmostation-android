@@ -156,6 +156,7 @@
     <string name="title_bep3_send">Bep3 전송</string>
     <string name="title_swap_error">스왑 tx 에러</string>
     <string name="title_more_wait_swap">스왑아이디 확인 지연</string>
+    <string name="title_buy_crypto">크립토 구매</string>
 
 
     // msg
@@ -197,6 +198,7 @@
 
 
     // error
+    <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
     <string name="error_invalid_password">PIN 번호가 틀렸습니다.</string>
     <string name="error_account_name">계정 이름을 정확히 입력하세요.</string>
     <string name="error_exist_account_name">이미 존재하는 이름입니다.</string>
