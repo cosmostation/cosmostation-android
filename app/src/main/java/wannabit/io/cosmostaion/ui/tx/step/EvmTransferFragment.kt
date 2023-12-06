@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,9 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -86,22 +88,40 @@ class EvmTransferFragment(
                 availableAmount = token.amount?.toBigDecimal()
             }
 
-            BaseData.assets?.firstOrNull { it.denom == selectedChain.stakeDenom }?.let { asset ->
-                feeTokenImg.setTokenImg(asset)
-                feeToken.text = asset.symbol
+            if (selectedChain is ChainOkt60) {
+                selectedChain.stakeDenom?.let { denom ->
+                    feeTokenImg.setTokenImg(selectedChain.assetImg(denom))
+                    feeToken.text = denom.uppercase()
+                }
+
+            } else {
+                BaseData.assets?.firstOrNull { it.denom == selectedChain.stakeDenom }?.let { asset ->
+                    feeTokenImg.setTokenImg(asset)
+                    feeToken.text = asset.symbol
+                }
             }
         }
     }
 
     private fun updateFeeView() {
         binding.apply {
-            BaseData.assets?.firstOrNull { it.denom == selectedChain.stakeDenom }?.let { asset ->
-                val calFeeAmount = evmFeeAmount.movePointLeft(18).setScale(18, RoundingMode.DOWN)
-                val price = BaseData.getPrice(asset.coinGeckoId)
+            if (selectedChain is ChainOkt60) {
+                val price = BaseData.getPrice(OKT_GECKO_ID)
+                val calFeeAmount = BigDecimal(OKT_BASE_FEE)
                 val value = price.multiply(calFeeAmount).setScale(6, RoundingMode.DOWN)
                 feeAmount.text = formatAmount(calFeeAmount.toPlainString(), 18)
-                feeDenom.text = asset.symbol
+                feeDenom.text = selectedChain.stakeDenom?.uppercase()
                 feeValue.text = formatAssetValue(value)
+
+            } else {
+                BaseData.assets?.firstOrNull { it.denom == selectedChain.stakeDenom }?.let { asset ->
+                    val calFeeAmount = evmFeeAmount.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+                    val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(calFeeAmount).setScale(6, RoundingMode.DOWN)
+                    feeAmount.text = formatAmount(calFeeAmount.toPlainString(), 18)
+                    feeDenom.text = asset.symbol
+                    feeValue.text = formatAssetValue(value)
+                }
             }
         }
     }

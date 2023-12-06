@@ -87,7 +87,7 @@ class TxResultActivity : BaseActivity() {
         txResultType = TxResultType.valueOf(intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString())
 
         binding.btnConfirm.updateButtonView(true)
-        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
+        if (selectedChain is ChainBinanceBeacon || (selectedChain is ChainOkt60 && txResultType == TxResultType.COSMOS)) {
             if (txHash.isNotEmpty()) {
                 updateView()
             } else {

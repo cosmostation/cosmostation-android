@@ -46,12 +46,19 @@ class AddressBookFragment(
             CoroutineScope(Dispatchers.IO).launch {
                 AppDatabase.getInstance().refAddressDao().selectAll().forEach { refAddress ->
                     refAddress.dpAddress?.let { address ->
-                        if (address.startsWith(targetChain?.accountPrefix!!) && address != sendAddress) {
-                            refAddresses.add(refAddress)
-
+                        if (addressType == AddressType.EVM_TRANSFER) {
+                            if (refAddress.chainTag == targetChain?.tag && address != sendAddress) {
+                                refAddresses.add(refAddress)
+                            }
+                        } else {
+                            if (address.startsWith(targetChain?.accountPrefix!!) && address != sendAddress) {
+                                refAddresses.add(refAddress)
+                            }
+                        }
+                        targetChain?.let {
                             withContext(Dispatchers.Main) {
                                 myAccountCnt.text = refAddresses.size.toString()
-                                addressBookAdapter = AddressBookAdapter(targetChain, addressType)
+                                addressBookAdapter = AddressBookAdapter(it, addressType)
                                 recycler.setHasFixedSize(true)
                                 recycler.layoutManager = LinearLayoutManager(requireContext())
                                 recycler.adapter = addressBookAdapter
