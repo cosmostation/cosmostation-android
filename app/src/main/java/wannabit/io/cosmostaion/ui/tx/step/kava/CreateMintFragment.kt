@@ -38,7 +38,6 @@ import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
@@ -308,7 +307,7 @@ class CreateMintFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -346,6 +345,7 @@ class CreateMintFragment(
             if (toCollateralAmount.isEmpty() || toPrincipalAmount.isEmpty()) { return }
             if (toCollateralAmount.toBigDecimal() == BigDecimal.ZERO || toPrincipalAmount.toBigDecimal() == BigDecimal.ZERO) { return }
 
+            btnCreateMint.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateMintCreate(getChannel(selectedChain), selectedChain.address, onBindCreateMint(), txFee, txMemo)
         }

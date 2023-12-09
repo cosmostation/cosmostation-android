@@ -21,16 +21,12 @@ object Prefs {
     private const val LAST_TIME = "PRE_LAST_TIME"
     private const val APP_LOCK = "PRE_APP_LOCK"
     private const val AUTO_PASS = "PRE_AUTO_PASS"
+    private const val SWAP_WARN = "PRE_SWAP_WARN"
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
-    private const val CURRENT_USER_ID = "PRE_USER_ID"
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
 
     private val preference = CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
-
-    var lastUserId: Long
-        get() = preference.getLong(CURRENT_USER_ID, -1)
-        set(value) = preference.edit().putLong(CURRENT_USER_ID, value).apply()
 
     var fcmToken: String
         get() = preference.getString(FCM_TOKEN, "") ?: ""
@@ -110,4 +106,8 @@ object Prefs {
     var autoPass: Int
         get() = preference.getInt(AUTO_PASS, 0)
         set(value) = preference.edit().putInt(AUTO_PASS, value).apply()
+
+    var swapWarn: Long
+        get() = preference.getLong(SWAP_WARN, 0)
+        set(value) = preference.edit().putLong(SWAP_WARN, value).apply()
 }

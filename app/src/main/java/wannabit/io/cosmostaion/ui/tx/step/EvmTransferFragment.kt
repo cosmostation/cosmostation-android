@@ -244,6 +244,7 @@ class EvmTransferFragment(
             if (toSendAmount.isEmpty() || recipientEvmAddress.text.isEmpty()) { return }
             if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
 
+            btnSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateErc20Send(binding.recipientEvmAddress.text.toString().trim(), toSendAmount, selectedToken, selectedChain)
         }

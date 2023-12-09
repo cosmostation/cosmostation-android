@@ -424,7 +424,7 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private suspend fun loadParam(): Param? {
+    suspend fun loadParam(): Param? {
         return when (val response = safeApiCall { RetrofitInstance.mintscanApi.param(this.apiName) }) {
             is NetworkResult.Success -> {
                 response.data.body()

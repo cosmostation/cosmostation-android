@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
@@ -166,13 +167,22 @@ class MainActivity : BaseActivity() {
             BaseData.baseAccount?.displayCosmosLineChains?.forEach {
                 it.fetched = false
             }
-            if (response == true) {
-                val mainViewPagerAdapter = MainViewPageAdapter(this)
-                binding.mainViewPager.adapter = mainViewPagerAdapter
-                binding.mainViewPager.offscreenPageLimit = 2
-                binding.mainViewPager.isUserInputEnabled = false
-                mainViewPagerAdapter.notifyDataSetChanged()
-            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val mainViewPagerAdapter = MainViewPageAdapter(this)
+        binding.apply {
+            mainViewPager.adapter = mainViewPagerAdapter
+            mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
+            mainViewPager.offscreenPageLimit = 2
+            mainViewPager.isUserInputEnabled = false
+            mainViewPagerAdapter.notifyDataSetChanged()
         }
     }
 

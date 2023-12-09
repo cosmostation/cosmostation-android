@@ -31,14 +31,12 @@ import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentUnStakingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
@@ -307,7 +305,7 @@ class UnStakingFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -344,6 +342,7 @@ class UnStakingFragment(
         binding.apply {
             if (toCoin == null) { return }
             backdropLayout.visibility = View.VISIBLE
+            btnUnstake.updateButtonView(false)
             txViewModel.simulateUnDelegate(getChannel(selectedChain), selectedChain.address, onBindUnDelegate(), txFee, txMemo)
         }
     }

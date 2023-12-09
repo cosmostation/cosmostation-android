@@ -37,7 +37,6 @@ import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
@@ -371,7 +370,7 @@ class PoolActionFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -434,6 +433,7 @@ class PoolActionFragment(
                     if (coin1ToAmount.isEmpty() || coin2ToAmount.isEmpty()) { return }
                     if (coin1ToAmount.toBigDecimal() == BigDecimal.ZERO || coin2ToAmount.toBigDecimal() == BigDecimal.ZERO) { return }
 
+                    btnPool.updateButtonView(false)
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulatePoolDeposit(
                         getChannel(selectedChain),

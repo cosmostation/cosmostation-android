@@ -1,10 +1,12 @@
 package wannabit.io.cosmostaion.common
 
 import android.content.Context
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Chain
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -19,6 +21,9 @@ object BaseData {
     var chains: List<Chain>? = mutableListOf()
     var prices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
+
+    var skipChains: SkipChainResponse? = null
+    var skipAssets: JsonObject? = null
 
     fun getPrice(coinGeckoId: String?): BigDecimal {
         val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
@@ -63,6 +68,18 @@ object BaseData {
     fun setLastTime() {
         val now = Calendar.getInstance().timeInMillis
         Prefs.lastTime = now
+    }
+
+    fun setSwapWarn() {
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        Prefs.swapWarn = currentDate.timeInMillis
+    }
+
+    fun getSwapWarn(): Boolean {
+        val last = Prefs.swapWarn
+        val now = Calendar.getInstance().timeInMillis
+        return last < now
     }
 
     fun isAutoPass(): Boolean {

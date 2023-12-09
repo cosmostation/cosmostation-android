@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 class ChainFragment(
     private val recipientAbleChains: MutableList<CosmosLine>,
+    private val chainListType: ChainListType,
     val listener: ChainSelectListener
 ) : BottomSheetDialogFragment() {
 
@@ -35,7 +36,39 @@ class ChainFragment(
 
     private fun initView() {
         binding.apply {
-            selectTitle.text = getString(R.string.title_select_recipient_chain)
+            when (chainListType) {
+                ChainListType.SELECT_INPUT_SWAP -> {
+                    selectTitle.text = getString(R.string.title_select_input_chain)
+                    recipientAbleChains.sortWith { o1, o2 ->
+                        when {
+                            o1.tag == "cosmos118" -> -1
+                            o2.tag == "cosmos118" -> 1
+                            o1.name < o2.name -> -1
+                            o1.name > o2.name -> 1
+                            else -> 0
+                        }
+                    }
+
+                }
+
+                ChainListType.SELECT_OUTPUT_SWAP -> {
+                    selectTitle.text = getString(R.string.title_select_output_chain)
+                    recipientAbleChains.sortWith { o1, o2 ->
+                        when {
+                            o1.tag == "cosmos118" -> -1
+                            o2.tag == "cosmos118" -> 1
+                            o1.name < o2.name -> -1
+                            o1.name > o2.name -> 1
+                            else -> 0
+                        }
+                    }
+
+                }
+
+                else -> {
+                    selectTitle.text = getString(R.string.title_select_recipient_chain)
+                }
+            }
 
             chainAdapter = ChainAdapter()
             recycler.setHasFixedSize(true)
@@ -59,3 +92,5 @@ class ChainFragment(
 interface ChainSelectListener {
     fun select(chainId: String)
 }
+
+enum class ChainListType { SELECT_TRANSFER, SELECT_INPUT_SWAP, SELECT_OUTPUT_SWAP }

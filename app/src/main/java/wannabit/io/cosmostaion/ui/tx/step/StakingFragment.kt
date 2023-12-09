@@ -32,20 +32,17 @@ import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentStakingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
 import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorDefaultListener
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorFragment
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -321,7 +318,7 @@ class StakingFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -337,7 +334,7 @@ class StakingFragment(
                 txSimul()
             }
 
-            btnUnstake.setOnClickListener {
+            btnStake.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     unDelegateResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
@@ -357,6 +354,7 @@ class StakingFragment(
     private fun txSimul() {
         binding.apply {
             if (toCoin == null) { return }
+            btnStake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateDelegate(getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo)
         }
@@ -390,7 +388,7 @@ class StakingFragment(
 
     private fun isBroadCastTx(isSuccess: Boolean) {
         binding.backdropLayout.visibility = View.GONE
-        binding.btnUnstake.updateButtonView(isSuccess)
+        binding.btnStake.updateButtonView(isSuccess)
     }
 
     private fun setUpBroadcast() {

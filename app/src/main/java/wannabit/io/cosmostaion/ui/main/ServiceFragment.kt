@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.tx.step.SwapFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.net.URLEncoder
@@ -105,7 +106,15 @@ class ServiceFragment : Fragment() {
             }
 
             coinSwapView.setOnClickListener {
+                val bottomSheet = SwapFragment()
+                if (isClickable) {
+                    isClickable = false
+                    bottomSheet.show(parentFragmentManager, SwapFragment::class.java.name)
 
+                    Handler().postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
             }
 
             dappView.setOnClickListener {

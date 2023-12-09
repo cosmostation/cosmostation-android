@@ -43,7 +43,6 @@ import wannabit.io.cosmostaion.databinding.FragmentVoteBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
@@ -227,7 +226,7 @@ class DaoVoteFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -256,7 +255,7 @@ class DaoVoteFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadcastWasm(getChannel(), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo, selectedChain)
+                txViewModel.broadcastWasm(getChannel(), onBindWasmVoteMsg(), txFee, txMemo, selectedChain)
             }
         }
 

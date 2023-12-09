@@ -88,6 +88,8 @@
         android:layout_height="match_parent"
         android:background="@color/color_background_dialog"
         android:elevation="@dimen/space_5"
+        android:clickable="true"
+        android:focusable="true"
         android:fitsSystemWindows="true"
         android:visibility="gone">
 

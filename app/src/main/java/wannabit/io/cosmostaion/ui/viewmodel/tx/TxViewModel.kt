@@ -565,13 +565,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     fun broadcastWasm(
         managedChannel: ManagedChannel?,
-        address: String?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
         memo: String,
         selectedChain: CosmosLine?
     ) = CoroutineScope(Dispatchers.IO).launch {
-        txRepository.auth(managedChannel, address)?.let {
+        txRepository.auth(managedChannel, selectedChain?.address)?.let {
             val response = txRepository.broadcastWasmTx(
                 managedChannel,
                 it,
@@ -1128,5 +1127,43 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60) = CoroutineScope(Dispatchers.IO).launch {
         val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
         _broadcastOktTx.postValue(response)
+    }
+
+    fun broadcastSkipIbcSend(
+        managedChannel: ManagedChannel?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, selectedChain?.address)?.let {
+            val response = txRepository.broadcastIbcSendTx(
+                managedChannel,
+                it,
+                msgTransfer,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
+        }
+    }
+
+    fun simulateSkipIbcSend(
+        managedChannel: ManagedChannel?,
+        fromAddress: String?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, fromAddress)?.let {
+            try {
+                val response = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as String
+                errorMessage.postValue(errorResponse)
+            }
+        }
     }
 }

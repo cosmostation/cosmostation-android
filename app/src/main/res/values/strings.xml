@@ -102,6 +102,8 @@
     <string name="str_create_mint">Open mint</string>
     <string name="str_cancel_unstake">Cancel unstake</string>
     <string name="str_select_valuables">Select wallets with asset</string>
+    <string name="str_swap_warning">Warning</string>
+    <string name="str_do_not_show_7_days">Don\'t show 7days</string>
 
 
     //title
@@ -208,6 +210,12 @@
     <string name="title_to_deposit_asset" translatable="false">To deposit asset</string>
     <string name="title_to_withdraw_asset" translatable="false">To withdraw asset</string>
     <string name="title_buy_crypto">Buy crypto</string>
+    <string name="title_swap">Swap</string>
+    <string name="title_select_slippage">Select slippage</string>
+    <string name="title_select_input_chain">Select input chain</string>
+    <string name="title_select_output_chain">Select output chain</string>
+    <string name="title_select_input_asset">Select input asset</string>
+    <string name="title_select_output_asset">Select output asset</string>
 
 
     // msg
@@ -250,7 +258,7 @@
     <string name="str_swap_msg" translatable="false">Exchange the coins you have for a\nvariety of different coins</string>
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
-    <string name="str_mintscan_msg" translatable="false">Second generation blockchain analytics\nplatform specialized in on-chain \ndata visualization.</string>
+    <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module.</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV.</string>
     <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform.</string>
@@ -258,6 +266,7 @@
     <string name="str_htls_msg1">2/4 Confirming swapid.</string>
     <string name="str_htls_msg2">3/4 Broadcasting BEP3 claim Tx on receiving chain.</string>
     <string name="str_htls_msg3">4/4 Confirming all Tx on each chain.</string>
+    <string name="str_swap_warn_msg">Cosmostation Mobile is a non-custodial wallet service, so users are responsible for executing all transactions. Please always check the details accurately before sending a transaction. \n\nWe are not responsible for any losses resulting from transactions through the app.</string>
 
 
     // header
@@ -298,6 +307,7 @@
     <string name="error_no_deposited_asset">No deposited asset.</string>
     <string name="error_min_1_validator_msg">Please select more than 1 validator.</string>
     <string name="error_max_30_validator_msg">You can select max 30 validators.</string>
+    <string name="error_swap_msg" translatable="false">could not find a swap chain with both the requested source and dest assets</string>
 
 
     // tx

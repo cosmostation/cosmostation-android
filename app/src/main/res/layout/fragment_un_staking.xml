@@ -372,6 +372,8 @@
         android:background="@color/color_background_dialog"
         android:elevation="@dimen/space_5"
         android:fitsSystemWindows="true"
+        android:clickable="true"
+        android:focusable="true"
         android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView

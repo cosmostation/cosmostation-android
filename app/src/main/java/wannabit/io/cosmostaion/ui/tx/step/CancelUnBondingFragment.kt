@@ -33,7 +33,6 @@ import wannabit.io.cosmostaion.databinding.FragmentCancelUnBondingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
@@ -202,7 +201,7 @@ class CancelUnBondingFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -237,6 +236,7 @@ class CancelUnBondingFragment(
 
     private fun txSimul() {
         binding.apply {
+            btnCancelUnstake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateCancelUnbonding(getChannel(selectedChain), selectedChain.address, onBindCancelUnbonding(), txFee, txMemo)
         }

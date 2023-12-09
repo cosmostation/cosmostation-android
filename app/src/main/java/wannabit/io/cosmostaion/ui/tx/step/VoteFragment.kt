@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.databinding.FragmentVoteBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
@@ -212,7 +211,7 @@ class VoteFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -248,6 +247,7 @@ class VoteFragment(
     private fun txSimul() {
         if (proposals?.any { it.toVoteOption == null } == true) { return }
         binding.apply {
+            btnVote.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
 
             toVotes?.clear()

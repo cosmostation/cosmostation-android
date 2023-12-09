@@ -3,6 +3,9 @@ package wannabit.io.cosmostaion.common
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableString
@@ -12,6 +15,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -364,6 +368,16 @@ fun Button.updateSelectButtonView(isBtnEnabled: Boolean) {
         isEnabled = false
         setTextColor(ContextCompat.getColorStateList(context, R.color.color_base03))
         setBackgroundResource(R.drawable.button_select_bg)
+    }
+}
+
+fun ImageButton.updateToggleButtonView(isBtnEnabled: Boolean) {
+    if (isBtnEnabled) {
+        isEnabled = true
+        colorFilter = PorterDuffColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN)
+    } else {
+        isEnabled = false
+        colorFilter = PorterDuffColorFilter(Color.parseColor("#8A99AE"), PorterDuff.Mode.SRC_IN)
     }
 }
 

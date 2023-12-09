@@ -1,11 +1,13 @@
 package wannabit.io.cosmostaion.data.api
 
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
@@ -40,11 +42,11 @@ object RetrofitInstance {
 
     private val mintScanRetrofit: Retrofit by lazy {
         Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .client(okHttpClient)
-        .baseUrl(CosmostationConstants.MINTSCAN_API_URL)
-        .build()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(CosmostationConstants.MINTSCAN_API_URL)
+            .build()
     }
 
     private val beaconRetrofit: Retrofit by lazy {
@@ -74,6 +76,15 @@ object RetrofitInstance {
             .build()
     }
 
+    private val skipRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(CosmostationConstants.SKIP_API_URL)
+            .build()
+    }
+
     val walletApi: WalletApi by lazy {
         walletRetrofit.create(WalletApi::class.java)
     }
@@ -92,5 +103,9 @@ object RetrofitInstance {
 
     val chainListApi: ChainListApi by lazy {
         chainListRetrofit.create(ChainListApi::class.java)
+    }
+
+    val skipApi: SkipApi by lazy {
+        skipRetrofit.create(SkipApi::class.java)
     }
 }

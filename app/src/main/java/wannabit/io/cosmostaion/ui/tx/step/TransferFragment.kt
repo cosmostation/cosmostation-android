@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
+import wannabit.io.cosmostaion.ui.dialog.tx.ChainListType
 import wannabit.io.cosmostaion.ui.dialog.tx.ChainSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
@@ -362,7 +363,7 @@ class TransferFragment(
             recipientView.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    ChainFragment(recipientAbleChains, object : ChainSelectListener {
+                    ChainFragment(recipientAbleChains, ChainListType.SELECT_TRANSFER, object : ChainSelectListener {
                         override fun select(chainId: String) {
                             if (chainId != selectedRecipientChain?.chainId) {
                                 selectedRecipientChain =
@@ -456,7 +457,7 @@ class TransferFragment(
                             }
 
                         }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -524,7 +525,6 @@ class TransferFragment(
                     } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
                         txViewModel.broadcastWasm(
                             getChannel(selectedChain),
-                            selectedChain.address,
                             onBindWasmSend(),
                             txFee,
                             txMemo,
@@ -549,7 +549,6 @@ class TransferFragment(
                     } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
                         txViewModel.broadcastWasm(
                             getChannel(selectedChain),
-                            selectedChain.address,
                             onBindWasmIbcSend(),
                             txFee,
                             txMemo,
@@ -565,6 +564,7 @@ class TransferFragment(
             if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
             if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
 
+            btnSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
 
             if (selectedChain.chainId == selectedRecipientChain?.chainId) {

@@ -13,8 +13,6 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.cosmos.tx.v1beta1.ServiceGrpc.newStub
 import com.cosmos.tx.v1beta1.ServiceProto
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +26,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -50,7 +49,7 @@ class TxResultActivity : BaseActivity() {
     private var isSuccess: Boolean = false
     private var txHash: String = ""
     private var errorMsg: String = ""
-    private var fetchCnt = 10
+    private var fetchCnt = 15
     private var txResponse: ServiceProto.GetTxResponse? = null
 
     private var txResultType: TxResultType? = TxResultType.COSMOS
@@ -100,10 +99,10 @@ class TxResultActivity : BaseActivity() {
 
         } else {
             if (isSuccess) {
-                if (txResultType == TxResultType.COSMOS) {
-                    fetchTx()
-                } else {
+                if (txResultType == TxResultType.EVM) {
                     fetchEvmTx()
+                } else {
+                    fetchTx()
                 }
             } else {
                 showError()
@@ -114,13 +113,17 @@ class TxResultActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startMainActivity()
+        if (txResultType == TxResultType.SKIP) {
+            startMainActivity(1)
+        } else {
+            startMainActivity(0)
+        }
     }
 
     private fun updateView() {
         binding.apply {
             loading.visibility = View.GONE
-            if (txResultType == TxResultType.COSMOS) {
+            if (txResultType == TxResultType.COSMOS || txResultType == TxResultType.SKIP) {
                 if (isSuccess) {
                     successLayout.visibility = View.VISIBLE
                 } else {
@@ -178,42 +181,48 @@ class TxResultActivity : BaseActivity() {
             }
 
             btnConfirm.setOnClickListener {
-                startMainActivity()
+                if (txResultType == TxResultType.SKIP) {
+                    startMainActivity(1)
+                } else {
+                    startMainActivity(0)
+                }
             }
         }
     }
 
     private fun fetchTx() {
         CoroutineScope(Dispatchers.IO).launch {
-            val stub = newStub(getChannel())
-            val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
+            selectedChain?.let { line ->
+                val stub = newStub(getChannel(line))
+                val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
-            stub.getTx(request, object : StreamObserver<ServiceProto.GetTxResponse> {
-                override fun onNext(value: ServiceProto.GetTxResponse?) {
-                    txResponse = value
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        updateView()
-                    }, 0)
-                }
-
-                override fun onError(t: Throwable?) {
-                    fetchCnt -= 1
-                    if (isSuccess && fetchCnt > 0) {
-                        getChannel()?.shutdown()
-                        getChannel()?.awaitTermination(6L, TimeUnit.SECONDS)
+                stub.getTx(request, object : StreamObserver<ServiceProto.GetTxResponse> {
+                    override fun onNext(value: ServiceProto.GetTxResponse?) {
+                        txResponse = value
                         Handler(Looper.getMainLooper()).postDelayed({
-                            fetchTx()
-                        }, 6000)
+                            updateView()
+                        }, 0)
+                    }
 
-                    } else {
-                        runOnUiThread {
-                            showMoreWait()
+                    override fun onError(t: Throwable?) {
+                        fetchCnt -= 1
+                        if (isSuccess && fetchCnt > 0) {
+                            getChannel(line).shutdown()
+                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                fetchTx()
+                            }, 6000)
+
+                        } else {
+                            runOnUiThread {
+                                showMoreWait()
+                            }
                         }
                     }
-                }
 
-                override fun onCompleted() {}
-            })
+                    override fun onCompleted() {}
+                })
+            }
         }
     }
 
@@ -260,13 +269,6 @@ class TxResultActivity : BaseActivity() {
         binding.quoteAuthor.text = "- " + quote[1] + " -".uppercase()
     }
 
-    private fun getChannel(): ManagedChannel? {
-        selectedChain?.let {
-            return ManagedChannelBuilder.forAddress(it.grpcHost, it.grpcPort).useTransportSecurity().build()
-        }
-        return null
-    }
-
     private fun showMoreWait() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = DialogWaitBinding.inflate(inflater)
@@ -277,7 +279,11 @@ class TxResultActivity : BaseActivity() {
         dialog.show()
 
         binding.btnClose.setOnClickListener {
-            startMainActivity()
+            if (txResultType == TxResultType.SKIP) {
+                startMainActivity(1)
+            } else {
+                startMainActivity(0)
+            }
             dialog.dismiss()
         }
 
@@ -298,12 +304,14 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun startMainActivity() {
-        val intent = Intent(this@TxResultActivity, MainActivity::class.java)
-        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        ApplicationViewModel.shared.txRecreate()
+    private fun startMainActivity(page: Int) {
+        Intent(this@TxResultActivity, MainActivity::class.java).apply {
+            addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
+            putExtra("page", page)
+            startActivity(this)
+            ApplicationViewModel.shared.txRecreate()
+        }
     }
 }
 
-enum class TxResultType { COSMOS, EVM }
+enum class TxResultType { COSMOS, EVM, SKIP }

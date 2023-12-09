@@ -39,7 +39,6 @@ import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
@@ -359,7 +358,7 @@ class LendActionFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -441,6 +440,7 @@ class LendActionFragment(
         binding.apply {
             if (toLendAmount.isEmpty()) { return }
             if (toLendAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+            btnLend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
 
             when (lendActionType) {

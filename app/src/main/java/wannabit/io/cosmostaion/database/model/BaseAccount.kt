@@ -177,22 +177,19 @@ data class BaseAccount(
     }
 
     fun initOnlyKeyData(): MutableList<CosmosLine> {
-        allCosmosLineChains.clear()
-
         if (type == BaseAccountType.MNEMONIC) {
-            allCosmosLines().forEach { line ->
-                allCosmosLineChains.add(line)
-            }
             allCosmosLineChains.forEach { line ->
-                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                }
             }
+
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
-            allCosmosLines().filter { it.isDefault }.forEach { line ->
-                allCosmosLineChains.add(line)
-            }
             allCosmosLineChains.forEach { line ->
-                line.setInfoWithPrivateKey(privateKey)
+                if (line.address?.isEmpty() == true) {
+                    line.setInfoWithPrivateKey(privateKey)
+                }
             }
         }
         return allCosmosLineChains

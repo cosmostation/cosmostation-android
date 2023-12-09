@@ -12,6 +12,7 @@ object CosmostationConstants {
 
     const val WALLET_API_URL = "https://api-wallet.cosmostation.io"
     const val MINTSCAN_API_URL = "https://front.api.mintscan.io"
+    const val SKIP_API_URL = "https://api.skip.money/"
 
     // explorer & github
     const val EXPLORER_BASE_URL = "https://www.mintscan.io/"

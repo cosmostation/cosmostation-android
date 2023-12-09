@@ -72,6 +72,8 @@
     <string name="str_create_mint">Mint 개설</string>
     <string name="str_cancel_unstake">언스테이킹 취소</string>
     <string name="str_select_valuables">자산이 있는 지갑 선택</string>
+    <string name="str_swap_warning">경고</string>
+    <string name="str_do_not_show_7_days">7일간 표시 안함</string>
 
 
 
@@ -157,6 +159,12 @@
     <string name="title_swap_error">스왑 tx 에러</string>
     <string name="title_more_wait_swap">스왑아이디 확인 지연</string>
     <string name="title_buy_crypto">크립토 구매</string>
+    <string name="title_swap">스왑</string>
+    <string name="title_select_slippage">슬리피지 선택</string>
+    <string name="title_select_input_chain">입력 체인 선택</string>
+    <string name="title_select_output_chain">출력 체인 선택</string>
+    <string name="title_select_input_asset">입력 자산 선택</string>
+    <string name="title_select_output_asset">출력 자산 선택</string>
 
 
     // msg
@@ -195,6 +203,7 @@
     <string name="str_htls_msg1">2/4 스왑아이디를 확인 중 입니다.</string>
     <string name="str_htls_msg2">3/4 받는 체인에서 BEP3 수신 트랜잭션을 발송 중 입니다.</string>
     <string name="str_htls_msg3">4/4 양쪽 체인에서 각각의 트랜잭션을 확인중 입니다.</string>
+    <string name="str_swap_warn_msg">코스모스테이션 모바일을 비수탁형 지갑 서비스로 모든 트랜젝션 실행의 책임은 유저에게 있습니다. 트랜잭션을 보내기전에 항상 내용을 정확하게 확인하시고 사용해 주시길 바랍니다. \n\n앱을 통한 거래로 인한 손실은 책임지지 않습니다.</string>
 
 
     // error

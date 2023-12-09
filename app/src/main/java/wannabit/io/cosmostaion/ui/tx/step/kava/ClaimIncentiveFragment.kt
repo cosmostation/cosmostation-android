@@ -34,7 +34,6 @@ import wannabit.io.cosmostaion.databinding.FragmentClaimIncentiveBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
@@ -233,7 +232,7 @@ class ClaimIncentiveFragment(
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -269,6 +268,7 @@ class ClaimIncentiveFragment(
     private fun txSimul() {
         binding.apply {
             backdropLayout.visibility = View.VISIBLE
+            btnClaimIncentive.updateButtonView(false)
             txViewModel.simulateClaimIncentive(getChannel(selectedChain), selectedChain.address, incentive, txFee, txMemo)
         }
     }
