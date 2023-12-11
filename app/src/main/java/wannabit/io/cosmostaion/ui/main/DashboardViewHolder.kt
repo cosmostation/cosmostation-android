@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +8,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 
 
@@ -52,7 +52,11 @@ class DashboardViewHolder(
                     }
 
                     if (line.fetched) {
-                        chainValue.text = formatAssetValue(line.allValue())
+                        if (Prefs.hideValue) {
+                            chainValue.text = "✱✱✱✱"
+                        } else {
+                            chainValue.text = formatAssetValue(line.allValue())
+                        }
                         skeletonChainValue.visibility = View.GONE
                     }
                 }

@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +22,14 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class CoinFragment(position: Int) : Fragment() {
 
@@ -55,6 +58,7 @@ class CoinFragment(position: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpHideValue()
         refreshData()
         initRecyclerView()
         initData()
@@ -283,6 +287,12 @@ class CoinFragment(position: Int) : Fragment() {
             } else {
                 startTransfer(line, denom)
             }
+        }
+    }
+
+    private fun setUpHideValue() {
+        ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
+            coinAdapter.notifyDataSetChanged()
         }
     }
 

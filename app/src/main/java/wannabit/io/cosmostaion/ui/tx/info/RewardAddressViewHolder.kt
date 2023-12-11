@@ -15,7 +15,7 @@ class RewardAddressViewHolder(
 
     fun bind(rewardAddress: String?) {
         binding.apply {
-            rewardAddressView.setBackgroundResource(R.drawable.item_bg)
+            rewardAddressView.setBackgroundResource(R.drawable.item_reward_cell_bg)
             anotherRewardAddress.text = rewardAddress
 
             rewardAddressView.setOnClickListener {

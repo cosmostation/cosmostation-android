@@ -61,16 +61,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <TextView
-        android:id="@+id/account_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/font_sb_24"
-        android:textColor="@color/color_base01"
-        android:layout_marginTop="@dimen/space_6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_address" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/account_value_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        app:layout_constraintTop_toBottomOf="@+id/account_address" >
+
+        <TextView
+            android:id="@+id/account_value"
+            style="@style/font_sb_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_not_hide"
+            android:layout_marginTop="@dimen/space_3"
+            android:layout_marginStart="@dimen/space_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/account_value"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -83,7 +103,7 @@
         app:tabIndicatorColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_value"
+        app:layout_constraintTop_toBottomOf="@+id/account_value_layout"
         android:layout_marginHorizontal="@dimen/space_16"
         android:layout_marginTop="@dimen/space_24"
         app:tabGravity="start"

@@ -46,4 +46,10 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     fun walletEdit() = viewModelScope.launch(Dispatchers.IO) {
         walletEditResult.postValue(true)
     }
+
+
+    var hideValueResult = SingleLiveEvent<Boolean>()
+    fun hideValue() = viewModelScope.launch(Dispatchers.IO) {
+        hideValueResult.postValue(true)
+    }
 }

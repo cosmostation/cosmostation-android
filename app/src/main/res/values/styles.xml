@@ -97,6 +97,10 @@
         <item name="colorControlNormal">@color/color_base07</item>
     </style>
 
+    <style name="progressbar_color_under_api21">
+        <item name="colorAccent">@color/color_base03</item>
+    </style>
+
     <style name="Widget.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
         <item name="contentInsetStart">0dp</item>
         <item name="android:padding">0dp</item>

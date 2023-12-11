@@ -13,11 +13,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosActivity
@@ -37,6 +39,8 @@ class DashboardFragment : Fragment() {
 
     private val walletViewModel: WalletViewModel by activityViewModels()
 
+    private var totalChainValue: BigDecimal = BigDecimal.ZERO
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,8 +53,24 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModels()
-        baseAccount = BaseData.baseAccount
+        initView()
+        clickAction()
         refreshData()
+    }
+
+    private fun initView() {
+        binding?.apply {
+            baseAccount = BaseData.baseAccount
+            if (Prefs.hideValue) {
+                totalValue.text = "✱✱✱✱✱"
+                totalValue.textSize = 20f
+                btnHide.setImageResource(R.drawable.icon_hide)
+            } else {
+                totalValue.text = formatAssetValue(totalChainValue)
+                totalValue.textSize = 24f
+                btnHide.setImageResource(R.drawable.icon_not_hide)
+            }
+        }
     }
 
     private fun updateView() {
@@ -113,8 +133,34 @@ class DashboardFragment : Fragment() {
             }
             if (isAdded) {
                 requireActivity().runOnUiThread {
-                    binding?.totalValue?.text = formatAssetValue(sum)
+                    totalChainValue = sum
+                    if (Prefs.hideValue) {
+                        binding?.totalValue?.text = "✱✱✱✱✱"
+                        binding?.totalValue?.textSize = 20f
+                    } else {
+                        binding?.totalValue?.text = formatAssetValue(sum)
+                        binding?.totalValue?.textSize = 24f
+                    }
                 }
+            }
+        }
+    }
+
+    private fun clickAction() {
+        binding?.apply {
+            btnHide.setOnClickListener {
+                Prefs.hideValue = !Prefs.hideValue
+                if (Prefs.hideValue) {
+                    totalValue.text = "✱✱✱✱✱"
+                    totalValue.textSize = 20f
+                    btnHide.setImageResource(R.drawable.icon_hide)
+                } else {
+                    totalValue.text = formatAssetValue(totalChainValue)
+                    totalValue.textSize = 24f
+                    btnHide.setImageResource(R.drawable.icon_not_hide)
+                }
+                ApplicationViewModel.shared.hideValue()
+                dashAdapter.notifyDataSetChanged()
             }
         }
     }

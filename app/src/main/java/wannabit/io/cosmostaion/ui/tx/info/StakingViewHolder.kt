@@ -80,6 +80,15 @@ class StakingViewHolder(
                             rewardTitle.text = "Reward"
                             rewardAmount.text = formatAmount(BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal)
                         }
+
+                        val apr = line.param?.params?.apr ?: "0"
+                        val staked = delegation.balance.amount.toBigDecimal()
+                        val comm = BigDecimal.ONE.subtract(validator?.commission?.commissionRates?.rate?.toBigDecimal()?.
+                        movePointLeft(18)?.setScale(18, RoundingMode.DOWN))
+                        val est = staked.multiply(apr.toBigDecimal()).multiply(comm)
+                            .setScale(0, RoundingMode.DOWN).divide(BigDecimal("12"), 0, RoundingMode.DOWN)
+                            .movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        estimateReward.text = formatAmount(est.toPlainString(), decimal)
                     }
                 }
             }

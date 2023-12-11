@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Coin
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import java.math.RoundingMode
 
@@ -32,8 +33,13 @@ class CoinEtcViewHolder(
                 tokenName.text = token.originalSymbol.uppercase()
                 tokenDescription.text = token.name
             }
-            val amount = coin.amount.toBigDecimal().setScale(8, RoundingMode.DOWN)
-            tokenAmount.text = formatAmount(amount.toPlainString(), 8)
+
+            if (Prefs.hideValue) {
+                tokenAmount.text = "✱✱✱✱"
+            } else {
+                val amount = coin.amount.toBigDecimal().setScale(8, RoundingMode.DOWN)
+                tokenAmount.text = formatAmount(amount.toPlainString(), 8)
+            }
         }
     }
 
@@ -50,8 +56,12 @@ class CoinEtcViewHolder(
                 tokenName.text = token.originalSymbol.uppercase()
                 tokenDescription.text = token.description
 
-                val availableAmount = line.lcdBalanceAmount(coin.denom)
-                tokenAmount.text = formatAmount(availableAmount.toPlainString(), 18)
+                if (Prefs.hideValue) {
+                    tokenAmount.text = "✱✱✱✱"
+                } else {
+                    val availableAmount = line.lcdBalanceAmount(coin.denom)
+                    tokenAmount.text = formatAmount(availableAmount.toPlainString(), 18)
+                }
             }
         }
     }

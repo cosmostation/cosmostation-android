@@ -22,6 +22,7 @@ object Prefs {
     private const val APP_LOCK = "PRE_APP_LOCK"
     private const val AUTO_PASS = "PRE_AUTO_PASS"
     private const val SWAP_WARN = "PRE_SWAP_WARN"
+    private const val HIDE_VALUE = "PRE_HIDE_VALUE"
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
@@ -110,4 +111,8 @@ object Prefs {
     var swapWarn: Long
         get() = preference.getLong(SWAP_WARN, 0)
         set(value) = preference.edit().putLong(SWAP_WARN, value).apply()
+
+    var hideValue: Boolean
+        get() = preference.getBoolean(HIDE_VALUE, false)
+        set(value) = preference.edit().putBoolean(HIDE_VALUE, value).apply()
 }

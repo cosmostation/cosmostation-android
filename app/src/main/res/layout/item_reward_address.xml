@@ -21,6 +21,15 @@
             android:textColor="@color/color_base01"
             android:text="@string/str_reward_address"/>
 
+        <TextView
+            style="@style/font_sb_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_6"
+            android:textColor="@color/color_accent_purple"
+            android:layout_toRightOf="@+id/header_title"
+            android:text="(Changed)" />
+
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView

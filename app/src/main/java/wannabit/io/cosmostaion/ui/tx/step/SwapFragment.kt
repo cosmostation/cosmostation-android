@@ -882,7 +882,7 @@ class SwapFragment : BaseTxFragment() {
                     val innerMsg = JSONObject(skipMsg.msg)
 
                     inputCosmosLine?.let { line ->
-                        when (skipMsg?.msg_type_url) {
+                        when (skipMsg.msg_type_url) {
                             "/ibc.applications.transfer.v1.MsgTransfer" -> {
                                 skipTxViewModel.broadcastSkipIbcSend(
                                     getChannel(line),

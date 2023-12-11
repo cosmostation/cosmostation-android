@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.select.VaultSelectFragment
@@ -41,6 +42,7 @@ import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
@@ -82,7 +84,15 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 } else {
                     accountAddress.text = selectedChain.address
                 }
-                accountValue.text = formatAssetValue(selectedChain.allValue())
+                if (Prefs.hideValue) {
+                    accountValue.text = "✱✱✱✱✱"
+                    accountValue.textSize = 20f
+                    btnHide.setImageResource(R.drawable.icon_hide)
+                } else {
+                    accountValue.text = formatAssetValue(selectedChain.allValue())
+                    accountValue.textSize = 24f
+                    btnHide.setImageResource(R.drawable.icon_not_hide)
+                }
             }
             if (selectedChain.supportStaking) {
                 selectedChain.loadStakeData()
@@ -98,7 +108,17 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             override fun onTokenLoaded(isLoaded: Boolean) {
                 if (isAdded) {
                     requireActivity().runOnUiThread {
-                        binding.accountValue.text = formatAssetValue(selectedChain.allValue())
+                        binding.apply {
+                            if (Prefs.hideValue) {
+                                accountValue.text = "✱✱✱✱✱"
+                                accountValue.textSize = 20f
+                                btnHide.setImageResource(R.drawable.icon_hide)
+                            } else {
+                                accountValue.text = formatAssetValue(selectedChain.allValue())
+                                accountValue.textSize = 24f
+                                btnHide.setImageResource(R.drawable.icon_not_hide)
+                            }
+                        }
                     }
                 }
             }
@@ -182,6 +202,20 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 bottomSheet.show(requireActivity().supportFragmentManager, QrCodeFragment::class.java.name)
             }
 
+            btnHide.setOnClickListener {
+                Prefs.hideValue = !Prefs.hideValue
+                if (Prefs.hideValue) {
+                    accountValue.text = "✱✱✱✱✱"
+                    accountValue.textSize = 20f
+                    btnHide.setImageResource(R.drawable.icon_hide)
+                } else {
+                    accountValue.text = formatAssetValue(selectedChain.allValue())
+                    accountValue.textSize = 24f
+                    btnHide.setImageResource(R.drawable.icon_not_hide)
+                }
+                ApplicationViewModel.shared.hideValue()
+            }
+
             fabMenu.setOnMenuToggleListener { opened ->
                 fabMenu.bringToFront()
                 backdropLayout.visibleOrGone(opened)
@@ -256,6 +290,10 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     if (selectedChain.cosmosValidators.size > 0) {
                         requireActivity().toMoveFragment(this@CosmosDetailFragment,
                             StakeInfoFragment(selectedChain), "StakeInfo")
+                    } else {
+                        requireContext().makeToast(R.string.error_wait_moment)
+                        fabMenu.close(true)
+                        return@setOnClickListener
                     }
                 }
 

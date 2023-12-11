@@ -104,6 +104,7 @@
     <string name="str_select_valuables">Select wallets with asset</string>
     <string name="str_swap_warning">Warning</string>
     <string name="str_do_not_show_7_days">Don\'t show 7days</string>
+    <string name="str_est_monthly_reward">Est. monthly reward</string>
 
 
     //title
@@ -308,6 +309,7 @@
     <string name="error_min_1_validator_msg">Please select more than 1 validator.</string>
     <string name="error_max_30_validator_msg">You can select max 30 validators.</string>
     <string name="error_swap_msg" translatable="false">could not find a swap chain with both the requested source and dest assets</string>
+    <string name="error_wait_moment">Please wait for a moment. Synchronizing.</string>
 
 
     // tx

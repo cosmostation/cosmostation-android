@@ -11,9 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
@@ -69,7 +69,17 @@ class ChainEditFragment : BaseTxFragment() {
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = chainEditAdapter
 
-                        binding.btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
+                        if (allCosmosChains.none { !it.fetched }) {
+                            btnSelect.isClickable = true
+                            btnSelectTxt.visibility = View.VISIBLE
+                            progress.visibility = View.GONE
+                            btnSelect.setBackgroundResource(R.drawable.button_enable_select_bg)
+                        } else {
+                            btnSelect.isClickable = false
+                            btnSelectTxt.visibility = View.GONE
+                            progress.visibility = View.VISIBLE
+                            btnSelect.setBackgroundResource(R.drawable.button_select_bg)
+                        }
                         initData()
                     }
                 }
@@ -87,7 +97,17 @@ class ChainEditFragment : BaseTxFragment() {
                                 if (isLoaded) {
                                     chainEditAdapter.notifyItemChanged(i)
                                 }
-                                btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
+                                if (allCosmosChains.none { !it.fetched }) {
+                                    btnSelect.isClickable = true
+                                    btnSelectTxt.visibility = View.VISIBLE
+                                    progress.visibility = View.GONE
+                                    btnSelect.setBackgroundResource(R.drawable.button_enable_select_bg)
+                                } else {
+                                    btnSelect.isClickable = false
+                                    btnSelectTxt.visibility = View.GONE
+                                    progress.visibility = View.VISIBLE
+                                    btnSelect.setBackgroundResource(R.drawable.button_select_bg)
+                                }
                             }
                         }
                     }

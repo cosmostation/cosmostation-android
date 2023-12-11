@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -12,6 +13,7 @@ import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 import java.math.RoundingMode
 
@@ -37,8 +39,18 @@ class TokenViewHolder(
             }
 
             token.amount?.toBigDecimal()?.movePointLeft(token.decimals)?.setScale(6, RoundingMode.DOWN)?.let { amount ->
-                coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                coinAmountValue.text = formatAssetValue(line.tokenValue(token.address))
+                if (Prefs.hideValue) {
+                    coinAmount.visibility = View.GONE
+                    coinAmountValue.visibility = View.GONE
+                    hideValue.visibility = View.VISIBLE
+                } else {
+                    coinAmount.visibility = View.VISIBLE
+                    coinAmountValue.visibility = View.VISIBLE
+                    hideValue.visibility = View.GONE
+
+                    coinAmount.text = formatAmount(amount.toPlainString(), 6)
+                    coinAmountValue.text = formatAssetValue(line.tokenValue(token.address))
+                }
             }
         }
     }

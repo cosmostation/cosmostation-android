@@ -81,6 +81,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/total"/>
 
+            <TextView
+                android:id="@+id/hide_value"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="@id/token_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/token_img"
+                android:visibility="gone"
+                android:text="✱✱✱✱"/>
+
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
