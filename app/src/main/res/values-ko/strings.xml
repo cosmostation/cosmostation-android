@@ -75,14 +75,22 @@
     <string name="str_swap_warning">경고</string>
     <string name="str_do_not_show_7_days">7일간 표시 안함</string>
     <string name="str_est_monthly_reward">Est. Monthly reward</string>
+    <string name="str_add_address">주소록 추가</string>
+    <string name="str_name">이름</string>
+    <string name="str_memo">메모</string>
+    <string name="str_edit">편집</string>
+    <string name="str_delete">삭제</string>
 
 
     //title
+    <string name="title_select_wallet">지갑 선택</string>
     <string name="title_mnemonic_account">니모닉 계정</string>
     <string name="title_private_account">개인키 계정</string>
     <string name="title_wallet">지갑</string>
     <string name="title_account">계정 관리</string>
     <string name="title_add_account">계정 추가</string>
+    <string name="title_import_qr">QR로 계정 추가</string>
+    <string name="title_legacy_enabled">레거시 주소 활성화</string>
     <string name="title_chain">체인 관리</string>
     <string name="title_address_book">주소록 관리</string>
     <string name="title_general">일반</string>
@@ -91,7 +99,9 @@
     <string name="title_price_change_color">가격 변동 색상</string>
     <string name="title_notification">알람</string>
     <string name="title_support">지원</string>
+    <string name="title_twitter">X(트위터)</string>
     <string name="title_telegram">텔레그렘</string>
+    <string name="title_youtube">유튜브</string>
     <string name="title_term">약관</string>
     <string name="title_privacy">개인정보 보호</string>
     <string name="title_version">버전</string>
@@ -165,6 +175,7 @@
     <string name="title_select_output_chain">출력 체인 선택</string>
     <string name="title_select_input_asset">입력 자산 선택</string>
     <string name="title_select_output_asset">출력 자산 선택</string>
+    <string name="title_address_book_list">주소록 확인</string>
 
 
     // msg
@@ -204,6 +215,7 @@
     <string name="str_htls_msg2">3/4 받는 체인에서 BEP3 수신 트랜잭션을 발송 중 입니다.</string>
     <string name="str_htls_msg3">4/4 양쪽 체인에서 각각의 트랜잭션을 확인중 입니다.</string>
     <string name="str_swap_warn_msg">코스모스테이션 모바일을 비수탁형 지갑 서비스로 모든 트랜젝션 실행의 책임은 유저에게 있습니다. 트랜잭션을 보내기전에 항상 내용을 정확하게 확인하시고 사용해 주시길 바랍니다. \n\n앱을 통한 거래로 인한 손실은 책임지지 않습니다.</string>
+    <string name="str_set_address_msg">편의를 위해 자주쓰는 주소를 등록하실 수 있습니다.</string>
 
 
     // error
@@ -229,6 +241,7 @@
     <string name="error_min_1_validator_msg">1개 이상의 검증인을 선택해야 합니다.</string>
     <string name="error_max_30_validator_msg">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_wait_moment">잠시만 기다려 주세요. 동기화중입니다.</string>
+    <string name="error_name">이름을 정확히 입력하세요.</string>
 
 
     //header

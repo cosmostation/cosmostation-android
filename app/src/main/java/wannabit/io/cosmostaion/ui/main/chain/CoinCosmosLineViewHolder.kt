@@ -48,6 +48,30 @@ class CoinCosmosLineViewHolder(
                             }
 
                             asset.decimals?.let { decimal ->
+                                val availableAmount = line.balanceAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+
+                                val vestingAmount = line.vestingAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
+
+                                val stakedAmount = line.delegationAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+
+                                val unStakingAmount = line.unbondingAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                unstakingLayout.goneOrVisible(unStakingAmount.compareTo(BigDecimal.ZERO) == 0)
+
+                                val rewardAmount = line.rewardAmountSum(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
+
+                                val totalAmount = availableAmount.add(vestingAmount).add(stakedAmount)
+                                    .add(unStakingAmount).add(rewardAmount)
+                                val value = line.denomValue(stakeDenom)
+                                if (line.rewardAllCoins().isNotEmpty()) {
+                                    if (line.rewardOtherDenoms() > 0) {
+                                        rewardTitle.text = context.getString(R.string.str_reward) + " +" + line.rewardOtherDenoms()
+                                    } else {
+                                        rewardTitle.text = context.getString(R.string.str_reward)
+                                    }
+                                }
+
                                 if (Prefs.hideValue) {
                                     total.visibility = View.GONE
                                     totalValue.visibility = View.GONE
@@ -57,41 +81,24 @@ class CoinCosmosLineViewHolder(
                                     staked.text = "✱✱✱✱"
                                     unstaking.text = "✱✱✱✱"
                                     reward.text = "✱✱✱✱"
+                                    available.textSize = 12f
+                                    vesting.textSize = 12f
+                                    staked.textSize = 12f
+                                    unstaking.textSize = 12f
+                                    reward.textSize = 12f
 
                                 } else {
                                     total.visibility = View.VISIBLE
                                     totalValue.visibility = View.VISIBLE
                                     hideValue.visibility = View.GONE
 
-                                    val availableAmount = line.balanceAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                                     available.text = formatAmount(availableAmount.toPlainString(), 6)
-
-                                    val vestingAmount = line.vestingAmount(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                                    vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
                                     vesting.text = formatAmount(vestingAmount.toPlainString(), 6)
-
-                                    val stakedAmount = line.delegationAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                                     staked.text = formatAmount(stakedAmount.toPlainString(), 6)
-
-                                    val unStakingAmount = line.unbondingAmountSum().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                                    unstakingLayout.goneOrVisible(unStakingAmount.compareTo(BigDecimal.ZERO) == 0)
                                     unstaking.text = formatAmount(unStakingAmount.toPlainString(), 6)
+                                    reward.text = formatAmount(rewardAmount.toPlainString(), 6)
 
-                                    val rewardAmount = line.rewardAmountSum(stakeDenom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                                    rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
-                                    if (line.rewardAllCoins().isNotEmpty()) {
-                                        if (line.rewardOtherDenoms() > 0) {
-                                            rewardTitle.text = context.getString(R.string.str_reward) + " +" + line.rewardOtherDenoms()
-                                        } else {
-                                            rewardTitle.text = context.getString(R.string.str_reward)
-                                        }
-                                        reward.text = formatAmount(rewardAmount.toPlainString(), 6)
-                                    }
-
-                                    val totalAmount = availableAmount.add(vestingAmount).add(stakedAmount)
-                                        .add(unStakingAmount).add(rewardAmount)
                                     total.text = formatAmount(totalAmount.toPlainString(), 6)
-                                    val value = line.denomValue(stakeDenom)
                                     totalValue.text = formatAssetValue(value)
                                 }
                             }
@@ -122,34 +129,39 @@ class CoinCosmosLineViewHolder(
                             tokenPriceChange.text = priceChangeStatus(lastUpDown)
                         }
 
-                        if (Prefs.hideValue) {
-                            total.visibility = View.GONE
-                            totalValue.visibility = View.GONE
-                            hideValue.visibility = View.VISIBLE
-                            available.text = "✱✱✱✱"
-                            vesting.text = "✱✱✱✱"
-                            staked.text = "✱✱✱✱"
+                        asset.decimals?.let { decimal ->
+                            val availableAmount = line.balanceAmount(denom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
 
-                        } else {
-                            total.visibility = View.VISIBLE
-                            totalValue.visibility = View.VISIBLE
-                            hideValue.visibility = View.GONE
+                            neutronChain.neutronVestingAmount()?.let { neutronVestingAmount ->
+                                val vestingAmount = neutronVestingAmount.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
 
-                            asset.decimals?.let { decimal ->
-                                val availableAmount = line.balanceAmount(denom).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                                available.text = formatAmount(availableAmount.toPlainString(), 6)
+                                val depositedAmount = neutronChain.neutronDeposited.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
 
-                                neutronChain.neutronVestingAmount()?.let { neutronVestingAmount ->
-                                    val vestingAmount = neutronVestingAmount.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                                    vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
+                                val totalAmount = availableAmount.add(vestingAmount).add(depositedAmount)
+                                val value = line.denomValue(denom)
+
+                                if (Prefs.hideValue) {
+                                    total.visibility = View.GONE
+                                    totalValue.visibility = View.GONE
+                                    hideValue.visibility = View.VISIBLE
+                                    available.text = "✱✱✱✱"
+                                    vesting.text = "✱✱✱✱"
+                                    staked.text = "✱✱✱✱"
+                                    available.textSize = 12f
+                                    vesting.textSize = 12f
+                                    staked.textSize = 12f
+
+                                } else {
+                                    total.visibility = View.VISIBLE
+                                    totalValue.visibility = View.VISIBLE
+                                    hideValue.visibility = View.GONE
+
+                                    available.text = formatAmount(availableAmount.toPlainString(), 6)
                                     vesting.text = formatAmount(vestingAmount.toPlainString(), 6)
-
-                                    val depositedAmount = neutronChain.neutronDeposited.movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
                                     staked.text = formatAmount(depositedAmount.toPlainString(), 6)
 
-                                    val totalAmount = availableAmount.add(vestingAmount).add(depositedAmount)
                                     total.text = formatAmount(totalAmount.toPlainString(), 6)
-                                    val value = line.denomValue(denom)
                                     totalValue.text = formatAssetValue(value)
                                 }
                             }
@@ -186,6 +198,9 @@ class CoinCosmosLineViewHolder(
                     available.text = "✱✱✱✱"
                     vesting.text = "✱✱✱✱"
                     staked.text = "✱✱✱✱"
+                    available.textSize = 12f
+                    vesting.textSize = 12f
+                    staked.textSize = 12f
 
                 } else {
                     total.visibility = View.VISIBLE
@@ -229,6 +244,19 @@ class CoinCosmosLineViewHolder(
                     tokenPriceChange.text = priceChangeStatus(lastUpDown)
                 }
 
+                val availableAmount = line.lcdBalanceAmount(stakeDenom)
+                val depositAmount = line.lcdOktDepositAmount()
+                val withdrawAmount = line.lcdOktWithdrawAmount()
+                if (withdrawAmount > BigDecimal.ZERO) {
+                    stakedLayout.visibility = View.VISIBLE
+                } else {
+                    stakedLayout.visibility = View.GONE
+                }
+
+                val totalAmount = availableAmount.add(depositAmount)
+                    .add(withdrawAmount)
+                val value = line.allValue()
+
                 if (Prefs.hideValue) {
                     total.visibility = View.GONE
                     totalValue.visibility = View.GONE
@@ -236,30 +264,20 @@ class CoinCosmosLineViewHolder(
                     available.text = "✱✱✱✱"
                     vesting.text = "✱✱✱✱"
                     staked.text = "✱✱✱✱"
+                    available.textSize = 12f
+                    vesting.textSize = 12f
+                    staked.textSize = 12f
 
                 } else {
                     total.visibility = View.VISIBLE
                     totalValue.visibility = View.VISIBLE
                     hideValue.visibility = View.GONE
 
-                    val availableAmount = line.lcdBalanceAmount(stakeDenom)
                     available.text = formatAmount(availableAmount.toPlainString(), 18)
-
-                    val depositAmount = line.lcdOktDepositAmount()
                     vesting.text = formatAmount(depositAmount.toPlainString(), 18)
+                    staked.text = formatAmount(withdrawAmount.toPlainString(), 18)
 
-                    val withdrawAmount = line.lcdOktWithdrawAmount()
-                    if (withdrawAmount > BigDecimal.ZERO) {
-                        stakedLayout.visibility = View.VISIBLE
-                        staked.text = formatAmount(withdrawAmount.toPlainString(), 18)
-                    } else {
-                        stakedLayout.visibility = View.GONE
-                    }
-
-                    val totalAmount = availableAmount.add(depositAmount)
-                        .add(withdrawAmount)
                     total.text = formatAmount(totalAmount.toPlainString(), 18)
-                    val value = line.allValue()
                     totalValue.text = formatAssetValue(value)
                 }
             }

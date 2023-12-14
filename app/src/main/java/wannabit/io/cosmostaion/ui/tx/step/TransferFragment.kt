@@ -7,10 +7,12 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -21,6 +23,8 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
+import com.google.zxing.client.android.Intents
+import com.google.zxing.integration.android.IntentIntegrator
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
@@ -28,10 +32,12 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -43,8 +49,11 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.model.AddressBook
+import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
@@ -331,6 +340,7 @@ class TransferFragment(
 
     private fun updateMemoView(memo: String) {
         binding.apply {
+            Log.e("Test1234 : ", memo)
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
@@ -357,7 +367,10 @@ class TransferFragment(
         var isClickable = true
         binding.apply {
             btnQr.setOnClickListener {
-
+                val integrator = IntentIntegrator.forSupportFragment(this@TransferFragment)
+                integrator.setOrientationLocked(true)
+                integrator.captureActivity = QrCodeActivity::class.java
+                qrCodeResultLauncher.launch(integrator.createScanIntent())
             }
 
             recipientView.setOnClickListener {
@@ -368,9 +381,8 @@ class TransferFragment(
                             if (chainId != selectedRecipientChain?.chainId) {
                                 selectedRecipientChain =
                                     recipientAbleChains.firstOrNull { it.chainId == chainId }
-                                recipientAddress.text = ""
                                 updateChainView()
-                                updateAddressView(recipientAddress.text.toString().trim())
+                                updateAddressView("")
                             }
                         }
                     }).show(
@@ -418,11 +430,23 @@ class TransferFragment(
                         existedAddress,
                         AddressType.DEFAULT_TRANSFER,
                         object : AddressListener {
-                            override fun address(address: String) {
-                                updateAddressView(address)
-                            }
+                        override fun selectAddress(
+                            refAddress: RefAddress?,
+                            addressBook: AddressBook?
+                        ) {
+                            refAddress?.dpAddress?.let {
+                                updateAddressView(it)
+                                updateMemoView("")
 
-                        }).show(
+                            } ?: run {
+                                addressBook?.let {
+                                    updateAddressView(it.address)
+                                    updateMemoView(it.memo)
+                                }
+                            }
+                        }
+
+                    }).show(
                         requireActivity().supportFragmentManager, AddressFragment::class.java.name
                     )
 
@@ -506,6 +530,43 @@ class TransferFragment(
             }
         }
     }
+
+    private val qrCodeResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.getStringExtra(Intents.Scan.RESULT)?.trim()?.let { qrData ->
+                    val scanString = qrData.split(" (MEMO) ")
+                    var addressScan = ""
+                    var memoScan = ""
+
+                    if (scanString.size == 2) {
+                        addressScan = scanString[0]
+                        memoScan = scanString[1]
+                    } else {
+                        addressScan = scanString[0]
+                    }
+                    if (addressScan.isEmpty() || addressScan.length < 5) {
+                        requireContext().makeToast(R.string.error_invalid_address)
+                        return@let
+                    }
+                    if (addressScan == selectedChain.address) {
+                        requireContext().makeToast(R.string.error_self_sending)
+                        return@let
+                    }
+
+                    if (BaseUtils.isValidChainAddress(selectedChain, addressScan)) {
+                        updateAddressView(addressScan.trim())
+                        if (scanString.size > 1) {
+                            updateMemoView(memoScan.trim())
+                        }
+
+                    } else {
+                        requireContext().makeToast(R.string.error_invalid_address)
+                        return@let
+                    }
+                }
+            }
+        }
 
     private val sendResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

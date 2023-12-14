@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.dialog.tx.address
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.database.model.AddressBook
+import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
@@ -35,6 +38,9 @@ class AddressFragment(
     private val binding get() = _binding!!
 
     private val txViewModel: TxViewModel by activityViewModels()
+
+    private var selectedRefAddress: RefAddress? = null
+    private var selectedAddressBook: AddressBook? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -86,19 +92,32 @@ class AddressFragment(
                 if (isClickable) {
                     isClickable = false
                     AddressBookFragment(selectedChain.address, selectedRecipientChain, addressType, object : AddressBookSelectListener {
-                        override fun select(address: String) {
-                            if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-                                addressTxt.text = Editable.Factory.getInstance().newEditable(ByteUtils.convertBech32ToEvm(address))
-                            } else {
-                                addressTxt.text = Editable.Factory.getInstance().newEditable(address)
+                        override fun select(refAddress: RefAddress?, addressBook: AddressBook?) {
+                            refAddress?.let {
+                                selectedRefAddress = refAddress
+                                if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
+                                    addressTxt.text = Editable.Factory.getInstance().newEditable(ByteUtils.convertBech32ToEvm(it.dpAddress))
+                                } else {
+                                    addressTxt.text = Editable.Factory.getInstance().newEditable(it.dpAddress)
+                                }
+
+                            } ?: run {
+                                selectedAddressBook = addressBook
+                                selectedAddressBook?.let {
+                                    if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
+                                        addressTxt.text = Editable.Factory.getInstance().newEditable(ByteUtils.convertBech32ToEvm(it.address))
+                                    } else {
+                                        addressTxt.text = Editable.Factory.getInstance().newEditable(it.address)
+                                    }
+                                }
+                                addressTxt.textSize = 11f
+                                addressTxt.setSelection(addressTxt.text.toString().length)
                             }
-                            addressTxt.textSize = 11f
-                            addressTxt.setSelection(addressTxt.text.toString().length)
                         }
 
                     }).show(requireActivity().supportFragmentManager, AddressBookFragment::class.java.name)
 
-                    Handler().postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true
                     }, 1000)
                 }
@@ -126,7 +145,7 @@ class AddressFragment(
                     }
 
                     if (BaseUtils.isValidChainAddress(selectedRecipientChain, addressTxt.text.toString().trim())) {
-                        listener.address(addressTxt.text.toString().trim())
+                        listener.selectAddress(selectedRefAddress, selectedAddressBook)
                         dismiss()
                     } else {
                         val prefix = selectedRecipientChain?.accountPrefix!!
@@ -168,5 +187,6 @@ class AddressFragment(
 enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER }
 
 interface AddressListener {
-    fun address(address: String)
+    fun selectAddress(refAddress: RefAddress?, addressBook: AddressBook?)
 }
+

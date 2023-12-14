@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 
 class ChainManageFragment : Fragment() {
@@ -65,10 +64,6 @@ class ChainManageFragment : Fragment() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
-            }
-
-            btnAddCustom.setOnClickListener {
-
             }
         }
     }

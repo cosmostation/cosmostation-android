@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
 class ChainManageViewHolder(
@@ -22,13 +23,21 @@ class ChainManageViewHolder(
                     chainImg.setImageResource(line.logo)
                     chainName.text = line.name.uppercase()
 
-                    if (line is ChainBinanceBeacon) {
-                        endpointType.text = "LCD"
-                        endpoint.text = line.lcdUrl
+                    when (line) {
+                        is ChainBinanceBeacon -> {
+                            endpointType.text = "LCD"
+                            endpoint.text = line.lcdUrl
+                        }
 
-                    } else {
-                        endpointType.text = "GRPC"
-                        endpoint.text = line.grpcHost + " : " + line.grpcPort
+                        is ChainOkt60 -> {
+                            endpointType.text = "LCD"
+                            endpoint.text = line.lcdUrl
+                        }
+
+                        else -> {
+                            endpointType.text = "GRPC"
+                            endpoint.text = line.grpcHost + " : " + line.grpcPort
+                        }
                     }
                 }
 

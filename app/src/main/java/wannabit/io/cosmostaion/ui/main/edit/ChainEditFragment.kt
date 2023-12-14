@@ -11,9 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.goneOrVisible
+import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
@@ -30,7 +31,6 @@ class ChainEditFragment : BaseTxFragment() {
 
     private var baseAccount: BaseAccount? = null
     private var allCosmosChains: MutableList<CosmosLine> = mutableListOf()
-    private var searchCosmosChains: MutableList<CosmosLine> = mutableListOf()
     private var toDisplayChainLines: MutableList<String> = mutableListOf()
 
     private var job = Job()
@@ -51,6 +51,9 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun initView() {
         binding.apply {
+            recycler.setHasFixedSize(true)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+
             baseAccount = BaseData.baseAccount
             baseAccount?.let { account ->
                 CoroutineScope(Dispatchers.IO).launch {
@@ -60,26 +63,14 @@ class ChainEditFragment : BaseTxFragment() {
                     withContext(Dispatchers.Main) {
                         loading.visibility = View.GONE
                         allCosmosChains = account.allCosmosLineChains
-                        searchCosmosChains = allCosmosChains
 
                         toDisplayChainLines = Prefs.getDisplayChains(account)
 
-                        chainEditAdapter = ChainEditAdapter(account, searchCosmosChains, toDisplayChainLines, editClickAction)
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        chainEditAdapter = ChainEditAdapter(account, allCosmosChains, toDisplayChainLines, editClickAction)
                         recycler.adapter = chainEditAdapter
 
-                        if (allCosmosChains.none { !it.fetched }) {
-                            btnSelect.isClickable = true
-                            btnSelectTxt.visibility = View.VISIBLE
-                            progress.visibility = View.GONE
-                            btnSelect.setBackgroundResource(R.drawable.button_enable_select_bg)
-                        } else {
-                            btnSelect.isClickable = false
-                            btnSelectTxt.visibility = View.GONE
-                            progress.visibility = View.VISIBLE
-                            btnSelect.setBackgroundResource(R.drawable.button_select_bg)
-                        }
+                        binding.btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
+                        progress.goneOrVisible(allCosmosChains.none { !it.fetched })
                         initData()
                     }
                 }
@@ -89,25 +80,16 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun initData() {
         binding.apply {
-            for (i in 0 until searchCosmosChains.size) {
-                searchCosmosChains[i].setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
+            for (i in 0 until allCosmosChains.size) {
+                allCosmosChains[i].setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
                     override fun onDataLoaded(isLoaded: Boolean) {
                         lifecycleScope.launch {
                             withContext(Dispatchers.Main) {
                                 if (isLoaded) {
                                     chainEditAdapter.notifyItemChanged(i)
                                 }
-                                if (allCosmosChains.none { !it.fetched }) {
-                                    btnSelect.isClickable = true
-                                    btnSelectTxt.visibility = View.VISIBLE
-                                    progress.visibility = View.GONE
-                                    btnSelect.setBackgroundResource(R.drawable.button_enable_select_bg)
-                                } else {
-                                    btnSelect.isClickable = false
-                                    btnSelectTxt.visibility = View.GONE
-                                    progress.visibility = View.VISIBLE
-                                    btnSelect.setBackgroundResource(R.drawable.button_select_bg)
-                                }
+                                btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
+                                progress.goneOrVisible(allCosmosChains.none { !it.fetched })
                             }
                         }
                     }
@@ -129,15 +111,20 @@ class ChainEditFragment : BaseTxFragment() {
                     account.reSortCosmosChains()
                     allCosmosChains = account.allCosmosLineChains
 
+                    val hasValueChains = allCosmosChains.filter { line -> line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118" }.toMutableList()
+                    if (hasValueChains.find { item -> item.tag != toDisplayChainLines[hasValueChains.indexOf(item)+1] } == null) {
+                        return@let
+                    }
                     toDisplayChainLines.clear()
                     toDisplayChainLines.add("cosmos118")
+
                     allCosmosChains.forEach { line ->
                         if (line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118") {
                             toDisplayChainLines.add(line.tag)
                         }
                     }
 
-                    searchCosmosChains.sortWith { o1, o2 ->
+                    allCosmosChains.sortWith { o1, o2 ->
                         when {
                             o1.tag == "cosmos118" -> -1
                             o2.tag == "cosmos118" -> 1
@@ -150,7 +137,7 @@ class ChainEditFragment : BaseTxFragment() {
                             }
                         }
                     }
-                    searchCosmosChains.sortWith { o1, o2 ->
+                    allCosmosChains.sortWith { o1, o2 ->
                         when {
                             o1.tag == "cosmos118" -> -1
                             o2.tag == "cosmos118" -> 1

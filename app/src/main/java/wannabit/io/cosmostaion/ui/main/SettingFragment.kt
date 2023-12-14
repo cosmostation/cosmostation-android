@@ -14,6 +14,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allCosmosLines
@@ -21,10 +24,12 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.account.AccountActivity
+import wannabit.io.cosmostaion.ui.main.setting.account.AddressBookListActivity
 import wannabit.io.cosmostaion.ui.main.setting.chain.ChainActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -58,6 +63,8 @@ class SettingFragment : Fragment() {
     private fun initView() {
         binding.apply {
             accountView.setBackgroundResource(R.drawable.item_bg)
+            importView.setBackgroundResource(R.drawable.item_bg)
+            legacyView.setBackgroundResource(R.drawable.item_bg)
             chainView.setBackgroundResource(R.drawable.item_bg)
             addressBookView.setBackgroundResource(R.drawable.item_bg)
 
@@ -71,7 +78,9 @@ class SettingFragment : Fragment() {
             mintscanView.setBackgroundResource(R.drawable.item_bg)
             homepageView.setBackgroundResource(R.drawable.item_bg)
             blogView.setBackgroundResource(R.drawable.item_bg)
+            twitterView.setBackgroundResource(R.drawable.item_bg)
             telegramView.setBackgroundResource(R.drawable.item_bg)
+            youtubeView.setBackgroundResource(R.drawable.item_bg)
 
             termView.setBackgroundResource(R.drawable.item_bg)
             privacyView.setBackgroundResource(R.drawable.item_bg)
@@ -95,7 +104,9 @@ class SettingFragment : Fragment() {
             binding.apply {
                 accountName.text = account.name
                 supportChainCnt.text = allCosmosLines().count().toString()
-                favoriteAddressCnt.text = "0"
+                CoroutineScope(Dispatchers.IO).launch {
+                    favoriteAddressCnt.text = AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
+                }
             }
         }
     }
@@ -146,6 +157,13 @@ class SettingFragment : Fragment() {
 
             chainView.setOnClickListener {
                 Intent(requireContext(), ChainActivity::class.java).apply {
+                    startActivity(this)
+                    requireActivity().toMoveAnimation()
+                }
+            }
+
+            addressBookView.setOnClickListener {
+                Intent(requireContext(), AddressBookListActivity::class.java).apply {
                     startActivity(this)
                     requireActivity().toMoveAnimation()
                 }
@@ -235,6 +253,14 @@ class SettingFragment : Fragment() {
                 )
             }
 
+            twitterView.setOnClickListener {
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_TWITTER)
+                    )
+                )
+            }
+
             blogView.setOnClickListener {
                 startActivity(
                     Intent(Intent.ACTION_VIEW,
@@ -247,6 +273,14 @@ class SettingFragment : Fragment() {
                 startActivity(
                     Intent(Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_TELEGRAM)
+                    )
+                )
+            }
+
+            youtubeView.setOnClickListener {
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse(CosmostationConstants.COSMOSTATION_YOUTUBE)
                     )
                 )
             }

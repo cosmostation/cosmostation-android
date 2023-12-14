@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/space_10"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_no_history"
+                android:src="@drawable/icon_no_data"
                 app:layout_constraintBottom_toTopOf="@+id/empty_validator_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

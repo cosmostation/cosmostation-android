@@ -32,7 +32,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -53,7 +52,6 @@ import wannabit.io.cosmostaion.data.model.req.Affiliate
 import wannabit.io.cosmostaion.data.model.req.SkipMsgReq
 import wannabit.io.cosmostaion.data.model.req.SkipRouteReq
 import wannabit.io.cosmostaion.data.model.res.Asset
-import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.SkipMsgResponse
 import wannabit.io.cosmostaion.data.model.res.SkipRouteResponse
 import wannabit.io.cosmostaion.data.model.res.SwapVenue
@@ -267,35 +265,22 @@ class SwapFragment : BaseTxFragment() {
 
             skipDataJob = CoroutineScope(Dispatchers.IO).launch {
                 inputCosmosLine?.let { line ->
+                    val channel = getChannel(line)
                     try {
-                        val loadInputAuthDeferred = async { loadAuth(getChannel(line), line.address) }
-                        val loadInputBalanceDeferred = async { loadBalance(getChannel(line), line.address) }
+                        val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
+                        val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
                         val loadInputParamDeferred = async { line.loadParam() }
 
-                        val responses = awaitAll(loadInputAuthDeferred, loadInputBalanceDeferred, loadInputParamDeferred)
-
-                        responses.forEach { response ->
-                            when (response) {
-                                is QueryProto.QueryAccountResponse -> {
-                                    line.cosmosAuth = response.account
-                                }
-
-                                is QueryAllBalancesResponse -> {
-                                    line.cosmosBalances = response.balancesList
-                                }
-
-                                is Param -> {
-                                    line.param = response
-                                }
-                            }
-                        }
+                        line.cosmosAuth = loadInputAuthDeferred.await().account
+                        line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
+                        line.param = loadInputParamDeferred.await()
                         BaseUtils.onParseVestingAccount(line)
 
                     } finally {
-                        getChannel(line).shutdown()
+                        channel.shutdown()
                         try {
-                            if (!getChannel(line).awaitTermination(5, TimeUnit.SECONDS)) {
-                                getChannel(line).shutdownNow()
+                            if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                                channel.shutdownNow()
                             }
                         } catch (e: InterruptedException) {
                             e.printStackTrace()
@@ -304,35 +289,22 @@ class SwapFragment : BaseTxFragment() {
                 }
 
                 outputCosmosLine?.let { line ->
+                    val channel = getChannel(line)
                     try {
-                        val loadOutputAuthDeferred = async { loadAuth(getChannel(line), line.address) }
-                        val loadOutputBalanceDeferred = async { loadBalance(getChannel(line), line.address) }
+                        val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
+                        val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
                         val loadOutputParamDeferred = async { line.loadParam() }
 
-                        val responses = awaitAll(loadOutputAuthDeferred, loadOutputBalanceDeferred, loadOutputParamDeferred)
-
-                        responses.forEach { response ->
-                            when (response) {
-                                is QueryProto.QueryAccountResponse -> {
-                                    line.cosmosAuth = response.account
-                                }
-
-                                is QueryAllBalancesResponse -> {
-                                    line.cosmosBalances = response.balancesList
-                                }
-
-                                is Param -> {
-                                    line.param = response
-                                }
-                            }
-                        }
+                        line.cosmosAuth = loadOutputAuthDeferred.await().account
+                        line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
+                        line.param = loadOutputParamDeferred.await()
                         BaseUtils.onParseVestingAccount(line)
 
                     } finally {
-                        getChannel(line).shutdown()
+                        channel.shutdown()
                         try {
-                            if (!getChannel(line).awaitTermination(5, TimeUnit.SECONDS)) {
-                                getChannel(line).shutdownNow()
+                            if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                                channel.shutdownNow()
                             }
                         } catch (e: InterruptedException) {
                             e.printStackTrace()
@@ -643,39 +615,22 @@ class SwapFragment : BaseTxFragment() {
                                             }
                                         inputAssetSelected = inputAssets.firstOrNull { it.denom == line.stakeDenom }
 
+                                        val channel = getChannel(line)
                                         try {
-                                            val loadInputAuthDeferred = async { loadAuth(getChannel(line), line.address) }
-                                            val loadInputBalanceDeferred = async { loadBalance(getChannel(line), line.address) }
+                                            val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
+                                            val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
                                             val loadInputParamDeferred = async { line.loadParam() }
 
-                                            val responses = awaitAll(
-                                                loadInputAuthDeferred,
-                                                loadInputBalanceDeferred,
-                                                loadInputParamDeferred
-                                            )
-
-                                            responses.forEach { response ->
-                                                when (response) {
-                                                    is QueryProto.QueryAccountResponse -> {
-                                                        line.cosmosAuth = response.account
-                                                    }
-
-                                                    is QueryAllBalancesResponse -> {
-                                                        line.cosmosBalances = response.balancesList
-                                                    }
-
-                                                    is Param -> {
-                                                        line.param = response
-                                                    }
-                                                }
-                                            }
+                                            line.cosmosAuth = loadInputAuthDeferred.await().account
+                                            line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
+                                            line.param = loadInputParamDeferred.await()
                                             BaseUtils.onParseVestingAccount(line)
 
                                         } finally {
-                                            getChannel(line).shutdown()
+                                            channel.shutdown()
                                             try {
-                                                if (!getChannel(line).awaitTermination(5, TimeUnit.SECONDS)) {
-                                                    getChannel(line).shutdownNow()
+                                                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                                                    channel.shutdownNow()
                                                 }
                                             } catch (e: InterruptedException) {
                                                 e.printStackTrace()
@@ -763,39 +718,22 @@ class SwapFragment : BaseTxFragment() {
                                             }
                                         outputAssetSelected = outputAssets.firstOrNull { it.denom == line.stakeDenom }
 
+                                        val channel = getChannel(line)
                                         try {
-                                            val loadInputAuthDeferred = async { loadAuth(getChannel(line), line.address) }
-                                            val loadInputBalanceDeferred = async { loadBalance(getChannel(line), line.address) }
-                                            val loadInputParamDeferred = async { line.loadParam() }
+                                            val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
+                                            val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
+                                            val loadOutputParamDeferred = async { line.loadParam() }
 
-                                            val responses = awaitAll(
-                                                loadInputAuthDeferred,
-                                                loadInputBalanceDeferred,
-                                                loadInputParamDeferred
-                                            )
-
-                                            responses.forEach { response ->
-                                                when (response) {
-                                                    is QueryProto.QueryAccountResponse -> {
-                                                        line.cosmosAuth = response.account
-                                                    }
-
-                                                    is QueryAllBalancesResponse -> {
-                                                        line.cosmosBalances = response.balancesList
-                                                    }
-
-                                                    is Param -> {
-                                                        line.param = response
-                                                    }
-                                                }
-                                            }
+                                            line.cosmosAuth = loadOutputAuthDeferred.await().account
+                                            line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
+                                            line.param = loadOutputParamDeferred.await()
                                             BaseUtils.onParseVestingAccount(line)
 
                                         } finally {
-                                            getChannel(line).shutdown()
+                                            channel.shutdown()
                                             try {
-                                                if (!getChannel(line).awaitTermination(5, TimeUnit.SECONDS)) {
-                                                    getChannel(line).shutdownNow()
+                                                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                                                    channel.shutdownNow()
                                                 }
                                             } catch (e: InterruptedException) {
                                                 e.printStackTrace()

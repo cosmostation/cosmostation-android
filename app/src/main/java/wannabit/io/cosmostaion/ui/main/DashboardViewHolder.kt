@@ -54,8 +54,10 @@ class DashboardViewHolder(
                     if (line.fetched) {
                         if (Prefs.hideValue) {
                             chainValue.text = "✱✱✱✱"
+                            chainValue.textSize = 12f
                         } else {
                             chainValue.text = formatAssetValue(line.allValue())
+                            chainValue.textSize = 14f
                         }
                         skeletonChainValue.visibility = View.GONE
                     }

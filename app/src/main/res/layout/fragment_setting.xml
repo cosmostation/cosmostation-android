@@ -95,7 +95,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/chain_view"
+                android:id="@+id/import_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_68"
                 android:layout_marginHorizontal="@dimen/space_12"
@@ -105,6 +105,114 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/account_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/space_12"
+                    android:paddingVertical="@dimen/space_10">
+
+                    <ImageView
+                        android:id="@+id/import_img"
+                        android:layout_width="@dimen/space_48"
+                        android:layout_height="@dimen/space_48"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_qr_account"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/import_img"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/font_sb_14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_import_qr"
+                            android:textColor="@color/color_base01"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/legacy_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_68"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginVertical="@dimen/space_8"
+                android:elevation="0dp"
+                app:cardPreventCornerOverlap="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/import_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingVertical="@dimen/space_10"
+                    android:paddingStart="@dimen/space_12">
+
+                    <ImageView
+                        android:id="@+id/legacy_img"
+                        android:layout_width="@dimen/space_48"
+                        android:layout_height="@dimen/space_48"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_setting_legacy"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/legacy_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_16"
+                        android:thumb="@drawable/switch_thumb_on"
+                        android:thumbTint="@color/color_base01"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:track="@drawable/selector_switch" />
+
+                    <TextView
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:text="@string/title_legacy_enabled"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/legacy_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/chain_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_68"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginVertical="@dimen/space_8"
+                android:elevation="0dp"
+                app:cardPreventCornerOverlap="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/legacy_view">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -787,7 +895,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/telegram_view"
+                android:id="@+id/twitter_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_68"
                 android:layout_marginHorizontal="@dimen/space_12"
@@ -797,6 +905,49 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/blog_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/space_12"
+                    android:paddingVertical="@dimen/space_10">
+
+                    <ImageView
+                        android:id="@+id/twitter_img"
+                        android:layout_width="@dimen/space_48"
+                        android:layout_height="@dimen/space_48"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_setting_twitter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_twitter"
+                        android:textColor="@color/color_base01"
+                        android:layout_marginStart="@dimen/space_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/twitter_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/telegram_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_68"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginVertical="@dimen/space_8"
+                android:elevation="0dp"
+                app:cardPreventCornerOverlap="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/twitter_view">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -829,6 +980,49 @@
 
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/youtube_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_68"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginVertical="@dimen/space_8"
+                android:elevation="0dp"
+                app:cardPreventCornerOverlap="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/telegram_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/space_12"
+                    android:paddingVertical="@dimen/space_10">
+
+                    <ImageView
+                        android:id="@+id/youtube_img"
+                        android:layout_width="@dimen/space_48"
+                        android:layout_height="@dimen/space_48"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/icon_youtube"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_youtube"
+                        android:textColor="@color/color_base01"
+                        android:layout_marginStart="@dimen/space_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/youtube_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/about_title"
                 style="@style/font_sb_12"
@@ -839,7 +1033,7 @@
                 android:text="@string/title_about"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/telegram_view" />
+                app:layout_constraintTop_toBottomOf="@+id/youtube_view" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/term_view"

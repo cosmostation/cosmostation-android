@@ -47,23 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/space_8"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_custom"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <Button
-        android:id="@+id/btn_add_custom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_54"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_12"
-        android:background="@drawable/button_common_bg"
-        android:text="@string/str_add_custom_chain"
-        android:textAllCaps="false"
-        style="@style/font_sb_16"
-        android:textColor="@color/color_base01"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

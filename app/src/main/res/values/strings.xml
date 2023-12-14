@@ -105,9 +105,15 @@
     <string name="str_swap_warning">Warning</string>
     <string name="str_do_not_show_7_days">Don\'t show 7days</string>
     <string name="str_est_monthly_reward">Est. monthly reward</string>
+    <string name="str_add_address">Add address book</string>
+    <string name="str_name">Name</string>
+    <string name="str_memo">Memo</string>
+    <string name="str_edit">Edit</string>
+    <string name="str_delete">Delete</string>
 
 
     //title
+    <string name="title_select_wallet">Select wallet</string>
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
     <string name="title_history" translatable="false">History</string>
@@ -124,6 +130,8 @@
     <string name="title_account">Account</string>
     <string name="title_account_name">Account name</string>
     <string name="title_add_account">Add account</string>
+    <string name="title_import_qr">Import account with qr scan</string>
+    <string name="title_legacy_enabled">Enable legacy addresses</string>
     <string name="title_chain">Chain</string>
     <string name="title_address_book">Address book</string>
     <string name="title_general">General</string>
@@ -136,7 +144,9 @@
     <string name="title_mintscan" translatable="false">Mintscan</string>
     <string name="title_homepage" translatable="false">Homepage</string>
     <string name="title_blog" translatable="false">Blog</string>
+    <string name="title_twitter">X(Twitter)</string>
     <string name="title_telegram">Telegram</string>
+    <string name="title_youtube">Youtube</string>
     <string name="title_term">Term</string>
     <string name="title_privacy">Privacy</string>
     <string name="title_github" translatable="false">Github</string>
@@ -217,6 +227,7 @@
     <string name="title_select_output_chain">Select output chain</string>
     <string name="title_select_input_asset">Select input asset</string>
     <string name="title_select_output_asset">Select output asset</string>
+    <string name="title_address_book_list">Address book list</string>
 
 
     // msg
@@ -268,6 +279,7 @@
     <string name="str_htls_msg2">3/4 Broadcasting BEP3 claim Tx on receiving chain.</string>
     <string name="str_htls_msg3">4/4 Confirming all Tx on each chain.</string>
     <string name="str_swap_warn_msg">Cosmostation Mobile is a non-custodial wallet service, so users are responsible for executing all transactions. Please always check the details accurately before sending a transaction. \n\nWe are not responsible for any losses resulting from transactions through the app.</string>
+    <string name="str_set_address_msg">For convenience, you can register frequently used addresses.</string>
 
 
     // header
@@ -310,6 +322,7 @@
     <string name="error_max_30_validator_msg">You can select max 30 validators.</string>
     <string name="error_swap_msg" translatable="false">could not find a swap chain with both the requested source and dest assets</string>
     <string name="error_wait_moment">Please wait for a moment. Synchronizing.</string>
+    <string name="error_name">Please enter your name correctly.</string>
 
 
     // tx

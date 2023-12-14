@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.chain
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,6 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
-import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentTokenBinding
 import wannabit.io.cosmostaion.ui.tx.step.EvmTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class TokenFragment(position: Int) : Fragment() {
@@ -46,6 +47,7 @@ class TokenFragment(position: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpHideValue()
         refreshData()
         initRecyclerView()
         initData()
@@ -164,6 +166,12 @@ class TokenFragment(position: Int) : Fragment() {
                     }, 1000)
                 }
             }
+        }
+    }
+
+    private fun setUpHideValue() {
+        ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
+            tokenAdapter.notifyDataSetChanged()
         }
     }
 

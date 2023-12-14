@@ -26,6 +26,8 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.model.AddressBook
+import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentEvmTransferBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
@@ -203,8 +205,18 @@ class EvmTransferFragment(
                         existedAddress,
                         AddressType.EVM_TRANSFER,
                         object : AddressListener {
-                            override fun address(address: String) {
-                                updateAddressView(address)
+                            override fun selectAddress(
+                                refAddress: RefAddress?,
+                                addressBook: AddressBook?
+                            ) {
+                                refAddress?.dpAddress?.let {
+                                    updateAddressView(it)
+
+                                } ?: run {
+                                    addressBook?.let {
+                                        updateAddressView(it.address)
+                                    }
+                                }
                             }
 
                         }).show(

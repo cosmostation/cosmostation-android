@@ -9,7 +9,7 @@ import wannabit.io.cosmostaion.databinding.ItemEditBinding
 
 class ChainEditAdapter(
     val account: BaseAccount,
-    private val allCosmosChains: MutableList<CosmosLine>,
+    private val allCosmosLines: MutableList<CosmosLine>,
     private val displayChainLines: MutableList<String>,
     var listener: SelectListener
 ) : RecyclerView.Adapter<ChainEditViewHolder>() {
@@ -20,11 +20,11 @@ class ChainEditAdapter(
     }
 
     override fun getItemCount(): Int {
-        return allCosmosChains.size
+        return allCosmosLines.size
     }
 
     override fun onBindViewHolder(holder: ChainEditViewHolder, position: Int) {
-        val line = allCosmosChains[position]
+        val line = allCosmosLines[position]
         holder.bind(account, line, itemCount, displayChainLines, listener)
     }
 

@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class ChainEditViewHolder(
     val context: Context,
@@ -36,7 +37,7 @@ class ChainEditViewHolder(
                     headerLayout.visibleOrGone(adapterPosition == 0)
                     headerTitle.text = context.getString(R.string.str_cosmos_class)
                     headerCnt.text = cnt.toString()
-                    updateView(this, line, displayChains)
+                    updateView(line, displayChains)
 
                     chainImg.setImageResource(line.logo)
                     chainName.text = line.name.uppercase()
@@ -103,7 +104,7 @@ class ChainEditViewHolder(
                         } else {
                             displayChains.add(line.tag)
                         }
-                        updateView(this, line, displayChains)
+                        updateView(line, displayChains)
                         listener.select(displayChains)
                     }
 
@@ -112,7 +113,7 @@ class ChainEditViewHolder(
         }
     }
 
-    private fun updateView(binding: ItemEditBinding, line: CosmosLine, displayChainLines: MutableList<String>) {
+    private fun updateView(line: CosmosLine, displayChainLines: MutableList<String>) {
         binding.apply {
             if (displayChainLines.contains(line.tag)) {
                 editView.setBackgroundResource(R.drawable.item_select_bg)

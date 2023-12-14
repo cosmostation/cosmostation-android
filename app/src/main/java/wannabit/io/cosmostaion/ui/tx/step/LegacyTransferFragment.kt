@@ -39,6 +39,8 @@ import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.OktToken
+import wannabit.io.cosmostaion.database.model.AddressBook
+import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.LegacyInsertAmountFragment
@@ -287,8 +289,18 @@ class LegacyTransferFragment(
                         existedAddress,
                         AddressType.DEFAULT_TRANSFER,
                         object : AddressListener {
-                            override fun address(address: String) {
-                                updateAddressView(address)
+                            override fun selectAddress(
+                                refAddress: RefAddress?,
+                                addressBook: AddressBook?
+                            ) {
+                                refAddress?.dpAddress?.let {
+                                    updateAddressView(it)
+
+                                } ?: run {
+                                    addressBook?.let {
+                                        updateAddressView(it.address)
+                                    }
+                                }
                             }
 
                         }).show(

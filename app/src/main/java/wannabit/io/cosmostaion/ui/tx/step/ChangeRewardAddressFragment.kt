@@ -30,6 +30,8 @@ import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
+import wannabit.io.cosmostaion.database.model.AddressBook
+import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
@@ -94,14 +96,12 @@ class ChangeRewardAddressFragment(
             feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
             feeSegment.setRipple(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
 
@@ -140,10 +140,18 @@ class ChangeRewardAddressFragment(
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base03
+                    )
+                )
             } else {
                 tabMemoMsg.text = txMemo
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base01
+                    )
+                )
             }
         }
         txSimul()
@@ -160,10 +168,12 @@ class ChangeRewardAddressFragment(
                     val price = BaseData.getPrice(asset.coinGeckoId)
 
                     asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        val dpAmount =
+                            amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                         feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
                         feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        val value = price.multiply(amount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.DOWN)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -195,12 +205,27 @@ class ChangeRewardAddressFragment(
             newLayout.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    AddressFragment(selectedChain, selectedChain, existedAddress, AddressType.REWARD_ADDRESS, object : AddressListener {
-                        override fun address(address: String) {
-                            updateAddressView(address)
-                        }
+                    AddressFragment(selectedChain,
+                        selectedChain,
+                        existedAddress,
+                        AddressType.REWARD_ADDRESS,
+                        object : AddressListener {
+                            override fun selectAddress(
+                                refAddress: RefAddress?, addressBook: AddressBook?
+                            ) {
+                                refAddress?.dpAddress?.let {
+                                    updateAddressView(it)
+                                    updateMemoView("")
 
-                    }).show(
+                                } ?: run {
+                                    addressBook?.let {
+                                        updateAddressView(it.address)
+                                        updateMemoView(it.memo)
+                                    }
+                                }
+                            }
+
+                        }).show(
                         requireActivity().supportFragmentManager, AddressFragment::class.java.name
                     )
 
@@ -231,22 +256,26 @@ class ChangeRewardAddressFragment(
             feeTokenLayout.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
-                    AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            var tempCoin: CoinProto.Coin? = null
-                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
-                                if (feeCoin.denom == denom) {
-                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
-                                }
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                var tempCoin: CoinProto.Coin? = null
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .forEach { feeCoin ->
+                                        if (feeCoin.denom == denom) {
+                                            tempCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
+                                        }
+                                    }
+                                val tempTxFee = TxProto.Fee.newBuilder()
+                                    .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                    .addAmount(tempCoin).build()
+                                txFee = tempTxFee
+                                updateFeeView()
                             }
-                            val tempTxFee = TxProto.Fee.newBuilder()
-                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                .addAmount(tempCoin).build()
-                            txFee = tempTxFee
-                            updateFeeView()
-                        }
 
-                    }).show(
+                        }).show(
                         requireActivity().supportFragmentManager, AssetFragment::class.java.name
                     )
 
@@ -258,7 +287,9 @@ class ChangeRewardAddressFragment(
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom)
+                txFee = selectedChain.getBaseFee(
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                )
                 updateFeeView()
                 txSimul()
             }
@@ -266,7 +297,9 @@ class ChangeRewardAddressFragment(
             btnChangeRewardAddress.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     changeRewardAddressResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
         }
@@ -276,16 +309,31 @@ class ChangeRewardAddressFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadChangeRewardAddress(getChannel(selectedChain), selectedChain.address, onBindChangeRewardAddress(), txFee, txMemo, selectedChain)
+                txViewModel.broadChangeRewardAddress(
+                    getChannel(selectedChain),
+                    selectedChain.address,
+                    onBindChangeRewardAddress(),
+                    txFee,
+                    txMemo,
+                    selectedChain
+                )
             }
         }
 
     private fun txSimul() {
         binding.apply {
-            if (newRewardAddress.text.isEmpty()) { return }
+            if (newRewardAddress.text.isEmpty()) {
+                return
+            }
             btnChangeRewardAddress.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateChangeRewardAddress(getChannel(selectedChain), selectedChain.address, onBindChangeRewardAddress(), txFee, txMemo)
+            txViewModel.simulateChangeRewardAddress(
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindChangeRewardAddress(),
+                txFee,
+                txMemo
+            )
         }
     }
 
@@ -304,13 +352,20 @@ class ChangeRewardAddressFragment(
 
     private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
-            }
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }
@@ -338,7 +393,8 @@ class ChangeRewardAddressFragment(
     }
 
     private fun onBindChangeRewardAddress(): MsgSetWithdrawAddress? {
-        return MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(selectedChain.address).setWithdrawAddress(existedAddress).build()
+        return MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(selectedChain.address)
+            .setWithdrawAddress(existedAddress).build()
     }
 
     override fun onDestroyView() {

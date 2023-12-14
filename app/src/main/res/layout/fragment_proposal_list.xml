@@ -96,7 +96,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_no_history"
+            android:src="@drawable/icon_no_data"
             android:layout_marginBottom="@dimen/space_10"
             app:layout_constraintBottom_toTopOf="@+id/no_proposal"
             app:layout_constraintEnd_toEndOf="parent"
