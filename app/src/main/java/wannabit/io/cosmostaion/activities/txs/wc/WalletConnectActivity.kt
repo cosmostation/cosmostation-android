@@ -11,7 +11,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.JsResult
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebStorage
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,9 +75,13 @@ import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.crypto.CryptoHelper
 import wannabit.io.cosmostaion.dao.Account
 import wannabit.io.cosmostaion.databinding.ActivityConnectWalletBinding
-import wannabit.io.cosmostaion.dialog.*
+import wannabit.io.cosmostaion.dialog.CommonAlertDialog
+import wannabit.io.cosmostaion.dialog.DappSignDialog
 import wannabit.io.cosmostaion.dialog.DappSignDialog.WcSignRawDataListener
+import wannabit.io.cosmostaion.dialog.DappUrlDialog
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Account.OnDialogSelectListener
+import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos
 import wannabit.io.cosmostaion.dialog.Dialog_Wc_Raw_Data_Evmos.WcEvmosSignRawDataListener
 import wannabit.io.cosmostaion.model.WcSignDirectModel
 import wannabit.io.cosmostaion.model.WcSignModel
@@ -1554,10 +1565,9 @@ class WalletConnectActivity : BaseActivity() {
                         override fun sign(id: Long, transaction: String) {
                             val transactionJson = Gson().fromJson(transaction, JsonObject::class.java)
                             val chainId = transactionJson["chain_id"].asString
-                            val txBody = TxBody.parseFrom(Utils.hexToBytes(transactionJson["body_bytes"].asString))
-                            val authInfo = TxOuterClass.AuthInfo.parseFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))
                             val accountNumber = transactionJson["account_number"].asLong
-                            val signDoc = SignDoc.newBuilder().setBodyBytes(txBody.toByteString()).setAuthInfoBytes(authInfo.toByteString()).setChainId(chainId).setAccountNumber(accountNumber).build()
+                            val signDoc = SignDoc.newBuilder().setBodyBytes(ByteString.copyFrom(Utils.hexToBytes(transactionJson["body_bytes"].asString)))
+                                .setAuthInfoBytes(ByteString.copyFrom(Utils.hexToBytes(transactionJson["auth_info_bytes"].asString))).setChainId(chainId).setAccountNumber(accountNumber).build()
                             val signModel = WcSignDirectModel(signDoc.toByteArray(), transactionJson, getBaseAccountKey(dappBaseChain), chainId)
                             val signed = JSONObject()
                             signed.put("signature", signModel.signature.signature)
@@ -1586,6 +1596,7 @@ class WalletConnectActivity : BaseActivity() {
                         appToWebError("Unknown", messageId)
                     }
                 }
+
                 else -> {
                     appToWebError("Not implemented", messageId)
                 }
