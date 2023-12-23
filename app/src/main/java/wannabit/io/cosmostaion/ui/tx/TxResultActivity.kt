@@ -75,7 +75,7 @@ class TxResultActivity : BaseActivity() {
     }
 
     private fun initView() {
-        selectedChain = BaseData.baseAccount?.displayCosmosLineChains?.firstOrNull {
+        selectedChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
             it.tag == intent.getStringExtra(
                 "selectedChain"
             ).toString()

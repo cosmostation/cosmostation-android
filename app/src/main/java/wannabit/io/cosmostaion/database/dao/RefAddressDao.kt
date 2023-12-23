@@ -12,9 +12,6 @@ interface RefAddressDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(refAddress: RefAddress): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(refAddresses: List<RefAddress>): List<Long>
-
     @Query("update refAddress set lastMainValue = :lastMainValue, lastMainAmount = :lastMainAmount, lastCoinCnt = :lastCoinCnt where accountId = :accountId and chainTag = :chainTag and dpAddress = :dpAddress")
     suspend fun updateMain(
         lastMainValue: String?,

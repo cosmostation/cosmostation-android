@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -47,9 +48,14 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
         walletEditResult.postValue(true)
     }
 
+    private var _hideValueResult = MutableLiveData<Boolean>()
+    val hideValueResult: LiveData<Boolean> get() = _hideValueResult
+    fun hideValue() = CoroutineScope(Dispatchers.IO).launch {
+        _hideValueResult.postValue(true)
+    }
 
-    var hideValueResult = SingleLiveEvent<Boolean>()
-    fun hideValue() = viewModelScope.launch(Dispatchers.IO) {
-        hideValueResult.postValue(true)
+    var fetchedTokenResult = SingleLiveEvent<Boolean>()
+    fun fetchedToken() = viewModelScope.launch(Dispatchers.IO) {
+        fetchedTokenResult.postValue(true)
     }
 }

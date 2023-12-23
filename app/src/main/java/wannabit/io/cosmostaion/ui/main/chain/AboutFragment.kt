@@ -46,7 +46,7 @@ class AboutFragment(private val position: Int) : Fragment() {
 
             val baseAccount = BaseData.baseAccount
             baseAccount?.let { account ->
-                selectedChain = account.displayCosmosLineChains[position]
+                selectedChain = account.sortedDisplayCosmosLines()[position]
                 chainName.text = selectedChain?.name?.uppercase()
                 selectedChain?.param?.params?.let {
                     if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {

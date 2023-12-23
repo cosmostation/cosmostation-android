@@ -29,24 +29,51 @@ data class BaseAccount(
 
     @delegate:Ignore
     val seed: ByteArray? by lazy {
-        CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec)?.let { hexEntropy ->
+        CryptoHelper.doDecryptData(
+            CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec
+        )?.let { hexEntropy ->
             BaseKey.getByteSeedFromWords(BaseKey.getMnemonicWords(Utils.hexToBytes(hexEntropy)))
         }
     }
 
     @delegate:Ignore
     val privateKey: ByteArray? by lazy {
-        Utils.hexToBytes(CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, resource, spec))
+        Utils.hexToBytes(
+            CryptoHelper.doDecryptData(
+                CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, resource, spec
+            )
+        )
     }
 
     @Ignore
     var allCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
+
     @Ignore
     var displayCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
     fun initAccount() {
         allCosmosLineChains = allCosmosLines()
         sortCosmosLine()
+    }
+
+    fun sortCosmosLine() {
+        allCosmosLineChains.sortWith { o1, o2 ->
+            when {
+                o1.tag == "cosmos118" -> -1
+                o2.tag == "cosmos118" -> 1
+                Prefs.getDisplayChains(this).contains(o1.tag) && !Prefs.getDisplayChains(this).contains(o2.tag) -> -1
+                lastValue(o1.tag) > lastValue(o2.tag) -> -1
+                lastValue(o1.tag) < lastValue(o2.tag) -> 1
+                else -> 0
+            }
+        }
+    }
+
+    fun sortedDisplayCosmosLines(): MutableList<CosmosLine> {
+        val displayNames = Prefs.getDisplayChains(this)
+        return allCosmosLineChains.associateBy { line ->
+            displayNames.firstOrNull { it == line.tag }
+        }.filterKeys { it != null }.map { it.value }.toMutableList()
     }
 
     fun initAllData() {
@@ -62,38 +89,6 @@ data class BaseAccount(
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
             allCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithPrivateKey(privateKey)
-                }
-                if (!line.fetched) {
-                    line.loadData(id)
-                }
-            }
-        }
-    }
-
-    fun initDisplayData() {
-        displayCosmosLineChains.clear()
-        val displayNames = Prefs.getDisplayChains(this)
-        allCosmosLineChains.forEach { line ->
-            val displayChain = displayNames.firstOrNull { it == line.tag }
-            if (displayChain != null) {
-                displayCosmosLineChains.add(line)
-            }
-        }
-
-        if (type == BaseAccountType.MNEMONIC) {
-            displayCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                }
-                if (!line.fetched) {
-                    line.loadData(id)
-                }
-            }
-
-        } else if (type == BaseAccountType.PRIVATE_KEY) {
-            displayCosmosLineChains.forEach { line ->
                 if (line.address?.isEmpty() == true) {
                     line.setInfoWithPrivateKey(privateKey)
                 }
@@ -128,37 +123,14 @@ data class BaseAccount(
     }
 
     fun updateAllValue() {
-        displayCosmosLineChains.forEach { line ->
+        sortedDisplayCosmosLines().forEach { line ->
             line.allValue()
         }
     }
 
     private fun lastValue(tag: String): BigDecimal {
-        return AppDatabase.getInstance().refAddressDao().selectRefAddress(id, tag)?.lastUsdValue() ?: BigDecimal.ZERO
-    }
-
-    fun sortCosmosLine() {
-        allCosmosLineChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "cosmos118" -> -1
-                o2.tag == "cosmos118" -> 1
-                else -> {
-                    when {
-                        lastValue(o1.tag) > lastValue(o2.tag) -> -1
-                        lastValue(o1.tag) < lastValue(o2.tag) -> 1
-                        else -> 0
-                    }
-                }
-            }
-        }
-        allCosmosLineChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "cosmos118" -> -1
-                o2.tag == "cosmos118" -> 1
-                Prefs.getDisplayChains(this).contains(o1.tag) && !Prefs.getDisplayChains(this).contains(o2.tag) -> -1
-                else -> 1
-            }
-        }
+        return AppDatabase.getInstance().refAddressDao().selectRefAddress(id, tag)?.lastUsdValue()
+            ?: BigDecimal.ZERO
     }
 
     fun reSortCosmosChains() {
@@ -198,9 +170,18 @@ data class BaseAccount(
     companion object {
         fun createByMnemonic(name: String, mnemonic: String, lastHDPath: String): BaseAccount? {
             val uuid = UUID.randomUUID().toString()
-            val encR = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, mnemonic, false)
+            val encR = CryptoHelper.doEncryptData(
+                CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, mnemonic, false
+            )
             return if (encR != null) {
-                BaseAccount(uuid, encR.encDataString!!, encR.ivDataString!!, name, BaseAccountType.MNEMONIC, lastHDPath)
+                BaseAccount(
+                    uuid,
+                    encR.encDataString!!,
+                    encR.ivDataString!!,
+                    name,
+                    BaseAccountType.MNEMONIC,
+                    lastHDPath
+                )
             } else {
                 null
             }
@@ -208,9 +189,18 @@ data class BaseAccount(
 
         fun createByPrivate(name: String, privateKey: String): BaseAccount? {
             val uuid = UUID.randomUUID().toString()
-            val encR = CryptoHelper.doEncryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, privateKey, false)
+            val encR = CryptoHelper.doEncryptData(
+                CosmostationConstants.ENCRYPT_PRIVATE_KEY + uuid, privateKey, false
+            )
             return if (encR != null) {
-                BaseAccount(uuid, encR.encDataString!!, encR.ivDataString!!, name, BaseAccountType.PRIVATE_KEY, "0")
+                BaseAccount(
+                    uuid,
+                    encR.encDataString!!,
+                    encR.ivDataString!!,
+                    name,
+                    BaseAccountType.PRIVATE_KEY,
+                    "0"
+                )
             } else {
                 null
             }

@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.ui.dialog.qr.QrDialog
 
 class DashboardAdapter(
     val context: Context
-) : ListAdapter<Any, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
+) : ListAdapter<CosmosLine, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE_COSMOS_HEADER = 0
@@ -51,7 +51,7 @@ class DashboardAdapter(
             }
 
             is DashboardViewHolder -> {
-                val line = currentList[position - 1] as CosmosLine
+                val line = currentList[position - 1]
                 holder.bind(line)
 
                 holder.itemView.setOnClickListener {
@@ -94,17 +94,14 @@ class DashboardAdapter(
         return currentList.size + 1
     }
 
-    private class DashboardDiffCallback : DiffUtil.ItemCallback<Any>() {
+    class DashboardDiffCallback : DiffUtil.ItemCallback<CosmosLine>() {
 
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when {
-                oldItem is CosmosLine && newItem is CosmosLine -> oldItem.tag == newItem.tag
-                else -> false
-            }
+        override fun areItemsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
+            return oldItem.tag == newItem.tag
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
+        override fun areContentsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
             return oldItem == newItem
         }
     }

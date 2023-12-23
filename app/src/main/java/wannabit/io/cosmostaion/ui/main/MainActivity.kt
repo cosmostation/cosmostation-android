@@ -164,7 +164,7 @@ class MainActivity : BaseActivity() {
 
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) { response ->
-            BaseData.baseAccount?.displayCosmosLineChains?.forEach {
+            BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
                 it.fetched = false
             }
         }

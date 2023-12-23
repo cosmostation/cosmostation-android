@@ -6,7 +6,10 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 
@@ -15,6 +18,7 @@ class CosmosActivity : BaseActivity() {
     private lateinit var binding: ActivityCosmosBinding
 
     private lateinit var txViewModel: TxViewModel
+    private lateinit var walletViewModel: WalletViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,10 @@ class CosmosActivity : BaseActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CosmosDetailFragment(intent.getIntExtra("selectPosition", -1)))
+                .replace(
+                    R.id.fragment_container,
+                    CosmosDetailFragment(intent.getIntExtra("selectPosition", -1))
+                )
                 .commitAllowingStateLoss()
         }
         initViewModel()
@@ -36,6 +43,11 @@ class CosmosActivity : BaseActivity() {
             this,
             txViewModelProviderFactory
         )[TxViewModel::class.java]
+
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     override fun onBackPressed() {
@@ -44,6 +56,8 @@ class CosmosActivity : BaseActivity() {
     }
 }
 
-enum class TxType { TRANSFER, DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW,
-                    MINT_CREATE_COLLATERAL, MINT_CREATE_PRINCIPAL, MINT_DEPOSIT, MINT_WITHDRAW, MINT_BORROW, MINT_REPAY,
-                    LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_DEPOSIT, POOL_WITHDRAW }
+enum class TxType {
+    TRANSFER, DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW,
+    MINT_CREATE_COLLATERAL, MINT_CREATE_PRINCIPAL, MINT_DEPOSIT, MINT_WITHDRAW, MINT_BORROW, MINT_REPAY,
+    LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_DEPOSIT, POOL_WITHDRAW
+}

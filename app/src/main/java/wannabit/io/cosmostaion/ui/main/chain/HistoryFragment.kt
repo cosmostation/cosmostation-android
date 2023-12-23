@@ -80,7 +80,7 @@ class HistoryFragment(position: Int) : Fragment() {
     private fun initRecyclerView() {
         binding.apply {
             BaseData.baseAccount?.let { baseAccount ->
-                selectedChain = baseAccount.displayCosmosLineChains[selectedPosition]
+                selectedChain = baseAccount.sortedDisplayCosmosLines()[selectedPosition]
                 historyAdapter = HistoryAdapter(requireContext(), selectedChain)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())

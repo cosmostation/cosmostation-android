@@ -75,21 +75,17 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
 
                 SettingType.PRICE_STATUS -> {
                     selectTitle.text = getString(R.string.title_price_change_color)
-                    val priceStyleList = listOf("Style1", "Style2")
 
                     settingAdapter = SettingBottomAdapter(requireContext(), SettingType.PRICE_STATUS)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
-                    settingAdapter.submitList(priceStyleList)
+                    settingAdapter.submitList(listOf("Style1", "Style2"))
 
                     settingAdapter.setOnItemClickListener {
-                        if (Prefs.priceStyle != it) {
-                            Prefs.priceStyle = it
-                        }
                         val bundle = Bundle()
-                        bundle.putInt("price", it)
-                        parentFragmentManager.setFragmentResult("price", bundle)
+                        bundle.putInt("priceStyle", it)
+                        parentFragmentManager.setFragmentResult("priceStyle", bundle)
                         dismiss()
                     }
                 }

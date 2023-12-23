@@ -1,15 +1,11 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
-import com.cosmos.auth.v1beta1.QueryGrpc
-import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
 import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
-import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsRequest
-import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsRequest
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
@@ -23,7 +19,6 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.bitcoinj.crypto.ChildNumber
@@ -59,7 +54,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -99,6 +93,8 @@ open class CosmosLine : BaseChain() {
     var cosmosDelegations = mutableListOf<DelegationResponse>()
     var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
     var cosmosRewards = mutableListOf<DelegationDelegatorReward>()
+
+    var tokens = mutableListOf<Token>()
 
     var cw20tokens = mutableListOf<Token>()
     var erc20tokens = mutableListOf<Token>()
@@ -178,72 +174,14 @@ open class CosmosLine : BaseChain() {
         if (this is ChainBinanceBeacon || this is ChainOkt60) {
             loadLcdData(id)
         } else {
-            loadGrpcData(id)
-        }
-    }
 
-    private fun loadGrpcData(id: Long) = CoroutineScope(Dispatchers.IO).launch {
-        val channel = getChannel()
-        val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
-
-        try {
-            stub.account(request)?.let { response ->
-                cosmosAuth = response.account
-                loadGrpcMoreData(channel, id)
-            }
-        } catch (e: Exception) {
-            loadDataCallback?.onDataLoaded(true)
-            fetched = true
-            val refAddress = RefAddress(id, tag, address, "0", "0", "0",  0)
-            BaseData.updateRefAddressesMain(refAddress)
-        } finally {
-            channel.shutdown()
-            try {
-                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
-                    channel.shutdownNow()
-                }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    open fun loadGrpcMoreData(channel: ManagedChannel, id: Long) = runBlocking {
-        CoroutineScope(Dispatchers.Default).let {
-            loadBalance(channel)
-            if (supportStaking) {
-                loadDelegation(channel)
-                loadUnbonding(channel)
-                loadReward(channel)
-            }
-
-            BaseUtils.onParseVestingAccount(this@CosmosLine)
-            loadDataCallback?.onDataLoaded(true)
-            fetched = true
-
-            if (fetched) {
-                val refAddress = RefAddress(id, tag, address, allAssetValue().toPlainString(), allStakingDenomAmount().toString(), "0", cosmosBalances.size.toLong())
-                BaseData.updateRefAddressesMain(refAddress)
-            }
-            it.cancel()
         }
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
-        var feeCoin: Coin? = null
-        for (i in 0 until getDefaultFeeCoins(c).size) {
-            val fee = getDefaultFeeCoins(c)[i]
-            if (balanceAmount(fee.denom) >= BigDecimal(fee.amount)) {
-                feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-                break
-            }
-        }
-
-        if (feeCoin != null) {
-            return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin).build()
-        }
-        return null
+        val fee = getDefaultFeeCoins(c).first()
+        val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
+        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin).build()
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
@@ -327,52 +265,6 @@ open class CosmosLine : BaseChain() {
 
     open fun loadLcdData(id: Long) = CoroutineScope(Dispatchers.IO).launch {}
 
-    fun loadStakeData() {
-        if (cosmosValidators.size > 0) { return }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val channel = getChannel()
-
-            try {
-                val rewardAddr = async { loadRewardAddress(channel) }
-                val bonded = async { loadBondedValidator(channel) }
-                val unbonding = async { loadUnbondingValidator(channel) }
-                val unbonded = async { loadUnbondedValidator(channel) }
-
-                val response = awaitAll(rewardAddr, bonded, unbonding, unbonded)
-
-                rewardAddress = response[0].toString()
-                if (response[1] != null) cosmosValidators.addAll(response[1] as Collection<StakingProto.Validator>)
-                if (response[2] != null) cosmosValidators.addAll(response[2] as Collection<StakingProto.Validator>)
-                if (response[3] != null) cosmosValidators.addAll(response[3] as Collection<StakingProto.Validator>)
-
-                val tempValidators = cosmosValidators.toMutableList()
-                tempValidators.sortWith { o1, o2 ->
-                    when {
-                        o1.description.moniker == "Cosmostation" -> -1
-                        o2.description.moniker == "Cosmostation" -> 1
-                        o1.jailed && !o2.jailed -> 1
-                        !o1.jailed && o2.jailed -> -1
-                        o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
-                        o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
-                        else -> 0
-                    }
-                }
-                cosmosValidators = tempValidators
-
-            } finally {
-                channel.shutdown()
-                try {
-                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
-                        channel.shutdownNow()
-                    }
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
-
     fun loadBalance(channel: ManagedChannel) {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -385,47 +277,8 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadDelegation(channel: ManagedChannel) {
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
-
-        cosmosDelegations.clear()
-        stub.delegatorDelegations(request)?.let { response ->
-            response.delegationResponsesList.forEach { delegation ->
-                if (delegation.balance.amount != "0") {
-                    cosmosDelegations.add(delegation)
-                }
-            }
-        }
-    }
-
-    private fun loadUnbonding(channel: ManagedChannel) {
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(address).build()
-
-        stub.delegatorUnbondingDelegations(request)?.let { response ->
-            cosmosUnbondings = response.unbondingResponsesList
-        }
-    }
-
-    private fun loadReward(channel: ManagedChannel) {
-        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest.newBuilder()
-                .setDelegatorAddress(address).build()
-
-        stub.delegationTotalRewards(request)?.let { response ->
-            cosmosRewards = response.rewardsList
-        }
-    }
-
     suspend fun loadParam(): Param? {
-        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.param(this.apiName) }) {
+        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.param(apiName) }) {
             is NetworkResult.Success -> {
                 response.data.body()
             }
@@ -436,56 +289,8 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    private fun loadBondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator>? {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().
-        setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
-        return try {
-            stub.validators(request).validatorsList
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    private fun loadUnbondedValidator(channel: ManagedChannel): MutableList<StakingProto.Validator>? {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().
-        setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
-        return try {
-            stub.validators(request).validatorsList
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    private fun loadUnbondingValidator(channel: ManagedChannel): MutableList<StakingProto.Validator>? {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-        val stub = com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
-        return try {
-            return stub.validators(request).validatorsList
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    private fun loadRewardAddress(channel: ManagedChannel): String? {
-        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.distribution.v1beta1.QueryProto.QueryDelegatorWithdrawAddressRequest.newBuilder()
-            .setDelegatorAddress(address).build()
-
-        return stub.delegatorWithdrawAddress(request).withdrawAddress
-    }
-
-    private suspend fun loadCw20Token(): MutableList<Token> {
-        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.cw20token(this.apiName) }) {
+    suspend fun loadCw20Token(): MutableList<Token> {
+        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.cw20token(apiName) }) {
             is NetworkResult.Success -> {
                 response.data.assets
             }
@@ -522,42 +327,7 @@ open class CosmosLine : BaseChain() {
         loadTokenCallback = callback
     }
 
-    fun loadAllCw20Balance(id: Long) {
-        val channel = getChannel()
-        val scope = CoroutineScope(Dispatchers.Default)
-        val deferredList = mutableListOf<Deferred<Unit>>()
-
-        cw20tokens.forEach { token ->
-            val deferred = scope.async {
-                loadCw20Balance(channel, token)
-            }
-            deferredList.add(deferred)
-        }
-
-        runBlocking {
-            deferredList.awaitAll()
-            loadTokenCallback?.onTokenLoaded(true)
-
-            val refAddress = RefAddress(id, tag, address, "0", "0", allTokenValue().toPlainString(), 0)
-            BaseData.updateRefAddressesToken(refAddress)
-        }
-
-        try {
-            channel.shutdown()
-        } catch (_: Exception) {
-        } finally {
-            channel.shutdown()
-            try {
-                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
-                    channel.shutdownNow()
-                }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private suspend fun loadErc20Token(): MutableList<Token> {
+    suspend fun loadErc20Token(): MutableList<Token> {
         return when (val response = safeApiCall { RetrofitInstance.mintscanApi.erc20token(this.apiName) }) {
             is NetworkResult.Success -> {
                 response.data.assets
@@ -799,40 +569,22 @@ open class CosmosLine : BaseChain() {
     }
 
     fun tokenValue(address: String): BigDecimal {
-        if (supportCw20) {
-            cw20tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
-                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
-                return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
-                    .setScale(6, RoundingMode.DOWN)
-            }
+        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+            val price = BaseData.getPrice(tokenInfo.coinGeckoId)
+            return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+                .setScale(6, RoundingMode.DOWN)
+        } ?: run {
+            return BigDecimal.ZERO
         }
-        if (supportErc20) {
-            erc20tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
-                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
-                return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
-                    .setScale(6, RoundingMode.DOWN)
-            }
-        }
-        return BigDecimal.ZERO
     }
 
-    private fun allTokenValue(): BigDecimal {
+    fun allTokenValue(): BigDecimal {
         var result = BigDecimal.ZERO
-        if (supportCw20) {
-            cw20tokens.forEach { tokenInfo ->
-                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
-                val value = price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
-                    .setScale(6, RoundingMode.DOWN)
-                result = result.add(value)
-            }
-        }
-        if (supportErc20) {
-            erc20tokens.forEach { tokenInfo ->
-                val price = BaseData.getPrice(tokenInfo.coinGeckoId)
-                val value = price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
-                    .setScale(6, RoundingMode.DOWN)
-                result = result.add(value)
-            }
+        tokens.forEach { token ->
+            val price = BaseData.getPrice(token.coinGeckoId)
+            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                .setScale(6, RoundingMode.DOWN)
+            result = result.add(value)
         }
         return result
     }

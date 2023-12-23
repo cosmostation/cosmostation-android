@@ -99,13 +99,13 @@ class SettingFragment : Fragment() {
     }
 
     private fun walletUpdateView() {
-        val baseAccount = BaseData.baseAccount
-        baseAccount?.let { account ->
-            binding.apply {
+        binding.apply {
+            BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
                 supportChainCnt.text = allCosmosLines().count().toString()
                 CoroutineScope(Dispatchers.IO).launch {
-                    favoriteAddressCnt.text = AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
+                    favoriteAddressCnt.text =
+                        AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
                 }
             }
         }
@@ -123,9 +123,11 @@ class SettingFragment : Fragment() {
                 BaseUtils.LANGUAGE_ENGLISH -> {
                     language.text = getString(R.string.title_language_en)
                 }
+
                 BaseUtils.LANGUAGE_KOREAN -> {
                     language.text = getString(R.string.title_language_kr)
                 }
+
                 else -> {
                     language.text = getString(R.string.str_system)
                 }
@@ -136,6 +138,7 @@ class SettingFragment : Fragment() {
                     priceUpImg.setImageResource(R.drawable.icon_price_up)
                     priceDownImg.setImageResource(R.drawable.icon_price_down)
                 }
+
                 else -> {
                     priceUpImg.setImageResource(R.drawable.icon_price_up_reverse)
                     priceDownImg.setImageResource(R.drawable.icon_price_down_reverse)
@@ -201,15 +204,19 @@ class SettingFragment : Fragment() {
             }
 
             priceView.setOnClickListener {
-                val bottomSheet = SettingBottomFragment(SettingType.PRICE_STATUS)
                 if (isClickable) {
                     isClickable = false
+                    val bottomSheet = SettingBottomFragment(SettingType.PRICE_STATUS)
                     bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
+
                     parentFragmentManager.setFragmentResultListener(
-                        "price",
+                        "priceStyle",
                         this@SettingFragment
-                    ) { _, _ ->
-                        walletViewModel.changeObserve()
+                    ) { _, bundle ->
+                        val priceStyle = bundle.getInt("priceStyle")
+                        if (Prefs.priceStyle != priceStyle) {
+                            Prefs.priceStyle = priceStyle
+                        }
                         generalUpdateView()
                     }
 
@@ -239,7 +246,8 @@ class SettingFragment : Fragment() {
 
             mintscanView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.EXPLORER_BASE_URL)
                     )
                 )
@@ -247,7 +255,8 @@ class SettingFragment : Fragment() {
 
             homepageView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
                     )
                 )
@@ -255,7 +264,8 @@ class SettingFragment : Fragment() {
 
             twitterView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_TWITTER)
                     )
                 )
@@ -263,7 +273,8 @@ class SettingFragment : Fragment() {
 
             blogView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_BLOG)
                     )
                 )
@@ -271,7 +282,8 @@ class SettingFragment : Fragment() {
 
             telegramView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_TELEGRAM)
                     )
                 )
@@ -279,7 +291,8 @@ class SettingFragment : Fragment() {
 
             youtubeView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_YOUTUBE)
                     )
                 )
@@ -288,13 +301,15 @@ class SettingFragment : Fragment() {
             termView.setOnClickListener {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
                     startActivity(
-                        Intent(Intent.ACTION_VIEW,
+                        Intent(
+                            Intent.ACTION_VIEW,
                             Uri.parse(CosmostationConstants.COSMOSTATION_TERM_KR)
                         )
                     )
                 } else {
                     startActivity(
-                        Intent(Intent.ACTION_VIEW,
+                        Intent(
+                            Intent.ACTION_VIEW,
                             Uri.parse(CosmostationConstants.COSMOSTATION_TERM_EN)
                         )
                     )
@@ -303,7 +318,8 @@ class SettingFragment : Fragment() {
 
             privacyView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_PRIVACY_POLICY)
                     )
                 )
@@ -311,7 +327,8 @@ class SettingFragment : Fragment() {
 
             githubView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse(CosmostationConstants.COSMOSTATION_GITHUB)
                     )
                 )
@@ -319,7 +336,8 @@ class SettingFragment : Fragment() {
 
             versionView.setOnClickListener {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW,
+                    Intent(
+                        Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=" + requireActivity().packageName)
                     )
                 )
@@ -388,7 +406,7 @@ class SettingFragment : Fragment() {
                     ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 Prefs.appLock = false
             }
-    }
+        }
 
     override fun onDestroyView() {
         _binding = null

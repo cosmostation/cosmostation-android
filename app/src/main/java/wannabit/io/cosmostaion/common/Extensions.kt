@@ -397,8 +397,8 @@ fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
 }
 
-fun BigDecimal.handlerLeft(decimal: Int, scale: Int): BigDecimal {
-    return this.movePointLeft(decimal).setScale(scale, RoundingMode.HALF_UP)
+fun BigDecimal.amountHandlerLeft(decimal: Int): BigDecimal {
+    return this.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
 }
 
 fun BigDecimal.handlerRight(decimal: Int, scale: Int): BigDecimal {

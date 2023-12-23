@@ -1,26 +1,27 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -52,9 +53,10 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewModels()
+        observeViewModels()
         initView()
-        clickAction()
+        updateViewWithLoadedData()
+        setupHideButton()
         refreshData()
     }
 
@@ -65,34 +67,35 @@ class DashboardFragment : Fragment() {
                 totalValue.text = "✱✱✱✱✱"
                 totalValue.textSize = 20f
                 btnHide.setImageResource(R.drawable.icon_hide)
+
             } else {
                 totalValue.text = formatAssetValue(totalChainValue)
                 totalValue.textSize = 24f
                 btnHide.setImageResource(R.drawable.icon_not_hide)
             }
+            btnHide.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.color_base03),
+                PorterDuff.Mode.SRC_IN
+            )
         }
     }
 
-    private fun updateView() {
-        baseAccount?.initDisplayData()
+    private fun updateViewWithLoadedData() {
+        initDisplayData()
         initRecyclerView()
-        onUpdateLoadData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateView()
+        setupLoadedData()
     }
 
     private fun initRecyclerView() {
-        baseAccount?.let { baseAccount ->
+        baseAccount?.let { account ->
             dashAdapter = DashboardAdapter(requireContext())
 
             binding?.recycler?.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = dashAdapter
-                dashAdapter.submitList(baseAccount.displayCosmosLineChains as List<Any>?)
+                dashAdapter.submitList(account.sortedDisplayCosmosLines())
+                itemAnimator = null
 
                 dashAdapter.setOnItemClickListener {
                     Intent(requireContext(), CosmosActivity::class.java).apply {
@@ -105,51 +108,106 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun onUpdateLoadData() {
-        baseAccount?.let {
-            it.displayCosmosLineChains.forEach { line ->
-                line.setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
-                    override fun onDataLoaded(isLoaded: Boolean) {
-                        lifecycleScope.launch {
-                            withContext(Dispatchers.Main) {
-                                if (line.fetched) {
-                                    dashAdapter.notifyDataSetChanged()
-                                    onUpdateTotal()
-                                }
+    private fun initDisplayData() {
+        baseAccount?.let { account ->
+            account.apply {
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        sortedDisplayCosmosLines().forEach { line ->
+                            if (line.address?.isEmpty() == true) {
+                                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                            }
+                            if (!line.fetched) {
+                                walletViewModel.loadChainData(line, id)
                             }
                         }
-                    }
-                })
-            }
-            onUpdateTotal()
-        }
-    }
 
-    private fun onUpdateTotal() {
-        var sum = BigDecimal.ZERO
-        baseAccount?.let {
-            it.displayCosmosLineChains.forEach { line ->
-                sum = sum.add(line.allValue())
-            }
-            if (isAdded) {
-                requireActivity().runOnUiThread {
-                    totalChainValue = sum
-                    if (Prefs.hideValue) {
-                        binding?.totalValue?.text = "✱✱✱✱✱"
-                        binding?.totalValue?.textSize = 20f
-                    } else {
-                        binding?.totalValue?.text = formatAssetValue(sum)
-                        binding?.totalValue?.textSize = 24f
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        sortedDisplayCosmosLines().forEach { line ->
+                            if (line.address?.isEmpty() == true) {
+                                line.setInfoWithPrivateKey(privateKey)
+                            }
+                            if (!line.fetched) {
+                                walletViewModel.loadChainData(line, id)
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun clickAction() {
+    private fun setupLoadedData() {
+        walletViewModel.fetchedResult.observe(viewLifecycleOwner) {
+            CoroutineScope(Dispatchers.IO).launch {
+                baseAccount?.let { account ->
+                    for (i in 0 until account.sortedDisplayCosmosLines().size) {
+                        if (account.sortedDisplayCosmosLines()[i].fetched) {
+                            withContext(Dispatchers.Main) {
+                                dashAdapter.notifyItemChanged(i + 1)
+                            }
+                        }
+                    }
+                }
+            }
+            updateTotalValue()
+        }
+    }
+
+    private fun updateTotalValue() {
+        var totalSum = BigDecimal.ZERO
+
+        baseAccount?.let { account ->
+            account.sortedDisplayCosmosLines().forEach { line ->
+                totalSum = totalSum.add(line.allValue())
+            }
+
+            if (isAdded) {
+                requireActivity().runOnUiThread {
+                    totalChainValue = totalSum
+
+                    val totalValueTxt = binding?.totalValue
+                    totalValueTxt?.text = if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
+                    totalValueTxt?.textSize = if (Prefs.hideValue) 20f else 24f
+                }
+            }
+        }
+    }
+
+    private fun setupHideButton() {
+        binding?.btnHide?.setOnClickListener {
+            Prefs.hideValue = !Prefs.hideValue
+            ApplicationViewModel.shared.hideValue()
+        }
+    }
+
+    private fun refreshData() {
         binding?.apply {
-            btnHide.setOnClickListener {
-                Prefs.hideValue = !Prefs.hideValue
+            refresher.setOnRefreshListener {
+                baseAccount?.let { account ->
+                    if (account.sortedDisplayCosmosLines().any { !it.fetched }) {
+                        refresher.isRefreshing = false
+
+                    } else {
+                        walletViewModel.price(BaseData.currencyName().lowercase())
+                        CoroutineScope(Dispatchers.IO).launch {
+                            account.sortedDisplayCosmosLines().forEach { line ->
+                                line.fetched = false
+                            }
+                            withContext(Dispatchers.Main) {
+                                updateViewWithLoadedData()
+                                refresher.isRefreshing = false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeViewModels() {
+        ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
+            binding?.apply {
                 if (Prefs.hideValue) {
                     totalValue.text = "✱✱✱✱✱"
                     totalValue.textSize = 20f
@@ -159,48 +217,13 @@ class DashboardFragment : Fragment() {
                     totalValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
-                ApplicationViewModel.shared.hideValue()
-                dashAdapter.notifyDataSetChanged()
             }
-        }
-    }
-
-    private fun refreshData() {
-        binding?.apply {
-            refresher.setOnRefreshListener {
-                baseAccount?.let { account ->
-                    if (account.displayCosmosLineChains.any { !it.fetched }) {
-                        refresher.isRefreshing = false
-                    } else {
-                        walletViewModel.price(BaseData.currencyName().lowercase())
-                        CoroutineScope(Dispatchers.IO).launch {
-                            account.initAccount()
-                            account.displayCosmosLineChains.forEach {
-                                it.fetched = false
-                            }
-                            withContext(Dispatchers.Main) {
-                                updateView()
-                            }
-                        }
-                        refresher.isRefreshing = false
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setupViewModels() {
-        walletViewModel.walletPriceResult.observe(viewLifecycleOwner) { result ->
-            if (result == BaseConstant.SUCCESS) {
-                onUpdateTotal()
-                dashAdapter.notifyDataSetChanged()
-            }
+            dashAdapter.notifyDataSetChanged()
         }
 
-        walletViewModel.changeResult.observe(viewLifecycleOwner) { result ->
-            if (result == BaseConstant.SUCCESS) {
-                dashAdapter.notifyDataSetChanged()
-            }
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
+            updateTotalValue()
+            dashAdapter.notifyDataSetChanged()
         }
 
         ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) { account ->
@@ -208,7 +231,7 @@ class DashboardFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 baseAccount?.initAccount()
                 withContext(Dispatchers.Main) {
-                    updateView()
+                    updateViewWithLoadedData()
                 }
             }
         }
@@ -216,10 +239,18 @@ class DashboardFragment : Fragment() {
         ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) {
             CoroutineScope(Dispatchers.IO).launch {
                 baseAccount?.sortCosmosLine()
+                initDisplayData()
                 withContext(Dispatchers.Main) {
-                    updateView()
+                    dashAdapter.submitList(baseAccount?.sortedDisplayCosmosLines())
+                    dashAdapter.notifyDataSetChanged()
+                    setupLoadedData()
                 }
             }
+        }
+
+        walletViewModel.errorMessage.observe(viewLifecycleOwner) {
+            requireContext().makeToast(it)
+            return@observe
         }
     }
 
