@@ -19,31 +19,51 @@ import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
+import org.web3j.abi.FunctionEncoder
+import org.web3j.abi.FunctionReturnDecoder
+import org.web3j.abi.TypeReference
+import org.web3j.abi.datatypes.Address
+import org.web3j.abi.datatypes.Function
+import org.web3j.abi.datatypes.Type
+import org.web3j.abi.datatypes.generated.Uint256
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.core.methods.request.Transaction
+import org.web3j.protocol.core.methods.response.EthCall
+import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VAULT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.beaconApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.req.VotingPower
 import wannabit.io.cosmostaion.data.model.req.VotingPowerReq
+import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
+import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
-import wannabit.io.cosmostaion.data.model.res.Dao
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
+import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
+import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
+import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
-import wannabit.io.cosmostaion.data.model.res.Vault
+import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
 class WalletRepositoryImpl : WalletRepository {
@@ -231,24 +251,23 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun erc20Balance(channel: ManagedChannel, line: CosmosLine, token: Token) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun erc20Balance(line: CosmosLine, token: Token) {
+        val web3j = Web3j.build(HttpService(line.rpcUrl))
+        val ethAddress = ByteUtils.convertBech32ToEvm(line.address)
+        val params: MutableList<Type<*>> = ArrayList()
+        params.add(Address(ethAddress))
 
-    override suspend fun daoData(
-        line: CosmosLine
-    ): NetworkResult<MutableList<Dao>> {
-        return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.chainListApi.daoData(line.apiName)
-        }
-    }
+        val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
+        val function = Function("balanceOf", params, returnTypes)
 
-    override suspend fun vaultData(
-        line: CosmosLine
-    ): NetworkResult<MutableList<Vault>> {
-        return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.chainListApi.vaultData(line.apiName)
-        }
+        val txData = FunctionEncoder.encode(function)
+        val response: EthCall = web3j.ethCall(
+            Transaction.createEthCallTransaction(ethAddress, token.address, txData),
+            DefaultBlockParameterName.LATEST
+        ).sendAsync().get()
+        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+        val balance = results[0].value as BigInteger
+        token.amount = balance.toString()
     }
 
     override suspend fun vestingData(
@@ -271,18 +290,59 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun vaultDeposit(
         channel: ManagedChannel,
         line: ChainNeutron,
-        vaultList: MutableList<Vault>?
-    ) {
+    ): NetworkResult<String?> {
         val req = VotingPowerReq(VotingPower(line.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(8, TimeUnit.SECONDS)
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(vaultList?.get(0)?.address).setQueryData(queryData).build()
+        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request =
+            com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(
+                NEUTRON_VAULT_ADDRESS
+            ).setQueryData(queryData).build()
 
-        stub.smartContractState(request)?.let { response ->
-            val json = JSONObject(response.data.toStringUtf8())
-            line.neutronDeposited = json.getString("power").toBigDecimal()
+        return safeApiCall(Dispatchers.IO) {
+            stub.smartContractState(request)?.let { response ->
+                val json = JSONObject(response.data.toStringUtf8())
+                json.getString("power")
+            }
+        }
+    }
+
+    override suspend fun binanceAccountInfo(line: CosmosLine): NetworkResult<AccountResponse?> {
+        return safeApiCall(Dispatchers.IO) {
+            beaconApi.accountInfo(line.address)
+        }
+    }
+
+    override suspend fun beaconTokenInfo(): NetworkResult<MutableList<BnbToken>> {
+        return safeApiCall(Dispatchers.IO) {
+            beaconApi.beaconTokens("1000")
+        }
+    }
+
+    override suspend fun oktAccountInfo(line: CosmosLine): NetworkResult<OktAccountResponse?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktAccountInfo(line.address)
+        }
+    }
+
+    override suspend fun oktDeposit(line: CosmosLine): NetworkResult<OktDepositedResponse?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktDepositInfo(line.address)
+        }
+    }
+
+    override suspend fun oktWithdraw(line: CosmosLine): NetworkResult<OktWithdrawResponse?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktWithdrawInfo(line.address)
+        }
+    }
+
+    override suspend fun oktToken(line: CosmosLine): NetworkResult<OktTokenResponse?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktTokens()
         }
     }
 }

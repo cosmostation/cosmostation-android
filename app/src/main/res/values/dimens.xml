@@ -49,6 +49,7 @@
     <dimen name="space_120">120dp</dimen>
     <dimen name="space_130">130dp</dimen>
     <dimen name="space_150">150dp</dimen>
+    <dimen name="space_180">180dp</dimen>
     <dimen name="space_200">200dp</dimen>
     <dimen name="space_210">210dp</dimen>
     <dimen name="space_300">300dp</dimen>

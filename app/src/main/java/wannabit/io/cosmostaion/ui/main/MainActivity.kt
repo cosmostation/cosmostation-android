@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -32,6 +33,8 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var walletViewModel: WalletViewModel
+
+    private var isClickable = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +83,17 @@ class MainActivity : BaseActivity() {
 
             val tabLayoutMediator = TabLayoutMediator(tabLayout, mainViewPager) { tab, position ->
                 when (position) {
-                    0 -> { tab.setIcon(R.drawable.icon_wallet) }
-                    1 -> { tab.setIcon(R.drawable.icon_service) }
-                    2 -> { tab.setIcon(R.drawable.icon_setting) }
+                    0 -> {
+                        tab.setIcon(R.drawable.icon_wallet)
+                    }
+
+                    1 -> {
+                        tab.setIcon(R.drawable.icon_service)
+                    }
+
+                    2 -> {
+                        tab.setIcon(R.drawable.icon_setting)
+                    }
                 }
             }
             tabLayoutMediator.attach()
@@ -134,31 +145,30 @@ class MainActivity : BaseActivity() {
     }
 
     private fun clickAction() {
-        var isClickable = true
         binding.apply {
             btnEdit.setOnClickListener {
-                val bottomSheet = ChainEditFragment()
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(supportFragmentManager, ChainEditFragment::class.java.name)
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                ChainEditFragment().show(
+                    supportFragmentManager, ChainEditFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             accountLayout.setOnClickListener {
-                val bottomSheet = AccountSelectFragment()
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(supportFragmentManager, AccountSelectFragment::class.java.name)
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                AccountSelectFragment().show(
+                    supportFragmentManager, AccountSelectFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 

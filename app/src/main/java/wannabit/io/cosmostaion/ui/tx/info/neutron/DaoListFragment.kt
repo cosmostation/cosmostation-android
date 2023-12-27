@@ -38,8 +38,7 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
     private var multiProposals: MutableList<Pair<String?, ProposalData?>> = mutableListOf()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDaoListBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -50,19 +49,20 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
 
         initViewModel()
         initRecyclerView()
-        modules = selectedChain.daoList?.get(0)?.proposal_modules
+        modules = selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules
         val contAddressList: MutableList<String?> = mutableListOf()
         modules?.forEach { proposalModule ->
             contAddressList.add(proposalModule?.address)
         }
         proposalViewModel.daoProposalList(getChannel(), contAddressList)
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initViewModel() {
         val proposalRepository = ProposalRepositoryImpl()
         val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
-        proposalViewModel = ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
+        proposalViewModel =
+            ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
     }
 
     private fun initRecyclerView() {
@@ -81,8 +81,14 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
                     loading.visibility = View.GONE
                     recycler.visibility = View.VISIBLE
 
-                    daoListAdapter =
-                        DaoListAdapter(requireContext(), selectedChain, modules, daoProposals, it, daoProposalCheckAction)
+                    daoListAdapter = DaoListAdapter(
+                        requireContext(),
+                        selectedChain,
+                        modules,
+                        daoProposals,
+                        it,
+                        daoProposalCheckAction
+                    )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = daoListAdapter
@@ -92,7 +98,9 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
     }
 
     private val daoProposalCheckAction = object : DaoListAdapter.CheckListener {
-        override fun daoProposalCheck(isChecked: Boolean, contAddress: String?, module: String?, proposalId: String?) {
+        override fun daoProposalCheck(
+            isChecked: Boolean, contAddress: String?, module: String?, proposalId: String?
+        ) {
             if (module == "Single Module") {
                 if (isChecked && !toVoteSingle.contains(proposalId)) {
                     toVoteSingle.add(proposalId)
@@ -103,7 +111,9 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
                         }
                     }
                 }
-                singleProposals = daoProposals.filter { toVoteSingle.contains(it.second?.id) && contAddress == it.first }.toMutableList()
+                singleProposals =
+                    daoProposals.filter { toVoteSingle.contains(it.second?.id) && contAddress == it.first }
+                        .toMutableList()
 
             } else {
                 if (isChecked && !toVoteMulti.contains(proposalId)) {
@@ -115,33 +125,34 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
                         }
                     }
                 }
-                multiProposals = daoProposals.filter { toVoteMulti.contains(it.second?.id) && contAddress == it.first }.toMutableList()
+                multiProposals =
+                    daoProposals.filter { toVoteMulti.contains(it.second?.id) && contAddress == it.first }
+                        .toMutableList()
             }
             binding.btnVote.updateButtonView(toVoteSingle.isNotEmpty() || toVoteMulti.isNotEmpty())
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }
 
             btnVote.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 singleProposals.forEach { it.second?.myVote = null }
                 multiProposals.forEach { it.second?.myVote = null }
                 val bottomSheet = DaoVoteFragment(selectedChain, singleProposals, multiProposals)
-                bottomSheet.show(requireActivity().supportFragmentManager, DaoVoteFragment::class.java.name)
+                bottomSheet.show(
+                    requireActivity().supportFragmentManager, DaoVoteFragment::class.java.name
+                )
             }
         }
     }
 
     private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort).useTransportSecurity().build()
+        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort)
+            .useTransportSecurity().build()
     }
 
     override fun onDestroyView() {

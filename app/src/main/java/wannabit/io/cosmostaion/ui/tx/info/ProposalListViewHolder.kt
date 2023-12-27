@@ -26,26 +26,38 @@ class ProposalListViewHolder(
     private val binding: ItemProposalBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(selectedChain: CosmosLine, proposal: CosmosProposal, myVotes: MutableList<VoteData>, toVote: MutableList<String>?, checkListener: ProposalListAdapter.CheckListener) {
+    fun bind(
+        selectedChain: CosmosLine,
+        proposal: CosmosProposal,
+        myVotes: MutableList<VoteData>,
+        toVote: MutableList<String>?,
+        checkListener: ProposalListAdapter.CheckListener
+    ) {
         binding.apply {
             proposalView.setBackgroundResource(R.drawable.item_bg)
-            voteId.text = "# " + proposal.id + "."
+            voteId.text = "# ${proposal.id}."
             voteTitle.text = proposal.title
 
             if (proposal.isVotingPeriod()) {
                 selectSwitch.isChecked = toVote?.contains(proposal.id) == true
                 voteStatusImg.visibility = View.GONE
                 voteRemainTime.visibility = View.VISIBLE
-                val endTimeToLong = dateToLong(context.getString(R.string.str_tx_time_format), proposal.votingEndTime)
-                voteRemainTime.text = voteDpTime(endTimeToLong) + " (" + gapTime(endTimeToLong) + ")"
-                selectSwitch.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
-
+                val endTimeToLong = dateToLong(
+                    context.getString(R.string.str_tx_time_format), proposal.votingEndTime
+                )
+                voteRemainTime.text = "${voteDpTime(endTimeToLong)} (${gapTime(endTimeToLong)})"
+                selectSwitch.thumbDrawable =
+                    ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
             } else {
                 selectSwitch.visibility = View.GONE
                 voteStatusImg.visibility = View.VISIBLE
                 voteStatusImg.setImageDrawable(proposal.proposalStatusImg(context))
                 voteRemainTime.text = proposal.proposalStatusTxt().uppercase()
-                voteRemainTime.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                voteRemainTime.setTextColor(
+                    ContextCompat.getColorStateList(
+                        context, R.color.color_base01
+                    )
+                )
             }
             expeditedImg.visibleOrGone(proposal.isExpedited)
 
@@ -56,14 +68,19 @@ class ProposalListViewHolder(
 
                 } else {
                     val myVote = rawVote.votes[0]
-                    if (myVote.option?.contains("OPTION_YES") == true) {
-                        statusImg.setImageResource(R.drawable.icon_yes)
-                    } else if (myVote.option?.contains("OPTION_NO") == true) {
-                        statusImg.setImageResource(R.drawable.icon_no)
-                    } else if (myVote.option?.contains("OPTION_ABSTAIN") == true) {
-                        statusImg.setImageResource(R.drawable.icon_abstain)
-                    } else if (myVote.option?.contains("OPTION_NO_WITH_VETO") == true) {
-                        statusImg.setImageResource(R.drawable.icon_veto)
+                    when {
+                        myVote.option?.contains("OPTION_YES") == true -> statusImg.setImageResource(
+                            R.drawable.icon_yes
+                        )
+
+                        myVote.option?.contains("OPTION_NO") == true -> statusImg.setImageResource(R.drawable.icon_no)
+                        myVote.option?.contains("OPTION_ABSTAIN") == true -> statusImg.setImageResource(
+                            R.drawable.icon_abstain
+                        )
+
+                        myVote.option?.contains("OPTION_NO_WITH_VETO") == true -> statusImg.setImageResource(
+                            R.drawable.icon_veto
+                        )
                     }
                 }
             } ?: run {
@@ -89,7 +106,8 @@ class ProposalListViewHolder(
             }
 
             proposalView.setOnClickListener {
-                val url: String = EXPLORER_BASE_URL + selectedChain.apiName + "/proposals/" + proposal.id
+                val url: String =
+                    EXPLORER_BASE_URL + selectedChain.apiName + "/proposals/" + proposal.id
                 Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
                     context.startActivity(this)
                 }

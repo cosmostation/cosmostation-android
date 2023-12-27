@@ -114,10 +114,10 @@ class AboutFragment(private val position: Int) : Fragment() {
 
 fun unBondingTime(selectedChain: CosmosLine?): Int? {
     var result: Int? = 0
-    var unbondingTime: String? = ""
+    var unBondingTime: String? = ""
     selectedChain?.param?.params?.let { param ->
-        unbondingTime = param.stakingParams?.params?.unbondingTime
-        result = unbondingTime?.replace("s", "")?.toInt()?.div(60)?.div(60)?.div(24)
+        unBondingTime = param.stakingParams?.params?.unbondingTime ?: "0"
+        result = unBondingTime?.replace("s", "")?.toInt()?.div(60)?.div(60)?.div(24)
     }
     return result
 }

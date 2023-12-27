@@ -36,8 +36,7 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
     private var toVoteList: MutableList<String>? = mutableListOf()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProposalListBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -49,13 +48,14 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
         initViewModel()
         initRecyclerView()
         proposalViewModel.proposalList(selectedChain.apiName)
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initViewModel() {
         val proposalRepository = ProposalRepositoryImpl()
         val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
-        proposalViewModel = ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
+        proposalViewModel =
+            ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
     }
 
     private fun initRecyclerView() {
@@ -67,29 +67,27 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
                 filterVotingPeriods.clear()
                 filterEtcPeriods.clear()
 
-                proposals?.let { proposals ->
-                    if (proposals.isNotEmpty()) {
-                        proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
-                        recycler.visibility = View.VISIBLE
-                        emptyLayout.visibility = View.GONE
-                        proposals.forEach { proposal ->
-                            if (proposal.isVotingPeriod()) {
-                                votingPeriods.add(proposal)
-                                if (!proposal.isScam()) {
-                                    filterVotingPeriods.add(proposal)
-                                }
-                            } else {
-                                etcPeriods.add(proposal)
-                                if (!proposal.isScam()) {
-                                    filterEtcPeriods.add(proposal)
-                                }
+                if (proposals?.isNotEmpty() == true) {
+                    proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
+                    recycler.visibility = View.VISIBLE
+                    emptyLayout.visibility = View.GONE
+                    proposals.forEach { proposal ->
+                        if (proposal.isVotingPeriod()) {
+                            votingPeriods.add(proposal)
+                            if (!proposal.isScam()) {
+                                filterVotingPeriods.add(proposal)
+                            }
+                        } else {
+                            etcPeriods.add(proposal)
+                            if (!proposal.isScam()) {
+                                filterEtcPeriods.add(proposal)
                             }
                         }
-
-                    } else {
-                        recycler.visibility = View.GONE
-                        emptyLayout.visibility = View.VISIBLE
                     }
+
+                } else {
+                    recycler.visibility = View.GONE
+                    emptyLayout.visibility = View.VISIBLE
                 }
             }
 
@@ -103,10 +101,19 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
         }
     }
 
-    private fun updateRecyclerView(votingPeriods: MutableList<CosmosProposal>, etcPeriods: MutableList<CosmosProposal>) {
+    private fun updateRecyclerView(
+        votingPeriods: MutableList<CosmosProposal>, etcPeriods: MutableList<CosmosProposal>
+    ) {
         binding.recycler.apply {
-            proposalListAdapter =
-                ProposalListAdapter(requireContext(), selectedChain, votingPeriods, etcPeriods, myVotes, toVoteList, listener = proposalCheckAction)
+            proposalListAdapter = ProposalListAdapter(
+                requireContext(),
+                selectedChain,
+                votingPeriods,
+                etcPeriods,
+                myVotes,
+                toVoteList,
+                listener = proposalCheckAction
+            )
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = proposalListAdapter
@@ -130,7 +137,7 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
@@ -155,13 +162,9 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
                         toVoteProposals.add(proposal)
                     }
                 }
-
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
-                val bottomSheet = VoteFragment(selectedChain, toVoteProposals)
-                bottomSheet.show(requireActivity().supportFragmentManager, VoteFragment::class.java.name)
+                VoteFragment(selectedChain, toVoteProposals).show(
+                    requireActivity().supportFragmentManager, VoteFragment::class.java.name
+                )
             }
         }
     }

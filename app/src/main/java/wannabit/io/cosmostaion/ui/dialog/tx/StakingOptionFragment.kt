@@ -34,6 +34,8 @@ class StakingOptionFragment(
     private var _binding: FragmentStakingOptionBinding? = null
     private val binding get() = _binding!!
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -45,156 +47,108 @@ class StakingOptionFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
         binding.apply {
-            stakeLayout.visibleOrGone(optionType == OptionType.STAKE)
-            unstakeLayout.visibleOrGone(optionType == OptionType.STAKE)
-            switchValidatorLayout.visibleOrGone(optionType == OptionType.STAKE)
-            claimRewardsLayout.visibleOrGone(optionType == OptionType.STAKE)
-            compoundingLayout.visibleOrGone(optionType == OptionType.STAKE)
-            unstakeCancelLayout.goneOrVisible(optionType == OptionType.STAKE)
+            val isStakeOption = optionType == OptionType.STAKE
+            stakeLayout.visibleOrGone(isStakeOption)
+            unstakeLayout.visibleOrGone(isStakeOption)
+            switchValidatorLayout.visibleOrGone(isStakeOption)
+            claimRewardsLayout.visibleOrGone(isStakeOption)
+            compoundingLayout.visibleOrGone(isStakeOption)
+            unstakeCancelLayout.goneOrVisible(isStakeOption)
 
-            view0.visibleOrGone(optionType == OptionType.STAKE)
-            view1.visibleOrGone(optionType == OptionType.STAKE)
-            view2.visibleOrGone(optionType == OptionType.STAKE)
-            view3.visibleOrGone(optionType == OptionType.STAKE)
-            view4.visibleOrGone(optionType == OptionType.STAKE)
-            cancelView.goneOrVisible(optionType == OptionType.STAKE)
+            listOf(view0, view1, view2, view3, view4).forEach { it.visibleOrGone(isStakeOption) }
+            cancelView.goneOrVisible(isStakeOption)
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             stakeLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
-
-                val bottomSheet = StakingFragment(selectedChain, validator)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, StakingFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-                dismiss()
+                StakingFragment(selectedChain, validator).show(
+                    requireActivity().supportFragmentManager, StakingFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             unstakeLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
-
-                val bottomSheet = UnStakingFragment(selectedChain, validator)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-                dismiss()
+                UnStakingFragment(selectedChain, validator).show(
+                    requireActivity().supportFragmentManager,
+                    UnStakingFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             switchValidatorLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
-
-                val bottomSheet = ReDelegateFragment(selectedChain, validator)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, ReDelegateFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-                dismiss()
+                ReDelegateFragment(selectedChain, validator).show(
+                    requireActivity().supportFragmentManager,
+                    ReDelegateFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             claimRewardsLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.claimableRewards().firstOrNull { it?.validatorAddress == validator?.operatorAddress }?.let { claimableReward ->
-                    claimableRewards.add(claimableReward)
-                } ?: run {
+                selectedChain.claimableRewards()
+                    .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
+                    ?.let { claimableReward ->
+                        claimableRewards.add(claimableReward)
+                    } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
                 }
 
-                val bottomSheet = ClaimRewardFragment(selectedChain, claimableRewards)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-                dismiss()
+                ClaimRewardFragment(selectedChain, claimableRewards).show(
+                    requireActivity().supportFragmentManager,
+                    ClaimRewardFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             compoundingLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 if (selectedChain.rewardAddress != selectedChain.address) {
                     requireContext().makeToast(R.string.error_reward_address_changed_msg)
                     return@setOnClickListener
                 }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.claimableRewards().firstOrNull { it?.validatorAddress == validator?.operatorAddress }?.let { claimableReward ->
-                    claimableRewards.add(claimableReward)
-                } ?: run {
+                selectedChain.claimableRewards()
+                    .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
+                    ?.let { claimableReward ->
+                        claimableRewards.add(claimableReward)
+                    } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
                 }
+                setClickableOnce(isClickable)
 
-                val bottomSheet = CompoundingFragment(selectedChain, claimableRewards)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, CompoundingFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-                dismiss()
+                CompoundingFragment(selectedChain, claimableRewards).show(
+                    requireActivity().supportFragmentManager,
+                    CompoundingFragment::class.java.name
+                )
             }
 
             unstakeCancelLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
-
-                val bottomSheet = CancelUnBondingFragment(selectedChain, unBondingEntry)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(requireActivity().supportFragmentManager, CancelUnBondingFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-                dismiss()
+                CancelUnBondingFragment(selectedChain, unBondingEntry).show(
+                    requireActivity().supportFragmentManager,
+                    CancelUnBondingFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
         }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+        dismiss()
     }
 
     override fun onDestroyView() {

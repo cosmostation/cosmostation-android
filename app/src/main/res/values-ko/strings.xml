@@ -6,6 +6,7 @@
     <string name="str_next">다음</string>
     <string name="str_share_address">주소 공유</string>
     <string name="str_address">주소</string>
+    <string name="str_ethereum_address">이더 주소</string>
     <string name="str_confirm">확인</string>
     <string name="str_cancel">취소</string>
     <string name="str_continue">계속</string>
@@ -80,6 +81,7 @@
     <string name="str_memo">메모</string>
     <string name="str_edit">편집</string>
     <string name="str_delete">삭제</string>
+    <string name="str_search_validator">검증인 검색</string>
 
 
     //title
@@ -230,6 +232,7 @@
     <string name="error_invalid_address">부정확한 주소입니다. 다시한번 확인해 주세요.</string>
     <string name="error_self_sending">자기 자신의 주소로는 송금할 수 없습니다.</string>
     <string name="error_not_reward">쌓인 이자가 충분하지 않습니다.</string>
+    <string name="error_wasting_fee">요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.</string>
     <string name="error_reward_address_changed_msg">이자 지급 주소가 변경된 계정입니다. 컴파운딩 기능을 사용하실 수 없습니다.</string>
     <string name="error_same_reward_address">이미 등록된 이자 주소와 동일합니다.</string>
     <string name="error_not_enough_to_withdraw">출금 할 수량이 충분하지 않습니다.</string>

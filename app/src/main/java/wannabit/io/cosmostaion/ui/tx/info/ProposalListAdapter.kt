@@ -50,63 +50,49 @@ class ProposalListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ProposalListHeaderViewHolder -> {
-                holder.bind(holder.itemViewType)
-            }
+            is ProposalListHeaderViewHolder -> holder.bind(holder.itemViewType)
 
             is ProposalListViewHolder -> {
-                if (votingPeriods.isNotEmpty()) {
-                    if (holder.itemViewType == VIEW_TYPE_VOTING_ITEM) {
-                        val voting = votingPeriods[position - 1]
-                        holder.bind(selectedChain, voting, myVotes, toVoteList, listener)
+                val positionOffset = if (votingPeriods.isNotEmpty()) 1 else 0
+                val votingIndex = position - positionOffset
+                val etcIndex = position - (votingPeriods.size + positionOffset + 1)
 
-                    } else {
-                        val voted = etcPeriods[position - (votingPeriods.size + 2)]
-                        holder.bind(selectedChain, voted, myVotes, toVoteList, listener)
-                    }
+                when {
+                    votingPeriods.isNotEmpty() && holder.itemViewType == VIEW_TYPE_VOTING_ITEM ->
+                        holder.bind(
+                            selectedChain,
+                            votingPeriods[votingIndex],
+                            myVotes,
+                            toVoteList,
+                            listener
+                        )
 
-                } else {
-                    if (holder.itemViewType == VIEW_TYPE_VOTED_ITEM) {
-                        val voted = etcPeriods[position - 1]
-                        holder.bind(selectedChain, voted, myVotes, toVoteList, listener)
-                    }
+                    etcIndex >= 0 && holder.itemViewType == VIEW_TYPE_VOTED_ITEM ->
+                        holder.bind(
+                            selectedChain,
+                            etcPeriods[etcIndex],
+                            myVotes,
+                            toVoteList,
+                            listener
+                        )
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (votingPeriods.isNotEmpty()) {
-            return if (position == 0) {
-                VIEW_TYPE_VOTING_HEADER
-            } else if (position < votingPeriods.size + 1) {
-                VIEW_TYPE_VOTING_ITEM
-            } else if (position < votingPeriods.size + 2) {
-                VIEW_TYPE_VOTED_HEADER
-            } else {
-                VIEW_TYPE_VOTED_ITEM
-            }
-
-        } else {
-            return if (position == 0) {
-                VIEW_TYPE_VOTED_HEADER
-            } else {
-                VIEW_TYPE_VOTED_ITEM
-            }
+        val votingOffset = if (votingPeriods.isNotEmpty()) 1 else 0
+        return when {
+            votingOffset > 0 && position == 0 -> VIEW_TYPE_VOTING_HEADER
+            position in 1..votingPeriods.size -> VIEW_TYPE_VOTING_ITEM
+            position == votingPeriods.size + votingOffset -> VIEW_TYPE_VOTED_HEADER
+            else -> VIEW_TYPE_VOTED_ITEM
         }
     }
 
     override fun getItemCount(): Int {
-        return if (votingPeriods.isNotEmpty()) {
-            if (etcPeriods.isNotEmpty()) {
-                votingPeriods.size + etcPeriods.size + 2
-            } else {
-                votingPeriods.size + 1
-            }
-
-        } else {
-            etcPeriods.size + 1
-        }
+        val votingOffset = if (votingPeriods.isNotEmpty()) 1 else 0
+        return votingPeriods.size + etcPeriods.size + votingOffset + 1
     }
 
     inner class ProposalListHeaderViewHolder(

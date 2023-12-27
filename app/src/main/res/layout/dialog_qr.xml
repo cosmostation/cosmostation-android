@@ -105,8 +105,8 @@
 
         <ImageView
             android:id="@+id/chain_img"
-            android:layout_width="@dimen/space_60"
-            android:layout_height="@dimen/space_60"
+            android:layout_width="@dimen/space_64"
+            android:layout_height="@dimen/space_64"
             android:layout_gravity="center"/>
 
     </androidx.cardview.widget.CardView>

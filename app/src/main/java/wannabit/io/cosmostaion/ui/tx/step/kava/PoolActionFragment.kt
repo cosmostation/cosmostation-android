@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -73,6 +74,8 @@ class PoolActionFragment(
     private var coin2ToAmount = ""
     private var toWithdrawAmount = ""
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -86,18 +89,17 @@ class PoolActionFragment(
         initView()
         initFee()
         updateFeeView()
-        txSimul()
-        clickAction()
+        txSimulate()
+        setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
     }
 
     private fun initView() {
         binding.apply {
-            poolView.setBackgroundResource(R.drawable.cell_bg)
-            shareAmountView.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(
+                poolView, shareAmountView, memoView, feeView
+            ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
             if (poolActionType == PoolActionType.DEPOSIT) {
                 poolActionTitle.text = getString(R.string.title_pool_deposit)
@@ -106,45 +108,56 @@ class PoolActionFragment(
                 shareAmountView.visibility = View.GONE
                 btnPool.text = getString(R.string.str_deposit)
 
-                BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(0).denom)?.let { asset1 ->
-                    BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(1).denom)?.let { asset2 ->
-                        asset1.decimals?.let { decimal1 ->
-                            asset2.decimals?.let { decimal2 ->
+                BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(0).denom)
+                    ?.let { asset1 ->
+                        BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(1).denom)
+                            ?.let { asset2 ->
                                 pool1Asset = asset1
                                 pool2Asset = asset2
 
                                 pool1TokenImg.setTokenImg(asset1)
                                 pool1TokenName.text = asset1.symbol
-                                pool1Amount.text = formatAmount(BigDecimal.ZERO.toPlainString(), decimal1)
+                                pool1Amount.text = formatAmount(
+                                    BigDecimal.ZERO.toPlainString(), asset1.decimals ?: 6
+                                )
                                 pool1Value.text = formatAssetValue(BigDecimal.ZERO)
 
                                 pool2TokenImg.setTokenImg(asset2)
                                 pool2TokenName.text = asset2.symbol
-                                pool2Amount.text = formatAmount(BigDecimal.ZERO.toPlainString(), decimal2)
+                                pool2Amount.text = formatAmount(
+                                    BigDecimal.ZERO.toPlainString(), asset2.decimals ?: 6
+                                )
                                 pool2Value.text = formatAssetValue(BigDecimal.ZERO)
 
                                 val poolCoin1Amount = swapPool.getCoins(0).amount
                                 val poolCoin2Amount = swapPool.getCoins(1).amount
-                                var availableCoin1Amount = selectedChain.balanceAmount(swapPool.getCoins(0).denom)
+                                var availableCoin1Amount =
+                                    selectedChain.balanceAmount(swapPool.getCoins(0).denom)
                                 if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
                                     val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                     availableCoin1Amount = availableCoin1Amount.subtract(feeAmount)
                                 }
-                                val availableCoin2Amount = selectedChain.balanceAmount(swapPool.getCoins(1).denom)
+                                val availableCoin2Amount =
+                                    selectedChain.balanceAmount(swapPool.getCoins(1).denom)
 
-                                swapRate = poolCoin1Amount.toBigDecimal().divide(poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN)
-                                val availableRate = availableCoin1Amount.divide(availableCoin2Amount, 24, RoundingMode.DOWN)
+                                swapRate = poolCoin1Amount.toBigDecimal().divide(
+                                    poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN
+                                )
+                                val availableRate = availableCoin1Amount.divide(
+                                    availableCoin2Amount, 24, RoundingMode.DOWN
+                                )
                                 if (swapRate > availableRate) {
                                     coin1AvailableAmount = availableCoin1Amount
-                                    coin2AvailableAmount = availableCoin1Amount.divide(swapRate, 0, RoundingMode.DOWN)
+                                    coin2AvailableAmount = availableCoin1Amount.divide(
+                                        swapRate, 0, RoundingMode.DOWN
+                                    )
                                 } else {
                                     coin2AvailableAmount = availableCoin2Amount
-                                    coin1AvailableAmount = availableCoin2Amount.multiply(swapRate).setScale(0, RoundingMode.DOWN)
+                                    coin1AvailableAmount = availableCoin2Amount.multiply(swapRate)
+                                        .setScale(0, RoundingMode.DOWN)
                                 }
                             }
-                        }
                     }
-                }
 
             } else {
                 poolActionTitle.text = getString(R.string.title_pool_withdraw)
@@ -161,14 +174,12 @@ class PoolActionFragment(
             feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
             feeSegment.setRipple(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
 
@@ -181,6 +192,7 @@ class PoolActionFragment(
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
         }
@@ -210,7 +222,7 @@ class PoolActionFragment(
                 pool2Value.text = formatAssetValue(coin2Value)
             }
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateWithdrawAmountView(toAmount: String) {
@@ -219,10 +231,9 @@ class PoolActionFragment(
             amountLayout.visibility = View.VISIBLE
 
             toWithdrawAmount = toAmount
-            val dpAmount = toAmount.toBigDecimal().movePointLeft(6)
-                .setScale(6, RoundingMode.DOWN)
+            val dpAmount = toAmount.toBigDecimal().movePointLeft(6).setScale(6, RoundingMode.DOWN)
             shareAmount.text = formatAmount(dpAmount.toPlainString(), 6)
-            txSimul()
+            txSimulate()
         }
     }
 
@@ -231,13 +242,21 @@ class PoolActionFragment(
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base03
+                    )
+                )
             } else {
                 tabMemoMsg.text = txMemo
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base01
+                    )
+                )
             }
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateFeeView() {
@@ -247,151 +266,149 @@ class PoolActionFragment(
                     feeTokenImg.setTokenImg(asset)
                     feeToken.text = asset.symbol
 
-                    val amount = fee.amount.toBigDecimal()
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
                     val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeValue.text = formatAssetValue(value)
-                    }
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeDenom.text = asset.symbol
+                    feeValue.text = formatAssetValue(value)
                 }
             }
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             poolView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
+                PoolInsertAmountFragment(pool1Asset,
+                    pool2Asset,
+                    coin1AvailableAmount,
+                    coin2AvailableAmount,
+                    swapRate,
+                    coin1ToAmount,
+                    coin2ToAmount,
+                    object : PoolAmountSelectListener {
+                        override fun select(coin1ToAmount: String, coin2ToAmount: String) {
+                            updateDepositAmountView(coin1ToAmount, coin2ToAmount)
+                        }
 
-                    PoolInsertAmountFragment(
-                        pool1Asset,
-                        pool2Asset,
-                        coin1AvailableAmount,
-                        coin2AvailableAmount,
-                        swapRate,
-                        coin1ToAmount,
-                        coin2ToAmount,
-                        object : PoolAmountSelectListener {
-                            override fun select(coin1ToAmount: String, coin2ToAmount: String) {
-                                updateDepositAmountView(coin1ToAmount, coin2ToAmount)
-                            }
-
-                        }).show(requireActivity().supportFragmentManager, PoolInsertAmountFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    }).show(
+                    requireActivity().supportFragmentManager,
+                    PoolInsertAmountFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             shareAmountView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
+                InsertAmountFragment(TxType.POOL_WITHDRAW,
+                    null,
+                    deposit?.sharesOwned?.toBigDecimal(),
+                    toWithdrawAmount,
+                    null,
+                    null,
+                    object : AmountSelectListener {
+                        override fun select(toAmount: String) {
+                            updateWithdrawAmountView(toAmount)
+                        }
 
-                    InsertAmountFragment(
-                        TxType.POOL_WITHDRAW,
-                        null,
-                        deposit?.sharesOwned?.toBigDecimal(),
-                        toWithdrawAmount,
-                        null,
-                        null,
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateWithdrawAmountView(toAmount)
-                            }
-
-                        }).show(
-                        requireActivity().supportFragmentManager,
-                        InsertAmountFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    }).show(
+                    requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             btnQuarter.setOnClickListener {
-                val coin1QuarterAmount = coin1AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
-                val coin2QuarterAmount = coin2AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
-                updateDepositAmountView(coin1QuarterAmount.toPlainString(), coin2QuarterAmount.toPlainString())
+                val coin1QuarterAmount =
+                    coin1AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
+                val coin2QuarterAmount =
+                    coin2AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
+                updateDepositAmountView(
+                    coin1QuarterAmount.toPlainString(), coin2QuarterAmount.toPlainString()
+                )
             }
 
             btnHalf.setOnClickListener {
-                val coin1HalfAmount = coin1AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
-                val coin2HalfAmount = coin2AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
-                updateDepositAmountView(coin1HalfAmount.toPlainString(), coin2HalfAmount.toPlainString())
+                val coin1HalfAmount =
+                    coin1AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
+                val coin2HalfAmount =
+                    coin2AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
+                updateDepositAmountView(
+                    coin1HalfAmount.toPlainString(), coin2HalfAmount.toPlainString()
+                )
             }
 
             btnMax.setOnClickListener {
-                updateDepositAmountView(coin1AvailableAmount.toPlainString(), coin2AvailableAmount.toPlainString())
+                updateDepositAmountView(
+                    coin1AvailableAmount.toPlainString(), coin2AvailableAmount.toPlainString()
+                )
             }
 
             memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
-                        }
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
 
-                    }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
+                AssetFragment(selectedChain,
+                    feeInfos[selectedFeeInfo].feeDatas,
+                    object : AssetSelectListener {
                         override fun select(denom: String) {
-                            var tempCoin: CoinProto.Coin? = null
-                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
-                                if (feeCoin.denom == denom) {
-                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
+                            selectedChain.getDefaultFeeCoins(requireContext())
+                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                        .setAmount(feeCoin.amount).build()
+
+                                    val updateTxFee = TxProto.Fee.newBuilder()
+                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                        .addAmount(updateFeeCoin).build()
+
+                                    txFee = updateTxFee
+                                    updateFeeView()
+                                    txSimulate()
                                 }
-                            }
-                            val tempTxFee = TxProto.Fee.newBuilder()
-                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                .addAmount(tempCoin).build()
-                            txFee = tempTxFee
-                            updateFeeView()
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom)
+                txFee = selectedChain.getBaseFee(
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                )
                 updateFeeView()
-                txSimul()
+                txSimulate()
             }
 
             btnPool.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     getPoolResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
@@ -426,12 +443,16 @@ class PoolActionFragment(
             }
         }
 
-    private fun txSimul() {
+    private fun txSimulate() {
         binding.apply {
             when (poolActionType) {
                 PoolActionType.DEPOSIT -> {
-                    if (coin1ToAmount.isEmpty() || coin2ToAmount.isEmpty()) { return }
-                    if (coin1ToAmount.toBigDecimal() == BigDecimal.ZERO || coin2ToAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+                    if (coin1ToAmount.isEmpty() || coin2ToAmount.isEmpty()) {
+                        return
+                    }
+                    if (coin1ToAmount.toBigDecimal() == BigDecimal.ZERO || coin2ToAmount.toBigDecimal() == BigDecimal.ZERO) {
+                        return
+                    }
 
                     btnPool.updateButtonView(false)
                     backdropLayout.visibility = View.VISIBLE
@@ -445,8 +466,12 @@ class PoolActionFragment(
                 }
 
                 PoolActionType.WITHDRAW -> {
-                    if (toWithdrawAmount.isEmpty()) { return }
-                    if (toWithdrawAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+                    if (toWithdrawAmount.isEmpty()) {
+                        return
+                    }
+                    if (toWithdrawAmount.toBigDecimal() == BigDecimal.ZERO) {
+                        return
+                    }
 
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulatePoolWithdraw(
@@ -464,40 +489,40 @@ class PoolActionFragment(
     private fun onBindDepositMsg(): MsgDeposit? {
         val slippage = "30000000000000000"
         val deadLine = (System.currentTimeMillis() / 1000) + 300
-        val depositCoin1 =
-            CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom).setAmount(coin1ToAmount).build()
-        val depositCoin2 =
-            CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom).setAmount(coin2ToAmount).build()
-        return MsgDeposit.newBuilder()
-            .setDepositor(selectedChain.address)
-            .setTokenA(depositCoin1)
-            .setTokenB(depositCoin2)
-            .setSlippage(slippage)
-            .setDeadline(deadLine)
-            .build()
+        val depositCoin1 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
+            .setAmount(coin1ToAmount).build()
+        val depositCoin2 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
+            .setAmount(coin2ToAmount).build()
+        return MsgDeposit.newBuilder().setDepositor(selectedChain.address).setTokenA(depositCoin1)
+            .setTokenB(depositCoin2).setSlippage(slippage).setDeadline(deadLine).build()
     }
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
         val totalShare = swapPool.totalShares.toBigDecimal()
         val padding = BigDecimal("0.97")
-        val poolCoin1Amount = swapPool.getCoins(0).amount.toBigDecimal()
-            .multiply(toWithdrawAmount.toBigDecimal()).divide(totalShare, 0, RoundingMode.DOWN).multiply(padding).setScale(0, RoundingMode.DOWN)
-        val poolCoin2Amount =  swapPool.getCoins(1).amount.toBigDecimal()
-            .multiply(toWithdrawAmount.toBigDecimal()).divide(totalShare, 0, RoundingMode.DOWN).multiply(padding).setScale(0, RoundingMode.DOWN)
+        val poolCoin1Amount =
+            swapPool.getCoins(0).amount.toBigDecimal().multiply(toWithdrawAmount.toBigDecimal())
+                .divide(totalShare, 0, RoundingMode.DOWN).multiply(padding)
+                .setScale(0, RoundingMode.DOWN)
+        val poolCoin2Amount =
+            swapPool.getCoins(1).amount.toBigDecimal().multiply(toWithdrawAmount.toBigDecimal())
+                .divide(totalShare, 0, RoundingMode.DOWN).multiply(padding)
+                .setScale(0, RoundingMode.DOWN)
         val deadLine = (System.currentTimeMillis() / 1000) + 300
-        return MsgWithdraw.newBuilder()
-            .setFrom(selectedChain.address)
-            .setShares(toWithdrawAmount)
-            .setMinTokenA(CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom).setAmount(poolCoin1Amount.toPlainString()))
-            .setMinTokenB(CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom).setAmount(poolCoin2Amount.toPlainString()))
-            .setDeadline(deadLine)
-            .build()
+        return MsgWithdraw.newBuilder().setFrom(selectedChain.address).setShares(toWithdrawAmount)
+            .setMinTokenA(
+                CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
+                    .setAmount(poolCoin1Amount.toPlainString())
+            ).setMinTokenB(
+                CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
+                    .setAmount(poolCoin2Amount.toPlainString())
+            ).setDeadline(deadLine).build()
     }
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -507,15 +532,22 @@ class PoolActionFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
-            }
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }

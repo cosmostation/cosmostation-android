@@ -50,15 +50,15 @@ class VoteViewHolder(
 
     private fun updateView(proposal: CosmosProposal) {
         binding.apply {
-            yesView.setBackgroundResource(R.drawable.button_fee_bg)
-            noView.setBackgroundResource(R.drawable.button_fee_bg)
-            vetoView.setBackgroundResource(R.drawable.button_fee_bg)
-            abstainView.setBackgroundResource(R.drawable.button_fee_bg)
+            listOf(yesView, noView, vetoView, abstainView).forEach {
+                it.setBackgroundResource(
+                    R.drawable.button_fee_bg
+                )
+            }
 
-            yesImg.visibility = View.GONE
-            noImg.visibility = View.GONE
-            vetoImg.visibility = View.GONE
-            abstainImg.visibility = View.GONE
+            listOf(yesImg, noImg, vetoImg, abstainImg).forEach {
+                it.visibility = View.GONE
+            }
 
             when (proposal.toVoteOption) {
                 VoteOption.VOTE_OPTION_YES -> {

@@ -37,84 +37,107 @@ class DaoListViewHolder(
             proposalView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(isHeader)
 
-            if (module?.name?.isNotEmpty() == true) {
-                headerTitle.text = module.name.lowercase().substring(0, 1).uppercase() + module.name.substring(1)
-            } else {
-                headerTitle.text = module?.name
+            module?.let { module ->
+                val moduleName = if (module.name?.isNotEmpty() == true) {
+                    module.name.lowercase().substring(0, 1).uppercase() + module.name.substring(1)
+                } else {
+                    module.name
+                }
+                headerTitle.text = moduleName
             }
             cnt.text = headerCnt.toString()
 
             proposalView.setOnClickListener {
-                var moduleType = ""
-                moduleType = if (module?.name == "Single Module") {
-                    "single"
-                } else {
-                    "multiple"
-                }
-                val url: String = CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.second?.id + "/ " + moduleType + "/" + module?.address
+                val moduleType = if (module?.name == "Single Module") "single" else "multiple"
+                val url: String =
+                    CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/${proposal.second?.id}/ $moduleType/${module?.address}"
                 Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
                     context.startActivity(this)
                 }
             }
 
             proposal.second?.let { proposalData ->
-                voteId.text = "# " + proposalData.id + "."
+                voteId.text = "# ${proposalData.id}."
                 voteTitle.text = proposalData.proposal?.title
 
                 if ("open" == proposalData.proposal?.status) {
                     proposalData.proposal.expiration?.at_time?.toLong()?.let { expiration ->
-                        voteRemainTime.text = voteDpTime(expiration.div(1000000)) + " (" + gapTime(expiration.div(1000000)) + ")"
-                        voteRemainTime.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
+                        voteRemainTime.text = voteDpTime(expiration.div(1000000)) + " (" + gapTime(
+                            expiration.div(1000000)
+                        ) + ")"
+                        voteRemainTime.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base02
+                            )
+                        )
                         selectSwitch.visibility = View.VISIBLE
-                        selectSwitch.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
+                        selectSwitch.thumbDrawable =
+                            ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
                     }
 
                 } else {
                     when (proposalData.proposal?.status) {
-                        "executed", "passed" -> voteStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_vote_passed))
-                        "rejected", "failed" -> voteStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_vote_rejected))
+                        "executed", "passed" -> voteStatusImg.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                context,
+                                R.drawable.icon_vote_passed
+                            )
+                        )
+
+                        "rejected", "failed" -> voteStatusImg.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                context,
+                                R.drawable.icon_vote_rejected
+                            )
+                        )
                     }
                     voteRemainTime.text = proposalData.proposal?.status?.uppercase()
-                    voteRemainTime.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                    voteRemainTime.setTextColor(
+                        ContextCompat.getColorStateList(
+                            context,
+                            R.color.color_base01
+                        )
+                    )
                     selectSwitch.visibility = View.GONE
                 }
 
-                voteStatus.firstOrNull { it.contract_address == module?.address && it.proposal_id.toString() == proposal.second?.id }?.let { myVote ->
-                    myVote.option?.let { option ->
-                        if (isOptionInteger(option)) {
-                            statusImg.visibility = View.GONE
-                            ststusTxt.visibility = View.VISIBLE
-                            ststusTxt.text = "OPTION $option"
+                voteStatus.firstOrNull { it.contract_address == module?.address && it.proposal_id.toString() == proposal.second?.id }
+                    ?.let { myVote ->
+                        myVote.option?.let { option ->
+                            if (isOptionInteger(option)) {
+                                statusImg.visibility = View.GONE
+                                statusTxt.visibility = View.VISIBLE
+                                statusTxt.text = "OPTION $option"
 
-                        } else {
-                            statusImg.visibility = View.VISIBLE
-                            ststusTxt.visibility = View.GONE
-                            when (option) {
-                                "yes" -> statusImg.setImageResource(R.drawable.icon_yes)
-                                "no" -> statusImg.setImageResource(R.drawable.icon_no)
-                                "abstain" -> statusImg.setImageResource(R.drawable.icon_abstain)
-                                else -> statusImg.setImageResource(R.drawable.icon_not_voted)
+                            } else {
+                                statusImg.visibility = View.VISIBLE
+                                statusTxt.visibility = View.GONE
+                                when (option) {
+                                    "yes" -> statusImg.setImageResource(R.drawable.icon_yes)
+                                    "no" -> statusImg.setImageResource(R.drawable.icon_no)
+                                    "abstain" -> statusImg.setImageResource(R.drawable.icon_abstain)
+                                    else -> statusImg.setImageResource(R.drawable.icon_not_voted)
+                                }
                             }
+                        } ?: run {
+                            statusImg.visibility = View.VISIBLE
+                            statusTxt.visibility = View.GONE
+                            statusImg.setImageResource(R.drawable.icon_not_voted)
                         }
-                    } ?: run {
-                        statusImg.visibility = View.VISIBLE
-                        ststusTxt.visibility = View.GONE
-                        statusImg.setImageResource(R.drawable.icon_not_voted)
-                    }
 
-                } ?: run {
+                    } ?: run {
                     statusImg.visibility = View.VISIBLE
-                    ststusTxt.visibility = View.GONE
+                    statusTxt.visibility = View.GONE
                     statusImg.setImageResource(R.drawable.icon_not_voted)
                 }
 
                 selectSwitch.setOnCheckedChangeListener(null)
-                if (proposalData.isSwitchChecked) {
-                    selectSwitch.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_on)
-                } else {
-                    selectSwitch.thumbDrawable = ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
-                }
                 selectSwitch.isChecked = proposalData.isSwitchChecked
+                selectSwitch.thumbDrawable = ContextCompat.getDrawable(
+                    context,
+                    if (proposalData.isSwitchChecked) R.drawable.switch_thumb_on else R.drawable.switch_thumb_off
+                )
 
                 selectSwitch.setOnCheckedChangeListener { _, isChecked ->
                     proposalData.isSwitchChecked = isChecked
@@ -128,12 +151,6 @@ class DaoListViewHolder(
                     checkListener.daoProposalCheck(
                         isChecked, proposal.first, module?.name, proposalData.id
                     )
-                    val thumbDrawable: Drawable? = if (isChecked) {
-                        ContextCompat.getDrawable(context, R.drawable.switch_thumb_on)
-                    } else {
-                        ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
-                    }
-                    selectSwitch.thumbDrawable = thumbDrawable
                 }
             }
         }

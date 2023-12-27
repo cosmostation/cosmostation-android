@@ -40,16 +40,21 @@ class ProposalRepositoryImpl : ProposalRepository {
         managedChannel: ManagedChannel,
         contAddress: String?
     ): String {
-        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(20L, TimeUnit.SECONDS)
-        val req = ProposalListReq(ProposalList())
-        val queryData = ByteString.copyFromUtf8(Gson().toJson(req))
-        val request = QueryProto.QuerySmartContractStateRequest.newBuilder()
-            .setAddress(contAddress)
-            .setQueryData(queryData)
-            .build()
+        try {
+            val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val req = ProposalListReq(ProposalList())
+            val queryData = ByteString.copyFromUtf8(Gson().toJson(req))
+            val request = QueryProto.QuerySmartContractStateRequest.newBuilder()
+                .setAddress(contAddress)
+                .setQueryData(queryData)
+                .build()
 
-        stub.smartContractState(request).apply {
-            return this.data.toStringUtf8()
+            stub.smartContractState(request).apply {
+                return this.data.toStringUtf8()
+            }
+
+        } catch (e: Exception) {
+            return ""
         }
     }
 

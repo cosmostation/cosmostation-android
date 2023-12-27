@@ -10,31 +10,11 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
-import com.google.gson.Gson
-import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.bitcoinj.crypto.ChildNumber
-import org.json.JSONObject
-import org.web3j.abi.FunctionEncoder
-import org.web3j.abi.FunctionReturnDecoder
-import org.web3j.abi.TypeReference
-import org.web3j.abi.datatypes.Address
-import org.web3j.abi.datatypes.Function
-import org.web3j.abi.datatypes.Type
-import org.web3j.abi.datatypes.generated.Uint256
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.core.DefaultBlockParameterName
-import org.web3j.protocol.core.methods.request.Transaction
-import org.web3j.protocol.core.methods.response.EthCall
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -54,20 +34,16 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
-import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
-import java.math.BigInteger
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
@@ -103,7 +79,11 @@ open class CosmosLine : BaseChain() {
     var lcdAccountInfo: AccountResponse? = null
     var lcdBeaconTokens = mutableListOf<BnbToken>()
 
-    override fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
+    override fun setInfoWithSeed(
+        seed: ByteArray?,
+        parentPath: List<ChildNumber>,
+        lastPath: String
+    ) {
         privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
         publicKey = BaseKey.getPubKeyFromPKey(privateKey)
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
@@ -123,12 +103,9 @@ open class CosmosLine : BaseChain() {
     fun setLoadDataCallBack(callback: LoadDataCallback) {
         loadDataCallback = callback
     }
-
-    private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
+    open fun lcdBalanceValue(denom: String?): BigDecimal {
+        return BigDecimal.ZERO
     }
-
-    open fun lcdBalanceValue(denom: String?): BigDecimal { return BigDecimal.ZERO }
 
     open fun allAssetValue(): BigDecimal {
         return balanceValueSum().add(vestingValueSum()).add(delegationValueSum())
@@ -172,7 +149,7 @@ open class CosmosLine : BaseChain() {
         }
 
         if (this is ChainBinanceBeacon || this is ChainOkt60) {
-            loadLcdData(id)
+
         } else {
 
         }
@@ -181,7 +158,8 @@ open class CosmosLine : BaseChain() {
     fun getInitFee(c: Context): TxProto.Fee? {
         val fee = getDefaultFeeCoins(c).first()
         val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin).build()
+        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin)
+            .build()
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
@@ -210,12 +188,14 @@ open class CosmosLine : BaseChain() {
     fun getDefaultFeeCoins(c: Context): MutableList<Coin> {
         val result: MutableList<Coin> = mutableListOf()
         val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
-        val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
-        feeDatas.forEach { feeData ->
-            val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-            result.add(
-                Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString()).build()
-            )
+        if (getFeeInfos(c).size > 0) {
+            val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
+            feeDatas.forEach { feeData ->
+                val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+                result.add(
+                    Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString()).build()
+                )
+            }
         }
         return result
     }
@@ -263,8 +243,6 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    open fun loadLcdData(id: Long) = CoroutineScope(Dispatchers.IO).launch {}
-
     fun loadBalance(channel: ManagedChannel) {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -290,7 +268,8 @@ open class CosmosLine : BaseChain() {
     }
 
     suspend fun loadCw20Token(): MutableList<Token> {
-        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.cw20token(apiName) }) {
+        return when (val response =
+            safeApiCall { RetrofitInstance.mintscanApi.cw20token(apiName) }) {
             is NetworkResult.Success -> {
                 response.data.assets
             }
@@ -299,36 +278,11 @@ open class CosmosLine : BaseChain() {
                 mutableListOf()
             }
         }
-    }
-
-    private fun loadCw20Balance(channel: ManagedChannel, token: Token) {
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val req = Cw20Balance(address)
-        val jsonData = Gson().toJson(req)
-        val queryData = ByteString.copyFromUtf8(jsonData)
-
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-            .setAddress(token.address).setQueryData(queryData).build()
-
-        stub.smartContractState(request)?.let { response ->
-            val json = JSONObject(response.data.toStringUtf8())
-            token.amount = json.get("balance").toString()
-        }
-    }
-
-    interface LoadTokenCallback {
-        fun onTokenLoaded(isLoaded: Boolean)
-    }
-
-    open var loadTokenCallback: LoadTokenCallback? = null
-
-    fun setLoadTokenCallBack(callback: LoadTokenCallback) {
-        loadTokenCallback = callback
     }
 
     suspend fun loadErc20Token(): MutableList<Token> {
-        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.erc20token(this.apiName) }) {
+        return when (val response =
+            safeApiCall { RetrofitInstance.mintscanApi.erc20token(this.apiName) }) {
             is NetworkResult.Success -> {
                 response.data.assets
             }
@@ -336,51 +290,13 @@ open class CosmosLine : BaseChain() {
             is NetworkResult.Error -> {
                 mutableListOf()
             }
-        }
-    }
-
-    private fun loadErc20Balance(web3j: Web3j, address: String?, token: Token) {
-        val ethAddress = ByteUtils.convertBech32ToEvm(address)
-        val params: MutableList<Type<*>> = ArrayList()
-        params.add(Address(ethAddress))
-
-        val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
-        val function = Function("balanceOf", params, returnTypes)
-
-        val txData = FunctionEncoder.encode(function)
-        val response: EthCall = web3j.ethCall(
-            Transaction.createEthCallTransaction(ethAddress, token.address, txData),
-            DefaultBlockParameterName.LATEST
-        ).sendAsync().get()
-        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
-        val balance = results[0].value as BigInteger
-        token.amount = balance.toString()
-    }
-
-    fun loadAllErc20Balance(id: Long) {
-        val web3j = Web3j.build(HttpService(rpcUrl))
-        val scope = CoroutineScope(Dispatchers.Default)
-        val deferredList = mutableListOf<Deferred<Unit>>()
-
-        erc20tokens.forEach { token ->
-            val deferred = scope.async {
-                loadErc20Balance(web3j, address, token)
-            }
-            deferredList.add(deferred)
-        }
-
-        runBlocking {
-            deferredList.awaitAll()
-            loadTokenCallback?.onTokenLoaded(true)
-
-            val refAddress = RefAddress(id, tag, address, "0", "0", allTokenValue().toPlainString(), 0)
-            BaseData.updateRefAddressesToken(refAddress)
         }
     }
 
     fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances.isNotEmpty()) {
-            return cosmosBalances.firstOrNull { it.denom == denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+            return cosmosBalances.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+                ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -411,7 +327,8 @@ open class CosmosLine : BaseChain() {
 
     fun vestingAmount(denom: String): BigDecimal {
         if (cosmosVestings.isNotEmpty()) {
-            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+                ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -469,7 +386,7 @@ open class CosmosLine : BaseChain() {
         return sum
     }
 
-   private fun unbondingValueSum(): BigDecimal {
+    private fun unbondingValueSum(): BigDecimal {
         stakeDenom?.let {
             BaseData.getAsset(apiName, it)?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
@@ -507,28 +424,24 @@ open class CosmosLine : BaseChain() {
     }
 
     fun rewardAllCoins(): List<Coin> {
-        val allRewards = mutableListOf<Coin>()
-        cosmosRewards.forEach { reward ->
-            reward.rewardList.forEach { coin ->
-                val calReward = Coin.newBuilder().setDenom(coin.denom).setAmount(
-                    coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
-                        .toString()
-                ).build()
-                allRewards.add(calReward)
+        return cosmosRewards
+            .flatMap { reward ->
+                reward.rewardList.mapNotNull { coin ->
+                    val calAmount = coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                    if (calAmount > BigDecimal.ZERO) {
+                        Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString()).build()
+                    } else {
+                        null
+                    }
+                }
             }
-        }
-        return allRewards
     }
 
     fun rewardOtherDenoms(): Int {
-        val otherDenoms = mutableListOf<String>()
-        rewardAllCoins().forEach { coin ->
-            if (!otherDenoms.contains(coin.denom)) {
-                otherDenoms.add(coin.denom)
-            }
-        }
-        otherDenoms.removeAll { it == stakeDenom }
-        return otherDenoms.size
+        return rewardAllCoins()
+            .map { it.denom }
+            .distinct()
+            .count { it != stakeDenom }
     }
 
     private fun rewardValueSum(): BigDecimal {
@@ -549,11 +462,18 @@ open class CosmosLine : BaseChain() {
     fun claimableRewards(): MutableList<DelegationDelegatorReward?> {
         val result = mutableListOf<DelegationDelegatorReward?>()
         cosmosRewards.forEach { reward ->
-            for (i in 0 until reward.rewardCount) {
-                val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
-                if (rewardAmount > BigDecimal.ONE) {
-                    result.add(reward)
-                    break
+            run loop@{
+                for (i in 0 until reward.rewardCount) {
+                    val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18)
+                        .setScale(0, RoundingMode.DOWN)
+                    BaseData.getAsset(apiName, reward.rewardList[i].denom)?.let { asset ->
+                        val calAmount = rewardAmount.movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        if (calAmount > BigDecimal("0.01")) {
+                            result.add(reward)
+                            return@loop
+                        }
+                    }
                 }
             }
         }
@@ -571,7 +491,8 @@ open class CosmosLine : BaseChain() {
     fun tokenValue(address: String): BigDecimal {
         tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId)
-            return price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+            return price.multiply(tokenInfo.amount?.toBigDecimal())
+                .movePointLeft(tokenInfo.decimals)
                 .setScale(6, RoundingMode.DOWN)
         } ?: run {
             return BigDecimal.ZERO
@@ -625,7 +546,8 @@ fun allCosmosLines(): MutableList<CosmosLine> {
 
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {
-            line.chainId = BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+            line.chainId =
+                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
         }
     }
     return lines

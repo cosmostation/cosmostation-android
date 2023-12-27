@@ -20,7 +20,8 @@ class DaoListAdapter(
 ) : RecyclerView.Adapter<DaoListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaoListViewHolder {
-        val binding = ItemDaoProposalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemDaoProposalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DaoListViewHolder(parent.context, binding)
     }
 
@@ -28,16 +29,20 @@ class DaoListAdapter(
         val proposal = proposalPair[position]
         val module = proposalModules?.firstOrNull { it?.address == proposal.first }
         val isHeader = proposalPair.indexOfFirst { it.first == proposal.first } == position
-        val headerCnt = proposalPair.filter { it.first == proposal.first }.size
+        val headerCnt = proposalPair.count { it.first == proposal.first }
         holder.bind(module, proposal, voteStatus, headerCnt, isHeader, listener)
     }
-
 
     override fun getItemCount(): Int {
         return proposalPair.size
     }
 
     interface CheckListener {
-        fun daoProposalCheck(isChecked: Boolean, contAddress: String?, module: String?, proposalId: String?)
+        fun daoProposalCheck(
+            isChecked: Boolean,
+            contAddress: String?,
+            module: String?,
+            proposalId: String?
+        )
     }
 }

@@ -69,7 +69,7 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository): Vie
     fun daoProposalList(managedChannel: ManagedChannel, contAddressList: MutableList<String?>) = CoroutineScope(Dispatchers.IO).launch {
         val daoProposalMap = contAddressList.flatMap { address ->
             val response = proposalRepository.daoProposal(managedChannel, address)
-            Gson().fromJson(response, ResProposalData::class.java).proposals.map { Pair(address, it) }
+            Gson().fromJson(response, ResProposalData::class.java)?.proposals?.map { Pair(address, it) } ?: emptyList()
         }
         _daoProposalResult.postValue(daoProposalMap)
     }

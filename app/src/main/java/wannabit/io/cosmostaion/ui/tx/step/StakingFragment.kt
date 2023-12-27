@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -66,6 +67,8 @@ class StakingFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -79,26 +82,28 @@ class StakingFragment(
         initView()
         initFee()
         updateFeeView()
-        clickAction()
+        setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
     }
 
     private fun initView() {
         binding.apply {
-            validatorView.setBackgroundResource(R.drawable.cell_bg)
-            amountView.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(validatorView, amountView, memoView, feeView).forEach {
+                it.setBackgroundResource(
+                    R.drawable.cell_bg
+                )
+            }
 
             if (toValidator == null) {
-                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.let { vaildator ->
-                    toValidator = vaildator
-                } ?: run {
+                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
+                    ?.let { validator ->
+                        toValidator = validator
+                    } ?: run {
                     toValidator = selectedChain.cosmosValidators[0]
                 }
             }
-            updateValidator()
+            updateValidatorView()
         }
     }
 
@@ -107,14 +112,12 @@ class StakingFragment(
             feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
             feeSegment.setRipple(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
 
@@ -127,56 +130,59 @@ class StakingFragment(
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
         }
     }
 
-    private fun updateValidator() {
+    private fun updateValidatorView() {
         binding.apply {
             toValidator?.let { validator ->
                 monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
                 monikerName.text = validator.description?.moniker
-                if (validator.jailed) {
-                    jailedImg.visibility = View.VISIBLE
-                    jailedImg.setImageResource(R.drawable.icon_jailed)
-                } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
-                    jailedImg.visibility = View.VISIBLE
-                    jailedImg.setImageResource(R.drawable.icon_inactive)
-                } else {
-                    jailedImg.visibility = View.GONE
+
+                val statusImage = when {
+                    validator.jailed -> R.drawable.icon_jailed
+                    validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED -> R.drawable.icon_inactive
+                    else -> 0
                 }
+                jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                jailedImg.setImageResource(statusImage)
             }
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    val commissionRate =
-                        toValidator?.commission?.commissionRates?.rate?.toBigDecimal()
-                            ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
-                    commissionPercent.text = formatString("$commissionRate%", 3)
-                }
-            }
+
+            val commissionRate =
+                toValidator?.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
+                    ?.setScale(2, RoundingMode.DOWN)
+            commissionPercent.text = formatString("$commissionRate%", 3)
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
-            val stakeDenom = selectedChain.stakeDenom
-            toCoin = CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(stakeDenom).build()
+            toCoin =
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
+                    .build()
 
-            stakeDenom?.let {
-                BaseData.getAsset(selectedChain.apiName, it)?.let { asset ->
+            selectedChain.stakeDenom?.let { denom ->
+                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.DOWN)
                         delegateAmountMsg.visibility = View.GONE
                         delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        delegateAmount.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_base01))
+                        delegateAmount.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_base01
+                            )
+                        )
                         delegateDenom.visibility = View.VISIBLE
                         delegateDenom.text = asset.symbol
                     }
                 }
             }
-            txSimul()
+            txSimulate()
         }
     }
 
@@ -185,13 +191,21 @@ class StakingFragment(
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base03
+                    )
+                )
             } else {
                 tabMemoMsg.text = txMemo
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base01
+                    )
+                )
             }
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateFeeView() {
@@ -201,16 +215,13 @@ class StakingFragment(
                     feeTokenImg.setTokenImg(asset)
                     feeToken.text = asset.symbol
 
-                    val amount = fee.amount.toBigDecimal()
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
                     val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeValue.text = formatAssetValue(value)
-                    }
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeDenom.text = asset.symbol
+                    feeValue.text = formatAssetValue(value)
                 }
 
                 selectedChain.stakeDenom?.let { denom ->
@@ -221,10 +232,10 @@ class StakingFragment(
                         availableAmount = if (it.getAmount(0).denom == denom) {
                             val feeAmount = it.getAmount(0).amount.toBigDecimal()
                             if (feeAmount > balanceAmount) {
-
+                                BigDecimal.ZERO
+                            } else {
+                                balanceAmount.add(vestingAmount).subtract(feeAmount)
                             }
-                            balanceAmount.add(vestingAmount).subtract(feeAmount)
-
                         } else {
                             balanceAmount.add(vestingAmount)
                         }
@@ -234,136 +245,142 @@ class StakingFragment(
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             validatorView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    val bottomSheet = ValidatorDefaultFragment(selectedChain, object : ValidatorDefaultListener {
-                        override fun select(validatorAddress: String) {
-                            toValidator = selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
-                            updateValidator()
-                        }
-                    })
-
-                    bottomSheet.show(
-                        requireActivity().supportFragmentManager,
-                        ValidatorDefaultFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                ValidatorDefaultFragment(selectedChain, object : ValidatorDefaultListener {
+                    override fun select(validatorAddress: String) {
+                        toValidator =
+                            selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                        updateValidatorView()
+                    }
+                }).show(
+                    requireActivity().supportFragmentManager,
+                    ValidatorDefaultFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             amountView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    InsertAmountFragment(
-                        TxType.DELEGATE,
-                        null,
-                        availableAmount,
-                        toCoin?.amount,
-                        selectedChain.stakeDenom?.let { BaseData.getAsset(selectedChain.apiName, it) },
-                        null,
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateAmountView(toAmount)
-                            }
+                InsertAmountFragment(TxType.DELEGATE,
+                    null,
+                    availableAmount,
+                    toCoin?.amount,
+                    selectedChain.stakeDenom?.let { denom ->
+                        BaseData.getAsset(
+                            selectedChain.apiName, denom
+                        )
+                    },
+                    null,
+                    object : AmountSelectListener {
+                        override fun select(toAmount: String) {
+                            updateAmountView(toAmount)
+                        }
 
-                        }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    }).show(
+                    requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
-                        }
-
-                    }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
+                AssetFragment(selectedChain,
+                    feeInfos[selectedFeeInfo].feeDatas,
+                    object : AssetSelectListener {
                         override fun select(denom: String) {
-                            var tempCoin: CoinProto.Coin? = null
-                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
-                                if (feeCoin.denom == denom) {
-                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
-                                }
+                            selectedChain.getDefaultFeeCoins(requireContext())
+                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                        .setAmount(feeCoin.amount).build()
+
+                                    val updateTxFee = TxProto.Fee.newBuilder()
+                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                        .addAmount(updateFeeCoin).build()
+
+                                    txFee = updateTxFee
+                                    updateFeeView()
+                                    txSimulate()
                             }
-                            val tempTxFee = TxProto.Fee.newBuilder()
-                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                .addAmount(tempCoin).build()
-                            txFee = tempTxFee
-                            updateFeeView()
                         }
-
                     }).show(
-                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom)
+                txFee = selectedChain.getBaseFee(
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                )
                 updateFeeView()
-                txSimul()
+                txSimulate()
             }
 
             btnStake.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    unDelegateResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    delegateResultLauncher.launch(this)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
         }
     }
 
-    private val unDelegateResultLauncher: ActivityResultLauncher<Intent> =
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
+    private val delegateResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadDelegate(getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo, selectedChain)
+                txViewModel.broadDelegate(
+                    getChannel(selectedChain),
+                    selectedChain.address,
+                    onBindDelegate(),
+                    txFee,
+                    txMemo,
+                    selectedChain
+                )
             }
         }
 
-    private fun txSimul() {
+    private fun txSimulate() {
         binding.apply {
-            if (toCoin == null) { return }
+            if (toCoin == null) {
+                return
+            }
             btnStake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateDelegate(getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo)
+            txViewModel.simulateDelegate(
+                getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo
+            )
         }
     }
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -373,15 +390,22 @@ class StakingFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
-            }
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }
@@ -409,7 +433,8 @@ class StakingFragment(
     }
 
     private fun onBindDelegate(): MsgDelegate {
-        return MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address).setValidatorAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
+        return MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+            .setValidatorAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
     }
 
     override fun onDestroyView() {

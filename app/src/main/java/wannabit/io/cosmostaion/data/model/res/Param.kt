@@ -27,7 +27,9 @@ data class Params(
         val fee: Fee,
         @Json(name = "grpc_endpoint") val grpcEndpoint: MutableList<GrpcEndpoint>?,
         val about: About,
-        val description: Description
+        val description: Description,
+        val daos: MutableList<Dao>?,
+        val vaults: MutableList<Vault>?
     ) {
         data class Fee(
             val base: String?,

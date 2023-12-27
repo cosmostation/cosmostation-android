@@ -67,15 +67,6 @@ object RetrofitInstance {
             .build()
     }
 
-    private val chainListRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.CHAIN_BASE_URL)
-            .build()
-    }
-
     private val skipRetrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
@@ -99,10 +90,6 @@ object RetrofitInstance {
 
     val oktApi: LcdApi by lazy {
         oktRetrofit.create(LcdApi::class.java)
-    }
-
-    val chainListApi: ChainListApi by lazy {
-        chainListRetrofit.create(ChainListApi::class.java)
     }
 
     val skipApi: SkipApi by lazy {

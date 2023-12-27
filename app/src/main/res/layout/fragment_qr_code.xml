@@ -14,6 +14,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        android:id="@+id/chain_segment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_transparent"
+        app:borderColor="@color/color_base05"
+        app:borderWidth="1dp"
+        app:radius="@dimen/space_8"
+        app:ripple="true"
+        app:rippleColor="@color/color_transparent"
+        android:layout_marginVertical="@dimen/space_16"
+        android:layout_marginHorizontal="@dimen/space_12"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
     <TextView
         android:id="@+id/chain_name"
         android:layout_width="wrap_content"
@@ -23,7 +37,7 @@
         android:textColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/chain_segment"
         android:textAllCaps="true" />
 
     <TextView
@@ -65,8 +79,8 @@
 
         <ImageView
             android:id="@+id/chain_img"
-            android:layout_width="@dimen/space_60"
-            android:layout_height="@dimen/space_60"
+            android:layout_width="@dimen/space_64"
+            android:layout_height="@dimen/space_64"
             android:layout_gravity="center"/>
 
     </androidx.cardview.widget.CardView>

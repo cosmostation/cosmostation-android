@@ -69,7 +69,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/ststus_txt"
+                    android:id="@+id/status_txt"
                     style="@style/font_sb_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -4,9 +4,7 @@ import android.content.Context
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -23,11 +21,10 @@ import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
-import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-open class ChainOkt60: CosmosLine() {
+open class ChainOkt60 : CosmosLine() {
 
     var oktLcdAccountInfo: OktAccountResponse? = null
     var oktDepositedInfo: OktDepositedResponse? = null
@@ -47,10 +44,7 @@ open class ChainOkt60: CosmosLine() {
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
-        ChildNumber(44, true),
-        ChildNumber(60, true),
-        ChildNumber.ZERO_HARDENED,
-        ChildNumber.ZERO
+        ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
     override var accountPrefix: String? = "ex"
     override var supportErc20: Boolean = true
@@ -63,81 +57,10 @@ open class ChainOkt60: CosmosLine() {
         return CosmostationConstants.CHAIN_BASE_URL + "okc/asset/" + originSymbol.lowercase() + ".png"
     }
 
-    override fun loadLcdData(id: Long) = CoroutineScope(Dispatchers.IO).launch {
-        when (val response = safeApiCall { RetrofitInstance.oktApi.oktAccountInfo(address) }) {
-            is NetworkResult.Success -> {
-                oktLcdAccountInfo = response.data
-                loadLcdMoreData(id)
-            }
-
-            is NetworkResult.Error -> {
-                loadLcdMoreData(id)
-            }
-        }
-    }
-
-    private fun loadLcdMoreData(id: Long) = runBlocking {
-        CoroutineScope(Dispatchers.Default).let {
-            loadOktDeposited()
-            loadOktWithdraw()
-            loadOktTokens()
-
-            loadDataCallback?.onDataLoaded(true)
-            fetched = true
-
-            if (fetched) {
-                val refAddress = RefAddress(
-                    id,
-                    tag,
-                    address,
-                    allAssetValue().toString(),
-                    lcdBalanceAmount(stakeDenom).toString(),
-                    "0",
-                    oktLcdAccountInfo?.value?.coins?.size?.toLong())
-                BaseData.updateRefAddressesMain(refAddress)
-            }
-            it.cancel()
-        }
-    }
-
-    private suspend fun loadOktDeposited() {
-        when (val response = safeApiCall { RetrofitInstance.oktApi.oktDepositInfo(address) }) {
-            is NetworkResult.Success -> {
-                oktDepositedInfo = response.data
-            }
-
-            is NetworkResult.Error -> {
-                return
-            }
-        }
-    }
-
-    private suspend fun loadOktWithdraw() {
-        when (val response = safeApiCall { RetrofitInstance.oktApi.oktWithdrawInfo(address) }) {
-            is NetworkResult.Success -> {
-                oktWithdrawInfo = response.data
-            }
-
-            is NetworkResult.Error -> {
-                return
-            }
-        }
-    }
-
-    private suspend fun loadOktTokens() {
-        when (val response = safeApiCall { RetrofitInstance.oktApi.oktTokens() }) {
-            is NetworkResult.Success -> {
-                oktTokenInfo = response.data
-            }
-
-            is NetworkResult.Error -> {
-                return
-            }
-        }
-    }
-
     fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
-        if (oktValidatorInfo.size > 0) { return@launch }
+        if (oktValidatorInfo.size > 0) {
+            return@launch
+        }
 
         when (val response = safeApiCall { RetrofitInstance.oktApi.oktValidators() }) {
             is NetworkResult.Success -> {

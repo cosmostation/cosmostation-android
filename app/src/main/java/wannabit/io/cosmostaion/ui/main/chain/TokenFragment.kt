@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tendermint.version.TypesProto.App
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -84,8 +83,8 @@ class TokenFragment(position: Int) : Fragment() {
                         }
                     }
 
-                    recycler.visibleOrGone(selectedChain.tokens.isNotEmpty())
-                    emptyLayout.visibleOrGone(selectedChain.tokens.isEmpty())
+                    recycler.visibleOrGone(tokens.isNotEmpty())
+                    emptyLayout.visibleOrGone(tokens.isEmpty())
                     tokenAdapter.submitList(tokens)
                     tokenAdapter.notifyDataSetChanged()
 
@@ -118,7 +117,8 @@ class TokenFragment(position: Int) : Fragment() {
                     )
                 } else {
                     EvmTransferFragment(line, denom).show(
-                        requireActivity().supportFragmentManager, EvmTransferFragment::class.java.name
+                        requireActivity().supportFragmentManager,
+                        EvmTransferFragment::class.java.name
                     )
                 }
             }

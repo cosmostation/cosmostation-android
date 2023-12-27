@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,10 @@ class SettingFragment : Fragment() {
 
     private val walletViewModel: WalletViewModel by activityViewModels()
 
+    private var isClickable = true
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -55,40 +57,22 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
         switchAction()
         checkAccountStatus()
     }
 
     private fun initView() {
         binding.apply {
-            accountView.setBackgroundResource(R.drawable.item_bg)
-            importView.setBackgroundResource(R.drawable.item_bg)
-            legacyView.setBackgroundResource(R.drawable.item_bg)
-            chainView.setBackgroundResource(R.drawable.item_bg)
-            addressBookView.setBackgroundResource(R.drawable.item_bg)
-
-            languageView.setBackgroundResource(R.drawable.item_bg)
-            currencyView.setBackgroundResource(R.drawable.item_bg)
-            priceView.setBackgroundResource(R.drawable.item_bg)
-            alarmView.setBackgroundResource(R.drawable.item_bg)
-            appLockView.setBackgroundResource(R.drawable.item_bg)
-            autoPassView.setBackgroundResource(R.drawable.item_bg)
-
-            mintscanView.setBackgroundResource(R.drawable.item_bg)
-            homepageView.setBackgroundResource(R.drawable.item_bg)
-            blogView.setBackgroundResource(R.drawable.item_bg)
-            twitterView.setBackgroundResource(R.drawable.item_bg)
-            telegramView.setBackgroundResource(R.drawable.item_bg)
-            youtubeView.setBackgroundResource(R.drawable.item_bg)
-
-            termView.setBackgroundResource(R.drawable.item_bg)
-            privacyView.setBackgroundResource(R.drawable.item_bg)
-            githubView.setBackgroundResource(R.drawable.item_bg)
-            versionView.setBackgroundResource(R.drawable.item_bg)
+            listOf(
+                accountView, importView, legacyView, chainView, addressBookView,
+                languageView, currencyView, priceView, alarmView, appLockView, autoPassView,
+                mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
+                termView, privacyView, githubView, versionView
+            ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             walletUpdateView()
-            generalUpdateView()
+            updateDataView()
             version.text = "v " + BuildConfig.VERSION_NAME
         }
     }
@@ -117,7 +101,7 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun generalUpdateView() {
+    private fun updateDataView() {
         binding.apply {
             when (Prefs.language) {
                 BaseUtils.LANGUAGE_ENGLISH -> {
@@ -148,7 +132,7 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         var isClickable = true
         binding.apply {
             accountView.setOnClickListener {
@@ -173,82 +157,56 @@ class SettingFragment : Fragment() {
             }
 
             languageView.setOnClickListener {
-                val bottomSheet = SettingBottomFragment(SettingType.LANGUAGE)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                SettingBottomFragment(SettingType.LANGUAGE).show(
+                    parentFragmentManager, SettingBottomFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             currencyView.setOnClickListener {
-                val bottomSheet = SettingBottomFragment(SettingType.CURRENCY)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-                    parentFragmentManager.setFragmentResultListener(
-                        "currency",
-                        this@SettingFragment
-                    ) { _, _ ->
-                        currency.text = BaseData.currencyName()
-                        walletViewModel.price(BaseData.currencyName(), true)
-                    }
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
+                SettingBottomFragment(SettingType.CURRENCY).show(
+                    parentFragmentManager, SettingBottomFragment::class.java.name
+                )
+                parentFragmentManager.setFragmentResultListener(
+                    "currency", this@SettingFragment
+                ) { _, _ ->
+                    currency.text = BaseData.currencyName()
+                    walletViewModel.price(BaseData.currencyName(), true)
                 }
+                setClickableOnce(isClickable)
             }
 
             priceView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    val bottomSheet = SettingBottomFragment(SettingType.PRICE_STATUS)
-                    bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-
-                    parentFragmentManager.setFragmentResultListener(
-                        "priceStyle",
-                        this@SettingFragment
-                    ) { _, bundle ->
-                        val priceStyle = bundle.getInt("priceStyle")
-                        if (Prefs.priceStyle != priceStyle) {
-                            Prefs.priceStyle = priceStyle
-                        }
-                        generalUpdateView()
+                SettingBottomFragment(SettingType.PRICE_STATUS).show(
+                    parentFragmentManager, SettingBottomFragment::class.java.name
+                )
+                parentFragmentManager.setFragmentResultListener(
+                    "priceStyle", this@SettingFragment
+                ) { _, bundle ->
+                    val priceStyle = bundle.getInt("priceStyle")
+                    if (Prefs.priceStyle != priceStyle) {
+                        Prefs.priceStyle = priceStyle
                     }
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
+                    updateDataView()
                 }
+                setClickableOnce(isClickable)
             }
 
             autoPassView.setOnClickListener {
-                val bottomSheet = SettingBottomFragment(SettingType.AUTO_PASS)
-                if (isClickable) {
-                    isClickable = false
-                    bottomSheet.show(parentFragmentManager, SettingBottomFragment::class.java.name)
-                    parentFragmentManager.setFragmentResultListener(
-                        "autoPass",
-                        this@SettingFragment
-                    ) { _, _ ->
-                        generalUpdateView()
-                    }
-
-                    Handler().postDelayed({
-                        isClickable = true
-                    }, 1000)
+                SettingBottomFragment(SettingType.AUTO_PASS).show(
+                    parentFragmentManager, SettingBottomFragment::class.java.name
+                )
+                parentFragmentManager.setFragmentResultListener(
+                    "autoPass", this@SettingFragment
+                ) { _, _ ->
+                    updateDataView()
                 }
             }
 
             mintscanView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.EXPLORER_BASE_URL)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.EXPLORER_BASE_URL)
                     )
                 )
             }
@@ -256,8 +214,7 @@ class SettingFragment : Fragment() {
             homepageView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
                     )
                 )
             }
@@ -265,8 +222,7 @@ class SettingFragment : Fragment() {
             twitterView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_TWITTER)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_TWITTER)
                     )
                 )
             }
@@ -274,8 +230,7 @@ class SettingFragment : Fragment() {
             blogView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_BLOG)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_BLOG)
                     )
                 )
             }
@@ -283,8 +238,7 @@ class SettingFragment : Fragment() {
             telegramView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_TELEGRAM)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_TELEGRAM)
                     )
                 )
             }
@@ -292,8 +246,7 @@ class SettingFragment : Fragment() {
             youtubeView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_YOUTUBE)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_YOUTUBE)
                     )
                 )
             }
@@ -328,8 +281,7 @@ class SettingFragment : Fragment() {
             githubView.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_GITHUB)
+                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_GITHUB)
                     )
                 )
             }
@@ -342,6 +294,16 @@ class SettingFragment : Fragment() {
                     )
                 )
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
@@ -369,13 +331,10 @@ class SettingFragment : Fragment() {
             }
 
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->
-                val thumbDrawable: Drawable?
-                if (isChecked) {
-                    thumbDrawable =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                val thumbDrawable: Drawable? = if (isChecked) {
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
                 } else {
-                    thumbDrawable =
-                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 }
                 alarmSwitch.thumbDrawable = thumbDrawable
             }
@@ -391,8 +350,7 @@ class SettingFragment : Fragment() {
                     val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
                     appLockCheckResultLauncher.launch(intent)
                     requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
             }

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,6 @@ import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
 
 class StakingInfoAdapter(
-    val context: Context,
     val selectedChain: CosmosLine,
     private val rewardAddress: String?,
     private val validators: MutableList<StakingProto.Validator>,
@@ -69,8 +67,9 @@ class StakingInfoAdapter(
                         position
                     }
                     val delegation = delegations[delegationPosition]
-                    val validator = validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
-                    holder.bind(selectedChain, validator, delegation, delegations.size, delegationPosition, listener)
+                    validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }?.let { validator ->
+                        holder.bind(selectedChain, validator, delegation, delegations.size, delegationPosition, listener)
+                    }
                 }
             }
 
@@ -82,29 +81,22 @@ class StakingInfoAdapter(
                         position - delegations.size
                     }
                     val entry = unBondings[unStakingPosition]
-                    val validator = validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
-                    holder.bind(selectedChain, validator, entry, unBondings.size, unStakingPosition, listener)
+                    validators.firstOrNull { it.operatorAddress == entry.validatorAddress }?.let { validator ->
+                        holder.bind(selectedChain, validator, entry, unBondings.size, unStakingPosition, listener)
+                    }
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (rewardAddress != selectedChain.address) {
-            return if (position == 0) {
-                VIEW_TYPE_REWARD_ADDRESS
-            } else if (position < delegations.size + 1) {
-                VIEW_TYPE_STAKING
-            } else {
-                VIEW_TYPE_UNSTAKING
-            }
+        val isRewardAddress = rewardAddress != selectedChain.address
 
-        } else {
-            return if (position < delegations.size) {
-                VIEW_TYPE_STAKING
-            } else {
-                VIEW_TYPE_UNSTAKING
-            }
+        return when {
+            isRewardAddress && position == 0 -> VIEW_TYPE_REWARD_ADDRESS
+            isRewardAddress && position < delegations.size + 1 -> VIEW_TYPE_STAKING
+            !isRewardAddress && position < delegations.size -> VIEW_TYPE_STAKING
+            else -> VIEW_TYPE_UNSTAKING
         }
     }
 

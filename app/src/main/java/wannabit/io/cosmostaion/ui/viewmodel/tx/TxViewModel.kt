@@ -117,6 +117,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateSendTx(managedChannel, it, msgSend, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -219,6 +221,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -284,6 +288,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateDelegateTx(managedChannel, it, msgDelegate, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -323,6 +329,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateUnDelegateTx(managedChannel, it, msgUnDelegate, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -362,27 +370,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateReDelegateTx(managedChannel, it, msgReDelegate, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
-        }
-    }
-
-    fun broadGetRewards(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ) = CoroutineScope(Dispatchers.IO).launch {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastGetRewardsTx(
-                managedChannel,
-                it,
-                rewards,
-                fee,
-                memo,
-                selectedChain
-            )
-            _broadcastTx.postValue(response?.txResponse)
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -422,6 +411,29 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateCancelUnbondingTx(managedChannel, it, msgCancelUnbondingDelegation, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
+        }
+    }
+
+    fun broadGetRewards(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        txRepository.auth(managedChannel, address)?.let {
+            val response = txRepository.broadcastGetRewardsTx(
+                managedChannel,
+                it,
+                rewards,
+                fee,
+                memo,
+                selectedChain
+            )
+            _broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -440,6 +452,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateGetRewardsTx(managedChannel, it, rewards, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -482,6 +496,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateCompoundingTx(managedChannel, it, rewards, stakingDenom, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -521,6 +537,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateChangeRewardAddressTx(managedChannel, it, msgSetWithdrawAddress, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -560,6 +578,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateVoteTx(managedChannel, it, msgVotes, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -597,6 +617,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateWasmTx(managedChannel, it, msgWasms, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -636,6 +658,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateClaimIncentiveTx(managedChannel, it, incentive, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -675,6 +699,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateMintCreateTx(managedChannel, it, msgCreateCDP, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -714,6 +740,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateMintDepositTx(managedChannel, it, msgDeposit, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -753,6 +781,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateMintWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -792,6 +822,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateMintBorrowTx(managedChannel, it, msgDrawDebt, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -831,6 +863,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateMintRepayTx(managedChannel, it, msgRepayDebt, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -870,6 +904,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateLendDepositTx(managedChannel, it, msgDeposit, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -909,6 +945,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateLendWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -948,6 +986,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateLendBorrowTx(managedChannel, it, msgBorrow, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -987,6 +1027,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateLendRepayTx(managedChannel, it, msgRepay, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -1026,6 +1068,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulatePoolDepositTx(managedChannel, it, msgDeposit, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -1065,6 +1109,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulatePoolWithdrawTx(managedChannel, it, msgWithdraw, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 
@@ -1164,6 +1210,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val errorResponse = txRepository.simulateIbcSendTx(managedChannel, it, msgTransfer, fee, memo) as String
                 errorMessage.postValue(errorResponse)
             }
+        } ?: run {
+            errorMessage.postValue("No key account")
         }
     }
 }

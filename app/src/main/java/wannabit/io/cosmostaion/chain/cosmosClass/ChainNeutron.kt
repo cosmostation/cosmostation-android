@@ -8,16 +8,11 @@ import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.data.model.res.Dao
-import wannabit.io.cosmostaion.data.model.res.Vault
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 class ChainNeutron : CosmosLine() {
-
-    var vaultList: MutableList<Vault>? = mutableListOf()
-    var daoList: MutableList<Dao>? = mutableListOf()
 
     var neutronDeposited: BigDecimal = BigDecimal.ZERO
     var neutronVesting: VestingData? = null
@@ -73,11 +68,10 @@ class ChainNeutron : CosmosLine() {
     private fun neutronVestingValue(): BigDecimal {
         stakeDenom?.let { denom ->
             BaseData.getAsset(apiName, denom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val amount = neutronVestingAmount()
-                    return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                }
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val amount = neutronVestingAmount()
+                return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
+                    .setScale(6, RoundingMode.DOWN)
             }
         }
         return BigDecimal.ZERO
@@ -86,15 +80,16 @@ class ChainNeutron : CosmosLine() {
     private fun neutronDepositedValue(): BigDecimal {
         stakeDenom?.let { denom ->
             BaseData.getAsset(apiName, denom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val amount = neutronDeposited
-                    return price.multiply(amount).movePointLeft(decimal)
-                }
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val amount = neutronDeposited
+                return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
             }
         }
         return BigDecimal.ZERO
     }
 }
 
-const val NEUTRON_VESTING_CONTRACT_ADDRESS = "neutron1h6828as2z5av0xqtlh4w9m75wxewapk8z9l2flvzc29zeyzhx6fqgp648z"
+const val NEUTRON_VAULT_ADDRESS =
+    "neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e"
+const val NEUTRON_VESTING_CONTRACT_ADDRESS =
+    "neutron1h6828as2z5av0xqtlh4w9m75wxewapk8z9l2flvzc29zeyzhx6fqgp648z"

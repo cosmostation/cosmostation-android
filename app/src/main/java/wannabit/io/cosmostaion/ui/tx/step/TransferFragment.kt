@@ -113,7 +113,7 @@ class TransferFragment(
         setupFeeView()
         initData()
         updateFeeView()
-        setClickAction()
+        setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
     }
@@ -159,9 +159,10 @@ class TransferFragment(
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
+            selectedFeeInfo = selectedChain.getFeeBasePosition()
+            txFee = selectedChain.getInitFee(requireContext())
         }
-        selectedFeeInfo = selectedChain.getFeeBasePosition()
-        txFee = selectedChain.getInitFee(requireContext())
     }
 
     private fun initData() {
@@ -343,7 +344,7 @@ class TransferFragment(
         txSimulate()
     }
 
-    private fun setClickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnQr.setOnClickListener {
                 val integrator = IntentIntegrator.forSupportFragment(this@TransferFragment)
@@ -418,21 +419,19 @@ class TransferFragment(
                     feeInfos[selectedFeeInfo].feeDatas,
                     object : AssetSelectListener {
                         override fun select(denom: String) {
-                            val tempCoin = selectedChain.getDefaultFeeCoins(requireContext())
+                            selectedChain.getDefaultFeeCoins(requireContext())
                                 .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    CoinProto.Coin.newBuilder().setDenom(denom)
+                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                         .setAmount(feeCoin.amount).build()
+
+                                    val updateTxFee = TxProto.Fee.newBuilder()
+                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                        .addAmount(updateFeeCoin).build()
+
+                                    txFee = updateTxFee
+                                    updateFeeView()
+                                    txSimulate()
                                 }
-
-                            val tempTxFee = tempCoin?.let {
-                                TxProto.Fee.newBuilder()
-                                    .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                    .addAmount(it).build()
-                            }
-
-                            txFee = tempTxFee
-                            updateFeeView()
-                            txSimulate()
                         }
                     }).show(
                     requireActivity().supportFragmentManager, AssetFragment::class.java.name
@@ -748,19 +747,22 @@ fun assetPath(fromChain: CosmosLine, toChain: CosmosLine, denom: String): AssetP
         if (msAsset != null) {
             if (asset.chain == fromChain.apiName &&
                 asset.beforeChain(fromChain.apiName) == toChain.apiName &&
-                asset.denom.equals(denom, true)) {
+                asset.denom.equals(denom, true)
+            ) {
                 return AssetPath(asset.channel, asset.port)
             }
             if (asset.chain == toChain.apiName &&
                 asset.beforeChain(toChain.apiName) == fromChain.apiName &&
-                asset.counterParty?.denom?.equals(denom, true) == true) {
+                asset.counterParty?.denom?.equals(denom, true) == true
+            ) {
                 return AssetPath(asset.counterParty.channel, asset.counterParty.port)
             }
         } else {
             if (msToken != null &&
                 asset.chain == toChain.apiName &&
                 asset.beforeChain(toChain.apiName) == fromChain.apiName &&
-                asset.counterParty?.denom.equals(msToken.address, true)) {
+                asset.counterParty?.denom.equals(msToken.address, true)
+            ) {
                 return AssetPath(asset.counterParty?.channel, asset.counterParty?.port)
             }
         }

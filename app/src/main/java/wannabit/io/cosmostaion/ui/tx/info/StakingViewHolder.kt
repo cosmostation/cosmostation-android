@@ -19,8 +19,13 @@ class StakingViewHolder(
     private val binding: ItemStakingInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: CosmosLine, validator: Validator?, delegation: StakingProto.DelegationResponse,
-             cnt: Int, position: Int, listener: StakingInfoAdapter.ClickListener
+    fun bind(
+        line: CosmosLine,
+        validator: Validator?,
+        delegation: StakingProto.DelegationResponse,
+        cnt: Int,
+        position: Int,
+        listener: StakingInfoAdapter.ClickListener
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
@@ -31,63 +36,79 @@ class StakingViewHolder(
                 listener.selectStakingAction(validator)
             }
 
-            validator?.let { validator ->
-                monikerImg.setMonikerImg(line, validator.operatorAddress)
-                moniker.text = validator.description?.moniker
-                if (validator.jailed) {
-                    jailedImg.visibility = View.VISIBLE
-                    jailedImg.setImageResource(R.drawable.icon_jailed)
-                } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
-                    jailedImg.visibility = View.VISIBLE
-                    jailedImg.setImageResource(R.drawable.icon_inactive)
-                } else {
-                    jailedImg.visibility = View.GONE
-                }
+            monikerImg.setMonikerImg(line, validator?.operatorAddress)
+            moniker.text = validator?.description?.moniker
+            if (validator?.jailed == true) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_jailed)
+            } else if (validator?.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_inactive)
+            } else {
+                jailedImg.visibility = View.GONE
             }
 
             line.stakeDenom?.let { denom ->
                 BaseData.getAsset(line.apiName, denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
-                        val vpAmount = validator?.tokens?.toBigDecimal()?.movePointLeft(decimal)
-                        votingPower.text = formatAmount(vpAmount.toString(), 0)
+                        validator?.tokens?.toBigDecimal()?.movePointLeft(decimal)?.let { vpAmount ->
+                            if (vpAmount < BigDecimal.ONE) {
+                                votingPower.text = formatAmount(vpAmount.toString(), decimal)
+                            } else {
+                                votingPower.text = formatAmount(vpAmount.toString(), 0)
+                            }
+                        }
 
-                        val commissionRate = validator?.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                        val commissionRate =
+                            validator?.commission?.commissionRates?.rate?.toBigDecimal()
+                                ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                         commission.text = formatString("$commissionRate%", 3)
 
-                        val stakedAmount = delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
+                        val stakedAmount =
+                            delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
                         staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
                         line.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }?.rewardList?.let { rewards ->
                             rewards.firstOrNull { it.denom == denom }?.let { mainDenomReward ->
-                                val mainDenomRewardAmount = mainDenomReward.amount.toBigDecimal().movePointLeft(18).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                                rewardAmount.text = formatAmount(mainDenomRewardAmount.toPlainString(), decimal)
+                                val mainDenomRewardAmount =
+                                    mainDenomReward.amount.toBigDecimal().movePointLeft(18)
+                                        .movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                                rewardAmount.text =
+                                    formatAmount(mainDenomRewardAmount.toPlainString(), decimal)
                             }
 
                             var anotherCnt = 0
                             rewards.filter { it.denom != denom }.forEach { anotherRewards ->
-                                val anotherAmount = anotherRewards.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                                val anotherAmount =
+                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                        .setScale(0, RoundingMode.DOWN)
                                 if (anotherAmount != BigDecimal.ZERO) {
                                     anotherCnt += 1
                                 }
                             }
-                            if (anotherCnt > 0) {
-                                rewardTitle.text = "Reward + " + anotherCnt.toString()
+                            rewardTitle.text = if (anotherCnt > 0) {
+                                "Reward + $anotherCnt"
                             } else {
-                                rewardTitle.text = "Reward"
+                                "Reward"
                             }
 
                         } ?: run {
                             rewardTitle.text = "Reward"
-                            rewardAmount.text = formatAmount(BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal)
+                            rewardAmount.text = formatAmount(
+                                BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
+                            )
                         }
 
                         val apr = line.param?.params?.apr ?: "0"
                         val staked = delegation.balance.amount.toBigDecimal()
-                        val comm = BigDecimal.ONE.subtract(validator?.commission?.commissionRates?.rate?.toBigDecimal()?.
-                        movePointLeft(18)?.setScale(18, RoundingMode.DOWN))
+                        val comm = BigDecimal.ONE.subtract(
+                            validator?.commission?.commissionRates?.rate?.toBigDecimal()
+                                ?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+                        )
                         val est = staked.multiply(apr.toBigDecimal()).multiply(comm)
-                            .setScale(0, RoundingMode.DOWN).divide(BigDecimal("12"), 0, RoundingMode.DOWN)
-                            .movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                            .setScale(0, RoundingMode.DOWN)
+                            .divide(BigDecimal("12"), 0, RoundingMode.DOWN).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.DOWN)
                         estimateReward.text = formatAmount(est.toPlainString(), decimal)
                     }
                 }

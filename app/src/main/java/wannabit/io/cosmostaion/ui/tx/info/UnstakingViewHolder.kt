@@ -18,8 +18,10 @@ class UnstakingViewHolder(
     private val binding: ItemUnstakingInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: CosmosLine, validator: Validator?, entry: UnBondingEntry,
-             cnt: Int, position: Int, listener: StakingInfoAdapter.ClickListener) {
+    fun bind(
+        line: CosmosLine, validator: Validator?, entry: UnBondingEntry,
+        cnt: Int, position: Int, listener: StakingInfoAdapter.ClickListener
+    ) {
         binding.apply {
             unstakingView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(position == 0)
@@ -29,16 +31,15 @@ class UnstakingViewHolder(
                 listener.selectUnStakingCancelAction(entry)
             }
 
-            validator?.let { validator ->
-                monikerImg.setMonikerImg(line, validator.operatorAddress)
-                moniker.text = validator.description?.moniker
-                jailedImg.visibleOrGone(validator.jailed)
-            }
+            monikerImg.setMonikerImg(line, validator?.operatorAddress)
+            moniker.text = validator?.description?.moniker
+            jailedImg.visibleOrGone(validator?.jailed == true)
 
             line.stakeDenom?.let { denom ->
                 BaseData.getAsset(line.apiName, denom)?.let { asset ->
                     asset.decimals?.let { decimal ->
-                        val unBondingAmount = entry.entry?.balance?.toBigDecimal()?.movePointLeft(decimal)
+                        val unBondingAmount =
+                            entry.entry?.balance?.toBigDecimal()?.movePointLeft(decimal)
                         unstaked.text = formatAmount(unBondingAmount.toString(), decimal)
 
                         entry.entry?.completionTime?.let {

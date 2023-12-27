@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -226,7 +227,7 @@ class Bep3ResultActivity : BaseActivity() {
                         claimTxHash = resp[0].hash
                     } else {
                         if (claimFetchCnt < 20) {
-                            Handler().postDelayed({
+                            Handler(Looper.getMainLooper()).postDelayed({
                                 claimFetchCnt++
                                 CoroutineScope(Dispatchers.IO).launch {
                                     kToBClaimSend(account)
@@ -318,7 +319,7 @@ class Bep3ResultActivity : BaseActivity() {
 
         kavaViewModel.bep3SwapIdErrorMessage.observe(this) {
             if (swapFetchCnt < 15) {
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     swapFetchCnt++
                     kavaViewModel.bep3SwapId(getChannel(ChainKava459()), expectedSwapId, toChain)
                 }, 6000)

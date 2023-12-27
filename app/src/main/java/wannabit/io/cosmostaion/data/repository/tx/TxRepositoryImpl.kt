@@ -83,10 +83,14 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
-    override suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse {
-        val authStub = QueryGrpc.newBlockingStub(managedChannel)
-        val request = com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
-        return authStub.account(request)
+    override suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse? {
+        return try {
+            val authStub = QueryGrpc.newBlockingStub(managedChannel)
+            val request = com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
+            authStub.account(request)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     override suspend fun broadcastSendTx(

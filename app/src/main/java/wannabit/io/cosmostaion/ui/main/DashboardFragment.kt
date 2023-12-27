@@ -17,7 +17,6 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -152,6 +151,10 @@ class DashboardFragment : Fragment() {
             }
             updateTotalValue()
         }
+
+        walletViewModel.chainDataErrorMessage.observe(viewLifecycleOwner) {
+            return@observe
+        }
     }
 
     private fun updateTotalValue() {
@@ -246,11 +249,6 @@ class DashboardFragment : Fragment() {
                     setupLoadedData()
                 }
             }
-        }
-
-        walletViewModel.errorMessage.observe(viewLifecycleOwner) {
-            requireContext().makeToast(it)
-            return@observe
         }
     }
 

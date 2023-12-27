@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -62,6 +63,8 @@ class ChangeRewardAddressFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -75,7 +78,7 @@ class ChangeRewardAddressFragment(
         initView()
         initFee()
         updateFeeView()
-        clickAction()
+        setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
     }
@@ -114,6 +117,7 @@ class ChangeRewardAddressFragment(
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
         }
@@ -132,7 +136,7 @@ class ChangeRewardAddressFragment(
             newRewardAddressMsg.visibleOrGone(address.isEmpty())
             newRewardAddress.visibleOrGone(address.isNotEmpty())
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateMemoView(memo: String) {
@@ -154,7 +158,7 @@ class ChangeRewardAddressFragment(
                 )
             }
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateFeeView() {
@@ -164,18 +168,13 @@ class ChangeRewardAddressFragment(
                     feeTokenImg.setTokenImg(asset)
                     feeToken.text = asset.symbol
 
-                    val amount = fee.amount.toBigDecimal()
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
                     val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                    asset.decimals?.let { decimal ->
-                        val dpAmount =
-                            amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        feeValue.text = formatAssetValue(value)
-                    }
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeDenom.text = asset.symbol
+                    feeValue.text = formatAssetValue(value)
                 }
 
                 selectedChain.stakeDenom?.let { denom ->
@@ -186,10 +185,10 @@ class ChangeRewardAddressFragment(
                         availableAmount = if (it.getAmount(0).denom == denom) {
                             val feeAmount = it.getAmount(0).amount.toBigDecimal()
                             if (feeAmount > balanceAmount) {
-
+                                BigDecimal.ZERO
+                            } else {
+                                balanceAmount.add(vestingAmount).subtract(feeAmount)
                             }
-                            balanceAmount.add(vestingAmount).subtract(feeAmount)
-
                         } else {
                             balanceAmount.add(vestingAmount)
                         }
@@ -199,90 +198,71 @@ class ChangeRewardAddressFragment(
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             newLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AddressFragment(selectedChain,
-                        selectedChain,
-                        existedAddress,
-                        AddressType.REWARD_ADDRESS,
-                        object : AddressListener {
-                            override fun selectAddress(
-                                refAddress: RefAddress?, addressBook: AddressBook?
-                            ) {
-                                refAddress?.dpAddress?.let {
-                                    updateAddressView(it)
-                                    updateMemoView("")
+                AddressFragment(selectedChain,
+                    selectedChain,
+                    existedAddress,
+                    AddressType.REWARD_ADDRESS,
+                    object : AddressListener {
+                        override fun selectAddress(
+                            refAddress: RefAddress?, addressBook: AddressBook?
+                        ) {
+                            refAddress?.dpAddress?.let {
+                                updateAddressView(it)
+                                updateMemoView("")
 
-                                } ?: run {
-                                    addressBook?.let {
-                                        updateAddressView(it.address)
-                                        updateMemoView(it.memo)
-                                    }
+                            } ?: run {
+                                addressBook?.let {
+                                    updateAddressView(it.address)
+                                    updateMemoView(it.memo)
                                 }
                             }
-
-                        }).show(
-                        requireActivity().supportFragmentManager, AddressFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
-
-            memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
+                    requireActivity().supportFragmentManager, AddressFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
+            }
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+            memoView.setOnClickListener {
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
+
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
-                        object : AssetSelectListener {
-                            override fun select(denom: String) {
-                                var tempCoin: CoinProto.Coin? = null
-                                selectedChain.getDefaultFeeCoins(requireContext())
-                                    .forEach { feeCoin ->
-                                        if (feeCoin.denom == denom) {
-                                            tempCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                                .setAmount(feeCoin.amount).build()
-                                        }
-                                    }
-                                val tempTxFee = TxProto.Fee.newBuilder()
-                                    .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                    .addAmount(tempCoin).build()
-                                txFee = tempTxFee
-                                updateFeeView()
-                            }
+                AssetFragment(selectedChain,
+                    feeInfos[selectedFeeInfo].feeDatas,
+                    object : AssetSelectListener {
+                        override fun select(denom: String) {
+                            selectedChain.getDefaultFeeCoins(requireContext())
+                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                        .setAmount(feeCoin.amount).build()
 
-                        }).show(
-                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
-                    )
+                                    val updateTxFee = TxProto.Fee.newBuilder()
+                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                        .addAmount(updateFeeCoin).build()
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                                    txFee = updateTxFee
+                                    updateFeeView()
+                                    txSimulate()
+                                }
+                        }
+
+                    }).show(
+                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
@@ -291,7 +271,7 @@ class ChangeRewardAddressFragment(
                     requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
                 )
                 updateFeeView()
-                txSimul()
+                txSimulate()
             }
 
             btnChangeRewardAddress.setOnClickListener {
@@ -302,6 +282,16 @@ class ChangeRewardAddressFragment(
                     )
                 }
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
@@ -320,7 +310,7 @@ class ChangeRewardAddressFragment(
             }
         }
 
-    private fun txSimul() {
+    private fun txSimulate() {
         binding.apply {
             if (newRewardAddress.text.isEmpty()) {
                 return
@@ -340,7 +330,7 @@ class ChangeRewardAddressFragment(
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -350,7 +340,7 @@ class ChangeRewardAddressFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
                 ?.let { gasRate ->

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,8 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentBep3Binding
 import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
 import wannabit.io.cosmostaion.ui.dialog.tx.address.Bep3AddressFragment
@@ -38,18 +41,20 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 class Bep3Fragment(
-    private val fromChain: CosmosLine,
-    private val denom: String
+    private val fromChain: CosmosLine, private val denom: String
 ) : BaseTxFragment() {
 
     private var _binding: FragmentBep3Binding? = null
     private val binding get() = _binding!!
 
     private lateinit var kavaViewModel: KavaViewModel
+    private lateinit var walletViewModel: WalletViewModel
 
     private var toChains: MutableList<CosmosLine>? = mutableListOf()
 
@@ -57,6 +62,8 @@ class Bep3Fragment(
     private var minAvailableAmount: BigDecimal = BigDecimal.ZERO
     private var toSendAmount = ""
     private var existedAddress = ""
+
+    private var isClickable = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -71,45 +78,56 @@ class Bep3Fragment(
         initViewModel()
         initData()
         initView()
-        clickAction()
+        setUpClickAction()
+        setupLoadedData()
     }
 
     private fun initViewModel() {
         val kavaRepository = KavaRepositoryImpl()
         val kavaViewModelProviderFactory = KavaViewModelProviderFactory(kavaRepository)
-        kavaViewModel = ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
+        kavaViewModel =
+            ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
+
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initView() {
         binding.apply {
-            recipientView.setBackgroundResource(R.drawable.cell_bg)
-            sendAssetView.setBackgroundResource(R.drawable.cell_bg)
-            addressView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(
+                recipientView, sendAssetView, addressView
+            ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
             BaseData.baseAccount?.let { baseAccount ->
                 if (fromChain is ChainBinanceBeacon) {
-                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList()
+                    toChains =
+                        baseAccount.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList()
                     fromChainImg.setImageResource(R.drawable.chain_binance)
                     fromChainName.text = "BNB Beacon"
 
                     toChainImg.setImageResource(R.drawable.chain_kava)
                     toChainName.text = "Kava"
 
-                    fromChain.lcdBeaconTokens.firstOrNull { it.symbol == denom }?.let { bnbTokenInfo ->
-                        val originalSymbol = bnbTokenInfo.originalSymbol
-                        tokenImg.setTokenImg(fromChain.assetImg(originalSymbol))
-                        tokenName.text = originalSymbol.uppercase()
+                    fromChain.lcdBeaconTokens.firstOrNull { it.symbol == denom }
+                        ?.let { bnbTokenInfo ->
+                            val originalSymbol = bnbTokenInfo.originalSymbol
+                            tokenImg.setTokenImg(fromChain.assetImg(originalSymbol))
+                            tokenName.text = originalSymbol.uppercase()
 
-                        val available = fromChain.lcdBalanceAmount(denom)
-                        availableAmount = if (denom == fromChain.stakeDenom) {
-                            available.subtract(BigDecimal(BNB_BEACON_BASE_FEE)).movePointRight(8)
-                        } else {
-                            available.movePointRight(8)
+                            val available = fromChain.lcdBalanceAmount(denom)
+                            availableAmount = if (denom == fromChain.stakeDenom) {
+                                available.subtract(BigDecimal(BNB_BEACON_BASE_FEE))
+                                    .movePointRight(8)
+                            } else {
+                                available.movePointRight(8)
+                            }
                         }
-                    }
 
                 } else {
-                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "BNB Beacon" }.toMutableList()
+                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "BNB Beacon" }
+                        .toMutableList()
                     fromChainImg.setImageResource(R.drawable.chain_kava)
                     fromChainName.text = "KAVA"
 
@@ -123,11 +141,12 @@ class Bep3Fragment(
                     availableAmount = fromChain.balanceAmount(denom)
                 }
 
-                toChains?.let {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        baseAccount.initTargetChainsData(it)
-                        withContext(Dispatchers.Main) {
-                            kavaViewModel.bep3Data(getChannel(ChainKava459()))
+                toChains?.let { lines ->
+                    if (lines[0].fetched) {
+                        kavaViewModel.bep3Data(getChannel(ChainKava459()))
+                    } else {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            initToChainsData(lines)
                         }
                     }
                 }
@@ -141,13 +160,20 @@ class Bep3Fragment(
                 response?.bep3Param?.let { params ->
                     params.forEach { param ->
                         if (fromChain is ChainBinanceBeacon) {
-                            if (denom.lowercase().startsWith(param.denom.lowercase())
-                                || denom.lowercase().startsWith("xrp") && param.denom.lowercase().startsWith("xrp")) {
+                            if (denom.lowercase()
+                                    .startsWith(param.denom.lowercase()) || denom.lowercase()
+                                    .startsWith("xrp") && param.denom.lowercase().startsWith("xrp")
+                            ) {
                                 val limit = param.supplyLimit.limit.toBigDecimal()
                                 response.bep3Supplies?.forEach { supply ->
-                                    if (denom.lowercase().startsWith(supply.incomingSupply.denom.lowercase())
-                                        || denom.lowercase().startsWith("xrp") && supply.incomingSupply.denom.lowercase().startsWith("xrp")) {
-                                        val remain = limit.subtract(supply.currentSupply.amount.toBigDecimal()).subtract(supply.incomingSupply.amount.toBigDecimal())
+                                    if (denom.lowercase()
+                                            .startsWith(supply.incomingSupply.denom.lowercase()) || denom.lowercase()
+                                            .startsWith("xrp") && supply.incomingSupply.denom.lowercase()
+                                            .startsWith("xrp")
+                                    ) {
+                                        val remain =
+                                            limit.subtract(supply.currentSupply.amount.toBigDecimal())
+                                                .subtract(supply.incomingSupply.amount.toBigDecimal())
                                         if (availableAmount > remain) {
                                             availableAmount = remain
                                         }
@@ -161,8 +187,10 @@ class Bep3Fragment(
                             }
 
                         } else {
-                            if (denom.lowercase().startsWith(param.denom.lowercase())
-                                || denom.lowercase().startsWith("xrp") && param.denom.lowercase().startsWith("xrp")) {
+                            if (denom.lowercase()
+                                    .startsWith(param.denom.lowercase()) || denom.lowercase()
+                                    .startsWith("xrp") && param.denom.lowercase().startsWith("xrp")
+                            ) {
                                 if (availableAmount > param.maxSwapAmount.toBigDecimal()) {
                                     availableAmount = param.maxSwapAmount.toBigDecimal()
                                 }
@@ -174,6 +202,41 @@ class Bep3Fragment(
                     loading.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    private fun initToChainsData(toChains: MutableList<CosmosLine>) {
+        BaseData.baseAccount?.let { account ->
+            account.apply {
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        toChains.forEach { line ->
+                            if (line.address?.isEmpty() == true) {
+                                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                            }
+                            if (!line.fetched) {
+                                walletViewModel.loadChainData(line, id)
+                            }
+                        }
+
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        toChains.forEach { line ->
+                            if (line.address?.isEmpty() == true) {
+                                line.setInfoWithPrivateKey(privateKey)
+                            }
+                            if (!line.fetched) {
+                                walletViewModel.loadChainData(line, id)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupLoadedData() {
+        walletViewModel.fetchedResult.observe(viewLifecycleOwner) {
+            kavaViewModel.bep3Data(getChannel(ChainKava459()))
         }
     }
 
@@ -189,7 +252,8 @@ class Bep3Fragment(
                 if (denom == fromChain.stakeDenom) {
                     sendValue.visibility = View.VISIBLE
                     val price = BaseData.getPrice(BNB_GECKO_ID)
-                    val toSendValue = price.multiply(toSendAmount.toBigDecimal()).setScale(6, RoundingMode.DOWN)
+                    val toSendValue =
+                        price.multiply(toSendAmount.toBigDecimal()).setScale(6, RoundingMode.DOWN)
                     sendValue.text = formatAssetValue(toSendValue)
                 } else {
                     sendValue.visibility = View.GONE
@@ -226,60 +290,62 @@ class Bep3Fragment(
         txValidate()
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             sendAssetView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    Bep3InsertAmountFragment(
-                        fromChain,
-                        denom,
-                        minAvailableAmount,
-                        availableAmount,
-                        toSendAmount,
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateAmountView(toAmount)
-                            }
+                Bep3InsertAmountFragment(fromChain,
+                    denom,
+                    minAvailableAmount,
+                    availableAmount,
+                    toSendAmount,
+                    object : AmountSelectListener {
+                        override fun select(toAmount: String) {
+                            updateAmountView(toAmount)
+                        }
 
-                        }).show(requireActivity().supportFragmentManager, Bep3InsertAmountFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    }).show(
+                    requireActivity().supportFragmentManager,
+                    Bep3InsertAmountFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             addressView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    Bep3AddressFragment(toChains, object : Bep3AddressListener {
-                        override fun address(address: String) {
-                            updateAddressView(address)
-                        }
-                    }).show(
-                        requireActivity().supportFragmentManager, Bep3AddressFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                Bep3AddressFragment(toChains, object : Bep3AddressListener {
+                    override fun address(address: String) {
+                        updateAddressView(address)
+                    }
+                }).show(
+                    requireActivity().supportFragmentManager, Bep3AddressFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             btnSend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     bep3SendResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
     private val bep3SendResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     setUpBroadcast()
                 }, 500)
             }
@@ -287,8 +353,12 @@ class Bep3Fragment(
 
     private fun txValidate() {
         binding.apply {
-            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
-            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
+            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) {
+                return
+            }
+            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
+                return
+            }
             binding.btnSend.updateButtonView(true)
         }
     }
@@ -296,7 +366,11 @@ class Bep3Fragment(
     private fun setUpBroadcast() {
         Intent(requireContext(), Bep3ResultActivity::class.java).apply {
             putExtra("fromChain", fromChain.tag)
-            putExtra("toChain", toChains?.firstOrNull { it.address == binding.recipientAddress.text.toString().trim() }?.tag)
+            putExtra(
+                "toChain", toChains?.firstOrNull {
+                    it.address == binding.recipientAddress.text.toString().trim()
+                }?.tag
+            )
             putExtra("toAddress", binding.recipientAddress.text.toString().trim())
             putExtra("toSendDenom", denom)
             putExtra("toSendAmount", toSendAmount)

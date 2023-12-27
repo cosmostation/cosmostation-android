@@ -11,17 +11,21 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
+import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
+import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.ChainResponse
-import wannabit.io.cosmostaion.data.model.res.Dao
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
+import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
+import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
+import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
-import wannabit.io.cosmostaion.data.model.res.Vault
 
 interface WalletRepository {
     suspend fun version(): NetworkResult<Response<AppVersion>>
@@ -79,14 +83,10 @@ interface WalletRepository {
     )
 
     suspend fun erc20Balance(
-        channel: ManagedChannel, line: CosmosLine, token: Token
+        line: CosmosLine, token: Token
     )
 
     //neutron
-    suspend fun daoData(line: CosmosLine): NetworkResult<MutableList<Dao>>
-
-    suspend fun vaultData(line: CosmosLine): NetworkResult<MutableList<Vault>>
-
     suspend fun vestingData(
         channel: ManagedChannel,
         line: CosmosLine
@@ -94,7 +94,30 @@ interface WalletRepository {
 
     suspend fun vaultDeposit(
         channel: ManagedChannel,
-        line: ChainNeutron,
-        vaultList: MutableList<Vault>?
-    )
+        line: ChainNeutron
+    ): NetworkResult<String?>
+
+    //lcd
+    suspend fun binanceAccountInfo(
+        line: CosmosLine
+    ): NetworkResult<AccountResponse?>
+
+    suspend fun beaconTokenInfo(
+    ): NetworkResult<MutableList<BnbToken>>
+
+    suspend fun oktAccountInfo(
+        line: CosmosLine
+    ): NetworkResult<OktAccountResponse?>
+
+    suspend fun oktDeposit(
+        line: CosmosLine
+    ): NetworkResult<OktDepositedResponse?>
+
+    suspend fun oktWithdraw(
+        line: CosmosLine
+    ): NetworkResult<OktWithdrawResponse?>
+
+    suspend fun oktToken(
+        line: CosmosLine
+    ): NetworkResult<OktTokenResponse?>
 }

@@ -296,14 +296,18 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
             fabClaimReward.setOnClickListener {
                 if (selectedChain.cosmosValidators.size > 0) {
-                    if (selectedChain.claimableRewards().size == 0) {
+                    if (selectedChain.rewardAllCoins().isEmpty()) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-//                    if (!selectedChain.isTxFeePayable(requireContext())) {
-//                        requireContext().makeToast(R.string.error_not_enough_fee)
-//                        return@setOnClickListener
-//                    }
+                    if (selectedChain.claimableRewards().isEmpty()) {
+                        requireContext().makeToast(R.string.error_wasting_fee)
+                        return@setOnClickListener
+                    }
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnClickListener
+                    }
                     ClaimRewardFragment(selectedChain, selectedChain.claimableRewards()).show(
                         requireActivity().supportFragmentManager,
                         ClaimRewardFragment::class.java.name
@@ -323,17 +327,17 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-//                    if (!selectedChain.isTxFeePayable(requireContext())) {
-//                        requireContext().makeToast(R.string.error_not_enough_fee)
-//                        return@setOnClickListener
-//                    }
                     if (selectedChain.rewardAddress != selectedChain.address) {
                         requireContext().makeToast(R.string.error_reward_address_changed_msg)
                         return@setOnClickListener
                     }
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        return@setOnClickListener
+                    }
                     CompoundingFragment(selectedChain, selectedChain.claimableRewards()).show(
                         requireActivity().supportFragmentManager,
-                        ClaimRewardFragment::class.java.name
+                        CompoundingFragment::class.java.name
                     )
 
                 } else {
@@ -370,10 +374,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             }
 
             fabVault.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 VaultSelectFragment(selectedChain).show(
                     requireActivity().supportFragmentManager, VaultSelectFragment::class.java.name
                 )
@@ -381,10 +381,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             }
 
             fabDeposit.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 OktDepositFragment(selectedChain as ChainOkt60).show(
                     requireActivity().supportFragmentManager, OktDepositFragment::class.java.name
                 )
@@ -396,10 +392,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 OktWithdrawFragment(selectedChain as ChainOkt60).show(
                     requireActivity().supportFragmentManager, OktWithdrawFragment::class.java.name
                 )
@@ -409,10 +401,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             fabSelectValidator.setOnClickListener {
                 if ((selectedChain as ChainOkt60).lcdOktDepositAmount() <= BigDecimal.ZERO) {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
-                    return@setOnClickListener
-                }
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
                     return@setOnClickListener
                 }
                 OktSelectValidatorFragment(selectedChain as ChainOkt60).show(

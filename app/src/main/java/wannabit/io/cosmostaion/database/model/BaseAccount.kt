@@ -61,7 +61,9 @@ data class BaseAccount(
             when {
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
-                Prefs.getDisplayChains(this).contains(o1.tag) && !Prefs.getDisplayChains(this).contains(o2.tag) -> -1
+                Prefs.getDisplayChains(this).contains(o1.tag) && !Prefs.getDisplayChains(this)
+                    .contains(o2.tag) -> -1
+
                 lastValue(o1.tag) > lastValue(o2.tag) -> -1
                 lastValue(o1.tag) < lastValue(o2.tag) -> 1
                 else -> 0
@@ -89,29 +91,6 @@ data class BaseAccount(
 
         } else if (type == BaseAccountType.PRIVATE_KEY) {
             allCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithPrivateKey(privateKey)
-                }
-                if (!line.fetched) {
-                    line.loadData(id)
-                }
-            }
-        }
-    }
-
-    fun initTargetChainsData(targetChains: MutableList<CosmosLine>) {
-        if (type == BaseAccountType.MNEMONIC) {
-            targetChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                }
-                if (!line.fetched) {
-                    line.loadData(id)
-                }
-            }
-
-        } else if (type == BaseAccountType.PRIVATE_KEY) {
-            targetChains.forEach { line ->
                 if (line.address?.isEmpty() == true) {
                     line.setInfoWithPrivateKey(privateKey)
                 }

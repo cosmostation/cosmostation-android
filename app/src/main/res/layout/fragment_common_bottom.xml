@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
@@ -23,13 +24,41 @@
         android:layout_below="@+id/top_view"
         android:text="@string/title_select_account"/>
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/select_title"
+        android:background="@drawable/cell_search_bg"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:translationZ="0.1dp"
+        app:elevation="0dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:includeFontPadding="false"
+            app:iconifiedByDefault="false"
+            android:paddingLeft="-10dp"
+            app:queryBackground="@null"
+            app:searchIcon="@drawable/icon_search"
+            app:closeIcon="@drawable/icon_back"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_16"
         android:clipToPadding="false"
-        android:layout_below="@+id/select_title" />
+        android:layout_below="@+id/search_bar" />
 
     <View
         android:id="@+id/bottom_view"

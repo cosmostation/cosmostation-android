@@ -55,8 +55,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class LegacyTransferFragment(
-    private val selectedChain: CosmosLine,
-    private val toSendDenom: String
+    private val selectedChain: CosmosLine, private val toSendDenom: String
 ) : BaseTxFragment() {
 
     private var _binding: FragmentLegacyTransferBinding? = null
@@ -71,6 +70,8 @@ class LegacyTransferFragment(
 
     private var availableAmount = BigDecimal.ZERO
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -83,47 +84,58 @@ class LegacyTransferFragment(
 
         initView()
         initFee()
-        clickAction()
+        setUpClickAction()
         setUpBroadcast()
     }
 
     private fun initView() {
         binding.apply {
-            sendAssetView.setBackgroundResource(R.drawable.cell_bg)
-            addressView.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(sendAssetView, addressView, memoView, feeView).forEach {
+                it.setBackgroundResource(
+                    R.drawable.cell_bg
+                )
+            }
             recipientAddress.visibleOrGone(selectedChain is ChainOkt60)
 
             if (selectedChain is ChainBinanceBeacon) {
-                selectedChain.lcdBeaconTokens.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-                    bnbTokenInfo = tokenInfo
-                    val originalSymbol = tokenInfo.originalSymbol
-                    tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
-                    tokenName.text = originalSymbol.uppercase()
-                }
+                selectedChain.lcdBeaconTokens.firstOrNull { it.symbol == toSendDenom }
+                    ?.let { tokenInfo ->
+                        bnbTokenInfo = tokenInfo
+                        val originalSymbol = tokenInfo.originalSymbol
+                        tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
+                        tokenName.text = originalSymbol.uppercase()
+                    }
 
                 val available = selectedChain.lcdBalanceAmount(toSendDenom)
                 availableAmount = if (toSendDenom == selectedChain.stakeDenom) {
-                    available.subtract(BigDecimal(BNB_BEACON_BASE_FEE))
+                    if (available > BigDecimal(BNB_BEACON_BASE_FEE)) {
+                        available.subtract(BigDecimal(BNB_BEACON_BASE_FEE))
+                    } else {
+                        BigDecimal.ZERO
+                    }
                 } else {
                     available
                 }
 
             } else if (selectedChain is ChainOkt60) {
-                selectedChain.oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-                    oktTokenInfo = tokenInfo
-                    val originalSymbol = tokenInfo.originalSymbol
-                    tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
-                    tokenName.text = originalSymbol.uppercase()
+                selectedChain.oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }
+                    ?.let { tokenInfo ->
+                        oktTokenInfo = tokenInfo
+                        val originalSymbol = tokenInfo.originalSymbol
+                        tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
+                        tokenName.text = originalSymbol.uppercase()
 
-                    val available = selectedChain.lcdBalanceAmount(toSendDenom)
-                    availableAmount = if (toSendDenom == selectedChain.stakeDenom) {
-                        available.subtract(BigDecimal(OKT_BASE_FEE))
-                    } else {
-                        available
+                        val available = selectedChain.lcdBalanceAmount(toSendDenom)
+                        availableAmount = if (toSendDenom == selectedChain.stakeDenom) {
+                            if (available > BigDecimal(OKT_BASE_FEE)) {
+                                available.subtract(BigDecimal(OKT_BASE_FEE))
+                            } else {
+                                BigDecimal.ZERO
+                            }
+                        } else {
+                            available
+                        }
                     }
-                }
             }
         }
     }
@@ -138,6 +150,7 @@ class LegacyTransferFragment(
                     val price = BaseData.getPrice(BNB_GECKO_ID)
                     val amount = BigDecimal(BNB_BEACON_BASE_FEE)
                     val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
+
                     feeAmount.text = formatAmount(amount.toPlainString(), 8)
                     feeDenom.text = stakeDenom.uppercase()
                     feeValue.text = formatAssetValue(value)
@@ -209,7 +222,9 @@ class LegacyTransferFragment(
                         recipientAddress.text = "(" + address + ")"
                     } else if (BaseKey.isValidEthAddress(address)) {
                         recipientEvmAddress.text = address
-                        recipientAddress.text = "(" + ByteUtils.convertEvmToBech32(address, selectedChain.accountPrefix) + ")"
+                        recipientAddress.text = "(" + ByteUtils.convertEvmToBech32(
+                            address, selectedChain.accountPrefix
+                        ) + ")"
                     }
                 }
 
@@ -235,16 +250,14 @@ class LegacyTransferFragment(
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base03
+                        requireContext(), R.color.color_base03
                     )
                 )
             } else {
                 tabMemoMsg.text = txMemo
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base01
+                        requireContext(), R.color.color_base01
                     )
                 )
             }
@@ -252,101 +265,92 @@ class LegacyTransferFragment(
         txValidate()
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             sendAssetView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    LegacyInsertAmountFragment(
-                        selectedChain,
-                        bnbTokenInfo,
-                        oktTokenInfo,
-                        availableAmount,
-                        toSendAmount,
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateAmountView(toAmount)
-                            }
-
-                        }).show(
-                        requireActivity().supportFragmentManager,
-                        LegacyInsertAmountFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
-
-            addressView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AddressFragment(
-                        selectedChain,
-                        selectedChain,
-                        existedAddress,
-                        AddressType.DEFAULT_TRANSFER,
-                        object : AddressListener {
-                            override fun selectAddress(
-                                refAddress: RefAddress?,
-                                addressBook: AddressBook?
-                            ) {
-                                refAddress?.dpAddress?.let {
-                                    updateAddressView(it)
-
-                                } ?: run {
-                                    addressBook?.let {
-                                        updateAddressView(it.address)
-                                    }
-                                }
-                            }
-
-                        }).show(
-                        requireActivity().supportFragmentManager, AddressFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
-
-            memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
+                LegacyInsertAmountFragment(selectedChain,
+                    bnbTokenInfo,
+                    oktTokenInfo,
+                    availableAmount,
+                    toSendAmount,
+                    object : AmountSelectListener {
+                        override fun select(toAmount: String) {
+                            updateAmountView(toAmount)
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
+                    requireActivity().supportFragmentManager,
+                    LegacyInsertAmountFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
+            }
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+            addressView.setOnClickListener {
+                AddressFragment(selectedChain,
+                    selectedChain,
+                    existedAddress,
+                    AddressType.DEFAULT_TRANSFER,
+                    object : AddressListener {
+                        override fun selectAddress(
+                            refAddress: RefAddress?, addressBook: AddressBook?
+                        ) {
+                            refAddress?.dpAddress?.let {
+                                updateAddressView(it)
+
+                            } ?: run {
+                                addressBook?.let {
+                                    updateAddressView(it.address)
+                                }
+                            }
+                        }
+
+                    }).show(
+                    requireActivity().supportFragmentManager, AddressFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
+            }
+
+            memoView.setOnClickListener {
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
+
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             btnSend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     sendResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
             }
         }
     }
 
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
     private fun txValidate() {
         binding.apply {
-            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
-            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
+            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) {
+                return
+            }
+            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
+                return
+            }
             binding.btnSend.updateButtonView(true)
         }
     }
@@ -378,10 +382,14 @@ class LegacyTransferFragment(
                     selectedChain.stakeDenom?.let { LCoin(it, OKT_BASE_FEE) }?.let { gasCoin ->
                         val fee = LFee(BASE_GAS_AMOUNT, mutableListOf(gasCoin))
                         val sendCoin = LCoin(toSendDenom, toSendAmount)
-                        val recipientAddress = binding.recipientAddress.text.toString().trim().replace("(", "").replace(")", "")
+                        val recipientAddress =
+                            binding.recipientAddress.text.toString().trim().replace("(", "")
+                                .replace(")", "")
 
                         selectedChain.address?.let { address ->
-                            val oktSendMsg = Signer.oktSendMsg(address, recipientAddress, mutableListOf(sendCoin))
+                            val oktSendMsg = Signer.oktSendMsg(
+                                address, recipientAddress, mutableListOf(sendCoin)
+                            )
                             txViewModel.broadcastOktTx(oktSendMsg, fee, txMemo, selectedChain)
                         }
                     }

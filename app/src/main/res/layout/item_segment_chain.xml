@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.addisonelliott.segmentedbutton.SegmentedButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btn_chain"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/space_32"
+    android:layout_weight="1"
+    android:padding="@dimen/space_10"
+    style="@style/font_sb_12"
+    android:drawablePadding="4dp"
+    app:drawable="@drawable/icon_kava_address"
+    app:drawableGravity="left"
+    app:selectedTextColor="@color/color_base01"
+    app:selectedDrawableTint="@color/color_base01"
+    app:borderColor ="@color/color_base05">
+
+</com.addisonelliott.segmentedbutton.SegmentedButton>

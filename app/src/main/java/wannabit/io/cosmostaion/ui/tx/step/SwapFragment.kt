@@ -138,6 +138,7 @@ class SwapFragment : BaseTxFragment() {
         val skipTxViewModelProviderFactory = TxViewModelProviderFactory(skipTxRepository)
         skipTxViewModel =
             ViewModelProvider(this, skipTxViewModelProviderFactory)[TxViewModel::class.java]
+
     }
 
     private fun initData() {

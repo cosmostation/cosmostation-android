@@ -22,7 +22,6 @@ class DaoVoteAdapter(
         const val VIEW_TYPE_MULTI = 1
     }
 
-    val selectedIndex = mutableMapOf<Int, Int>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
             VIEW_TYPE_SINGLE -> {

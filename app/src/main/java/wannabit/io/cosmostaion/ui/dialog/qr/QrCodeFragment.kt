@@ -11,6 +11,8 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -20,11 +22,17 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
+import wannabit.io.cosmostaion.databinding.ItemSegmentChainBinding
 
 
-class QrCodeFragment(val line: CosmosLine) : BottomSheetDialogFragment() {
+class QrCodeFragment(
+    private val selectedChain: CosmosLine
+) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentQrCodeBinding? = null
     private val binding get() = _binding!!
@@ -48,38 +56,88 @@ class QrCodeFragment(val line: CosmosLine) : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setupClickAction()
     }
 
     private fun initView() {
-        val baseAccount = BaseData.baseAccount
-        baseAccount?.let { account ->
+        BaseData.baseAccount?.let { account ->
             binding.apply {
-                addressView.setBackgroundResource(R.drawable.cell_bg)
-                chainName.text = line.name
-                address.text = line.address
-                accountPath.text = line.getHDPath(account.lastHDPath)
-                chainImg.setImageResource(line.logo)
-
-                line.address?.let { qrCodeData ->
-                    val hints = mutableMapOf<EncodeHintType, Int>()
-                    hints[EncodeHintType.MARGIN] = 0
-
-                    val barcodeEncoder = BarcodeEncoder()
-                    val bitmap = barcodeEncoder.encodeBitmap(qrCodeData, BarcodeFormat.QR_CODE, 540, 540, hints)
-                    qrImg.setImageBitmap(bitmap)
+                chainSegment.apply {
+                    setSelectedBackground(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_accent_purple
+                        )
+                    )
+                    setRipple(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_accent_purple
+                        )
+                    )
                 }
+
+                for (i in 0 until 2) {
+                    val segmentView = ItemSegmentChainBinding.inflate(layoutInflater)
+                    chainSegment.addView(
+                        segmentView.root,
+                        i,
+                        LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                    )
+                    when (i) {
+                        0 -> segmentView.btnChain.text = selectedChain.apiName.uppercase()
+                        else -> segmentView.btnChain.text = "ETHEREUM"
+                    }
+                }
+
+                addressView.setBackgroundResource(R.drawable.cell_bg)
+                chainName.text = selectedChain.name
+                accountPath.text = selectedChain.getHDPath(account.lastHDPath)
+                chainImg.setImageResource(selectedChain.logo)
+
                 qrView.radius = resources.getDimension(R.dimen.space_8)
                 qrImg.clipToOutline = true
+                setQrAddress(selectedChain.address)
             }
         }
     }
 
-    private fun clickAction() {
+    private fun setQrAddress(selectAddress: String?) {
         binding.apply {
+            chainSegment.visibleOrGone(selectedChain.evmCompatible)
+            val hints = mutableMapOf<EncodeHintType, Int>()
+            hints[EncodeHintType.MARGIN] = 0
+
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap = barcodeEncoder.encodeBitmap(
+                selectAddress,
+                BarcodeFormat.QR_CODE,
+                540,
+                540,
+                hints
+            )
+            address.text = selectAddress
+            qrImg.setImageBitmap(bitmap)
+        }
+    }
+
+    private fun setupClickAction() {
+        binding.apply {
+            chainSegment.setOnPositionChangedListener { position ->
+                when (position) {
+                    0 -> {
+                        setQrAddress(selectedChain.address)
+                        addressTitle.text = getString(R.string.str_address)
+                    }
+                    else -> {
+                        setQrAddress(ByteUtils.convertBech32ToEvm(selectedChain.address))
+                        addressTitle.text = getString(R.string.str_ethereum_address)
+                    }
+                }
+            }
+
             addressView.setOnClickListener {
-                val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("address", line.address)
+                val clipboard =
+                    requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("address", selectedChain.address)
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_address_copied)
             }
@@ -87,7 +145,7 @@ class QrCodeFragment(val line: CosmosLine) : BottomSheetDialogFragment() {
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, line.address)
+                intent.putExtra(Intent.EXTRA_TEXT, selectedChain.address)
                 intent.type = "text/plain"
 
                 startActivity(Intent.createChooser(intent, "share"))
@@ -106,7 +164,7 @@ class QrCodeFragment(val line: CosmosLine) : BottomSheetDialogFragment() {
     }
 
     private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 4 / 5
+        return getWindowHeight() * 9 / 10
     }
 
     private fun getWindowHeight(): Int {

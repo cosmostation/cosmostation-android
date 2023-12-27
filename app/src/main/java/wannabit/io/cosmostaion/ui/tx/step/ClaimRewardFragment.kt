@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -53,6 +54,8 @@ class ClaimRewardFragment(
     private var txFee: TxProto.Fee? = null
     private var txMemo = ""
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -66,23 +69,27 @@ class ClaimRewardFragment(
         initView()
         initFee()
         updateFeeView()
-        txSimul()
-        clickAction()
+        txSimulate()
+        setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
     }
 
     private fun initView() {
         binding.apply {
-            rewardView.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(rewardView, memoView, feeView).forEach {
+                it.setBackgroundResource(
+                    R.drawable.cell_bg
+                )
+            }
 
-            val cosmostationValAddress = selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+            val cosmostationValAddress =
+                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
             if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
                 validatorName.text = "Cosmostation"
             } else {
-                validatorName.text = selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                validatorName.text =
+                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
             }
             if (claimableRewards.size > 1) {
                 validatorCnt.text = "+ " + (claimableRewards.size - 1)
@@ -92,31 +99,40 @@ class ClaimRewardFragment(
 
             selectedChain.stakeDenom?.let { denom ->
                 BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        var rewardAmount = BigDecimal.ZERO
-                        claimableRewards.forEach { reward ->
-                            val rawAmount = BigDecimal(reward?.rewardList?.firstOrNull { it.denom == denom }?.amount ?: "0")
-                            rewardAmount = rewardAmount.add(rawAmount.movePointLeft(18).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN))
-                        }
-                        rewardsAmount.text = formatAmount(rewardAmount.toPlainString(), decimal)
-                        rewardsDenom.text = asset.symbol
+                    var rewardAmount = BigDecimal.ZERO
+                    claimableRewards.forEach { reward ->
+                        val rawAmount =
+                            BigDecimal(
+                                reward?.rewardList?.firstOrNull { it.denom == denom }?.amount
+                                    ?: "0"
+                            )
+                        rewardAmount = rewardAmount.add(
+                            rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
+                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        )
+                    }
+                    rewardsAmount.text =
+                        formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                    rewardsDenom.text = asset.symbol
 
-                        val anotherRewardDenoms = mutableListOf<String>()
-                        claimableRewards.forEach { reward ->
-                            reward?.rewardList?.filter { it.denom != denom }?.forEach { anotherRewards ->
-                                val anotherAmount = anotherRewards.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                    val anotherRewardDenoms = mutableListOf<String>()
+                    claimableRewards.forEach { reward ->
+                        reward?.rewardList?.filter { it.denom != denom }
+                            ?.forEach { anotherRewards ->
+                                val anotherAmount =
+                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                        .setScale(0, RoundingMode.DOWN)
                                 if (anotherAmount != BigDecimal.ZERO) {
                                     if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
                                         anotherRewardDenoms.add(anotherRewards.denom)
                                     }
                                 }
                             }
-                        }
-                        if (anotherRewardDenoms.size > 0) {
-                            rewardCnt.text = "+ " + anotherRewardDenoms.size
-                        } else {
-                            rewardCnt.visibility = View.GONE
-                        }
+                    }
+                    if (anotherRewardDenoms.size > 0) {
+                        rewardCnt.text = "+ " + anotherRewardDenoms.size
+                    } else {
+                        rewardCnt.visibility = View.GONE
                     }
                 }
             }
@@ -148,6 +164,7 @@ class ClaimRewardFragment(
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
         }
@@ -158,13 +175,23 @@ class ClaimRewardFragment(
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.color_base03
+                    )
+                )
             } else {
                 tabMemoMsg.text = txMemo
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.color_base01
+                    )
+                )
             }
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateFeeView() {
@@ -174,106 +201,125 @@ class ClaimRewardFragment(
                     feeTokenImg.setTokenImg(asset)
                     feeToken.text = asset.symbol
 
-                    val amount = fee.amount.toBigDecimal()
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
                     val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeValue.text = formatAssetValue(value)
-                    }
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeDenom.text = asset.symbol
+                    feeValue.text = formatAssetValue(value)
                 }
             }
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
-                        }
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
 
-                    }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
+                AssetFragment(
+                    selectedChain,
+                    feeInfos[selectedFeeInfo].feeDatas,
+                    object : AssetSelectListener {
                         override fun select(denom: String) {
-                            var tempCoin: CoinProto.Coin? = null
-                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
-                                if (feeCoin.denom == denom) {
-                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
+                            selectedChain.getDefaultFeeCoins(requireContext())
+                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                        .setAmount(feeCoin.amount).build()
+
+                                    val updateTxFee = TxProto.Fee.newBuilder()
+                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                        .addAmount(updateFeeCoin).build()
+
+                                    txFee = updateTxFee
+                                    updateFeeView()
+                                    txSimulate()
                                 }
-                            }
-                            val tempTxFee = TxProto.Fee.newBuilder()
-                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                .addAmount(tempCoin).build()
-                            txFee = tempTxFee
-                            updateFeeView()
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom)
+                txFee = selectedChain.getBaseFee(
+                    requireContext(),
+                    selectedFeeInfo,
+                    txFee?.getAmount(0)?.denom
+                )
                 updateFeeView()
-                txSimul()
+                txSimulate()
             }
 
             btnGetReward.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    getRewardResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    claimRewardResultLauncher.launch(this)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom,
+                        R.anim.anim_fade_out
+                    )
                 }
             }
         }
     }
 
-    private val getRewardResultLauncher: ActivityResultLauncher<Intent> =
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
+    private val claimRewardResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadGetRewards(getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo, selectedChain)
+                txViewModel.broadGetRewards(
+                    getChannel(selectedChain),
+                    selectedChain.address,
+                    claimableRewards,
+                    txFee,
+                    txMemo,
+                    selectedChain
+                )
             }
         }
 
-    private fun txSimul() {
+    private fun txSimulate() {
         binding.apply {
             btnGetReward.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateGetRewards(getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo)
+            txViewModel.simulateGetRewards(
+                getChannel(selectedChain),
+                selectedChain.address,
+                claimableRewards,
+                txFee,
+                txMemo
+            )
         }
     }
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -283,15 +329,22 @@ class ClaimRewardFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
-            }
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }

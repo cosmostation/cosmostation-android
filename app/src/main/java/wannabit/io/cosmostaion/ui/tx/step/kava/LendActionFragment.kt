@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -70,6 +71,8 @@ class LendActionFragment(
     private var availableAmount = BigDecimal.ZERO
     private var toLendAmount = ""
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -83,17 +86,17 @@ class LendActionFragment(
         initView()
         initFee()
         updateFeeView()
-        txSimul()
-        clickAction()
+        txSimulate()
+        setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
     }
 
     private fun initView() {
         binding.apply {
-            lendAmountView.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(
+                lendAmountView, memoView, feeView
+            ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
             lendMoneyMarket?.let { market ->
                 BaseData.getAsset(selectedChain.apiName, market.denom)?.let { asset ->
@@ -118,7 +121,9 @@ class LendActionFragment(
                             lendActionTitle.text = getString(R.string.title_lend_withdraw)
                             lendAmountTitle.text = getString(R.string.title_vault_withdraw_amount)
                             btnLend.text = getString(R.string.str_withdraw)
-                            availableAmount = lendMyDeposit.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                            availableAmount =
+                                lendMyDeposit.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal()
+                                    ?: BigDecimal.ZERO
                         }
 
                         LendActionType.BORROW -> {
@@ -132,8 +137,11 @@ class LendActionFragment(
                             lendActionTitle.text = getString(R.string.title_lend_repay)
                             lendAmountTitle.text = getString(R.string.title_repay_amount)
                             btnLend.text = getString(R.string.str_repay)
-                            var borrowedAmount = lendMyBorrows.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
-                            borrowedAmount = borrowedAmount.multiply(BigDecimal("1.1")).setScale(0, RoundingMode.DOWN)
+                            var borrowedAmount =
+                                lendMyBorrows.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal()
+                                    ?: BigDecimal.ZERO
+                            borrowedAmount = borrowedAmount.multiply(BigDecimal("1.1"))
+                                .setScale(0, RoundingMode.DOWN)
 
                             var balanceAmount = selectedChain.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
@@ -160,14 +168,12 @@ class LendActionFragment(
             feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
             feeSegment.setRipple(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
 
@@ -180,6 +186,7 @@ class LendActionFragment(
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
         }
@@ -202,7 +209,7 @@ class LendActionFragment(
                     lendValue.text = formatAssetValue(value)
                 }
             }
-            txSimul()
+            txSimulate()
         }
     }
 
@@ -211,13 +218,21 @@ class LendActionFragment(
             txMemo = memo
             if (txMemo.isEmpty()) {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base03))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base03
+                    )
+                )
             } else {
                 tabMemoMsg.text = txMemo
-                tabMemoMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_base01))
+                tabMemoMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base01
+                    )
+                )
             }
         }
-        txSimul()
+        txSimulate()
     }
 
     private fun updateFeeView() {
@@ -227,159 +242,162 @@ class LendActionFragment(
                     feeTokenImg.setTokenImg(asset)
                     feeToken.text = asset.symbol
 
-                    val amount = fee.amount.toBigDecimal()
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
                     val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = amount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        feeDenom.text = asset.symbol
-                        val value = price.multiply(amount).movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        feeValue.text = formatAssetValue(value)
-                    }
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeDenom.text = asset.symbol
+                    feeValue.text = formatAssetValue(value)
                 }
             }
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             lendAmountView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
+                when (lendActionType) {
+                    LendActionType.DEPOSIT -> {
+                        InsertAmountFragment(TxType.LEND_DEPOSIT,
+                            null,
+                            availableAmount,
+                            toLendAmount,
+                            msAsset,
+                            null,
+                            object : AmountSelectListener {
+                                override fun select(toAmount: String) {
+                                    updateAmountView(toAmount)
+                                }
 
-                    when (lendActionType) {
-                        LendActionType.DEPOSIT -> {
-                            InsertAmountFragment(
-                                TxType.LEND_DEPOSIT,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-
-                        LendActionType.WITHDRAW -> {
-                            InsertAmountFragment(
-                                TxType.LEND_WITHDRAW,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-
-                        LendActionType.BORROW -> {
-                            InsertAmountFragment(
-                                TxType.LEND_BORROW,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
-
-                        LendActionType.REPAY -> {
-                            InsertAmountFragment(
-                                TxType.LEND_REPAY,
-                                null,
-                                availableAmount,
-                                toLendAmount,
-                                msAsset,
-                                null,
-                                object : AmountSelectListener {
-                                    override fun select(toAmount: String) {
-                                        updateAmountView(toAmount)
-                                    }
-
-                                }).show(requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name)
-                        }
+                            }).show(
+                            requireActivity().supportFragmentManager,
+                            InsertAmountFragment::class.java.name
+                        )
                     }
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
+                    LendActionType.WITHDRAW -> {
+                        InsertAmountFragment(TxType.LEND_WITHDRAW,
+                            null,
+                            availableAmount,
+                            toLendAmount,
+                            msAsset,
+                            null,
+                            object : AmountSelectListener {
+                                override fun select(toAmount: String) {
+                                    updateAmountView(toAmount)
+                                }
+
+                            }).show(
+                            requireActivity().supportFragmentManager,
+                            InsertAmountFragment::class.java.name
+                        )
+                    }
+
+                    LendActionType.BORROW -> {
+                        InsertAmountFragment(TxType.LEND_BORROW,
+                            null,
+                            availableAmount,
+                            toLendAmount,
+                            msAsset,
+                            null,
+                            object : AmountSelectListener {
+                                override fun select(toAmount: String) {
+                                    updateAmountView(toAmount)
+                                }
+
+                            }).show(
+                            requireActivity().supportFragmentManager,
+                            InsertAmountFragment::class.java.name
+                        )
+                    }
+
+                    LendActionType.REPAY -> {
+                        InsertAmountFragment(TxType.LEND_REPAY,
+                            null,
+                            availableAmount,
+                            toLendAmount,
+                            msAsset,
+                            null,
+                            object : AmountSelectListener {
+                                override fun select(toAmount: String) {
+                                    updateAmountView(toAmount)
+                                }
+
+                            }).show(
+                            requireActivity().supportFragmentManager,
+                            InsertAmountFragment::class.java.name
+                        )
+                    }
                 }
+                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
-                        }
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
 
-                    }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetFragment(selectedChain, feeInfos[selectedFeeInfo].feeDatas, object : AssetSelectListener {
+                AssetFragment(selectedChain,
+                    feeInfos[selectedFeeInfo].feeDatas,
+                    object : AssetSelectListener {
                         override fun select(denom: String) {
-                            var tempCoin: CoinProto.Coin? = null
-                            selectedChain.getDefaultFeeCoins(requireContext()).forEach { feeCoin ->
-                                if (feeCoin.denom == denom) {
-                                    tempCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
+                            selectedChain.getDefaultFeeCoins(requireContext())
+                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                        .setAmount(feeCoin.amount).build()
+
+                                    val updateTxFee = TxProto.Fee.newBuilder()
+                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                        .addAmount(updateFeeCoin).build()
+
+                                    txFee = updateTxFee
+                                    updateFeeView()
+                                    txSimulate()
                                 }
-                            }
-                            val tempTxFee = TxProto.Fee.newBuilder()
-                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                .addAmount(tempCoin).build()
-                            txFee = tempTxFee
-                            updateFeeView()
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, AssetFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom)
+                txFee = selectedChain.getBaseFee(
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                )
                 updateFeeView()
-                txSimul()
+                txSimulate()
             }
 
             btnLend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     getLendResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
@@ -436,10 +454,14 @@ class LendActionFragment(
             }
         }
 
-    private fun txSimul() {
+    private fun txSimulate() {
         binding.apply {
-            if (toLendAmount.isEmpty()) { return }
-            if (toLendAmount.toBigDecimal() == BigDecimal.ZERO) { return }
+            if (toLendAmount.isEmpty()) {
+                return
+            }
+            if (toLendAmount.toBigDecimal() == BigDecimal.ZERO) {
+                return
+            }
             btnLend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
 
@@ -489,45 +511,40 @@ class LendActionFragment(
 
     private fun onBindDepositMsg(): MsgDeposit? {
         val depositCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
-        return MsgDeposit.newBuilder()
-            .setDepositor(selectedChain.address)
-            .addAmount(depositCoin)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+                .build()
+        return MsgDeposit.newBuilder().setDepositor(selectedChain.address).addAmount(depositCoin)
             .build()
     }
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
         val withdrawCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
-        return MsgWithdraw.newBuilder()
-            .setDepositor(selectedChain.address)
-            .addAmount(withdrawCoin)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+                .build()
+        return MsgWithdraw.newBuilder().setDepositor(selectedChain.address).addAmount(withdrawCoin)
             .build()
     }
 
     private fun onBindBorrowMsg(): MsgBorrow? {
         val borrowCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
-        return MsgBorrow.newBuilder()
-            .setBorrower(selectedChain.address)
-            .addAmount(borrowCoin)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+                .build()
+        return MsgBorrow.newBuilder().setBorrower(selectedChain.address).addAmount(borrowCoin)
             .build()
     }
 
     private fun onBindRepayMsg(): MsgRepay? {
         val repayCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount).build()
-        return MsgRepay.newBuilder()
-            .setSender(selectedChain.address)
-            .setOwner(selectedChain.address)
-            .addAmount(repayCoin)
-            .build()
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+                .build()
+        return MsgRepay.newBuilder().setSender(selectedChain.address)
+            .setOwner(selectedChain.address).addAmount(repayCoin).build()
     }
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -537,15 +554,22 @@ class LendActionFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }?.let { gasRate ->
-                val gasLimit = (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin =  CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
-            }
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }

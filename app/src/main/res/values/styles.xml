@@ -97,8 +97,17 @@
         <item name="colorControlNormal">@color/color_base07</item>
     </style>
 
-    <style name="progressbar_color_under_api21">
-        <item name="colorAccent">@color/color_base03</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:textColorPrimary">@color/color_base01</item>
+        <item name="colorControlNormal">@color/color_base01</item>
+        <item name="android:textColorHint">@color/color_base03</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     <style name="Widget.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">

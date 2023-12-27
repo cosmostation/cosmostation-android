@@ -50,6 +50,8 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
     private var gasAmount = BigDecimal(BASE_GAS_AMOUNT)
     private var gasFee = BigDecimal(OKT_BASE_FEE)
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -62,25 +64,30 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
 
         initView()
         initFee()
-        clickAction()
+        setUpClickAction()
         setUpBroadcast()
     }
 
     private fun initView() {
         binding.apply {
-            oktDepositView.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(
+                oktDepositView, memoView, feeView
+            ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
-            selectedChain.oktTokenInfo?.data?.firstOrNull { it.symbol == selectedChain.stakeDenom }?.let { tokenInfo ->
-                oktTokenInfo = tokenInfo
-                val originalSymbol = tokenInfo.originalSymbol
-                tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
-                tokenName.text = originalSymbol.uppercase()
+            selectedChain.oktTokenInfo?.data?.firstOrNull { it.symbol == selectedChain.stakeDenom }
+                ?.let { tokenInfo ->
+                    oktTokenInfo = tokenInfo
+                    val originalSymbol = tokenInfo.originalSymbol
+                    tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
+                    tokenName.text = originalSymbol.uppercase()
 
-                val available = selectedChain.lcdBalanceAmount(selectedChain.stakeDenom)
-                availableAmount = available.subtract(gasFee)
-            }
+                    val available = selectedChain.lcdBalanceAmount(selectedChain.stakeDenom)
+                    availableAmount = if (available > gasFee) {
+                        available.subtract(gasFee)
+                    } else {
+                        BigDecimal.ZERO
+                    }
+                }
         }
     }
 
@@ -132,16 +139,14 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base03
+                        requireContext(), R.color.color_base03
                     )
                 )
             } else {
                 tabMemoMsg.text = txMemo
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base01
+                        requireContext(), R.color.color_base01
                     )
                 )
             }
@@ -149,68 +154,67 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
         txValidate()
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             oktDepositView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    LegacyInsertAmountFragment(
-                        selectedChain,
-                        null,
-                        oktTokenInfo,
-                        availableAmount,
-                        toDepositAmount,
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateAmountView(toAmount)
-                            }
-
-                        }).show(
-                        requireActivity().supportFragmentManager,
-                        LegacyInsertAmountFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
-            }
-
-            memoView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
+                LegacyInsertAmountFragment(selectedChain,
+                    null,
+                    oktTokenInfo,
+                    availableAmount,
+                    toDepositAmount,
+                    object : AmountSelectListener {
+                        override fun select(toAmount: String) {
+                            updateAmountView(toAmount)
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, MemoFragment::class.java.name
-                    )
+                    requireActivity().supportFragmentManager,
+                    LegacyInsertAmountFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
+            }
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+            memoView.setOnClickListener {
+                MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
+                    }
+
+                }).show(
+                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             btnDeposit.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     depositResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
             }
         }
     }
 
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+    }
+
     private fun txValidate() {
         binding.apply {
-            if (toDepositAmount.isEmpty()) { return }
-            if (BigDecimal(toDepositAmount) == BigDecimal.ZERO) { return }
+            if (toDepositAmount.isEmpty()) {
+                return
+            }
+            if (BigDecimal(toDepositAmount) == BigDecimal.ZERO) {
+                return
+            }
             binding.btnDeposit.updateButtonView(true)
         }
     }

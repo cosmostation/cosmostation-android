@@ -109,6 +109,16 @@ fun TextView.priceChangeStatusColor(lastUpDown: BigDecimal) {
     }
 }
 
+fun TextView.hiddenStatus(amount: SpannableString) {
+    if (Prefs.hideValue) {
+        text = "✱✱✱✱"
+        textSize = 12f
+    } else {
+        text = amount
+        textSize = 12f
+    }
+}
+
 fun Activity.toMoveAnimation() {
     this.overridePendingTransition(
         R.anim.anim_slide_in_left,

@@ -65,50 +65,55 @@ class TxResultActivity : BaseActivity() {
 
         initViewModel()
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initViewModel() {
         val walletRepository = WalletRepositoryImpl()
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initView() {
-        selectedChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
-            it.tag == intent.getStringExtra(
-                "selectedChain"
-            ).toString()
-        }
-        isSuccess = intent.getBooleanExtra("isSuccess", false)
-        errorMsg = intent.getStringExtra("errorMsg") ?: ""
-        txHash = intent.getStringExtra("txHash") ?: ""
-        txResultType = TxResultType.valueOf(intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString())
-
-        binding.btnConfirm.updateButtonView(true)
-        if (selectedChain is ChainBinanceBeacon || (selectedChain is ChainOkt60 && txResultType == TxResultType.COSMOS)) {
-            if (txHash.isNotEmpty()) {
-                updateView()
-            } else {
-                binding.loading.visibility = View.GONE
-                binding.btnConfirm.updateButtonView(true)
-                binding.failLayout.visibility = View.VISIBLE
-                binding.failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                binding.failMsg.text = errorMsg
+        binding.apply {
+            selectedChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
+                it.tag == intent.getStringExtra(
+                    "selectedChain"
+                ).toString()
             }
+            isSuccess = intent.getBooleanExtra("isSuccess", false)
+            errorMsg = intent.getStringExtra("errorMsg") ?: ""
+            txHash = intent.getStringExtra("txHash") ?: ""
+            txResultType = TxResultType.valueOf(
+                intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString()
+            )
 
-        } else {
-            if (isSuccess) {
-                if (txResultType == TxResultType.EVM) {
-                    fetchEvmTx()
+            btnConfirm.updateButtonView(true)
+            if (selectedChain is ChainBinanceBeacon || (selectedChain is ChainOkt60 && txResultType == TxResultType.COSMOS)) {
+                if (txHash.isNotEmpty()) {
+                    updateView()
                 } else {
-                    fetchTx()
+                    loading.visibility = View.GONE
+                    btnConfirm.updateButtonView(true)
+                    failLayout.visibility = View.VISIBLE
+                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
+                    failMsg.text = errorMsg
                 }
+
             } else {
-                showError()
+                if (isSuccess) {
+                    if (txResultType == TxResultType.EVM) {
+                        loadEvmTx()
+                    } else {
+                        loadHistoryTx()
+                    }
+                } else {
+                    showError()
+                }
             }
+            initQuotes()
         }
-        initQuotes()
     }
 
     override fun onBackPressed() {
@@ -144,7 +149,7 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (txResultType == TxResultType.EVM) {
@@ -152,7 +157,7 @@ class TxResultActivity : BaseActivity() {
                         historyToMintscan(selectedChain, txHash)
                     }
 
-                    walletViewModel.errorMessage.observe(this@TxResultActivity) {
+                    walletViewModel.evmTxHashErrorMessage.observe(this@TxResultActivity) {
                         viewSuccessMintscan.isEnabled = false
                     }
 
@@ -169,7 +174,7 @@ class TxResultActivity : BaseActivity() {
                         historyToMintscan(selectedChain, txHash)
                     }
 
-                    walletViewModel.errorMessage.observe(this@TxResultActivity) {
+                    walletViewModel.evmTxHashErrorMessage.observe(this@TxResultActivity) {
                         viewSuccessMintscan.isEnabled = false
                     }
 
@@ -190,7 +195,7 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun fetchTx() {
+    private fun loadHistoryTx() {
         CoroutineScope(Dispatchers.IO).launch {
             selectedChain?.let { line ->
                 val stub = newStub(getChannel(line))
@@ -210,7 +215,7 @@ class TxResultActivity : BaseActivity() {
                             getChannel(line).shutdown()
                             getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
                             Handler(Looper.getMainLooper()).postDelayed({
-                                fetchTx()
+                                loadHistoryTx()
                             }, 6000)
 
                         } else {
@@ -226,7 +231,7 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun fetchEvmTx() {
+    private fun loadEvmTx() {
         CoroutineScope(Dispatchers.IO).launch {
             val rpcUrl = selectedChain?.rpcUrl
             val web3j = Web3j.build(HttpService(rpcUrl))
@@ -238,7 +243,7 @@ class TxResultActivity : BaseActivity() {
                 if (evmRecipient == null) {
                     fetchCnt -= 1
                     Handler(Looper.getMainLooper()).postDelayed({
-                        fetchEvmTx()
+                        loadEvmTx()
                     }, 6000)
                 } else {
                     runOnUiThread {
@@ -250,7 +255,7 @@ class TxResultActivity : BaseActivity() {
                 fetchCnt -= 1
                 if (isSuccess && fetchCnt > 0) {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        fetchEvmTx()
+                        loadEvmTx()
                     }, 6000)
 
                 } else {
@@ -289,7 +294,7 @@ class TxResultActivity : BaseActivity() {
 
         binding.btnWait.setOnClickListener {
             fetchCnt = 10
-            fetchTx()
+            loadHistoryTx()
             dialog.dismiss()
         }
     }
