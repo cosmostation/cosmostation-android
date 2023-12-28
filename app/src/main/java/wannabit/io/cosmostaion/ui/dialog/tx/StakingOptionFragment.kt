@@ -53,11 +53,15 @@ class StakingOptionFragment(
     private fun initView() {
         binding.apply {
             val isStakeOption = optionType == OptionType.STAKE
-            stakeLayout.visibleOrGone(isStakeOption)
-            unstakeLayout.visibleOrGone(isStakeOption)
-            switchValidatorLayout.visibleOrGone(isStakeOption)
-            claimRewardsLayout.visibleOrGone(isStakeOption)
-            compoundingLayout.visibleOrGone(isStakeOption)
+            listOf(
+                stakeLayout,
+                unstakeLayout,
+                switchValidatorLayout,
+                claimRewardsLayout,
+                compoundingLayout
+            ).forEach {
+                it.visibleOrGone(isStakeOption)
+            }
             unstakeCancelLayout.goneOrVisible(isStakeOption)
 
             listOf(view0, view1, view2, view3, view4).forEach { it.visibleOrGone(isStakeOption) }
@@ -76,16 +80,14 @@ class StakingOptionFragment(
 
             unstakeLayout.setOnClickListener {
                 UnStakingFragment(selectedChain, validator).show(
-                    requireActivity().supportFragmentManager,
-                    UnStakingFragment::class.java.name
+                    requireActivity().supportFragmentManager, UnStakingFragment::class.java.name
                 )
                 setClickableOnce(isClickable)
             }
 
             switchValidatorLayout.setOnClickListener {
                 ReDelegateFragment(selectedChain, validator).show(
-                    requireActivity().supportFragmentManager,
-                    ReDelegateFragment::class.java.name
+                    requireActivity().supportFragmentManager, ReDelegateFragment::class.java.name
                 )
                 setClickableOnce(isClickable)
             }
@@ -102,8 +104,7 @@ class StakingOptionFragment(
                 }
 
                 ClaimRewardFragment(selectedChain, claimableRewards).show(
-                    requireActivity().supportFragmentManager,
-                    ClaimRewardFragment::class.java.name
+                    requireActivity().supportFragmentManager, ClaimRewardFragment::class.java.name
                 )
                 setClickableOnce(isClickable)
             }
@@ -125,8 +126,7 @@ class StakingOptionFragment(
                 setClickableOnce(isClickable)
 
                 CompoundingFragment(selectedChain, claimableRewards).show(
-                    requireActivity().supportFragmentManager,
-                    CompoundingFragment::class.java.name
+                    requireActivity().supportFragmentManager, CompoundingFragment::class.java.name
                 )
             }
 

@@ -10,8 +10,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemAccountSelectBinding
 
 class AccountSelectViewHolder(
-    val context: Context,
-    private val binding: ItemAccountSelectBinding
+    val context: Context, private val binding: ItemAccountSelectBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(baseAccount: BaseAccount) {

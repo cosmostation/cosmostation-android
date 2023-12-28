@@ -17,8 +17,7 @@ class MintOtherViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        collateralParam: GenesisProto.CollateralParam?,
-        listener: MintListAdapter.ClickListener
+        collateralParam: GenesisProto.CollateralParam?, listener: MintListAdapter.ClickListener
     ) {
         binding.apply {
             otherMintView.setBackgroundResource(R.drawable.item_bg)
@@ -42,7 +41,8 @@ class MintOtherViewHolder(
 
                 minCollateralRate.text = formatString(liquidationRatio.toPlainString() + "%", 3)
                 stabilityFee.text = formatString(dpStabilityFee.toPlainString() + "%", 3)
-                liquidationPenalty.text = formatString(dpLiquidationPenalty.toPlainString() + "%", 3)
+                liquidationPenalty.text =
+                    formatString(dpLiquidationPenalty.toPlainString() + "%", 3)
             }
         }
     }

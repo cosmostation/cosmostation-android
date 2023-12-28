@@ -71,36 +71,29 @@ class MintListAdapter(
             }
 
             is MintOtherViewHolder -> {
-                val collateralParam: GenesisProto.CollateralParam?
-                if (myCollateralParams.isNotEmpty()) {
-                    collateralParam = otherCollateralParams[position - myCollateralParams.size - 2]
-                    holder.bind(collateralParam, listener)
-
-                } else {
-                    collateralParam = otherCollateralParams[position - 1]
-                    holder.bind(collateralParam, listener)
-                }
+                val collateralParam: GenesisProto.CollateralParam? =
+                    if (myCollateralParams.isNotEmpty()) {
+                        otherCollateralParams.getOrNull(position - myCollateralParams.size - 2)
+                    } else {
+                        otherCollateralParams.getOrNull(position - 1)
+                    }
+                holder.bind(collateralParam, listener)
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (myCollateralParams.isNotEmpty()) {
-            return if (position == 0) {
-                VIEW_TYPE_MY_MINT_HEADER
-            } else if (position < myCollateralParams.size + 1) {
-                VIEW_TYPE_MY_MINT_ITEM
-            } else if (position < myCollateralParams.size + 2) {
-                VIEW_TYPE_OTHER_MINT_HEADER
-            } else {
-                VIEW_TYPE_OTHER_MINT_ITEM
+        return when {
+            myCollateralParams.isNotEmpty() -> when {
+                position == 0 -> VIEW_TYPE_MY_MINT_HEADER
+                position < myCollateralParams.size + 1 -> VIEW_TYPE_MY_MINT_ITEM
+                position < myCollateralParams.size + 2 -> VIEW_TYPE_OTHER_MINT_HEADER
+                else -> VIEW_TYPE_OTHER_MINT_ITEM
             }
 
-        } else {
-            return if (position == 0) {
-                VIEW_TYPE_OTHER_MINT_HEADER
-            } else {
-                VIEW_TYPE_OTHER_MINT_ITEM
+            else -> when (position) {
+                0 -> VIEW_TYPE_OTHER_MINT_HEADER
+                else -> VIEW_TYPE_OTHER_MINT_ITEM
             }
         }
     }
@@ -116,11 +109,15 @@ class MintListAdapter(
 
     private class MintListDiffCallback : DiffUtil.ItemCallback<GenesisProto.CollateralParam>() {
 
-        override fun areItemsTheSame(oldItem: GenesisProto.CollateralParam, newItem: GenesisProto.CollateralParam): Boolean {
+        override fun areItemsTheSame(
+            oldItem: GenesisProto.CollateralParam, newItem: GenesisProto.CollateralParam
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: GenesisProto.CollateralParam, newItem: GenesisProto.CollateralParam): Boolean {
+        override fun areContentsTheSame(
+            oldItem: GenesisProto.CollateralParam, newItem: GenesisProto.CollateralParam
+        ): Boolean {
             return oldItem == newItem
         }
     }

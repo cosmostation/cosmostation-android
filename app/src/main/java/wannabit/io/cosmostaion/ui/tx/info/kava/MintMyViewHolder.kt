@@ -37,12 +37,16 @@ class MintMyViewHolder(
                     listener.myMintClick(collateralParam.type)
                 }
 
-                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit().into(marketImg)
+                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit()
+                    .into(marketImg)
                 marketType.text = collateralParam.type.uppercase()
                 mintType.text = collateralParam.spotMarketId.uppercase()
 
-                currentPriceTitle.text = context.getString(R.string.str_current_price, collateralParam.denom.uppercase())
-                liquidationTitle.text = context.getString(R.string.str_liquidation_price, collateralParam.denom.uppercase())
+                currentPriceTitle.text =
+                    context.getString(R.string.str_current_price, collateralParam.denom.uppercase())
+                liquidationTitle.text = context.getString(
+                    R.string.str_liquidation_price, collateralParam.denom.uppercase()
+                )
 
                 val collateralValue = myCdp.collateralUSDXAmount()
                 val ltv = myCdp.UsdxLTV(collateralParam)
@@ -56,16 +60,33 @@ class MintMyViewHolder(
                 currentPriceTxt.text = formatAssetValue(currentPrice)
                 liquidation.text = formatAssetValue(liquidationPrice)
 
-                borrowedValue.divide(ltv, 18, RoundingMode.HALF_UP)?.movePointRight(2)?.setScale(2, RoundingMode.HALF_UP)?.let { riskRate ->
-                    risk.text = formatAmount(riskRate.toPlainString(), 2)
-                    if (riskRate.toFloat() <= 60) {
-                        risk.setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
-                        liquidation.setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_green))
-                    } else {
-                        risk.setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
-                        liquidation.setTextColor(ContextCompat.getColorStateList(context, R.color.color_accent_red))
+                borrowedValue.divide(ltv, 18, RoundingMode.HALF_UP)?.movePointRight(2)
+                    ?.setScale(2, RoundingMode.HALF_UP)?.let { riskRate ->
+                        risk.text = formatAmount(riskRate.toPlainString(), 2)
+                        if (riskRate.toFloat() <= 60) {
+                            risk.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_accent_green
+                                )
+                            )
+                            liquidation.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_accent_green
+                                )
+                            )
+                        } else {
+                            risk.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_accent_red
+                                )
+                            )
+                            liquidation.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_accent_red
+                                )
+                            )
+                        }
                     }
-                }
             }
         }
     }

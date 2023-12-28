@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 class ValidatorDefaultFragment(
     private val selectedChain: CosmosLine,
+    private val fromValidator: StakingProto.Validator?,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
 
@@ -44,12 +45,18 @@ class ValidatorDefaultFragment(
             selectTitle.text = getString(R.string.title_select_validator)
             searchBar.visibility = View.VISIBLE
             searchView.queryHint = getString(R.string.str_search_validator)
-            searchValidators.addAll(selectedChain.cosmosValidators)
+            searchValidators.addAll(selectedChain.cosmosValidators.filterNot { it == fromValidator })
 
+            initRecyclerView()
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.recycler.apply {
             validatorDefaultAdapter = ValidatorDefaultAdapter(selectedChain)
-            recycler.setHasFixedSize(true)
-            recycler.layoutManager = LinearLayoutManager(requireContext())
-            recycler.adapter = validatorDefaultAdapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = validatorDefaultAdapter
             validatorDefaultAdapter.submitList(searchValidators)
 
             validatorDefaultAdapter.setOnItemClickListener {

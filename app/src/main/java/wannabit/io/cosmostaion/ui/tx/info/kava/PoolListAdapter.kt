@@ -37,7 +37,7 @@ class PoolListAdapter(
                 PoolListHeaderViewHolder(binding)
             }
 
-            VIEW_TYPE_POOL_MY_ITEM,  VIEW_TYPE_POOL_OTHER_ITEM-> {
+            VIEW_TYPE_POOL_MY_ITEM, VIEW_TYPE_POOL_OTHER_ITEM -> {
                 val binding = ItemPoolBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -56,9 +56,10 @@ class PoolListAdapter(
 
             is PoolListViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_POOL_MY_ITEM) {
-                    val deposit = swapMyDeposit?.get(position - 1)
+                    val deposit = swapMyDeposit?.getOrNull(position - 1)
                     val pool = swapMyList.firstOrNull { it.name == deposit?.poolId }
                     holder.bindMyPool(selectChain, pool, deposit, listener)
+
                 } else {
                     val pool = if (swapMyList.isNotEmpty()) {
                         swapOtherList[position - swapMyList.size - 2]
@@ -67,38 +68,31 @@ class PoolListAdapter(
                     }
                     holder.bindOtherPool(selectChain, pool, listener)
                 }
-
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (swapMyList.isNotEmpty()) {
-            return if (position == 0) {
-                VIEW_TYPE_POOL_MY_HEADER
-            } else if (position < swapMyList.size + 1) {
-                VIEW_TYPE_POOL_MY_ITEM
-            } else if (position < swapMyList.size + 2) {
-                VIEW_TYPE_POOL_OTHER_HEADER
-            } else {
-                VIEW_TYPE_POOL_OTHER_ITEM
+        return when {
+            swapMyList.isNotEmpty() -> when {
+                position == 0 -> VIEW_TYPE_POOL_MY_HEADER
+                position < swapMyList.size + 1 -> VIEW_TYPE_POOL_MY_ITEM
+                position < swapMyList.size + 2 -> VIEW_TYPE_POOL_OTHER_HEADER
+                else -> VIEW_TYPE_POOL_OTHER_ITEM
             }
 
-        } else {
-            return if (position == 0) {
-                VIEW_TYPE_POOL_OTHER_HEADER
-            } else {
-                VIEW_TYPE_POOL_OTHER_ITEM
+            else -> when (position) {
+                0 -> VIEW_TYPE_POOL_OTHER_HEADER
+                else -> VIEW_TYPE_POOL_OTHER_ITEM
             }
         }
     }
 
     override fun getItemCount(): Int {
-        val allSwapList = swapMyList.size + swapOtherList.size
         return if (swapMyList.isNotEmpty()) {
-            allSwapList + 2
+            swapMyList.size + swapOtherList.size + 2
         } else {
-            allSwapList + 1
+            swapOtherList.size + 1
         }
     }
 
@@ -122,7 +116,6 @@ class PoolListAdapter(
                 if (viewType == VIEW_TYPE_POOL_MY_HEADER) {
                     headerTitle.text = "Deposit pool list"
                     headerCnt.text = swapMyList.size.toString()
-
                 } else {
                     headerTitle.text = "Pool list"
                     headerCnt.text = swapOtherList.size.toString()

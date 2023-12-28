@@ -25,7 +25,9 @@ class PoolListViewHolder(
         binding.apply {
             poolView.setBackgroundResource(R.drawable.item_bg)
             depositLayout.visibility = View.VISIBLE
-            if (deposit == null || pool == null) { return }
+            if (deposit == null || pool == null) {
+                return
+            }
             poolView.setOnClickListener {
                 listener.myPoolSelect(deposit.poolId, deposit)
             }
@@ -37,41 +39,50 @@ class PoolListViewHolder(
 
             BaseData.getAsset(selectChain.apiName, coin1.denom)?.let { asset1 ->
                 BaseData.getAsset(selectChain.apiName, coin2.denom)?.let { asset2 ->
-                    asset1.decimals?.let { decimal1 ->
-                        asset2.decimals?.let { decimal2 ->
-                            pool0Img.setTokenImg(asset1)
-                            pool1Img.setTokenImg(asset2)
-                            poolType.text = asset1.symbol + " : " + asset2.symbol
+                    pool0Img.setTokenImg(asset1)
+                    pool1Img.setTokenImg(asset2)
+                    poolType.text = asset1.symbol + " : " + asset2.symbol
 
-                            val coin1Price = BaseData.getPrice(asset1.coinGeckoId)
-                            val coin2Price = BaseData.getPrice(asset2.coinGeckoId)
-                            val coin1Value = coin1.amount.toBigDecimal().multiply(coin1Price).movePointLeft(decimal1).setScale(12, RoundingMode.DOWN)
-                            val coin2Value = coin2.amount.toBigDecimal().multiply(coin2Price).movePointLeft(decimal2).setScale(12, RoundingMode.DOWN)
+                    val coin1Price = BaseData.getPrice(asset1.coinGeckoId)
+                    val coin2Price = BaseData.getPrice(asset2.coinGeckoId)
+                    val coin1Value = coin1.amount.toBigDecimal().multiply(coin1Price)
+                        .movePointLeft(asset1.decimals ?: 6).setScale(12, RoundingMode.DOWN)
+                    val coin2Value = coin2.amount.toBigDecimal().multiply(coin2Price)
+                        .movePointLeft(asset2.decimals ?: 6).setScale(12, RoundingMode.DOWN)
 
-                            tvlValue.text = formatAssetValue(coin1Value.add(coin2Value))
-                            pool0Amount.text = formatAmount(coin1.amount.toBigDecimal().movePointLeft(decimal1).setScale(decimal1, RoundingMode.DOWN).toPlainString(), 3)
-                            pool0Denom.text = asset1.symbol
-                            pool1Amount.text = formatAmount(coin2.amount.toBigDecimal().movePointLeft(decimal2).setScale(decimal2, RoundingMode.DOWN).toPlainString(), 3)
-                            pool1Denom.text = asset2.symbol
+                    tvlValue.text = formatAssetValue(coin1Value.add(coin2Value))
+                    pool0Amount.text = formatAmount(
+                        coin1.amount.toBigDecimal().movePointLeft(asset1.decimals ?: 6)
+                            .setScale(asset1.decimals ?: 6, RoundingMode.DOWN).toPlainString(), 3
+                    )
+                    pool0Denom.text = asset1.symbol
+                    pool1Amount.text = formatAmount(
+                        coin2.amount.toBigDecimal().movePointLeft(asset2.decimals ?: 6)
+                            .setScale(asset2.decimals ?: 6, RoundingMode.DOWN).toPlainString(), 3
+                    )
+                    pool1Denom.text = asset2.symbol
 
-                            val my1Value = my1.amount.toBigDecimal().multiply(coin1Price).movePointLeft(decimal1).setScale(12, RoundingMode.DOWN)
-                            val my2Value = my2.amount.toBigDecimal().multiply(coin2Price).movePointLeft(decimal2).setScale(12, RoundingMode.DOWN)
-                            depositValue.text = formatAssetValue(my1Value.add(my2Value))
-                        }
-                    }
+                    val my1Value = my1.amount.toBigDecimal().multiply(coin1Price)
+                        .movePointLeft(asset1.decimals ?: 6).setScale(12, RoundingMode.DOWN)
+                    val my2Value = my2.amount.toBigDecimal().multiply(coin2Price)
+                        .movePointLeft(asset2.decimals ?: 6).setScale(12, RoundingMode.DOWN)
+                    depositValue.text = formatAssetValue(my1Value.add(my2Value))
                 }
             }
         }
     }
 
-    fun bindOtherPool(selectChain: CosmosLine,
-                      pool: QueryProto.PoolResponse?,
-                      listener: PoolListAdapter.ClickListener
+    fun bindOtherPool(
+        selectChain: CosmosLine,
+        pool: QueryProto.PoolResponse?,
+        listener: PoolListAdapter.ClickListener
     ) {
         binding.apply {
             poolView.setBackgroundResource(R.drawable.item_bg)
             depositLayout.visibility = View.GONE
-            if (pool == null) { return }
+            if (pool == null) {
+                return
+            }
             poolView.setOnClickListener {
                 listener.otherPoolSelect(pool.name)
             }
@@ -88,13 +99,21 @@ class PoolListViewHolder(
 
                             val coin1Price = BaseData.getPrice(asset1.coinGeckoId)
                             val coin2Price = BaseData.getPrice(asset2.coinGeckoId)
-                            val coin1Value = coin1.amount.toBigDecimal().multiply(coin1Price).movePointLeft(decimal1).setScale(12, RoundingMode.DOWN)
-                            val coin2Value = coin2.amount.toBigDecimal().multiply(coin2Price).movePointLeft(decimal2).setScale(12, RoundingMode.DOWN)
+                            val coin1Value = coin1.amount.toBigDecimal().multiply(coin1Price)
+                                .movePointLeft(decimal1).setScale(12, RoundingMode.DOWN)
+                            val coin2Value = coin2.amount.toBigDecimal().multiply(coin2Price)
+                                .movePointLeft(decimal2).setScale(12, RoundingMode.DOWN)
 
                             tvlValue.text = formatAssetValue(coin1Value.add(coin2Value))
-                            pool0Amount.text = formatAmount(coin1.amount.toBigDecimal().movePointLeft(decimal1).setScale(decimal1, RoundingMode.DOWN).toPlainString(), 3)
+                            pool0Amount.text = formatAmount(
+                                coin1.amount.toBigDecimal().movePointLeft(decimal1)
+                                    .setScale(decimal1, RoundingMode.DOWN).toPlainString(), 3
+                            )
                             pool0Denom.text = asset1.symbol
-                            pool1Amount.text = formatAmount(coin2.amount.toBigDecimal().movePointLeft(decimal2).setScale(decimal2, RoundingMode.DOWN).toPlainString(), 3)
+                            pool1Amount.text = formatAmount(
+                                coin2.amount.toBigDecimal().movePointLeft(decimal2)
+                                    .setScale(decimal2, RoundingMode.DOWN).toPlainString(), 3
+                            )
                             pool1Denom.text = asset2.symbol
                         }
                     }

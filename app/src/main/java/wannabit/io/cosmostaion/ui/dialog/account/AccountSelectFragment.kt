@@ -53,7 +53,8 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
                         val toAccountId = selectAllAccount[it].id
                         if (BaseData.baseAccount?.id != toAccountId) {
                             CoroutineScope(Dispatchers.IO).launch {
-                                val toAccount = appDatabase.baseAccountDao().selectAccount(toAccountId)
+                                val toAccount =
+                                    appDatabase.baseAccountDao().selectAccount(toAccountId)
                                 withContext(Dispatchers.Main) {
                                     toAccount?.let { account ->
                                         Prefs.lastAccountId = account.id

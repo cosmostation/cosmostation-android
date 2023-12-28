@@ -12,8 +12,7 @@ import wannabit.io.cosmostaion.databinding.ItemAssetSelectBinding
 import java.math.RoundingMode
 
 class AssetSelectViewHolder(
-    val context: Context,
-    private val binding: ItemAssetSelectBinding
+    val context: Context, private val binding: ItemAssetSelectBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(asset: Asset, balances: MutableList<CoinProto.Coin>?) {
@@ -22,14 +21,15 @@ class AssetSelectViewHolder(
             tokenName.text = asset.symbol
 
             balances?.firstOrNull { it.denom == asset.denom }?.let { coin ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = coin.amount.toBigDecimal().movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                    tokenBalance.text = formatAmount(dpAmount.toPlainString(), decimal)
+                val dpAmount = coin.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
+                    .setScale(6, RoundingMode.DOWN)
+                tokenBalance.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
 
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val value = price.multiply(coin.amount.toBigDecimal()).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-                    tokenValue.text = formatAssetValue(value)
-                }
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val value =
+                    price.multiply(coin.amount.toBigDecimal()).movePointLeft(asset.decimals ?: 6)
+                        .setScale(6, RoundingMode.DOWN)
+                tokenValue.text = formatAssetValue(value)
             }
         }
     }

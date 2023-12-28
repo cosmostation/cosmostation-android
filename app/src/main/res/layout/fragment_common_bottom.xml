@@ -48,7 +48,7 @@
             android:paddingLeft="-10dp"
             app:queryBackground="@null"
             app:searchIcon="@drawable/icon_search"
-            app:closeIcon="@drawable/icon_back"/>
+            app:closeIcon="@drawable/icon_clear"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

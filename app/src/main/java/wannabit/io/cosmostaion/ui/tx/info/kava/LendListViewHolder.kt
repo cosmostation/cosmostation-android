@@ -29,7 +29,9 @@ class LendListViewHolder(
     ) {
         binding.apply {
             lendView.setBackgroundResource(R.drawable.item_bg)
-            if (lendMarket == null && priceFeed == null) { return }
+            if (lendMarket == null && priceFeed == null) {
+                return
+            }
 
             lendView.setOnClickListener {
                 listener.lendOption(lendMarket?.denom)
@@ -38,7 +40,8 @@ class LendListViewHolder(
             BaseData.assets?.firstOrNull { it.denom == lendMarket?.denom }?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val lendImgDenom = asset.originDenom
-                    Picasso.get().load(KAVA_LEMD_IMG_URL + "lp" + lendImgDenom + ".png").fit().into(marketImg)
+                    Picasso.get().load(KAVA_LEMD_IMG_URL + "lp" + lendImgDenom + ".png").fit()
+                        .into(marketImg)
                     val title = lendMarket?.spotMarketId?.replace(":30", "")?.replace(":720", "")
                     marketType.text = title?.uppercase()
 
@@ -50,8 +53,13 @@ class LendListViewHolder(
                             }
                         }
                         val marketIdPrice = priceFeed?.kavaOraclePrice(market.spotMarketId)
-                        val myDepositValue = myDepositAmount.movePointLeft(decimal).multiply(marketIdPrice).setScale(12, RoundingMode.DOWN)
-                        mySuppliedAmount.text = formatAmount(myDepositAmount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN).toPlainString(), decimal)
+                        val myDepositValue =
+                            myDepositAmount.movePointLeft(decimal).multiply(marketIdPrice)
+                                .setScale(12, RoundingMode.DOWN)
+                        mySuppliedAmount.text = formatAmount(
+                            myDepositAmount.movePointLeft(decimal)
+                                .setScale(decimal, RoundingMode.DOWN).toPlainString(), decimal
+                        )
                         mySuppliedDenom.text = asset.symbol
                         mySuppliedValue.text = formatAssetValue(myDepositValue)
 
@@ -61,8 +69,13 @@ class LendListViewHolder(
                                 myBorrowAmount = coin.amount.toBigDecimal()
                             }
                         }
-                        val myBorrowValue = myBorrowAmount.movePointLeft(decimal).multiply(marketIdPrice).setScale(12, RoundingMode.DOWN)
-                        myBorrowedAmount.text = formatAmount(myBorrowAmount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN).toPlainString(), decimal)
+                        val myBorrowValue =
+                            myBorrowAmount.movePointLeft(decimal).multiply(marketIdPrice)
+                                .setScale(12, RoundingMode.DOWN)
+                        myBorrowedAmount.text = formatAmount(
+                            myBorrowAmount.movePointLeft(decimal)
+                                .setScale(decimal, RoundingMode.DOWN).toPlainString(), decimal
+                        )
                         myBorrowedDenom.text = asset.symbol
                         myBorrowedValue.text = formatAssetValue(myBorrowValue)
                     }

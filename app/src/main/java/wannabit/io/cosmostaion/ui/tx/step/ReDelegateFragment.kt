@@ -265,6 +265,12 @@ class ReDelegateFragment(
                             updateFeeView()
                             updateFromValidatorView()
                         }
+
+                        if (fromValidator?.operatorAddress == toValidator?.operatorAddress) {
+                            toValidator =
+                                selectedChain.cosmosValidators.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
+                            updateToValidatorView()
+                        }
                     }
                 }).show(
                     requireActivity().supportFragmentManager, ValidatorFragment::class.java.name
@@ -273,13 +279,15 @@ class ReDelegateFragment(
             }
 
             toValidatorView.setOnClickListener {
-                ValidatorDefaultFragment(selectedChain, object : ValidatorDefaultListener {
-                    override fun select(validatorAddress: String) {
-                        toValidator =
-                            selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
-                        updateToValidatorView()
-                    }
-                }).show(
+                ValidatorDefaultFragment(selectedChain,
+                    fromValidator,
+                    object : ValidatorDefaultListener {
+                        override fun select(validatorAddress: String) {
+                            toValidator =
+                                selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                            updateToValidatorView()
+                        }
+                    }).show(
                     requireActivity().supportFragmentManager,
                     ValidatorDefaultFragment::class.java.name
                 )

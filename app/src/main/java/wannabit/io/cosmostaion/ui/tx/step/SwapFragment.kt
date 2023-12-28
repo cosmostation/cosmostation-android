@@ -109,6 +109,8 @@ class SwapFragment : BaseTxFragment() {
     private var toMsg: SkipMsgResponse? = null
     private var txFee: TxProto.Fee? = null
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -138,7 +140,6 @@ class SwapFragment : BaseTxFragment() {
         val skipTxViewModelProviderFactory = TxViewModelProviderFactory(skipTxRepository)
         skipTxViewModel =
             ViewModelProvider(this, skipTxViewModelProviderFactory)[TxViewModel::class.java]
-
     }
 
     private fun initData() {
@@ -154,9 +155,11 @@ class SwapFragment : BaseTxFragment() {
             swapLayout.visibility = View.VISIBLE
             initView()
 
-            if (BaseData.getSwapWarn()){
+            if (BaseData.getSwapWarn()) {
                 val bottomSheet = SwapWarnFragment()
-                bottomSheet.show(requireActivity().supportFragmentManager, SwapWarnFragment::class.java.name)
+                bottomSheet.show(
+                    requireActivity().supportFragmentManager, SwapWarnFragment::class.java.name
+                )
             }
         }
     }
@@ -164,9 +167,10 @@ class SwapFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             toMsg = null
-            inputView.setBackgroundResource(R.drawable.cell_bg)
-            outputView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            listOf(inputView, outputView, feeView).forEach {
+                it.setBackgroundResource(R.drawable.cell_bg)
+            }
+
             errorView.setBackgroundResource(R.drawable.cell_error_bg)
             loading.visibility = View.GONE
             btnSwap.updateButtonView(false)
@@ -202,10 +206,10 @@ class SwapFragment : BaseTxFragment() {
                     } else {
                         availableAmount = inputBalance
                     }
-                    inputAsset?.decimals?.let { decimal ->
-                        val dpAmount = availableAmount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                        inputAvailable.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    }
+                    val dpAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
+                        .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
+                    inputAvailable.text =
+                        formatAmount(dpAmount.toPlainString(), inputAsset?.decimals ?: 6)
 
                     outputCosmosLine?.let { line ->
                         toAddress.text = line.address
@@ -220,10 +224,10 @@ class SwapFragment : BaseTxFragment() {
                             }
 
                             val outputBalance = line.balanceAmount(outputDenom)
-                            outputAsset?.decimals?.let { decimal ->
-                                val dpAmount = outputBalance.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                                outputAvailable.text = formatAmount(dpAmount.toPlainString(), decimal)
-                            }
+                            val dpAmount = outputBalance.movePointLeft(outputAsset?.decimals ?: 6)
+                                .setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
+                            outputAvailable.text =
+                                formatAmount(dpAmount.toPlainString(), outputAsset?.decimals ?: 6)
                         }
                     }
                 }
@@ -235,7 +239,8 @@ class SwapFragment : BaseTxFragment() {
         skipViewModel.skipDataResult.observe(viewLifecycleOwner) { response ->
             response?.let { skipData ->
                 skipData.skipChains?.chains?.forEach { sChain ->
-                    allCosmosLines?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }?.let { skipChain ->
+                    allCosmosLines?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
+                        ?.let { skipChain ->
                             skipChains.add(skipChain)
                         }
                 }
@@ -245,9 +250,10 @@ class SwapFragment : BaseTxFragment() {
                 inputCosmosLine?.let { line ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
                         ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
-                            BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)?.let { asset ->
-                                inputAssets.add(asset)
-                            }
+                            BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)
+                                ?.let { asset ->
+                                    inputAssets.add(asset)
+                                }
                         }
                     inputAssetSelected = inputAssets.firstOrNull { it.denom == line.stakeDenom }
                 }
@@ -256,9 +262,10 @@ class SwapFragment : BaseTxFragment() {
                 outputCosmosLine?.let { line ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
                         ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
-                            BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)?.let { asset ->
-                                outputAssets.add(asset)
-                            }
+                            BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)
+                                ?.let { asset ->
+                                    outputAssets.add(asset)
+                                }
                         }
                     outputAssetSelected = outputAssets.firstOrNull { it.denom == line.stakeDenom }
                 }
@@ -323,7 +330,9 @@ class SwapFragment : BaseTxFragment() {
             binding.apply {
                 route = response
                 val inputText = inputAmountTxt.text.toString().trim()
-                if (inputText.isEmpty()) { return@observe }
+                if (inputText.isEmpty()) {
+                    return@observe
+                }
                 val userInput = inputText.toBigDecimal()
 
                 inputAsset?.decimals?.let { decimal ->
@@ -340,9 +349,12 @@ class SwapFragment : BaseTxFragment() {
             binding.apply {
                 if (response.msgs.size == 1) {
                     val dpSlippage = BigDecimal("100").subtract(skipSlippage.toBigDecimal())
-                    val dpOutputAmount = route?.amount_out?.toBigDecimal()?.multiply(dpSlippage)?.movePointLeft(2)?.setScale(0, RoundingMode.DOWN)
+                    val dpOutputAmount =
+                        route?.amount_out?.toBigDecimal()?.multiply(dpSlippage)?.movePointLeft(2)
+                            ?.setScale(0, RoundingMode.DOWN)
                     outputAsset?.decimals?.let { outputDecimal ->
-                        val dpAmount = dpOutputAmount?.movePointLeft(outputDecimal)?.setScale(6, RoundingMode.DOWN)?.toPlainString()
+                        val dpAmount = dpOutputAmount?.movePointLeft(outputDecimal)
+                            ?.setScale(6, RoundingMode.DOWN)?.toPlainString()
                         outputAmount.text = formatAmount(dpAmount.toString(), outputDecimal)
                         slippage.text = "$skipSlippage%"
 
@@ -351,7 +363,9 @@ class SwapFragment : BaseTxFragment() {
                         inputAsset?.decimals?.let { inputDecimal ->
                             val inputAmount = userInput.movePointRight(inputDecimal)
                             if (inputAmount > BigDecimal.ZERO) {
-                                val swapRate = dpOutputAmount?.divide(inputAmount, 6, RoundingMode.DOWN)?.movePointRight(inputDecimal - outputDecimal)
+                                val swapRate =
+                                    dpOutputAmount?.divide(inputAmount, 6, RoundingMode.DOWN)
+                                        ?.movePointRight(inputDecimal - outputDecimal)
 
                                 inputRateDenom.text = inputAsset?.symbol
                                 inputRateAmount.text = formatAmount("1", 6)
@@ -361,27 +375,37 @@ class SwapFragment : BaseTxFragment() {
 
                             inputCosmosLine?.let { line ->
                                 txFee?.let { fee ->
-                                    BaseData.getAsset(line.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
-                                        feeAsset.decimals?.let { decimal ->
-                                            val dpFeeAmount = fee.getAmount(0).amount.toBigDecimal().movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                                            txFeeAmount.text = formatAmount(dpFeeAmount.toPlainString(), decimal)
-                                            txFeeDenom.text = feeAsset.symbol
+                                    BaseData.getAsset(line.apiName, fee.getAmount(0).denom)
+                                        ?.let { feeAsset ->
+                                            feeAsset.decimals?.let { decimal ->
+                                                val dpFeeAmount =
+                                                    fee.getAmount(0).amount.toBigDecimal()
+                                                        .movePointLeft(decimal)
+                                                        .setScale(decimal, RoundingMode.DOWN)
+                                                txFeeAmount.text = formatAmount(
+                                                    dpFeeAmount.toPlainString(), decimal
+                                                )
+                                                txFeeDenom.text = feeAsset.symbol
+                                            }
                                         }
-                                    }
                                 }
                             }
                             swapVenue.text = route?.swap_venue?.name
 
                             val inputPrice = BaseData.getPrice(inputAsset?.coinGeckoId)
-                            val inputValue = inputPrice.multiply(inputAmount).movePointLeft(inputDecimal).setScale(6, RoundingMode.DOWN)
+                            val inputValue =
+                                inputPrice.multiply(inputAmount).movePointLeft(inputDecimal)
+                                    .setScale(6, RoundingMode.DOWN)
                             inputAmountValue.text = formatAssetValue(inputValue)
 
                             val outputPrice = BaseData.getPrice(outputAsset?.coinGeckoId)
-                            val outputValue = outputPrice.multiply(dpOutputAmount).movePointLeft(outputDecimal).setScale(6, RoundingMode.DOWN)
+                            val outputValue =
+                                outputPrice.multiply(dpOutputAmount).movePointLeft(outputDecimal)
+                                    .setScale(6, RoundingMode.DOWN)
                             outputAmountValue.text = formatAssetValue(outputValue)
 
                             feeView.visibility = View.VISIBLE
-                            txSimul(response)
+                            txSimulate(response)
                         }
                     }
 
@@ -429,7 +453,9 @@ class SwapFragment : BaseTxFragment() {
                     val decimalPlaces: Int = userInput.length - userInput.indexOf(".") - 1
                     inputAsset?.decimals?.let { decimal ->
                         if (decimalPlaces == decimal) {
-                            if (userInput.toBigDecimal().handlerRight(decimal, 0) == BigDecimal.ZERO) {
+                            if (userInput.toBigDecimal()
+                                    .handlerRight(decimal, 0) == BigDecimal.ZERO
+                            ) {
                                 s?.delete(s.length - 1, s.length)
                             }
                         } else if (decimalPlaces > decimal) {
@@ -471,7 +497,7 @@ class SwapFragment : BaseTxFragment() {
         }
     }
 
-    private fun txSimul(msg: SkipMsgResponse) {
+    private fun txSimulate(msg: SkipMsgResponse) {
         binding.apply {
             btnSwap.updateButtonView(false)
             btnToggle.updateToggleButtonView(false)
@@ -482,9 +508,13 @@ class SwapFragment : BaseTxFragment() {
                 val innerMsg = JSONObject(skipMsg.msg)
 
                 if (skipMsg.msg_type_url == "/ibc.applications.transfer.v1.MsgTransfer") {
-                    skipTxViewModel.simulateSkipIbcSend(getChannel(line), line.address, bindIbcSend(innerMsg), txFee, "")
+                    skipTxViewModel.simulateSkipIbcSend(
+                        getChannel(line), line.address, bindIbcSend(innerMsg), txFee, ""
+                    )
                 } else if (skipMsg.msg_type_url == "/cosmwasm.wasm.v1.MsgExecuteContract") {
-                    skipTxViewModel.simulateWasm(getChannel(line), line.address, bindWasm(innerMsg), txFee, "")
+                    skipTxViewModel.simulateWasm(
+                        getChannel(line), line.address, bindWasm(innerMsg), txFee, ""
+                    )
                 }
             }
         }
@@ -495,8 +525,8 @@ class SwapFragment : BaseTxFragment() {
             binding.apply {
                 inputCosmosLine?.let { line ->
                     txFee?.let { fee ->
-                        val gasLimit =
-                            (gasInfo.gasUsed.toDouble() * line.gasMultiply()).toLong().toBigDecimal()
+                        val gasLimit = (gasInfo.gasUsed.toDouble() * line.gasMultiply()).toLong()
+                            .toBigDecimal()
                         val baseFeePosition = line.getFeeBasePosition()
                         val gasRate =
                             line.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull {
@@ -507,17 +537,17 @@ class SwapFragment : BaseTxFragment() {
 
                         val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
                             .setAmount(feeCoinAmount.toString()).build()
-                        txFee =
-                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                                .build()
+                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                            .addAmount(feeCoin).build()
 
                         BaseData.getAsset(line.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
                             feeAsset.decimals?.let { decimal ->
-                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.
-                                movePointLeft(decimal)?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
-                                    txFeeAmount.text = formatAmount(amount.toPlainString(), decimal)
-                                    txFeeDenom.text = feeAsset.symbol
-                                }
+                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.movePointLeft(decimal)
+                                    ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                                        txFeeAmount.text =
+                                            formatAmount(amount.toPlainString(), decimal)
+                                        txFeeDenom.text = feeAsset.symbol
+                                    }
                             }
                         }
                         btnToggle.updateToggleButtonView(true)
@@ -538,20 +568,16 @@ class SwapFragment : BaseTxFragment() {
     }
 
     private fun bindIbcSend(innerMsg: JSONObject): MsgTransfer? {
-        val sendCoin = CoinProto.Coin.newBuilder()
-            .setDenom(innerMsg.getJSONObject("token").getString("denom"))
-            .setAmount(innerMsg.getJSONObject("token").getString("amount"))
-            .build()
+        val sendCoin =
+            CoinProto.Coin.newBuilder().setDenom(innerMsg.getJSONObject("token").getString("denom"))
+                .setAmount(innerMsg.getJSONObject("token").getString("amount")).build()
 
-        return MsgTransfer.newBuilder()
-            .setSender(innerMsg.getString("sender"))
+        return MsgTransfer.newBuilder().setSender(innerMsg.getString("sender"))
             .setReceiver(innerMsg.getString("receiver"))
             .setSourceChannel(innerMsg.getString("source_channel"))
             .setSourcePort(innerMsg.getString("source_port"))
             .setTimeoutTimestamp(innerMsg.getString("timeout_timestamp").toLong())
-            .setToken(sendCoin)
-            .setMemo(innerMsg.getString("memo"))
-            .build()
+            .setToken(sendCoin).setMemo(innerMsg.getString("memo")).build()
     }
 
     private fun bindWasm(innerMsg: JSONObject): MutableList<MsgExecuteContract?> {
@@ -559,78 +585,80 @@ class SwapFragment : BaseTxFragment() {
         val jsonData = Gson().toJson(innerMsg.getJSONObject("msg"))
         val fundCoin = CoinProto.Coin.newBuilder()
             .setDenom(innerMsg.getJSONArray("funds").getJSONObject(0).getString("denom"))
-            .setAmount(innerMsg.getJSONArray("funds").getJSONObject(0).getString("amount"))
-            .build()
+            .setAmount(innerMsg.getJSONArray("funds").getJSONObject(0).getString("amount")).build()
 
-        val msgExecuteContract = MsgExecuteContract.newBuilder()
-            .setSender(innerMsg.getString("sender"))
-            .setContract(innerMsg.getString("contract"))
-            .setMsg(ByteString.copyFromUtf8(jsonData))
-            .addFunds(fundCoin)
-            .build()
+        val msgExecuteContract =
+            MsgExecuteContract.newBuilder().setSender(innerMsg.getString("sender"))
+                .setContract(innerMsg.getString("contract"))
+                .setMsg(ByteString.copyFromUtf8(jsonData)).addFunds(fundCoin).build()
         result.add(msgExecuteContract)
 
         return result
     }
 
     private fun clickAction() {
-        var isClickable = true
         binding.apply {
             btnSlippage.setOnClickListener {
                 toMsg = null
-                if (isClickable) {
-                    isClickable = false
-                    SlippageFragment(object : SlippageListener {
-                        override fun slippage(position: Int) {
-                            skipSlippage = position.toString()
-                            updateAmountView()
-                        }
-
-                    }).show(
-                        requireActivity().supportFragmentManager, SlippageFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                SlippageFragment(object : SlippageListener {
+                    override fun slippage(position: Int) {
+                        skipSlippage = position.toString()
+                        updateAmountView()
+                    }
+                }).show(
+                    requireActivity().supportFragmentManager, SlippageFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             inputChainLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    ChainFragment(skipChains, ChainListType.SELECT_INPUT_SWAP, object : ChainSelectListener {
+                ChainFragment(
+                    skipChains,
+                    ChainListType.SELECT_INPUT_SWAP,
+                    object : ChainSelectListener {
                         override fun select(chainId: String) {
                             if (inputCosmosLine?.chainId != chainId) {
                                 loading.visibility = View.VISIBLE
 
                                 skipDataJob = CoroutineScope(Dispatchers.IO).launch {
-                                    inputCosmosLine = skipChains.firstOrNull { it.chainId == chainId }
+                                    inputCosmosLine =
+                                        skipChains.firstOrNull { it.chainId == chainId }
                                     inputAssets.clear()
                                     inputCosmosLine?.let { line ->
                                         skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                            ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
-                                                BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)?.let { asset ->
+                                            ?.getAsJsonObject(line.chainId)
+                                            ?.getAsJsonArray("assets")?.forEach { json ->
+                                                BaseData.getAsset(
+                                                    line.apiName,
+                                                    json.asJsonObject.get("denom").asString
+                                                )?.let { asset ->
                                                     inputAssets.add(asset)
                                                 }
                                             }
-                                        inputAssetSelected = inputAssets.firstOrNull { it.denom == line.stakeDenom }
+                                        inputAssetSelected =
+                                            inputAssets.firstOrNull { it.denom == line.stakeDenom }
 
                                         val channel = getChannel(line)
                                         try {
-                                            val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
-                                            val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
+                                            val loadInputAuthDeferred =
+                                                async { loadAuth(channel, line.address) }
+                                            val loadInputBalanceDeferred =
+                                                async { loadBalance(channel, line.address) }
                                             val loadInputParamDeferred = async { line.loadParam() }
 
                                             line.cosmosAuth = loadInputAuthDeferred.await().account
-                                            line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
+                                            line.cosmosBalances =
+                                                loadInputBalanceDeferred.await().balancesList
                                             line.param = loadInputParamDeferred.await()
                                             BaseUtils.onParseVestingAccount(line)
 
                                         } finally {
                                             channel.shutdown()
                                             try {
-                                                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                                                if (!channel.awaitTermination(
+                                                        5, TimeUnit.SECONDS
+                                                    )
+                                                ) {
                                                     channel.shutdownNow()
                                                 }
                                             } catch (e: InterruptedException) {
@@ -647,36 +675,25 @@ class SwapFragment : BaseTxFragment() {
                         }
 
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             inputTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetSelectFragment(
-                        inputAssets,
-                        inputCosmosLine?.cosmosBalances,
-                        AssetSelectType.SWAP_INPUT,
-                        object : AssetSelectListener {
-                            override fun select(denom: String) {
-                                inputAssetSelected = inputAssets.firstOrNull { it.denom == denom }
-                                initView()
-                            }
+                AssetSelectFragment(inputAssets,
+                    inputCosmosLine?.cosmosBalances,
+                    AssetSelectType.SWAP_INPUT,
+                    object : AssetSelectListener {
+                        override fun select(denom: String) {
+                            inputAssetSelected = inputAssets.firstOrNull { it.denom == denom }
+                            initView()
+                        }
 
-                        }).show(
-                        requireActivity().supportFragmentManager, AssetSelectFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    }).show(
+                    requireActivity().supportFragmentManager, AssetSelectFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             btnToggle.setOnClickListener {
@@ -699,41 +716,53 @@ class SwapFragment : BaseTxFragment() {
             }
 
             outputChainLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-
-                    ChainFragment(skipChains, ChainListType.SELECT_OUTPUT_SWAP, object : ChainSelectListener {
+                ChainFragment(
+                    skipChains,
+                    ChainListType.SELECT_OUTPUT_SWAP,
+                    object : ChainSelectListener {
                         override fun select(chainId: String) {
                             if (outputCosmosLine?.chainId != chainId) {
                                 loading.visibility = View.VISIBLE
 
                                 skipDataJob = CoroutineScope(Dispatchers.IO).launch {
-                                    outputCosmosLine = skipChains.firstOrNull { it.chainId == chainId }
+                                    outputCosmosLine =
+                                        skipChains.firstOrNull { it.chainId == chainId }
                                     outputAssets.clear()
                                     outputCosmosLine?.let { line ->
                                         skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                            ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
-                                                BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)?.let { asset ->
+                                            ?.getAsJsonObject(line.chainId)
+                                            ?.getAsJsonArray("assets")?.forEach { json ->
+                                                BaseData.getAsset(
+                                                    line.apiName,
+                                                    json.asJsonObject.get("denom").asString
+                                                )?.let { asset ->
                                                     outputAssets.add(asset)
                                                 }
                                             }
-                                        outputAssetSelected = outputAssets.firstOrNull { it.denom == line.stakeDenom }
+                                        outputAssetSelected =
+                                            outputAssets.firstOrNull { it.denom == line.stakeDenom }
 
                                         val channel = getChannel(line)
                                         try {
-                                            val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
-                                            val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
+                                            val loadOutputAuthDeferred =
+                                                async { loadAuth(channel, line.address) }
+                                            val loadOutputBalanceDeferred =
+                                                async { loadBalance(channel, line.address) }
                                             val loadOutputParamDeferred = async { line.loadParam() }
 
                                             line.cosmosAuth = loadOutputAuthDeferred.await().account
-                                            line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
+                                            line.cosmosBalances =
+                                                loadOutputBalanceDeferred.await().balancesList
                                             line.param = loadOutputParamDeferred.await()
                                             BaseUtils.onParseVestingAccount(line)
 
                                         } finally {
                                             channel.shutdown()
                                             try {
-                                                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                                                if (!channel.awaitTermination(
+                                                        5, TimeUnit.SECONDS
+                                                    )
+                                                ) {
                                                     channel.shutdownNow()
                                                 }
                                             } catch (e: InterruptedException) {
@@ -749,66 +778,62 @@ class SwapFragment : BaseTxFragment() {
                             }
                         }
                     }).show(
-                        requireActivity().supportFragmentManager, ChainFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             outputTokenLayout.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AssetSelectFragment(
-                        outputAssets,
-                        outputCosmosLine?.cosmosBalances,
-                        AssetSelectType.SWAP_OUTPUT,
-                        object : AssetSelectListener {
-                            override fun select(denom: String) {
-                                outputAssetSelected = outputAssets.firstOrNull { it.denom == denom }
-                                initView()
-                            }
+                AssetSelectFragment(outputAssets,
+                    outputCosmosLine?.cosmosBalances,
+                    AssetSelectType.SWAP_OUTPUT,
+                    object : AssetSelectListener {
+                        override fun select(denom: String) {
+                            outputAssetSelected = outputAssets.firstOrNull { it.denom == denom }
+                            initView()
+                        }
 
-                        }).show(
-                        requireActivity().supportFragmentManager, AssetSelectFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                    }).show(
+                    requireActivity().supportFragmentManager, AssetSelectFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             btnHalf.setOnClickListener {
-                inputAsset?.decimals?.let { decimal ->
-                    val halfAmount = availableAmount.multiply(BigDecimal(0.5))
-                        .movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                    inputAmountTxt.setText(halfAmount.toPlainString())
-                    updateAmountView()
-                    inputAmountTxt.setSelection(halfAmount.toPlainString().length)
-                }
+                val halfAmount = availableAmount.multiply(BigDecimal(0.5))
+                    .movePointLeft(inputAsset?.decimals ?: 6)
+                    .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
+                inputAmountTxt.setText(halfAmount.toPlainString())
+                updateAmountView()
+                inputAmountTxt.setSelection(halfAmount.toPlainString().length)
             }
 
             btnMax.setOnClickListener {
-                inputAsset?.decimals?.let { decimal ->
-                    val halfAmount = availableAmount.movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
-                    inputAmountTxt.setText(halfAmount.toPlainString())
-                    updateAmountView()
-                    inputAmountTxt.setSelection(halfAmount.toPlainString().length)
-                }
+                val halfAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
+                    .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
+                inputAmountTxt.setText(halfAmount.toPlainString())
+                updateAmountView()
+                inputAmountTxt.setSelection(halfAmount.toPlainString().length)
             }
 
             btnSwap.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     swapResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
@@ -824,34 +849,34 @@ class SwapFragment : BaseTxFragment() {
                         when (skipMsg.msg_type_url) {
                             "/ibc.applications.transfer.v1.MsgTransfer" -> {
                                 skipTxViewModel.broadcastSkipIbcSend(
-                                    getChannel(line),
-                                    bindIbcSend(innerMsg),
-                                    txFee,
-                                    "",
-                                    line
+                                    getChannel(line), bindIbcSend(innerMsg), txFee, "", line
                                 )
                             }
 
                             "/cosmwasm.wasm.v1.MsgExecuteContract" -> {
                                 skipTxViewModel.broadcastWasm(
-                                    getChannel(line),
-                                    bindWasm(innerMsg),
-                                    txFee,
-                                    "",
-                                    line
+                                    getChannel(line), bindWasm(innerMsg), txFee, "", line
                                 )
 
                             }
 
-                            else -> { return@let }
+                            else -> {
+                                return@let
+                            }
                         }
                     }
                 }
             }
         }
 
-    private fun bindSkipRouteReq(amount :String): SkipRouteReq {
-        return SkipRouteReq(amount, inputAsset?.denom, inputCosmosLine?.chainId, outputAsset?.denom, outputCosmosLine?.chainId)
+    private fun bindSkipRouteReq(amount: String): SkipRouteReq {
+        return SkipRouteReq(
+            amount,
+            inputAsset?.denom,
+            inputCosmosLine?.chainId,
+            outputAsset?.denom,
+            outputCosmosLine?.chainId
+        )
     }
 
     private fun bindSkipMsgReq(route: SkipRouteResponse): SkipMsgReq {
@@ -871,13 +896,16 @@ class SwapFragment : BaseTxFragment() {
             route.dest_asset_denom,
             route.dest_asset_chain_id,
             route.operations,
-            affiliate(route.swap_venue))
+            affiliate(route.swap_venue)
+        )
     }
 
     private fun baseFee(): TxProto.Fee {
         val minFee = inputCosmosLine?.getDefaultFeeCoins(requireContext())?.get(0)
-        val feeCoin = CoinProto.Coin.newBuilder().setDenom(minFee?.denom).setAmount(minFee?.amount).build()
-        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin).build()
+        val feeCoin =
+            CoinProto.Coin.newBuilder().setDenom(minFee?.denom).setAmount(minFee?.amount).build()
+        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin)
+            .build()
     }
 
     private fun affiliate(venue: SwapVenue?): MutableList<Affiliate>? {
@@ -911,16 +939,22 @@ class SwapFragment : BaseTxFragment() {
         }
     }
 
-    private fun loadAuth(managedChannel: ManagedChannel, address: String?): QueryProto.QueryAccountResponse {
+    private fun loadAuth(
+        managedChannel: ManagedChannel, address: String?
+    ): QueryProto.QueryAccountResponse {
         val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
         val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
         return stub.account(request)
     }
 
-    private fun loadBalance(managedChannel: ManagedChannel, address: String?): QueryAllBalancesResponse {
+    private fun loadBalance(
+        managedChannel: ManagedChannel, address: String?
+    ): QueryAllBalancesResponse {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address).build()
+        val request =
+            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address)
+                .build()
         return stub.allBalances(request)
     }
 

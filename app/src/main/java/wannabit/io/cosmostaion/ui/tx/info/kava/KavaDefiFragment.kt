@@ -6,8 +6,11 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.cosmos.base.v1beta1.CoinProto
 import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
@@ -33,9 +36,10 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
     private var incentive: QueryProto.QueryRewardsResponse? = null
     private var priceFeed: QueryPricesResponse? = null
 
+    private var isClickable = true
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentKavaDefiBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -45,34 +49,45 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
-        kavaViewModel.priceFeed(getChannel(selectedChain))
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initViewModel() {
         val kavaRepository = KavaRepositoryImpl()
         val kavaViewModelProviderFactory = KavaViewModelProviderFactory(kavaRepository)
-        kavaViewModel = ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
+        kavaViewModel =
+            ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
     }
 
     private fun initView() {
         binding.apply {
+            kavaViewModel.priceFeed(getChannel(selectedChain))
+
             loading.visibility = View.VISIBLE
             defiLayout.visibility = View.GONE
-            incentiveView.setBackgroundResource(R.drawable.item_bg)
-            mintView.setBackgroundResource(R.drawable.item_bg)
-            lendView.setBackgroundResource(R.drawable.item_bg)
-            poolView.setBackgroundResource(R.drawable.item_bg)
+            listOf(
+                incentiveView, mintView, lendView, poolView
+            ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
-            kavaViewModel.priceFeedResult.observe(viewLifecycleOwner) { response ->
-                priceFeed = response
-                kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
-            }
+            setUpPriceFeedObserve()
+            setUpIncentiveObserve()
+        }
+    }
 
+    private fun setUpPriceFeedObserve() {
+        kavaViewModel.priceFeedResult.observe(viewLifecycleOwner) { response ->
+            priceFeed = response
+            kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
+        }
+    }
+
+    private fun setUpIncentiveObserve() {
+        binding.apply {
             kavaViewModel.incentiveResult.observe(viewLifecycleOwner) { response ->
                 loading.visibility = View.GONE
                 incentive = response
+
                 if (response == null || response.allIncentiveCoins().size == 0) {
                     incentiveView.visibility = View.GONE
                     val layoutParams = defiListTitle.layoutParams as ViewGroup.MarginLayoutParams
@@ -82,109 +97,80 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                 defiLayout.visibility = View.VISIBLE
 
                 val allIncentives = response?.allIncentiveCoins()
-                allIncentives?.firstOrNull { it.denom == "ukava" }?.let { kavaIncentive ->
-                    BaseData.getAsset(selectedChain.apiName, kavaIncentive.denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            kavaLayout.visibility = View.VISIBLE
-                            kavaAmount.text = formatAmount(
-                                kavaIncentive.amount.toBigDecimal()
-                                    .movePointLeft(decimal).toPlainString(), decimal)
-                        }
-                    }
-                }
 
-                allIncentives?.firstOrNull { it.denom == "hard" }?.let { hardIncentive ->
-                    BaseData.getAsset(selectedChain.apiName, hardIncentive.denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            hardLayout.visibility = View.VISIBLE
-                            hardAmount.text = formatAmount(
-                                hardIncentive.amount.toBigDecimal()
-                                    .movePointLeft(decimal).toPlainString(), decimal)
-                        }
-                    }
-                }
+                setUpDisplayIncentive(allIncentives, "ukava", kavaLayout, kavaAmount)
+                setUpDisplayIncentive(allIncentives, "hard", hardLayout, hardAmount)
+                setUpDisplayIncentive(allIncentives, "usdx", usdxLayout, usdxAmount)
+                setUpDisplayIncentive(allIncentives, "swp", swpLayout, swpAmount)
+            }
+        }
+    }
 
-                allIncentives?.firstOrNull { it.denom == "usdx" }?.let { usdxIncentive ->
-                    BaseData.getAsset(selectedChain.apiName, usdxIncentive.denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            usdxLayout.visibility = View.VISIBLE
-                            usdxAmount.text = formatAmount(
-                                usdxIncentive.amount.toBigDecimal()
-                                    .movePointLeft(decimal).toPlainString(), decimal)
-                        }
-                    }
-                }
-
-                allIncentives?.firstOrNull { it.denom == "swp" }?.let { swpIncentive ->
-                    BaseData.getAsset(selectedChain.apiName, swpIncentive.denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            swpLayout.visibility = View.VISIBLE
-                            swpAmount.text = formatAmount(
-                                swpIncentive.amount.toBigDecimal()
-                                    .movePointLeft(decimal).toPlainString(), decimal)
-                        }
-                    }
+    private fun setUpDisplayIncentive(
+        allIncentives: MutableList<CoinProto.Coin>?,
+        denom: String,
+        layout: ConstraintLayout,
+        amountTxt: TextView
+    ) {
+        binding.apply {
+            allIncentives?.firstOrNull { it.denom == denom }?.let { incentive ->
+                BaseData.getAsset(selectedChain.apiName, incentive.denom)?.let { asset ->
+                    layout.visibility = View.VISIBLE
+                    amountTxt.text = formatAmount(
+                        incentive.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
+                            .toPlainString(), asset.decimals ?: 6
+                    )
                 }
             }
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }
 
-            var isClickable = true
             incentiveView.setOnClickListener {
-                incentive?.let {
-                    val bottomSheet = ClaimIncentiveFragment(selectedChain, it)
-                    if (isClickable) {
-                        isClickable = false
-                        bottomSheet.show(requireActivity().supportFragmentManager, ClaimIncentiveFragment::class.java.name)
-
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            isClickable = true
-                        }, 1000)
-                    }
+                incentive?.let { incentive ->
+                    ClaimIncentiveFragment(selectedChain, incentive).show(
+                        requireActivity().supportFragmentManager,
+                        ClaimIncentiveFragment::class.java.name
+                    )
+                    setClickableOnce(isClickable)
                 }
             }
 
             mintView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    requireActivity().toMoveFragment(this@KavaDefiFragment,
-                        MintListFragment(selectedChain, priceFeed), "MintList")
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
+                requireActivity().toMoveFragment(
+                    this@KavaDefiFragment, MintListFragment(selectedChain, priceFeed), "MintList"
+                )
+                setClickableOnce(isClickable)
             }
 
             lendView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    requireActivity().toMoveFragment(this@KavaDefiFragment,
-                        LendListFragment(selectedChain, priceFeed), "LendList")
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
+                requireActivity().toMoveFragment(
+                    this@KavaDefiFragment, LendListFragment(selectedChain, priceFeed), "LendList"
+                )
+                setClickableOnce(isClickable)
             }
 
             poolView.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    requireActivity().toMoveFragment(this@KavaDefiFragment,
-                        PoolListFragment(selectedChain), "PoolList")
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
+                requireActivity().toMoveFragment(
+                    this@KavaDefiFragment, PoolListFragment(selectedChain), "PoolList"
+                )
+                setClickableOnce(isClickable)
             }
+        }
+    }
+
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 

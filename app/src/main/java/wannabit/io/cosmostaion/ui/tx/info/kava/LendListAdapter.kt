@@ -69,7 +69,13 @@ class LendListAdapter(
             }
 
             is LendListViewHolder -> {
-                holder.bind(lendMoneyMarkets[position -3], priceFeed, lendMyDeposits, lendMyBorrows, listener)
+                holder.bind(
+                    lendMoneyMarkets.getOrNull(position - 3),
+                    priceFeed,
+                    lendMyDeposits,
+                    lendMyBorrows,
+                    listener
+                )
             }
         }
     }
@@ -89,11 +95,15 @@ class LendListAdapter(
 
     private class LendListDiffCallback : DiffUtil.ItemCallback<MoneyMarketInterestRate>() {
 
-        override fun areItemsTheSame(oldItem: MoneyMarketInterestRate, newItem: MoneyMarketInterestRate): Boolean {
+        override fun areItemsTheSame(
+            oldItem: MoneyMarketInterestRate, newItem: MoneyMarketInterestRate
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: MoneyMarketInterestRate, newItem: MoneyMarketInterestRate): Boolean {
+        override fun areContentsTheSame(
+            oldItem: MoneyMarketInterestRate, newItem: MoneyMarketInterestRate
+        ): Boolean {
             return oldItem == newItem
         }
     }

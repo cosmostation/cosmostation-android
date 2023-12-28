@@ -248,7 +248,7 @@ class StakingFragment(
     private fun setUpClickAction() {
         binding.apply {
             validatorView.setOnClickListener {
-                ValidatorDefaultFragment(selectedChain, object : ValidatorDefaultListener {
+                ValidatorDefaultFragment(selectedChain, null, object : ValidatorDefaultListener {
                     override fun select(validatorAddress: String) {
                         toValidator =
                             selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }

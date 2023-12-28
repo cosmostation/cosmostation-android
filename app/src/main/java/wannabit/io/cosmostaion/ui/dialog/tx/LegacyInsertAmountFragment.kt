@@ -46,8 +46,8 @@ class LegacyInsertAmountFragment(
 
         initView()
         textChange()
-        updateView()
-        clickAction()
+        updateAmountView()
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -65,7 +65,8 @@ class LegacyInsertAmountFragment(
 
             toAmount?.let {
                 if (it.isNotEmpty()) {
-                    val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal, RoundingMode.DOWN).stripTrailingZeros().toPlainString()
+                    val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal, RoundingMode.DOWN)
+                        .stripTrailingZeros().toPlainString()
                     amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                 } else {
                     amountTxt.text = Editable.Factory.getInstance().newEditable(it)
@@ -78,11 +79,9 @@ class LegacyInsertAmountFragment(
         binding.apply {
             amountTxt.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {}
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
@@ -95,20 +94,22 @@ class LegacyInsertAmountFragment(
                     } else if (userInput.contains(".")) {
                         val decimalPlaces: Int = userInput.length - userInput.indexOf(".") - 1
                         if (decimalPlaces == assetDecimal) {
-                            if (userInput.toBigDecimal().handlerRight(assetDecimal, 0) == BigDecimal.ZERO) {
+                            if (userInput.toBigDecimal()
+                                    .handlerRight(assetDecimal, 0) == BigDecimal.ZERO
+                            ) {
                                 s?.delete(s.length - 1, s.length)
                             }
                         } else if (decimalPlaces > assetDecimal) {
                             s?.delete(s.length - 1, s.length)
                         }
                     }
-                    updateView()
+                    updateAmountView()
                 }
             })
         }
     }
 
-    private fun updateView() {
+    private fun updateAmountView() {
         binding.apply {
             amountTxt.text.toString().trim().let { text ->
                 if (text.isEmpty()) {
@@ -146,34 +147,41 @@ class LegacyInsertAmountFragment(
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnQuarter.setOnClickListener {
                 availAmount?.let { amount ->
-                    val quarterAmount = amount.multiply(BigDecimal(0.25)).setScale(assetDecimal, RoundingMode.DOWN)
-                    amountTxt.text = Editable.Factory.getInstance().newEditable(quarterAmount.toPlainString())
-                    updateView()
+                    val quarterAmount =
+                        amount.multiply(BigDecimal(0.25)).setScale(assetDecimal, RoundingMode.DOWN)
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(quarterAmount.toPlainString())
+                    updateAmountView()
                 }
             }
 
             btnHalf.setOnClickListener {
                 availAmount?.let { amount ->
-                    val halfAmount = amount.multiply(BigDecimal(0.5)).setScale(assetDecimal, RoundingMode.DOWN)
-                    amountTxt.text = Editable.Factory.getInstance().newEditable(halfAmount.toPlainString())
-                    updateView()
+                    val halfAmount =
+                        amount.multiply(BigDecimal(0.5)).setScale(assetDecimal, RoundingMode.DOWN)
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(halfAmount.toPlainString())
+                    updateAmountView()
                 }
             }
 
             btnMax.setOnClickListener {
                 availAmount?.let { amount ->
                     val maxAmount = amount.setScale(assetDecimal, RoundingMode.DOWN)
-                    amountTxt.text = Editable.Factory.getInstance().newEditable(maxAmount.toPlainString())
-                    updateView()
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(maxAmount.toPlainString())
+                    updateAmountView()
                 }
             }
 
             btnConfirm.setOnClickListener {
-                val originalAmount = BigDecimal(amountTxt.text.toString().trim()).setScale(assetDecimal, RoundingMode.DOWN)
+                val originalAmount = BigDecimal(amountTxt.text.toString().trim()).setScale(
+                    assetDecimal, RoundingMode.DOWN
+                )
                 listener.select(originalAmount.toPlainString())
                 dismiss()
             }

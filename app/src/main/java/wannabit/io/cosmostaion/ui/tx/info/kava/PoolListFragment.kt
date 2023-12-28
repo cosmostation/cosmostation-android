@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kava.swap.v1beta1.QueryProto
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.usdxAmount
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentPoolListBinding
@@ -38,9 +36,10 @@ class PoolListFragment(
     private var swapOtherList: MutableList<QueryProto.PoolResponse> = mutableListOf()
     private var swapMyDeposit: MutableList<QueryProto.DepositResponse>? = mutableListOf()
 
+    private var isClickable = true
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPoolListBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -50,19 +49,20 @@ class PoolListFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
-        initView()
-        clickAction()
+        setUpSwapDataObserve()
+        setUpClickAction()
     }
 
     private fun initViewModel() {
         val kavaRepository = KavaRepositoryImpl()
         val kavaViewModelProviderFactory = KavaViewModelProviderFactory(kavaRepository)
-        kavaViewModel = ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
+        kavaViewModel =
+            ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
         kavaViewModel.swapData(getChannel(selectedChain), selectedChain.address)
     }
 
-    private fun initView() {
+    private fun setUpSwapDataObserve() {
         binding.apply {
             kavaViewModel.swapData.observe(viewLifecycleOwner) { response ->
                 response?.let { swapData ->
@@ -85,8 +85,10 @@ class PoolListFragment(
                         }
                     }
                     tempSwapPools?.forEach { pool ->
-                        if (!pool.name.contains("B448C0CA358B958301D328CCDC5D5AD642FC30A6D3AE106FF721DB315F3DDE5C") &&
-                            !pool.name.contains("B8AF5D92165F35AB31F3FC7C7B444B9D240760FA5D406C49D24862BD0284E395")) {
+                        if (!pool.name.contains("B448C0CA358B958301D328CCDC5D5AD642FC30A6D3AE106FF721DB315F3DDE5C") && !pool.name.contains(
+                                "B8AF5D92165F35AB31F3FC7C7B444B9D240760FA5D406C49D24862BD0284E395"
+                            )
+                        ) {
                             if ((swapMyDeposit?.filter { it.poolId == pool.name }?.size ?: 0) > 0) {
                                 swapMyList.add(pool)
                             } else {
@@ -95,59 +97,52 @@ class PoolListFragment(
                         }
                     }
 
-                    poolListAdapter = PoolListAdapter(requireContext(), selectedChain, swapMyList, swapOtherList, swapMyDeposit, poolClickAction)
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = poolListAdapter
-                    poolListAdapter.submitList(swapMyList + swapOtherList)
+                    initRecyclerView()
                 }
             }
         }
     }
 
-    private fun clickAction() {
+    private fun initRecyclerView() {
+        binding.recycler.apply {
+            poolListAdapter = PoolListAdapter(
+                requireContext(),
+                selectedChain,
+                swapMyList,
+                swapOtherList,
+                swapMyDeposit,
+                poolClickAction
+            )
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = poolListAdapter
+            poolListAdapter.submitList(swapMyList + swapOtherList)
+        }
+    }
+
+    private fun setUpClickAction() {
         binding.btnBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
     private val poolClickAction = object : PoolListAdapter.ClickListener {
-        var isClickable = true
         override fun myPoolSelect(poolId: String, deposit: QueryProto.DepositResponse) {
-            if (isClickable) {
-                isClickable = false
-                swapMyList.firstOrNull { it.name == poolId }?.let { swapPool ->
-                    val bottomSheet = PoolOptionFragment(selectedChain, swapPool, deposit, poolOptionClickAction)
-                    bottomSheet.show(requireActivity().supportFragmentManager, PoolOptionFragment::class.java.name)
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
+            swapMyList.firstOrNull { it.name == poolId }?.let { swapPool ->
+                PoolOptionFragment(selectedChain, swapPool, deposit, poolOptionClickAction).show(
+                    requireActivity().supportFragmentManager, PoolOptionFragment::class.java.name
+                )
             }
+            setClickableOnce(isClickable)
         }
 
         override fun otherPoolSelect(name: String) {
-            if (!selectedChain.isTxFeePayable(requireContext())) {
-                requireContext().makeToast(R.string.error_not_enough_fee)
-                return
-            }
-
-            if (isClickable) {
-                isClickable = false
-                swapOtherList.firstOrNull { it.name == name }?.let { swapPool ->
-                    val bottomSheet = PoolActionFragment(
-                        selectedChain,
-                        PoolActionType.DEPOSIT,
-                        swapPool,
-                        null
-                    )
-                    bottomSheet.show(requireActivity().supportFragmentManager, PoolActionFragment::class.java.name)
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
+            swapOtherList.firstOrNull { it.name == name }?.let { swapPool ->
+                PoolActionFragment(
+                    selectedChain, PoolActionType.DEPOSIT, swapPool, null
+                ).show(
+                    requireActivity().supportFragmentManager, PoolActionFragment::class.java.name
+                )
             }
         }
     }
@@ -155,47 +150,32 @@ class PoolListFragment(
     private val poolOptionClickAction = object : PoolClickListener {
         var isClickable = true
         override fun poolDeposit(swapPool: QueryProto.PoolResponse) {
-            if (!selectedChain.isTxFeePayable(requireContext())) {
-                requireContext().makeToast(R.string.error_not_enough_fee)
-                return
-            }
-
-            if (isClickable) {
-                isClickable = false
-                val bottomSheet = PoolActionFragment(
-                    selectedChain,
-                    PoolActionType.DEPOSIT,
-                    swapPool,
-                    null
-                )
-                bottomSheet.show(requireActivity().supportFragmentManager, PoolActionFragment::class.java.name)
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
-            }
+            PoolActionFragment(
+                selectedChain, PoolActionType.DEPOSIT, swapPool, null
+            ).show(
+                requireActivity().supportFragmentManager, PoolActionFragment::class.java.name
+            )
+            setClickableOnce(isClickable)
         }
 
-        override fun poolWithdraw(swapPool: QueryProto.PoolResponse, deposit: QueryProto.DepositResponse) {
-            if (!selectedChain.isTxFeePayable(requireContext())) {
-                requireContext().makeToast(R.string.error_not_enough_fee)
-                return
-            }
+        override fun poolWithdraw(
+            swapPool: QueryProto.PoolResponse, deposit: QueryProto.DepositResponse
+        ) {
+            PoolActionFragment(
+                selectedChain, PoolActionType.WITHDRAW, swapPool, deposit
+            ).show(
+                requireActivity().supportFragmentManager, PoolActionFragment::class.java.name
+            )
+        }
+    }
 
-            if (isClickable) {
-                isClickable = false
-                val bottomSheet = PoolActionFragment(
-                    selectedChain,
-                    PoolActionType.WITHDRAW,
-                    swapPool,
-                    deposit
-                )
-                bottomSheet.show(requireActivity().supportFragmentManager, PoolActionFragment::class.java.name)
+    private fun setClickableOnce(clickable: Boolean) {
+        if (clickable) {
+            isClickable = false
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
-            }
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 

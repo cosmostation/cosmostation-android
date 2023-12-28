@@ -5,16 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentBridgeOptionBinding
 import wannabit.io.cosmostaion.ui.main.chain.BridgeClickListener
 
 class BridgeOptionFragment(
-    val selectedChain: CosmosLine,
-    private val denom: String,
-    val listener: BridgeClickListener
+    val selectedChain: CosmosLine, private val denom: String, val listener: BridgeClickListener
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBridgeOptionBinding? = null
@@ -36,19 +32,11 @@ class BridgeOptionFragment(
     private fun clickAction() {
         binding.apply {
             bep3Layout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 listener.bep3Transfer(selectedChain, denom)
                 dismiss()
             }
 
             transferLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 listener.simpleTransfer(selectedChain, denom)
                 dismiss()
             }

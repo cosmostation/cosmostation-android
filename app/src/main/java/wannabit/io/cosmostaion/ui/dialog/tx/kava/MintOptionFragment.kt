@@ -8,10 +8,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentMintOptionBinding
 import wannabit.io.cosmostaion.ui.tx.info.kava.LendClickListener
 import wannabit.io.cosmostaion.ui.tx.info.kava.MintClickListener
+import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionType
+import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionType
 
 class MintOptionFragment(
     val selectedChain: CosmosLine,
@@ -35,14 +36,18 @@ class MintOptionFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
         binding.apply {
             mintType?.let { type ->
-                deposit.text = getString(R.string.str_deposit_denom, type.split("-").firstOrNull()?.uppercase() ?: "")
-                withdraw.text = getString(R.string.str_withdraw_denom, type.split("-").firstOrNull()?.uppercase() ?: "")
+                deposit.text = getString(
+                    R.string.str_deposit_denom, type.split("-").firstOrNull()?.uppercase() ?: ""
+                )
+                withdraw.text = getString(
+                    R.string.str_withdraw_denom, type.split("-").firstOrNull()?.uppercase() ?: ""
+                )
                 borrow.text = getString(R.string.str_borrow_denom, "USDX")
                 repay.text = getString(R.string.str_repay_denom, "USDX")
 
@@ -57,56 +62,40 @@ class MintOptionFragment(
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             depositLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 mintType?.let {
-                    mintClickListener?.mintDeposit(mintType)
+                    mintClickListener?.mintAction(mintType, MintActionType.DEPOSIT)
                 } ?: run {
-                    lendClickListener?.lendDeposit(denom)
+                    lendClickListener?.lendAction(denom, LendActionType.DEPOSIT)
                 }
                 dismiss()
             }
 
             withdrawLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 mintType?.let {
-                    mintClickListener?.mintWithdraw(mintType)
+                    mintClickListener?.mintAction(mintType, MintActionType.WITHDRAW)
                 } ?: run {
-                    lendClickListener?.lendWithdraw(denom)
+                    lendClickListener?.lendAction(denom, LendActionType.WITHDRAW)
                 }
                 dismiss()
             }
 
             borrowLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 mintType?.let {
-                    mintClickListener?.mintBorrow(mintType)
+                    mintClickListener?.mintAction(mintType, MintActionType.BORROW)
                 } ?: run {
-                    lendClickListener?.lendBorrow(denom)
+                    lendClickListener?.lendAction(denom, LendActionType.BORROW)
                 }
                 dismiss()
             }
 
             repayLayout.setOnClickListener {
-                if (!selectedChain.isTxFeePayable(requireContext())) {
-                    requireContext().makeToast(R.string.error_not_enough_fee)
-                    return@setOnClickListener
-                }
                 mintType?.let {
-                    mintClickListener?.mintRepay(mintType)
+                    mintClickListener?.mintAction(mintType, MintActionType.REPAY)
                 } ?: run {
-                    lendClickListener?.lendRepay(denom)
+                    lendClickListener?.lendAction(denom, LendActionType.REPAY)
                 }
                 dismiss()
             }
