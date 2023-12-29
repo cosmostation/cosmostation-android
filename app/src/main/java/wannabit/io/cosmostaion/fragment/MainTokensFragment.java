@@ -335,18 +335,18 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = BigDecimal.ZERO;
             if (asset != null) {
                 if (chainConfig.baseChain().equals(NEUTRON_MAIN) || chainConfig.baseChain().equals(NEUTRON_TEST)) {
-                    BigDecimal availableAmount = getBaseDao().getAvailable(chainConfig.mainDenom());
+                    BigDecimal availableAmount = getBaseDao().getAvailable(coin.denom);
                     BigDecimal vestingAmount = getBaseDao().getNeutronVestingAmount();
                     BigDecimal bondAmount = getBaseDao().getVaultAmount();
                     totalAmount = availableAmount.add(bondAmount).add(vestingAmount);
-                } else if (asset.origin_denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                } else if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                     totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
                 } else {
-                    totalAmount = getBaseDao().getAvailable(asset.origin_denom).add(getBaseDao().getVesting(asset.origin_denom));
+                    totalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
                 }
 
-                WDp.setDpSymbolImg(getBaseDao(), chainConfig, asset.origin_denom, holder.itemImg);
-                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, asset.origin_denom));
+                WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
+                holder.itemSymbol.setText(WDp.getDpSymbol(getBaseDao(), chainConfig, coin.denom));
                 holder.itemPath.setText(asset.description);
 
                 holder.itemPerPrice.setText(WDp.dpPrice(getBaseDao(), asset.coinGeckoId));

@@ -4,6 +4,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ARCHWAY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CANTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CUDOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ONOMY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.QUICKSILVER_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SOMMELIER_MAIN;
@@ -154,6 +155,9 @@ public class Param {
 
         @SerializedName("onomy_protocol_treasury_balance")
         public ArrayList<Coin> mOnomy_protocol_treasury_balance;
+
+        @SerializedName("kava_staking_reward")
+        public String mKava_staking_reward;
     }
 
     public BigDecimal getMintInflation(ChainConfig chainConfig) {
@@ -396,6 +400,13 @@ public class Param {
                         BigDecimal activeSupply = getMainSupply().subtract(new BigDecimal(mParams.mOnomy_protocol_treasury_balance.get(0).amount));
                         bondingRate = getBondedAmount().divide(activeSupply, 6, RoundingMode.DOWN);
                         return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                    } else {
+                        return BigDecimal.ZERO;
+                    }
+
+                } else if (chainConfig.baseChain().equals(KAVA_MAIN)) {
+                    if (mParams.mKava_staking_reward != null) {
+                        return new BigDecimal(mParams.mKava_staking_reward);
                     } else {
                         return BigDecimal.ZERO;
                     }
