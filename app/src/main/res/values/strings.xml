@@ -907,13 +907,13 @@
     <string name="str_renew_starname">Renew Starname</string>
     <string name="str_connected_address_replace">Connected Addresses Replace</string>
     <string name="str_safe_copy_title">Mnemonic Safe Copy</string>
-    <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mneominc phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
+    <string name="str_safe_copy_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The mnemonic phrase temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your mnemonic phrase to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your mnemonic phrase outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy_pkey_title">Private Key Safe Copy</string>
-    <string name="str_safe_copy_pkey_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The private key temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your private key to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your private key outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution  and responsibility for the security of your own assets.</string>
+    <string name="str_safe_copy_pkey_msg">Recently there have been many instances of clipboard hijacking on various mobile applications. The private key temporarily saved in your clipboard when you copy and paste can be an easy target for hijacking.\n\nIf you wish to copy and paste your private key to create an additional wallet with the same phrase, please select \"Safe Copy\". This feature makes sure that copy and paste is authorized only within the Cosmostation Mobile Application.(Automatically delete when the app is closed)\n\nIf you wish to copy and paste your private key outside of the application, please select \"Raw Copy\". When using the raw copy feature, please take caution and responsibility for the security of your own assets.</string>
     <string name="str_safe_copy">Safe Copy</string>
     <string name="str_raw_copy">Raw Copy</string>
     <string name="str_starname_walletconnect_alert_title">Export Address for Starname</string>
-    <string name="str_starname_walletconnect_alert_msg">You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?</string>
+    <string name="str_starname_walletconnect_alert_msg">You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or move your assets.\n\nWould you like to link your wallets to Starname Manager?</string>
     <string name="str_starname_walletconnect_alert_msg2">Ready to Export %1$s Addresses</string>
     <string name="str_starname_walletconnect_complete">Export Complete</string>
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
@@ -937,7 +937,7 @@
     <string name="str_gas_checked">Gas amount checked successfully</string>
     <string name="str_select_fee_denom">Select coin for Tx fee pay</string>
     <string name="str_mnemonics_warning_title">Do NOT enter your mnemonics.</string>
-    <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\nthe memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
+    <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\nthe memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are solely responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
     <string name="str_ibc_recipent">Recipient</string>
     <string name="str_ibc_send_amount">Send Amount</string>
@@ -1156,7 +1156,7 @@
     <string name="error_only_deposit_can_vote">No staking amount.\nstaking first.</string>
     <string name="error_invalide_starname">Unregistered star name.</string>
     <string name="error_no_mattched_starname">Valid starname, but there is no matching address with this chain.</string>
-    <string name="error_starname_self_send">Valid starname, but self sending is not support.</string>
+    <string name="error_starname_self_send">Valid starname, but self sending is not supported.</string>
     <string name="error_bep3_supply_full">The swap has reached its network capacity.</string>
     <string name="error_bep3_under_min_amount">Need more balance for BEP3 send.</string>
     <string name="error_invalid_domain_format">Invalid domain format, please insert another text for domain</string>
