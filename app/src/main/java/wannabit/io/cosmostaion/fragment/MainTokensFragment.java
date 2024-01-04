@@ -338,11 +338,17 @@ public class MainTokensFragment extends BaseFragment {
                     BigDecimal availableAmount = getBaseDao().getAvailable(coin.denom);
                     BigDecimal vestingAmount = getBaseDao().getNeutronVestingAmount();
                     BigDecimal bondAmount = getBaseDao().getVaultAmount();
-                    totalAmount = availableAmount.add(bondAmount).add(vestingAmount);
+
+                    if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
+                        totalAmount = availableAmount.add(bondAmount).add(vestingAmount);
+                    } else  {
+                        totalAmount = getBaseDao().getAvailable(coin.denom);
+                    }
+
                 } else if (coin.denom.equalsIgnoreCase(chainConfig.mainDenom())) {
                     totalAmount = getBaseDao().getAllMainAsset(chainConfig.mainDenom());
                 } else {
-                    totalAmount = getBaseDao().getAvailable(coin.denom).add(getBaseDao().getVesting(coin.denom));
+                    totalAmount = getBaseDao().getAvailable(coin.denom);
                 }
 
                 WDp.setDpSymbolImg(getBaseDao(), chainConfig, coin.denom, holder.itemImg);
