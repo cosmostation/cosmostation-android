@@ -51,11 +51,13 @@ class DaoProposalListAdapter(
 
                         if ("open" == proposalData.proposal?.status) {
                             proposalData.proposal.expiration?.at_time?.toLong()?.let { expiration ->
+                                proposalStatus.visibility = View.GONE
                                 proposalStatusImg.visibility = View.GONE
                                 proposalExpiration.text = WDp.getDpTime(context, expiration.div(1000000)) + " " + WDp.getGapTime(expiration.div(1000000))
                             } ?: run {
                                 proposalData.proposal.expiration?.at_height?.let {
                                     proposalStatusImg.visibility = View.GONE
+                                    proposalStatus.visibility = View.VISIBLE
                                     proposalStatus.text = "Expiration at : ${it} Block"
                                     proposalStatus.setTextColor(ContextCompat.getColor(context, R.color.colorGray1))
                                 }
