@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.network.res.neutron.ProposalData
 import wannabit.io.cosmostaion.network.res.neutron.ProposalModule
 import wannabit.io.cosmostaion.network.res.neutron.ResMyVoteStatus
 import wannabit.io.cosmostaion.utils.WDp
+import wannabit.io.cosmostaion.utils.WLog
 import wannabit.io.cosmostaion.utils.makeToast
 
 class DaoProposalListAdapter(
@@ -50,13 +51,15 @@ class DaoProposalListAdapter(
                         proposalTitle.text = "# ${proposalData.id} ${proposalData.proposal?.title}"
 
                         if ("open" == proposalData.proposal?.status) {
+                            proposalStatusImg.visibility = View.GONE
                             proposalData.proposal.expiration?.at_time?.toLong()?.let { expiration ->
                                 proposalStatus.visibility = View.GONE
-                                proposalStatusImg.visibility = View.GONE
+                                proposalExpiration.visibility = View.VISIBLE
                                 proposalExpiration.text = WDp.getDpTime(context, expiration.div(1000000)) + " " + WDp.getGapTime(expiration.div(1000000))
+
                             } ?: run {
                                 proposalData.proposal.expiration?.at_height?.let {
-                                    proposalStatusImg.visibility = View.GONE
+                                    proposalExpiration.visibility = View.GONE
                                     proposalStatus.visibility = View.VISIBLE
                                     proposalStatus.text = "Expiration at : ${it} Block"
                                     proposalStatus.setTextColor(ContextCompat.getColor(context, R.color.colorGray1))
@@ -64,11 +67,15 @@ class DaoProposalListAdapter(
                             }
 
                         } else {
+                            proposalStatusImg.visibility = View.VISIBLE
+                            proposalStatus.visibility = View.VISIBLE
+                            proposalExpiration.visibility = View.GONE
+                            proposalStatus.text = proposalData.proposal?.status?.capitalize()
+
                             when (proposalData.proposal?.status) {
                                 "executed", "passed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_passed_img))
-                                "rejected", "failed" -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_rejected_img))
+                                else -> proposalStatusImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_rejected_img))
                             }
-                            proposalStatus.text = proposalData.proposal?.status?.capitalize()
                         }
 
                         pairData.first?.let { address ->
