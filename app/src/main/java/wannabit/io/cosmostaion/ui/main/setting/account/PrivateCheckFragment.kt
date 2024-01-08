@@ -14,23 +14,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentPrivateCheckBinding
 
-class PrivateCheckFragment(val account: BaseAccount) :  Fragment() {
+class PrivateCheckFragment(val account: BaseAccount) : Fragment() {
 
     private var _binding: FragmentPrivateCheckBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var privateAdapter: PrivateAdapter
 
-    private var baseAccount: BaseAccount? = null
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPrivateCheckBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -41,6 +39,26 @@ class PrivateCheckFragment(val account: BaseAccount) :  Fragment() {
 
         initView()
         clickAction()
+    }
+
+    private fun initAllKeyData(): MutableList<CosmosLine> {
+        account.apply {
+            if (type == BaseAccountType.MNEMONIC) {
+                allCosmosLineChains.forEach { line ->
+                    if (line.address?.isEmpty() == true) {
+                        line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                    }
+                }
+
+            } else if (type == BaseAccountType.PRIVATE_KEY) {
+                allCosmosLineChains.forEach { line ->
+                    if (line.address?.isEmpty() == true) {
+                        line.setInfoWithPrivateKey(privateKey)
+                    }
+                }
+            }
+            return allCosmosLineChains
+        }
     }
 
     private fun initView() {
@@ -61,7 +79,7 @@ class PrivateCheckFragment(val account: BaseAccount) :  Fragment() {
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = privateAdapter
-                        privateAdapter.submitList(account.initOnlyKeyData() as List<Any>?)
+                        privateAdapter.submitList(initAllKeyData() as List<Any>?)
 
                     } else {
                         privateKeyLayout.visibility = View.VISIBLE
@@ -83,7 +101,8 @@ class PrivateCheckFragment(val account: BaseAccount) :  Fragment() {
             }
 
             privateKeyLayout.setOnClickListener {
-                val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipboard =
+                    requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("address", "0x" + account.privateKey?.toHex())
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_mnemonic_copied)

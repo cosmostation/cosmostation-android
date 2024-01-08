@@ -2,16 +2,22 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.webkit.WebView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import com.google.common.collect.Lists
 import com.google.firebase.FirebaseApp
+import com.walletconnect.android.Core
+import com.walletconnect.android.CoreClient
+import com.walletconnect.android.CoreClient.initialize
+import com.walletconnect.android.relay.ConnectionType
+import com.walletconnect.sign.client.Sign
+import com.walletconnect.sign.client.SignClient
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.BuildConfig
-import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CipherHelper
 import wannabit.io.cosmostaion.database.Prefs
@@ -40,8 +46,7 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
         super.onCreate()
         registerActivityLifecycleCallbacks(ApplicationLifecycleStatus())
         applicationViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory(this)
+            this, ViewModelProvider.AndroidViewModelFactory(this)
         )[ApplicationViewModel::class.java]
         initialize()
         FirebaseApp.initializeApp(this)
@@ -50,6 +55,23 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
+        initWalletConnectV2()
+    }
+
+    private fun initWalletConnectV2() {
+        val projectId = BuildConfig.WALLETCONNECT_API_KEY
+        val relayUrl = "relay.walletconnect.com"
+        val serverUrl = "wss://$relayUrl?projectId=$projectId"
+        val connectionType = ConnectionType.AUTOMATIC
+        val metaData = Core.Model.AppMetaData(
+            getString(R.string.str_wc_peer_name),
+            getString(R.string.str_wc_peer_url),
+            getString(R.string.str_wc_peer_desc),
+            Lists.newArrayList<String>(),
+            "cosmostation://wc"
+        )
+        initialize(metaData, serverUrl, connectionType, this, null)
+        SignClient.initialize(Sign.Params.Init(CoreClient)) { error: Sign.Model.Error -> null }
     }
 
     private fun initialize() {
@@ -63,8 +85,10 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
     }
 
     fun needShowLockScreen(): Boolean {
-        if (!isReturnedForeground() || AppDatabase.getInstance().passwordDao().selectAll().isEmpty() || !Prefs.appLock || AppDatabase.getInstance().baseAccountDao().selectAll().isEmpty())
-            return false
+        if (!isReturnedForeground() || AppDatabase.getInstance().passwordDao().selectAll()
+                .isEmpty() || !Prefs.appLock || AppDatabase.getInstance().baseAccountDao()
+                .selectAll().isEmpty()
+        ) return false
         return true
     }
 

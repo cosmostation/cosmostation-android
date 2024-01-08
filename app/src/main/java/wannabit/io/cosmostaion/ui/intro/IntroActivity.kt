@@ -139,6 +139,7 @@ class IntroActivity : AppCompatActivity() {
     private fun initPriceInfo() {
         walletViewModel.chain()
         walletViewModel.price(BaseData.currencyName().lowercase())
+        walletViewModel.supportConfig()
         walletViewModel.asset()
     }
 
@@ -161,7 +162,7 @@ class IntroActivity : AppCompatActivity() {
     private fun showNetworkErrorDialog() {
         val snackBar = Snackbar.make(binding.root, "Network error", Snackbar.LENGTH_INDEFINITE)
         snackBar.setAction("Retry") {
-            checkAppVersion()
+            walletViewModel.walletAppVersion()
         }
         snackBar.show()
     }

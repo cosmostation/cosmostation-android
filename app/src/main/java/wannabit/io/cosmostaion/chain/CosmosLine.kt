@@ -19,18 +19,25 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainXplaKeccak256
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -80,9 +87,7 @@ open class CosmosLine : BaseChain() {
     var lcdBeaconTokens = mutableListOf<BnbToken>()
 
     override fun setInfoWithSeed(
-        seed: ByteArray?,
-        parentPath: List<ChildNumber>,
-        lastPath: String
+        seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String
     ) {
         privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
         publicKey = BaseKey.getPubKeyFromPKey(privateKey)
@@ -103,6 +108,7 @@ open class CosmosLine : BaseChain() {
     fun setLoadDataCallBack(callback: LoadDataCallback) {
         loadDataCallback = callback
     }
+
     open fun lcdBalanceValue(denom: String?): BigDecimal {
         return BigDecimal.ZERO
     }
@@ -306,8 +312,7 @@ open class CosmosLine : BaseChain() {
             val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = balanceAmount(denom)
             asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal)
-                    .setScale(6, RoundingMode.DOWN)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             } ?: run {
                 return BigDecimal.ZERO
             }
@@ -338,8 +343,7 @@ open class CosmosLine : BaseChain() {
             val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = vestingAmount(denom)
             asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal)
-                    .setScale(6, RoundingMode.DOWN)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             }
         }
         return BigDecimal.ZERO
@@ -416,20 +420,20 @@ open class CosmosLine : BaseChain() {
             val price = BaseData.getPrice(asset.coinGeckoId)
             val amount = rewardAmountSum(denom)
             asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal)
-                    .setScale(6, RoundingMode.DOWN)
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             }
         }
         return BigDecimal.ZERO
     }
 
     fun rewardAllCoins(): List<Coin> {
-        return cosmosRewards
-            .flatMap { reward ->
+        return cosmosRewards.flatMap { reward ->
                 reward.rewardList.mapNotNull { coin ->
-                    val calAmount = coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                    val calAmount =
+                        coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
                     if (calAmount > BigDecimal.ZERO) {
-                        Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString()).build()
+                        Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString())
+                            .build()
                     } else {
                         null
                     }
@@ -438,10 +442,7 @@ open class CosmosLine : BaseChain() {
     }
 
     fun rewardOtherDenoms(): Int {
-        return rewardAllCoins()
-            .map { it.denom }
-            .distinct()
-            .count { it != stakeDenom }
+        return rewardAllCoins().map { it.denom }.distinct().count { it != stakeDenom }
     }
 
     private fun rewardValueSum(): BigDecimal {
@@ -492,8 +493,7 @@ open class CosmosLine : BaseChain() {
         tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
-                .movePointLeft(tokenInfo.decimals)
-                .setScale(6, RoundingMode.DOWN)
+                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
         } ?: run {
             return BigDecimal.ZERO
         }
@@ -530,10 +530,13 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
+    lines.add(ChainCrescent())
     lines.add(ChainEvmos())
+    lines.add(ChainFetchAi())
     lines.add(ChainInjective())
     lines.add(ChainIris())
     lines.add(ChainJuno())
+    lines.add(ChainKava60())
     lines.add(ChainKava459())
     lines.add(ChainKava118())
     lines.add(ChainLum118())
@@ -543,6 +546,10 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainBinanceBeacon())
     lines.add(ChainOkt996Secp())
     lines.add(ChainOkt60())
+    lines.add(ChainOmniflix())
+    lines.add(ChainPersistence118())
+    lines.add(ChainStargaze())
+    lines.add(ChainXplaKeccak256())
 
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {

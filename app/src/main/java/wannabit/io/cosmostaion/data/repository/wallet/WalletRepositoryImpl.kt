@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRES
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.beaconApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.chainApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
@@ -61,6 +62,7 @@ import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
 import java.math.BigInteger
@@ -85,6 +87,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun price(currency: String): NetworkResult<Response<List<Price>>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price(currency)
+        }
+    }
+
+    override suspend fun supportConfig(): NetworkResult<Response<SupportConfig>> {
+        return safeApiCall(Dispatchers.IO) {
+            chainApi.supportConfig()
         }
     }
 

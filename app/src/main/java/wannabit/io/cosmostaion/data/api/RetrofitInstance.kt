@@ -76,6 +76,15 @@ object RetrofitInstance {
             .build()
     }
 
+    private val chainRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(CosmostationConstants.CHAIN_BASE_URL)
+            .build()
+    }
+
     val walletApi: WalletApi by lazy {
         walletRetrofit.create(WalletApi::class.java)
     }
@@ -94,5 +103,9 @@ object RetrofitInstance {
 
     val skipApi: SkipApi by lazy {
         skipRetrofit.create(SkipApi::class.java)
+    }
+
+    val chainApi: ChainApi by lazy {
+        chainRetrofit.create(ChainApi::class.java)
     }
 }

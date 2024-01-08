@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/url_warp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_base09"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/url"
+            style="@style/font_sb_14"
+            android:textColor="@color/color_base01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_14"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginRight="@dimen/space_14"
+            android:imeOptions="actionDone"
+            android:minHeight="@dimen/space_40"
+            android:paddingHorizontal="14dp"
+            android:singleLine="true"
+            android:textColorHint="@color/color_base03"
+            android:textCursorDrawable="@null" />
+
+        <requestFocus />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/space_10"
+            android:background="@color/color_base05" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dimmed_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/url_warp"
+        android:background="#66000000" />
+</RelativeLayout>

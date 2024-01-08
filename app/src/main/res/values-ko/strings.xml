@@ -82,6 +82,7 @@
     <string name="str_edit">편집</string>
     <string name="str_delete">삭제</string>
     <string name="str_search_validator">검증인 검색</string>
+    <string name="str_connect">연결</string>
 
 
     //title
@@ -178,6 +179,7 @@
     <string name="title_select_input_asset">입력 자산 선택</string>
     <string name="title_select_output_asset">출력 자산 선택</string>
     <string name="title_address_book_list">주소록 확인</string>
+    <string name="title_request_connection">연결 요청</string>
 
 
     // msg
@@ -245,6 +247,7 @@
     <string name="error_max_30_validator_msg">최대 30명의 검증인을 선택하실 수 있습니다.</string>
     <string name="error_wait_moment">잠시만 기다려 주세요. 동기화중입니다.</string>
     <string name="error_name">이름을 정확히 입력하세요.</string>
+    <string name="error_not_support">%1$s 지원하지 않는 체인입니다.</string>
 
 
     //header
@@ -472,6 +475,12 @@
     <string name="tx_persis_liquid_unstake">유동성 언스테이크</string>
     <string name="tx_persis_liquid_redeem">유동성 상환</string>
     <string name="tx_persis_liquid_claim">언스테이크 유동성 받기</string>
+
+    //wc
+    <string name="str_wc_connected">지갑이 연결되었습니다.</string>
+    <string name="str_wc_not_connected">지갑 연결이 해제되었습니다.</string>
+    <string name="str_wc_request_responsed">전송 완료</string>
+    <string name="str_unknown_error">알 수 없는 오류</string>
 
     <string-array name="quotes">
         <item>경쟁하지 않습니다, 그냥 연결합니다. — Jae Kwon</item>

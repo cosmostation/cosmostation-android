@@ -127,25 +127,6 @@ data class BaseAccount(
         }
     }
 
-    fun initOnlyKeyData(): MutableList<CosmosLine> {
-        if (type == BaseAccountType.MNEMONIC) {
-            allCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                }
-            }
-
-
-        } else if (type == BaseAccountType.PRIVATE_KEY) {
-            allCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithPrivateKey(privateKey)
-                }
-            }
-        }
-        return allCosmosLineChains
-    }
-
     companion object {
         fun createByMnemonic(name: String, mnemonic: String, lastHDPath: String): BaseAccount? {
             val uuid = UUID.randomUUID().toString()

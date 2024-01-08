@@ -114,6 +114,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
+    fun supportConfig() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.supportConfig()) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        BaseData.supportConfig = data.body()
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
     fun asset() = viewModelScope.launch(Dispatchers.IO) {
         when (val response = walletRepository.asset()) {
             is NetworkResult.Success -> {

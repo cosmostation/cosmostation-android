@@ -106,6 +106,7 @@ object BaseConstant {
     const val IOV_MSG_TYPE_RENEW_ACCOUNT = "starname/RenewAccount"
     const val COSMOS_KEY_TYPE_PUBLIC = "tendermint/PubKeySecp256k1"
     const val ETHERMINT_KEY_TYPE_PUBLIC = "ethermint/PubKeyEthSecp256k1"
+    const val INJECTIVE_KEY_TYPE_PUBLIC = "injective/PubKeyEthSecp256k1"
     const val CONST_PW_PURPOSE = "CONST_PW_PURPOSE"
     const val CONST_PW_TX_SIMPLE_DELEGATE = 5004
     const val CONST_PW_TX_SIMPLE_UNDELEGATE = 5005

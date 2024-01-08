@@ -112,6 +112,7 @@
     <string name="str_edit">Edit</string>
     <string name="str_delete">Delete</string>
     <string name="str_search_validator">Search validator</string>
+    <string name="str_connect">Connect</string>
 
 
     //title
@@ -230,6 +231,7 @@
     <string name="title_select_input_asset">Select input asset</string>
     <string name="title_select_output_asset">Select output asset</string>
     <string name="title_address_book_list">Address book list</string>
+    <string name="title_request_connection">Request connection</string>
 
 
     // msg
@@ -327,6 +329,7 @@
     <string name="error_swap_msg" translatable="false">could not find a swap chain with both the requested source and dest assets</string>
     <string name="error_wait_moment">Please wait for a moment. Synchronizing.</string>
     <string name="error_name">Please enter your name correctly.</string>
+    <string name="error_not_support">%1$s is an unsupported chain.</string>
 
 
     // tx
@@ -555,6 +558,15 @@
     <string name="str_dp_time_format1" translatable="false">yyyy-MM-dd</string>
     <string name="str_dp_time_format2" translatable="false">HH:mm:ss</string>
     <string name="str_dp_time_format3" translatable="false">yyyy-MM-dd HH:mm:ss</string>
+
+    // wc
+    <string name="str_wc_peer_name" translatable="false">Cosmostation</string>
+    <string name="str_wc_peer_desc" translatable="false">Cosmostation Wallet Android</string>
+    <string name="str_wc_peer_url" translatable="false">https://cosmostation.io</string>
+    <string name="str_wc_connected">Wallet is connected.</string>
+    <string name="str_wc_not_connected">Wallet is disconnected.</string>
+    <string name="str_wc_request_responsed">Responding to a request</string>
+    <string name="str_unknown_error">Unknown error</string>
 
 
     // currecny

@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
 
@@ -33,6 +34,8 @@ interface WalletRepository {
     suspend fun chain(): NetworkResult<Response<ChainResponse>>
 
     suspend fun price(currency: String): NetworkResult<Response<List<Price>>>
+
+    suspend fun supportConfig(): NetworkResult<Response<SupportConfig>>
 
     suspend fun asset(): NetworkResult<Response<AssetResponse>>
 

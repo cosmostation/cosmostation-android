@@ -23,6 +23,7 @@ data class Params(
             @Json(name = "unbonding_time") val unbondingTime: String?
         )
     }
+
     data class ChainListParams(
         val fee: Fee,
         @Json(name = "grpc_endpoint") val grpcEndpoint: MutableList<GrpcEndpoint>?,
@@ -40,8 +41,7 @@ data class Params(
         )
 
         data class GrpcEndpoint(
-            val provider: String?,
-            val url: String
+            val provider: String?, val url: String
         )
 
         data class About(
@@ -53,9 +53,7 @@ data class Params(
         )
 
         data class Description(
-            val ko: String?,
-            val en: String?,
-            val ja: String
+            val ko: String?, val en: String?, val ja: String
         )
     }
 }

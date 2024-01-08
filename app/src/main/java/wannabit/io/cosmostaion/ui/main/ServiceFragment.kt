@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.CosmostationConstants.BINANCE_BUY_URL
 import wannabit.io.cosmostaion.common.CosmostationConstants.EXPLORER_BASE_URL
@@ -20,12 +19,11 @@ import wannabit.io.cosmostaion.common.CosmostationConstants.MOON_PAY_PUBLIC_KEY
 import wannabit.io.cosmostaion.common.CosmostationConstants.MOON_PAY_URL
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
-import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappStartFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.tx.step.SwapFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.net.URLEncoder
 
 class ServiceFragment : Fragment() {
@@ -110,7 +108,10 @@ class ServiceFragment : Fragment() {
             }
 
             dappView.setOnClickListener {
-
+                DappStartFragment().show(
+                    parentFragmentManager, DappStartFragment::class.java.name
+                )
+                setClickableOnce(isClickable)
             }
 
             buyView.setOnClickListener {

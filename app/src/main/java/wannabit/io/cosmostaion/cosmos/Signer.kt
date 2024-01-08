@@ -31,7 +31,6 @@ import com.cosmos.vesting.v1beta1.VestingProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.ethermint.types.v1.AccountProto
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -1048,7 +1047,7 @@ object Signer {
             fee,
             memo
         )
-        val sig = cosmosSignature(selectedChain, toSign.toSignByte())
+        val sig = signature(selectedChain, toSign.toSignByte())
         val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
             COSMOS_KEY_TYPE_PUBLIC,
             Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
@@ -1185,39 +1184,29 @@ object Signer {
         return StdTx(COSMOS_AUTH_TYPE_STDTX, StdTxValue(msgs, fee, signatures, memo))
     }
 
-    private fun cosmosSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
-        val sha256Hash = Sha256Hash.hash(toSignByte)
-        ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
-            val sigData = ByteArray(64)
-            System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
-            System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
-            return String(Base64.encode(sigData), Charset.forName("UTF-8")).replace("\n", "")
+    fun signature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
+        if (selectedChain?.evmCompatible == true) {
+            return ethermintSignature(selectedChain, toSignByte)
+        } else {
+            val sha256Hash = Sha256Hash.hash(toSignByte)
+            ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
+                val sigData = ByteArray(64)
+                System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
+                System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+                return String(Base64.encode(sigData), Charset.forName("UTF-8")).replace("\n", "")
 
-        } ?: run {
-            return ""
+            } ?: run {
+                return ""
+            }
         }
     }
 
-    private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String? {
+    private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
         val privateKey = selectedChain?.privateKey?.toHex()?.let { BigInteger(it, 16) }
         val sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey))
-        return toBase64(sig)
-    }
-
-    private fun toBase64(sig: SignatureData): String? {
         val sigData = ByteArray(64) // 32 bytes for R + 32 bytes for S
         System.arraycopy(sig.r, 0, sigData, 0, 32)
         System.arraycopy(sig.s, 0, sigData, 32, 32)
         return String(Base64.encode(sigData), Charset.forName("UTF-8"))
-    }
-
-    fun prettyPrinter(any: kotlin.Any): String? {
-        var result: String? = ""
-        result = try {
-            ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(any)
-        } catch (e: Exception) {
-            "Print json error"
-        }
-        return result
     }
 }

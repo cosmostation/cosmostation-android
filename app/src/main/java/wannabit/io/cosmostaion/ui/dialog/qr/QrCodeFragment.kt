@@ -83,8 +83,19 @@ class QrCodeFragment(
                         LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                     )
                     when (i) {
-                        0 -> segmentView.btnChain.text = selectedChain.apiName.uppercase()
-                        else -> segmentView.btnChain.text = "ETHEREUM"
+                        0 -> {
+                            segmentView.btnChain.text = selectedChain.apiName.uppercase()
+                            segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                requireContext(), R.drawable.icon_kava_address
+                            )
+                        }
+
+                        else -> {
+                            segmentView.btnChain.text = "ETHEREUM"
+                            segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                requireContext(), R.drawable.icon_ethereum_address
+                            )
+                        }
                     }
                 }
 
@@ -108,11 +119,7 @@ class QrCodeFragment(
 
             val barcodeEncoder = BarcodeEncoder()
             val bitmap = barcodeEncoder.encodeBitmap(
-                selectAddress,
-                BarcodeFormat.QR_CODE,
-                540,
-                540,
-                hints
+                selectAddress, BarcodeFormat.QR_CODE, 540, 540, hints
             )
             address.text = selectAddress
             qrImg.setImageBitmap(bitmap)
@@ -127,6 +134,7 @@ class QrCodeFragment(
                         setQrAddress(selectedChain.address)
                         addressTitle.text = getString(R.string.str_address)
                     }
+
                     else -> {
                         setQrAddress(ByteUtils.convertBech32ToEvm(selectedChain.address))
                         addressTitle.text = getString(R.string.str_ethereum_address)
@@ -154,8 +162,7 @@ class QrCodeFragment(
     }
 
     private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
+        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
         val behavior = BottomSheetBehavior.from(bottomSheet)
         val layoutParams = bottomSheet.layoutParams
         layoutParams.height = getBottomSheetDialogDefaultHeight()

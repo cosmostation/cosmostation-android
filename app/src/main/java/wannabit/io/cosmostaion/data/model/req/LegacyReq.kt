@@ -40,8 +40,9 @@ data class StdTx(
     val value: StdTxValue?
 )
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class StdTxValue(
-    val msg: MutableList<Msg>,
+    val msg: MutableList<Msg>? = null,
     val fee: LFee,
     val signatures: MutableList<Signature>,
     val memo: String?
