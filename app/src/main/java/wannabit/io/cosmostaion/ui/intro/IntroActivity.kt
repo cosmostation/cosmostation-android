@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.ui.intro
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -67,7 +69,8 @@ class IntroActivity : AppCompatActivity() {
     private fun initViewModel() {
         val walletRepository = WalletRepositoryImpl()
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     override fun onPostResume() {
@@ -110,9 +113,19 @@ class IntroActivity : AppCompatActivity() {
                 binding.btnCreate.visibility = View.VISIBLE
             }
 
+            var isClickable = true
             binding.btnCreate.setOnClickListener {
                 Intent(this@IntroActivity, MainActivity::class.java).apply {
+                    if (isClickable) {
+                        isClickable = false
+//                        AccountInitFragment(this@IntroActivity).show(
+//                            parentFragmentManager, AccountInitFragment::class.java.name
+//                        )
 
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            isClickable = true
+                        }, 1000)
+                    }
                 }
             }
         }

@@ -13,8 +13,8 @@ class ChainOmniflix : CosmosLine() {
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Omniflix"
     override var tag: String = "omniflix118"
-    override var logo: Int = R.drawable.chain_osmosis
-    override var swipeLogo: Int = R.drawable.chain_swipe_osmosis
+    override var logo: Int = R.drawable.chain_omniflix
+    override var swipeLogo: Int = R.drawable.chain_swipe_omniflix
     override var apiName: String = "omniflix"
     override var stakeDenom: String? = "uflix"
 

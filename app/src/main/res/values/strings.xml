@@ -113,6 +113,7 @@
     <string name="str_delete">Delete</string>
     <string name="str_search_validator">Search validator</string>
     <string name="str_connect">Connect</string>
+    <string name="str_restore_wallet">Restore wallet</string>
 
 
     //title
@@ -232,6 +233,7 @@
     <string name="title_select_output_asset">Select output asset</string>
     <string name="title_address_book_list">Address book list</string>
     <string name="title_request_connection">Request connection</string>
+    <string name="title_select_hd_path">Select HD Path</string>
 
 
     // msg
@@ -284,6 +286,8 @@
     <string name="str_htls_msg3">4/4 Confirming all Tx on each chain.</string>
     <string name="str_swap_warn_msg">Cosmostation Mobile is a non-custodial wallet service, so users are responsible for executing all transactions. Please always check the details accurately before sending a transaction. \n\nWe are not responsible for any losses resulting from transactions through the app.</string>
     <string name="str_set_address_msg">For convenience, you can register frequently used addresses.</string>
+    <string name="str_mnemonic_check_msg">Please check the mnemonic you entered. \nJust so you know, don\'t share it with anyone. Losing this mnemonic can lead to loss of assets.</string>
+    <string name="str_create_another_msg">You can create a new account using the same mnemonic, but with a different HD Path.\n\nIn general, there is a possibility that it may not be compatible with other wallets, and it is recommended to be used only by those with background knowledge of crypto keys and HD Path.</string>
 
 
     // header

@@ -45,7 +45,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/earning_view"
+        android:id="@+id/caution_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
@@ -62,7 +62,7 @@
             android:layout_marginHorizontal="@dimen/space_16">
 
             <LinearLayout
-                android:id="@+id/earning_layout"
+                android:id="@+id/caution_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -101,7 +101,7 @@
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/earning_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/caution_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +114,7 @@
         android:layout_marginTop="@dimen/space_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/earning_view">
+        app:layout_constraintTop_toBottomOf="@+id/caution_view">
 
         <TextView
             android:layout_width="wrap_content"
@@ -196,10 +196,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_background_dialog"
-        android:clickable="true"
-        android:focusable="true"
+        android:clickable="false"
         android:elevation="@dimen/space_5"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:focusable="true"
+        android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationView"

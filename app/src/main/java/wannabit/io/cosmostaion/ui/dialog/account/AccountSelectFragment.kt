@@ -40,17 +40,17 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
         binding.recycler.apply {
             CoroutineScope(Dispatchers.IO).launch {
                 val appDatabase = AppDatabase.getInstance()
-                val selectAllAccount = appDatabase.baseAccountDao().selectAll()
+                val selectAllAccounts = appDatabase.baseAccountDao().selectAll().sortedBy { it.type }
 
                 withContext(Dispatchers.Main) {
                     accountSelectAdapter = AccountSelectAdapter(requireContext())
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = accountSelectAdapter
-                    accountSelectAdapter.submitList(selectAllAccount)
+                    accountSelectAdapter.submitList(selectAllAccounts)
 
                     accountSelectAdapter.setOnItemClickListener {
-                        val toAccountId = selectAllAccount[it].id
+                        val toAccountId = selectAllAccounts[it].id
                         if (BaseData.baseAccount?.id != toAccountId) {
                             CoroutineScope(Dispatchers.IO).launch {
                                 val toAccount =

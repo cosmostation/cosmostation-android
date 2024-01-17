@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.databinding.ItemMnemonicBinding
 
-class RestorePathViewHolder(
+class RestoreMnemonicConfirmViewHolder(
     val context: Context,
     private val binding: ItemMnemonicBinding
 ) : RecyclerView.ViewHolder(binding.root) {

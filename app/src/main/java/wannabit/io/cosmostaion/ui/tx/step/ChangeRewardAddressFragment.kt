@@ -85,11 +85,11 @@ class ChangeRewardAddressFragment(
 
     private fun initView() {
         binding.apply {
-            currentLayout.setBackgroundResource(R.drawable.cell_bg)
-            newLayout.setBackgroundResource(R.drawable.cell_bg)
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
-
+            listOf(currentLayout, newLayout, memoView, feeView).forEach {
+                it.setBackgroundResource(
+                    R.drawable.cell_bg
+                )
+            }
             currentRewardAddress.text = selectedChain.rewardAddress
         }
     }

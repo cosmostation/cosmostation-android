@@ -215,7 +215,7 @@ class Bep3Fragment(
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id)
+                                walletViewModel.loadChainData(line, id, false)
                             }
                         }
 
@@ -225,7 +225,7 @@ class Bep3Fragment(
                                 line.setInfoWithPrivateKey(privateKey)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id)
+                                walletViewModel.loadChainData(line, id, false)
                             }
                         }
                     }

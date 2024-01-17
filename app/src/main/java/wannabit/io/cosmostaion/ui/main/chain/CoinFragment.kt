@@ -138,7 +138,7 @@ class CoinFragment(position: Int) : Fragment() {
                 }
 
                 else -> {
-                    selectedChain.cosmosBalances.forEach { coin ->
+                    selectedChain.cosmosBalances?.forEach { coin ->
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
                             when (it) {
@@ -171,7 +171,7 @@ class CoinFragment(position: Int) : Fragment() {
                 binding.refresher.isRefreshing = false
             } else {
                 baseAccount?.id?.let { accountId ->
-                    walletViewModel.loadChainData(selectedChain, accountId)
+                    walletViewModel.loadChainData(selectedChain, accountId, false)
                 }
             }
         }

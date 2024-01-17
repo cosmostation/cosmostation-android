@@ -11,14 +11,13 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.databinding.FragmentRestoreMnemonicBinding
 
-class RestoreMnemonicFragment(val name: String) : Fragment() {
+class RestoreMnemonicFragment : Fragment() {
 
     private var _binding: FragmentRestoreMnemonicBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRestoreMnemonicBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -27,10 +26,10 @@ class RestoreMnemonicFragment(val name: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickAction()
+        setUpClickAction()
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
@@ -39,7 +38,7 @@ class RestoreMnemonicFragment(val name: String) : Fragment() {
             btnNext.setOnClickListener {
                 mnemonicPhrase.text.toString().trim().let { mnemonic ->
                     if (mnemonic.isEmpty()) {
-                        requireActivity().makeToast(R.string.error_account_name)
+                        requireActivity().makeToast(R.string.error_invalid_menmonic)
                         return@setOnClickListener
                     }
 
@@ -49,15 +48,20 @@ class RestoreMnemonicFragment(val name: String) : Fragment() {
                         return@setOnClickListener
                     }
 
-                    requireActivity().toMoveFragment(this@RestoreMnemonicFragment, RestorePathFragment(name, mnemonic), "RestorePath")
+                    requireActivity().toMoveFragment(
+                        this@RestoreMnemonicFragment,
+                        RestoreMnemonicConfirmFragment(mnemonic),
+                        "RestorePath"
+                    )
                 }
             }
         }
     }
 
     private fun isValidWords(wordList: List<String>): Boolean {
-        return (wordList.size == 12 || wordList.size == 18 || wordList.size == 24) &&
-            BaseKey.isMnemonicWords(wordList) && BaseKey.isValidStringHdSeedFromWords(wordList)
+        return (wordList.size == 12 || wordList.size == 18 || wordList.size == 24) && BaseKey.isMnemonicWords(
+            wordList
+        ) && BaseKey.isValidStringHdSeedFromWords(wordList)
     }
 
     override fun onDestroyView() {

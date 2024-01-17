@@ -43,9 +43,9 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-    var walletEditResult = SingleLiveEvent<Boolean>()
-    fun walletEdit() = viewModelScope.launch(Dispatchers.IO) {
-        walletEditResult.postValue(true)
+    var walletEditResult = SingleLiveEvent<MutableList<String>>()
+    fun walletEdit(displayChains: MutableList<String>) = viewModelScope.launch(Dispatchers.IO) {
+        walletEditResult.postValue(displayChains)
     }
 
     private var _hideValueResult = MutableLiveData<Boolean>()

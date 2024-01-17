@@ -22,10 +22,11 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
+import wannabit.io.cosmostaion.ui.main.setting.account.ChangeNameFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
-class CreateMnemonicFragment(private val name: String) : Fragment() {
+class CreateMnemonicFragment : Fragment() {
 
     private var _binding: FragmentCreateMnemonicBinding? = null
     private val binding get() = _binding!!
@@ -47,15 +48,13 @@ class CreateMnemonicFragment(private val name: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
         checkCreate()
     }
 
     private fun initView() {
         binding.apply {
-            backdropLayout.visibility = View.GONE
-            backdropLayout.bringToFront()
-            earningView.setBackgroundResource(R.drawable.item_bg)
+            cautionView.setBackgroundResource(R.drawable.item_bg)
             recycler.setBackgroundResource(R.drawable.item_bg)
             wordCnt.text = getString(R.string.str_24_words)
             updateView(32)
@@ -76,7 +75,7 @@ class CreateMnemonicFragment(private val name: String) : Fragment() {
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
@@ -87,9 +86,22 @@ class CreateMnemonicFragment(private val name: String) : Fragment() {
             }
 
             btnCreateAccount.setOnClickListener {
-                requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_background_dialog)
-                backdropLayout.visibility = View.VISIBLE
-                accountViewModel.createByMnemonic(name, mnemonic, "0")
+                CreateNameFragment().show(
+                    parentFragmentManager, ChangeNameFragment::class.java.name
+                )
+                parentFragmentManager.setFragmentResultListener(
+                    "create", this@CreateMnemonicFragment
+                ) { _, bundle ->
+                    bundle.getString("create")?.let { name ->
+                        requireActivity().runOnUiThread {
+                            requireActivity().window.statusBarColor = ContextCompat.getColor(
+                                requireContext(), R.color.color_background_dialog
+                            )
+                            backdropLayout.visibility = View.VISIBLE
+                            accountViewModel.createByMnemonic(name, mnemonic, "0")
+                        }
+                    }
+                }
             }
         }
     }
@@ -134,7 +146,8 @@ class CreateMnemonicFragment(private val name: String) : Fragment() {
                 delay(2000)
                 withContext(Dispatchers.Main) {
                     binding.backdropLayout.visibility = View.GONE
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
+                    requireActivity().window.statusBarColor =
+                        ContextCompat.getColor(requireContext(), R.color.color_transparent)
                     ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
 
                     requireActivity().finish()

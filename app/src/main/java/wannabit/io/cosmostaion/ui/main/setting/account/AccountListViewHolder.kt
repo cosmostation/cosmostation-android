@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 class AccountListViewHolder(
     val context: Context,
     val binding: ItemAccountListBinding,
-
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(account: BaseAccount, listener: AccountListAdapter.ClickListener) {
@@ -31,7 +30,6 @@ class AccountListViewHolder(
             accountView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
                 accountTypeImg.setImageResource(R.drawable.icon_mnemonic)
-
             } else {
                 accountTypeImg.setImageResource(R.drawable.icon_private)
             }
@@ -48,16 +46,21 @@ class AccountListViewHolder(
         }
     }
 
-    private fun showPopupMenu(view: View, context: Context, account: BaseAccount, x: Int, y: Int, listener: AccountListAdapter.ClickListener) {
+    private fun showPopupMenu(
+        view: View,
+        context: Context,
+        account: BaseAccount,
+        x: Int,
+        y: Int,
+        listener: AccountListAdapter.ClickListener
+    ) {
         val inflater =
             view.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = PopupAccountMenuBinding.inflate(inflater)
         val popupView = binding.root
 
         val popupWindow = PopupWindow(
-            popupView,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true
@@ -82,16 +85,18 @@ class AccountListViewHolder(
             btnChangeName.setOnClickListener {
                 val parentFragmentManager: FragmentManager =
                     (context as FragmentActivity).supportFragmentManager
-                val bottomSheet = ChangeNameFragment(account)
-                bottomSheet.show(parentFragmentManager, ChangeNameFragment::class.java.name)
+                ChangeNameFragment(account).show(
+                    parentFragmentManager, ChangeNameFragment::class.java.name
+                )
                 popupWindow.dismiss()
             }
 
             btnDeleteAccount.setOnClickListener {
                 val parentFragmentManager: FragmentManager =
                     (context as FragmentActivity).supportFragmentManager
-                val bottomSheet = DeleteFragment(account)
-                bottomSheet.show(parentFragmentManager, DeleteFragment::class.java.name)
+                DeleteFragment(account).show(
+                    parentFragmentManager, DeleteFragment::class.java.name
+                )
                 popupWindow.dismiss()
             }
 
@@ -101,8 +106,7 @@ class AccountListViewHolder(
                 intent.putExtra("checkPwType", BaseConstant.CONST_PW_CONFIRM_MNEMONIC)
                 context.startActivity(intent)
                 (context as Activity).overridePendingTransition(
-                    R.anim.anim_slide_in_bottom,
-                    R.anim.anim_fade_out
+                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                 )
 
                 listener.checkMnemonicAction(account)
@@ -114,8 +118,7 @@ class AccountListViewHolder(
                 intent.putExtra("checkPwType", BaseConstant.CONST_PW_CONFIRM_PRIVATE)
                 context.startActivity(intent)
                 (context as Activity).overridePendingTransition(
-                    R.anim.anim_slide_in_bottom,
-                    R.anim.anim_fade_out
+                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                 )
 
                 listener.checkPrivateAction(account)

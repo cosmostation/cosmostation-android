@@ -53,19 +53,31 @@ data class BaseAccount(
 
     fun initAccount() {
         allCosmosLineChains = allCosmosLines()
+        if (type == BaseAccountType.PRIVATE_KEY) {
+            allCosmosLineChains =
+                allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }.toMutableList()
+        }
         sortCosmosLine()
     }
 
     fun sortCosmosLine() {
+        val displayChains = Prefs.getDisplayChains(this)
+
         allCosmosLineChains.sortWith { o1, o2 ->
             when {
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
-                Prefs.getDisplayChains(this).contains(o1.tag) && !Prefs.getDisplayChains(this)
-                    .contains(o2.tag) -> -1
-
                 lastValue(o1.tag) > lastValue(o2.tag) -> -1
                 lastValue(o1.tag) < lastValue(o2.tag) -> 1
+                else -> 0
+            }
+        }
+
+        allCosmosLineChains.sortWith { o1, o2 ->
+            when {
+                o1.tag == "cosmos118" -> -1
+                o2.tag == "cosmos118" -> 1
+                displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
                 else -> 0
             }
         }
@@ -78,29 +90,6 @@ data class BaseAccount(
         }.filterKeys { it != null }.map { it.value }.toMutableList()
     }
 
-    fun initAllData() {
-        if (type == BaseAccountType.MNEMONIC) {
-            allCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                }
-                if (!line.fetched) {
-                    line.loadData(id)
-                }
-            }
-
-        } else if (type == BaseAccountType.PRIVATE_KEY) {
-            allCosmosLineChains.forEach { line ->
-                if (line.address?.isEmpty() == true) {
-                    line.setInfoWithPrivateKey(privateKey)
-                }
-                if (!line.fetched) {
-                    line.loadData(id)
-                }
-            }
-        }
-    }
-
     fun updateAllValue() {
         sortedDisplayCosmosLines().forEach { line ->
             line.allValue()
@@ -110,21 +99,6 @@ data class BaseAccount(
     private fun lastValue(tag: String): BigDecimal {
         return AppDatabase.getInstance().refAddressDao().selectRefAddress(id, tag)?.lastUsdValue()
             ?: BigDecimal.ZERO
-    }
-
-    fun reSortCosmosChains() {
-        allCosmosLineChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "cosmos118" -> -1
-                o2.tag == "cosmos118" -> 1
-                else -> {
-                    when {
-                        o1.allAssetValue() > o2.allAssetValue() -> -1
-                        else -> 1
-                    }
-                }
-            }
-        }
     }
 
     companion object {

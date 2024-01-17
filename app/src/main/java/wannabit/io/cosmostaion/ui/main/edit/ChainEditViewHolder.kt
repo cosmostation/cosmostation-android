@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.edit
 
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
@@ -80,6 +81,10 @@ class ChainEditViewHolder(
                                     R.color.color_base01
                                 )
                             )
+                            val layoutParams = chainLegacy.layoutParams as ViewGroup.MarginLayoutParams
+                            layoutParams.setMargins(0, 2, 0, 0)
+                            chainLegacy.layoutParams = layoutParams
+
                         } else {
                             chainLegacy.visibility = View.GONE
                         }

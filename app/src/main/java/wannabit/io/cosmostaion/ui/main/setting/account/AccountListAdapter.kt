@@ -74,37 +74,16 @@ class AccountListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (mnemonicAccounts.isNotEmpty()) {
-            return if (position == 0) {
-                VIEW_TYPE_MNEMONIC_HEADER
-            } else if (position < mnemonicAccounts.size + 1) {
-                VIEW_TYPE_MNEMONIC_ITEM
-            } else if (position < mnemonicAccounts.size + 2) {
-                VIEW_TYPE_PRIVATE_HEADER
-            } else {
-                VIEW_TYPE_PRIVATE_ITEM
-            }
-
-        } else {
-            return if (position == 0) {
-                VIEW_TYPE_PRIVATE_HEADER
-            } else {
-                VIEW_TYPE_PRIVATE_ITEM
-            }
+        return when {
+            mnemonicAccounts.isNotEmpty() && position == 0 -> VIEW_TYPE_MNEMONIC_HEADER
+            mnemonicAccounts.isNotEmpty() && position in 1..mnemonicAccounts.size -> VIEW_TYPE_MNEMONIC_ITEM
+            mnemonicAccounts.isNotEmpty() && position == mnemonicAccounts.size + 1 -> VIEW_TYPE_PRIVATE_HEADER
+            else -> VIEW_TYPE_PRIVATE_ITEM
         }
     }
 
     override fun getItemCount(): Int {
-        return if (mnemonicAccounts.isNotEmpty()) {
-            if (privateAccounts.isNotEmpty()) {
-                currentList.size + 2
-            } else {
-                currentList.size + 1
-            }
-
-        } else {
-            currentList.size + 1
-        }
+        return currentList.size + if (mnemonicAccounts.isNotEmpty() && privateAccounts.isNotEmpty()) 2 else 1
     }
 
     private class AccountListDiffCallback : DiffUtil.ItemCallback<BaseAccount>() {
@@ -126,11 +105,13 @@ class AccountListAdapter(
             binding.apply {
                 if (viewType == VIEW_TYPE_MNEMONIC_HEADER) {
                     headerTitle.text = context.getString(R.string.title_mnemonic_account)
-                    headerCnt.text = currentList.filter { it.type == BaseAccountType.MNEMONIC }.size.toString()
+                    headerCnt.text =
+                        currentList.filter { it.type == BaseAccountType.MNEMONIC }.size.toString()
 
                 } else {
                     headerTitle.text = context.getString(R.string.title_private_account)
-                    headerCnt.text = currentList.filter { it.type == BaseAccountType.PRIVATE_KEY }.size.toString()
+                    headerCnt.text =
+                        currentList.filter { it.type == BaseAccountType.PRIVATE_KEY }.size.toString()
                 }
             }
         }

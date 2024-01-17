@@ -1,19 +1,12 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
-import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
-import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
-import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
-import io.grpc.ManagedChannel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
@@ -52,7 +45,6 @@ import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.util.concurrent.TimeUnit
 
 open class CosmosLine : BaseChain() {
 
@@ -71,7 +63,7 @@ open class CosmosLine : BaseChain() {
     var rewardAddress: String? = ""
     var cosmosAuth: com.google.protobuf.Any? = null
     var cosmosValidators = mutableListOf<StakingProto.Validator>()
-    var cosmosBalances = mutableListOf<Coin>()
+    var cosmosBalances: MutableList<Coin>? = mutableListOf()
     var cosmosVestings = mutableListOf<Coin>()
     var cosmosDelegations = mutableListOf<DelegationResponse>()
     var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
@@ -99,16 +91,6 @@ open class CosmosLine : BaseChain() {
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }
 
-    interface LoadDataCallback {
-        fun onDataLoaded(isLoaded: Boolean)
-    }
-
-    open var loadDataCallback: LoadDataCallback? = null
-
-    fun setLoadDataCallBack(callback: LoadDataCallback) {
-        loadDataCallback = callback
-    }
-
     open fun lcdBalanceValue(denom: String?): BigDecimal {
         return BigDecimal.ZERO
     }
@@ -120,45 +102,6 @@ open class CosmosLine : BaseChain() {
 
     fun allValue(): BigDecimal {
         return allAssetValue().add(allTokenValue())
-    }
-
-    fun loadData(id: Long) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val paramData = try {
-                loadParam()
-            } catch (e: Exception) {
-                null
-            }
-            param = paramData
-
-            if (supportCw20) {
-                val cw20s = try {
-                    loadCw20Token()
-                } catch (e: Exception) {
-                    null
-                }
-                if (cw20s != null) {
-                    cw20tokens = cw20s
-                }
-            }
-
-            if (supportErc20) {
-                val erc20s = try {
-                    loadErc20Token()
-                } catch (e: Exception) {
-                    null
-                }
-                if (erc20s != null) {
-                    erc20tokens = erc20s
-                }
-            }
-        }
-
-        if (this is ChainBinanceBeacon || this is ChainOkt60) {
-
-        } else {
-
-        }
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
@@ -249,18 +192,6 @@ open class CosmosLine : BaseChain() {
         }
     }
 
-    fun loadBalance(channel: ManagedChannel) {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
-        val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address)
-                .build()
-
-        stub.allBalances(request)?.let { response ->
-            cosmosBalances = response.balancesList
-        }
-    }
-
     suspend fun loadParam(): Param? {
         return when (val response = safeApiCall { RetrofitInstance.mintscanApi.param(apiName) }) {
             is NetworkResult.Success -> {
@@ -300,8 +231,8 @@ open class CosmosLine : BaseChain() {
     }
 
     fun balanceAmount(denom: String): BigDecimal {
-        if (cosmosBalances.isNotEmpty()) {
-            return cosmosBalances.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+        if (cosmosBalances?.isNotEmpty() == true) {
+            return cosmosBalances?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
                 ?: BigDecimal.ZERO
         }
         return BigDecimal.ZERO
@@ -322,8 +253,8 @@ open class CosmosLine : BaseChain() {
 
     fun balanceValueSum(): BigDecimal {
         var sum = BigDecimal.ZERO
-        if (cosmosBalances.isNotEmpty()) {
-            cosmosBalances.forEach { balance ->
+        if (cosmosBalances?.isNotEmpty() == true) {
+            cosmosBalances?.forEach { balance ->
                 sum = sum.add(balanceValue(balance.denom))
             }
         }
@@ -428,17 +359,17 @@ open class CosmosLine : BaseChain() {
 
     fun rewardAllCoins(): List<Coin> {
         return cosmosRewards.flatMap { reward ->
-                reward.rewardList.mapNotNull { coin ->
-                    val calAmount =
-                        coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
-                    if (calAmount > BigDecimal.ZERO) {
-                        Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString())
-                            .build()
-                    } else {
-                        null
-                    }
+            reward.rewardList.mapNotNull { coin ->
+                val calAmount =
+                    coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                if (calAmount > BigDecimal.ZERO) {
+                    Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString())
+                        .build()
+                } else {
+                    null
                 }
             }
+        }
     }
 
     fun rewardOtherDenoms(): Int {
@@ -542,14 +473,14 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainLum118())
     lines.add(ChainNeutron())
     lines.add(ChainOsmosis())
-    lines.add(ChainStride())
-    lines.add(ChainBinanceBeacon())
-    lines.add(ChainOkt996Secp())
-    lines.add(ChainOkt60())
     lines.add(ChainOmniflix())
     lines.add(ChainPersistence118())
     lines.add(ChainStargaze())
+    lines.add(ChainStride())
     lines.add(ChainXplaKeccak256())
+    lines.add(ChainBinanceBeacon())
+    lines.add(ChainOkt996Secp())
+    lines.add(ChainOkt60())
 
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {

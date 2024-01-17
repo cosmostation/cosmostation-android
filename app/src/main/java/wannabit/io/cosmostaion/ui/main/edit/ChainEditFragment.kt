@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -17,9 +16,11 @@ import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 class ChainEditFragment : BaseTxFragment() {
@@ -29,11 +30,10 @@ class ChainEditFragment : BaseTxFragment() {
 
     private lateinit var chainEditAdapter: ChainEditAdapter
 
-    private var baseAccount: BaseAccount? = null
+    private val walletViewModel: WalletViewModel by activityViewModels()
+
     private var allCosmosChains: MutableList<CosmosLine> = mutableListOf()
     private var toDisplayChainLines: MutableList<String> = mutableListOf()
-
-    private var job = Job()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,56 +45,83 @@ class ChainEditFragment : BaseTxFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
-        clickAction()
+        initLoadData()
+        setupLoadedView()
+        setUpClickAction()
     }
 
-    private fun initView() {
+    private fun initLoadData() {
         binding.apply {
-            recycler.setHasFixedSize(true)
-            recycler.layoutManager = LinearLayoutManager(requireContext())
+            BaseData.baseAccount?.let { account ->
+                account.apply {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        sortCosmosLine()
+                        toDisplayChainLines.addAll(Prefs.getDisplayChains(account))
 
-            baseAccount = BaseData.baseAccount
-            baseAccount?.let { account ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    account.sortCosmosLine()
-                    account.initAllData()
+                        withContext(Dispatchers.Main) {
+                            recycler.setHasFixedSize(true)
+                            recycler.layoutManager = LinearLayoutManager(requireContext())
+                            chainEditAdapter = ChainEditAdapter(
+                                account, allCosmosLineChains, toDisplayChainLines, editClickAction
+                            )
+                            recycler.adapter = chainEditAdapter
 
-                    withContext(Dispatchers.Main) {
-                        loading.visibility = View.GONE
-                        allCosmosChains = account.allCosmosLineChains
+                            btnSelect.updateSelectButtonView(allCosmosLineChains.none { !it.fetched })
+                            progress.goneOrVisible(allCosmosLineChains.none { !it.fetched })
+                        }
 
-                        toDisplayChainLines = Prefs.getDisplayChains(account)
-
-                        chainEditAdapter = ChainEditAdapter(account, allCosmosChains, toDisplayChainLines, editClickAction)
-                        recycler.adapter = chainEditAdapter
-
-                        binding.btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
-                        progress.goneOrVisible(allCosmosChains.none { !it.fetched })
-                        initData()
+                        initAllData(account)
                     }
                 }
             }
         }
     }
 
-    private fun initData() {
-        binding.apply {
-            for (i in 0 until allCosmosChains.size) {
-                allCosmosChains[i].setLoadDataCallBack(object : CosmosLine.LoadDataCallback {
-                    override fun onDataLoaded(isLoaded: Boolean) {
-                        lifecycleScope.launch {
-                            withContext(Dispatchers.Main) {
-                                if (isLoaded) {
-                                    chainEditAdapter.notifyItemChanged(i)
-                                }
-                                btnSelect.updateSelectButtonView(allCosmosChains.none { !it.fetched })
-                                progress.goneOrVisible(allCosmosChains.none { !it.fetched })
-                            }
-                        }
+    private fun initAllData(account: BaseAccount) {
+        account.apply {
+            if (type == BaseAccountType.MNEMONIC) {
+                allCosmosLineChains.forEach { line ->
+                    if (line.address?.isEmpty() == true) {
+                        line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                     }
-                })
+                    if (!line.fetched) {
+                        walletViewModel.loadChainData(line, id, true)
+                    }
+                }
+
+            } else if (type == BaseAccountType.PRIVATE_KEY) {
+                allCosmosLineChains.forEach { line ->
+                    if (line.address?.isEmpty() == true) {
+                        line.setInfoWithPrivateKey(privateKey)
+                    }
+                    if (!line.fetched) {
+                        walletViewModel.loadChainData(line, id, true)
+                    }
+                }
             }
+        }
+    }
+
+    private fun setupLoadedView() {
+        walletViewModel.editFetchedResult.observe(viewLifecycleOwner) {
+            CoroutineScope(Dispatchers.IO).launch {
+                BaseData.baseAccount?.let { account ->
+                    val fetchedLine =
+                        account.allCosmosLineChains.firstOrNull { line -> line.tag == it }
+                    val index = account.allCosmosLineChains.indexOf(fetchedLine)
+                    withContext(Dispatchers.Main) {
+                        account.allCosmosLineChains.forEach { _ ->
+                            chainEditAdapter.notifyItemChanged(index)
+                        }
+                        binding.btnSelect.updateSelectButtonView(account.allCosmosLineChains.none { line -> !line.fetched })
+                        binding.progress.goneOrVisible(account.allCosmosLineChains.none { line -> !line.fetched })
+                    }
+                }
+            }
+        }
+
+        walletViewModel.chainDataErrorMessage.observe(viewLifecycleOwner) {
+            return@observe
         }
     }
 
@@ -104,55 +131,85 @@ class ChainEditFragment : BaseTxFragment() {
         }
     }
 
-    private fun clickAction() {
-        binding.apply {
-            btnSelect.setOnClickListener {
-                baseAccount?.let { account ->
-                    account.reSortCosmosChains()
-                    allCosmosChains = account.allCosmosLineChains
-
-                    val hasValueChains = allCosmosChains.filter { line -> line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118" }.toMutableList()
-                    if (hasValueChains.find { item -> item.tag != toDisplayChainLines[hasValueChains.indexOf(item)+1] } == null) {
-                        return@let
-                    }
-                    toDisplayChainLines.clear()
-                    toDisplayChainLines.add("cosmos118")
-
-                    allCosmosChains.forEach { line ->
-                        if (line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118") {
-                            toDisplayChainLines.add(line.tag)
-                        }
-                    }
-
-                    allCosmosChains.sortWith { o1, o2 ->
-                        when {
-                            o1.tag == "cosmos118" -> -1
-                            o2.tag == "cosmos118" -> 1
-                            else -> {
-                                when {
-                                    o1.allValue() > o2.allValue() -> -1
-                                    o1.allValue() < o2.allValue() -> 1
-                                    else -> 0
-                                }
+    private fun reSortCosmosChains(): MutableList<CosmosLine> {
+        BaseData.baseAccount?.let { account ->
+            account.apply {
+                allCosmosLineChains.sortWith { o1, o2 ->
+                    when {
+                        o1.tag == "cosmos118" -> -1
+                        o2.tag == "cosmos118" -> 1
+                        else -> {
+                            when {
+                                o1.allAssetValue() > o2.allAssetValue() -> -1
+                                else -> 1
                             }
                         }
                     }
-                    allCosmosChains.sortWith { o1, o2 ->
-                        when {
-                            o1.tag == "cosmos118" -> -1
-                            o2.tag == "cosmos118" -> 1
-                            Prefs.getDisplayChains(account).contains(o1.tag) && !Prefs.getDisplayChains(account).contains(o2.tag) -> -1
-                            else -> 1
-                        }
-                    }
-                    chainEditAdapter.notifyDataSetChanged()
+                }
+                return allCosmosLineChains
+            }
+        }
+        return mutableListOf()
+    }
+
+    private fun valuableSortCosmosChains() {
+        BaseData.baseAccount?.let { account ->
+            allCosmosChains.sortWith { o1, o2 ->
+                when {
+                    o1.tag == "cosmos118" -> -1
+                    o2.tag == "cosmos118" -> 1
+                    o1.allValue() > o2.allValue() -> -1
+                    o1.allValue() < o2.allValue() -> 1
+                    else -> 0
                 }
             }
 
-            btnConfirm.setOnClickListener {
-                baseAccount?.let { baseAccount ->
-                    Prefs.setDisplayChains(baseAccount, toDisplayChainLines)
-                    ApplicationViewModel.shared.walletEdit()
+            allCosmosChains.sortWith { o1, o2 ->
+                when {
+                    o1.tag == "cosmos118" -> -1
+                    o2.tag == "cosmos118" -> 1
+                    Prefs.getDisplayChains(account).contains(o1.tag) && !Prefs.getDisplayChains(
+                        account
+                    ).contains(o2.tag) -> -1
+
+                    else -> 1
+                }
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
+        binding.apply {
+            BaseData.baseAccount?.let { account ->
+                btnSelect.setOnClickListener {
+                    allCosmosChains = reSortCosmosChains()
+
+                    val hasValueChains =
+                        allCosmosChains.filter { line -> line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118" }
+                            .toMutableList()
+
+                    if (hasValueChains.none { line -> !toDisplayChainLines.contains(line.tag) }) {
+                        return@setOnClickListener
+                    }
+
+                    toDisplayChainLines.clear()
+                    toDisplayChainLines.add("cosmos118")
+
+                    allCosmosChains.filter { it.allAssetValue() > BigDecimal.ONE && it.tag != "cosmos118" }
+                        .forEach { toDisplayChainLines.add(it.tag) }
+                    valuableSortCosmosChains()
+
+                    toDisplayChainLines.forEach { tag ->
+                        val index = allCosmosChains.indexOfFirst { it.tag == tag }
+                        if (index != -1) {
+                            chainEditAdapter.notifyItemChanged(index)
+                        }
+                    }
+                }
+
+                btnConfirm.setOnClickListener {
+                    Prefs.setDisplayChains(account, toDisplayChainLines)
+                    ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
                     dismiss()
                 }
             }
@@ -162,6 +219,6 @@ class ChainEditFragment : BaseTxFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-        job.cancel()
+        walletViewModel.editFetchedResult.removeObservers(viewLifecycleOwner)
     }
 }

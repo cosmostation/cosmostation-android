@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
+import SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -154,7 +155,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 
     fun loadChainData(
-        line: CosmosLine, baseAccountId: Long
+        line: CosmosLine, baseAccountId: Long, isEdit: Boolean
     ) = viewModelScope.launch(Dispatchers.IO) {
         line.apply {
             val loadParamDeferred = async { walletRepository.param(this@apply) }
@@ -195,24 +196,27 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
 
             if (this is ChainBinanceBeacon || this is ChainOkt60) {
-                loadLcdData(this, baseAccountId)
+                loadLcdData(this, baseAccountId, isEdit)
             } else {
-                loadGrpcAuthData(this, baseAccountId)
+                loadGrpcAuthData(this, baseAccountId, isEdit)
             }
         }
     }
 
     private val _fetchedResult = MutableLiveData<String>()
     val fetchedResult: LiveData<String> get() = _fetchedResult
+
+    var editFetchedResult = SingleLiveEvent<String>()
+
     private fun loadGrpcAuthData(
-        line: CosmosLine, baseAccountId: Long
+        line: CosmosLine, baseAccountId: Long, isEdit: Boolean
     ) = viewModelScope.launch(Dispatchers.IO) {
         line.apply {
             val channel = getChannel(line)
             when (val response = walletRepository.auth(channel, this)) {
                 is NetworkResult.Success -> {
                     cosmosAuth = response.data?.account
-                    loadGrpcMoreData(channel, baseAccountId, line)
+                    loadGrpcMoreData(channel, baseAccountId, line, isEdit)
                 }
 
                 is NetworkResult.Error -> {
@@ -220,7 +224,11 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     if (fetched) {
                         val refAddress = RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                         BaseData.updateRefAddressesMain(refAddress)
-                        _fetchedResult.postValue(tag)
+                        if (isEdit) {
+                            editFetchedResult.postValue(tag)
+                        } else {
+                            _fetchedResult.postValue(tag)
+                        }
                     }
                 }
             }
@@ -228,7 +236,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     private fun loadLcdData(
-        line: CosmosLine, baseAccountId: Long
+        line: CosmosLine, baseAccountId: Long, isEdit: Boolean
     ) = viewModelScope.launch(Dispatchers.IO) {
         line.apply {
             if (this is ChainBinanceBeacon) {
@@ -263,10 +271,14 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     allAssetValue().toString(),
                                     lcdBalanceAmount(stakeDenom).toString(),
                                     "0",
-                                    lcdAccountInfo?.balances?.size?.toLong()
+                                    lcdAccountInfo?.balances?.size?.toLong() ?: 0
                                 )
                                 BaseData.updateRefAddressesMain(refAddress)
-                                _fetchedResult.postValue(tag)
+                                if (isEdit) {
+                                    editFetchedResult.postValue(tag)
+                                } else {
+                                    _fetchedResult.postValue(tag)
+                                }
                             }
                         }
 
@@ -276,7 +288,11 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                 val refAddress =
                                     RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                                 BaseData.updateRefAddressesMain(refAddress)
-                                _fetchedResult.postValue(tag)
+                                if (isEdit) {
+                                    editFetchedResult.postValue(tag)
+                                } else {
+                                    _fetchedResult.postValue(tag)
+                                }
                             }
                         }
                     }
@@ -325,9 +341,14 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     allAssetValue().toString(),
                                     lcdBalanceAmount(stakeDenom).toString(),
                                     "0",
-                                    oktLcdAccountInfo?.value?.coins?.size?.toLong()
+                                    oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
                                 )
                                 BaseData.updateRefAddressesMain(refAddress)
+                                if (isEdit) {
+                                    editFetchedResult.postValue(tag)
+                                } else {
+                                    _fetchedResult.postValue(tag)
+                                }
                             }
                         }
 
@@ -337,7 +358,11 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                 val refAddress =
                                     RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                                 BaseData.updateRefAddressesMain(refAddress)
-                                _fetchedResult.postValue(tag)
+                                if (isEdit) {
+                                    editFetchedResult.postValue(tag)
+                                } else {
+                                    _fetchedResult.postValue(tag)
+                                }
                             }
                         }
                     }
@@ -347,7 +372,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     private fun loadGrpcMoreData(
-        channel: ManagedChannel, id: Long, line: CosmosLine
+        channel: ManagedChannel, id: Long, line: CosmosLine, isEdit: Boolean
     ) = viewModelScope.launch(Dispatchers.IO) {
         line.apply {
             try {
@@ -461,10 +486,14 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         allAssetValue().toPlainString(),
                         allStakingDenomAmount().toString(),
                         "0",
-                        cosmosBalances.size.toLong()
+                        cosmosBalances?.size?.toLong() ?: 0
                     )
                     BaseData.updateRefAddressesMain(refAddress)
-                    _fetchedResult.postValue(tag)
+                    if (isEdit) {
+                        editFetchedResult.postValue(tag)
+                    } else {
+                        _fetchedResult.postValue(tag)
+                    }
                 }
 
             } finally {
@@ -572,6 +601,65 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             } catch (e: InterruptedException) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    private var _balanceResult = MutableLiveData<String>()
+    val balanceResult: LiveData<String> get() = _balanceResult
+    fun balance(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
+        when (line) {
+            is ChainBinanceBeacon -> {
+                when (val response = walletRepository.binanceAccountInfo(line)) {
+                    is NetworkResult.Success -> {
+                        line.lcdAccountInfo = response.data
+                        line.fetched = true
+                        _balanceResult.postValue(line.tag)
+                    }
+
+                    is NetworkResult.Error -> {
+                        line.lcdAccountInfo = null
+                        line.fetched = true
+                        _balanceResult.postValue("null")
+                    }
+                }
+
+            }
+
+            is ChainOkt60 -> {
+                when (val response = walletRepository.oktAccountInfo(line)) {
+                    is NetworkResult.Success -> {
+                        line.oktLcdAccountInfo = response.data
+                        line.fetched = true
+                        _balanceResult.postValue(line.tag)
+                    }
+
+                    is NetworkResult.Error -> {
+                        line.oktLcdAccountInfo = null
+                        line.fetched = true
+                        _balanceResult.postValue("null")
+                    }
+                }
+
+            }
+
+            else -> {
+                val channel = getChannel(line)
+                when (val response = walletRepository.balance(channel, line)) {
+                    is NetworkResult.Success -> {
+                        response.data?.balancesList?.let {
+                            line.cosmosBalances = it
+                            line.fetched = true
+                            _balanceResult.postValue(line.tag)
+                        }
+                    }
+
+                    is NetworkResult.Error -> {
+                        line.cosmosBalances = null
+                        line.fetched = true
+                        _balanceResult.postValue("null")
+                    }
+                }
             }
         }
     }

@@ -7,16 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.databinding.ItemMnemonicBinding
 
-class RestorePathAdapter(
+class RestoreMnemonicConfirmAdapter(
     val context: Context
-) : ListAdapter<String, RestorePathViewHolder>(PathDiffCallback()) {
+) : ListAdapter<String, RestoreMnemonicConfirmViewHolder>(PathDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestorePathViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestoreMnemonicConfirmViewHolder {
         val binding = ItemMnemonicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RestorePathViewHolder(parent.context, binding)
+        return RestoreMnemonicConfirmViewHolder(parent.context, binding)
     }
 
-    override fun onBindViewHolder(holder: RestorePathViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RestoreMnemonicConfirmViewHolder, position: Int) {
         holder.bind(currentList, position)
     }
 

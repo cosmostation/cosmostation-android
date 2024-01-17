@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
@@ -42,8 +43,7 @@ class DashboardFragment : Fragment() {
     private var totalChainValue: BigDecimal = BigDecimal.ZERO
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDashboardBinding.inflate(layoutInflater, container, false)
         return binding!!.root
@@ -117,7 +117,7 @@ class DashboardFragment : Fragment() {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id)
+                                walletViewModel.loadChainData(line, id, false)
                             }
                         }
 
@@ -127,7 +127,7 @@ class DashboardFragment : Fragment() {
                                 line.setInfoWithPrivateKey(privateKey)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id)
+                                walletViewModel.loadChainData(line, id, false)
                             }
                         }
                     }
@@ -170,7 +170,8 @@ class DashboardFragment : Fragment() {
                     totalChainValue = totalSum
 
                     val totalValueTxt = binding?.totalValue
-                    totalValueTxt?.text = if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
+                    totalValueTxt?.text =
+                        if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
                     totalValueTxt?.textSize = if (Prefs.hideValue) 20f else 24f
                 }
             }
@@ -243,8 +244,8 @@ class DashboardFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 baseAccount?.sortCosmosLine()
                 initDisplayData()
+                dashAdapter.submitList(baseAccount?.sortedDisplayCosmosLines())
                 withContext(Dispatchers.Main) {
-                    dashAdapter.submitList(baseAccount?.sortedDisplayCosmosLines())
                     dashAdapter.notifyDataSetChanged()
                     setupLoadedData()
                 }

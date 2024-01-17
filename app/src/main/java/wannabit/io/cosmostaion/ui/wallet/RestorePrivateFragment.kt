@@ -4,23 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.databinding.FragmentRestorePrivateBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 import java.util.regex.Pattern
 
-class RestorePrivateFragment(val name: String) : Fragment() {
+class RestorePrivateFragment : Fragment() {
 
     private var _binding: FragmentRestorePrivateBinding? = null
     private val binding get() = _binding!!
@@ -28,8 +21,7 @@ class RestorePrivateFragment(val name: String) : Fragment() {
     private val accountViewModel: AccountViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRestorePrivateBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -38,12 +30,10 @@ class RestorePrivateFragment(val name: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backdropLayout.visibility = View.GONE
-        checkRestore()
-        clickAction()
+        setUpClickAction()
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
@@ -66,25 +56,11 @@ class RestorePrivateFragment(val name: String) : Fragment() {
                         return@setOnClickListener
                     }
 
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_background_dialog)
-                    backdropLayout.visibility = View.VISIBLE
-                    accountViewModel.createByPrivate(name, userInput)
-                }
-            }
-        }
-    }
-
-    private fun checkRestore() {
-        accountViewModel.create.observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                delay(1000)
-                withContext(Dispatchers.Main) {
-                    binding.backdropLayout.visibility = View.GONE
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.color_transparent)
-                    ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
-
-                    requireActivity().finish()
-                    requireActivity().overridePendingTransition(0, 0)
+                    requireActivity().toMoveFragment(
+                        this@RestorePrivateFragment,
+                        WalletSelectFragment("", userInput),
+                        "WalletSelect"
+                    )
                 }
             }
         }

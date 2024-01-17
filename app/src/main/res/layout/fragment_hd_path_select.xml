@@ -1,71 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/space_14">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hd_path_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        style="@style/font_sb_14"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_view"
+        android:text="@string/title_select_hd_path"/>
+
+    <TextView
+        android:id="@+id/hd_path_msg"
+        style="@style/font_sm_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:text="@string/str_create_another_msg"
+        android:textColor="@color/color_base02"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hd_path_title" />
+
+    <NumberPicker
+        android:id="@+id/numberPicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottomsheet_bg"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:textColor="@color/color_base01"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:theme="@style/ThemeOverlay.NumberPicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hd_path_msg" />
 
-        <TextView
-            android:id="@+id/dialog_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
-            style="@style/font_sb_16"
-            android:textColor="@color/color_base01"
-            android:gravity="center"
-            android:text="@string/title_hd_path_setting"/>
-
-        <NumberPicker
-            android:id="@+id/numberPicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_base01"
-            android:theme="@style/ThemeOverlay.NumberPicker"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/color_base07" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/path_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_8"
+        android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberPicker">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/font_sb_14"
-                android:background="@color/color_transparent"
-                android:text="@string/str_cancel"
-                android:textColor="@color/color_base01"
-                android:textAllCaps="false" />
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_12">
 
-            <View
-                android:layout_width="@dimen/space_1"
-                android:layout_height="match_parent"
-                android:background="@color/color_base07" />
+                <ImageView
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
+                    android:src="@drawable/chain_cosmos" />
 
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    style="@style/font_sb_12"
+                    android:textColor="@color/color_base01"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:text="COSMOS"/>
+
+                <TextView
+                    android:id="@+id/cosmos_last_hd_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_gravity="center_vertical|end"
+                    style="@style/font_sb_12"
+                    android:textColor="@color/color_base02"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/font_sb_14"
-                android:background="@color/color_transparent"
-                android:textColor="@color/color_base01"
-                android:text="@string/str_confirm"
-                android:textAllCaps="false" />
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8">
+
+                <ImageView
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
+                    android:src="@drawable/icon_ethereum" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    style="@style/font_sb_12"
+                    android:textColor="@color/color_base01"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:text="ETHEREUM"/>
+
+                <TextView
+                    android:id="@+id/ether_last_hd_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_gravity="center_vertical|end"
+                    style="@style/font_sb_12"
+                    android:textColor="@color/color_base02"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginBottom="@dimen/space_12">
+
+                <ImageView
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
+                    android:src="@drawable/chain_kava" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    style="@style/font_sb_12"
+                    android:textColor="@color/color_base01"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:text="KAVA"/>
+
+                <TextView
+                    android:id="@+id/kava_last_hd_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_gravity="center_vertical|end"
+                    style="@style/font_sb_12"
+                    android:textColor="@color/color_base02"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/font_sb_16"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_54"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
+        android:background="@drawable/button_common_bg"
+        android:text="@string/str_confirm"
+        android:textAllCaps="false"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
