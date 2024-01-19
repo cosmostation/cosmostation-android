@@ -114,6 +114,7 @@
     <string name="str_search_validator">Search validator</string>
     <string name="str_connect">Connect</string>
     <string name="str_restore_wallet">Restore wallet</string>
+    <string name="str_another_account">Create Another Account</string>
 
 
     //title
@@ -234,6 +235,7 @@
     <string name="title_address_book_list">Address book list</string>
     <string name="title_request_connection">Request connection</string>
     <string name="title_select_hd_path">Select HD Path</string>
+    <string name="title_address_book_delete">Delete address book</string>
 
 
     // msg

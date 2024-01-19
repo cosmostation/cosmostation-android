@@ -59,11 +59,24 @@
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="@dimen/space_200"
             android:layout_marginStart="@dimen/space_16"
             android:maxLines="1"
             android:ellipsize="middle"
             android:textColor="@color/color_base01"
             android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/last_hd_path"
+            style="@style/font_sb_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_16"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/color_base02"
+            android:layout_gravity="center_vertical|end"
+            android:text="Last HD Path : 1"/>
 
     </androidx.cardview.widget.CardView>
 

@@ -13,15 +13,14 @@ import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 
 class SettingBottomAdapter(
-    val context: Context,
-    private val settingType: SettingType
+    val context: Context, private val settingType: SettingType
 ) : ListAdapter<String, RecyclerView.ViewHolder>(SettingDiffCallback()) {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (settingType.ordinal) {
-            SettingType.LANGUAGE.ordinal, SettingType.AUTO_PASS.ordinal -> {
+            SettingType.LANGUAGE.ordinal -> {
                 val binding = ItemSettingBottomBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -55,10 +54,10 @@ class SettingBottomAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (settingType.ordinal) {
-            SettingType.LANGUAGE.ordinal, SettingType.AUTO_PASS.ordinal -> {
+            SettingType.LANGUAGE.ordinal -> {
                 if (holder is SettingBottomViewHolder) {
                     val stringItem = currentList[position]
-                    holder.bind(stringItem, settingType.ordinal)
+                    holder.bind(stringItem)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let { it(position) }

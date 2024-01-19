@@ -16,9 +16,6 @@ object BaseConstant {
     const val SUCCESS = "Success"
     const val FAIL = "Fail"
 
-    const val CONST_PW_CONFIRM_MNEMONIC = 1001
-    const val CONST_PW_CONFIRM_PRIVATE = 1002
-
     const val CONST_NEW_ACCOUNT = 2000
     const val CONST_RESTORE_MNEMONIC_ACCOUNT = 2001
     const val CONST_RESTORE_PRIVATE_ACCOUNT = 2002
@@ -215,8 +212,10 @@ object BaseConstant {
     const val EXCHANGE_DIGFINEX_ADDRESS = "cosmos10njsfnzz5lqch2p5362ueyyus98dje0vdsmds7"
 
     // ICNS Contract Address
-    const val ICNS_OSMOSIS_ADDRESS = "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd"
-    const val NS_STARGZE_ADDRESS = "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr"
+    const val ICNS_OSMOSIS_ADDRESS =
+        "osmo1xk0s8xgktn9x5vwcgtjdxqzadg88fgn33p8u9cnpdxwemvxscvast52cdd"
+    const val NS_STARGZE_ADDRESS =
+        "stars1fx74nkqkw2748av8j7ew7r3xt9cgjqduwn8m0ur5lhe49uhlsasszc5fhr"
     const val EXPLORER_NOTICE_MINTSCAN = "https://notice.mintscan.io/"
     const val NFT_INFURA = "https://ipfs.infura.io/ipfs/"
     const val COINGECKO_URL = "https://www.coingecko.com/en/coins/"

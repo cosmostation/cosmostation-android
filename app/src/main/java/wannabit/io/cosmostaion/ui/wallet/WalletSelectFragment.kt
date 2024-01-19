@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.wallet
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -197,7 +196,6 @@ class WalletSelectFragment(
                         selectHdPath = it
                         updateView()
                         onInitDataWithSelectedHdPath()
-//                        walletSelectAdapter.notifyDataSetChanged()
                     }
                     setHdPath.selectedNumber = selectHdPath
                     setHdPath.show(
@@ -253,7 +251,6 @@ class WalletSelectFragment(
                 initMnemonicAllDataWithSeed(seed)
             }
         }
-
     }
 
     private fun checkRestore() {

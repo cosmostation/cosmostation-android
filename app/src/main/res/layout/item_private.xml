@@ -53,8 +53,24 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
+                    android:id="@+id/chain_legacy"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_box_deprecated"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/chain_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="gone"/>
+
+                <TextView
                     android:id="@+id/chain_path"
-                    style="@style/font_sb_12"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/space_8"

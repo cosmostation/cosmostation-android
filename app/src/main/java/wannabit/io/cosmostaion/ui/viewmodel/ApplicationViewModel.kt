@@ -25,18 +25,6 @@ class ApplicationViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-    val checkPwMnemonicResult = SingleLiveEvent<String>()
-    fun checkPwMnemonic() = viewModelScope.launch {
-        checkPwMnemonicResult.call()
-    }
-
-
-    val checkPwPrivateResult = SingleLiveEvent<String>()
-    fun checkPwPrivate() = viewModelScope.launch {
-        checkPwPrivateResult.call()
-    }
-
-
     var txRecreateResult = SingleLiveEvent<Boolean>()
     fun txRecreate() = viewModelScope.launch(Dispatchers.IO) {
         txRecreateResult.postValue(true)

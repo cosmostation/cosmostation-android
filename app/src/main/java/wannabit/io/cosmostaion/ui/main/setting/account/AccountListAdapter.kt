@@ -14,10 +14,13 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class AccountListAdapter(
     val context: Context,
-    private val mnemonicAccounts: List<BaseAccount>,
-    private val privateAccounts: List<BaseAccount>,
-    private var listener: ClickListener
-) : ListAdapter<BaseAccount, RecyclerView.ViewHolder>(AccountListDiffCallback()) {
+    private var mnemonicAccounts: List<BaseAccount>,
+    private var privateAccounts: List<BaseAccount>,
+    val listener: AccountSortListener
+) : ListAdapter<BaseAccount, RecyclerView.ViewHolder>(AccountListDiffCallback()),
+    ItemTouchHelperListener {
+
+    private var onItemClickListener: ((BaseAccount) -> Unit)? = null
 
     companion object {
         const val VIEW_TYPE_MNEMONIC_HEADER = 0
@@ -56,17 +59,35 @@ class AccountListAdapter(
                 if (mnemonicAccounts.isNotEmpty()) {
                     if (holder.itemViewType == VIEW_TYPE_MNEMONIC_ITEM) {
                         val mnemonicAccount = mnemonicAccounts[position - 1]
-                        holder.bind(mnemonicAccount, listener)
+                        holder.bind(mnemonicAccount)
+
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(mnemonicAccount)
+                            }
+                        }
 
                     } else {
                         val privateAccount = privateAccounts[position - (mnemonicAccounts.size + 2)]
-                        holder.bind(privateAccount, listener)
+                        holder.bind(privateAccount)
+
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(privateAccount)
+                            }
+                        }
                     }
 
                 } else {
                     if (holder.itemViewType == VIEW_TYPE_PRIVATE_ITEM) {
                         val privateAccount = privateAccounts[position - 1]
-                        holder.bind(privateAccount, listener)
+                        holder.bind(privateAccount)
+
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(privateAccount)
+                            }
+                        }
                     }
                 }
             }
@@ -117,8 +138,51 @@ class AccountListAdapter(
         }
     }
 
-    interface ClickListener {
-        fun checkMnemonicAction(account: BaseAccount)
-        fun checkPrivateAction(account: BaseAccount)
+    fun setOnItemClickListener(listener: (BaseAccount) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        when {
+            getItemViewType(fromPosition) == VIEW_TYPE_MNEMONIC_ITEM -> {
+                val mnemonicFromPosition = fromPosition - 1
+                val mnemonicToPosition = toPosition - 1
+                if (mnemonicToPosition < 0) { return false }
+                val fromItem = mnemonicAccounts[mnemonicFromPosition]
+                val toItem = mnemonicAccounts[mnemonicToPosition]
+
+                val tempMnemonicAccountsList = mnemonicAccounts.toMutableList()
+                tempMnemonicAccountsList[mnemonicFromPosition] = toItem
+                tempMnemonicAccountsList[mnemonicToPosition] = fromItem
+
+                mnemonicAccounts = tempMnemonicAccountsList
+
+                notifyItemMoved(fromPosition, toPosition)
+                listener.updateMnemonicOrder(mnemonicAccounts)
+            }
+
+            getItemViewType(fromPosition) == VIEW_TYPE_PRIVATE_ITEM -> {
+                val privateFromPosition = fromPosition - mnemonicAccounts.size - 2
+                val privateToPosition = toPosition - mnemonicAccounts.size - 2
+                if (privateToPosition < 0) { return false }
+                val fromItem = privateAccounts[privateFromPosition]
+                val toItem = privateAccounts[privateToPosition]
+
+                val tempPrivateAccountsList = privateAccounts.toMutableList()
+                tempPrivateAccountsList[privateFromPosition] = toItem
+                tempPrivateAccountsList[privateToPosition] = fromItem
+
+                privateAccounts = tempPrivateAccountsList
+
+                notifyItemMoved(fromPosition, toPosition)
+                listener.updatePrivateOrder(privateAccounts)
+            }
+        }
+        return true
+    }
+
+    interface AccountSortListener {
+        fun updateMnemonicOrder(mnemonicAccounts: List<BaseAccount>)
+        fun updatePrivateOrder(privateAccounts: List<BaseAccount>)
     }
 }

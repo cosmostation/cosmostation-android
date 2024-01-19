@@ -6,7 +6,7 @@
     <string name="str_next">다음</string>
     <string name="str_share_address">주소 공유</string>
     <string name="str_address">주소</string>
-    <string name="str_ethereum_address">이더 주소</string>
+    <string name="str_ethereum_address">이더리움 주소</string>
     <string name="str_confirm">확인</string>
     <string name="str_cancel">취소</string>
     <string name="str_continue">계속</string>
@@ -84,6 +84,7 @@
     <string name="str_search_validator">검증인 검색</string>
     <string name="str_connect">연결</string>
     <string name="str_restore_wallet">지갑 복원</string>
+    <string name="str_another_account">다른 계정 생성</string>
 
 
     //title
@@ -182,6 +183,7 @@
     <string name="title_address_book_list">주소록 확인</string>
     <string name="title_request_connection">연결 요청</string>
     <string name="title_select_hd_path">HD Path 선택</string>
+    <string name="title_address_book_delete">주소록 삭제</string>
 
 
     // msg

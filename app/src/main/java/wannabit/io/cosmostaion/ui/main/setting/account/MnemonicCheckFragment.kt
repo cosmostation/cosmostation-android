@@ -10,9 +10,11 @@ import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentMnemonicCheckBinding
+import wannabit.io.cosmostaion.ui.wallet.WalletSelectFragment
 
 class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
 
@@ -20,6 +22,8 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var mnemonicAdapter: MnemonicAdapter
+
+    private var wordList: List<String> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,7 +36,7 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpViewModels()
-        clickAction()
+        setUpClickAction()
     }
 
 
@@ -46,9 +50,8 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
                 CryptoHelper.doDecryptData(
                     CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec
                 )?.let {
-                    val wordList = BaseKey.getMnemonicWords(Utils.hexToBytes(it))
-                    phraseCnt.text =
-                        getString(R.string.str_phrase_cnt, wordList.size.toString())
+                    wordList = BaseKey.getMnemonicWords(Utils.hexToBytes(it))
+                    phraseCnt.text = getString(R.string.str_phrase_cnt, wordList.size.toString())
 
                     mnemonicAdapter = MnemonicAdapter(requireContext())
                     recycler.setHasFixedSize(true)
@@ -60,10 +63,18 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
+            }
+
+            btnSelect.setOnClickListener {
+                requireActivity().toMoveFragment(
+                    this@MnemonicCheckFragment,
+                    WalletSelectFragment(wordList.joinToString(" "), ""),
+                    "WalletSelect"
+                )
             }
 
             btnConfirm.setOnClickListener {

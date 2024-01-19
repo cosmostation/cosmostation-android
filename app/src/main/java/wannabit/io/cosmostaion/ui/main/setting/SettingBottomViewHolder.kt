@@ -5,21 +5,15 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
-import wannabit.io.cosmostaion.ui.main.SettingType
 
 class SettingBottomViewHolder(
-    val context: Context,
-    private val binding: ItemSettingBottomBinding
+    val context: Context, private val binding: ItemSettingBottomBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: String, settingType: Int) {
+    fun bind(item: String) {
         binding.apply {
             selectTitle.text = item
-            if (settingType == SettingType.LANGUAGE.ordinal) {
-                selectImg.visibleOrGone(Prefs.language == adapterPosition)
-            } else {
-                selectImg.visibleOrGone(Prefs.autoPass == adapterPosition)
-            }
+            selectImg.visibleOrGone(Prefs.language == adapterPosition)
         }
     }
 }

@@ -34,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_4"
                 android:layout_marginEnd="@dimen/space_10"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/chain_img"
-                app:layout_constraintEnd_toStartOf="@+id/select_option"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -58,7 +58,7 @@
                     android:maxWidth="@dimen/space_150"
                     android:ellipsize="middle"
                     android:maxLines="1"
-                    android:textColor="@color/color_base01"
+                    android:textColor="@color/color_base02"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -68,27 +68,15 @@
             <TextView
                 android:id="@+id/address"
                 style="@style/font_sm_12"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
                 android:layout_marginEnd="@dimen/space_10"
                 android:ellipsize="middle"
                 android:maxLines="1"
                 android:textColor="@color/color_base02"
-                app:layout_constraintEnd_toStartOf="@+id/select_option"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chain_img" />
-
-            <ImageView
-                android:id="@+id/select_option"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_6"
-                android:layout_marginEnd="@dimen/space_10"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/icon_option"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

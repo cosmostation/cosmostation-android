@@ -13,8 +13,10 @@ import com.trustwallet.walletconnect.extensions.toHex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -27,6 +29,8 @@ class PrivateCheckFragment(val account: BaseAccount) : Fragment() {
 
     private lateinit var privateAdapter: PrivateAdapter
 
+    private val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -38,27 +42,7 @@ class PrivateCheckFragment(val account: BaseAccount) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
-    }
-
-    private fun initAllKeyData(): MutableList<CosmosLine> {
-        account.apply {
-            if (type == BaseAccountType.MNEMONIC) {
-                allCosmosLineChains.forEach { line ->
-                    if (line.address?.isEmpty() == true) {
-                        line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                    }
-                }
-
-            } else if (type == BaseAccountType.PRIVATE_KEY) {
-                allCosmosLineChains.forEach { line ->
-                    if (line.address?.isEmpty() == true) {
-                        line.setInfoWithPrivateKey(privateKey)
-                    }
-                }
-            }
-            return allCosmosLineChains
-        }
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -66,35 +50,71 @@ class PrivateCheckFragment(val account: BaseAccount) : Fragment() {
             accountNameView.setBackgroundResource(R.drawable.item_bg)
             privateKeyLayout.setBackgroundResource(R.drawable.item_bg)
 
-            account.apply {
-                accountName.text = name
+            if (account.lastHDPath != "0") {
+                lastHdPath.visibility = View.VISIBLE
+                lastHdPath.text = "Last HD Path : " + account.lastHDPath
+            } else {
+                lastHdPath.visibility = View.GONE
+            }
+            accountName.text = account.name
+        }
+        initAllKeyData()
+    }
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    if (account.type == BaseAccountType.MNEMONIC) {
-                        privateKeyLayout.visibility = View.GONE
-                        tapMsg.visibility = View.GONE
-                        recycler.visibility = View.VISIBLE
-
-                        privateAdapter = PrivateAdapter(account)
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = privateAdapter
-                        privateAdapter.submitList(initAllKeyData() as List<Any>?)
-
-                    } else {
-                        privateKeyLayout.visibility = View.VISIBLE
-                        tapMsg.visibility = View.VISIBLE
-                        recycler.visibility = View.GONE
-                        requireActivity().runOnUiThread {
-                            accountPrivateKey.text = "0x" + privateKey?.toHex()
+    private fun initAllKeyData() {
+        account.apply {
+            CoroutineScope(Dispatchers.IO).launch {
+                if (type == BaseAccountType.MNEMONIC) {
+                    allCosmosLines.addAll(allCosmosLines())
+                    allCosmosLines.forEach { line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
                     }
+
+                } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    allCosmosLines().filter { it.isDefault }.forEach { line ->
+                        allCosmosLines.add(line)
+                    }
+                    allCosmosLines.forEach { line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithPrivateKey(privateKey)
+                        }
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    updateView()
                 }
             }
         }
     }
 
-    private fun clickAction() {
+    private fun updateView() {
+        binding.apply {
+            if (account.type == BaseAccountType.MNEMONIC) {
+                privateKeyLayout.visibility = View.GONE
+                tapMsg.visibility = View.GONE
+                recycler.visibility = View.VISIBLE
+
+                privateAdapter = PrivateAdapter(account)
+                recycler.setHasFixedSize(true)
+                recycler.layoutManager = LinearLayoutManager(requireContext())
+                recycler.adapter = privateAdapter
+                privateAdapter.submitList(allCosmosLines as List<Any>?)
+
+            } else {
+                privateKeyLayout.visibility = View.VISIBLE
+                tapMsg.visibility = View.VISIBLE
+                recycler.visibility = View.GONE
+                requireActivity().runOnUiThread {
+                    accountPrivateKey.text = "0x" + account.privateKey?.toHex()
+                }
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()

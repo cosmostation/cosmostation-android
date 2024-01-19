@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.setting.account
+package wannabit.io.cosmostaion.ui.main.setting.book
 
 import android.os.Bundle
 import android.text.Editable
@@ -21,8 +21,7 @@ class SetAddressFragment(
     private val addressBook: AddressBook?,
     private val recipientLine: CosmosLine?,
     private val recipientAddress: String?,
-    private val memo:String?,
-    val listener: AddressBookRegisterListener
+    private val memo: String?
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentSetAddressBinding? = null
@@ -41,7 +40,7 @@ class SetAddressFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -62,7 +61,7 @@ class SetAddressFragment(
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnConfirm.setOnClickListener {
                 val nameInput = nameTxt.text.toString().trim()
@@ -86,7 +85,6 @@ class SetAddressFragment(
                             addressBook.memo = memoInput
                             addressBook.lastTime = Calendar.getInstance().timeInMillis
                             addressBookViewModel.updateAddressBook(addressBook)
-                            listener.register()
                             dismiss()
 
                         } else {
@@ -108,12 +106,18 @@ class SetAddressFragment(
                     }
 
                 } else {
-                    val line = allCosmosLines().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
+                    val line =
+                        allCosmosLines().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
                     if (line != null) {
                         if (BaseUtils.isValidChainAddress(line, addressInput)) {
-                            val addressBook = AddressBook(nameInput, line.name, addressInput, memoInput, Calendar.getInstance().timeInMillis)
+                            val addressBook = AddressBook(
+                                nameInput,
+                                line.name,
+                                addressInput,
+                                memoInput,
+                                Calendar.getInstance().timeInMillis
+                            )
                             addressBookViewModel.updateAddressBook(addressBook)
-                            listener.register()
                             dismiss()
 
                         } else {
@@ -134,8 +138,4 @@ class SetAddressFragment(
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface AddressBookRegisterListener {
-    fun register()
 }

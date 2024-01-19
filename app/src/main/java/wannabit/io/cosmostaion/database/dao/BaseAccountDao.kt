@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 
 @Dao
 interface BaseAccountDao {
@@ -18,9 +19,15 @@ interface BaseAccountDao {
     @Delete
     suspend fun delete(baseAccount: BaseAccount)
 
-    @Query("select * from account")
+    @Query("select * from account order by type, sortOrder")
     fun selectAll(): List<BaseAccount>
 
     @Query("select * from account where id = :id")
     fun selectAccount(id: Long): BaseAccount?
+
+    @Query("update account set name = :name, sortOrder = :sortOrder where id = :id")
+    suspend fun updateAccount(id: Long, name: String, sortOrder: Long)
+
+    @Query("select * from account where type = :type order by sortOrder")
+    fun selectsAccount(type: BaseAccountType): List<BaseAccount>
 }

@@ -1,23 +1,29 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allCosmosLines
@@ -30,7 +36,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.account.AccountActivity
-import wannabit.io.cosmostaion.ui.main.setting.account.AddressBookListActivity
+import wannabit.io.cosmostaion.ui.main.setting.book.AddressBookListActivity
 import wannabit.io.cosmostaion.ui.main.setting.chain.ChainActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -58,7 +64,7 @@ class SettingFragment : Fragment() {
 
         initView()
         setUpClickAction()
-        switchAction()
+        setUpSwitchAction()
         checkAccountStatus()
     }
 
@@ -66,13 +72,13 @@ class SettingFragment : Fragment() {
         binding.apply {
             listOf(
                 accountView, importView, legacyView, chainView, addressBookView,
-                languageView, currencyView, priceView, alarmView, appLockView, autoPassView,
+                languageView, currencyView, priceView, alarmView, appLockView,
                 mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
                 termView, privacyView, githubView, versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
-            walletUpdateView()
-            updateDataView()
+            updateWalletView()
+            updateDefaultView()
             version.text = "v " + BuildConfig.VERSION_NAME
         }
     }
@@ -82,26 +88,22 @@ class SettingFragment : Fragment() {
         onUpdateSwitch()
     }
 
-    private fun walletUpdateView() {
+    private fun updateWalletView() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
                 supportChainCnt.text = allCosmosLines().count().toString()
-                CoroutineScope(Dispatchers.IO).launch {
-                    favoriteAddressCnt.text =
-                        AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
-                }
             }
         }
     }
 
     private fun checkAccountStatus() {
         ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) {
-            walletUpdateView()
+            updateWalletView()
         }
     }
 
-    private fun updateDataView() {
+    private fun updateDefaultView() {
         binding.apply {
             when (Prefs.language) {
                 BaseUtils.LANGUAGE_ENGLISH -> {
@@ -128,12 +130,10 @@ class SettingFragment : Fragment() {
                     priceDownImg.setImageResource(R.drawable.icon_price_down_reverse)
                 }
             }
-            autoPass.text = BaseData.autoPass(requireContext())
         }
     }
 
     private fun setUpClickAction() {
-        var isClickable = true
         binding.apply {
             accountView.setOnClickListener {
                 Intent(requireContext(), AccountActivity::class.java).apply {
@@ -187,20 +187,9 @@ class SettingFragment : Fragment() {
                     if (Prefs.priceStyle != priceStyle) {
                         Prefs.priceStyle = priceStyle
                     }
-                    updateDataView()
+                    updateDefaultView()
                 }
                 setClickableOnce(isClickable)
-            }
-
-            autoPassView.setOnClickListener {
-                SettingBottomFragment(SettingType.AUTO_PASS).show(
-                    parentFragmentManager, SettingBottomFragment::class.java.name
-                )
-                parentFragmentManager.setFragmentResultListener(
-                    "autoPass", this@SettingFragment
-                ) { _, _ ->
-                    updateDataView()
-                }
             }
 
             mintscanView.setOnClickListener {
@@ -317,29 +306,23 @@ class SettingFragment : Fragment() {
                 appLockSwitch.thumbDrawable =
                     ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
             }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val addressCnt =
+                    AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
+                withContext(Dispatchers.Main) {
+                    favoriteAddressCnt.text = addressCnt
+                }
+            }
         }
     }
 
-    private fun switchAction() {
+    private fun setUpSwitchAction() {
         binding.apply {
-            if (alarmSwitch.isChecked) {
-                alarmSwitch.thumbDrawable =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
-            } else {
-                alarmSwitch.thumbDrawable =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
-            }
-
-            alarmSwitch.setOnCheckedChangeListener { _, isChecked ->
-                val thumbDrawable: Drawable? = if (isChecked) {
-                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
-                } else {
-                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
-                }
-                alarmSwitch.thumbDrawable = thumbDrawable
-            }
-
+            legacySwitch.setSwitch()
+            alarmSwitch.setSwitch()
             onUpdateSwitch()
+
             appLockSwitch.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     appLockSwitch.thumbDrawable =
@@ -354,6 +337,30 @@ class SettingFragment : Fragment() {
                     )
                 }
             }
+        }
+    }
+
+    private fun SwitchCompat.setSwitch() {
+        thumbDrawable = if (isChecked) {
+            ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+        } else {
+            ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+        }
+
+        setOnCheckedChangeListener { _, isChecked ->
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
+            } else {
+                vibrator.vibrate(100)
+            }
+
+            val checkedDrawable: Drawable? = if (isChecked) {
+                ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+            } else {
+                ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+            }
+            thumbDrawable = checkedDrawable
         }
     }
 
@@ -372,4 +379,4 @@ class SettingFragment : Fragment() {
     }
 }
 
-enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, AUTO_PASS, BUY_CRYPTO }
+enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, BUY_CRYPTO }

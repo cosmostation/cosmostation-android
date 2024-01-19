@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
@@ -86,28 +85,6 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                         val bundle = Bundle()
                         bundle.putInt("priceStyle", it)
                         parentFragmentManager.setFragmentResult("priceStyle", bundle)
-                        dismiss()
-                    }
-                }
-
-                SettingType.AUTO_PASS -> {
-                    selectTitle.text = getString(R.string.str_auto_pass)
-                    val autoPassList = listOf(getString(R.string.str_never), getString(R.string.str_5_min), getString(R.string.str_10_min), getString(R.string.str_30_min))
-
-                    settingAdapter = SettingBottomAdapter(requireContext(), SettingType.AUTO_PASS)
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = settingAdapter
-                    settingAdapter.submitList(autoPassList)
-
-                    settingAdapter.setOnItemClickListener {
-                        BaseData.setLastTime()
-                        if (Prefs.autoPass != it) {
-                            Prefs.autoPass = it
-                        }
-                        val bundle = Bundle()
-                        bundle.putInt("autoPass", it)
-                        parentFragmentManager.setFragmentResult("autoPass", bundle)
                         dismiss()
                     }
                 }

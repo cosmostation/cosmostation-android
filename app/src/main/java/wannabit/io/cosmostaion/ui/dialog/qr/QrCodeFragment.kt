@@ -21,6 +21,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -62,6 +63,7 @@ class QrCodeFragment(
     private fun initView() {
         BaseData.baseAccount?.let { account ->
             binding.apply {
+                segmentView.setBackgroundResource(R.drawable.cell_search_bg)
                 chainSegment.apply {
                     setSelectedBackground(
                         ContextCompat.getColor(
@@ -84,10 +86,17 @@ class QrCodeFragment(
                     )
                     when (i) {
                         0 -> {
+                            if (selectedChain is ChainKava60) {
+                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                    requireContext(), R.drawable.icon_kava_address
+                                )
+                            } else {
+                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                    requireContext(), R.drawable.icon_evmos_address
+                                )
+                            }
                             segmentView.btnChain.text = selectedChain.apiName.uppercase()
-                            segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                requireContext(), R.drawable.icon_kava_address
-                            )
+
                         }
 
                         else -> {
@@ -171,7 +180,7 @@ class QrCodeFragment(
     }
 
     private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 9 / 10
+        return getWindowHeight() * 13 / 14
     }
 
     private fun getWindowHeight(): Int {

@@ -22,7 +22,8 @@ data class BaseAccount(
     @ColumnInfo(name = "spec") var spec: String,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "type") var type: BaseAccountType = BaseAccountType.NONE,
-    @ColumnInfo(name = "lastHDPath") var lastHDPath: String
+    @ColumnInfo(name = "lastHDPath") var lastHDPath: String,
+    @ColumnInfo(name = "sortOrder") var sortOrder: Long = 999
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

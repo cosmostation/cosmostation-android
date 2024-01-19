@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -31,12 +31,12 @@
                 style="@style/font_sb_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/title_check_mnemonic"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_check_mnemonic"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,7 +51,7 @@
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" >
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <TextView
             android:id="@+id/account_name"
@@ -76,21 +76,21 @@
         app:layout_constraintTop_toBottomOf="@+id/account_name_view">
 
         <TextView
+            style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_20"
-            style="@style/font_sb_14"
+            android:text="@string/str_seed_phrase"
             android:textColor="@color/color_base01"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/str_seed_phrase"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/phrase_cnt"
+            style="@style/font_sm_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/space_20"
-            style="@style/font_sm_14"
             android:textColor="@color/color_base01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -101,38 +101,63 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
         android:paddingHorizontal="@dimen/space_17"
         android:paddingBottom="@dimen/space_22"
-        android:layout_marginTop="@dimen/space_12"
-        android:layout_marginHorizontal="@dimen/space_12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phrase_header" />
 
     <TextView
+        style="@style/font_sm_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_20"
-        style="@style/font_sm_12"
+        android:text="@string/str_msg_copy1"
         android:textColor="@color/color_base02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler"
-        android:text="@string/str_msg_copy1"/>
+        app:layout_constraintTop_toBottomOf="@id/recycler" />
 
-    <Button
-        android:id="@+id/btn_confirm"
+    <LinearLayout
+        android:id="@+id/btn_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_54"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_12"
-        android:background="@drawable/button_common_bg"
-        style="@style/font_sb_16"
-        android:textColor="@color/color_base01"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textAllCaps="false"
-        android:text="@string/str_confirm"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_select"
+            style="@style/font_sb_14"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginStart="@dimen/space_12"
+            android:layout_marginEnd="@dimen/space_4"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_enable_select_bg"
+            android:letterSpacing="-0.01"
+            android:text="@string/str_another_account"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01" />
+
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/font_sb_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginStart="@dimen/space_4"
+            android:layout_marginEnd="@dimen/space_12"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_common_bg"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

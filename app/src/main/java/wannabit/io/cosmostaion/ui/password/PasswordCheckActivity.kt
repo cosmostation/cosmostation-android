@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.common.KeyboardListener
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityPasswordCheckBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
@@ -31,8 +30,6 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
     private var userInput = ""
     private var askQuite = false
 
-    private var checkPwType = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPasswordCheckBinding.inflate(layoutInflater)
@@ -47,13 +44,13 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
     private fun initViewModel() {
         val walletRepository = WalletRepositoryImpl()
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel = ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initView() {
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
+            WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE
         )
         for (i in ivCircle.indices) {
             ivCircle[i] = findViewById(resources.getIdentifier("pin_code_img$i", "id", packageName))
@@ -65,8 +62,6 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             pagerKeyboard.isUserInputEnabled = false
             pagerKeyboard.offscreenPageLimit = 2
         }
-
-        checkPwType = intent.getIntExtra("checkPwType", 0)
     }
 
     private fun onUpdateView() {
@@ -121,12 +116,6 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
     private fun checkPwObserve() {
         walletViewModel.pwCheckResult.observe(this) { result ->
             if (result == BaseConstant.SUCCESS) {
-                ApplicationViewModel.shared.apply {
-                    when (checkPwType) {
-                        BaseConstant.CONST_PW_CONFIRM_MNEMONIC -> { this.checkPwMnemonic() }
-                        BaseConstant.CONST_PW_CONFIRM_PRIVATE -> { this.checkPwPrivate() }
-                    }
-                }
                 setResult(RESULT_OK, intent)
                 finish()
                 overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
@@ -157,7 +146,8 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
         finish()
     }
 
-    class PasswordPageAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+    class PasswordPageAdapter(fragmentActivity: FragmentActivity) :
+        FragmentStateAdapter(fragmentActivity) {
 
         private val fragmentList = mutableListOf<KeyboardFragment>()
 

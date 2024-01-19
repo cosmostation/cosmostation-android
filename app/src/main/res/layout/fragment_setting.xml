@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.SettingFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -101,11 +101,11 @@
                 android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginVertical="@dimen/space_8"
                 android:elevation="0dp"
+                android:visibility="gone"
                 app:cardPreventCornerOverlap="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_view"
-                android:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@+id/account_view">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -498,9 +498,9 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingVertical="@dimen/space_10"
                     android:paddingStart="@dimen/space_12"
-                    android:paddingEnd="@dimen/space_8"
-                    android:paddingVertical="@dimen/space_10">
+                    android:paddingEnd="@dimen/space_8">
 
                     <ImageView
                         android:id="@+id/price_img"
@@ -535,41 +535,41 @@
                             android:id="@+id/price_down_img"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@drawable/icon_price_down"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/icon_price_down"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/price_down"
                             style="@style/font_sm_12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/str_down"
                             android:textColor="@color/color_base01"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/price_down_img"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:text="@string/str_down"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/price_up_img"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/space_6"
+                            android:src="@drawable/icon_price_up"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/price_down"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/icon_price_up"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             style="@style/font_sm_12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/str_up"
                             android:textColor="@color/color_base01"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/price_up_img"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:text="@string/str_up"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -687,72 +687,72 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/auto_pass_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_68"
-                android:layout_marginHorizontal="@dimen/space_12"
-                android:layout_marginVertical="@dimen/space_8"
-                android:elevation="0dp"
-                app:cardPreventCornerOverlap="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/app_lock_view">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/auto_pass_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/space_68"-->
+<!--                android:layout_marginHorizontal="@dimen/space_12"-->
+<!--                android:layout_marginVertical="@dimen/space_8"-->
+<!--                android:elevation="0dp"-->
+<!--                app:cardPreventCornerOverlap="true"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/app_lock_view">-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingHorizontal="@dimen/space_12"
-                    android:paddingVertical="@dimen/space_10">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:paddingHorizontal="@dimen/space_12"-->
+<!--                    android:paddingVertical="@dimen/space_10">-->
 
-                    <ImageView
-                        android:id="@+id/auto_pass_img"
-                        android:layout_width="@dimen/space_48"
-                        android:layout_height="@dimen/space_48"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/icon_autopass"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/auto_pass_img"-->
+<!--                        android:layout_width="@dimen/space_48"-->
+<!--                        android:layout_height="@dimen/space_48"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:src="@drawable/icon_autopass"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_8"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/auto_pass_img"
-                        app:layout_constraintTop_toTopOf="parent">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="@dimen/space_8"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/auto_pass_img"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
 
-                        <TextView
-                            style="@style/font_sb_14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/str_auto_pass"
-                            android:textColor="@color/color_base01"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                        <TextView-->
+<!--                            style="@style/font_sb_14"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="@string/str_auto_pass"-->
+<!--                            android:textColor="@color/color_base01"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-                        <TextView
-                            android:id="@+id/auto_pass"
-                            style="@style/font_sm_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/space_4"
-                            android:ellipsize="end"
-                            android:gravity="end"
-                            android:maxLines="1"
-                            android:textColor="@color/color_base01"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/auto_pass"-->
+<!--                            style="@style/font_sm_12"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="@dimen/space_4"-->
+<!--                            android:ellipsize="end"-->
+<!--                            android:gravity="end"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:textColor="@color/color_base01"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
             <TextView
                 android:id="@+id/support_title"
@@ -764,7 +764,7 @@
                 android:text="@string/title_support"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/auto_pass_view" />
+                app:layout_constraintTop_toBottomOf="@+id/app_lock_view" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/mintscan_view"
@@ -798,9 +798,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_mintscan"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/mintscan_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -841,9 +841,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_homepage"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/homepage_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -884,9 +884,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_blog"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/blog_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -927,9 +927,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_twitter"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/twitter_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -970,9 +970,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_telegram"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/telegram_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -1013,9 +1013,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_youtube"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/youtube_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -1068,9 +1068,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_term"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/term_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -1111,9 +1111,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_privacy"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/privacy_img"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -1154,9 +1154,9 @@
                         style="@style/font_sb_14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
                         android:text="@string/title_github"
                         android:textColor="@color/color_base01"
-                        android:layout_marginStart="@dimen/space_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/github_img"
                         app:layout_constraintTop_toTopOf="parent" />

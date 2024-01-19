@@ -55,8 +55,7 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
                 val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
                 deleteAccountResultLauncher.launch(intent)
                 requireActivity().overridePendingTransition(
-                    R.anim.anim_slide_in_bottom,
-                    R.anim.anim_fade_out
+                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                 )
             }
         }
@@ -70,8 +69,10 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
                 CoroutineScope(Dispatchers.IO).launch {
                     if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
                         if (BaseData.baseAccount?.id == baseAccount.id) {
-                            Prefs.lastAccountId = AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
-                            BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao().selectAccount(Prefs.lastAccountId)
+                            Prefs.lastAccountId =
+                                AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
+                            BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao()
+                                .selectAccount(Prefs.lastAccountId)
                             ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
                         }
 

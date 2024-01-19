@@ -103,8 +103,7 @@ class DappActivity : BaseActivity() {
             dappClose.setOnClickListener { finish() }
             dappRefresh.setOnClickListener { dappWebView.reload() }
             wcPeer.setOnClickListener {
-                DappUrlDialog.newInstance(
-                    binding.dappWebView.url ?: "",
+                DappUrlDialog.newInstance(binding.dappWebView.url ?: "",
                     object : DappUrlDialog.UrlListener {
                         override fun input(url: String) {
                             if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
@@ -826,6 +825,12 @@ class DappActivity : BaseActivity() {
                         messageJson, JSONArray(BaseData.supportConfig?.supportChainNames), messageId
                     )
                 }
+
+//                "cos_addChain", "cos_disconnect" -> {
+//                    appToWebResult(
+//                        messageJson, true, messageId
+//                    )
+//                }
 
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
