@@ -65,12 +65,24 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
+import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
 class WalletRepositoryImpl : WalletRepository {
 
     private var duration = 8L
+
+    override suspend fun selectPassword(): NetworkResult<MutableList<Password>> {
+        return safeApiCall(Dispatchers.IO) {
+            AppDatabase.getInstance().passwordDao().selectAll()
+        }
+    }
+
+    override suspend fun insertPassword(password: Password) {
+        AppDatabase.getInstance().passwordDao().insert(password)
+    }
 
     override suspend fun version(): NetworkResult<Response<AppVersion>> {
         return safeApiCall(Dispatchers.IO) {

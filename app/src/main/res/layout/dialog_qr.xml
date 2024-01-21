@@ -139,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_16"
             android:gravity="center_vertical"
+            style="@style/font_sm_12"
             android:textColor="@color/color_base01"/>
 
     </androidx.cardview.widget.CardView>

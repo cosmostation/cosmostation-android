@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
+import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.database.model.RefAddress
 import java.util.concurrent.TimeUnit
 
@@ -51,6 +52,36 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    private val _hasPassword = MutableLiveData<Boolean>()
+    val hasPassword: LiveData<Boolean> get() = _hasPassword
+
+    fun hasPassword() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.selectPassword()) {
+            is NetworkResult.Success -> {
+                if (response.data.isNotEmpty()) {
+                    _hasPassword.postValue(true)
+                } else {
+                    _hasPassword.postValue(false)
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private val _insertPasswordResult = MutableLiveData<Password>()
+    val insertPasswordResult: LiveData<Password> get() = _insertPasswordResult
+
+    fun insertPassword(userInput: String) = viewModelScope.launch(Dispatchers.IO) {
+        CryptoHelper.signData(userInput, CosmostationConstants.ENCRYPT_PASSWORD_KEY)
+            ?.let { resource ->
+                val password = Password(0, resource)
+                walletRepository.insertPassword(password)
+                _insertPasswordResult.postValue(password)
+            }
+    }
 
     private var _walletAppVersionResult = MutableLiveData<AppVersion>()
     val walletAppVersionResult: LiveData<AppVersion> get() = _walletAppVersionResult

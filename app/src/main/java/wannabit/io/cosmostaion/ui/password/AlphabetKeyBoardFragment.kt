@@ -1,6 +1,10 @@
 package wannabit.io.cosmostaion.ui.password
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +23,7 @@ class AlphabetKeyBoardFragment : KeyboardFragment(), View.OnClickListener {
     private val alphabetBtns = arrayOfNulls<Button>(26)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAlphabetKeyBoardBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -39,7 +42,11 @@ class AlphabetKeyBoardFragment : KeyboardFragment(), View.OnClickListener {
             alphabets.shuffle(Random(System.nanoTime()))
 
             for (i in alphabetBtns.indices) {
-                alphabetBtns[i] = requireView().findViewById(resources.getIdentifier("password_char$i", "id", requireActivity().packageName))
+                alphabetBtns[i] = requireView().findViewById(
+                    resources.getIdentifier(
+                        "password_char$i", "id", requireActivity().packageName
+                    )
+                )
                 alphabetBtns[i]?.text = alphabets[i]
                 alphabetBtns[i]?.setOnClickListener(this@AlphabetKeyBoardFragment)
             }
@@ -51,13 +58,24 @@ class AlphabetKeyBoardFragment : KeyboardFragment(), View.OnClickListener {
         if (view is Button) {
             if (listener != null) {
                 val input = view.text.toString().trim().toCharArray()[0]
+                initVibrate()
                 listener?.userInsertPassword(input)
             }
 
         } else if (view is ImageButton) {
             if (listener != null) {
+                initVibrate()
                 listener?.userDeletePassword()
             }
+        }
+    }
+
+    private fun initVibrate() {
+        val vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
+        } else {
+            vibrator.vibrate(100)
         }
     }
 

@@ -27,8 +27,13 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.TokenResponse
+import wannabit.io.cosmostaion.database.model.Password
 
 interface WalletRepository {
+    suspend fun selectPassword(): NetworkResult<MutableList<Password>>
+
+    suspend fun insertPassword(password: Password)
+
     suspend fun version(): NetworkResult<Response<AppVersion>>
 
     suspend fun chain(): NetworkResult<Response<ChainResponse>>

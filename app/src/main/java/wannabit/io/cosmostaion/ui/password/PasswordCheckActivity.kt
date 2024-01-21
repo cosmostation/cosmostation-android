@@ -27,7 +27,10 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
     private lateinit var walletViewModel: WalletViewModel
 
     private val ivCircle = arrayOfNulls<ImageView>(5)
+    private var isSetPw = false
+    private var isConfirm = false
     private var userInput = ""
+    private var confirmInput = ""
     private var askQuite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +64,8 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             pagerKeyboard.adapter = passwordPageAdapter
             pagerKeyboard.isUserInputEnabled = false
             pagerKeyboard.offscreenPageLimit = 2
+
+            walletViewModel.hasPassword()
         }
     }
 
@@ -81,8 +86,14 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
 
         if (userInput.length == 4) {
             binding.pagerKeyboard.setCurrentItem(1, true)
+
         } else if (userInput.length == 5 && checkPasscodePattern(userInput)) {
-            walletViewModel.checkPassword(userInput)
+            if (isSetPw) {
+                setPassword()
+            } else {
+                walletViewModel.checkPassword(userInput)
+            }
+
         } else if (userInput.length == 5 && !checkPasscodePattern(userInput)) {
             onUpdateView()
             return
@@ -113,7 +124,37 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
         }
     }
 
+    private fun setPassword() {
+        if (isConfirm) {
+            if (confirmInput == userInput) {
+                walletViewModel.insertPassword(userInput)
+
+            } else {
+                isConfirm = false
+                binding.enterMsg.text = getString(R.string.str_pincode_init_msg)
+                makeToast(R.string.error_set_password_differ)
+                onUpdateView()
+            }
+
+        } else {
+            confirmInput = userInput
+            userInput = ""
+            isConfirm = true
+            onUpdateView()
+            binding.enterMsg.text = getString(R.string.str_pincode_init_confirm_msg)
+        }
+    }
+
     private fun checkPwObserve() {
+        walletViewModel.hasPassword.observe(this) { hasPassword ->
+            if (!hasPassword) {
+                isSetPw = true
+                binding.enterMsg.text = getString(R.string.str_pincode_init_msg)
+            } else {
+                binding.enterMsg.text = getString(R.string.str_enter_pin_msg)
+            }
+        }
+
         walletViewModel.pwCheckResult.observe(this) { result ->
             if (result == BaseConstant.SUCCESS) {
                 setResult(RESULT_OK, intent)
@@ -123,6 +164,20 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             } else {
                 onUpdateView()
                 makeToast(R.string.error_invalid_password)
+            }
+        }
+
+        walletViewModel.insertPasswordResult.observe(this) { response ->
+            if (response.resource.isNotEmpty()) {
+                setResult(RESULT_OK, intent)
+                finish()
+                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+
+            } else {
+                isConfirm = false
+                binding.enterMsg.text = getString(R.string.str_pincode_init_msg)
+                makeToast(R.string.error_set_password_insert)
+                onUpdateView()
             }
         }
     }

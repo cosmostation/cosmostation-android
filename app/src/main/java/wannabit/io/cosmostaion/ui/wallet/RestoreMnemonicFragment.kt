@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.databinding.FragmentRestoreMnemonicBinding
 
-class RestoreMnemonicFragment : Fragment() {
+class RestoreMnemonicFragment(private val initType: Int) : Fragment() {
 
     private var _binding: FragmentRestoreMnemonicBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +32,11 @@ class RestoreMnemonicFragment : Fragment() {
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
+                if (initType == 0) {
+                    requireActivity().onBackPressed()
+                } else {
+                    requireActivity().supportFragmentManager.popBackStack()
+                }
             }
 
             btnNext.setOnClickListener {
@@ -50,7 +54,7 @@ class RestoreMnemonicFragment : Fragment() {
 
                     requireActivity().toMoveFragment(
                         this@RestoreMnemonicFragment,
-                        RestoreMnemonicConfirmFragment(mnemonic),
+                        RestoreMnemonicConfirmFragment(mnemonic, initType),
                         "RestorePath"
                     )
                 }

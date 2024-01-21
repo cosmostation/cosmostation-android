@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.wallet
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,15 +19,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
+import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.main.setting.account.ChangeNameFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
-class CreateMnemonicFragment : Fragment() {
+class CreateMnemonicFragment(private val initType: Int) : Fragment() {
 
     private var _binding: FragmentCreateMnemonicBinding? = null
     private val binding get() = _binding!!
@@ -78,7 +81,11 @@ class CreateMnemonicFragment : Fragment() {
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
+                if (initType == 0) {
+                    requireActivity().onBackPressed()
+                } else {
+                    requireActivity().supportFragmentManager.popBackStack()
+                }
             }
 
             btnWords.setOnClickListener {
@@ -150,10 +157,21 @@ class CreateMnemonicFragment : Fragment() {
                         ContextCompat.getColor(requireContext(), R.color.color_transparent)
                     ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
 
-                    requireActivity().finish()
-                    requireActivity().overridePendingTransition(0, 0)
+                    startToActivity()
                 }
             }
+        }
+    }
+
+    private fun startToActivity() {
+        if (initType == BaseConstant.CONST_NEW_ACCOUNT) {
+            requireActivity().overridePendingTransition(0, 0)
+            requireActivity().finish()
+        } else {
+            Intent(requireActivity(), MainActivity::class.java).apply {
+                startActivity(this)
+            }
+            requireActivity().finish()
         }
     }
 

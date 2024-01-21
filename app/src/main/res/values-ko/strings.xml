@@ -226,10 +226,15 @@
     <string name="str_set_address_msg">편의를 위해 자주쓰는 주소를 등록하실 수 있습니다.</string>
     <string name="str_mnemonic_check_msg">입력하신 니모닉을 확인해 주세요. \n아시다시피, 누구와도 공유하지 마십시오. 이 니모닉을 분실하면 자산 손실로 이어질 수 있습니다.</string>
     <string name="str_create_another_msg">동일한 니모닉을 사용하지만, HD Path를 달리해서 새로운 계정을 만드실 수 있습니다.\n\n일반적으로 다른 지갑들과 호환되지 않을 가능성이 있으며, 크립토 키와 HD Path에 대한 배경지식이 있으신 분들만 사용하시는것을 추천드립니다."</string>
+    <string name="str_pincode_init_msg">새로운 PIN 번호를 입력해 주세요.</string>
+    <string name="str_pincode_init_confirm_msg">다시한번 입력해주세요.</string>
+    <string name="str_enter_pin_msg">PIN 번호를 입력해 주세요.</string>
 
 
     // error
     <string name="error_network_error">네크워크 연결이 원활하지 않습니다.</string>
+    <string name="error_set_password_differ">입력하신 두 패스워드가 다릅니다. 다시 설정해 주세요.</string>
+    <string name="error_set_password_insert">오류! 다시 설정해 주세요.</string>
     <string name="error_invalid_password">PIN 번호가 틀렸습니다.</string>
     <string name="error_account_name">계정 이름을 정확히 입력하세요.</string>
     <string name="error_exist_account_name">이미 존재하는 이름입니다.</string>

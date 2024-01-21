@@ -11,7 +11,8 @@ import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.databinding.FragmentRestoreMnemonicConfirmBinding
 
 class RestoreMnemonicConfirmFragment(
-    val mnemonic: String
+    val mnemonic: String,
+    private val initType: Int
 ) : Fragment() {
 
     private var _binding: FragmentRestoreMnemonicConfirmBinding? = null
@@ -56,7 +57,7 @@ class RestoreMnemonicConfirmFragment(
             btnNext.setOnClickListener {
                 requireActivity().toMoveFragment(
                     this@RestoreMnemonicConfirmFragment,
-                    WalletSelectFragment(mnemonic, ""),
+                    WalletSelectFragment(mnemonic, "", initType),
                     "WalletSelect"
                 )
             }

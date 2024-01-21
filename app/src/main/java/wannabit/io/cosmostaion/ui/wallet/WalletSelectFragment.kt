@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.wallet
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -22,12 +24,13 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentWalletSelectBinding
+import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 
 class WalletSelectFragment(
-    val mnemonic: String?, private val pKey: String?
+    val mnemonic: String?, private val pKey: String?, val initType: Int
 ) : Fragment() {
 
     private var _binding: FragmentWalletSelectBinding? = null
@@ -259,9 +262,20 @@ class WalletSelectFragment(
                 Prefs.setDisplayChains(account, selectedCosmosTags)
                 ApplicationViewModel.shared.currentAccount(account)
 
-                requireActivity().finish()
-                requireActivity().overridePendingTransition(0, 0)
+                startToActivity()
             }
+        }
+    }
+
+    private fun startToActivity() {
+        if (initType == BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT || initType == BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT) {
+            requireActivity().overridePendingTransition(0, 0)
+            requireActivity().finish()
+        } else {
+            Intent(requireActivity(), MainActivity::class.java).apply {
+                startActivity(this)
+            }
+            requireActivity().finish()
         }
     }
 

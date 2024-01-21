@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.setting.account
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,6 +12,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemAccountListBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
+import wannabit.io.cosmostaion.ui.intro.IntroActivity
 
 class AccountListAdapter(
     val context: Context,
@@ -56,36 +58,45 @@ class AccountListAdapter(
             }
 
             is AccountListViewHolder -> {
-                if (mnemonicAccounts.isNotEmpty()) {
-                    if (holder.itemViewType == VIEW_TYPE_MNEMONIC_ITEM) {
-                        val mnemonicAccount = mnemonicAccounts[position - 1]
-                        holder.bind(mnemonicAccount)
+                if (mnemonicAccounts.isEmpty() && privateAccounts.isEmpty()) {
+                    Intent(context, IntroActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        context.startActivity(this)
+                    }
 
-                        holder.itemView.setOnClickListener {
-                            onItemClickListener?.let {
-                                it(mnemonicAccount)
+                } else {
+                    if (mnemonicAccounts.isNotEmpty()) {
+                        if (holder.itemViewType == VIEW_TYPE_MNEMONIC_ITEM) {
+                            val mnemonicAccount = mnemonicAccounts[position - 1]
+                            holder.bind(mnemonicAccount)
+
+                            holder.itemView.setOnClickListener {
+                                onItemClickListener?.let {
+                                    it(mnemonicAccount)
+                                }
+                            }
+
+                        } else {
+                            val privateAccount =
+                                privateAccounts[position - (mnemonicAccounts.size + 2)]
+                            holder.bind(privateAccount)
+
+                            holder.itemView.setOnClickListener {
+                                onItemClickListener?.let {
+                                    it(privateAccount)
+                                }
                             }
                         }
 
                     } else {
-                        val privateAccount = privateAccounts[position - (mnemonicAccounts.size + 2)]
-                        holder.bind(privateAccount)
+                        if (holder.itemViewType == VIEW_TYPE_PRIVATE_ITEM) {
+                            val privateAccount = privateAccounts[position - 1]
+                            holder.bind(privateAccount)
 
-                        holder.itemView.setOnClickListener {
-                            onItemClickListener?.let {
-                                it(privateAccount)
-                            }
-                        }
-                    }
-
-                } else {
-                    if (holder.itemViewType == VIEW_TYPE_PRIVATE_ITEM) {
-                        val privateAccount = privateAccounts[position - 1]
-                        holder.bind(privateAccount)
-
-                        holder.itemView.setOnClickListener {
-                            onItemClickListener?.let {
-                                it(privateAccount)
+                            holder.itemView.setOnClickListener {
+                                onItemClickListener?.let {
+                                    it(privateAccount)
+                                }
                             }
                         }
                     }
@@ -95,11 +106,16 @@ class AccountListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when {
-            mnemonicAccounts.isNotEmpty() && position == 0 -> VIEW_TYPE_MNEMONIC_HEADER
-            mnemonicAccounts.isNotEmpty() && position in 1..mnemonicAccounts.size -> VIEW_TYPE_MNEMONIC_ITEM
-            mnemonicAccounts.isNotEmpty() && position == mnemonicAccounts.size + 1 -> VIEW_TYPE_PRIVATE_HEADER
-            else -> VIEW_TYPE_PRIVATE_ITEM
+        if (mnemonicAccounts.isEmpty() && privateAccounts.isEmpty()) return VIEW_TYPE_PRIVATE_ITEM
+        return if (mnemonicAccounts.isNotEmpty()) {
+            when {
+                position == 0 -> VIEW_TYPE_MNEMONIC_HEADER
+                position < 1 + mnemonicAccounts.size -> VIEW_TYPE_MNEMONIC_ITEM
+                position < 2 + mnemonicAccounts.size -> VIEW_TYPE_PRIVATE_HEADER
+                else -> VIEW_TYPE_PRIVATE_ITEM
+            }
+        } else {
+            if (position == 0) VIEW_TYPE_PRIVATE_HEADER else VIEW_TYPE_PRIVATE_ITEM
         }
     }
 
@@ -147,7 +163,9 @@ class AccountListAdapter(
             getItemViewType(fromPosition) == VIEW_TYPE_MNEMONIC_ITEM -> {
                 val mnemonicFromPosition = fromPosition - 1
                 val mnemonicToPosition = toPosition - 1
-                if (mnemonicToPosition < 0) { return false }
+                if (mnemonicToPosition < 0) {
+                    return false
+                }
                 val fromItem = mnemonicAccounts[mnemonicFromPosition]
                 val toItem = mnemonicAccounts[mnemonicToPosition]
 
@@ -164,7 +182,9 @@ class AccountListAdapter(
             getItemViewType(fromPosition) == VIEW_TYPE_PRIVATE_ITEM -> {
                 val privateFromPosition = fromPosition - mnemonicAccounts.size - 2
                 val privateToPosition = toPosition - mnemonicAccounts.size - 2
-                if (privateToPosition < 0) { return false }
+                if (privateToPosition < 0) {
+                    return false
+                }
                 val fromItem = privateAccounts[privateFromPosition]
                 val toItem = privateAccounts[privateToPosition]
 

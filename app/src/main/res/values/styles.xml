@@ -13,9 +13,9 @@
 
         <item name="android:windowContentTransitions">true</item>
 
-<!--        <item name="android:windowBackground">@color/color_base01</item>-->
-<!--        <item name="android:windowContentOverlay">@null</item>-->
-<!--        <item name="android:windowIsTranslucent">true</item>-->
+        <!--        <item name="android:windowBackground">@color/color_base01</item>-->
+        <!--        <item name="android:windowContentOverlay">@null</item>-->
+        <!--        <item name="android:windowIsTranslucent">true</item>-->
     </style>
 
     <style name="AppTheme.Intro">
@@ -118,77 +118,15 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="ActionBarAppTheme" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="colorPrimary">@color/color_mode_base05</item>
-        <item name="colorPrimaryDark">@color/color_mode_base01</item>
-        <item name="colorAccent">@color/color_blue01</item>
-        <item name="android:statusBarColor">@color/color_mode_base01</item>
-        <item name="android:windowBackground">@color/color_mode_base01</item>
-<!--        <item name="bottomSheetDialogTheme">@style/BaseBottomSheetDialog</item>-->
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="fontFamily">@font/font_bold</item>
-        <item name="actionBarStyle">@style/SolidActionBar</item>
-        <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
-    </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@color/color_mode_base05</item>
         <item name="colorPrimary">@color/color_mode_base01</item>
         <item name="fontFamily">@font/font_semibold</item>
     </style>
 
-    <style name="ActionBarTitle" parent="TextAppearance.Material3.ActionBar.Title">
-        <item name="android:textSize">24sp</item>
+    <style name="MyTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/tab_layout_background</item>
     </style>
 
-    <style name="SolidActionBar" parent="@style/Widget.MaterialComponents.Light.ActionBar.Solid">
-        <item name="elevation">0dp</item>
-        <item name="titleTextStyle">@style/ActionBarTitle</item>
-    </style>
-
-    <style name="BottomNavigationView">
-        <item name="fontFamily">@font/font_bold</item>
-        <item name="android:textSize">10sp</item>
-    </style>
-
-    <style name="TextViewH1" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_bold</item>
-        <item name="android:textSize">36sp</item>
-    </style>
-
-    <style name="TextViewH2" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_semibold</item>
-        <item name="android:textSize">24sp</item>
-    </style>
-
-    <style name="TextViewH3" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_semibold</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="TextViewH4" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_semibold</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="TextViewH5" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_semibold</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="TextViewH6" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_semibold</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="TextViewH7" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_medium</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="TextViewH8" parent="Widget.MaterialComponents.TextView">
-        <item name="fontFamily">@font/font_semibold</item>
-        <item name="android:textSize">12sp</item>
-    </style>
 </resources>

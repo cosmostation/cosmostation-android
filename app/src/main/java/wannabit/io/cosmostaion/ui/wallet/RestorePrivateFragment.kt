@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.databinding.FragmentRestorePrivateBinding
-import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 import java.util.regex.Pattern
 
-class RestorePrivateFragment : Fragment() {
+class RestorePrivateFragment(private val initType: Int) : Fragment() {
 
     private var _binding: FragmentRestorePrivateBinding? = null
     private val binding get() = _binding!!
-
-    private val accountViewModel: AccountViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,7 +32,11 @@ class RestorePrivateFragment : Fragment() {
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
+                if (initType == 0) {
+                    requireActivity().onBackPressed()
+                } else {
+                    requireActivity().supportFragmentManager.popBackStack()
+                }
             }
 
             btnCreateAccount.setOnClickListener {
@@ -58,7 +58,7 @@ class RestorePrivateFragment : Fragment() {
 
                     requireActivity().toMoveFragment(
                         this@RestorePrivateFragment,
-                        WalletSelectFragment("", userInput),
+                        WalletSelectFragment("", userInput, initType),
                         "WalletSelect"
                     )
                 }

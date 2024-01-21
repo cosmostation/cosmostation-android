@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -42,14 +43,14 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
         binding.title.text = getString(R.string.str_delete_name, baseAccount.name)
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnDelete.setOnClickListener {
                 val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
@@ -78,9 +79,12 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
 
                     } else {
                         Prefs.lastAccountId = -1
-                        Intent(requireContext(), IntroActivity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(this)
+                        withContext(Dispatchers.Main) {
+                            Intent(requireContext(), IntroActivity::class.java).apply {
+                                flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(this)
+                            }
                         }
                     }
                     dismiss()

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.toMoveFragment
@@ -72,7 +73,7 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
             btnSelect.setOnClickListener {
                 requireActivity().toMoveFragment(
                     this@MnemonicCheckFragment,
-                    WalletSelectFragment(wordList.joinToString(" "), ""),
+                    WalletSelectFragment(wordList.joinToString(" "), "", BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT),
                     "WalletSelect"
                 )
             }

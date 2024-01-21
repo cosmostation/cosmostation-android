@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.intro
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -8,18 +9,26 @@ import android.os.Looper
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
@@ -27,7 +36,10 @@ import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
+import wannabit.io.cosmostaion.ui.main.setting.account.AccountInitListener
+import wannabit.io.cosmostaion.ui.main.setting.account.AccountInitSelectFragment
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
+import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
@@ -99,7 +111,7 @@ class IntroActivity : AppCompatActivity() {
                     overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
 
                 } else {
-                    CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.Main) {
                         Intent(this@IntroActivity, MainActivity::class.java).apply {
                             startActivity(this)
                             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -109,26 +121,112 @@ class IntroActivity : AppCompatActivity() {
             }
 
         } else {
-            CoroutineScope(Dispatchers.Main).launch {
-                binding.btnCreate.visibility = View.VISIBLE
-            }
+            withContext(Dispatchers.Main) {
+                initView()
 
-            var isClickable = true
-            binding.btnCreate.setOnClickListener {
-                Intent(this@IntroActivity, MainActivity::class.java).apply {
+                var isClickable = true
+                binding.btnCreate.setOnClickListener {
                     if (isClickable) {
                         isClickable = false
-//                        AccountInitFragment(this@IntroActivity).show(
-//                            parentFragmentManager, AccountInitFragment::class.java.name
-//                        )
+                        AccountInitSelectFragment(accountInitSelectAction).show(
+                            supportFragmentManager, AccountInitSelectFragment::class.java.name
+                        )
+                    }
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 1000)
+                }
+            }
+        }
+    }
 
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            isClickable = true
-                        }, 1000)
+    private val accountInitSelectAction = object : AccountInitListener {
+        override fun initAction(initType: Int) {
+            when (initType) {
+                BaseConstant.CONST_NEW_ACCOUNT -> {
+                    val intent = Intent(this@IntroActivity, PasswordCheckActivity::class.java)
+                    createAccountResultLauncher.launch(intent)
+                    pendingTransition()
+                }
+
+                BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT -> {
+                    val intent = Intent(this@IntroActivity, PasswordCheckActivity::class.java)
+                    restoreMnemonicResultLauncher.launch(intent)
+                    pendingTransition()
+                }
+
+                else -> {
+                    val intent = Intent(this@IntroActivity, PasswordCheckActivity::class.java)
+                    restorePrivateResultLauncher.launch(intent)
+                    pendingTransition()
+                }
+            }
+        }
+    }
+
+    private val createAccountResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                lifecycleScope.launch {
+                    delay(300)
+                    dismissInitSelectFragment()
+                    withContext(Dispatchers.Main) {
+                        Intent(this@IntroActivity, AccountInitActivity::class.java).apply {
+                            putExtra("initType", BaseConstant.CONST_NEW_ACCOUNT)
+                            startActivity(this)
+                            toMoveAnimation()
+                        }
                     }
                 }
             }
         }
+
+    private val restoreMnemonicResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                lifecycleScope.launch {
+                    delay(300)
+                    dismissInitSelectFragment()
+                    withContext(Dispatchers.Main) {
+                        Intent(this@IntroActivity, AccountInitActivity::class.java).apply {
+                            putExtra("initType", BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT)
+                            startActivity(this)
+                            toMoveAnimation()
+                        }
+                    }
+                }
+            }
+        }
+
+    private val restorePrivateResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                lifecycleScope.launch {
+                    delay(300)
+                    dismissInitSelectFragment()
+                    withContext(Dispatchers.Main) {
+                        Intent(this@IntroActivity, AccountInitActivity::class.java).apply {
+                            putExtra("initType", BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT)
+                            startActivity(this)
+                            toMoveAnimation()
+                        }
+                    }
+                }
+            }
+        }
+
+    private fun dismissInitSelectFragment() {
+        val accountInitSelectFragment =
+            supportFragmentManager.findFragmentByTag(AccountInitSelectFragment::class.java.name)
+        if (accountInitSelectFragment is BottomSheetDialogFragment) {
+            accountInitSelectFragment.dismiss()
+        }
+    }
+
+    private fun pendingTransition() {
+        overridePendingTransition(
+            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+        )
     }
 
     private fun checkAppVersion() {
@@ -170,6 +268,20 @@ class IntroActivity : AppCompatActivity() {
                 Prefs.fcmToken = token
             }
         }
+    }
+
+    private fun initView() {
+        val mFadeInAni = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in)
+        val mFadeOutAni = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out)
+        mFadeOutAni.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationRepeat(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                binding.btnCreate.visibility = View.VISIBLE
+                binding.btnCreate.startAnimation(mFadeInAni)
+            }
+        })
+        binding.bottomLayer.startAnimation(mFadeOutAni)
     }
 
     private fun showNetworkErrorDialog() {

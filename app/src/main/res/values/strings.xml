@@ -248,7 +248,7 @@
     <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_address_copied">Address copied</string>
     <string name="str_msg_mnemonic_copied">Mnemonic copied\nClear your clipboard after paste it!</string>
-    <string name="str_msg_enter_pin" translatable="false">Enter PIN</string>
+    <string name="str_enter_pin_msg">Enter PIN</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
     <string name="str_empty_account_name" translatable="false">Please insert account name.</string>
     <string name="str_delete_account_msg">All information in your account will be deleted.\nIf you have not backed up your mnemonic or private key, you will not be able to permanently restore your wallet!</string>
@@ -290,6 +290,8 @@
     <string name="str_set_address_msg">For convenience, you can register frequently used addresses.</string>
     <string name="str_mnemonic_check_msg">Please check the mnemonic you entered. \nJust so you know, don\'t share it with anyone. Losing this mnemonic can lead to loss of assets.</string>
     <string name="str_create_another_msg">You can create a new account using the same mnemonic, but with a different HD Path.\n\nIn general, there is a possibility that it may not be compatible with other wallets, and it is recommended to be used only by those with background knowledge of crypto keys and HD Path.</string>
+    <string name="str_pincode_init_msg">Enter your new PIN</string>
+    <string name="str_pincode_init_confirm_msg">Verify your new PIN</string>
 
 
     // header
@@ -311,6 +313,8 @@
 
     // error
     <string name="error_network_error">Network connection problem.</string>
+    <string name="error_set_password_differ">PIN number is not same. Please init PIN number again!</string>
+    <string name="error_set_password_insert">Error! Please init PIN number again!</string>
     <string name="error_invalid_password">Invalid PIN number</string>
     <string name="error_account_name">Please insert account name.</string>
     <string name="error_exist_account_name">Already exist name.</string>

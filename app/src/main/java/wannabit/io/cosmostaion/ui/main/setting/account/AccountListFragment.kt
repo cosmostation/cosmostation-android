@@ -175,7 +175,7 @@ class AccountListFragment : Fragment() {
                     dismissInitSelectFragment()
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
-                            this@AccountListFragment, CreateMnemonicFragment(), "CreateMnemonic"
+                            this@AccountListFragment, CreateMnemonicFragment(BaseConstant.CONST_NEW_ACCOUNT), "CreateMnemonic"
                         )
                     }
                 }
@@ -190,7 +190,7 @@ class AccountListFragment : Fragment() {
                     dismissInitSelectFragment()
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
-                            this@AccountListFragment, RestoreMnemonicFragment(), "RestoreMnemonic"
+                            this@AccountListFragment, RestoreMnemonicFragment(BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT), "RestoreMnemonic"
                         )
                     }
                 }
@@ -205,7 +205,7 @@ class AccountListFragment : Fragment() {
                     dismissInitSelectFragment()
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
-                            this@AccountListFragment, RestorePrivateFragment(), "RestorePrivate"
+                            this@AccountListFragment, RestorePrivateFragment(BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT), "RestorePrivate"
                         )
                     }
                 }
