@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -28,19 +28,31 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/font_sb_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sb_14"
+                android:text="@string/title_check_private_each_chain"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_check_private_each_chain"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/account_name_title"
+        style="@style/font_sb_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_8"
+        android:text="@string/str_account_name"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/account_name_view"
@@ -52,31 +64,31 @@
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/account_name_title">
 
         <TextView
             android:id="@+id/account_name"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="@dimen/space_200"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/space_16"
-            android:maxLines="1"
             android:ellipsize="middle"
-            android:textColor="@color/color_base01"
-            android:layout_gravity="center_vertical" />
+            android:maxWidth="@dimen/space_200"
+            android:maxLines="1"
+            android:textColor="@color/color_base01" />
 
         <TextView
             android:id="@+id/last_hd_path"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_16"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/color_base02"
             android:layout_gravity="center_vertical|end"
-            android:text="Last HD Path : 1"/>
+            android:layout_marginEnd="@dimen/space_16"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Last HD Path : 1"
+            android:textColor="@color/color_base02" />
 
     </androidx.cardview.widget.CardView>
 
@@ -84,61 +96,46 @@
         android:id="@+id/private_key_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_12"
         android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_12"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_name_view"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/account_name_view">
 
         <TextView
             android:id="@+id/account_private_key"
             style="@style/font_sb_14"
-            android:layout_margin="@dimen/space_16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/space_16"
             android:textColor="@color/color_base01" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tap_msg"
+        style="@style/font_sb_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_12"
         android:gravity="center"
-        style="@style/font_sb_12"
+        android:text="@string/str_msg_copy1"
         android:textColor="@color/color_base02"
-        app:layout_constraintTop_toBottomOf="@+id/private_key_layout"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/str_msg_copy1"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/private_key_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_8"
-        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_name_view"
-        android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/btn_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_54"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_12"
-        android:background="@drawable/button_common_bg"
-        style="@style/font_sb_16"
-        android:textColor="@color/color_base01"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/str_confirm"/>
+        app:layout_constraintTop_toBottomOf="@+id/account_name_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,6 +93,7 @@ class UnStakingFragment(
                     R.drawable.cell_bg
                 )
             }
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
 
             if (validator != null) {
                 selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == selectedChain.cosmosDelegations[0].delegation.validatorAddress }

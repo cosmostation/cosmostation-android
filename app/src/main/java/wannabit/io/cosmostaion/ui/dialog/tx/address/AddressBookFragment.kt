@@ -74,7 +74,9 @@ class AddressBookFragment(
                                     recycler.visibility = View.VISIBLE
                                     emptyLayout.visibility = View.GONE
 
-                                    addressBookAdapter = AddressBookAdapter(targetLine, refAddresses, addressBooks, addressType)
+                                    addressBookAdapter = AddressBookAdapter(
+                                        targetLine, refAddresses, addressBooks, addressType
+                                    )
                                     recycler.setHasFixedSize(true)
                                     recycler.layoutManager = LinearLayoutManager(requireContext())
                                     recycler.adapter = addressBookAdapter

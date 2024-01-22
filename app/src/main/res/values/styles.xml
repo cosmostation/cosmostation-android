@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_base01</item>
         <item name="colorPrimaryDark">@color/color_base01</item>
-        <item name="colorAccent">@color/color_accent_purple</item>
+        <item name="colorAccent">@color/color_base01</item>
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 

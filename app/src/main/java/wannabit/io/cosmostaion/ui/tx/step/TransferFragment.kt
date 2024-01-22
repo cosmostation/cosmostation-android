@@ -123,6 +123,7 @@ class TransferFragment(
             listOf(
                 recipientChainView, sendAssetView, addressView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
 
             chainImg.setImageResource(selectedChain.logo)
             chainName.text = selectedChain.name.uppercase()
@@ -303,7 +304,6 @@ class TransferFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }
@@ -745,23 +745,25 @@ fun assetPath(fromChain: CosmosLine, toChain: CosmosLine, denom: String): AssetP
 
     BaseData.assets?.forEach { asset ->
         if (msAsset != null) {
-            if (asset.chain == fromChain.apiName &&
-                asset.beforeChain(fromChain.apiName) == toChain.apiName &&
-                asset.denom.equals(denom, true)
+            if (asset.chain == fromChain.apiName && asset.beforeChain(fromChain.apiName) == toChain.apiName && asset.denom.equals(
+                    denom,
+                    true
+                )
             ) {
                 return AssetPath(asset.channel, asset.port)
             }
-            if (asset.chain == toChain.apiName &&
-                asset.beforeChain(toChain.apiName) == fromChain.apiName &&
-                asset.counterParty?.denom?.equals(denom, true) == true
+            if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom?.equals(
+                    denom,
+                    true
+                ) == true
             ) {
                 return AssetPath(asset.counterParty.channel, asset.counterParty.port)
             }
         } else {
-            if (msToken != null &&
-                asset.chain == toChain.apiName &&
-                asset.beforeChain(toChain.apiName) == fromChain.apiName &&
-                asset.counterParty?.denom.equals(msToken.address, true)
+            if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom.equals(
+                    msToken.address,
+                    true
+                )
             ) {
                 return AssetPath(asset.counterParty?.channel, asset.counterParty?.port)
             }

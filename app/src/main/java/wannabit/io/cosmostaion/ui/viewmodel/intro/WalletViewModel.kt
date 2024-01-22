@@ -122,6 +122,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
+    var updatePriceResult = SingleLiveEvent<String>()
+
     fun price(currency: String, force: Boolean? = false) = viewModelScope.launch(Dispatchers.IO) {
         if (!BaseData.priceUpdateIfNeed() && force == false) {
             return@launch
@@ -133,6 +135,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         BaseData.prices = data.body()
                         BaseData.setLastPriceTime()
                         BaseData.baseAccount?.updateAllValue()
+                        updatePriceResult.postValue(currency)
 
                     } else {
                         _errorMessage.postValue("Error")

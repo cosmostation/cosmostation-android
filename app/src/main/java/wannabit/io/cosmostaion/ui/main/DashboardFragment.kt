@@ -210,6 +210,10 @@ class DashboardFragment : Fragment() {
     }
 
     private fun observeViewModels() {
+        walletViewModel.updatePriceResult.observe(viewLifecycleOwner) {
+            dashAdapter.notifyDataSetChanged()
+        }
+
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
             binding?.apply {
                 if (Prefs.hideValue) {

@@ -64,7 +64,7 @@
                 android:layout_marginTop="@dimen/space_16"
                 android:layout_marginEnd="@dimen/space_16"
                 android:background="@drawable/round_box_deprecated"
-                android:paddingHorizontal="@dimen/space_2"
+                android:paddingHorizontal="6dp"
                 android:paddingVertical="@dimen/space_2"
                 android:text="grpc"
                 android:textAllCaps="true"

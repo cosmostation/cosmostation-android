@@ -90,6 +90,7 @@ class ChangeRewardAddressFragment(
                     R.drawable.cell_bg
                 )
             }
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
             currentRewardAddress.text = selectedChain.rewardAddress
         }
     }

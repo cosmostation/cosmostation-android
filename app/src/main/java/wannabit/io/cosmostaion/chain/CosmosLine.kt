@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -487,6 +488,9 @@ fun allCosmosLines(): MutableList<CosmosLine> {
             line.chainId =
                 BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
         }
+    }
+    if (!Prefs.displayLegacy) {
+        return lines.filter { it.isDefault }.toMutableList()
     }
     return lines
 }

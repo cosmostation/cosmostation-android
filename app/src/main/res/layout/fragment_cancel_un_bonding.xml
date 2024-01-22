@@ -257,20 +257,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fee_amount" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-                android:id="@+id/fee_segment"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/segment_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/color_transparent"
-                app:borderColor="@color/color_base05"
-                app:borderWidth="1dp"
-                app:radius="@dimen/space_8"
-                app:ripple="true"
-                app:rippleColor="@color/color_transparent"
                 android:layout_marginVertical="@dimen/space_16"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fee_token_layout" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fee_token_layout">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                    android:id="@+id/fee_segment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/color_transparent"
+                    android:layout_margin="@dimen/space_4"
+                    app:borderColor="@color/color_base05"
+                    app:borderWidth="1dp"
+                    app:radius="@dimen/space_8"
+                    app:ripple="true"
+                    app:rippleColor="@color/color_transparent" />
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

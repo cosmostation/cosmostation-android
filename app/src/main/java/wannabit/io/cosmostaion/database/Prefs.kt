@@ -23,6 +23,8 @@ object Prefs {
     private const val AUTO_PASS = "PRE_AUTO_PASS"
     private const val SWAP_WARN = "PRE_SWAP_WARN"
     private const val HIDE_VALUE = "PRE_HIDE_VALUE"
+    private const val DISPLAY_LEGACY = "PRE_DISPLAY_LEGACY"
+    private const val BIO = "PRE_BIO"
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
@@ -115,4 +117,12 @@ object Prefs {
     var hideValue: Boolean
         get() = preference.getBoolean(HIDE_VALUE, false)
         set(value) = preference.edit().putBoolean(HIDE_VALUE, value).apply()
+
+    var displayLegacy: Boolean
+        get() = preference.getBoolean(DISPLAY_LEGACY, false)
+        set(value) = preference.edit().putBoolean(DISPLAY_LEGACY, value).apply()
+
+    var usingBio: Boolean
+        get() = preference.getBoolean(BIO, false)
+        set(value) = preference.edit().putBoolean(BIO, value).apply()
 }

@@ -37,7 +37,7 @@ class StakingInfoAdapter(
                 val binding = ItemStakingInfoBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                StakingViewHolder(binding)
+                StakingViewHolder(parent.context, binding)
             }
 
             VIEW_TYPE_UNSTAKING -> {

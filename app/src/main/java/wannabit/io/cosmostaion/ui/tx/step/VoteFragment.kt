@@ -85,6 +85,7 @@ class VoteFragment(
             listOf(
                 memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
 
             voteAdapter = VoteAdapter(listener = selectOption)
             recycler.setHasFixedSize(true)

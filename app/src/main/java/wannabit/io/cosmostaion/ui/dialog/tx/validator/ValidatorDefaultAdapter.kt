@@ -16,7 +16,7 @@ class ValidatorDefaultAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValidatorDefaultViewHolder {
         val binding = ItemValidatorDefaultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ValidatorDefaultViewHolder(binding)
+        return ValidatorDefaultViewHolder(parent.context, binding)
     }
 
     override fun onBindViewHolder(holder: ValidatorDefaultViewHolder, position: Int) {

@@ -51,8 +51,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class StakingFragment(
-    val selectedChain: CosmosLine,
-    private var toValidator: Validator?
+    val selectedChain: CosmosLine, private var toValidator: Validator?
 ) : BaseTxFragment() {
 
     private var _binding: FragmentStakingBinding? = null
@@ -94,6 +93,7 @@ class StakingFragment(
                     R.drawable.cell_bg
                 )
             }
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
 
             if (toValidator == null) {
                 selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
@@ -155,6 +155,19 @@ class StakingFragment(
                 toValidator?.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
                     ?.setScale(2, RoundingMode.DOWN)
             commissionPercent.text = formatString("$commissionRate%", 3)
+            if (commissionRate.toString() == "0.00") {
+                commissionPercent.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_accent_green
+                    )
+                )
+            } else {
+                commissionPercent.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_base01
+                    )
+                )
+            }
         }
         txSimulate()
     }
@@ -311,7 +324,7 @@ class StakingFragment(
                                     txFee = updateTxFee
                                     updateFeeView()
                                     txSimulate()
-                            }
+                                }
                         }
                     }).show(
                     requireActivity().supportFragmentManager, AssetFragment::class.java.name

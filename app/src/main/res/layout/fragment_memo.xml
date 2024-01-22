@@ -71,7 +71,7 @@
             android:layout_height="@dimen/space_30"
             android:background="@drawable/button_amount_bg"
             android:text="@string/str_qr_scan"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

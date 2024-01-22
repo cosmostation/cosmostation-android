@@ -97,6 +97,7 @@ class ReDelegateFragment(
                     R.drawable.cell_bg
                 )
             }
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
 
             if (fromValidator != null) {
                 selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == selectedChain.cosmosDelegations[0].delegation.validatorAddress }
@@ -175,6 +176,19 @@ class ReDelegateFragment(
                 toValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
                     .setScale(2, RoundingMode.DOWN).let {
                         commission.text = formatString("$it%", 3)
+                        if (it.toString() == "0.00") {
+                            commission.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    requireContext(), R.color.color_accent_green
+                                )
+                            )
+                        } else {
+                            commission.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    requireContext(), R.color.color_base01
+                                )
+                            )
+                        }
                         txSimulate()
                     }
             }

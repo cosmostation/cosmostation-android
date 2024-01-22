@@ -36,7 +36,7 @@
     <string name="str_change_name">Change name</string>
     <string name="str_delete_account">Delete account</string>
     <string name="str_check_mnemonic">Check mnemonic</string>
-    <string name="str_check_private">Check private key for\neach chain</string>
+    <string name="str_check_private">Check private key for each chain</string>
     <string name="str_only_private">Check private key</string>
     <string name="str_delete_name">Delete %1$s</string>
     <string name="str_seed_phrase" translatable="false">Seed phrase</string>
@@ -54,12 +54,11 @@
     <string name="str_1_4" translatable="false">1/4</string>
     <string name="str_half" translatable="false">HALF</string>
     <string name="str_max" translatable="false">MAX</string>
-    <string name="str_fixed">Fixed</string>
-    <string name="str_free">Free</string>
-    <string name="str_tiny">Tiny</string>
-    <string name="str_low">Low</string>
-    <string name="str_average">Average</string>
-    <string name="str_high">High</string>
+    <string name="str_fixed">FIXED</string>
+    <string name="str_free">FREE</string>
+    <string name="str_tiny">TINY</string>
+    <string name="str_low">LOW</string>
+    <string name="str_average">AVERAGE</string>
     <string name="str_send">Send</string>
     <string name="str_insert_memo">Insert memo (Optional)</string>
     <string name="str_qr_scan" translatable="false">QR Scan</string>
@@ -114,7 +113,7 @@
     <string name="str_search_validator">Search validator</string>
     <string name="str_connect">Connect</string>
     <string name="str_restore_wallet">Restore wallet</string>
-    <string name="str_another_account">Create Another Account</string>
+    <string name="str_another_account">Create another account</string>
 
 
     //title
@@ -145,6 +144,7 @@
     <string name="title_price_change_color">Price change color</string>
     <string name="title_notification">Notification</string>
     <string name="title_app_lock" translatable="false">App lock</string>
+    <string name="title_using_bio">Unlock with fingerprint</string>
     <string name="title_support">Support</string>
     <string name="title_mintscan" translatable="false">Mintscan</string>
     <string name="title_homepage" translatable="false">Homepage</string>
@@ -256,9 +256,9 @@
     <string name="str_import_mnemonic_msg">Restore an account with your mnemonics</string>
     <string name="str_import_private_key_msg">Restore an account with your private key</string>
     <string name="str_warning_mnemonic_msg">This phrase is the only way to recover your account. Losing this mnemonics could lead to loss of your asset.</string>
-    <string name="str_tap_for_add_amount_msg">Tap to add amount.</string>
-    <string name="str_tap_for_add_address_msg">Tap to add address.</string>
-    <string name="str_tap_for_add_memo_msg">Tap to add memo.</string>
+    <string name="str_tap_for_add_amount_msg">Tap to add amount</string>
+    <string name="str_tap_for_add_address_msg">Tap to add address</string>
+    <string name="str_tap_for_add_memo_msg">Tap to add memo</string>
     <string name="str_fee_speed_title_tiny">Only a handful of validators will process this Tx.</string>
     <string name="str_fee_speed_title_low">A few validators will process this Tx.</string>
     <string name="str_fee_speed_title_average">Most validators will process this Tx.</string>

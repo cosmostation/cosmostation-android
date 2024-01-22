@@ -127,10 +127,6 @@ class PrivateCheckFragment(val account: BaseAccount) : Fragment() {
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_mnemonic_copied)
             }
-
-            btnConfirm.setOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
         }
     }
 

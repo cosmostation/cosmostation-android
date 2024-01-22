@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
+import android.content.Context
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
@@ -16,7 +18,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class StakingViewHolder(
-    private val binding: ItemStakingInfoBinding
+    val context: Context, private val binding: ItemStakingInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
@@ -63,6 +65,19 @@ class StakingViewHolder(
                             validator?.commission?.commissionRates?.rate?.toBigDecimal()
                                 ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                         commission.text = formatString("$commissionRate%", 3)
+                        if (commissionRate.toString() == "0.00") {
+                            commission.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_accent_green
+                                )
+                            )
+                        } else {
+                            commission.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base01
+                                )
+                            )
+                        }
 
                         val stakedAmount =
                             delegation.balance.amount.toBigDecimal().movePointLeft(decimal)

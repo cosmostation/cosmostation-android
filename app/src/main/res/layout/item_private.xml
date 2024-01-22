@@ -35,6 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_8"
@@ -57,16 +58,16 @@
                     style="@style/font_sm_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_6"
                     android:background="@drawable/round_box_deprecated"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
-                    android:layout_marginStart="@dimen/space_6"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/chain_name"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="gone"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/chain_path"
@@ -82,18 +83,19 @@
 
             <TextView
                 android:id="@+id/chain_private_key"
-                style="@style/font_sb_12"
+                style="@style/font_sm_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_8"
                 android:layout_marginEnd="@dimen/space_16"
                 android:ellipsize="middle"
-                android:maxLines="1"
                 android:letterSpacing="0.0"
+                android:maxLines="1"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="@+id/chain_img"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/chain_img" />
+                app:layout_constraintStart_toEndOf="@+id/chain_img"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

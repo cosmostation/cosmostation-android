@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.ui.password
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.core.os.CancellationSignal
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import wannabit.io.cosmostaion.common.BaseUtils.checkPasscodePattern
 import wannabit.io.cosmostaion.common.KeyboardListener
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityPasswordCheckBinding
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -66,6 +69,10 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             pagerKeyboard.offscreenPageLimit = 2
 
             walletViewModel.hasPassword()
+        }
+
+        if (Prefs.usingBio) {
+            checkFingerPrint()
         }
     }
 
@@ -199,6 +206,40 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
     override fun onStop() {
         super.onStop()
         finish()
+    }
+
+    private fun checkFingerPrint() {
+        val fingerprintManagerCompat = FingerprintManagerCompat.from(this)
+        val cancellationSignal = CancellationSignal()
+        if (fingerprintManagerCompat.isHardwareDetected && fingerprintManagerCompat.hasEnrolledFingerprints() && Prefs.usingBio) {
+            fingerprintManagerCompat.authenticate(
+                null,
+                0,
+                cancellationSignal,
+                object : FingerprintManagerCompat.AuthenticationCallback() {
+                    override fun onAuthenticationError(errMsgId: Int, errString: CharSequence) {
+                        super.onAuthenticationError(errMsgId, errString)
+                    }
+
+                    override fun onAuthenticationHelp(helpMsgId: Int, helpString: CharSequence) {
+                        super.onAuthenticationHelp(helpMsgId, helpString)
+                    }
+
+                    override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        cancellationSignal.cancel()
+                        setResult(RESULT_OK, intent)
+                        finish()
+                        overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                    }
+                },
+                null
+            )
+        }
     }
 
     class PasswordPageAdapter(fragmentActivity: FragmentActivity) :

@@ -35,7 +35,6 @@
     <string name="str_tiny">최소</string>
     <string name="str_low">낮음</string>
     <string name="str_average">평균</string>
-    <string name="str_high">높게</string>
     <string name="str_send">전송</string>
     <string name="str_insert_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_address_book">주소록</string>
@@ -103,6 +102,7 @@
     <string name="title_currency">통화</string>
     <string name="title_price_change_color">가격 변동 색상</string>
     <string name="title_notification">알람</string>
+    <string name="title_using_bio">지문 사용</string>
     <string name="title_support">지원</string>
     <string name="title_twitter">X(트위터)</string>
     <string name="title_telegram">텔레그렘</string>
@@ -189,7 +189,7 @@
     // msg
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>
     <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
-    <string name="str_msg_mnemonic_copied" >클립보드에 복사하였습니다.</string>
+    <string name="str_msg_mnemonic_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copy">복사하려면 니모닉 문구 상자를 탭하세요.</string>
     <string name="str_msg_private_copy">클립보드에 복사하였습니다.</string>
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
@@ -198,9 +198,9 @@
     <string name="str_import_mnemonic_msg">기존 니모닉으로 계정 복구하기</string>
     <string name="str_import_private_key_msg">기존 개인키로 계정 복구하기</string>
     <string name="str_warning_mnemonic_msg">이 문구는 계정을 복구하는 유일한 방법입니다. 누구와도 공유하지 마십시오. 이 니모닉을 분실하면 자산 손실로 이어질 수 있습니다.</string>
-    <string name="str_tap_for_add_amount_msg">수량을 입력하시려면 탭하세요.</string>
-    <string name="str_tap_for_add_address_msg">주소를 입력하시려면 탭하세요.</string>
-    <string name="str_tap_for_add_memo_msg">메모를 추가하시려면 탭하세요.</string>
+    <string name="str_tap_for_add_amount_msg">수량을 입력하시려면 탭하세요</string>
+    <string name="str_tap_for_add_address_msg">주소를 입력하시려면 탭하세요</string>
+    <string name="str_tap_for_add_memo_msg">메모를 추가하시려면 탭하세요</string>
     <string name="str_fee_speed_title_tiny">소수의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_low">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_average">대부분의 검증인들이 처리해 줄 것입니다.</string>

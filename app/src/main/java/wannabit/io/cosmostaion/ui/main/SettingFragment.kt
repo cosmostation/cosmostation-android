@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,10 +17,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
@@ -72,13 +74,20 @@ class SettingFragment : Fragment() {
         binding.apply {
             listOf(
                 accountView, importView, legacyView, chainView, addressBookView,
-                languageView, currencyView, priceView, alarmView, appLockView,
+                languageView, currencyView, priceView, alarmView, appLockView, bioView,
                 mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
                 termView, privacyView, githubView, versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             updateWalletView()
             updateDefaultView()
+
+            val fingerprintManagerCompat = FingerprintManagerCompat.from(requireContext())
+            if (fingerprintManagerCompat.isHardwareDetected && fingerprintManagerCompat.hasEnrolledFingerprints()) {
+                bioTxt.text = getString(R.string.title_using_bio)
+            } else {
+                bioTxt.text = ""
+            }
             version.text = "v " + BuildConfig.VERSION_NAME
         }
     }
@@ -92,7 +101,11 @@ class SettingFragment : Fragment() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                supportChainCnt.text = allCosmosLines().count().toString()
+                supportChainCnt.text = allCosmosLines()
+                    .filter { it.isDefault }
+                    .groupBy { it.name }
+                    .filter { it.value.size == 1 }
+                    .flatMap { it.value }.count().toString()
             }
         }
     }
@@ -298,14 +311,16 @@ class SettingFragment : Fragment() {
 
     private fun onUpdateSwitch() {
         binding.apply {
+            legacySwitch.isChecked = Prefs.displayLegacy
+            legacySwitch.setSwitchView()
+
+            alarmSwitch.setSwitchView()
+
             appLockSwitch.isChecked = Prefs.appLock
-            if (appLockSwitch.isChecked) {
-                appLockSwitch.thumbDrawable =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
-            } else {
-                appLockSwitch.thumbDrawable =
-                    ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
-            }
+            appLockSwitch.setSwitchView()
+
+            bioSwitch.isChecked = Prefs.usingBio
+            bioSwitch.setSwitchView()
 
             CoroutineScope(Dispatchers.IO).launch {
                 val addressCnt =
@@ -319,9 +334,36 @@ class SettingFragment : Fragment() {
 
     private fun setUpSwitchAction() {
         binding.apply {
-            legacySwitch.setSwitch()
-            alarmSwitch.setSwitch()
             onUpdateSwitch()
+
+            legacySwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    legacySwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    Prefs.displayLegacy = true
+                } else {
+                    legacySwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    Prefs.displayLegacy = false
+                }
+                setVibrate()
+
+                lifecycleScope.launch {
+                    delay(1500)
+                    requireActivity().recreate()
+                }
+            }
+
+            alarmSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    alarmSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                } else {
+                    alarmSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                }
+                setVibrate()
+            }
 
             appLockSwitch.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -336,31 +378,39 @@ class SettingFragment : Fragment() {
                         R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
+                setVibrate()
+            }
+
+            bioSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    bioSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    Prefs.usingBio = true
+                } else {
+                    bioSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    Prefs.usingBio = false
+                }
+                setVibrate()
             }
         }
     }
 
-    private fun SwitchCompat.setSwitch() {
+    private fun SwitchCompat.setSwitchView() {
         thumbDrawable = if (isChecked) {
             ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
         } else {
             ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
         }
+    }
 
-        setOnCheckedChangeListener { _, isChecked ->
-            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
-            } else {
-                vibrator.vibrate(100)
-            }
-
-            val checkedDrawable: Drawable? = if (isChecked) {
-                ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
-            } else {
-                ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
-            }
-            thumbDrawable = checkedDrawable
+    private fun setVibrate() {
+        val vibrator =
+            requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
+        } else {
+            vibrator.vibrate(100)
         }
     }
 
