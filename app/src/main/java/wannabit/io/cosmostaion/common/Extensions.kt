@@ -112,7 +112,7 @@ fun TextView.priceChangeStatusColor(lastUpDown: BigDecimal) {
 fun TextView.hiddenStatus(amount: SpannableString) {
     if (Prefs.hideValue) {
         text = "✱✱✱✱"
-        textSize = 12f
+        textSize = 10f
     } else {
         text = amount
         textSize = 12f

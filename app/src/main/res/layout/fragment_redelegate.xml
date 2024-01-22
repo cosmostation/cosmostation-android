@@ -433,28 +433,17 @@
 
             <TextView
                 android:id="@+id/fee_amount"
-                style="@style/font_sb_12"
+                style="@style/font_sb_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
-                android:layout_marginEnd="@dimen/space_4"
                 android:textColor="@color/color_base01"
-                app:layout_constraintEnd_toStartOf="@+id/fee_denom"
-                app:layout_constraintTop_toBottomOf="@+id/view1" />
-
-            <TextView
-                android:id="@+id/fee_denom"
-                style="@style/font_sb_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_base01"
-                app:layout_constraintBaseline_toBaselineOf="@+id/fee_amount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view1" />
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/fee_value"
-                style="@style/font_sb_10"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base03"
@@ -474,14 +463,15 @@
                     android:id="@+id/fee_segment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/space_4"
                     android:background="@color/color_transparent"
-                    app:borderColor="@color/color_base05"
-                    app:borderWidth="1dp"
+                    android:layout_margin="@dimen/space_4"
                     app:radius="@dimen/space_8"
+                    app:selectedButtonRadius="@dimen/space_8"
+                    app:draggable="true"
                     app:ripple="true"
-                    app:rippleColor="@color/color_transparent" />
+                    app:rippleColor="@color/color_transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"/>
 
             </androidx.cardview.widget.CardView>
 

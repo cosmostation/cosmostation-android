@@ -22,8 +22,7 @@ class ChainManageFragment : Fragment() {
     private lateinit var chainManageAdapter: ChainManageAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChainManageBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -39,18 +38,15 @@ class ChainManageFragment : Fragment() {
     private fun initRecyclerView() {
         binding.recycler.apply {
             CoroutineScope(Dispatchers.IO).launch {
-                val dpCosmosLines : MutableList<CosmosLine> = mutableListOf()
+                val dpCosmosLines: MutableList<CosmosLine> = mutableListOf()
                 dpCosmosLines.clear()
 
-                allCosmosLines().filter { it.isDefault }.forEach { line ->
-                    if (dpCosmosLines.none { it.name == line.name }) {
-                        dpCosmosLines.add(line)
-                    }
-                }
+                dpCosmosLines.addAll(allCosmosLines().filter { it.isDefault }
+                    .distinctBy { it.name })
+                binding.headerCnt.text = dpCosmosLines.count().toString()
 
                 withContext(Dispatchers.Main) {
-                    chainManageAdapter =
-                        ChainManageAdapter()
+                    chainManageAdapter = ChainManageAdapter()
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter

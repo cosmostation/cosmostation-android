@@ -94,7 +94,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
 
                 if (Prefs.hideValue) {
                     accountValue.text = "✱✱✱✱✱"
-                    accountValue.textSize = 20f
+                    accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
                     accountValue.text = formatAssetValue(selectedChain.allValue())
@@ -123,7 +123,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     binding.apply {
                         if (Prefs.hideValue) {
                             accountValue.text = "✱✱✱✱✱"
-                            accountValue.textSize = 20f
+                            accountValue.textSize = 18f
                             btnHide.setImageResource(R.drawable.icon_hide)
                         } else {
                             accountValue.text = formatAssetValue(selectedChain.allValue())
@@ -216,7 +216,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                 Prefs.hideValue = !Prefs.hideValue
                 if (Prefs.hideValue) {
                     accountValue.text = "✱✱✱✱✱"
-                    accountValue.textSize = 20f
+                    accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
                     accountValue.text = formatAssetValue(selectedChain.allValue())

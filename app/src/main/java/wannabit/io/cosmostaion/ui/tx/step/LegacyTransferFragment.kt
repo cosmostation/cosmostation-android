@@ -292,14 +292,20 @@ class LegacyTransferFragment(
                     AddressType.DEFAULT_TRANSFER,
                     object : AddressListener {
                         override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?
+                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
                         ) {
                             refAddress?.dpAddress?.let {
                                 updateAddressView(it)
+                                updateMemoView("")
 
                             } ?: run {
                                 addressBook?.let {
                                     updateAddressView(it.address)
+                                    updateMemoView(it.memo)
+
+                                } ?: run {
+                                    updateAddressView(addressTxt)
+                                    updateMemoView("")
                                 }
                             }
                         }

@@ -123,7 +123,7 @@ class TransferFragment(
             listOf(
                 recipientChainView, sendAssetView, addressView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
-            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             chainImg.setImageResource(selectedChain.logo)
             chainName.text = selectedChain.name.uppercase()
@@ -395,7 +395,7 @@ class TransferFragment(
                     AddressType.DEFAULT_TRANSFER,
                     object : AddressListener {
                         override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?
+                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
                         ) {
                             refAddress?.dpAddress?.let {
                                 updateRecipientAddressView(it)
@@ -405,6 +405,10 @@ class TransferFragment(
                                 addressBook?.let {
                                     updateRecipientAddressView(it.address)
                                     updateMemoView(it.memo)
+
+                                } ?: run {
+                                    updateRecipientAddressView(addressTxt)
+                                    updateMemoView("")
                                 }
                             }
                         }
@@ -683,6 +687,9 @@ class TransferFragment(
                 }
                 putExtra("errorMsg", txResponse.rawLog)
                 putExtra("selectedChain", selectedChain.tag)
+                putExtra("recipientChain", selectedRecipientChain?.tag)
+                putExtra("recipientAddress", existedAddress)
+                putExtra("memo", txMemo)
                 val hash = txResponse.txhash
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)

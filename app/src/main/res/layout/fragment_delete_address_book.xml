@@ -54,7 +54,7 @@
         android:id="@+id/btn_delete"
         style="@style/font_sb_16"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/space_54"
         android:layout_marginHorizontal="@dimen/space_16"
         android:layout_marginTop="@dimen/space_36"
         android:layout_marginBottom="@dimen/space_12"

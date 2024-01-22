@@ -4,93 +4,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <View
+        android:id="@+id/view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@color/color_base04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="@dimen/space_40"
-            android:layout_height="@dimen/space_4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_20"
-            android:background="@color/color_base04" />
-
-        <LinearLayout
-            android:id="@+id/title_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/edit_title"
+            style="@style/font_sb_16"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/view"
-            android:layout_marginHorizontal="@dimen/space_20"
-            android:layout_marginTop="@dimen/space_16"
-            android:gravity="center_vertical">
+            android:layout_weight="1"
+            android:text="@string/title_select_wallet"
+            android:textColor="@color/color_base01" />
 
-            <TextView
-                android:id="@+id/edit_title"
-                style="@style/font_sb_16"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/title_select_wallet"
-                android:textColor="@color/color_base01" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress"
+            android:layout_width="@dimen/space_30"
+            android:layout_height="@dimen/space_30"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/progress" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/progress"
-                android:layout_width="@dimen/space_30"
-                android:layout_height="@dimen/space_30"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/progress" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/space_8"
+        app:layout_constraintBottom_toTopOf="@+id/btn_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btn_layout"
-            android:layout_below="@+id/title_layout"
-            android:layout_marginBottom="@dimen/space_8" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_12"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/btn_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_select"
+            style="@style/font_sb_14"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginStart="@dimen/space_12"
+            android:background="@drawable/button_select_bg"
+            android:text="@string/str_select_valuables"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.45" />
 
-            <Button
-                android:id="@+id/btn_select"
-                style="@style/font_sb_14"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_54"
-                android:layout_marginStart="@dimen/space_12"
-                android:layout_marginEnd="@dimen/space_4"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_select_bg"
-                android:letterSpacing="-0.01"
-                android:text="@string/str_select_valuables"
-                android:textAllCaps="false"
-                android:textColor="@color/color_base03" />
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/font_sb_16"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginEnd="@dimen/space_12"
+            android:background="@drawable/button_common_bg"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.45" />
 
-            <Button
-                android:id="@+id/btn_confirm"
-                style="@style/font_sb_16"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_54"
-                android:layout_marginStart="@dimen/space_4"
-                android:layout_marginEnd="@dimen/space_12"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_common_bg"
-                android:text="@string/str_confirm"
-                android:textAllCaps="false"
-                android:textColor="@color/color_base01" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,7 +54,7 @@ class DashboardViewHolder(
                     if (line.fetched) {
                         if (Prefs.hideValue) {
                             chainValue.text = "✱✱✱✱"
-                            chainValue.textSize = 12f
+                            chainValue.textSize = 10f
                         } else {
                             chainValue.text = formatAssetValue(line.allValue())
                             chainValue.textSize = 14f

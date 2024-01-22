@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    xmlns:fab="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -29,12 +29,12 @@
 
             <TextView
                 android:id="@+id/account_name"
+                style="@style/font_sb_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sb_16"
-                android:textColor="@color/color_base01"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/space_8"
-                android:layout_gravity="center_vertical" />
+                android:textColor="@color/color_base01" />
 
         </LinearLayout>
 
@@ -50,13 +50,13 @@
 
     <TextView
         android:id="@+id/account_address"
+        style="@style/font_sm_12"
         android:layout_width="@dimen/space_130"
         android:layout_height="wrap_content"
-        style="@style/font_sm_12"
-        android:textColor="@color/color_base02"
         android:layout_marginTop="@dimen/space_20"
         android:ellipsize="middle"
         android:maxLines="1"
+        android:textColor="@color/color_base02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -66,30 +66,33 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_40"
         android:layout_marginTop="@dimen/space_6"
-        app:layout_constraintTop_toBottomOf="@+id/account_address" >
+        app:layout_constraintTop_toBottomOf="@+id/account_address">
 
-        <TextView
-            android:id="@+id/account_value"
-            style="@style/font_sb_24"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_base01"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/btn_hide"
-            android:layout_width="@dimen/space_18"
-            android:layout_height="@dimen/space_18"
-            android:layout_marginStart="@dimen/space_6"
-            android:layout_marginTop="@dimen/space_3"
-            android:src="@drawable/icon_not_hide"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/account_value"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/account_value"
+                style="@style/font_sb_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/color_base01" />
+
+            <ImageView
+                android:id="@+id/btn_hide"
+                android:layout_width="@dimen/space_18"
+                android:layout_height="@dimen/space_18"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/space_6"
+                android:src="@drawable/icon_not_hide" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,27 +100,27 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_24"
         android:background="@android:color/transparent"
-        app:tabTextAppearance="@style/tab_text"
-        app:tabTextColor="@color/color_base03"
-        app:tabSelectedTextColor="@color/color_base01"
-        app:tabIndicatorColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_value_layout"
-        android:layout_marginHorizontal="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_24"
         app:tabGravity="start"
+        app:tabIndicatorColor="@color/color_base01"
+        app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="2dp"
         app:tabMode="scrollable"
-        app:tabIndicatorFullWidth="true" />
+        app:tabSelectedTextColor="@color/color_base01"
+        app:tabTextAppearance="@style/tab_text"
+        app:tabTextColor="@color/color_base03" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
-        android:background="@color/color_base04"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginTop="-1.5dp"
+        android:background="@color/color_base04"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -134,32 +137,32 @@
         android:layout_height="match_parent"
         android:background="@color/color_background_dialog"
         android:elevation="@dimen/space_1"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fab_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_24"
+        android:elevation="@dimen/space_2"
         fab:menu_colorNormal="@color/color_accent_purple"
         fab:menu_colorPressed="@color/color_accent_purple"
         fab:menu_colorRipple="@color/color_accent_purple"
         fab:menu_labels_position="left"
         fab:menu_labels_style="@style/FabLabelStyle"
-        android:layout_marginEnd="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_24"
-        fab:menu_openDirection="up"
-        android:elevation="@dimen/space_2">
+        fab:menu_openDirection="up">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
+            android:src="@drawable/icon_send"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_send"
-            android:enabled="false"
             app:maxImageSize="@dimen/space_100"
             fab:fab_label="Send"
             fab:fab_size="mini" />
@@ -168,27 +171,27 @@
             android:id="@+id/fab_receive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
+            android:src="@drawable/icon_receive"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_receive"
-            android:enabled="false"
             app:maxImageSize="@dimen/space_100"
             fab:fab_label="Receive"
-            fab:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_stake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
+            android:src="@drawable/icon_stake"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_stake"
-            android:enabled="false"
             app:maxImageSize="@dimen/space_100"
             fab:fab_label="@string/title_stake"
             fab:fab_size="mini" />
@@ -197,11 +200,11 @@
             android:id="@+id/fab_claim_reward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/icon_claim_reward"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_claim_reward"
             fab:fab_label="@string/title_claim_reward_all"
             fab:fab_size="mini" />
 
@@ -209,11 +212,11 @@
             android:id="@+id/fab_compounding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/icon_compounding"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_compounding"
             fab:fab_label="@string/title_compounding_all"
             fab:fab_size="mini" />
 
@@ -221,91 +224,91 @@
             android:id="@+id/fab_vote"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_governance"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_governance"
-            fab:fab_label="@string/title_governance"
-            app:fab_size="mini"/>
+            app:fab_size="mini"
+            fab:fab_label="@string/title_governance" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_defi"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_defi"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_defi"
-            fab:fab_label="@string/title_defi"
             app:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_label="@string/title_defi" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_dao"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_neutron_dao"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_neutron_dao"
-            fab:fab_label="Dao"
             app:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_label="Dao" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_vault"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_neutron_vault"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_neutron_vault"
-            fab:fab_label="Vault"
             app:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_label="Vault" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_deposit"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_deposit"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_deposit"
-            fab:fab_label="Deposit"
             app:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_label="Deposit" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_withdraw"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_withdraw"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_withdraw"
-            fab:fab_label="Withdraw"
             app:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_label="Withdraw" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_select_validator"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_select_validators"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
-            app:fab_colorDisabled="@color/color_base08"
-            android:src="@drawable/icon_select_validators"
-            fab:fab_label="Select validator"
             app:fab_size="mini"
-            android:visibility="gone"/>
+            fab:fab_label="Select validator" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

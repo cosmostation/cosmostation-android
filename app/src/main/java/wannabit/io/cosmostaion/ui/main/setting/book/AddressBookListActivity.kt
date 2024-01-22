@@ -86,23 +86,6 @@ class AddressBookListActivity : BaseActivity() {
         }
     }
 
-//    private val popupClickAction = object : SetAddressBookAdapter.ClickListener {
-//        override fun editAddressBook(book: AddressBook, position: Int) {
-//            SetAddressFragment(book, null, "", "", object : AddressBookRegisterListener {
-//                override fun register() {
-//                    setAddressBookAdapter.notifyItemChanged(position)
-//                }
-//            }).show(
-//                supportFragmentManager, SetAddressFragment::class.java.name
-//            )
-//            setClickableOnce(isClickable)
-//        }
-//
-//        override fun deleteAddressBook(book: AddressBook) {
-//            TODO("Not yet implemented")
-//        }
-//    }
-
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {

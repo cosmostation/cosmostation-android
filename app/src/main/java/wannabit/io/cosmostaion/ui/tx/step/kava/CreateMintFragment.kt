@@ -95,6 +95,7 @@ class CreateMintFragment(
             listOf(
                 collateralAmountView, principalAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             collateralParam?.let { collateralParam ->
                 collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
@@ -219,7 +220,6 @@ class CreateMintFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }

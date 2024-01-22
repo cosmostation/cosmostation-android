@@ -202,7 +202,7 @@ class EvmTransferFragment(
                     AddressType.EVM_TRANSFER,
                     object : AddressListener {
                         override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?
+                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
                         ) {
                             refAddress?.dpAddress?.let {
                                 updateAddressView(it)
@@ -210,6 +210,9 @@ class EvmTransferFragment(
                             } ?: run {
                                 addressBook?.let {
                                     updateAddressView(it.address)
+
+                                } ?: run {
+                                    updateAddressView(addressTxt)
                                 }
                             }
                         }

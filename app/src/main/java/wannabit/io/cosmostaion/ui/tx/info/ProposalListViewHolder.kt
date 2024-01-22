@@ -42,6 +42,7 @@ class ProposalListViewHolder(
                 selectSwitch.isChecked = toVote?.contains(proposal.id) == true
                 voteStatusImg.visibility = View.GONE
                 voteRemainTime.visibility = View.VISIBLE
+                switchView.visibility = View.VISIBLE
                 val endTimeToLong = dateToLong(
                     context.getString(R.string.str_tx_time_format), proposal.votingEndTime
                 )
@@ -51,6 +52,7 @@ class ProposalListViewHolder(
             } else {
                 selectSwitch.visibility = View.GONE
                 voteStatusImg.visibility = View.VISIBLE
+                switchView.visibility = View.GONE
                 voteStatusImg.setImageDrawable(proposal.proposalStatusImg(context))
                 voteRemainTime.text = proposal.proposalStatusTxt().uppercase()
                 voteRemainTime.setTextColor(

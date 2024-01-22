@@ -45,7 +45,7 @@ class QrDialog(
                 chainName.text = selectedChain.name
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 address.text = selectedChain.address
-                accountName.text = "( " + account.name + ")"
+                accountName.text = "(" + account.name + ")"
                 accountPath.text = selectedChain.getHDPath(account.lastHDPath)
 
                 if (selectedChain.evmCompatible) {

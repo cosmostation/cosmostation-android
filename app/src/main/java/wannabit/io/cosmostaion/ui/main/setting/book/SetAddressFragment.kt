@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
 import java.util.Calendar
 
 class SetAddressFragment(
@@ -27,7 +30,7 @@ class SetAddressFragment(
     private var _binding: FragmentSetAddressBinding? = null
     private val binding get() = _binding!!
 
-    private val addressBookViewModel: AddressBookViewModel by activityViewModels()
+    private lateinit var addressBookViewModel: AddressBookViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,8 +42,18 @@ class SetAddressFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initView()
         setUpClickAction()
+    }
+
+    private fun initViewModel() {
+        val addressRepository = AddressRepositoryImpl()
+        val addressBookViewModelProviderFactory =
+            AddressBookViewModelProviderFactory(addressRepository)
+        addressBookViewModel = ViewModelProvider(
+            this, addressBookViewModelProviderFactory
+        )[AddressBookViewModel::class.java]
     }
 
     private fun initView() {
@@ -99,6 +112,15 @@ class SetAddressFragment(
 
                 } else if (recipientAddress?.isNotEmpty() == true) {
                     if (recipientLine != null) {
+                        val addressBook = AddressBook(
+                            nameInput,
+                            recipientLine.name,
+                            addressInput,
+                            memoInput,
+                            Calendar.getInstance().timeInMillis
+                        )
+                        addressBookViewModel.updateAddressBook(addressBook)
+                        dismiss()
 
                     } else {
                         requireContext().makeToast(R.string.error_invalid_address)

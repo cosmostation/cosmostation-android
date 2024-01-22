@@ -15,7 +15,7 @@
     <string name="str_locked" translatable="false">Locked</string>
     <string name="str_today">Today</string>
     <string name="str_next">Next</string>
-    <string name="str_share_address">Share Address</string>
+    <string name="str_share_address">Share address</string>
     <string name="str_address">Address</string>
     <string name="str_ethereum_address">Ethereum address</string>
     <string name="str_confirm">Confirm</string>
@@ -101,7 +101,7 @@
     <string name="str_repay">Repay</string>
     <string name="str_create_mint">Open mint</string>
     <string name="str_cancel_unstake">Cancel unstake</string>
-    <string name="str_select_valuables">Select wallets with asset</string>
+    <string name="str_select_valuables">Select wallets\nwith asset</string>
     <string name="str_swap_warning">Warning</string>
     <string name="str_do_not_show_7_days">Don\'t show 7days</string>
     <string name="str_est_monthly_reward">Est. monthly reward</string>
@@ -136,7 +136,7 @@
     <string name="title_add_account">Add account</string>
     <string name="title_import_qr">Import account with qr scan</string>
     <string name="title_legacy_enabled">Enable legacy addresses</string>
-    <string name="title_chain">Chain</string>
+    <string name="title_chain">Chain manage</string>
     <string name="title_address_book">Address book</string>
     <string name="title_general">General</string>
     <string name="title_language">Language</string>
@@ -242,9 +242,9 @@
     <string name="str_title_no_history" translatable="false">No History</string>
     <string name="str_title_no_token" translatable="false">No Token</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
-    <string name="str_msg_copy" translatable="false">Tap the card to copy it.</string>
+    <string name="str_msg_copy" translatable="false">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
-    <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy.</string>
+    <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy</string>
     <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_address_copied">Address copied</string>
     <string name="str_msg_mnemonic_copied">Mnemonic copied\nClear your clipboard after paste it!</string>

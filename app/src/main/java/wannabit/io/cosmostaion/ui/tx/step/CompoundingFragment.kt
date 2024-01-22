@@ -82,7 +82,7 @@ class CompoundingFragment(
                     R.drawable.cell_bg
                 )
             }
-            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             val cosmostationValAddress =
                 selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
@@ -181,7 +181,6 @@ class CompoundingFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }

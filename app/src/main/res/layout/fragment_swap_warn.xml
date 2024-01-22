@@ -49,7 +49,7 @@
 
     <TextView
         android:id="@+id/dialog_msg"
-        style="@style/font_sb_12"
+        style="@style/font_sm_14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_20"
@@ -76,9 +76,9 @@
 
         <Button
             android:id="@+id/btn_display"
-            style="@style/font_sb_12"
+            style="@style/font_sb_16"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_54"
             android:layout_marginEnd="@dimen/space_10"
             android:layout_weight="1"
             android:background="@drawable/button_enable_select_bg"
@@ -92,9 +92,9 @@
 
         <Button
             android:id="@+id/btn_confirm"
-            style="@style/font_sb_12"
+            style="@style/font_sb_16"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_54"
             android:layout_weight="1"
             android:background="@drawable/button_common_bg"
             android:text="@string/str_confirm"

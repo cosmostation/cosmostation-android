@@ -101,11 +101,9 @@ class SettingFragment : Fragment() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                supportChainCnt.text = allCosmosLines()
-                    .filter { it.isDefault }
-                    .groupBy { it.name }
-                    .filter { it.value.size == 1 }
-                    .flatMap { it.value }.count().toString()
+                supportChainCnt.text =
+                    allCosmosLines().filter { it.isDefault }.distinctBy { it.name }.count()
+                        .toString()
             }
         }
     }
@@ -405,8 +403,7 @@ class SettingFragment : Fragment() {
     }
 
     private fun setVibrate() {
-        val vibrator =
-            requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
         } else {

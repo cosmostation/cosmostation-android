@@ -97,7 +97,7 @@ class ReDelegateFragment(
                     R.drawable.cell_bg
                 )
             }
-            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (fromValidator != null) {
                 selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == selectedChain.cosmosDelegations[0].delegation.validatorAddress }
@@ -256,7 +256,6 @@ class ReDelegateFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
 

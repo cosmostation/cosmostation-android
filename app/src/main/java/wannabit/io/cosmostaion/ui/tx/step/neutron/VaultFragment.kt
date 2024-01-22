@@ -91,6 +91,7 @@ class VaultFragment(
             listOf(
                 amountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (vaultType == VaultType.DEPOSIT) {
                 vaultTitle.text = getString(R.string.title_vault_deposit)
@@ -191,7 +192,6 @@ class VaultFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
 

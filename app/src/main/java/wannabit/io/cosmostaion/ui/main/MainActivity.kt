@@ -6,6 +6,7 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,6 +22,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
 import wannabit.io.cosmostaion.ui.dialog.account.AccountSelectFragment
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
@@ -44,11 +47,19 @@ class MainActivity : BaseActivity() {
         initViewModel()
         initView()
         setupViewModels()
-        clickAction()
+        setUpClickAction()
     }
 
     override fun onResume() {
         super.onResume()
+        if (BaseData.baseAccount == null) {
+            Log.e("baseAccount : ", BaseData.baseAccount.toString())
+            CoroutineScope(Dispatchers.IO).launch {
+                BaseData.baseAccount =
+                    AppDatabase.getInstance().baseAccountDao().selectAccount(Prefs.lastAccountId)
+                initView()
+            }
+        }
         recreateView()
     }
 
@@ -130,21 +141,19 @@ class MainActivity : BaseActivity() {
         if (isSelected) {
             tab?.icon?.colorFilter = PorterDuffColorFilter(
                 ContextCompat.getColor(
-                    this@MainActivity,
-                    R.color.color_base01
+                    this@MainActivity, R.color.color_base01
                 ), PorterDuff.Mode.SRC_IN
             )
         } else {
             tab?.icon?.colorFilter = PorterDuffColorFilter(
                 ContextCompat.getColor(
-                    this@MainActivity,
-                    R.color.color_base03
+                    this@MainActivity, R.color.color_base03
                 ), PorterDuff.Mode.SRC_IN
             )
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnEdit.setOnClickListener {
                 ChainEditFragment().show(
@@ -173,7 +182,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun recreateView() {
-        ApplicationViewModel.shared.txRecreateResult.observe(this) { response ->
+        ApplicationViewModel.shared.txRecreateResult.observe(this) {
             BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
                 it.fetched = false
             }

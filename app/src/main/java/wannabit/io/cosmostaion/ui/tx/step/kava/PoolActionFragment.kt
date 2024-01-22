@@ -100,6 +100,7 @@ class PoolActionFragment(
             listOf(
                 poolView, shareAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (poolActionType == PoolActionType.DEPOSIT) {
                 poolActionTitle.text = getString(R.string.title_pool_deposit)
@@ -271,7 +272,6 @@ class PoolActionFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }

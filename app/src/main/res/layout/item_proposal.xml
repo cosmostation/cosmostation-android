@@ -36,7 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginEnd="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/switch_view"
                 app:layout_constraintStart_toEndOf="@+id/status_img"

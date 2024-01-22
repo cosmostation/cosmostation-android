@@ -64,7 +64,7 @@ class DashboardFragment : Fragment() {
             baseAccount = BaseData.baseAccount
             if (Prefs.hideValue) {
                 totalValue.text = "✱✱✱✱✱"
-                totalValue.textSize = 20f
+                totalValue.textSize = 18f
                 btnHide.setImageResource(R.drawable.icon_hide)
 
             } else {
@@ -172,7 +172,7 @@ class DashboardFragment : Fragment() {
                     val totalValueTxt = binding?.totalValue
                     totalValueTxt?.text =
                         if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
-                    totalValueTxt?.textSize = if (Prefs.hideValue) 20f else 24f
+                    totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
                 }
             }
         }
@@ -218,7 +218,7 @@ class DashboardFragment : Fragment() {
             binding?.apply {
                 if (Prefs.hideValue) {
                     totalValue.text = "✱✱✱✱✱"
-                    totalValue.textSize = 20f
+                    totalValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
                     totalValue.text = formatAssetValue(totalChainValue)

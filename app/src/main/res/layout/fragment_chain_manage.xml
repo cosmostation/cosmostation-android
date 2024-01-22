@@ -42,12 +42,40 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <RelativeLayout
+        android:id="@+id/cosmos_class_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/header_title"
+            style="@style/font_sb_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_20"
+            android:textColor="@color/color_base01"
+            android:text="@string/str_cosmos_class"/>
+
+        <TextView
+            android:id="@+id/header_cnt"
+            style="@style/font_sb_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_3"
+            android:layout_toRightOf="@+id/header_title"
+            android:textColor="@color/color_base02" />
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/space_8"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginVertical="@dimen/space_8"
+        app:layout_constraintTop_toBottomOf="@+id/cosmos_class_layout"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

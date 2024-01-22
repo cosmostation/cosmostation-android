@@ -58,9 +58,11 @@ class CoinEtcViewHolder(
 
                 if (Prefs.hideValue) {
                     tokenAmount.text = "✱✱✱✱"
+                    tokenAmount.textSize = 10f
                 } else {
                     val availableAmount = line.lcdBalanceAmount(coin.denom)
                     tokenAmount.text = formatAmount(availableAmount.toPlainString(), 18)
+                    tokenAmount.textSize = 14f
                 }
             }
         }

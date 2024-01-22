@@ -5,8 +5,9 @@
     android:layout_width="0dp"
     android:layout_height="@dimen/space_32"
     android:layout_weight="1"
-    android:padding="10dp"
-    style="@style/font_sb_12"
+    app:borderColor="@color/color_base05"
     app:selectedTextColor="@color/color_base01"
-    app:borderColor ="@color/color_base05">
-</com.addisonelliott.segmentedbutton.SegmentedButton>
+    app:textColor="@color/color_base04"
+    app:textSize="@dimen/text_size_12"
+    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+    app:rounded="true"/>

@@ -90,7 +90,7 @@ class ChangeRewardAddressFragment(
                     R.drawable.cell_bg
                 )
             }
-            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
             currentRewardAddress.text = selectedChain.rewardAddress
         }
     }
@@ -174,7 +174,6 @@ class ChangeRewardAddressFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
 
@@ -208,7 +207,7 @@ class ChangeRewardAddressFragment(
                     AddressType.REWARD_ADDRESS,
                     object : AddressListener {
                         override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?
+                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
                         ) {
                             refAddress?.dpAddress?.let {
                                 updateAddressView(it)
@@ -218,6 +217,10 @@ class ChangeRewardAddressFragment(
                                 addressBook?.let {
                                     updateAddressView(it.address)
                                     updateMemoView(it.memo)
+
+                                } ?: run {
+                                    updateAddressView(addressTxt)
+                                    updateMemoView("")
                                 }
                             }
                         }

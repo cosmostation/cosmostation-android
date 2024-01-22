@@ -97,6 +97,7 @@ class LendActionFragment(
             listOf(
                 lendAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             lendMoneyMarket?.let { market ->
                 BaseData.getAsset(selectedChain.apiName, market.denom)?.let { asset ->
@@ -247,7 +248,6 @@ class LendActionFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }

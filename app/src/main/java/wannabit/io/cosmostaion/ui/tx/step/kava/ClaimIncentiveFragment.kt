@@ -81,6 +81,7 @@ class ClaimIncentiveFragment(
             listOf(
                 incentiveView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             val allIncentives = incentive.allIncentiveCoins()
             allIncentives.firstOrNull { it.denom == "ukava" }?.let { kavaIncentive ->
@@ -188,7 +189,6 @@ class ClaimIncentiveFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }

@@ -83,7 +83,7 @@
 
             <TextView
                 android:id="@+id/hiding_value"
-                style="@style/font_sb_12"
+                style="@style/font_sb_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"

@@ -152,8 +152,8 @@
 
                                 <ImageView
                                     android:id="@+id/input_chain_img"
-                                    android:layout_width="@dimen/space_24"
-                                    android:layout_height="@dimen/space_24"
+                                    android:layout_width="@dimen/space_28"
+                                    android:layout_height="@dimen/space_28"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -317,7 +317,7 @@
 
                             <TextView
                                 android:id="@+id/input_available_title"
-                                style="@style/font_sb_12"
+                                style="@style/font_sm_12"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Available : "
@@ -390,7 +390,7 @@
                                 style="@style/font_sb_12"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="From : "
+                                android:text="To : "
                                 android:textColor="@color/color_base01"
                                 app:layout_constraintEnd_toStartOf="@+id/to_address"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -440,8 +440,8 @@
 
                                 <ImageView
                                     android:id="@+id/output_chain_img"
-                                    android:layout_width="@dimen/space_24"
-                                    android:layout_height="@dimen/space_24"
+                                    android:layout_width="@dimen/space_28"
+                                    android:layout_height="@dimen/space_28"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -551,7 +551,7 @@
 
                             <TextView
                                 android:id="@+id/output_available_title"
-                                style="@style/font_sb_12"
+                                style="@style/font_sm_12"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Available : "
@@ -678,8 +678,7 @@
                                 style="@style/font_sb_14"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1%"
-                                android:textColor="@color/color_base02"
+                                android:textColor="@color/color_base01"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

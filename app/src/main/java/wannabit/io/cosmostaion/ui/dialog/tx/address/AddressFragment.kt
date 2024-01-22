@@ -145,7 +145,7 @@ class AddressFragment(
                     }
 
                     if (BaseUtils.isValidChainAddress(selectedRecipientChain, addressTxt.text.toString().trim())) {
-                        listener.selectAddress(selectedRefAddress, selectedAddressBook)
+                        listener.selectAddress(selectedRefAddress, selectedAddressBook, addressTxt.text.toString().trim())
                         dismiss()
                     } else {
                         val prefix = selectedRecipientChain?.accountPrefix!!
@@ -187,6 +187,6 @@ class AddressFragment(
 enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER }
 
 interface AddressListener {
-    fun selectAddress(refAddress: RefAddress?, addressBook: AddressBook?)
+    fun selectAddress(refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String)
 }
 

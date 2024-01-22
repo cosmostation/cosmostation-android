@@ -92,6 +92,7 @@ class DaoVoteFragment(
             voteTitle.text = "Dao vote"
             memoView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
+            segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             val modules =
                 selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules
@@ -187,7 +188,6 @@ class DaoVoteFragment(
                     val value = price.multiply(amount)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeDenom.text = asset.symbol
                     feeValue.text = formatAssetValue(value)
                 }
             }
