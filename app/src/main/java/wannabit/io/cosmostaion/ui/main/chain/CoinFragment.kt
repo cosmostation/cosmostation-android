@@ -47,8 +47,7 @@ class CoinFragment(position: Int) : Fragment() {
     private var isClickable = true
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -113,8 +112,14 @@ class CoinFragment(position: Int) : Fragment() {
                         if (balance.symbol == stakeDenom) {
                             stakeCoins.add(Coin(balance.symbol, balance.free, CoinType.STAKE))
                         } else {
-                            val totalBalance = balance.free.toBigDecimal().add(balance.frozen.toBigDecimal()).add(balance.locked.toBigDecimal())
-                            nativeCoins.add(Coin(balance.symbol, totalBalance.toPlainString(), CoinType.ETC))
+                            val totalBalance =
+                                balance.free.toBigDecimal().add(balance.frozen.toBigDecimal())
+                                    .add(balance.locked.toBigDecimal())
+                            nativeCoins.add(
+                                Coin(
+                                    balance.symbol, totalBalance.toPlainString(), CoinType.ETC
+                                )
+                            )
                         }
                     }
                     if (stakeCoins.none { it.denom == stakeDenom }) {
@@ -142,9 +147,24 @@ class CoinFragment(position: Int) : Fragment() {
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
                             when (it) {
-                                "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
-                                "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
-                                "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
+                                "staking" -> stakeCoins.add(
+                                    Coin(
+                                        coin.denom, coin.amount, CoinType.STAKE
+                                    )
+                                )
+
+                                "native" -> nativeCoins.add(
+                                    Coin(
+                                        coin.denom, coin.amount, CoinType.NATIVE
+                                    )
+                                )
+
+                                "bep", "bridge" -> bridgeCoins.add(
+                                    Coin(
+                                        coin.denom, coin.amount, CoinType.BRIDGE
+                                    )
+                                )
+
                                 "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                             }
                         }

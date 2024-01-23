@@ -67,7 +67,7 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
             loading.visibility = View.VISIBLE
             defiLayout.visibility = View.GONE
             listOf(
-                incentiveView, mintView, lendView, poolView
+                incentiveView, mintView, lendView, poolView, earnView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             setUpPriceFeedObserve()
@@ -158,6 +158,13 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
             poolView.setOnClickListener {
                 requireActivity().toMoveFragment(
                     this@KavaDefiFragment, PoolListFragment(selectedChain), "PoolList"
+                )
+                setClickableOnce(isClickable)
+            }
+
+            earnView.setOnClickListener {
+                requireActivity().toMoveFragment(
+                    this@KavaDefiFragment, EarnListFragment.newInstance(selectedChain), "EarnList"
                 )
                 setClickableOnce(isClickable)
             }

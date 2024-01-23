@@ -10,7 +10,6 @@ import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityAddressBookListBinding
-import wannabit.io.cosmostaion.ui.dialog.account.AccountManageOptionFragment
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
 
@@ -31,6 +30,7 @@ class AddressBookListActivity : BaseActivity() {
 
         initViewModel()
         initRecyclerView()
+        updateData()
         setUpClickAction()
     }
 
@@ -59,7 +59,7 @@ class AddressBookListActivity : BaseActivity() {
 
             setAddressBookAdapter.setOnItemClickListener { addressBook ->
                 AddressBookManageOptionFragment(addressBook).show(
-                    supportFragmentManager, AccountManageOptionFragment::class.java.name
+                    supportFragmentManager, AddressBookManageOptionFragment::class.java.name
                 )
             }
             initData()
@@ -79,10 +79,12 @@ class AddressBookListActivity : BaseActivity() {
                     emptyLayout.visibility = View.VISIBLE
                 }
             }
+        }
+    }
 
-            addressBookViewModel.addressBookUpdateResult.observe(this@AddressBookListActivity) {
-                setAddressBookAdapter.notifyItemChanged(it)
-            }
+    private fun updateData() {
+        addressBookViewModel.addressBookUpdateResult.observe(this@AddressBookListActivity) {
+            setAddressBookAdapter.notifyItemChanged(it)
         }
     }
 

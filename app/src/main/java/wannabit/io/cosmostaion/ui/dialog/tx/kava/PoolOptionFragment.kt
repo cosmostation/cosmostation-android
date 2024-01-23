@@ -30,10 +30,10 @@ class PoolOptionFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickAction()
+        setUpClickAction()
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             depositLayout.setOnClickListener {
                 listener.poolDeposit(swapPool)

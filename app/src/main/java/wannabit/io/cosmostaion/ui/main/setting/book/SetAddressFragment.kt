@@ -6,18 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
 import java.util.Calendar
 
 class SetAddressFragment(
@@ -30,7 +27,7 @@ class SetAddressFragment(
     private var _binding: FragmentSetAddressBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var addressBookViewModel: AddressBookViewModel
+    private val addressBookViewModel: AddressBookViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,18 +39,8 @@ class SetAddressFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
         initView()
         setUpClickAction()
-    }
-
-    private fun initViewModel() {
-        val addressRepository = AddressRepositoryImpl()
-        val addressBookViewModelProviderFactory =
-            AddressBookViewModelProviderFactory(addressRepository)
-        addressBookViewModel = ViewModelProvider(
-            this, addressBookViewModelProviderFactory
-        )[AddressBookViewModel::class.java]
     }
 
     private fun initView() {
@@ -104,10 +91,6 @@ class SetAddressFragment(
                             requireContext().makeToast(R.string.error_invalid_address)
                             return@setOnClickListener
                         }
-
-                    } else {
-                        requireContext().makeToast(R.string.error_invalid_address)
-                        return@setOnClickListener
                     }
 
                 } else if (recipientAddress?.isNotEmpty() == true) {

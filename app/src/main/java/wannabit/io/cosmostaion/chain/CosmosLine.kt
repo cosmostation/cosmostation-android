@@ -1,12 +1,14 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
+import android.os.Parcelable
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
@@ -47,7 +49,8 @@ import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-open class CosmosLine : BaseChain() {
+@Parcelize
+open class CosmosLine : BaseChain(), Parcelable {
 
     open var stakeDenom: String? = ""
     open var supportCw20 = false

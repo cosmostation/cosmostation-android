@@ -113,6 +113,16 @@ class InsertAmountFragment(
                     setShareAmount()
                 }
 
+                TxType.EARN_DEPOSIT -> {
+                    editLayout.setHint(R.string.title_add_amount)
+                    setAssetAmount()
+                }
+
+                TxType.EARN_WITHDRAW -> {
+                    editLayout.setHint(R.string.title_remove_amount)
+                    setAssetAmount()
+                }
+
                 else -> {}
             }
         }

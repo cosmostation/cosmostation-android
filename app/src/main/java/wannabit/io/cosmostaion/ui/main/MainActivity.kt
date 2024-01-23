@@ -6,7 +6,6 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,10 +21,10 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.database.AppDatabase
-import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
 import wannabit.io.cosmostaion.ui.dialog.account.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
@@ -53,11 +52,9 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         if (BaseData.baseAccount == null) {
-            Log.e("baseAccount : ", BaseData.baseAccount.toString())
-            CoroutineScope(Dispatchers.IO).launch {
-                BaseData.baseAccount =
-                    AppDatabase.getInstance().baseAccountDao().selectAccount(Prefs.lastAccountId)
-                initView()
+            Intent(this, IntroActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(this)
             }
         }
         recreateView()
@@ -70,13 +67,9 @@ class MainActivity : BaseActivity() {
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
-    private fun updateView() {
-        binding.accountName.text = BaseData.baseAccount?.name
-    }
-
     private fun setupViewModels() {
         ApplicationViewModel.shared.currentAccountResult.observe(this) {
-            updateView()
+            binding.accountName.text = BaseData.baseAccount?.name
         }
     }
 
@@ -84,9 +77,9 @@ class MainActivity : BaseActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             BaseData.baseAccount?.initAccount()
         }
-        updateView()
-        val mainViewPagerAdapter = MainViewPageAdapter(this)
         binding.apply {
+            accountName.text = BaseData.baseAccount?.name
+            val mainViewPagerAdapter = MainViewPageAdapter(this@MainActivity, BaseData.baseAccount)
             mainViewPager.adapter = mainViewPagerAdapter
             mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
             mainViewPager.offscreenPageLimit = 2
@@ -94,17 +87,9 @@ class MainActivity : BaseActivity() {
 
             val tabLayoutMediator = TabLayoutMediator(tabLayout, mainViewPager) { tab, position ->
                 when (position) {
-                    0 -> {
-                        tab.setIcon(R.drawable.icon_wallet)
-                    }
-
-                    1 -> {
-                        tab.setIcon(R.drawable.icon_service)
-                    }
-
-                    2 -> {
-                        tab.setIcon(R.drawable.icon_setting)
-                    }
+                    0 -> { tab.setIcon(R.drawable.icon_wallet) }
+                    1 -> { tab.setIcon(R.drawable.icon_service) }
+                    2 -> { tab.setIcon(R.drawable.icon_setting) }
                 }
             }
             tabLayoutMediator.attach()
@@ -195,7 +180,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun handleIntent(intent: Intent) {
-        val mainViewPagerAdapter = MainViewPageAdapter(this)
+        val mainViewPagerAdapter = MainViewPageAdapter(this, BaseData.baseAccount)
         binding.apply {
             mainViewPager.adapter = mainViewPagerAdapter
             mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
@@ -205,10 +190,11 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    class MainViewPageAdapter(fragmentActivity: FragmentActivity) :
+    class MainViewPageAdapter(fragmentActivity: FragmentActivity, baseAccount: BaseAccount?) :
         FragmentStateAdapter(fragmentActivity) {
-        private val mainFragments =
-            mutableListOf(DashboardFragment(), ServiceFragment(), SettingFragment())
+        private val mainFragments = mutableListOf(
+            DashboardFragment.newInstance(baseAccount), ServiceFragment(), SettingFragment()
+        )
 
         override fun getItemCount(): Int {
             return mainFragments.size

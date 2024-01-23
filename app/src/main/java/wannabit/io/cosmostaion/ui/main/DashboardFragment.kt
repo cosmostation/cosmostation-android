@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
@@ -36,11 +36,23 @@ class DashboardFragment : Fragment() {
 
     private lateinit var dashAdapter: DashboardAdapter
 
-    private var baseAccount: BaseAccount? = null
-
     private val walletViewModel: WalletViewModel by activityViewModels()
 
+    private var baseAccount: BaseAccount? = null
+
     private var totalChainValue: BigDecimal = BigDecimal.ZERO
+
+    companion object {
+        @JvmStatic
+        fun newInstance(baseAccount: BaseAccount?): DashboardFragment {
+            val args = Bundle().apply {
+                putParcelable("baseAccount", baseAccount)
+            }
+            val fragment = DashboardFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,14 +66,18 @@ class DashboardFragment : Fragment() {
 
         observeViewModels()
         initView()
-        updateViewWithLoadedData()
         setupHideButton()
         refreshData()
     }
 
     private fun initView() {
         binding?.apply {
-            baseAccount = BaseData.baseAccount
+            baseAccount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("baseAccount", BaseAccount::class.java)
+            } else {
+                arguments?.getParcelable("baseAccount") as? BaseAccount
+            }
+
             if (Prefs.hideValue) {
                 totalValue.text = "✱✱✱✱✱"
                 totalValue.textSize = 18f
@@ -76,6 +92,7 @@ class DashboardFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.color_base03),
                 PorterDuff.Mode.SRC_IN
             )
+            updateViewWithLoadedData()
         }
     }
 
@@ -193,6 +210,7 @@ class DashboardFragment : Fragment() {
                         refresher.isRefreshing = false
 
                     } else {
+                        walletViewModel.fetchedResult.removeObservers(viewLifecycleOwner)
                         walletViewModel.price(BaseData.currencyName().lowercase())
                         CoroutineScope(Dispatchers.IO).launch {
                             account.sortedDisplayCosmosLines().forEach { line ->

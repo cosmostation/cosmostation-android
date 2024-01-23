@@ -26,12 +26,10 @@ class CosmosActivity : BaseActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    CosmosDetailFragment(intent.getIntExtra("selectPosition", -1))
-                )
-                .commitAllowingStateLoss()
+            supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
+                CosmosDetailFragment.newInstance(intent.getIntExtra("selectPosition", -1))
+            ).commitAllowingStateLoss()
         }
         initViewModel()
     }
@@ -40,8 +38,7 @@ class CosmosActivity : BaseActivity() {
         val txRepository = TxRepositoryImpl()
         val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
         txViewModel = ViewModelProvider(
-            this,
-            txViewModelProviderFactory
+            this, txViewModelProviderFactory
         )[TxViewModel::class.java]
 
         val walletRepository = WalletRepositoryImpl()
@@ -59,5 +56,5 @@ class CosmosActivity : BaseActivity() {
 enum class TxType {
     TRANSFER, DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW,
     MINT_CREATE_COLLATERAL, MINT_CREATE_PRINCIPAL, MINT_DEPOSIT, MINT_WITHDRAW, MINT_BORROW, MINT_REPAY,
-    LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_DEPOSIT, POOL_WITHDRAW
+    LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_WITHDRAW, EARN_DEPOSIT, EARN_WITHDRAW
 }

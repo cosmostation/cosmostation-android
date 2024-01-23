@@ -168,7 +168,7 @@ class WcSignFragment(
         val gas = fee.get("gas").asString
         val amounts = fee.get("amount").asJsonArray
 
-        if (isEditFee && fee != null && amounts != null) {
+        if (!isEditFee && (amounts.size() <= 0 || gas == "0") || isEditFee) {
             val chainId = txJsonSignDoc.get("chain_id").asString
             BaseData.baseAccount?.let { account ->
                 account.allCosmosLineChains.firstOrNull { it.chainId == chainId }
@@ -210,7 +210,7 @@ class WcSignFragment(
             ?: txJsonObject.get("params")?.asJsonObject?.get("isEditFee")?.asBoolean ?: true
         val fee = authInfo.fee
 
-        if (isEditFee && fee != null) {
+        if (!isEditFee && (fee.amountList.isEmpty() || fee.gasLimit.toString() == "0") || isEditFee) {
             val chainId = txJsonObject["chain_id"].asString
             BaseData.baseAccount?.let { account ->
                 account.allCosmosLineChains.firstOrNull { it.chainId == chainId }

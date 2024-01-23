@@ -826,11 +826,11 @@ class DappActivity : BaseActivity() {
                     )
                 }
 
-//                "cos_addChain", "cos_disconnect" -> {
-//                    appToWebResult(
-//                        messageJson, true, messageId
-//                    )
-//                }
+                "cos_addChain", "cos_disconnect" -> {
+                    appToWebResult(
+                        messageJson, true, messageId
+                    )
+                }
 
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")

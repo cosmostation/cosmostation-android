@@ -1,9 +1,12 @@
 package wannabit.io.cosmostaion.database.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
@@ -16,6 +19,7 @@ import java.math.BigDecimal
 import java.util.UUID
 
 @Entity(tableName = "account")
+@Parcelize
 data class BaseAccount(
     @ColumnInfo(name = "uuid") var uuid: String,
     @ColumnInfo(name = "resource") var resource: String,
@@ -24,10 +28,12 @@ data class BaseAccount(
     @ColumnInfo(name = "type") var type: BaseAccountType = BaseAccountType.NONE,
     @ColumnInfo(name = "lastHDPath") var lastHDPath: String,
     @ColumnInfo(name = "sortOrder") var sortOrder: Long = 999
-) {
+) : Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
+    @IgnoredOnParcel
     @delegate:Ignore
     val seed: ByteArray? by lazy {
         CryptoHelper.doDecryptData(
@@ -37,6 +43,7 @@ data class BaseAccount(
         }
     }
 
+    @IgnoredOnParcel
     @delegate:Ignore
     val privateKey: ByteArray? by lazy {
         Utils.hexToBytes(
@@ -46,9 +53,11 @@ data class BaseAccount(
         )
     }
 
+    @IgnoredOnParcel
     @Ignore
     var allCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
+    @IgnoredOnParcel
     @Ignore
     var displayCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 

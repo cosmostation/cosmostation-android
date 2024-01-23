@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
@@ -48,7 +49,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
-class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
+class CosmosDetailFragment : Fragment() {
 
     private var _binding: FragmentCosmosDetailBinding? = null
     private val binding get() = _binding!!
@@ -60,6 +61,20 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     private var isClickable = true
+
+    private var selectPosition: Int = -1
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedPosition: Int): CosmosDetailFragment {
+            val args = Bundle().apply {
+                putInt("selectPosition", selectedPosition)
+            }
+            val fragment = CosmosDetailFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -81,10 +96,13 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
     private fun initData() {
         binding.apply {
             fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
+            arguments?.getInt("selectPosition", -1)?.let { position ->
+                selectPosition = position
+            }
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                selectedChain = account.sortedDisplayCosmosLines()[selectedPosition]
+                selectedChain = account.sortedDisplayCosmosLines()[selectPosition]
 
                 if (selectedChain is ChainOkt60) {
                     accountAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
@@ -163,7 +181,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             }
 
             detailPagerAdapter = DetailPageAdapter(
-                requireActivity(), selectedChain, selectedPosition
+                requireActivity(), selectedChain, selectPosition
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 2
@@ -259,39 +277,26 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
             fabSend.setOnClickListener {
                 selectedChain.stakeDenom?.let { denom ->
                     if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
-                        LegacyTransferFragment(selectedChain, denom).show(
-                            requireActivity().supportFragmentManager,
-                            LegacyTransferFragment::class.java.name
-                        )
-
+                        setOneClickAction(null, LegacyTransferFragment(selectedChain, denom))
                     } else {
-                        TransferFragment(selectedChain, denom).show(
-                            requireActivity().supportFragmentManager,
-                            TransferFragment::class.java.name
-                        )
+                        setOneClickAction(null, TransferFragment(selectedChain, denom))
                     }
                 }
-                setClickableOnce(isClickable)
             }
 
             fabReceive.setOnClickListener {
-                QrCodeFragment(selectedChain).show(
-                    requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(null, QrCodeFragment(selectedChain))
             }
 
             fabStake.setOnClickListener {
                 if (selectedChain.cosmosValidators.size > 0) {
-                    requireActivity().toMoveFragment(
-                        this@CosmosDetailFragment, StakeInfoFragment(selectedChain), "StakeInfo"
-                    )
+                    setOneClickAction(StakeInfoFragment(selectedChain), null)
+
                 } else {
                     requireContext().makeToast(R.string.error_wait_moment)
                     fabMenu.close(true)
                     return@setOnClickListener
                 }
-                setClickableOnce(isClickable)
             }
 
             fabClaimReward.setOnClickListener {
@@ -308,9 +313,10 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                         requireContext().makeToast(R.string.error_not_enough_fee)
                         return@setOnClickListener
                     }
-                    ClaimRewardFragment(selectedChain, selectedChain.claimableRewards()).show(
-                        requireActivity().supportFragmentManager,
-                        ClaimRewardFragment::class.java.name
+                    setOneClickAction(
+                        null, ClaimRewardFragment(
+                            selectedChain, selectedChain.claimableRewards()
+                        )
                     )
 
                 } else {
@@ -318,7 +324,6 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     fabMenu.close(true)
                     return@setOnClickListener
                 }
-                setClickableOnce(isClickable)
             }
 
             fabCompounding.setOnClickListener {
@@ -335,9 +340,10 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                         requireContext().makeToast(R.string.error_not_enough_fee)
                         return@setOnClickListener
                     }
-                    CompoundingFragment(selectedChain, selectedChain.claimableRewards()).show(
-                        requireActivity().supportFragmentManager,
-                        CompoundingFragment::class.java.name
+                    setOneClickAction(
+                        null, CompoundingFragment(
+                            selectedChain, selectedChain.claimableRewards()
+                        )
                     )
 
                 } else {
@@ -345,46 +351,26 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     fabMenu.close(true)
                     return@setOnClickListener
                 }
-                setClickableOnce(isClickable)
             }
 
             fabVote.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@CosmosDetailFragment, ProposalListFragment(selectedChain), "ProposalList"
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(ProposalListFragment(selectedChain), null)
             }
 
             fabDefi.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@CosmosDetailFragment,
-                    KavaDefiFragment(selectedChain as ChainKava459),
-                    "KavaDefi"
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(KavaDefiFragment(selectedChain as ChainKava459), null)
             }
 
             fabDao.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@CosmosDetailFragment,
-                    DaoListFragment(selectedChain as ChainNeutron),
-                    "DaoList"
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(DaoListFragment(selectedChain as ChainNeutron), null)
             }
 
             fabVault.setOnClickListener {
-                VaultSelectFragment(selectedChain).show(
-                    requireActivity().supportFragmentManager, VaultSelectFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(null, VaultSelectFragment(selectedChain))
             }
 
             fabDeposit.setOnClickListener {
-                OktDepositFragment(selectedChain as ChainOkt60).show(
-                    requireActivity().supportFragmentManager, OktDepositFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(null, OktDepositFragment(selectedChain as ChainOkt60))
             }
 
             fabWithdraw.setOnClickListener {
@@ -392,10 +378,7 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                OktWithdrawFragment(selectedChain as ChainOkt60).show(
-                    requireActivity().supportFragmentManager, OktWithdrawFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(null, OktWithdrawFragment(selectedChain as ChainOkt60))
             }
 
             fabSelectValidator.setOnClickListener {
@@ -403,24 +386,33 @@ class CosmosDetailFragment(private val selectedPosition: Int) : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                OktSelectValidatorFragment(selectedChain as ChainOkt60).show(
-                    requireActivity().supportFragmentManager,
-                    OktSelectValidatorFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                setOneClickAction(null, OktSelectValidatorFragment(selectedChain as ChainOkt60))
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(
+        fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
+    ) {
+        if (isClickable) {
             isClickable = false
+
+            if (fragment != null) {
+                requireActivity().toMoveFragment(
+                    this@CosmosDetailFragment, fragment, fragment::class.java.name
+                )
+            } else {
+                bottomSheetDialogFragment?.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetDialogFragment::class.java.name
+                )
+            }
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
             }, 1000)
-            binding.fabMenu.close(true)
         }
+        binding.fabMenu.close(true)
     }
 
     class DetailPageAdapter(

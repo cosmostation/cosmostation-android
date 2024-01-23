@@ -114,6 +114,10 @@
     <string name="str_connect">Connect</string>
     <string name="str_restore_wallet">Restore wallet</string>
     <string name="str_another_account">Create another account</string>
+    <string name="str_my_total_liquidity" translatable="false">My total liquidity</string>
+    <string name="str_my_available" translatable="false">My available</string>
+    <string name="str_deposit_liquidity">Add liquidity</string>
+    <string name="str_remove_liquidity">Remove liquidity</string>
 
 
     //title
@@ -236,6 +240,10 @@
     <string name="title_request_connection">Request connection</string>
     <string name="title_select_hd_path">Select HD Path</string>
     <string name="title_address_book_delete">Delete address book</string>
+    <string name="title_earning_list">Earning list</string>
+    <string name="title_add_amount">To add amount</string>
+    <string name="title_remove_amount">To remove amount</string>
+    <string name="title_earning_select">Select earning option</string>
 
 
     // msg
@@ -279,9 +287,10 @@
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
     <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
-    <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module.</string>
-    <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV.</string>
-    <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform.</string>
+    <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module</string>
+    <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV</string>
+    <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform</string>
+    <string name="str_earn_msg">Earn KAVA Take advantage of Farming\nstrategies compound your earnings</string>
     <string name="str_htls_msg0">1/4 Broadcasting BEP3 send Tx from sending chain.</string>
     <string name="str_htls_msg1">2/4 Confirming swapid.</string>
     <string name="str_htls_msg2">3/4 Broadcasting BEP3 claim Tx on receiving chain.</string>

@@ -8,7 +8,6 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -317,27 +316,29 @@ class TxResultActivity : BaseActivity() {
     }
 
     private fun showAddressBook() {
-        CoroutineScope(Dispatchers.IO).launch {
-            AppDatabase.getInstance().addressBookDao().selectAll()
-                .firstOrNull { it.address == recipientAddress && it.chainName == recipientChain?.name }
-                ?.let { existed ->
-                    if (existed.memo != memo) {
-                        SetAddressFragment(existed, null, "", memo).show(
+        if (recipientChain != null && recipientAddress.isNotEmpty()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                AppDatabase.getInstance().addressBookDao().selectAll()
+                    .firstOrNull { it.address == recipientAddress && it.chainName == recipientChain?.name }
+                    ?.let { existed ->
+                        if (existed.memo != memo) {
+                            SetAddressFragment(existed, null, "", memo).show(
+                                supportFragmentManager, SetAddressFragment::class.java.name
+                            )
+                            return@launch
+                        }
+                    }
+
+                if (AppDatabase.getInstance().refAddressDao().selectAll()
+                        .none { it.dpAddress == recipientAddress }
+                ) {
+                    withContext(Dispatchers.Main) {
+                        SetAddressFragment(null, recipientChain, recipientAddress, memo).show(
                             supportFragmentManager, SetAddressFragment::class.java.name
                         )
-                        return@launch
                     }
+                    return@launch
                 }
-
-            if (AppDatabase.getInstance().refAddressDao().selectAll()
-                    .none { it.dpAddress == recipientAddress }
-            ) {
-                withContext(Dispatchers.Main) {
-                    SetAddressFragment(null, recipientChain, recipientAddress, memo).show(
-                        supportFragmentManager, SetAddressFragment::class.java.name
-                    )
-                }
-                return@launch
             }
         }
     }

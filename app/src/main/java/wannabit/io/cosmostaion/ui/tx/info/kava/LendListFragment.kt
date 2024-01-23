@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.base.v1beta1.CoinProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.hard.v1beta1.HardProto
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
@@ -132,10 +133,9 @@ class LendListFragment(
 
     private val lendClickAction = object : LendListAdapter.ClickListener {
         override fun lendOption(denom: String?) {
-            MintOptionFragment(selectedChain, null, denom, null, lendOptionClickAction).show(
-                requireActivity().supportFragmentManager, MintOptionFragment::class.java.name
+            setOneClickAction(
+                MintOptionFragment(selectedChain, null, denom, null, lendOptionClickAction)
             )
-            setClickableOnce(isClickable)
         }
     }
 
@@ -166,23 +166,27 @@ class LendListFragment(
                     return
                 }
             }
-            LendActionFragment(
-                selectedChain,
-                lendActionType,
-                lendMyDeposits,
-                lendMyBorrows,
-                lendMoneyMarkets.hardMoneyMarket(denom),
-                BigDecimal.ZERO
-            ).show(
-                requireActivity().supportFragmentManager, LendActionFragment::class.java.name
+
+            setOneClickAction(
+                LendActionFragment(
+                    selectedChain,
+                    lendActionType,
+                    lendMyDeposits,
+                    lendMyBorrows,
+                    lendMoneyMarkets.hardMoneyMarket(denom),
+                    BigDecimal.ZERO
+                )
             )
-            setClickableOnce(isClickable)
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
