@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,16 +21,27 @@ import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
-class TokenFragment(position: Int) : Fragment() {
+class TokenFragment : Fragment() {
 
     private var _binding: FragmentTokenBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var tokenAdapter: TokenAdapter
     private lateinit var selectedChain: CosmosLine
-    private val selectedPosition = position
 
     private val walletViewModel: WalletViewModel by activityViewModels()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): TokenFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = TokenFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -50,8 +62,16 @@ class TokenFragment(position: Int) : Fragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+
             BaseData.baseAccount?.let { account ->
-                selectedChain = account.sortedDisplayCosmosLines()[selectedPosition]
                 tokenAdapter = TokenAdapter(requireContext(), selectedChain)
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
@@ -107,20 +127,20 @@ class TokenFragment(position: Int) : Fragment() {
             if (isClickable) {
                 isClickable = false
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 1000)
-
                 if (selectedChain.supportCw20) {
-                    TransferFragment(line, denom).show(
+                    TransferFragment.newInstance(line, denom).show(
                         requireActivity().supportFragmentManager, TransferFragment::class.java.name
                     )
                 } else {
-                    EvmTransferFragment(line, denom).show(
+                    EvmTransferFragment.newInstance(line, denom).show(
                         requireActivity().supportFragmentManager,
                         EvmTransferFragment::class.java.name
                     )
                 }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 1000)
             }
         }
     }

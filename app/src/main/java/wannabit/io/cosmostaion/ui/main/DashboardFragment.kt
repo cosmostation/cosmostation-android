@@ -115,7 +115,7 @@ class DashboardFragment : Fragment() {
 
                 dashAdapter.setOnItemClickListener {
                     Intent(requireContext(), CosmosActivity::class.java).apply {
-                        putExtra("selectPosition", it)
+                        putExtra("selectedChainTag", it)
                         startActivity(this)
                         requireActivity().toMoveAnimation()
                     }

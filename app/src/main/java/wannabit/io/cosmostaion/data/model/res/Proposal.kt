@@ -2,15 +2,18 @@ package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import com.cosmos.gov.v1beta1.GovProto.VoteOption
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class CosmosProposal(
     val id: String?,
     val title: String?,
@@ -24,7 +27,7 @@ data class CosmosProposal(
     val no: String?,
     @Json(name = "no_with_veto") val veto: String?,
     val abstain: String?,
-) {
+) : Parcelable {
 
     fun getSum(): BigDecimal {
         var sum = BigDecimal.ZERO

@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
@@ -19,10 +21,12 @@ import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 
-class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
+class ProposalListFragment : Fragment() {
 
     private var _binding: FragmentProposalListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
 
     private lateinit var proposalViewModel: ProposalViewModel
     private lateinit var proposalListAdapter: ProposalListAdapter
@@ -34,6 +38,18 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
     private var filterEtcPeriods: MutableList<CosmosProposal> = mutableListOf()
     private var myVotes: MutableList<VoteData> = mutableListOf()
     private var toVoteList: MutableList<String>? = mutableListOf()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): ProposalListFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = ProposalListFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,7 +63,6 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
 
         initViewModel()
         initRecyclerView()
-        proposalViewModel.proposalList(selectedChain.apiName)
         setUpClickAction()
     }
 
@@ -56,6 +71,21 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
         val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
         proposalViewModel =
             ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
+
+        initData()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                ?.let { selectedChain = it }
+
+        } else {
+            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                selectedChain = it
+            }
+        }
+        proposalViewModel.proposalList(selectedChain.apiName)
     }
 
     private fun initRecyclerView() {
@@ -69,8 +99,6 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
 
                 if (proposals?.isNotEmpty() == true) {
                     proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
-                    recycler.visibility = View.VISIBLE
-                    emptyLayout.visibility = View.GONE
                     proposals.forEach { proposal ->
                         if (proposal.isVotingPeriod()) {
                             votingPeriods.add(proposal)
@@ -92,11 +120,15 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
             }
 
             proposalViewModel.voteStatusResult.observe(viewLifecycleOwner) { voteStatus ->
-                loading.visibility = View.GONE
-                voteStatus?.votes?.forEach { vote ->
-                    myVotes.add(vote)
-                }
-                updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    loading.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
+                    emptyLayout.visibility = View.GONE
+                    voteStatus?.votes?.forEach { vote ->
+                        myVotes.add(vote)
+                    }
+                    updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+                }, 1000)
             }
         }
     }
@@ -162,7 +194,7 @@ class ProposalListFragment(private val selectedChain: CosmosLine) : Fragment() {
                         toVoteProposals.add(proposal)
                     }
                 }
-                VoteFragment(selectedChain, toVoteProposals).show(
+                VoteFragment.newInstance(selectedChain, toVoteProposals).show(
                     requireActivity().supportFragmentManager, VoteFragment::class.java.name
                 )
             }

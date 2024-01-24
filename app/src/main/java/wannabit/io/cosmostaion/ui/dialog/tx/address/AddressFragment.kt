@@ -42,6 +42,8 @@ class AddressFragment(
     private var selectedRefAddress: RefAddress? = null
     private var selectedAddressBook: AddressBook? = null
 
+    private var isClickable = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -53,7 +55,7 @@ class AddressFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
         setUpNameServiceView()
     }
 
@@ -74,8 +76,7 @@ class AddressFragment(
         }
     }
 
-    private fun clickAction() {
-        var isClickable = true
+    private fun setUpClickAction() {
         binding.apply {
             btnSelf.setOnClickListener {
                 addressTxt.text = Editable.Factory.getInstance().newEditable(selectedChain.address)
@@ -89,38 +90,41 @@ class AddressFragment(
             }
 
             btnAddressBook.setOnClickListener {
-                if (isClickable) {
-                    isClickable = false
-                    AddressBookFragment(selectedChain.address, selectedRecipientChain, addressType, object : AddressBookSelectListener {
-                        override fun select(refAddress: RefAddress?, addressBook: AddressBook?) {
-                            refAddress?.let {
-                                selectedRefAddress = refAddress
-                                if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-                                    addressTxt.text = Editable.Factory.getInstance().newEditable(ByteUtils.convertBech32ToEvm(it.dpAddress))
-                                } else {
-                                    addressTxt.text = Editable.Factory.getInstance().newEditable(it.dpAddress)
-                                }
-
-                            } ?: run {
-                                selectedAddressBook = addressBook
-                                selectedAddressBook?.let {
+                setOneClickAction(
+                    AddressBookFragment(selectedChain.address,
+                        selectedRecipientChain,
+                        addressType,
+                        object : AddressBookSelectListener {
+                            override fun select(
+                                refAddress: RefAddress?, addressBook: AddressBook?
+                            ) {
+                                refAddress?.let {
+                                    selectedRefAddress = refAddress
                                     if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-                                        addressTxt.text = Editable.Factory.getInstance().newEditable(ByteUtils.convertBech32ToEvm(it.address))
+                                        addressTxt.text = Editable.Factory.getInstance()
+                                            .newEditable(ByteUtils.convertBech32ToEvm(it.dpAddress))
                                     } else {
-                                        addressTxt.text = Editable.Factory.getInstance().newEditable(it.address)
+                                        addressTxt.text =
+                                            Editable.Factory.getInstance().newEditable(it.dpAddress)
                                     }
+
+                                } ?: run {
+                                    selectedAddressBook = addressBook
+                                    selectedAddressBook?.let {
+                                        if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
+                                            addressTxt.text = Editable.Factory.getInstance()
+                                                .newEditable(ByteUtils.convertBech32ToEvm(it.address))
+                                        } else {
+                                            addressTxt.text = Editable.Factory.getInstance()
+                                                .newEditable(it.address)
+                                        }
+                                    }
+                                    addressTxt.textSize = 11f
+                                    addressTxt.setSelection(addressTxt.text.toString().length)
                                 }
-                                addressTxt.textSize = 11f
-                                addressTxt.setSelection(addressTxt.text.toString().length)
                             }
-                        }
-
-                    }).show(requireActivity().supportFragmentManager, AddressBookFragment::class.java.name)
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 1000)
-                }
+                        })
+                )
             }
 
             btnConfirm.setOnClickListener {
@@ -144,12 +148,22 @@ class AddressFragment(
                         }
                     }
 
-                    if (BaseUtils.isValidChainAddress(selectedRecipientChain, addressTxt.text.toString().trim())) {
-                        listener.selectAddress(selectedRefAddress, selectedAddressBook, addressTxt.text.toString().trim())
+                    if (BaseUtils.isValidChainAddress(
+                            selectedRecipientChain, addressTxt.text.toString().trim()
+                        )
+                    ) {
+                        listener.selectAddress(
+                            selectedRefAddress,
+                            selectedAddressBook,
+                            addressTxt.text.toString().trim()
+                        )
                         dismiss()
+
                     } else {
                         val prefix = selectedRecipientChain?.accountPrefix!!
-                        txViewModel.icnsAddress(addressTxt.text.toString().trim(), prefix)
+                        txViewModel.icnsAddress(
+                            selectedRecipientChain, addressTxt.text.toString().trim(), prefix
+                        )
                     }
                 }
             }
@@ -172,14 +186,30 @@ class AddressFragment(
                 return@observe
 
             } else {
-                NameServiceFragment(response, object : NameServiceSelectListener {
-                    override fun select(address: String) {
-                        binding.addressTxt.text = Editable.Factory.getInstance().newEditable(address)
-                        binding.addressTxt.textSize = 11f
-                    }
-
-                }).show(requireActivity().supportFragmentManager, NameServiceFragment::class.java.name)
+                setOneClickAction(
+                    NameServiceFragment.newInstance(response, object : NameServiceSelectListener {
+                        override fun select(address: String) {
+                            binding.addressTxt.text =
+                                Editable.Factory.getInstance().newEditable(address)
+                            binding.addressTxt.textSize = 11f
+                        }
+                    })
+                )
             }
+        }
+    }
+
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
+            isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 }

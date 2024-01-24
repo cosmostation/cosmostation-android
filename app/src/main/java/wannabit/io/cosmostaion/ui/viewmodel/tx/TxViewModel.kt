@@ -49,8 +49,10 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -64,23 +66,91 @@ import java.util.concurrent.TimeUnit
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     var nameServices = SingleLiveEvent<MutableList<NameService>>()
-    fun icnsAddress(userInput: String, prefix: String) = viewModelScope.launch(Dispatchers.IO) {
-        val nameServiceList = mutableListOf<NameService>()
-        val osIcsnResponse =
-            async { txRepository.osIcnsAddress(getChannel(ChainOsmosis()), userInput, prefix) }
 
-        val responses = listOf(osIcsnResponse).awaitAll()
+    fun icnsAddress(recipientChain: CosmosLine, userInput: String, prefix: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val nameServiceList = mutableListOf<NameService>()
+            when (recipientChain) {
+                is ChainStargaze -> {
+                    val osIcnsDeferred = async {
+                        txRepository.osIcnsAddress(
+                            getChannel(ChainOsmosis()), userInput, prefix
+                        )
+                    }
+                    val starIcnsDeferred = async {
+                        txRepository.sgIcnsAddress(
+                            getChannel(ChainStargaze()), userInput
+                        )
+                    }
+                    val responses = awaitAll(osIcnsDeferred, starIcnsDeferred)
+                    if (responses[0]?.isNotEmpty() == true) {
+                        nameServiceList.add(
+                            NameService(
+                                NameService.NameServiceType.ICNS, userInput, responses[0].toString()
+                            )
+                        )
+                    }
+                    if (responses[1]?.isNotEmpty() == true) {
+                        nameServiceList.add(
+                            NameService(
+                                NameService.NameServiceType.STARGAZE,
+                                userInput,
+                                responses[1].toString()
+                            )
+                        )
+                    }
+                    nameServices.postValue(nameServiceList)
+                }
 
-        responses[0]?.let { icnsAddress ->
-            if (icnsAddress.isNotEmpty()) nameServiceList.add(
-                NameService(
-                    NameService.NameServiceType.ICNS, userInput, icnsAddress
-                )
-            )
+                is ChainArchway -> {
+                    val osIcnsDeferred = async {
+                        txRepository.osIcnsAddress(
+                            getChannel(ChainOsmosis()), userInput, prefix
+                        )
+                    }
+                    val archIcnsDeferred = async {
+                        txRepository.archIcnsAddress(
+                            getChannel(ChainArchway()), userInput
+                        )
+                    }
+
+                    val responses = awaitAll(osIcnsDeferred, archIcnsDeferred)
+                    if (responses[0]?.isNotEmpty() == true) {
+                        nameServiceList.add(
+                            NameService(
+                                NameService.NameServiceType.ICNS, userInput, responses[0].toString()
+                            )
+                        )
+                    }
+                    if (responses[1]?.isNotEmpty() == true) {
+                        nameServiceList.add(
+                            NameService(
+                                NameService.NameServiceType.ARCHWAY,
+                                userInput,
+                                responses[1].toString()
+                            )
+                        )
+                    }
+                    nameServices.postValue(nameServiceList)
+                }
+
+                else -> {
+                    val osIcnsDeferred = async {
+                        txRepository.osIcnsAddress(
+                            getChannel(ChainOsmosis()), userInput, prefix
+                        )
+                    }
+                    val response = osIcnsDeferred.await()
+                    if (response?.isNotEmpty() == true) {
+                        nameServiceList.add(
+                            NameService(
+                                NameService.NameServiceType.ICNS, userInput, response.toString()
+                            )
+                        )
+                    }
+                }
+            }
         }
-        nameServices.postValue(nameServiceList)
-    }
-
 
     val errorMessage = SingleLiveEvent<String>()
 

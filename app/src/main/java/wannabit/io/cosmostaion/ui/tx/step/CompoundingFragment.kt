@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,8 +16,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
-import com.cosmos.distribution.v1beta1.DistributionProto
+import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -41,13 +43,13 @@ import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class CompoundingFragment(
-    val selectedChain: CosmosLine,
-    private val claimableRewards: MutableList<DistributionProto.DelegationDelegatorReward?>
-) : BaseTxFragment() {
+class CompoundingFragment : BaseTxFragment() {
 
     private var _binding: FragmentCompoundingBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var claimableRewards: MutableList<DelegationDelegatorReward?>
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -55,6 +57,21 @@ class CompoundingFragment(
     private var txMemo = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine, claimableRewards: MutableList<DelegationDelegatorReward?>
+        ): CompoundingFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("claimableRewards", claimableRewards.toHashSet())
+            }
+            val fragment = CompoundingFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -77,6 +94,17 @@ class CompoundingFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+            val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
+            claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+
             listOf(compoundingView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
@@ -190,41 +218,38 @@ class CompoundingFragment(
     private fun setUpClickAction() {
         binding.apply {
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                setOneClickAction(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                setOneClickAction(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
@@ -247,9 +272,13 @@ class CompoundingFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -275,6 +304,9 @@ class CompoundingFragment(
 
     private fun txSimulate() {
         binding.apply {
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeViewWithSimulate(null)
+            }
             btnCompounding.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateCompounding(
@@ -290,8 +322,7 @@ class CompoundingFragment(
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -301,24 +332,26 @@ class CompoundingFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
 
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {

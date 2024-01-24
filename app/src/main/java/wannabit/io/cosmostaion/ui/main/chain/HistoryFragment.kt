@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.BnbHistory
@@ -24,14 +23,13 @@ import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModelProviderFactory
 import java.util.Calendar
 
-class HistoryFragment(position: Int) : Fragment() {
+class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var historyViewModel: HistoryViewModel
     private lateinit var selectedChain: CosmosLine
-    private val selectedPosition = position
 
     private lateinit var historyAdapter: HistoryAdapter
 
@@ -43,9 +41,20 @@ class HistoryFragment(position: Int) : Fragment() {
     private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
     private val allOktHistoryGroup: MutableList<Pair<String, TransactionList>> = mutableListOf()
 
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): HistoryFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = HistoryFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistoryBinding.inflate(layoutInflater, container, false)
         initViewModel()
@@ -64,7 +73,17 @@ class HistoryFragment(position: Int) : Fragment() {
     private fun initViewModel() {
         val historyRepository = HistoryRepositoryImpl()
         val historyViewModelProviderFactory = HistoryViewModelProviderFactory(historyRepository)
-        historyViewModel = ViewModelProvider(this, historyViewModelProviderFactory)[HistoryViewModel::class.java]
+        historyViewModel =
+            ViewModelProvider(this, historyViewModelProviderFactory)[HistoryViewModel::class.java]
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                ?.let { selectedChain = it }
+        } else {
+            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                selectedChain = it
+            }
+        }
     }
 
     private fun refreshData() {
@@ -79,28 +98,37 @@ class HistoryFragment(position: Int) : Fragment() {
 
     private fun initRecyclerView() {
         binding.apply {
-            BaseData.baseAccount?.let { baseAccount ->
-                selectedChain = baseAccount.sortedDisplayCosmosLines()[selectedPosition]
-                historyAdapter = HistoryAdapter(requireContext(), selectedChain)
-                recycler.setHasFixedSize(true)
-                recycler.layoutManager = LinearLayoutManager(requireContext())
-                recycler.adapter = historyAdapter
+            historyAdapter = HistoryAdapter(requireContext(), selectedChain)
+            recycler.setHasFixedSize(true)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            recycler.adapter = historyAdapter
 
-                initData()
-            }
+            initData()
         }
     }
 
     private fun initData() {
         when (selectedChain) {
             is ChainBinanceBeacon -> {
-                historyViewModel.bnbHistory(requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime())
+                historyViewModel.bnbHistory(
+                    requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime()
+                )
             }
+
             is ChainOkt60 -> {
-                historyViewModel.oktHistory("ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50")
+                historyViewModel.oktHistory(
+                    "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
+                )
             }
+
             else -> {
-                historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
+                historyViewModel.history(
+                    requireContext(),
+                    selectedChain.apiName,
+                    selectedChain.address,
+                    BATCH_CNT.toString(),
+                    searchId
+                )
             }
         }
         binding.refresher.isRefreshing = false
@@ -120,7 +148,13 @@ class HistoryFragment(position: Int) : Fragment() {
                 if (lastVisibleItemPosition == itemTotalCount) {
                     if (hasMore) {
                         hasMore = false
-                        historyViewModel.history(requireContext(), selectedChain.apiName, selectedChain.address, BATCH_CNT.toString(), searchId)
+                        historyViewModel.history(
+                            requireContext(),
+                            selectedChain.apiName,
+                            selectedChain.address,
+                            BATCH_CNT.toString(),
+                            searchId
+                        )
                     }
                 }
             }
@@ -172,7 +206,6 @@ class HistoryFragment(position: Int) : Fragment() {
         historyViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
             binding.recycler.visibility = View.GONE
             binding.emptyLayout.visibility = View.VISIBLE
-            Log.e("error : ", errorMsg)
             return@observe
         }
     }

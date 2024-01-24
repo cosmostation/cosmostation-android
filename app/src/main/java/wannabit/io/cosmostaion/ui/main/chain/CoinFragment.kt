@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
@@ -17,7 +19,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
@@ -26,16 +27,14 @@ import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 
-class CoinFragment(position: Int) : Fragment() {
+class CoinFragment : Fragment() {
 
     private var _binding: FragmentCoinBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var coinAdapter: CoinAdapter
-    private lateinit var selectedChain: CosmosLine
-    private val selectedPosition = position
 
-    private var baseAccount: BaseAccount? = null
+    private lateinit var selectedChain: CosmosLine
 
     private val stakeCoins = mutableListOf<Coin>()
     private val nativeCoins = mutableListOf<Coin>()
@@ -45,6 +44,18 @@ class CoinFragment(position: Int) : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): CoinFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = CoinFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -63,37 +74,41 @@ class CoinFragment(position: Int) : Fragment() {
     }
 
     private fun initRecyclerView() {
-        baseAccount = BaseData.baseAccount
-        baseAccount?.let { baseAccount ->
-            selectedChain = baseAccount.sortedDisplayCosmosLines()[selectedPosition]
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                ?.let { selectedChain = it }
+        } else {
+            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                selectedChain = it
+            }
+        }
 
-            coinAdapter = CoinAdapter(requireContext(), selectedChain)
-            binding.recycler.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = coinAdapter
+        coinAdapter = CoinAdapter(requireContext(), selectedChain)
+        binding.recycler.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = coinAdapter
 
-                coinAdapter.setOnItemClickListener { line, denom ->
-                    if (line is ChainBinanceBeacon) {
-                        if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                            selectBridgeOption(line, denom)
-                        } else {
-                            startLegacyTransfer(line, denom)
-                        }
-
-                    } else if (line is ChainKava459) {
-                        if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                            selectBridgeOption(line, denom)
-                        } else {
-                            startTransfer(line, denom)
-                        }
-
-                    } else if (line is ChainOkt60) {
+            coinAdapter.setOnItemClickListener { line, denom ->
+                if (line is ChainBinanceBeacon) {
+                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                        selectBridgeOption(line, denom)
+                    } else {
                         startLegacyTransfer(line, denom)
+                    }
 
+                } else if (line is ChainKava459) {
+                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                        selectBridgeOption(line, denom)
                     } else {
                         startTransfer(line, denom)
                     }
+
+                } else if (line is ChainOkt60) {
+                    startLegacyTransfer(line, denom)
+
+                } else {
+                    startTransfer(line, denom)
                 }
             }
         }
@@ -147,24 +162,9 @@ class CoinFragment(position: Int) : Fragment() {
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
                             when (it) {
-                                "staking" -> stakeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.STAKE
-                                    )
-                                )
-
-                                "native" -> nativeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.NATIVE
-                                    )
-                                )
-
-                                "bep", "bridge" -> bridgeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.BRIDGE
-                                    )
-                                )
-
+                                "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
+                                "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
+                                "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
                                 "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                             }
                         }
@@ -190,8 +190,8 @@ class CoinFragment(position: Int) : Fragment() {
             if (!selectedChain.fetched) {
                 binding.refresher.isRefreshing = false
             } else {
-                baseAccount?.id?.let { accountId ->
-                    walletViewModel.loadChainData(selectedChain, accountId, false)
+                BaseData.baseAccount?.let { account ->
+                    walletViewModel.loadChainData(selectedChain, account.id, false)
                 }
             }
         }
@@ -210,36 +210,28 @@ class CoinFragment(position: Int) : Fragment() {
     }
 
     private fun startTransfer(line: CosmosLine, denom: String) {
-        TransferFragment(line, denom).show(
-            requireActivity().supportFragmentManager, TransferFragment::class.java.name
-        )
-        setClickableOnce(isClickable)
+        setOneClickAction(TransferFragment.newInstance(line, denom))
     }
 
     private fun startBep3Transfer(line: CosmosLine, denom: String) {
-        Bep3Fragment(line, denom).show(
-            requireActivity().supportFragmentManager, Bep3Fragment::class.java.name
-        )
-        setClickableOnce(isClickable)
+        setOneClickAction(Bep3Fragment(line, denom))
     }
 
     private fun startLegacyTransfer(line: CosmosLine, denom: String) {
-        LegacyTransferFragment(line, denom).show(
-            requireActivity().supportFragmentManager, LegacyTransferFragment::class.java.name
-        )
-        setClickableOnce(isClickable)
+        setOneClickAction(LegacyTransferFragment(line, denom))
     }
 
     private fun selectBridgeOption(line: CosmosLine, denom: String) {
-        BridgeOptionFragment(line, denom, bridgeClickAction).show(
-            requireActivity().supportFragmentManager, BridgeOptionFragment::class.java.name
-        )
-        setClickableOnce(isClickable)
+        setOneClickAction(BridgeOptionFragment(line, denom, bridgeClickAction))
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

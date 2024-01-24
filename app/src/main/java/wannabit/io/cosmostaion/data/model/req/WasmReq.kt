@@ -9,3 +9,16 @@ class ICNSInfoReq(icns: String?) {
 
     inner class AddressByIcns(var icns: String?)
 }
+
+class NSStargazeInfoReq(name: String?) {
+    var associated_address: AssociatedAddress
+
+    init {
+        associated_address = AssociatedAddress(name)
+    }
+
+    inner class AssociatedAddress(var name: String?)
+}
+
+data class NSArchwayReq(val resolve_record: ResolveRecord?)
+data class ResolveRecord(val name: String?)

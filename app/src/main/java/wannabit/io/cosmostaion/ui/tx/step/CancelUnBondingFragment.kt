@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,6 +18,7 @@ import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -42,13 +44,13 @@ import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class CancelUnBondingFragment(
-    val selectedChain: CosmosLine,
-    private val unBondingEntry: UnBondingEntry?,
-) : BaseTxFragment() {
+class CancelUnBondingFragment : BaseTxFragment() {
 
     private var _binding: FragmentCancelUnBondingBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var unBondingEntry: UnBondingEntry
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -56,6 +58,21 @@ class CancelUnBondingFragment(
     private var txMemo = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine, unBondingEntry: UnBondingEntry?
+        ): CancelUnBondingFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putParcelable("unBondingEntry", unBondingEntry)
+            }
+            val fragment = CancelUnBondingFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -78,6 +95,27 @@ class CancelUnBondingFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.apply {
+                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                        selectedChain = it
+                    }
+                    getParcelable("unBondingEntry", UnBondingEntry::class.java)?.let {
+                        unBondingEntry = it
+                    }
+                }
+
+            } else {
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
+                    (getParcelable("unBondingEntry") as? UnBondingEntry)?.let {
+                        unBondingEntry = it
+                    }
+                }
+            }
+
             listOf(
                 cancelUnstakingView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
@@ -90,10 +128,8 @@ class CancelUnBondingFragment(
 
             selectedChain.stakeDenom?.let { denom ->
                 BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    val unBondingAmount =
-                        unBondingEntry?.entry?.balance?.toBigDecimal()
-                            ?.movePointLeft(asset.decimals ?: 6)
-                            ?: BigDecimal.ZERO
+                    val unBondingAmount = unBondingEntry?.entry?.balance?.toBigDecimal()
+                        ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                     cancelAmount.text =
                         formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
                     cancelDenom.text = asset.symbol
@@ -107,14 +143,12 @@ class CancelUnBondingFragment(
             feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
             feeSegment.setRipple(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
 
@@ -140,16 +174,14 @@ class CancelUnBondingFragment(
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base03
+                        requireContext(), R.color.color_base03
                     )
                 )
             } else {
                 tabMemoMsg.text = txMemo
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base01
+                        requireContext(), R.color.color_base01
                     )
                 )
             }
@@ -178,50 +210,45 @@ class CancelUnBondingFragment(
     private fun setUpClickAction() {
         binding.apply {
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                setOneClickAction(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(
-                    selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                setOneClickAction(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
 
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
                 txFee = selectedChain.getBaseFee(
-                    requireContext(),
-                    selectedFeeInfo,
-                    txFee?.getAmount(0)?.denom
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
                 )
                 updateFeeView()
                 txSimulate()
@@ -231,17 +258,20 @@ class CancelUnBondingFragment(
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     cancelUnBondingResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -266,6 +296,9 @@ class CancelUnBondingFragment(
 
     private fun txSimulate() {
         binding.apply {
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeViewWithSimulate(null)
+            }
             btnCancelUnstake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateCancelUnbonding(
@@ -278,22 +311,9 @@ class CancelUnBondingFragment(
         }
     }
 
-    private fun onBindCancelUnBonding(): MsgCancelUnbondingDelegation? {
-        val toCoin =
-            CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
-                .setAmount(unBondingEntry?.entry?.balance).build()
-        return MsgCancelUnbondingDelegation.newBuilder()
-            .setDelegatorAddress(selectedChain.address)
-            .setValidatorAddress(unBondingEntry?.validatorAddress)
-            .setCreationHeight(unBondingEntry?.entry!!.creationHeight)
-            .setAmount(toCoin)
-            .build()
-    }
-
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
-            updateFeeViewWithSimul(gasInfo)
+            updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -303,29 +323,39 @@ class CancelUnBondingFragment(
         }
     }
 
-    private fun updateFeeViewWithSimul(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
 
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
         binding.backdropLayout.visibility = View.GONE
         binding.btnCancelUnstake.updateButtonView(isSuccess)
+    }
+
+    private fun onBindCancelUnBonding(): MsgCancelUnbondingDelegation? {
+        val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+            .setAmount(unBondingEntry?.entry?.balance).build()
+        return MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
+            .setValidatorAddress(unBondingEntry?.validatorAddress)
+            .setCreationHeight(unBondingEntry?.entry!!.creationHeight).setAmount(toCoin).build()
     }
 
     private fun setUpBroadcast() {

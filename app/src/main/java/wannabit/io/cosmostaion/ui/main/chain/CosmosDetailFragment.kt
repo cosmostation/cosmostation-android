@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -62,13 +63,11 @@ class CosmosDetailFragment : Fragment() {
 
     private var isClickable = true
 
-    private var selectPosition: Int = -1
-
     companion object {
         @JvmStatic
-        fun newInstance(selectedPosition: Int): CosmosDetailFragment {
+        fun newInstance(selectedChain: CosmosLine): CosmosDetailFragment {
             val args = Bundle().apply {
-                putInt("selectPosition", selectedPosition)
+                putParcelable("selectedChain", selectedChain)
             }
             val fragment = CosmosDetailFragment()
             fragment.arguments = args
@@ -96,13 +95,17 @@ class CosmosDetailFragment : Fragment() {
     private fun initData() {
         binding.apply {
             fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
-            arguments?.getInt("selectPosition", -1)?.let { position ->
-                selectPosition = position
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
             }
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                selectedChain = account.sortedDisplayCosmosLines()[selectPosition]
 
                 if (selectedChain is ChainOkt60) {
                     accountAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
@@ -181,7 +184,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             detailPagerAdapter = DetailPageAdapter(
-                requireActivity(), selectedChain, selectPosition
+                requireActivity(), selectedChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 2
@@ -279,7 +282,7 @@ class CosmosDetailFragment : Fragment() {
                     if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                         setOneClickAction(null, LegacyTransferFragment(selectedChain, denom))
                     } else {
-                        setOneClickAction(null, TransferFragment(selectedChain, denom))
+                        setOneClickAction(null, TransferFragment.newInstance(selectedChain, denom))
                     }
                 }
             }
@@ -314,7 +317,7 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                     setOneClickAction(
-                        null, ClaimRewardFragment(
+                        null, ClaimRewardFragment.newInstance(
                             selectedChain, selectedChain.claimableRewards()
                         )
                     )
@@ -341,7 +344,7 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                     setOneClickAction(
-                        null, CompoundingFragment(
+                        null, CompoundingFragment.newInstance(
                             selectedChain, selectedChain.claimableRewards()
                         )
                     )
@@ -354,7 +357,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabVote.setOnClickListener {
-                setOneClickAction(ProposalListFragment(selectedChain), null)
+                setOneClickAction(ProposalListFragment.newInstance(selectedChain), null)
             }
 
             fabDefi.setOnClickListener {
@@ -416,27 +419,27 @@ class CosmosDetailFragment : Fragment() {
     }
 
     class DetailPageAdapter(
-        fragmentActivity: FragmentActivity, selectedChain: CosmosLine, selectedPosition: Int
+        fragmentActivity: FragmentActivity, selectedChain: CosmosLine
     ) : FragmentStateAdapter(fragmentActivity) {
         private val fragments = mutableListOf<Fragment>()
 
         init {
             if (selectedChain is ChainBinanceBeacon) {
-                fragments.add(CoinFragment(selectedPosition))
-                fragments.add(HistoryFragment(selectedPosition))
+                fragments.add(CoinFragment.newInstance(selectedChain))
+                fragments.add(HistoryFragment.newInstance(selectedChain))
 
             } else if (selectedChain is ChainOkt60) {
-                fragments.add(CoinFragment(selectedPosition))
-                fragments.add(TokenFragment(selectedPosition))
-                fragments.add(HistoryFragment(selectedPosition))
+                fragments.add(CoinFragment.newInstance(selectedChain))
+                fragments.add(TokenFragment.newInstance(selectedChain))
+                fragments.add(HistoryFragment.newInstance(selectedChain))
 
             } else {
-                fragments.add(CoinFragment(selectedPosition))
-                fragments.add(HistoryFragment(selectedPosition))
-                fragments.add(AboutFragment(selectedPosition))
+                fragments.add(CoinFragment.newInstance(selectedChain))
+                fragments.add(HistoryFragment.newInstance(selectedChain))
+                fragments.add(AboutFragment.newInstance(selectedChain))
 
                 if (selectedChain.supportCw20 || selectedChain.supportErc20) {
-                    fragments.add(1, TokenFragment(selectedPosition))
+                    fragments.add(1, TokenFragment.newInstance(selectedChain))
                 }
             }
         }

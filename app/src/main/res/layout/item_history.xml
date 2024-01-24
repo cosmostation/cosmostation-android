@@ -157,7 +157,7 @@
                     android:gravity="end"
                     android:maxWidth="@dimen/space_150"
                     android:maxLines="1"
-                    android:textColor="@color/color_base02"
+                    android:textColor="@color/color_base01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tx_denom"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -4,16 +4,19 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.DialogChangeRewardAddressBinding
@@ -110,7 +113,7 @@ class StakeInfoFragment(
             }
 
             btnStake.setOnClickListener {
-                StakingFragment(selectedChain, null).show(
+                StakingFragment.newInstance(selectedChain, null).show(
                     requireActivity().supportFragmentManager, StakingFragment::class.java.name
                 )
             }
@@ -130,29 +133,40 @@ class StakeInfoFragment(
         }
 
         binding.btnContinue.setOnClickListener {
-            ChangeRewardAddressFragment(selectedChain).show(
-                requireActivity().supportFragmentManager,
-                ChangeRewardAddressFragment::class.java.name
-            )
-            setClickableOnce(isClickable)
+            setOneClickAction(ChangeRewardAddressFragment.newInstance(selectedChain))
             dialog.dismiss()
         }
     }
 
     private val selectClickAction = object : StakingInfoAdapter.ClickListener {
-        var isClickable = true
         override fun selectStakingAction(validator: StakingProto.Validator?) {
-            StakingOptionFragment(selectedChain, validator, null, OptionType.STAKE).show(
-                requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name
+            setOneClickAction(
+                StakingOptionFragment.newInstance(
+                    selectedChain, validator, null, OptionType.STAKE
+                )
             )
-            setClickableOnce(isClickable)
         }
 
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
-            StakingOptionFragment(selectedChain, null, unBondingEntry, OptionType.UNSTAKE).show(
-                requireActivity().supportFragmentManager, StakingOptionFragment::class.java.name
+            setOneClickAction(
+                StakingOptionFragment.newInstance(
+                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
+                )
             )
-            setClickableOnce(isClickable)
+        }
+    }
+
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
+            isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
         }
     }
 
@@ -172,8 +186,9 @@ class StakeInfoFragment(
     }
 }
 
+@Parcelize
 data class UnBondingEntry(
     val validatorAddress: String?, val entry: StakingProto.UnbondingDelegationEntry?
-)
+) : Parcelable
 
 enum class OptionType { STAKE, UNSTAKE }

@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +25,7 @@ class DashboardAdapter(
         const val VIEW_TYPE_COSMOS_ETHEREUM_ITEM = 2
     }
 
-    private var onItemClickListener: ((Int) -> Unit)? = null
+    private var onItemClickListener: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -55,7 +56,7 @@ class DashboardAdapter(
                 holder.bind(line)
 
                 holder.itemView.setOnClickListener {
-                    if (line.fetched) onItemClickListener?.let { it(position - 1) }
+                    if (line.fetched) onItemClickListener?.let { it(line.tag) }
                     else return@setOnClickListener
                 }
 
@@ -120,7 +121,7 @@ class DashboardAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (Int) -> Unit) {
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
     }
 }

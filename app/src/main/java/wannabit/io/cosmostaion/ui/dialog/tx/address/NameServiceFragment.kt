@@ -10,15 +10,33 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.res.NameService
 import wannabit.io.cosmostaion.databinding.FragmentNameServiceBinding
 
-class NameServiceFragment(
-    private val nameServiceList: MutableList<NameService>,
-    val listener: NameServiceSelectListener
-) : BottomSheetDialogFragment() {
+interface NameServiceSelectListener {
+    fun select(address: String)
+}
+
+class NameServiceFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentNameServiceBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var nameServiceAdapter: NameServiceAdapter
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            nameServices: MutableList<NameService>, listener: NameServiceSelectListener
+        ): NameServiceFragment {
+            val args = Bundle().apply {
+                putParcelableArrayList("nameServices", ArrayList(nameServices))
+            }
+            val fragment = NameServiceFragment()
+            fragment.arguments = args
+            fragment.nameServiceSelectListener = listener
+            return fragment
+        }
+    }
+
+    private var nameServiceSelectListener: NameServiceSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,16 +53,20 @@ class NameServiceFragment(
 
     private fun initView() {
         binding.apply {
-            selectTitle.text = getString(R.string.title_name_service, nameServiceList[0].name)
+            val nameServices: MutableList<NameService>? =
+                arguments?.getParcelableArrayList("nameServices")
+            nameServices?.let {
+                selectTitle.text = getString(R.string.title_name_service, it[0].name)
+            }
 
             nameServiceAdapter = NameServiceAdapter()
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = nameServiceAdapter
-            nameServiceAdapter.submitList(nameServiceList)
+            nameServiceAdapter.submitList(nameServices)
 
             nameServiceAdapter.setOnItemClickListener {
-                listener.select(it)
+                nameServiceSelectListener?.select(it)
                 dismiss()
             }
         }
@@ -54,8 +76,4 @@ class NameServiceFragment(
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface NameServiceSelectListener {
-    fun select(address: String)
 }

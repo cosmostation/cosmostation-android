@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import android.util.Log
 import com.binance.dex.api.client.BinanceDexApiClientFactory
 import com.binance.dex.api.client.BinanceDexEnvironment
 import com.binance.dex.api.client.Wallet
@@ -46,12 +45,17 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
+import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
+import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
+import wannabit.io.cosmostaion.data.model.req.NSArchwayReq
+import wannabit.io.cosmostaion.data.model.req.NSStargazeInfoReq
+import wannabit.io.cosmostaion.data.model.req.ResolveRecord
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
@@ -64,24 +68,60 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String
-    ): String {
-        try {
+    ): String? {
+        return try {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(managedChannel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val infoReq = ICNSInfoReq("$userInput.$prefix")
             val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
-            val request =
-                com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-                    .setAddress(ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build()
+            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+                .setAddress(ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build()
+            stub.smartContractState(request)?.let {
+                val json = JSONObject(it.data.toStringUtf8())
+                json.get("bech32_address").toString()
+            }
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun sgIcnsAddress(
+        managedChannel: ManagedChannel?, userInput: String?
+    ): String? {
+        return try {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(managedChannel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val infoReq = NSStargazeInfoReq(userInput)
+            val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
+            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+                .setAddress(NS_STARGZE_ADDRESS).setQueryData(queryData).build()
+
+            stub.smartContractState(request)?.let {
+                it.data.toStringUtf8().replace("\"".toRegex(), "")
+            }
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun archIcnsAddress(
+        managedChannel: ManagedChannel?, userInput: String?
+    ): String? {
+        return try {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(managedChannel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val infoReq = NSArchwayReq(ResolveRecord(userInput))
+            val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
+            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+                .setAddress(NS_ARCHWAY_ADDRESS).setQueryData(queryData).build()
 
             stub.smartContractState(request)?.let {
                 val json = JSONObject(it.data.toStringUtf8())
-                return json.get("bech32_address").toString()
+                json.getString("address")
             }
         } catch (e: Exception) {
-            Log.e("error message : ", e.message.toString())
+            ""
         }
-        return ""
     }
 
     override suspend fun auth(

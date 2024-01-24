@@ -74,14 +74,12 @@ class ProposalListViewHolder(
                         myVote.option?.contains("OPTION_YES") == true -> statusImg.setImageResource(
                             R.drawable.icon_yes
                         )
-
+                        myVote.option?.contains("OPTION_NO_WITH_VETO") == true -> statusImg.setImageResource(
+                            R.drawable.icon_veto
+                        )
                         myVote.option?.contains("OPTION_NO") == true -> statusImg.setImageResource(R.drawable.icon_no)
                         myVote.option?.contains("OPTION_ABSTAIN") == true -> statusImg.setImageResource(
                             R.drawable.icon_abstain
-                        )
-
-                        myVote.option?.contains("OPTION_NO_WITH_VETO") == true -> statusImg.setImageResource(
-                            R.drawable.icon_veto
                         )
                     }
                 }

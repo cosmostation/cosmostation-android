@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
@@ -41,12 +43,13 @@ import wannabit.io.cosmostaion.ui.tx.TxResultType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class EvmTransferFragment(
-    private val selectedChain: CosmosLine, private val toSendDenom: String
-) : BaseTxFragment() {
+class EvmTransferFragment : BaseTxFragment() {
 
     private var _binding: FragmentEvmTransferBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var toSendDenom: String
 
     private var selectedToken: Token? = null
 
@@ -60,6 +63,19 @@ class EvmTransferFragment(
     private var hexValue: String = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine, toSendDenom: String): EvmTransferFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putString("toSendDenom", toSendDenom)
+            }
+            val fragment = EvmTransferFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -80,6 +96,16 @@ class EvmTransferFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+            arguments?.getString("toSendDenom")?.let { toSendDenom = it }
+
             listOf(sendAssetView, addressView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
@@ -95,7 +121,7 @@ class EvmTransferFragment(
 
             if (selectedChain is ChainOkt60) {
                 selectedChain.stakeDenom?.let { denom ->
-                    feeTokenImg.setTokenImg(selectedChain.assetImg(denom))
+                    feeTokenImg.setTokenImg((selectedChain as ChainOkt60).assetImg(denom))
                     feeToken.text = denom.uppercase()
                 }
 
@@ -131,6 +157,7 @@ class EvmTransferFragment(
                         feeValue.text = formatAssetValue(value)
                     }
             }
+            isBroadCastTx(true)
         }
     }
 
@@ -178,49 +205,48 @@ class EvmTransferFragment(
     private fun setUpClickAction() {
         binding.apply {
             sendAssetView.setOnClickListener {
-                InsertAmountFragment(TxType.TRANSFER,
-                    TransferAssetType.ERC20_TRANSFER,
-                    availableAmount,
-                    toSendAmount,
-                    null,
-                    selectedToken,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateAmountView(toAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name
+                setOneClickAction(
+                    InsertAmountFragment(TxType.TRANSFER,
+                        TransferAssetType.ERC20_TRANSFER,
+                        availableAmount,
+                        toSendAmount,
+                        null,
+                        selectedToken,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             addressView.setOnClickListener {
-                AddressFragment(selectedChain,
-                    selectedChain,
-                    existedAddress,
-                    AddressType.EVM_TRANSFER,
-                    object : AddressListener {
-                        override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
-                        ) {
-                            refAddress?.dpAddress?.let {
-                                updateAddressView(it)
-
-                            } ?: run {
-                                addressBook?.let {
-                                    updateAddressView(it.address)
+                setOneClickAction(
+                    AddressFragment(selectedChain,
+                        selectedChain,
+                        existedAddress,
+                        AddressType.EVM_TRANSFER,
+                        object : AddressListener {
+                            override fun selectAddress(
+                                refAddress: RefAddress?,
+                                addressBook: AddressBook?,
+                                addressTxt: String
+                            ) {
+                                refAddress?.dpAddress?.let {
+                                    updateAddressView(it)
 
                                 } ?: run {
-                                    updateAddressView(addressTxt)
+                                    addressBook?.let {
+                                        updateAddressView(it.address)
+
+                                    } ?: run {
+                                        updateAddressView(addressTxt)
+                                    }
                                 }
                             }
-                        }
 
-                    }).show(
-                    requireActivity().supportFragmentManager, AddressFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnSend.setOnClickListener {
@@ -234,9 +260,13 @@ class EvmTransferFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -262,7 +292,9 @@ class EvmTransferFragment(
             if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
                 return
             }
-
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeView()
+            }
             btnSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateErc20Send(
@@ -276,7 +308,6 @@ class EvmTransferFragment(
 
     private fun setUpSimulate() {
         txViewModel.simulateErc20Send.observe(viewLifecycleOwner) { response ->
-            isBroadCastTx(true)
             response.first?.let { evmFeeAmount = it.toBigDecimal() }
             response.second?.let { hexValue = it }
             updateFeeView()

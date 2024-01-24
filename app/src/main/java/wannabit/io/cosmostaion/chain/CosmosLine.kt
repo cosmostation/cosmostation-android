@@ -12,9 +12,12 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -165,7 +168,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         } else if (result.size == 2) {
             result[1].title = c.getString(R.string.str_average)
             result[1].msg = c.getString(R.string.str_fee_speed_title_average)
-            if (result[0].feeDatas[0].gasRate == BigDecimal.ZERO) {
+            if (result[0].feeDatas[0].gasRate == BigDecimal("0.0")) {
                 result[0].title = c.getString(R.string.str_free)
                 result[0].msg = c.getString(R.string.str_fee_speed_title_zero)
             } else {
@@ -177,7 +180,7 @@ open class CosmosLine : BaseChain(), Parcelable {
             result[2].msg = c.getString(R.string.str_fee_speed_title_average)
             result[1].title = c.getString(R.string.str_low)
             result[1].msg = c.getString(R.string.str_fee_speed_title_low)
-            if (result[0].feeDatas[0].gasRate == BigDecimal.ZERO) {
+            if (result[0].feeDatas[0].gasRate == BigDecimal("0.0")) {
                 result[0].title = c.getString(R.string.str_free)
                 result[0].msg = c.getString(R.string.str_fee_speed_title_zero)
             } else {
@@ -186,6 +189,10 @@ open class CosmosLine : BaseChain(), Parcelable {
             }
         }
         return result
+    }
+
+    fun isGasSimulable(): Boolean {
+        return param?.params?.chainlistParams?.fee?.isSimulable ?: true
     }
 
     fun gasMultiply(): Double {
@@ -405,7 +412,7 @@ open class CosmosLine : BaseChain(), Parcelable {
                     BaseData.getAsset(apiName, reward.rewardList[i].denom)?.let { asset ->
                         val calAmount = rewardAmount.movePointLeft(asset.decimals ?: 6)
                             .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        if (calAmount > BigDecimal("0.01")) {
+                        if (calAmount > BigDecimal("0.1")) {
                             result.add(reward)
                             return@loop
                         }
@@ -465,7 +472,10 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
+    lines.add(ChainArchway())
+    lines.add(ChainAssetMantle())
     lines.add(ChainCrescent())
+    lines.add(ChainDesmos())
     lines.add(ChainEvmos())
     lines.add(ChainFetchAi())
     lines.add(ChainInjective())

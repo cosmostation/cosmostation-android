@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -26,10 +27,15 @@ class CosmosActivity : BaseActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                CosmosDetailFragment.newInstance(intent.getIntExtra("selectPosition", -1))
-            ).commitAllowingStateLoss()
+            BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {
+                it.tag == intent.getStringExtra(
+                    "selectedChainTag"
+                )
+            }?.let { chain ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
+                ).commitAllowingStateLoss()
+            }
         }
         initViewModel()
     }

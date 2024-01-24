@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +21,7 @@ import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import com.google.zxing.client.android.Intents
@@ -73,12 +75,13 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.nio.charset.StandardCharsets
 
-class TransferFragment(
-    private val selectedChain: CosmosLine, private val toSendDenom: String
-) : BaseTxFragment() {
+class TransferFragment : BaseTxFragment() {
 
     private var _binding: FragmentTransferBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var toSendDenom: String
 
     private var recipientAbleChains: MutableList<CosmosLine> = mutableListOf()
     private var transferAssetType: TransferAssetType? = null
@@ -98,6 +101,20 @@ class TransferFragment(
     private var availableAmount = BigDecimal.ZERO
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine, toSendDenom: String): TransferFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putString("toSendDenom", toSendDenom)
+            }
+            val fragment = TransferFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -120,6 +137,16 @@ class TransferFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+            arguments?.getString("toSendDenom")?.let { toSendDenom = it }
+
             listOf(
                 recipientChainView, sendAssetView, addressView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
@@ -354,93 +381,92 @@ class TransferFragment(
             }
 
             recipientChainView.setOnClickListener {
-                ChainFragment(recipientAbleChains,
-                    ChainListType.SELECT_TRANSFER,
-                    object : ChainSelectListener {
-                        override fun select(chainId: String) {
-                            if (selectedRecipientChain?.chainId != chainId) {
-                                selectedRecipientChain =
-                                    recipientAbleChains.firstOrNull { it.chainId == chainId }
-                                updateRecipientChainView()
-                                updateRecipientAddressView("")
+                setOneClickAction(
+                    ChainFragment(recipientAbleChains,
+                        ChainListType.SELECT_TRANSFER,
+                        object : ChainSelectListener {
+                            override fun select(chainId: String) {
+                                if (selectedRecipientChain?.chainId != chainId) {
+                                    selectedRecipientChain =
+                                        recipientAbleChains.firstOrNull { it.chainId == chainId }
+                                    updateRecipientChainView()
+                                    updateRecipientAddressView("")
+                                }
                             }
-                        }
-                    }).show(
-                    requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             sendAssetView.setOnClickListener {
-                InsertAmountFragment(TxType.TRANSFER,
-                    transferAssetType,
-                    availableAmount,
-                    toSendAmount,
-                    selectedAsset,
-                    selectedToken,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateAmountView(toAmount)
-                        }
-                    }).show(
-                    requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name
+                setOneClickAction(
+                    InsertAmountFragment(TxType.TRANSFER,
+                        transferAssetType,
+                        availableAmount,
+                        toSendAmount,
+                        selectedAsset,
+                        selectedToken,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             addressView.setOnClickListener {
-                AddressFragment(selectedChain,
-                    selectedRecipientChain,
-                    existedAddress,
-                    AddressType.DEFAULT_TRANSFER,
-                    object : AddressListener {
-                        override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
-                        ) {
-                            refAddress?.dpAddress?.let {
-                                updateRecipientAddressView(it)
-                                updateMemoView("")
-
-                            } ?: run {
-                                addressBook?.let {
-                                    updateRecipientAddressView(it.address)
-                                    updateMemoView(it.memo)
+                setOneClickAction(
+                    AddressFragment(selectedChain,
+                        selectedRecipientChain,
+                        existedAddress,
+                        AddressType.DEFAULT_TRANSFER,
+                        object : AddressListener {
+                            override fun selectAddress(
+                                refAddress: RefAddress?,
+                                addressBook: AddressBook?,
+                                addressTxt: String
+                            ) {
+                                refAddress?.dpAddress?.let {
+                                    updateRecipientAddressView(it)
+                                    updateMemoView("")
 
                                 } ?: run {
-                                    updateRecipientAddressView(addressTxt)
-                                    updateMemoView("")
+                                    addressBook?.let {
+                                        updateRecipientAddressView(it.address)
+                                        updateMemoView(it.memo)
+
+                                    } ?: run {
+                                        updateRecipientAddressView(addressTxt)
+                                        updateMemoView("")
+                                    }
                                 }
                             }
-                        }
-                    }).show(
-                    requireActivity().supportFragmentManager, AddressFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                setOneClickAction(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
@@ -453,14 +479,13 @@ class TransferFragment(
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                setOneClickAction(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnSend.setOnClickListener {
@@ -474,9 +499,13 @@ class TransferFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -581,6 +610,9 @@ class TransferFragment(
             if (toSendAmount.toBigDecimal() == BigDecimal.ZERO) {
                 return
             }
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeViewWithSimulate(null)
+            }
             btnSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
 
@@ -641,7 +673,6 @@ class TransferFragment(
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
             updateFeeViewWithSimulate(gasInfo)
         }
 
@@ -652,24 +683,26 @@ class TransferFragment(
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
 
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
@@ -753,23 +786,20 @@ fun assetPath(fromChain: CosmosLine, toChain: CosmosLine, denom: String): AssetP
     BaseData.assets?.forEach { asset ->
         if (msAsset != null) {
             if (asset.chain == fromChain.apiName && asset.beforeChain(fromChain.apiName) == toChain.apiName && asset.denom.equals(
-                    denom,
-                    true
+                    denom, true
                 )
             ) {
                 return AssetPath(asset.channel, asset.port)
             }
             if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom?.equals(
-                    denom,
-                    true
+                    denom, true
                 ) == true
             ) {
                 return AssetPath(asset.counterParty.channel, asset.counterParty.port)
             }
         } else {
             if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom.equals(
-                    msToken.address,
-                    true
+                    msToken.address, true
                 )
             ) {
                 return AssetPath(asset.counterParty?.channel, asset.counterParty?.port)
