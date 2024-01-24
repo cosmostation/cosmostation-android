@@ -34,10 +34,10 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCompoundingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -218,7 +218,7 @@ class CompoundingFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding.apply {
             memoView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     MemoFragment(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
@@ -228,7 +228,7 @@ class CompoundingFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AssetFragment(selectedChain,
                         feeInfos[selectedFeeInfo].feeDatas,
                         object : AssetSelectListener {
@@ -272,7 +272,7 @@ class CompoundingFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

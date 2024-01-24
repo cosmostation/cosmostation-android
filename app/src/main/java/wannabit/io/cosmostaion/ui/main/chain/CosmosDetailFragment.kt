@@ -29,12 +29,13 @@ import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
-import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.select.VaultSelectFragment
+import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
@@ -280,20 +281,20 @@ class CosmosDetailFragment : Fragment() {
             fabSend.setOnClickListener {
                 selectedChain.stakeDenom?.let { denom ->
                     if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
-                        setOneClickAction(null, LegacyTransferFragment(selectedChain, denom))
+                        handleOneClickWithDelay(null, LegacyTransferFragment(selectedChain, denom))
                     } else {
-                        setOneClickAction(null, TransferFragment.newInstance(selectedChain, denom))
+                        handleOneClickWithDelay(null, TransferFragment.newInstance(selectedChain, denom))
                     }
                 }
             }
 
             fabReceive.setOnClickListener {
-                setOneClickAction(null, QrCodeFragment(selectedChain))
+                handleOneClickWithDelay(null, QrCodeFragment(selectedChain))
             }
 
             fabStake.setOnClickListener {
                 if (selectedChain.cosmosValidators.size > 0) {
-                    setOneClickAction(StakeInfoFragment(selectedChain), null)
+                    handleOneClickWithDelay(StakeInfoFragment(selectedChain), null)
 
                 } else {
                     requireContext().makeToast(R.string.error_wait_moment)
@@ -309,14 +310,14 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                     if (selectedChain.claimableRewards().isEmpty()) {
-                        requireContext().makeToast(R.string.error_wasting_fee)
+                        requireContext().showToast(view, R.string.error_wasting_fee, false)
                         return@setOnClickListener
                     }
                     if (!selectedChain.isTxFeePayable(requireContext())) {
-                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        requireContext().showToast(view, R.string.error_not_enough_fee, false)
                         return@setOnClickListener
                     }
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         null, ClaimRewardFragment.newInstance(
                             selectedChain, selectedChain.claimableRewards()
                         )
@@ -336,14 +337,14 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                     if (selectedChain.rewardAddress != selectedChain.address) {
-                        requireContext().makeToast(R.string.error_reward_address_changed_msg)
+                        requireContext().showToast(view, R.string.error_reward_address_changed_msg, false)
                         return@setOnClickListener
                     }
                     if (!selectedChain.isTxFeePayable(requireContext())) {
-                        requireContext().makeToast(R.string.error_not_enough_fee)
+                        requireContext().showToast(view, R.string.error_not_enough_fee, false)
                         return@setOnClickListener
                     }
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         null, CompoundingFragment.newInstance(
                             selectedChain, selectedChain.claimableRewards()
                         )
@@ -357,23 +358,23 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabVote.setOnClickListener {
-                setOneClickAction(ProposalListFragment.newInstance(selectedChain), null)
+                handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
             }
 
             fabDefi.setOnClickListener {
-                setOneClickAction(KavaDefiFragment(selectedChain as ChainKava459), null)
+                handleOneClickWithDelay(KavaDefiFragment(selectedChain as ChainKava459), null)
             }
 
             fabDao.setOnClickListener {
-                setOneClickAction(DaoListFragment(selectedChain as ChainNeutron), null)
+                handleOneClickWithDelay(DaoListFragment(selectedChain as ChainNeutron), null)
             }
 
             fabVault.setOnClickListener {
-                setOneClickAction(null, VaultSelectFragment(selectedChain))
+                handleOneClickWithDelay(null, VaultSelectFragment(selectedChain))
             }
 
             fabDeposit.setOnClickListener {
-                setOneClickAction(null, OktDepositFragment(selectedChain as ChainOkt60))
+                handleOneClickWithDelay(null, OktDepositFragment(selectedChain as ChainOkt60))
             }
 
             fabWithdraw.setOnClickListener {
@@ -381,7 +382,7 @@ class CosmosDetailFragment : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                setOneClickAction(null, OktWithdrawFragment(selectedChain as ChainOkt60))
+                handleOneClickWithDelay(null, OktWithdrawFragment(selectedChain as ChainOkt60))
             }
 
             fabSelectValidator.setOnClickListener {
@@ -389,12 +390,12 @@ class CosmosDetailFragment : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                setOneClickAction(null, OktSelectValidatorFragment(selectedChain as ChainOkt60))
+                handleOneClickWithDelay(null, OktSelectValidatorFragment(selectedChain as ChainOkt60))
             }
         }
     }
 
-    private fun setOneClickAction(
+    private fun handleOneClickWithDelay(
         fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
     ) {
         if (isClickable) {

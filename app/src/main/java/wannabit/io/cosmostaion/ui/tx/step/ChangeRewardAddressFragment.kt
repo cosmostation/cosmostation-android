@@ -37,13 +37,13 @@ import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -224,7 +224,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding.apply {
             newLayout.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AddressFragment(selectedChain,
                         selectedChain,
                         existedAddress,
@@ -255,7 +255,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
             }
 
             memoView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     MemoFragment(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
@@ -266,7 +266,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AssetFragment(selectedChain,
                         feeInfos[selectedFeeInfo].feeDatas,
                         object : AssetSelectListener {
@@ -310,7 +310,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

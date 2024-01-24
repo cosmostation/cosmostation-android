@@ -31,11 +31,11 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentEvmTransferBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -205,7 +205,7 @@ class EvmTransferFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding.apply {
             sendAssetView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     InsertAmountFragment(TxType.TRANSFER,
                         TransferAssetType.ERC20_TRANSFER,
                         availableAmount,
@@ -221,7 +221,7 @@ class EvmTransferFragment : BaseTxFragment() {
             }
 
             addressView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AddressFragment(selectedChain,
                         selectedChain,
                         existedAddress,
@@ -260,7 +260,7 @@ class EvmTransferFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

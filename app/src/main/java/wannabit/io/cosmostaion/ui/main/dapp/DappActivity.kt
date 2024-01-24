@@ -67,8 +67,8 @@ import wannabit.io.cosmostaion.data.model.req.Signature
 import wannabit.io.cosmostaion.data.model.req.StdTxValue
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
-import wannabit.io.cosmostaion.ui.dialog.wc.DappUrlDialog
-import wannabit.io.cosmostaion.ui.dialog.wc.WcSignFragment
+import wannabit.io.cosmostaion.ui.main.dapp.option.DappUrlDialog
+import wannabit.io.cosmostaion.ui.main.dapp.option.WcSignFragment
 import java.io.BufferedReader
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets

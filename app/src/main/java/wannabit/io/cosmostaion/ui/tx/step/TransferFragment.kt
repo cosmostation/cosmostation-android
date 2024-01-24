@@ -55,19 +55,19 @@ import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.qr.QrCodeActivity
-import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainListType
-import wannabit.io.cosmostaion.ui.dialog.tx.ChainSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.ChainFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.ChainListType
+import wannabit.io.cosmostaion.ui.option.tx.general.ChainSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -381,7 +381,7 @@ class TransferFragment : BaseTxFragment() {
             }
 
             recipientChainView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     ChainFragment(recipientAbleChains,
                         ChainListType.SELECT_TRANSFER,
                         object : ChainSelectListener {
@@ -398,7 +398,7 @@ class TransferFragment : BaseTxFragment() {
             }
 
             sendAssetView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     InsertAmountFragment(TxType.TRANSFER,
                         transferAssetType,
                         availableAmount,
@@ -414,7 +414,7 @@ class TransferFragment : BaseTxFragment() {
             }
 
             addressView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AddressFragment(selectedChain,
                         selectedRecipientChain,
                         existedAddress,
@@ -445,7 +445,7 @@ class TransferFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AssetFragment(selectedChain,
                         feeInfos[selectedFeeInfo].feeDatas,
                         object : AssetSelectListener {
@@ -479,7 +479,7 @@ class TransferFragment : BaseTxFragment() {
             }
 
             memoView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     MemoFragment(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
@@ -499,7 +499,7 @@ class TransferFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

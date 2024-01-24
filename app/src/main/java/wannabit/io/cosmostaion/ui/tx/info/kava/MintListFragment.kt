@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentMintListBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.kava.MintOptionFragment
+import wannabit.io.cosmostaion.ui.option.tx.kava.MintOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.CreateMintFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionType

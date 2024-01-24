@@ -38,14 +38,14 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentDepositEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorDefaultFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorDefaultListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
+import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultFragment
+import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultListener
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -297,7 +297,7 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             selectedChain?.let { chain ->
                 validatorView.setOnClickListener {
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         ValidatorDefaultFragment(chain, null, object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
@@ -309,7 +309,7 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 amountView.setOnClickListener {
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         InsertAmountFragment(TxType.EARN_DEPOSIT,
                             null,
                             availableAmount,
@@ -329,7 +329,7 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 memoView.setOnClickListener {
-                    setOneClickAction(MemoFragment(txMemo, object : MemoListener {
+                    handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -337,7 +337,7 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 feeTokenLayout.setOnClickListener {
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         AssetFragment(chain,
                             feeInfos[selectedFeeInfo].feeDatas,
                             object : AssetSelectListener {
@@ -382,7 +382,7 @@ class DepositEarningFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

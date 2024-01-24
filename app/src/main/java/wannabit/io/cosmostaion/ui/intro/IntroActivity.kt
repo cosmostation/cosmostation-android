@@ -36,8 +36,8 @@ import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.main.setting.account.AccountInitListener
-import wannabit.io.cosmostaion.ui.main.setting.account.AccountInitSelectFragment
+import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitListener
+import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitSelectFragment
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel

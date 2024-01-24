@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,7 +12,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
-import wannabit.io.cosmostaion.ui.dialog.qr.QrDialog
+import wannabit.io.cosmostaion.ui.qr.QrDialog
 
 class DashboardAdapter(
     val context: Context

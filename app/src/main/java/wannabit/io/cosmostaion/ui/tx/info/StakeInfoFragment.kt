@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,12 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.databinding.DialogChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.StakingOptionFragment
-import wannabit.io.cosmostaion.ui.tx.step.ChangeRewardAddressFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 
 class StakeInfoFragment(
@@ -109,7 +106,7 @@ class StakeInfoFragment(
             }
 
             btnChangeRewardAddress.setOnClickListener {
-                showChangeRewardAddress()
+                handleOneClickWithDelay(ChangeRewardAddressWarnFragment.newInstance(selectedChain))
             }
 
             btnStake.setOnClickListener {
@@ -120,27 +117,9 @@ class StakeInfoFragment(
         }
     }
 
-    private fun showChangeRewardAddress() {
-        val binding = DialogChangeRewardAddressBinding.inflate(requireActivity().layoutInflater)
-        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
-            .setView(binding.root)
-
-        val dialog = alertDialog.create()
-        dialog.show()
-
-        binding.btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        binding.btnContinue.setOnClickListener {
-            setOneClickAction(ChangeRewardAddressFragment.newInstance(selectedChain))
-            dialog.dismiss()
-        }
-    }
-
     private val selectClickAction = object : StakingInfoAdapter.ClickListener {
         override fun selectStakingAction(validator: StakingProto.Validator?) {
-            setOneClickAction(
+            handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
                     selectedChain, validator, null, OptionType.STAKE
                 )
@@ -148,7 +127,7 @@ class StakeInfoFragment(
         }
 
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
-            setOneClickAction(
+            handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
                     selectedChain, null, unBondingEntry, OptionType.UNSTAKE
                 )
@@ -156,23 +135,13 @@ class StakeInfoFragment(
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 
             bottomSheetDialogFragment.show(
                 requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
             )
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                isClickable = true
-            }, 1000)
-        }
-    }
-
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
-            isClickable = false
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

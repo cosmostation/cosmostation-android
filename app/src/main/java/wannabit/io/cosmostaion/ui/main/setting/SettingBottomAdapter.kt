@@ -11,6 +11,8 @@ import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 import wannabit.io.cosmostaion.databinding.ItemPriceStyleBinding
 import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
+import wannabit.io.cosmostaion.ui.main.setting.general.CurrencyViewHolder
+import wannabit.io.cosmostaion.ui.main.setting.general.PriceStyleViewHolder
 
 class SettingBottomAdapter(
     val context: Context, private val settingType: SettingType

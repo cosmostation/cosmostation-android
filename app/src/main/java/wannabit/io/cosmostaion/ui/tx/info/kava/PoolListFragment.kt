@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.usdxAmount
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentPoolListBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.kava.PoolOptionFragment
+import wannabit.io.cosmostaion.ui.option.tx.kava.PoolOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.PoolActionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.PoolActionType
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel

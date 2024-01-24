@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.BridgeOptionFragment
+import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
@@ -210,22 +210,22 @@ class CoinFragment : Fragment() {
     }
 
     private fun startTransfer(line: CosmosLine, denom: String) {
-        setOneClickAction(TransferFragment.newInstance(line, denom))
+        handleOneClickWithDelay(TransferFragment.newInstance(line, denom))
     }
 
     private fun startBep3Transfer(line: CosmosLine, denom: String) {
-        setOneClickAction(Bep3Fragment(line, denom))
+        handleOneClickWithDelay(Bep3Fragment(line, denom))
     }
 
     private fun startLegacyTransfer(line: CosmosLine, denom: String) {
-        setOneClickAction(LegacyTransferFragment(line, denom))
+        handleOneClickWithDelay(LegacyTransferFragment(line, denom))
     }
 
     private fun selectBridgeOption(line: CosmosLine, denom: String) {
-        setOneClickAction(BridgeOptionFragment(line, denom, bridgeClickAction))
+        handleOneClickWithDelay(BridgeOptionFragment(line, denom, bridgeClickAction))
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

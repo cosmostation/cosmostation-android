@@ -17,8 +17,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentEarnListBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.kava.EarnClickListener
-import wannabit.io.cosmostaion.ui.dialog.tx.kava.EarnOptionFragment
+import wannabit.io.cosmostaion.ui.option.tx.kava.EarnClickListener
+import wannabit.io.cosmostaion.ui.option.tx.kava.EarnOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.DepositEarningFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.WithdrawEarningFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
@@ -134,11 +134,11 @@ class EarnListFragment : Fragment() {
 
     private val earnClickAction = object : EarnClickListener {
         override fun earnDeposit(toValidator: StakingProto.Validator) {
-            setOneClickAction(DepositEarningFragment.newInstance(selectedChain, toValidator))
+            handleOneClickWithDelay(DepositEarningFragment.newInstance(selectedChain, toValidator))
         }
 
         override fun earnWithdraw(withdrawCoin: Coin) {
-            setOneClickAction(WithdrawEarningFragment.newInstance(selectedChain, withdrawCoin))
+            handleOneClickWithDelay(WithdrawEarningFragment.newInstance(selectedChain, withdrawCoin))
         }
     }
 
@@ -149,12 +149,12 @@ class EarnListFragment : Fragment() {
             }
 
             binding.btnStartEarning.setOnClickListener {
-                setOneClickAction(DepositEarningFragment.newInstance(selectedChain, null))
+                handleOneClickWithDelay(DepositEarningFragment.newInstance(selectedChain, null))
             }
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

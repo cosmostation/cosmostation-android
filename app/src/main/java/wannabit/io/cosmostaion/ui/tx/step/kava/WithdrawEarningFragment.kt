@@ -33,12 +33,12 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentWithdrawEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -223,7 +223,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
         binding.apply {
             selectedChain?.let { chain ->
                 amountView.setOnClickListener {
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         InsertAmountFragment(TxType.EARN_WITHDRAW,
                             null,
                             availableAmount,
@@ -243,7 +243,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
                 }
 
                 memoView.setOnClickListener {
-                    setOneClickAction(MemoFragment(txMemo, object : MemoListener {
+                    handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -251,7 +251,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
                 }
 
                 feeTokenLayout.setOnClickListener {
-                    setOneClickAction(
+                    handleOneClickWithDelay(
                         AssetFragment(chain,
                             feeInfos[selectedFeeInfo].feeDatas,
                             object : AssetSelectListener {
@@ -295,7 +295,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

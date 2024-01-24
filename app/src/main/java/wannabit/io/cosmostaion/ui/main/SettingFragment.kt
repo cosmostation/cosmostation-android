@@ -37,9 +37,9 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.main.setting.account.AccountActivity
-import wannabit.io.cosmostaion.ui.main.setting.book.AddressBookListActivity
-import wannabit.io.cosmostaion.ui.main.setting.chain.ChainActivity
+import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
+import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
+import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel

@@ -38,16 +38,16 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentRedelegateBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.AssetSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.InsertAmountFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.MemoListener
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorDefaultFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorDefaultListener
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.validator.ValidatorListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
+import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultFragment
+import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultListener
+import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorFragment
+import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorListener
 import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -296,7 +296,7 @@ class ReDelegateFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding.apply {
             fromValidatorView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     ValidatorFragment(selectedChain, object : ValidatorListener {
                         override fun select(validatorAddress: String) {
                             if (fromValidator?.operatorAddress != validatorAddress) {
@@ -317,7 +317,7 @@ class ReDelegateFragment : BaseTxFragment() {
             }
 
             toValidatorView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
                         fromValidator,
                         object : ValidatorDefaultListener {
@@ -331,7 +331,7 @@ class ReDelegateFragment : BaseTxFragment() {
             }
 
             amountView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     InsertAmountFragment(TxType.RE_DELEGATE,
                         null,
                         availableAmount,
@@ -352,7 +352,7 @@ class ReDelegateFragment : BaseTxFragment() {
             }
 
             memoView.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     MemoFragment(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
@@ -363,7 +363,7 @@ class ReDelegateFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                setOneClickAction(
+                handleOneClickWithDelay(
                     AssetFragment(selectedChain,
                         feeInfos[selectedFeeInfo].feeDatas,
                         object : AssetSelectListener {
@@ -407,7 +407,7 @@ class ReDelegateFragment : BaseTxFragment() {
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.main.setting.account.ChangeNameFragment
+import wannabit.io.cosmostaion.ui.main.setting.wallet.account.ChangeNameFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 

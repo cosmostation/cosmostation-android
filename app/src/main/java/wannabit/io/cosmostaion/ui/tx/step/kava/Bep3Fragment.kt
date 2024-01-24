@@ -31,10 +31,10 @@ import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentBep3Binding
-import wannabit.io.cosmostaion.ui.dialog.tx.AmountSelectListener
-import wannabit.io.cosmostaion.ui.dialog.tx.address.Bep3AddressFragment
-import wannabit.io.cosmostaion.ui.dialog.tx.address.Bep3AddressListener
-import wannabit.io.cosmostaion.ui.dialog.tx.kava.Bep3InsertAmountFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.address.Bep3AddressFragment
+import wannabit.io.cosmostaion.ui.option.tx.address.Bep3AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.kava.Bep3InsertAmountFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel

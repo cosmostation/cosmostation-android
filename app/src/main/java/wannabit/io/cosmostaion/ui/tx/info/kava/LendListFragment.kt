@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.spotMarketId
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentLendListBinding
-import wannabit.io.cosmostaion.ui.dialog.tx.kava.MintOptionFragment
+import wannabit.io.cosmostaion.ui.option.tx.kava.MintOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionType
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
@@ -133,7 +133,7 @@ class LendListFragment(
 
     private val lendClickAction = object : LendListAdapter.ClickListener {
         override fun lendOption(denom: String?) {
-            setOneClickAction(
+            handleOneClickWithDelay(
                 MintOptionFragment(selectedChain, null, denom, null, lendOptionClickAction)
             )
         }
@@ -167,7 +167,7 @@ class LendListFragment(
                 }
             }
 
-            setOneClickAction(
+            handleOneClickWithDelay(
                 LendActionFragment(
                     selectedChain,
                     lendActionType,
@@ -180,7 +180,7 @@ class LendListFragment(
         }
     }
 
-    private fun setOneClickAction(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
 

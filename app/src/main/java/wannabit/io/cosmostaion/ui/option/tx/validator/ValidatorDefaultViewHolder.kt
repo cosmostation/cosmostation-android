@@ -1,0 +1,65 @@
+package wannabit.io.cosmostaion.ui.option.tx.validator
+
+import android.content.Context
+import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.cosmos.staking.v1beta1.StakingProto
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.setMonikerImg
+import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
+import java.math.RoundingMode
+
+class ValidatorDefaultViewHolder(
+    val context: Context, private val binding: ItemValidatorDefaultBinding
+) : RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(line: CosmosLine, validator: StakingProto.Validator) {
+        binding.apply {
+            validator.let { validator ->
+                monikerImg.setMonikerImg(line, validator.operatorAddress)
+                monikerName.text = validator.description?.moniker
+                if (validator.jailed) {
+                    jailedImg.visibility = View.VISIBLE
+                    jailedImg.setImageResource(R.drawable.icon_jailed)
+                } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
+                    jailedImg.visibility = View.VISIBLE
+                    jailedImg.setImageResource(R.drawable.icon_inactive)
+                } else {
+                    jailedImg.visibility = View.GONE
+                }
+            }
+
+            line.stakeDenom?.let { denom ->
+                BaseData.getAsset(line.apiName, denom)?.let { asset ->
+                    asset.decimals?.let { decimal ->
+                        val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(decimal)
+                        votingPower.text = formatAmount(vpAmount.toString(), 0)
+
+                        val commissionRate =
+                            validator.commission?.commissionRates?.rate?.toBigDecimal()
+                                ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                        commission.text = formatString("$commissionRate%", 3)
+                        if (commissionRate.toString() == "0.00") {
+                            commission.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_accent_green
+                                )
+                            )
+                        } else {
+                            commission.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base01
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
