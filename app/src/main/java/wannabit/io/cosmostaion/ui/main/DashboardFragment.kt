@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
@@ -24,6 +25,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.CosmosActivity
+import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
@@ -104,13 +106,12 @@ class DashboardFragment : Fragment() {
 
     private fun initRecyclerView() {
         baseAccount?.let { account ->
-            dashAdapter = DashboardAdapter(requireContext())
+            dashAdapter = DashboardAdapter(requireContext(), account.sortedDisplayCosmosLines())
 
             binding?.recycler?.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = dashAdapter
-                dashAdapter.submitList(account.sortedDisplayCosmosLines())
                 itemAnimator = null
 
                 dashAdapter.setOnItemClickListener {
@@ -232,6 +233,20 @@ class DashboardFragment : Fragment() {
             dashAdapter.notifyDataSetChanged()
         }
 
+        ApplicationViewModel.shared.displayLegacyResult.observe(viewLifecycleOwner) {
+            walletViewModel.fetchedResult.removeObservers(viewLifecycleOwner)
+            walletViewModel.price(BaseData.currencyName().lowercase())
+            CoroutineScope(Dispatchers.IO).launch {
+                BaseData.baseAccount?.initAccount()
+                BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach { line ->
+                    line.fetched = false
+                }
+                withContext(Dispatchers.Main) {
+                    updateViewWithLoadedData()
+                }
+            }
+        }
+
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
             binding?.apply {
                 if (Prefs.hideValue) {
@@ -258,18 +273,22 @@ class DashboardFragment : Fragment() {
                 baseAccount?.initAccount()
                 withContext(Dispatchers.Main) {
                     updateViewWithLoadedData()
+                    PushManager.syncAddresses(Prefs.fcmToken)
                 }
             }
         }
 
         ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.IO).launch {
-                baseAccount?.sortCosmosLine()
-                initDisplayData()
-                dashAdapter.submitList(baseAccount?.sortedDisplayCosmosLines())
-                withContext(Dispatchers.Main) {
-                    dashAdapter.notifyDataSetChanged()
-                    setupLoadedData()
+            baseAccount?.let { account ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    Prefs.setDisplayChains(account, it)
+                    account.sortCosmosLine()
+                    initDisplayData()
+                    delay(100)
+                    withContext(Dispatchers.Main) {
+                        updateViewWithLoadedData()
+                        PushManager.syncAddresses(Prefs.fcmToken)
+                    }
                 }
             }
         }

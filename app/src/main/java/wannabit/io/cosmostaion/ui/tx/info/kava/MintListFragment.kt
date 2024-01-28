@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.cdp.v1beta1.GenesisProto
 import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
@@ -118,39 +119,48 @@ class MintListFragment(
 
     private val mintClickAction = object : MintListAdapter.ClickListener {
         override fun myMintClick(mintType: String?) {
-            MintOptionFragment(selectedChain, mintType, null, mintOptionClickAction, null).show(
-                requireActivity().supportFragmentManager, MintOptionFragment::class.java.name
-            )
-            setClickableOnce(isClickable)
+            if (isClickable) {
+                isClickable = false
+
+                MintOptionFragment(selectedChain, mintType, null, mintOptionClickAction, null).show(
+                    requireActivity().supportFragmentManager, MintOptionFragment::class.java.name
+                )
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 300)
+            }
         }
 
         override fun otherMintClick(mintType: String?) {
-            CreateMintFragment(
-                selectedChain,
-                mintParam?.collateralParamsList?.firstOrNull { it.type == mintType },
-                priceFeed
-            ).show(
-                requireActivity().supportFragmentManager, CreateMintFragment::class.java.name
+            handleOneClickWithDelay(
+                CreateMintFragment(
+                    selectedChain,
+                    mintParam?.collateralParamsList?.firstOrNull { it.type == mintType },
+                    priceFeed
+                )
             )
-            setClickableOnce(isClickable)
         }
     }
 
     private val mintOptionClickAction = object : MintClickListener {
         override fun mintAction(mintType: String?, mintActionType: MintActionType) {
-            MintActionFragment(selectedChain,
-                mintActionType,
-                mintParam?.collateralParamsList?.firstOrNull { it.type == mintType },
-                myCdps?.firstOrNull { it.type == mintType }).show(
-                requireActivity().supportFragmentManager, MintActionFragment::class.java.name
+            handleOneClickWithDelay(
+                MintActionFragment(selectedChain,
+                    mintActionType,
+                    mintParam?.collateralParamsList?.firstOrNull { it.type == mintType },
+                    myCdps?.firstOrNull { it.type == mintType })
             )
-            setClickableOnce(isClickable)
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

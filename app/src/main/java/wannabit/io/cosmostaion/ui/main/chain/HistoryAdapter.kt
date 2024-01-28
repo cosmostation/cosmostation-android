@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.dpTimeToYear
+import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -59,7 +60,7 @@ class HistoryAdapter(
                 val historyGroup = cosmosHistoryList[position]
 
                 historyGroup.second.header?.let { header ->
-                    val headerDate = formatTxTimeToYear(context, header.timestamp)
+                    val headerDate = formatTxTime(context, header.timestamp)
                     val headerIndex = cosmosHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = cosmosHistoryList.filter { it.first == headerDate }.size
                     holder.bindHistory(line, historyGroup, headerIndex, headerCnt, position)

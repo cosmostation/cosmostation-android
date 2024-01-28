@@ -8,7 +8,7 @@ import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 
 interface HistoryRepository {
 
-    suspend fun cosmosHistory(chain: String, address: String?, limit: String, searchId: Int?): NetworkResult<Response<List<CosmosHistory>>>
+    suspend fun cosmosHistory(chain: String, address: String?, limit: String, searchAfter: String): NetworkResult<Response<List<CosmosHistory>>>
 
     suspend fun bnbHistory(address: String?, startTime: String, endTime: String): NetworkResult<Response<BnbHistoryResponse>>
 

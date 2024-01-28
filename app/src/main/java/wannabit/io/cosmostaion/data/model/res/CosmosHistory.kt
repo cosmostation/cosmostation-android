@@ -2,67 +2,31 @@ package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
 import com.cosmos.base.v1beta1.CoinProto
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import org.json.JSONArray
-import org.json.JSONException
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import java.util.Locale
 import java.util.regex.Pattern
+
 
 @JsonClass(generateAdapter = true)
 data class CosmosHistory(
     val header: HistoryHeader?,
     val data: HistoryData?,
+    @Json(name = "search_after") val searchAfter: String?
 ) {
     @JsonClass(generateAdapter = true)
     data class HistoryHeader(
-        val id: Int?,
-        @Json(name = "chain_id") val chainId: String,
-        val timestamp: String
+        @Json(name = "chain_id") val chainId: String, val timestamp: String
     )
 
     @JsonClass(generateAdapter = true)
     data class HistoryData(
-        val height: String?,
-        val txhash: String?,
-        val code: Int?,
-        val tx: Tx?,
-        val logs: List<HistoryLog>?,
-    )
-
-    @JsonClass(generateAdapter = true)
-    data class HistoryLog(
-        val events: List<Event>
-    ) {
-        @JsonClass(generateAdapter = true)
-        data class Event(
-            val type: String,
-            val attributes: List<Attribute>
-        ) {
-            @JsonClass(generateAdapter = true)
-            data class Attribute(
-                val key: String,
-                val value: Any
-            )
-        }
-    }
-
-    @JsonClass(generateAdapter = true)
-    data class Tx(
-        @Json(name = "@type") val type: String,
-        val body: Body
-    ) {
-        @JsonClass(generateAdapter = true)
-        data class Body(
-            val messages: List<Any>
-        )
-    }
-
-    @JsonClass(generateAdapter = true)
-    data class Coin(
-        val denom: String,
-        val amount: String
+        val height: String?, val txhash: String?, val code: Int?, val tx: Any?, val logs: Any?
     )
 
     fun isSuccess(): Boolean {
@@ -73,85 +37,41 @@ data class CosmosHistory(
         return true
     }
 
-    private fun getMsgs(): JSONArray? {
-        if (data?.tx?.body != null) {
-            return JSONArray(data.tx.body.messages)
-        }
-        return null
+    private fun getMsgs(): JsonArray? {
+        val json = Gson().toJson(data?.tx)
+        val jsonObject = Gson().fromJson(json, JsonObject::class.java)
+        return jsonObject["/cosmos-tx-v1beta1-Tx"].asJsonObject["body"].asJsonObject["messages"].asJsonArray
     }
 
     private fun getMsgCnt(): Int {
-        if (getMsgs() != null) {
-            return getMsgs()?.length() ?: 0
-        }
-        return 0
+        return getMsgs()?.size() ?: 0
     }
 
     fun getMsgType(c: Context, address: String?): String {
-        var result = ""
         if (getMsgCnt() == 0) {
             c.getString(R.string.tx_unknown)
         }
         getMsgs()?.let { msg ->
-            val firstMsgType = msg.getJSONObject(0).getString("@type")
-            result = firstMsgType.split(".").last().replace("Msg", "")
-
             if (getMsgCnt() >= 2) {
-                var msgType0 = ""
-                var msgType1 = ""
+                val msgType0 = msg.get(0).asJsonObject["@type"].asString
+                val msgType1 = msg.get(1).asJsonObject["@type"].asString
 
-                try {
-                    msgType0 = msg.getJSONObject(0).getString("@type")
-                } catch (_: Exception) {
-                }
-                try {
-                    msgType0 = msg.getJSONObject(0).getString("type")
-                } catch (_: Exception) {
-                }
-                try {
-                    msgType1 = msg.getJSONObject(1).getString("@type")
-                } catch (_: Exception) {
-                }
-                try {
-                    msgType1 = msg.getJSONObject(1).getString("type")
-                } catch (_: Exception) {
-                }
-
-                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
-                    msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")
+                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") || msgType0.contains(
+                        "MsgWithdrawDelegationReward"
+                    ) && msgType1.contains("MsgDelegate")
                 ) {
                     return if (getMsgCnt() == 2) c.getString(R.string.tx_reinvest) else c.getString(
                         R.string.tx_reinvest
                     ) + " + " + (getMsgCnt() - 1) / 2
                 }
-                if (msgType1.contains("ibc") && msgType1.contains("MsgRecvPacket")) {
-                    return c.getString(R.string.tx_ibc_receive)
-                }
-                if (msgType0.contains("pstake.") && msgType0.contains("liquidstakeibc") || msgType0.contains(
-                        "pstake."
-                    ) && msgType0.contains("lscosmos")
-                ) {
-                    if (msgType0.contains("MsgLiquidStake")) {
-                        result = c.getString(R.string.tx_persis_liquid_stake)
-                    } else if (msgType0.contains("MsgLiquidUnstake")) {
-                        result = c.getString(R.string.tx_persis_liquid_unstake)
-                    } else if (msgType0.contains("MsgRedeem")) {
-                        result = c.getString(R.string.tx_persis_liquid_redeem)
-                    } else if (msgType0.contains("MsgClaim")) {
-                        result = c.getString(R.string.tx_persis_liquid_claim)
-                    }
-                }
+            }
 
-            }
-            var msgType = ""
-            try {
-                msgType = msg.getJSONObject(0).getString("@type")
-            } catch (_: java.lang.Exception) {
-            }
-            try {
-                msgType = msg.getJSONObject(0).getString("type")
-            } catch (_: java.lang.Exception) {
-            }
+            var result: String
+            val firstMsg = msg.get(0)
+            val msgType = firstMsg.asJsonObject["@type"].asString
+            result = msgType.split(".").last().replace("Msg", "")
+
+            val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
 
             if (msgType.contains("cosmos.") && msgType.contains("staking")) {
                 if (msgType.contains("MsgCreateValidator")) {
@@ -170,20 +90,8 @@ data class CosmosHistory(
 
             } else if (msgType.contains("cosmos.") && msgType.contains("bank")) {
                 if (msgType.contains("MsgSend")) {
-                    var fromAddress = ""
-                    var toAddress = ""
-                    try {
-                        toAddress = getMsgs()!!.getJSONObject(0).getString("to_address")
-                        fromAddress = getMsgs()!!.getJSONObject(0).getString("from_address")
-                    } catch (_: java.lang.Exception) {
-                    }
-                    try {
-                        toAddress = getMsgs()!!.getJSONObject(0).getJSONObject("value")
-                            .getString("to_address")
-                        fromAddress = getMsgs()!!.getJSONObject(0).getJSONObject("value")
-                            .getString("from_address")
-                    } catch (_: java.lang.Exception) {
-                    }
+                    val fromAddress = msgValue["from_address"].asString
+                    val toAddress = msgValue["to_address"].asString
                     result = if (toAddress == address) {
                         c.getString(R.string.tx_receive)
                     } else if (fromAddress == address) {
@@ -191,7 +99,6 @@ data class CosmosHistory(
                     } else {
                         c.getString(R.string.tx_transfer)
                     }
-
                 } else if (msgType.contains("MsgMultiSend")) {
                     result = c.getString(R.string.tx_transfer)
                 }
@@ -249,17 +156,6 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_stride_redeem_stake)
                 }
 
-            } else if (msgType.contains("ibc.")) {
-                if (msgType.contains("MsgTransfer")) {
-                    result = c.getString(R.string.tx_ibc_send)
-                } else if (msgType.contains("MsgUpdateClient")) {
-                    result = c.getString(R.string.tx_ibc_update_client)
-                } else if (msgType.contains("MsgAcknowledgement")) {
-                    result = c.getString(R.string.tx_ibc_acknowledgement)
-                } else if (msgType.contains("MsgRecvPacket")) {
-                    result = c.getString(R.string.tx_ibc_receive)
-                }
-
             } else if (msgType.contains("crescent.") && msgType.contains("liquidstaking")) {
                 if (msgType.contains("MsgLiquidStake")) {
                     result = c.getString(R.string.tx_crescent_liquid_stake)
@@ -312,8 +208,8 @@ data class CosmosHistory(
                 if (msgType.contains("MsgMintNFT")) {
                     result = c.getString(R.string.tx_mint_nft)
                 } else if (msgType.contains("MsgTransferNFT")) {
-                    val sender = msg.getJSONObject(0).getString("sender");
-                    val recipient = msg.getJSONObject(0).getString("recipient");
+                    val sender = msgValue["sender"].asString
+                    val recipient = msgValue["recipient"].asString
                     result = if (sender.equals(address, ignoreCase = true)) {
                         c.getString(R.string.tx_send_nft)
                     } else if (recipient.equals(address, ignoreCase = true)) {
@@ -349,8 +245,8 @@ data class CosmosHistory(
                 if (msgType.contains("MsgMintNFT")) {
                     result = c.getString(R.string.tx_mint_nft)
                 } else if (msgType.contains("MsgTransferNFT")) {
-                    val sender = msg.getJSONObject(0).getString("sender");
-                    val recipient = msg.getJSONObject(0).getString("recipient");
+                    val sender = msgValue["sender"].asString
+                    val recipient = msgValue["recipient"].asString
                     result = if (sender.equals(address, ignoreCase = true)) {
                         c.getString(R.string.tx_send_nft)
                     } else if (recipient.equals(address, ignoreCase = true)) {
@@ -364,23 +260,6 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_issue_denom)
                 } else if (msgType.contains("MsgRequestRandom")) {
                     result = "Random Request"
-                }
-
-            } else if (msgType.contains("starnamed.") && msgType.contains("starname")) {
-                if (msgType.contains("RegisterDomain")) {
-                    result = c.getString(R.string.tx_starname_registe_domain)
-                } else if (msgType.contains("RegisterAccount")) {
-                    result = c.getString(R.string.tx_starname_registe_account)
-                } else if (msgType.contains("DeleteDomain")) {
-                    result = c.getString(R.string.tx_starname_delete_domain)
-                } else if (msgType.contains("DeleteAccount")) {
-                    result = c.getString(R.string.tx_starname_delete_account)
-                } else if (msgType.contains("RenewDomain")) {
-                    result = c.getString(R.string.tx_starname_renew_domain)
-                } else if (msgType.contains("RenewAccount")) {
-                    result = c.getString(R.string.tx_starname_renew_account)
-                } else if (msgType.contains("ReplaceAccountResources")) {
-                    result = c.getString(R.string.tx_starname_update_resource)
                 }
 
             } else if (msgType.contains("osmosis.") && msgType.contains("gamm") || msgType.contains(
@@ -418,6 +297,16 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_osmosis_begin_token_unlock)
                 }
 
+            } else if (msgType.contains("osmosis.") && msgType.contains("superfluid")) {
+                if (msgType.contains("MsgSuperfluidDelegate")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_delegate)
+                } else if (msgType.contains("MsgSuperfluidUndelegate")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_undelegate)
+                } else if (msgType.contains("MsgSuperfluidUnbondLock")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_unbondinglock)
+                } else if (msgType.contains("MsgLockAndSuperfluidDelegate")) {
+                    result = c.getString(R.string.tx_osmosis_super_fluid_lockanddelegate)
+                }
             } else if (msgType.contains("panacea.") && msgType.contains("aol")) {
                 if (msgType.contains("MsgAddRecord")) {
                     result = c.getString(R.string.tx_add_record)
@@ -432,40 +321,15 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_create_did)
                 }
 
-            } else if (msgType.contains("akash.") && msgType.contains("market")) {
-                if (msgType.contains("MsgCreateBid")) {
-                    result = c.getString(R.string.tx_create_bid)
-                } else if (msgType.contains("MsgCloseBid")) {
-                    result = c.getString(R.string.tx_close_bid)
-                } else if (msgType.contains("MsgCreateLease")) {
-                    result = c.getString(R.string.tx_create_lease)
-                } else if (msgType.contains("MsgWithdrawLease")) {
-                    result = c.getString(R.string.tx_withdraw_lease)
-                } else if (msgType.contains("MsgCloseLease")) {
-                    result = c.getString(R.string.tx_close_lease)
-                }
-            } else if (msgType.contains("akash.") && msgType.contains("deployment")) {
-                if (msgType.contains("MsgCreateDeployment")) {
-                    result = c.getString(R.string.tx_create_deployment)
-                } else if (msgType.contains("MsgDepositDeployment")) {
-                    result = c.getString(R.string.tx_deposit_deployment)
-                } else if (msgType.contains("MsgUpdateDeployment")) {
-                    result = c.getString(R.string.tx_update_deployment)
-                } else if (msgType.contains("MsgCloseDeployment")) {
-                    result = c.getString(R.string.tx_close_deployment)
-                } else if (msgType.contains("MsgCloseGroup")) {
-                    result = c.getString(R.string.tx_close_group)
-                } else if (msgType.contains("MsgPauseGroup")) {
-                    result = c.getString(R.string.tx_pause_group)
-                } else if (msgType.contains("MsgStartGroup")) {
-                    result = c.getString(R.string.tx_start_group)
-                }
+            } else if (msgType.contains("tendermint.") && msgType.contains("liquidity")) {
+                if (msgType.contains("MsgDepositWithinBatch")) {
+                    result = c.getString(R.string.tx_osmosis_join_pool)
 
-            } else if (msgType.contains("akash.") && msgType.contains("cert")) {
-                if (msgType.contains("MsgCreateCertificate")) {
-                    result = c.getString(R.string.tx_create_certificate)
-                } else if (msgType.contains("MsgRevokeCertificate")) {
-                    result = c.getString(R.string.tx_revoke_certificate)
+                } else if (msgType.contains("MsgSwapWithinBatch")) {
+                    result = c.getString(R.string.tx_osmosis_coin_swap)
+
+                } else if (msgType.contains("MsgWithdrawWithinBatch")) {
+                    result = c.getString(R.string.tx_osmosis_exit_pool)
                 }
 
             } else if (msgType.contains("desmos.") && msgType.contains("profiles")) {
@@ -481,39 +345,8 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_block_user)
                 } else if (msgType.contains("MsgUnblockUser")) {
                     result = c.getString(R.string.tx_unblock_user)
-                } else if (msgType.contains("MsgRequestDTagTransfer")) {
-                } else if (msgType.contains("MsgCancelDTagTransferRequest")) {
-                } else if (msgType.contains("MsgAcceptDTagTransferRequest")) {
-                } else if (msgType.contains("MsgRefuseDTagTransferRequest")) {
                 } else if (msgType.contains("MsgLinkChainAccount")) {
                     result = c.getString(R.string.tx_link_chain_account)
-                } else if (msgType.contains("MsgUnlinkChainAccount")) {
-                } else if (msgType.contains("MsgLinkApplication")) {
-                } else if (msgType.contains("MsgUnlinkApplication")) {
-                }
-
-            } else if (msgType.contains("cosmwasm.")) {
-                if (msgType.contains("MsgStoreCode")) {
-                    result = c.getString(R.string.tx_cosmwasm_store_code)
-                } else if (msgType.contains("MsgInstantiateContract")) {
-                    result = c.getString(R.string.tx_cosmwasm_instantiate)
-                } else if (msgType.contains("MsgExecuteContract")) {
-                    result = c.getString(R.string.tx_cosmwasm_execontract)
-                } else if (msgType.contains("MsgMigrateContract")) {
-                } else if (msgType.contains("MsgUpdateAdmin")) {
-                } else if (msgType.contains("MsgClearAdmin")) {
-                } else if (msgType.contains("PinCodesProposal")) {
-                } else if (msgType.contains("UnpinCodesProposal")) {
-                } else if (msgType.contains("StoreCodeProposal")) {
-                } else if (msgType.contains("InstantiateContractProposal")) {
-                } else if (msgType.contains("MigrateContractProposal")) {
-                } else if (msgType.contains("UpdateAdminProposal")) {
-                } else if (msgType.contains("ClearAdminProposal")) {
-                }
-
-            } else if (msgType.contains("ethermint.evm")) {
-                if (msgType.contains("MsgEthereumTx")) {
-                    result = c.getString(R.string.tx_ethermint_evm)
                 }
 
             } else if (msgType.contains("kava.") && msgType.contains("auction")) {
@@ -605,24 +438,6 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_kava_earn_deposit)
                 }
 
-            } else if (msgType.contains("shentu.") && msgType.contains("oracle")) {
-                if (msgType.contains("MsgTaskResponse")) {
-                    result = c.getString(R.string.tx_task_response)
-                } else if (msgType.contains("MsgCreateTask")) {
-                    result = c.getString(R.string.tx_create_task)
-                }
-
-            } else if (msgType.contains("osmosis.") && msgType.contains("superfluid")) {
-                if (msgType.contains("MsgSuperfluidDelegate")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_delegate)
-                } else if (msgType.contains("MsgSuperfluidUndelegate")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_undelegate)
-                } else if (msgType.contains("MsgSuperfluidUnbondLock")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_unbondinglock)
-                } else if (msgType.contains("MsgLockAndSuperfluidDelegate")) {
-                    result = c.getString(R.string.tx_osmosis_super_fluid_lockanddelegate)
-                }
-
             } else if (msgType.contains("axelar.") && msgType.contains("reward")) {
                 if (msgType.contains("RefundMsgRequest")) {
                     result = c.getString(R.string.tx_axelar_refund_msg_request)
@@ -665,6 +480,104 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_injective_cancel_spot_order)
                 }
 
+            } else if (msgType.contains("akash.") && msgType.contains("market")) {
+                if (msgType.contains("MsgCreateBid")) {
+                    result = c.getString(R.string.tx_create_bid)
+                } else if (msgType.contains("MsgCloseBid")) {
+                    result = c.getString(R.string.tx_close_bid)
+                } else if (msgType.contains("MsgCreateLease")) {
+                    result = c.getString(R.string.tx_create_lease)
+                } else if (msgType.contains("MsgWithdrawLease")) {
+                    result = c.getString(R.string.tx_withdraw_lease)
+                } else if (msgType.contains("MsgCloseLease")) {
+                    result = c.getString(R.string.tx_close_lease)
+                }
+            } else if (msgType.contains("akash.") && msgType.contains("deployment")) {
+                if (msgType.contains("MsgCreateDeployment")) {
+                    result = c.getString(R.string.tx_create_deployment)
+                } else if (msgType.contains("MsgDepositDeployment")) {
+                    result = c.getString(R.string.tx_deposit_deployment)
+                } else if (msgType.contains("MsgUpdateDeployment")) {
+                    result = c.getString(R.string.tx_update_deployment)
+                } else if (msgType.contains("MsgCloseDeployment")) {
+                    result = c.getString(R.string.tx_close_deployment)
+                } else if (msgType.contains("MsgCloseGroup")) {
+                    result = c.getString(R.string.tx_close_group)
+                } else if (msgType.contains("MsgPauseGroup")) {
+                    result = c.getString(R.string.tx_pause_group)
+                } else if (msgType.contains("MsgStartGroup")) {
+                    result = c.getString(R.string.tx_start_group)
+                }
+
+            } else if (msgType.contains("akash.") && msgType.contains("cert")) {
+                if (msgType.contains("MsgCreateCertificate")) {
+                    result = c.getString(R.string.tx_create_certificate)
+                } else if (msgType.contains("MsgRevokeCertificate")) {
+                    result = c.getString(R.string.tx_revoke_certificate)
+                }
+            } else if (msgType.contains("ethermint.evm")) {
+                if (msgType.contains("MsgEthereumTx")) {
+                    result = c.getString(R.string.tx_ethermint_evm)
+                }
+
+            } else if (msgType.contains("shentu.") && msgType.contains("oracle")) {
+                if (msgType.contains("MsgTaskResponse")) {
+                    result = c.getString(R.string.tx_task_response)
+                } else if (msgType.contains("MsgCreateTask")) {
+                    result = c.getString(R.string.tx_create_task)
+                }
+
+            } else if (msgType.contains("pstake.") && msgType.contains("lscosmos")) {
+                if (msgType.contains("MsgLiquidStake")) {
+                    result = c.getString(R.string.tx_persis_liquid_stake)
+                } else if (msgType.contains("MsgLiquidUnstake")) {
+                    result = c.getString(R.string.tx_persis_liquid_unstake)
+                } else if (msgType.contains("MsgRedeem")) {
+                    result = c.getString(R.string.tx_persis_liquid_redeem)
+                } else if (msgType.contains("MsgClaim")) {
+                    result = c.getString(R.string.tx_persis_liquid_claim)
+                }
+
+            } else if (msgType.contains("ibc.")) {
+                if (msgType.contains("MsgTransfer")) {
+                    result = c.getString(R.string.tx_ibc_send)
+                } else if (msgType.contains("MsgUpdateClient")) {
+                    result = c.getString(R.string.tx_ibc_update_client)
+                } else if (msgType.contains("MsgAcknowledgement")) {
+                    result = c.getString(R.string.tx_ibc_acknowledgement)
+                } else if (msgType.contains("MsgRecvPacket")) {
+                    result = c.getString(R.string.tx_ibc_receive)
+                }
+
+                if (getMsgCnt() >= 2) {
+                    msg.forEach { secondMsg ->
+                        if (secondMsg.asJsonObject["@type"].asString.contains("MsgAcknowledgement")) {
+                            result = c.getString(R.string.tx_ibc_acknowledgement)
+                        }
+                    }
+                    msg.forEach { secondMsg ->
+                        if (secondMsg.asJsonObject["@type"].asString.contains("MsgRecvPacket")) {
+                            result = c.getString(R.string.tx_ibc_receive)
+                        }
+                    }
+                }
+
+            } else if (msgType.contains("cosmwasm.")) {
+                if (msgType.contains("MsgStoreCode")) {
+                    result = c.getString(R.string.tx_cosmwasm_store_code)
+                } else if (msgType.contains("MsgInstantiateContract")) {
+                    result = c.getString(R.string.tx_cosmwasm_instantiate)
+                } else if (msgType.contains("MsgExecuteContract")) {
+                    msgValue["msg__@stringify"].asString?.let { wasmMsg ->
+                        val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
+                        val description = wasmFunc.entrySet().first().key ?: ""
+                        result = c.getString(R.string.tx_cosmwasm) + " " + description
+                        result = result.replace("_", "")
+                            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                    } ?: run {
+                        result = c.getString(R.string.tx_cosmwasm_execontract)
+                    }
+                }
             }
 
             if (getMsgCnt() > 1) {
@@ -672,35 +585,29 @@ data class CosmosHistory(
             }
             return result
         }
-        return c.getString(R.string.tx_unknown)
+        return ""
     }
 
     fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin> {
         val result = mutableListOf<CoinProto.Coin>()
+        val json = Gson().toJson(data?.logs)
+        val jsonArray = Gson().fromJson(json, JsonArray::class.java)
+
         if (getMsgCnt() > 0) {
             var allReward = true
             getMsgs()?.let { msgs ->
-                for (i in 0 until msgs.length()) {
-                    var msgType = ""
-                    try {
-                        msgType = msgs.getJSONObject(i).getString("@type")
-                    } catch (_: java.lang.Exception) {
-                    }
-                    try {
-                        msgType = msgs.getJSONObject(i).getString("type")
-                    } catch (_: java.lang.Exception) {
-                    }
-                    if (!msgType.contains("MsgWithdrawDelegatorReward")) {
+                msgs.forEach { msg ->
+                    if (!msg.asJsonObject["@type"].asString.contains("MsgWithdrawDelegatorReward")) {
                         allReward = false
                     }
                 }
                 if (allReward) {
-                    data?.logs?.forEach { log ->
-                        log.events.forEach { event ->
-                            if (event.type == "transfer") {
-                                event.attributes.forEach { attribute ->
-                                    if (attribute.key == "amount") {
-                                        val value = attribute.value as String
+                    jsonArray.forEach { log ->
+                        log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "transfer" }
+                            ?.let { event ->
+                                event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "amount" }
+                                    ?.let { attribute ->
+                                        val value = attribute.asJsonObject["value"].asString
                                         value.split(",").forEach { rawCoin ->
                                             val p = Pattern.compile("([0-9])+")
                                             val m = p.matcher(rawCoin)
@@ -714,32 +621,26 @@ data class CosmosHistory(
                                             }
                                         }
                                     }
-                                }
                             }
-                        }
                     }
                     return sortedCoins(line, result)
                 }
+
                 var ibcReceived = false
-                for (i in 0 until msgs.length()) {
-                    var msgType = ""
-                    try {
-                        msgType = msgs.getJSONObject(i).getString("@type")
-                    } catch (_: java.lang.Exception) {
-                    }
-                    try {
-                        msgType = msgs.getJSONObject(i).getString("type")
-                    } catch (_: java.lang.Exception) {
-                    }
-                    if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
+                msgs.forEach { msg ->
+                    if (msg.asJsonObject["@type"].asString.contains("ibc") && msg.asJsonObject["@type"].asString.contains(
+                            "MsgRecvPacket"
+                        )
+                    ) {
                         ibcReceived = true
                     }
                 }
                 if (ibcReceived) {
-                    data?.logs?.forEach { log ->
-                        log.events.forEach { event ->
-                            if (event.type == "transfer") {
-                                val value = event.attributes[2].value as String
+                    jsonArray.forEach { log ->
+                        log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "transfer" }
+                            ?.let { event ->
+                                val value =
+                                    event.asJsonObject["attributes"].asJsonArray.get(2).asJsonObject["value"].asString
                                 value.split(",").forEach { rawCoin ->
                                     val p = Pattern.compile("([0-9])+")
                                     val m = p.matcher(rawCoin)
@@ -752,7 +653,6 @@ data class CosmosHistory(
                                     }
                                 }
                             }
-                        }
                     }
                     return sortedCoins(line, result)
                 }
@@ -761,26 +661,13 @@ data class CosmosHistory(
 
         if (getMsgCnt() == 2) {
             getMsgs()?.let { msgs ->
-                var msgType0 = ""
-                var msgType1 = ""
-                try {
-                    msgType0 = msgs.getJSONObject(0).getString("@type")
-                } catch (_: java.lang.Exception) { }
-                try {
-                    msgType0 = msgs.getJSONObject(0).getString("type")
-                } catch (_: java.lang.Exception) { }
-                try {
-                    msgType1 = msgs.getJSONObject(1).getString("@type")
-                } catch (_: java.lang.Exception) { }
-                try {
-                    msgType1 = msgs.getJSONObject(1).getString("type")
-                } catch (_: java.lang.Exception) { }
+                val msgType0 = msgs.get(0).asJsonObject["@type"].asString
+                val msgType1 = msgs.get(1).asJsonObject["@type"].asString
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-                    msgs.getJSONObject(1).getJSONObject("amount").let { rawAmount ->
-                        CoinProto.Coin.newBuilder()
-                            .setDenom(rawAmount.getString("denom"))
-                            .setAmount(rawAmount.getString("amount"))
-                            .build()?.let { rawCoin ->
+                    msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
+                        val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
+                        CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
+                            .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
                                 result.add(rawCoin)
                             }
                     }
@@ -789,61 +676,57 @@ data class CosmosHistory(
             }
         }
 
-        if (getMsgCnt() == 0 || getMsgCnt() > 1) { return mutableListOf() }
+        if (getMsgCnt() == 0 || getMsgCnt() > 1) {
+            return mutableListOf()
+        }
 
-        var msgType = ""
-        try {
-            msgType = getMsgs()?.getJSONObject(0)?.getString("@type").toString()
-        } catch (_: java.lang.Exception) { }
-        try {
-            msgType = getMsgs()?.getJSONObject(0)?.getString("type").toString()
-        } catch (_: java.lang.Exception) { }
-        var denom: String? = ""
-        var amount: String? = ""
+        getMsgs()?.let { msgs ->
+            val firstMsg = msgs.get(0)
+            val msgType = firstMsg.asJsonObject["@type"].asString
+            val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
 
-        if (msgType.contains("MsgSend")) {
-            try {
-                denom = getMsgs()?.getJSONObject(0)?.getJSONArray("amount")?.getJSONObject(0)
-                    ?.getString("denom")
-                amount = getMsgs()?.getJSONObject(0)?.getJSONArray("amount")?.getJSONObject(0)
-                    ?.getString("amount")
-            } catch (_: JSONException) { }
-            try {
-                denom =
-                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONArray("amount")
-                        ?.getJSONObject(0)?.getString("denom")
-                amount =
-                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONArray("amount")
-                        ?.getJSONObject(0)?.getString("amount")
-            } catch (_: JSONException) { }
-            val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-            result.add(coin)
+            if (msgType.contains("MsgSend")) {
+                msgValue["amount"].asJsonArray?.let { rawAmounts ->
+                    val coin = CoinProto.Coin.newBuilder()
+                        .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
+                        .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
+                    result.add(coin)
 
-        } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains(
-                "MsgBeginRedelegate"
-            )
-        ) {
-            try {
-                denom = getMsgs()?.getJSONObject(0)?.getJSONObject("amount")?.getString("denom")
-                amount =
-                    getMsgs()?.getJSONObject(0)?.getJSONObject("amount")?.getString("amount")
-            } catch (_: JSONException) { }
-            try {
-                denom =
-                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONObject("amount")
-                        ?.getString("denom")
-                amount =
-                    getMsgs()?.getJSONObject(0)?.getJSONObject("value")?.getJSONObject("amount")
-                        ?.getString("amount")
-            } catch (_: JSONException) { }
-            val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-            result.add(coin)
+                } ?: run {
+                    msgValue["value"].asJsonObject["amount"].asJsonArray?.let { rawAmounts ->
+                        val coin = CoinProto.Coin.newBuilder()
+                            .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
+                            .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
+                        result.add(coin)
+                    }
+                }
 
-        } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
-            denom = getMsgs()?.getJSONObject(0)?.getJSONObject("token")?.getString("denom")
-            amount = getMsgs()?.getJSONObject(0)?.getJSONObject("token")?.getString("amount")
-            val coin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-            result.add(coin)
+            } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains(
+                    "MsgBeginRedelegate"
+                ) || msgType.contains("MsgCancelUnbondingDelegation")
+            ) {
+                val rawAmount = msgValue["amount"].asJsonObject
+                if (!rawAmount.isJsonNull) {
+                    val coin = CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
+                        .setAmount(rawAmount["amount"].asString).build()
+                    result.add(coin)
+                } else {
+                    result.add(CoinProto.Coin.newBuilder().build())
+                }
+
+            } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
+                val rawAmount = msgValue["token"].asJsonObject
+                if (!rawAmount.isJsonNull) {
+                    val coin = CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
+                        .setAmount(rawAmount["amount"].asString).build()
+                    result.add(coin)
+                } else {
+                    result.add(CoinProto.Coin.newBuilder().build())
+                }
+
+            } else {
+                return sortedCoins(line, result)
+            }
         }
         return sortedCoins(line, result)
     }
@@ -851,27 +734,11 @@ data class CosmosHistory(
     fun getVoteOption(): String {
         var result = ""
         getMsgs()?.let { msgs ->
-            var msgType: String? = ""
-            try {
-                msgType = msgs.getJSONObject(0).getString("@type")
-            } catch (_: java.lang.Exception) {
-            }
-            try {
-                msgType = msgs.getJSONObject(0).getString("type")
-            } catch (_: java.lang.Exception) {
-            }
-            var option: String? = ""
-            try {
-                option = msgs.getJSONObject(0).getString("option")
-            } catch (_: java.lang.Exception) {
-            }
-            try {
-                option = msgs.getJSONObject(0).getJSONObject("value").getString("option")
-            } catch (_: java.lang.Exception) {
-            }
-
+            val firstMsg = msgs.get(0)
+            val msgType = firstMsg.asJsonObject["@type"].asString
             if (msgType?.contains("MsgVote") == true) {
-                when (option) {
+                val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
+                when (msgValue["option"].asString) {
                     "VOTE_OPTION_YES", "Yes" -> result = "YES"
                     "VOTE_OPTION_NO", "No" -> result = "NO"
                     "VOTE_OPTION_ABSTAIN", "Abstain" -> result = "ABSTAIN"
@@ -883,8 +750,7 @@ data class CosmosHistory(
     }
 
     private fun sortedCoins(
-        line: CosmosLine,
-        inputs: MutableList<CoinProto.Coin>?
+        line: CosmosLine, inputs: MutableList<CoinProto.Coin>?
     ): MutableList<CoinProto.Coin> {
         var sorted = mutableListOf<CoinProto.Coin>()
 

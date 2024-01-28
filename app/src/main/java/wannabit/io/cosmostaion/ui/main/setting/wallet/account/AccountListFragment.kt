@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAccountListBinding
+import wannabit.io.cosmostaion.ui.option.account.AccountManageListener
 import wannabit.io.cosmostaion.ui.option.account.AccountManageOptionFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
@@ -120,10 +121,11 @@ class AccountListFragment : Fragment() {
             accountListAdapter.submitList(mnemonicAccounts + privateAccounts)
 
             accountListAdapter.setOnItemClickListener { account ->
-                AccountManageOptionFragment(account, accountManageSelectAction).show(
-                    parentFragmentManager, AccountManageOptionFragment::class.java.name
+                handleOneClickWithDelay(
+                    AccountManageOptionFragment.newInstance(
+                        account, accountManageSelectAction
+                    )
                 )
-                setClickableOnce(isClickable)
             }
         }
     }
@@ -135,10 +137,11 @@ class AccountListFragment : Fragment() {
             }
 
             btnAddAccount.setOnClickListener {
-                AccountInitSelectFragment(accountInitSelectAction).show(
-                    parentFragmentManager, AccountInitSelectFragment::class.java.name
+                handleOneClickWithDelay(
+                    AccountInitSelectFragment.newInstance(
+                        accountInitSelectAction
+                    )
                 )
-                setClickableOnce(isClickable)
             }
         }
     }
@@ -175,7 +178,9 @@ class AccountListFragment : Fragment() {
                     dismissInitSelectFragment()
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
-                            this@AccountListFragment, CreateMnemonicFragment(BaseConstant.CONST_NEW_ACCOUNT), "CreateMnemonic"
+                            this@AccountListFragment,
+                            CreateMnemonicFragment(BaseConstant.CONST_NEW_ACCOUNT),
+                            "CreateMnemonic"
                         )
                     }
                 }
@@ -190,7 +195,9 @@ class AccountListFragment : Fragment() {
                     dismissInitSelectFragment()
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
-                            this@AccountListFragment, RestoreMnemonicFragment(BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT), "RestoreMnemonic"
+                            this@AccountListFragment,
+                            RestoreMnemonicFragment(BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT),
+                            "RestoreMnemonic"
                         )
                     }
                 }
@@ -205,7 +212,9 @@ class AccountListFragment : Fragment() {
                     dismissInitSelectFragment()
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
-                            this@AccountListFragment, RestorePrivateFragment(BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT), "RestorePrivate"
+                            this@AccountListFragment,
+                            RestorePrivateFragment(BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT),
+                            "RestorePrivate"
                         )
                     }
                 }
@@ -238,7 +247,7 @@ class AccountListFragment : Fragment() {
                         manageAccount?.let { account ->
                             requireActivity().toMoveFragment(
                                 this@AccountListFragment,
-                                MnemonicCheckFragment(account),
+                                MnemonicCheckFragment.newInstance(account),
                                 "MnemonicCheck"
                             )
                         }
@@ -257,7 +266,7 @@ class AccountListFragment : Fragment() {
                         manageAccount?.let { account ->
                             requireActivity().toMoveFragment(
                                 this@AccountListFragment,
-                                PrivateCheckFragment(account),
+                                PrivateCheckFragment.newInstance(account),
                                 "PrivateCheck"
                             )
                         }
@@ -297,9 +306,13 @@ class AccountListFragment : Fragment() {
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -311,14 +324,4 @@ class AccountListFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface AccountInitListener {
-    fun initAction(initType: Int)
-}
-
-interface AccountManageListener {
-    fun checkMnemonic(account: BaseAccount)
-
-    fun checkPrivate(account: BaseAccount)
 }

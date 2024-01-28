@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
 import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 
@@ -64,6 +66,7 @@ class ProposalListFragment : Fragment() {
         initViewModel()
         initRecyclerView()
         setUpClickAction()
+        setUpVoteInfo()
     }
 
     private fun initViewModel() {
@@ -85,10 +88,11 @@ class ProposalListFragment : Fragment() {
                 selectedChain = it
             }
         }
-        proposalViewModel.proposalList(selectedChain.apiName)
     }
 
     private fun initRecyclerView() {
+        proposalViewModel.proposalList(selectedChain.apiName)
+
         binding.apply {
             btnVote.updateButtonView(false)
             proposalViewModel.proposalResult.observe(viewLifecycleOwner) { proposals ->
@@ -120,6 +124,7 @@ class ProposalListFragment : Fragment() {
             }
 
             proposalViewModel.voteStatusResult.observe(viewLifecycleOwner) { voteStatus ->
+                myVotes.clear()
                 Handler(Looper.getMainLooper()).postDelayed({
                     loading.visibility = View.GONE
                     recycler.visibility = View.VISIBLE
@@ -198,6 +203,12 @@ class ProposalListFragment : Fragment() {
                     requireActivity().supportFragmentManager, VoteFragment::class.java.name
                 )
             }
+        }
+    }
+
+    private fun setUpVoteInfo() {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+            proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
         }
     }
 

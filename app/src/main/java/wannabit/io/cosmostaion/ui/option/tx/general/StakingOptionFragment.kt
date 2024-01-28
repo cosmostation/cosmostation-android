@@ -129,15 +129,19 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             claimRewardsLayout.setOnClickListener {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.claimableRewards()
-                    .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
+                selectedChain.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
                         claimableRewards.add(claimableReward)
                     } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
                 }
-                handleOneClickWithDelay(ClaimRewardFragment.newInstance(selectedChain, claimableRewards))
+
+                handleOneClickWithDelay(
+                    ClaimRewardFragment.newInstance(
+                        selectedChain, claimableRewards
+                    )
+                )
             }
 
             compoundingLayout.setOnClickListener {
@@ -154,7 +158,11 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
                 }
-                handleOneClickWithDelay(CompoundingFragment.newInstance(selectedChain, claimableRewards))
+                handleOneClickWithDelay(
+                    CompoundingFragment.newInstance(
+                        selectedChain, claimableRewards
+                    )
+                )
             }
 
             unstakeCancelLayout.setOnClickListener {

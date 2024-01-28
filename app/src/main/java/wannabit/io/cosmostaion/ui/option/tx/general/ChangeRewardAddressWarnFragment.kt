@@ -19,6 +19,8 @@ class ChangeRewardAddressWarnFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedChain: CosmosLine
 
+    private var isClickable = true
+
     companion object {
         @JvmStatic
         fun newInstance(
@@ -64,15 +66,20 @@ class ChangeRewardAddressWarnFragment : BottomSheetDialogFragment() {
                 dismiss()
             }
 
-            var isClickable = true
             btnConfirm.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
 
                     ChangeRewardAddressFragment.newInstance(selectedChain).show(
                         requireActivity().supportFragmentManager,
-                        ChangeRewardAddressWarnFragment::class.java.name
+                        ChangeRewardAddressFragment::class.java.name
                     )
+
+
+//                    ChangeRewardAddressFragment.newInstance(selectedChain).show(
+//                        requireActivity().supportFragmentManager,
+//                        ChangeRewardAddressFragment::class.java.name
+//                    )
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true

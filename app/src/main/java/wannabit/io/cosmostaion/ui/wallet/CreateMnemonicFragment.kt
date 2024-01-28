@@ -22,10 +22,11 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.main.setting.wallet.account.ChangeNameFragment
+import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
@@ -94,7 +95,7 @@ class CreateMnemonicFragment(private val initType: Int) : Fragment() {
 
             btnCreateAccount.setOnClickListener {
                 CreateNameFragment().show(
-                    parentFragmentManager, ChangeNameFragment::class.java.name
+                    parentFragmentManager, CreateNameFragment::class.java.name
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "create", this@CreateMnemonicFragment
@@ -156,6 +157,7 @@ class CreateMnemonicFragment(private val initType: Int) : Fragment() {
                     requireActivity().window.statusBarColor =
                         ContextCompat.getColor(requireContext(), R.color.color_transparent)
                     ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
+                    PushManager.syncAddresses(Prefs.fcmToken)
 
                     startToActivity()
                 }

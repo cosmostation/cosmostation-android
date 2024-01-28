@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
@@ -32,35 +34,67 @@ class ChainManageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initRecyclerView() {
         binding.recycler.apply {
+            val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
+            var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
             CoroutineScope(Dispatchers.IO).launch {
-                val dpCosmosLines: MutableList<CosmosLine> = mutableListOf()
-                dpCosmosLines.clear()
+                allCosmosLines.clear()
 
-                dpCosmosLines.addAll(allCosmosLines().filter { it.isDefault }
+                allCosmosLines.addAll(allCosmosLines().filter { it.isDefault }
                     .distinctBy { it.name })
-                binding.headerCnt.text = dpCosmosLines.count().toString()
+                searchCosmosLines = allCosmosLines
+                binding.headerCnt.text = allCosmosLines.count().toString()
 
                 withContext(Dispatchers.Main) {
                     chainManageAdapter = ChainManageAdapter()
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter
-                    chainManageAdapter.submitList(dpCosmosLines)
+                    chainManageAdapter.submitList(searchCosmosLines)
                 }
             }
+
+            initSearchView(allCosmosLines, searchCosmosLines)
         }
     }
 
-    private fun clickAction() {
+    private fun initSearchView(
+        allCosmosLines: MutableList<CosmosLine>, searchCosmosLines: MutableList<CosmosLine>
+    ) {
         binding.apply {
-            btnBack.setOnClickListener {
-                requireActivity().onBackPressed()
-            }
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchCosmosLines.clear()
+                    if (StringUtils.isEmpty(newText)) {
+                        searchCosmosLines.addAll(allCosmosLines)
+                    } else {
+                        newText?.let { searchTxt ->
+                            searchCosmosLines.addAll(allCosmosLines.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+                        }
+                    }
+                    chainManageAdapter.submitList(searchCosmosLines)
+                    chainManageAdapter.notifyDataSetChanged()
+                    return true
+                }
+            })
+        }
+    }
+
+    private fun setUpClickAction() {
+        binding.btnBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 

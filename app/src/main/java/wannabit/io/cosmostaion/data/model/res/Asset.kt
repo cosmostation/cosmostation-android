@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.model.res
 
+import android.graphics.Color
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -20,6 +21,7 @@ data class Asset(
     val description: String?,
     val image: String?,
     val coinGeckoId: String?,
+    val color: String?,
 
     val enable: Boolean?,
     val path: String?,
@@ -42,6 +44,14 @@ data class Asset(
 
     fun assetImg(): String {
         return CosmostationConstants.CHAIN_BASE_URL + image
+    }
+
+    fun assetColor(): Int {
+        color?.let {
+            return Color.parseColor(it)
+        } ?: run {
+            return Color.parseColor("#ffffff")
+        }
     }
 }
 

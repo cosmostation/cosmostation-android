@@ -141,6 +141,7 @@ class CompoundingFragment : BaseTxFragment() {
                     compoundingAmount.text =
                         formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
                     compoundingDenom.text = asset.symbol
+                    compoundingDenom.setTextColor(asset.assetColor())
                 }
             }
         }
@@ -373,6 +374,7 @@ class CompoundingFragment : BaseTxFragment() {
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

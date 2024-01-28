@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentDepositEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -46,7 +47,6 @@ import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -58,7 +58,7 @@ class DepositEarningFragment : BaseTxFragment() {
     private var _binding: FragmentDepositEarningBinding? = null
     private val binding get() = _binding!!
 
-    private var selectedChain: CosmosLine? = null
+    private lateinit var selectedChain: CosmosLine
     private var toValidator: Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -108,11 +108,20 @@ class DepositEarningFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                selectedChain = arguments?.getParcelable("selectedChain", CosmosLine::class.java)
-                toValidator = arguments?.getSerializable("toValidator", Validator::class.java)
+                arguments?.apply {
+                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                        selectedChain = it
+                    }
+                    toValidator = getSerializable("toValidator", Validator::class.java)
+                }
+
             } else {
-                selectedChain = arguments?.getParcelable("selectedChain") as? CosmosLine
-                toValidator = arguments?.getSerializable("toValidator") as? Validator
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
+                    toValidator = getSerializable("toValidator") as? Validator
+                }
             }
 
             listOf(validatorView, amountView, memoView, feeView).forEach {
@@ -123,13 +132,11 @@ class DepositEarningFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain?.let { chain ->
-                    chain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
-                        ?.let { validator ->
-                            toValidator = validator
-                        } ?: run {
-                        toValidator = chain.cosmosValidators[0]
-                    }
+                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
+                    ?.let { validator ->
+                        toValidator = validator
+                    } ?: run {
+                    toValidator = selectedChain.cosmosValidators[0]
                 }
             }
             updateValidatorView()
@@ -138,50 +145,46 @@ class DepositEarningFragment : BaseTxFragment() {
 
     private fun initFee() {
         binding.apply {
-            selectedChain?.let { chain ->
-                feeInfos = chain.getFeeInfos(requireContext())
-                feeSegment.setSelectedBackground(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
-                    )
+            feeInfos = selectedChain.getFeeInfos(requireContext())
+            feeSegment.setSelectedBackground(
+                ContextCompat.getColor(
+                    requireContext(), R.color.color_accent_purple
                 )
-                feeSegment.setRipple(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
-                    )
+            )
+            feeSegment.setRipple(
+                ContextCompat.getColor(
+                    requireContext(), R.color.color_accent_purple
                 )
+            )
 
-                for (i in feeInfos.indices) {
-                    val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                    feeSegment.addView(
-                        segmentView.root,
-                        i,
-                        LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                    )
-                    segmentView.btnTitle.text = feeInfos[i].title
-                }
-                feeSegment.setPosition(chain.getFeeBasePosition(), false)
-                selectedFeeInfo = chain.getFeeBasePosition()
-                txFee = chain.getInitFee(requireContext())
+            for (i in feeInfos.indices) {
+                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                feeSegment.addView(
+                    segmentView.root,
+                    i,
+                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                )
+                segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
+            selectedFeeInfo = selectedChain.getFeeBasePosition()
+            txFee = selectedChain.getInitFee(requireContext())
         }
     }
 
     private fun updateValidatorView() {
         binding.apply {
             toValidator?.let { validator ->
-                selectedChain?.let { chain ->
-                    monikerImg.setMonikerImg(chain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
+                monikerName.text = validator.description?.moniker
 
-                    val statusImage = when {
-                        validator.jailed -> R.drawable.icon_jailed
-                        validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED -> R.drawable.icon_inactive
-                        else -> 0
-                    }
-                    jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
-                    jailedImg.setImageResource(statusImage)
+                val statusImage = when {
+                    validator.jailed -> R.drawable.icon_jailed
+                    validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED -> R.drawable.icon_inactive
+                    else -> 0
                 }
+                jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                jailedImg.setImageResource(statusImage)
 
                 val commissionRate = toValidator?.commission?.commissionRates?.rate?.toBigDecimal()
                     ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
@@ -206,29 +209,28 @@ class DepositEarningFragment : BaseTxFragment() {
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
-            selectedChain?.let { chain ->
-                toCoin = CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(chain.stakeDenom)
+            toCoin =
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
                     .build()
 
-                chain.stakeDenom?.let { denom ->
-                    BaseData.getAsset(chain.apiName, denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                                .setScale(decimal, RoundingMode.DOWN)
-                            addAmountMsg.visibility = View.GONE
-                            addAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                            addAmount.setTextColor(
-                                ContextCompat.getColor(
-                                    requireContext(), R.color.color_base01
-                                )
+            selectedChain.stakeDenom?.let { denom ->
+                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
+                    asset.decimals?.let { decimal ->
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.DOWN)
+                        addAmountMsg.visibility = View.GONE
+                        addAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                        addAmount.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_base01
                             )
-                            addDenom.visibility = View.VISIBLE
-                            addDenom.text = asset.symbol
-                        }
+                        )
+                        addDenom.visibility = View.VISIBLE
+                        addDenom.text = asset.symbol
                     }
                 }
-                txSimulate()
             }
+            txSimulate()
         }
     }
 
@@ -256,36 +258,33 @@ class DepositEarningFragment : BaseTxFragment() {
 
     private fun updateFeeView() {
         binding.apply {
-            selectedChain?.let { chain ->
-                txFee?.getAmount(0)?.let { fee ->
-                    BaseData.getAsset(chain.apiName, fee.denom)?.let { asset ->
-                        feeTokenImg.setTokenImg(asset)
-                        feeToken.text = asset.symbol
+            txFee?.getAmount(0)?.let { fee ->
+                BaseData.getAsset(selectedChain.apiName, fee.denom)?.let { asset ->
+                    feeTokenImg.setTokenImg(asset)
+                    feeToken.text = asset.symbol
 
-                        val amount =
-                            fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
-                        val price = BaseData.getPrice(asset.coinGeckoId)
-                        val value = price.multiply(amount)
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
+                    val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                        feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                        feeValue.text = formatAssetValue(value)
-                    }
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeValue.text = formatAssetValue(value)
+                }
 
-                    chain.stakeDenom?.let { denom ->
-                        val balanceAmount = chain.balanceAmount(denom)
-                        val vestingAmount = chain.vestingAmount(denom)
+                selectedChain.stakeDenom?.let { denom ->
+                    val balanceAmount = selectedChain.balanceAmount(denom)
+                    val vestingAmount = selectedChain.vestingAmount(denom)
 
-                        txFee?.let {
-                            availableAmount = if (it.getAmount(0).denom == denom) {
-                                val feeAmount = it.getAmount(0).amount.toBigDecimal()
-                                if (feeAmount > balanceAmount) {
-                                    BigDecimal.ZERO
-                                } else {
-                                    balanceAmount.add(vestingAmount).subtract(feeAmount)
-                                }
+                    txFee?.let {
+                        availableAmount = if (it.getAmount(0).denom == denom) {
+                            val feeAmount = it.getAmount(0).amount.toBigDecimal()
+                            if (feeAmount > balanceAmount) {
+                                BigDecimal.ZERO
                             } else {
-                                balanceAmount.add(vestingAmount)
+                                balanceAmount.add(vestingAmount).subtract(feeAmount)
                             }
+                        } else {
+                            balanceAmount.add(vestingAmount)
                         }
                     }
                 }
@@ -295,88 +294,88 @@ class DepositEarningFragment : BaseTxFragment() {
 
     private fun setUpClickAction() {
         binding.apply {
-            selectedChain?.let { chain ->
-                validatorView.setOnClickListener {
-                    handleOneClickWithDelay(
-                        ValidatorDefaultFragment(chain, null, object : ValidatorDefaultListener {
+            validatorView.setOnClickListener {
+                handleOneClickWithDelay(
+                    ValidatorDefaultFragment(selectedChain,
+                        null,
+                        object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    chain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
-                    )
-                }
+                )
+            }
 
-                amountView.setOnClickListener {
-                    handleOneClickWithDelay(
-                        InsertAmountFragment(TxType.EARN_DEPOSIT,
-                            null,
-                            availableAmount,
-                            toCoin?.amount,
-                            chain.stakeDenom?.let { denom ->
-                                BaseData.getAsset(
-                                    chain.apiName, denom
-                                )
-                            },
-                            null,
-                            object : AmountSelectListener {
-                                override fun select(toAmount: String) {
-                                    updateAmountView(toAmount)
-                                }
-                            })
-                    )
-                }
+            amountView.setOnClickListener {
+                handleOneClickWithDelay(
+                    InsertAmountFragment(TxType.EARN_DEPOSIT,
+                        null,
+                        availableAmount,
+                        toCoin?.amount,
+                        selectedChain.stakeDenom?.let { denom ->
+                            BaseData.getAsset(
+                                selectedChain.apiName, denom
+                            )
+                        },
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
+                        })
+                )
+            }
 
-                memoView.setOnClickListener {
-                    handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
-                        }
-                    }))
-                }
-
-                feeTokenLayout.setOnClickListener {
-                    handleOneClickWithDelay(
-                        AssetFragment(chain,
-                            feeInfos[selectedFeeInfo].feeDatas,
-                            object : AssetSelectListener {
-                                override fun select(denom: String) {
-                                    chain.getDefaultFeeCoins(requireContext())
-                                        .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                            val updateFeeCoin =
-                                                CoinProto.Coin.newBuilder().setDenom(denom)
-                                                    .setAmount(feeCoin.amount).build()
-
-                                            val updateTxFee = TxProto.Fee.newBuilder()
-                                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                                .addAmount(updateFeeCoin).build()
-
-                                            txFee = updateTxFee
-                                            updateFeeView()
-                                            txSimulate()
-                                        }
-                                }
-                            })
-                    )
-                }
-
-                feeSegment.setOnPositionChangedListener { position ->
-                    selectedFeeInfo = position
-                    txFee = chain.getBaseFee(
-                        requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
-                    )
-                    updateFeeView()
-                    txSimulate()
-                }
-
-                btnDepositLiquidity.setOnClickListener {
-                    Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                        depositLiquidityResultLauncher.launch(this)
-                        requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                        )
+            memoView.setOnClickListener {
+                handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
                     }
+                }))
+            }
+
+            feeTokenLayout.setOnClickListener {
+                handleOneClickWithDelay(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
+
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
+
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
+                )
+            }
+
+            feeSegment.setOnPositionChangedListener { position ->
+                selectedFeeInfo = position
+                txFee = selectedChain.getBaseFee(
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                )
+                updateFeeView()
+                txSimulate()
+            }
+
+            btnDepositLiquidity.setOnClickListener {
+                Intent(requireContext(), PasswordCheckActivity::class.java).apply {
+                    depositLiquidityResultLauncher.launch(this)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
         }
@@ -400,32 +399,35 @@ class DepositEarningFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                selectedChain?.let { chain ->
-                    txViewModel.broadEarnDeposit(
-                        getChannel(chain), chain.address, onBindEarnDeposit(), txFee, txMemo, chain
-                    )
-                }
+                txViewModel.broadEarnDeposit(
+                    getChannel(selectedChain),
+                    selectedChain.address,
+                    onBindEarnDeposit(),
+                    txFee,
+                    txMemo,
+                    selectedChain
+                )
             }
         }
 
     private fun txSimulate() {
         binding.apply {
-            selectedChain?.let { chain ->
-                if (toCoin == null) {
-                    return
-                }
-                btnDepositLiquidity.updateButtonView(false)
-                backdropLayout.visibility = View.VISIBLE
-                txViewModel.simulateEarnDeposit(
-                    getChannel(chain), chain.address, onBindEarnDeposit(), txFee, txMemo
-                )
+            if (toCoin == null) {
+                return
             }
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeViewWithSimulate(null)
+            }
+            btnDepositLiquidity.updateButtonView(false)
+            backdropLayout.visibility = View.VISIBLE
+            txViewModel.simulateEarnDeposit(
+                getChannel(selectedChain), selectedChain.address, onBindEarnDeposit(), txFee, txMemo
+            )
         }
     }
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
             updateFeeViewWithSimulate(gasInfo)
         }
 
@@ -436,24 +438,26 @@ class DepositEarningFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
-        selectedChain?.let { chain ->
-            txFee?.let { fee ->
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+        txFee?.let { fee ->
+            val selectedFeeData =
                 feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                    ?.let { gasRate ->
-                        val gasLimit = (gasInfo.gasUsed.toDouble() * chain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                        val feeCoinAmount =
-                            gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            val gasRate = selectedFeeData?.gasRate
 
-                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                            .setAmount(feeCoinAmount.toString()).build()
-                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
-                            .addAmount(feeCoin).build()
-                    }
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
             }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
@@ -470,16 +474,17 @@ class DepositEarningFragment : BaseTxFragment() {
                     putExtra("isSuccess", true)
                 }
                 putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain?.tag)
+                putExtra("selectedChain", selectedChain.tag)
                 val hash = txResponse.txhash
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 
     private fun onBindEarnDeposit(): MsgDelegateMintDeposit? {
-        return MsgDelegateMintDeposit.newBuilder().setDepositor(selectedChain?.address)
+        return MsgDelegateMintDeposit.newBuilder().setDepositor(selectedChain.address)
             .setValidator(toValidator?.operatorAddress).setAmount(toCoin).build()
     }
 

@@ -91,6 +91,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.main.setting.general.PushDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
             android:name=".ui.main.dapp.DappActivity"
             android:exported="true"
             android:launchMode="singleTask"
@@ -118,6 +122,18 @@
                     android:scheme="cosmostation" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".common.BaseFCM"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
     </application>
 
 </manifest>

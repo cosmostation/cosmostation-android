@@ -244,7 +244,6 @@ class EvmTransferFragment : BaseTxFragment() {
                                     }
                                 }
                             }
-
                         })
                 )
             }
@@ -339,6 +338,7 @@ class EvmTransferFragment : BaseTxFragment() {
                 putExtra("txResultType", TxResultType.EVM.toString())
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

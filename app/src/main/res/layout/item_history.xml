@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
                     android:textColor="@color/color_base01"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tx_amount"
                     app:layout_constraintEnd_toStartOf="@+id/tx_cnt" />
 
                 <TextView
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_15"
                     android:layout_marginStart="@dimen/space_2"
-                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_marginEnd="@dimen/space_4"
                     android:gravity="end"
                     android:maxWidth="@dimen/space_150"
                     android:maxLines="1"

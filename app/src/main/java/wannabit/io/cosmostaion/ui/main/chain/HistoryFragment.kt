@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.chain
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ class HistoryFragment : Fragment() {
 
     private lateinit var historyAdapter: HistoryAdapter
 
-    private var searchId: Int? = 0
+    private var searchAfter: String = ""
     private var hasMore = false
     private val BATCH_CNT = 30
 
@@ -91,7 +92,7 @@ class HistoryFragment : Fragment() {
             allHistoryGroup.clear()
             allBnbHistoryGroup.clear()
             allOktHistoryGroup.clear()
-            searchId = 0
+            searchAfter = ""
             initData()
         }
     }
@@ -127,7 +128,7 @@ class HistoryFragment : Fragment() {
                     selectedChain.apiName,
                     selectedChain.address,
                     BATCH_CNT.toString(),
-                    searchId
+                    searchAfter
                 )
             }
         }
@@ -153,7 +154,7 @@ class HistoryFragment : Fragment() {
                             selectedChain.apiName,
                             selectedChain.address,
                             BATCH_CNT.toString(),
-                            searchId
+                            searchAfter
                         )
                     }
                 }
@@ -167,10 +168,10 @@ class HistoryFragment : Fragment() {
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(allHistoryGroup as List<Any>?)
-                    searchId = allHistoryGroup[allHistoryGroup.size - 1].second.header?.id
+                    searchAfter = allHistoryGroup[allHistoryGroup.size - 1].second. searchAfter.toString()
                     hasMore = historyGroup.size >= BATCH_CNT
                 } else {
-                    searchId = 0
+                    searchAfter = ""
                     hasMore = false
                 }
 

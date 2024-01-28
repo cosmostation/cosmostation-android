@@ -162,9 +162,24 @@ class CoinFragment : Fragment() {
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
                             when (it) {
-                                "staking" -> stakeCoins.add(Coin(coin.denom, coin.amount, CoinType.STAKE))
-                                "native" -> nativeCoins.add(Coin(coin.denom, coin.amount, CoinType.NATIVE))
-                                "bep", "bridge" -> bridgeCoins.add(Coin(coin.denom, coin.amount, CoinType.BRIDGE))
+                                "staking" -> stakeCoins.add(
+                                    Coin(
+                                        coin.denom, coin.amount, CoinType.STAKE
+                                    )
+                                )
+
+                                "native" -> nativeCoins.add(
+                                    Coin(
+                                        coin.denom, coin.amount, CoinType.NATIVE
+                                    )
+                                )
+
+                                "bep", "bridge" -> bridgeCoins.add(
+                                    Coin(
+                                        coin.denom, coin.amount, CoinType.BRIDGE
+                                    )
+                                )
+
                                 "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                             }
                         }
@@ -207,6 +222,10 @@ class CoinFragment : Fragment() {
                 initData()
             }
         }
+
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+            coinAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun startTransfer(line: CosmosLine, denom: String) {
@@ -222,7 +241,17 @@ class CoinFragment : Fragment() {
     }
 
     private fun selectBridgeOption(line: CosmosLine, denom: String) {
-        handleOneClickWithDelay(BridgeOptionFragment(line, denom, bridgeClickAction))
+        if (isClickable) {
+            isClickable = false
+
+            BridgeOptionFragment(line, denom, bridgeClickAction).show(
+                requireActivity().supportFragmentManager, BridgeOptionFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
+        }
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {

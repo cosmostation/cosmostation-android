@@ -137,6 +137,7 @@ class InsertAmountFragment(
                     ?.let { amount ->
                         available.text = formatAmount(amount.toPlainString(), assetDecimal)
                         availableDenom.text = asset.symbol
+                        availableDenom.setTextColor(asset.assetColor())
                     }
 
                 toAmount?.let {

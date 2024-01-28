@@ -141,6 +141,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                     rewardsAmount.text =
                         formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
                     rewardsDenom.text = asset.symbol
+                    rewardsDenom.setTextColor(asset.assetColor())
 
                     val anotherRewardDenoms = mutableListOf<String>()
                     claimableRewards.forEach { reward ->
@@ -387,6 +388,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

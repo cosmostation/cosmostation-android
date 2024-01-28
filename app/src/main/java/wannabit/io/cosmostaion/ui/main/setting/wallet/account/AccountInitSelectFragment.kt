@@ -8,12 +8,27 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.databinding.FragmentAccountInitBinding
 
-class AccountInitSelectFragment(
-    private val listener: AccountInitListener
-) : BottomSheetDialogFragment() {
+interface AccountInitListener {
+    fun initAction(initType: Int)
+}
+
+class AccountInitSelectFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAccountInitBinding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            listener: AccountInitListener
+        ): AccountInitSelectFragment {
+            val fragment = AccountInitSelectFragment()
+            fragment.accountInitListener = listener
+            return fragment
+        }
+    }
+
+    private var accountInitListener: AccountInitListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,15 +46,15 @@ class AccountInitSelectFragment(
     private fun setUpClickAction() {
         binding.apply {
             createWalletLayout.setOnClickListener {
-                listener.initAction(BaseConstant.CONST_NEW_ACCOUNT)
+                accountInitListener?.initAction(BaseConstant.CONST_NEW_ACCOUNT)
             }
 
             restoreWalletLayout.setOnClickListener {
-                listener.initAction(BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT)
+                accountInitListener?.initAction(BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT)
             }
 
             privateWalletLayout.setOnClickListener {
-                listener.initAction(BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT)
+                accountInitListener?.initAction(BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT)
             }
         }
     }

@@ -34,8 +34,8 @@ interface MintscanApi {
     @GET("v3/assets/{chain}/erc20")
     suspend fun erc20token(@Path("chain") chain:String): TokenResponse
 
-    @GET("v1/{chain}/account/{address}/txs")
-    suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("from") searchId: Int?): Response<List<CosmosHistory>>
+    @GET("v10/{chain}/account/{address}/txs")
+    suspend fun cosmosHistory(@Path("chain") chain:String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String): Response<List<CosmosHistory>>
 
     @GET("v1/{chain}/proposals")
     suspend fun cosmosProposal(@Path("chain") chain:String): Response<MutableList<CosmosProposal>>

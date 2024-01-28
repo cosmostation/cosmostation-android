@@ -63,11 +63,11 @@ import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainListType
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectFragment
+import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectType
 import wannabit.io.cosmostaion.ui.option.tx.swap.SlippageFragment
 import wannabit.io.cosmostaion.ui.option.tx.swap.SlippageListener
 import wannabit.io.cosmostaion.ui.option.tx.swap.SwapWarnFragment
-import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectFragment
-import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
@@ -178,8 +178,7 @@ class SwapFragment : BaseTxFragment() {
             initView()
 
             if (BaseData.getSwapWarn()) {
-                val bottomSheet = SwapWarnFragment()
-                bottomSheet.show(
+                SwapWarnFragment().show(
                     requireActivity().supportFragmentManager, SwapWarnFragment::class.java.name
                 )
             }

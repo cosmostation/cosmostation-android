@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.getChannel
@@ -129,11 +130,21 @@ class PoolListFragment(
     private val poolClickAction = object : PoolListAdapter.ClickListener {
         override fun myPoolSelect(poolId: String, deposit: QueryProto.DepositResponse) {
             swapMyList.firstOrNull { it.name == poolId }?.let { swapPool ->
-                PoolOptionFragment(selectedChain, swapPool, deposit, poolOptionClickAction).show(
-                    requireActivity().supportFragmentManager, PoolOptionFragment::class.java.name
-                )
+                if (isClickable) {
+                    isClickable = false
+
+                    PoolOptionFragment(
+                        selectedChain, swapPool, deposit, poolOptionClickAction
+                    ).show(
+                        requireActivity().supportFragmentManager,
+                        PoolOptionFragment::class.java.name
+                    )
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 300)
+                }
             }
-            setClickableOnce(isClickable)
         }
 
         override fun otherPoolSelect(name: String) {
@@ -148,14 +159,12 @@ class PoolListFragment(
     }
 
     private val poolOptionClickAction = object : PoolClickListener {
-        var isClickable = true
         override fun poolDeposit(swapPool: QueryProto.PoolResponse) {
-            PoolActionFragment(
-                selectedChain, PoolActionType.DEPOSIT, swapPool, null
-            ).show(
-                requireActivity().supportFragmentManager, PoolActionFragment::class.java.name
+            handleOneClickWithDelay(
+                PoolActionFragment(
+                    selectedChain, PoolActionType.DEPOSIT, swapPool, null
+                )
             )
-            setClickableOnce(isClickable)
         }
 
         override fun poolWithdraw(
@@ -169,9 +178,13 @@ class PoolListFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

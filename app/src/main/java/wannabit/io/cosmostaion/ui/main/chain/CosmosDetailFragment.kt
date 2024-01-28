@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +35,8 @@ import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
-import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
+import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
@@ -138,7 +139,7 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    private fun updateTokenValue() {
+    fun updateTokenValue() {
         walletViewModel.fetchedTokenResult.observe(viewLifecycleOwner) {
             if (isAdded) {
                 requireActivity().runOnUiThread {
@@ -224,7 +225,7 @@ class CosmosDetailFragment : Fragment() {
 
             btnAccount.setOnClickListener {
                 val accountUrl =
-                    CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/" + selectedChain.address
+                    CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/address/" + selectedChain.address
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
             }
 

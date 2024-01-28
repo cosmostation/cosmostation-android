@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.password
 
 import androidx.fragment.app.Fragment
-import wannabit.io.cosmostaion.common.KeyboardListener
 
 open class KeyboardFragment : Fragment() {
 

@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainActivity
@@ -73,10 +74,27 @@ class SettingFragment : Fragment() {
     private fun initView() {
         binding.apply {
             listOf(
-                accountView, importView, legacyView, chainView, addressBookView,
-                languageView, currencyView, priceView, alarmView, appLockView, bioView,
-                mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
-                termView, privacyView, githubView, versionView
+                accountView,
+                importView,
+                legacyView,
+                chainView,
+                addressBookView,
+                languageView,
+                currencyView,
+                priceView,
+                alarmView,
+                appLockView,
+                bioView,
+                mintscanView,
+                homepageView,
+                blogView,
+                twitterView,
+                telegramView,
+                youtubeView,
+                termView,
+                privacyView,
+                githubView,
+                versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             updateWalletView()
@@ -105,6 +123,8 @@ class SettingFragment : Fragment() {
                     allCosmosLines().filter { it.isDefault }.distinctBy { it.name }.count()
                         .toString()
             }
+
+            walletViewModel.pushStatus(Prefs.fcmToken)
         }
     }
 
@@ -313,6 +333,7 @@ class SettingFragment : Fragment() {
             legacySwitch.setSwitchView()
 
             alarmSwitch.setSwitchView()
+            setUpAlarmSwitch()
 
             appLockSwitch.isChecked = Prefs.appLock
             appLockSwitch.setSwitchView()
@@ -345,11 +366,7 @@ class SettingFragment : Fragment() {
                     Prefs.displayLegacy = false
                 }
                 setVibrate()
-
-                lifecycleScope.launch {
-                    delay(1500)
-                    requireActivity().recreate()
-                }
+                ApplicationViewModel.shared.displayLegacy(Prefs.displayLegacy)
             }
 
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -361,6 +378,7 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 }
                 setVibrate()
+                syncPushStatus()
             }
 
             appLockSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -408,6 +426,20 @@ class SettingFragment : Fragment() {
             vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
         } else {
             vibrator.vibrate(100)
+        }
+    }
+
+    private fun syncPushStatus() {
+        if (!Prefs.alarmEnable) {
+            PushManager.syncAddresses(Prefs.fcmToken)
+        }
+        PushManager.updateStatus(binding.alarmSwitch.isChecked, Prefs.fcmToken)
+    }
+
+    private fun setUpAlarmSwitch() {
+        walletViewModel.pushStatusResult.observe(viewLifecycleOwner) {
+            binding.alarmSwitch.isChecked = it
+            Prefs.alarmEnable = it
         }
     }
 

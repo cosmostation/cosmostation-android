@@ -340,6 +340,7 @@ class DaoVoteFragment(
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

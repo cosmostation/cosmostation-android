@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain
 
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -14,6 +15,7 @@ import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
+import wannabit.io.cosmostaion.ui.qr.QrDialog
 
 class CoinAdapter(
     val context: Context,
@@ -61,6 +63,35 @@ class CoinAdapter(
                             line.stakeDenom?.let { stakeDenom ->
                                 it(line, stakeDenom)
                             }
+                        }
+                    }
+
+                    holder.itemView.setOnLongClickListener { view ->
+                        if (line.supportStaking && line.cosmosRewards.isNotEmpty()) {
+                            val scaleX = view.scaleX
+                            val scaleY = view.scaleY
+                            val customDialog = RewardDialog(context, line, line.cosmosRewards)
+
+                            if (scaleX == 1.0f && scaleY == 1.0f) {
+                                view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                                val handler = Handler()
+                                handler.postDelayed({
+                                    customDialog.show()
+                                },200)
+                            }
+
+                            customDialog.setOnDismissListener {
+                                view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                            }
+                            true
+
+                        } else {
+                            onItemClickListener?.let {
+                                line.stakeDenom?.let { stakeDenom ->
+                                    it(line, stakeDenom)
+                                }
+                            }
+                            true
                         }
                     }
                 }

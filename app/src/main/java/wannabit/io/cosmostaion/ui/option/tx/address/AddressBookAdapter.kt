@@ -65,7 +65,7 @@ class AddressBookAdapter(
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it (null, addressBook)
+                        it(null, addressBook)
                     }
                 }
             }
@@ -79,7 +79,7 @@ class AddressBookAdapter(
                 holder.bind(targetChain, refAddress, addressType)
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it (refAddress, null)
+                        it(refAddress, null)
                     }
                 }
             }

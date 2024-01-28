@@ -57,10 +57,6 @@ data class BaseAccount(
     @Ignore
     var allCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
-    @IgnoredOnParcel
-    @Ignore
-    var displayCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
-
     fun initAccount() {
         allCosmosLineChains = allCosmosLines()
         if (type == BaseAccountType.PRIVATE_KEY) {

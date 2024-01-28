@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
-import SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,6 +44,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.database.model.RefAddress
+import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
 import java.util.concurrent.TimeUnit
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
@@ -137,6 +137,26 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         BaseData.baseAccount?.updateAllValue()
                         updatePriceResult.postValue(currency)
 
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+
+    var pushStatusResult = SingleLiveEvent<Boolean>()
+    fun pushStatus(fcmToken: String) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.pushStatus(fcmToken)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        pushStatusResult.postValue(data.body()?.subscribe)
                     } else {
                         _errorMessage.postValue("Error")
                     }

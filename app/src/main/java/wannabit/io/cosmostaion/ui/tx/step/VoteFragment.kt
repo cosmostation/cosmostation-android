@@ -240,7 +240,6 @@ class VoteFragment : BaseTxFragment() {
                                         txSimulate()
                                     }
                             }
-
                         })
                 )
             }
@@ -372,6 +371,7 @@ class VoteFragment : BaseTxFragment() {
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

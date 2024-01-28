@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import android.content.Context
 import android.os.Parcelable
+import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.StakingProto
@@ -14,10 +15,12 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -33,6 +36,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXplaKeccak256
@@ -369,18 +373,20 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun rewardAllCoins(): List<Coin> {
-        return cosmosRewards.flatMap { reward ->
-            reward.rewardList.mapNotNull { coin ->
+        val result: MutableList<Coin> = mutableListOf()
+        cosmosRewards.forEach { reward ->
+            reward.rewardList.forEach { coin ->
                 val calAmount =
                     coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
                 if (calAmount > BigDecimal.ZERO) {
-                    Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString())
-                        .build()
-                } else {
-                    null
+                    result.add(
+                        Coin.newBuilder().setDenom(coin.denom).setAmount(calAmount.toPlainString())
+                            .build()
+                    )
                 }
             }
         }
+        return result
     }
 
     fun rewardOtherDenoms(): Int {
@@ -474,8 +480,10 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainAkash())
     lines.add(ChainArchway())
     lines.add(ChainAssetMantle())
+    lines.add(ChainAxelar())
     lines.add(ChainCrescent())
     lines.add(ChainDesmos())
+    lines.add(ChainDydx())
     lines.add(ChainEvmos())
     lines.add(ChainFetchAi())
     lines.add(ChainInjective())
@@ -489,6 +497,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainOsmosis())
     lines.add(ChainOmniflix())
     lines.add(ChainPersistence118())
+    lines.add(ChainPersistence750())
     lines.add(ChainStargaze())
     lines.add(ChainStride())
     lines.add(ChainXplaKeccak256())

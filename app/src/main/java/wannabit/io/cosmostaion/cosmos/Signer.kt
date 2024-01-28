@@ -29,6 +29,7 @@ import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
+import com.desmos.profiles.v3.ModelsProfileProto.Profile
 import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
@@ -931,8 +932,10 @@ object Signer {
     }
 
     private fun parseAuthGrpc(auth: QueryAccountResponse?): Triple<String, Long, Long> {
-        val rawAccount = auth?.account
-        // desmos needed
+        var rawAccount = auth?.account
+        if (rawAccount?.typeUrl?.contains(Profile.getDescriptor().fullName) == true) {
+            rawAccount = Profile.parseFrom(auth?.account?.value).account
+        }
 
         rawAccount?.let {
             if (it.typeUrl.contains(AuthProto.BaseAccount.getDescriptor().fullName)) {

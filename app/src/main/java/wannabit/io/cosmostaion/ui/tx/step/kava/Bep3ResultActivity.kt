@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -72,6 +73,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.nio.charset.Charset
 import java.util.Locale
 
@@ -127,10 +129,10 @@ class Bep3ResultActivity : BaseActivity() {
         binding.apply {
             loadingMsg.text = getString(R.string.str_htls_msg0)
 
-            fromChain = BaseData.baseAccount?.displayCosmosLineChains?.firstOrNull {
+            fromChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
                 it.tag == intent.getStringExtra("fromChain")
             }
-            toChain = BaseData.baseAccount?.displayCosmosLineChains?.firstOrNull {
+            toChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
                 it.tag == intent.getStringExtra("toChain")
             }
             recipientAddress = intent.getStringExtra("toAddress")
@@ -189,6 +191,15 @@ class Bep3ResultActivity : BaseActivity() {
         val randomNumberHash = hexStringToByteArray(Sha256Hash.hash(originData).toHex().uppercase())
         expectedSwapId = expectedSwapId(fromChain, toSendDenom, randomNumberHash)
 
+        var sendAmount: String? = ""
+        fromChain?.let { chain ->
+            toSendDenom?.let { denom ->
+                BaseData.getAsset(chain.apiName, denom)?.let { asset ->
+                    sendAmount = toSendAmount?.movePointRight(asset.decimals ?: 6)?.setScale(0, RoundingMode.DOWN)?.toString()
+                }
+            }
+        }
+
         return TxProto.MsgCreateAtomicSwap.newBuilder()
             .setFrom(fromChain?.address)
             .setTo(duputyKavaAddress(toSendDenom))
@@ -196,7 +207,7 @@ class Bep3ResultActivity : BaseActivity() {
             .setRecipientOtherChain(recipientAddress)
             .setRandomNumberHash(Sha256Hash.hash(originData).toHex().uppercase())
             .setTimestamp(timeStamp)
-            .addAmount(CoinProto.Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount.toString()).build())
+            .addAmount(CoinProto.Coin.newBuilder().setDenom(toSendDenom).setAmount(sendAmount).build())
             .setHeightSpan(24686)
             .build()
     }

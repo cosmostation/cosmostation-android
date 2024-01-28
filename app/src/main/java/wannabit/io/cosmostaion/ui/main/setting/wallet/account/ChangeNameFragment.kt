@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +13,26 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChangeNameBinding
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
-class ChangeNameFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment() {
+class ChangeNameFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentChangeNameBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var baseAccount: BaseAccount
+
     private val accountViewModel: AccountViewModel by activityViewModels()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(baseAccount: BaseAccount): ChangeNameFragment {
+            val args = Bundle().apply {
+                putParcelable("baseAccount", baseAccount)
+            }
+            val fragment = ChangeNameFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,6 +50,16 @@ class ChangeNameFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragme
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("baseAccount", BaseAccount::class.java)
+                    ?.let { baseAccount = it }
+
+            } else {
+                (arguments?.getParcelable("baseAccount") as? BaseAccount)?.let {
+                    baseAccount = it
+                }
+            }
+
             val inputText = baseAccount.name
             if (inputText.isNotEmpty()) {
                 accountName.setText(baseAccount.name)
@@ -52,7 +77,9 @@ class ChangeNameFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragme
                     dismiss()
                     return@setOnClickListener
                 } else if (inputText.isBlank()) {
-                    Toast.makeText(context, getString(R.string.str_empty_account_name), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context, getString(R.string.str_empty_account_name), Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     baseAccount.name = inputText
                     accountViewModel.insertAccount(baseAccount)

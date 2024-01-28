@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.cdp.v1beta1.GenesisProto
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
@@ -36,13 +37,13 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCreateMintBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -158,14 +159,12 @@ class CreateMintFragment(
             feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
             feeSegment.setRipple(
                 ContextCompat.getColor(
-                    requireContext(),
-                    R.color.color_accent_purple
+                    requireContext(), R.color.color_accent_purple
                 )
             )
 
@@ -191,16 +190,14 @@ class CreateMintFragment(
                 tabMemoMsg.text = getString(R.string.str_tap_for_add_memo_msg)
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base03
+                        requireContext(), R.color.color_base03
                     )
                 )
             } else {
                 tabMemoMsg.text = txMemo
                 tabMemoMsg.setTextColor(
                     ContextCompat.getColorStateList(
-                        requireContext(),
-                        R.color.color_base01
+                        requireContext(), R.color.color_base01
                     )
                 )
             }
@@ -229,93 +226,79 @@ class CreateMintFragment(
     private fun setUpClickAction() {
         binding.apply {
             collateralAmountView.setOnClickListener {
-                InsertAmountFragment(
-                    TxType.MINT_CREATE_COLLATERAL,
-                    null,
-                    collateralAvailableAmount,
-                    toCollateralAmount,
-                    collateralAsset,
-                    null,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateCollateralAmountView(toAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager,
-                    InsertAmountFragment::class.java.name
+                handleOneClickWithDelay(
+                    InsertAmountFragment(TxType.MINT_CREATE_COLLATERAL,
+                        null,
+                        collateralAvailableAmount,
+                        toCollateralAmount,
+                        collateralAsset,
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateCollateralAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             principalAmountView.setOnClickListener {
-                InsertAmountFragment(
-                    TxType.MINT_CREATE_PRINCIPAL,
-                    null,
-                    collateralParam?.expectUSDXLTV(
-                        toCollateralAmount.toBigDecimal(),
-                        priceFeed
-                    ),
-                    toPrincipalAmount,
-                    principalAsset,
-                    null,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updatePrincipalAmountView(toAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager,
-                    InsertAmountFragment::class.java.name
+                handleOneClickWithDelay(
+                    InsertAmountFragment(TxType.MINT_CREATE_PRINCIPAL,
+                        null,
+                        collateralParam?.expectUSDXLTV(
+                            toCollateralAmount.toBigDecimal(), priceFeed
+                        ),
+                        toPrincipalAmount,
+                        principalAsset,
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updatePrincipalAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(
-                    selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                handleOneClickWithDelay(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
 
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
                 txFee = selectedChain.getBaseFee(
-                    requireContext(),
-                    selectedFeeInfo,
-                    txFee?.getAmount(0)?.denom
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
                 )
                 updateFeeView()
                 txSimulate()
@@ -325,17 +308,20 @@ class CreateMintFragment(
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     createMintResultLauncher.launch(this)
                     requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -366,22 +352,20 @@ class CreateMintFragment(
             if (toCollateralAmount.toBigDecimal() == BigDecimal.ZERO || toPrincipalAmount.toBigDecimal() == BigDecimal.ZERO) {
                 return
             }
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeViewWithSimulate(null)
+            }
 
             btnCreateMint.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateMintCreate(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindCreateMint(),
-                txFee,
-                txMemo
+                getChannel(selectedChain), selectedChain.address, onBindCreateMint(), txFee, txMemo
             )
         }
     }
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
             updateFeeViewWithSimulate(gasInfo)
         }
 
@@ -392,24 +376,26 @@ class CreateMintFragment(
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
 
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
@@ -431,21 +417,18 @@ class CreateMintFragment(
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 
     private fun onBindCreateMint(): MsgCreateCDP? {
-        val collateralCoin =
-            CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom)
-                .setAmount(toCollateralAmount).build()
+        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom)
+            .setAmount(toCollateralAmount).build()
         val principalCoin =
             CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
-        return MsgCreateCDP.newBuilder()
-            .setSender(selectedChain.address)
-            .setCollateral(collateralCoin)
-            .setPrincipal(principalCoin)
-            .setCollateralType(collateralParam?.type)
-            .build()
+        return MsgCreateCDP.newBuilder().setSender(selectedChain.address)
+            .setCollateral(collateralCoin).setPrincipal(principalCoin)
+            .setCollateralType(collateralParam?.type).build()
     }
 
     override fun onDestroyView() {

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.intro
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +14,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -34,8 +36,11 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
 import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
+import wannabit.io.cosmostaion.databinding.DialogUpdateAppBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
+import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.syncAddresses
+import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.updateStatus
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitListener
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitSelectFragment
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
@@ -128,7 +133,7 @@ class IntroActivity : AppCompatActivity() {
                 binding.btnCreate.setOnClickListener {
                     if (isClickable) {
                         isClickable = false
-                        AccountInitSelectFragment(accountInitSelectAction).show(
+                        AccountInitSelectFragment.newInstance(accountInitSelectAction).show(
                             supportFragmentManager, AccountInitSelectFragment::class.java.name
                         )
                     }
@@ -262,8 +267,8 @@ class IntroActivity : AppCompatActivity() {
             val token = task.result
             if (Prefs.fcmToken != token) {
                 if (Prefs.alarmEnable) {
-//                    syncAddresses(token)
-//                    updateStatus(token)
+                    syncAddresses(token)
+                    updateStatus(Prefs.alarmEnable, token)
                 }
                 Prefs.fcmToken = token
             }
@@ -293,8 +298,41 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun showDisableDialog() {
+        val binding = DialogUpdateAppBinding.inflate(layoutInflater)
+        val alertDialog =
+            AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.show()
+        dialog.setCancelable(false)
+
+        binding.apply {
+            dialogTitle.text = getString(R.string.str_under_maintenance)
+            dialogMsg1.text = getString(R.string.str_disabled_app_msg)
+            btnGoPlaystore.text = getString(R.string.str_confirm)
+            btnGoPlaystore.setOnClickListener {
+                finish()
+            }
+        }
     }
 
     private fun showUpdateDialog() {
+        val binding = DialogUpdateAppBinding.inflate(layoutInflater)
+        val alertDialog =
+            AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.btnGoPlaystore.setOnClickListener {
+            startPlayStore()
+        }
+    }
+
+    private fun startPlayStore() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("market://details?id=" + this.packageName)
+        startActivity(intent)
     }
 }

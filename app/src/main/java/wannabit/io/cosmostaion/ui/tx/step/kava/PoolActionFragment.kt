@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
 import com.kava.swap.v1beta1.TxProto.MsgDeposit
 import com.kava.swap.v1beta1.TxProto.MsgWithdraw
@@ -35,6 +36,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentPoolActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -43,7 +45,6 @@ import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.PoolAmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.PoolInsertAmountFragment
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -281,41 +282,36 @@ class PoolActionFragment(
     private fun setUpClickAction() {
         binding.apply {
             poolView.setOnClickListener {
-                PoolInsertAmountFragment(pool1Asset,
-                    pool2Asset,
-                    coin1AvailableAmount,
-                    coin2AvailableAmount,
-                    swapRate,
-                    coin1ToAmount,
-                    coin2ToAmount,
-                    object : PoolAmountSelectListener {
-                        override fun select(coin1ToAmount: String, coin2ToAmount: String) {
-                            updateDepositAmountView(coin1ToAmount, coin2ToAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager,
-                    PoolInsertAmountFragment::class.java.name
+                handleOneClickWithDelay(
+                    PoolInsertAmountFragment(pool1Asset,
+                        pool2Asset,
+                        coin1AvailableAmount,
+                        coin2AvailableAmount,
+                        swapRate,
+                        coin1ToAmount,
+                        coin2ToAmount,
+                        object : PoolAmountSelectListener {
+                            override fun select(coin1ToAmount: String, coin2ToAmount: String) {
+                                updateDepositAmountView(coin1ToAmount, coin2ToAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             shareAmountView.setOnClickListener {
-                InsertAmountFragment(TxType.POOL_WITHDRAW,
-                    null,
-                    deposit?.sharesOwned?.toBigDecimal(),
-                    toWithdrawAmount,
-                    null,
-                    null,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateWithdrawAmountView(toAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name
+                handleOneClickWithDelay(
+                    InsertAmountFragment(TxType.POOL_WITHDRAW,
+                        null,
+                        deposit?.sharesOwned?.toBigDecimal(),
+                        toWithdrawAmount,
+                        null,
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateWithdrawAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnQuarter.setOnClickListener {
@@ -345,41 +341,38 @@ class PoolActionFragment(
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                handleOneClickWithDelay(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
@@ -402,9 +395,13 @@ class PoolActionFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -521,7 +518,6 @@ class PoolActionFragment(
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
             updateFeeViewWithSimulate(gasInfo)
         }
 
@@ -532,24 +528,26 @@ class PoolActionFragment(
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
 
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
@@ -571,6 +569,7 @@ class PoolActionFragment(
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

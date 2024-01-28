@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,9 +32,9 @@ import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentBep3Binding
-import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.address.Bep3AddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.address.Bep3AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.Bep3InsertAmountFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -291,32 +292,29 @@ class Bep3Fragment(
     private fun setUpClickAction() {
         binding.apply {
             sendAssetView.setOnClickListener {
-                Bep3InsertAmountFragment(fromChain,
-                    denom,
-                    minAvailableAmount,
-                    availableAmount,
-                    toSendAmount,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateAmountView(toAmount)
-                        }
+                handleOneClickWithDelay(
+                    Bep3InsertAmountFragment(fromChain,
+                        denom,
+                        minAvailableAmount,
+                        availableAmount,
+                        toSendAmount,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
 
-                    }).show(
-                    requireActivity().supportFragmentManager,
-                    Bep3InsertAmountFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             addressView.setOnClickListener {
-                Bep3AddressFragment(toChains, object : Bep3AddressListener {
-                    override fun address(address: String) {
-                        updateAddressView(address)
-                    }
-                }).show(
-                    requireActivity().supportFragmentManager, Bep3AddressFragment::class.java.name
+                handleOneClickWithDelay(
+                    Bep3AddressFragment(toChains, object : Bep3AddressListener {
+                        override fun address(address: String) {
+                            updateAddressView(address)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnSend.setOnClickListener {
@@ -330,9 +328,13 @@ class Bep3Fragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

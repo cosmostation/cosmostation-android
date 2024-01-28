@@ -123,18 +123,18 @@ class AboutFragment : Fragment() {
         }
     }
 
+    private fun unBondingTime(selectedChain: CosmosLine?): Int? {
+        var result: Int? = 0
+        var unBondingTime: String? = ""
+        selectedChain?.param?.params?.let { param ->
+            unBondingTime = param.stakingParams?.params?.unbondingTime ?: "0"
+            result = unBondingTime?.replace("s", "")?.toInt()?.div(60)?.div(60)?.div(24)
+        }
+        return result
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-}
-
-fun unBondingTime(selectedChain: CosmosLine?): Int? {
-    var result: Int? = 0
-    var unBondingTime: String? = ""
-    selectedChain?.param?.params?.let { param ->
-        unBondingTime = param.stakingParams?.params?.unbondingTime ?: "0"
-        result = unBondingTime?.replace("s", "")?.toInt()?.div(60)?.div(60)?.div(24)
-    }
-    return result
 }

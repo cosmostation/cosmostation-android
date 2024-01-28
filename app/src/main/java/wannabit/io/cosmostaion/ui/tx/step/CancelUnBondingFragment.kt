@@ -121,14 +121,14 @@ class CancelUnBondingFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == unBondingEntry?.validatorAddress }
+            selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
                 ?.let { validator ->
                     validatorName.text = validator.description.moniker
                 }
 
             selectedChain.stakeDenom?.let { denom ->
                 BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    val unBondingAmount = unBondingEntry?.entry?.balance?.toBigDecimal()
+                    val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
                         ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                     cancelAmount.text =
                         formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
@@ -352,10 +352,10 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
     private fun onBindCancelUnBonding(): MsgCancelUnbondingDelegation? {
         val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
-            .setAmount(unBondingEntry?.entry?.balance).build()
+            .setAmount(unBondingEntry.entry?.balance).build()
         return MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
-            .setValidatorAddress(unBondingEntry?.validatorAddress)
-            .setCreationHeight(unBondingEntry?.entry!!.creationHeight).setAmount(toCoin).build()
+            .setValidatorAddress(unBondingEntry.validatorAddress)
+            .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin).build()
     }
 
     private fun setUpBroadcast() {
@@ -372,6 +372,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

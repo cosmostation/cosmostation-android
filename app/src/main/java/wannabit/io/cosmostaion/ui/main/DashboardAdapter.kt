@@ -1,12 +1,9 @@
 package wannabit.io.cosmostaion.ui.main
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -15,8 +12,8 @@ import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
 
 class DashboardAdapter(
-    val context: Context
-) : ListAdapter<CosmosLine, RecyclerView.ViewHolder>(DashboardDiffCallback()) {
+    val context: Context, private val displayCosmosLines: MutableList<CosmosLine>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_COSMOS_HEADER = 0
@@ -36,7 +33,8 @@ class DashboardAdapter(
             }
 
             VIEW_TYPE_COSMOS_ITEM -> {
-                val binding = ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 DashboardViewHolder(context, binding)
             }
 
@@ -51,7 +49,7 @@ class DashboardAdapter(
             }
 
             is DashboardViewHolder -> {
-                val line = currentList[position - 1]
+                val line = displayCosmosLines[position - 1]
                 holder.bind(line)
 
                 holder.itemView.setOnClickListener {
@@ -70,7 +68,7 @@ class DashboardAdapter(
                             val handler = Handler()
                             handler.postDelayed({
                                 customDialog.show()
-                            },200)
+                            }, 200)
                         }
 
                         customDialog.setOnDismissListener {
@@ -91,19 +89,7 @@ class DashboardAdapter(
     }
 
     override fun getItemCount(): Int {
-        return currentList.size + 1
-    }
-
-    class DashboardDiffCallback : DiffUtil.ItemCallback<CosmosLine>() {
-
-        override fun areItemsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
-            return oldItem.tag == newItem.tag
-        }
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
-            return oldItem == newItem
-        }
+        return displayCosmosLines.size + 1
     }
 
     inner class DashboardHeaderViewHolder(
@@ -114,7 +100,7 @@ class DashboardAdapter(
             binding.apply {
                 if (getItemViewType(position) == VIEW_TYPE_COSMOS_HEADER) {
                     headerTitle.text = context.getString(R.string.str_cosmos_class)
-                    headerCnt.text = currentList.size.toString()
+                    headerCnt.text = displayCosmosLines.size.toString()
                 }
             }
         }

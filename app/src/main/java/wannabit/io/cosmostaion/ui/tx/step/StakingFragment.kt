@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -316,7 +317,6 @@ class StakingFragment : BaseTxFragment() {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
                             }
-
                         })
                 )
             }
@@ -474,6 +474,7 @@ class StakingFragment : BaseTxFragment() {
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 
@@ -485,5 +486,6 @@ class StakingFragment : BaseTxFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        txViewModel.broadcastTx.removeObservers(viewLifecycleOwner)
     }
 }

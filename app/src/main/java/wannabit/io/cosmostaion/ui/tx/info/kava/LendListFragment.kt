@@ -133,9 +133,17 @@ class LendListFragment(
 
     private val lendClickAction = object : LendListAdapter.ClickListener {
         override fun lendOption(denom: String?) {
-            handleOneClickWithDelay(
-                MintOptionFragment(selectedChain, null, denom, null, lendOptionClickAction)
-            )
+            if (isClickable) {
+                isClickable = false
+
+                MintOptionFragment(selectedChain, null, denom, null, lendOptionClickAction).show(
+                    requireActivity().supportFragmentManager, MintOptionFragment::class.java.name
+                )
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 300)
+            }
         }
     }
 

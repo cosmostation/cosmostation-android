@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +26,26 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
-class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment() {
+class DeleteFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDeleteBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var account: BaseAccount
+
     private val accountViewModel: AccountViewModel by activityViewModels()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(baseAccount: BaseAccount): DeleteFragment {
+            val args = Bundle().apply {
+                putParcelable("baseAccount", baseAccount)
+            }
+            val fragment = DeleteFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,7 +62,16 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
     }
 
     private fun initView() {
-        binding.title.text = getString(R.string.str_delete_name, baseAccount.name)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("baseAccount", BaseAccount::class.java)?.let { account = it }
+
+        } else {
+            (arguments?.getParcelable("baseAccount") as? BaseAccount)?.let {
+                account = it
+            }
+        }
+
+        binding.title.text = getString(R.string.str_delete_name, account.name)
     }
 
     private fun setUpClickAction() {
@@ -65,11 +89,11 @@ class DeleteFragment(val baseAccount: BaseAccount) : BottomSheetDialogFragment()
     private val deleteAccountResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                accountViewModel.deleteAccount(baseAccount)
+                accountViewModel.deleteAccount(account)
 
                 CoroutineScope(Dispatchers.IO).launch {
                     if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
-                        if (BaseData.baseAccount?.id == baseAccount.id) {
+                        if (BaseData.baseAccount?.id == account.id) {
                             Prefs.lastAccountId =
                                 AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
                             BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao()

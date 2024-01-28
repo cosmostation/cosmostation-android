@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +18,28 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentMnemonicCheckBinding
 import wannabit.io.cosmostaion.ui.wallet.WalletSelectFragment
 
-class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
+class MnemonicCheckFragment : Fragment() {
 
     private var _binding: FragmentMnemonicCheckBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var account: BaseAccount
+
     private lateinit var mnemonicAdapter: MnemonicAdapter
 
     private var wordList: List<String> = mutableListOf()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(baseAccount: BaseAccount): MnemonicCheckFragment {
+            val args = Bundle().apply {
+                putParcelable("baseAccount", baseAccount)
+            }
+            val fragment = MnemonicCheckFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,11 +58,30 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
 
     private fun setUpViewModels() {
         binding.apply {
-            accountNameView.setBackgroundResource(R.drawable.item_bg)
-            recycler.setBackgroundResource(R.drawable.item_bg)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("baseAccount", BaseAccount::class.java)
+                    ?.let { account = it }
+
+            } else {
+                (arguments?.getParcelable("baseAccount") as? BaseAccount)?.let {
+                    account = it
+                }
+            }
+            listOf(accountNameView, recycler).forEach {
+                it.setBackgroundResource(
+                    R.drawable.item_bg
+                )
+            }
 
             account.apply {
                 accountName.text = name
+                if (lastHDPath != "0") {
+                    lastHdPath.visibility = View.VISIBLE
+                    lastHdPath.text = "Last HD Path : $lastHDPath"
+                } else {
+                    lastHdPath.visibility = View.GONE
+                }
+
                 CryptoHelper.doDecryptData(
                     CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec
                 )?.let {
@@ -72,9 +106,9 @@ class MnemonicCheckFragment(val account: BaseAccount) : Fragment() {
 
             btnSelect.setOnClickListener {
                 requireActivity().toMoveFragment(
-                    this@MnemonicCheckFragment,
-                    WalletSelectFragment(wordList.joinToString(" "), "", BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT),
-                    "WalletSelect"
+                    this@MnemonicCheckFragment, WalletSelectFragment(
+                        wordList.joinToString(" "), "", BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT
+                    ), "WalletSelect"
                 )
             }
 

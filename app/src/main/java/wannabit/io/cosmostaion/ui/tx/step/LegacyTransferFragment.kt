@@ -16,6 +16,7 @@ import com.binance.dex.api.client.BinanceDexEnvironment
 import com.binance.dex.api.client.Wallet
 import com.binance.dex.api.client.domain.broadcast.TransactionOption
 import com.binance.dex.api.client.domain.broadcast.Transfer
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.bitcoinj.core.ECKey
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -42,13 +43,13 @@ import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.LegacyInsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -268,64 +269,59 @@ class LegacyTransferFragment(
     private fun setUpClickAction() {
         binding.apply {
             sendAssetView.setOnClickListener {
-                LegacyInsertAmountFragment(selectedChain,
-                    bnbTokenInfo,
-                    oktTokenInfo,
-                    availableAmount,
-                    toSendAmount,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateAmountView(toAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager,
-                    LegacyInsertAmountFragment::class.java.name
+                handleOneClickWithDelay(
+                    LegacyInsertAmountFragment(selectedChain,
+                        bnbTokenInfo,
+                        oktTokenInfo,
+                        availableAmount,
+                        toSendAmount,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             addressView.setOnClickListener {
-                AddressFragment(selectedChain,
-                    selectedChain,
-                    existedAddress,
-                    AddressType.DEFAULT_TRANSFER,
-                    object : AddressListener {
-                        override fun selectAddress(
-                            refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String
-                        ) {
-                            refAddress?.dpAddress?.let {
-                                updateAddressView(it)
-                                updateMemoView("")
-
-                            } ?: run {
-                                addressBook?.let {
-                                    updateAddressView(it.address)
-                                    updateMemoView(it.memo)
+                handleOneClickWithDelay(
+                    AddressFragment(selectedChain,
+                        selectedChain,
+                        existedAddress,
+                        AddressType.DEFAULT_TRANSFER,
+                        object : AddressListener {
+                            override fun selectAddress(
+                                refAddress: RefAddress?,
+                                addressBook: AddressBook?,
+                                addressTxt: String
+                            ) {
+                                refAddress?.dpAddress?.let {
+                                    updateAddressView(it)
+                                    updateMemoView("")
 
                                 } ?: run {
-                                    updateAddressView(addressTxt)
-                                    updateMemoView("")
+                                    addressBook?.let {
+                                        updateAddressView(it.address)
+                                        updateMemoView(it.memo)
+
+                                    } ?: run {
+                                        updateAddressView(addressTxt)
+                                        updateMemoView("")
+                                    }
                                 }
                             }
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AddressFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnSend.setOnClickListener {
@@ -339,9 +335,13 @@ class LegacyTransferFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -351,10 +351,10 @@ class LegacyTransferFragment(
 
     private fun txValidate() {
         binding.apply {
-            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) {
+            if (toSendAmount.isEmpty() || recipientEvmAddress.text.isEmpty()) {
                 return
             }
-            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
+            if (toSendAmount.toBigDecimal() <= BigDecimal.ZERO) {
                 return
             }
             binding.btnSend.updateButtonView(true)
@@ -419,9 +419,11 @@ class LegacyTransferFragment(
                     startActivity(this)
                 }
             }
+            dismiss()
         }
 
         txViewModel.broadcastOktTx.observe(viewLifecycleOwner) { txResponse ->
+            binding.backdropLayout.visibility = View.GONE
             Intent(requireContext(), TxResultActivity::class.java).apply {
                 if (txResponse != null) {
                     if (txResponse.txhash != null) {
@@ -438,6 +440,7 @@ class LegacyTransferFragment(
                 putExtra("selectedChain", selectedChain.tag)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

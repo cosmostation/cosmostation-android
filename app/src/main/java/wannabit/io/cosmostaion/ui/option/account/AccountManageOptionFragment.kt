@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.option.account
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,18 +12,40 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAccountManageOptionBinding
-import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountManageListener
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.ChangeNameFragment
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.DeleteFragment
 
-class AccountManageOptionFragment(
-    private val account: BaseAccount, private val listener: AccountManageListener
-) : BottomSheetDialogFragment() {
+interface AccountManageListener {
+    fun checkMnemonic(account: BaseAccount)
+
+    fun checkPrivate(account: BaseAccount)
+}
+
+class AccountManageOptionFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAccountManageOptionBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var account: BaseAccount
+
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            baseAccount: BaseAccount, listener: AccountManageListener
+        ): AccountManageOptionFragment {
+            val args = Bundle().apply {
+                putParcelable("baseAccount", baseAccount)
+            }
+            val fragment = AccountManageOptionFragment()
+            fragment.arguments = args
+            fragment.accountManageListener = listener
+            return fragment
+        }
+    }
+
+    private var accountManageListener: AccountManageListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,6 +63,16 @@ class AccountManageOptionFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("baseAccount", BaseAccount::class.java)
+                    ?.let { account = it }
+
+            } else {
+                (arguments?.getParcelable("baseAccount") as? BaseAccount)?.let {
+                    account = it
+                }
+            }
+
             if (account.type == BaseAccountType.MNEMONIC) {
                 checkMnemonicLayout.visibility = View.VISIBLE
             } else {
@@ -53,32 +86,30 @@ class AccountManageOptionFragment(
     private fun setUpClickAction() {
         binding.apply {
             nameLayout.setOnClickListener {
-                ChangeNameFragment(account).show(
-                    requireActivity().supportFragmentManager, ChangeNameFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                handleOneClickWithDelay(ChangeNameFragment.newInstance(account))
             }
 
             checkMnemonicLayout.setOnClickListener {
-                listener.checkMnemonic(account)
+                accountManageListener?.checkMnemonic(account)
             }
 
             checkPrivateLayout.setOnClickListener {
-                listener.checkPrivate(account)
+                accountManageListener?.checkPrivate(account)
             }
 
             deleteLayout.setOnClickListener {
-                DeleteFragment(account).show(
-                    requireActivity().supportFragmentManager, DeleteFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                handleOneClickWithDelay(DeleteFragment.newInstance(account))
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

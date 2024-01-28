@@ -33,13 +33,13 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentWithdrawEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -51,7 +51,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
     private var _binding: FragmentWithdrawEarningBinding? = null
     private val binding get() = _binding!!
 
-    private var selectedChain: CosmosLine? = null
+    private lateinit var selectedChain: CosmosLine
     private var withdrawCoin: Coin? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -101,11 +101,19 @@ class WithdrawEarningFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                selectedChain = arguments?.getParcelable("selectedChain", CosmosLine::class.java)
-                withdrawCoin = arguments?.getSerializable("withdrawCoin", Coin::class.java)
+                arguments?.apply {
+                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                        selectedChain = it
+                    }
+                    withdrawCoin = getSerializable("withdrawCoin", Coin::class.java)
+                }
             } else {
-                selectedChain = arguments?.getParcelable("selectedChain") as? CosmosLine
-                withdrawCoin = arguments?.getSerializable("withdrawCoin") as? Coin
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
+                    withdrawCoin = getSerializable("withdrawCoin") as? Coin
+                }
             }
 
             listOf(amountView, memoView, feeView).forEach {
@@ -119,59 +127,56 @@ class WithdrawEarningFragment : BaseTxFragment() {
 
     private fun initFee() {
         binding.apply {
-            selectedChain?.let { chain ->
-                feeInfos = chain.getFeeInfos(requireContext())
-                feeSegment.setSelectedBackground(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
-                    )
+            feeInfos = selectedChain.getFeeInfos(requireContext())
+            feeSegment.setSelectedBackground(
+                ContextCompat.getColor(
+                    requireContext(), R.color.color_accent_purple
                 )
-                feeSegment.setRipple(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
-                    )
+            )
+            feeSegment.setRipple(
+                ContextCompat.getColor(
+                    requireContext(), R.color.color_accent_purple
                 )
+            )
 
-                for (i in feeInfos.indices) {
-                    val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                    feeSegment.addView(
-                        segmentView.root,
-                        i,
-                        LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                    )
-                    segmentView.btnTitle.text = feeInfos[i].title
-                }
-                feeSegment.setPosition(chain.getFeeBasePosition(), false)
-                selectedFeeInfo = chain.getFeeBasePosition()
-                txFee = chain.getInitFee(requireContext())
+            for (i in feeInfos.indices) {
+                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                feeSegment.addView(
+                    segmentView.root,
+                    i,
+                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                )
+                segmentView.btnTitle.text = feeInfos[i].title
             }
+            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
+            selectedFeeInfo = selectedChain.getFeeBasePosition()
+            txFee = selectedChain.getInitFee(requireContext())
         }
     }
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
-            selectedChain?.let { chain ->
-                toCoin = Coin.newBuilder().setAmount(toAmount).setDenom(chain.stakeDenom).build()
+            toCoin =
+                Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom).build()
 
-                chain.stakeDenom?.let { denom ->
-                    BaseData.getAsset(chain.apiName, denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                                .setScale(decimal, RoundingMode.DOWN)
-                            removeAmountMsg.visibility = View.GONE
-                            removeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                            removeAmount.setTextColor(
-                                ContextCompat.getColor(
-                                    requireContext(), R.color.color_base01
-                                )
+            selectedChain.stakeDenom?.let { denom ->
+                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
+                    asset.decimals?.let { decimal ->
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.DOWN)
+                        removeAmountMsg.visibility = View.GONE
+                        removeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                        removeAmount.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_base01
                             )
-                            removeDenom.visibility = View.VISIBLE
-                            removeDenom.text = asset.symbol
-                        }
+                        )
+                        removeDenom.visibility = View.VISIBLE
+                        removeDenom.text = asset.symbol
                     }
                 }
-                txSimulate()
             }
+            txSimulate()
         }
     }
 
@@ -199,97 +204,92 @@ class WithdrawEarningFragment : BaseTxFragment() {
 
     private fun updateFeeView() {
         binding.apply {
-            selectedChain?.let { chain ->
-                txFee?.getAmount(0)?.let { fee ->
-                    BaseData.getAsset(chain.apiName, fee.denom)?.let { asset ->
-                        feeTokenImg.setTokenImg(asset)
-                        feeToken.text = asset.symbol
+            txFee?.getAmount(0)?.let { fee ->
+                BaseData.getAsset(selectedChain.apiName, fee.denom)?.let { asset ->
+                    feeTokenImg.setTokenImg(asset)
+                    feeToken.text = asset.symbol
 
-                        val amount =
-                            fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
-                        val price = BaseData.getPrice(asset.coinGeckoId)
-                        val value = price.multiply(amount)
+                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
+                    val price = BaseData.getPrice(asset.coinGeckoId)
+                    val value = price.multiply(amount)
 
-                        feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                        feeValue.text = formatAssetValue(value)
-                    }
-                    availableAmount = withdrawCoin?.amount?.toBigDecimal()
+                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                    feeValue.text = formatAssetValue(value)
                 }
+                availableAmount = withdrawCoin?.amount?.toBigDecimal()
             }
         }
     }
 
     private fun setUpClickAction() {
         binding.apply {
-            selectedChain?.let { chain ->
-                amountView.setOnClickListener {
-                    handleOneClickWithDelay(
-                        InsertAmountFragment(TxType.EARN_WITHDRAW,
-                            null,
-                            availableAmount,
-                            toCoin?.amount,
-                            chain.stakeDenom?.let { denom ->
-                                BaseData.getAsset(
-                                    chain.apiName, denom
-                                )
-                            },
-                            null,
-                            object : AmountSelectListener {
-                                override fun select(toAmount: String) {
-                                    updateAmountView(toAmount)
-                                }
-                            })
-                    )
-                }
+            amountView.setOnClickListener {
+                handleOneClickWithDelay(
+                    InsertAmountFragment(TxType.EARN_WITHDRAW,
+                        null,
+                        availableAmount,
+                        toCoin?.amount,
+                        selectedChain.stakeDenom?.let { denom ->
+                            BaseData.getAsset(
+                                selectedChain.apiName, denom
+                            )
+                        },
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
+                        })
+                )
+            }
 
-                memoView.setOnClickListener {
-                    handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
-                        override fun memo(memo: String) {
-                            updateMemoView(memo)
-                        }
-                    }))
-                }
-
-                feeTokenLayout.setOnClickListener {
-                    handleOneClickWithDelay(
-                        AssetFragment(chain,
-                            feeInfos[selectedFeeInfo].feeDatas,
-                            object : AssetSelectListener {
-                                override fun select(denom: String) {
-                                    chain.getDefaultFeeCoins(requireContext())
-                                        .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                            val updateFeeCoin = Coin.newBuilder().setDenom(denom)
-                                                .setAmount(feeCoin.amount).build()
-
-                                            val updateTxFee = TxProto.Fee.newBuilder()
-                                                .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                                .addAmount(updateFeeCoin).build()
-
-                                            txFee = updateTxFee
-                                            updateFeeView()
-                                            txSimulate()
-                                        }
-                                }
-                            })
-                    )
-                }
-
-                feeSegment.setOnPositionChangedListener { position ->
-                    selectedFeeInfo = position
-                    txFee = chain.getBaseFee(
-                        requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
-                    )
-                    updateFeeView()
-                    txSimulate()
-                }
-
-                btnWithdrawLiquidity.setOnClickListener {
-                    Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                        withdrawLiquidityResultLauncher.launch(this)
-                        requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                        )
+            memoView.setOnClickListener {
+                handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
+                    override fun memo(memo: String) {
+                        updateMemoView(memo)
                     }
+                }))
+            }
+
+            feeTokenLayout.setOnClickListener {
+                handleOneClickWithDelay(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin = Coin.newBuilder().setDenom(denom)
+                                            .setAmount(feeCoin.amount).build()
+
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
+
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
+                )
+            }
+
+            feeSegment.setOnPositionChangedListener { position ->
+                selectedFeeInfo = position
+                txFee = selectedChain.getBaseFee(
+                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                )
+                updateFeeView()
+                txSimulate()
+            }
+
+            btnWithdrawLiquidity.setOnClickListener {
+                Intent(requireContext(), PasswordCheckActivity::class.java).apply {
+                    withdrawLiquidityResultLauncher.launch(this)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
                 }
             }
         }
@@ -313,26 +313,31 @@ class WithdrawEarningFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                selectedChain?.let { chain ->
-                    txViewModel.broadEarnWithdraw(
-                        getChannel(chain), chain.address, onBindEarnWithdraw(), txFee, txMemo, chain
-                    )
-                }
+                txViewModel.broadEarnWithdraw(
+                    getChannel(selectedChain),
+                    selectedChain.address,
+                    onBindEarnWithdraw(),
+                    txFee,
+                    txMemo,
+                    selectedChain
+                )
             }
         }
 
     private fun txSimulate() {
         binding.apply {
-            selectedChain?.let { chain ->
-                if (toCoin == null) {
-                    return
-                }
-                btnWithdrawLiquidity.updateButtonView(false)
-                backdropLayout.visibility = View.VISIBLE
-                txViewModel.simulateEarnWithdraw(
-                    getChannel(chain), chain.address, onBindEarnWithdraw(), txFee, txMemo
-                )
+            if (toCoin == null) {
+                return
             }
+            btnWithdrawLiquidity.updateButtonView(false)
+            backdropLayout.visibility = View.VISIBLE
+            txViewModel.simulateEarnWithdraw(
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindEarnWithdraw(),
+                txFee,
+                txMemo
+            )
         }
     }
 
@@ -350,21 +355,21 @@ class WithdrawEarningFragment : BaseTxFragment() {
     }
 
     private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
-        selectedChain?.let { chain ->
-            txFee?.let { fee ->
-                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                    ?.let { gasRate ->
-                        val gasLimit = (gasInfo.gasUsed.toDouble() * chain.gasMultiply()).toLong()
+        txFee?.let { fee ->
+            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                ?.let { gasRate ->
+                    val gasLimit =
+                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
                             .toBigDecimal()
-                        val feeCoinAmount =
-                            gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                        val feeCoin = Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                            .setAmount(feeCoinAmount.toString()).build()
-                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
-                            .addAmount(feeCoin).build()
-                    }
-            }
+                    val feeCoin = Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
         }
         updateFeeView()
     }
@@ -383,18 +388,19 @@ class WithdrawEarningFragment : BaseTxFragment() {
                     putExtra("isSuccess", true)
                 }
                 putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain?.tag)
+                putExtra("selectedChain", selectedChain.tag)
                 val hash = txResponse.txhash
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 
     private fun onBindEarnWithdraw(): com.kava.router.v1beta1.TxProto.MsgWithdrawBurn? {
         return com.kava.router.v1beta1.TxProto.MsgWithdrawBurn.newBuilder()
-            .setFrom(selectedChain?.address)
-            .setValidator(withdrawCoin?.denom?.replace("bkava-", "")).setAmount(toCoin).build()
+            .setFrom(selectedChain.address).setValidator(withdrawCoin?.denom?.replace("bkava-", ""))
+            .setAmount(toCoin).build()
     }
 
     override fun onDestroyView() {

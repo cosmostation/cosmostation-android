@@ -18,11 +18,9 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class ChainEditViewHolder(
-    val context: Context,
-    private val binding: ItemEditBinding
+    val context: Context, private val binding: ItemEditBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
@@ -51,8 +49,7 @@ class ChainEditViewHolder(
                             chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
                             chainLegacy.setTextColor(
                                 ContextCompat.getColor(
-                                    context,
-                                    R.color.color_base01
+                                    context, R.color.color_base01
                                 )
                             )
                         } else if (!line.isDefault) {
@@ -61,8 +58,7 @@ class ChainEditViewHolder(
                             chainLegacy.setBackgroundResource(R.drawable.round_box_deprecated)
                             chainLegacy.setTextColor(
                                 ContextCompat.getColor(
-                                    context,
-                                    R.color.color_base02
+                                    context, R.color.color_base02
                                 )
                             )
                         } else {
@@ -77,11 +73,11 @@ class ChainEditViewHolder(
                             chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
                             chainLegacy.setTextColor(
                                 ContextCompat.getColor(
-                                    context,
-                                    R.color.color_base01
+                                    context, R.color.color_base01
                                 )
                             )
-                            val layoutParams = chainLegacy.layoutParams as ViewGroup.MarginLayoutParams
+                            val layoutParams =
+                                chainLegacy.layoutParams as ViewGroup.MarginLayoutParams
                             layoutParams.setMargins(0, 2, 0, 0)
                             chainLegacy.layoutParams = layoutParams
 
@@ -91,19 +87,22 @@ class ChainEditViewHolder(
                     }
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        AppDatabase.getInstance().refAddressDao().selectRefAddress(baseAccount.id, line.tag)?.let { refAddress ->
-                            withContext(Dispatchers.Main) {
-                                skeletonChainValue.visibility = View.GONE
-                                skeletonAssetCnt.visibility = View.GONE
+                        AppDatabase.getInstance().refAddressDao()
+                            .selectRefAddress(baseAccount.id, line.tag)?.let { refAddress ->
+                                withContext(Dispatchers.Main) {
+                                    skeletonChainValue.visibility = View.GONE
+                                    skeletonAssetCnt.visibility = View.GONE
 
-                                chainValue.text = formatAssetValue(refAddress.lastUsdValue())
-                                assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
+                                    chainValue.text = formatAssetValue(refAddress.lastUsdValue())
+                                    assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
+                                }
                             }
-                        }
                     }
 
                     editView.setOnClickListener {
-                        if (line.tag == "cosmos118") { return@setOnClickListener }
+                        if (line.tag == "cosmos118") {
+                            return@setOnClickListener
+                        }
                         if (displayChains.contains(line.tag)) {
                             displayChains.removeIf { it == line.tag }
                         } else {
@@ -113,7 +112,9 @@ class ChainEditViewHolder(
                         listener.select(displayChains)
                     }
 
-                } else -> { }
+                }
+
+                else -> {}
             }
         }
     }

@@ -418,7 +418,7 @@ class UnStakingFragment : BaseTxFragment() {
                     (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                val feeCoin = Coin.newBuilder().setDenom(fee.getAmount(0).denom)
                     .setAmount(feeCoinAmount.toString()).build()
 
                 txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
@@ -448,6 +448,7 @@ class UnStakingFragment : BaseTxFragment() {
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

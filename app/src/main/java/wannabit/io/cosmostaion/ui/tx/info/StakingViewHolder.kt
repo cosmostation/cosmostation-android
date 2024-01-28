@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
 import android.content.Context
+import android.os.Handler
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
+import wannabit.io.cosmostaion.ui.main.chain.RewardDialog
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -36,6 +38,33 @@ class StakingViewHolder(
 
             delegationView.setOnClickListener {
                 listener.selectStakingAction(validator)
+            }
+
+            delegationView.setOnLongClickListener { view ->
+                val rewards =
+                    line.cosmosRewards.filter { it.validatorAddress == delegation.delegation.validatorAddress }
+                if (rewards.isNotEmpty()) {
+                    val scaleX = view.scaleX
+                    val scaleY = view.scaleY
+                    val customDialog = RewardDialog(context, line, rewards.toMutableList())
+
+                    if (scaleX == 1.0f && scaleY == 1.0f) {
+                        view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                        val handler = Handler()
+                        handler.postDelayed({
+                            customDialog.show()
+                        }, 200)
+                    }
+
+                    customDialog.setOnDismissListener {
+                        view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                    }
+                    true
+
+                } else {
+                    listener.selectStakingAction(validator)
+                    true
+                }
             }
 
             monikerImg.setMonikerImg(line, validator?.operatorAddress)
@@ -90,6 +119,10 @@ class StakingViewHolder(
                                         .movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                                 rewardAmount.text =
                                     formatAmount(mainDenomRewardAmount.toPlainString(), decimal)
+                            } ?: run {
+                                rewardAmount.text = formatAmount(
+                                    BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
+                                )
                             }
 
                             var anotherCnt = 0

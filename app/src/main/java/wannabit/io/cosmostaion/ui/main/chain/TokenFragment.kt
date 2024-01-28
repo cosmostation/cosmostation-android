@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -147,6 +148,10 @@ class TokenFragment : Fragment() {
 
     private fun setUpHideValue() {
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
+            tokenAdapter.notifyDataSetChanged()
+        }
+
+        ApplicationViewModel.shared.loadTokenResult.observe(viewLifecycleOwner) {
             tokenAdapter.notifyDataSetChanged()
         }
     }

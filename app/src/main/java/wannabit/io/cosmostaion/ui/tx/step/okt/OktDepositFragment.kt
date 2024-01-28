@@ -255,6 +255,7 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
                 putExtra("selectedChain", selectedChain.tag)
                 startActivity(this)
             }
+            dismiss()
         }
     }
 

@@ -118,9 +118,14 @@
     <string name="str_my_available" translatable="false">My available</string>
     <string name="str_deposit_liquidity">Add liquidity</string>
     <string name="str_remove_liquidity">Remove liquidity</string>
+    <string name="str_search_chain">Search chain</string>
+    <string name="str_go_playstore">Go playstore</string>
+    <string name="str_under_maintenance">Under Maintenance</string>
+    <string name="str_mintscan">Mintscan</string>
 
 
     //title
+    <string name="title_update">Update</string>
     <string name="title_select_wallet">Select wallet</string>
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
@@ -244,9 +249,11 @@
     <string name="title_add_amount">To add amount</string>
     <string name="title_remove_amount">To remove amount</string>
     <string name="title_earning_select">Select earning option</string>
+    <string name="title_reward_detail">Reward detail (%1$s)</string>
 
 
     // msg
+    <string name="str_update_msg">New version available. \n\nPlease update to the latest version from the PlayStore.</string>
     <string name="str_title_no_history" translatable="false">No History</string>
     <string name="str_title_no_token" translatable="false">No Token</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
@@ -301,6 +308,7 @@
     <string name="str_create_another_msg">You can create a new account using the same mnemonic, but with a different HD Path.\n\nIn general, there is a possibility that it may not be compatible with other wallets, and it is recommended to be used only by those with background knowledge of crypto keys and HD Path.</string>
     <string name="str_pincode_init_msg">Enter your new PIN</string>
     <string name="str_pincode_init_confirm_msg">Verify your new PIN</string>
+    <string name="str_disabled_app_msg">We are currently under maintenance.\n\nPlease check our community channels for more information.</string>
 
 
     // header
@@ -443,14 +451,6 @@
     <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
     <string name="tx_kava_earn_deposit">Earn Liquidate\nDeposit</string>
 
-    <string name="tx_starname_registe_domain">Register Domain</string>
-    <string name="tx_starname_registe_account">Register Account</string>
-    <string name="tx_starname_delete_domain">Delete Domain</string>
-    <string name="tx_starname_delete_account">Delete Account</string>
-    <string name="tx_starname_renew_domain">Renew Domain</string>
-    <string name="tx_starname_renew_account">Renew Account</string>
-    <string name="tx_starname_update_resource">Replace Address</string>
-
     <string name="tx_create_bid">Create Bid</string>
     <string name="tx_close_bid">Close Bid</string>
     <string name="tx_create_lease">Create Lease</string>
@@ -517,6 +517,7 @@
     <string name="tx_block_user">Block User</string>
     <string name="tx_unblock_user">Unblock User</string>
 
+    <string name="tx_cosmwasm">Contract</string>
     <string name="tx_cosmwasm_store_code">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract">Execute Contract</string>

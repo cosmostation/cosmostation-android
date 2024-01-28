@@ -66,29 +66,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_name_title">
 
-        <TextView
-            android:id="@+id/account_name"
-            style="@style/font_sb_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/space_16"
-            android:ellipsize="middle"
-            android:maxWidth="@dimen/space_200"
-            android:maxLines="1"
-            android:textColor="@color/color_base01" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/last_hd_path"
-            style="@style/font_sb_14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="@dimen/space_16"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Last HD Path : 1"
-            android:textColor="@color/color_base02" />
+            <TextView
+                android:id="@+id/account_name"
+                style="@style/font_sb_14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/last_hd_path"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/last_hd_path"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Last HD Path : 1"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -132,6 +142,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_8"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

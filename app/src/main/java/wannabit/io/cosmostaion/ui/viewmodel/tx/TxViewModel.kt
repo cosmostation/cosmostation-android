@@ -1,8 +1,5 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
-import SingleLiveEvent
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binance.dex.api.client.Wallet
@@ -61,6 +58,7 @@ import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NameService
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
+import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
 import java.util.concurrent.TimeUnit
 
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
@@ -154,8 +152,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val errorMessage = SingleLiveEvent<String>()
 
-    private val _broadcastTx = MutableLiveData<AbciProto.TxResponse>()
-    val broadcastTx: LiveData<AbciProto.TxResponse> get() = _broadcastTx
+    val broadcastTx = SingleLiveEvent<AbciProto.TxResponse>()
 
     val simulate = SingleLiveEvent<AbciProto.GasInfo>()
 
@@ -171,7 +168,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastSendTx(
                 managedChannel, it, msgSend, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -198,12 +195,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
-    private val _broadcastBnbTx = MutableLiveData<MutableList<TransactionMetadata>?>()
-    val broadcastBnbTx: LiveData<MutableList<TransactionMetadata>?> get() = _broadcastBnbTx
+    val broadcastBnbTx = SingleLiveEvent<MutableList<TransactionMetadata>?>()
     fun broadcastBnbSend(transfer: Transfer, wallet: Wallet, options: TransactionOption) =
         viewModelScope.launch(Dispatchers.IO) {
             val response = txRepository.broadcastBnbSendTx(transfer, wallet, options)
-            _broadcastBnbTx.postValue(response)
+            broadcastBnbTx.postValue(response)
         }
 
     fun broadcastIbcSend(
@@ -244,7 +240,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastIbcSendTx(
                 managedChannel, it, msgTransfer, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -298,13 +294,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
-    private val _broadcastErc20SendTx = MutableLiveData<String?>()
-    val broadcastErc20SendTx: LiveData<String?> get() = _broadcastErc20SendTx
+    val broadcastErc20SendTx = SingleLiveEvent<String?>()
     fun broadcastErc20Send(
         web3j: Web3j, hexValue: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.broadcastErcSendTx(web3j, hexValue)
-        _broadcastErc20SendTx.postValue(response)
+        broadcastErc20SendTx.postValue(response)
     }
 
     val simulateErc20Send = SingleLiveEvent<Pair<String?, String?>>()
@@ -336,7 +331,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastDelegateTx(
                 managedChannel, it, msgDelegate, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -376,7 +371,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastUnDelegateTx(
                 managedChannel, it, msgUnDelegate, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -416,7 +411,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastReDelegateTx(
                 managedChannel, it, msgReDelegate, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -456,7 +451,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastCancelUnbondingTx(
                 managedChannel, it, msgCancelUnbondingDelegation, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -496,7 +491,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastGetRewardsTx(
                 managedChannel, it, rewards, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -537,7 +532,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastCompoundingTx(
                 managedChannel, it, rewards, stakingDenom, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -578,7 +573,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastChangeRewardAddressTx(
                 managedChannel, it, msgSetWithdrawAddress, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -618,7 +613,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastVoteTx(
                 managedChannel, it, msgVotes, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -656,7 +651,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastWasmTx(
                 managedChannel, it, msgWasms, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -695,7 +690,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastClaimIncentiveTx(
                 managedChannel, it, incentive, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -735,7 +730,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastMintCreateTx(
                 managedChannel, it, msgCreateCDP, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -775,7 +770,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastMintDepositTx(
                 managedChannel, it, msgDeposit, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -815,7 +810,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastMintWithdrawTx(
                 managedChannel, it, msgWithdraw, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -855,7 +850,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastMintBorrowTx(
                 managedChannel, it, msgDrawDebt, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -895,7 +890,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastMintRepayTx(
                 managedChannel, it, msgRepayDebt, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -935,7 +930,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastLendDepositTx(
                 managedChannel, it, msgDeposit, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -975,7 +970,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastLendWithdrawTx(
                 managedChannel, it, msgWithdraw, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1015,7 +1010,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastLendBorrowTx(
                 managedChannel, it, msgBorrow, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1055,7 +1050,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastLendRepayTx(
                 managedChannel, it, msgRepay, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1095,7 +1090,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastPoolDepositTx(
                 managedChannel, it, msgDeposit, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1135,7 +1130,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastPoolWithdrawTx(
                 managedChannel, it, msgWithdraw, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1175,7 +1170,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastEarnDepositTx(
                 managedChannel, it, msgDeposit, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1191,7 +1186,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastEarnWithdrawTx(
                 managedChannel, it, msgWithdraw, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 
@@ -1243,8 +1238,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
-    private val _broadCreateSwap = MutableLiveData<AbciProto.TxResponse>()
-    val broadCreateSwap: LiveData<AbciProto.TxResponse> get() = _broadCreateSwap
+    val broadCreateSwap = SingleLiveEvent<AbciProto.TxResponse>()
     fun broadCreateSwap(
         managedChannel: ManagedChannel?,
         address: String?,
@@ -1257,12 +1251,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastCreateSwapTx(
                 managedChannel, it, msgCreateAtomicSwap, fee, memo, selectedChain
             )
-            _broadCreateSwap.postValue(response?.txResponse)
+            broadCreateSwap.postValue(response?.txResponse)
         }
     }
 
-    private val _broadClaimSwap = MutableLiveData<AbciProto.TxResponse>()
-    val broadClaimSwap: LiveData<AbciProto.TxResponse> get() = _broadClaimSwap
+    val broadClaimSwap = SingleLiveEvent<AbciProto.TxResponse>()
     fun broadClaimSwap(
         managedChannel: ManagedChannel?,
         address: String?,
@@ -1275,25 +1268,22 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastClaimSwapTx(
                 managedChannel, it, msgClaimAtomicSwap, fee, memo, selectedChain
             )
-            _broadClaimSwap.postValue(response?.txResponse)
+            broadClaimSwap.postValue(response?.txResponse)
         }
     }
 
-    private val _broadBnbCreateSwap = MutableLiveData<MutableList<TransactionMetadata>?>()
-    val broadBnbCreateSwap: LiveData<MutableList<TransactionMetadata>?> get() = _broadBnbCreateSwap
+    val broadBnbCreateSwap = SingleLiveEvent<MutableList<TransactionMetadata>?>()
     fun broadcastBnbCreateSwap(htltReq: HtltReq, wallet: Wallet, options: TransactionOption) =
         viewModelScope.launch(Dispatchers.IO) {
             val response = txRepository.broadcastBnbCreateSwapTx(htltReq, wallet, options)
-            _broadBnbCreateSwap.postValue(response)
+            broadBnbCreateSwap.postValue(response)
         }
 
-    private val _broadcastOktTx = MutableLiveData<LegacyRes?>()
-    val broadcastOktTx: LiveData<LegacyRes?> get() = _broadcastOktTx
-
+    val broadcastOktTx = SingleLiveEvent<LegacyRes?>()
     fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60) =
         viewModelScope.launch(Dispatchers.IO) {
             val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
-            _broadcastOktTx.postValue(response)
+            broadcastOktTx.postValue(response)
         }
 
     fun broadcastSkipIbcSend(
@@ -1307,7 +1297,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastIbcSendTx(
                 managedChannel, it, msgTransfer, fee, memo, selectedChain
             )
-            _broadcastTx.postValue(response?.txResponse)
+            broadcastTx.postValue(response?.txResponse)
         }
     }
 

@@ -8,6 +8,7 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -136,24 +137,36 @@ class TxResultActivity : BaseActivity() {
         if (txResultType == TxResultType.SKIP) {
             startMainActivity(1)
         } else {
-            startMainActivity(0)
+            finish()
         }
     }
 
     private fun updateView() {
         binding.apply {
-            loading.visibility = View.GONE
             if (txResultType == TxResultType.COSMOS || txResultType == TxResultType.SKIP) {
                 if (isSuccess) {
-                    successLayout.visibility = View.VISIBLE
-                    showAddressBook()
+                    if (selectedChain is ChainOkt60) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loading.visibility = View.GONE
+                            successLayout.visibility = View.VISIBLE
+                            showAddressBook()
+                        }, 3000)
+
+                    } else {
+                        loading.visibility = View.GONE
+                        successLayout.visibility = View.VISIBLE
+                        showAddressBook()
+                    }
+
                 } else {
+                    loading.visibility = View.GONE
                     failLayout.visibility = View.VISIBLE
                     failMsg.visibleOrGone(errorMsg.isNotEmpty())
                     failMsg.text = errorMsg
                 }
 
             } else {
+                loading.visibility = View.GONE
                 walletViewModel.evmTxHash(selectedChain?.apiName, txHash)
                 if (evmRecipient?.isStatusOK == true) {
                     successLayout.visibility = View.VISIBLE
@@ -202,10 +215,23 @@ class TxResultActivity : BaseActivity() {
             }
 
             btnConfirm.setOnClickListener {
-                if (txResultType == TxResultType.SKIP) {
-                    startMainActivity(1)
-                } else {
-                    startMainActivity(0)
+                Log.e("Test1234 : ", txResultType.toString())
+                when (txResultType) {
+                    TxResultType.SKIP -> {
+                        startMainActivity(1)
+                    }
+                    TxResultType.EVM -> {
+                        finish()
+                        BaseData.baseAccount?.let { account ->
+                            ApplicationViewModel.shared.loadAllTokenBalance(selectedChain!!, account.id)
+                        }
+                    }
+                    else -> {
+                        finish()
+                        BaseData.baseAccount?.let { account ->
+                            ApplicationViewModel.shared.loadChainData(selectedChain!!, account.id)
+                        }
+                    }
                 }
             }
         }
@@ -303,7 +329,7 @@ class TxResultActivity : BaseActivity() {
             if (txResultType == TxResultType.SKIP) {
                 startMainActivity(1)
             } else {
-                startMainActivity(0)
+                finish()
             }
             dialog.dismiss()
         }

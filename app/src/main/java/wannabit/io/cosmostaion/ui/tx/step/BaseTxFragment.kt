@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
-import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -14,7 +15,16 @@ import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 
 open class BaseTxFragment : BottomSheetDialogFragment() {
 
+    private lateinit var currentActivity: AppCompatActivity
+
     val txViewModel: TxViewModel by activityViewModels()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is AppCompatActivity) {
+            currentActivity = context
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -40,7 +50,7 @@ open class BaseTxFragment : BottomSheetDialogFragment() {
 
     private fun windowHeight(): Int {
         val displayMetrics = DisplayMetrics()
-        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        currentActivity.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels
     }
 

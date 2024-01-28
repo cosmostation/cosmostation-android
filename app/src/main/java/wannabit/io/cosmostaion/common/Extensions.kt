@@ -1,12 +1,15 @@
 package wannabit.io.cosmostaion.common
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
+import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
@@ -14,6 +17,7 @@ import android.text.style.RelativeSizeSpan
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -218,6 +222,31 @@ fun formatCurrentTimeToYear(): String {
     return dateFormat.format(date.time)
 }
 
+fun formatTxTime(context: Context, timeString: String): String {
+    val locale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = inputFormat.parse(timeString)
+    val outputFormat = SimpleDateFormat(
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy.M.d"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy"
+            } else {
+                "yyyy.M.d"
+            }
+        },
+        locale
+    )
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
 fun formatTxTimeToYear(context: Context, timeString: String): String {
     val locale = Locale.getDefault()
     val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_format))
@@ -241,6 +270,13 @@ fun formatTxTimeToYear(context: Context, timeString: String): String {
     )
     outputFormat.timeZone = TimeZone.getDefault()
     return outputFormat.format(date)
+}
+
+fun formatTxTimeStampToHour(context: Context, timeString: String): String {
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
+    val outputFormat = SimpleDateFormat(context.getString(R.string.str_dp_time_format2))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return outputFormat.format(inputFormat.parse(timeString))
 }
 
 fun formatTxTimeToHour(context: Context, timeString: String): String {
@@ -715,5 +751,35 @@ fun PoolResponse.usdxAmount(): BigDecimal {
 
 fun ByteArray.toHex(): String {
     return joinToString("") { "%02x".format(it) }
+}
+
+fun Context.dialogResize(dialog: Dialog, width: Float, height: Float) {
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val marginInDp = 8
+    val dpi = 160
+    val marginRatio = marginInDp.toFloat() / dpi.toFloat()
+
+    if (Build.VERSION.SDK_INT < 30) {
+        val display = windowManager.defaultDisplay
+        val size = Point()
+
+        display.getSize(size)
+
+        val window = dialog.window
+
+        val margin = (size.x * marginRatio).toInt()
+        val x = ((size.x - 2 * margin) * width).toInt()
+        val y = (size.y * height).toInt()
+        window?.setLayout(x, y)
+
+    } else {
+        val rect = windowManager.currentWindowMetrics.bounds
+
+        val window = dialog.window
+        val margin = (rect.width() * marginRatio).toInt()
+        val x = ((rect.width() - 2 * margin) * width).toInt()
+        val y = (rect.height() * height).toInt()
+        window?.setLayout(x, y)
+    }
 }
 

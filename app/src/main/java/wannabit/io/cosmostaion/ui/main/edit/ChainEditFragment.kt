@@ -1,15 +1,19 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.goneOrVisible
@@ -26,20 +30,21 @@ import java.math.BigDecimal
 class ChainEditFragment : BaseTxFragment() {
 
     private var _binding: FragmentChainEditBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private lateinit var chainEditAdapter: ChainEditAdapter
 
     private val walletViewModel: WalletViewModel by activityViewModels()
 
-    private var allCosmosChains: MutableList<CosmosLine> = mutableListOf()
     private var toDisplayChainLines: MutableList<String> = mutableListOf()
+    private var allCosmosChains: MutableList<CosmosLine> = mutableListOf()
+    private var searchChains: MutableList<CosmosLine> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChainEditBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,22 +52,24 @@ class ChainEditFragment : BaseTxFragment() {
 
         initLoadData()
         setupLoadedView()
+        initSearchView()
         setUpClickAction()
     }
 
     private fun initLoadData() {
-        binding.apply {
+        binding?.apply {
             BaseData.baseAccount?.let { account ->
                 account.apply {
                     CoroutineScope(Dispatchers.IO).launch {
                         sortCosmosLine()
+                        searchChains.addAll(allCosmosLineChains)
                         toDisplayChainLines.addAll(Prefs.getDisplayChains(account))
 
                         withContext(Dispatchers.Main) {
                             recycler.setHasFixedSize(true)
                             recycler.layoutManager = LinearLayoutManager(requireContext())
                             chainEditAdapter = ChainEditAdapter(
-                                account, allCosmosLineChains, toDisplayChainLines, editClickAction
+                                account, searchChains, toDisplayChainLines, editClickAction
                             )
                             recycler.adapter = chainEditAdapter
 
@@ -111,10 +118,12 @@ class ChainEditFragment : BaseTxFragment() {
                     val index = account.allCosmosLineChains.indexOf(fetchedLine)
                     withContext(Dispatchers.Main) {
                         account.allCosmosLineChains.forEach { _ ->
-                            chainEditAdapter.notifyItemChanged(index)
+                            if (::chainEditAdapter.isInitialized) {
+                                chainEditAdapter.notifyItemChanged(index)
+                            }
                         }
-                        binding.btnSelect.updateSelectButtonView(account.allCosmosLineChains.none { line -> !line.fetched })
-                        binding.progress.goneOrVisible(account.allCosmosLineChains.none { line -> !line.fetched })
+                        binding?.btnSelect?.updateSelectButtonView(account.allCosmosLineChains.none { line -> !line.fetched })
+                        binding?.progress?.goneOrVisible(account.allCosmosLineChains.none { line -> !line.fetched })
                     }
                 }
             }
@@ -179,18 +188,12 @@ class ChainEditFragment : BaseTxFragment() {
     }
 
     private fun setUpClickAction() {
-        binding.apply {
-            BaseData.baseAccount?.let { account ->
-                btnSelect.setOnClickListener {
+        binding?.apply {
+            btnSelect.setOnClickListener {
+                if (btnSelect.isEnabled) {
+                    btnSelect.isEnabled = false
+
                     allCosmosChains = reSortCosmosChains()
-
-                    val hasValueChains =
-                        allCosmosChains.filter { line -> line.allAssetValue() > BigDecimal.ONE && line.tag != "cosmos118" }
-                            .toMutableList()
-
-                    if (hasValueChains.none { line -> !toDisplayChainLines.contains(line.tag) }) {
-                        return@setOnClickListener
-                    }
 
                     toDisplayChainLines.clear()
                     toDisplayChainLines.add("cosmos118")
@@ -199,20 +202,47 @@ class ChainEditFragment : BaseTxFragment() {
                         .forEach { toDisplayChainLines.add(it.tag) }
                     valuableSortCosmosChains()
 
-                    toDisplayChainLines.forEach { tag ->
-                        val index = allCosmosChains.indexOfFirst { it.tag == tag }
-                        if (index != -1) {
-                            chainEditAdapter.notifyItemChanged(index)
-                        }
-                    }
-                }
+                    chainEditAdapter.notifyItemRangeChanged(1, toDisplayChainLines.size + 1, null)
 
-                btnConfirm.setOnClickListener {
-                    Prefs.setDisplayChains(account, toDisplayChainLines)
-                    ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
-                    dismiss()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        btnSelect.isEnabled = true
+                    }, 1000)
                 }
             }
+
+            btnConfirm.setOnClickListener {
+                ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
+                dismiss()
+            }
+        }
+    }
+
+    private fun initSearchView() {
+        binding?.apply {
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchChains.clear()
+                    BaseData.baseAccount?.let { account ->
+                        if (StringUtils.isEmpty(newText)) {
+                            searchChains.addAll(account.allCosmosLineChains)
+                        } else {
+                            newText?.let { searchTxt ->
+                                searchChains.addAll(account.allCosmosLineChains.filter { chain ->
+                                    chain.name.contains(searchTxt, ignoreCase = true)
+                                })
+                            }
+                        }
+                    }
+                    chainEditAdapter.notifyDataSetChanged()
+                    return true
+                }
+            })
         }
     }
 

@@ -18,10 +18,12 @@ import com.walletconnect.sign.client.SignClient
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CipherHelper
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModelProviderFactory
 import java.util.UUID
 
 class CosmostationApp : Application(), ViewModelStoreOwner {
@@ -45,9 +47,11 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(ApplicationLifecycleStatus())
+        val walletRepository = WalletRepositoryImpl()
         applicationViewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory(this)
+            this, ApplicationViewModelProviderFactory(Application(), walletRepository)
         )[ApplicationViewModel::class.java]
+
         initialize()
         FirebaseApp.initializeApp(this)
         SQLiteDatabase.loadLibs(this)

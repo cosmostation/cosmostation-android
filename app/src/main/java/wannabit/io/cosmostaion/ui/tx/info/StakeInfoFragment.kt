@@ -8,10 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class StakeInfoFragment(
     private val selectedChain: CosmosLine
@@ -45,11 +46,12 @@ class StakeInfoFragment(
 
         initView()
         setUpClickAction()
+        setUpStakeInfo()
     }
 
     private fun initView() {
         binding.apply {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val rewardAddress = selectedChain.rewardAddress
                 var delegations = selectedChain.cosmosDelegations
                 val validators = selectedChain.cosmosValidators
@@ -152,6 +154,12 @@ class StakeInfoFragment(
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun setUpStakeInfo() {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+            initView()
+        }
     }
 }
 

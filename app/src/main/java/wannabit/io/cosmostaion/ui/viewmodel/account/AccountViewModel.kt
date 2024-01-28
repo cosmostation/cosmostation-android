@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel.account
 
-import SingleLiveEvent
+import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.data.repository.account.AccountRepository
 import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 
 class AccountViewModel(private val accountRepository: AccountRepository) : ViewModel() {
 
@@ -26,6 +28,7 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
     fun deleteAccount(baseAccount: BaseAccount) = CoroutineScope(Dispatchers.IO).launch {
         accountRepository.deleteAccount(baseAccount)
         AppDatabase.getInstance().refAddressDao().delete(baseAccount.id)
+        PushManager.syncAddresses(Prefs.fcmToken)
         _baseAccounts.postValue(AppDatabase.getInstance().baseAccountDao().selectAll())
     }
 

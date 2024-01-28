@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.wallet
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -80,12 +81,14 @@ class WalletSelectViewHolder(
                         val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
                         chainBalance.text = formatAmount(availableAmount.toString(), 8)
                         chainDenom.text = line.stakeDenom?.uppercase()
+                        chainDenom.setTextColor(Color.parseColor("#ffffff"))
                         cnt = line.lcdAccountInfo?.balances?.size ?: 0
 
                     } else if (line is ChainOkt60) {
                         val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
                         chainBalance.text = formatAmount(availableAmount.toString(), 18)
                         chainDenom.text = line.stakeDenom?.uppercase()
+                        chainDenom.setTextColor(Color.parseColor("#ffffff"))
                         cnt = line.oktLcdAccountInfo?.value?.coins?.size ?: 0
 
                     } else {
@@ -99,6 +102,7 @@ class WalletSelectViewHolder(
                                 chainBalance.text =
                                     formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                                 chainDenom.text = asset.symbol
+                                chainDenom.setTextColor(asset.assetColor())
                             }
                             cnt = line.cosmosBalances?.count() ?: 0
                         }
