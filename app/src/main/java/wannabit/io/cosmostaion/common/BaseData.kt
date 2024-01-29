@@ -22,26 +22,31 @@ object BaseData {
     var chains: List<Chain>? = mutableListOf()
     var supportConfig: SupportConfig? = null
     var prices: List<Price>? = mutableListOf()
+    var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
 
     var skipChains: SkipChainResponse? = null
     var skipAssets: JsonObject? = null
 
-    fun getPrice(coinGeckoId: String?): BigDecimal {
-        val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
+    fun getPrice(coinGeckoId: String?, isUsd: Boolean? = false): BigDecimal {
+        val price = if (isUsd == true) {
+            usdPrices?.firstOrNull { it.coinGeckoId == coinGeckoId }
+        } else {
+            prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
+        }
         if (price != null) {
             val currentPrice = price.currentPrice ?: 0.0
-            return currentPrice.toBigDecimal().setScale(12, RoundingMode.HALF_UP)
+            return currentPrice.toBigDecimal().setScale(12, RoundingMode.HALF_DOWN)
         }
-        return BigDecimal.ZERO.setScale(12, RoundingMode.HALF_UP)
+        return BigDecimal.ZERO.setScale(12, RoundingMode.HALF_DOWN)
     }
 
     fun lastUpDown(coinGeckoId: String?): BigDecimal {
         val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
         if (price != null) {
-            return (price.dailyPercent ?: 0.0).toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+            return (price.dailyPercent ?: 0.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
         }
-        return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP)
+        return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN)
     }
 
     fun getAsset(chainName: String, denom: String): Asset? {

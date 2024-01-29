@@ -19,6 +19,9 @@ interface MintscanApi {
     @GET("v2/utils/market/prices")
     suspend fun price(@Query("currency") currency: String): Response<List<Price>>
 
+    @GET("v2/utils/market/prices")
+    suspend fun usdPrice(@Query("currency") currency: String): Response<List<Price>>
+
     @GET("v3/assets")
     suspend fun asset(): Response<AssetResponse>
 

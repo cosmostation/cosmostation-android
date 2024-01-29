@@ -74,27 +74,10 @@ class SettingFragment : Fragment() {
     private fun initView() {
         binding.apply {
             listOf(
-                accountView,
-                importView,
-                legacyView,
-                chainView,
-                addressBookView,
-                languageView,
-                currencyView,
-                priceView,
-                alarmView,
-                appLockView,
-                bioView,
-                mintscanView,
-                homepageView,
-                blogView,
-                twitterView,
-                telegramView,
-                youtubeView,
-                termView,
-                privacyView,
-                githubView,
-                versionView
+                accountView, importView, legacyView, chainView, addressBookView,
+                languageView, currencyView, priceView, alarmView, appLockView, bioView,
+                mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
+                termView, privacyView, githubView, versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             updateWalletView()

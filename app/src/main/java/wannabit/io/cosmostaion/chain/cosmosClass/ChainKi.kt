@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 class ChainKi : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
-    override var name: String = "Ki"
+    override var name: String = "KiChain"
     override var tag: String = "ki118"
     override var logo: Int = R.drawable.chain_ki
     override var swipeLogo: Int = R.drawable.chain_swipe_ki
@@ -22,7 +22,7 @@ class ChainKi : CosmosLine() {
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
-    override var accountPrefix: String? = "uxki"
+    override var accountPrefix: String? = "ki"
 
     override var grpcHost: String = "grpc-ki-chain.cosmostation.io"
 }

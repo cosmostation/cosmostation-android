@@ -12,7 +12,7 @@ class ChainMars : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Mars"
-    override var tag: String = "mars118"
+    override var tag: String = "mars-protocol118"
     override var logo: Int = R.drawable.chain_mars
     override var swipeLogo: Int = R.drawable.chain_swipe_mars
     override var apiName: String = "mars-protocol"

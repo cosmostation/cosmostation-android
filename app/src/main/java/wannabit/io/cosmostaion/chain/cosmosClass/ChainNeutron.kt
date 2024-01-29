@@ -37,11 +37,11 @@ class ChainNeutron : CosmosLine() {
 
     override var grpcHost: String = "grpc-neutron.cosmostation.io"
 
-    override fun denomValue(denom: String): BigDecimal {
+    override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal {
         return if (denom == stakeDenom) {
-            balanceValue(denom).add(neutronVestingValue()).add(neutronDepositedValue())
+            balanceValue(denom, isUsd).add(neutronVestingValue(isUsd)).add(neutronDepositedValue(isUsd))
         } else {
-            balanceValue(denom)
+            balanceValue(denom, isUsd)
         }
     }
 
@@ -52,8 +52,8 @@ class ChainNeutron : CosmosLine() {
         return BigDecimal.ZERO
     }
 
-    override fun allAssetValue(): BigDecimal {
-        return balanceValueSum().add(neutronVestingValue()).add(neutronDepositedValue())
+    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return balanceValueSum(isUsd).add(neutronVestingValue(isUsd)).add(neutronDepositedValue(isUsd))
     }
 
     fun neutronVestingAmount(): BigDecimal? {
@@ -65,10 +65,10 @@ class ChainNeutron : CosmosLine() {
         return BigDecimal.ZERO
     }
 
-    private fun neutronVestingValue(): BigDecimal {
+    private fun neutronVestingValue(isUsd: Boolean? = false): BigDecimal {
         stakeDenom?.let { denom ->
             BaseData.getAsset(apiName, denom)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId)
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
                 val amount = neutronVestingAmount()
                 return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
                     .setScale(6, RoundingMode.DOWN)
@@ -77,10 +77,10 @@ class ChainNeutron : CosmosLine() {
         return BigDecimal.ZERO
     }
 
-    private fun neutronDepositedValue(): BigDecimal {
+    private fun neutronDepositedValue(isUsd: Boolean? = false): BigDecimal {
         stakeDenom?.let { denom ->
             BaseData.getAsset(apiName, denom)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId)
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
                 val amount = neutronDeposited
                 return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
             }

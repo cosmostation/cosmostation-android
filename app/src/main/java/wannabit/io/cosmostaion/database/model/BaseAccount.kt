@@ -99,7 +99,7 @@ data class BaseAccount(
 
     fun updateAllValue() {
         sortedDisplayCosmosLines().forEach { line ->
-            line.allValue()
+            line.allValue(false)
         }
     }
 

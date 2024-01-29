@@ -36,8 +36,8 @@ class ChainBinanceBeacon : CosmosLine() {
         return CosmostationConstants.CHAIN_BASE_URL + "bnb-beacon-chain/asset/" + originSymbol.lowercase() + ".png"
     }
 
-    override fun allAssetValue(): BigDecimal {
-        return lcdBalanceValueSum()
+    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return lcdBalanceValueSum(isUsd)
     }
 
     override fun isTxFeePayable(c: Context): Boolean {
@@ -69,21 +69,21 @@ class ChainBinanceBeacon : CosmosLine() {
         return BigDecimal.ZERO
     }
 
-    override fun lcdBalanceValue(denom: String?): BigDecimal {
+    override fun lcdBalanceValue(denom: String?, isUsd: Boolean?): BigDecimal {
         denom?.let {
             if (it == stakeDenom) {
                 val amount = lcdBalanceAmount(denom)
-                val price = BaseData.getPrice(BNB_GECKO_ID)
+                val price = BaseData.getPrice(BNB_GECKO_ID, isUsd)
                 return price.multiply(amount).setScale(6, RoundingMode.DOWN)
             }
         }
         return BigDecimal.ZERO
     }
 
-    private fun lcdBalanceValueSum(): BigDecimal {
+    private fun lcdBalanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sumValue = BigDecimal.ZERO
         lcdAccountInfo?.balances?.forEach { balance ->
-            sumValue = sumValue.add(lcdBalanceValue(balance.symbol))
+            sumValue = sumValue.add(lcdBalanceValue(balance.symbol, isUsd))
         }
         return sumValue
     }

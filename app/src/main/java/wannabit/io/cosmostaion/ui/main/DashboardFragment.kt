@@ -191,7 +191,7 @@ class DashboardFragment : Fragment() {
 
         baseAccount?.let { account ->
             account.sortedDisplayCosmosLines().forEach { line ->
-                totalSum = totalSum.add(line.allValue())
+                totalSum = totalSum.add(line.allValue(false))
             }
 
             if (isAdded) {
@@ -241,6 +241,7 @@ class DashboardFragment : Fragment() {
 
     private fun observeViewModels() {
         walletViewModel.updatePriceResult.observe(viewLifecycleOwner) {
+            updateTotalValue()
             dashAdapter.notifyDataSetChanged()
         }
 

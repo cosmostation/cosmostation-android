@@ -8,7 +8,7 @@ import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
-class ChainFetchAi : CosmosLine() {
+open class ChainFetchAi : CosmosLine() {
 
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Fetch.Ai"

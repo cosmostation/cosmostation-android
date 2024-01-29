@@ -103,6 +103,12 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun usdPrice(): NetworkResult<Response<List<Price>>> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.price("usd")
+        }
+    }
+
     override suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>> {
         return safeApiCall(Dispatchers.IO) {
             walletApi.pushStatus(fcmToken)

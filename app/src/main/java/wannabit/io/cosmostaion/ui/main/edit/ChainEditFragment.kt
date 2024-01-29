@@ -149,7 +149,7 @@ class ChainEditFragment : BaseTxFragment() {
                         o2.tag == "cosmos118" -> 1
                         else -> {
                             when {
-                                o1.allAssetValue() > o2.allAssetValue() -> -1
+                                o1.allAssetValue(true) > o2.allAssetValue(true) -> -1
                                 else -> 1
                             }
                         }
@@ -167,8 +167,8 @@ class ChainEditFragment : BaseTxFragment() {
                 when {
                     o1.tag == "cosmos118" -> -1
                     o2.tag == "cosmos118" -> 1
-                    o1.allValue() > o2.allValue() -> -1
-                    o1.allValue() < o2.allValue() -> 1
+                    o1.allValue(true) > o2.allValue(true) -> -1
+                    o1.allValue(true) < o2.allValue(true) -> 1
                     else -> 0
                 }
             }
@@ -198,7 +198,7 @@ class ChainEditFragment : BaseTxFragment() {
                     toDisplayChainLines.clear()
                     toDisplayChainLines.add("cosmos118")
 
-                    allCosmosChains.filter { it.allAssetValue() > BigDecimal.ONE && it.tag != "cosmos118" }
+                    allCosmosChains.filter { it.allAssetValue(true) > BigDecimal.ONE && it.tag != "cosmos118" }
                         .forEach { toDisplayChainLines.add(it.tag) }
                     valuableSortCosmosChains()
 

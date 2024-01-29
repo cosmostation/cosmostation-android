@@ -33,6 +33,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHumans
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -52,13 +54,32 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXplaKeccak256
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
@@ -122,17 +143,17 @@ open class CosmosLine : BaseChain(), Parcelable {
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }
 
-    open fun lcdBalanceValue(denom: String?): BigDecimal {
+    open fun lcdBalanceValue(denom: String?, isUsd: Boolean? = false): BigDecimal {
         return BigDecimal.ZERO
     }
 
-    open fun allAssetValue(): BigDecimal {
-        return balanceValueSum().add(vestingValueSum()).add(delegationValueSum())
-            .add(unbondingValueSum()).add(rewardValueSum())
+    open fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
+            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
     }
 
-    fun allValue(): BigDecimal {
-        return allAssetValue().add(allTokenValue())
+    fun allValue(isUsd: Boolean?): BigDecimal {
+        return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
@@ -273,9 +294,9 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun balanceValue(denom: String): BigDecimal {
+    fun balanceValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId)
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = balanceAmount(denom)
             asset.decimals?.let { decimal ->
                 return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
@@ -286,11 +307,11 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun balanceValueSum(): BigDecimal {
+    fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (cosmosBalances?.isNotEmpty() == true) {
             cosmosBalances?.forEach { balance ->
-                sum = sum.add(balanceValue(balance.denom))
+                sum = sum.add(balanceValue(balance.denom, isUsd))
             }
         }
         return sum
@@ -304,9 +325,9 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValue(denom: String): BigDecimal {
+    private fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId)
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = vestingAmount(denom)
             asset.decimals?.let { decimal ->
                 return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
@@ -315,10 +336,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValueSum(): BigDecimal {
+    private fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosVestings.forEach { vesting ->
-            sum = sum.add(vestingValue(vesting.denom))
+            sum = sum.add(vestingValue(vesting.denom, isUsd))
         }
         return sum
     }
@@ -331,10 +352,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         return sum
     }
 
-    private fun delegationValueSum(): BigDecimal {
+    private fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
         stakeDenom?.let {
             BaseData.getAsset(apiName, it)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId)
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
                 val amount = delegationAmountSum()
                 asset.decimals?.let { decimal ->
                     return price.multiply(amount).movePointLeft(decimal)
@@ -356,10 +377,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         return sum
     }
 
-    private fun unbondingValueSum(): BigDecimal {
+    private fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
         stakeDenom?.let {
             BaseData.getAsset(apiName, it)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId)
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
                 val amount = unbondingAmountSum()
                 asset.decimals?.let { decimal ->
                     return price.multiply(amount).movePointLeft(decimal)
@@ -381,9 +402,9 @@ open class CosmosLine : BaseChain(), Parcelable {
         return sum.movePointLeft(18).setScale(0, RoundingMode.DOWN)
     }
 
-    private fun rewardValue(denom: String): BigDecimal {
+    private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId)
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)
             asset.decimals?.let { decimal ->
                 return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
@@ -413,11 +434,11 @@ open class CosmosLine : BaseChain(), Parcelable {
         return rewardAllCoins().map { it.denom }.distinct().count { it != stakeDenom }
     }
 
-    private fun rewardValueSum(): BigDecimal {
+    private fun rewardValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         rewardAllCoins().forEach { rewardCoin ->
             BaseData.getAsset(apiName, rewardCoin.denom)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId)
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
                 val amount = rewardCoin.amount.toBigDecimal()
                 val value = asset.decimals?.let {
                     price.multiply(amount)?.movePointLeft(it)?.setScale(6, RoundingMode.DOWN)
@@ -457,9 +478,9 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun tokenValue(address: String): BigDecimal {
+    fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
         tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId)
+            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
         } ?: run {
@@ -467,10 +488,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
-    fun allTokenValue(): BigDecimal {
+    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
         tokens.forEach { token ->
-            val price = BaseData.getPrice(token.coinGeckoId)
+            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
             val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
                 .setScale(6, RoundingMode.DOWN)
             result = result.add(value)
@@ -478,13 +499,15 @@ open class CosmosLine : BaseChain(), Parcelable {
         return result
     }
 
-    open fun denomValue(denom: String): BigDecimal {
+    open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         return if (denom == stakeDenom) {
-            balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
-                .add(delegationValueSum()).add(unbondingValueSum())
+            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
+                .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
+                .add(unbondingValueSum(isUsd))
 
         } else {
-            balanceValue(denom).add(vestingValue(denom)).add(rewardValue(denom))
+            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
+                .add(rewardValue(denom, isUsd))
         }
     }
 
@@ -517,6 +540,8 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainEmoney())
     lines.add(ChainEvmos())
     lines.add(ChainFetchAi())
+    lines.add(ChainFetchAi60Secp())
+    lines.add(ChainFetchAi60Old())
     lines.add(ChainGravityBridge())
     lines.add(ChainHumans())
     lines.add(ChainInjective())
@@ -535,16 +560,35 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainMedibloc())
     lines.add(ChainNeutron())
     lines.add(ChainNyx())
-    lines.add(ChainOsmosis())
     lines.add(ChainOmniflix())
+    lines.add(ChainOnomy())
+    lines.add(ChainOsmosis())
+    lines.add(ChainPassage())
     lines.add(ChainPersistence118())
     lines.add(ChainPersistence750())
+    lines.add(ChainProvenance())
+    lines.add(ChainQuasar())
+    lines.add(ChainQuicksilver())
+    lines.add(ChainRegen())
+    lines.add(ChainRizon())
+    lines.add(ChainSecret529())
+    lines.add(ChainSecret118())
+    lines.add(ChainSei())
+    lines.add(ChainSentinel())
+    lines.add(ChainShentu())
+    lines.add(ChainSommelier())
+    lines.add(ChainStafi())
     lines.add(ChainStargaze())
     lines.add(ChainStride())
+    lines.add(ChainTeritori())
+    lines.add(ChainTerra())
+    lines.add(ChainUx())
     lines.add(ChainXplaKeccak256())
+    lines.add(ChainXpla())
     lines.add(ChainBinanceBeacon())
-    lines.add(ChainOkt996Secp())
     lines.add(ChainOkt60())
+    lines.add(ChainOkt996Keccak())
+    lines.add(ChainOkt996Secp())
 
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {
@@ -558,4 +602,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     return lines
 }
 
-val DEFAULT_DISPLAY_COSMOS = mutableListOf("cosmos118", "neutron118", "kava459", "osmosis118", "dydx118", "crypto-org394", "celestia118")
+val DEFAULT_DISPLAY_COSMOS = mutableListOf(
+    "cosmos118", "neutron118", "kava459", "osmosis118", "dydx118", "crypto-org394", "celestia118"
+)

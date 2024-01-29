@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -93,7 +94,7 @@ class ChainEditViewHolder(
                                     skeletonChainValue.visibility = View.GONE
                                     skeletonAssetCnt.visibility = View.GONE
 
-                                    chainValue.text = formatAssetValue(refAddress.lastUsdValue())
+                                    chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
                                     assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
                                 }
                             }

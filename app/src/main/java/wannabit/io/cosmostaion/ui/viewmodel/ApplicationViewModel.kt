@@ -194,7 +194,7 @@ class ApplicationViewModel(
                                     baseAccountId,
                                     tag,
                                     address,
-                                    allAssetValue().toString(),
+                                    allAssetValue(true).toString(),
                                     lcdBalanceAmount(stakeDenom).toString(),
                                     "0",
                                     lcdAccountInfo?.balances?.size?.toLong() ?: 0
@@ -260,7 +260,7 @@ class ApplicationViewModel(
                                     baseAccountId,
                                     tag,
                                     address,
-                                    allAssetValue().toString(),
+                                    allAssetValue(true).toString(),
                                     lcdBalanceAmount(stakeDenom).toString(),
                                     "0",
                                     oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
@@ -401,7 +401,7 @@ class ApplicationViewModel(
                         id,
                         tag,
                         address,
-                        allAssetValue().toPlainString(),
+                        allAssetValue(true).toPlainString(),
                         allStakingDenomAmount().toString(),
                         "0",
                         cosmosBalances?.size?.toLong() ?: 0

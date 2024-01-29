@@ -41,6 +41,8 @@ interface WalletRepository {
 
     suspend fun price(currency: String): NetworkResult<Response<List<Price>>>
 
+    suspend fun usdPrice(): NetworkResult<Response<List<Price>>>
+
     suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>>
 
     suspend fun supportConfig(): NetworkResult<Response<SupportConfig>>

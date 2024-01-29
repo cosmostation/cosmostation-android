@@ -139,10 +139,10 @@ class CoinCosmosLineViewHolder(
             rewardLayout.visibility = View.GONE
 
             val neutronChain = line as? ChainNeutron
-            neutronChain?.let { neutronChain ->
+            neutronChain?.let { chain ->
                 stakedTitle.text = "Vault deposited"
-                neutronChain.stakeDenom?.let { denom ->
-                    BaseData.getAsset(neutronChain.apiName, denom)?.let { asset ->
+                chain.stakeDenom?.let { denom ->
+                    BaseData.getAsset(chain.apiName, denom)?.let { asset ->
                         tokenImg.setTokenImg(asset)
                         tokenName.text = asset.symbol?.uppercase()
 
@@ -156,13 +156,13 @@ class CoinCosmosLineViewHolder(
                             val availableAmount = line.balanceAmount(denom).movePointLeft(decimal)
                                 .setScale(6, RoundingMode.DOWN)
 
-                            neutronChain.neutronVestingAmount()?.let { neutronVestingAmount ->
+                            chain.neutronVestingAmount()?.let { neutronVestingAmount ->
                                 val vestingAmount = neutronVestingAmount.movePointLeft(decimal)
                                     .setScale(6, RoundingMode.DOWN)
                                 vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
 
                                 val depositedAmount =
-                                    neutronChain.neutronDeposited.movePointLeft(decimal)
+                                    chain.neutronDeposited.movePointLeft(decimal)
                                         .setScale(6, RoundingMode.DOWN)
 
                                 val totalAmount =
@@ -243,7 +243,7 @@ class CoinCosmosLineViewHolder(
                     total.text = if (hideValue) "" else formatAmount(
                         (availableAmount + frozenAmount + lockedAmount).toPlainString(), 8
                     )
-                    totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue())
+                    totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
                 }
             }
         }
@@ -288,7 +288,7 @@ class CoinCosmosLineViewHolder(
                     total.text = if (hideValue) "" else formatAmount(
                         (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                     )
-                    totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue())
+                    totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
                 }
             }
         }

@@ -120,7 +120,7 @@ class CosmosDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue())
+                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
@@ -149,7 +149,7 @@ class CosmosDetailFragment : Fragment() {
                             accountValue.textSize = 18f
                             btnHide.setImageResource(R.drawable.icon_hide)
                         } else {
-                            accountValue.text = formatAssetValue(selectedChain.allValue())
+                            accountValue.text = formatAssetValue(selectedChain.allValue(false))
                             accountValue.textSize = 24f
                             btnHide.setImageResource(R.drawable.icon_not_hide)
                         }
@@ -242,7 +242,7 @@ class CosmosDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue())
+                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }

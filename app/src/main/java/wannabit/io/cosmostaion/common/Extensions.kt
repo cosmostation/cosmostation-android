@@ -73,13 +73,17 @@ fun formatAmount(input: String, decimal: Int): SpannableString {
     return spannableString
 }
 
-fun assetValue(value: BigDecimal): SpannableString {
-    val formatted = BaseData.currencySymbol() + " " + getDecimalFormat(3).format(value)
+fun assetValue(value: BigDecimal, isUsd: Boolean? = false): SpannableString {
+    val formatted = if (isUsd == true) {
+        "$" + " " + getDecimalFormat(3).format(value)
+    } else {
+        BaseData.currencySymbol() + " " + getDecimalFormat(3).format(value)
+    }
     return formatString(formatted, 3)
 }
 
-fun formatAssetValue(value: BigDecimal): SpannableString {
-    val spannableString = assetValue(value)
+fun formatAssetValue(value: BigDecimal, isUsd: Boolean? = false): SpannableString {
+    val spannableString = assetValue(value, isUsd)
     spannableString.setSpan(RelativeSizeSpan(0.8f), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
     return spannableString
 }

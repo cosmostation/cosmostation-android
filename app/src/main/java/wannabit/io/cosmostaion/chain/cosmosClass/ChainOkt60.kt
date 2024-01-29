@@ -85,8 +85,8 @@ open class ChainOkt60 : CosmosLine() {
         }
     }
 
-    override fun allAssetValue(): BigDecimal {
-        return lcdBalanceValue(stakeDenom).add(lcdOktDepositValue()).add(lcdOktWithdrawValue())
+    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return lcdBalanceValue(stakeDenom, isUsd).add(lcdOktDepositValue(isUsd)).add(lcdOktWithdrawValue(isUsd))
     }
 
     override fun isTxFeePayable(c: Context): Boolean {
@@ -102,11 +102,11 @@ open class ChainOkt60 : CosmosLine() {
         return BigDecimal.ZERO
     }
 
-    override fun lcdBalanceValue(denom: String?): BigDecimal {
+    override fun lcdBalanceValue(denom: String?, isUsd: Boolean?): BigDecimal {
         denom?.let {
             if (it == stakeDenom) {
                 val amount = lcdBalanceAmount(denom)
-                val price = BaseData.getPrice(OKT_GECKO_ID)
+                val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
                 return price.multiply(amount).setScale(6, RoundingMode.DOWN)
             }
         }
@@ -117,8 +117,8 @@ open class ChainOkt60 : CosmosLine() {
         return oktDepositedInfo?.tokens?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
-    private fun lcdOktDepositValue(): BigDecimal {
-        val price = BaseData.getPrice(OKT_GECKO_ID)
+    private fun lcdOktDepositValue(isUsd: Boolean? = false): BigDecimal {
+        val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
         val amount = lcdOktDepositAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)
     }
@@ -127,8 +127,8 @@ open class ChainOkt60 : CosmosLine() {
         return oktWithdrawInfo?.quantity?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
-    private fun lcdOktWithdrawValue(): BigDecimal {
-        val price = BaseData.getPrice(OKT_GECKO_ID)
+    private fun lcdOktWithdrawValue(isUsd: Boolean? = false): BigDecimal {
+        val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
         val amount = lcdOktWithdrawAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)
     }

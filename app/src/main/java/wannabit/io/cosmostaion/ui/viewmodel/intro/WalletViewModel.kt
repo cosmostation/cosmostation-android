@@ -147,8 +147,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
-    }
 
+        when (val response = walletRepository.usdPrice()) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        BaseData.usdPrices = data.body()
+
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
 
     var pushStatusResult = SingleLiveEvent<Boolean>()
     fun pushStatus(fcmToken: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -322,7 +338,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     baseAccountId,
                                     tag,
                                     address,
-                                    allAssetValue().toString(),
+                                    allAssetValue(true).toString(),
                                     lcdBalanceAmount(stakeDenom).toString(),
                                     "0",
                                     lcdAccountInfo?.balances?.size?.toLong() ?: 0
@@ -392,7 +408,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     baseAccountId,
                                     tag,
                                     address,
-                                    allAssetValue().toString(),
+                                    allAssetValue(true).toString(),
                                     lcdBalanceAmount(stakeDenom).toString(),
                                     "0",
                                     oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
@@ -537,7 +553,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         id,
                         tag,
                         address,
-                        allAssetValue().toPlainString(),
+                        allAssetValue(true).toPlainString(),
                         allStakingDenomAmount().toString(),
                         "0",
                         cosmosBalances?.size?.toLong() ?: 0
