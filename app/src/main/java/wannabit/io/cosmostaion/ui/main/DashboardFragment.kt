@@ -44,6 +44,8 @@ class DashboardFragment : Fragment() {
 
     private var totalChainValue: BigDecimal = BigDecimal.ZERO
 
+    private var isNew: Boolean = false
+
     companion object {
         @JvmStatic
         fun newInstance(baseAccount: BaseAccount?): DashboardFragment {
@@ -133,20 +135,29 @@ class DashboardFragment : Fragment() {
                         sortedDisplayCosmosLines().forEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+
                             }
                             if (!line.fetched) {
                                 walletViewModel.loadChainData(line, id, false)
                             }
                         }
+                        if (isNew) {
+                            PushManager.syncAddresses(Prefs.fcmToken)
+                        }
+
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         sortedDisplayCosmosLines().forEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithPrivateKey(privateKey)
+
                             }
                             if (!line.fetched) {
                                 walletViewModel.loadChainData(line, id, false)
                             }
+                        }
+                        if (isNew) {
+                            PushManager.syncAddresses(Prefs.fcmToken)
                         }
                     }
                 }
@@ -267,13 +278,13 @@ class DashboardFragment : Fragment() {
             dashAdapter.notifyDataSetChanged()
         }
 
-        ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) { account ->
-            baseAccount = account
+        ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) { response ->
+            baseAccount = response.second
             CoroutineScope(Dispatchers.IO).launch {
                 baseAccount?.initAccount()
                 withContext(Dispatchers.Main) {
                     updateViewWithLoadedData()
-                    PushManager.syncAddresses(Prefs.fcmToken)
+                    isNew = response.first
                 }
             }
         }

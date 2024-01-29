@@ -157,7 +157,7 @@ class StakeInfoFragment(
     }
 
     private fun setUpStakeInfo() {
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedStakeResult.observe(viewLifecycleOwner) {
             initView()
         }
     }

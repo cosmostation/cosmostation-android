@@ -84,6 +84,7 @@ data class BaseAccount(
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
                 displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
+                displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
                 else -> 0
             }
         }

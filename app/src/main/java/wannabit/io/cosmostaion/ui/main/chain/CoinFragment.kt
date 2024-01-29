@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -223,7 +224,8 @@ class CoinFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
+            Log.e("Test12345 : ", it)
             coinAdapter.notifyDataSetChanged()
         }
     }

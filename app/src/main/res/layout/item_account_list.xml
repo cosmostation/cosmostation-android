@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/space_8"
-    android:layout_marginHorizontal="@dimen/space_12">
+    android:layout_marginHorizontal="@dimen/space_12"
+    android:layout_marginTop="@dimen/space_8">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/account_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        app:cardPreventCornerOverlap="true"
         android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -36,25 +36,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_10"
-                android:maxLines="1"
                 android:ellipsize="middle"
+                android:maxLines="1"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/select_img"
+                app:layout_constraintEnd_toStartOf="@+id/order_img"
                 app:layout_constraintStart_toEndOf="@+id/account_type_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/select_img"
+                android:id="@+id/order_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/space_14"
+                android:clickable="true"
                 android:padding="@dimen/space_6"
+                android:src="@drawable/icon_order"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clickable="true"
-                android:src="@drawable/icon_option"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

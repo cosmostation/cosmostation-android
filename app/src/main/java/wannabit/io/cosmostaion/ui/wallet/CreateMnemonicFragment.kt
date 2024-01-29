@@ -22,24 +22,38 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
-import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
-class CreateMnemonicFragment(private val initType: Int) : Fragment() {
+class CreateMnemonicFragment : Fragment() {
 
     private var _binding: FragmentCreateMnemonicBinding? = null
     private val binding get() = _binding!!
+
+    private var initType: Int = 0
 
     private lateinit var createMnemonicAdapter: CreateMnemonicAdapter
 
     private val accountViewModel: AccountViewModel by activityViewModels()
 
     private var mnemonic: String = ""
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            initType: Int
+        ): CreateMnemonicFragment {
+            val args = Bundle().apply {
+                putInt("initType", initType)
+            }
+            val fragment = CreateMnemonicFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -62,6 +76,7 @@ class CreateMnemonicFragment(private val initType: Int) : Fragment() {
             recycler.setBackgroundResource(R.drawable.item_bg)
             wordCnt.text = getString(R.string.str_24_words)
             updateView(32)
+            arguments?.getInt("initType")?.let { initType = it }
         }
     }
 
@@ -156,8 +171,7 @@ class CreateMnemonicFragment(private val initType: Int) : Fragment() {
                     binding.backdropLayout.visibility = View.GONE
                     requireActivity().window.statusBarColor =
                         ContextCompat.getColor(requireContext(), R.color.color_transparent)
-                    ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
-                    PushManager.syncAddresses(Prefs.fcmToken)
+                    ApplicationViewModel.shared.currentAccount(BaseData.baseAccount, true)
 
                     startToActivity()
                 }

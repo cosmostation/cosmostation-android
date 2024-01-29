@@ -30,9 +30,10 @@ data class CosmosHistory(
     )
 
     fun isSuccess(): Boolean {
-        val rawCode = data?.code
-        if (rawCode != 0) {
-            return false
+        data?.code?.let { rawCode ->
+            if (rawCode != 0) {
+                return false
+            }
         }
         return true
     }
@@ -40,7 +41,13 @@ data class CosmosHistory(
     private fun getMsgs(): JsonArray? {
         val json = Gson().toJson(data?.tx)
         val jsonObject = Gson().fromJson(json, JsonObject::class.java)
-        return jsonObject["/cosmos-tx-v1beta1-Tx"].asJsonObject["body"].asJsonObject["messages"].asJsonArray
+        if (jsonObject["/cosmos-tx-v1beta1-Tx"] != null) {
+            return jsonObject["/cosmos-tx-v1beta1-Tx"].asJsonObject["body"].asJsonObject["messages"].asJsonArray
+
+        } else if (jsonObject["cosmos-sdk/StdTx"] != null) {
+            return jsonObject["cosmos-sdk/StdTx"].asJsonObject["value"].asJsonObject["msg"].asJsonArray
+        }
+        return null
     }
 
     private fun getMsgCnt(): Int {
@@ -53,8 +60,24 @@ data class CosmosHistory(
         }
         getMsgs()?.let { msg ->
             if (getMsgCnt() >= 2) {
-                val msgType0 = msg.get(0).asJsonObject["@type"].asString
-                val msgType1 = msg.get(1).asJsonObject["@type"].asString
+                var msgType0 = ""
+                var msgType1 = ""
+                try {
+                    msgType0 = msg.get(0).asJsonObject["@type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType0 = msg.get(0).asJsonObject["type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msg.get(1).asJsonObject["@type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msg.get(1).asJsonObject["type"].asString
+                } catch (_: Exception) {
+                }
 
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") || msgType0.contains(
                         "MsgWithdrawDelegationReward"
@@ -68,7 +91,15 @@ data class CosmosHistory(
 
             var result: String
             val firstMsg = msg.get(0)
-            val msgType = firstMsg.asJsonObject["@type"].asString
+            var msgType = ""
+            try {
+                msgType = firstMsg.asJsonObject["@type"].asString
+            } catch (_: Exception) {
+            }
+            try {
+                msgType = firstMsg.asJsonObject["type"].asString
+            } catch (_: Exception) {
+            }
             result = msgType.split(".").last().replace("Msg", "")
 
             val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
@@ -583,9 +614,12 @@ data class CosmosHistory(
             if (getMsgCnt() > 1) {
                 result = result + " + " + (getMsgCnt() - 1)
             }
+            if (result.contains("/")) {
+                result = result.split("/").last()
+            }
             return result
         }
-        return ""
+        return c.getString(R.string.tx_unknown)
     }
 
     fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin> {
@@ -597,7 +631,17 @@ data class CosmosHistory(
             var allReward = true
             getMsgs()?.let { msgs ->
                 msgs.forEach { msg ->
-                    if (!msg.asJsonObject["@type"].asString.contains("MsgWithdrawDelegatorReward")) {
+                    var msgType = ""
+                    try {
+                        msgType = msg.asJsonObject["@type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgType = msg.asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+
+                    if (!msgType.contains("MsgWithdrawDelegatorReward")) {
                         allReward = false
                     }
                 }
@@ -627,8 +671,18 @@ data class CosmosHistory(
                 }
 
                 var ibcReceived = false
+                var msgType = ""
                 msgs.forEach { msg ->
-                    if (msg.asJsonObject["@type"].asString.contains("ibc") && msg.asJsonObject["@type"].asString.contains(
+                    try {
+                        msgType = msg.asJsonObject["@type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgType = msg.asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+
+                    if (msgType.contains("ibc") && msgType.contains(
                             "MsgRecvPacket"
                         )
                     ) {
@@ -661,8 +715,25 @@ data class CosmosHistory(
 
         if (getMsgCnt() == 2) {
             getMsgs()?.let { msgs ->
-                val msgType0 = msgs.get(0).asJsonObject["@type"].asString
-                val msgType1 = msgs.get(1).asJsonObject["@type"].asString
+                var msgType0 = ""
+                var msgType1 = ""
+                try {
+                    msgType0 = msgs.get(0).asJsonObject["@type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType0 = msgs.get(0).asJsonObject["type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msgs.get(1).asJsonObject["@type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msgs.get(1).asJsonObject["type"].asString
+                } catch (_: Exception) {
+                }
+
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
                     msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
                         val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
@@ -682,17 +753,27 @@ data class CosmosHistory(
 
         getMsgs()?.let { msgs ->
             val firstMsg = msgs.get(0)
-            val msgType = firstMsg.asJsonObject["@type"].asString
+            var msgType = ""
+            try {
+                msgType = firstMsg.asJsonObject["@type"].asString
+            } catch (_: Exception) {
+            }
+            try {
+                msgType = firstMsg.asJsonObject["type"].asString
+            } catch (_: Exception) {
+            }
             val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
 
             if (msgType.contains("MsgSend")) {
-                msgValue["amount"].asJsonArray?.let { rawAmounts ->
-                    val coin = CoinProto.Coin.newBuilder()
-                        .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
-                        .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
-                    result.add(coin)
+                try {
+                    msgValue["amount"].asJsonArray?.let { rawAmounts ->
+                        val coin = CoinProto.Coin.newBuilder()
+                            .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
+                            .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
+                        result.add(coin)
+                    }
 
-                } ?: run {
+                } catch (e: Exception) {
                     msgValue["value"].asJsonObject["amount"].asJsonArray?.let { rawAmounts ->
                         val coin = CoinProto.Coin.newBuilder()
                             .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
@@ -705,7 +786,11 @@ data class CosmosHistory(
                     "MsgBeginRedelegate"
                 ) || msgType.contains("MsgCancelUnbondingDelegation")
             ) {
-                val rawAmount = msgValue["amount"].asJsonObject
+                val rawAmount = try {
+                    msgValue["amount"].asJsonObject
+                } catch (e: Exception) {
+                    msgValue["value"].asJsonObject["amount"].asJsonObject
+                }
                 if (!rawAmount.isJsonNull) {
                     val coin = CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
                         .setAmount(rawAmount["amount"].asString).build()
@@ -735,8 +820,17 @@ data class CosmosHistory(
         var result = ""
         getMsgs()?.let { msgs ->
             val firstMsg = msgs.get(0)
-            val msgType = firstMsg.asJsonObject["@type"].asString
-            if (msgType?.contains("MsgVote") == true) {
+            var msgType = ""
+            try {
+                msgType = firstMsg.asJsonObject["@type"].asString
+            } catch (_: Exception) {
+            }
+            try {
+                msgType = firstMsg.asJsonObject["type"].asString
+            } catch (_: Exception) {
+            }
+
+            if (msgType.contains("MsgVote")) {
                 val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
                 when (msgValue["option"].asString) {
                     "VOTE_OPTION_YES", "Yes" -> result = "YES"

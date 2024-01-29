@@ -179,7 +179,7 @@ class AccountListFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         requireActivity().toMoveFragment(
                             this@AccountListFragment,
-                            CreateMnemonicFragment(BaseConstant.CONST_NEW_ACCOUNT),
+                            CreateMnemonicFragment.newInstance(BaseConstant.CONST_NEW_ACCOUNT),
                             "CreateMnemonic"
                         )
                     }

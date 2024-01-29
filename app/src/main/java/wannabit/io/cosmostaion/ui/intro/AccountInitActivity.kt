@@ -38,7 +38,7 @@ class AccountInitActivity : BaseActivity() {
 
     private fun replaceFragment() {
         val fragment = when (intent.getIntExtra("initType", -1)) {
-            BaseConstant.CONST_NEW_ACCOUNT -> CreateMnemonicFragment(0)
+            BaseConstant.CONST_NEW_ACCOUNT -> CreateMnemonicFragment.newInstance(0)
             BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT -> RestoreMnemonicFragment(0)
             BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT -> RestorePrivateFragment(0)
             else -> null

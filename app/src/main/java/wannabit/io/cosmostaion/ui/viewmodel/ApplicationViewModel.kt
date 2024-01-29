@@ -47,10 +47,10 @@ class ApplicationViewModel(
             get() = CosmostationApp.instance.applicationViewModel
     }
 
-    private var _currentAccountResult = MutableLiveData<BaseAccount?>()
-    val currentAccountResult: LiveData<BaseAccount?> get() = _currentAccountResult
-    fun currentAccount(baseAccount: BaseAccount?) = viewModelScope.launch(Dispatchers.IO) {
-        _currentAccountResult.postValue(baseAccount)
+    private var _currentAccountResult = MutableLiveData<Pair<Boolean, BaseAccount?>>()
+    val currentAccountResult: LiveData<Pair<Boolean, BaseAccount?>> get() = _currentAccountResult
+    fun currentAccount(baseAccount: BaseAccount?, isNew: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        _currentAccountResult.postValue(Pair(isNew, baseAccount))
     }
 
     var txRecreateResult = SingleLiveEvent<Boolean>()
@@ -132,7 +132,9 @@ class ApplicationViewModel(
         }
     }
 
-    val fetchedResult = SingleLiveEvent<String>()
+    var fetchedSendResult = SingleLiveEvent<String>()
+    var fetchedStakeResult = SingleLiveEvent<String>()
+    var fetchedVoteResult = SingleLiveEvent<String>()
 
     private fun loadGrpcAuthData(
         line: CosmosLine, baseAccountId: Long
@@ -150,7 +152,9 @@ class ApplicationViewModel(
                     if (fetched) {
                         val refAddress = RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                         BaseData.updateRefAddressesMain(refAddress)
-                        fetchedResult.postValue(tag)
+                        fetchedSendResult.postValue(tag)
+                        fetchedStakeResult.postValue(tag)
+                        fetchedVoteResult.postValue(tag)
                     }
                 }
             }
@@ -196,7 +200,9 @@ class ApplicationViewModel(
                                     lcdAccountInfo?.balances?.size?.toLong() ?: 0
                                 )
                                 BaseData.updateRefAddressesMain(refAddress)
-                                fetchedResult.postValue(tag)
+                                fetchedSendResult.postValue(tag)
+                                fetchedStakeResult.postValue(tag)
+                                fetchedVoteResult.postValue(tag)
                             }
                         }
 
@@ -206,7 +212,9 @@ class ApplicationViewModel(
                                 val refAddress =
                                     RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                                 BaseData.updateRefAddressesMain(refAddress)
-                                fetchedResult.postValue(tag)
+                                fetchedSendResult.postValue(tag)
+                                fetchedStakeResult.postValue(tag)
+                                fetchedVoteResult.postValue(tag)
                             }
                         }
                     }
@@ -258,7 +266,9 @@ class ApplicationViewModel(
                                     oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
                                 )
                                 BaseData.updateRefAddressesMain(refAddress)
-                                fetchedResult.postValue(tag)
+                                fetchedSendResult.postValue(tag)
+                                fetchedStakeResult.postValue(tag)
+                                fetchedVoteResult.postValue(tag)
                             }
                         }
 
@@ -268,7 +278,9 @@ class ApplicationViewModel(
                                 val refAddress =
                                     RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                                 BaseData.updateRefAddressesMain(refAddress)
-                                fetchedResult.postValue(tag)
+                                fetchedSendResult.postValue(tag)
+                                fetchedStakeResult.postValue(tag)
+                                fetchedVoteResult.postValue(tag)
                             }
                         }
                     }
@@ -395,7 +407,9 @@ class ApplicationViewModel(
                         cosmosBalances?.size?.toLong() ?: 0
                     )
                     BaseData.updateRefAddressesMain(refAddress)
-                    fetchedResult.postValue(tag)
+                    fetchedSendResult.postValue(tag)
+                    fetchedStakeResult.postValue(tag)
+                    fetchedVoteResult.postValue(tag)
                 }
 
             } finally {

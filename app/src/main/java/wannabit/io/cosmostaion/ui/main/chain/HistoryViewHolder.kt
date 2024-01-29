@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.parser.ColorParser
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
@@ -88,7 +87,8 @@ class HistoryViewHolder(
                     }
                     BaseData.getAsset(line.apiName, dpCoins[0].denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
-                            val amount = dpCoins[0].amount.toBigDecimal().movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
+                            val amount = dpCoins[0].amount.toBigDecimal().movePointLeft(decimal)
+                                .setScale(decimal, RoundingMode.DOWN)
                             txAmount.text = formatAmount(amount.toString(), decimal)
                             txDenom.text = asset.symbol
                             txDenom.setTextColor(asset.assetColor())
@@ -96,7 +96,10 @@ class HistoryViewHolder(
                     }
 
                 } else {
-                    if (historyGroup.second.getMsgType(context, line.address) == context.getString(R.string.tx_vote)) {
+                    if (historyGroup.second.getMsgType(
+                            context, line.address
+                        ) == context.getString(R.string.tx_vote)
+                    ) {
                         txDenom.text = historyGroup.second.getVoteOption()
                         txAmount.text = ""
                     } else {

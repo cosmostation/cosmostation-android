@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.chain
 
 import android.content.Context
 import android.os.Parcelable
-import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.StakingProto
@@ -16,21 +15,42 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCanto
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCudos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainHumans
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
@@ -481,19 +501,40 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainArchway())
     lines.add(ChainAssetMantle())
     lines.add(ChainAxelar())
+    lines.add(ChainBand())
+    lines.add(ChainBitcanna())
+    lines.add(ChainBitsong())
+    lines.add(ChainCanto())
+    lines.add(ChainCelestia())
+    lines.add(ChainChihuahua())
+    lines.add(ChainComdex())
+    lines.add(ChainCoreum())
     lines.add(ChainCrescent())
+    lines.add(ChainCryptoorg())
+    lines.add(ChainCudos())
     lines.add(ChainDesmos())
     lines.add(ChainDydx())
+    lines.add(ChainEmoney())
     lines.add(ChainEvmos())
     lines.add(ChainFetchAi())
+    lines.add(ChainGravityBridge())
+    lines.add(ChainHumans())
     lines.add(ChainInjective())
     lines.add(ChainIris())
+    lines.add(ChainIxo())
     lines.add(ChainJuno())
     lines.add(ChainKava60())
     lines.add(ChainKava459())
     lines.add(ChainKava118())
+    lines.add(ChainKi())
+    lines.add(ChainKyve())
+    lines.add(ChainLikeCoin())
+    lines.add(ChainLum880())
     lines.add(ChainLum118())
+    lines.add(ChainMars())
+    lines.add(ChainMedibloc())
     lines.add(ChainNeutron())
+    lines.add(ChainNyx())
     lines.add(ChainOsmosis())
     lines.add(ChainOmniflix())
     lines.add(ChainPersistence118())
@@ -517,4 +558,4 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     return lines
 }
 
-val DEFAULT_DISPLAY_COSMOS = mutableListOf("cosmos118", "evmos60", "osmosis118")
+val DEFAULT_DISPLAY_COSMOS = mutableListOf("cosmos118", "neutron118", "kava459", "osmosis118", "dydx118", "crypto-org394", "celestia118")

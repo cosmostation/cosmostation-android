@@ -8,7 +8,6 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -215,7 +214,6 @@ class TxResultActivity : BaseActivity() {
             }
 
             btnConfirm.setOnClickListener {
-                Log.e("Test1234 : ", txResultType.toString())
                 when (txResultType) {
                     TxResultType.SKIP -> {
                         startMainActivity(1)

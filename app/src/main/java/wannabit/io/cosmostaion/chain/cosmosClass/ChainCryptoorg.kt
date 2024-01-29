@@ -13,8 +13,8 @@ class ChainCryptoorg : CosmosLine() {
     override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "cryptoorg"
     override var tag: String = "cryptoorg394"
-    override var logo: Int = R.drawable.chain_cosmos
-    override var swipeLogo: Int = R.drawable.chain_swipe_cosmos
+    override var logo: Int = R.drawable.chain_cryptoorg
+    override var swipeLogo: Int = R.drawable.chain_swipe_cryptoorg
     override var apiName: String = "crypto-org"
     override var stakeDenom: String? = "basecro"
 

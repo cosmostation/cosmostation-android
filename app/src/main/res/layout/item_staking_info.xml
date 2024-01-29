@@ -213,7 +213,7 @@
                 android:id="@+id/reward_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginHorizontal="@dimen/space_16"
                 app:layout_constraintTop_toBottomOf="@+id/staked_layout">
 
@@ -249,7 +249,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
                 android:layout_marginBottom="@dimen/space_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reward_layout"

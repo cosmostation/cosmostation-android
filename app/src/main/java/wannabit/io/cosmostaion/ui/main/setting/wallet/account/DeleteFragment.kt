@@ -98,7 +98,7 @@ class DeleteFragment : BottomSheetDialogFragment() {
                                 AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
                             BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao()
                                 .selectAccount(Prefs.lastAccountId)
-                            ApplicationViewModel.shared.currentAccount(BaseData.baseAccount)
+                            ApplicationViewModel.shared.currentAccount(BaseData.baseAccount, true)
                         }
 
                     } else {

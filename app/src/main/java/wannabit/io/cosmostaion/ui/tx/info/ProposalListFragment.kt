@@ -132,7 +132,13 @@ class ProposalListFragment : Fragment() {
                     voteStatus?.votes?.forEach { vote ->
                         myVotes.add(vote)
                     }
-                    updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+                    if (isShowAll) {
+                        btnFilter.setImageResource(R.drawable.icon_not_filter)
+                        updateRecyclerView(votingPeriods, etcPeriods)
+                    } else {
+                        btnFilter.setImageResource(R.drawable.icon_filter)
+                        updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+                    }
                 }, 1000)
             }
         }
@@ -161,6 +167,7 @@ class ProposalListFragment : Fragment() {
         override fun proposalCheck(isChecked: Boolean, proposalId: String) {
             if (isChecked && toVoteList?.contains(proposalId) == false) {
                 toVoteList?.add(proposalId)
+
             } else if (!isChecked && toVoteList?.contains(proposalId) == true) {
                 toVoteList?.indexOf(proposalId)?.let { index ->
                     if (index != -1) {
@@ -207,7 +214,7 @@ class ProposalListFragment : Fragment() {
     }
 
     private fun setUpVoteInfo() {
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedVoteResult.observe(viewLifecycleOwner) {
             proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
         }
     }

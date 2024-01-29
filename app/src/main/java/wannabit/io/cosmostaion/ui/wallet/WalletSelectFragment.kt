@@ -261,7 +261,7 @@ class WalletSelectFragment(
         accountViewModel.create.observe(viewLifecycleOwner) {
             BaseData.baseAccount?.let { account ->
                 Prefs.setDisplayChains(account, selectedCosmosTags)
-                ApplicationViewModel.shared.currentAccount(account)
+                ApplicationViewModel.shared.currentAccount(account, true)
 
                 startToActivity()
             }

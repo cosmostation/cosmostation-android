@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
 import android.content.Context
+import android.graphics.PorterDuff
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -22,6 +24,10 @@ class AccountListViewHolder(
                 accountTypeImg.setImageResource(R.drawable.icon_private)
             }
             accountName.text = account.name
+            orderImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base02),
+                PorterDuff.Mode.SRC_IN
+            )
         }
     }
 }
