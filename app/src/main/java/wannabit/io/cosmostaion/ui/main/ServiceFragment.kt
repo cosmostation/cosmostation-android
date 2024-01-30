@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.CosmostationConstants.BINANCE_BUY_URL
 import wannabit.io.cosmostaion.common.CosmostationConstants.EXPLORER_BASE_URL
@@ -47,7 +48,7 @@ class ServiceFragment : Fragment() {
 
         initView()
         responseMoonPay()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -94,59 +95,52 @@ class ServiceFragment : Fragment() {
         }, 500)
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             mintscanView.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BASE_URL)))
             }
 
             coinSwapView.setOnClickListener {
-                SwapFragment().show(
-                    parentFragmentManager, SwapFragment::class.java.name
+                handleOneClickWithDelay(
+                    SwapFragment()
                 )
-                setClickableOnce(isClickable)
             }
 
             dappView.setOnClickListener {
-                DappStartFragment().show(
-                    parentFragmentManager, DappStartFragment::class.java.name
+                handleOneClickWithDelay(
+                    DappStartFragment()
                 )
-                setClickableOnce(isClickable)
             }
 
             buyView.setOnClickListener {
-                SettingBottomFragment(SettingType.BUY_CRYPTO).show(
-                    parentFragmentManager, SettingBottomFragment::class.java.name
+                handleOneClickWithDelay(
+                    SettingBottomFragment(SettingType.BUY_CRYPTO)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "crypto", this@ServiceFragment
                 ) { _, bundle ->
                     when (bundle.getInt("crypto")) {
-                        0 -> {
-                            openMoonPay()
-                        }
-
-                        1 -> {
-                            openKado()
-                        }
-
-                        else -> {
-                            openBinance()
-                        }
+                        0 -> { openMoonPay() }
+                        1 -> { openKado() }
+                        else -> { openBinance() }
                     }
                 }
-                setClickableOnce(isClickable)
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                parentFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
     }
 

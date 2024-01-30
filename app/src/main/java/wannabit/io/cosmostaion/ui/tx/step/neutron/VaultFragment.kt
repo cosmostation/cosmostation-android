@@ -18,6 +18,7 @@ import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
@@ -255,63 +256,59 @@ class VaultFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding.apply {
             amountView.setOnClickListener {
-                InsertAmountFragment(insertTxType(),
-                    null,
-                    availableAmount,
-                    toCoin?.amount,
-                    selectedChain.stakeDenom?.let {
-                        BaseData.getAsset(
-                            selectedChain.apiName, it
-                        )
-                    },
-                    null,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateAmountView(toAmount)
-                        }
+                handleOneClickWithDelay(
+                    InsertAmountFragment(insertTxType(),
+                        null,
+                        availableAmount,
+                        toCoin?.amount,
+                        selectedChain.stakeDenom?.let {
+                            BaseData.getAsset(
+                                selectedChain.apiName, it
+                            )
+                        },
+                        null,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
 
-                    }).show(
-                    requireActivity().supportFragmentManager, InsertAmountFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                handleOneClickWithDelay(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
@@ -334,13 +331,17 @@ class VaultFragment : BaseTxFragment() {
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                parentFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
     }
 
@@ -363,6 +364,9 @@ class VaultFragment : BaseTxFragment() {
         if (toCoin == null) {
             return
         }
+        if (!selectedChain.isGasSimulable()) {
+            return updateFeeViewWithSimulate(null)
+        }
         binding.apply {
             btnConfirm.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
@@ -378,7 +382,6 @@ class VaultFragment : BaseTxFragment() {
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
             updateFeeViewWithSimulate(gasInfo)
         }
 
@@ -389,23 +392,26 @@ class VaultFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
+
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {

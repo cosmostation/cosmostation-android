@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -55,11 +56,23 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
         initialize()
         FirebaseApp.initializeApp(this)
         SQLiteDatabase.loadLibs(this)
+        setRandomBackgroundImage()
 
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
         initWalletConnectV2()
+    }
+
+    private fun setRandomBackgroundImage() {
+        val imageArray = intArrayOf(
+            R.drawable.bg_00,
+            R.drawable.bg_01,
+            R.drawable.bg_02,
+        )
+
+        val randomIndex = (Math.random() * imageArray.size).toInt()
+        Prefs.background = imageArray[randomIndex]
     }
 
     private fun initWalletConnectV2() {

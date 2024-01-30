@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -243,17 +242,9 @@ class CoinFragment : Fragment() {
     }
 
     private fun selectBridgeOption(line: CosmosLine, denom: String) {
-        if (isClickable) {
-            isClickable = false
-
-            BridgeOptionFragment.newInstance(line, denom, bridgeClickAction).show(
-                requireActivity().supportFragmentManager, BridgeOptionFragment::class.java.name
-            )
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                isClickable = true
-            }, 300)
-        }
+        handleOneClickWithDelay(
+            BridgeOptionFragment.newInstance(line, denom, bridgeClickAction)
+        )
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
@@ -266,7 +257,7 @@ class CoinFragment : Fragment() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
     }
 

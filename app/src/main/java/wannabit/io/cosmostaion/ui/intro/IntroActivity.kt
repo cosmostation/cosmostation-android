@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
 class IntroActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityIntroBinding
 
     private lateinit var walletViewModel: WalletViewModel

@@ -29,7 +29,6 @@ object CosmostationConstants {
     const val COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacy-policy"
     const val COSMOSTATION_GITHUB = "https://github.com/cosmostation/cosmostation-android"
 
-
     //bep3
     const val SWAP_MEMO_CREATE = "Create Atomic Swap via Cosmostation Wallet"
     const val SWAP_MEMO_CLAIM = "Claim Atomic Swap via Cosmostation Wallet"

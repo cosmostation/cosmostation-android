@@ -89,7 +89,7 @@ class CosmosDetailFragment : Fragment() {
         initData()
         updateTokenValue()
         initTab()
-        setClickAction()
+        setUpClickAction()
         setFabMenuClickAction()
     }
 
@@ -216,7 +216,7 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    private fun setClickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
@@ -426,7 +426,7 @@ class CosmosDetailFragment : Fragment() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
         binding.fabMenu.close(true)
     }

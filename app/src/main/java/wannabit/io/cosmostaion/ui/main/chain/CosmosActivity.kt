@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -25,6 +26,8 @@ class CosmosActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCosmosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.parentLayout.setBackgroundResource(Prefs.background)
 
         if (savedInstanceState == null) {
             BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {

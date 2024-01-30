@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
@@ -72,6 +73,8 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         binding.apply {
+            parentLayout.setBackgroundResource(Prefs.background)
+
             accountName.text = BaseData.baseAccount?.name
             val mainViewPagerAdapter = MainViewPageAdapter(this@MainActivity)
             mainViewPager.adapter = mainViewPagerAdapter
@@ -158,7 +161,7 @@ class MainActivity : BaseActivity() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
     }
 

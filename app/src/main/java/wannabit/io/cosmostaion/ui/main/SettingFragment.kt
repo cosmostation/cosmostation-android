@@ -20,10 +20,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
@@ -164,15 +163,14 @@ class SettingFragment : Fragment() {
             }
 
             languageView.setOnClickListener {
-                SettingBottomFragment(SettingType.LANGUAGE).show(
-                    parentFragmentManager, SettingBottomFragment::class.java.name
+                handleOneClickWithDelay(
+                    SettingBottomFragment(SettingType.LANGUAGE)
                 )
-                setClickableOnce(isClickable)
             }
 
             currencyView.setOnClickListener {
-                SettingBottomFragment(SettingType.CURRENCY).show(
-                    parentFragmentManager, SettingBottomFragment::class.java.name
+                handleOneClickWithDelay(
+                    SettingBottomFragment(SettingType.CURRENCY)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "currency", this@SettingFragment
@@ -180,12 +178,11 @@ class SettingFragment : Fragment() {
                     currency.text = BaseData.currencyName()
                     walletViewModel.price(BaseData.currencyName(), true)
                 }
-                setClickableOnce(isClickable)
             }
 
             priceView.setOnClickListener {
-                SettingBottomFragment(SettingType.PRICE_STATUS).show(
-                    parentFragmentManager, SettingBottomFragment::class.java.name
+                handleOneClickWithDelay(
+                    SettingBottomFragment(SettingType.PRICE_STATUS)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "priceStyle", this@SettingFragment
@@ -196,7 +193,6 @@ class SettingFragment : Fragment() {
                     }
                     updateDefaultView()
                 }
-                setClickableOnce(isClickable)
             }
 
             mintscanView.setOnClickListener {
@@ -293,13 +289,17 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                parentFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
     }
 

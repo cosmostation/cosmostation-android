@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.common
 
-import android.content.Context
 import com.google.gson.JsonObject
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Chain
 import wannabit.io.cosmostaion.data.model.res.Price
@@ -89,16 +87,6 @@ object BaseData {
         return last < now
     }
 
-    fun isAutoPass(): Boolean {
-        val now = Calendar.getInstance().timeInMillis
-        return when (Prefs.autoPass) {
-            1 -> { Prefs.lastTime + BaseConstant.CONSTANT_M * 5 > now }
-            2 -> { Prefs.lastTime + BaseConstant.CONSTANT_M * 10 > now }
-            3 -> { Prefs.lastTime + BaseConstant.CONSTANT_M * 30 > now }
-            else -> false
-        }
-    }
-
     fun currencyName(): String {
         when (Prefs.currency) {
             0 -> return "USD"
@@ -142,15 +130,6 @@ object BaseData {
             15 -> return "$"
             16 -> return "RM"
             else -> return ""
-        }
-    }
-
-    fun autoPass(c: Context): String {
-        return when (Prefs.autoPass) {
-            0 -> c.getString(R.string.str_never)
-            1 -> c.getString(R.string.str_5_min)
-            2 -> c.getString(R.string.str_10_min)
-            else -> c.getString(R.string.str_30_min)
         }
     }
 

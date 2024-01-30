@@ -21,6 +21,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
@@ -87,14 +88,24 @@ class QrCodeFragment(
                     )
                     when (i) {
                         0 -> {
-                            if (selectedChain is ChainKava60) {
-                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                    requireContext(), R.drawable.icon_kava_address
-                                )
-                            } else {
-                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                    requireContext(), R.drawable.icon_evmos_address
-                                )
+                            when (selectedChain) {
+                                is ChainKava60 -> {
+                                    segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                        requireContext(), R.drawable.icon_kava_address
+                                    )
+                                }
+
+                                is ChainEvmos -> {
+                                    segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                        requireContext(), R.drawable.icon_evmos_address
+                                    )
+                                }
+
+                                else -> {
+                                    segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                        requireContext(), R.drawable.icon_xpla_address
+                                    )
+                                }
                             }
                             segmentView.btnChain.text = selectedChain.apiName.uppercase()
                         }

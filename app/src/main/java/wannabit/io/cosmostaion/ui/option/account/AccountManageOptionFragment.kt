@@ -113,7 +113,7 @@ class AccountManageOptionFragment : BottomSheetDialogFragment() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
         dismiss()
     }

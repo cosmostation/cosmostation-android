@@ -387,7 +387,7 @@ class StakingFragment : BaseTxFragment() {
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
     }
 

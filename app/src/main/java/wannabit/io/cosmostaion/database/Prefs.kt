@@ -5,7 +5,6 @@ import android.content.Context
 import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
@@ -20,7 +19,6 @@ object Prefs {
     private const val PRICE_STYLE = "PRE_PRICE_STYLE"
     private const val LAST_TIME = "PRE_LAST_TIME"
     private const val APP_LOCK = "PRE_APP_LOCK"
-    private const val AUTO_PASS = "PRE_AUTO_PASS"
     private const val SWAP_WARN = "PRE_SWAP_WARN"
     private const val HIDE_VALUE = "PRE_HIDE_VALUE"
     private const val DISPLAY_LEGACY = "PRE_DISPLAY_LEGACY"
@@ -28,8 +26,10 @@ object Prefs {
     private const val FCM_TOKEN = "PRE_FCM_TOKEN_NEW"
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
+    private const val BACKGROUND_IMAGE = "PRE_BACKGROUND_IMAGE"
 
-    private val preference = CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+    private val preference =
+        CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
 
     var fcmToken: String
         get() = preference.getString(FCM_TOKEN, "") ?: ""
@@ -77,7 +77,9 @@ object Prefs {
                     result.add(jsonArray.getString(i))
                 }
                 return result
-            } catch (e: JSONException) { e.printStackTrace() }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
         }
         return DEFAULT_DISPLAY_COSMOS
     }
@@ -106,10 +108,6 @@ object Prefs {
         get() = preference.getBoolean(APP_LOCK, false)
         set(value) = preference.edit().putBoolean(APP_LOCK, value).apply()
 
-    var autoPass: Int
-        get() = preference.getInt(AUTO_PASS, 0)
-        set(value) = preference.edit().putInt(AUTO_PASS, value).apply()
-
     var swapWarn: Long
         get() = preference.getLong(SWAP_WARN, 0)
         set(value) = preference.edit().putLong(SWAP_WARN, value).apply()
@@ -125,4 +123,8 @@ object Prefs {
     var usingBio: Boolean
         get() = preference.getBoolean(BIO, false)
         set(value) = preference.edit().putBoolean(BIO, value).apply()
+
+    var background: Int
+        get() = preference.getInt(BACKGROUND_IMAGE, 0)
+        set(value) = preference.edit().putInt(BACKGROUND_IMAGE, value).apply()
 }

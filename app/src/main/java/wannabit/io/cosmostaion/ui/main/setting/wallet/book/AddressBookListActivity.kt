@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityAddressBookListBinding
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
@@ -27,6 +28,8 @@ class AddressBookListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddressBookListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.parentLayout.setBackgroundResource(Prefs.background)
 
         initViewModel()
         initRecyclerView()
@@ -95,21 +98,18 @@ class AddressBookListActivity : BaseActivity() {
             }
 
             btnAddAddress.setOnClickListener {
-                SetAddressFragment(null, null, "", "").show(
-                    supportFragmentManager, SetAddressFragment::class.java.name
-                )
-                setClickableOnce(isClickable)
+                if (isClickable) {
+                    isClickable = false
+
+                    SetAddressFragment(null, null, "", "").show(
+                        supportFragmentManager, SetAddressFragment::class.java.name
+                    )
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 300)
+                }
             }
-        }
-    }
-
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
-            isClickable = false
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                isClickable = true
-            }, 1000)
         }
     }
 }

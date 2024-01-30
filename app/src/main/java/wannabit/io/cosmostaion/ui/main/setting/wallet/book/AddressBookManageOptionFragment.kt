@@ -35,28 +35,30 @@ class AddressBookManageOptionFragment(
     private fun setUpClickAction() {
         binding.apply {
             editLayout.setOnClickListener {
-                SetAddressFragment(addressBook, null, "", "").show(
-                    requireActivity().supportFragmentManager, SetAddressFragment::class.java.name
+                handleOneClickWithDelay(
+                    SetAddressFragment(addressBook, null, "", "")
                 )
-                setClickableOnce(isClickable)
             }
 
             deleteLayout.setOnClickListener {
-                DeleteAddressBookFragment(addressBook).show(
-                    requireActivity().supportFragmentManager, SetAddressFragment::class.java.name
+                handleOneClickWithDelay(
+                    DeleteAddressBookFragment(addressBook)
                 )
-                setClickableOnce(isClickable)
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
-            }, 1000)
+            }, 300)
         }
         dismiss()
     }
