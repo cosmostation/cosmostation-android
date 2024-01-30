@@ -25,8 +25,6 @@
     <string name="str_select_currency">Select currency</string>
     <string name="str_auto_pass">PIN auto pass</string>
     <string name="str_system" translatable="false">System</string>
-    <string name="title_language_en" translatable="false">English(United States)</string>
-    <string name="title_language_kr" translatable="false">한국어(대한민국)</string>
     <string name="str_up" translatable="false">Up</string>
     <string name="str_down" translatable="false">Down</string>
     <string name="str_never">Never(recommend)</string>
@@ -132,8 +130,8 @@
     <string name="title_history" translatable="false">History</string>
     <string name="title_about" translatable="false">About</string>
     <string name="title_select_account" translatable="false">Select account</string>
-    <string name="title_mnemonic_account">Mnemonic Account</string>
-    <string name="title_private_account">Private key Account</string>
+    <string name="title_mnemonic_account">Mnemonic account</string>
+    <string name="title_private_account">Private key account</string>
     <string name="title_governance" translatable="false">Governance</string>
     <string name="title_reward_claim" translatable="false">Claim reward</string>
     <string name="title_stake" translatable="false">Stake</string>
@@ -165,17 +163,17 @@
     <string name="title_privacy">Privacy</string>
     <string name="title_github" translatable="false">Github</string>
     <string name="title_version">Version</string>
-    <string name="title_check_mnemonic">Check Mnemonics</string>
+    <string name="title_check_mnemonic">Check mnemonics</string>
     <string name="title_check_private_each_chain">Check private key for each chain</string>
     <string name="title_create_account">Create account</string>
     <string name="title_create_wallet">Create a new account</string>
     <string name="title_import_mnemonic">Import wallet</string>
-    <string name="title_import_private_key">Import Private Key</string>
-    <string name="title_set_account_name">Set Account Name</string>
-    <string name="title_mnemonic_created">Mnemonic Created</string>
-    <string name="title_restore_mnemonic">Restore With Mnemonic</string>
-    <string name="title_hd_path_setting">HD Path Setting</string>
-    <string name="title_restore_private">Restore With PrivateKey</string>
+    <string name="title_import_private_key">Import private Key</string>
+    <string name="title_set_account_name">Set account name</string>
+    <string name="title_mnemonic_created">Mnemonic created</string>
+    <string name="title_restore_mnemonic">Restore with mnemonic</string>
+    <string name="title_hd_path_setting">HD path setting</string>
+    <string name="title_restore_private">Restore with privateKey</string>
     <string name="title_coin_send">Asset send</string>
     <string name="title_ibc_send">IBC Asset send</string>
     <string name="title_recipient_chain" translatable="false">Recipient chain</string>
@@ -255,8 +253,8 @@
 
     // msg
     <string name="str_update_msg">New version available. \n\nPlease update to the latest version from the PlayStore.</string>
-    <string name="str_title_no_history" translatable="false">No HISTORY</string>
-    <string name="str_title_no_token" translatable="false">No TOKEN</string>
+    <string name="str_title_no_history" translatable="false">NO HISTORY</string>
+    <string name="str_title_no_token" translatable="false">NO TOKEN</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
@@ -395,7 +393,7 @@
     <string name="tx_ibc_acknowledgement">IBC Acknowledgement</string>
     <string name="tx_reinvest">Compounding</string>
     <string name="tx_new_order">New Order</string>
-    <string name="tx_Cancel_order">Cancel Order</string>
+    <string name="tx_cancel_order">Cancel Order</string>
 
     <string name="tx_kava_create_cdp">CDP Open</string>
     <string name="tx_kava_deposit_cdp">CDP Deposit</string>
@@ -449,7 +447,7 @@
     <string name="tx_kava_swap_deposit2">Swap Pool Deposit</string>
     <string name="tx_kava_swap_withdraw2">Swap Pool Withdraw</string>
 
-    <string name="tx_kava_earn_delegateDeposit">Earn Liquidate Delegate Deposit</string>
+    <string name="tx_kava_earn_delegate_deposit">Earn Liquidate Delegate Deposit</string>
     <string name="tx_kava_earn_withdraw">Earn Liquidate Withdraw</string>
     <string name="tx_kava_earn_deposit">Earn Liquidate\nDeposit</string>
 
@@ -590,6 +588,9 @@
     <string name="str_wc_request_responsed">Responding to a request</string>
     <string name="str_unknown_error">Unknown error</string>
 
+    <string name="title_language_en" translatable="false">English(United States)</string>
+    <string name="title_language_kr" translatable="false">한국어(대한민국)</string>
+    <string name="title_language_ja" translatable="false">日本語(日本)</string>
 
     // currecny
     <string-array name="currency_unit_array" translatable="false">

@@ -40,7 +40,7 @@ data class BnbHistory(
             }
 
             "NEW_ORDER" -> context.getString(R.string.tx_new_order)
-            "CANCEL_ORDER" -> context.getString(R.string.tx_Cancel_order)
+            "CANCEL_ORDER" -> context.getString(R.string.tx_cancel_order)
             "TRANSFER" -> {
                 if (!TextUtils.isEmpty(fromAddress) && fromAddress == address) {
                     context.getString(R.string.tx_send)

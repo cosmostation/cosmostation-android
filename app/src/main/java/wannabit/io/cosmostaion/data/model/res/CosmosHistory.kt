@@ -462,7 +462,7 @@ data class CosmosHistory(
 
             } else if (msgType.contains("kava.") && msgType.contains("router")) {
                 if (msgType.contains("MsgDelegateMintDeposit")) {
-                    result = c.getString(R.string.tx_kava_earn_delegateDeposit)
+                    result = c.getString(R.string.tx_kava_earn_delegate_deposit)
                 } else if (msgType.contains("MsgWithdrawBurn")) {
                     result = c.getString(R.string.tx_kava_earn_withdraw)
                 } else if (msgType.contains("MsgMintDeposit")) {

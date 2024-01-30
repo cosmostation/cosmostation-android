@@ -359,17 +359,9 @@ object BaseUtils {
 
     fun updateResources(context: Context?): Context? {
         val locale: Locale = when (Prefs.language) {
-            LANGUAGE_ENGLISH -> {
-                Locale("en")
-            }
-
-            LANGUAGE_KOREAN -> {
-                Locale("ko")
-            }
-
-            LANGUAGE_JAPANESE -> {
-                Locale("ja")
-            }
+            LANGUAGE_ENGLISH -> { Locale("en") }
+            LANGUAGE_KOREAN -> { Locale("ko") }
+            LANGUAGE_JAPANESE -> { Locale("ja") }
 
             else -> {
                 Resources.getSystem().configuration.locales[0]
@@ -404,39 +396,17 @@ object BaseUtils {
     fun isHtlcSwappableCoin(line: CosmosLine, denom: String): Boolean {
         if (line is ChainBinanceBeacon) {
             when (denom) {
-                TOKEN_HTLC_BINANCE_BNB -> {
-                    return true
-                }
-
-                TOKEN_HTLC_BINANCE_BTCB -> {
-                    return true
-                }
-
-                TOKEN_HTLC_BINANCE_XRPB -> {
-                    return true
-                }
-
-                TOKEN_HTLC_BINANCE_BUSD -> {
-                    return true
-                }
+                TOKEN_HTLC_BINANCE_BNB -> { return true }
+                TOKEN_HTLC_BINANCE_BTCB -> { return true }
+                TOKEN_HTLC_BINANCE_XRPB -> { return true }
+                TOKEN_HTLC_BINANCE_BUSD -> { return true }
             }
         } else {
             when (denom) {
-                TOKEN_HTLC_KAVA_BNB -> {
-                    return true
-                }
-
-                TOKEN_HTLC_KAVA_BTCB -> {
-                    return true
-                }
-
-                TOKEN_HTLC_KAVA_XRPB -> {
-                    return true
-                }
-
-                TOKEN_HTLC_KAVA_BUSD -> {
-                    return true
-                }
+                TOKEN_HTLC_KAVA_BNB -> { return true }
+                TOKEN_HTLC_KAVA_BTCB -> { return true }
+                TOKEN_HTLC_KAVA_XRPB -> { return true }
+                TOKEN_HTLC_KAVA_BUSD -> { return true }
             }
         }
         return false

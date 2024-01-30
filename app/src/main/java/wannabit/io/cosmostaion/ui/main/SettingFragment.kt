@@ -120,17 +120,10 @@ class SettingFragment : Fragment() {
     private fun updateDefaultView() {
         binding.apply {
             when (Prefs.language) {
-                BaseUtils.LANGUAGE_ENGLISH -> {
-                    language.text = getString(R.string.title_language_en)
-                }
-
-                BaseUtils.LANGUAGE_KOREAN -> {
-                    language.text = getString(R.string.title_language_kr)
-                }
-
-                else -> {
-                    language.text = getString(R.string.str_system)
-                }
+                BaseUtils.LANGUAGE_ENGLISH -> { language.text = getString(R.string.title_language_en) }
+                BaseUtils.LANGUAGE_KOREAN -> { language.text = getString(R.string.title_language_kr) }
+                BaseUtils.LANGUAGE_JAPANESE -> { language.text = getString(R.string.title_language_ja) }
+                else -> { language.text = getString(R.string.str_system) }
             }
             currency.text = BaseData.currencyName()
             when (Prefs.priceStyle) {
