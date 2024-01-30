@@ -206,6 +206,7 @@ class UnStakingFragment : BaseTxFragment() {
                         )
                         undelegateDenom.visibility = View.VISIBLE
                         undelegateDenom.text = asset.symbol
+                        undelegateDenom.setTextColor(asset.assetColor())
                     }
                 }
             }

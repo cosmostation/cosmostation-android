@@ -220,6 +220,7 @@ class StakingFragment : BaseTxFragment() {
                         )
                         delegateDenom.visibility = View.VISIBLE
                         delegateDenom.text = asset.symbol
+                        delegateDenom.setTextColor(asset.assetColor())
                     }
                 }
             }

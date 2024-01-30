@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.kava
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -43,13 +44,13 @@ import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.RoundingMode
 
-class ClaimIncentiveFragment(
-    val selectedChain: CosmosLine,
-    private val incentive: QueryProto.QueryRewardsResponse,
-) : BaseTxFragment() {
+class ClaimIncentiveFragment : BaseTxFragment() {
 
     private var _binding: FragmentClaimIncentiveBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var incentive: QueryProto.QueryRewardsResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -57,6 +58,21 @@ class ClaimIncentiveFragment(
     private var txMemo = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine, incentive: QueryProto.QueryRewardsResponse
+        ): ClaimIncentiveFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("incentive", incentive)
+            }
+            val fragment = ClaimIncentiveFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -79,6 +95,21 @@ class ClaimIncentiveFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+                arguments?.getSerializable("incentive", QueryProto.QueryRewardsResponse::class.java)
+                    ?.let { incentive = it }
+
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+                (arguments?.getSerializable("incentive") as? QueryProto.QueryRewardsResponse)?.let {
+                    incentive = it
+                }
+            }
+
             listOf(
                 incentiveView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
@@ -92,6 +123,8 @@ class ClaimIncentiveFragment(
                         kavaIncentive.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                             .toPlainString(), asset.decimals ?: 6
                     )
+                    kavaDenom.text = asset.symbol
+                    kavaDenom.setTextColor(asset.assetColor())
                 }
             }
 
@@ -102,6 +135,8 @@ class ClaimIncentiveFragment(
                         hardIncentive.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                             .toPlainString(), asset.decimals ?: 6
                     )
+                    hardDenom.text = asset.symbol
+                    hardDenom.setTextColor(asset.assetColor())
                 }
             }
 
@@ -112,6 +147,8 @@ class ClaimIncentiveFragment(
                         usdxIncentive.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                             .toPlainString(), asset.decimals ?: 6
                     )
+                    usdxDenom.text = asset.symbol
+                    usdxDenom.setTextColor(asset.assetColor())
                 }
             }
 
@@ -122,6 +159,8 @@ class ClaimIncentiveFragment(
                         swpIncentive.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                             .toPlainString(), asset.decimals ?: 6
                     )
+                    swpDenom.text = asset.symbol
+                    swpDenom.setTextColor(asset.assetColor())
                 }
             }
         }

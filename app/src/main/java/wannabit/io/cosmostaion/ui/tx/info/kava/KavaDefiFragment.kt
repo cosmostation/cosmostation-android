@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info.kava
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cosmos.base.v1beta1.CoinProto
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
@@ -26,10 +28,12 @@ import wannabit.io.cosmostaion.ui.tx.step.kava.ClaimIncentiveFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
 
-class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
+class KavaDefiFragment : Fragment() {
 
     private var _binding: FragmentKavaDefiBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
 
     private lateinit var kavaViewModel: KavaViewModel
 
@@ -37,6 +41,18 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
     private var priceFeed: QueryPricesResponse? = null
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): KavaDefiFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = KavaDefiFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -62,6 +78,15 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+
             kavaViewModel.priceFeed(getChannel(selectedChain))
 
             loading.visibility = View.VISIBLE
@@ -98,10 +123,10 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
 
                 val allIncentives = response?.allIncentiveCoins()
 
-                setUpDisplayIncentive(allIncentives, "ukava", kavaLayout, kavaAmount)
-                setUpDisplayIncentive(allIncentives, "hard", hardLayout, hardAmount)
-                setUpDisplayIncentive(allIncentives, "usdx", usdxLayout, usdxAmount)
-                setUpDisplayIncentive(allIncentives, "swp", swpLayout, swpAmount)
+                setUpDisplayIncentive(allIncentives, "ukava", kavaLayout, kavaAmount, kavaDenom)
+                setUpDisplayIncentive(allIncentives, "hard", hardLayout, hardAmount, hardDenom)
+                setUpDisplayIncentive(allIncentives, "usdx", usdxLayout, usdxAmount, usdxDenom)
+                setUpDisplayIncentive(allIncentives, "swp", swpLayout, swpAmount, swpDenom)
             }
         }
     }
@@ -110,7 +135,8 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
         allIncentives: MutableList<CoinProto.Coin>?,
         denom: String,
         layout: ConstraintLayout,
-        amountTxt: TextView
+        amountTxt: TextView,
+        denomTxt: TextView
     ) {
         binding.apply {
             allIncentives?.firstOrNull { it.denom == denom }?.let { incentive ->
@@ -120,6 +146,8 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
                         incentive.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                             .toPlainString(), asset.decimals ?: 6
                     )
+                    denomTxt.text = asset.symbol
+                    denomTxt.setTextColor(asset.assetColor())
                 }
             }
         }
@@ -133,47 +161,54 @@ class KavaDefiFragment(private val selectedChain: CosmosLine) : Fragment() {
 
             incentiveView.setOnClickListener {
                 incentive?.let { incentive ->
-                    ClaimIncentiveFragment(selectedChain, incentive).show(
-                        requireActivity().supportFragmentManager,
-                        ClaimIncentiveFragment::class.java.name
+                    handleOneClickWithDelay(
+                        null, ClaimIncentiveFragment.newInstance(selectedChain, incentive)
                     )
-                    setClickableOnce(isClickable)
                 }
             }
 
             mintView.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@KavaDefiFragment, MintListFragment(selectedChain, priceFeed), "MintList"
+                handleOneClickWithDelay(
+                    MintListFragment.newInstance(selectedChain, priceFeed), null
                 )
-                setClickableOnce(isClickable)
             }
 
             lendView.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@KavaDefiFragment, LendListFragment(selectedChain, priceFeed), "LendList"
+                handleOneClickWithDelay(
+                    LendListFragment.newInstance(selectedChain, priceFeed), null
                 )
-                setClickableOnce(isClickable)
             }
 
             poolView.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@KavaDefiFragment, PoolListFragment(selectedChain), "PoolList"
+                handleOneClickWithDelay(
+                    PoolListFragment.newInstance(selectedChain), null
                 )
-                setClickableOnce(isClickable)
             }
 
             earnView.setOnClickListener {
-                requireActivity().toMoveFragment(
-                    this@KavaDefiFragment, EarnListFragment.newInstance(selectedChain), "EarnList"
+                handleOneClickWithDelay(
+                    EarnListFragment.newInstance(selectedChain), null
                 )
-                setClickableOnce(isClickable)
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(
+        fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
+    ) {
+        if (isClickable) {
             isClickable = false
+
+            if (fragment != null) {
+                requireActivity().toMoveFragment(
+                    this@KavaDefiFragment, fragment, fragment::class.java.name
+                )
+            } else {
+                bottomSheetDialogFragment?.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetDialogFragment::class.java.name
+                )
+            }
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

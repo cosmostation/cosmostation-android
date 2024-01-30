@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
@@ -23,6 +24,7 @@ import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
@@ -58,6 +60,7 @@ import wannabit.io.cosmostaion.data.model.res.SwapVenue
 import wannabit.io.cosmostaion.data.repository.skip.SkipRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccountType
+import wannabit.io.cosmostaion.databinding.DialogBigLossWarnBinding
 import wannabit.io.cosmostaion.databinding.FragmentSwapBinding
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainFragment
@@ -403,6 +406,12 @@ class SwapFragment : BaseTxFragment() {
 
                             feeView.visibility = View.VISIBLE
                             txSimulate(response)
+
+                            val inValue = (route?.usd_amount_in ?: "0").toBigDecimal()
+                            val outValue = (route?.usd_amount_out ?: "0").toBigDecimal()
+                            if (inValue.multiply(BigDecimal("0.9")) > outValue) {
+                                showBigLossPopup()
+                            }
                         }
                     }
 
@@ -597,85 +606,79 @@ class SwapFragment : BaseTxFragment() {
         binding.apply {
             btnSlippage.setOnClickListener {
                 toMsg = null
-                SlippageFragment(object : SlippageListener {
-                    override fun slippage(position: Int) {
-                        skipSlippage = position.toString()
-                        updateAmountView()
-                    }
-                }).show(
-                    requireActivity().supportFragmentManager, SlippageFragment::class.java.name
+                handleOneClickWithDelay(
+                    SlippageFragment(object : SlippageListener {
+                        override fun slippage(position: Int) {
+                            skipSlippage = position.toString()
+                            updateAmountView()
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             inputChainLayout.setOnClickListener {
-                ChainFragment(
-                    skipChains,
-                    ChainListType.SELECT_INPUT_SWAP,
-                    object : ChainSelectListener {
-                        override fun select(chainId: String) {
-                            if (inputCosmosLine?.chainId != chainId) {
-                                loading.visibility = View.VISIBLE
+                handleOneClickWithDelay(
+                    ChainFragment(skipChains,
+                        ChainListType.SELECT_INPUT_SWAP,
+                        object : ChainSelectListener {
+                            override fun select(chainId: String) {
+                                if (inputCosmosLine?.chainId != chainId) {
+                                    loading.visibility = View.VISIBLE
 
-                                skipDataJob = CoroutineScope(Dispatchers.IO).launch {
-                                    inputCosmosLine =
-                                        skipChains.firstOrNull { it.chainId == chainId }
-                                    inputAssets.clear()
-                                    inputCosmosLine?.let { line ->
-                                        skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                            ?.getAsJsonObject(line.chainId)
-                                            ?.getAsJsonArray("assets")?.forEach { json ->
-                                                BaseData.getAsset(
-                                                    line.apiName,
-                                                    json.asJsonObject.get("denom").asString
-                                                )?.let { asset ->
-                                                    inputAssets.add(asset)
+                                    skipDataJob = CoroutineScope(Dispatchers.IO).launch {
+                                        inputCosmosLine =
+                                            skipChains.firstOrNull { it.chainId == chainId }
+                                        inputAssets.clear()
+                                        inputCosmosLine?.let { line ->
+                                            skipAssets?.getAsJsonObject("chain_to_assets_map")
+                                                ?.getAsJsonObject(line.chainId)
+                                                ?.getAsJsonArray("assets")?.forEach { json ->
+                                                    BaseData.getAsset(
+                                                        line.apiName,
+                                                        json.asJsonObject.get("denom").asString
+                                                    )?.let { asset ->
+                                                        inputAssets.add(asset)
+                                                    }
                                                 }
-                                            }
-                                        inputAssetSelected =
-                                            inputAssets.firstOrNull { it.denom == line.stakeDenom }
+                                            inputAssetSelected =
+                                                inputAssets.firstOrNull { it.denom == line.stakeDenom }
 
-                                        val channel = getChannel(line)
-                                        val loadInputAuthDeferred =
-                                            async { loadAuth(channel, line.address) }
-                                        val loadInputBalanceDeferred =
-                                            async { loadBalance(channel, line.address) }
-                                        val loadInputParamDeferred = async { line.loadParam() }
+                                            val channel = getChannel(line)
+                                            val loadInputAuthDeferred =
+                                                async { loadAuth(channel, line.address) }
+                                            val loadInputBalanceDeferred =
+                                                async { loadBalance(channel, line.address) }
+                                            val loadInputParamDeferred = async { line.loadParam() }
 
-                                        line.cosmosAuth = loadInputAuthDeferred.await().account
-                                        line.cosmosBalances =
-                                            loadInputBalanceDeferred.await().balancesList
-                                        line.param = loadInputParamDeferred.await()
-                                        BaseUtils.onParseVestingAccount(line)
-                                    }
+                                            line.cosmosAuth = loadInputAuthDeferred.await().account
+                                            line.cosmosBalances =
+                                                loadInputBalanceDeferred.await().balancesList
+                                            line.param = loadInputParamDeferred.await()
+                                            BaseUtils.onParseVestingAccount(line)
+                                        }
 
-                                    withContext(Dispatchers.Main) {
-                                        initView()
+                                        withContext(Dispatchers.Main) {
+                                            initView()
+                                        }
                                     }
                                 }
                             }
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             inputTokenLayout.setOnClickListener {
-                AssetSelectFragment(inputAssets,
-                    inputCosmosLine?.cosmosBalances,
-                    AssetSelectType.SWAP_INPUT,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            inputAssetSelected = inputAssets.firstOrNull { it.denom == denom }
-                            initView()
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetSelectFragment::class.java.name
+                handleOneClickWithDelay(
+                    AssetSelectFragment(inputAssets,
+                        inputCosmosLine?.cosmosBalances,
+                        AssetSelectType.SWAP_INPUT,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                inputAssetSelected = inputAssets.firstOrNull { it.denom == denom }
+                                initView()
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnToggle.setOnClickListener {
@@ -698,72 +701,68 @@ class SwapFragment : BaseTxFragment() {
             }
 
             outputChainLayout.setOnClickListener {
-                ChainFragment(
-                    skipChains,
-                    ChainListType.SELECT_OUTPUT_SWAP,
-                    object : ChainSelectListener {
-                        override fun select(chainId: String) {
-                            if (outputCosmosLine?.chainId != chainId) {
-                                loading.visibility = View.VISIBLE
+                handleOneClickWithDelay(
+                    ChainFragment(skipChains,
+                        ChainListType.SELECT_OUTPUT_SWAP,
+                        object : ChainSelectListener {
+                            override fun select(chainId: String) {
+                                if (outputCosmosLine?.chainId != chainId) {
+                                    loading.visibility = View.VISIBLE
 
-                                skipDataJob = CoroutineScope(Dispatchers.IO).launch {
-                                    outputCosmosLine =
-                                        skipChains.firstOrNull { it.chainId == chainId }
-                                    outputAssets.clear()
-                                    outputCosmosLine?.let { line ->
-                                        skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                            ?.getAsJsonObject(line.chainId)
-                                            ?.getAsJsonArray("assets")?.forEach { json ->
-                                                BaseData.getAsset(
-                                                    line.apiName,
-                                                    json.asJsonObject.get("denom").asString
-                                                )?.let { asset ->
-                                                    outputAssets.add(asset)
+                                    skipDataJob = CoroutineScope(Dispatchers.IO).launch {
+                                        outputCosmosLine =
+                                            skipChains.firstOrNull { it.chainId == chainId }
+                                        outputAssets.clear()
+                                        outputCosmosLine?.let { line ->
+                                            skipAssets?.getAsJsonObject("chain_to_assets_map")
+                                                ?.getAsJsonObject(line.chainId)
+                                                ?.getAsJsonArray("assets")?.forEach { json ->
+                                                    BaseData.getAsset(
+                                                        line.apiName,
+                                                        json.asJsonObject.get("denom").asString
+                                                    )?.let { asset ->
+                                                        outputAssets.add(asset)
+                                                    }
                                                 }
-                                            }
-                                        outputAssetSelected =
-                                            outputAssets.firstOrNull { it.denom == line.stakeDenom }
+                                            outputAssetSelected =
+                                                outputAssets.firstOrNull { it.denom == line.stakeDenom }
 
-                                        val channel = getChannel(line)
-                                        val loadOutputAuthDeferred =
-                                            async { loadAuth(channel, line.address) }
-                                        val loadOutputBalanceDeferred =
-                                            async { loadBalance(channel, line.address) }
-                                        val loadOutputParamDeferred = async { line.loadParam() }
+                                            val channel = getChannel(line)
+                                            val loadOutputAuthDeferred =
+                                                async { loadAuth(channel, line.address) }
+                                            val loadOutputBalanceDeferred =
+                                                async { loadBalance(channel, line.address) }
+                                            val loadOutputParamDeferred = async { line.loadParam() }
 
-                                        line.cosmosAuth = loadOutputAuthDeferred.await().account
-                                        line.cosmosBalances =
-                                            loadOutputBalanceDeferred.await().balancesList
-                                        line.param = loadOutputParamDeferred.await()
-                                        BaseUtils.onParseVestingAccount(line)
-                                    }
+                                            line.cosmosAuth = loadOutputAuthDeferred.await().account
+                                            line.cosmosBalances =
+                                                loadOutputBalanceDeferred.await().balancesList
+                                            line.param = loadOutputParamDeferred.await()
+                                            BaseUtils.onParseVestingAccount(line)
+                                        }
 
-                                    withContext(Dispatchers.Main) {
-                                        initView()
+                                        withContext(Dispatchers.Main) {
+                                            initView()
+                                        }
                                     }
                                 }
                             }
-                        }
-                    }).show(
-                    requireActivity().supportFragmentManager, ChainFragment::class.java.name
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             outputTokenLayout.setOnClickListener {
-                AssetSelectFragment(outputAssets,
-                    outputCosmosLine?.cosmosBalances,
-                    AssetSelectType.SWAP_OUTPUT,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            outputAssetSelected = outputAssets.firstOrNull { it.denom == denom }
-                            initView()
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetSelectFragment::class.java.name
+                handleOneClickWithDelay(
+                    AssetSelectFragment(outputAssets,
+                        outputCosmosLine?.cosmosBalances,
+                        AssetSelectType.SWAP_OUTPUT,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                outputAssetSelected = outputAssets.firstOrNull { it.denom == denom }
+                                initView()
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnHalf.setOnClickListener {
@@ -794,9 +793,13 @@ class SwapFragment : BaseTxFragment() {
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -824,7 +827,6 @@ class SwapFragment : BaseTxFragment() {
                                 skipTxViewModel.broadcastWasm(
                                     getChannel(line), bindWasm(innerMsg), txFee, "", line
                                 )
-
                             }
 
                             else -> {
@@ -885,6 +887,22 @@ class SwapFragment : BaseTxFragment() {
             return result
         }
         return result
+    }
+
+    private fun showBigLossPopup() {
+        val binding = DialogBigLossWarnBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.show()
+        dialog.setCancelable(false)
+
+        binding.apply {
+            btnConfirm.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
     }
 
     private fun setUpBroadcast() {

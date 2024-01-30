@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeClickListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
@@ -225,7 +226,6 @@ class CoinFragment : Fragment() {
         }
 
         ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
-            Log.e("Test12345 : ", it)
             coinAdapter.notifyDataSetChanged()
         }
     }
@@ -235,7 +235,7 @@ class CoinFragment : Fragment() {
     }
 
     private fun startBep3Transfer(line: CosmosLine, denom: String) {
-        handleOneClickWithDelay(Bep3Fragment(line, denom))
+        handleOneClickWithDelay(Bep3Fragment.newInstance(line, denom))
     }
 
     private fun startLegacyTransfer(line: CosmosLine, denom: String) {
@@ -246,7 +246,7 @@ class CoinFragment : Fragment() {
         if (isClickable) {
             isClickable = false
 
-            BridgeOptionFragment(line, denom, bridgeClickAction).show(
+            BridgeOptionFragment.newInstance(line, denom, bridgeClickAction).show(
                 requireActivity().supportFragmentManager, BridgeOptionFragment::class.java.name
             )
 
@@ -288,9 +288,4 @@ class CoinFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface BridgeClickListener {
-    fun bep3Transfer(line: CosmosLine, denom: String)
-    fun simpleTransfer(line: CosmosLine, denom: String)
 }

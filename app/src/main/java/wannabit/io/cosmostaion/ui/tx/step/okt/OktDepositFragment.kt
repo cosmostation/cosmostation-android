@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.okt
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,7 +12,9 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
@@ -36,10 +39,12 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
+class OktDepositFragment : BaseTxFragment() {
 
     private var _binding: FragmentOktDepositBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: ChainOkt60
 
     private var oktTokenInfo: OktToken? = null
 
@@ -51,6 +56,18 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
     private var gasFee = BigDecimal(OKT_BASE_FEE)
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): OktDepositFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = OktDepositFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,6 +87,16 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", ChainOkt60::class.java)
+                    ?.let { selectedChain = it }
+
+            } else {
+                (arguments?.getParcelable("selectedChain") as? ChainOkt60)?.let {
+                    selectedChain = it
+                }
+            }
+
             listOf(
                 oktDepositView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
@@ -157,33 +184,28 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
     private fun setUpClickAction() {
         binding.apply {
             oktDepositView.setOnClickListener {
-                LegacyInsertAmountFragment(selectedChain,
-                    null,
-                    oktTokenInfo,
-                    availableAmount,
-                    toDepositAmount,
-                    object : AmountSelectListener {
-                        override fun select(toAmount: String) {
-                            updateAmountView(toAmount)
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager,
-                    LegacyInsertAmountFragment::class.java.name
+                handleOneClickWithDelay(
+                    LegacyInsertAmountFragment(selectedChain,
+                        null,
+                        oktTokenInfo,
+                        availableAmount,
+                        toDepositAmount,
+                        object : AmountSelectListener {
+                            override fun select(toAmount: String) {
+                                updateAmountView(toAmount)
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnDeposit.setOnClickListener {
@@ -197,9 +219,13 @@ class OktDepositFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

@@ -250,14 +250,15 @@
     <string name="title_remove_amount">To remove amount</string>
     <string name="title_earning_select">Select earning option</string>
     <string name="title_reward_detail">Reward detail (%1$s)</string>
+    <string name="title_big_loss">Asset loss</string>
 
 
     // msg
     <string name="str_update_msg">New version available. \n\nPlease update to the latest version from the PlayStore.</string>
-    <string name="str_title_no_history" translatable="false">No History</string>
-    <string name="str_title_no_token" translatable="false">No Token</string>
+    <string name="str_title_no_history" translatable="false">No HISTORY</string>
+    <string name="str_title_no_token" translatable="false">No TOKEN</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
-    <string name="str_msg_copy" translatable="false">Tap the card to copy it</string>
+    <string name="str_msg_copy">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
     <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy</string>
     <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
@@ -265,7 +266,7 @@
     <string name="str_msg_mnemonic_copied">Mnemonic copied\nClear your clipboard after paste it!</string>
     <string name="str_enter_pin_msg">Enter PIN</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
-    <string name="str_empty_account_name" translatable="false">Please insert account name.</string>
+    <string name="str_empty_account_name">Please insert account name.</string>
     <string name="str_delete_account_msg">All information in your account will be deleted.\nIf you have not backed up your mnemonic or private key, you will not be able to permanently restore your wallet!</string>
     <string name="str_create_wallet_msg">Create an account with a set of mnemonics</string>
     <string name="str_import_mnemonic_msg">Restore an account with your mnemonics</string>
@@ -309,6 +310,7 @@
     <string name="str_pincode_init_msg">Enter your new PIN</string>
     <string name="str_pincode_init_confirm_msg">Verify your new PIN</string>
     <string name="str_disabled_app_msg">We are currently under maintenance.\n\nPlease check our community channels for more information.</string>
+    <string name="str_big_loss_msg">If you proceed with the currently selected swap, significant property damage is expected.\n\nPlease check the expected input and output values and decide carefully.</string>
 
 
     // header

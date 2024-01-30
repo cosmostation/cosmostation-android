@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.tx.info.neutron
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.VibrationEffect

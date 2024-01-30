@@ -22,6 +22,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -96,7 +97,6 @@ class QrCodeFragment(
                                 )
                             }
                             segmentView.btnChain.text = selectedChain.apiName.uppercase()
-
                         }
 
                         else -> {
@@ -108,14 +108,48 @@ class QrCodeFragment(
                     }
                 }
 
+                if (selectedChain is ChainOkt60 || selectedChain.tag == "kava60" || selectedChain.tag == "xplaKeccak256") {
+                    chainSegment.setPosition(1, false)
+                    setQrAddress(ByteUtils.convertBech32ToEvm(selectedChain.address))
+                    addressTitle.text = getString(R.string.str_ethereum_address)
+
+                } else {
+                    chainSegment.setPosition(0, false)
+                    setQrAddress(selectedChain.address)
+                    addressTitle.text = getString(R.string.str_address)
+                }
+
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 chainName.text = selectedChain.name
                 accountPath.text = selectedChain.getHDPath(account.lastHDPath)
                 chainImg.setImageResource(selectedChain.logo)
 
+                if (selectedChain.evmCompatible) {
+                    chainBadge.visibility = View.VISIBLE
+                    chainBadge.text = getString(R.string.str_evm)
+                    chainBadge.setBackgroundResource(R.drawable.round_box_evm)
+                    chainBadge.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.color_base01
+                        )
+                    )
+                } else if (!selectedChain.isDefault) {
+                    chainBadge.visibility = View.VISIBLE
+                    chainBadge.text = getString(R.string.str_legacy)
+                    chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
+                    chainBadge.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.color_base02
+                        )
+                    )
+                } else {
+                    chainBadge.visibility = View.GONE
+                }
+
                 qrView.radius = resources.getDimension(R.dimen.space_8)
                 qrImg.clipToOutline = true
-                setQrAddress(selectedChain.address)
             }
         }
     }

@@ -196,6 +196,7 @@
     <string name="title_remove_amount">출금 수량</string>
     <string name="title_earning_select">어닝 옵션 선택</string>
     <string name="title_reward_detail">리워드 상세 (%1$s)</string>
+    <string name="title_big_loss">자산 손실</string>
 
 
     // msg
@@ -203,9 +204,11 @@
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>
     <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copied">클립보드에 복사하였습니다.</string>
+    <string name="str_msg_copy">복사하려면 카드를 탭하세요.</string>
     <string name="str_msg_mnemonic_copy">복사하려면 니모닉 문구 상자를 탭하세요</string>
     <string name="str_msg_private_copy">클립보드에 복사하였습니다.</string>
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
+    <string name="str_empty_account_name">계정 이름을 정확히 입력하세요.</string>
     <string name="str_delete_account_msg">계정의 모든 정보가 삭제됩니다.\n니모닉 또는 개인키를 백업하지 않았을 경우 해당 지갑을 영구히 다시 복원할 수 없습니다!</string>
     <string name="str_create_wallet_msg">새 니모닉으로 신규 계정 만들기</string>
     <string name="str_import_mnemonic_msg">기존 니모닉으로 계정 복구하기</string>
@@ -244,6 +247,7 @@
     <string name="str_pincode_init_confirm_msg">다시한번 입력해주세요.</string>
     <string name="str_enter_pin_msg">PIN 번호를 입력해 주세요.</string>
     <string name="str_disabled_app_msg">시스템 점검중입니다.\n\n자세한 내용은 커뮤니티 채널을 확인해주세요.</string>
+    <string name="str_big_loss_msg">현재 선택하신 스왑을 진행하시면 상당한 재산상 손해가 예상됩니다.\n\n예상 입력, 출력 가치를 확인하신 후 신중히 결정해주세요.</string>
 
 
     // error

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
@@ -54,7 +56,8 @@ import java.math.RoundingMode
 class DaoVoteFragment(
     val selectedChain: ChainNeutron,
     private var singleProposal: List<Pair<String?, ProposalData?>> = mutableListOf(),
-    private var multiProposal: List<Pair<String?, ProposalData?>> = mutableListOf()
+    private var multiProposal: List<Pair<String?, ProposalData?>> = mutableListOf(),
+    private var overruleProposal: List<Pair<String?, ProposalData?>> = mutableListOf()
 ) : BaseTxFragment() {
 
     private var _binding: FragmentVoteBinding? = null
@@ -96,31 +99,44 @@ class DaoVoteFragment(
 
             val modules =
                 selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules
-
-            daoVoteAdapter = DaoVoteAdapter(modules, singleProposal, multiProposal, selectOption)
+            daoVoteAdapter = DaoVoteAdapter(modules, singleProposal, multiProposal, overruleProposal, selectOption)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = daoVoteAdapter
-            daoVoteAdapter.submitList(singleProposal + multiProposal)
+            daoVoteAdapter.submitList(singleProposal + multiProposal + overruleProposal)
         }
     }
 
     private val selectOption = object : DaoVoteAdapter.ClickListener {
         override fun selectOption(position: Int, module: String?, tag: Int) {
-            if (module == "Single Module") {
-                when (tag) {
-                    0 -> singleProposal[position].second?.myVote = "yes"
-                    1 -> singleProposal[position].second?.myVote = "no"
-                    2 -> singleProposal[position].second?.myVote = "abstain"
-                    else -> null
+            when (module) {
+                "Single Module" -> {
+                    when (tag) {
+                        0 -> singleProposal[position].second?.myVote = "yes"
+                        1 -> singleProposal[position].second?.myVote = "no"
+                        2 -> singleProposal[position].second?.myVote = "abstain"
+                        else -> null
+                    }
+                    daoVoteAdapter.notifyDataSetChanged()
+                    txSimulate()
                 }
-                daoVoteAdapter.notifyDataSetChanged()
-                txSimulate()
 
-            } else {
-                multiProposal[position - singleProposal.size].second?.myVote = tag.toString()
-                txSimulate()
-                daoVoteAdapter.notifyDataSetChanged()
+                "Overrule Module" -> {
+                    when (tag) {
+                        0 -> overruleProposal[position - (singleProposal.size + multiProposal.size)].second?.myVote = "yes"
+                        1 -> overruleProposal[position - (singleProposal.size + multiProposal.size)].second?.myVote = "no"
+                        2 -> overruleProposal[position - (singleProposal.size + multiProposal.size)].second?.myVote = "abstain"
+                        else -> null
+                    }
+                    daoVoteAdapter.notifyDataSetChanged()
+                    txSimulate()
+                }
+
+                else -> {
+                    multiProposal[position - singleProposal.size].second?.myVote = tag.toString()
+                    txSimulate()
+                    daoVoteAdapter.notifyDataSetChanged()
+                }
             }
         }
     }
@@ -197,41 +213,38 @@ class DaoVoteFragment(
     private fun setUpClickAction() {
         binding.apply {
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeTokenLayout.setOnClickListener {
-                AssetFragment(selectedChain,
-                    feeInfos[selectedFeeInfo].feeDatas,
-                    object : AssetSelectListener {
-                        override fun select(denom: String) {
-                            selectedChain.getDefaultFeeCoins(requireContext())
-                                .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                        .setAmount(feeCoin.amount).build()
+                handleOneClickWithDelay(
+                    AssetFragment(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas,
+                        object : AssetSelectListener {
+                            override fun select(denom: String) {
+                                selectedChain.getDefaultFeeCoins(requireContext())
+                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        val updateFeeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(feeCoin.amount).build()
 
-                                    val updateTxFee = TxProto.Fee.newBuilder()
-                                        .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                        .addAmount(updateFeeCoin).build()
+                                        val updateTxFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+                                            .addAmount(updateFeeCoin).build()
 
-                                    txFee = updateTxFee
-                                    updateFeeView()
-                                    txSimulate()
-                                }
-                        }
-
-                    }).show(
-                    requireActivity().supportFragmentManager, AssetFragment::class.java.name
+                                        txFee = updateTxFee
+                                        updateFeeView()
+                                        txSimulate()
+                                    }
+                            }
+                        })
                 )
-                setClickableOnce(isClickable)
             }
 
             feeSegment.setOnPositionChangedListener { position ->
@@ -254,9 +267,13 @@ class DaoVoteFragment(
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -282,6 +299,9 @@ class DaoVoteFragment(
             if (multiProposal.any { it.second?.myVote == null }) {
                 return
             }
+            if (!selectedChain.isGasSimulable()) {
+                return updateFeeViewWithSimulate(null)
+            }
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateWasm(
                 getChannel(), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo
@@ -291,7 +311,6 @@ class DaoVoteFragment(
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
             updateFeeViewWithSimulate(gasInfo)
         }
 
@@ -302,23 +321,26 @@ class DaoVoteFragment(
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-                ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                }
+            val selectedFeeData =
+                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val gasRate = selectedFeeData?.gasRate
+
+            gasInfo?.let { info ->
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
+            }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
@@ -373,6 +395,18 @@ class DaoVoteFragment(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
                     selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
                         1
+                    )?.address
+                ).setMsg(msg).build()
+            )
+        }
+        overruleProposal.forEach { single ->
+            val req = VoteReq(Vote(single.second?.id?.toInt(), single.second?.myVote))
+            val jsonData = Gson().toJson(req)
+            val msg = ByteString.copyFromUtf8(jsonData)
+            result.add(
+                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
+                    selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
+                        0
                     )?.address
                 ).setMsg(msg).build()
             )

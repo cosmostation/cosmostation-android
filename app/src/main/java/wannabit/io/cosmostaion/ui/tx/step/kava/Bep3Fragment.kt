@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.kava
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -45,12 +46,13 @@ import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class Bep3Fragment(
-    private val fromChain: CosmosLine, private val denom: String
-) : BaseTxFragment() {
+class Bep3Fragment : BaseTxFragment() {
 
     private var _binding: FragmentBep3Binding? = null
     private val binding get() = _binding!!
+
+    private lateinit var fromChain: CosmosLine
+    private lateinit var denom: String
 
     private lateinit var kavaViewModel: KavaViewModel
     private lateinit var walletViewModel: WalletViewModel
@@ -63,6 +65,19 @@ class Bep3Fragment(
     private var existedAddress = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(fromChain: CosmosLine, denom: String): Bep3Fragment {
+            val args = Bundle().apply {
+                putParcelable("fromChain", fromChain)
+                putString("denom", denom)
+            }
+            val fragment = Bep3Fragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -95,14 +110,25 @@ class Bep3Fragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("fromChain", CosmosLine::class.java)
+                    ?.let { fromChain = it }
+
+            } else {
+                (arguments?.getParcelable("fromChain") as? CosmosLine)?.let {
+                    fromChain = it
+                }
+            }
+            arguments?.getString("denom")?.let { denom = it }
+
             listOf(
                 recipientView, sendAssetView, addressView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
-            BaseData.baseAccount?.let { baseAccount ->
+            BaseData.baseAccount?.let { account ->
                 if (fromChain is ChainBinanceBeacon) {
                     toChains =
-                        baseAccount.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList()
+                        account.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList()
                     fromChainImg.setImageResource(R.drawable.chain_binance)
                     fromChainName.text = "BNB Beacon"
 
@@ -112,10 +138,15 @@ class Bep3Fragment(
                     fromChain.lcdBeaconTokens.firstOrNull { it.symbol == denom }
                         ?.let { bnbTokenInfo ->
                             val originalSymbol = bnbTokenInfo.originalSymbol
-                            tokenImg.setTokenImg(fromChain.assetImg(originalSymbol))
+                            tokenImg.setTokenImg(
+                                (fromChain as ChainBinanceBeacon).assetImg(
+                                    originalSymbol
+                                )
+                            )
                             tokenName.text = originalSymbol.uppercase()
 
-                            val available = fromChain.lcdBalanceAmount(denom)
+                            val available =
+                                (fromChain as ChainBinanceBeacon).lcdBalanceAmount(denom)
                             availableAmount = if (denom == fromChain.stakeDenom) {
                                 available.subtract(BigDecimal(BNB_BEACON_BASE_FEE))
                                     .movePointRight(8)
@@ -125,7 +156,7 @@ class Bep3Fragment(
                         }
 
                 } else {
-                    toChains = baseAccount.allCosmosLineChains.filter { it.name == "BNB Beacon" }
+                    toChains = account.allCosmosLineChains.filter { it.name == "BNB Beacon" }
                         .toMutableList()
                     fromChainImg.setImageResource(R.drawable.chain_kava)
                     fromChainName.text = "KAVA"

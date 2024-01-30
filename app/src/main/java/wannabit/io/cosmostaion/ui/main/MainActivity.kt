@@ -12,16 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
@@ -74,12 +71,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
-        CoroutineScope(Dispatchers.IO).launch {
-            BaseData.baseAccount?.initAccount()
-        }
         binding.apply {
             accountName.text = BaseData.baseAccount?.name
-            val mainViewPagerAdapter = MainViewPageAdapter(this@MainActivity, BaseData.baseAccount)
+            val mainViewPagerAdapter = MainViewPageAdapter(this@MainActivity)
             mainViewPager.adapter = mainViewPagerAdapter
             mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
             mainViewPager.offscreenPageLimit = 2
@@ -141,24 +135,26 @@ class MainActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             btnEdit.setOnClickListener {
-                ChainEditFragment().show(
-                    supportFragmentManager, ChainEditFragment::class.java.name
+                handleOneClickWithDelay(
+                    ChainEditFragment()
                 )
-                setClickableOnce(isClickable)
             }
 
             accountLayout.setOnClickListener {
-                AccountSelectFragment().show(
-                    supportFragmentManager, AccountSelectFragment::class.java.name
+                handleOneClickWithDelay(
+                    AccountSelectFragment()
                 )
-                setClickableOnce(isClickable)
             }
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
@@ -171,29 +167,22 @@ class MainActivity : BaseActivity() {
             BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
                 it.fetched = false
             }
+
+            val mainViewPagerAdapter = MainViewPageAdapter(this)
+            binding.apply {
+                mainViewPager.adapter = mainViewPagerAdapter
+                mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
+                mainViewPager.offscreenPageLimit = 2
+                mainViewPager.isUserInputEnabled = false
+                mainViewPagerAdapter.notifyDataSetChanged()
+            }
         }
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
-
-    private fun handleIntent(intent: Intent) {
-        val mainViewPagerAdapter = MainViewPageAdapter(this, BaseData.baseAccount)
-        binding.apply {
-            mainViewPager.adapter = mainViewPagerAdapter
-            mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
-            mainViewPager.offscreenPageLimit = 2
-            mainViewPager.isUserInputEnabled = false
-            mainViewPagerAdapter.notifyDataSetChanged()
-        }
-    }
-
-    class MainViewPageAdapter(fragmentActivity: FragmentActivity, baseAccount: BaseAccount?) :
+    class MainViewPageAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
         private val mainFragments = mutableListOf(
-            DashboardFragment.newInstance(baseAccount), ServiceFragment(), SettingFragment()
+            DashboardFragment.newInstance(BaseData.baseAccount), ServiceFragment(), SettingFragment()
         )
 
         override fun getItemCount(): Int {

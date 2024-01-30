@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info.kava
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,12 +26,13 @@ import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionType
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
 
-class MintListFragment(
-    private val selectedChain: CosmosLine, private val priceFeed: QueryProto.QueryPricesResponse?
-) : Fragment() {
+class MintListFragment : Fragment() {
 
     private var _binding: FragmentMintListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var priceFeed: QueryProto.QueryPricesResponse
 
     private lateinit var kavaViewModel: KavaViewModel
 
@@ -43,6 +45,21 @@ class MintListFragment(
 
     private var isClickable = true
 
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine, priceFeed: QueryProto.QueryPricesResponse?
+        ): MintListFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("priceFeed", priceFeed)
+            }
+            val fragment = MintListFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -53,10 +70,32 @@ class MintListFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         initViewModel()
         setUpMintParamObserve()
         setUpMyCdpObserve()
         setUpClickAction()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.apply {
+                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getSerializable(
+                    "priceFeed", QueryProto.QueryPricesResponse::class.java
+                )?.let { priceFeed = it }
+            }
+
+        } else {
+            arguments?.apply {
+                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+                (getSerializable("priceFeed") as? QueryProto.QueryPricesResponse)?.let {
+                    priceFeed = it
+                }
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -134,7 +173,7 @@ class MintListFragment(
 
         override fun otherMintClick(mintType: String?) {
             handleOneClickWithDelay(
-                CreateMintFragment(
+                CreateMintFragment.newInstance(
                     selectedChain,
                     mintParam?.collateralParamsList?.firstOrNull { it.type == mintType },
                     priceFeed
@@ -146,7 +185,7 @@ class MintListFragment(
     private val mintOptionClickAction = object : MintClickListener {
         override fun mintAction(mintType: String?, mintActionType: MintActionType) {
             handleOneClickWithDelay(
-                MintActionFragment(selectedChain,
+                MintActionFragment.newInstance(selectedChain,
                     mintActionType,
                     mintParam?.collateralParamsList?.firstOrNull { it.type == mintType },
                     myCdps?.firstOrNull { it.type == mintType })

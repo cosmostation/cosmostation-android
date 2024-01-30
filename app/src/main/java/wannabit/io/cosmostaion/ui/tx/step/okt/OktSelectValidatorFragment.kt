@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.okt
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,7 +13,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
@@ -37,10 +40,12 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class OktSelectValidatorFragment(val selectedChain: ChainOkt60) : BaseTxFragment() {
+class OktSelectValidatorFragment : BaseTxFragment() {
 
     private var _binding: FragmentOktSelectValidatorBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: ChainOkt60
 
     private lateinit var oktSelectValidatorAdapter: OktSelectValidatorAdapter
 
@@ -51,6 +56,18 @@ class OktSelectValidatorFragment(val selectedChain: ChainOkt60) : BaseTxFragment
     private var gasFee = BigDecimal(OKT_BASE_FEE)
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): OktSelectValidatorFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = OktSelectValidatorFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,8 +87,19 @@ class OktSelectValidatorFragment(val selectedChain: ChainOkt60) : BaseTxFragment
 
     private fun initView() {
         binding.apply {
-            memoView.setBackgroundResource(R.drawable.cell_bg)
-            feeView.setBackgroundResource(R.drawable.cell_bg)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", ChainOkt60::class.java)
+                    ?.let { selectedChain = it }
+
+            } else {
+                (arguments?.getParcelable("selectedChain") as? ChainOkt60)?.let {
+                    selectedChain = it
+                }
+            }
+
+            listOf(
+                memoView, feeView
+            ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
             val allValidators = selectedChain.oktValidatorInfo
             val myValidatorAddress = selectedChain.oktDepositedInfo?.validatorAddress?.map { it }
@@ -150,49 +178,45 @@ class OktSelectValidatorFragment(val selectedChain: ChainOkt60) : BaseTxFragment
 
         binding.apply {
             oktSelectValidatorAdapter.setOnItemClickListener {
-                OktValidatorFragment(selectedChain, myValidators, object : OkValidatorListener {
-                    override fun select(selectValidators: MutableList<OktValidatorResponse>) {
-                        myValidators.clear()
-                        myValidators.addAll(selectValidators)
-                        selectCnt.text = "(" + myValidators.size + ")"
-                        oktSelectValidatorAdapter.notifyDataSetChanged()
-                        txValidate()
-                        initFee()
-                    }
-                }).show(
-                    requireActivity().supportFragmentManager, OktValidatorFragment::class.java.name
+                handleOneClickWithDelay(
+                    OktValidatorFragment(selectedChain, myValidators, object : OkValidatorListener {
+                        override fun select(selectValidators: MutableList<OktValidatorResponse>) {
+                            myValidators.clear()
+                            myValidators.addAll(selectValidators)
+                            selectCnt.text = "(" + myValidators.size + ")"
+                            oktSelectValidatorAdapter.notifyDataSetChanged()
+                            txValidate()
+                            initFee()
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             emptyLayout.setOnClickListener {
-                OktValidatorFragment(selectedChain, myValidators, object : OkValidatorListener {
-                    override fun select(selectValidators: MutableList<OktValidatorResponse>) {
-                        validatorLayout.visibility = View.VISIBLE
-                        emptyLayout.visibility = View.GONE
-                        myValidators.clear()
-                        myValidators.addAll(selectValidators)
-                        selectCnt.text = "(" + myValidators.size + ")"
-                        oktSelectValidatorAdapter.notifyDataSetChanged()
-                        txValidate()
-                        initFee()
-                    }
-                }).show(
-                    requireActivity().supportFragmentManager, OktValidatorFragment::class.java.name
+                handleOneClickWithDelay(
+                    OktValidatorFragment(selectedChain, myValidators, object : OkValidatorListener {
+                        override fun select(selectValidators: MutableList<OktValidatorResponse>) {
+                            validatorLayout.visibility = View.VISIBLE
+                            emptyLayout.visibility = View.GONE
+                            myValidators.clear()
+                            myValidators.addAll(selectValidators)
+                            selectCnt.text = "(" + myValidators.size + ")"
+                            oktSelectValidatorAdapter.notifyDataSetChanged()
+                            txValidate()
+                            initFee()
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             memoView.setOnClickListener {
-                MemoFragment(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-
-                }).show(
-                    requireActivity().supportFragmentManager, MemoFragment::class.java.name
+                handleOneClickWithDelay(
+                    MemoFragment(txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
-                setClickableOnce(isClickable)
             }
 
             btnSelectValidator.setOnClickListener {
@@ -206,9 +230,13 @@ class OktSelectValidatorFragment(val selectedChain: ChainOkt60) : BaseTxFragment
         }
     }
 
-    private fun setClickableOnce(clickable: Boolean) {
-        if (clickable) {
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
             isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,16 +24,28 @@ import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
-class StakeInfoFragment(
-    private val selectedChain: CosmosLine
-) : Fragment() {
+class StakeInfoFragment : Fragment() {
 
     private var _binding: FragmentStakeInfoBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var selectedChain: CosmosLine
+
     private lateinit var stakingInfoAdapter: StakingInfoAdapter
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): StakeInfoFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = StakeInfoFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -51,6 +64,16 @@ class StakeInfoFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+
             lifecycleScope.launch(Dispatchers.IO) {
                 val rewardAddress = selectedChain.rewardAddress
                 var delegations = selectedChain.cosmosDelegations

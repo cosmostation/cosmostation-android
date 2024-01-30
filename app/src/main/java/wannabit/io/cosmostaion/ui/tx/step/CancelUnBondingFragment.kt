@@ -133,6 +133,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     cancelAmount.text =
                         formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
                     cancelDenom.text = asset.symbol
+                    cancelDenom.setTextColor(asset.assetColor())
                 }
             }
         }

@@ -1,25 +1,39 @@
 package wannabit.io.cosmostaion.ui.option.tx.general
 
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.databinding.FragmentVaultSelectBinding
 import wannabit.io.cosmostaion.ui.tx.step.neutron.VaultFragment
 import wannabit.io.cosmostaion.ui.tx.step.neutron.VaultType
 
-class VaultSelectFragment(private val selectedChain: CosmosLine) : BottomSheetDialogFragment() {
+class VaultSelectFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentVaultSelectBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+
+    private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): VaultSelectFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = VaultSelectFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,33 +45,50 @@ class VaultSelectFragment(private val selectedChain: CosmosLine) : BottomSheetDi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickAction()
+        initData()
+        setUpClickAction()
     }
 
-    private fun clickAction() {
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", ChainNeutron::class.java)
+                ?.let { selectedChain = it }
+        } else {
+            (arguments?.getParcelable("selectedChain") as? ChainNeutron)?.let {
+                selectedChain = it
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
         binding.apply {
             depositView.setOnClickListener {
-                lifecycleScope.launch {
-                    delay(300)
-                    dismiss()
-                    withContext(Dispatchers.Main) {
-                        val bottomSheet = VaultFragment(selectedChain as ChainNeutron, VaultType.DEPOSIT)
-                        bottomSheet.show(requireActivity().supportFragmentManager, VaultFragment::class.java.name)
-                    }
-                }
+                handleOneClickWithDelay(
+                    VaultFragment.newInstance(selectedChain as ChainNeutron, VaultType.DEPOSIT)
+                )
             }
 
             withdrawView.setOnClickListener {
-                lifecycleScope.launch {
-                    delay(300)
-                    dismiss()
-                    withContext(Dispatchers.Main) {
-                        val bottomSheet = VaultFragment(selectedChain as ChainNeutron, VaultType.WITHDRAW)
-                        bottomSheet.show(requireActivity().supportFragmentManager, VaultFragment::class.java.name)
-                    }
-                }
+                handleOneClickWithDelay(
+                    VaultFragment.newInstance(selectedChain as ChainNeutron, VaultType.WITHDRAW)
+                )
             }
         }
+    }
+
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
+            isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 1000)
+        }
+        dismiss()
     }
 
     override fun onDestroyView() {

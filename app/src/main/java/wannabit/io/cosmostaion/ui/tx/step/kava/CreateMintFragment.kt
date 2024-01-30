@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.kava
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -50,14 +51,14 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class CreateMintFragment(
-    val selectedChain: CosmosLine,
-    private val collateralParam: GenesisProto.CollateralParam?,
-    private val priceFeed: QueryPricesResponse?,
-) : BaseTxFragment() {
+class CreateMintFragment : BaseTxFragment() {
 
     private var _binding: FragmentCreateMintBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var collateralParam: GenesisProto.CollateralParam
+    private lateinit var priceFeed: QueryPricesResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -71,6 +72,24 @@ class CreateMintFragment(
     private var toPrincipalAmount = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine,
+            collateralParam: GenesisProto.CollateralParam?,
+            priceFeed: QueryPricesResponse?
+        ): CreateMintFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("collateralParam", collateralParam)
+                putSerializable("priceFeed", priceFeed)
+            }
+            val fragment = CreateMintFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -93,6 +112,28 @@ class CreateMintFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    ?.let { selectedChain = it }
+                arguments?.getSerializable(
+                    "collateralParam", GenesisProto.CollateralParam::class.java
+                )?.let { collateralParam = it }
+                arguments?.getSerializable(
+                    "priceFeed", QueryPricesResponse::class.java
+                )?.let { priceFeed = it }
+
+            } else {
+                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+                (arguments?.getSerializable("collateralParam") as? GenesisProto.CollateralParam)?.let {
+                    collateralParam = it
+                }
+                (arguments?.getSerializable("priceFeed") as? QueryPricesResponse)?.let {
+                    priceFeed = it
+                }
+            }
+
             listOf(
                 collateralAmountView, principalAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }

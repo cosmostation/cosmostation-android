@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.kava
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -51,15 +52,15 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class PoolActionFragment(
-    val selectedChain: CosmosLine,
-    private val poolActionType: PoolActionType,
-    private val swapPool: QueryProto.PoolResponse,
-    private val deposit: QueryProto.DepositResponse?
-) : BaseTxFragment() {
+class PoolActionFragment : BaseTxFragment() {
 
     private var _binding: FragmentPoolActionBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var poolActionType: PoolActionType
+    private lateinit var swapPool: QueryProto.PoolResponse
+    private lateinit var deposit: QueryProto.DepositResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -76,6 +77,26 @@ class PoolActionFragment(
     private var toWithdrawAmount = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine,
+            poolActionType: PoolActionType,
+            swapPool: QueryProto.PoolResponse?,
+            deposit: QueryProto.DepositResponse?
+        ): PoolActionFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("poolActionType", poolActionType)
+                putSerializable("swapPool", swapPool)
+                putSerializable("deposit", deposit)
+            }
+            val fragment = PoolActionFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -98,6 +119,40 @@ class PoolActionFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.apply {
+                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                        selectedChain = it
+                    }
+                    getSerializable(
+                        "poolActionType", PoolActionType::class.java
+                    )?.let { poolActionType = it }
+                    getSerializable(
+                        "swapPool", QueryProto.PoolResponse::class.java
+                    )?.let { swapPool = it }
+                    getSerializable(
+                        "deposit", QueryProto.DepositResponse::class.java
+                    )?.let { deposit = it }
+
+                }
+
+            } else {
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
+                    (getSerializable("poolActionType") as? PoolActionType)?.let {
+                        poolActionType = it
+                    }
+                    (getSerializable("swapPool") as? QueryProto.PoolResponse)?.let {
+                        swapPool = it
+                    }
+                    (getSerializable("deposit") as? QueryProto.DepositResponse)?.let {
+                        deposit = it
+                    }
+                }
+            }
+
             listOf(
                 poolView, shareAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
@@ -302,7 +357,7 @@ class PoolActionFragment(
                 handleOneClickWithDelay(
                     InsertAmountFragment(TxType.POOL_WITHDRAW,
                         null,
-                        deposit?.sharesOwned?.toBigDecimal(),
+                        deposit.sharesOwned?.toBigDecimal(),
                         toWithdrawAmount,
                         null,
                         null,

@@ -146,7 +146,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/button_fee_bg"
                                 android:paddingHorizontal="@dimen/space_10"
-                                android:paddingVertical="@dimen/space_8"
+                                android:paddingVertical="@dimen/space_6"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/view">
 
@@ -435,7 +435,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/button_fee_bg"
                                 android:paddingHorizontal="@dimen/space_10"
-                                android:paddingVertical="@dimen/space_8"
+                                android:paddingVertical="@dimen/space_6"
                                 app:layout_constraintStart_toStartOf="parent">
 
                                 <ImageView

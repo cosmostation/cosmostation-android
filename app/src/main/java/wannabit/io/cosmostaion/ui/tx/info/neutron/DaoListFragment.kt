@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.tx.info.neutron
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ProposalModule
@@ -33,9 +34,11 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
     private var modules: MutableList<ProposalModule?>? = mutableListOf()
     private var toVoteSingle: MutableList<String?> = mutableListOf()
     private var toVoteMulti: MutableList<String?> = mutableListOf()
+    private var toVoteOverrule: MutableList<String?> = mutableListOf()
 
     private var singleProposals: MutableList<Pair<String?, ProposalData?>> = mutableListOf()
     private var multiProposals: MutableList<Pair<String?, ProposalData?>> = mutableListOf()
+    private var overruleProposals: MutableList<Pair<String?, ProposalData?>> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -77,22 +80,24 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
             }
 
             proposalViewModel.voteDaoStatusResult.observe(viewLifecycleOwner) { voteStatus ->
-                voteStatus?.let {
-                    loading.visibility = View.GONE
-                    recycler.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    voteStatus?.let {
+                        loading.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
 
-                    daoListAdapter = DaoListAdapter(
-                        requireContext(),
-                        selectedChain,
-                        modules,
-                        daoProposals,
-                        it,
-                        daoProposalCheckAction
-                    )
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = daoListAdapter
-                }
+                        daoListAdapter = DaoListAdapter(
+                            requireContext(),
+                            selectedChain,
+                            modules,
+                            daoProposals,
+                            it,
+                            daoProposalCheckAction
+                        )
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = daoListAdapter
+                    }
+                }, 1000)
             }
         }
     }
@@ -115,7 +120,7 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
                     daoProposals.filter { toVoteSingle.contains(it.second?.id) && contAddress == it.first }
                         .toMutableList()
 
-            } else {
+            } else if (module == "Multiple Module") {
                 if (isChecked && !toVoteMulti.contains(proposalId)) {
                     toVoteMulti.add(proposalId)
                 } else if (!isChecked && toVoteMulti.contains(proposalId)) {
@@ -128,8 +133,22 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
                 multiProposals =
                     daoProposals.filter { toVoteMulti.contains(it.second?.id) && contAddress == it.first }
                         .toMutableList()
+
+            } else {
+                if (isChecked && !toVoteOverrule.contains(proposalId)) {
+                    toVoteOverrule.add(proposalId)
+                } else if (!isChecked && toVoteOverrule.contains(proposalId)) {
+                    toVoteOverrule.indexOf(proposalId).let { index ->
+                        if (index != -1) {
+                            toVoteOverrule.removeAt(index)
+                        }
+                    }
+                }
+                overruleProposals =
+                    daoProposals.filter { toVoteOverrule.contains(it.second?.id) && contAddress == it.first }
+                        .toMutableList()
             }
-            binding.btnVote.updateButtonView(toVoteSingle.isNotEmpty() || toVoteMulti.isNotEmpty())
+            binding.btnVote.updateButtonView(toVoteSingle.isNotEmpty() || toVoteMulti.isNotEmpty() || toVoteOverrule.isNotEmpty())
         }
     }
 
@@ -142,8 +161,10 @@ class DaoListFragment(private val selectedChain: ChainNeutron) : Fragment() {
             btnVote.setOnClickListener {
                 singleProposals.forEach { it.second?.myVote = null }
                 multiProposals.forEach { it.second?.myVote = null }
-                val bottomSheet = DaoVoteFragment(selectedChain, singleProposals, multiProposals)
-                bottomSheet.show(
+                overruleProposals.forEach { it.second?.myVote = null }
+                DaoVoteFragment(
+                    selectedChain, singleProposals, multiProposals, overruleProposals
+                ).show(
                     requireActivity().supportFragmentManager, DaoVoteFragment::class.java.name
                 )
             }

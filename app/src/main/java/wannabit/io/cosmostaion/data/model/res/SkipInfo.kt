@@ -18,7 +18,10 @@ data class SkipRouteResponse(
     val amount_out: String?,
     val operations: MutableList<Operation>?,
     val chain_ids: MutableList<String>?,
-    val swap_venue: SwapVenue?
+    val swap_venue: SwapVenue?,
+    val usd_amount_in: String?,
+    val usd_amount_out: String?,
+    val swap_price_impact_percent: String?
 )
 
 data class Operation(

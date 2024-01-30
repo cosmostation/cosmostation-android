@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.neutron
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +21,7 @@ import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -38,25 +40,26 @@ import wannabit.io.cosmostaion.data.model.req.UnbondReq
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentVaultBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class VaultFragment(
-    var selectedChain: ChainNeutron, private val vaultType: VaultType
-) : BaseTxFragment() {
+class VaultFragment : BaseTxFragment() {
 
     private var _binding: FragmentVaultBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: ChainNeutron
+    private lateinit var vaultType: VaultType
 
     private var toCoin: CoinProto.Coin? = null
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -67,6 +70,19 @@ class VaultFragment(
     private var availableAmount = BigDecimal.ZERO
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine, vaultType: VaultType): VaultFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("vaultType", vaultType)
+            }
+            val fragment = VaultFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -88,6 +104,25 @@ class VaultFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.apply {
+                    getParcelable("selectedChain", ChainNeutron::class.java)?.let {
+                        selectedChain = it
+                    }
+                    getSerializable("vaultType", VaultType::class.java)
+                }
+
+            } else {
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? ChainNeutron)?.let {
+                        selectedChain = it
+                    }
+                    (getSerializable("vaultType") as? VaultType)?.let {
+                        vaultType = it
+                    }
+                }
+            }
+
             listOf(
                 amountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
@@ -151,6 +186,7 @@ class VaultFragment(
                         )
                         vaultDenom.visibility = View.VISIBLE
                         vaultDenom.text = asset.symbol
+                        vaultDenom.setTextColor(asset.assetColor())
                     }
                 }
             }

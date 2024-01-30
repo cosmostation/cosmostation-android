@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info.kava
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,12 +23,12 @@ import wannabit.io.cosmostaion.ui.tx.step.kava.PoolActionType
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
 
-class PoolListFragment(
-    private val selectedChain: CosmosLine,
-) : Fragment() {
+class PoolListFragment : Fragment() {
 
     private var _binding: FragmentPoolListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
 
     private lateinit var kavaViewModel: KavaViewModel
 
@@ -39,6 +40,20 @@ class PoolListFragment(
 
     private var isClickable = true
 
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine
+        ): PoolListFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = PoolListFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -49,9 +64,25 @@ class PoolListFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         initViewModel()
         setUpSwapDataObserve()
         setUpClickAction()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.apply {
+                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+            }
+
+        } else {
+            arguments?.apply {
+                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -149,7 +180,7 @@ class PoolListFragment(
 
         override fun otherPoolSelect(name: String) {
             swapOtherList.firstOrNull { it.name == name }?.let { swapPool ->
-                PoolActionFragment(
+                PoolActionFragment.newInstance(
                     selectedChain, PoolActionType.DEPOSIT, swapPool, null
                 ).show(
                     requireActivity().supportFragmentManager, PoolActionFragment::class.java.name
@@ -161,7 +192,7 @@ class PoolListFragment(
     private val poolOptionClickAction = object : PoolClickListener {
         override fun poolDeposit(swapPool: QueryProto.PoolResponse) {
             handleOneClickWithDelay(
-                PoolActionFragment(
+                PoolActionFragment.newInstance(
                     selectedChain, PoolActionType.DEPOSIT, swapPool, null
                 )
             )
@@ -170,7 +201,7 @@ class PoolListFragment(
         override fun poolWithdraw(
             swapPool: QueryProto.PoolResponse, deposit: QueryProto.DepositResponse
         ) {
-            PoolActionFragment(
+            PoolActionFragment.newInstance(
                 selectedChain, PoolActionType.WITHDRAW, swapPool, deposit
             ).show(
                 requireActivity().supportFragmentManager, PoolActionFragment::class.java.name

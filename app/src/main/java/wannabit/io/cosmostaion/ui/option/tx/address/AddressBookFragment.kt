@@ -64,8 +64,9 @@ class AddressBookFragment(
                                 }
                             }
                         }
+
                     } else {
-                        if (refAddress.dpAddress?.startsWith(targetChain?.accountPrefix!!) == true && refAddress.dpAddress != sendAddress) {
+                        if (refAddress.dpAddress?.startsWith(targetChain?.accountPrefix!! + 1) == true && refAddress.dpAddress != sendAddress) {
                             if (Prefs.displayLegacy) {
                                 refAddresses.add(refAddress)
                             } else {

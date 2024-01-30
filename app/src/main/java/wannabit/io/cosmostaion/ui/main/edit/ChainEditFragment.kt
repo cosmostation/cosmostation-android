@@ -181,7 +181,11 @@ class ChainEditFragment : BaseTxFragment() {
                         account
                     ).contains(o2.tag) -> -1
 
-                    else -> 1
+                    Prefs.getDisplayChains(account).contains(o2.tag) && Prefs.getDisplayChains(
+                        account
+                    ).contains(o1.tag) -> 1
+
+                    else -> 0
                 }
             }
         }
@@ -193,16 +197,22 @@ class ChainEditFragment : BaseTxFragment() {
                 if (btnSelect.isEnabled) {
                     btnSelect.isEnabled = false
 
-                    allCosmosChains = reSortCosmosChains()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        allCosmosChains = reSortCosmosChains()
 
-                    toDisplayChainLines.clear()
-                    toDisplayChainLines.add("cosmos118")
+                        toDisplayChainLines.clear()
+                        toDisplayChainLines.add("cosmos118")
 
-                    allCosmosChains.filter { it.allAssetValue(true) > BigDecimal.ONE && it.tag != "cosmos118" }
-                        .forEach { toDisplayChainLines.add(it.tag) }
-                    valuableSortCosmosChains()
+                        allCosmosChains.filter { it.allAssetValue(true) > BigDecimal.ONE && it.tag != "cosmos118" }
+                            .forEach { toDisplayChainLines.add(it.tag) }
 
-                    chainEditAdapter.notifyItemRangeChanged(1, toDisplayChainLines.size + 1, null)
+                        valuableSortCosmosChains()
+                        withContext(Dispatchers.Main) {
+                            chainEditAdapter.notifyItemRangeChanged(
+                                1, toDisplayChainLines.size + 1, null
+                            )
+                        }
+                    }
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         btnSelect.isEnabled = true
@@ -239,7 +249,14 @@ class ChainEditFragment : BaseTxFragment() {
                             }
                         }
                     }
-                    chainEditAdapter.notifyDataSetChanged()
+                    if (searchChains.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        chainEditAdapter.notifyDataSetChanged()
+                    }
                     return true
                 }
             })

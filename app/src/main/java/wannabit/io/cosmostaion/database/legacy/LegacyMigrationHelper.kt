@@ -105,7 +105,7 @@ object LegacyMigrationHelper {
                 "newBip",
                 "customPath",
                 "mnemonicId"
-            ), null, null, null, null, null
+            ), "resource IS NOT NULL AND resource != ''", null, null, null, null, null
         )
         val accounts = mutableListOf<Account>()
         if (cursor != null && cursor.moveToFirst()) {

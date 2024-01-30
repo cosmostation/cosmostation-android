@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,7 +108,7 @@ class CosmosDetailFragment : Fragment() {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
 
-                if (selectedChain is ChainOkt60) {
+                if (selectedChain is ChainOkt60 || selectedChain.tag == "kava60" || selectedChain.tag == "xplaKeccak256") {
                     accountAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
                 } else {
                     accountAddress.text = selectedChain.address
@@ -139,7 +138,7 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    fun updateTokenValue() {
+    private fun updateTokenValue() {
         walletViewModel.fetchedTokenResult.observe(viewLifecycleOwner) {
             if (isAdded) {
                 requireActivity().runOnUiThread {
@@ -284,7 +283,9 @@ class CosmosDetailFragment : Fragment() {
                     if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                         handleOneClickWithDelay(null, LegacyTransferFragment(selectedChain, denom))
                     } else {
-                        handleOneClickWithDelay(null, TransferFragment.newInstance(selectedChain, denom))
+                        handleOneClickWithDelay(
+                            null, TransferFragment.newInstance(selectedChain, denom)
+                        )
                     }
                 }
             }
@@ -295,7 +296,7 @@ class CosmosDetailFragment : Fragment() {
 
             fabStake.setOnClickListener {
                 if (selectedChain.cosmosValidators.size > 0) {
-                    handleOneClickWithDelay(StakeInfoFragment(selectedChain), null)
+                    handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
 
                 } else {
                     requireContext().makeToast(R.string.error_wait_moment)
@@ -338,7 +339,9 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                     if (selectedChain.rewardAddress != selectedChain.address) {
-                        requireContext().showToast(view, R.string.error_reward_address_changed_msg, false)
+                        requireContext().showToast(
+                            view, R.string.error_reward_address_changed_msg, false
+                        )
                         return@setOnClickListener
                     }
                     if (!selectedChain.isTxFeePayable(requireContext())) {
@@ -363,7 +366,9 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabDefi.setOnClickListener {
-                handleOneClickWithDelay(KavaDefiFragment(selectedChain as ChainKava459), null)
+                handleOneClickWithDelay(
+                    KavaDefiFragment.newInstance(selectedChain as ChainKava459), null
+                )
             }
 
             fabDao.setOnClickListener {
@@ -371,11 +376,13 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabVault.setOnClickListener {
-                handleOneClickWithDelay(null, VaultSelectFragment(selectedChain))
+                handleOneClickWithDelay(null, VaultSelectFragment.newInstance(selectedChain))
             }
 
             fabDeposit.setOnClickListener {
-                handleOneClickWithDelay(null, OktDepositFragment(selectedChain as ChainOkt60))
+                handleOneClickWithDelay(
+                    null, OktDepositFragment.newInstance(selectedChain as ChainOkt60)
+                )
             }
 
             fabWithdraw.setOnClickListener {
@@ -383,7 +390,9 @@ class CosmosDetailFragment : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                handleOneClickWithDelay(null, OktWithdrawFragment(selectedChain as ChainOkt60))
+                handleOneClickWithDelay(
+                    null, OktWithdrawFragment.newInstance(selectedChain as ChainOkt60)
+                )
             }
 
             fabSelectValidator.setOnClickListener {
@@ -391,7 +400,9 @@ class CosmosDetailFragment : Fragment() {
                     requireContext().makeToast(R.string.error_no_deposited_asset)
                     return@setOnClickListener
                 }
-                handleOneClickWithDelay(null, OktSelectValidatorFragment(selectedChain as ChainOkt60))
+                handleOneClickWithDelay(
+                    null, OktSelectValidatorFragment.newInstance(selectedChain as ChainOkt60)
+                )
             }
         }
     }

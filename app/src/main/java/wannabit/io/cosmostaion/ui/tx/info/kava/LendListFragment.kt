@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info.kava
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -33,12 +34,13 @@ import wannabit.io.cosmostaion.ui.viewmodel.chain.LendingData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class LendListFragment(
-    private val selectedChain: CosmosLine, private val priceFeed: QueryProto.QueryPricesResponse?
-) : Fragment() {
+class LendListFragment : Fragment() {
 
     private var _binding: FragmentLendListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var priceFeed: QueryProto.QueryPricesResponse
 
     private lateinit var kavaViewModel: KavaViewModel
 
@@ -51,6 +53,21 @@ class LendListFragment(
 
     private var isClickable = true
 
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine, priceFeed: QueryProto.QueryPricesResponse?
+        ): LendListFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("priceFeed", priceFeed)
+            }
+            val fragment = LendListFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -61,9 +78,31 @@ class LendListFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         initViewModel()
         setUpLendingDataObserve()
         setUpClickAction()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.apply {
+                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getSerializable(
+                    "priceFeed", QueryProto.QueryPricesResponse::class.java
+                )?.let { priceFeed = it }
+            }
+
+        } else {
+            arguments?.apply {
+                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+                (getSerializable("priceFeed") as? QueryProto.QueryPricesResponse)?.let {
+                    priceFeed = it
+                }
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -176,13 +215,13 @@ class LendListFragment(
             }
 
             handleOneClickWithDelay(
-                LendActionFragment(
+                LendActionFragment.newInstance(
                     selectedChain,
                     lendActionType,
                     lendMyDeposits,
                     lendMyBorrows,
                     lendMoneyMarkets.hardMoneyMarket(denom),
-                    BigDecimal.ZERO
+                    BigDecimal.ZERO.toString()
                 )
             )
         }
@@ -209,7 +248,7 @@ class LendListFragment(
             val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
             val LTV = lendMoneyMarkets.getLTV(coin.denom)
             val marketIdPrice =
-                priceFeed?.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+                priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
             val depositValue =
                 coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice)
                     .setScale(12, RoundingMode.DOWN)
@@ -219,14 +258,14 @@ class LendListFragment(
         lendMyBorrows.forEach { coin ->
             val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
             val marketIdPrice =
-                priceFeed?.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+                priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
             val borrowValue =
                 coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice)
                     .setScale(12, RoundingMode.DOWN)
             totalBorrowedValue = totalBorrowedValue.add(borrowValue)
         }
 
-        val oraclePrice = priceFeed?.kavaOraclePrice(lendMoneyMarkets.spotMarketId(denom))
+        val oraclePrice = priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(denom))
         val decimal = BaseData.assets?.firstOrNull { it.denom == denom }?.decimals ?: 6
         val totalBorrowAbleValue = totalLTVValue.subtract(totalBorrowedValue).max(BigDecimal.ZERO)
         val totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal)

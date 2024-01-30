@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.kava
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -54,15 +55,15 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class MintActionFragment(
-    val selectedChain: CosmosLine,
-    private val mintActionType: MintActionType,
-    private val collateralParam: CollateralParam?,
-    private val myCdp: CDPResponse?
-) : BaseTxFragment() {
+class MintActionFragment : BaseTxFragment() {
 
     private var _binding: FragmentMintActionBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var mintActionType: MintActionType
+    private lateinit var collateralParam: CollateralParam
+    private lateinit var myCdp: CDPResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -77,6 +78,26 @@ class MintActionFragment(
     private var toPrincipalAmount = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine,
+            mintActionType: MintActionType,
+            collateralParam: CollateralParam?,
+            myCdp: CDPResponse?
+        ): MintActionFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("mintActionType", mintActionType)
+                putSerializable("collateralParam", collateralParam)
+                putSerializable("myCdp", myCdp)
+            }
+            val fragment = MintActionFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -99,12 +120,46 @@ class MintActionFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.apply {
+                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                        selectedChain = it
+                    }
+                    getSerializable(
+                        "mintActionType", MintActionType::class.java
+                    )?.let { mintActionType = it }
+                    getSerializable(
+                        "collateralParam", CollateralParam::class.java
+                    )?.let { collateralParam = it }
+                    getSerializable(
+                        "myCdp", CDPResponse::class.java
+                    )?.let { myCdp = it }
+
+                }
+
+            } else {
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
+                    (getSerializable("mintActionType") as? MintActionType)?.let {
+                        mintActionType = it
+                    }
+                    (getSerializable("collateralParam") as? CollateralParam)?.let {
+                        collateralParam = it
+                    }
+                    (getSerializable("priceFeed") as? CDPResponse)?.let {
+                        myCdp = it
+                    }
+                }
+            }
+
             listOf(
                 mintAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            collateralParam?.let { collateralParam ->
+            collateralParam.let { collateralParam ->
                 collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
                 principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
 
@@ -132,7 +187,7 @@ class MintActionFragment(
                             mintActionTitle.text = getString(R.string.title_withdraw_collateral)
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
-                            collateralAvailableAmount = myCdp?.collateral?.amount?.toBigDecimal()
+                            collateralAvailableAmount = myCdp.collateral?.amount?.toBigDecimal()
                         }
                     }
 
@@ -144,11 +199,11 @@ class MintActionFragment(
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             val padding = BigDecimal("0.95")
-                            val collateralValue = myCdp?.collateralValue?.amount
+                            val collateralValue = myCdp.collateralValue?.amount
                             val ltvAmount = collateralValue?.toBigDecimal()?.divide(
                                 collateralParam.liquidationRatioAmount(), 0, RoundingMode.DOWN
                             )?.multiply(padding)?.setScale(0, RoundingMode.DOWN)
-                            val currentBorrowed = myCdp?.debtAmount()
+                            val currentBorrowed = myCdp.debtAmount()
                             ltvAmount?.let {
                                 if (it.subtract(currentBorrowed) > BigDecimal.ZERO) {
                                     principalAvailableAmount = it.subtract(currentBorrowed)
@@ -559,33 +614,33 @@ class MintActionFragment(
     }
 
     private fun onBindDepositMsg(): MsgDeposit? {
-        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom)
+        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam.denom)
             .setAmount(toCollateralAmount).build()
         return MsgDeposit.newBuilder().setOwner(selectedChain.address)
             .setDepositor(selectedChain.address).setCollateral(collateralCoin)
-            .setCollateralType(collateralParam?.type).build()
+            .setCollateralType(collateralParam.type).build()
     }
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
-        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom)
+        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam.denom)
             .setAmount(toCollateralAmount).build()
         return MsgWithdraw.newBuilder().setOwner(selectedChain.address)
             .setDepositor(selectedChain.address).setCollateral(collateralCoin)
-            .setCollateralType(collateralParam?.type).build()
+            .setCollateralType(collateralParam.type).build()
     }
 
     private fun onBindBorrowMsg(): MsgDrawDebt? {
         val principalCoin =
             CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
         return MsgDrawDebt.newBuilder().setSender(selectedChain.address).setPrincipal(principalCoin)
-            .setCollateralType(collateralParam?.type).build()
+            .setCollateralType(collateralParam.type).build()
     }
 
     private fun onBindRepayMsg(): MsgRepayDebt? {
         val paymentCoin =
             CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
         return MsgRepayDebt.newBuilder().setSender(selectedChain.address).setPayment(paymentCoin)
-            .setCollateralType(collateralParam?.type).build()
+            .setCollateralType(collateralParam.type).build()
     }
 
     private fun setUpSimulate() {

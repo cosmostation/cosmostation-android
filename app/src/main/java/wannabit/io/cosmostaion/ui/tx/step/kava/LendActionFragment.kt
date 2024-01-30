@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.kava
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -51,17 +52,17 @@ import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class LendActionFragment(
-    val selectedChain: CosmosLine,
-    private val lendActionType: LendActionType,
-    private val lendMyDeposit: MutableList<CoinProto.Coin>,
-    private val lendMyBorrows: MutableList<CoinProto.Coin>,
-    private val lendMoneyMarket: HardProto.MoneyMarket?,
-    private val borrowAbleAmount: BigDecimal
-) : BaseTxFragment() {
+class LendActionFragment : BaseTxFragment() {
 
     private var _binding: FragmentLendActionBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+    private lateinit var lendActionType: LendActionType
+    private lateinit var lendMyDeposits: MutableList<CoinProto.Coin>
+    private lateinit var lendMyBorrows: MutableList<CoinProto.Coin>
+    private lateinit var lendMoneyMarket: HardProto.MoneyMarket
+    private lateinit var borrowAbleAmount: BigDecimal
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -73,6 +74,30 @@ class LendActionFragment(
     private var toLendAmount = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine,
+            lendActionType: LendActionType,
+            lendMyDeposits: MutableList<CoinProto.Coin>,
+            lendMyBorrows: MutableList<CoinProto.Coin>,
+            lendMoneyMarket: HardProto.MoneyMarket?,
+            borrowAbleAmount: String
+        ): LendActionFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putSerializable("lendActionType", lendActionType)
+                putSerializable("lendMyDeposits", lendMyDeposits.toHashSet())
+                putSerializable("lendMyBorrows", lendMyBorrows.toHashSet())
+                putSerializable("lendMoneyMarket", lendMoneyMarket)
+                putString("borrowAbleAmount", borrowAbleAmount)
+            }
+            val fragment = LendActionFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -95,12 +120,46 @@ class LendActionFragment(
 
     private fun initView() {
         binding.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.apply {
+                    getParcelable("selectedChain", CosmosLine::class.java)
+                        ?.let { selectedChain = it }
+                    getSerializable(
+                        "lendActionType", LendActionType::class.java
+                    )?.let { lendActionType = it }
+                    getSerializable(
+                        "lendMoneyMarket", HardProto.MoneyMarket::class.java
+                    )?.let { lendMoneyMarket = it }
+                }
+
+            } else {
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
+                    (getSerializable("lendActionType") as? LendActionType)?.let {
+                        lendActionType = it
+                    }
+                    (getSerializable("lendMoneyMarket") as? HardProto.MoneyMarket)?.let {
+                        lendMoneyMarket = it
+                    }
+                }
+            }
+            val serializableDepositList =
+                arguments?.getSerializable("lendMyDeposits") as? HashSet<*>
+            lendMyDeposits = serializableDepositList?.toList() as MutableList<CoinProto.Coin>
+            val serializableBorrowList = arguments?.getSerializable("lendMyBorrows") as? HashSet<*>
+            lendMyBorrows = serializableBorrowList?.toList() as MutableList<CoinProto.Coin>
+            arguments?.getString("borrowAbleAmount")?.toBigDecimal()?.let {
+                borrowAbleAmount = it
+            }
+
             listOf(
                 lendAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            lendMoneyMarket?.let { market ->
+            lendMoneyMarket.let { market ->
                 BaseData.getAsset(selectedChain.apiName, market.denom)?.let { asset ->
                     msAsset = asset
                     tokenImg.setTokenImg(asset)
@@ -124,7 +183,7 @@ class LendActionFragment(
                             lendAmountTitle.text = getString(R.string.title_vault_withdraw_amount)
                             btnLend.text = getString(R.string.str_withdraw)
                             availableAmount =
-                                lendMyDeposit.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal()
+                                lendMyDeposits.firstOrNull { it.denom == market.denom }?.amount?.toBigDecimal()
                                     ?: BigDecimal.ZERO
                         }
 
@@ -508,7 +567,7 @@ class LendActionFragment(
 
     private fun onBindDepositMsg(): MsgDeposit? {
         val depositCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
         return MsgDeposit.newBuilder().setDepositor(selectedChain.address).addAmount(depositCoin)
             .build()
@@ -516,7 +575,7 @@ class LendActionFragment(
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
         val withdrawCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
         return MsgWithdraw.newBuilder().setDepositor(selectedChain.address).addAmount(withdrawCoin)
             .build()
@@ -524,7 +583,7 @@ class LendActionFragment(
 
     private fun onBindBorrowMsg(): MsgBorrow? {
         val borrowCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
         return MsgBorrow.newBuilder().setBorrower(selectedChain.address).addAmount(borrowCoin)
             .build()
@@ -532,7 +591,7 @@ class LendActionFragment(
 
     private fun onBindRepayMsg(): MsgRepay? {
         val repayCoin =
-            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket?.denom).setAmount(toLendAmount)
+            CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
         return MsgRepay.newBuilder().setSender(selectedChain.address)
             .setOwner(selectedChain.address).addAmount(repayCoin).build()

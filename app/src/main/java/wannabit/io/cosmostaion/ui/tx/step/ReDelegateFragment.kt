@@ -241,6 +241,7 @@ class ReDelegateFragment : BaseTxFragment() {
                         )
                         redelegateDenom.visibility = View.VISIBLE
                         redelegateDenom.text = asset.symbol
+                        redelegateDenom.setTextColor(asset.assetColor())
                     }
                 }
             }

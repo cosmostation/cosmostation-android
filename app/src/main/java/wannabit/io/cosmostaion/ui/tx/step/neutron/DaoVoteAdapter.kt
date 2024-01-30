@@ -14,12 +14,14 @@ class DaoVoteAdapter(
     private var proposalModules: MutableList<ProposalModule?>?,
     private var singleProposals: List<Pair<String?, ProposalData?>>,
     private var multiProposals: List<Pair<String?, ProposalData?>>,
+    private var overruleProposals: List<Pair<String?, ProposalData?>>,
     private var listener: ClickListener
 ) : ListAdapter<Pair<String?, ProposalData?>, ViewHolder>(DaoVoteDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE_SINGLE = 0
         const val VIEW_TYPE_MULTI = 1
+        const val VIEW_TYPE_OVERRULE = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +38,13 @@ class DaoVoteAdapter(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 DaoMultiVoteViewHolder(parent.context, binding)
+            }
+
+            VIEW_TYPE_OVERRULE -> {
+                val binding = ItemDaoSingleVoteBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                DaoOverruleViewHolder(parent.context, binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -59,14 +68,24 @@ class DaoVoteAdapter(
                     holder.bind(proposal.second, module, listener)
                 }
             }
+
+            VIEW_TYPE_OVERRULE -> {
+                if (holder is DaoOverruleViewHolder) {
+                    val proposal = overruleProposals[position]
+                    val module = proposalModules?.firstOrNull { it?.address == proposal.first }
+                    holder.bind(proposal.second, module, listener)
+                }
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (position < singleProposals.size) {
             VIEW_TYPE_SINGLE
-        } else {
+        } else if (position < (singleProposals.size + multiProposals.size)) {
             VIEW_TYPE_MULTI
+        } else {
+            VIEW_TYPE_OVERRULE
         }
     }
 

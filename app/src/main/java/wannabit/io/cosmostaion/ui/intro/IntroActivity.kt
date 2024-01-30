@@ -110,6 +110,7 @@ class IntroActivity : AppCompatActivity() {
             val account = BaseData.getLastAccount()
             account?.let {
                 BaseData.baseAccount = account
+                account.initAccount()
                 if (CosmostationApp.instance.needShowLockScreen()) {
                     val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
                     startActivity(intent)
