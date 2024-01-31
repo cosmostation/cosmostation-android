@@ -2,13 +2,11 @@ package wannabit.io.cosmostaion.ui.tx.info.neutron
 
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -21,9 +19,12 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
+import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentDaoBinding
 import wannabit.io.cosmostaion.ui.tx.step.neutron.DaoVoteFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 
 class DaoSingleFragment : Fragment() {
 
@@ -33,7 +34,7 @@ class DaoSingleFragment : Fragment() {
     private lateinit var selectedChain: ChainNeutron
     private var neutronMyVotes: MutableList<ResDaoVoteStatus>? = mutableListOf()
 
-    private val proposalViewModel: ProposalViewModel by activityViewModels()
+    private lateinit var proposalViewModel: ProposalViewModel
 
     private lateinit var daoProposalListAdapter: DaoProposalListAdapter
 
@@ -69,9 +70,17 @@ class DaoSingleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initData()
         setUpClickAction()
         updateFilterList()
+    }
+
+    private fun initViewModel() {
+        val proposalRepository = ProposalRepositoryImpl()
+        val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
+        proposalViewModel =
+            ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
     }
 
     private fun initData() {
@@ -128,16 +137,14 @@ class DaoSingleFragment : Fragment() {
 
     private fun updateView() {
         binding.apply {
-            Handler(Looper.getMainLooper()).postDelayed({
-                loading.visibility = View.GONE
-                if (filterVotingPeriods.isEmpty() && filterEtcPeriods.isEmpty()) {
-                    emptyLayout.visibility = View.VISIBLE
-                } else {
-                    recycler.visibility = View.VISIBLE
-                    updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
-                }
-                btnVote.updateButtonView(false)
-            }, 500)
+            loading.visibility = View.GONE
+            if (filterVotingPeriods.isEmpty() && filterEtcPeriods.isEmpty()) {
+                emptyLayout.visibility = View.VISIBLE
+            } else {
+                recycler.visibility = View.VISIBLE
+                updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+            }
+            btnVote.updateButtonView(false)
         }
     }
 
@@ -160,7 +167,7 @@ class DaoSingleFragment : Fragment() {
     }
 
     private fun updateFilterList() {
-        proposalViewModel.filterData.observe(viewLifecycleOwner) { isShowAll ->
+        ApplicationViewModel.shared.filterDataResult.observe(viewLifecycleOwner) { isShowAll ->
             if (isShowAll) {
                 updateRecyclerView(votingPeriods, etcPeriods)
             } else {

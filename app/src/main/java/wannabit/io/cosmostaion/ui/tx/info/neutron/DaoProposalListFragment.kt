@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.databinding.FragmentDaoProposalListBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 
 class DaoProposalListFragment : Fragment() {
@@ -56,6 +57,7 @@ class DaoProposalListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        initTab()
         setUpMyVoteStatus()
         setUpClickAction()
     }
@@ -113,7 +115,6 @@ class DaoProposalListFragment : Fragment() {
 
     private fun setUpMyVoteStatus() {
         proposalViewModel.voteDaoStatusResult.observe(viewLifecycleOwner) { voteStatus ->
-            neutronMyVotes?.clear()
             voteStatus?.let { neutronMyVotes = voteStatus }
             initTab()
         }
@@ -134,7 +135,7 @@ class DaoProposalListFragment : Fragment() {
                     btnFilter.setImageResource(R.drawable.icon_filter)
                     requireActivity().makeToast(R.string.str_hide_scam_proposals)
                 }
-                proposalViewModel.updateFilterData(isShowAll)
+                ApplicationViewModel.shared.updateFilterData(isShowAll)
             }
         }
     }

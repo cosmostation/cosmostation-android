@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
+import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
 import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -23,7 +24,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 class ProposalListFragment : Fragment() {
 
     private var _binding: FragmentProposalListBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentProposalListBinding? get() = _binding
 
     private lateinit var selectedChain: CosmosLine
 
@@ -54,7 +55,7 @@ class ProposalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProposalListBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,7 +82,7 @@ class ProposalListFragment : Fragment() {
     private fun initRecyclerView() {
         proposalViewModel.proposalList(selectedChain.apiName)
 
-        binding.apply {
+        binding?.apply {
             btnVote.updateButtonView(false)
             proposalViewModel.proposalResult.observe(viewLifecycleOwner) { proposals ->
                 votingPeriods.clear()
@@ -135,7 +136,7 @@ class ProposalListFragment : Fragment() {
     private fun updateRecyclerView(
         votingPeriods: MutableList<CosmosProposal>, etcPeriods: MutableList<CosmosProposal>
     ) {
-        binding.recycler.apply {
+        binding?.recycler?.apply {
             proposalListAdapter = ProposalListAdapter(
                 requireContext(),
                 selectedChain,
@@ -164,13 +165,13 @@ class ProposalListFragment : Fragment() {
                 }
             }
             toVoteList?.let {
-                binding.btnVote.updateButtonView(it.isNotEmpty())
+                binding?.btnVote?.updateButtonView(it.isNotEmpty())
             }
         }
     }
 
     private fun setUpClickAction() {
-        binding.apply {
+        binding?.apply {
             btnBack.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }

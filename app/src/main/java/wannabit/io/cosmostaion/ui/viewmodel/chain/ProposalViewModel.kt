@@ -89,6 +89,7 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
                             )
 
                         }
+
                         NEUTRON_MULTI_MODULE -> {
                             _daoMultipleProposalsResult.postValue(
                                 Gson().fromJson(
@@ -97,6 +98,7 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
                             )
 
                         }
+
                         NEUTRON_OVERRULE_MODULE -> {
                             _daoOverruleProposalsResult.postValue(
                                 Gson().fromJson(
@@ -130,12 +132,5 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
                 _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
-    }
-
-    private val _filterData = MutableLiveData<Boolean>()
-    val filterData: LiveData<Boolean> get() = _filterData
-
-    fun updateFilterData(isShowAll: Boolean) {
-        _filterData.value = isShowAll
     }
 }

@@ -453,4 +453,10 @@ class ApplicationViewModel(
             }
         }
     }
+
+    private var _filterDataResult = MutableLiveData<Boolean>()
+    val filterDataResult: LiveData<Boolean> get() = _filterDataResult
+    fun updateFilterData(isShowAll: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        _filterDataResult.postValue(isShowAll)
+    }
 }
