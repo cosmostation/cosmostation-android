@@ -62,10 +62,10 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.DialogBigLossWarnBinding
 import wannabit.io.cosmostaion.databinding.FragmentSwapBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainListType
 import wannabit.io.cosmostaion.ui.option.tx.general.ChainSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.swap.AssetListener
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectFragment
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectType
 import wannabit.io.cosmostaion.ui.option.tx.swap.SlippageFragment
@@ -607,7 +607,7 @@ class SwapFragment : BaseTxFragment() {
             btnSlippage.setOnClickListener {
                 toMsg = null
                 handleOneClickWithDelay(
-                    SlippageFragment(object : SlippageListener {
+                    SlippageFragment.newInstance(object : SlippageListener {
                         override fun slippage(position: Int) {
                             skipSlippage = position.toString()
                             updateAmountView()
@@ -669,10 +669,10 @@ class SwapFragment : BaseTxFragment() {
 
             inputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment(inputAssets,
+                    AssetSelectFragment.newInstance(inputAssets,
                         inputCosmosLine?.cosmosBalances,
                         AssetSelectType.SWAP_INPUT,
-                        object : AssetSelectListener {
+                        object : AssetListener {
                             override fun select(denom: String) {
                                 inputAssetSelected = inputAssets.firstOrNull { it.denom == denom }
                                 initView()
@@ -753,10 +753,10 @@ class SwapFragment : BaseTxFragment() {
 
             outputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment(outputAssets,
+                    AssetSelectFragment.newInstance(outputAssets,
                         outputCosmosLine?.cosmosBalances,
                         AssetSelectType.SWAP_OUTPUT,
-                        object : AssetSelectListener {
+                        object : AssetListener {
                             override fun select(denom: String) {
                                 outputAssetSelected = outputAssets.firstOrNull { it.denom == denom }
                                 initView()

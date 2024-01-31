@@ -28,39 +28,29 @@ class ProposalRepositoryImpl : ProposalRepository {
     }
 
     override suspend fun voteStatus(
-        chain: String,
-        account: String?
+        chain: String, account: String?
     ): NetworkResult<Response<VoteStatus>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.mintscanApi.voteStatus(chain, account)
         }
     }
 
-    override suspend fun daoProposal(
-        managedChannel: ManagedChannel,
-        contAddress: String?
-    ): String {
-        try {
-            val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val req = ProposalListReq(ProposalList())
-            val queryData = ByteString.copyFromUtf8(Gson().toJson(req))
-            val request = QueryProto.QuerySmartContractStateRequest.newBuilder()
-                .setAddress(contAddress)
-                .setQueryData(queryData)
-                .build()
+    override suspend fun daoProposals(
+        managedChannel: ManagedChannel, contAddress: String?
+    ): NetworkResult<String?> {
+        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+        val req = ProposalListReq(ProposalList())
+        val queryData = ByteString.copyFromUtf8(Gson().toJson(req))
+        val request = QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(contAddress)
+            .setQueryData(queryData).build()
 
-            stub.smartContractState(request).apply {
-                return this.data.toStringUtf8()
-            }
-
-        } catch (e: Exception) {
-            return ""
+        return safeApiCall(Dispatchers.IO) {
+            stub.smartContractState(request).data.toStringUtf8()
         }
     }
 
     override suspend fun daoVoteStatus(
-        chain: String,
-        address: String?
+        chain: String, address: String?
     ): NetworkResult<Response<MutableList<ResDaoVoteStatus>>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.mintscanApi.daoVoteStatus(chain, address)

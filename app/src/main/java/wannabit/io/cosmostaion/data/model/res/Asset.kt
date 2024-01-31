@@ -1,13 +1,16 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.graphics.Color
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @JsonClass(generateAdapter = true)
 data class AssetResponse(val assets: List<Asset>?)
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Asset(
     val chain: String?,
@@ -28,7 +31,7 @@ data class Asset(
     val channel: String?,
     val port: String?,
     @Json(name = "counter_party") val counterParty: CounterParty?,
-) {
+) : Parcelable {
 
     fun beforeChain(apiName: String): String? {
         path?.let {
@@ -55,12 +58,13 @@ data class Asset(
     }
 }
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class CounterParty(
     val channel: String?,
     val port: String?,
     val denom: String?
-)
+) : Parcelable
 
 data class AssetPath(
     var channel: String?,

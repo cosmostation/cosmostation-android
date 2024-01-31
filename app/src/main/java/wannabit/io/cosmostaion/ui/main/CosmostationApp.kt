@@ -64,11 +64,12 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
         initWalletConnectV2()
     }
 
-    private fun setRandomBackgroundImage() {
+    fun setRandomBackgroundImage() {
         val imageArray = intArrayOf(
             R.drawable.bg_00,
             R.drawable.bg_01,
             R.drawable.bg_02,
+            R.drawable.bg_03
         )
 
         val randomIndex = (Math.random() * imageArray.size).toInt()

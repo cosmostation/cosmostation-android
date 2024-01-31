@@ -6,6 +6,7 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -68,6 +69,8 @@ class MainActivity : BaseActivity() {
     private fun setupViewModels() {
         ApplicationViewModel.shared.currentAccountResult.observe(this) {
             binding.accountName.text = BaseData.baseAccount?.name
+            CosmostationApp.instance.setRandomBackgroundImage()
+            binding.parentLayout.setBackgroundResource(Prefs.background)
         }
     }
 

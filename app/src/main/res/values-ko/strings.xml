@@ -248,6 +248,8 @@
     <string name="str_enter_pin_msg">PIN 번호를 입력해 주세요.</string>
     <string name="str_disabled_app_msg">시스템 점검중입니다.\n\n자세한 내용은 커뮤니티 채널을 확인해주세요.</string>
     <string name="str_big_loss_msg">현재 선택하신 스왑을 진행하시면 상당한 재산상 손해가 예상됩니다.\n\n예상 입력, 출력 가치를 확인하신 후 신중히 결정해주세요.</string>
+    <string name="str_show_all_proposals_msg">모든 프로포절을 표시합니다.</string>
+    <string name="str_hide_scam_proposals">스캠의심 프로포절을 필터합니다.</string>
 
 
     // error

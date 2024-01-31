@@ -1,17 +1,14 @@
 package wannabit.io.cosmostaion.ui.tx.step.neutron
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.gapTime
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.common.visibleOrInvisible
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.ProposalData
-import wannabit.io.cosmostaion.data.model.res.ProposalModule
 import wannabit.io.cosmostaion.databinding.ItemDaoMultiChoiceBinding
 import wannabit.io.cosmostaion.databinding.ItemDaoMultiVoteBinding
 
@@ -20,9 +17,7 @@ class DaoMultiVoteViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        proposalData: ProposalData?,
-        proposalModule: ProposalModule?,
-        listener: DaoVoteAdapter.ClickListener
+        proposalData: ProposalData?, listener: DaoVoteAdapter.ClickListener
     ) {
         binding.apply {
             voteView.setBackgroundResource(R.drawable.cell_bg)
@@ -61,7 +56,7 @@ class DaoMultiVoteViewHolder(
                                 proposal.myVote = choice.index.toString()
                                 choice.index?.let { index ->
                                     listener.selectOption(
-                                        adapterPosition, proposalModule?.name, index
+                                        adapterPosition, "Multiple", index
                                     )
                                 }
                             }

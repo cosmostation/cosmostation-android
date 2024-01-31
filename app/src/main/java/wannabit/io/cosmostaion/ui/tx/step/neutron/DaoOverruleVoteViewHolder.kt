@@ -8,17 +8,14 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.ProposalData
-import wannabit.io.cosmostaion.data.model.res.ProposalModule
 import wannabit.io.cosmostaion.databinding.ItemDaoSingleVoteBinding
 
-class DaoOverruleViewHolder(
+class DaoOverruleVoteViewHolder(
     val context: Context, private val binding: ItemDaoSingleVoteBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        proposalData: ProposalData?,
-        proposalModule: ProposalModule?,
-        listener: DaoVoteAdapter.ClickListener
+        proposalData: ProposalData?, listener: DaoVoteAdapter.ClickListener
     ) {
         binding.apply {
             voteView.setBackgroundResource(R.drawable.cell_bg)
@@ -39,17 +36,17 @@ class DaoOverruleViewHolder(
             }
 
             yesView.setOnClickListener {
-                listener.selectOption(adapterPosition, proposalModule?.name, 0)
+                listener.selectOption(adapterPosition, "Overrule", 0)
                 updateView(proposalData)
             }
 
             noView.setOnClickListener {
-                listener.selectOption(adapterPosition, proposalModule?.name, 1)
+                listener.selectOption(adapterPosition, "Overrule", 1)
                 updateView(proposalData)
             }
 
             abstainView.setOnClickListener {
-                listener.selectOption(adapterPosition, proposalModule?.name, 2)
+                listener.selectOption(adapterPosition, "Overrule", 2)
                 updateView(proposalData)
             }
         }
@@ -70,16 +67,16 @@ class DaoOverruleViewHolder(
                     yesImg.visibility = View.VISIBLE
                     yesView.setBackgroundResource(R.drawable.button_check_bg)
                 }
+
                 "no" -> {
                     noImg.visibility = View.VISIBLE
                     noView.setBackgroundResource(R.drawable.button_check_bg)
                 }
+
                 "abstain" -> {
                     abstainImg.visibility = View.VISIBLE
                     abstainView.setBackgroundResource(R.drawable.button_check_bg)
                 }
-
-                else -> null
             }
         }
     }

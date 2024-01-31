@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.option.tx.swap
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,21 +13,45 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 
-class AssetSelectFragment(
-    private val swapAssets: MutableList<Asset>,
-    private val swapBalance: MutableList<CoinProto.Coin>?,
-    private val assetSelectType: AssetSelectType,
-    val listener: AssetSelectListener
-) : BottomSheetDialogFragment() {
+interface AssetListener {
+    fun select(denom: String)
+}
+
+class AssetSelectFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
+    private var swapAssets: MutableList<Asset>? = mutableListOf()
+    private lateinit var swapBalance: MutableList<CoinProto.Coin>
+    private lateinit var assetSelectType: AssetSelectType
+
     private lateinit var assetSelectAdapter: AssetSelectAdapter
 
     private var searchAssets: MutableList<Asset> = mutableListOf()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            swapAssets: MutableList<Asset>?,
+            swapBalance: MutableList<CoinProto.Coin>?,
+            assetSelectType: AssetSelectType,
+            listener: AssetListener
+        ): AssetSelectFragment {
+            val args = Bundle().apply {
+                putParcelableArrayList("swapAssets", swapAssets?.let { ArrayList(it) })
+                putSerializable("swapBalance", swapBalance?.toHashSet())
+                putSerializable("assetSelectType", assetSelectType)
+            }
+            val fragment = AssetSelectFragment()
+            fragment.arguments = args
+            fragment.assetListener = listener
+            return fragment
+        }
+    }
+
+    private var assetListener: AssetListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,8 +63,24 @@ class AssetSelectFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         initView()
         initSearchView()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getSerializable(
+                "assetSelectType", AssetSelectType::class.java
+            )?.let { assetSelectType = it }
+        } else {
+            (arguments?.getSerializable("assetSelectType") as? AssetSelectType)?.let {
+                assetSelectType = it
+            }
+        }
+        swapAssets = arguments?.getParcelableArrayList("swapAssets")
+        val serializableSwapBalance = arguments?.getSerializable("swapBalance") as? HashSet<*>
+        swapBalance = serializableSwapBalance?.toList() as MutableList<CoinProto.Coin>
     }
 
     private fun initView() {
@@ -53,7 +94,7 @@ class AssetSelectFragment(
                 searchView.queryHint = getString(R.string.title_select_output_asset)
             }
 
-            swapAssets.sortWith { o1, o2 ->
+            swapAssets?.sortWith { o1, o2 ->
                 when {
                     o1.symbol == "ATOM" -> -1
                     o2.symbol == "ATOM" -> 1
@@ -62,7 +103,7 @@ class AssetSelectFragment(
                     else -> 0
                 }
             }
-            searchAssets.addAll(swapAssets)
+            swapAssets?.let { searchAssets.addAll(it) }
             initRecyclerView()
         }
     }
@@ -76,7 +117,7 @@ class AssetSelectFragment(
             assetSelectAdapter.submitList(searchAssets)
 
             assetSelectAdapter.setOnItemClickListener {
-                listener.select(it)
+                assetListener?.select(it)
                 dismiss()
             }
         }
@@ -92,17 +133,19 @@ class AssetSelectFragment(
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchAssets.clear()
-                    if (StringUtils.isEmpty(newText)) {
-                        searchAssets.addAll(swapAssets)
-                    } else {
-                        newText?.let { searchTxt ->
-                            searchAssets.addAll(swapAssets.filter { asset ->
-                                asset.symbol?.contains(searchTxt, ignoreCase = true) ?: false
-                            })
+                    swapAssets?.let { assets ->
+                        searchAssets.clear()
+                        if (StringUtils.isEmpty(newText)) {
+                            searchAssets.addAll(assets)
+                        } else {
+                            newText?.let { searchTxt ->
+                                searchAssets.addAll(assets.filter { asset ->
+                                    asset.symbol?.contains(searchTxt, ignoreCase = true) ?: false
+                                })
+                            }
                         }
+                        assetSelectAdapter.notifyDataSetChanged()
                     }
-                    assetSelectAdapter.notifyDataSetChanged()
                     return true
                 }
             })

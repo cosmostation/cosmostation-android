@@ -6,105 +6,88 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import wannabit.io.cosmostaion.data.model.res.ProposalData
-import wannabit.io.cosmostaion.data.model.res.ProposalModule
 import wannabit.io.cosmostaion.databinding.ItemDaoMultiVoteBinding
 import wannabit.io.cosmostaion.databinding.ItemDaoSingleVoteBinding
 
 class DaoVoteAdapter(
-    private var proposalModules: MutableList<ProposalModule?>?,
-    private var singleProposals: List<Pair<String?, ProposalData?>>,
-    private var multiProposals: List<Pair<String?, ProposalData?>>,
-    private var overruleProposals: List<Pair<String?, ProposalData?>>,
+    private var singleProposals: MutableList<ProposalData>?,
+    private var multipleProposals: MutableList<ProposalData>?,
+    private var overruleProposals: MutableList<ProposalData>?,
     private var listener: ClickListener
-) : ListAdapter<Pair<String?, ProposalData?>, ViewHolder>(DaoVoteDiffCallback()) {
-
-    companion object {
-        const val VIEW_TYPE_SINGLE = 0
-        const val VIEW_TYPE_MULTI = 1
-        const val VIEW_TYPE_OVERRULE = 2
-    }
+) : ListAdapter<ProposalData, ViewHolder>(DaoVoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_SINGLE -> {
-                val binding = ItemDaoSingleVoteBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                DaoSingleVoteViewHolder(parent.context, binding)
-            }
+        if (singleProposals?.isNotEmpty() == true) {
+            val binding =
+                ItemDaoSingleVoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return DaoSingleVoteViewHolder(parent.context, binding)
 
-            VIEW_TYPE_MULTI -> {
-                val binding = ItemDaoMultiVoteBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                DaoMultiVoteViewHolder(parent.context, binding)
-            }
+        } else if (multipleProposals?.isNotEmpty() == true) {
+            val binding = ItemDaoMultiVoteBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+            return DaoMultiVoteViewHolder(parent.context, binding)
 
-            VIEW_TYPE_OVERRULE -> {
-                val binding = ItemDaoSingleVoteBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                DaoOverruleViewHolder(parent.context, binding)
-            }
+        } else if (overruleProposals?.isNotEmpty() == true) {
+            val binding =
+                ItemDaoSingleVoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return DaoOverruleVoteViewHolder(parent.context, binding)
 
-            else -> throw IllegalArgumentException("Invalid view type")
+        } else {
+            return throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when (holder.itemViewType) {
-            VIEW_TYPE_SINGLE -> {
-                if (holder is DaoSingleVoteViewHolder) {
-                    val proposal = singleProposals[position]
-                    val module = proposalModules?.firstOrNull { it?.address == proposal.first }
-                    holder.bind(proposal.second, module, listener)
-                }
+        if (singleProposals?.isNotEmpty() == true) {
+            if (holder is DaoSingleVoteViewHolder) {
+                val proposal = singleProposals?.get(position)
+                holder.bind(proposal, listener)
             }
 
-            VIEW_TYPE_MULTI -> {
-                if (holder is DaoMultiVoteViewHolder) {
-                    val proposal = multiProposals[position - singleProposals.size]
-                    val module = proposalModules?.firstOrNull { it?.address == proposal.first }
-                    holder.bind(proposal.second, module, listener)
-                }
+        } else if (multipleProposals?.isNotEmpty() == true) {
+            if (holder is DaoMultiVoteViewHolder) {
+                val proposal = multipleProposals?.get(position)
+                holder.bind(proposal, listener)
             }
 
-            VIEW_TYPE_OVERRULE -> {
-                if (holder is DaoOverruleViewHolder) {
-                    val proposal = overruleProposals[position]
-                    val module = proposalModules?.firstOrNull { it?.address == proposal.first }
-                    holder.bind(proposal.second, module, listener)
-                }
+        } else if (overruleProposals?.isNotEmpty() == true) {
+            if (holder is DaoOverruleVoteViewHolder) {
+                val proposal = overruleProposals?.get(position)
+                holder.bind(proposal, listener)
             }
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position < singleProposals.size) {
-            VIEW_TYPE_SINGLE
-        } else if (position < (singleProposals.size + multiProposals.size)) {
-            VIEW_TYPE_MULTI
-        } else {
-            VIEW_TYPE_OVERRULE
+    override fun getItemCount(): Int {
+        if (singleProposals?.isNotEmpty() == true) {
+            singleProposals?.let { return it.size }
+
+        } else if (multipleProposals?.isNotEmpty() == true) {
+            multipleProposals?.let { return it.size }
+
+        } else if (overruleProposals?.isNotEmpty() == true) {
+            overruleProposals?.let { return it.size }
         }
+        return 0
     }
 
-    private class DaoVoteDiffCallback : DiffUtil.ItemCallback<Pair<String?, ProposalData?>>() {
+    private class DaoVoteDiffCallback : DiffUtil.ItemCallback<ProposalData>() {
 
         override fun areItemsTheSame(
-            oldItem: Pair<String?, ProposalData?>, newItem: Pair<String?, ProposalData?>
+            oldItem: ProposalData, newItem: ProposalData
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: Pair<String?, ProposalData?>, newItem: Pair<String?, ProposalData?>
+            oldItem: ProposalData, newItem: ProposalData
         ): Boolean {
             return oldItem == newItem
         }
     }
 
     interface ClickListener {
-        fun selectOption(position: Int, module: String?, tag: Int)
+        fun selectOption(position: Int, module: String, tag: Int)
     }
 }

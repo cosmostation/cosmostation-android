@@ -6,10 +6,13 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
+import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
+import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
@@ -21,6 +24,7 @@ class CosmosActivity : BaseActivity() {
 
     private lateinit var txViewModel: TxViewModel
     private lateinit var walletViewModel: WalletViewModel
+    private lateinit var proposalViewModel: ProposalViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,11 @@ class CosmosActivity : BaseActivity() {
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
         walletViewModel =
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+
+        val proposalRepository = ProposalRepositoryImpl()
+        val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
+        proposalViewModel =
+            ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
     }
 
     override fun onBackPressed() {

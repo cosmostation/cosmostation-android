@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.ProposalData
-import wannabit.io.cosmostaion.data.model.res.ProposalModule
 import wannabit.io.cosmostaion.databinding.ItemDaoSingleVoteBinding
 
 class DaoSingleVoteViewHolder(
@@ -16,7 +15,7 @@ class DaoSingleVoteViewHolder(
     private val binding: ItemDaoSingleVoteBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(proposalData: ProposalData?, proposalModule: ProposalModule?, listener: DaoVoteAdapter.ClickListener) {
+    fun bind(proposalData: ProposalData?, listener: DaoVoteAdapter.ClickListener) {
         binding.apply {
             voteView.setBackgroundResource(R.drawable.cell_bg)
             updateView(proposalData)
@@ -36,17 +35,17 @@ class DaoSingleVoteViewHolder(
             }
 
             yesView.setOnClickListener {
-                listener.selectOption(adapterPosition, proposalModule?.name, 0)
+                listener.selectOption(adapterPosition, "Single", 0)
                 updateView(proposalData)
             }
 
             noView.setOnClickListener {
-                listener.selectOption(adapterPosition, proposalModule?.name, 1)
+                listener.selectOption(adapterPosition, "Single", 1)
                 updateView(proposalData)
             }
 
             abstainView.setOnClickListener {
-                listener.selectOption(adapterPosition, proposalModule?.name, 2)
+                listener.selectOption(adapterPosition, "Single", 2)
                 updateView(proposalData)
             }
         }

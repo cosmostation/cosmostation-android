@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.info.neutron
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.VibrationEffect
@@ -10,55 +11,36 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_MULTI_MODULE
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.gapTime
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.ProposalData
-import wannabit.io.cosmostaion.data.model.res.ProposalModule
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.databinding.ItemDaoProposalBinding
 
-class DaoListViewHolder(
+class DaoViewHolder(
     val context: Context,
     private val binding: ItemDaoProposalBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        module: ProposalModule?,
-        proposal: Pair<String?, ProposalData?>,
-        voteStatus: MutableList<ResDaoVoteStatus>,
-        headerCnt: Int,
-        isHeader: Boolean,
-        checkListener: DaoListAdapter.CheckListener
+        selectedChain: ChainNeutron,
+        type: Int,
+        proposal: ProposalData?,
+        neutronMyVotes: MutableList<ResDaoVoteStatus>?,
+        checkListener: DaoProposalListAdapter.CheckListener
     ) {
         binding.apply {
             proposalView.setBackgroundResource(R.drawable.item_bg)
-            headerLayout.visibleOrGone(isHeader)
+            headerLayout.visibility = View.GONE
 
-            module?.let { module ->
-                val moduleName = if (module.name?.isNotEmpty() == true) {
-                    module.name.lowercase().substring(0, 1).uppercase() + module.name.substring(1)
-                } else {
-                    module.name
-                }
-                headerTitle.text = moduleName
-            }
-            cnt.text = headerCnt.toString()
+            voteId.text = "# ${proposal?.id}."
+            voteTitle.text = proposal?.proposal?.title
 
-            proposalView.setOnClickListener {
-                val moduleType = if (module?.name == "Single Module") "single" else "multiple"
-                val url: String =
-                    CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/${proposal.second?.id}/ $moduleType/${module?.address}"
-                Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                    context.startActivity(this)
-                }
-            }
-
-            proposal.second?.let { proposalData ->
-                voteId.text = "# ${proposalData.id}."
-                voteTitle.text = proposalData.proposal?.title
-
+            proposal?.let { proposalData ->
                 if ("open" == proposalData.proposal?.status) {
                     proposalData.proposal.expiration?.at_time?.toLong()?.let { expiration ->
                         voteRemainTime.text = voteDpTime(expiration.div(1000000)) + " (" + gapTime(
@@ -66,45 +48,73 @@ class DaoListViewHolder(
                         ) + ")"
                         voteRemainTime.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base02
+                                context, R.color.color_base02
                             )
                         )
-                        selectSwitch.visibility = View.VISIBLE
-                        selectSwitch.thumbDrawable =
-                            ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
+
+                    } ?: run {
+                        proposalData.proposal.expiration?.at_height?.let {
+                            voteRemainTime.text = "Expiration at : ${it} Block"
+                            voteRemainTime.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base02
+                                )
+                            )
+                        }
                     }
+                    selectSwitch.visibility = View.VISIBLE
+                    switchView.visibility = View.VISIBLE
+                    selectSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
 
                 } else {
                     when (proposalData.proposal?.status) {
                         "executed", "passed" -> voteStatusImg.setImageDrawable(
                             ContextCompat.getDrawable(
-                                context,
-                                R.drawable.icon_vote_passed
+                                context, R.drawable.icon_vote_passed
                             )
                         )
 
-                        "rejected", "failed" -> voteStatusImg.setImageDrawable(
+                        "rejected", "failed", "execution_failed" -> voteStatusImg.setImageDrawable(
                             ContextCompat.getDrawable(
-                                context,
-                                R.drawable.icon_vote_rejected
+                                context, R.drawable.icon_vote_rejected
                             )
                         )
                     }
                     voteRemainTime.text = proposalData.proposal?.status?.uppercase()
                     voteRemainTime.setTextColor(
                         ContextCompat.getColorStateList(
-                            context,
-                            R.color.color_base01
+                            context, R.color.color_base01
                         )
                     )
                     selectSwitch.visibility = View.GONE
+                    switchView.visibility = View.GONE
                 }
 
-                voteStatus.firstOrNull { it.contract_address == module?.address && it.proposal_id.toString() == proposal.second?.id }
+                val module = when (type) {
+                    NEUTRON_SINGLE_MODULE -> {
+                        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
+                            0
+                        )
+                    }
+
+                    NEUTRON_MULTI_MODULE -> {
+                        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
+                            1
+                        )
+                    }
+
+                    else -> {
+                        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
+                            2
+                        )
+                    }
+                }
+
+                neutronMyVotes?.firstOrNull { it.contract_address == module?.address && it.proposal_id.toString() == proposal.id }
                     ?.let { myVote ->
                         myVote.option?.let { option ->
-                            if (isOptionInteger(option)) {
+                            if (option.isOptionInteger()) {
                                 statusImg.visibility = View.GONE
                                 statusTxt.visibility = View.VISIBLE
                                 statusTxt.text = "OPTION $option"
@@ -119,6 +129,7 @@ class DaoListViewHolder(
                                     else -> statusImg.setImageResource(R.drawable.icon_not_voted)
                                 }
                             }
+
                         } ?: run {
                             statusImg.visibility = View.VISIBLE
                             statusTxt.visibility = View.GONE
@@ -147,20 +158,46 @@ class DaoListViewHolder(
                         vibrator.vibrate(100)
                     }
 
+                    val thumbDrawable: Drawable? = if (isChecked) {
+                        ContextCompat.getDrawable(context, R.drawable.switch_thumb_on)
+                    } else {
+                        ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
+                    }
+                    selectSwitch.thumbDrawable = thumbDrawable
+
                     checkListener.daoProposalCheck(
-                        isChecked, proposal.first, module?.name, proposalData.id
+                        isChecked, proposalData.id
                     )
+                }
+
+                proposalView.setOnClickListener {
+                    val url: String = when (type) {
+                        NEUTRON_SINGLE_MODULE -> {
+                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/single/" + module?.address
+                        }
+
+                        NEUTRON_MULTI_MODULE -> {
+                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/multiple/" + module?.address
+                        }
+
+                        else -> {
+                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/overrule/" + module?.address
+                        }
+                    }
+                    Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                        context.startActivity(this)
+                    }
                 }
             }
         }
     }
+}
 
-    private fun isOptionInteger(option: String?): Boolean {
-        return try {
-            option?.toInt()
-            true
-        } catch (e: NumberFormatException) {
-            false
-        }
+private fun String?.isOptionInteger(): Boolean {
+    return try {
+        this?.toInt()
+        true
+    } catch (e: NumberFormatException) {
+        false
     }
 }

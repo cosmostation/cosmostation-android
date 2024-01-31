@@ -13,7 +13,7 @@ interface ProposalRepository {
 
     suspend fun voteStatus(chain: String, account: String?): NetworkResult<Response<VoteStatus>>
 
-    suspend fun daoProposal(managedChannel: ManagedChannel, contAddress: String?): String?
+    suspend fun daoProposals(managedChannel: ManagedChannel, contAddress: String?): NetworkResult<String?>
 
     suspend fun daoVoteStatus(chain: String, address: String?): NetworkResult<Response<MutableList<ResDaoVoteStatus>>>
 }

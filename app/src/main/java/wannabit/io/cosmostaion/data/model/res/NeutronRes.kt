@@ -1,5 +1,10 @@
 package wannabit.io.cosmostaion.data.model.res
 
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.parcelize.Parceler
+import kotlinx.parcelize.Parcelize
+
 data class VestingData(
     val allocated_amount: String?,
     val withdrawn_amount: String?,
@@ -17,9 +22,9 @@ data class Dao(
     val dao_uri: String?,
     val address: String?,
     val voting_module: String?,
-    val group_contract_address: String?,
     val proposal_modules: MutableList<ProposalModule?>
 )
+
 data class ProposalModule(
     val name: String?,
     val description: String?,
@@ -30,19 +35,53 @@ data class ProposalModule(
 
 
 data class ResProposalData(val proposals: MutableList<ProposalData?>)
-data class ProposalData(val id: String?, val proposal: Proposal?, var isSwitchChecked: Boolean = false) {
+
+@Parcelize
+data class ProposalData(
+    val id: String?, val proposal: Proposal?, var isSwitchChecked: Boolean = false
+) : Parcelable {
     var myVote: String? = ""
+
+    companion object : Parceler<ProposalData> {
+        override fun ProposalData.write(parcel: Parcel, flags: Int) {
+            parcel.writeString(id)
+            parcel.writeParcelable(proposal, flags)
+            parcel.writeByte(if (isSwitchChecked) 1 else 0)
+            parcel.writeString(myVote)
+        }
+
+        override fun create(parcel: Parcel): ProposalData = TODO()
+    }
 }
+
+@Parcelize
 data class Proposal(
     val title: String?,
     val expiration: Expiration?,
     val status: String?,
     val choices: MutableList<Choice?>,
     val allow_revoting: Boolean
-)
-data class Expiration(val at_time: String?, val at_height: String?)
-data class Choice(val index: Int?, val option_type: String?, val description: String?)
+) : Parcelable {
+    companion object : Parceler<Proposal> {
+        override fun Proposal.write(parcel: Parcel, flags: Int) {
+            parcel.writeString(title)
+            parcel.writeParcelable(expiration, flags)
+            parcel.writeString(status)
+            parcel.writeList(choices)
+            parcel.writeByte(if (allow_revoting) 1 else 0)
+        }
 
+        override fun create(parcel: Parcel): Proposal = TODO()
+    }
+}
+
+@Parcelize
+data class Expiration(val at_time: String?, val at_height: String?) : Parcelable
+
+@Parcelize
+data class Choice(val index: Int?, val option_type: String?, val description: String?) : Parcelable
+
+@Parcelize
 data class ResDaoVoteStatus(
     val id: Int?,
     val chain: String?,
@@ -55,4 +94,22 @@ data class ResDaoVoteStatus(
     val power: String?,
     val option: String?,
     val voted_at: String?
-)
+) : Parcelable {
+    companion object : Parceler<ResDaoVoteStatus> {
+        override fun ResDaoVoteStatus.write(parcel: Parcel, flags: Int) {
+            parcel.writeInt(id ?: -1)
+            parcel.writeString(chain)
+            parcel.writeString(chain_id)
+            parcel.writeLong(height ?: -1L)
+            parcel.writeString(tx_hash)
+            parcel.writeString(contract_address)
+            parcel.writeString(address)
+            parcel.writeInt(proposal_id ?: -1)
+            parcel.writeString(power)
+            parcel.writeString(option)
+            parcel.writeString(voted_at)
+        }
+
+        override fun create(parcel: Parcel): ResDaoVoteStatus = TODO()
+    }
+}

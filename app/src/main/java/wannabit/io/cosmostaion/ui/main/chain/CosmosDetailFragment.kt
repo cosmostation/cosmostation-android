@@ -39,7 +39,7 @@ import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
-import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoListFragment
+import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
@@ -372,7 +372,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabDao.setOnClickListener {
-                handleOneClickWithDelay(DaoListFragment(selectedChain as ChainNeutron), null)
+                handleOneClickWithDelay(DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null)
             }
 
             fabVault.setOnClickListener {
@@ -410,25 +410,27 @@ class CosmosDetailFragment : Fragment() {
     private fun handleOneClickWithDelay(
         fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
     ) {
-        if (isClickable) {
-            isClickable = false
-
-            if (fragment != null) {
-                requireActivity().toMoveFragment(
-                    this@CosmosDetailFragment, fragment, fragment::class.java.name
-                )
-            } else {
-                bottomSheetDialogFragment?.show(
-                    requireActivity().supportFragmentManager,
-                    bottomSheetDialogFragment::class.java.name
-                )
-            }
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                isClickable = true
-            }, 300)
-        }
         binding.fabMenu.close(true)
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isClickable) {
+                isClickable = false
+
+                if (fragment != null) {
+                    requireActivity().toMoveFragment(
+                        this@CosmosDetailFragment, fragment, fragment::class.java.name
+                    )
+                } else {
+                    bottomSheetDialogFragment?.show(
+                        requireActivity().supportFragmentManager,
+                        bottomSheetDialogFragment::class.java.name
+                    )
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 300)
+            }
+        }, 500)
     }
 
     class DetailPageAdapter(

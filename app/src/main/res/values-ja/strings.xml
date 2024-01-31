@@ -251,6 +251,8 @@
     <string name="str_pincode_init_confirm_msg">再入力</string>
     <string name="str_disabled_app_msg">システム点検中です。詳しい内容はコミュニティ チャンネルを確認してください。</string>
     <string name="str_big_loss_msg">現在選択されているスワップを進めると、かなりの財産上の損害が予想されます。\n\n期待される入力/出力値を確認してから慎重に決定してください。</string>
+    <string name="str_show_all_proposals_msg">すべての提案を表示します。</string>
+    <string name="str_hide_scam_proposals">詐欺の疑いのある提案を除外します。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

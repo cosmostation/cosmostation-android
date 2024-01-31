@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.step.neutron
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,6 +26,7 @@ import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -53,15 +55,15 @@ import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.RoundingMode
 
-class DaoVoteFragment(
-    val selectedChain: ChainNeutron,
-    private var singleProposal: List<Pair<String?, ProposalData?>> = mutableListOf(),
-    private var multiProposal: List<Pair<String?, ProposalData?>> = mutableListOf(),
-    private var overruleProposal: List<Pair<String?, ProposalData?>> = mutableListOf()
-) : BaseTxFragment() {
+class DaoVoteFragment : BaseTxFragment() {
 
     private var _binding: FragmentVoteBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: ChainNeutron
+    private var toSingleProposals: MutableList<ProposalData>? = mutableListOf()
+    private var toMultipleProposals: MutableList<ProposalData>? = mutableListOf()
+    private var toOverruleProposals: MutableList<ProposalData>? = mutableListOf()
 
     private lateinit var daoVoteAdapter: DaoVoteAdapter
 
@@ -71,6 +73,31 @@ class DaoVoteFragment(
     private var txMemo = ""
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            selectedChain: CosmosLine,
+            toSingleProposals: MutableList<ProposalData?>?,
+            toMultipleProposals: MutableList<ProposalData?>?,
+            toOverruleProposals: MutableList<ProposalData?>?
+        ): DaoVoteFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+                putParcelableArrayList("toSingleProposals",
+                    toSingleProposals?.let { ArrayList(it) })
+
+                putParcelableArrayList("toMultipleProposals",
+                    toMultipleProposals?.let { ArrayList(it) })
+
+                putParcelableArrayList("toOverruleProposals",
+                    toOverruleProposals?.let { ArrayList(it) })
+            }
+            val fragment = DaoVoteFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -92,50 +119,73 @@ class DaoVoteFragment(
 
     private fun initView() {
         binding.apply {
-            voteTitle.text = "Dao vote"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.apply {
+                    getParcelable("selectedChain", ChainNeutron::class.java)?.let {
+                        selectedChain = it
+                    }
+                }
+
+            } else {
+                arguments?.apply {
+                    (getParcelable("selectedChain") as? ChainNeutron)?.let {
+                        selectedChain = it
+                    }
+                }
+            }
+            toSingleProposals = arguments?.getParcelableArrayList("toSingleProposals")
+            toMultipleProposals = arguments?.getParcelableArrayList("toMultipleProposals")
+            toOverruleProposals = arguments?.getParcelableArrayList("toOverruleProposals")
+
+            voteTitle.text = if (toSingleProposals?.isNotEmpty() == true) {
+                "Dao vote (Single)"
+            } else if (toMultipleProposals?.isNotEmpty() == true) {
+                "Dao vote (Multiple)"
+            } else {
+                "Dao vote (Overrule)"
+            }
+
             memoView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            val modules =
-                selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules
-            daoVoteAdapter = DaoVoteAdapter(modules, singleProposal, multiProposal, overruleProposal, selectOption)
+            daoVoteAdapter = DaoVoteAdapter(
+                toSingleProposals, toMultipleProposals, toOverruleProposals, selectOption
+            )
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = daoVoteAdapter
-            daoVoteAdapter.submitList(singleProposal + multiProposal + overruleProposal)
         }
     }
 
     private val selectOption = object : DaoVoteAdapter.ClickListener {
-        override fun selectOption(position: Int, module: String?, tag: Int) {
+
+        override fun selectOption(position: Int, module: String, tag: Int) {
             when (module) {
-                "Single Module" -> {
+                "Single" -> {
                     when (tag) {
-                        0 -> singleProposal[position].second?.myVote = "yes"
-                        1 -> singleProposal[position].second?.myVote = "no"
-                        2 -> singleProposal[position].second?.myVote = "abstain"
-                        else -> null
+                        0 -> toSingleProposals?.get(position)?.myVote = "yes"
+                        1 -> toSingleProposals?.get(position)?.myVote = "no"
+                        2 -> toSingleProposals?.get(position)?.myVote = "abstain"
                     }
                     daoVoteAdapter.notifyDataSetChanged()
                     txSimulate()
                 }
 
-                "Overrule Module" -> {
-                    when (tag) {
-                        0 -> overruleProposal[position - (singleProposal.size + multiProposal.size)].second?.myVote = "yes"
-                        1 -> overruleProposal[position - (singleProposal.size + multiProposal.size)].second?.myVote = "no"
-                        2 -> overruleProposal[position - (singleProposal.size + multiProposal.size)].second?.myVote = "abstain"
-                        else -> null
-                    }
+                "Multiple" -> {
+                    toMultipleProposals?.get(position)?.myVote = tag.toString()
                     daoVoteAdapter.notifyDataSetChanged()
                     txSimulate()
                 }
 
-                else -> {
-                    multiProposal[position - singleProposal.size].second?.myVote = tag.toString()
-                    txSimulate()
+                "Overrule" -> {
+                    when (tag) {
+                        0 -> toOverruleProposals?.get(position)?.myVote = "yes"
+                        1 -> toOverruleProposals?.get(position)?.myVote = "no"
+                        2 -> toOverruleProposals?.get(position)?.myVote = "abstain"
+                    }
                     daoVoteAdapter.notifyDataSetChanged()
+                    txSimulate()
                 }
             }
         }
@@ -293,10 +343,7 @@ class DaoVoteFragment(
 
     private fun txSimulate() {
         binding.apply {
-            if (singleProposal.any { it.second?.myVote == null }) {
-                return
-            }
-            if (multiProposal.any { it.second?.myVote == null }) {
+            if (toSingleProposals?.any { it.myVote == null } == true || toMultipleProposals?.any { it.myVote == null } == true || toOverruleProposals?.any { it.myVote == null } == true) {
                 return
             }
             if (!selectedChain.isGasSimulable()) {
@@ -373,8 +420,8 @@ class DaoVoteFragment(
 
     private fun onBindWasmVoteMsg(): MutableList<MsgExecuteContract?> {
         val result: MutableList<MsgExecuteContract?> = mutableListOf()
-        singleProposal.forEach { single ->
-            val req = VoteReq(Vote(single.second?.id?.toInt(), single.second?.myVote))
+        toSingleProposals?.forEach { single ->
+            val req = VoteReq(Vote(single.id?.toInt(), single.myVote))
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
@@ -385,9 +432,9 @@ class DaoVoteFragment(
                 ).setMsg(msg).build()
             )
         }
-        multiProposal.forEach { multi ->
+        toMultipleProposals?.forEach { multi ->
             val req = MultiVoteReq(
-                MultiVote(multi.second?.id?.toInt(), WeightVote(multi.second?.myVote?.toInt()))
+                MultiVote(multi.id?.toInt(), WeightVote(multi.myVote?.toInt()))
             )
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
@@ -399,14 +446,14 @@ class DaoVoteFragment(
                 ).setMsg(msg).build()
             )
         }
-        overruleProposal.forEach { single ->
-            val req = VoteReq(Vote(single.second?.id?.toInt(), single.second?.myVote))
+        toOverruleProposals?.forEach { overrule ->
+            val req = VoteReq(Vote(overrule.id?.toInt(), overrule.myVote))
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
                     selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                        0
+                        2
                     )?.address
                 ).setMsg(msg).build()
             )

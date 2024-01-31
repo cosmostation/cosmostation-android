@@ -4,24 +4,21 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
-import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
 import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 
 class ProposalListFragment : Fragment() {
 
@@ -30,7 +27,7 @@ class ProposalListFragment : Fragment() {
 
     private lateinit var selectedChain: CosmosLine
 
-    private lateinit var proposalViewModel: ProposalViewModel
+    private val proposalViewModel: ProposalViewModel by activityViewModels()
     private lateinit var proposalListAdapter: ProposalListAdapter
 
     private var isShowAll = false
@@ -63,19 +60,10 @@ class ProposalListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initViewModel()
+        initData()
         initRecyclerView()
         setUpClickAction()
         setUpVoteInfo()
-    }
-
-    private fun initViewModel() {
-        val proposalRepository = ProposalRepositoryImpl()
-        val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
-        proposalViewModel =
-            ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
-
-        initData()
     }
 
     private fun initData() {
