@@ -3,11 +3,11 @@ package wannabit.io.cosmostaion.ui.tx.info.neutron
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_MULTI_MODULE
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.databinding.ItemDaoProposalBinding
@@ -16,17 +16,27 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 class DaoProposalListAdapter(
     val selectedChain: ChainNeutron,
     private val type: Int,
-    private val periodProposals: MutableList<ProposalData?> = mutableListOf(),
-    private val etcProposals: MutableList<ProposalData?> = mutableListOf(),
     private val neutronMyVotes: MutableList<ResDaoVoteStatus>?,
     var listener: CheckListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : ListAdapter<ProposalData, RecyclerView.ViewHolder>(DaoProposalListDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE_PERIOD_HEADER = 0
         const val VIEW_TYPE_PERIOD_ITEM = 1
         const val VIEW_TYPE_ETC_HEADER = 2
         const val VIEW_TYPE_ETC_ITEM = 3
+    }
+
+    private val periodProposals: MutableList<ProposalData> = mutableListOf()
+    private val etcProposals: MutableList<ProposalData> = mutableListOf()
+
+    fun filterProposals() {
+        periodProposals.clear()
+        etcProposals.clear()
+
+        periodProposals.addAll(currentList.filter { "open" == it?.proposal?.status }
+            .toMutableList())
+        etcProposals.addAll(currentList.filter { "open" != it?.proposal?.status }.toMutableList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -62,11 +72,7 @@ class DaoProposalListAdapter(
 
                 when {
                     periodProposals.isNotEmpty() && holder.itemViewType == VIEW_TYPE_PERIOD_ITEM -> holder.bind(
-                        selectedChain,
-                        type,
-                        periodProposals[periodIndex],
-                        neutronMyVotes,
-                        listener
+                        selectedChain, type, periodProposals[periodIndex], neutronMyVotes, listener
                     )
 
                     etcIndex >= 0 && holder.itemViewType == VIEW_TYPE_ETC_ITEM -> holder.bind(
@@ -107,6 +113,17 @@ class DaoProposalListAdapter(
                     headerCnt.text = etcProposals.size.toString()
                 }
             }
+        }
+    }
+
+    private class DaoProposalListDiffCallback : DiffUtil.ItemCallback<ProposalData>() {
+
+        override fun areItemsTheSame(oldItem: ProposalData, newItem: ProposalData): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: ProposalData, newItem: ProposalData): Boolean {
+            return oldItem == newItem
         }
     }
 

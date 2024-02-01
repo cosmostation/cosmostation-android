@@ -2,12 +2,10 @@ package wannabit.io.cosmostaion.ui.tx.info.neutron
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,10 +38,9 @@ class DaoOverruleFragment : Fragment() {
 
     private lateinit var daoProposalListAdapter: DaoProposalListAdapter
 
+    private val proposals: MutableList<ProposalData?> = mutableListOf()
+    private var filteredProposals: MutableList<ProposalData?> = mutableListOf()
     private var votingPeriods: MutableList<ProposalData?> = mutableListOf()
-    private var etcPeriods: MutableList<ProposalData?> = mutableListOf()
-    private var filterVotingPeriods: MutableList<ProposalData?> = mutableListOf()
-    private var filterEtcPeriods: MutableList<ProposalData?> = mutableListOf()
 
     private var toVoteOverrule: MutableList<String?> = mutableListOf()
 
@@ -101,32 +98,25 @@ class DaoOverruleFragment : Fragment() {
                 getChannel(selectedChain), contAddress, NEUTRON_OVERRULE_MODULE
             )
         }
-        initRecyclerView()
+        setUpProposalData()
     }
 
-    private fun initRecyclerView() {
+    private fun setUpProposalData() {
         binding.apply {
             proposalViewModel.daoOverruleProposalsResult.observe(viewLifecycleOwner) { response ->
                 lifecycleScope.launch(Dispatchers.IO) {
                     response?.let { proposalData ->
+                        proposals.clear()
+                        filteredProposals.clear()
                         votingPeriods.clear()
-                        etcPeriods.clear()
-                        filterVotingPeriods.clear()
-                        filterEtcPeriods.clear()
 
+                        proposals.addAll(response)
+                        filteredProposals = proposals.filter {
+                            val title = it?.proposal?.title?.lowercase()
+                            title?.contains("airdrop") == false && !title.containsEmoji()
+                        }.toMutableList()
                         votingPeriods =
                             proposalData.filter { "open" == it?.proposal?.status }.toMutableList()
-                        etcPeriods =
-                            proposalData.filter { "open" != it?.proposal?.status }.toMutableList()
-
-                        filterVotingPeriods = votingPeriods.filter {
-                            val title = it?.proposal?.title?.lowercase()
-                            title?.contains("airdrop") == false && !title.containsEmoji()
-                        }.toMutableList()
-                        filterEtcPeriods = etcPeriods.filter {
-                            val title = it?.proposal?.title?.lowercase()
-                            title?.contains("airdrop") == false && !title.containsEmoji()
-                        }.toMutableList()
                     }
 
                     withContext(Dispatchers.Main) {
@@ -140,41 +130,49 @@ class DaoOverruleFragment : Fragment() {
     private fun updateView() {
         binding.apply {
             loading.visibility = View.GONE
-            if (filterVotingPeriods.isEmpty() && filterEtcPeriods.isEmpty()) {
+            if (filteredProposals.isEmpty()) {
                 emptyLayout.visibility = View.VISIBLE
             } else {
                 recycler.visibility = View.VISIBLE
-                updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+                initRecyclerView()
             }
             btnVote.updateButtonView(false)
         }
     }
 
-    private fun updateRecyclerView(
-        votingPeriods: MutableList<ProposalData?>, etcPeriods: MutableList<ProposalData?>
-    ) {
-        binding.recycler.apply {
+    private fun initRecyclerView() {
+        binding.apply {
             daoProposalListAdapter = DaoProposalListAdapter(
                 selectedChain,
                 NEUTRON_OVERRULE_MODULE,
-                votingPeriods,
-                etcPeriods,
                 neutronMyVotes,
-                daoProposalCheckAction
+                listener = daoProposalCheckAction
             )
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = daoProposalListAdapter
-            daoProposalListAdapter.notifyDataSetChanged()
+            recycler.setHasFixedSize(true)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            recycler.adapter = daoProposalListAdapter
+            daoProposalListAdapter.submitList(filteredProposals)
+            daoProposalListAdapter.filterProposals()
         }
     }
 
     private fun updateFilterList() {
         ApplicationViewModel.shared.filterDataResult.observe(viewLifecycleOwner) { isShowAll ->
-            if (isShowAll) {
-                updateRecyclerView(votingPeriods, etcPeriods)
-            } else {
-                updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+            if (proposals.isNotEmpty()) {
+                binding.emptyLayout.visibility = View.GONE
+                binding.recycler.visibility = View.VISIBLE
+
+                if (isShowAll) {
+                    daoProposalListAdapter.submitList(proposals) {
+                        daoProposalListAdapter.filterProposals()
+                        daoProposalListAdapter.notifyDataSetChanged()
+                    }
+                } else {
+                    daoProposalListAdapter.submitList(filteredProposals) {
+                        daoProposalListAdapter.filterProposals()
+                        daoProposalListAdapter.notifyDataSetChanged()
+                    }
+                }
             }
         }
     }
