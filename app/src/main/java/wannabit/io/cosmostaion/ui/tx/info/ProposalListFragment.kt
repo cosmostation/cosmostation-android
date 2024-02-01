@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
@@ -32,10 +34,10 @@ class ProposalListFragment : Fragment() {
     private lateinit var proposalListAdapter: ProposalListAdapter
 
     private var isShowAll = false
-    private val votingPeriods: MutableList<CosmosProposal> = mutableListOf()
-    private val etcPeriods: MutableList<CosmosProposal> = mutableListOf()
-    private var filterVotingPeriods: MutableList<CosmosProposal> = mutableListOf()
-    private var filterEtcPeriods: MutableList<CosmosProposal> = mutableListOf()
+
+    private val proposals: MutableList<CosmosProposal> = mutableListOf()
+    private var filteredProposals: MutableList<CosmosProposal> = mutableListOf()
+    private var votingPeriods: MutableList<CosmosProposal> = mutableListOf()
     private var myVotes: MutableList<VoteData> = mutableListOf()
     private var toVoteList: MutableList<String>? = mutableListOf()
 
@@ -62,7 +64,7 @@ class ProposalListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-        initRecyclerView()
+        setUpProposalsData()
         setUpClickAction()
         setUpVoteInfo()
     }
@@ -77,79 +79,85 @@ class ProposalListFragment : Fragment() {
                 selectedChain = it
             }
         }
+
+        proposalViewModel.proposalList(selectedChain.apiName)
     }
 
-    private fun initRecyclerView() {
-        proposalViewModel.proposalList(selectedChain.apiName)
-
+    private fun setUpProposalsData() {
         binding?.apply {
-            btnVote.updateButtonView(false)
-            proposalViewModel.proposalResult.observe(viewLifecycleOwner) { proposals ->
+            proposalViewModel.proposalResult.observe(viewLifecycleOwner) { response ->
+                proposals.clear()
+                filteredProposals.clear()
                 votingPeriods.clear()
-                etcPeriods.clear()
-                filterVotingPeriods.clear()
-                filterEtcPeriods.clear()
 
-                if (proposals?.isNotEmpty() == true) {
+                if (response?.isNotEmpty() == true) {
                     proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
-                    proposals.forEach { proposal ->
-                        if (proposal.isVotingPeriod()) {
-                            votingPeriods.add(proposal)
-                            if (!proposal.isScam()) {
-                                filterVotingPeriods.add(proposal)
-                            }
-                        } else {
-                            etcPeriods.add(proposal)
-                            if (!proposal.isScam()) {
-                                filterEtcPeriods.add(proposal)
-                            }
-                        }
-                    }
+                    proposals.addAll(response)
+                    filteredProposals = proposals.filter { !it.isScam() }.toMutableList()
+                    votingPeriods = proposals.filter { it.isVotingPeriod() }.toMutableList()
+                    initRecyclerView()
 
                 } else {
+                    loading.visibility = View.GONE
                     recycler.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                 }
             }
-
-            proposalViewModel.voteStatusResult.observe(viewLifecycleOwner) { voteStatus ->
-                myVotes.clear()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    loading.visibility = View.GONE
-                    recycler.visibility = View.VISIBLE
-                    emptyLayout.visibility = View.GONE
-                    voteStatus?.votes?.forEach { vote ->
-                        myVotes.add(vote)
-                    }
-                    if (isShowAll) {
-                        btnFilter.setImageResource(R.drawable.icon_not_filter)
-                        updateRecyclerView(votingPeriods, etcPeriods)
-                    } else {
-                        btnFilter.setImageResource(R.drawable.icon_filter)
-                        updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
-                    }
-                }, 1000)
-            }
         }
     }
 
-    private fun updateRecyclerView(
-        votingPeriods: MutableList<CosmosProposal>, etcPeriods: MutableList<CosmosProposal>
-    ) {
-        binding?.recycler?.apply {
-            proposalListAdapter = ProposalListAdapter(
-                requireContext(),
-                selectedChain,
-                votingPeriods,
-                etcPeriods,
-                myVotes,
-                toVoteList,
-                listener = proposalCheckAction
-            )
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = proposalListAdapter
+    private fun initRecyclerView() {
+        binding?.apply {
+            proposalViewModel.voteStatusResult.observe(viewLifecycleOwner) { voteStatus ->
+                if (filteredProposals.isEmpty()) {
+                    loading.visibility = View.GONE
+                    recycler.visibility = View.GONE
+                    emptyLayout.visibility = View.VISIBLE
+
+                } else {
+                    if (myVotes.isEmpty()) {
+                        loading.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        voteStatus?.votes?.forEach { vote ->
+                            myVotes.add(vote)
+                        }
+
+                        proposalListAdapter = ProposalListAdapter(
+                            requireContext(),
+                            selectedChain,
+                            myVotes,
+                            toVoteList,
+                            listener = proposalCheckAction
+                        )
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = proposalListAdapter
+                        proposalListAdapter.submitList(filteredProposals)
+                        proposalListAdapter.filterProposals()
+
+                    } else {
+                        myVotes.clear()
+                        voteStatus?.votes?.forEach { vote ->
+                            myVotes.add(vote)
+                        }
+                        if (isShowAll) {
+                            btnFilter.setImageResource(R.drawable.icon_not_filter)
+                            proposalListAdapter.submitList(proposals) {
+                                proposalListAdapter.filterProposals()
+                                proposalListAdapter.notifyDataSetChanged()
+                            }
+                        } else {
+                            btnFilter.setImageResource(R.drawable.icon_filter)
+                            proposalListAdapter.submitList(filteredProposals) {
+                                proposalListAdapter.filterProposals()
+                                proposalListAdapter.notifyDataSetChanged()
+                            }
+                        }
+                    }
+                }
+            }
         }
+
     }
 
     private val proposalCheckAction = object : ProposalListAdapter.CheckListener {
@@ -178,12 +186,26 @@ class ProposalListFragment : Fragment() {
 
             btnFilter.setOnClickListener {
                 isShowAll = !isShowAll
-                if (isShowAll) {
-                    btnFilter.setImageResource(R.drawable.icon_not_filter)
-                    updateRecyclerView(votingPeriods, etcPeriods)
-                } else {
-                    btnFilter.setImageResource(R.drawable.icon_filter)
-                    updateRecyclerView(filterVotingPeriods, filterEtcPeriods)
+                if (proposals.isNotEmpty()) {
+                    emptyLayout.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
+
+                    if (isShowAll) {
+                        btnFilter.setImageResource(R.drawable.icon_not_filter)
+                        requireActivity().makeToast(R.string.str_show_all_proposals_msg)
+                        proposalListAdapter.submitList(proposals) {
+                            proposalListAdapter.filterProposals()
+                            proposalListAdapter.notifyDataSetChanged()
+                        }
+
+                    } else {
+                        btnFilter.setImageResource(R.drawable.icon_filter)
+                        requireActivity().makeToast(R.string.str_hide_scam_proposals)
+                        proposalListAdapter.submitList(filteredProposals) {
+                            proposalListAdapter.filterProposals()
+                            proposalListAdapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
 

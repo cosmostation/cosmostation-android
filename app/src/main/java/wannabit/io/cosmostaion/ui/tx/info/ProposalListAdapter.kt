@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.ui.tx.info
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -14,18 +16,31 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 class ProposalListAdapter(
     val context: Context,
     val selectedChain: CosmosLine,
-    private val votingPeriods: MutableList<CosmosProposal>,
-    private val etcPeriods: MutableList<CosmosProposal>,
     private val myVotes: MutableList<VoteData>,
     private val toVoteList: MutableList<String>?,
     var listener: CheckListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : ListAdapter<CosmosProposal, RecyclerView.ViewHolder>(ProposalListDiffCallback()) {
 
     companion object {
         const val VIEW_TYPE_VOTING_HEADER = 0
         const val VIEW_TYPE_VOTING_ITEM = 1
         const val VIEW_TYPE_VOTED_HEADER = 2
         const val VIEW_TYPE_VOTED_ITEM = 3
+    }
+
+    private val votingPeriods: MutableList<CosmosProposal> = mutableListOf()
+    private val etcPeriods: MutableList<CosmosProposal> = mutableListOf()
+
+    fun filterProposals() {
+        votingPeriods.clear()
+        etcPeriods.clear()
+        currentList.forEach { proposal ->
+            if (proposal.isVotingPeriod()) {
+                votingPeriods.add(proposal)
+            } else {
+                etcPeriods.add(proposal)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -58,23 +73,13 @@ class ProposalListAdapter(
                 val etcIndex = position - (votingPeriods.size + positionOffset + 1)
 
                 when {
-                    votingPeriods.isNotEmpty() && holder.itemViewType == VIEW_TYPE_VOTING_ITEM ->
-                        holder.bind(
-                            selectedChain,
-                            votingPeriods[votingIndex],
-                            myVotes,
-                            toVoteList,
-                            listener
-                        )
+                    votingPeriods.isNotEmpty() && holder.itemViewType == VIEW_TYPE_VOTING_ITEM -> holder.bind(
+                        selectedChain, votingPeriods[votingIndex], myVotes, toVoteList, listener
+                    )
 
-                    etcIndex >= 0 && holder.itemViewType == VIEW_TYPE_VOTED_ITEM ->
-                        holder.bind(
-                            selectedChain,
-                            etcPeriods[etcIndex],
-                            myVotes,
-                            toVoteList,
-                            listener
-                        )
+                    etcIndex >= 0 && holder.itemViewType == VIEW_TYPE_VOTED_ITEM -> holder.bind(
+                        selectedChain, etcPeriods[etcIndex], myVotes, toVoteList, listener
+                    )
                 }
             }
         }
@@ -109,6 +114,17 @@ class ProposalListAdapter(
                     headerCnt.text = etcPeriods.size.toString()
                 }
             }
+        }
+    }
+
+    private class ProposalListDiffCallback : DiffUtil.ItemCallback<CosmosProposal>() {
+
+        override fun areItemsTheSame(oldItem: CosmosProposal, newItem: CosmosProposal): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: CosmosProposal, newItem: CosmosProposal): Boolean {
+            return oldItem == newItem
         }
     }
 
