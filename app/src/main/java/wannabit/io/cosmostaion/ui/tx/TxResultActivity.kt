@@ -398,7 +398,7 @@ class TxResultActivity : BaseActivity() {
     private fun startMainActivity() {
         Intent(this@TxResultActivity, MainActivity::class.java).apply {
             addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
-            putExtra("page", 1)
+            putExtra("page", 0)
             startActivity(this)
             ApplicationViewModel.shared.txRecreate()
         }
