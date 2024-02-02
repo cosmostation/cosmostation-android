@@ -181,7 +181,7 @@ class MainActivity : BaseActivity() {
             val mainViewPagerAdapter = MainViewPageAdapter(this)
             binding.apply {
                 mainViewPager.adapter = mainViewPagerAdapter
-                mainViewPager.setCurrentItem(intent.getIntExtra("page", 0), false)
+                mainViewPager.setCurrentItem(it, false)
                 mainViewPager.offscreenPageLimit = 2
                 mainViewPager.isUserInputEnabled = false
                 mainViewPagerAdapter.notifyDataSetChanged()

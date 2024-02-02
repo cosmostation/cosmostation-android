@@ -559,6 +559,6 @@ class Bep3ResultActivity : BaseActivity() {
         val intent = Intent(this@Bep3ResultActivity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-        ApplicationViewModel.shared.txRecreate()
+        ApplicationViewModel.shared.txRecreate(0)
     }
 }

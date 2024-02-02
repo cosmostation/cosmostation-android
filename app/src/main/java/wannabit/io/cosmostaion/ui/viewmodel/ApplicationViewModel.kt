@@ -59,9 +59,9 @@ class ApplicationViewModel(
         _changeNameResult.postValue(baseAccount)
     }
 
-    var txRecreateResult = SingleLiveEvent<Boolean>()
-    fun txRecreate() = viewModelScope.launch(Dispatchers.IO) {
-        txRecreateResult.postValue(true)
+    var txRecreateResult = SingleLiveEvent<Int>()
+    fun txRecreate(page: Int) = viewModelScope.launch(Dispatchers.IO) {
+        txRecreateResult.postValue(page)
     }
 
     var walletEditResult = SingleLiveEvent<MutableList<String>>()

@@ -146,7 +146,7 @@ class TxResultActivity : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         if (txResultType == TxResultType.SKIP) {
-            startMainActivity()
+            startMainActivity(1)
         } else {
             finish()
         }
@@ -228,7 +228,7 @@ class TxResultActivity : BaseActivity() {
             btnConfirm.setOnClickListener {
                 when (txResultType) {
                     TxResultType.SKIP -> {
-                        startMainActivity()
+                        startMainActivity(1)
                     }
 
                     TxResultType.EVM -> {
@@ -341,7 +341,7 @@ class TxResultActivity : BaseActivity() {
 
         binding.btnClose.setOnClickListener {
             if (txResultType == TxResultType.SKIP) {
-                startMainActivity()
+                startMainActivity(1)
             } else {
                 finish()
             }
@@ -395,12 +395,11 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun startMainActivity() {
+    private fun startMainActivity(page: Int) {
         Intent(this@TxResultActivity, MainActivity::class.java).apply {
             addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
-            putExtra("page", 0)
             startActivity(this)
-            ApplicationViewModel.shared.txRecreate()
+            ApplicationViewModel.shared.txRecreate(page)
         }
     }
 }
