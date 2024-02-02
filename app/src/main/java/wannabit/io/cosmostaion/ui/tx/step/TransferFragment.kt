@@ -536,7 +536,7 @@ class TransferFragment : BaseTxFragment() {
                         return@let
                     }
 
-                    if (BaseUtils.isValidChainAddress(selectedChain, addressScan)) {
+                    if (BaseUtils.isValidChainAddress(selectedRecipientChain, addressScan)) {
                         updateRecipientAddressView(addressScan.trim())
                         if (scanString.size > 1) {
                             updateMemoView(memoScan.trim())

@@ -11,6 +11,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc.newStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import io.grpc.stub.StreamObserver
@@ -32,6 +33,7 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
@@ -39,6 +41,8 @@ import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.io.IOException
@@ -61,6 +65,7 @@ class TxResultActivity : BaseActivity() {
     private var evmRecipient: TransactionReceipt? = null
 
     private lateinit var walletViewModel: WalletViewModel
+    private lateinit var addressBookViewModel: AddressBookViewModel
 
     // addressBook
     private var recipientChain: CosmosLine? = null
@@ -82,6 +87,13 @@ class TxResultActivity : BaseActivity() {
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
         walletViewModel =
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+
+        val addressRepository = AddressRepositoryImpl()
+        val addressBookViewModelProviderFactory =
+            AddressBookViewModelProviderFactory(addressRepository)
+        addressBookViewModel = ViewModelProvider(
+            this, addressBookViewModelProviderFactory
+        )[AddressBookViewModel::class.java]
     }
 
     private fun initView() {
@@ -218,12 +230,16 @@ class TxResultActivity : BaseActivity() {
                     TxResultType.SKIP -> {
                         startMainActivity()
                     }
+
                     TxResultType.EVM -> {
                         finish()
                         BaseData.baseAccount?.let { account ->
-                            ApplicationViewModel.shared.loadAllTokenBalance(selectedChain!!, account.id)
+                            ApplicationViewModel.shared.loadAllTokenBalance(
+                                selectedChain!!, account.id
+                            )
                         }
                     }
+
                     else -> {
                         finish()
                         BaseData.baseAccount?.let { account ->
@@ -341,14 +357,16 @@ class TxResultActivity : BaseActivity() {
 
     private fun showAddressBook() {
         if (recipientChain != null && recipientAddress.isNotEmpty()) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 AppDatabase.getInstance().addressBookDao().selectAll()
                     .firstOrNull { it.address == recipientAddress && it.chainName == recipientChain?.name }
                     ?.let { existed ->
                         if (existed.memo != memo) {
-                            SetAddressFragment(existed, null, "", memo).show(
-                                supportFragmentManager, SetAddressFragment::class.java.name
-                            )
+                            withContext(Dispatchers.Main) {
+                                SetAddressFragment(existed, null, "", memo).show(
+                                    supportFragmentManager, SetAddressFragment::class.java.name
+                                )
+                            }
                             return@launch
                         }
                     }

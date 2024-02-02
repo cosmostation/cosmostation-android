@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -130,7 +131,7 @@ class DashboardFragment : Fragment() {
     private fun initDisplayData() {
         baseAccount?.let { account ->
             account.apply {
-                CoroutineScope(Dispatchers.IO).launch {
+                lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
                         sortedDisplayCosmosLines().forEach { line ->
                             if (line.address?.isEmpty() == true) {

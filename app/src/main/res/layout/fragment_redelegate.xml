@@ -115,7 +115,7 @@
                     android:layout_marginStart="@dimen/space_6"
                     android:layout_marginTop="@dimen/space_3"
                     android:layout_marginEnd="@dimen/space_10"
-                    android:textColor="@color/color_base02"
+                    android:textColor="@color/color_base01"
                     app:layout_constraintStart_toEndOf="@+id/staked_amount_title"
                     app:layout_constraintTop_toBottomOf="@+id/from_moniker_name" />
 

@@ -4,14 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -91,14 +92,19 @@ class DeleteFragment : BottomSheetDialogFragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 accountViewModel.deleteAccount(account)
 
-                CoroutineScope(Dispatchers.IO).launch {
+                lifecycleScope.launch(Dispatchers.IO) {
                     if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
                         if (BaseData.baseAccount?.id == account.id) {
-                            Prefs.lastAccountId =
-                                AppDatabase.getInstance().baseAccountDao().selectAll()[0].id
-                            BaseData.baseAccount = AppDatabase.getInstance().baseAccountDao()
-                                .selectAccount(Prefs.lastAccountId)
-                            ApplicationViewModel.shared.currentAccount(BaseData.baseAccount, true)
+                            AppDatabase.getInstance().baseAccountDao().selectAll()
+                                .firstOrNull { it.id != account.id }?.let { lastAccount ->
+                                    Prefs.lastAccountId = lastAccount.id
+                                    BaseData.baseAccount =
+                                        AppDatabase.getInstance().baseAccountDao()
+                                            .selectAccount(Prefs.lastAccountId)
+                                    ApplicationViewModel.shared.currentAccount(
+                                        BaseData.baseAccount, true
+                                    )
+                                }
                         }
 
                     } else {

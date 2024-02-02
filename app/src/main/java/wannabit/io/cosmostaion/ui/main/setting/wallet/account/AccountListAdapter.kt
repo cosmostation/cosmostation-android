@@ -163,9 +163,10 @@ class AccountListAdapter(
             getItemViewType(fromPosition) == VIEW_TYPE_MNEMONIC_ITEM -> {
                 val mnemonicFromPosition = fromPosition - 1
                 val mnemonicToPosition = toPosition - 1
-                if (mnemonicToPosition < 0) {
+                if (mnemonicToPosition < 0 || mnemonicToPosition >= mnemonicAccounts.size) {
                     return false
                 }
+
                 val fromItem = mnemonicAccounts[mnemonicFromPosition]
                 val toItem = mnemonicAccounts[mnemonicToPosition]
 

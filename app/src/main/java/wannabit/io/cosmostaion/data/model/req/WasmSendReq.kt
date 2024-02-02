@@ -1,7 +1,8 @@
 package wannabit.io.cosmostaion.data.model.req
 
-class WasmSendReq(val recipient: String?, val amount: String?) {
-    var transfer: TransferReq = TransferReq(recipient, amount)
+data class WasmSendReq(val transfer: TransferReq) {
 
-    inner class TransferReq(var recipient: String?, var amount: String?)
+    data class TransferReq(val recipient: String, val amount: String)
+
+    constructor(recipient: String, amount: String) : this(TransferReq(recipient, amount))
 }

@@ -5,6 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/backdropLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background_dialog"
+        android:elevation="@dimen/space_5"
+        android:fitsSystemWindows="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="@dimen/space_120"
+            android:layout_height="@dimen/space_120"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+    </RelativeLayout>
+
     <View
         android:id="@+id/view"
         android:layout_width="@dimen/space_40"

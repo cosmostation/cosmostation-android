@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trustwallet.walletconnect.extensions.toHex
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -90,7 +90,7 @@ class PrivateCheckFragment : Fragment() {
 
     private fun initAllKeyData() {
         account.apply {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 if (type == BaseAccountType.MNEMONIC) {
                     allCosmosLines.addAll(allCosmosLines())
                     allCosmosLines.forEach { line ->
@@ -120,6 +120,7 @@ class PrivateCheckFragment : Fragment() {
     private fun updateView() {
         binding.apply {
             if (account.type == BaseAccountType.MNEMONIC) {
+                privateCheckTitle.text = getString(R.string.title_check_private_each_chain)
                 privateKeyLayout.visibility = View.GONE
                 tapMsg.visibility = View.GONE
                 recycler.visibility = View.VISIBLE
@@ -131,6 +132,7 @@ class PrivateCheckFragment : Fragment() {
                 privateAdapter.submitList(allCosmosLines as List<Any>?)
 
             } else {
+                privateCheckTitle.text = getString(R.string.str_only_private)
                 privateKeyLayout.visibility = View.VISIBLE
                 tapMsg.visibility = View.VISIBLE
                 recycler.visibility = View.GONE

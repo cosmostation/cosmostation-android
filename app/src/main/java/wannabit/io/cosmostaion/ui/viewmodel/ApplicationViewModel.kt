@@ -53,6 +53,12 @@ class ApplicationViewModel(
         _currentAccountResult.postValue(Pair(isNew, baseAccount))
     }
 
+    private var _changeNameResult = MutableLiveData<BaseAccount?>()
+    val changeNameResult: LiveData<BaseAccount?> get() = _changeNameResult
+    fun changeName(baseAccount: BaseAccount?) = viewModelScope.launch(Dispatchers.IO) {
+        _changeNameResult.postValue(baseAccount)
+    }
+
     var txRecreateResult = SingleLiveEvent<Boolean>()
     fun txRecreate() = viewModelScope.launch(Dispatchers.IO) {
         txRecreateResult.postValue(true)

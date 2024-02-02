@@ -146,6 +146,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                             )
                         )
                     }
+                    nameServices.postValue(nameServiceList)
                 }
             }
         }

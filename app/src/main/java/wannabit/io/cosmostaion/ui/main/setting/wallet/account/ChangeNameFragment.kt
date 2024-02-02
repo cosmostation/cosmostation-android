@@ -7,10 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChangeNameBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 
 class ChangeNameFragment : BottomSheetDialogFragment() {
@@ -45,7 +49,7 @@ class ChangeNameFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -69,7 +73,7 @@ class ChangeNameFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnConfirm.setOnClickListener {
                 val inputText = accountName.text.toString().trim()
@@ -83,6 +87,7 @@ class ChangeNameFragment : BottomSheetDialogFragment() {
                 } else {
                     baseAccount.name = inputText
                     accountViewModel.insertAccount(baseAccount)
+                    ApplicationViewModel.shared.changeName(baseAccount)
                     dismiss()
                 }
             }

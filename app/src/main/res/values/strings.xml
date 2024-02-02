@@ -167,7 +167,7 @@
     <string name="title_check_private_each_chain">Check private key for each chain</string>
     <string name="title_create_account">Create account</string>
     <string name="title_create_wallet">Create a new account</string>
-    <string name="title_import_mnemonic">Import wallet</string>
+    <string name="title_import_mnemonic">Import mnemonics</string>
     <string name="title_import_private_key">Import private Key</string>
     <string name="title_set_account_name">Set account name</string>
     <string name="title_mnemonic_created">Mnemonic created</string>

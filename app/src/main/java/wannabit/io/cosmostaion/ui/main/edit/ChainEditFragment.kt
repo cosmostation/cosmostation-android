@@ -3,11 +3,13 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -184,7 +186,6 @@ class ChainEditFragment : BaseTxFragment() {
                     Prefs.getDisplayChains(account).contains(o2.tag) && Prefs.getDisplayChains(
                         account
                     ).contains(o1.tag) -> 1
-
                     else -> 0
                 }
             }
@@ -196,8 +197,9 @@ class ChainEditFragment : BaseTxFragment() {
             btnSelect.setOnClickListener {
                 if (btnSelect.isEnabled) {
                     btnSelect.isEnabled = false
+                    backdropLayout.visibility = View.VISIBLE
 
-                    CoroutineScope(Dispatchers.IO).launch {
+                    lifecycleScope.launch(Dispatchers.IO) {
                         allCosmosChains = reSortCosmosChains()
 
                         toDisplayChainLines.clear()
@@ -208,8 +210,9 @@ class ChainEditFragment : BaseTxFragment() {
 
                         valuableSortCosmosChains()
                         withContext(Dispatchers.Main) {
+                            backdropLayout.visibility = View.GONE
                             chainEditAdapter.notifyItemRangeChanged(
-                                1, toDisplayChainLines.size + 1, null
+                                1, allCosmosChains.size + 1, null
                             )
                         }
                     }

@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/private_check_title"
                 style="@style/font_sb_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -72,6 +72,10 @@ class MainActivity : BaseActivity() {
             CosmostationApp.instance.setRandomBackgroundImage()
             binding.parentLayout.setBackgroundResource(Prefs.background)
         }
+
+        ApplicationViewModel.shared.changeNameResult.observe(this) { account ->
+            binding.accountName.text = account?.name
+        }
     }
 
     private fun initView() {

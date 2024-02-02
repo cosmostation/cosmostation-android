@@ -23,7 +23,7 @@ class AccountSelectViewHolder(
                 accountType.text = context.getString(R.string.title_private_account)
                 accountTypeImg.setImageResource(R.drawable.icon_private)
             }
-            selectImg.visibleOrGone(BaseData.baseAccount?.name == baseAccount.name)
+            selectImg.visibleOrGone(BaseData.baseAccount?.id == baseAccount.id)
         }
     }
 }

@@ -22,7 +22,6 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
 
     fun insertAccount(baseAccount: BaseAccount) = CoroutineScope(Dispatchers.IO).launch {
         accountRepository.insertAccount(baseAccount)
-        _baseAccounts.postValue(AppDatabase.getInstance().baseAccountDao().selectAll())
     }
 
     fun deleteAccount(baseAccount: BaseAccount) = CoroutineScope(Dispatchers.IO).launch {

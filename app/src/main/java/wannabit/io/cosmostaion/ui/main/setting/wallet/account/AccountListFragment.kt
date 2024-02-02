@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.databinding.FragmentAccountListBinding
 import wannabit.io.cosmostaion.ui.option.account.AccountManageListener
 import wannabit.io.cosmostaion.ui.option.account.AccountManageOptionFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.ui.wallet.CreateMnemonicFragment
 import wannabit.io.cosmostaion.ui.wallet.RestoreMnemonicFragment
@@ -61,6 +62,7 @@ class AccountListFragment : Fragment() {
         initData()
         setUpClickAction()
         checkAccountData()
+        checkChangeNameData()
     }
 
     private fun initData() {
@@ -248,7 +250,7 @@ class AccountListFragment : Fragment() {
                             requireActivity().toMoveFragment(
                                 this@AccountListFragment,
                                 MnemonicCheckFragment.newInstance(account),
-                                "MnemonicCheck"
+                                MnemonicCheckFragment::class.java.name
                             )
                         }
                     }
@@ -267,7 +269,7 @@ class AccountListFragment : Fragment() {
                             requireActivity().toMoveFragment(
                                 this@AccountListFragment,
                                 PrivateCheckFragment.newInstance(account),
-                                "PrivateCheck"
+                                PrivateCheckFragment::class.java.name
                             )
                         }
                     }
@@ -303,6 +305,14 @@ class AccountListFragment : Fragment() {
             val privateAccounts = result.filter { it.type == BaseAccountType.PRIVATE_KEY }
 
             initRecyclerView(mnemonicAccounts, privateAccounts)
+        }
+    }
+
+    private fun checkChangeNameData() {
+        ApplicationViewModel.shared.changeNameResult.observe(viewLifecycleOwner) {
+            if (::accountListAdapter.isInitialized) {
+                accountListAdapter.notifyDataSetChanged()
+            }
         }
     }
 

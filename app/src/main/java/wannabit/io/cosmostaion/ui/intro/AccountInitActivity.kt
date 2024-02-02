@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.account.AccountRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityAccountBinding
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModelProviderFactory
@@ -30,6 +31,7 @@ class AccountInitActivity : BaseActivity() {
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.parentLayout.setBackgroundResource(Prefs.background)
         if (savedInstanceState == null) {
             replaceFragment()
         }

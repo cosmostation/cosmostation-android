@@ -68,6 +68,7 @@ class SettingFragment : Fragment() {
         setUpClickAction()
         setUpSwitchAction()
         checkAccountStatus()
+        checkChangeNameData()
     }
 
     private fun initView() {
@@ -113,6 +114,12 @@ class SettingFragment : Fragment() {
     private fun checkAccountStatus() {
         ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) {
             updateWalletView()
+        }
+    }
+
+    private fun checkChangeNameData() {
+        ApplicationViewModel.shared.changeNameResult.observe(viewLifecycleOwner) { account ->
+            binding.accountName.text = account?.name
         }
     }
 
