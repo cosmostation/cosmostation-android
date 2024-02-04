@@ -19,6 +19,10 @@ open class BaseTxFragment : BottomSheetDialogFragment() {
 
     val txViewModel: TxViewModel by activityViewModels()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is AppCompatActivity) {
