@@ -152,7 +152,8 @@ class ChainEditFragment : BaseTxFragment() {
                         else -> {
                             when {
                                 o1.allAssetValue(true) > o2.allAssetValue(true) -> -1
-                                else -> 1
+                                o1.allAssetValue(true) < o2.allAssetValue(true) -> 1
+                                else -> 0
                             }
                         }
                     }

@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
@@ -30,7 +31,6 @@ import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -147,7 +147,7 @@ class SwapFragment : BaseTxFragment() {
     }
 
     private fun initData() {
-        skipDataJob = CoroutineScope(Dispatchers.IO).launch {
+        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
             initAllKeyData()
             skipViewModel.loadData()
         }
@@ -295,14 +295,14 @@ class SwapFragment : BaseTxFragment() {
                 }
             }
 
-            skipDataJob = CoroutineScope(Dispatchers.IO).launch {
+            skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                 inputCosmosLine?.let { line ->
                     val channel = getChannel(line)
                     val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
                     val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
                     val loadInputParamDeferred = async { line.loadParam() }
 
-                    line.cosmosAuth = loadInputAuthDeferred.await().account
+                    line.cosmosAuth = loadInputAuthDeferred.await()?.account
                     line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
                     line.param = loadInputParamDeferred.await()
                     BaseUtils.onParseVestingAccount(line)
@@ -314,7 +314,7 @@ class SwapFragment : BaseTxFragment() {
                     val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
                     val loadOutputParamDeferred = async { line.loadParam() }
 
-                    line.cosmosAuth = loadOutputAuthDeferred.await().account
+                    line.cosmosAuth = loadOutputAuthDeferred.await()?.account
                     line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
                     line.param = loadOutputParamDeferred.await()
                     BaseUtils.onParseVestingAccount(line)
@@ -625,7 +625,7 @@ class SwapFragment : BaseTxFragment() {
                                 if (inputCosmosLine?.chainId != chainId) {
                                     loading.visibility = View.VISIBLE
 
-                                    skipDataJob = CoroutineScope(Dispatchers.IO).launch {
+                                    skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                                         inputCosmosLine =
                                             skipChains.firstOrNull { it.chainId == chainId }
                                         inputAssets.clear()
@@ -650,7 +650,7 @@ class SwapFragment : BaseTxFragment() {
                                                 async { loadBalance(channel, line.address) }
                                             val loadInputParamDeferred = async { line.loadParam() }
 
-                                            line.cosmosAuth = loadInputAuthDeferred.await().account
+                                            line.cosmosAuth = loadInputAuthDeferred.await()?.account
                                             line.cosmosBalances =
                                                 loadInputBalanceDeferred.await().balancesList
                                             line.param = loadInputParamDeferred.await()
@@ -709,7 +709,7 @@ class SwapFragment : BaseTxFragment() {
                                 if (outputCosmosLine?.chainId != chainId) {
                                     loading.visibility = View.VISIBLE
 
-                                    skipDataJob = CoroutineScope(Dispatchers.IO).launch {
+                                    skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                                         outputCosmosLine =
                                             skipChains.firstOrNull { it.chainId == chainId }
                                         outputAssets.clear()
@@ -734,7 +734,7 @@ class SwapFragment : BaseTxFragment() {
                                                 async { loadBalance(channel, line.address) }
                                             val loadOutputParamDeferred = async { line.loadParam() }
 
-                                            line.cosmosAuth = loadOutputAuthDeferred.await().account
+                                            line.cosmosAuth = loadOutputAuthDeferred.await()?.account
                                             line.cosmosBalances =
                                                 loadOutputBalanceDeferred.await().balancesList
                                             line.param = loadOutputParamDeferred.await()
@@ -771,15 +771,23 @@ class SwapFragment : BaseTxFragment() {
                     .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
                 inputAmountTxt.setText(halfAmount.toPlainString())
                 updateAmountView()
-                inputAmountTxt.setSelection(halfAmount.toPlainString().length)
+                if (halfAmount > BigDecimal.ZERO) {
+                    inputAmountTxt.setSelection(halfAmount.toPlainString().length)
+                } else {
+                    inputAmountTxt.setSelection(halfAmount.toPlainString().length - 1)
+                }
             }
 
             btnMax.setOnClickListener {
-                val halfAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
+                val maxAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
                     .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
-                inputAmountTxt.setText(halfAmount.toPlainString())
+                inputAmountTxt.setText(maxAmount.toPlainString())
                 updateAmountView()
-                inputAmountTxt.setSelection(halfAmount.toPlainString().length)
+                if (maxAmount > BigDecimal.ZERO) {
+                    inputAmountTxt.setSelection(maxAmount.toPlainString().length)
+                } else {
+                    inputAmountTxt.setSelection(maxAmount.toPlainString().length - 1)
+                }
             }
 
             btnSwap.setOnClickListener {
@@ -926,10 +934,14 @@ class SwapFragment : BaseTxFragment() {
 
     private fun loadAuth(
         managedChannel: ManagedChannel, address: String?
-    ): QueryProto.QueryAccountResponse {
+    ): QueryProto.QueryAccountResponse? {
         val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
         val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
-        return stub.account(request)
+        return try {
+            stub.account(request)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     private fun loadBalance(
