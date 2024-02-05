@@ -75,7 +75,6 @@ class WalletSelectViewHolder(
 
             line.stakeDenom?.let { denom ->
                 var cnt = 0
-
                 if (line.fetched) {
                     if (line is ChainBinanceBeacon) {
                         val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
@@ -93,9 +92,17 @@ class WalletSelectViewHolder(
 
                     } else {
                         if (line.cosmosBalances == null) {
+                            chainBalance.visibility = View.GONE
+                            chainDenom.visibility = View.GONE
                             chainNotRespond.visibility = View.VISIBLE
                             chainAssetCnt.visibility = View.GONE
+
                         } else {
+                            chainBalance.visibility = View.VISIBLE
+                            chainDenom.visibility = View.VISIBLE
+                            chainNotRespond.visibility = View.GONE
+                            chainAssetCnt.visibility = View.VISIBLE
+
                             BaseData.getAsset(line.apiName, denom)?.let { asset ->
                                 val availableAmount =
                                     line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)

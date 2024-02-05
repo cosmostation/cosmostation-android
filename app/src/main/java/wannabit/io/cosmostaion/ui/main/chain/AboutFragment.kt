@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
+import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Locale
 
@@ -75,11 +76,18 @@ class AboutFragment : Fragment() {
                 }
 
                 val unBondingTime = unBondingTime(selectedChain)
-                val inflation =
+                val inflation = try {
                     (it.mintInflation?.inflation ?: 0).toString().toBigDecimal().movePointRight(2)
                         .setScale(2, RoundingMode.DOWN)
-                val apr = (it.apr ?: 0).toString().toBigDecimal().movePointRight(2)
-                    .setScale(2, RoundingMode.DOWN)
+                } catch (e: NumberFormatException) {
+                    BigDecimal("0.00")
+                }
+                val apr = try {
+                    (it.apr ?: 0).toString().toBigDecimal().movePointRight(2)
+                        .setScale(2, RoundingMode.DOWN)
+                } catch (e: NumberFormatException) {
+                    BigDecimal("0.00")
+                }
                 unbondingTime.text = unBondingTime.toString() + " Days"
                 chainInflation.text = formatPercent(inflation.toPlainString())
                 chainApr.text = formatPercent(apr.toPlainString())

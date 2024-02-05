@@ -140,6 +140,7 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+        this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey)
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }
