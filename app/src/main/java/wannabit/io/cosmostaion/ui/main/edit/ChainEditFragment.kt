@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +61,7 @@ class ChainEditFragment : BaseTxFragment() {
         binding?.apply {
             BaseData.baseAccount?.let { account ->
                 account.apply {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    lifecycleScope.launch(Dispatchers.IO) {
                         sortCosmosLine()
                         searchChains.addAll(allCosmosLineChains)
                         toDisplayChainLines.addAll(Prefs.getDisplayChains(account))
@@ -187,6 +186,7 @@ class ChainEditFragment : BaseTxFragment() {
                     Prefs.getDisplayChains(account).contains(o2.tag) && Prefs.getDisplayChains(
                         account
                     ).contains(o1.tag) -> 1
+
                     else -> 0
                 }
             }

@@ -278,9 +278,13 @@ class WalletRepositoryImpl : WalletRepository {
         val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
             .setAddress(token.address).setQueryData(queryData).build()
 
-        stub.smartContractState(request)?.let { response ->
-            val json = JSONObject(response.data.toStringUtf8())
-            token.amount = json.get("balance").toString()
+        try {
+            stub.smartContractState(request)?.let { response ->
+                val json = JSONObject(response.data.toStringUtf8())
+                token.amount = json.get("balance").toString()
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 
