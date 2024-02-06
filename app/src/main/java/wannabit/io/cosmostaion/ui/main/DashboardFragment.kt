@@ -16,6 +16,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseData
@@ -46,6 +48,8 @@ class DashboardFragment : Fragment() {
     private var totalChainValue: BigDecimal = BigDecimal.ZERO
 
     private var isNew: Boolean = false
+
+    private val mutex = Mutex()
 
     companion object {
         @JvmStatic
@@ -168,7 +172,7 @@ class DashboardFragment : Fragment() {
 
     private fun setupLoadedData() {
         walletViewModel.fetchedResult.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
                     for (i in 0 until account.sortedDisplayCosmosLines().size) {
                         if (account.sortedDisplayCosmosLines()[i].fetched) {
@@ -293,13 +297,16 @@ class DashboardFragment : Fragment() {
 
         ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) {
             baseAccount?.let { account ->
-                CoroutineScope(Dispatchers.IO).launch {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    mutex.withLock {
+                        account.sortCosmosLine()
+                    }
                     Prefs.setDisplayChains(account, it)
-                    account.sortCosmosLine()
                     initDisplayData()
                     delay(100)
                     withContext(Dispatchers.Main) {
-                        updateViewWithLoadedData()
+                        initRecyclerView()
+                        setupLoadedData()
                         PushManager.syncAddresses(Prefs.fcmToken)
                     }
                 }

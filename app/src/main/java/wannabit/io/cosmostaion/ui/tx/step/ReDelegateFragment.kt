@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentRedelegateBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -48,7 +49,6 @@ import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultListener
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorFragment
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -202,19 +202,7 @@ class ReDelegateFragment : BaseTxFragment() {
                 toValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
                     .setScale(2, RoundingMode.DOWN).let {
                         commission.text = formatString("$it%", 3)
-                        if (it.toString() == "0.00") {
-                            commission.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    requireContext(), R.color.color_accent_green
-                                )
-                            )
-                        } else {
-                            commission.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    requireContext(), R.color.color_base01
-                                )
-                            )
-                        }
+
                         txSimulate()
                     }
             }
@@ -319,7 +307,8 @@ class ReDelegateFragment : BaseTxFragment() {
 
             toValidatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
+                    ValidatorDefaultFragment(
+                        selectedChain,
                         fromValidator,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {

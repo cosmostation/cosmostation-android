@@ -23,6 +23,7 @@ class ChainTerra : CosmosLine() {
         ChildNumber(44, true), ChildNumber(330, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
     override var accountPrefix: String? = "terra"
+    override var supportCw20: Boolean = true
 
     override var grpcHost: String = "grpc-terra.cosmostation.io"
 }

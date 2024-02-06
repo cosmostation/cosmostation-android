@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +38,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentStakingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -47,7 +47,6 @@ import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorDefaultListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -183,19 +182,6 @@ class StakingFragment : BaseTxFragment() {
                 toValidator?.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
                     ?.setScale(2, RoundingMode.DOWN)
             commissionPercent.text = formatString("$commissionRate%", 3)
-            if (commissionRate.toString() == "0.00") {
-                commissionPercent.setTextColor(
-                    ContextCompat.getColorStateList(
-                        requireContext(), R.color.color_accent_green
-                    )
-                )
-            } else {
-                commissionPercent.setTextColor(
-                    ContextCompat.getColorStateList(
-                        requireContext(), R.color.color_base01
-                    )
-                )
-            }
         }
         txSimulate()
     }
@@ -290,7 +276,8 @@ class StakingFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
+                    ValidatorDefaultFragment(
+                        selectedChain,
                         null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {

@@ -189,19 +189,6 @@ class DepositEarningFragment : BaseTxFragment() {
                 val commissionRate = toValidator?.commission?.commissionRates?.rate?.toBigDecimal()
                     ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                 commissionPercent.text = formatString("$commissionRate%", 3)
-                if (commissionRate.toString() == "0.00") {
-                    commissionPercent.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(), R.color.color_accent_green
-                        )
-                    )
-                } else {
-                    commissionPercent.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(), R.color.color_base01
-                        )
-                    )
-                }
             }
         }
         txSimulate()
@@ -296,7 +283,8 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
+                    ValidatorDefaultFragment(
+                        selectedChain,
                         null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {

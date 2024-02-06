@@ -85,7 +85,7 @@ class ChainEditFragment : BaseTxFragment() {
         }
     }
 
-    private fun initAllData(account: BaseAccount) {
+    private fun initAllData(account: BaseAccount) = lifecycleScope.launch(Dispatchers.IO) {
         account.apply {
             if (type == BaseAccountType.MNEMONIC) {
                 allCosmosLineChains.forEach { line ->

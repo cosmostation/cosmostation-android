@@ -78,10 +78,10 @@ class ValidatorDefaultFragment(
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchValidators.clear()
                     if (StringUtils.isEmpty(newText)) {
-                        searchValidators.addAll(selectedChain.cosmosValidators)
+                        searchValidators.addAll(selectedChain.cosmosValidators.filterNot { it == fromValidator })
                     } else {
                         newText?.let { searchTxt ->
-                            searchValidators.addAll(selectedChain.cosmosValidators.filter { validator ->
+                            searchValidators.addAll(selectedChain.cosmosValidators.filterNot { it == fromValidator }.filter { validator ->
                                 validator.description.moniker.contains(searchTxt, ignoreCase = true)
                             })
                         }
