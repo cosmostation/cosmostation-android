@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
@@ -121,10 +118,8 @@ class ChainEditFragment : BaseTxFragment() {
                         account.allCosmosLineChains.firstOrNull { line -> line.tag == it }
                     val index = account.allCosmosLineChains.indexOf(fetchedLine)
                     withContext(Dispatchers.Main) {
-                        account.allCosmosLineChains.forEach { _ ->
-                            if (::chainEditAdapter.isInitialized) {
-                                chainEditAdapter.notifyItemChanged(index)
-                            }
+                        if (::chainEditAdapter.isInitialized) {
+                            chainEditAdapter.notifyItemChanged(index)
                         }
                         binding?.btnSelect?.updateSelectButtonView(account.allCosmosLineChains.none { line -> !line.fetched })
                         binding?.progress?.goneOrVisible(account.allCosmosLineChains.none { line -> !line.fetched })
@@ -228,16 +223,13 @@ class ChainEditFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                BaseData.baseAccount?.let { account ->
-                    account.allCosmosLineChains.forEach {
-                        if (toDisplayChainLines.contains(it.tag) && it.fetched) {
-                            ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
-                            dismiss()
-                        } else {
-                            return@forEach
-                        }
+                searchChains.forEach { chain ->
+                    if (toDisplayChainLines.contains(chain.tag) && !chain.fetched) {
+                        return@setOnClickListener
                     }
                 }
+                ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
+                dismiss()
             }
         }
     }
