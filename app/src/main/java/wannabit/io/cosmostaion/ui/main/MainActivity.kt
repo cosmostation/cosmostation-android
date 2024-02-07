@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
@@ -151,9 +152,17 @@ class MainActivity : BaseActivity() {
             }
 
             accountLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    AccountSelectFragment()
-                )
+                BaseData.baseAccount?.let { account ->
+                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AccountSelectFragment()
+                        )
+
+                    } else {
+                        makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
+                }
             }
         }
     }

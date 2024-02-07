@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.webkit.WebView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore

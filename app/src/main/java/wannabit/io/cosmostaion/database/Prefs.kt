@@ -27,6 +27,7 @@ object Prefs {
     private const val ALARM_ENABLE_STATUS = "PRE_ALARM_STATUS"
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
     private const val BACKGROUND_IMAGE = "PRE_BACKGROUND_IMAGE"
+    private const val FOREGROUND_TO_BACKGROUND = "PRE_FOREGROUND_TO_BACKGROUND"
 
     private val preference =
         CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -127,4 +128,8 @@ object Prefs {
     var background: Int
         get() = preference.getInt(BACKGROUND_IMAGE, 0)
         set(value) = preference.edit().putInt(BACKGROUND_IMAGE, value).apply()
+
+    var foreToBack: Boolean
+        get() = preference.getBoolean(FOREGROUND_TO_BACKGROUND, true)
+        set(value) = preference.edit().putBoolean(FOREGROUND_TO_BACKGROUND, value).apply()
 }

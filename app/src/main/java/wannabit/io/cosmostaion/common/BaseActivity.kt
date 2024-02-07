@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
 
@@ -26,7 +27,8 @@ open class BaseActivity : AppCompatActivity() {
             window.setDecorFitsSystemWindows(false)
             val controller = window.insetsController
             if (controller != null) {
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                controller.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         } else {
             window.decorView.systemUiVisibility =
@@ -41,11 +43,12 @@ open class BaseActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch(Dispatchers.IO) {
-            if (CosmostationApp.instance.needShowLockScreen()) {
+            if (CosmostationApp.instance.needShowLockScreen() && Prefs.foreToBack) {
                 val intent = Intent(this@BaseActivity, AppLockActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
             }
+            Prefs.foreToBack = true
         }
     }
 }

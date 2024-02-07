@@ -177,7 +177,8 @@ class DashboardFragment : Fragment() {
                     for (i in 0 until account.sortedDisplayCosmosLines().size) {
                         if (account.sortedDisplayCosmosLines()[i].fetched) {
                             withContext(Dispatchers.Main) {
-                                dashAdapter.notifyItemChanged(i + 1)
+                                dashAdapter.notifyItemRangeChanged(1, (account.sortedDisplayCosmosLines().size + 1), null)
+//                                dashAdapter.notifyItemChanged(i + 1)
                             }
                         }
                     }

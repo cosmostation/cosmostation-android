@@ -226,6 +226,7 @@ class CosmosDetailFragment : Fragment() {
                 val accountUrl =
                     CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/address/" + selectedChain.address
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
+                Prefs.foreToBack = false
             }
 
             accountAddress.setOnClickListener {
@@ -411,26 +412,24 @@ class CosmosDetailFragment : Fragment() {
         fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
     ) {
         binding.fabMenu.close(true)
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (isClickable) {
-                isClickable = false
+        if (isClickable) {
+            isClickable = false
 
-                if (fragment != null) {
-                    requireActivity().toMoveFragment(
-                        this@CosmosDetailFragment, fragment, fragment::class.java.name
-                    )
-                } else {
-                    bottomSheetDialogFragment?.show(
-                        requireActivity().supportFragmentManager,
-                        bottomSheetDialogFragment::class.java.name
-                    )
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 300)
+            if (fragment != null) {
+                requireActivity().toMoveFragment(
+                    this@CosmosDetailFragment, fragment, fragment::class.java.name
+                )
+            } else {
+                bottomSheetDialogFragment?.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetDialogFragment::class.java.name
+                )
             }
-        }, 500)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
+        }
     }
 
     class DetailPageAdapter(

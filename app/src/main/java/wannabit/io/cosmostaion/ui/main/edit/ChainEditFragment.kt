@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
@@ -77,7 +79,6 @@ class ChainEditFragment : BaseTxFragment() {
                             btnSelect.updateSelectButtonView(allCosmosLineChains.none { !it.fetched })
                             progress.goneOrVisible(allCosmosLineChains.none { !it.fetched })
                         }
-
                         initAllData(account)
                     }
                 }
@@ -85,25 +86,27 @@ class ChainEditFragment : BaseTxFragment() {
         }
     }
 
-    private fun initAllData(account: BaseAccount) = lifecycleScope.launch(Dispatchers.IO) {
-        account.apply {
-            if (type == BaseAccountType.MNEMONIC) {
-                allCosmosLineChains.forEach { line ->
-                    if (line.address?.isEmpty() == true) {
-                        line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+    private fun initAllData(account: BaseAccount) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            account.apply {
+                if (type == BaseAccountType.MNEMONIC) {
+                    allCosmosLineChains.forEach { line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        }
+                        if (!line.fetched) {
+                            walletViewModel.loadChainData(line, id, true)
+                        }
                     }
-                    if (!line.fetched) {
-                        walletViewModel.loadChainData(line, id, true)
-                    }
-                }
 
-            } else if (type == BaseAccountType.PRIVATE_KEY) {
-                allCosmosLineChains.forEach { line ->
-                    if (line.address?.isEmpty() == true) {
-                        line.setInfoWithPrivateKey(privateKey)
-                    }
-                    if (!line.fetched) {
-                        walletViewModel.loadChainData(line, id, true)
+                } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    allCosmosLineChains.forEach { line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithPrivateKey(privateKey)
+                        }
+                        if (!line.fetched) {
+                            walletViewModel.loadChainData(line, id, true)
+                        }
                     }
                 }
             }
@@ -112,7 +115,7 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun setupLoadedView() {
         walletViewModel.editFetchedResult.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
                     val fetchedLine =
                         account.allCosmosLineChains.firstOrNull { line -> line.tag == it }
@@ -225,8 +228,16 @@ class ChainEditFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
-                dismiss()
+                BaseData.baseAccount?.let { account ->
+                    account.allCosmosLineChains.forEach {
+                        if (toDisplayChainLines.contains(it.tag) && it.fetched) {
+                            ApplicationViewModel.shared.walletEdit(toDisplayChainLines)
+                            dismiss()
+                        } else {
+                            return@forEach
+                        }
+                    }
+                }
             }
         }
     }

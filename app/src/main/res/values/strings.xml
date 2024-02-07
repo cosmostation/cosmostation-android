@@ -311,6 +311,7 @@
     <string name="str_big_loss_msg">If you proceed with the currently selected swap, significant property damage is expected.\n\nPlease check the expected input and output values and decide carefully.</string>
     <string name="str_show_all_proposals_msg">Show all proposals.</string>
     <string name="str_hide_scam_proposals">Filters out suspected of scam proposals.</string>
+    <string name="str_data_synchronizing">Data Synchronizing.</string>
 
 
     // header

@@ -51,6 +51,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
 
                     settingAdapter.setOnItemClickListener {
                         Prefs.language = it
+                        Prefs.foreToBack = false
                         dismiss()
                         requireActivity().recreate()
                     }

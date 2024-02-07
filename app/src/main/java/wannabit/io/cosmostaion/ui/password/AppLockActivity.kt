@@ -43,6 +43,10 @@ class AppLockActivity : BaseActivity(), KeyboardListener {
         initView()
         onUpdateView()
         checkPwObserve()
+
+        if (Prefs.usingBio) {
+            checkFingerPrint()
+        }
     }
 
     private fun initViewModel() {
@@ -65,10 +69,6 @@ class AppLockActivity : BaseActivity(), KeyboardListener {
             pagerKeyboard.adapter = passwordPageAdapter
             pagerKeyboard.isUserInputEnabled = false
             pagerKeyboard.offscreenPageLimit = 2
-        }
-
-        if (Prefs.usingBio) {
-            checkFingerPrint()
         }
     }
 

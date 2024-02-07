@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
-import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
 import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -102,6 +100,12 @@ class ProposalListFragment : Fragment() {
                     recycler.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                 }
+            }
+
+            proposalViewModel.errorMessage.observe(viewLifecycleOwner) {
+                loading.visibility = View.GONE
+                recycler.visibility = View.GONE
+                emptyLayout.visibility = View.VISIBLE
             }
         }
     }
