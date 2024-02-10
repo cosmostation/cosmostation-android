@@ -197,6 +197,8 @@
     <string name="title_earning_select">어닝 옵션 선택</string>
     <string name="title_reward_detail">리워드 상세 (%1$s)</string>
     <string name="title_big_loss">자산 손실</string>
+    <string name="title_claimable_chains">리워드 대상 체인</string>
+    <string name="str_claim_all">모두 수령</string>
 
 
     // msg

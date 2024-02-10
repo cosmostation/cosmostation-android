@@ -167,16 +167,14 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupLoadedData() {
-        walletViewModel.fetchedResult.observe(viewLifecycleOwner) {
+        walletViewModel.fetchedResult.observe(viewLifecycleOwner) { tag ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
-                    for (i in 0 until account.sortedDisplayCosmosLines().size) {
-                        if (account.sortedDisplayCosmosLines()[i].fetched) {
-                            withContext(Dispatchers.Main) {
-                                dashAdapter.notifyItemRangeChanged(
-                                    1, (account.sortedDisplayCosmosLines().size + 1), null
-                                )
-                            }
+                    if (account.sortedDisplayCosmosLines().firstOrNull { it.tag == tag }?.fetched == true) {
+                        withContext(Dispatchers.Main) {
+                            dashAdapter.notifyItemRangeChanged(
+                                1, (account.sortedDisplayCosmosLines().size + 1), null
+                            )
                         }
                     }
                 }
@@ -186,6 +184,21 @@ class DashboardFragment : Fragment() {
 
         walletViewModel.chainDataErrorMessage.observe(viewLifecycleOwner) {
             return@observe
+        }
+
+        ApplicationViewModel.shared.fetchedClaimResult.observe(viewLifecycleOwner) { tag ->
+            lifecycleScope.launch(Dispatchers.IO) {
+                baseAccount?.let { account ->
+                    if (account.sortedDisplayCosmosLines().firstOrNull { it.tag == tag }?.fetched == true) {
+                        withContext(Dispatchers.Main) {
+                            dashAdapter.notifyItemRangeChanged(
+                                1, (account.sortedDisplayCosmosLines().size + 1), null
+                            )
+                        }
+                    }
+                }
+            }
+            updateTotalValue()
         }
     }
 

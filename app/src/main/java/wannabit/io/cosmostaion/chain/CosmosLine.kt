@@ -159,10 +159,14 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
-        val fee = getDefaultFeeCoins(c).first()
-        val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin)
-            .build()
+        return if (getDefaultFeeCoins(c).isNotEmpty()) {
+            val fee = getDefaultFeeCoins(c).first()
+            val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
+            TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin)
+                .build()
+        } else {
+            null
+        }
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
@@ -173,6 +177,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(
             Coin.newBuilder().setDenom(denom).setAmount(coinAmount.toString()).build()
         ).build()
+    }
+
+    fun getBaseFeeInfo(c: Context): FeeInfo {
+        return getFeeInfos(c)[getFeeBasePosition()]
     }
 
     fun getFeeBasePosition(): Int {
@@ -453,6 +461,7 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun claimableRewards(): MutableList<DelegationDelegatorReward?> {
         val result = mutableListOf<DelegationDelegatorReward?>()
+
         cosmosRewards.forEach { reward ->
             run loop@{
                 for (i in 0 until reward.rewardCount) {
@@ -465,6 +474,30 @@ open class CosmosLine : BaseChain(), Parcelable {
                             result.add(reward)
                             return@loop
                         }
+                    }
+                }
+            }
+        }
+        return result
+    }
+
+    fun valueAbleRewards(): MutableList<DelegationDelegatorReward?> {
+        val result: MutableList<DelegationDelegatorReward?> = mutableListOf()
+
+        cosmosRewards.forEach { reward ->
+            var eachRewardValue = BigDecimal.ZERO
+            for (i in 0 until reward.rewardCount) {
+                val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18)
+                    .setScale(0, RoundingMode.DOWN)
+                BaseData.getAsset(apiName, reward.getReward(i).denom)?.let { asset ->
+                    val price = BaseData.getPrice(asset.coinGeckoId, true)
+                    val value = price.multiply(rewardAmount).movePointLeft(asset.decimals ?: 6)
+                        .setScale(6, RoundingMode.DOWN)
+                    eachRewardValue = eachRewardValue.add(value)
+
+                    if (eachRewardValue >= BigDecimal("0.1")) {
+                        result.add(reward)
+                        return@forEach
                     }
                 }
             }

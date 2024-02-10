@@ -141,6 +141,7 @@ class ApplicationViewModel(
     var fetchedSendResult = SingleLiveEvent<String>()
     var fetchedStakeResult = SingleLiveEvent<String>()
     var fetchedVoteResult = SingleLiveEvent<String>()
+    var fetchedClaimResult = SingleLiveEvent<String>()
 
     private fun loadGrpcAuthData(
         line: CosmosLine, baseAccountId: Long
@@ -161,6 +162,7 @@ class ApplicationViewModel(
                         fetchedSendResult.postValue(tag)
                         fetchedStakeResult.postValue(tag)
                         fetchedVoteResult.postValue(tag)
+                        fetchedClaimResult.postValue(tag)
                     }
                 }
             }
@@ -209,6 +211,7 @@ class ApplicationViewModel(
                                 fetchedSendResult.postValue(tag)
                                 fetchedStakeResult.postValue(tag)
                                 fetchedVoteResult.postValue(tag)
+                                fetchedClaimResult.postValue(tag)
                             }
                         }
 
@@ -221,6 +224,7 @@ class ApplicationViewModel(
                                 fetchedSendResult.postValue(tag)
                                 fetchedStakeResult.postValue(tag)
                                 fetchedVoteResult.postValue(tag)
+                                fetchedClaimResult.postValue(tag)
                             }
                         }
                     }
@@ -275,6 +279,7 @@ class ApplicationViewModel(
                                 fetchedSendResult.postValue(tag)
                                 fetchedStakeResult.postValue(tag)
                                 fetchedVoteResult.postValue(tag)
+                                fetchedClaimResult.postValue(tag)
                             }
                         }
 
@@ -287,6 +292,7 @@ class ApplicationViewModel(
                                 fetchedSendResult.postValue(tag)
                                 fetchedStakeResult.postValue(tag)
                                 fetchedVoteResult.postValue(tag)
+                                fetchedClaimResult.postValue(tag)
                             }
                         }
                     }
@@ -416,6 +422,7 @@ class ApplicationViewModel(
                     fetchedSendResult.postValue(tag)
                     fetchedStakeResult.postValue(tag)
                     fetchedVoteResult.postValue(tag)
+                    fetchedClaimResult.postValue(tag)
                 }
 
             } finally {

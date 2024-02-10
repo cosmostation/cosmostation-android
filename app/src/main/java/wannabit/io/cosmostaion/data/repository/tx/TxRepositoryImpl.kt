@@ -74,8 +74,9 @@ class TxRepositoryImpl : TxRepository {
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val infoReq = ICNSInfoReq("$userInput.$prefix")
             val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
-            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-                .setAddress(ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build()
+            val request =
+                com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+                    .setAddress(ICNS_OSMOSIS_ADDRESS).setQueryData(queryData).build()
             stub.smartContractState(request)?.let {
                 val json = JSONObject(it.data.toStringUtf8())
                 json.get("bech32_address").toString()
@@ -93,8 +94,9 @@ class TxRepositoryImpl : TxRepository {
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val infoReq = NSStargazeInfoReq(userInput)
             val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
-            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-                .setAddress(NS_STARGZE_ADDRESS).setQueryData(queryData).build()
+            val request =
+                com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+                    .setAddress(NS_STARGZE_ADDRESS).setQueryData(queryData).build()
 
             stub.smartContractState(request)?.let {
                 it.data.toStringUtf8().replace("\"".toRegex(), "")
@@ -112,8 +114,9 @@ class TxRepositoryImpl : TxRepository {
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val infoReq = NSArchwayReq(ResolveRecord(userInput))
             val queryData = ByteString.copyFromUtf8(Gson().toJson(infoReq))
-            val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-                .setAddress(NS_ARCHWAY_ADDRESS).setQueryData(queryData).build()
+            val request =
+                com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+                    .setAddress(NS_ARCHWAY_ADDRESS).setQueryData(queryData).build()
 
             stub.smartContractState(request)?.let {
                 val json = JSONObject(it.data.toStringUtf8())

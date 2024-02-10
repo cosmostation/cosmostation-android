@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappStartFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.tx.step.AllChainClaimFragment
 import wannabit.io.cosmostaion.ui.tx.step.SwapFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.net.URLEncoder
@@ -54,7 +55,7 @@ class ServiceFragment : Fragment() {
     private fun initView() {
         binding.apply {
             listOf(
-                mintscanView, coinSwapView, dappView, buyView
+                mintscanView, claimRewardsView, coinSwapView, dappView, buyView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
         }
     }
@@ -99,6 +100,12 @@ class ServiceFragment : Fragment() {
         binding.apply {
             mintscanView.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BASE_URL)))
+            }
+
+            claimRewardsView.setOnClickListener {
+                handleOneClickWithDelay(
+                    AllChainClaimFragment()
+                )
             }
 
             coinSwapView.setOnClickListener {

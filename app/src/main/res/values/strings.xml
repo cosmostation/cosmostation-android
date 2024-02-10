@@ -120,6 +120,7 @@
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
+    <string name="str_claim_all">Claim all</string>
 
 
     //title
@@ -249,6 +250,7 @@
     <string name="title_earning_select">Select earning option</string>
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">Asset loss</string>
+    <string name="title_claimable_chains">Claimable chains</string>
 
 
     // msg
@@ -293,6 +295,7 @@
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
     <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
+    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards exceeding\n$0.1 across Cosmos Chains\nwith a single click.</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV</string>
     <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform</string>
