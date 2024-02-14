@@ -39,7 +39,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentLendActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -320,7 +320,8 @@ class LendActionFragment : BaseTxFragment() {
                 when (lendActionType) {
                     LendActionType.DEPOSIT -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.LEND_DEPOSIT,
+                            InsertAmountFragment(
+                                TxType.LEND_DEPOSIT,
                                 null,
                                 availableAmount,
                                 toLendAmount,
@@ -337,7 +338,8 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.WITHDRAW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.LEND_WITHDRAW,
+                            InsertAmountFragment(
+                                TxType.LEND_WITHDRAW,
                                 null,
                                 availableAmount,
                                 toLendAmount,
@@ -353,7 +355,8 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.BORROW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.LEND_BORROW,
+                            InsertAmountFragment(
+                                TxType.LEND_BORROW,
                                 null,
                                 availableAmount,
                                 toLendAmount,
@@ -369,7 +372,8 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.REPAY -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.LEND_REPAY,
+                            InsertAmountFragment(
+                                TxType.LEND_REPAY,
                                 null,
                                 availableAmount,
                                 toLendAmount,

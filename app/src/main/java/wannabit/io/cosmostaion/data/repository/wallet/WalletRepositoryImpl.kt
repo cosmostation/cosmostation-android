@@ -33,6 +33,7 @@ import org.web3j.protocol.core.methods.response.EthCall
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VAULT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
@@ -65,7 +66,6 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.data.model.res.TokenResponse
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigInteger
@@ -133,7 +133,7 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun token(line: CosmosLine): NetworkResult<TokenResponse> {
+    override suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
             if (line.supportCw20) {
                 mintscanApi.cw20token(line.apiName)
@@ -380,6 +380,20 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun oktToken(line: CosmosLine): NetworkResult<OktTokenResponse?> {
         return safeApiCall(Dispatchers.IO) {
             oktApi.oktTokens()
+        }
+    }
+
+    override suspend fun evmToken(line: EthereumLine): NetworkResult<MutableList<Token>> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.erc20token(line.apiName)
+        }
+    }
+
+    override suspend fun evmBalance(line: EthereumLine): NetworkResult<String> {
+        return safeApiCall(Dispatchers.IO) {
+            val web3j = Web3j.build(HttpService(line.rpcURL))
+            val balance = web3j.ethGetBalance(line.address, DefaultBlockParameterName.LATEST).send()
+            balance.balance.toString()
         }
     }
 }

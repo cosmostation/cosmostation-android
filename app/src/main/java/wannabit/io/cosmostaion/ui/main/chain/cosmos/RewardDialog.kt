@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.chain
+package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.app.Dialog
 import android.content.Context

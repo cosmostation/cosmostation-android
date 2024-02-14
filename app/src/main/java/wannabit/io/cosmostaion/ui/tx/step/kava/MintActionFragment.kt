@@ -42,7 +42,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentMintActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -342,7 +342,8 @@ class MintActionFragment : BaseTxFragment() {
                 when (mintActionType) {
                     MintActionType.DEPOSIT -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.MINT_DEPOSIT,
+                            InsertAmountFragment(
+                                TxType.MINT_DEPOSIT,
                                 null,
                                 collateralAvailableAmount,
                                 toCollateralAmount,
@@ -358,7 +359,8 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.WITHDRAW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.MINT_WITHDRAW,
+                            InsertAmountFragment(
+                                TxType.MINT_WITHDRAW,
                                 null,
                                 collateralAvailableAmount,
                                 toCollateralAmount,
@@ -374,7 +376,8 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.BORROW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.MINT_BORROW,
+                            InsertAmountFragment(
+                                TxType.MINT_BORROW,
                                 null,
                                 principalAvailableAmount,
                                 toPrincipalAmount,
@@ -390,7 +393,8 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.REPAY -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(TxType.MINT_REPAY,
+                            InsertAmountFragment(
+                                TxType.MINT_REPAY,
                                 null,
                                 principalAvailableAmount,
                                 toPrincipalAmount,

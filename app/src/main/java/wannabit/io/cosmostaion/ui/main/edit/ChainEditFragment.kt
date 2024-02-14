@@ -61,7 +61,7 @@ class ChainEditFragment : BaseTxFragment() {
             BaseData.baseAccount?.let { account ->
                 account.apply {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        sortCosmosLine()
+                        sortLine()
                         searchChains.addAll(allCosmosLineChains)
                         toDisplayChainLines.addAll(Prefs.getDisplayChains(account))
 

@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.tx.step.TransferAssetType
 import java.math.BigDecimal
 import java.math.RoundingMode

@@ -270,32 +270,6 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
-    suspend fun loadCw20Token(): MutableList<Token> {
-        return when (val response =
-            safeApiCall { RetrofitInstance.mintscanApi.cw20token(apiName) }) {
-            is NetworkResult.Success -> {
-                response.data.assets
-            }
-
-            is NetworkResult.Error -> {
-                mutableListOf()
-            }
-        }
-    }
-
-    suspend fun loadErc20Token(): MutableList<Token> {
-        return when (val response =
-            safeApiCall { RetrofitInstance.mintscanApi.erc20token(this.apiName) }) {
-            is NetworkResult.Success -> {
-                response.data.assets
-            }
-
-            is NetworkResult.Error -> {
-                mutableListOf()
-            }
-        }
-    }
-
     fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances?.isNotEmpty() == true) {
             return cosmosBalances?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()

@@ -30,7 +30,7 @@ import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Param
-import wannabit.io.cosmostaion.data.model.res.TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -49,9 +49,10 @@ class ApplicationViewModel(
 
     private var _currentAccountResult = MutableLiveData<Pair<Boolean, BaseAccount?>>()
     val currentAccountResult: LiveData<Pair<Boolean, BaseAccount?>> get() = _currentAccountResult
-    fun currentAccount(baseAccount: BaseAccount?, isNew: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        _currentAccountResult.postValue(Pair(isNew, baseAccount))
-    }
+    fun currentAccount(baseAccount: BaseAccount?, isNew: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+            _currentAccountResult.postValue(Pair(isNew, baseAccount))
+        }
 
     private var _changeNameResult = MutableLiveData<BaseAccount?>()
     val changeNameResult: LiveData<BaseAccount?> get() = _changeNameResult
@@ -106,8 +107,10 @@ class ApplicationViewModel(
                                     line.param = response.data
                                 }
 
-                                is TokenResponse -> {
-                                    line.tokens = response.data.assets
+                                is MutableList<*> -> {
+                                    if (response.data.all { it is Token }) {
+                                        line.tokens = response.data as MutableList<Token>
+                                    }
                                 }
                             }
                         }

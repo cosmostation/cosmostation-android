@@ -19,6 +19,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
@@ -37,7 +38,7 @@ import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Param
-import wannabit.io.cosmostaion.data.model.res.TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -241,8 +242,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     line.param = response.data
                                 }
 
-                                is TokenResponse -> {
-                                    line.tokens = response.data.assets
+                                is MutableList<*> -> {
+                                    if (response.data.all { it is Token }) {
+                                        line.tokens = response.data as MutableList<Token>
+                                    }
                                 }
                             }
                         }
@@ -733,6 +736,58 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
         }
     }
+
+    private val _fetchedEvmResult = MutableLiveData<String>()
+    val fetchedEvmResult: LiveData<String> get() = _fetchedEvmResult
+
+    fun loadEvmChainData(line: EthereumLine, baseAccountId: Long) =
+        viewModelScope.launch(Dispatchers.IO) {
+            line.apply {
+                val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
+                val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+
+                val responses = awaitAll(
+                    loadEvmTokenDeferred, loadEvmBalanceDeferred
+                )
+
+                responses.forEach { response ->
+                    when (response) {
+                        is NetworkResult.Success -> {
+                            when (response.data) {
+                                is MutableList<*> -> {
+                                    if (response.data.all { it is Token }) {
+                                        evmTokens = response.data as MutableList<Token>
+                                    }
+                                }
+
+                                is String -> {
+                                    evmBalance = response.data.toBigDecimal()
+                                }
+                            }
+                        }
+
+                        is NetworkResult.Error -> {
+                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        }
+                    }
+                }
+
+                fetched = true
+                if (fetched) {
+                    val refAddress = RefAddress(
+                        baseAccountId,
+                        tag,
+                        address,
+                        allAssetValue(true).toString(),
+                        evmBalance.toString(),
+                        "0",
+                        1
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    _fetchedEvmResult.postValue(tag)
+                }
+            }
+        }
 
     private var _pwCheckResult = MutableLiveData<String>()
     val pwCheckResult: LiveData<String> get() = _pwCheckResult

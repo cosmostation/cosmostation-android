@@ -15,7 +15,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.cosmos.base.abci.v1beta1.AbciProto
-import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
@@ -46,7 +45,7 @@ import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorFragment
 import wannabit.io.cosmostaion.ui.option.tx.validator.ValidatorListener
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -278,7 +277,8 @@ class UnStakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.UN_DELEGATE,
+                    InsertAmountFragment(
+                        TxType.UN_DELEGATE,
                         null,
                         availableAmount,
                         toCoin?.amount,

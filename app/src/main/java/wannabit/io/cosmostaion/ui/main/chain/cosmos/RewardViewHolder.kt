@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.chain
+package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto.Coin

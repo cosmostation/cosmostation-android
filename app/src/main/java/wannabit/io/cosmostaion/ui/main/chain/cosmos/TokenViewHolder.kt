@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.chain
+package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Context
 import android.view.View
@@ -13,7 +13,6 @@ import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.data.model.res.Chain
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding

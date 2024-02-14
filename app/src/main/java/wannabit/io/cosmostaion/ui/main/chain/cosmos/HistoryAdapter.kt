@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.chain
+package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.annotation.SuppressLint
 import android.content.Context

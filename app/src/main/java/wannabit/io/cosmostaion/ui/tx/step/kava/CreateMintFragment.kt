@@ -38,7 +38,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCreateMintBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -268,7 +268,8 @@ class CreateMintFragment : BaseTxFragment() {
         binding.apply {
             collateralAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.MINT_CREATE_COLLATERAL,
+                    InsertAmountFragment(
+                        TxType.MINT_CREATE_COLLATERAL,
                         null,
                         collateralAvailableAmount,
                         toCollateralAmount,
@@ -284,7 +285,8 @@ class CreateMintFragment : BaseTxFragment() {
 
             principalAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.MINT_CREATE_PRINCIPAL,
+                    InsertAmountFragment(
+                        TxType.MINT_CREATE_PRINCIPAL,
                         null,
                         collateralParam?.expectUSDXLTV(
                             toCollateralAmount.toBigDecimal(), priceFeed

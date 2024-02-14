@@ -36,7 +36,7 @@ import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
@@ -206,7 +206,8 @@ class EvmTransferFragment : BaseTxFragment() {
         binding.apply {
             sendAssetView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.TRANSFER,
+                    InsertAmountFragment(
+                        TxType.TRANSFER,
                         TransferAssetType.ERC20_TRANSFER,
                         availableAmount,
                         toSendAmount,

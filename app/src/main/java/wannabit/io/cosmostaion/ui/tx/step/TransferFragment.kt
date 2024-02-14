@@ -68,7 +68,7 @@ import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
@@ -399,7 +399,8 @@ class TransferFragment : BaseTxFragment() {
 
             sendAssetView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.TRANSFER,
+                    InsertAmountFragment(
+                        TxType.TRANSFER,
                         transferAssetType,
                         availableAmount,
                         toSendAmount,
