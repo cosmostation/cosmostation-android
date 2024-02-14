@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,17 +26,18 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentWalletSelectBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 
-class WalletSelectFragment(
-    val mnemonic: String?, private val pKey: String?, val initType: Int
-) : Fragment() {
+class WalletSelectFragment : Fragment() {
 
     private var _binding: FragmentWalletSelectBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var mnemonic: String
+    private lateinit var pKey: String
+    private var initType: Int? = 0
 
     private lateinit var walletSelectAdapter: WalletSelectAdapter
 
@@ -46,6 +48,20 @@ class WalletSelectFragment(
     private var selectHdPath = 0
 
     private var selectedCosmosTags: MutableList<String> = mutableListOf()
+
+    companion object {
+        @JvmStatic
+        fun newInstance(mnemonic: String?, pKey: String?, initType: Int): WalletSelectFragment {
+            val args = Bundle().apply {
+                putString("mnemonic", mnemonic)
+                putString("pKey", pKey)
+                putInt("initType", initType)
+            }
+            val fragment = WalletSelectFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -64,16 +80,20 @@ class WalletSelectFragment(
     }
 
     private fun initView() {
+        arguments?.apply {
+            mnemonic = getString("mnemonic").toString()
+            pKey = getString("pKey").toString()
+            initType = getInt("initType", -1)
+        }
+
         binding.btnRestoreWallet.updateButtonView(false)
         selectedCosmosTags.add("cosmos118")
-        CoroutineScope(Dispatchers.IO).launch {
-            if (mnemonic?.isNotEmpty() == true) {
-                val wordList = mnemonic.split(" ")
-                val seed = BaseKey.getByteSeedFromWords(wordList)
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (mnemonic.isNotEmpty()) {
                 toAddAccount =
                     BaseAccount("", "", "", "", BaseAccountType.MNEMONIC, selectHdPath.toString())
 
-                initMnemonicAllDataWithSeed(seed)
+                initMnemonicView()
 
             } else {
                 binding.pathLayout.visibility = View.GONE
@@ -84,19 +104,11 @@ class WalletSelectFragment(
         }
     }
 
-    private fun initMnemonicAllDataWithSeed(seed: ByteArray?) {
-        CoroutineScope(Dispatchers.IO).launch {
+    private fun initMnemonicView() {
+        lifecycleScope.launch(Dispatchers.IO) {
             toAddAccount?.let { account ->
                 account.apply {
                     allCosmosLineChains = allCosmosLines()
-                    allCosmosLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                        }
-                        if (!line.fetched) {
-                            walletViewModel.balance(line)
-                        }
-                    }
                 }
                 withContext(Dispatchers.Main) {
                     updateView()
@@ -106,7 +118,7 @@ class WalletSelectFragment(
     }
 
     private fun initPKeyAllData() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             toAddAccount?.let { account ->
                 account.apply {
                     allCosmosLineChains =
@@ -154,6 +166,25 @@ class WalletSelectFragment(
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = walletSelectAdapter
             walletSelectAdapter.submitList(account.allCosmosLineChains)
+
+            loadBalanceData(account)
+        }
+    }
+
+    private fun loadBalanceData(account: BaseAccount) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            account.apply {
+                val wordList = mnemonic.split(" ")
+                val seed = BaseKey.getByteSeedFromWords(wordList)
+                allCosmosLineChains.forEach { line ->
+                    if (line.address?.isEmpty() == true) {
+                        line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                    }
+                    if (!line.fetched) {
+                        walletViewModel.balance(line)
+                    }
+                }
+            }
         }
     }
 
@@ -223,7 +254,7 @@ class WalletSelectFragment(
                     bundle.getString("create")?.let { name ->
                         requireActivity().runOnUiThread {
                             if (toAddAccount?.type == BaseAccountType.MNEMONIC) {
-                                mnemonic?.split(" ")?.let { wordList ->
+                                mnemonic.split(" ").let { wordList ->
                                     val entropy = Utils.bytesToHex(BaseKey.toEntropy(wordList))
                                     accountViewModel.createByMnemonic(
                                         name, entropy, selectHdPath.toString()
@@ -231,7 +262,7 @@ class WalletSelectFragment(
                                 }
 
                             } else {
-                                pKey?.let { privateKey ->
+                                pKey.let { privateKey ->
                                     accountViewModel.createByPrivate(name, privateKey)
                                 }
                             }
@@ -247,13 +278,10 @@ class WalletSelectFragment(
         selectedCosmosTags.add("cosmos118")
         binding.btnRestoreWallet.updateButtonView(false)
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             toAddAccount =
                 BaseAccount("", "", "", "", BaseAccountType.MNEMONIC, selectHdPath.toString())
-            mnemonic?.split(" ")?.let { wordList ->
-                val seed = BaseKey.getByteSeedFromWords(wordList)
-                initMnemonicAllDataWithSeed(seed)
-            }
+            initMnemonicView()
         }
     }
 

@@ -106,7 +106,7 @@ class MnemonicCheckFragment : Fragment() {
 
             btnSelect.setOnClickListener {
                 requireActivity().toMoveFragment(
-                    this@MnemonicCheckFragment, WalletSelectFragment(
+                    this@MnemonicCheckFragment, WalletSelectFragment.newInstance(
                         wordList.joinToString(" "), "", BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT
                     ), "WalletSelect"
                 )

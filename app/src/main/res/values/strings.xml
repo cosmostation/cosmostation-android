@@ -315,6 +315,7 @@
     <string name="str_show_all_proposals_msg">Show all proposals.</string>
     <string name="str_hide_scam_proposals">Filters out suspected of scam proposals.</string>
     <string name="str_data_synchronizing">Data Synchronizing.</string>
+    <string name="str_enter_encryption_msg">Enter the Encryption Key displayed on the screen to restore your account.</string>
 
 
     // header
@@ -363,6 +364,8 @@
     <string name="error_wait_moment">Please wait for a moment. Synchronizing.</string>
     <string name="error_name">Please enter your name correctly.</string>
     <string name="error_not_support">%1$s is an unsupported chain.</string>
+    <string name="error_unknown_qr_code">Unknown QR Code.</string>
+    <string name="error_decrytion">Decryption error</string>
 
 
     // tx

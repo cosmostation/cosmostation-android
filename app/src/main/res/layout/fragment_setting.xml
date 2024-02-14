@@ -101,7 +101,6 @@
                 android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginVertical="@dimen/space_8"
                 android:elevation="0dp"
-                android:visibility="gone"
                 app:cardPreventCornerOverlap="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

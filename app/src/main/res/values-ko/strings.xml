@@ -253,6 +253,7 @@
     <string name="str_show_all_proposals_msg">모든 프로포절을 표시합니다.</string>
     <string name="str_hide_scam_proposals">스캠의심 프로포절을 필터합니다.</string>
     <string name="str_data_synchronizing">데이터 동기화중입니다</string>
+    <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encription Key를 입력하세요.</string>
 
 
     // error
@@ -283,6 +284,8 @@
     <string name="error_wait_moment">잠시만 기다려 주세요. 동기화중입니다.</string>
     <string name="error_name">이름을 정확히 입력하세요.</string>
     <string name="error_not_support">%1$s 지원하지 않는 체인입니다.</string>
+    <string name="error_unknown_qr_code">알 수 없는 QR Code 입니다.</string>
+    <string name="error_decrytion">복호화 에러</string>
 
 
     //header

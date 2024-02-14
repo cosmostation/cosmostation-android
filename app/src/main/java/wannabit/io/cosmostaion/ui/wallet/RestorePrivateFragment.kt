@@ -58,7 +58,7 @@ class RestorePrivateFragment(private val initType: Int) : Fragment() {
 
                     requireActivity().toMoveFragment(
                         this@RestorePrivateFragment,
-                        WalletSelectFragment("", userInput, initType),
+                        WalletSelectFragment.newInstance("", userInput, initType),
                         "WalletSelect"
                     )
                 }

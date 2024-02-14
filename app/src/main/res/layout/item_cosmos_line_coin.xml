@@ -36,7 +36,6 @@
                 android:layout_height="wrap_content"
                 style="@style/font_sb_14"
                 android:textColor="@color/color_base01"
-                android:layout_marginTop="@dimen/space_1"
                 android:layout_marginStart="@dimen/space_12"
                 app:layout_constraintStart_toEndOf="@+id/token_img"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +66,6 @@
                 style="@style/font_sb_14"
                 android:textColor="@color/color_base01"
                 android:gravity="end"
-                android:layout_marginTop="@dimen/space_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 

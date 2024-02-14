@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.option.tx.address
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.AddressBook
@@ -57,11 +55,12 @@ class AddressBookFragment(
                             if (Prefs.displayLegacy) {
                                 refAddresses.add(refAddress)
                             } else {
-                                allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }?.let { line ->
-                                    if (line.isDefault) {
-                                        refAddresses.add(refAddress)
+                                allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                    ?.let { line ->
+                                        if (line.isDefault) {
+                                            refAddresses.add(refAddress)
+                                        }
                                     }
-                                }
                             }
                         }
 
@@ -70,20 +69,25 @@ class AddressBookFragment(
                             if (Prefs.displayLegacy) {
                                 refAddresses.add(refAddress)
                             } else {
-                                allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }?.let { line ->
-                                    if (line.isDefault) {
-                                        refAddresses.add(refAddress)
+                                allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                    ?.let { line ->
+                                        if (line.isDefault) {
+                                            refAddresses.add(refAddress)
+                                        }
                                     }
-                                }
                             }
                         }
                     }
                 }
 
                 refAddresses.sortWith { o1, o2 ->
+                    val o1Account =
+                        AppDatabase.getInstance().baseAccountDao().selectAccount(o1.accountId)
+                    val o2Account =
+                        AppDatabase.getInstance().baseAccountDao().selectAccount(o2.accountId)
                     when {
-                        o1.accountId == BaseData.baseAccount?.id -> -1
-                        o2.accountId == BaseData.baseAccount?.id -> 1
+                        o1Account?.sortOrder!! < o2Account?.sortOrder!! -> -1
+                        o1Account.sortOrder > o2Account.sortOrder -> 1
                         else -> 0
                     }
                 }

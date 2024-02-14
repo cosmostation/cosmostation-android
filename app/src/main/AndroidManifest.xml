@@ -71,6 +71,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.main.setting.wallet.importQR.ImportBarcodeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.main.setting.wallet.importQR.ImportQrActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.tx.TxResultActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

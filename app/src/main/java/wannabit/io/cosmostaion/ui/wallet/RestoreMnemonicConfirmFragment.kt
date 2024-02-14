@@ -57,7 +57,7 @@ class RestoreMnemonicConfirmFragment(
             btnNext.setOnClickListener {
                 requireActivity().toMoveFragment(
                     this@RestoreMnemonicConfirmFragment,
-                    WalletSelectFragment(mnemonic, "", initType),
+                    WalletSelectFragment.newInstance(mnemonic, "", initType),
                     "WalletSelect"
                 )
             }

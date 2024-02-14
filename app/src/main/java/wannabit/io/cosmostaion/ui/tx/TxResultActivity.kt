@@ -367,8 +367,8 @@ class TxResultActivity : BaseActivity() {
                                     supportFragmentManager, SetAddressFragment::class.java.name
                                 )
                             }
-                            return@launch
                         }
+                        return@launch
                     }
 
                 if (AppDatabase.getInstance().refAddressDao().selectAll()
