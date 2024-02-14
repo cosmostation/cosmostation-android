@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/color_base09"
+    android:fitsSystemWindows="true"
     tools:context=".ui.tx.TxResultActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -21,25 +21,62 @@
             style="@style/font_sb_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_base01"
             android:layout_gravity="center"
-            android:text="@string/title_tx_result"/>
+            android:text="@string/title_tx_result"
+            android:textColor="@color/color_base01" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.airbnb.lottie.LottieAnimationView
+    <RelativeLayout
         android:id="@+id/loading"
-        android:layout_width="@dimen/space_120"
-        android:layout_height="@dimen/space_120"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_speed="1.6"
-        app:lottie_rawRes="@raw/loading" />
-    
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="@dimen/space_180"
+            android:layout_height="@dimen/space_180"
+            android:layout_above="@+id/broadcasting_txt"
+            android:layout_centerHorizontal="true"
+            android:elevation="@dimen/space_10"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/txloading"
+            app:lottie_speed="1.6" />
+
+        <ImageView
+            android:id="@+id/gradient_effect"
+            android:layout_width="@dimen/space_180"
+            android:layout_height="@dimen/space_180"
+            android:layout_above="@+id/broadcasting_txt"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/gradient_effect_img" />
+
+        <TextView
+            android:id="@+id/broadcasting_txt"
+            style="@style/font_sb_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="BROADCASTING ..."
+            android:textColor="@color/color_base01" />
+
+        <TextView
+            android:id="@+id/broadcasting_msg"
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/broadcasting_txt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_6"
+            android:gravity="center"
+            android:text="@string/str_broadcasting_msg"
+            android:textColor="@color/color_base03" />
+
+    </RelativeLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/success_layout"
         android:layout_width="match_parent"
@@ -50,37 +87,37 @@
             android:id="@+id/success_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_10"
             android:src="@drawable/icon_success"
             app:layout_constraintBottom_toTopOf="@+id/success_txt"
-            android:layout_marginBottom="@dimen/space_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/success_txt"
+            style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_sb_14"
+            android:text="@string/str_success"
+            android:textAllCaps="true"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/str_success"
-            android:textAllCaps="true"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/success_msg"
+            style="@style/font_sm_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_sm_12"
-            android:textColor="@color/color_accent_green"
             android:layout_marginTop="@dimen/space_6"
             android:gravity="center"
+            android:text="@string/str_tx_success_msg"
+            android:textColor="@color/color_accent_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/success_txt"
-            android:text="@string/str_tx_success_msg"/>
+            app:layout_constraintTop_toBottomOf="@+id/success_txt" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_success_mintscan"
@@ -93,14 +130,14 @@
 
             <TextView
                 android:id="@+id/view_success"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sb_12"
+                android:text="@string/str_view_mintscan_msg"
                 android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/str_view_mintscan_msg"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -110,7 +147,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view_success" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,36 +160,36 @@
             android:id="@+id/fail_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_10"
             android:src="@drawable/icon_fail"
             app:layout_constraintBottom_toTopOf="@+id/fail_txt"
-            android:layout_marginBottom="@dimen/space_10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/fail_txt"
+            style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_sb_14"
+            android:text="@string/str_fail"
+            android:textAllCaps="true"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/str_fail"
-            android:textAllCaps="true"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/fail_msg"
+            style="@style/font_sm_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_sm_12"
-            android:textColor="@color/color_accent_red"
             android:layout_marginTop="@dimen/space_6"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/space_100"
-            android:maxHeight="@dimen/space_100"
             android:ellipsize="middle"
+            android:gravity="center"
+            android:maxHeight="@dimen/space_100"
+            android:paddingHorizontal="@dimen/space_100"
+            android:textColor="@color/color_accent_red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fail_txt" />
@@ -168,14 +205,14 @@
 
             <TextView
                 android:id="@+id/view_fail"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sb_12"
+                android:text="@string/str_view_mintscan_msg"
                 android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/str_view_mintscan_msg"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -202,12 +239,12 @@
 
     <TextView
         android:id="@+id/quote_author"
+        style="@style/font_tb_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/font_tb_14"
-        android:textColor="@color/color_base03"
         android:layout_marginEnd="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_16"
+        android:textColor="@color/color_base03"
         app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
         app:layout_constraintEnd_toEndOf="parent" />
 

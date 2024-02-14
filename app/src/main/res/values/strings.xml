@@ -316,6 +316,7 @@
     <string name="str_hide_scam_proposals">Filters out suspected of scam proposals.</string>
     <string name="str_data_synchronizing">Data Synchronizing.</string>
     <string name="str_enter_encryption_msg">Enter the Encryption Key displayed on the screen to restore your account.</string>
+    <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
 
 
     // header
