@@ -784,6 +784,29 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         1
                     )
                     BaseData.updateRefAddressesMain(refAddress)
+
+                    val deferredList = mutableListOf<Deferred<Unit>>()
+                    evmTokens.forEach { token ->
+                        if (token.default) {
+                            val deferred = async { walletRepository.erc20Balance(line, token) }
+                            deferredList.add(deferred)
+
+                            runBlocking {
+                                deferredList.awaitAll()
+
+                                val evmRefAddress = RefAddress(
+                                    baseAccountId,
+                                    tag,
+                                    address,
+                                    "0",
+                                    "0",
+                                    allTokenValue().toPlainString(),
+                                    0
+                                )
+                                BaseData.updateRefAddressesToken(evmRefAddress)
+                            }
+                        }
+                    }
                     _fetchedEvmResult.postValue(tag)
                 }
             }

@@ -43,14 +43,14 @@
             android:layout_height="@dimen/space_28"
             android:layout_gravity="end"
             android:layout_marginRight="@dimen/space_20"
-            android:src="@drawable/btn_account" />
+            android:src="@drawable/icon_eth_account" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/account_address"
         style="@style/font_sm_12"
-        android:layout_width="@dimen/space_130"
+        android:layout_width="@dimen/space_180"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_20"
         android:ellipsize="middle"

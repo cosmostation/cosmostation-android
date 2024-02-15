@@ -16,7 +16,7 @@ open class EthereumLine : BaseChain(), Parcelable {
 
     open var coinSymbol = ""
     open var coinGeckoId = ""
-    open var coinLogo = ""
+    open var coinLogo = -1
 
     open var rpcURL = ""
     open var explorerURL = ""

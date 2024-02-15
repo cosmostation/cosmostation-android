@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.chain.evm
 
+import android.content.Intent
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +21,8 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
+import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 
 class EvmDetailFragment : Fragment() {
@@ -59,6 +63,7 @@ class EvmDetailFragment : Fragment() {
         initData()
         updateTokenValue()
         initTab()
+        setUpClickAction()
     }
 
     private fun initData() {
@@ -74,6 +79,7 @@ class EvmDetailFragment : Fragment() {
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
+                accountAddress.text = selectedEvmChain.address
 
                 if (Prefs.hideValue) {
                     accountValue.text = "✱✱✱✱✱"
@@ -138,6 +144,40 @@ class EvmDetailFragment : Fragment() {
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {}
             })
+        }
+    }
+
+    private fun setUpClickAction() {
+        binding.apply {
+            btnBack.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+
+            btnAccount.setOnClickListener {
+                val accountUrl = selectedEvmChain.addressURL + selectedEvmChain.address
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
+                Prefs.foreToBack = false
+            }
+
+            accountAddress.setOnClickListener {
+                QrCodeEvmFragment.newInstance(selectedEvmChain).show(
+                    requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                )
+            }
+
+            btnHide.setOnClickListener {
+                Prefs.hideValue = !Prefs.hideValue
+                if (Prefs.hideValue) {
+                    accountValue.text = "✱✱✱✱✱"
+                    accountValue.textSize = 18f
+                    btnHide.setImageResource(R.drawable.icon_hide)
+                } else {
+                    accountValue.text = formatAssetValue(selectedEvmChain.allValue(false))
+                    accountValue.textSize = 24f
+                    btnHide.setImageResource(R.drawable.icon_not_hide)
+                }
+                ApplicationViewModel.shared.hideValue()
+            }
         }
     }
 

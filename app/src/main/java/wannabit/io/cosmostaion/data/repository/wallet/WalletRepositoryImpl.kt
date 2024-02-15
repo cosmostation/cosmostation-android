@@ -303,8 +303,34 @@ class WalletRepositoryImpl : WalletRepository {
             DefaultBlockParameterName.LATEST
         ).sendAsync().get()
         val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
-        val balance = results[0].value as BigInteger
-        token.amount = balance.toString()
+        if (results.isNotEmpty()) {
+            val balance = results[0].value as BigInteger
+            token.amount = balance.toString()
+        } else {
+            token.amount = "0"
+        }
+    }
+
+    override suspend fun erc20Balance(evmLine: EthereumLine, token: Token) {
+        val web3j = Web3j.build(HttpService(evmLine.rpcURL))
+        val params: MutableList<Type<*>> = ArrayList()
+        params.add(Address(evmLine.address))
+
+        val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
+        val function = Function("balanceOf", params, returnTypes)
+
+        val txData = FunctionEncoder.encode(function)
+        val response: EthCall = web3j.ethCall(
+            Transaction.createEthCallTransaction(evmLine.address, token.address, txData),
+            DefaultBlockParameterName.LATEST
+        ).sendAsync().get()
+        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+        if (results.isNotEmpty()) {
+            val balance = results[0].value as BigInteger
+            token.amount = balance.toString()
+        } else {
+            token.amount = "0"
+        }
     }
 
     override suspend fun vestingData(

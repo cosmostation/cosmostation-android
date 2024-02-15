@@ -99,6 +99,10 @@ interface WalletRepository {
         line: CosmosLine, token: Token
     )
 
+    suspend fun erc20Balance(
+        line: EthereumLine, token: Token
+    )
+
     //neutron
     suspend fun vestingData(
         channel: ManagedChannel, line: CosmosLine

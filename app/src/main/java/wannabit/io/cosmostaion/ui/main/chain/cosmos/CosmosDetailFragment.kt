@@ -230,7 +230,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountAddress.setOnClickListener {
-                QrCodeFragment(selectedChain).show(
+                QrCodeFragment.newInstance(selectedChain).show(
                     requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
                 )
             }
@@ -292,7 +292,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabReceive.setOnClickListener {
-                handleOneClickWithDelay(null, QrCodeFragment(selectedChain))
+                handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
             }
 
             fabStake.setOnClickListener {
@@ -373,7 +373,10 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabDao.setOnClickListener {
-                handleOneClickWithDelay(DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null)
+                handleOneClickWithDelay(
+                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron),
+                    null
+                )
             }
 
             fabVault.setOnClickListener {

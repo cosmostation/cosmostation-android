@@ -6,6 +6,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -33,12 +34,25 @@ import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentChainBinding
 
 
-class QrCodeFragment(
-    private val selectedChain: CosmosLine
-) : BottomSheetDialogFragment() {
+class QrCodeFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentQrCodeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): QrCodeFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = QrCodeFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -58,8 +72,20 @@ class QrCodeFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         initView()
         setupClickAction()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                ?.let { selectedChain = it }
+        } else {
+            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                selectedChain = it
+            }
+        }
     }
 
     private fun initView() {
@@ -141,8 +167,7 @@ class QrCodeFragment(
                     chainBadge.setBackgroundResource(R.drawable.round_box_evm)
                     chainBadge.setTextColor(
                         ContextCompat.getColor(
-                            requireContext(),
-                            R.color.color_base01
+                            requireContext(), R.color.color_base01
                         )
                     )
                 } else if (!selectedChain.isDefault) {
@@ -151,8 +176,7 @@ class QrCodeFragment(
                     chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                     chainBadge.setTextColor(
                         ContextCompat.getColor(
-                            requireContext(),
-                            R.color.color_base02
+                            requireContext(), R.color.color_base02
                         )
                     )
                 } else {
