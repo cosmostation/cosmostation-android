@@ -31,6 +31,7 @@ import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -52,6 +53,18 @@ interface TxRepository {
     ): String?
 
     suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse?
+
+    suspend fun broadcastEvmSendTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmSendTx(
+        toEthAddress: String?,
+        toSendAmount: String?,
+        selectedToken: Token?,
+        selectedEvmChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
 
     suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,

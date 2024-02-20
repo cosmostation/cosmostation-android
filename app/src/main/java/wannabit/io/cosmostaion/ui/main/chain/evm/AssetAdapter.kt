@@ -52,7 +52,7 @@ class AssetAdapter(
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-
+                            it (evmLine, "")
                         }
                     }
 
@@ -61,7 +61,9 @@ class AssetAdapter(
                     holder.tokenBind(evmLine, token)
 
                     holder.itemView.setOnClickListener {
-
+                        onItemClickListener?.let {
+                            it (evmLine, token.address)
+                        }
                     }
                 }
             }

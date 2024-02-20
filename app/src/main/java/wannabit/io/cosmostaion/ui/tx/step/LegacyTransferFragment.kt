@@ -153,7 +153,6 @@ class LegacyTransferFragment(
                     val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), 8)
-                    feeDenom.text = stakeDenom.uppercase()
                     feeValue.text = formatAssetValue(value)
                 }
 
@@ -167,7 +166,6 @@ class LegacyTransferFragment(
                     val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
 
                     feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                    feeDenom.text = stakeDenom.uppercase()
                     feeValue.text = formatAssetValue(value)
                 }
             }

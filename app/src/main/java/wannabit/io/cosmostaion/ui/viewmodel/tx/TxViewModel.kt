@@ -46,6 +46,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
@@ -150,6 +151,32 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 }
             }
         }
+
+    val broadcastEvmSendTx = SingleLiveEvent<String?>()
+    fun broadcastEvmSend(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmSendTx(web3j, hexValue)
+        broadcastEvmSendTx.postValue(response)
+    }
+
+    val simulateEvmSend = SingleLiveEvent<Pair<String?, String?>>()
+    fun simulateEvmSend(
+        toEthAddress: String?,
+        toSendAmount: String?,
+        selectedToken: Token?,
+        selectedEvmChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmSendTx(
+            toEthAddress, toSendAmount, selectedToken, selectedEvmChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmSend.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
 
     val errorMessage = SingleLiveEvent<String>()
 

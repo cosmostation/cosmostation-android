@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentTokenBinding
-import wannabit.io.cosmostaion.ui.tx.step.EvmTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.Erc20TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
@@ -132,9 +132,9 @@ class TokenFragment : Fragment() {
                         requireActivity().supportFragmentManager, TransferFragment::class.java.name
                     )
                 } else {
-                    EvmTransferFragment.newInstance(line, denom).show(
+                    Erc20TransferFragment.newInstance(line, denom).show(
                         requireActivity().supportFragmentManager,
-                        EvmTransferFragment::class.java.name
+                        Erc20TransferFragment::class.java.name
                     )
                 }
 

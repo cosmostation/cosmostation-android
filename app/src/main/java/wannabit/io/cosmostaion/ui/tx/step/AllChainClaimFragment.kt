@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAllChainClaimBinding
+import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
@@ -51,7 +52,7 @@ import kotlin.coroutines.suspendCoroutine
 class AllChainClaimFragment : BaseTxFragment() {
 
     private var _binding: FragmentAllChainClaimBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentAllChainClaimBinding? get() = _binding
 
     private lateinit var viewModel: TxViewModel
 
@@ -63,7 +64,7 @@ class AllChainClaimFragment : BaseTxFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAllChainClaimBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,7 +84,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun initView() {
-        binding.apply {
+        binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
@@ -125,7 +126,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun initRecyclerView() {
-        binding.recycler.apply {
+        binding?.recycler?.apply {
             allChainClaimAdapter = AllChainClaimAdapter()
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -137,37 +138,41 @@ class AllChainClaimFragment : BaseTxFragment() {
     private fun txSimulate() {
         lifecycleScope.launch(Dispatchers.IO) {
             for (i in 0 until valueAbleRewards.size) {
-                if (!valueAbleRewards[i].cosmosLine.isGasSimulable()) {
-                    valueAbleRewards[i].fee =
-                        valueAbleRewards[i].cosmosLine.getInitFee(requireContext())
+                if (isAdded) {
+                    activity?.let {
+                        if (!valueAbleRewards[i].cosmosLine.isGasSimulable()) {
+                            valueAbleRewards[i].fee =
+                                valueAbleRewards[i].cosmosLine.getInitFee(it)
 
-                } else {
-                    val valueAbleReward = valueAbleRewards[i]
-                    var txFee = valueAbleReward.cosmosLine.getInitFee(requireContext())
-                    simulateClaimTx(
-                        valueAbleReward.cosmosLine, valueAbleReward.rewards
-                    ) { gasUsed ->
-                        gasUsed?.let { toGas ->
-                            val txGasLimit =
-                                (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
-                                    .toBigDecimal()
-                            valueAbleReward.cosmosLine.getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
-                                it.denom == txFee?.getAmount(0)?.denom
-                            }?.let { gasRate ->
-                                val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
-                                    ?.setScale(0, RoundingMode.UP)
-                                val feeCoin =
-                                    CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
-                                        .setAmount(feeCoinAmount.toString()).build()
+                        } else {
+                            val valueAbleReward = valueAbleRewards[i]
+                            var txFee = valueAbleReward.cosmosLine.getInitFee(it)
+                            simulateClaimTx(
+                                valueAbleReward.cosmosLine, valueAbleReward.rewards
+                            ) { gasUsed ->
+                                gasUsed?.let { toGas ->
+                                    val txGasLimit =
+                                        (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
+                                            .toBigDecimal()
+                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull {
+                                        it.denom == txFee?.getAmount(0)?.denom
+                                    }?.let { gasRate ->
+                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
+                                            ?.setScale(0, RoundingMode.UP)
+                                        val feeCoin =
+                                            CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
+                                                .setAmount(feeCoinAmount.toString()).build()
 
-                                txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
-                                    .addAmount(feeCoin).build()
-                            }
-                            valueAbleRewards[i].fee = txFee
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                allChainClaimAdapter.notifyItemChanged(i)
-                                if (valueAbleRewards.count { it.fee == null } == 0) {
-                                    binding.btnClaimAll.updateButtonView(true)
+                                        txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
+                                            .addAmount(feeCoin).build()
+                                    }
+                                    valueAbleRewards[i].fee = txFee
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        allChainClaimAdapter.notifyItemChanged(i)
+                                        if (valueAbleRewards.count { reward -> reward.fee == null } == 0) {
+                                            binding?.btnClaimAll?.updateButtonView(true)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -178,7 +183,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun setUpClickAction() {
-        binding.apply {
+        binding?.apply {
             btnClaimAll.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     claimAllResultLauncher.launch(this)
@@ -207,8 +212,8 @@ class AllChainClaimFragment : BaseTxFragment() {
                     valueAbleRewards[i].isSuccess = true
                 }
                 allChainClaimAdapter.notifyDataSetChanged()
-                binding.btnClaimAll.visibility = View.GONE
-                binding.btnConfirm.visibility = View.VISIBLE
+                binding?.btnClaimAll?.visibility = View.GONE
+                binding?.btnConfirm?.visibility = View.VISIBLE
 
                 for (i in 0 until valueAbleRewards.size) {
                     val valueAbleReward = valueAbleRewards[i]
@@ -227,7 +232,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 lifecycleScope.launch(Dispatchers.Main) {
                     allChainClaimAdapter.notifyItemChanged(index)
                     if (valueAbleRewards.count { it.txResponse == null } == 0) {
-                        binding.btnConfirm.updateButtonView(true)
+                        binding?.btnConfirm?.updateButtonView(true)
                     }
                 }
             }
@@ -240,17 +245,21 @@ class AllChainClaimFragment : BaseTxFragment() {
         onComplete: (String?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val channel = getChannel(chain)
-            val simulateStub =
-                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val simulateTx = Signer.genClaimRewardsSimulate(
-                loadAuth(channel, chain.address),
-                claimableRewards,
-                chain.getInitFee(requireActivity()),
-                ""
-            )
-            val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
-            onComplete(gasUsed.toString())
+            if (isAdded) {
+                activity?.let {
+                    val channel = getChannel(chain)
+                    val simulateStub =
+                        ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                    val simulateTx = Signer.genClaimRewardsSimulate(
+                        loadAuth(channel, chain.address),
+                        claimableRewards,
+                        chain.getInitFee(it),
+                        ""
+                    )
+                    val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
+                    onComplete(gasUsed.toString())
+                }
+            }
         }
     }
 

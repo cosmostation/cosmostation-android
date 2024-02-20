@@ -15,7 +15,9 @@ import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
@@ -24,6 +26,10 @@ import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
 import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
 import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.bitcoinj.core.ECKey
 import org.json.JSONObject
 import org.web3j.abi.FunctionEncoder
@@ -42,15 +48,19 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.percentile
+import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.req.NSArchwayReq
@@ -137,6 +147,124 @@ class TxRepositoryImpl : TxRepository {
             authStub.account(request)
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override suspend fun broadcastEvmSendTx(web3j: Web3j, hexValue: String): String? {
+        return try {
+            val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send()
+            ethSendTransaction.transactionHash
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateEvmSendTx(
+        toEthAddress: String?,
+        toSendAmount: String?,
+        selectedToken: Token?,
+        selectedEvmChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?> {
+        return try {
+            val ecKey = ECKey.fromPrivate(selectedEvmChain.privateKey)
+            val rpcUrl = selectedEvmChain.rpcURL
+
+            val web3j = Web3j.build(HttpService(rpcUrl))
+            val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+            val ethGetTransactionCount: EthGetTransactionCount =
+                web3j.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
+                    .sendAsync().get()
+            val chainID = web3j.ethChainId().send().chainId.toLong()
+            val nonce = ethGetTransactionCount.transactionCount
+            val gasLimit = web3j.ethEstimateGas(
+                Transaction.createEthCallTransaction(
+                    selectedEvmChain.address, toEthAddress, "0x"
+                )
+            ).sendAsync().get().amountUsed
+
+            val request = JsonRpcRequest(
+                method = "eth_feeHistory", params = listOf(
+                    20, "pending", listOf(10, 30, 50, 70, 90)
+                )
+            )
+            val jsonRequest = ObjectMapper().writeValueAsString(request)
+            val rpcRequest = Request.Builder().url(selectedEvmChain.rpcURL)
+                .post(jsonRequest.toRequestBody("application/json".toMediaTypeOrNull())).build()
+
+            val response = OkHttpClient().newCall(rpcRequest).execute()
+            if (response.isSuccessful) {
+                val jsonResponse = response.body?.string()
+                val jsonObject = Gson().fromJson(jsonResponse, JsonObject::class.java)
+
+                val feeHistoryFeePerGas =
+                    jsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                val suggestGasValues = feeHistoryFeePerGas.map {
+                    BigInteger(
+                        it.asString.removePrefix("0x"), 16
+                    )
+                }.toMutableList()
+                val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                    suggestGasValues.percentile(it)
+                }
+
+                val reward = jsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                reward.forEach {
+                    val percentiles = it.asJsonArray.map { percentile ->
+                        BigInteger(
+                            percentile.asString.removePrefix("0x"), 16
+                        )
+                    }.toMutableList()
+
+                    percentiles.forEachIndexed { index, percentile ->
+                        if (rearrangedArray.size <= index) {
+                            rearrangedArray.add(mutableListOf(percentile))
+                        } else {
+                            rearrangedArray[index].add(percentile)
+                        }
+                    }
+                }
+                val resultArray = soft(rearrangedArray)
+                val suggestTipValue = if (resultArray.size > 3) {
+                    val indexToRemove = setOf(3, 4)
+                    resultArray.filterIndexed { index, _ -> index !in indexToRemove }
+                } else {
+                    resultArray
+                }
+
+                if (suggestBaseFee.isNotEmpty() && suggestTipValue.isNotEmpty()) {
+                    val baseFee = suggestBaseFee[selectedFeeInfo] ?: 27500000000
+                    val tip = suggestTipValue[selectedFeeInfo]
+                    val totalPerGas = baseFee.toLong() + tip.toLong()
+
+                    val rawTransaction = RawTransaction.createEtherTransaction(
+                        chainID,
+                        nonce,
+                        gasLimit,
+                        toEthAddress,
+                        toSendAmount?.toBigInteger(),
+                        tip,
+                        totalPerGas.toBigInteger()
+                    )
+
+                    val signedMessage = TransactionEncoder.signMessage(
+                        rawTransaction, credentials
+                    )
+                    val hexValue = Numeric.toHexString(signedMessage)
+                    val feeAmount =
+                        gasLimit.multiply(totalPerGas.toBigInteger()).toBigDecimal().toString()
+
+                    Pair(hexValue, feeAmount)
+                } else {
+                    Pair("", "")
+                }
+            } else {
+                Pair("", "")
+            }
+
+        } catch (e: Exception) {
+            Pair("", "")
         }
     }
 
@@ -314,9 +442,7 @@ class TxRepositoryImpl : TxRepository {
 
             val returnTypes = emptyList<TypeReference<*>>()
 
-            val function = Function(
-                "transfer", params, returnTypes
-            )
+            val function = Function("transfer", params, returnTypes)
             val txData = FunctionEncoder.encode(function)
 
             val chainID: Long = web3j.ethChainId().send().chainId.toLong()

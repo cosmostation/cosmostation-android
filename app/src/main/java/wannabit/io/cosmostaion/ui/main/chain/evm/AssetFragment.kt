@@ -15,6 +15,8 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
+import wannabit.io.cosmostaion.ui.tx.step.Erc20TransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmTransferFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
@@ -64,7 +66,10 @@ class AssetFragment : Fragment() {
             adapter = assetAdapter
 
             assetAdapter.setOnItemClickListener { evmChain, denom ->
-
+                EvmTransferFragment.newInstance(evmChain, denom).show(
+                    requireActivity().supportFragmentManager,
+                    EvmTransferFragment::class.java.name
+                )
             }
         }
     }

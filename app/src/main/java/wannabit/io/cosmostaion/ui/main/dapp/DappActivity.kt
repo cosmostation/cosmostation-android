@@ -107,6 +107,7 @@ class DappActivity : BaseActivity() {
                     object : DappUrlDialog.UrlListener {
                         override fun input(url: String) {
                             if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
+                                wcUrl = url
                                 binding.dappWebView.loadUrl(url)
                             }
                         }
@@ -966,12 +967,12 @@ class DappActivity : BaseActivity() {
         accountJson.put("isEthermint", false)
         accountJson.put("isLedger", false)
         BaseData.baseAccount?.let { account ->
-            account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId && it.isDefault }
+            account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
                 ?.let { filteredChainsWithChainName ->
                     selectedChain = filteredChainsWithChainName
 
                 } ?: run {
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId && it.isDefault }
+                account.allCosmosLineChains.firstOrNull { it.chainId == chainId.lowercase() && it.isDefault }
                     ?.let { filteredChainsWithChainId ->
                         selectedChain = filteredChainsWithChainId
                     }

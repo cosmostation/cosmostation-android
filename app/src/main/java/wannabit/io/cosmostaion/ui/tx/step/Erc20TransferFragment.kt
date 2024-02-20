@@ -30,22 +30,22 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
-import wannabit.io.cosmostaion.databinding.FragmentEvmTransferBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
-import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
+import wannabit.io.cosmostaion.databinding.FragmentErc20TransferBinding
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
+import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class EvmTransferFragment : BaseTxFragment() {
+class Erc20TransferFragment : BaseTxFragment() {
 
-    private var _binding: FragmentEvmTransferBinding? = null
+    private var _binding: FragmentErc20TransferBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: CosmosLine
@@ -66,12 +66,12 @@ class EvmTransferFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine, toSendDenom: String): EvmTransferFragment {
+        fun newInstance(selectedChain: CosmosLine, toSendDenom: String): Erc20TransferFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putString("toSendDenom", toSendDenom)
             }
-            val fragment = EvmTransferFragment()
+            val fragment = Erc20TransferFragment()
             fragment.arguments = args
             return fragment
         }
@@ -80,7 +80,7 @@ class EvmTransferFragment : BaseTxFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEvmTransferBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentErc20TransferBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -142,7 +142,6 @@ class EvmTransferFragment : BaseTxFragment() {
                 val calFeeAmount = BigDecimal(OKT_BASE_FEE)
                 val value = price.multiply(calFeeAmount).setScale(6, RoundingMode.DOWN)
                 feeAmount.text = formatAmount(calFeeAmount.toPlainString(), 18)
-                feeDenom.text = selectedChain.stakeDenom?.uppercase()
                 feeValue.text = formatAssetValue(value)
 
             } else {
@@ -153,7 +152,6 @@ class EvmTransferFragment : BaseTxFragment() {
                         val price = BaseData.getPrice(asset.coinGeckoId)
                         val value = price.multiply(calFeeAmount).setScale(6, RoundingMode.DOWN)
                         feeAmount.text = formatAmount(calFeeAmount.toPlainString(), 18)
-                        feeDenom.text = asset.symbol
                         feeValue.text = formatAssetValue(value)
                     }
             }
