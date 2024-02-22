@@ -88,12 +88,21 @@ class TokenFragment : Fragment() {
             walletViewModel.fetchedTokenResult.observe(viewLifecycleOwner) {
                 if (isAdded) {
                     val tokens = mutableListOf<Token>()
-                    selectedChain.tokens.forEach { token ->
-                        if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                            tokens.add(token)
+
+                    if (selectedChain is EthereumLine) {
+                        (selectedChain as EthereumLine).evmTokens.forEach { token ->
+                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+                                tokens.add(token)
+                            }
+                        }
+
+                    } else {
+                        selectedChain.tokens.forEach { token ->
+                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+                                tokens.add(token)
+                            }
                         }
                     }
-
                     tokens.sortWith { o1, o2 ->
                         val value0 = selectedChain.tokenValue(o1.address)
                         val value1 = selectedChain.tokenValue(o2.address)
@@ -101,24 +110,6 @@ class TokenFragment : Fragment() {
                             value0 > value1 -> -1
                             value0 < value1 -> 1
                             else -> 0
-                        }
-                    }
-
-                    (selectedChain as EthereumLine).let { evmChain ->
-                        evmChain.evmTokens.forEach { token ->
-                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                                tokens.add(token)
-                            }
-                        }
-
-                        tokens.sortWith { o1, o2 ->
-                            val value0 = selectedChain.tokenValue(o1.address)
-                            val value1 = selectedChain.tokenValue(o2.address)
-                            when {
-                                value0 > value1 -> -1
-                                value0 < value1 -> 1
-                                else -> 0
-                            }
                         }
                     }
 

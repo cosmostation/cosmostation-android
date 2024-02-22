@@ -1,13 +1,18 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.cosmos.bank.v1beta1.TxProto.*
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -46,6 +51,8 @@ import wannabit.io.cosmostaion.ui.option.tx.general.FeeAssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.option.tx.general.TransferAmountFragment
+import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -104,6 +111,7 @@ class CommonTransferFragment : BaseTxFragment() {
         initData()
         setUpClickAction()
         setUpSimulate()
+        setUpBroadcast()
     }
 
     private fun initView() {
@@ -163,23 +171,24 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun initFee() {
         binding.apply {
+            feeSegment.apply {
+                setSelectedBackground(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+                setRipple(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+            }
+
             if (transferStyle == TransferStyle.WEB3_STYLE) {
 
             } else {
                 (fromChain as CosmosLine).apply {
                     cosmosFeeInfos = getFeeInfos(requireContext())
-                    feeSegment.apply {
-                        setSelectedBackground(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_accent_purple
-                            )
-                        )
-                        setRipple(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_accent_purple
-                            )
-                        )
-                    }
 
                     for (i in cosmosFeeInfos.indices) {
                         val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
@@ -239,6 +248,10 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
+    private fun updateTransferStyle() {
+
+    }
+
     private fun updateRecipientAddressView(address: String) {
         binding.apply {
             toAddress = address
@@ -292,17 +305,22 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun updateFeeView() {
         binding.apply {
-            cosmosTxFee?.getAmount(0)?.let { fee ->
-                BaseData.getAsset(fromChain.apiName, fee.denom)?.let { asset ->
-                    feeTokenImg.setTokenImg(asset)
-                    feeToken.text = asset.symbol
+            if (transferStyle == TransferStyle.WEB3_STYLE) {
 
-                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val value = price.multiply(amount)
+            } else {
+                cosmosTxFee?.getAmount(0)?.let { fee ->
+                    BaseData.getAsset(fromChain.apiName, fee.denom)?.let { asset ->
+                        feeTokenImg.setTokenImg(asset)
+                        feeToken.text = asset.symbol
+                        feeDenom.text = asset.symbol
 
-                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeValue.text = formatAssetValue(value)
+                        val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
+                        val price = BaseData.getPrice(asset.coinGeckoId)
+                        val value = price.multiply(amount)
+
+                        feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                        feeValue.text = formatAssetValue(value)
+                    }
                 }
             }
         }
@@ -427,6 +445,15 @@ class CommonTransferFragment : BaseTxFragment() {
                     })
                 )
             }
+
+            btnSend.setOnClickListener {
+                Intent(requireContext(), PasswordCheckActivity::class.java).apply {
+                    sendResultLauncher.launch(this)
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                    )
+                }
+            }
         }
     }
 
@@ -438,7 +465,6 @@ class CommonTransferFragment : BaseTxFragment() {
             if (toSendAmount.toBigDecimal() <= BigDecimal.ZERO) {
                 return
             }
-
 
             if (transferStyle == TransferStyle.WEB3_STYLE) {
 
@@ -462,18 +488,6 @@ class CommonTransferFragment : BaseTxFragment() {
             }
             btnSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-        }
-    }
-
-    private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
-        }
-
-        txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
-            isBroadCastTx(false)
-            requireContext().showToast(view, response, true)
-            return@observe
         }
     }
 
@@ -505,8 +519,10 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
-        binding.backdropLayout.visibility = View.GONE
-        binding.btnSend.updateButtonView(isSuccess)
+        binding.apply {
+            backdropLayout.visibility = View.GONE
+            btnSend.updateButtonView(isSuccess)
+        }
     }
 
     private fun onBindSend(): MsgSend {
@@ -514,6 +530,60 @@ class CommonTransferFragment : BaseTxFragment() {
             CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
         return MsgSend.newBuilder().setFromAddress(fromChain.address)
             .setToAddress(toAddress).addAmount(sendCoin).build()
+    }
+
+    private val sendResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && isAdded) {
+                binding.backdropLayout.visibility = View.VISIBLE
+                (fromChain as CosmosLine).apply {
+                    if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
+                        if (chainId == toChain.chainId) {
+                            txViewModel.broadcastSend(
+                                getChannel(this),
+                                this.address,
+                                onBindSend(),
+                                cosmosTxFee,
+                                txMemo,
+                                this
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+    private fun setUpSimulate() {
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
+            updateFeeViewWithSimulate(gasInfo)
+        }
+
+        txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
+            isBroadCastTx(false)
+            requireContext().showToast(view, response, true)
+            return@observe
+        }
+    }
+
+    private fun setUpBroadcast() {
+        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+            Intent(requireContext(), TxResultActivity::class.java).apply {
+                if (txResponse.code > 0) {
+                    putExtra("isSuccess", false)
+                } else {
+                    putExtra("isSuccess", true)
+                }
+                putExtra("errorMsg", txResponse.rawLog)
+                putExtra("selectedChain", fromChain.tag)
+                putExtra("recipientChain", toChain.tag)
+                putExtra("recipientAddress", toAddress)
+                putExtra("memo", txMemo)
+                val hash = txResponse.txhash
+                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                startActivity(this)
+            }
+            dismiss()
+        }
     }
 
     private fun addRecipientChainIfNotExists(apiName: String?) {

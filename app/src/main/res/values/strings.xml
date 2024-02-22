@@ -372,6 +372,7 @@
     <string name="error_not_support">%1$s is an unsupported chain.</string>
     <string name="error_unknown_qr_code">Unknown QR Code.</string>
     <string name="error_decrytion">Decryption error</string>
+    <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
 
 
     // tx

@@ -65,10 +65,11 @@ class ApplicationViewModel(
         txRecreateResult.postValue(page)
     }
 
-    var walletEditResult = SingleLiveEvent<MutableList<String>>()
-    fun walletEdit(displayChains: MutableList<String>) = viewModelScope.launch(Dispatchers.IO) {
-        walletEditResult.postValue(displayChains)
-    }
+    var walletEditResult = SingleLiveEvent<Pair<MutableList<String>, MutableList<String>>>()
+    fun walletEdit(displayEvmChains: MutableList<String>, displayChains: MutableList<String>) =
+        viewModelScope.launch(Dispatchers.IO) {
+            walletEditResult.postValue(Pair(displayEvmChains, displayChains))
+        }
 
     private var _hideValueResult = MutableLiveData<Boolean>()
     val hideValueResult: LiveData<Boolean> get() = _hideValueResult

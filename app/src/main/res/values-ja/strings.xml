@@ -292,6 +292,7 @@
     <string name="error_not_support">%1$s is an unsupported chain.</string>
     <string name="error_unknown_qr_code">未知のQRコードです。</string>
     <string name="error_decrytion">復号化エラー</string>
+    <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
 
 
     <string name="tx_unknown">不明</string>

@@ -24,8 +24,6 @@ class MemoFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentMemoBinding? = null
     private val binding get() = _binding!!
 
-    private var memo = ""
-
     companion object {
         @JvmStatic
         fun newInstance(
@@ -59,8 +57,10 @@ class MemoFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         binding.memoTxt.apply {
-            text = Editable.Factory.getInstance().newEditable(memo)
-            setSelection(binding.memoTxt.text.toString().length)
+            arguments?.getString("memo")?.let { memo ->
+                text = Editable.Factory.getInstance().newEditable(memo)
+                setSelection(binding.memoTxt.text.toString().length)
+            }
         }
     }
 

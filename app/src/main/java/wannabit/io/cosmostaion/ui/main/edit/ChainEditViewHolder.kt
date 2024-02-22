@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,10 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -24,98 +22,130 @@ class ChainEditViewHolder(
     val context: Context, private val binding: ItemEditBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    fun evmBind(
+        baseAccount: BaseAccount,
+        line: EthereumLine,
+        displayEvmChains: MutableList<String>,
+        listener: ChainEditAdapter.EvmSelectListener
+    ) {
+        binding.apply {
+            updateView(line, displayEvmChains)
+            chainImg.setImageResource(line.logo)
+            chainName.text = line.name.uppercase()
+
+            if (baseAccount.type == BaseAccountType.MNEMONIC) {
+                chainPath.text = line.getHDPath(baseAccount.lastHDPath)
+            } else {
+                chainPath.visibility = View.GONE
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                AppDatabase.getInstance().refAddressDao().selectRefAddress(baseAccount.id, line.tag)
+                    ?.let { refAddress ->
+                        withContext(Dispatchers.Main) {
+                            skeletonChainValue.visibility = View.GONE
+                            skeletonAssetCnt.visibility = View.GONE
+
+                            chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
+                            assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
+                        }
+                    }
+            }
+
+            editView.setOnClickListener {
+                if (line.tag == "ethereum60") {
+                    return@setOnClickListener
+                }
+                if (displayEvmChains.contains(line.tag)) {
+                    displayEvmChains.removeIf { it == line.tag }
+                } else {
+                    displayEvmChains.add(line.tag)
+                }
+                updateView(line, displayEvmChains)
+                listener.select(displayEvmChains)
+            }
+        }
+    }
+
     fun bind(
         baseAccount: BaseAccount,
         line: CosmosLine,
-        cnt: Int,
         displayChains: MutableList<String>,
         listener: ChainEditAdapter.SelectListener
     ) {
         binding.apply {
-            when (line.chainType) {
-                ChainType.COSMOS_TYPE -> {
-                    headerLayout.visibleOrGone(adapterPosition == 0)
-                    headerTitle.text = context.getString(R.string.str_cosmos_class)
-                    headerCnt.text = cnt.toString()
-                    updateView(line, displayChains)
+            updateView(line, displayChains)
+            chainImg.setImageResource(line.logo)
+            chainName.text = line.name.uppercase()
 
-                    chainImg.setImageResource(line.logo)
-                    chainName.text = line.name.uppercase()
-
-                    if (baseAccount.type == BaseAccountType.MNEMONIC) {
-                        chainPath.text = line.getHDPath(baseAccount.lastHDPath)
-                        if (line.evmCompatible) {
-                            chainLegacy.visibility = View.VISIBLE
-                            chainLegacy.text = context.getString(R.string.str_evm)
-                            chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
-                            chainLegacy.setTextColor(
-                                ContextCompat.getColor(
-                                    context, R.color.color_base01
-                                )
-                            )
-                        } else if (!line.isDefault) {
-                            chainLegacy.visibility = View.VISIBLE
-                            chainLegacy.text = context.getString(R.string.str_legacy)
-                            chainLegacy.setBackgroundResource(R.drawable.round_box_deprecated)
-                            chainLegacy.setTextColor(
-                                ContextCompat.getColor(
-                                    context, R.color.color_base02
-                                )
-                            )
-                        } else {
-                            chainLegacy.visibility = View.GONE
-                        }
-
-                    } else {
-                        chainPath.visibility = View.GONE
-                        if (line.evmCompatible) {
-                            chainLegacy.visibility = View.VISIBLE
-                            chainLegacy.text = context.getString(R.string.str_evm)
-                            chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
-                            chainLegacy.setTextColor(
-                                ContextCompat.getColor(
-                                    context, R.color.color_base01
-                                )
-                            )
-                            val layoutParams =
-                                chainLegacy.layoutParams as ViewGroup.MarginLayoutParams
-                            layoutParams.setMargins(0, 2, 0, 0)
-                            chainLegacy.layoutParams = layoutParams
-
-                        } else {
-                            chainLegacy.visibility = View.GONE
-                        }
-                    }
-
-                    CoroutineScope(Dispatchers.IO).launch {
-                        AppDatabase.getInstance().refAddressDao()
-                            .selectRefAddress(baseAccount.id, line.tag)?.let { refAddress ->
-                                withContext(Dispatchers.Main) {
-                                    skeletonChainValue.visibility = View.GONE
-                                    skeletonAssetCnt.visibility = View.GONE
-
-                                    chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                                    assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
-                                }
-                            }
-                    }
-
-                    editView.setOnClickListener {
-                        if (line.tag == "cosmos118") {
-                            return@setOnClickListener
-                        }
-                        if (displayChains.contains(line.tag)) {
-                            displayChains.removeIf { it == line.tag }
-                        } else {
-                            displayChains.add(line.tag)
-                        }
-                        updateView(line, displayChains)
-                        listener.select(displayChains)
-                    }
-
+            if (baseAccount.type == BaseAccountType.MNEMONIC) {
+                chainPath.text = line.getHDPath(baseAccount.lastHDPath)
+                if (line.evmCompatible) {
+                    chainLegacy.visibility = View.VISIBLE
+                    chainLegacy.text = context.getString(R.string.str_evm)
+                    chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
+                    chainLegacy.setTextColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base01
+                        )
+                    )
+                } else if (!line.isDefault) {
+                    chainLegacy.visibility = View.VISIBLE
+                    chainLegacy.text = context.getString(R.string.str_legacy)
+                    chainLegacy.setBackgroundResource(R.drawable.round_box_deprecated)
+                    chainLegacy.setTextColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base02
+                        )
+                    )
+                } else {
+                    chainLegacy.visibility = View.GONE
                 }
 
-                else -> {}
+            } else {
+                chainPath.visibility = View.GONE
+                if (line.evmCompatible) {
+                    chainLegacy.visibility = View.VISIBLE
+                    chainLegacy.text = context.getString(R.string.str_evm)
+                    chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
+                    chainLegacy.setTextColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base01
+                        )
+                    )
+                    val layoutParams = chainLegacy.layoutParams as ViewGroup.MarginLayoutParams
+                    layoutParams.setMargins(0, 2, 0, 0)
+                    chainLegacy.layoutParams = layoutParams
+
+                } else {
+                    chainLegacy.visibility = View.GONE
+                }
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                AppDatabase.getInstance().refAddressDao().selectRefAddress(baseAccount.id, line.tag)
+                    ?.let { refAddress ->
+                        withContext(Dispatchers.Main) {
+                            skeletonChainValue.visibility = View.GONE
+                            skeletonAssetCnt.visibility = View.GONE
+
+                            chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
+                            assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
+                        }
+                    }
+            }
+
+            editView.setOnClickListener {
+                if (line.tag == "cosmos118") {
+                    return@setOnClickListener
+                }
+                if (displayChains.contains(line.tag)) {
+                    displayChains.removeIf { it == line.tag }
+                } else {
+                    displayChains.add(line.tag)
+                }
+                updateView(line, displayChains)
+                listener.select(displayChains)
             }
         }
     }

@@ -298,15 +298,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     if (fetched) {
                         val refAddress = RefAddress(baseAccountId, tag, address, "0", "0", "0", 0)
                         BaseData.updateRefAddressesMain(refAddress)
-                        if (isEdit) {
-                            editFetchedResult.postValue(tag)
+                        val resultToPost = if (isEdit) {
+                            if (isEvm) editFetchedEvmResult else editFetchedResult
                         } else {
-                            if (isEvm) {
-                                _fetchedEvmResult.postValue(tag)
-                            } else {
-                                _fetchedResult.postValue(tag)
-                            }
+                            if (isEvm) _fetchedEvmResult else _fetchedResult
                         }
+                        resultToPost.postValue(tag)
                     }
                 }
             }
@@ -567,15 +564,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         cosmosBalances?.size?.toLong() ?: 0
                     )
                     BaseData.updateRefAddressesMain(refAddress)
-                    if (isEdit) {
-                        editFetchedResult.postValue(tag)
+                    val resultToPost = if (isEdit) {
+                        if (isEvm) editFetchedEvmResult else editFetchedResult
                     } else {
-                        if (isEvm) {
-                            _fetchedEvmResult.postValue(tag)
-                        } else {
-                            _fetchedResult.postValue(tag)
-                        }
+                        if (isEvm) _fetchedEvmResult else _fetchedResult
                     }
+                    resultToPost.postValue(tag)
                 }
 
             } finally {
@@ -749,7 +743,9 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     private val _fetchedEvmResult = MutableLiveData<String>()
     val fetchedEvmResult: LiveData<String> get() = _fetchedEvmResult
 
-    fun loadEvmChainData(line: EthereumLine, baseAccountId: Long) =
+    var editFetchedEvmResult = SingleLiveEvent<String>()
+
+    fun loadEvmChainData(line: EthereumLine, baseAccountId: Long, isEdit: Boolean) =
         viewModelScope.launch(Dispatchers.IO) {
             line.apply {
                 if (supportCosmos) {
@@ -786,7 +782,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             }
                         }
                     }
-                    loadGrpcAuthData(this, baseAccountId, isEdit = false, isEvm = true)
+                    loadGrpcAuthData(this, baseAccountId, isEdit, isEvm = true)
 
                     val deferredList = mutableListOf<Deferred<Unit>>()
                     evmTokens.forEach { token ->
@@ -876,7 +872,11 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
                         }
-                        _fetchedEvmResult.postValue(tag)
+                        if (isEdit) {
+                            editFetchedEvmResult.postValue(tag)
+                        } else {
+                            _fetchedEvmResult.postValue(tag)
+                        }
                     }
                 }
             }

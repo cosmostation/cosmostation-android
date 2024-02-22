@@ -150,7 +150,7 @@ class DashboardFragment : Fragment() {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadEvmChainData(line, id)
+                                walletViewModel.loadEvmChainData(line, id, false)
                             }
                         }
 
@@ -174,7 +174,7 @@ class DashboardFragment : Fragment() {
 
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadEvmChainData(line, id)
+                                walletViewModel.loadEvmChainData(line, id, false)
                             }
                         }
 
@@ -377,22 +377,24 @@ class DashboardFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) { response ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
-                    if (Prefs.getDisplayChains(account) == it) {
+                    if (Prefs.getDisplayEvmChains(account) == response.first && Prefs.getDisplayChains(
+                            account
+                        ) == response.second
+                    ) {
                         return@launch
-
-                    } else {
-                        Prefs.setDisplayChains(account, it)
-                        account.sortLine()
-                        initDisplayData()
-                        delay(100)
-                        withContext(Dispatchers.Main) {
-                            initRecyclerView()
-                            setupLoadedData()
-                            PushManager.syncAddresses(Prefs.fcmToken)
-                        }
+                    }
+                    Prefs.setDisplayEvmChains(account, response.first)
+                    Prefs.setDisplayChains(account, response.second)
+                    account.sortLine()
+                    initDisplayData()
+                    delay(100)
+                    withContext(Dispatchers.Main) {
+                        initRecyclerView()
+                        setupLoadedData()
+                        PushManager.syncAddresses(Prefs.fcmToken)
                     }
                 }
             }

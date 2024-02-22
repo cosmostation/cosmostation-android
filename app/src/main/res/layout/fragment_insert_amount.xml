@@ -43,7 +43,7 @@
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_4"
+                android:layout_marginEnd="@dimen/space_2"
                 android:gravity="end"
                 android:ellipsize="end"
                 android:maxLines="1"

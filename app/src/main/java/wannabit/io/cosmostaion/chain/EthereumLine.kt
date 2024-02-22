@@ -88,6 +88,6 @@ fun allEvmLines(): MutableList<EthereumLine> {
     return lines
 }
 
-val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60", "kava60")
+val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60")
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

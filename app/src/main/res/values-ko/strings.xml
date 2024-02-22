@@ -290,6 +290,7 @@
     <string name="error_not_support">%1$s 지원하지 않는 체인입니다.</string>
     <string name="error_unknown_qr_code">알 수 없는 QR Code 입니다.</string>
     <string name="error_decrytion">복호화 에러</string>
+    <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
 
 
     //header

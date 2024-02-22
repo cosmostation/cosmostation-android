@@ -81,7 +81,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/address_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/space_68"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginTop="@dimen/space_8"
         app:layout_constraintEnd_toEndOf="parent"
@@ -337,9 +337,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_2"
+                android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toStartOf="@+id/fee_denom"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+            <TextView
+                android:id="@+id/fee_denom"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view1" />
+                app:layout_constraintBaseline_toBaselineOf="@+id/fee_amount"/>
 
             <TextView
                 android:id="@+id/fee_value"
