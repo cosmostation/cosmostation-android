@@ -20,6 +20,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -193,13 +194,14 @@ class CosmosDetailFragment : Fragment() {
             tabLayout.bringToFront()
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                val supportToken = selectedChain.supportCw20 || selectedChain.supportErc20
+                val supportToken =
+                    selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
 
                 tab.text = when {
                     position == 0 -> getString(R.string.title_coin)
                     supportToken && position == 1 -> getString(R.string.title_token)
                     !supportToken && position == 1 || supportToken && position == 2 -> getString(R.string.title_history)
-                    else -> getString(R.string.title_about)
+                    else -> "About"
                 }
             }.attach()
 
@@ -374,8 +376,7 @@ class CosmosDetailFragment : Fragment() {
 
             fabDao.setOnClickListener {
                 handleOneClickWithDelay(
-                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron),
-                    null
+                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null
                 )
             }
 
@@ -441,7 +442,13 @@ class CosmosDetailFragment : Fragment() {
         private val fragments = mutableListOf<Fragment>()
 
         init {
-            if (selectedChain is ChainBinanceBeacon) {
+            if (selectedChain is EthereumLine) {
+                fragments.add(CoinFragment.newInstance(selectedChain))
+                fragments.add(TokenFragment.newInstance(selectedChain))
+                fragments.add(HistoryFragment.newInstance(selectedChain))
+                fragments.add(AboutFragment.newInstance(selectedChain))
+
+            } else if (selectedChain is ChainBinanceBeacon) {
                 fragments.add(CoinFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 

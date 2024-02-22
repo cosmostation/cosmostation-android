@@ -95,6 +95,7 @@
     <string name="str_under_maintenance">点検中</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">すべてを請求する</string>
+    <string name="str_amount">数量</string>
 
 
     //title
@@ -120,6 +121,7 @@
     <string name="title_twitter">X(Twitter)</string>
     <string name="title_telegram">テレグラム</string>
     <string name="title_youtube">Youtube</string>
+    <string name="title_about">アプリ情報です</string>
     <string name="title_term">利用規約</string>
     <string name="title_privacy">個人情報処理方針</string>
     <string name="title_version">バージョン</string>
@@ -135,6 +137,7 @@
     <string name="title_hd_path_setting">HD path setting</string>
     <string name="title_restore_private">Restore with privateKey</string>
     <string name="title_coin_send">資産転送</string>
+    <string name="title_asset_send">%1$s 電送</string>
     <string name="title_ibc_send">IBC 資産転送</string>
     <string name="title_recipient_address">お受け取りの住所</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>

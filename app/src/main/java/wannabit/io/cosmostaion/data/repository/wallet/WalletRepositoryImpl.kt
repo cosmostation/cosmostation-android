@@ -289,8 +289,19 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun erc20Balance(line: CosmosLine, token: Token) {
-        val web3j = Web3j.build(HttpService(line.rpcUrl))
-        val ethAddress = ByteUtils.convertBech32ToEvm(line.address)
+        val web3j: Web3j
+        var ethAddress = ""
+        if (line is EthereumLine) {
+            web3j = Web3j.build(HttpService(line.rpcURL))
+            ethAddress = if (line.supportCosmos) {
+                ByteUtils.convertBech32ToEvm(line.address)
+            } else {
+                line.address.toString()
+            }
+        } else {
+            web3j = Web3j.build(HttpService(line.rpcUrl))
+            ethAddress = ByteUtils.convertBech32ToEvm(line.address)
+        }
         val params: MutableList<Type<*>> = ArrayList()
         params.add(Address(ethAddress))
 
@@ -300,28 +311,6 @@ class WalletRepositoryImpl : WalletRepository {
         val txData = FunctionEncoder.encode(function)
         val response: EthCall = web3j.ethCall(
             Transaction.createEthCallTransaction(ethAddress, token.address, txData),
-            DefaultBlockParameterName.LATEST
-        ).sendAsync().get()
-        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
-        if (results.isNotEmpty()) {
-            val balance = results[0].value as BigInteger
-            token.amount = balance.toString()
-        } else {
-            token.amount = "0"
-        }
-    }
-
-    override suspend fun erc20Balance(evmLine: EthereumLine, token: Token) {
-        val web3j = Web3j.build(HttpService(evmLine.rpcURL))
-        val params: MutableList<Type<*>> = ArrayList()
-        params.add(Address(evmLine.address))
-
-        val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
-        val function = Function("balanceOf", params, returnTypes)
-
-        val txData = FunctionEncoder.encode(function)
-        val response: EthCall = web3j.ethCall(
-            Transaction.createEthCallTransaction(evmLine.address, token.address, txData),
             DefaultBlockParameterName.LATEST
         ).sendAsync().get()
         val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
@@ -409,16 +398,17 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun evmToken(line: EthereumLine): NetworkResult<MutableList<Token>> {
+    override suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanApi.erc20token(line.apiName)
+            mintscanApi.erc20token(evmLine.apiName)
         }
     }
 
-    override suspend fun evmBalance(line: EthereumLine): NetworkResult<String> {
+    override suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String> {
         return safeApiCall(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService(line.rpcURL))
-            val balance = web3j.ethGetBalance(line.address, DefaultBlockParameterName.LATEST).send()
+            val web3j = Web3j.build(HttpService(evmLine.rpcURL))
+            val balance =
+                web3j.ethGetBalance(evmLine.address, DefaultBlockParameterName.LATEST).send()
             balance.balance.toString()
         }
     }

@@ -43,7 +43,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
@@ -147,15 +146,6 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     open fun lcdBalanceValue(denom: String?, isUsd: Boolean? = false): BigDecimal {
         return BigDecimal.ZERO
-    }
-
-    open fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
-            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
-    }
-
-    fun allValue(isUsd: Boolean?): BigDecimal {
-        return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
@@ -487,7 +477,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
+    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
         tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
@@ -497,7 +487,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
         var result = BigDecimal.ZERO
         tokens.forEach { token ->
             val price = BaseData.getPrice(token.coinGeckoId, isUsd)
@@ -506,6 +496,15 @@ open class CosmosLine : BaseChain(), Parcelable {
             result = result.add(value)
         }
         return result
+    }
+
+    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
+            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
+    }
+
+    override fun allValue(isUsd: Boolean?): BigDecimal {
+        return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
@@ -557,7 +556,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainIris())
     lines.add(ChainIxo())
     lines.add(ChainJuno())
-    lines.add(ChainKava60())
+//    lines.add(ChainKava60())
     lines.add(ChainKava459())
     lines.add(ChainKava118())
     lines.add(ChainKi())

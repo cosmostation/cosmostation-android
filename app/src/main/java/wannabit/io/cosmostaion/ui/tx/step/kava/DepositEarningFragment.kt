@@ -318,7 +318,7 @@ class DepositEarningFragment : BaseTxFragment() {
             }
 
             memoView.setOnClickListener {
-                handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
+                handleOneClickWithDelay(MemoFragment.newInstance(txMemo, object : MemoListener {
                     override fun memo(memo: String) {
                         updateMemoView(memo)
                     }

@@ -19,8 +19,6 @@ class HistoryFragment : Fragment() {
 
     private val walletViewModel: WalletViewModel by activityViewModels()
 
-    private var isClickable = true
-
     companion object {
         @JvmStatic
         fun newInstance(selectedEvmChain: EthereumLine): HistoryFragment {
@@ -42,5 +40,13 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initView()
+    }
+
+    private fun initView() {
+        binding.apply {
+            loading.visibility = View.GONE
+        }
     }
 }

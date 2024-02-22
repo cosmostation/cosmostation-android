@@ -42,6 +42,17 @@ class CosmosActivity : BaseActivity() {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
                 ).commitAllowingStateLoss()
+
+            } ?: run {
+                BaseData.baseAccount?.allEvmLineChains?.firstOrNull {
+                    it.tag == intent.getStringExtra(
+                        "selectedChainTag"
+                    )
+                }?.let { chain ->
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
+                    ).commitAllowingStateLoss()
+                }
             }
         }
         initViewModel()

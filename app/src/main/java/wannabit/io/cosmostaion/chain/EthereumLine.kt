@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -12,7 +13,9 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Parcelize
-open class EthereumLine : BaseChain(), Parcelable {
+open class EthereumLine : CosmosLine(), Parcelable {
+
+    open var supportCosmos = false
 
     open var coinSymbol = ""
     open var coinGeckoId = ""
@@ -42,7 +45,20 @@ open class EthereumLine : BaseChain(), Parcelable {
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
     }
 
-    fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
+    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return if (supportCosmos) {
+            super.allAssetValue(isUsd)
+        } else {
+            val price = BaseData.getPrice(coinGeckoId, isUsd)
+            evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
+        }
+    }
+
+    override fun allValue(isUsd: Boolean?): BigDecimal {
+        return allAssetValue(isUsd).add(allTokenValue(isUsd))
+    }
+
+    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
         evmTokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
@@ -52,7 +68,7 @@ open class EthereumLine : BaseChain(), Parcelable {
         }
     }
 
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
         var result = BigDecimal.ZERO
         evmTokens.forEach { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
@@ -63,23 +79,15 @@ open class EthereumLine : BaseChain(), Parcelable {
         }
         return result
     }
-
-    open fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        val price = BaseData.getPrice(coinGeckoId, isUsd)
-        return evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
-    }
-
-    fun allValue(isUsd: Boolean?): BigDecimal {
-        return allAssetValue(isUsd).add(allTokenValue(isUsd))
-    }
 }
 
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
     lines.add(ChainEthereum())
+    lines.add(ChainKavaEvm())
     return lines
 }
 
-val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60")
+val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60", "kava60")
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

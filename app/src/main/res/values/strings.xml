@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
 
     <string name="str_total_value" translatable="false">Total value</string>
-    <string name="str_ethereum_class" translatable="false">Ethereum class</string>
+    <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
     <string name="str_legacy" translatable="false">Legacy</string>
@@ -122,6 +122,7 @@
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">Claim all</string>
+    <string name="str_amount">Amount</string>
 
 
     //title
@@ -132,7 +133,7 @@
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
     <string name="title_history" translatable="false">History</string>
-    <string name="title_about" translatable="false">About</string>
+    <string name="title_about">About</string>
     <string name="title_select_account" translatable="false">Select account</string>
     <string name="title_mnemonic_account">Mnemonic account</string>
     <string name="title_private_account">Private key account</string>
@@ -179,6 +180,7 @@
     <string name="title_hd_path_setting">HD path setting</string>
     <string name="title_restore_private">Restore with privateKey</string>
     <string name="title_coin_send">Asset send</string>
+    <string name="title_asset_send">%1$s send</string>
     <string name="title_ibc_send">IBC Asset send</string>
     <string name="title_recipient_chain" translatable="false">Recipient chain</string>
     <string name="title_to_send_asset" translatable="false">To send asset</string>

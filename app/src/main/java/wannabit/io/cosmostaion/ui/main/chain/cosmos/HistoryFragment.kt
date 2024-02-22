@@ -167,14 +167,16 @@ class HistoryFragment : Fragment() {
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(allHistoryGroup as List<Any>?)
-                    searchAfter = allHistoryGroup[allHistoryGroup.size - 1].second. searchAfter.toString()
+                    searchAfter =
+                        allHistoryGroup[allHistoryGroup.size - 1].second.searchAfter.toString()
                     hasMore = historyGroup.size >= BATCH_CNT
                 } else {
                     searchAfter = ""
                     hasMore = false
                 }
 
-                binding.recycler.visibleOrGone(historyGroup.isNotEmpty())
+                binding.loading.visibleOrGone(historyGroup.isEmpty())
+                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
                 binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
                 historyAdapter.notifyDataSetChanged()
             }
@@ -186,7 +188,8 @@ class HistoryFragment : Fragment() {
                 historyAdapter.submitList(allBnbHistoryGroup as List<Any>?)
             }
 
-            binding.recycler.visibleOrGone(allBnbHistoryGroup.isNotEmpty())
+            binding.loading.visibleOrGone(allBnbHistoryGroup.isEmpty())
+            binding.refresher.visibleOrGone(allBnbHistoryGroup.isNotEmpty())
             binding.emptyLayout.visibleOrGone(allBnbHistoryGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()
         }
@@ -197,14 +200,16 @@ class HistoryFragment : Fragment() {
                 historyAdapter.submitList(allOktHistoryGroup as List<Any>?)
             }
 
-            binding.recycler.visibleOrGone(allOktHistoryGroup.isNotEmpty())
+            binding.loading.visibleOrGone(allOktHistoryGroup.isEmpty())
+            binding.refresher.visibleOrGone(allOktHistoryGroup.isNotEmpty())
             binding.emptyLayout.visibleOrGone(allOktHistoryGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()
 
         }
 
-        historyViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
-            binding.recycler.visibility = View.GONE
+        historyViewModel.errorMessage.observe(viewLifecycleOwner) {
+            binding.loading.visibility = View.GONE
+            binding.refresher.visibility = View.GONE
             binding.emptyLayout.visibility = View.VISIBLE
             return@observe
         }

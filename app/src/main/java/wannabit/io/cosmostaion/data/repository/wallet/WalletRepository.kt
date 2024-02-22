@@ -8,6 +8,7 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import io.grpc.ManagedChannel
 import retrofit2.Response
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -99,10 +100,6 @@ interface WalletRepository {
         line: CosmosLine, token: Token
     )
 
-    suspend fun erc20Balance(
-        line: EthereumLine, token: Token
-    )
-
     //neutron
     suspend fun vestingData(
         channel: ManagedChannel, line: CosmosLine
@@ -136,7 +133,7 @@ interface WalletRepository {
         line: CosmosLine
     ): NetworkResult<OktTokenResponse?>
 
-    suspend fun evmToken(line: EthereumLine): NetworkResult<MutableList<Token>>
+    suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
 
-    suspend fun evmBalance(line: EthereumLine): NetworkResult<String>
+    suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String>
 }

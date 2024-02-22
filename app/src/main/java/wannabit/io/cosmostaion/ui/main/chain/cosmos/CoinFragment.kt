@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +13,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeClickListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeOptionFragment
+import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -90,27 +92,45 @@ class CoinFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinAdapter
 
-            coinAdapter.setOnItemClickListener { line, denom ->
-                if (line is ChainBinanceBeacon) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom)
+            coinAdapter.setOnItemClickListener { line, denom, position ->
+                Log.e("Test1234 : ", position.toString())
+                val sendAssetType = if (position == 0) {
+                    if (line is EthereumLine) {
+                        SendAssetType.COSMOS_EVM_COIN
                     } else {
-                        startLegacyTransfer(line, denom)
+                        SendAssetType.ONLY_COSMOS_COIN
                     }
-
-                } else if (line is ChainKava459) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom)
-                    } else {
-                        startTransfer(line, denom)
-                    }
-
-                } else if (line is ChainOkt60) {
-                    startLegacyTransfer(line, denom)
-
                 } else {
-                    startTransfer(line, denom)
+                    SendAssetType.ONLY_COSMOS_COIN
                 }
+
+                handleOneClickWithDelay(
+                    CommonTransferFragment.newInstance(
+                        line, denom, sendAssetType
+                    )
+                )
+
+
+//                if (line is ChainBinanceBeacon) {
+//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+//                        selectBridgeOption(line, denom)
+//                    } else {
+//                        startLegacyTransfer(line, denom)
+//                    }
+//
+//                } else if (line is ChainKava459) {
+//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+//                        selectBridgeOption(line, denom)
+//                    } else {
+//                        startTransfer(line, denom)
+//                    }
+//
+//                } else if (line is ChainOkt60) {
+//                    startLegacyTransfer(line, denom)
+//
+//                } else {
+//                    startTransfer(line, denom)
+//                }
             }
         }
     }

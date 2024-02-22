@@ -115,7 +115,6 @@ class TransferFragment : BaseTxFragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -382,7 +381,7 @@ class TransferFragment : BaseTxFragment() {
 
             recipientChainView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment(recipientAbleChains,
+                    ChainFragment.newInstance(recipientAbleChains,
                         ChainListType.SELECT_TRANSFER,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -481,7 +480,7 @@ class TransferFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }

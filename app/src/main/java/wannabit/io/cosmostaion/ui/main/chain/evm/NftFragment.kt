@@ -19,8 +19,6 @@ class NftFragment : Fragment() {
 
     private val walletViewModel: WalletViewModel by activityViewModels()
 
-    private var isClickable = true
-
     companion object {
         @JvmStatic
         fun newInstance(selectedEvmChain: EthereumLine): NftFragment {

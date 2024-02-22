@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -103,7 +104,26 @@ class TokenFragment : Fragment() {
                         }
                     }
 
-                    recycler.visibleOrGone(tokens.isNotEmpty())
+                    (selectedChain as EthereumLine).let { evmChain ->
+                        evmChain.evmTokens.forEach { token ->
+                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+                                tokens.add(token)
+                            }
+                        }
+
+                        tokens.sortWith { o1, o2 ->
+                            val value0 = selectedChain.tokenValue(o1.address)
+                            val value1 = selectedChain.tokenValue(o2.address)
+                            when {
+                                value0 > value1 -> -1
+                                value0 < value1 -> 1
+                                else -> 0
+                            }
+                        }
+                    }
+
+                    loading.visibleOrGone(tokens.isEmpty())
+                    refresher.visibleOrGone(tokens.isNotEmpty())
                     emptyLayout.visibleOrGone(tokens.isEmpty())
                     tokenAdapter.submitList(tokens)
                     tokenAdapter.notifyDataSetChanged()
@@ -140,7 +160,7 @@ class TokenFragment : Fragment() {
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     isClickable = true
-                }, 1000)
+                }, 300)
             }
         }
     }

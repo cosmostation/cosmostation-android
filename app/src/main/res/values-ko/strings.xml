@@ -90,6 +90,7 @@
     <string name="str_go_playstore">플레이스토어 이동</string>
     <string name="str_under_maintenance">점검중</string>
     <string name="str_mintscan">민트스캔</string>
+    <string name="str_amount">수량</string>
 
 
     //title
@@ -114,6 +115,7 @@
     <string name="title_twitter">X(트위터)</string>
     <string name="title_telegram">텔레그렘</string>
     <string name="title_youtube">유튜브</string>
+    <string name="title_about">앱 정보</string>
     <string name="title_term">약관</string>
     <string name="title_privacy">개인정보 보호</string>
     <string name="title_version">버전</string>
@@ -130,6 +132,7 @@
     <string name="title_hd_path_setting">HD Path 설정</string>
     <string name="title_restore_private">개인키로 지갑복원</string>
     <string name="title_coin_send">자산 전송</string>
+    <string name="title_asset_send">%1$s 전송</string>
     <string name="title_ibc_send">IBC 자산 전송</string>
     <string name="title_select_recipient_chain">수신 체인 선택</string>
     <string name="title_insert_amount">수량 입력</string>

@@ -17,11 +17,10 @@ import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 
 class CoinAdapter(
-    val context: Context,
-    val line: CosmosLine
+    val context: Context, val selectedChain: CosmosLine
 ) : ListAdapter<Coin, RecyclerView.ViewHolder>(CoinDiffCallback()) {
 
-    private var onItemClickListener: ((CosmosLine, String) -> Unit)? = null
+    private var onItemClickListener: ((CosmosLine, String, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -55,28 +54,29 @@ class CoinAdapter(
         when (coin.type) {
             CoinType.STAKE -> {
                 if (holder is CoinCosmosLineViewHolder) {
-                    holder.bind(context, line)
+                    holder.bind(context, selectedChain)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            line.stakeDenom?.let { stakeDenom ->
-                                it(line, stakeDenom)
+                            selectedChain.stakeDenom?.let { stakeDenom ->
+                                it(selectedChain, stakeDenom, position)
                             }
                         }
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
-                        if (line.supportStaking && line.cosmosRewards.isNotEmpty()) {
+                        if (selectedChain.supportStaking && selectedChain.cosmosRewards.isNotEmpty()) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = RewardDialog(context, line, line.cosmosRewards)
+                            val customDialog =
+                                RewardDialog(context, selectedChain, selectedChain.cosmosRewards)
 
                             if (scaleX == 1.0f && scaleY == 1.0f) {
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
                                 val handler = Handler()
                                 handler.postDelayed({
                                     customDialog.show()
-                                },200)
+                                }, 200)
                             }
 
                             customDialog.setOnDismissListener {
@@ -86,8 +86,8 @@ class CoinAdapter(
 
                         } else {
                             onItemClickListener?.let {
-                                line.stakeDenom?.let { stakeDenom ->
-                                    it(line, stakeDenom)
+                                selectedChain.stakeDenom?.let { stakeDenom ->
+                                    it(selectedChain, stakeDenom, position)
                                 }
                             }
                             true
@@ -96,16 +96,16 @@ class CoinAdapter(
                 }
             }
 
-            CoinType.NATIVE, CoinType.IBC, CoinType.BRIDGE ->  {
+            CoinType.NATIVE, CoinType.IBC, CoinType.BRIDGE -> {
                 if (holder is CoinViewHolder) {
                     val coinType = coin.type
                     val coinPosition = currentList.filter { it.type == coinType }.indexOf(coin)
                     val coinCount = currentList.count { it.type == coinType }
-                    holder.bind(line, coin, coinPosition, coinCount)
+                    holder.bind(selectedChain, coin, coinPosition, coinCount)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it (line, coin.denom)
+                            it(selectedChain, coin.denom, position)
                         }
                     }
                 }
@@ -119,13 +119,13 @@ class CoinAdapter(
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it (line, coin.denom)
+                            it(selectedChain, coin.denom, position)
                         }
                     }
-                    if (line is ChainBinanceBeacon) {
-                        holder.bindBeaconCoin(line, coin, coinPosition, coinCount)
-                    } else if (line is ChainOkt60) {
-                        holder.bindOktCoin(line, coin, coinPosition, coinCount)
+                    if (selectedChain is ChainBinanceBeacon) {
+                        holder.bindBeaconCoin(selectedChain, coin, coinPosition, coinCount)
+                    } else if (selectedChain is ChainOkt60) {
+                        holder.bindOktCoin(selectedChain, coin, coinPosition, coinCount)
                     }
                 }
             }
@@ -147,7 +147,7 @@ class CoinAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (CosmosLine, String) -> Unit) {
+    fun setOnItemClickListener(listener: (CosmosLine, String, Int) -> Unit) {
         onItemClickListener = listener
     }
 }
