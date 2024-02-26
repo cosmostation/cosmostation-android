@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
+import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -29,6 +30,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
     private var availableAmount = ""
     private var existAmount = ""
     private lateinit var sendAssetType: SendAssetType
+    private lateinit var transferType: TransferStyle
 
     private var assetDecimal: Int = 6
 
@@ -40,6 +42,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
             availableAmount: String,
             existAmount: String,
             sendAssetType: SendAssetType,
+            transferType: TransferStyle,
             listener: AmountSelectListener
         ): TransferAmountFragment {
             val args = Bundle().apply {
@@ -48,6 +51,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                 putString("availableAmount", availableAmount)
                 putString("existAmount", existAmount)
                 putSerializable("sendAssetType", sendAssetType)
+                putSerializable("transferType", transferType)
             }
             val fragment = TransferAmountFragment()
             fragment.arguments = args
@@ -85,6 +89,9 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     getSerializable(
                         "sendAssetType", SendAssetType::class.java
                     )?.let { sendAssetType = it }
+                    getSerializable(
+                        "transferType", TransferStyle::class.java
+                    )?.let { transferType = it }
 
                 } else {
                     (getSerializable("fromChain") as? BaseChain)?.let {
@@ -95,6 +102,9 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     }
                     (getSerializable("sendAssetType") as? SendAssetType)?.let {
                         sendAssetType = it
+                    }
+                    (getSerializable("transferType") as? TransferStyle)?.let {
+                        transferType = it
                     }
                 }
                 getString("availableAmount")?.let { availableAmount = it }
@@ -107,27 +117,47 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
 
     private fun initData() {
         binding.apply {
-            if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
-                toSendAsset?.let { asset ->
-                    assetDecimal = asset.decimals ?: 6
-                    availableAmount.toBigDecimal().movePointLeft(assetDecimal)
-                        ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                            available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                            availableDenom.text = asset.symbol
-                            availableDenom.setTextColor(asset.assetColor())
-                        }
+            when (sendAssetType) {
+                SendAssetType.COSMOS_EVM_COIN -> {
+                    if (transferType == TransferStyle.WEB3_STYLE) {
 
-                    existAmount.let { toAmount ->
-                        if (toAmount.isNotEmpty()) {
-                            val dpToSendAmount = toAmount.toBigDecimal().movePointLeft(assetDecimal)
-                                .setScale(assetDecimal, RoundingMode.DOWN).stripTrailingZeros()
-                                .toPlainString()
-                            amountTxt.text =
-                                Editable.Factory.getInstance().newEditable(dpToSendAmount)
-                        } else {
-                            amountTxt.text = Editable.Factory.getInstance().newEditable(toAmount)
+                    } else {
+                        toSendAsset?.let { asset ->
+                            assetDecimal = asset.decimals ?: 6
+                            availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                                ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                    available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                    availableDenom.text = asset.symbol
+                                    availableDenom.setTextColor(asset.assetColor())
+                                }
                         }
                     }
+                }
+
+                SendAssetType.ONLY_COSMOS_COIN -> {
+                    toSendAsset?.let { asset ->
+                        assetDecimal = asset.decimals ?: 6
+                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = asset.symbol
+                                availableDenom.setTextColor(asset.assetColor())
+                            }
+                    }
+                }
+
+                else -> { }
+            }
+
+            existAmount.let { toAmount ->
+                if (toAmount.isNotEmpty()) {
+                    val dpToSendAmount = toAmount.toBigDecimal().movePointLeft(assetDecimal)
+                        .setScale(assetDecimal, RoundingMode.DOWN).stripTrailingZeros()
+                        .toPlainString()
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                } else {
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(toAmount)
                 }
             }
         }

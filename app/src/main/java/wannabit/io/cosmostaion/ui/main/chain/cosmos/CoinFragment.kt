@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,13 +92,17 @@ class CoinFragment : Fragment() {
             adapter = coinAdapter
 
             coinAdapter.setOnItemClickListener { line, denom, position ->
-                Log.e("Test1234 : ", position.toString())
                 val sendAssetType = if (position == 0) {
                     if (line is EthereumLine) {
-                        SendAssetType.COSMOS_EVM_COIN
+                        if (line.supportCosmos) {
+                            SendAssetType.COSMOS_EVM_COIN
+                        } else {
+                            SendAssetType.ONLY_EVM_COIN
+                        }
                     } else {
                         SendAssetType.ONLY_COSMOS_COIN
                     }
+
                 } else {
                     SendAssetType.ONLY_COSMOS_COIN
                 }
@@ -227,7 +230,7 @@ class CoinFragment : Fragment() {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    walletViewModel.loadChainData(selectedChain, account.id, false)
+                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
                 }
             }
         }
@@ -238,7 +241,7 @@ class CoinFragment : Fragment() {
             coinAdapter.notifyDataSetChanged()
         }
 
-        walletViewModel.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
             if (selectedChain.fetched) {
                 initData()
             }

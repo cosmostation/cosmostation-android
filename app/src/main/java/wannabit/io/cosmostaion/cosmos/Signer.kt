@@ -57,7 +57,11 @@ import org.bouncycastle.util.Strings
 import org.bouncycastle.util.encoders.Base64
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
@@ -103,6 +107,16 @@ object Signer {
         auth: QueryAccountResponse?, msgSend: MsgSend?, fee: Fee?, memo: String
     ): SimulateRequest? {
         return signSimulTx(auth, sendMsg(msgSend), fee, memo)
+    }
+
+    fun genSendSimulate(
+        auth: QueryAccountResponse?,
+        msgSend: MsgSend?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): SimulateRequest? {
+        return signSimulTx(auth, sendMsg(msgSend), fee, memo, selectedChain)
     }
 
     private fun sendMsg(msgSend: MsgSend?): MutableList<Any> {
@@ -895,7 +909,7 @@ object Signer {
 
     private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        return if (line?.evmCompatible == true) {
+        return if (line?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             val pubKey =
                 KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
@@ -912,23 +926,20 @@ object Signer {
         }
     }
 
-    private fun grpcByteSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): ByteArray {
+    private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        if (selectedChain?.evmCompatible == true || selectedChain is ChainInjective) {
+        if (selectedChain is EthereumLine) {
             val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
             System.arraycopy(sig.r, 0, sigData, 0, 32)
             System.arraycopy(sig.s, 0, sigData, 32, 32)
-            return sigData
-
         } else {
             val sha256Hash = Sha256Hash.hash(toSignByte)
             ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
                 System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
                 System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
-                return sigData
             }
-            return sigData
         }
+        return sigData
     }
 
     private fun parseAuthGrpc(auth: QueryAccountResponse?): Triple<String, Long, Long> {
@@ -1003,6 +1014,24 @@ object Signer {
         val authInfo = grpcAuthInfo(signerInfo, fee)
         val simulateTx = grpcSimulTx(txBody, authInfo)
         return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
+    }
+
+    private fun signSimulTx(
+        auth: QueryAccountResponse?,
+        msgAnys: List<Any>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): SimulateRequest? {
+        val txBody = grpcTxBody(msgAnys, memo)
+        val signerInfo = grpcSimulInfo(auth)
+        val authInfo = grpcAuthInfo(signerInfo, fee)
+        val simulateTx = grpcSimulTx(txBody, authInfo)
+        return if (selectedChain is ChainEmoney) {
+            SimulateRequest.newBuilder().setTx(simulateTx).build()
+        } else {
+            SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
+        }
     }
 
     private fun grpcTxBody(msgsAny: List<Any>?, memo: String): TxBody? {
@@ -1222,7 +1251,7 @@ object Signer {
     }
 
     fun signature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
-        if (selectedChain?.evmCompatible == true) {
+        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             return ethermintSignature(selectedChain, toSignByte)
         } else {
             val sha256Hash = Sha256Hash.hash(toSignByte)

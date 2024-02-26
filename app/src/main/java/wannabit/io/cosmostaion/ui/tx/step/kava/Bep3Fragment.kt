@@ -6,14 +6,15 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
@@ -30,7 +31,6 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
-import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentBep3Binding
 import wannabit.io.cosmostaion.ui.option.tx.address.Bep3AddressFragment
@@ -39,10 +39,9 @@ import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.Bep3InsertAmountFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -55,7 +54,6 @@ class Bep3Fragment : BaseTxFragment() {
     private lateinit var denom: String
 
     private lateinit var kavaViewModel: KavaViewModel
-    private lateinit var walletViewModel: WalletViewModel
 
     private var toChains: MutableList<CosmosLine>? = mutableListOf()
 
@@ -101,11 +99,6 @@ class Bep3Fragment : BaseTxFragment() {
         val kavaViewModelProviderFactory = KavaViewModelProviderFactory(kavaRepository)
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
-
-        val walletRepository = WalletRepositoryImpl()
-        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel =
-            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initView() {
@@ -175,7 +168,7 @@ class Bep3Fragment : BaseTxFragment() {
                     if (lines[0].fetched) {
                         kavaViewModel.bep3Data(getChannel(ChainKava459()))
                     } else {
-                        CoroutineScope(Dispatchers.IO).launch {
+                        lifecycleScope.launch(Dispatchers.IO) {
                             initToChainsData(lines)
                         }
                     }
@@ -238,14 +231,14 @@ class Bep3Fragment : BaseTxFragment() {
     private fun initToChainsData(toChains: MutableList<CosmosLine>) {
         BaseData.baseAccount?.let { account ->
             account.apply {
-                CoroutineScope(Dispatchers.IO).launch {
+                lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
                         toChains.forEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id, false)
+                                ApplicationViewModel.shared.loadChainData(line, id, false)
                             }
                         }
 
@@ -255,7 +248,7 @@ class Bep3Fragment : BaseTxFragment() {
                                 line.setInfoWithPrivateKey(privateKey)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id, false)
+                                ApplicationViewModel.shared.loadChainData(line, id, false)
                             }
                         }
                     }
@@ -265,7 +258,8 @@ class Bep3Fragment : BaseTxFragment() {
     }
 
     private fun setupLoadedData() {
-        walletViewModel.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+            Log.e("Test1234 : ", "여기요")
             kavaViewModel.bep3Data(getChannel(ChainKava459()))
         }
     }

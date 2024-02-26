@@ -83,6 +83,15 @@ interface TxRepository {
         memo: String
     ): Any?
 
+    suspend fun simulateSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgSend: MsgSend?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): Any?
+
     suspend fun broadcastBnbSendTx(
         transfer: Transfer, wallet: Wallet, options: TransactionOption
     ): MutableList<TransactionMetadata>?

@@ -223,6 +223,31 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    fun simulateSend(
+        managedChannel: ManagedChannel?,
+        address: String?,
+        msgSend: MsgSend?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        txRepository.auth(managedChannel, address)?.let {
+            try {
+                val response = txRepository.simulateSendTx(
+                    managedChannel, it, msgSend, fee, memo, selectedChain
+                ) as SimulateResponse
+                simulate.postValue(response.gasInfo)
+            } catch (e: Exception) {
+                val errorResponse = txRepository.simulateSendTx(
+                    managedChannel, it, msgSend, fee, memo, selectedChain
+                ) as String
+                errorMessage.postValue(errorResponse)
+            }
+        } ?: run {
+            errorMessage.postValue("No key account")
+        }
+    }
+
     val broadcastBnbTx = SingleLiveEvent<MutableList<TransactionMetadata>?>()
     fun broadcastBnbSend(transfer: Transfer, wallet: Wallet, options: TransactionOption) =
         viewModelScope.launch(Dispatchers.IO) {

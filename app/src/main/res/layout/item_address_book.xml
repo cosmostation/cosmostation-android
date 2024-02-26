@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/address_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/address_book_title"
+            style="@style/font_sb_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_20"
+            android:text="@string/str_my_account"
+            android:textColor="@color/color_accent_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/address_book_cnt"
+            style="@style/font_sb_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_6"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/address_book_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/space_15">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_15"
+        app:layout_constraintTop_toBottomOf="@+id/address_title_layout">
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/top_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_1"
             android:layout_marginHorizontal="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_15"
             android:background="@color/color_base07"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,27 +59,43 @@
             style="@style/font_sb_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:maxWidth="@dimen/space_150"
             android:layout_marginStart="@dimen/space_20"
             android:layout_marginTop="@dimen/space_15"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/space_150"
+            android:maxLines="1"
             android:textColor="@color/color_base01"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+        <TextView
+            android:id="@+id/chain_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_4"
+            android:layout_marginTop="@dimen/space_18"
+            android:background="@drawable/round_box_deprecated"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            android:textColor="@color/color_base02"
+            app:layout_constraintStart_toEndOf="@+id/account_name"
+            app:layout_constraintTop_toBottomOf="@+id/top_view" />
 
         <TextView
             android:id="@+id/account_memo"
             style="@style/font_sb_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginEnd="@dimen/space_20"
+            android:ellipsize="end"
             android:maxWidth="@dimen/space_200"
+            android:maxLines="1"
             android:textColor="@color/color_base01"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/account_name" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/account_name"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/account_address"
@@ -53,21 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_20"
             android:layout_marginTop="@dimen/space_8"
-            android:layout_marginBottom="@dimen/space_15"
             android:textColor="@color/color_base02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/account_name" />
-
-        <TextView
-            android:id="@+id/account_sub_address"
-            style="@style/font_sb_11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_20"
-            android:textColor="@color/color_base03"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/account_address"
-            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,8 +116,8 @@
         android:layout_height="@dimen/space_1"
         android:layout_marginHorizontal="@dimen/space_16"
         android:background="@color/color_base07"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

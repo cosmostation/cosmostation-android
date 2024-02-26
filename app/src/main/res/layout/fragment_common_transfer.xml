@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/space_16"
-            android:paddingVertical="@dimen/space_15">
+            android:paddingTop="@dimen/space_15">
 
             <TextView
                 android:id="@+id/recipient_address_title"
@@ -110,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
+                android:layout_marginBottom="@dimen/space_15"
                 android:text="@string/str_tap_for_add_address_msg"
                 android:textColor="@color/color_base03"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +122,8 @@
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginBottom="@dimen/space_15"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_15"
                 android:text="@string/str_amount"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
@@ -163,8 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_6"
                 android:layout_marginBottom="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_5"
                 android:text="@string/str_tap_for_add_amount_msg"
                 android:textColor="@color/color_base03"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -212,7 +214,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/memo_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/space_68"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_8"
         app:layout_constraintBottom_toTopOf="@id/fee_view"
@@ -221,8 +223,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/space_15">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/memo_title"
@@ -230,6 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_15"
                 android:text="@string/title_memo"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
@@ -241,11 +243,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginBottom="@dimen/space_15"
                 android:text="@string/str_tap_for_add_memo_msg"
                 android:textColor="@color/color_base03"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/memo_title" />
+                app:layout_constraintTop_toBottomOf="@+id/memo_title"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -348,15 +352,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBaseline_toBaselineOf="@+id/fee_amount"/>
+                app:layout_constraintBaseline_toBaselineOf="@+id/fee_amount"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/fee_value"
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_base03"
+                android:textColor="@color/color_base02"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fee_amount" />
 

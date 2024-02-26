@@ -11,14 +11,12 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc.newStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.methods.response.TransactionReceipt
 import org.web3j.protocol.http.HttpService
@@ -35,11 +33,9 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
@@ -160,13 +156,11 @@ class TxResultActivity : BaseActivity() {
                         Handler(Looper.getMainLooper()).postDelayed({
                             loading.visibility = View.GONE
                             successLayout.visibility = View.VISIBLE
-                            showAddressBook()
                         }, 3000)
 
                     } else {
                         loading.visibility = View.GONE
                         successLayout.visibility = View.VISIBLE
-                        showAddressBook()
                     }
 
                 } else {
@@ -243,7 +237,11 @@ class TxResultActivity : BaseActivity() {
                     else -> {
                         finish()
                         BaseData.baseAccount?.let { account ->
-                            ApplicationViewModel.shared.loadChainData(selectedChain!!, account.id)
+                            selectedChain?.let { chain ->
+                                ApplicationViewModel.shared.loadChainData(
+                                    chain, account.id, false
+                                )
+                            }
                         }
                     }
                 }
@@ -352,36 +350,6 @@ class TxResultActivity : BaseActivity() {
             fetchCnt = 10
             loadHistoryTx()
             dialog.dismiss()
-        }
-    }
-
-    private fun showAddressBook() {
-        if (recipientChain != null && recipientAddress.isNotEmpty()) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                AppDatabase.getInstance().addressBookDao().selectAll()
-                    .firstOrNull { it.address == recipientAddress && it.chainName == recipientChain?.name }
-                    ?.let { existed ->
-                        if (existed.memo != memo) {
-                            withContext(Dispatchers.Main) {
-                                SetAddressFragment(existed, null, "", memo).show(
-                                    supportFragmentManager, SetAddressFragment::class.java.name
-                                )
-                            }
-                        }
-                        return@launch
-                    }
-
-                if (AppDatabase.getInstance().refAddressDao().selectAll()
-                        .none { it.dpAddress == recipientAddress }
-                ) {
-                    withContext(Dispatchers.Main) {
-                        SetAddressFragment(null, recipientChain, recipientAddress, memo).show(
-                            supportFragmentManager, SetAddressFragment::class.java.name
-                        )
-                    }
-                    return@launch
-                }
-            }
         }
     }
 

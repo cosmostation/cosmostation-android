@@ -10,6 +10,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -65,6 +66,8 @@ class CosmosDetailFragment : Fragment() {
 
     private var isClickable = true
 
+    private val handler = Handler(Looper.getMainLooper())
+
     companion object {
         @JvmStatic
         fun newInstance(selectedChain: CosmosLine): CosmosDetailFragment {
@@ -109,7 +112,15 @@ class CosmosDetailFragment : Fragment() {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
 
-                if (selectedChain is ChainOkt60 || selectedChain.tag == "kava60" || selectedChain.tag == "xplaKeccak256") {
+                if (selectedChain is EthereumLine && selectedChain.supportStaking) {
+                    accountAddress.text = selectedChain.address
+                    accountEvmAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
+                    accountAddress.visibility = View.INVISIBLE
+                    accountEvmAddress.visibility = View.VISIBLE
+
+                    handler.postDelayed(starEvmAddressAnimation, 5000)
+
+                } else if (selectedChain is ChainOkt60 || selectedChain.tag == "xplaKeccak256") {
                     accountAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
                 } else {
                     accountAddress.text = selectedChain.address
@@ -137,6 +148,35 @@ class CosmosDetailFragment : Fragment() {
                 (selectedChain as ChainOkt60).loadValidators()
             }
         }
+    }
+
+    private val starEvmAddressAnimation = object : Runnable {
+        override fun run() {
+            binding.apply {
+                if (accountAddress.visibility == View.VISIBLE) {
+                    fadeOutAnimation(accountAddress)
+                    fadeInAnimation(accountEvmAddress)
+                } else {
+                    fadeOutAnimation(accountEvmAddress)
+                    fadeInAnimation(accountAddress)
+                }
+            }
+            handler.postDelayed(this, 5000)
+        }
+    }
+
+    private fun fadeInAnimation(view: View) {
+        val fadeIn = AlphaAnimation(0f, 1f)
+        fadeIn.duration = 1000
+        view.startAnimation(fadeIn)
+        view.visibility = View.VISIBLE
+    }
+
+    private fun fadeOutAnimation(view: View) {
+        val fadeOut = AlphaAnimation(1f, 0f)
+        fadeOut.duration = 800
+        view.startAnimation(fadeOut)
+        view.visibility = View.INVISIBLE
     }
 
     private fun updateTokenValue() {
@@ -480,5 +520,6 @@ class CosmosDetailFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        handler.removeCallbacks(starEvmAddressAnimation)
     }
 }

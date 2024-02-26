@@ -556,7 +556,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainIris())
     lines.add(ChainIxo())
     lines.add(ChainJuno())
-//    lines.add(ChainKava60())
     lines.add(ChainKava459())
     lines.add(ChainKava118())
     lines.add(ChainKi())

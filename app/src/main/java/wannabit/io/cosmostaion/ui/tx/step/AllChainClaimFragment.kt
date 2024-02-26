@@ -333,7 +333,7 @@ class AllChainClaimFragment : BaseTxFragment() {
 
                         }
                         if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
+//                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
                         }
                     }
 
@@ -344,7 +344,7 @@ class AllChainClaimFragment : BaseTxFragment() {
 
                         }
                         if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
+//                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
                         }
                     }
                 }

@@ -150,7 +150,7 @@ class DashboardFragment : Fragment() {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadEvmChainData(line, id, false)
+                                ApplicationViewModel.shared.loadEvmChainData(line, id, false)
                             }
                         }
 
@@ -160,7 +160,7 @@ class DashboardFragment : Fragment() {
 
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id, false)
+                                ApplicationViewModel.shared.loadChainData(line, id, false)
                             }
                         }
                         if (isNew) {
@@ -174,7 +174,7 @@ class DashboardFragment : Fragment() {
 
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadEvmChainData(line, id, false)
+                                ApplicationViewModel.shared.loadEvmChainData(line, id, false)
                             }
                         }
 
@@ -184,7 +184,7 @@ class DashboardFragment : Fragment() {
 
                             }
                             if (!line.fetched) {
-                                walletViewModel.loadChainData(line, id, false)
+                                ApplicationViewModel.shared.loadChainData(line, id, false)
                             }
                         }
                         if (isNew) {
@@ -197,7 +197,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupLoadedData() {
-        walletViewModel.fetchedEvmResult.observe(viewLifecycleOwner) { tag ->
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
                     if (account.sortedDisplayEvmLines()
@@ -207,16 +207,9 @@ class DashboardFragment : Fragment() {
                             dashAdapter.notifyItemRangeChanged(
                                 1, account.sortedDisplayEvmLines().size + 1, null
                             )
+
                         }
                     }
-                }
-            }
-            updateTotalValue()
-        }
-
-        walletViewModel.fetchedResult.observe(viewLifecycleOwner) { tag ->
-            lifecycleScope.launch(Dispatchers.IO) {
-                baseAccount?.let { account ->
                     if (account.sortedDisplayCosmosLines()
                             .firstOrNull { it.tag == tag }?.fetched == true
                     ) {
@@ -233,7 +226,7 @@ class DashboardFragment : Fragment() {
             updateTotalValue()
         }
 
-        walletViewModel.chainDataErrorMessage.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
             return@observe
         }
 
@@ -260,13 +253,7 @@ class DashboardFragment : Fragment() {
 
         baseAccount?.let { account ->
             account.sortedDisplayEvmLines().forEach { line ->
-                if (line.tag == "kavaEvm60" && account.sortedDisplayCosmosLines()
-                        .any { it.tag == "kava60" }
-                ) {
-
-                } else {
-                    totalSum = totalSum.add(line.allValue(false))
-                }
+                totalSum = totalSum.add(line.allValue(false))
             }
 
             account.sortedDisplayCosmosLines().forEach { line ->
@@ -304,8 +291,7 @@ class DashboardFragment : Fragment() {
                         refresher.isRefreshing = false
 
                     } else {
-                        walletViewModel.fetchedResult.removeObservers(viewLifecycleOwner)
-                        walletViewModel.fetchedEvmResult.removeObservers(viewLifecycleOwner)
+                        ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
                         walletViewModel.price(BaseData.currencyName().lowercase())
 
                         lifecycleScope.launch(Dispatchers.IO) {
@@ -333,7 +319,7 @@ class DashboardFragment : Fragment() {
         }
 
         ApplicationViewModel.shared.displayLegacyResult.observe(viewLifecycleOwner) {
-            walletViewModel.fetchedResult.removeObservers(viewLifecycleOwner)
+            ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
             walletViewModel.price(BaseData.currencyName().lowercase())
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.initAccount()

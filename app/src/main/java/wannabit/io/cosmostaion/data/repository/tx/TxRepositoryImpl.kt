@@ -282,7 +282,7 @@ class TxRepositoryImpl : TxRepository {
             val broadcastTx = Signer.genSendBroadcast(account, msgSend, fee, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             null
         }
     }
@@ -298,6 +298,25 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genSendSimulate(account, msgSend, fee, memo)
+            simulStub.simulate(simulateTx)
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
+    override suspend fun simulateSendTx(
+        managedChannel: ManagedChannel?,
+        account: QueryAccountResponse?,
+        msgSend: TxProto.MsgSend?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): Any? {
+        return try {
+            val simulStub =
+                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val simulateTx = Signer.genSendSimulate(account, msgSend, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {

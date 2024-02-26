@@ -113,11 +113,11 @@ class AssetFragment : Fragment() {
             assetAdapter.notifyDataSetChanged()
         }
 
-        walletViewModel.fetchedEvmResult.observe(viewLifecycleOwner) {
-            if (selectedEvmChain.fetched) {
-                initData()
-            }
-        }
+//        walletViewModel.fetchedEvmResult.observe(viewLifecycleOwner) {
+//            if (selectedEvmChain.fetched) {
+//                initData()
+//            }
+//        }
 
 //        ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
 //            assetAdapter.notifyDataSetChanged()

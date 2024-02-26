@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
@@ -129,7 +130,32 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             }
 
             btnAddressBook.setOnClickListener {
+                handleOneClickWithDelay(
+                    AddressBookFragment.newInstance(fromChain,
+                        toChain,
+                        fromChain.address,
+                        sendAssetType,
+                        object : AddressBookSelectListener {
+                            override fun select(
+                                refAddress: RefAddress?, addressBook: AddressBook?
+                            ) {
+                                refAddress?.let {
+                                    selectedRefAddress = refAddress
+                                    addressTxt.text =
+                                        Editable.Factory.getInstance().newEditable(it.dpAddress)
 
+                                } ?: run {
+                                    selectedAddressBook = addressBook
+                                    selectedAddressBook?.let {
+                                        addressTxt.text =
+                                            Editable.Factory.getInstance().newEditable(it.address)
+                                    }
+                                    addressTxt.textSize = 11f
+                                    addressTxt.setSelection(addressTxt.text.toString().length)
+                                }
+                            }
+                        })
+                )
             }
 
             btnConfirm.setOnClickListener {
@@ -165,7 +191,24 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         }
 
                     } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
+                        if (BaseUtils.isValidChainAddress(
+                                toChain as CosmosLine, addressTxt.text.toString().trim()
+                            )
+                        ) {
+                            addressListener?.selectAddress(
+                                selectedRefAddress,
+                                selectedAddressBook,
+                                addressTxt.text.toString().trim()
+                            )
+                            dismiss()
+                            return@setOnClickListener
+                        }
 
+                        toChain.accountPrefix?.let { prefix ->
+                            txViewModel.icnsAddress(
+                                toChain as CosmosLine, addressTxt.text.toString().trim(), prefix
+                            )
+                        }
                     }
                 }
             }
@@ -190,7 +233,8 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                 } else {
                     handleOneClickWithDelay(
-                        NameServiceFragment.newInstance(response,
+                        NameServiceFragment.newInstance(
+                            response,
                             object : NameServiceSelectListener {
                                 override fun select(address: String) {
                                     addressTxt.text =

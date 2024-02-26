@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.common
 
-import android.util.Log
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
@@ -11,11 +10,8 @@ import org.bitcoinj.crypto.MnemonicCode
 import org.bitcoinj.crypto.MnemonicException.MnemonicLengthException
 import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import java.security.SecureRandom
 
 object BaseKey {

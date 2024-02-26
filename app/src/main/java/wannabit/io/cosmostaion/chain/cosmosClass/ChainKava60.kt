@@ -30,6 +30,3 @@ open class ChainKava60 : CosmosLine() {
     override var grpcHost: String = "grpc-kava.cosmostation.io"
     override var rpcUrl: String = "https://rpc-kava-app.cosmostation.io"
 }
-
-const val KAVA_MINT_IMG_URL = CosmostationConstants.CHAIN_BASE_URL + "kava/module/mint/"
-const val KAVA_LEND_IMG_URL = CosmostationConstants.CHAIN_BASE_URL + "kava/module/lend/"

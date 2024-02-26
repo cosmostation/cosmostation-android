@@ -3,12 +3,10 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +16,6 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -26,7 +23,6 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 class ChainEditFragment : BaseTxFragment() {
@@ -35,8 +31,6 @@ class ChainEditFragment : BaseTxFragment() {
     private val binding get() = _binding
 
     private lateinit var chainEditAdapter: ChainEditAdapter
-
-    private val walletViewModel: WalletViewModel by activityViewModels()
 
     private var toDisplayEvmChains: MutableList<String> = mutableListOf()
     private var allEvmChains: MutableList<EthereumLine> = mutableListOf()
@@ -87,9 +81,6 @@ class ChainEditFragment : BaseTxFragment() {
                                 cosmosClickAction
                             )
                             recycler.adapter = chainEditAdapter
-
-                            btnSelect.updateSelectButtonView(allEvmLineChains.none { !it.fetched } && allCosmosLineChains.none { !it.fetched })
-                            progress.goneOrVisible(allEvmLineChains.none { !it.fetched } && allCosmosLineChains.none { !it.fetched })
                         }
                         initAllData(account)
                     }
@@ -107,7 +98,7 @@ class ChainEditFragment : BaseTxFragment() {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
                         if (!line.fetched) {
-                            walletViewModel.loadEvmChainData(line, id, true)
+                            ApplicationViewModel.shared.loadEvmChainData(line, id, true)
                         }
                     }
 
@@ -116,7 +107,7 @@ class ChainEditFragment : BaseTxFragment() {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
                         if (!line.fetched) {
-                            walletViewModel.loadChainData(line, id, true)
+                            ApplicationViewModel.shared.loadChainData(line, id, true)
                         }
                     }
 
@@ -126,7 +117,7 @@ class ChainEditFragment : BaseTxFragment() {
                             line.setInfoWithPrivateKey(privateKey)
                         }
                         if (!line.fetched) {
-                            walletViewModel.loadEvmChainData(line, id, true)
+                            ApplicationViewModel.shared.loadEvmChainData(line, id, true)
                         }
                     }
 
@@ -135,7 +126,7 @@ class ChainEditFragment : BaseTxFragment() {
                             line.setInfoWithPrivateKey(privateKey)
                         }
                         if (!line.fetched) {
-                            walletViewModel.loadChainData(line, id, true)
+                            ApplicationViewModel.shared.loadChainData(line, id, true)
                         }
                     }
                 }
@@ -144,40 +135,40 @@ class ChainEditFragment : BaseTxFragment() {
     }
 
     private fun setupLoadedView() {
-        BaseData.baseAccount?.let { account ->
-            walletViewModel.editFetchedEvmResult.observe(viewLifecycleOwner) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    val fetchedEvmChain =
-                        account.allEvmLineChains.firstOrNull { line -> line.tag == it }
-                    val index = account.allEvmLineChains.indexOf(fetchedEvmChain)
-                    withContext(Dispatchers.Main) {
-                        if (::chainEditAdapter.isInitialized) {
-                            chainEditAdapter.notifyItemChanged(index)
+        ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                searchEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
+                    .let { fetchedEvmChainIndex ->
+                        withContext(Dispatchers.Main) {
+                            if (::chainEditAdapter.isInitialized) {
+                                chainEditAdapter.notifyItemChanged(fetchedEvmChainIndex + 1)
+                            }
                         }
-                        binding?.btnSelect?.updateSelectButtonView(account.allEvmLineChains.none { line -> !line.fetched })
-                        binding?.progress?.goneOrVisible(account.allEvmLineChains.none { line -> !line.fetched })
+                    }
+
+                searchChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
+                    .let { fetchedChainIndex ->
+                        withContext(Dispatchers.Main) {
+                            if (::chainEditAdapter.isInitialized) {
+                                chainEditAdapter.notifyItemChanged(fetchedChainIndex + searchEvmChains.size + 2)
+                            }
+                        }
+                    }
+
+                withContext(Dispatchers.Main) {
+                    if (searchEvmChains.none { !it.fetched } && searchChains.none { !it.fetched }) {
+                        binding?.apply {
+                            btnSelect.updateSelectButtonView(true)
+                            progress.cancelAnimation()
+                            progress.visibility = View.GONE
+                        }
                     }
                 }
             }
+        }
 
-            walletViewModel.editFetchedResult.observe(viewLifecycleOwner) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    val fetchedLine =
-                        account.allCosmosLineChains.firstOrNull { line -> line.tag == it }
-                    val index = account.allCosmosLineChains.indexOf(fetchedLine)
-                    withContext(Dispatchers.Main) {
-                        if (::chainEditAdapter.isInitialized) {
-                            chainEditAdapter.notifyItemChanged(index)
-                        }
-                        binding?.btnSelect?.updateSelectButtonView(account.allCosmosLineChains.none { line -> !line.fetched })
-                        binding?.progress?.goneOrVisible(account.allCosmosLineChains.none { line -> !line.fetched })
-                    }
-                }
-            }
-
-            walletViewModel.chainDataErrorMessage.observe(viewLifecycleOwner) {
-                return@observe
-            }
+        ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
+            return@observe
         }
     }
 
@@ -339,11 +330,6 @@ class ChainEditFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                searchEvmChains.forEach { chain ->
-                    if (toDisplayEvmChains.contains(chain.tag) && !chain.fetched) {
-                        return@setOnClickListener
-                    }
-                }
                 searchChains.forEach { chain ->
                     if (toDisplayChains.contains(chain.tag) && !chain.fetched) {
                         return@setOnClickListener
@@ -401,6 +387,6 @@ class ChainEditFragment : BaseTxFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-        walletViewModel.editFetchedResult.removeObservers(viewLifecycleOwner)
+        ApplicationViewModel.shared.editFetchedResult.removeObservers(viewLifecycleOwner)
     }
 }

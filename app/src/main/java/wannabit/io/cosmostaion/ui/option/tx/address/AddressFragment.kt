@@ -89,43 +89,43 @@ class AddressFragment(
                 qrCodeResultLauncher.launch(integrator.createScanIntent())
             }
 
-            btnAddressBook.setOnClickListener {
-                handleOneClickWithDelay(
-                    AddressBookFragment(selectedChain.address,
-                        selectedRecipientChain,
-                        addressType,
-                        object : AddressBookSelectListener {
-                            override fun select(
-                                refAddress: RefAddress?, addressBook: AddressBook?
-                            ) {
-                                refAddress?.let {
-                                    selectedRefAddress = refAddress
-                                    if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-                                        addressTxt.text = Editable.Factory.getInstance()
-                                            .newEditable(ByteUtils.convertBech32ToEvm(it.dpAddress))
-                                    } else {
-                                        addressTxt.text =
-                                            Editable.Factory.getInstance().newEditable(it.dpAddress)
-                                    }
-
-                                } ?: run {
-                                    selectedAddressBook = addressBook
-                                    selectedAddressBook?.let {
-                                        if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-                                            addressTxt.text = Editable.Factory.getInstance()
-                                                .newEditable(ByteUtils.convertBech32ToEvm(it.address))
-                                        } else {
-                                            addressTxt.text = Editable.Factory.getInstance()
-                                                .newEditable(it.address)
-                                        }
-                                    }
-                                    addressTxt.textSize = 11f
-                                    addressTxt.setSelection(addressTxt.text.toString().length)
-                                }
-                            }
-                        })
-                )
-            }
+//            btnAddressBook.setOnClickListener {
+//                handleOneClickWithDelay(
+//                    AddressBookFragment(selectedChain.address,
+//                        selectedRecipientChain,
+//                        addressType,
+//                        object : AddressBookSelectListener {
+//                            override fun select(
+//                                refAddress: RefAddress?, addressBook: AddressBook?
+//                            ) {
+//                                refAddress?.let {
+//                                    selectedRefAddress = refAddress
+//                                    if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
+//                                        addressTxt.text = Editable.Factory.getInstance()
+//                                            .newEditable(ByteUtils.convertBech32ToEvm(it.dpAddress))
+//                                    } else {
+//                                        addressTxt.text =
+//                                            Editable.Factory.getInstance().newEditable(it.dpAddress)
+//                                    }
+//
+//                                } ?: run {
+//                                    selectedAddressBook = addressBook
+//                                    selectedAddressBook?.let {
+//                                        if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
+//                                            addressTxt.text = Editable.Factory.getInstance()
+//                                                .newEditable(ByteUtils.convertBech32ToEvm(it.address))
+//                                        } else {
+//                                            addressTxt.text = Editable.Factory.getInstance()
+//                                                .newEditable(it.address)
+//                                        }
+//                                    }
+//                                    addressTxt.textSize = 11f
+//                                    addressTxt.setSelection(addressTxt.text.toString().length)
+//                                }
+//                            }
+//                        })
+//                )
+//            }
 
             btnConfirm.setOnClickListener {
                 addressTxt.text.toString().trim().apply {
