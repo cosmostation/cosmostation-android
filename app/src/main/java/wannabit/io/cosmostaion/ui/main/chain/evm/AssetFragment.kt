@@ -2,23 +2,25 @@ package wannabit.io.cosmostaion.ui.main.chain.evm
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
-import wannabit.io.cosmostaion.ui.tx.step.Erc20TransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.evm.EvmTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 class AssetFragment : Fragment() {
@@ -30,7 +32,7 @@ class AssetFragment : Fragment() {
 
     private lateinit var selectedEvmChain: EthereumLine
 
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private var isClickable = true
 
     companion object {
         @JvmStatic
@@ -55,6 +57,7 @@ class AssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        refreshData()
         observeViewModels()
     }
 
@@ -64,14 +67,22 @@ class AssetFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = assetAdapter
+            assetAdapter.notifyDataSetChanged()
 
             assetAdapter.setOnItemClickListener { evmChain, denom ->
-                EvmTransferFragment.newInstance(evmChain, denom).show(
-                    requireActivity().supportFragmentManager,
-                    EvmTransferFragment::class.java.name
+                val sendAssetType = if (denom.isNotEmpty()) {
+                    SendAssetType.ONLY_EVM_ERC20
+                } else {
+                    SendAssetType.ONLY_EVM_COIN
+                }
+                handleOneClickWithDelay(
+                    CommonTransferFragment.newInstance(
+                        evmChain, denom, sendAssetType
+                    )
                 )
             }
         }
+        binding.refresher.isRefreshing = false
     }
 
     private fun initData() {
@@ -108,20 +119,52 @@ class AssetFragment : Fragment() {
         }
     }
 
+    private fun refreshData() {
+        binding.refresher.setOnRefreshListener {
+            if (!selectedEvmChain.fetched) {
+                binding.refresher.isRefreshing = false
+            } else {
+                BaseData.baseAccount?.let { account ->
+                    ApplicationViewModel.shared.loadEvmChainData(
+                        selectedEvmChain, account.id, false
+                    )
+                }
+            }
+        }
+    }
+
     private fun observeViewModels() {
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
-            assetAdapter.notifyDataSetChanged()
+            if (::assetAdapter.isInitialized) {
+                assetAdapter.notifyDataSetChanged()
+            }
         }
 
-//        walletViewModel.fetchedEvmResult.observe(viewLifecycleOwner) {
-//            if (selectedEvmChain.fetched) {
-//                initData()
-//            }
-//        }
+        ApplicationViewModel.shared.fetchedRefreshResult.observe(viewLifecycleOwner) {
+            if (selectedEvmChain.fetched) {
+                initData()
+            }
+        }
 
-//        ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
-//            assetAdapter.notifyDataSetChanged()
-//        }
+        ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
+            if (::assetAdapter.isInitialized) {
+                assetAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
+            isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
+        }
     }
 
     override fun onDestroyView() {

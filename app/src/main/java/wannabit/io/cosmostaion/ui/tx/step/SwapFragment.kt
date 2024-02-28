@@ -515,11 +515,11 @@ class SwapFragment : BaseTxFragment() {
 
                 if (skipMsg.msg_type_url == "/ibc.applications.transfer.v1.MsgTransfer") {
                     skipTxViewModel.simulateSkipIbcSend(
-                        getChannel(line), line.address, bindIbcSend(innerMsg), txFee, ""
+                        getChannel(line), line.address, bindIbcSend(innerMsg), txFee, "", line
                     )
                 } else if (skipMsg.msg_type_url == "/cosmwasm.wasm.v1.MsgExecuteContract") {
                     skipTxViewModel.simulateWasm(
-                        getChannel(line), line.address, bindWasm(innerMsg), txFee, ""
+                        getChannel(line), line.address, bindWasm(innerMsg), txFee, "", line
                     )
                 }
             }

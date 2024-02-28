@@ -58,6 +58,7 @@
     <string name="str_tiny">TINY</string>
     <string name="str_low">LOW</string>
     <string name="str_average">AVERAGE</string>
+    <string name="str_high">HIGH</string>
     <string name="str_send">Send</string>
     <string name="str_insert_memo">Insert memo (Optional)</string>
     <string name="str_qr_scan" translatable="false">QR Scan</string>
@@ -329,6 +330,7 @@
     <string name="str_ibc_coins" translatable="false">Ibc coins</string>
     <string name="str_bridge_coins" translatable="false">Bridged coins</string>
     <string name="str_contract_tokens" translatable="false">Contract tokens</string>
+    <string name="str_erc20_tokens" translatable="false">Erc20 tokens</string>
     <string name="str_kip10_coins" translatable="false">Kip10 coins</string>
     <string name="str_kip20_tokens" translatable="false">Kip20 tokens</string>
     <string name="str_unknown_coins" translatable="false">Unknown coins</string>
@@ -373,6 +375,7 @@
     <string name="error_unknown_qr_code">Unknown QR Code.</string>
     <string name="error_decrytion">Decryption error</string>
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
+    <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
 
 
     // tx

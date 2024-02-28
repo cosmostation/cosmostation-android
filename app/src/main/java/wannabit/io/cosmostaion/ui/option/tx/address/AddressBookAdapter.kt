@@ -16,7 +16,7 @@ class AddressBookAdapter(
     private val addressBooks: MutableList<AddressBook>
 ) : RecyclerView.Adapter<AddressBookViewHolder>() {
 
-    private var onItemClickListener: ((RefAddress?, AddressBook?) -> Unit)? = null
+    private var onItemClickListener: ((String, String) -> Unit)? = null
 
     companion object {
         const val VIEW_TYPE_ADDRESS_BOOK_ITEM = 0
@@ -40,7 +40,7 @@ class AddressBookAdapter(
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(null, addressBook)
+                        it(addressBook.address, addressBook.memo)
                     }
                 }
             }
@@ -51,7 +51,7 @@ class AddressBookAdapter(
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(null, evmAddressBook)
+                        it(evmAddressBook.address, evmAddressBook.memo)
                     }
                 }
             }
@@ -63,20 +63,25 @@ class AddressBookAdapter(
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(refAddress, null)
+                        refAddress.dpAddress?.let { address ->
+                            it(address, "")
+                        }
                     }
                 }
             }
 
             else -> {
-                val index = position - (addressBooks.size + evmAddressBooks.size + refAddresses.size)
+                val index =
+                    position - (addressBooks.size + evmAddressBooks.size + refAddresses.size)
                 val refEvmAddress =
                     refEvmAddresses[position - (addressBooks.size + evmAddressBooks.size + refAddresses.size)]
                 holder.accountEvmBind(refEvmAddress, index, refEvmAddresses.size)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(refEvmAddress, null)
+                        refEvmAddress.evmAddress?.let { address ->
+                            it(address, "")
+                        }
                     }
                 }
             }
@@ -94,7 +99,7 @@ class AddressBookAdapter(
         return addressBooks.size + evmAddressBooks.size + refAddresses.size + refEvmAddresses.size
     }
 
-    fun setOnItemClickListener(listener: (RefAddress?, AddressBook?) -> Unit) {
+    fun setOnItemClickListener(listener: (String, String) -> Unit) {
         onItemClickListener = listener
     }
 }

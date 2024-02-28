@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
+import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -19,7 +20,6 @@ open class EthereumLine : CosmosLine(), Parcelable {
     open var coinGeckoId = ""
     open var coinLogo = -1
 
-    open var rpcURL = ""
     open var explorerURL = ""
     open var addressURL = ""
     open var txURL = ""
@@ -68,6 +68,7 @@ open class EthereumLine : CosmosLine(), Parcelable {
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
     lines.add(ChainEthereum())
+    lines.add(ChainEvmosEvm())
     lines.add(ChainKavaEvm())
 
     lines.forEach { line ->
@@ -79,6 +80,6 @@ fun allEvmLines(): MutableList<EthereumLine> {
     return lines
 }
 
-val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60")
+val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60", "kava60")
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

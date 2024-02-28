@@ -273,31 +273,37 @@ class TransferFragment : BaseTxFragment() {
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
-            tabMsgTxt.visibility = View.GONE
-            amountLayout.visibility = View.VISIBLE
-            toSendAmount = toAmount
-
-            val dpAmount: BigDecimal
-            val price: BigDecimal
-            val value: BigDecimal
-
-            if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                dpAmount = toAmount.toBigDecimal().amountHandlerLeft(selectedAsset?.decimals ?: 6)
-                price = BaseData.getPrice(selectedAsset?.coinGeckoId)
-                value = price.multiply(dpAmount)
-
-                sendAmount.text =
-                    formatAmount(dpAmount.toPlainString(), selectedAsset?.decimals ?: 6)
-                sendValue.text = formatAssetValue(value)
+            if (toAmount.isEmpty()) {
+                tabMsgTxt.visibility = View.VISIBLE
+                sendAmount.text = ""
+                sendValue.text = ""
 
             } else {
-                selectedToken?.let { token ->
-                    dpAmount = toAmount.toBigDecimal().amountHandlerLeft(token.decimals)
-                    price = BaseData.getPrice(selectedToken?.coinGeckoId)
+                tabMsgTxt.visibility = View.GONE
+                toSendAmount = toAmount
+
+                val dpAmount: BigDecimal
+                val price: BigDecimal
+                val value: BigDecimal
+
+                if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
+                    dpAmount = toAmount.toBigDecimal().amountHandlerLeft(selectedAsset?.decimals ?: 6)
+                    price = BaseData.getPrice(selectedAsset?.coinGeckoId)
                     value = price.multiply(dpAmount)
 
-                    sendAmount.text = formatAmount(dpAmount.toPlainString(), token.decimals)
+                    sendAmount.text =
+                        formatAmount(dpAmount.toPlainString(), selectedAsset?.decimals ?: 6)
                     sendValue.text = formatAssetValue(value)
+
+                } else {
+                    selectedToken?.let { token ->
+                        dpAmount = toAmount.toBigDecimal().amountHandlerLeft(token.decimals)
+                        price = BaseData.getPrice(selectedToken?.coinGeckoId)
+                        value = price.multiply(dpAmount)
+
+                        sendAmount.text = formatAmount(dpAmount.toPlainString(), token.decimals)
+                        sendValue.text = formatAssetValue(value)
+                    }
                 }
             }
         }
@@ -414,34 +420,34 @@ class TransferFragment : BaseTxFragment() {
             }
 
             addressView.setOnClickListener {
-                handleOneClickWithDelay(
-                    AddressFragment(selectedChain,
-                        selectedRecipientChain,
-                        existedAddress,
-                        AddressType.DEFAULT_TRANSFER,
-                        object : AddressListener {
-                            override fun selectAddress(
-                                refAddress: RefAddress?,
-                                addressBook: AddressBook?,
-                                addressTxt: String
-                            ) {
-                                refAddress?.dpAddress?.let {
-                                    updateRecipientAddressView(it)
-                                    updateMemoView("")
-
-                                } ?: run {
-                                    addressBook?.let {
-                                        updateRecipientAddressView(it.address)
-                                        updateMemoView(it.memo)
-
-                                    } ?: run {
-                                        updateRecipientAddressView(addressTxt)
-                                        updateMemoView("")
-                                    }
-                                }
-                            }
-                        })
-                )
+//                handleOneClickWithDelay(
+//                    AddressFragment(selectedChain,
+//                        selectedRecipientChain,
+//                        existedAddress,
+//                        AddressType.DEFAULT_TRANSFER,
+//                        object : AddressListener {
+//                            override fun selectAddress(
+//                                refAddress: RefAddress?,
+//                                addressBook: AddressBook?,
+//                                addressTxt: String
+//                            ) {
+//                                refAddress?.dpAddress?.let {
+//                                    updateRecipientAddressView(it)
+//                                    updateMemoView("")
+//
+//                                } ?: run {
+//                                    addressBook?.let {
+//                                        updateRecipientAddressView(it.address)
+//                                        updateMemoView(it.memo)
+//
+//                                    } ?: run {
+//                                        updateRecipientAddressView(addressTxt)
+//                                        updateMemoView("")
+//                                    }
+//                                }
+//                            }
+//                        })
+//                )
             }
 
             feeTokenLayout.setOnClickListener {
@@ -618,22 +624,22 @@ class TransferFragment : BaseTxFragment() {
 
             if (selectedChain.chainId == selectedRecipientChain?.chainId) {
                 if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                    txViewModel.simulateSend(
-                        getChannel(selectedChain),
-                        selectedChain.address,
-                        onBindSend(),
-                        txFee,
-                        txMemo
-                    )
+//                    txViewModel.simulateSend(
+//                        getChannel(selectedChain),
+//                        selectedChain.address,
+//                        onBindSend(),
+//                        txFee,
+//                        txMemo
+//                    )
 
                 } else if (transferAssetType == TransferAssetType.CW20_TRANSFER) {
-                    txViewModel.simulateWasm(
-                        getChannel(selectedChain),
-                        selectedChain.address,
-                        onBindWasmSend(),
-                        txFee,
-                        txMemo
-                    )
+//                    txViewModel.simulateWasm(
+//                        getChannel(selectedChain),
+//                        selectedChain.address,
+//                        onBindWasmSend(),
+//                        txFee,
+//                        txMemo
+//                    )
                 }
 
             } else {
@@ -641,27 +647,27 @@ class TransferFragment : BaseTxFragment() {
                     assetPath = assetPath(selectedChain, toChain, toSendDenom)
                     when (transferAssetType) {
                         TransferAssetType.COIN_TRANSFER -> {
-                            txViewModel.simulateIbcSend(
-                                getChannel(selectedChain),
-                                getRecipientChannel(),
-                                selectedChain.address,
-                                existedAddress,
-                                assetPath,
-                                toSendDenom,
-                                toSendAmount,
-                                txFee,
-                                txMemo
-                            )
+//                            txViewModel.simulateIbcSend(
+//                                getChannel(selectedChain),
+//                                getRecipientChannel(),
+//                                selectedChain.address,
+//                                existedAddress,
+//                                assetPath,
+//                                toSendDenom,
+//                                toSendAmount,
+//                                txFee,
+//                                txMemo
+//                            )
                         }
 
                         TransferAssetType.CW20_TRANSFER -> {
-                            txViewModel.simulateWasm(
-                                getChannel(selectedChain),
-                                selectedChain.address,
-                                onBindWasmIbcSend(),
-                                txFee,
-                                txMemo
-                            )
+//                            txViewModel.simulateWasm(
+//                                getChannel(selectedChain),
+//                                selectedChain.address,
+//                                onBindWasmIbcSend(),
+//                                txFee,
+//                                txMemo
+//                            )
                         }
 
                         else -> {}

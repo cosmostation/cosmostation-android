@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,7 +22,6 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 
 class EvmDetailFragment : Fragment() {
 
@@ -33,10 +31,6 @@ class EvmDetailFragment : Fragment() {
     private lateinit var detailPagerAdapter: DetailPagerAdapter
 
     private lateinit var selectedEvmChain: EthereumLine
-
-    private val walletViewModel: WalletViewModel by activityViewModels()
-
-    private var isClickable = true
 
     companion object {
         @JvmStatic
@@ -122,14 +116,13 @@ class EvmDetailFragment : Fragment() {
                 requireActivity(), selectedEvmChain
             )
             viewPager.adapter = detailPagerAdapter
-            viewPager.offscreenPageLimit = 2
+            viewPager.offscreenPageLimit = 1
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
                     0 -> getString(R.string.title_asset)
-                    1 -> getString(R.string.title_nft)
                     else -> getString(R.string.title_history)
                 }
             }.attach()
@@ -188,7 +181,6 @@ class EvmDetailFragment : Fragment() {
 
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
-            fragments.add(NftFragment.newInstance(selectedEvmChain))
             fragments.add(HistoryFragment.newInstance(selectedEvmChain))
         }
 

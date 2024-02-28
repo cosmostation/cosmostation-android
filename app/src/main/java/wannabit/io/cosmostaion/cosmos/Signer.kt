@@ -104,12 +104,6 @@ object Signer {
     }
 
     fun genSendSimulate(
-        auth: QueryAccountResponse?, msgSend: MsgSend?, fee: Fee?, memo: String
-    ): SimulateRequest? {
-        return signSimulTx(auth, sendMsg(msgSend), fee, memo)
-    }
-
-    fun genSendSimulate(
         auth: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
@@ -139,9 +133,13 @@ object Signer {
     }
 
     fun genIbcSendSimulate(
-        auth: QueryAccountResponse?, msgTransfer: MsgTransfer?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, memo)
+        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
 
     private fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
@@ -167,9 +165,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, wasmMsg(msgWasms), fee, memo)
+        return signSimulTx(auth, wasmMsg(msgWasms), fee, memo, selectedChain)
     }
 
     private fun wasmMsg(msgWasms: MutableList<MsgExecuteContract?>?): MutableList<Any> {

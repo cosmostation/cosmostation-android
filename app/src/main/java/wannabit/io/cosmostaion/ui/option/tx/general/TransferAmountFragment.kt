@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.option.tx.general
 
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -10,10 +11,12 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
@@ -27,6 +30,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
 
     private lateinit var fromChain: BaseChain
     private var toSendAsset: Asset? = null
+    private var toSendToken: Token? = null
     private var availableAmount = ""
     private var existAmount = ""
     private lateinit var sendAssetType: SendAssetType
@@ -39,6 +43,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
         fun newInstance(
             fromChain: BaseChain,
             toSendAsset: Asset?,
+            toSendToken: Token?,
             availableAmount: String,
             existAmount: String,
             sendAssetType: SendAssetType,
@@ -48,6 +53,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
             val args = Bundle().apply {
                 putSerializable("fromChain", fromChain)
                 putParcelable("toSendAsset", toSendAsset)
+                putParcelable("toSendToken", toSendToken)
                 putString("availableAmount", availableAmount)
                 putString("existAmount", existAmount)
                 putSerializable("sendAssetType", sendAssetType)
@@ -78,6 +84,16 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
         setUpClickAction()
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if (binding.amountTxt.text?.isNotEmpty() == true) {
+            val amount =
+                binding.amountTxt.text.toString().trim().toBigDecimal().movePointRight(assetDecimal)
+                    .setScale(0, RoundingMode.DOWN)
+            amountSelectListener?.select(amount.toPlainString())
+        }
+    }
+
     private fun initView() {
         binding.apply {
             arguments?.apply {
@@ -86,6 +102,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
                     getParcelable("toSendAsset", Asset::class.java)?.let { toSendAsset = it }
+                    getParcelable("toSendToken", Token::class.java)?.let { toSendToken = it }
                     getSerializable(
                         "sendAssetType", SendAssetType::class.java
                     )?.let { sendAssetType = it }
@@ -99,6 +116,9 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     }
                     (getParcelable("toSendAsset") as? Asset)?.let {
                         toSendAsset = it
+                    }
+                    (getParcelable("toSendToken") as? Token)?.let {
+                        toSendToken = it
                     }
                     (getSerializable("sendAssetType") as? SendAssetType)?.let {
                         sendAssetType = it
@@ -118,15 +138,31 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
     private fun initData() {
         binding.apply {
             when (sendAssetType) {
+                SendAssetType.ONLY_EVM_COIN -> {
+                    assetDecimal = 18
+                    availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                        .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                            available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                            availableDenom.text = (fromChain as EthereumLine).coinSymbol
+                        }
+                }
+
                 SendAssetType.COSMOS_EVM_COIN -> {
                     if (transferType == TransferStyle.WEB3_STYLE) {
+                        assetDecimal = 18
+                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = (fromChain as EthereumLine).coinSymbol
+                            }
 
                     } else {
                         toSendAsset?.let { asset ->
                             assetDecimal = asset.decimals ?: 6
                             availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                                 ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                                    available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                    available.text =
+                                        formatAmount(amount.toPlainString(), assetDecimal)
                                     availableDenom.text = asset.symbol
                                     availableDenom.setTextColor(asset.assetColor())
                                 }
@@ -146,7 +182,16 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     }
                 }
 
-                else -> { }
+                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
+                    toSendToken?.let { token ->
+                        assetDecimal = token.decimals
+                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = token.symbol
+                            }
+                    }
+                }
             }
 
             existAmount.let { toAmount ->
@@ -154,8 +199,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     val dpToSendAmount = toAmount.toBigDecimal().movePointLeft(assetDecimal)
                         .setScale(assetDecimal, RoundingMode.DOWN).stripTrailingZeros()
                         .toPlainString()
-                    amountTxt.text =
-                        Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
                 } else {
                     amountTxt.text = Editable.Factory.getInstance().newEditable(toAmount)
                 }
@@ -168,7 +212,8 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
             amountTxt.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?, start: Int, count: Int, after: Int
-                ) {}
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 

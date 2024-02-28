@@ -19,14 +19,15 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.database.model.AddressBook
-import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
+
+interface AddressListener {
+    fun selectAddress(address: String, memo: String)
+}
 
 class TransferAddressFragment : BottomSheetDialogFragment() {
 
@@ -40,8 +41,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
     private var existAddress = ""
     private lateinit var sendAssetType: SendAssetType
 
-    private var selectedRefAddress: RefAddress? = null
-    private var selectedAddressBook: AddressBook? = null
+    private var addressBookMemo = ""
 
     private var isClickable = true
 
@@ -136,23 +136,16 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         fromChain.address,
                         sendAssetType,
                         object : AddressBookSelectListener {
-                            override fun select(
-                                refAddress: RefAddress?, addressBook: AddressBook?
-                            ) {
-                                refAddress?.let {
-                                    selectedRefAddress = refAddress
-                                    addressTxt.text =
-                                        Editable.Factory.getInstance().newEditable(it.dpAddress)
+                            override fun select(address: String, memo: String) {
+                                addressTxt.text =
+                                    Editable.Factory.getInstance().newEditable(address)
+                                existAddress = address
+                                addressBookMemo = memo
 
-                                } ?: run {
-                                    selectedAddressBook = addressBook
-                                    selectedAddressBook?.let {
-                                        addressTxt.text =
-                                            Editable.Factory.getInstance().newEditable(it.address)
-                                    }
-                                    addressTxt.textSize = 11f
-                                    addressTxt.setSelection(addressTxt.text.toString().length)
-                                }
+                                addressListener?.selectAddress(
+                                    existAddress, addressBookMemo
+                                )
+                                dismiss()
                             }
                         })
                 )
@@ -177,9 +170,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             )
                         ) {
                             addressListener?.selectAddress(
-                                selectedRefAddress,
-                                selectedAddressBook,
-                                addressTxt.text.toString().trim()
+                                existAddress, addressBookMemo
                             )
                             dismiss()
                             return@setOnClickListener
@@ -190,15 +181,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             )
                         }
 
-                    } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
+                    } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
                         if (BaseUtils.isValidChainAddress(
                                 toChain as CosmosLine, addressTxt.text.toString().trim()
                             )
                         ) {
                             addressListener?.selectAddress(
-                                selectedRefAddress,
-                                selectedAddressBook,
-                                addressTxt.text.toString().trim()
+                                existAddress, addressBookMemo
                             )
                             dismiss()
                             return@setOnClickListener

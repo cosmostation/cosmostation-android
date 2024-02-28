@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
+import java.math.BigDecimal
 
 class ChainEditViewHolder(
     val context: Context, private val binding: ItemEditBinding
@@ -47,7 +49,14 @@ class ChainEditViewHolder(
                             skeletonAssetCnt.visibility = View.GONE
 
                             chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                            assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
+                            val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
+                            val tokenCnt =
+                                line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                            if (tokenCnt == 0) {
+                                assetCnt.text = coinCntString
+                            } else {
+                                assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                            }
                         }
                     }
             }
@@ -130,7 +139,19 @@ class ChainEditViewHolder(
                             skeletonAssetCnt.visibility = View.GONE
 
                             chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                            assetCnt.text = refAddress.lastCoinCnt.toString() + " Coins"
+                            val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
+                            if (line.supportCw20) {
+                                val tokenCnt =
+                                    line.tokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                                if (tokenCnt == 0) {
+                                    assetCnt.text = coinCntString
+                                } else {
+                                    assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                }
+
+                            } else {
+                                assetCnt.text = coinCntString
+                            }
                         }
                     }
             }

@@ -37,8 +37,9 @@
     <string name="str_fixed">固定</string>
     <string name="str_free">無料</string>
     <string name="str_tiny">最小</string>
-    <string name="str_low">低い</string>
-    <string name="str_average">平均</string>
+    <string name="str_low">低</string>
+    <string name="str_average">平</string>
+    <string name="str_high">高</string>
     <string name="str_send">申請者</string>
     <string name="str_insert_memo">メモをにゅうりょくしてください。(オプション)</string>
     <string name="str_address_book">連絡先の管理</string>
@@ -293,6 +294,7 @@
     <string name="error_unknown_qr_code">未知のQRコードです。</string>
     <string name="error_decrytion">復号化エラー</string>
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
+    <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
 
 
     <string name="tx_unknown">不明</string>

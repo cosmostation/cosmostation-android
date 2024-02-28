@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class ApplicationViewModel(
@@ -100,7 +101,7 @@ class ApplicationViewModel(
             val loadParamDeferred = async { walletRepository.param(this@apply) }
             val tokenDeferred = async { walletRepository.token(this@apply) }
 
-            if (supportCw20 || supportErc20) {
+            if (supportCw20) {
                 val responses = awaitAll(loadParamDeferred, tokenDeferred)
                 responses.forEach { response ->
                     when (response) {
@@ -140,11 +141,37 @@ class ApplicationViewModel(
                 loadLcdData(this, baseAccountId, isEdit)
             } else {
                 loadGrpcAuthData(this, baseAccountId, isEdit)
+
+                if (supportCw20) {
+                    val deferredList = mutableListOf<Deferred<Unit>>()
+                    tokens.forEach { token ->
+                        val channel = getChannel(line)
+                        val deferred = async { walletRepository.cw20Balance(channel, line, token) }
+                        deferredList.add(deferred)
+                    }
+
+                    runBlocking {
+                        deferredList.awaitAll()
+
+                        val refAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            allTokenValue().toPlainString(),
+                            0
+                        )
+                        BaseData.updateRefAddressesToken(refAddress)
+                    }
+                }
             }
         }
     }
 
     var fetchedResult = SingleLiveEvent<String>()
+    var fetchedRefreshResult = SingleLiveEvent<String>()
     var editFetchedResult = SingleLiveEvent<String>()
     var fetchedSendResult = SingleLiveEvent<String>()
     var fetchedStakeResult = SingleLiveEvent<String>()
@@ -180,6 +207,7 @@ class ApplicationViewModel(
                             editFetchedResult.postValue(tag)
                         } else {
                             fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
                             fetchedSendResult.postValue(tag)
                             fetchedStakeResult.postValue(tag)
                             fetchedVoteResult.postValue(tag)
@@ -235,6 +263,7 @@ class ApplicationViewModel(
                                     editFetchedResult.postValue(tag)
                                 } else {
                                     fetchedResult.postValue(tag)
+                                    fetchedRefreshResult.postValue(tag)
                                     fetchedSendResult.postValue(tag)
                                     fetchedStakeResult.postValue(tag)
                                     fetchedVoteResult.postValue(tag)
@@ -261,6 +290,7 @@ class ApplicationViewModel(
                                     editFetchedResult.postValue(tag)
                                 } else {
                                     fetchedResult.postValue(tag)
+                                    fetchedRefreshResult.postValue(tag)
                                     fetchedSendResult.postValue(tag)
                                     fetchedStakeResult.postValue(tag)
                                     fetchedVoteResult.postValue(tag)
@@ -322,6 +352,7 @@ class ApplicationViewModel(
                                     editFetchedResult.postValue(tag)
                                 } else {
                                     fetchedResult.postValue(tag)
+                                    fetchedRefreshResult.postValue(tag)
                                     fetchedSendResult.postValue(tag)
                                     fetchedStakeResult.postValue(tag)
                                     fetchedVoteResult.postValue(tag)
@@ -348,6 +379,7 @@ class ApplicationViewModel(
                                     editFetchedResult.postValue(tag)
                                 } else {
                                     fetchedResult.postValue(tag)
+                                    fetchedRefreshResult.postValue(tag)
                                     fetchedSendResult.postValue(tag)
                                     fetchedStakeResult.postValue(tag)
                                     fetchedVoteResult.postValue(tag)
@@ -469,21 +501,21 @@ class ApplicationViewModel(
                 BaseUtils.onParseVestingAccount(line)
                 fetched = true
                 if (fetched) {
-                    val refAddress = RefAddress(
-                        id,
+                    val refAddress = RefAddress(id,
                         tag,
                         address,
                         ByteUtils.convertBech32ToEvm(address),
                         allAssetValue(true).toPlainString(),
                         allStakingDenomAmount().toString(),
                         "0",
-                        cosmosBalances?.size?.toLong() ?: 0
-                    )
+                        cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
+                            ?.toLong())
                     BaseData.updateRefAddressesMain(refAddress)
                     if (isEdit) {
                         editFetchedResult.postValue(tag)
                     } else {
                         fetchedResult.postValue(tag)
+                        fetchedRefreshResult.postValue(tag)
                         fetchedSendResult.postValue(tag)
                         fetchedStakeResult.postValue(tag)
                         fetchedVoteResult.postValue(tag)
@@ -500,42 +532,6 @@ class ApplicationViewModel(
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-            }
-        }
-    }
-
-    val loadTokenResult = SingleLiveEvent<Unit>()
-    fun loadAllTokenBalance(
-        line: CosmosLine, baseAccountId: Long
-    ) = CoroutineScope(Dispatchers.Default).launch {
-        line.apply {
-            val deferredList = mutableListOf<Deferred<Unit>>()
-            tokens.forEach { token ->
-                if (supportCw20) {
-                    val channel = getChannel(line)
-                    val deferred = async { walletRepository.cw20Balance(channel, line, token) }
-                    deferredList.add(deferred)
-                } else {
-                    val deferred = async { walletRepository.erc20Balance(line, token) }
-                    deferredList.add(deferred)
-                }
-            }
-
-            runBlocking {
-                deferredList.awaitAll()
-
-                val refAddress = RefAddress(
-                    baseAccountId,
-                    tag,
-                    address,
-                    ByteUtils.convertBech32ToEvm(address),
-                    "0",
-                    "0",
-                    allTokenValue().toPlainString(),
-                    0
-                )
-                val updatedResult = BaseData.updateRefAddressesToken(refAddress)
-                loadTokenResult.postValue(updatedResult)
             }
         }
     }
@@ -590,16 +586,15 @@ class ApplicationViewModel(
                     runBlocking {
                         deferredList.awaitAll()
 
-                        val evmRefAddress = RefAddress(
-                            baseAccountId,
+                        val evmRefAddress = RefAddress(baseAccountId,
                             tag,
                             address,
                             ByteUtils.convertBech32ToEvm(address),
                             "0",
                             "0",
                             allTokenValue().toPlainString(),
-                            0
-                        )
+                            cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
+                                ?.toLong())
                         BaseData.updateRefAddressesToken(evmRefAddress)
                     }
 
@@ -643,7 +638,7 @@ class ApplicationViewModel(
                             allAssetValue(true).toString(),
                             evmBalance.toString(),
                             "0",
-                            1
+                            if (evmBalance <= BigDecimal.ZERO) 0 else 1
                         )
                         BaseData.updateRefAddressesMain(refAddress)
 
@@ -674,12 +669,89 @@ class ApplicationViewModel(
                             editFetchedResult.postValue(tag)
                         } else {
                             fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
                             fetchedSendResult.postValue(tag)
                         }
                     }
                 }
             }
         }
+
+    var loadTokenResult = SingleLiveEvent<Unit>()
+
+    fun loadAllCw20TokenBalance(
+        line: CosmosLine, baseAccountId: Long
+    ) = CoroutineScope(Dispatchers.Default).launch {
+        line.apply {
+            val deferredList = mutableListOf<Deferred<Unit>>()
+            tokens.forEach { token ->
+                val channel = getChannel(line)
+                val deferred = async { walletRepository.cw20Balance(channel, line, token) }
+                deferredList.add(deferred)
+            }
+
+            runBlocking {
+                deferredList.awaitAll()
+
+                val refAddress = RefAddress(
+                    baseAccountId,
+                    tag,
+                    address,
+                    ByteUtils.convertBech32ToEvm(address),
+                    "0",
+                    "0",
+                    allTokenValue().toPlainString(),
+                    0
+                )
+                val updatedResult = BaseData.updateRefAddressesToken(refAddress)
+                loadTokenResult.postValue(updatedResult)
+            }
+        }
+    }
+
+    fun loadAllErc20TokenBalance(
+        line: EthereumLine, baseAccountId: Long
+    ) = CoroutineScope(Dispatchers.Default).launch {
+        line.apply {
+            val deferredList = mutableListOf<Deferred<Unit>>()
+            evmTokens.forEach { token ->
+                if (tag != "ethereum60" || token.default) {
+                    val deferred = async { walletRepository.erc20Balance(line, token) }
+                    deferredList.add(deferred)
+                }
+            }
+
+            runBlocking {
+                deferredList.awaitAll()
+                val evmRefAddress = if (supportCosmos) {
+                    RefAddress(
+                        baseAccountId,
+                        tag,
+                        address,
+                        ByteUtils.convertBech32ToEvm(address),
+                        "0",
+                        "0",
+                        allTokenValue().toPlainString(),
+                        0
+                    )
+                } else {
+                    RefAddress(
+                        baseAccountId,
+                        tag,
+                        "",
+                        address,
+                        "0",
+                        "0",
+                        allTokenValue().toPlainString(),
+                        0
+                    )
+                }
+
+                val updatedResult = BaseData.updateRefAddressesToken(evmRefAddress)
+                loadTokenResult.postValue(updatedResult)
+            }
+        }
+    }
 
     private var _filterDataResult = MutableLiveData<Boolean>()
     val filterDataResult: LiveData<Boolean> get() = _filterDataResult

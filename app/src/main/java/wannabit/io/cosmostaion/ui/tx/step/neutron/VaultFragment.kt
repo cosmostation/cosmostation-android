@@ -375,7 +375,8 @@ class VaultFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindWasmVaultMsg(),
                 txFee,
-                txMemo
+                txMemo,
+                selectedChain
             )
         }
     }

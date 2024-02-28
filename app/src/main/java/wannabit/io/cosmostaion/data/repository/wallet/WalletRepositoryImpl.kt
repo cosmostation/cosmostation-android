@@ -292,7 +292,7 @@ class WalletRepositoryImpl : WalletRepository {
         val web3j: Web3j
         var ethAddress = ""
         if (line is EthereumLine) {
-            web3j = Web3j.build(HttpService(line.rpcURL))
+            web3j = Web3j.build(HttpService(line.rpcUrl))
             ethAddress = if (line.supportCosmos) {
                 ByteUtils.convertBech32ToEvm(line.address)
             } else {
@@ -406,9 +406,13 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String> {
         return safeApiCall(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService(evmLine.rpcURL))
-            val balance =
-                web3j.ethGetBalance(evmLine.address, DefaultBlockParameterName.LATEST).send()
+            val web3j = Web3j.build(HttpService(evmLine.rpcUrl))
+            val evmAddress = if (evmLine.supportCosmos) {
+                ByteUtils.convertBech32ToEvm(evmLine.address)
+            } else {
+                evmLine.address
+            }
+            val balance = web3j.ethGetBalance(evmAddress, DefaultBlockParameterName.LATEST).send()
             balance.balance.toString()
         }
     }

@@ -35,6 +35,7 @@
     <string name="str_tiny">최소</string>
     <string name="str_low">낮음</string>
     <string name="str_average">평균</string>
+    <string name="str_high">높음</string>
     <string name="str_send">전송</string>
     <string name="str_insert_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_address_book">주소록</string>
@@ -291,6 +292,7 @@
     <string name="error_unknown_qr_code">알 수 없는 QR Code 입니다.</string>
     <string name="error_decrytion">복호화 에러</string>
     <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
+    <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
 
 
     //header

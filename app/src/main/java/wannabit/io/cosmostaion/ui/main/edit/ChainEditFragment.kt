@@ -93,7 +93,7 @@ class ChainEditFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    allEvmLineChains.forEach { line ->
+                    for (line in searchEvmChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -102,7 +102,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                    allCosmosLineChains.forEach { line ->
+                    for (line in searchChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -112,7 +112,7 @@ class ChainEditFragment : BaseTxFragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allEvmLineChains.forEach { line ->
+                    for (line in searchEvmChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -121,7 +121,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                    allCosmosLineChains.forEach { line ->
+                    for (line in searchChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -330,11 +330,11 @@ class ChainEditFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                searchChains.forEach { chain ->
-                    if (toDisplayChains.contains(chain.tag) && !chain.fetched) {
-                        return@setOnClickListener
-                    }
-                }
+//                searchChains.forEach { chain ->
+//                    if (toDisplayChains.contains(chain.tag) && !chain.fetched) {
+//                        return@setOnClickListener
+//                    }
+//                }
                 ApplicationViewModel.shared.walletEdit(toDisplayEvmChains, toDisplayChains)
                 dismiss()
             }

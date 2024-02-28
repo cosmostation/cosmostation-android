@@ -282,34 +282,34 @@ class LegacyTransferFragment(
             }
 
             addressView.setOnClickListener {
-                handleOneClickWithDelay(
-                    AddressFragment(selectedChain,
-                        selectedChain,
-                        existedAddress,
-                        AddressType.DEFAULT_TRANSFER,
-                        object : AddressListener {
-                            override fun selectAddress(
-                                refAddress: RefAddress?,
-                                addressBook: AddressBook?,
-                                addressTxt: String
-                            ) {
-                                refAddress?.dpAddress?.let {
-                                    updateAddressView(it)
-                                    updateMemoView("")
-
-                                } ?: run {
-                                    addressBook?.let {
-                                        updateAddressView(it.address)
-                                        updateMemoView(it.memo)
-
-                                    } ?: run {
-                                        updateAddressView(addressTxt)
-                                        updateMemoView("")
-                                    }
-                                }
-                            }
-                        })
-                )
+//                handleOneClickWithDelay(
+//                    AddressFragment(selectedChain,
+//                        selectedChain,
+//                        existedAddress,
+//                        AddressType.DEFAULT_TRANSFER,
+//                        object : AddressListener {
+//                            override fun selectAddress(
+//                                refAddress: RefAddress?,
+//                                addressBook: AddressBook?,
+//                                addressTxt: String
+//                            ) {
+//                                refAddress?.dpAddress?.let {
+//                                    updateAddressView(it)
+//                                    updateMemoView("")
+//
+//                                } ?: run {
+//                                    addressBook?.let {
+//                                        updateAddressView(it.address)
+//                                        updateMemoView(it.memo)
+//
+//                                    } ?: run {
+//                                        updateAddressView(addressTxt)
+//                                        updateMemoView("")
+//                                    }
+//                                }
+//                            }
+//                        })
+//                )
             }
 
             memoView.setOnClickListener {

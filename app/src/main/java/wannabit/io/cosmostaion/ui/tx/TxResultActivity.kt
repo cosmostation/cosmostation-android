@@ -17,12 +17,8 @@ import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.core.methods.response.TransactionReceipt
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -31,17 +27,13 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -58,15 +50,7 @@ class TxResultActivity : BaseActivity() {
 
     private var txResultType: TxResultType? = TxResultType.COSMOS
 
-    private var evmRecipient: TransactionReceipt? = null
-
     private lateinit var walletViewModel: WalletViewModel
-    private lateinit var addressBookViewModel: AddressBookViewModel
-
-    // addressBook
-    private var recipientChain: CosmosLine? = null
-    private var recipientAddress: String = ""
-    private var memo: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,13 +67,6 @@ class TxResultActivity : BaseActivity() {
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
         walletViewModel =
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
-
-        val addressRepository = AddressRepositoryImpl()
-        val addressBookViewModelProviderFactory =
-            AddressBookViewModelProviderFactory(addressRepository)
-        addressBookViewModel = ViewModelProvider(
-            this, addressBookViewModelProviderFactory
-        )[AddressBookViewModel::class.java]
     }
 
     private fun initView() {
@@ -106,12 +83,6 @@ class TxResultActivity : BaseActivity() {
                 intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString()
             )
 
-            recipientChain = allCosmosLines().firstOrNull {
-                it.tag == intent.getStringExtra("recipientChain").toString()
-            }
-            recipientAddress = intent.getStringExtra("recipientAddress") ?: ""
-            memo = intent.getStringExtra("memo") ?: ""
-
             btnConfirm.updateButtonView(true)
             if (selectedChain is ChainBinanceBeacon || (selectedChain is ChainOkt60 && txResultType == TxResultType.COSMOS)) {
                 if (txHash.isNotEmpty()) {
@@ -126,11 +97,7 @@ class TxResultActivity : BaseActivity() {
 
             } else {
                 if (isSuccess) {
-                    if (txResultType == TxResultType.EVM) {
-                        loadEvmTx()
-                    } else {
-                        loadHistoryTx()
-                    }
+                    loadHistoryTx()
                 } else {
                     showError()
                 }
@@ -142,7 +109,7 @@ class TxResultActivity : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         if (txResultType == TxResultType.SKIP) {
-            startMainActivity(1)
+            startMainActivity()
         } else {
             finish()
         }
@@ -150,35 +117,23 @@ class TxResultActivity : BaseActivity() {
 
     private fun updateView() {
         binding.apply {
-            if (txResultType == TxResultType.COSMOS || txResultType == TxResultType.SKIP) {
-                if (isSuccess) {
-                    if (selectedChain is ChainOkt60) {
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            loading.visibility = View.GONE
-                            successLayout.visibility = View.VISIBLE
-                        }, 3000)
-
-                    } else {
+            if (isSuccess) {
+                if (selectedChain is ChainOkt60) {
+                    Handler(Looper.getMainLooper()).postDelayed({
                         loading.visibility = View.GONE
                         successLayout.visibility = View.VISIBLE
-                    }
+                    }, 3000)
 
                 } else {
                     loading.visibility = View.GONE
-                    failLayout.visibility = View.VISIBLE
-                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                    failMsg.text = errorMsg
+                    successLayout.visibility = View.VISIBLE
                 }
 
             } else {
                 loading.visibility = View.GONE
-                walletViewModel.evmTxHash(selectedChain?.apiName, txHash)
-                if (evmRecipient?.isStatusOK == true) {
-                    successLayout.visibility = View.VISIBLE
-                } else {
-                    failLayout.visibility = View.VISIBLE
-                    failMsg.text = evmRecipient?.logsBloom.toString()
-                }
+                failLayout.visibility = View.VISIBLE
+                failMsg.visibleOrGone(errorMsg.isNotEmpty())
+                failMsg.text = errorMsg
             }
         }
     }
@@ -186,16 +141,7 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (txResultType == TxResultType.EVM) {
-                    walletViewModel.evmTxHashResult.observe(this@TxResultActivity) { txHash ->
-                        historyToMintscan(selectedChain, txHash)
-                    }
-
-                    walletViewModel.evmTxHashErrorMessage.observe(this@TxResultActivity) {
-                        viewSuccessMintscan.isEnabled = false
-                    }
-
-                } else if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
+                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -203,16 +149,7 @@ class TxResultActivity : BaseActivity() {
             }
 
             viewFailMintscan.setOnClickListener {
-                if (txResultType == TxResultType.EVM) {
-                    walletViewModel.evmTxHashResult.observe(this@TxResultActivity) { txHash ->
-                        historyToMintscan(selectedChain, txHash)
-                    }
-
-                    walletViewModel.evmTxHashErrorMessage.observe(this@TxResultActivity) {
-                        viewSuccessMintscan.isEnabled = false
-                    }
-
-                } else if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
+                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -222,16 +159,7 @@ class TxResultActivity : BaseActivity() {
             btnConfirm.setOnClickListener {
                 when (txResultType) {
                     TxResultType.SKIP -> {
-                        startMainActivity(1)
-                    }
-
-                    TxResultType.EVM -> {
-                        finish()
-                        BaseData.baseAccount?.let { account ->
-                            ApplicationViewModel.shared.loadAllTokenBalance(
-                                selectedChain!!, account.id
-                            )
-                        }
+                        startMainActivity()
                     }
 
                     else -> {
@@ -285,42 +213,6 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun loadEvmTx() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val rpcUrl = selectedChain?.rpcUrl
-            val web3j = Web3j.build(HttpService(rpcUrl))
-            try {
-                val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
-                if (receiptTx.transactionReceipt.isPresent) {
-                    evmRecipient = receiptTx.transactionReceipt.get()
-                }
-                if (evmRecipient == null) {
-                    fetchCnt -= 1
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        loadEvmTx()
-                    }, 6000)
-                } else {
-                    runOnUiThread {
-                        updateView()
-                    }
-                }
-
-            } catch (e: IOException) {
-                fetchCnt -= 1
-                if (isSuccess && fetchCnt > 0) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        loadEvmTx()
-                    }, 6000)
-
-                } else {
-                    runOnUiThread {
-                        showMoreWait()
-                    }
-                }
-            }
-        }
-    }
-
     private fun initQuotes() {
         val num = Random.nextInt(resources.getStringArray(R.array.quotes).size)
         val quote = resources.getStringArray(R.array.quotes)[num].split("—")
@@ -339,7 +231,7 @@ class TxResultActivity : BaseActivity() {
 
         binding.btnClose.setOnClickListener {
             if (txResultType == TxResultType.SKIP) {
-                startMainActivity(1)
+                startMainActivity()
             } else {
                 finish()
             }
@@ -363,13 +255,13 @@ class TxResultActivity : BaseActivity() {
         }
     }
 
-    private fun startMainActivity(page: Int) {
+    private fun startMainActivity() {
         Intent(this@TxResultActivity, MainActivity::class.java).apply {
             addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
-            ApplicationViewModel.shared.txRecreate(page)
+            ApplicationViewModel.shared.txRecreate(1)
         }
     }
 }
 
-enum class TxResultType { COSMOS, EVM, SKIP }
+enum class TxResultType { COSMOS, SKIP }

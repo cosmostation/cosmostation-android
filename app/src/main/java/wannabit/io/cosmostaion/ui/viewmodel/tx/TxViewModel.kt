@@ -59,6 +59,7 @@ import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NameService
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
 import java.util.concurrent.TimeUnit
 
@@ -161,15 +162,23 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     val simulateEvmSend = SingleLiveEvent<Pair<String?, String?>>()
+    val erc20ErrorMessage = SingleLiveEvent<Pair<String?, String?>>()
+
     fun simulateEvmSend(
         toEthAddress: String?,
         toSendAmount: String?,
         selectedToken: Token?,
+        sendAssetType: SendAssetType,
         selectedEvmChain: EthereumLine,
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmSendTx(
-            toEthAddress, toSendAmount, selectedToken, selectedEvmChain, selectedFeeInfo
+            toEthAddress,
+            toSendAmount,
+            selectedToken,
+            sendAssetType,
+            selectedEvmChain,
+            selectedFeeInfo
         )
         if (response.second?.isNotEmpty() == true) {
             simulateEvmSend.postValue(response)
@@ -197,29 +206,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 managedChannel, it, msgSend, fee, memo, selectedChain
             )
             broadcastTx.postValue(response?.txResponse)
-        }
-    }
-
-    fun simulateSend(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        memo: String
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateSendTx(
-                    managedChannel, it, msgSend, fee, memo
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse =
-                    txRepository.simulateSendTx(managedChannel, it, msgSend, fee, memo) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
         }
     }
 
@@ -307,6 +293,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         toSendAmount: String?,
         fee: Fee?,
         memo: String,
+        selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, fromAddress)?.let {
             val blockStub = ServiceGrpc.newBlockingStub(recipientChannel)
@@ -333,42 +320,17 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
             try {
                 val response = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, memo
+                    managedChannel, it, msgTransfer, fee, memo, selectedChain
                 ) as SimulateResponse
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
                 val errorResponse = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, memo
+                    managedChannel, it, msgTransfer, fee, memo, selectedChain
                 ) as String
                 errorMessage.postValue(errorResponse)
             }
         } ?: run {
             errorMessage.postValue("No key account")
-        }
-    }
-
-    val broadcastErc20SendTx = SingleLiveEvent<String?>()
-    fun broadcastErc20Send(
-        web3j: Web3j, hexValue: String
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        val response = txRepository.broadcastErcSendTx(web3j, hexValue)
-        broadcastErc20SendTx.postValue(response)
-    }
-
-    val simulateErc20Send = SingleLiveEvent<Pair<String?, String?>>()
-    val erc20ErrorMessage = SingleLiveEvent<Pair<String?, String?>>()
-    fun simulateErc20Send(
-        toEthAddress: String?,
-        toSendAmount: String?,
-        selectedToken: Token?,
-        selectedChain: CosmosLine
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        val response =
-            txRepository.simulateErcSendTx(toEthAddress, toSendAmount, selectedToken, selectedChain)
-        if (response.second?.isNotEmpty() == true) {
-            simulateErc20Send.postValue(response)
-        } else {
-            erc20ErrorMessage.postValue(response)
         }
     }
 
@@ -713,17 +675,19 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         address: String?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
                 val response = txRepository.simulateWasmTx(
-                    managedChannel, it, msgWasms, fee, memo
+                    managedChannel, it, msgWasms, fee, memo, selectedChain
                 ) as SimulateResponse
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
-                val errorResponse =
-                    txRepository.simulateWasmTx(managedChannel, it, msgWasms, fee, memo) as String
+                val errorResponse = txRepository.simulateWasmTx(
+                    managedChannel, it, msgWasms, fee, memo, selectedChain
+                ) as String
                 errorMessage.postValue(errorResponse)
             }
         } ?: run {
@@ -1359,17 +1323,18 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         fromAddress: String?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, fromAddress)?.let {
             try {
                 val response = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, memo
+                    managedChannel, it, msgTransfer, fee, memo, selectedChain
                 ) as SimulateResponse
                 simulate.postValue(response.gasInfo)
             } catch (e: Exception) {
                 val errorResponse = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, memo
+                    managedChannel, it, msgTransfer, fee, memo, selectedChain
                 ) as String
                 errorMessage.postValue(errorResponse)
             }

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -27,7 +26,6 @@ import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 
 class CoinFragment : Fragment() {
 
@@ -42,8 +40,6 @@ class CoinFragment : Fragment() {
     private val nativeCoins = mutableListOf<Coin>()
     private val bridgeCoins = mutableListOf<Coin>()
     private val ibcCoins = mutableListOf<Coin>()
-
-    private val walletViewModel: WalletViewModel by activityViewModels()
 
     private var isClickable = true
 
@@ -241,7 +237,7 @@ class CoinFragment : Fragment() {
             coinAdapter.notifyDataSetChanged()
         }
 
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedRefreshResult.observe(viewLifecycleOwner) {
             if (selectedChain.fetched) {
                 initData()
             }

@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.ui.tx
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,9 +17,13 @@ import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.methods.response.TransactionReceipt
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -25,17 +31,16 @@ import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
-import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -44,6 +49,7 @@ class TransferTxResultActivity : BaseActivity() {
     private lateinit var binding: ActivityTxResultBinding
 
     private var transferStyle: TransferStyle? = TransferStyle.COSMOS_STYLE
+    private var sendAssetType: SendAssetType? = SendAssetType.ONLY_COSMOS_COIN
     private lateinit var fromChain: BaseChain
     private lateinit var toChain: BaseChain
     private var toAddress: String = ""
@@ -55,7 +61,8 @@ class TransferTxResultActivity : BaseActivity() {
     private var fetchCnt = 15
     private var txResponse: ServiceProto.GetTxResponse? = null
 
-    private lateinit var walletViewModel: WalletViewModel
+    private var evmRecipient: TransactionReceipt? = null
+
     private lateinit var addressBookViewModel: AddressBookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,11 +76,6 @@ class TransferTxResultActivity : BaseActivity() {
     }
 
     private fun initViewModel() {
-        val walletRepository = WalletRepositoryImpl()
-        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel =
-            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
-
         val addressRepository = AddressRepositoryImpl()
         val addressBookViewModelProviderFactory =
             AddressBookViewModelProviderFactory(addressRepository)
@@ -124,16 +126,16 @@ class TransferTxResultActivity : BaseActivity() {
             toAddress = intent.getStringExtra("recipientAddress") ?: ""
             toMemo = intent.getStringExtra("memo") ?: ""
 
-            if (transferStyle == TransferStyle.WEB3_STYLE) {
+            transferStyle = enumValues<TransferStyle>()[intent.getIntExtra("transferStyle", -1)]
+            sendAssetType = enumValues<SendAssetType>()[intent.getIntExtra("sendAssetType", -1)]
 
+            if (transferStyle == TransferStyle.WEB3_STYLE) {
+                loadEvmTx()
             } else {
                 if (txHash.isNotEmpty()) {
                     loadHistoryTx()
                 } else {
-                    loading.visibility = View.GONE
-                    failLayout.visibility = View.VISIBLE
-                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                    failMsg.text = errorMsg
+                    showError()
                 }
             }
             initQuotes()
@@ -143,6 +145,13 @@ class TransferTxResultActivity : BaseActivity() {
     private fun updateView() {
         binding.apply {
             if (transferStyle == TransferStyle.WEB3_STYLE) {
+                loading.visibility = View.GONE
+                if (evmRecipient?.isStatusOK == true) {
+                    successLayout.visibility = View.VISIBLE
+                } else {
+                    failLayout.visibility = View.VISIBLE
+                    failMsg.text = evmRecipient?.logsBloom.toString()
+                }
 
             } else {
                 if (isSuccess) {
@@ -164,7 +173,8 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-
+                    val explorerUrl = (fromChain as EthereumLine).txURL + txHash
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
                 } else {
                     historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
                 }
@@ -172,7 +182,8 @@ class TransferTxResultActivity : BaseActivity() {
 
             viewFailMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-
+                    val explorerUrl = (fromChain as EthereumLine).txURL + txHash
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
                 } else {
                     historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
                 }
@@ -181,7 +192,9 @@ class TransferTxResultActivity : BaseActivity() {
             btnConfirm.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
                     if (transferStyle == TransferStyle.WEB3_STYLE) {
-
+                        ApplicationViewModel.shared.loadEvmChainData(
+                            fromChain as EthereumLine, account.id, false
+                        )
                     } else {
                         ApplicationViewModel.shared.loadChainData(
                             fromChain as CosmosLine, account.id, false
@@ -225,6 +238,41 @@ class TransferTxResultActivity : BaseActivity() {
 
                     override fun onCompleted() {}
                 })
+            }
+        }
+    }
+
+    private fun loadEvmTx() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val web3j = Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+            try {
+                val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
+                if (receiptTx.transactionReceipt.isPresent) {
+                    evmRecipient = receiptTx.transactionReceipt.get()
+                }
+                if (evmRecipient == null) {
+                    fetchCnt -= 1
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        loadEvmTx()
+                    }, 6000)
+                } else {
+                    runOnUiThread {
+                        updateView()
+                    }
+                }
+
+            } catch (e: IOException) {
+                fetchCnt -= 1
+                if (isSuccess && fetchCnt > 0) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        loadEvmTx()
+                    }, 6000)
+
+                } else {
+                    runOnUiThread {
+                        showMoreWait()
+                    }
+                }
             }
         }
     }

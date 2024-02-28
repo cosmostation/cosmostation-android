@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
@@ -23,6 +24,10 @@ import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBookBinding
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
+
+interface AddressBookSelectListener {
+    fun select(address: String, memo: String)
+}
 
 class AddressBookFragment : BottomSheetDialogFragment() {
 
@@ -112,6 +117,25 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 when (sendAssetType) {
+                    SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
+                        AppDatabase.getInstance().refAddressDao().selectAll()
+                            .forEach { refAddress ->
+                                if ((fromChain as EthereumLine).supportCosmos) {
+                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
+                                            senderAddress
+                                        )
+                                    ) {
+                                        refEvmAddresses.add(refAddress)
+                                    }
+
+                                } else {
+                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
+                                        refEvmAddresses.add(refAddress)
+                                    }
+                                }
+                            }
+                    }
+
                     SendAssetType.COSMOS_EVM_COIN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
@@ -167,7 +191,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         }
                     }
 
-                    SendAssetType.ONLY_COSMOS_COIN -> {
+                    SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
                                 if (refAddress.dpAddress?.startsWith((toChain as CosmosLine).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
@@ -181,48 +205,12 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 }
                             }
                     }
-
-                    else -> {
-
-                    }
                 }
-
-
-//                AppDatabase.getInstance().refAddressDao().selectAll().forEach { refAddress ->
-//                    if (addressType == AddressType.EVM_TRANSFER) {
-//                        if (refAddress.chainTag == targetChain?.tag && refAddress.dpAddress != sendAddress) {
-//                            if (Prefs.displayLegacy) {
-//                                refAddresses.add(refAddress)
-//                            } else {
-//                                allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
-//                                    ?.let { line ->
-//                                        if (line.isDefault) {
-//                                            refAddresses.add(refAddress)
-//                                        }
-//                                    }
-//                            }
-//                        }
-//
-//                    } else {
-//                        if (refAddress.dpAddress?.startsWith(targetChain?.accountPrefix!! + 1) == true && refAddress.dpAddress != sendAddress) {
-//                            if (Prefs.displayLegacy) {
-//                                refAddresses.add(refAddress)
-//                            } else {
-//                                allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
-//                                    ?.let { line ->
-//                                        if (line.isDefault) {
-//                                            refAddresses.add(refAddress)
-//                                        }
-//                                    }
-//                            }
-//                        }
-//                    }
-//                }
                 sortRefAddresses(refAddresses)
                 sortRefAddresses(refEvmAddresses)
 
                 withContext(Dispatchers.Main) {
-                    if (refAddresses.size == 0 && addressBooks.size == 0) {
+                    if (refAddresses.size == 0 && refEvmAddresses.size == 0 && addressBooks.size == 0 && evmAddressBooks.size == 0) {
                         recycler.visibility = View.GONE
                         emptyLayout.visibility = View.VISIBLE
 
@@ -237,8 +225,8 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = addressBookAdapter
 
-                        addressBookAdapter.setOnItemClickListener { refAddress, addressBook ->
-                            addressBookSelectListener?.select(refAddress, addressBook)
+                        addressBookAdapter.setOnItemClickListener { address, memo ->
+                            addressBookSelectListener?.select(address, memo)
                             dismiss()
                         }
                     }
@@ -265,8 +253,4 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface AddressBookSelectListener {
-    fun select(refAddress: RefAddress?, addressBook: AddressBook?)
 }

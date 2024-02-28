@@ -50,7 +50,7 @@ import org.json.JSONObject
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -1021,7 +1021,7 @@ class DappActivity : BaseActivity() {
     private fun pubKeyType(): String {
         return when (selectedChain) {
             is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
-            is ChainEvmos -> ETHERMINT_KEY_TYPE_PUBLIC
+            is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
             else -> COSMOS_KEY_TYPE_PUBLIC
         }
     }

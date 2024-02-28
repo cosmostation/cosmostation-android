@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -259,7 +258,6 @@ class Bep3Fragment : BaseTxFragment() {
 
     private fun setupLoadedData() {
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
-            Log.e("Test1234 : ", "여기요")
             kavaViewModel.bep3Data(getChannel(ChainKava459()))
         }
     }

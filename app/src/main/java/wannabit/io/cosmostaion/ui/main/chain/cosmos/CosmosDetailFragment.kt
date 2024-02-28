@@ -91,10 +91,10 @@ class CosmosDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-        updateTokenValue()
         initTab()
         setUpClickAction()
         setFabMenuClickAction()
+        setUpLoadDone()
     }
 
     private fun initData() {
@@ -177,26 +177,6 @@ class CosmosDetailFragment : Fragment() {
         fadeOut.duration = 800
         view.startAnimation(fadeOut)
         view.visibility = View.INVISIBLE
-    }
-
-    private fun updateTokenValue() {
-        walletViewModel.fetchedTokenResult.observe(viewLifecycleOwner) {
-            if (isAdded) {
-                requireActivity().runOnUiThread {
-                    binding.apply {
-                        if (Prefs.hideValue) {
-                            accountValue.text = "✱✱✱✱✱"
-                            accountValue.textSize = 18f
-                            btnHide.setImageResource(R.drawable.icon_hide)
-                        } else {
-                            accountValue.text = formatAssetValue(selectedChain.allValue(false))
-                            accountValue.textSize = 24f
-                            btnHide.setImageResource(R.drawable.icon_not_hide)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private fun initTab() {
@@ -448,6 +428,24 @@ class CosmosDetailFragment : Fragment() {
                 handleOneClickWithDelay(
                     null, OktSelectValidatorFragment.newInstance(selectedChain as ChainOkt60)
                 )
+            }
+        }
+    }
+
+    private fun setUpLoadDone() {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
+            binding.apply {
+                if (tag == selectedChain.tag) {
+                    if (Prefs.hideValue) {
+                        accountValue.text = "✱✱✱✱✱"
+                        accountValue.textSize = 18f
+                        btnHide.setImageResource(R.drawable.icon_hide)
+                    } else {
+                        accountValue.text = formatAssetValue(selectedChain.allValue(false))
+                        accountValue.textSize = 24f
+                        btnHide.setImageResource(R.drawable.icon_not_hide)
+                    }
+                }
             }
         }
     }

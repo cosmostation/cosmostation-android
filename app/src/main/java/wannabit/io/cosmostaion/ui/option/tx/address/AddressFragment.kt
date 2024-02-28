@@ -16,12 +16,8 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.database.model.AddressBook
-import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
@@ -38,9 +34,6 @@ class AddressFragment(
     private val binding get() = _binding!!
 
     private val txViewModel: TxViewModel by activityViewModels()
-
-    private var selectedRefAddress: RefAddress? = null
-    private var selectedAddressBook: AddressBook? = null
 
     private var isClickable = true
 
@@ -152,11 +145,11 @@ class AddressFragment(
                             selectedRecipientChain, addressTxt.text.toString().trim()
                         )
                     ) {
-                        listener.selectAddress(
-                            selectedRefAddress,
-                            selectedAddressBook,
-                            addressTxt.text.toString().trim()
-                        )
+//                        listener.selectAddress(
+//                            selectedRefAddress,
+//                            selectedAddressBook,
+//                            addressTxt.text.toString().trim()
+//                        )
                         dismiss()
 
                     } else {
@@ -215,8 +208,4 @@ class AddressFragment(
 }
 
 enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER }
-
-interface AddressListener {
-    fun selectAddress(refAddress: RefAddress?, addressBook: AddressBook?, addressTxt: String)
-}
 

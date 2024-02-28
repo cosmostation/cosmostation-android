@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 
 interface TxRepository {
 
@@ -62,6 +63,7 @@ interface TxRepository {
         toEthAddress: String?,
         toSendAmount: String?,
         selectedToken: Token?,
+        sendAssetType: SendAssetType,
         selectedEvmChain: EthereumLine,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
@@ -74,14 +76,6 @@ interface TxRepository {
         memo: String,
         selectedChain: CosmosLine?
     ): BroadcastTxResponse?
-
-    suspend fun simulateSendTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        memo: String
-    ): Any?
 
     suspend fun simulateSendTx(
         managedChannel: ManagedChannel?,
@@ -114,7 +108,8 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any?
 
     suspend fun broadcastWasmTx(
@@ -131,19 +126,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any?
-
-    suspend fun broadcastErcSendTx(
-        web3j: Web3j, hexValue: String
-    ): String?
-
-    suspend fun simulateErcSendTx(
-        toEthAddress: String?,
-        toSendAmount: String?,
-        selectedToken: Token?,
-        selectedChain: CosmosLine
-    ): Pair<String?, String?>
 
     suspend fun broadcastDelegateTx(
         managedChannel: ManagedChannel?,

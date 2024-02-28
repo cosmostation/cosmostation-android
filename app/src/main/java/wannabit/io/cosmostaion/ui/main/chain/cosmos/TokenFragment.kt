@@ -4,22 +4,25 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentTokenBinding
-import wannabit.io.cosmostaion.ui.tx.step.Erc20TransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 class TokenFragment : Fragment() {
@@ -29,8 +32,6 @@ class TokenFragment : Fragment() {
 
     private lateinit var tokenAdapter: TokenAdapter
     private lateinit var selectedChain: CosmosLine
-
-    private val walletViewModel: WalletViewModel by activityViewModels()
 
     companion object {
         @JvmStatic
@@ -55,6 +56,7 @@ class TokenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpHideValue()
+        setUpRefreshData()
         initRecyclerView()
         setUpInitData()
         refreshData()
@@ -71,24 +73,18 @@ class TokenFragment : Fragment() {
                     selectedChain = it
                 }
             }
-
-            BaseData.baseAccount?.let { account ->
-                tokenAdapter = TokenAdapter(requireContext(), selectedChain)
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = tokenAdapter
-
-                walletViewModel.loadAllTokenBalance(selectedChain, account.id)
-            }
+            tokenAdapter = TokenAdapter(requireContext(), selectedChain)
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = tokenAdapter
         }
     }
 
     private fun setUpInitData() {
         binding.apply {
-            walletViewModel.fetchedTokenResult.observe(viewLifecycleOwner) {
-                if (isAdded) {
-                    val tokens = mutableListOf<Token>()
-
+            val tokens = mutableListOf<Token>()
+            if (isAdded) {
+                lifecycleScope.launch(Dispatchers.IO) {
                     if (selectedChain is EthereumLine) {
                         (selectedChain as EthereumLine).evmTokens.forEach { token ->
                             if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
@@ -113,56 +109,74 @@ class TokenFragment : Fragment() {
                         }
                     }
 
-                    loading.visibleOrGone(tokens.isEmpty())
-                    refresher.visibleOrGone(tokens.isNotEmpty())
-                    emptyLayout.visibleOrGone(tokens.isEmpty())
-                    tokenAdapter.submitList(tokens)
-                    tokenAdapter.notifyDataSetChanged()
+                    withContext(Dispatchers.Main) {
+                        refresher.isRefreshing = false
+                        loading.visibleOrGone(tokens.isEmpty())
+                        refresher.visibleOrGone(tokens.isNotEmpty())
+                        emptyLayout.visibleOrGone(tokens.isEmpty())
+                        tokenAdapter.submitList(tokens)
+                        tokenAdapter.notifyDataSetChanged()
 
-                    ApplicationViewModel.shared.fetchedToken()
+                        ApplicationViewModel.shared.fetchedToken()
+                    }
                 }
             }
-            refresher.isRefreshing = false
         }
     }
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            setUpInitData()
+            BaseData.baseAccount?.let { account ->
+                if (selectedChain.supportCw20) {
+                    ApplicationViewModel.shared.loadAllCw20TokenBalance(selectedChain, account.id)
+
+                } else if (selectedChain is EthereumLine) {
+                    ApplicationViewModel.shared.loadAllErc20TokenBalance(
+                        selectedChain as EthereumLine, account.id
+                    )
+                }
+            }
         }
     }
 
     private fun setUpClickAction() {
         var isClickable = true
-        tokenAdapter.setOnItemClickListener { line, denom ->
-            if (isClickable) {
-                isClickable = false
+        if (::tokenAdapter.isInitialized) {
+            tokenAdapter.setOnItemClickListener { line, denom ->
+                if (isClickable) {
+                    isClickable = false
 
-                if (selectedChain.supportCw20) {
-                    TransferFragment.newInstance(line, denom).show(
-                        requireActivity().supportFragmentManager, TransferFragment::class.java.name
-                    )
-                } else {
-                    Erc20TransferFragment.newInstance(line, denom).show(
+                    val sendAssetType = if (selectedChain.supportCw20) {
+                        SendAssetType.ONLY_COSMOS_CW20
+                    } else {
+                        SendAssetType.ONLY_EVM_ERC20
+                    }
+                    CommonTransferFragment.newInstance(line, denom, sendAssetType).show(
                         requireActivity().supportFragmentManager,
-                        Erc20TransferFragment::class.java.name
+                        CommonTransferFragment::class.java.name
                     )
-                }
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    isClickable = true
-                }, 300)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        isClickable = true
+                    }, 300)
+                }
             }
         }
     }
 
     private fun setUpHideValue() {
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
-            tokenAdapter.notifyDataSetChanged()
+            if (::tokenAdapter.isInitialized) {
+                tokenAdapter.notifyDataSetChanged()
+            }
         }
+    }
 
+    private fun setUpRefreshData() {
         ApplicationViewModel.shared.loadTokenResult.observe(viewLifecycleOwner) {
-            tokenAdapter.notifyDataSetChanged()
+            if (::tokenAdapter.isInitialized) {
+                setUpInitData()
+            }
         }
     }
 

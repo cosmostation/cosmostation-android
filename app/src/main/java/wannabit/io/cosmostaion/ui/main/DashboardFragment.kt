@@ -145,7 +145,7 @@ class DashboardFragment : Fragment() {
             account.apply {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
-                        sortedDisplayEvmLines().forEach { line ->
+                        for (line in sortedDisplayEvmLines()) {
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
@@ -154,7 +154,7 @@ class DashboardFragment : Fragment() {
                             }
                         }
 
-                        sortedDisplayCosmosLines().forEach { line ->
+                        for (line in sortedDisplayCosmosLines()) {
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
 
@@ -168,7 +168,7 @@ class DashboardFragment : Fragment() {
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        sortedDisplayEvmLines().forEach { line ->
+                        for (line in sortedDisplayEvmLines()) {
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithPrivateKey(privateKey)
 
@@ -178,7 +178,7 @@ class DashboardFragment : Fragment() {
                             }
                         }
 
-                        sortedDisplayCosmosLines().forEach { line ->
+                        for (line in sortedDisplayCosmosLines()) {
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithPrivateKey(privateKey)
 
@@ -357,6 +357,11 @@ class DashboardFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.initAccount()
                 withContext(Dispatchers.Main) {
+                    val totalValueTxt = binding?.totalValue
+                    totalValueTxt?.text =
+                        if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(BigDecimal.ZERO)
+                    totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
+
                     updateViewWithLoadedData()
                     isNew = response.first
                 }

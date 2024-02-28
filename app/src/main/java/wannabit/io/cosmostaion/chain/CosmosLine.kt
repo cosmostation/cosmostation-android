@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainCudos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
@@ -123,8 +122,6 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     var tokens = mutableListOf<Token>()
 
-    var cw20tokens = mutableListOf<Token>()
-    var erc20tokens = mutableListOf<Token>()
     var param: Param? = null
 
     var lcdAccountInfo: AccountResponse? = null
@@ -546,7 +543,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainDesmos())
     lines.add(ChainDydx())
     lines.add(ChainEmoney())
-    lines.add(ChainEvmos())
     lines.add(ChainFetchAi())
     lines.add(ChainFetchAi60Secp())
     lines.add(ChainFetchAi60Old())

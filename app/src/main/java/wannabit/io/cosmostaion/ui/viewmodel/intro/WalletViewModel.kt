@@ -6,18 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.staking.v1beta1.StakingProto
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -27,7 +24,6 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.Password
-import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
 import java.util.concurrent.TimeUnit
 
@@ -201,43 +197,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             is NetworkResult.Error -> {
                 _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
-    private val _fetchedTokenResult = MutableLiveData<Unit>()
-    val fetchedTokenResult: LiveData<Unit> get() = _fetchedTokenResult
-    fun loadAllTokenBalance(
-        line: CosmosLine, baseAccountId: Long
-    ) = CoroutineScope(Dispatchers.Default).launch {
-        line.apply {
-            val deferredList = mutableListOf<Deferred<Unit>>()
-            tokens.forEach { token ->
-                if (supportCw20) {
-                    val channel = getChannel(line)
-                    val deferred = async { walletRepository.cw20Balance(channel, line, token) }
-                    deferredList.add(deferred)
-                } else {
-                    val deferred = async { walletRepository.erc20Balance(line, token) }
-                    deferredList.add(deferred)
-                }
-            }
-
-            runBlocking {
-                deferredList.awaitAll()
-
-                val refAddress = RefAddress(
-                    baseAccountId,
-                    tag,
-                    address,
-                    ByteUtils.convertBech32ToEvm(address),
-                    "0",
-                    "0",
-                    allTokenValue().toPlainString(),
-                    0
-                )
-                val updatedResult = BaseData.updateRefAddressesToken(refAddress)
-                _fetchedTokenResult.postValue(updatedResult)
             }
         }
     }
