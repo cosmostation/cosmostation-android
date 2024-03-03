@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
@@ -124,7 +124,7 @@ class CoinAdapter(
                     }
                     if (selectedChain is ChainBinanceBeacon) {
                         holder.bindBeaconCoin(selectedChain, coin, coinPosition, coinCount)
-                    } else if (selectedChain is ChainOkt60) {
+                    } else if (selectedChain is ChainOkt996Keccak) {
                         holder.bindOktCoin(selectedChain, coin, coinPosition, coinCount)
                     }
                 }

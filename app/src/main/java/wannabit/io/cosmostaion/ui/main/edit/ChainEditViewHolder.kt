@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -140,7 +139,7 @@ class ChainEditViewHolder(
 
                             chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
                             val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                            if (line.supportCw20) {
+                            if (line.supportCw20 || line.supportErc20) {
                                 val tokenCnt =
                                     line.tokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
                                 if (tokenCnt == 0) {

@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.BNB_BEACON_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.BNB_GECKO_ID
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -119,8 +120,9 @@ class Bep3Fragment : BaseTxFragment() {
 
             BaseData.baseAccount?.let { account ->
                 if (fromChain is ChainBinanceBeacon) {
-                    toChains =
-                        account.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList()
+                    toChains?.addAll(account.allEvmLineChains.filter { it.name == "Kava" }.toMutableList())
+                    toChains?.addAll(account.allCosmosLineChains.filter { it.name == "Kava" }.toMutableList())
+
                     fromChainImg.setImageResource(R.drawable.chain_binance)
                     fromChainName.text = "BNB Beacon"
 
@@ -162,17 +164,9 @@ class Bep3Fragment : BaseTxFragment() {
                     }
                     availableAmount = fromChain.balanceAmount(denom)
                 }
-
-                toChains?.let { lines ->
-                    if (lines[0].fetched) {
-                        kavaViewModel.bep3Data(getChannel(ChainKava459()))
-                    } else {
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            initToChainsData(lines)
-                        }
-                    }
-                }
             }
+
+            toChains?.let { chains -> initToChainsData(chains) }
         }
     }
 
@@ -232,25 +226,35 @@ class Bep3Fragment : BaseTxFragment() {
             account.apply {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
-                        toChains.forEach { line ->
-                            if (line.address?.isEmpty() == true) {
-                                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        for (chain in toChains) {
+                            if (chain.address?.isEmpty() == true) {
+                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
-                            if (!line.fetched) {
-                                ApplicationViewModel.shared.loadChainData(line, id, false)
+                            if (!chain.fetched) {
+                                if (chain is EthereumLine) {
+                                    ApplicationViewModel.shared.loadEvmChainData(chain, id, false)
+                                } else {
+                                    ApplicationViewModel.shared.loadChainData(chain, id, false)
+                                }
                             }
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        toChains.forEach { line ->
-                            if (line.address?.isEmpty() == true) {
-                                line.setInfoWithPrivateKey(privateKey)
+                        for (chain in toChains) {
+                            if (chain.address?.isEmpty() == true) {
+                                chain.setInfoWithPrivateKey(privateKey)
                             }
-                            if (!line.fetched) {
-                                ApplicationViewModel.shared.loadChainData(line, id, false)
+                            if (!chain.fetched) {
+                                if (chain is EthereumLine) {
+                                    ApplicationViewModel.shared.loadEvmChainData(chain, id, false)
+                                } else {
+                                    ApplicationViewModel.shared.loadChainData(chain, id, false)
+                                }
                             }
                         }
                     }
+
+                    kavaViewModel.bep3Data(getChannel(ChainKava459()))
                 }
             }
         }
@@ -316,23 +320,22 @@ class Bep3Fragment : BaseTxFragment() {
         binding.apply {
             sendAssetView.setOnClickListener {
                 handleOneClickWithDelay(
-                    Bep3InsertAmountFragment(fromChain,
+                    Bep3InsertAmountFragment.newInstance(fromChain,
                         denom,
-                        minAvailableAmount,
-                        availableAmount,
+                        minAvailableAmount.toString(),
+                        availableAmount.toString(),
                         toSendAmount,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
                             }
-
                         })
                 )
             }
 
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    Bep3AddressFragment(toChains, object : Bep3AddressListener {
+                    Bep3AddressFragment.newInstance(toChains, object : Bep3AddressListener {
                         override fun address(address: String) {
                             updateAddressView(address)
                         }
@@ -376,12 +379,8 @@ class Bep3Fragment : BaseTxFragment() {
 
     private fun txValidate() {
         binding.apply {
-            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) {
-                return
-            }
-            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) {
-                return
-            }
+            if (toSendAmount.isEmpty() || recipientAddress.text.isEmpty()) { return }
+            if (BigDecimal(toSendAmount) == BigDecimal.ZERO) { return }
             binding.btnSend.updateButtonView(true)
         }
     }

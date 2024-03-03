@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -44,7 +44,7 @@ class OktDepositFragment : BaseTxFragment() {
     private var _binding: FragmentOktDepositBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainOkt60
+    private lateinit var selectedChain: ChainOkt996Keccak
 
     private var oktTokenInfo: OktToken? = null
 
@@ -88,11 +88,11 @@ class OktDepositFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", ChainOkt60::class.java)
+                arguments?.getParcelable("selectedChain", ChainOkt996Keccak::class.java)
                     ?.let { selectedChain = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? ChainOkt60)?.let {
+                (arguments?.getParcelable("selectedChain") as? ChainOkt996Keccak)?.let {
                     selectedChain = it
                 }
             }
@@ -185,10 +185,10 @@ class OktDepositFragment : BaseTxFragment() {
         binding.apply {
             oktDepositView.setOnClickListener {
                 handleOneClickWithDelay(
-                    LegacyInsertAmountFragment(selectedChain,
+                    LegacyInsertAmountFragment.newInstance(selectedChain,
                         null,
                         oktTokenInfo,
-                        availableAmount,
+                        availableAmount.toString(),
                         toDepositAmount,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

@@ -181,7 +181,7 @@ class EvmDetailFragment : Fragment() {
 
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
-            fragments.add(HistoryFragment.newInstance(selectedEvmChain))
+            fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
         }
 
         override fun getItemCount(): Int {

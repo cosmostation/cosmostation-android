@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -43,7 +43,7 @@ class CoinEtcViewHolder(
         }
     }
 
-    fun bindOktCoin(line: ChainOkt60, coin: Coin, position: Int, cnt: Int) {
+    fun bindOktCoin(line: ChainOkt996Keccak, coin: Coin, position: Int, cnt: Int) {
         binding.apply {
             coinView.setBackgroundResource(R.drawable.item_bg)
 
@@ -52,7 +52,7 @@ class CoinEtcViewHolder(
             headerCnt.text = cnt.toString()
 
             line.oktTokenInfo?.data?.firstOrNull { it.symbol == coin.denom }?.let { token ->
-                tokenImg.setTokenImg(ChainOkt60().assetImg(token.originalSymbol))
+                tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(token.originalSymbol))
                 tokenName.text = token.originalSymbol.uppercase()
                 tokenDescription.text = token.description
 

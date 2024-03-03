@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -192,9 +193,15 @@ class TransferTxResultActivity : BaseActivity() {
             btnConfirm.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
                     if (transferStyle == TransferStyle.WEB3_STYLE) {
-                        ApplicationViewModel.shared.loadEvmChainData(
-                            fromChain as EthereumLine, account.id, false
-                        )
+                        if (fromChain is ChainOkt996Keccak) {
+                            ApplicationViewModel.shared.loadChainData(
+                                fromChain as CosmosLine, account.id, false
+                            )
+                        } else {
+                            ApplicationViewModel.shared.loadEvmChainData(
+                                fromChain as EthereumLine, account.id, false
+                            )
+                        }
                     } else {
                         ApplicationViewModel.shared.loadChainData(
                             fromChain as CosmosLine, account.id, false
@@ -244,7 +251,12 @@ class TransferTxResultActivity : BaseActivity() {
 
     private fun loadEvmTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+            val web3j = if (fromChain is ChainOkt996Keccak) {
+                Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
+            } else {
+                Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+            }
+
             try {
                 val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
                 if (receiptTx.transactionReceipt.isPresent) {

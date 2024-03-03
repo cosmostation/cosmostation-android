@@ -15,6 +15,8 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
@@ -93,7 +95,7 @@ class ChainEditFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    for (line in searchEvmChains) {
+                    for (line in allEvmLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -102,7 +104,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                    for (line in searchChains) {
+                    for (line in allCosmosLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -112,7 +114,7 @@ class ChainEditFragment : BaseTxFragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    for (line in searchEvmChains) {
+                    for (line in allEvmLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -121,7 +123,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                    for (line in searchChains) {
+                    for (line in allCosmosLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -330,11 +332,6 @@ class ChainEditFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-//                searchChains.forEach { chain ->
-//                    if (toDisplayChains.contains(chain.tag) && !chain.fetched) {
-//                        return@setOnClickListener
-//                    }
-//                }
                 ApplicationViewModel.shared.walletEdit(toDisplayEvmChains, toDisplayChains)
                 dismiss()
             }

@@ -22,6 +22,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
@@ -154,26 +155,34 @@ class QrCodeFragment : BottomSheetDialogFragment() {
                 accountPath.text = selectedChain.getHDPath(account.lastHDPath)
                 chainImg.setImageResource(selectedChain.logo)
 
-                if (selectedChain.evmCompatible) {
+                if (!selectedChain.isDefault) {
                     chainBadge.visibility = View.VISIBLE
-                    chainBadge.text = getString(R.string.str_evm)
-                    chainBadge.setBackgroundResource(R.drawable.round_box_evm)
-                    chainBadge.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_base01
-                        )
-                    )
-                } else if (!selectedChain.isDefault) {
-                    chainBadge.visibility = View.VISIBLE
-                    chainBadge.text = getString(R.string.str_legacy)
                     chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                     chainBadge.setTextColor(
                         ContextCompat.getColor(
                             requireContext(), R.color.color_base02
                         )
                     )
+                    chainBadge.text = requireActivity().getString(R.string.str_legacy)
+                    when (selectedChain.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text =
+                                requireActivity().getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text =
+                                requireActivity().getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
                 } else {
                     chainBadge.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
                 }
 
                 qrView.radius = resources.getDimension(R.dimen.space_8)
@@ -184,7 +193,7 @@ class QrCodeFragment : BottomSheetDialogFragment() {
 
     private fun setQrAddress(selectAddress: String?) {
         binding.apply {
-            chainSegment.visibleOrGone(selectedChain.evmCompatible)
+            chainSegment.visibleOrGone(selectedChain is EthereumLine)
             val hints = mutableMapOf<EncodeHintType, Int>()
             hints[EncodeHintType.MARGIN] = 0
 

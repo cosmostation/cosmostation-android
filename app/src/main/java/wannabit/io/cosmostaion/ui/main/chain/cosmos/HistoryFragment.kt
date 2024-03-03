@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.BnbHistory
@@ -115,6 +116,12 @@ class HistoryFragment : Fragment() {
                 )
             }
 
+            is ChainOkt996Keccak -> {
+                historyViewModel.oktHistory(
+                    "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
+                )
+            }
+
             is ChainOkt60 -> {
                 historyViewModel.oktHistory(
                     "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
@@ -175,7 +182,7 @@ class HistoryFragment : Fragment() {
                     hasMore = false
                 }
 
-                binding.loading.visibleOrGone(historyGroup.isEmpty())
+                binding.loading.visibility = View.GONE
                 binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
                 binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
                 historyAdapter.notifyDataSetChanged()
@@ -188,7 +195,7 @@ class HistoryFragment : Fragment() {
                 historyAdapter.submitList(allBnbHistoryGroup as List<Any>?)
             }
 
-            binding.loading.visibleOrGone(allBnbHistoryGroup.isEmpty())
+            binding.loading.visibility = View.GONE
             binding.refresher.visibleOrGone(allBnbHistoryGroup.isNotEmpty())
             binding.emptyLayout.visibleOrGone(allBnbHistoryGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()
@@ -200,7 +207,7 @@ class HistoryFragment : Fragment() {
                 historyAdapter.submitList(allOktHistoryGroup as List<Any>?)
             }
 
-            binding.loading.visibleOrGone(allOktHistoryGroup.isEmpty())
+            binding.loading.visibility = View.GONE
             binding.refresher.visibleOrGone(allOktHistoryGroup.isNotEmpty())
             binding.emptyLayout.visibleOrGone(allOktHistoryGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()

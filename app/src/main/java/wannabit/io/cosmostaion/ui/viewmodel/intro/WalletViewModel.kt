@@ -12,7 +12,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -291,7 +291,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             }
 
-            is ChainOkt60 -> {
+            is ChainOkt996Keccak -> {
                 when (val response = walletRepository.oktAccountInfo(line)) {
                     is NetworkResult.Success -> {
                         line.oktLcdAccountInfo = response.data

@@ -32,7 +32,6 @@ import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
@@ -64,7 +63,7 @@ interface TxRepository {
         toSendAmount: String?,
         selectedToken: Token?,
         sendAssetType: SendAssetType,
-        selectedEvmChain: EthereumLine,
+        selectedChain: CosmosLine,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -91,7 +90,7 @@ interface TxRepository {
     ): MutableList<TransactionMetadata>?
 
     suspend fun broadcastOktTx(
-        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60
+        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
     ): LegacyRes?
 
     suspend fun broadcastIbcSendTx(

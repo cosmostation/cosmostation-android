@@ -43,7 +43,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
@@ -442,7 +442,7 @@ fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
             EXPLORER_BINANCE_URL + "tx/" + txHash
         }
 
-        is ChainOkt60 -> {
+        is ChainOkt996Keccak -> {
             OKT_EXPLORER + "tx/" + txHash
         }
 

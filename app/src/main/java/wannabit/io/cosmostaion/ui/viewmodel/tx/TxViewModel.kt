@@ -169,7 +169,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         toSendAmount: String?,
         selectedToken: Token?,
         sendAssetType: SendAssetType,
-        selectedEvmChain: EthereumLine,
+        selectedChain: CosmosLine,
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmSendTx(
@@ -177,7 +177,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             toSendAmount,
             selectedToken,
             sendAssetType,
-            selectedEvmChain,
+            selectedChain,
             selectedFeeInfo
         )
         if (response.second?.isNotEmpty() == true) {
@@ -1297,7 +1297,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
 
     val broadcastOktTx = SingleLiveEvent<LegacyRes?>()
-    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60) =
+    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine) =
         viewModelScope.launch(Dispatchers.IO) {
             val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
             broadcastOktTx.postValue(response)

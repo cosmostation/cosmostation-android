@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -101,7 +101,7 @@ class ApplicationViewModel(
             val loadParamDeferred = async { walletRepository.param(this@apply) }
             val tokenDeferred = async { walletRepository.token(this@apply) }
 
-            if (supportCw20) {
+            if (supportCw20 || supportErc20) {
                 val responses = awaitAll(loadParamDeferred, tokenDeferred)
                 responses.forEach { response ->
                     when (response) {
@@ -137,8 +137,32 @@ class ApplicationViewModel(
                 }
             }
 
-            if (this is ChainBinanceBeacon || this is ChainOkt60) {
+            if (this is ChainBinanceBeacon || this is ChainOkt996Keccak) {
                 loadLcdData(this, baseAccountId, isEdit)
+
+                if (supportErc20) {
+                    val deferredList = mutableListOf<Deferred<Unit>>()
+                    tokens.forEach { token ->
+                        val deferred = async { walletRepository.erc20Balance(line, token) }
+                        deferredList.add(deferred)
+                    }
+
+                    runBlocking {
+                        deferredList.awaitAll()
+
+                        val evmRefAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            allTokenValue().toPlainString()
+                        )
+                        BaseData.updateRefAddressesToken(evmRefAddress)
+                    }
+                }
+
             } else {
                 loadGrpcAuthData(this, baseAccountId, isEdit)
 
@@ -301,7 +325,7 @@ class ApplicationViewModel(
                     }
                 }
 
-            } else if (this is ChainOkt60) {
+            } else if (this is ChainOkt996Keccak) {
                 val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(line) }
                 val loadDepositDeferred = async { walletRepository.oktDeposit(line) }
                 val loadWithdrawDeferred = async { walletRepository.oktWithdraw(line) }
@@ -710,12 +734,20 @@ class ApplicationViewModel(
     }
 
     fun loadAllErc20TokenBalance(
-        line: EthereumLine, baseAccountId: Long
+        line: CosmosLine, baseAccountId: Long
     ) = CoroutineScope(Dispatchers.Default).launch {
         line.apply {
             val deferredList = mutableListOf<Deferred<Unit>>()
-            evmTokens.forEach { token ->
-                if (tag != "ethereum60" || token.default) {
+            if (line is EthereumLine) {
+                line.evmTokens.forEach { token ->
+                    if (tag != "ethereum60" || token.default) {
+                        val deferred = async { walletRepository.erc20Balance(line, token) }
+                        deferredList.add(deferred)
+                    }
+                }
+
+            } else {
+                tokens.forEach { token ->
                     val deferred = async { walletRepository.erc20Balance(line, token) }
                     deferredList.add(deferred)
                 }
@@ -723,7 +755,32 @@ class ApplicationViewModel(
 
             runBlocking {
                 deferredList.awaitAll()
-                val evmRefAddress = if (supportCosmos) {
+                val evmRefAddress = if (line is EthereumLine) {
+                    if (line.supportCosmos) {
+                        RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            allTokenValue().toPlainString(),
+                            0
+                        )
+                    } else {
+                        RefAddress(
+                            baseAccountId,
+                            tag,
+                            "",
+                            address,
+                            "0",
+                            "0",
+                            allTokenValue().toPlainString(),
+                            0
+                        )
+                    }
+
+                } else {
                     RefAddress(
                         baseAccountId,
                         tag,
@@ -731,19 +788,7 @@ class ApplicationViewModel(
                         ByteUtils.convertBech32ToEvm(address),
                         "0",
                         "0",
-                        allTokenValue().toPlainString(),
-                        0
-                    )
-                } else {
-                    RefAddress(
-                        baseAccountId,
-                        tag,
-                        "",
-                        address,
-                        "0",
-                        "0",
-                        allTokenValue().toPlainString(),
-                        0
+                        allTokenValue().toPlainString()
                     )
                 }
 

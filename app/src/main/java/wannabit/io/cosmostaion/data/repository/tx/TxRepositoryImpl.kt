@@ -48,7 +48,7 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -163,12 +163,12 @@ class TxRepositoryImpl : TxRepository {
         toSendAmount: String?,
         selectedToken: Token?,
         sendAssetType: SendAssetType,
-        selectedEvmChain: EthereumLine,
+        selectedChain: CosmosLine,
         selectedFeeInfo: Int
     ): Pair<String?, String?> {
         return try {
-            val ecKey = ECKey.fromPrivate(selectedEvmChain.privateKey)
-            val web3j = Web3j.build(HttpService(selectedEvmChain.rpcUrl))
+            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
+            val web3j = Web3j.build(HttpService(selectedChain.rpcUrl))
             val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
 
             val ethGetTransactionCount: EthGetTransactionCount =
@@ -177,30 +177,35 @@ class TxRepositoryImpl : TxRepository {
             val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
             val nonce = ethGetTransactionCount.transactionCount
 
-            val gasLimit = selectedToken?.let { token ->
+            val fromAddress =
+                if (selectedChain is ChainOkt996Keccak || selectedChain is EthereumLine && selectedChain.supportCosmos) {
+                    ByteUtils.convertBech32ToEvm(selectedChain.address)
+                } else {
+                    selectedChain.address
+                }
+
+            val txData = selectedToken?.let {
                 val params: MutableList<Type<*>> = java.util.ArrayList()
-                params.add(Address(token.address))
+                params.add(Address(toEthAddress))
                 params.add(Uint256(toSendAmount?.toBigInteger()))
 
                 val returnTypes = emptyList<TypeReference<*>>()
                 val function = Function(
                     "transfer", params, returnTypes
                 )
-                val estimateData = FunctionEncoder.encode(function)
+                FunctionEncoder.encode(function)
+            }
 
+            val gasLimit = selectedToken?.let { token ->
                 val estimateGasRequest = JsonRpcRequest(
                     method = "eth_estimateGas", params = listOf(
                         EstimateGasParams(
-                            if (selectedEvmChain.supportCosmos) {
-                                ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
-                            } else {
-                                selectedEvmChain.address
-                            }, token.address, estimateData
+                            fromAddress, token.address, txData
                         )
                     )
                 )
                 val estimateGasJsonRequest = ObjectMapper().writeValueAsString(estimateGasRequest)
-                val estimateGasRpcRequest = Request.Builder().url(selectedEvmChain.rpcUrl)
+                val estimateGasRpcRequest = Request.Builder().url(selectedChain.rpcUrl)
                     .post(estimateGasJsonRequest.toRequestBody("application/json".toMediaTypeOrNull()))
                     .build()
 
@@ -219,25 +224,13 @@ class TxRepositoryImpl : TxRepository {
                 BigInteger.valueOf(21000L)
             }
 
-            val txData = selectedToken?.let {
-                val params: MutableList<Type<*>> = java.util.ArrayList()
-                params.add(Address(toEthAddress))
-                params.add(Uint256(toSendAmount?.toBigInteger()))
-
-                val returnTypes = emptyList<TypeReference<*>>()
-                val function = Function(
-                    "transfer", params, returnTypes
-                )
-                FunctionEncoder.encode(function)
-            }
-
             val request = JsonRpcRequest(
                 method = "eth_feeHistory", params = listOf(
                     20, "pending", listOf(10, 30, 50, 70, 90)
                 )
             )
             val jsonRequest = ObjectMapper().writeValueAsString(request)
-            val rpcRequest = Request.Builder().url(selectedEvmChain.rpcUrl)
+            val rpcRequest = Request.Builder().url(selectedChain.rpcUrl)
                 .post(jsonRequest.toRequestBody("application/json".toMediaTypeOrNull())).build()
 
             val response = OkHttpClient().newCall(rpcRequest).execute()
@@ -245,8 +238,11 @@ class TxRepositoryImpl : TxRepository {
                 val jsonResponse = response.body?.string()
                 val jsonObject = Gson().fromJson(jsonResponse, JsonObject::class.java)
 
-                val feeHistoryFeePerGas =
+                val feeHistoryFeePerGas = try {
                     jsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
 
                 val suggestGasValues = try {
                     feeHistoryFeePerGas.map {
@@ -422,7 +418,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastOktTx(
-        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60
+        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
     ): LegacyRes? {
         return try {
             val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)

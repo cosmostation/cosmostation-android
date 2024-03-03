@@ -18,6 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
@@ -164,9 +165,9 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         return@setOnClickListener
                     }
 
-                    if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                    if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
                         if (BaseUtils.isValidChainAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim()
+                                toChain as EthereumLine, addressTxt.text.toString().trim()
                             )
                         ) {
                             addressListener?.selectAddress(
@@ -174,14 +175,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             )
                             dismiss()
                             return@setOnClickListener
-                        }
-                        toChain.accountPrefix?.let { prefix ->
-                            txViewModel.icnsAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim(), prefix
-                            )
+
+                        } else {
+                            requireContext().makeToast(R.string.error_invalid_address)
+                            return@setOnClickListener
                         }
 
-                    } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
+                    } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                         if (BaseUtils.isValidChainAddress(
                                 toChain as CosmosLine, addressTxt.text.toString().trim()
                             )
@@ -222,8 +222,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                 } else {
                     handleOneClickWithDelay(
-                        NameServiceFragment.newInstance(
-                            response,
+                        NameServiceFragment.newInstance(response,
                             object : NameServiceSelectListener {
                                 override fun select(address: String) {
                                     addressTxt.text =

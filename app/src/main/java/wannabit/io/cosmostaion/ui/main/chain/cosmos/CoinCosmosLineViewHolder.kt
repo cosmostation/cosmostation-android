@@ -8,7 +8,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.BNB_GECKO_ID
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
@@ -34,7 +34,7 @@ class CoinCosmosLineViewHolder(
                 bindBeaconAsset(context, line)
             }
 
-            is ChainOkt60 -> {
+            is ChainOkt996Keccak -> {
                 bindOkt(line)
             }
 
@@ -248,7 +248,7 @@ class CoinCosmosLineViewHolder(
         }
     }
 
-    private fun bindOkt(line: ChainOkt60) {
+    private fun bindOkt(line: ChainOkt996Keccak) {
         binding.apply {
             vestingTitle.text = "Deposited"
             stakedTitle.text = "Withdrawing"
@@ -257,7 +257,7 @@ class CoinCosmosLineViewHolder(
             rewardLayout.visibility = View.GONE
 
             line.stakeDenom?.let { stakeDenom ->
-                tokenImg.setTokenImg(ChainOkt60().assetImg(stakeDenom))
+                tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(stakeDenom))
                 tokenName.text = stakeDenom.uppercase()
 
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))

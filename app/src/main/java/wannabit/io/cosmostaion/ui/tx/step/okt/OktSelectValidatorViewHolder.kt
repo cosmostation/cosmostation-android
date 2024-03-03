@@ -4,10 +4,9 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.setMonikerImg
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.ItemOktSelectValidatorBinding
 
@@ -16,7 +15,7 @@ class OktSelectValidatorViewHolder(
     private val binding: ItemOktSelectValidatorBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: ChainOkt60, myValidator: OktValidatorResponse) {
+    fun bind(line: ChainOkt996Keccak, myValidator: OktValidatorResponse) {
         binding.apply {
             validatorView.setBackgroundResource(R.drawable.cell_bg)
 

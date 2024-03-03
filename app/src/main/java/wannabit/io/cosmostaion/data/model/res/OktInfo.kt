@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.data.model.res
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
 data class OktAccountResponse(
     val type: String?,
@@ -32,11 +34,12 @@ data class OktTokenResponse(
     val data: MutableList<OktToken>
 )
 
+@Parcelize
 data class OktToken(
     val description: String?,
     val symbol: String,
     @Json(name = "original_symbol") val originalSymbol: String
-)
+) : Parcelable
 
 data class OktHistoryResponse(
     val data: MutableList<OktHistory>

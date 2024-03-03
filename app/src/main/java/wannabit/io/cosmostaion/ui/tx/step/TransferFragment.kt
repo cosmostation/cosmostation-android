@@ -51,11 +51,9 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.database.model.AddressBook
-import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -65,11 +63,8 @@ import wannabit.io.cosmostaion.ui.option.tx.general.ChainSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -287,7 +282,8 @@ class TransferFragment : BaseTxFragment() {
                 val value: BigDecimal
 
                 if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                    dpAmount = toAmount.toBigDecimal().amountHandlerLeft(selectedAsset?.decimals ?: 6)
+                    dpAmount =
+                        toAmount.toBigDecimal().amountHandlerLeft(selectedAsset?.decimals ?: 6)
                     price = BaseData.getPrice(selectedAsset?.coinGeckoId)
                     value = price.multiply(dpAmount)
 

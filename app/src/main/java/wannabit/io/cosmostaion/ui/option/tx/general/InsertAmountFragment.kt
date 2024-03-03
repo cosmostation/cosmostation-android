@@ -19,6 +19,9 @@ import wannabit.io.cosmostaion.ui.tx.step.TransferAssetType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+interface AmountSelectListener {
+    fun select(toAmount: String)
+}
 
 class InsertAmountFragment(
     private val txType: TxType?,
@@ -319,8 +322,4 @@ class InsertAmountFragment(
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface AmountSelectListener {
-    fun select(toAmount: String)
 }

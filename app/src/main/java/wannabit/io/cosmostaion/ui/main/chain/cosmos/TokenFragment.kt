@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -111,7 +110,7 @@ class TokenFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         refresher.isRefreshing = false
-                        loading.visibleOrGone(tokens.isEmpty())
+                        loading.visibility = View.GONE
                         refresher.visibleOrGone(tokens.isNotEmpty())
                         emptyLayout.visibleOrGone(tokens.isEmpty())
                         tokenAdapter.submitList(tokens)
@@ -127,13 +126,18 @@ class TokenFragment : Fragment() {
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain.supportCw20) {
-                    ApplicationViewModel.shared.loadAllCw20TokenBalance(selectedChain, account.id)
-
-                } else if (selectedChain is EthereumLine) {
+                if (selectedChain is EthereumLine || selectedChain.supportErc20) {
                     ApplicationViewModel.shared.loadAllErc20TokenBalance(
-                        selectedChain as EthereumLine, account.id
+                        selectedChain, account.id
                     )
+
+                } else {
+                    if (selectedChain.supportCw20) {
+                        ApplicationViewModel.shared.loadAllCw20TokenBalance(selectedChain, account.id)
+                    } else {
+                        binding.refresher.isRefreshing = false
+                        return@setOnRefreshListener
+                    }
                 }
             }
         }

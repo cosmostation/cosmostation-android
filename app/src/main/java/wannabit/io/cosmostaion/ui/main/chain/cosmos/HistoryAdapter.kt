@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.formatTxTimeToYear
@@ -38,8 +39,26 @@ class HistoryAdapter(
                         val headerDate = formatTxTimeToYear(context, timeStamp)
                         val headerIndex = bnbHistoryList.indexOfFirst { it.first == headerDate }
                         val headerCnt = bnbHistoryList.filter { it.first == headerDate }.size
-                        holder.bindBnbHistory(line, historyBnbGroup, headerIndex, headerCnt, position)
+                        holder.bindBnbHistory(
+                            line,
+                            historyBnbGroup,
+                            headerIndex,
+                            headerCnt,
+                            position
+                        )
                     }
+                }
+            }
+
+            is ChainOkt996Keccak -> {
+                val oktHistoryList = currentList as MutableList<Pair<String, TransactionList>>
+                val historyOktGroup = oktHistoryList[position]
+
+                historyOktGroup.second.let { header ->
+                    val headerDate = dpTimeToYear(header.transactionTime.toLong())
+                    val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
+                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
                 }
             }
 

@@ -24,6 +24,7 @@ class DashboardViewHolder(
             chainSwipeImg.setImageResource(line.swipeLogo)
             chainName.text = line.name.uppercase()
             chainBadge.visibility = View.GONE
+            chainTypeBadge.visibility = View.GONE
 
             if (line.fetched) {
                 if (Prefs.hideValue) {
@@ -46,26 +47,30 @@ class DashboardViewHolder(
             chainSwipeImg.setImageResource(line.swipeLogo)
             chainName.text = line.name.uppercase()
 
-            if (line.evmCompatible) {
+            if (!line.isDefault) {
                 chainBadge.visibility = View.VISIBLE
-                chainBadge.text = context.getString(R.string.str_evm)
-                chainBadge.setBackgroundResource(R.drawable.round_box_evm)
-                chainBadge.setTextColor(
-                    ContextCompat.getColor(
-                        context, R.color.color_base01
-                    )
-                )
-            } else if (!line.isDefault) {
-                chainBadge.visibility = View.VISIBLE
-                chainBadge.text = context.getString(R.string.str_legacy)
                 chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                 chainBadge.setTextColor(
                     ContextCompat.getColor(
                         context, R.color.color_base02
                     )
                 )
+                chainBadge.text = context.getString(R.string.str_legacy)
+                when (line.tag) {
+                    "okt996_Keccak" -> {
+                        chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                    }
+                    "okt996_Secp" -> {
+                        chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                    }
+                    else -> {
+                        chainTypeBadge.visibility = View.GONE
+                    }
+                }
+
             } else {
                 chainBadge.visibility = View.GONE
+                chainTypeBadge.visibility = View.GONE
             }
 
             if (line.fetched) {

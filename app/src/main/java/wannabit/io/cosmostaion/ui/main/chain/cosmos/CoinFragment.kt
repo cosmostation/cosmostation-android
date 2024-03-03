@@ -13,8 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
@@ -23,7 +24,6 @@ import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.tx.step.TransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
@@ -103,33 +103,26 @@ class CoinFragment : Fragment() {
                     SendAssetType.ONLY_COSMOS_COIN
                 }
 
-                handleOneClickWithDelay(
-                    CommonTransferFragment.newInstance(
-                        line, denom, sendAssetType
-                    )
-                )
+                if (line is ChainBinanceBeacon) {
+                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                        selectBridgeOption(line, denom, sendAssetType)
+                    } else {
+                        startLegacyTransfer(line, denom)
+                    }
 
+                } else if (line is ChainOkt996Keccak) {
+                    startLegacyTransfer(line, denom)
 
-//                if (line is ChainBinanceBeacon) {
-//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-//                        selectBridgeOption(line, denom)
-//                    } else {
-//                        startLegacyTransfer(line, denom)
-//                    }
-//
-//                } else if (line is ChainKava459) {
-//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-//                        selectBridgeOption(line, denom)
-//                    } else {
-//                        startTransfer(line, denom)
-//                    }
-//
-//                } else if (line is ChainOkt60) {
-//                    startLegacyTransfer(line, denom)
-//
-//                } else {
-//                    startTransfer(line, denom)
-//                }
+                } else if (line.tag.startsWith("kava")) {
+                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+                        selectBridgeOption(line, denom, sendAssetType)
+                    } else {
+                        startTransfer(line, denom, sendAssetType)
+                    }
+
+                } else {
+                    startTransfer(line, denom, sendAssetType)
+                }
             }
         }
     }
@@ -163,8 +156,8 @@ class CoinFragment : Fragment() {
                     nativeCoins.sortBy { it.denom }
                 }
 
-                is ChainOkt60 -> {
-                    (selectedChain as ChainOkt60).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
+                is ChainOkt996Keccak -> {
+                    (selectedChain as ChainOkt996Keccak).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
                         if (balance.denom == stakeDenom) {
                             stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
                         } else {
@@ -248,8 +241,12 @@ class CoinFragment : Fragment() {
         }
     }
 
-    private fun startTransfer(line: CosmosLine, denom: String) {
-        handleOneClickWithDelay(TransferFragment.newInstance(line, denom))
+    private fun startTransfer(line: CosmosLine, denom: String, sendAssetType: SendAssetType) {
+        handleOneClickWithDelay(
+            CommonTransferFragment.newInstance(
+                line, denom, sendAssetType
+            )
+        )
     }
 
     private fun startBep3Transfer(line: CosmosLine, denom: String) {
@@ -257,12 +254,12 @@ class CoinFragment : Fragment() {
     }
 
     private fun startLegacyTransfer(line: CosmosLine, denom: String) {
-        handleOneClickWithDelay(LegacyTransferFragment(line, denom))
+        handleOneClickWithDelay(LegacyTransferFragment.newInstance(line, denom))
     }
 
-    private fun selectBridgeOption(line: CosmosLine, denom: String) {
+    private fun selectBridgeOption(line: CosmosLine, denom: String, sendAssetType: SendAssetType) {
         handleOneClickWithDelay(
-            BridgeOptionFragment.newInstance(line, denom, bridgeClickAction)
+            BridgeOptionFragment.newInstance(line, denom, sendAssetType, bridgeClickAction)
         )
     }
 
@@ -285,11 +282,11 @@ class CoinFragment : Fragment() {
             startBep3Transfer(line, denom)
         }
 
-        override fun simpleTransfer(line: CosmosLine, denom: String) {
+        override fun simpleTransfer(line: CosmosLine, denom: String, sendAssetType: SendAssetType) {
             if (line is ChainBinanceBeacon) {
                 startLegacyTransfer(line, denom)
             } else {
-                startTransfer(line, denom)
+                startTransfer(line, denom, sendAssetType)
             }
         }
     }

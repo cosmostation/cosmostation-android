@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/send_title"
+            style="@style/font_sb_16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/font_sb_16"
-            android:textColor="@color/color_base01"
-            android:text="@string/title_coin_send"/>
+            android:text="@string/title_coin_send"
+            android:textColor="@color/color_base01" />
 
         <ImageView
             android:id="@+id/btn_qr"
@@ -47,22 +47,22 @@
 
             <TextView
                 android:id="@+id/send_asset_title"
+                style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sm_12"
-                android:layout_marginTop="@dimen/space_14"
                 android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_14"
+                android:text="@string/title_to_send_asset"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_to_send_asset"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_7"
                 android:layout_marginBottom="@dimen/space_10"
-                android:layout_marginHorizontal="@dimen/space_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,9 +78,9 @@
 
                 <TextView
                     android:id="@+id/token_name"
+                    style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sb_14"
                     android:layout_marginStart="@dimen/space_12"
                     android:textColor="@color/color_base01"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -89,41 +89,41 @@
 
                 <TextView
                     android:id="@+id/tab_msg_txt"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sm_12"
+                    android:gravity="end"
+                    android:text="@string/str_tap_for_add_amount_msg"
                     android:textColor="@color/color_base03"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:gravity="end"
-                    android:text="@string/str_tap_for_add_amount_msg"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/amount_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:orientation="vertical"
-                    android:visibility="visible">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/send_amount"
+                        style="@style/font_sb_14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/font_sb_14"
                         android:gravity="end"
                         android:textColor="@color/color_base01" />
 
                     <TextView
                         android:id="@+id/send_value"
+                        style="@style/font_sb_12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="end"
-                        style="@style/font_sb_12"
                         android:textColor="@color/color_base02" />
 
                 </LinearLayout>
@@ -147,18 +147,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/space_15"
-            android:paddingHorizontal="@dimen/space_16">
+            android:paddingHorizontal="@dimen/space_16"
+            android:paddingVertical="@dimen/space_15">
 
             <TextView
                 android:id="@+id/recipient_address_title"
+                style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sm_12"
+                android:text="@string/title_recipient_address"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_recipient_address"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/recipient_address_msg"
@@ -173,7 +173,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/recipient_address_title" />
 
             <TextView
-                android:id="@+id/recipient_evm_address"
+                android:id="@+id/recipient_address"
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,15 +181,6 @@
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipient_address_title" />
-
-            <TextView
-                android:id="@+id/recipient_address"
-                style="@style/font_sb_11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_base02"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipient_evm_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -267,8 +258,8 @@
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
-                android:background="@color/color_base05"
                 android:layout_marginTop="@dimen/space_16"
+                android:background="@color/color_base05"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fee_title" />
@@ -311,8 +302,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
                 android:textColor="@color/color_base01"
-                app:layout_constraintTop_toBottomOf="@+id/view1"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
 
             <TextView
                 android:id="@+id/fee_value"
@@ -350,10 +341,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_background_dialog"
-        android:elevation="@dimen/space_5"
         android:clickable="true"
-        android:focusable="true"
+        android:elevation="@dimen/space_5"
         android:fitsSystemWindows="true"
+        android:focusable="true"
         android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView

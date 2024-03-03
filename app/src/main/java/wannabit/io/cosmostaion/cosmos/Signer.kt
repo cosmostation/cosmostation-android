@@ -63,7 +63,8 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -1107,65 +1108,69 @@ object Signer {
     }
 
     private fun broadcast(
-        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: ChainOkt60
+        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: CosmosLine
     ): BroadcastReq {
-        val toSign = genToSignMsg(
-            selectedChain.chainId,
-            selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-            selectedChain.oktLcdAccountInfo?.value?.sequence,
-            msgs,
-            fee,
-            memo
-        )
-        val sig = signature(selectedChain, toSign.toSignByte())
-        val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
-            COSMOS_KEY_TYPE_PUBLIC, Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
-        )
-        val signature = Signature(
-            pubKey,
-            sig,
-            selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-            selectedChain.oktLcdAccountInfo?.value?.sequence
-        )
-        val signatures = mutableListOf<Signature>()
-        signatures.add(signature)
-
-        val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
-        return BroadcastReq("sync", signedTx.value)
-    }
-
-    // Legacy Tx
-    fun oktBroadcast(
-        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: ChainOkt60
-    ): BroadcastReq {
-        if (!selectedChain.evmCompatible) {
-            return broadcast(msgs, fee, memo, selectedChain)
-
-        } else {
+        (selectedChain as ChainOkt996Secp).apply {
             val toSign = genToSignMsg(
-                selectedChain.chainId,
-                selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-                selectedChain.oktLcdAccountInfo?.value?.sequence,
+                chainId,
+                oktLcdAccountInfo?.value?.accountNumber,
+                oktLcdAccountInfo?.value?.sequence,
                 msgs,
                 fee,
                 memo
             )
-            val sig = ethermintSignature(selectedChain, toSign.toSignByte())
+            val sig = signature(this, toSign.toSignByte())
             val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
-                ETHERMINT_KEY_TYPE_PUBLIC,
-                Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
+                COSMOS_KEY_TYPE_PUBLIC, Strings.fromByteArray(encode(publicKey, DEFAULT))
             )
             val signature = Signature(
                 pubKey,
                 sig,
-                selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-                selectedChain.oktLcdAccountInfo?.value?.sequence
+                oktLcdAccountInfo?.value?.accountNumber,
+                oktLcdAccountInfo?.value?.sequence
             )
             val signatures = mutableListOf<Signature>()
             signatures.add(signature)
 
             val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
             return BroadcastReq("sync", signedTx.value)
+        }
+    }
+
+    // Legacy Tx
+    fun oktBroadcast(
+        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: CosmosLine
+    ): BroadcastReq {
+        if (!selectedChain.evmCompatible) {
+            return broadcast(msgs, fee, memo, selectedChain)
+
+        } else {
+            (selectedChain as ChainOkt996Keccak).apply {
+                val toSign = genToSignMsg(
+                    selectedChain.chainId,
+                    selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+                    selectedChain.oktLcdAccountInfo?.value?.sequence,
+                    msgs,
+                    fee,
+                    memo
+                )
+                val sig = ethermintSignature(selectedChain, toSign.toSignByte())
+                val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
+                    ETHERMINT_KEY_TYPE_PUBLIC,
+                    Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
+                )
+                val signature = Signature(
+                    pubKey,
+                    sig,
+                    selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+                    selectedChain.oktLcdAccountInfo?.value?.sequence
+                )
+                val signatures = mutableListOf<Signature>()
+                signatures.add(signature)
+
+                val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
+                return BroadcastReq("sync", signedTx.value)
+            }
         }
     }
 

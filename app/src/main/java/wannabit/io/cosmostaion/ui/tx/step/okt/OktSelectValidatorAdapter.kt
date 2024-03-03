@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.ItemOktSelectValidatorBinding
 
 class OktSelectValidatorAdapter(
-    private val selectedChain: ChainOkt60
+    private val selectedChain: ChainOkt996Keccak
 ): ListAdapter<OktValidatorResponse, OktSelectValidatorViewHolder>(OktSelectValidatorDiffCallback()) {
 
     private var onItemClickListener: ((Int) -> Unit)? = null

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.option.tx.address
 
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,26 +17,48 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 
-class AddressFragment(
-    private val selectedChain: CosmosLine,
-    private val selectedRecipientChain: CosmosLine?,
-    private val existAddress: String,
-    private val addressType: AddressType?,
-    val listener: AddressListener
-) : BottomSheetDialogFragment() {
+class CommonAddressFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var fromChain: CosmosLine
+    private var existAddress = ""
+    private lateinit var addressType: AddressType
+
+    private var addressBookMemo = ""
+
     private val txViewModel: TxViewModel by activityViewModels()
 
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            fromChain: CosmosLine,
+            existAddress: String,
+            addressType: AddressType,
+            listener: AddressListener
+        ): CommonAddressFragment {
+            val args = Bundle().apply {
+                putSerializable("fromChain", fromChain)
+                putString("existAddress", existAddress)
+                putSerializable("addressType", addressType)
+            }
+            val fragment = CommonAddressFragment()
+            fragment.arguments = args
+            fragment.addressListener = listener
+            return fragment
+        }
+    }
+
+    private var addressListener: AddressListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,6 +77,26 @@ class AddressFragment(
 
     private fun initView() {
         binding.apply {
+            arguments?.apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    getSerializable(
+                        "fromChain", CosmosLine::class.java
+                    )?.let { fromChain = it }
+                    getSerializable(
+                        "addressType", AddressType::class.java
+                    )?.let { addressType = it }
+
+                } else {
+                    (getSerializable("fromChain") as? CosmosLine)?.let {
+                        fromChain = it
+                    }
+                    (getSerializable("addressType") as? AddressType)?.let {
+                        addressType = it
+                    }
+                }
+                getString("existAddress")?.let { existAddress = it }
+            }
+
             if (addressType == AddressType.REWARD_ADDRESS) {
                 title.text = getString(R.string.title_reward_recipient_address)
                 btnSelf.visibility = View.VISIBLE
@@ -72,14 +115,36 @@ class AddressFragment(
     private fun setUpClickAction() {
         binding.apply {
             btnSelf.setOnClickListener {
-                addressTxt.text = Editable.Factory.getInstance().newEditable(selectedChain.address)
+                addressTxt.text = Editable.Factory.getInstance().newEditable(fromChain.address)
             }
 
             btnQr.setOnClickListener {
-                val integrator = IntentIntegrator.forSupportFragment(this@AddressFragment)
+                val integrator = IntentIntegrator.forSupportFragment(this@CommonAddressFragment)
                 integrator.setOrientationLocked(true)
                 integrator.captureActivity = QrCodeActivity::class.java
                 qrCodeResultLauncher.launch(integrator.createScanIntent())
+            }
+
+            btnAddressBook.setOnClickListener {
+                handleOneClickWithDelay(
+                    AddressBookFragment.newInstance(fromChain,
+                        fromChain,
+                        fromChain.address,
+                        SendAssetType.ONLY_COSMOS_COIN,
+                        object : AddressBookSelectListener {
+                            override fun select(address: String, memo: String) {
+                                addressTxt.text =
+                                    Editable.Factory.getInstance().newEditable(address)
+                                existAddress = address
+                                addressBookMemo = memo
+
+                                addressListener?.selectAddress(
+                                    existAddress, addressBookMemo
+                                )
+                                dismiss()
+                            }
+                        })
+                )
             }
 
 //            btnAddressBook.setOnClickListener {
@@ -129,35 +194,35 @@ class AddressFragment(
                     }
 
                     if (addressType == AddressType.REWARD_ADDRESS) {
-                        if (selectedChain.rewardAddress.equals(address, true)) {
+                        if (fromChain.rewardAddress.equals(address, true)) {
                             requireContext().makeToast(R.string.error_same_reward_address)
                             return@setOnClickListener
                         }
 
                     } else {
-                        if (selectedChain.address.equals(address, true)) {
+                        if (fromChain.address.equals(address, true)) {
                             requireContext().makeToast(R.string.error_self_sending)
                             return@setOnClickListener
                         }
                     }
 
-                    if (BaseUtils.isValidChainAddress(
-                            selectedRecipientChain, addressTxt.text.toString().trim()
-                        )
-                    ) {
-//                        listener.selectAddress(
-//                            selectedRefAddress,
-//                            selectedAddressBook,
-//                            addressTxt.text.toString().trim()
+//                    if (BaseUtils.isValidChainAddress(
+//                            selectedRecipientChain, addressTxt.text.toString().trim()
 //                        )
-                        dismiss()
-
-                    } else {
-                        val prefix = selectedRecipientChain?.accountPrefix!!
-                        txViewModel.icnsAddress(
-                            selectedRecipientChain, addressTxt.text.toString().trim(), prefix
-                        )
-                    }
+//                    ) {
+////                        listener.selectAddress(
+////                            selectedRefAddress,
+////                            selectedAddressBook,
+////                            addressTxt.text.toString().trim()
+////                        )
+//                        dismiss()
+//
+//                    } else {
+//                        val prefix = selectedRecipientChain?.accountPrefix!!
+//                        txViewModel.icnsAddress(
+//                            selectedRecipientChain, addressTxt.text.toString().trim(), prefix
+//                        )
+//                    }
                 }
             }
         }

@@ -144,7 +144,7 @@
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check send Tx"
+                android:text="Check claim Tx"
                 android:textColor="@color/color_base01"
                 android:layout_marginStart="@dimen/space_8"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -33,13 +33,8 @@ import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
-import wannabit.io.cosmostaion.database.model.AddressBook
-import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment

@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -120,7 +121,29 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if ((fromChain as EthereumLine).supportCosmos) {
+                                if (fromChain is ChainOkt996Keccak) {
+                                    if (refAddress.dpAddress?.startsWith((toChain as ChainOkt996Keccak).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                        if (Prefs.displayLegacy) {
+                                            refAddresses.add(refAddress)
+                                        } else {
+                                            allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                                ?.let { chain ->
+                                                    if (chain.isDefault) {
+                                                        refAddresses.add(refAddress)
+                                                    }
+
+                                                } ?: run {
+                                                allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
+                                                    ?.let { evmChain ->
+                                                        if (evmChain.isDefault) {
+                                                            refAddresses.add(refAddress)
+                                                        }
+                                                    }
+                                            }
+                                        }
+                                    }
+
+                                } else if ((fromChain as EthereumLine).supportCosmos || fromChain is ChainOkt996Keccak) {
                                     if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )

@@ -11,16 +11,17 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc.newStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import io.grpc.stub.StreamObserver
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -84,7 +85,7 @@ class TxResultActivity : BaseActivity() {
             )
 
             btnConfirm.updateButtonView(true)
-            if (selectedChain is ChainBinanceBeacon || (selectedChain is ChainOkt60 && txResultType == TxResultType.COSMOS)) {
+            if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -141,7 +142,7 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
+                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -149,7 +150,7 @@ class TxResultActivity : BaseActivity() {
             }
 
             viewFailMintscan.setOnClickListener {
-                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt60) {
+                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -178,7 +179,7 @@ class TxResultActivity : BaseActivity() {
     }
 
     private fun loadHistoryTx() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { line ->
                 val stub = newStub(getChannel(line))
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
