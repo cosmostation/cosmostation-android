@@ -124,6 +124,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6"
                 android:layout_marginBottom="@dimen/space_15"
+                android:ellipsize="middle"
+                android:maxLines="1"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

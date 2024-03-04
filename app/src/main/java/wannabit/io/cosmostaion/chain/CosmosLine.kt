@@ -589,7 +589,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainXplaKeccak256())
     lines.add(ChainXpla())
     lines.add(ChainBinanceBeacon())
-//    lines.add(ChainOkt60())
     lines.add(ChainOkt996Keccak())
     lines.add(ChainOkt996Secp())
 

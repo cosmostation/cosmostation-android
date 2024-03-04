@@ -27,6 +27,7 @@ class CurrencyViewHolder(
                 R.drawable.icon_jpy,
                 R.drawable.icon_cny,
                 R.drawable.icon_rub,
+                R.drawable.icon_baht,
                 R.drawable.icon_gbp,
                 R.drawable.icon_inr,
                 R.drawable.icon_brl,

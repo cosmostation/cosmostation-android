@@ -6,7 +6,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
 class ChainManageViewHolder(
@@ -29,7 +29,7 @@ class ChainManageViewHolder(
                             endpoint.text = line.lcdUrl
                         }
 
-                        is ChainOkt60 -> {
+                        is ChainOkt996Keccak -> {
                             endpointType.text = "LCD"
                             endpoint.text = line.lcdUrl
                         }

@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
+import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookType
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
@@ -149,6 +150,8 @@ class TransferTxResultActivity : BaseActivity() {
                 loading.visibility = View.GONE
                 if (evmRecipient?.isStatusOK == true) {
                     successLayout.visibility = View.VISIBLE
+                    showAddressBook()
+
                 } else {
                     failLayout.visibility = View.VISIBLE
                     failMsg.text = evmRecipient?.logsBloom.toString()
@@ -299,49 +302,32 @@ class TransferTxResultActivity : BaseActivity() {
     private fun showAddressBook() {
         lifecycleScope.launch(Dispatchers.IO) {
             AppDatabase.getInstance().addressBookDao().selectAll()
-                .firstOrNull { it.address == toAddress && it.chainName == toChain.name }
-                ?.let { existed ->
+                .firstOrNull { it.address == toAddress }?.let { existed ->
                     if (existed.memo != toMemo) {
                         withContext(Dispatchers.Main) {
-                            SetAddressFragment(existed, null, "", toMemo).show(
+                            SetAddressFragment.newInstance(
+                                existed, null, "", toMemo, AddressBookType.AfterTxEdit
+                            ).show(
                                 supportFragmentManager, SetAddressFragment::class.java.name
                             )
                         }
                     }
                     return@launch
+
+                } ?: run {
+                if (AppDatabase.getInstance().refAddressDao().selectAll()
+                        .none { it.dpAddress == toAddress || it.evmAddress == toAddress }
+                ) {
+                    withContext(Dispatchers.Main) {
+                        SetAddressFragment.newInstance(
+                            null, toChain, toAddress, toMemo, AddressBookType.AfterTxNew
+                        ).show(
+                            supportFragmentManager, SetAddressFragment::class.java.name
+                        )
+                    }
                 }
-
-//            if (AppDatabase.getInstance().refAddressDao().selectAll()
-//                    .none { it.dpAddress == toAddress }
-//            ) {
-//                withContext(Dispatchers.Main) {
-//                    SetAddressFragment(null, toChain, toAddress, toMemo).show(
-//                        supportFragmentManager, SetAddressFragment::class.java.name
-//                    )
-//                }
-//                return@launch
-//            }
+            }
         }
-//            AppDatabase.getInstance().addressBookDao().selectAll()
-//                .firstOrNull { it.address == toAddress && it.chainName == toChain.name }
-//                ?.let { existed ->
-//                    if (existed.memo != toMemo) {
-//                        withContext(Dispatchers.Main) {
-//                            SetAddressFragment(existed, null, "", toMemo).show(
-//                                supportFragmentManager, SetAddressFragment::class.java.name
-//                            )
-//                        }
-//                    }
-//                    return@launch
-//                }
-
-//            if (AppDatabase.getInstance().refAddressDao().selectAll().none { it.dpAddress == toAddress }) {
-//                withContext(Dispatchers.Main) {
-//                    SetAddressFragment(null, toChain, toAddress, toMemo).show(
-//                        supportFragmentManager, SetAddressFragment::class.java.name
-//                    )
-//                }
-//            }
     }
 
     private fun showMoreWait() {

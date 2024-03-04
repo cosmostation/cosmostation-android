@@ -227,7 +227,6 @@ class WithdrawEarningFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     InsertAmountFragment(
                         TxType.EARN_WITHDRAW,
-                        null,
                         availableAmount,
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let { denom ->

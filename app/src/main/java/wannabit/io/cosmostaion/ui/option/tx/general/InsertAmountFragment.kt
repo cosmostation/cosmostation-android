@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
-import wannabit.io.cosmostaion.ui.tx.step.TransferAssetType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -25,7 +24,6 @@ interface AmountSelectListener {
 
 class InsertAmountFragment(
     private val txType: TxType?,
-    private val transferAssetType: TransferAssetType?,
     private val availAmount: BigDecimal?,
     private val toAmount: String?,
     private val selectedAsset: Asset?,
@@ -57,15 +55,6 @@ class InsertAmountFragment(
     private fun initView() {
         binding.apply {
             when (txType) {
-                TxType.TRANSFER -> {
-                    if (transferAssetType == TransferAssetType.COIN_TRANSFER) {
-                        setAssetAmount()
-                    } else {
-                        setTokenAmount()
-                    }
-                    editLayout.setHint(R.string.str_send_amount)
-                }
-
                 TxType.DELEGATE -> {
                     editLayout.setHint(R.string.title_delegate_amount)
                     setAssetAmount()

@@ -87,9 +87,12 @@ class DashboardAdapter(
                     }
 
                 } else {
-                    val line = displayCosmosLines[position - (displayEvmLines.size + 2)]
+                    val line = if (displayEvmLines.isNotEmpty()) {
+                        displayCosmosLines[position - (displayEvmLines.size + 2)]
+                    } else {
+                        displayCosmosLines[position - 1]
+                    }
                     holder.bind(line)
-
                     holder.itemView.setOnClickListener {
                         if (line.fetched) onItemClickListener?.let { it(line.tag) }
                         else return@setOnClickListener
@@ -124,14 +127,23 @@ class DashboardAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_ETHEREUM_HEADER
-        else if (position < displayEvmLines.size + 1) VIEW_TYPE_ETHEREUM_ITEM
-        else if (position < displayEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
-        else VIEW_TYPE_COSMOS_ITEM
+        return if (displayEvmLines.isNotEmpty()) {
+            if (position == 0) VIEW_TYPE_ETHEREUM_HEADER
+            else if (position < displayEvmLines.size + 1) VIEW_TYPE_ETHEREUM_ITEM
+            else if (position < displayEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
+            else VIEW_TYPE_COSMOS_ITEM
+        } else {
+            if (position == 0) VIEW_TYPE_COSMOS_HEADER
+            else VIEW_TYPE_COSMOS_ITEM
+        }
     }
 
     override fun getItemCount(): Int {
-        return displayEvmLines.size + displayCosmosLines.size + 2
+        return if (displayEvmLines.isNotEmpty()) {
+            displayEvmLines.size + displayCosmosLines.size + 2
+        } else {
+            displayCosmosLines.size + 1
+        }
     }
 
     inner class DashboardHeaderViewHolder(

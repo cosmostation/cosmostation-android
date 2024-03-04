@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.data.model.res.Coin
@@ -90,11 +91,14 @@ class CoinFragment : Fragment() {
             coinAdapter.setOnItemClickListener { line, denom, position ->
                 val sendAssetType = if (position == 0) {
                     if (line is EthereumLine) {
-                        if (line.supportCosmos) {
+                        if (line is ChainOktEvm) {
+                            SendAssetType.ONLY_EVM_COIN
+                        } else if (line.supportCosmos) {
                             SendAssetType.COSMOS_EVM_COIN
                         } else {
                             SendAssetType.ONLY_EVM_COIN
                         }
+
                     } else {
                         SendAssetType.ONLY_COSMOS_COIN
                     }
@@ -170,6 +174,20 @@ class CoinFragment : Fragment() {
                     nativeCoins.sortBy { it.denom }
                 }
 
+                is ChainOktEvm -> {
+                    (selectedChain as ChainOktEvm).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
+                        if (balance.denom == stakeDenom) {
+                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
+                        } else {
+                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
+                        }
+                    }
+                    if (stakeCoins.none { it.denom == stakeDenom }) {
+                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+                    }
+                    nativeCoins.sortBy { it.denom }
+                }
+
                 else -> {
                     selectedChain.cosmosBalances?.forEach { coin ->
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
@@ -219,7 +237,11 @@ class CoinFragment : Fragment() {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                    if (selectedChain is EthereumLine) {
+                        ApplicationViewModel.shared.loadEvmChainData(selectedChain as EthereumLine, account.id, false)
+                    } else {
+                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                    }
                 }
             }
         }

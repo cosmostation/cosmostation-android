@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,9 +60,6 @@ class ChainEditViewHolder(
             }
 
             editView.setOnClickListener {
-                if (line.tag == "ethereum60") {
-                    return@setOnClickListener
-                }
                 if (displayEvmChains.contains(line.tag)) {
                     displayEvmChains.removeIf { it == line.tag }
                 } else {
@@ -88,45 +84,54 @@ class ChainEditViewHolder(
 
             if (baseAccount.type == BaseAccountType.MNEMONIC) {
                 chainPath.text = line.getHDPath(baseAccount.lastHDPath)
-                if (line.evmCompatible) {
+                if (!line.isDefault) {
                     chainLegacy.visibility = View.VISIBLE
-                    chainLegacy.text = context.getString(R.string.str_evm)
-                    chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
-                    chainLegacy.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base01
-                        )
-                    )
-                } else if (!line.isDefault) {
-                    chainLegacy.visibility = View.VISIBLE
-                    chainLegacy.text = context.getString(R.string.str_legacy)
-                    chainLegacy.setBackgroundResource(R.drawable.round_box_deprecated)
-                    chainLegacy.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base02
-                        )
-                    )
+                    chainTypeBadge.visibility = View.VISIBLE
+                    when (line.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
                 } else {
                     chainLegacy.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
                 }
 
             } else {
                 chainPath.visibility = View.GONE
-                if (line.evmCompatible) {
+                if (!line.isDefault) {
                     chainLegacy.visibility = View.VISIBLE
-                    chainLegacy.text = context.getString(R.string.str_evm)
-                    chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
-                    chainLegacy.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base01
-                        )
-                    )
+                    chainTypeBadge.visibility = View.VISIBLE
+                    when (line.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
                     val layoutParams = chainLegacy.layoutParams as ViewGroup.MarginLayoutParams
                     layoutParams.setMargins(0, 2, 0, 0)
                     chainLegacy.layoutParams = layoutParams
 
                 } else {
                     chainLegacy.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
                 }
             }
 

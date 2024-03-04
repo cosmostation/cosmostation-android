@@ -52,11 +52,11 @@
                 style="@style/font_sb_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxWidth="@dimen/space_100"
-                android:maxLines="1"
-                android:ellipsize="middle"
                 android:layout_marginStart="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_3"
+                android:ellipsize="middle"
+                android:maxWidth="@dimen/space_100"
+                android:maxLines="1"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toEndOf="@+id/chain_img"
                 app:layout_constraintTop_toBottomOf="@+id/chain_name" />
@@ -66,15 +66,32 @@
                 style="@style/font_sm_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_6"
+                android:layout_marginStart="@dimen/space_4"
                 android:layout_marginTop="@dimen/space_3"
                 android:background="@drawable/round_box_deprecated"
                 android:paddingHorizontal="@dimen/space_6"
                 android:paddingVertical="@dimen/space_2"
+                android:text="@string/str_legacy"
                 android:textAllCaps="true"
                 android:textColor="@color/color_base02"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/chain_path"
+                app:layout_constraintTop_toBottomOf="@+id/chain_name" />
+
+            <TextView
+                android:id="@+id/chain_type_badge"
+                style="@style/font_sm_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_2"
+                android:layout_marginTop="@dimen/space_3"
+                android:background="@drawable/round_box_deprecated"
+                android:paddingHorizontal="@dimen/space_6"
+                android:paddingVertical="@dimen/space_2"
+                android:textAllCaps="false"
+                android:textColor="@color/color_base02"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/chain_legacy"
                 app:layout_constraintTop_toBottomOf="@+id/chain_name" />
 
             <com.facebook.shimmer.ShimmerFrameLayout

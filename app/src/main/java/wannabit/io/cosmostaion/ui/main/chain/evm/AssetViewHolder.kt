@@ -53,33 +53,31 @@ class AssetViewHolder(
     fun tokenBind(evmLine: EthereumLine, token: Token) {
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
-            evmLine.address?.let { address ->
-                assetImg.setTokenImg(token.assetImg())
-                assetName.text = token.symbol
+            assetImg.setTokenImg(token.assetImg())
+            assetName.text = token.symbol
 
-                assetPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))
-                BaseData.lastUpDown(token.coinGeckoId).let { lastUpDown ->
-                    assetPriceChange.priceChangeStatusColor(lastUpDown)
-                    assetPriceChange.text = priceChangeStatus(lastUpDown)
-                }
-
-                token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
-                    ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
-                        if (Prefs.hideValue) {
-                            assetAmount.visibility = View.GONE
-                            assetAmountValue.visibility = View.GONE
-                            hideValue.visibility = View.VISIBLE
-                        } else {
-                            assetAmount.visibility = View.VISIBLE
-                            assetAmountValue.visibility = View.VISIBLE
-                            hideValue.visibility = View.GONE
-
-                            assetAmount.text = formatAmount(amount.toPlainString(), 6)
-                            assetAmountValue.text =
-                                formatAssetValue(evmLine.tokenValue(address))
-                        }
-                    }
+            assetPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))
+            BaseData.lastUpDown(token.coinGeckoId).let { lastUpDown ->
+                assetPriceChange.priceChangeStatusColor(lastUpDown)
+                assetPriceChange.text = priceChangeStatus(lastUpDown)
             }
+
+            token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
+                ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
+                    if (Prefs.hideValue) {
+                        assetAmount.visibility = View.GONE
+                        assetAmountValue.visibility = View.GONE
+                        hideValue.visibility = View.VISIBLE
+                    } else {
+                        assetAmount.visibility = View.VISIBLE
+                        assetAmountValue.visibility = View.VISIBLE
+                        hideValue.visibility = View.GONE
+
+                        assetAmount.text = formatAmount(amount.toPlainString(), 6)
+                        assetAmountValue.text =
+                            formatAssetValue(evmLine.tokenValue(token.address))
+                    }
+                }
         }
     }
 }

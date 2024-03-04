@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -113,7 +112,7 @@ class CosmosDetailFragment : Fragment() {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
 
-                if (selectedChain is EthereumLine && selectedChain.supportStaking) {
+                if (selectedChain is EthereumLine && (selectedChain as EthereumLine).supportCosmos) {
                     accountAddress.text = selectedChain.address
                     accountEvmAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
                     accountAddress.visibility = View.INVISIBLE
@@ -122,9 +121,6 @@ class CosmosDetailFragment : Fragment() {
                     handler.postDelayed(starEvmAddressAnimation, 5000)
                     btnAccount.setImageResource(R.drawable.icon_eth_account)
 
-                } else if (selectedChain is ChainOkt60 || selectedChain.tag == "xplaKeccak256") {
-                    accountAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
-                    btnAccount.setImageResource(R.drawable.btn_account)
                 } else {
                     accountAddress.text = selectedChain.address
                     btnAccount.setImageResource(R.drawable.btn_account)

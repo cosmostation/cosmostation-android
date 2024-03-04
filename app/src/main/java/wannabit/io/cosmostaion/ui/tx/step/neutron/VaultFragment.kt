@@ -258,7 +258,6 @@ class VaultFragment : BaseTxFragment() {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
                     InsertAmountFragment(insertTxType(),
-                        null,
                         availableAmount,
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let {

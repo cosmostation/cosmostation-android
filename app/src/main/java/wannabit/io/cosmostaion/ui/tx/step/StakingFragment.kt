@@ -293,7 +293,6 @@ class StakingFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     InsertAmountFragment(
                         TxType.DELEGATE,
-                        null,
                         availableAmount,
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let { denom ->

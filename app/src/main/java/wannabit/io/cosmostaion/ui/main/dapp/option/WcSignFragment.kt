@@ -14,7 +14,8 @@ import com.google.gson.JsonParser
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.databinding.FragmentWcSignBinding
@@ -50,7 +51,7 @@ class WcSignFragment(
     private fun initView() {
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
-            if (selectedChain is ChainKava60) {
+            if (selectedChain is ChainKavaEvm || selectedChain is ChainKava459) {
                 initWc1DataView(data)
             } else {
                 try {

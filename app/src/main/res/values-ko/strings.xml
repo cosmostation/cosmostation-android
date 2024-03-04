@@ -259,6 +259,7 @@
     <string name="str_data_synchronizing">데이터 동기화중입니다</string>
     <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encription Key를 입력하세요.</string>
     <string name="str_broadcasting_msg">현재 트랜잭션이 실행 중입니다.\n잠시만 기다려 주세요.</string>
+    <string name="str_addressbook_memo_changed_msg">기존 주소록과 비교해서 메모가 변경되었습니다.\n새로운 메모로 업데이트 하시겠습니까?</string>
 
 
     // error

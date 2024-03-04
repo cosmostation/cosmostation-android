@@ -344,7 +344,6 @@ class MintActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.MINT_DEPOSIT,
-                                null,
                                 collateralAvailableAmount,
                                 toCollateralAmount,
                                 collateralAsset,
@@ -361,7 +360,6 @@ class MintActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.MINT_WITHDRAW,
-                                null,
                                 collateralAvailableAmount,
                                 toCollateralAmount,
                                 collateralAsset,
@@ -378,7 +376,6 @@ class MintActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.MINT_BORROW,
-                                null,
                                 principalAvailableAmount,
                                 toPrincipalAmount,
                                 principalAsset,
@@ -395,7 +392,6 @@ class MintActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.MINT_REPAY,
-                                null,
                                 principalAvailableAmount,
                                 toPrincipalAmount,
                                 principalAsset,

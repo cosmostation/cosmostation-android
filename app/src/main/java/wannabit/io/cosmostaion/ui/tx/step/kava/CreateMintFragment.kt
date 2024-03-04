@@ -270,7 +270,6 @@ class CreateMintFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     InsertAmountFragment(
                         TxType.MINT_CREATE_COLLATERAL,
-                        null,
                         collateralAvailableAmount,
                         toCollateralAmount,
                         collateralAsset,
@@ -287,7 +286,6 @@ class CreateMintFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     InsertAmountFragment(
                         TxType.MINT_CREATE_PRINCIPAL,
-                        null,
                         collateralParam?.expectUSDXLTV(
                             toCollateralAmount.toBigDecimal(), priceFeed
                         ),

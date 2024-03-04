@@ -322,7 +322,6 @@ class LendActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.LEND_DEPOSIT,
-                                null,
                                 availableAmount,
                                 toLendAmount,
                                 msAsset,
@@ -340,7 +339,6 @@ class LendActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.LEND_WITHDRAW,
-                                null,
                                 availableAmount,
                                 toLendAmount,
                                 msAsset,
@@ -357,7 +355,6 @@ class LendActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.LEND_BORROW,
-                                null,
                                 availableAmount,
                                 toLendAmount,
                                 msAsset,
@@ -374,7 +371,6 @@ class LendActionFragment : BaseTxFragment() {
                         handleOneClickWithDelay(
                             InsertAmountFragment(
                                 TxType.LEND_REPAY,
-                                null,
                                 availableAmount,
                                 toLendAmount,
                                 msAsset,

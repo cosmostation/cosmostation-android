@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -47,6 +47,7 @@ class WalletSelectFragment : Fragment() {
     private var toAddAccount: BaseAccount? = null
     private var selectHdPath = 0
 
+    private var selectedEvmTags: MutableList<String> = mutableListOf()
     private var selectedCosmosTags: MutableList<String> = mutableListOf()
 
     companion object {
@@ -108,6 +109,7 @@ class WalletSelectFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             toAddAccount?.let { account ->
                 account.apply {
+                    allEvmLineChains = allEvmLines()
                     allCosmosLineChains = allCosmosLines()
                 }
                 withContext(Dispatchers.Main) {
@@ -121,17 +123,10 @@ class WalletSelectFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             toAddAccount?.let { account ->
                 account.apply {
+                    allEvmLineChains = allEvmLines()
                     allCosmosLineChains =
                         allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }
                             .toMutableList()
-                    allCosmosLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
-                        }
-                        if (!line.fetched) {
-                            walletViewModel.balance(line)
-                        }
-                    }
                     withContext(Dispatchers.Main) {
                         updateView()
                     }
@@ -143,7 +138,7 @@ class WalletSelectFragment : Fragment() {
     private fun updateView() {
         binding.apply {
             toAddAccount?.let { account ->
-                if (account.allCosmosLineChains.isNotEmpty()) {
+                if (account.allEvmLineChains.isNotEmpty() && account.allCosmosLineChains.isNotEmpty()) {
                     loading.visibility = View.GONE
                     recycler.visibility = View.VISIBLE
                     btnRestoreWallet.updateButtonView(true)
@@ -160,12 +155,18 @@ class WalletSelectFragment : Fragment() {
         binding.apply {
             recycler.itemAnimator = null
             walletSelectAdapter = WalletSelectAdapter(
-                requireContext(), account, selectedCosmosTags, selectClickAction
+                requireContext(),
+                account,
+                account.allEvmLineChains,
+                account.allCosmosLineChains,
+                selectedEvmTags,
+                selectedCosmosTags,
+                selectClickAction
             )
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = walletSelectAdapter
-            walletSelectAdapter.submitList(account.allCosmosLineChains)
+            walletSelectAdapter.submitList(account.allEvmLineChains + account.allCosmosLineChains)
 
             loadBalanceData(account)
         }
@@ -174,14 +175,44 @@ class WalletSelectFragment : Fragment() {
     private fun loadBalanceData(account: BaseAccount) {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
-                val wordList = mnemonic.split(" ")
-                val seed = BaseKey.getByteSeedFromWords(wordList)
-                allCosmosLineChains.forEach { line ->
-                    if (line.address?.isEmpty() == true) {
-                        line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                if (mnemonic.isNotEmpty()) {
+                    val wordList = mnemonic.split(" ")
+                    val seed = BaseKey.getByteSeedFromWords(wordList)
+                    allEvmLineChains.forEach { evmLine ->
+                        if (evmLine.address?.isEmpty() == true) {
+                            evmLine.setInfoWithSeed(seed, evmLine.setParentPath, lastHDPath)
+                        }
+                        if (!evmLine.fetched) {
+                            walletViewModel.evmBalance(evmLine)
+                        }
                     }
-                    if (!line.fetched) {
-                        walletViewModel.balance(line)
+
+                    allCosmosLineChains.forEach { line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        }
+                        if (!line.fetched) {
+                            walletViewModel.balance(line)
+                        }
+                    }
+
+                } else {
+                    allEvmLineChains.forEach { evmLine ->
+                        if (evmLine.address?.isEmpty() == true) {
+                            evmLine.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                        }
+                        if (!evmLine.fetched) {
+                            walletViewModel.evmBalance(evmLine)
+                        }
+                    }
+
+                    allCosmosLineChains.forEach { line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                        }
+                        if (!line.fetched) {
+                            walletViewModel.balance(line)
+                        }
                     }
                 }
             }
@@ -190,13 +221,23 @@ class WalletSelectFragment : Fragment() {
 
     private fun setupLoadedData() {
         walletViewModel.balanceResult.observe(viewLifecycleOwner) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 toAddAccount?.let { account ->
+                    for (i in 0 until account.allEvmLineChains.size) {
+                        if (account.allEvmLineChains[i].fetched) {
+                            withContext(Dispatchers.Main) {
+                                if (::walletSelectAdapter.isInitialized) {
+                                    walletSelectAdapter.notifyItemChanged(i + 1)
+                                }
+                            }
+                        }
+                    }
+
                     for (i in 0 until account.allCosmosLineChains.size) {
                         if (account.allCosmosLineChains[i].fetched) {
                             withContext(Dispatchers.Main) {
                                 if (::walletSelectAdapter.isInitialized) {
-                                    walletSelectAdapter.notifyItemChanged(i + 1)
+                                    walletSelectAdapter.notifyItemChanged(i + account.allEvmLineChains.size + 2)
                                 }
                             }
                         }
@@ -213,6 +254,10 @@ class WalletSelectFragment : Fragment() {
     private val selectClickAction = object : WalletSelectAdapter.SelectListener {
         override fun select(selectTags: MutableList<String>) {
             selectedCosmosTags = selectTags
+        }
+
+        override fun evmSelect(selectEvmTags: MutableList<String>) {
+            selectedEvmTags = selectEvmTags
         }
     }
 
@@ -274,6 +319,7 @@ class WalletSelectFragment : Fragment() {
     }
 
     private fun onInitDataWithSelectedHdPath() {
+        selectedEvmTags.clear()
         selectedCosmosTags.clear()
         selectedCosmosTags.add("cosmos118")
         binding.btnRestoreWallet.updateButtonView(false)
@@ -288,6 +334,7 @@ class WalletSelectFragment : Fragment() {
     private fun checkRestore() {
         accountViewModel.create.observe(viewLifecycleOwner) {
             BaseData.baseAccount?.let { account ->
+                Prefs.setDisplayEvmChains(account, selectedEvmTags)
                 Prefs.setDisplayChains(account, selectedCosmosTags)
                 ApplicationViewModel.shared.currentAccount(account, true)
 

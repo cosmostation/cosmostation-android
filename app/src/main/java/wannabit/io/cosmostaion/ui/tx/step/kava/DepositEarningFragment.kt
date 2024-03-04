@@ -300,7 +300,6 @@ class DepositEarningFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     InsertAmountFragment(
                         TxType.EARN_DEPOSIT,
-                        null,
                         availableAmount,
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let { denom ->

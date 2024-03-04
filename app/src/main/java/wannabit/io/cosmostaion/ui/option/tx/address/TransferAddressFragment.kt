@@ -167,11 +167,11 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
                         if (BaseUtils.isValidChainAddress(
-                                toChain as EthereumLine, addressTxt.text.toString().trim()
+                                toChain as EthereumLine, address
                             )
                         ) {
                             addressListener?.selectAddress(
-                                existAddress, addressBookMemo
+                                address, addressBookMemo
                             )
                             dismiss()
                             return@setOnClickListener
@@ -183,11 +183,11 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                         if (BaseUtils.isValidChainAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim()
+                                toChain as CosmosLine, address
                             )
                         ) {
                             addressListener?.selectAddress(
-                                existAddress, addressBookMemo
+                                address, addressBookMemo
                             )
                             dismiss()
                             return@setOnClickListener

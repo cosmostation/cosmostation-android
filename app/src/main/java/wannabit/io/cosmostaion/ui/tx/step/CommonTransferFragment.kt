@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -400,6 +401,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun updateRecipientAddressView(address: String) {
         binding.apply {
+            Log.e("Test1234 : ", address)
             toAddress = address
             if (address.isEmpty()) {
                 recipientAddressMsg.text = getString(R.string.str_tap_for_add_address_msg)
@@ -606,6 +608,7 @@ class CommonTransferFragment : BaseTxFragment() {
             }
 
             sendAssetView.setOnClickListener {
+                Log.e("Test1234 : ", availableAmount.toString())
                 handleOneClickWithDelay(
                     TransferAmountFragment.newInstance(fromChain,
                         toSendAsset,

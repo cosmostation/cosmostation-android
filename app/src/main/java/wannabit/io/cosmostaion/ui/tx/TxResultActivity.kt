@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -119,7 +119,7 @@ class TxResultActivity : BaseActivity() {
     private fun updateView() {
         binding.apply {
             if (isSuccess) {
-                if (selectedChain is ChainOkt60) {
+                if (selectedChain is ChainOktEvm) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         loading.visibility = View.GONE
                         successLayout.visibility = View.VISIBLE

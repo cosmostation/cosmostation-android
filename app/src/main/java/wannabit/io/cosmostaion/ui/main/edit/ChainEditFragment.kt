@@ -15,9 +15,8 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -64,10 +63,12 @@ class ChainEditFragment : BaseTxFragment() {
                 account.apply {
                     lifecycleScope.launch(Dispatchers.IO) {
                         sortLine()
-                        searchEvmChains.addAll(allEvmLineChains)
+                        allEvmChains.addAll(allEvmLineChains)
+                        searchEvmChains.addAll(allEvmChains)
                         toDisplayEvmChains.addAll(Prefs.getDisplayEvmChains(account))
 
-                        searchChains.addAll(allCosmosLineChains)
+                        allCosmosChains.addAll(allCosmosLineChains)
+                        searchChains.addAll(allCosmosChains)
                         toDisplayChains.addAll(Prefs.getDisplayChains(account))
 
                         withContext(Dispatchers.Main) {
@@ -83,6 +84,9 @@ class ChainEditFragment : BaseTxFragment() {
                                 cosmosClickAction
                             )
                             recycler.adapter = chainEditAdapter
+
+                            btnSelect.updateSelectButtonView(allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched })
+                            progress.goneOrVisible(allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched })
                         }
                         initAllData(account)
                     }
@@ -95,7 +99,7 @@ class ChainEditFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    for (line in allEvmLines()) {
+                    for (line in allEvmChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -104,7 +108,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                    for (line in allCosmosLines()) {
+                    for (line in allCosmosChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -114,7 +118,7 @@ class ChainEditFragment : BaseTxFragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    for (line in allEvmLines()) {
+                    for (line in allEvmChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -123,7 +127,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                    for (line in allCosmosLines()) {
+                    for (line in allCosmosChains) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -139,7 +143,7 @@ class ChainEditFragment : BaseTxFragment() {
     private fun setupLoadedView() {
         ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) {
             lifecycleScope.launch(Dispatchers.IO) {
-                searchEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
+                allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
                     .let { fetchedEvmChainIndex ->
                         withContext(Dispatchers.Main) {
                             if (::chainEditAdapter.isInitialized) {
@@ -148,7 +152,7 @@ class ChainEditFragment : BaseTxFragment() {
                         }
                     }
 
-                searchChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
+                allCosmosChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
                     .let { fetchedChainIndex ->
                         withContext(Dispatchers.Main) {
                             if (::chainEditAdapter.isInitialized) {
@@ -158,7 +162,7 @@ class ChainEditFragment : BaseTxFragment() {
                     }
 
                 withContext(Dispatchers.Main) {
-                    if (searchEvmChains.none { !it.fetched } && searchChains.none { !it.fetched }) {
+                    if (allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched }) {
                         binding?.apply {
                             btnSelect.updateSelectButtonView(true)
                             progress.cancelAnimation()
@@ -304,12 +308,11 @@ class ChainEditFragment : BaseTxFragment() {
                         allCosmosChains = reSortCosmosChains()
 
                         toDisplayEvmChains.clear()
-                        toDisplayEvmChains.add("ethereum60")
 
                         toDisplayChains.clear()
                         toDisplayChains.add("cosmos118")
 
-                        allEvmChains.filter { it.allAssetValue(true) > BigDecimal.ONE && it.tag != "ethereum60" }
+                        allEvmChains.filter { it.allAssetValue(true) > BigDecimal.ONE }
                             .forEach { toDisplayEvmChains.add(it.tag) }
                         allCosmosChains.filter { it.allAssetValue(true) > BigDecimal.ONE && it.tag != "cosmos118" }
                             .forEach { toDisplayChains.add(it.tag) }

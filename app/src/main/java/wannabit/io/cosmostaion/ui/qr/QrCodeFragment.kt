@@ -23,8 +23,8 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -115,7 +115,7 @@ class QrCodeFragment : BottomSheetDialogFragment() {
                     when (i) {
                         0 -> {
                             when (selectedChain) {
-                                is ChainKava60 -> {
+                                is ChainKavaEvm -> {
                                     segmentView.btnChain.drawable = ContextCompat.getDrawable(
                                         requireContext(), R.drawable.icon_kava_address
                                     )
@@ -139,7 +139,7 @@ class QrCodeFragment : BottomSheetDialogFragment() {
                     }
                 }
 
-                if (selectedChain is ChainOkt60 || selectedChain.tag == "kava60" || selectedChain.tag == "xplaKeccak256") {
+                if (selectedChain is ChainOktEvm || selectedChain.tag == "kava60" || selectedChain.tag == "xplaKeccak256") {
                     chainSegment.setPosition(1, false)
                     setQrAddress(ByteUtils.convertBech32ToEvm(selectedChain.address))
                     addressTitle.text = getString(R.string.str_ethereum_address)

@@ -262,6 +262,7 @@
     <string name="str_data_synchronizing">データ同期。</string>
     <string name="str_enter_encryption_msg">アカウントを復元するには、画面に表示される暗号化キーを入力してください。</string>
     <string name="str_broadcasting_msg">現在、トランザクションは実行中です。\n少々お待ちください</string>
+    <string name="str_addressbook_memo_changed_msg">既存のアドレス帳と比べてメモが変わりました。\n新しいメモで更新しますか?</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

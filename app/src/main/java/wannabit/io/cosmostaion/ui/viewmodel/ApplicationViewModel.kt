@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -269,58 +270,60 @@ class ApplicationViewModel(
                                     }
                                 }
                             }
-
-                            fetched = true
-                            if (fetched) {
-                                val refAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    ByteUtils.convertBech32ToEvm(address),
-                                    allAssetValue(true).toString(),
-                                    lcdBalanceAmount(stakeDenom).toString(),
-                                    "0",
-                                    lcdAccountInfo?.balances?.size?.toLong() ?: 0
-                                )
-                                BaseData.updateRefAddressesMain(refAddress)
-                                if (isEdit) {
-                                    editFetchedResult.postValue(tag)
-                                } else {
-                                    fetchedResult.postValue(tag)
-                                    fetchedRefreshResult.postValue(tag)
-                                    fetchedSendResult.postValue(tag)
-                                    fetchedStakeResult.postValue(tag)
-                                    fetchedVoteResult.postValue(tag)
-                                    fetchedClaimResult.postValue(tag)
-                                }
-                            }
                         }
 
                         is NetworkResult.Error -> {
-                            fetched = true
-                            if (fetched) {
-                                val refAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    ByteUtils.convertBech32ToEvm(address),
-                                    "0",
-                                    "0",
-                                    "0",
-                                    0
-                                )
-                                BaseData.updateRefAddressesMain(refAddress)
-                                if (isEdit) {
-                                    editFetchedResult.postValue(tag)
-                                } else {
-                                    fetchedResult.postValue(tag)
-                                    fetchedRefreshResult.postValue(tag)
-                                    fetchedSendResult.postValue(tag)
-                                    fetchedStakeResult.postValue(tag)
-                                    fetchedVoteResult.postValue(tag)
-                                    fetchedClaimResult.postValue(tag)
-                                }
-                            }
+                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        }
+                    }
+                }
+
+                fetched = true
+                if (fetched) {
+                    if (lcdAccountInfo?.address != null) {
+                        val refAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            allAssetValue(true).toString(),
+                            lcdBalanceAmount(stakeDenom).toString(),
+                            "0",
+                            lcdAccountInfo?.balances?.size?.toLong() ?: 0
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        if (isEdit) {
+                            editFetchedResult.postValue(tag)
+                        } else {
+                            fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
+                            fetchedSendResult.postValue(tag)
+                            fetchedStakeResult.postValue(tag)
+                            fetchedVoteResult.postValue(tag)
+                            fetchedClaimResult.postValue(tag)
+                        }
+
+                    } else {
+                        val refAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            "0",
+                            0
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        if (isEdit) {
+                            editFetchedResult.postValue(tag)
+                        } else {
+                            fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
+                            fetchedSendResult.postValue(tag)
+                            fetchedStakeResult.postValue(tag)
+                            fetchedVoteResult.postValue(tag)
+                            fetchedClaimResult.postValue(tag)
                         }
                     }
                 }
@@ -358,58 +361,60 @@ class ApplicationViewModel(
                                     oktTokenInfo = response.data
                                 }
                             }
-
-                            fetched = true
-                            if (fetched) {
-                                val refAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    ByteUtils.convertBech32ToEvm(address),
-                                    allAssetValue(true).toString(),
-                                    lcdBalanceAmount(stakeDenom).toString(),
-                                    "0",
-                                    oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
-                                )
-                                BaseData.updateRefAddressesMain(refAddress)
-                                if (isEdit) {
-                                    editFetchedResult.postValue(tag)
-                                } else {
-                                    fetchedResult.postValue(tag)
-                                    fetchedRefreshResult.postValue(tag)
-                                    fetchedSendResult.postValue(tag)
-                                    fetchedStakeResult.postValue(tag)
-                                    fetchedVoteResult.postValue(tag)
-                                    fetchedClaimResult.postValue(tag)
-                                }
-                            }
                         }
 
                         is NetworkResult.Error -> {
-                            fetched = true
-                            if (fetched) {
-                                val refAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    ByteUtils.convertBech32ToEvm(address),
-                                    "0",
-                                    "0",
-                                    "0",
-                                    0
-                                )
-                                BaseData.updateRefAddressesMain(refAddress)
-                                if (isEdit) {
-                                    editFetchedResult.postValue(tag)
-                                } else {
-                                    fetchedResult.postValue(tag)
-                                    fetchedRefreshResult.postValue(tag)
-                                    fetchedSendResult.postValue(tag)
-                                    fetchedStakeResult.postValue(tag)
-                                    fetchedVoteResult.postValue(tag)
-                                    fetchedClaimResult.postValue(tag)
-                                }
-                            }
+                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        }
+                    }
+                }
+
+                fetched = true
+                if (fetched) {
+                    if (oktLcdAccountInfo?.value?.address?.isNotEmpty() == true) {
+                        val refAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            allAssetValue(true).toString(),
+                            lcdBalanceAmount(stakeDenom).toString(),
+                            "0",
+                            oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        if (isEdit) {
+                            editFetchedResult.postValue(tag)
+                        } else {
+                            fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
+                            fetchedSendResult.postValue(tag)
+                            fetchedStakeResult.postValue(tag)
+                            fetchedVoteResult.postValue(tag)
+                            fetchedClaimResult.postValue(tag)
+                        }
+
+                    } else {
+                        val refAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            "0",
+                            0
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        if (isEdit) {
+                            editFetchedResult.postValue(tag)
+                        } else {
+                            fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
+                            fetchedSendResult.postValue(tag)
+                            fetchedStakeResult.postValue(tag)
+                            fetchedVoteResult.postValue(tag)
+                            fetchedClaimResult.postValue(tag)
                         }
                     }
                 }
@@ -564,62 +569,188 @@ class ApplicationViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             line.apply {
                 if (supportCosmos) {
-                    val loadParamDeferred = async { walletRepository.param(this@apply) }
-                    val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
-                    val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+                    if (this is ChainOktEvm) {
+                        val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
+                        val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
 
-                    val responses = awaitAll(
-                        loadParamDeferred, loadEvmTokenDeferred, loadEvmBalanceDeferred
-                    )
+                        val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
+                        val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
+                        val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
+                        val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }
 
-                    responses.forEach { response ->
-                        when (response) {
-                            is NetworkResult.Success -> {
-                                when (response.data) {
-                                    is Param -> {
-                                        line.param = response.data
-                                    }
+                        val responses = awaitAll(
+                            loadEvmTokenDeferred,
+                            loadEvmBalanceDeferred,
+                            loadAccountInfoDeferred,
+                            loadDepositDeferred,
+                            loadWithdrawDeferred,
+                            loadTokenDeferred
+                        )
 
-                                    is MutableList<*> -> {
-                                        if (response.data.all { it is Token }) {
-                                            evmTokens = response.data as MutableList<Token>
+                        responses.forEach { response ->
+                            when (response) {
+                                is NetworkResult.Success -> {
+                                    when (response.data) {
+                                        is MutableList<*> -> {
+                                            if (response.data.all { it is Token }) {
+                                                evmTokens = response.data as MutableList<Token>
+                                            }
+                                        }
+
+                                        is String -> {
+                                            evmBalance = response.data.toBigDecimal()
+                                        }
+
+                                        is OktAccountResponse -> {
+                                            oktLcdAccountInfo = response.data
+                                        }
+
+                                        is OktDepositedResponse -> {
+                                            oktDepositedInfo = response.data
+                                        }
+
+                                        is OktWithdrawResponse -> {
+                                            oktWithdrawInfo = response.data
+                                        }
+
+                                        is OktTokenResponse -> {
+                                            oktTokenInfo = response.data
                                         }
                                     }
+                                }
 
-                                    is String -> {
-                                        evmBalance = response.data.toBigDecimal()
-                                    }
+                                is NetworkResult.Error -> {
+                                    _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                                 }
                             }
+                        }
 
-                            is NetworkResult.Error -> {
-                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        fetched = true
+                        if (fetched) {
+                            if (oktLcdAccountInfo?.value?.address?.isNotEmpty() == true) {
+                                val refAddress = RefAddress(
+                                    baseAccountId,
+                                    tag,
+                                    address,
+                                    ByteUtils.convertBech32ToEvm(address),
+                                    allAssetValue(true).toString(),
+                                    lcdBalanceAmount(stakeDenom).toString(),
+                                    "0",
+                                    oktLcdAccountInfo?.value?.coins?.size?.toLong() ?: 0
+                                )
+                                BaseData.updateRefAddressesMain(refAddress)
+
+                                val deferredList = mutableListOf<Deferred<Unit>>()
+                                evmTokens.forEach { token ->
+                                    if (tag != "ethereum60" || token.default) {
+                                        val deferred = async { walletRepository.erc20Balance(line, token) }
+                                        deferredList.add(deferred)
+                                    }
+                                }
+
+                                runBlocking {
+                                    deferredList.awaitAll()
+
+                                    val evmRefAddress = RefAddress(
+                                        baseAccountId,
+                                        tag,
+                                        address,
+                                        ByteUtils.convertBech32ToEvm(address),
+                                        "0",
+                                        "0",
+                                        allTokenValue().toPlainString(),
+                                        0
+                                    )
+                                    BaseData.updateRefAddressesToken(evmRefAddress)
+                                }
+                                if (isEdit) {
+                                    editFetchedResult.postValue(tag)
+                                } else {
+                                    fetchedResult.postValue(tag)
+                                    fetchedRefreshResult.postValue(tag)
+                                    fetchedSendResult.postValue(tag)
+                                }
+
+                            } else {
+                                val refAddress = RefAddress(
+                                    baseAccountId,
+                                    tag,
+                                    address,
+                                    ByteUtils.convertBech32ToEvm(address),
+                                    "0",
+                                    "0",
+                                    "0",
+                                    0
+                                )
+                                BaseData.updateRefAddressesMain(refAddress)
+                                if (isEdit) {
+                                    editFetchedResult.postValue(tag)
+                                } else {
+                                    fetchedResult.postValue(tag)
+                                    fetchedRefreshResult.postValue(tag)
+                                    fetchedSendResult.postValue(tag)
+                                }
                             }
                         }
-                    }
-                    loadGrpcAuthData(this, baseAccountId, isEdit)
 
-                    val deferredList = mutableListOf<Deferred<Unit>>()
-                    evmTokens.forEach { token ->
-                        if (tag != "ethereum60" || token.default) {
-                            val deferred = async { walletRepository.erc20Balance(line, token) }
-                            deferredList.add(deferred)
+                    } else {
+                        val loadParamDeferred = async { walletRepository.param(this@apply) }
+                        val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
+                        val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+
+                        val responses = awaitAll(
+                            loadParamDeferred, loadEvmTokenDeferred, loadEvmBalanceDeferred
+                        )
+
+                        responses.forEach { response ->
+                            when (response) {
+                                is NetworkResult.Success -> {
+                                    when (response.data) {
+                                        is Param -> {
+                                            line.param = response.data
+                                        }
+
+                                        is MutableList<*> -> {
+                                            if (response.data.all { it is Token }) {
+                                                evmTokens = response.data as MutableList<Token>
+                                            }
+                                        }
+
+                                        is String -> {
+                                            evmBalance = response.data.toBigDecimal()
+                                        }
+                                    }
+                                }
+
+                                is NetworkResult.Error -> {
+                                    _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                                }
+                            }
                         }
-                    }
+                        loadGrpcAuthData(this, baseAccountId, isEdit)
 
-                    runBlocking {
-                        deferredList.awaitAll()
+                        val deferredList = mutableListOf<Deferred<Unit>>()
+                        evmTokens.forEach { token ->
+                            if (tag != "ethereum60" || token.default) {
+                                val deferred = async { walletRepository.erc20Balance(line, token) }
+                                deferredList.add(deferred)
+                            }
+                        }
 
-                        val evmRefAddress = RefAddress(baseAccountId,
-                            tag,
-                            address,
-                            ByteUtils.convertBech32ToEvm(address),
-                            "0",
-                            "0",
-                            allTokenValue().toPlainString(),
-                            cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
-                                ?.toLong())
-                        BaseData.updateRefAddressesToken(evmRefAddress)
+                        runBlocking {
+                            deferredList.awaitAll()
+
+                            val evmRefAddress = RefAddress(baseAccountId,
+                                tag,
+                                address,
+                                ByteUtils.convertBech32ToEvm(address),
+                                "0",
+                                "0",
+                                allTokenValue().toPlainString(),
+                                cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
+                                    ?.toLong())
+                            BaseData.updateRefAddressesToken(evmRefAddress)
+                        }
                     }
 
                 } else {

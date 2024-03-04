@@ -326,6 +326,7 @@
     <string name="str_data_synchronizing">Data Synchronizing.</string>
     <string name="str_enter_encryption_msg">Enter the Encryption Key displayed on the screen to restore your account.</string>
     <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
+    <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
 
 
     // header
@@ -622,6 +623,7 @@
         <item>JPY</item>
         <item>CNY</item>
         <item>RUB</item>
+        <item>THB</item>
         <item>GBP</item>
         <item>INR</item>
         <item>BRL</item>
@@ -642,6 +644,7 @@
         <item>Japan</item>
         <item>China</item>
         <item>Russia</item>
+        <item>Thailand</item>
         <item>United Kingdom</item>
         <item>India</item>
         <item>Brazil</item>

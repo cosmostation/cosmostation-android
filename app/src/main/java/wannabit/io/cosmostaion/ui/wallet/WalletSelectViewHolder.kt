@@ -3,21 +3,73 @@ package wannabit.io.cosmostaion.ui.wallet
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectBinding
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class WalletSelectViewHolder(
     val context: Context, private val binding: ItemWalletSelectBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    fun evmBind(
+        account: BaseAccount,
+        line: EthereumLine,
+        selectedEvmTags: MutableList<String>,
+        evmSelectListener: WalletSelectAdapter.SelectListener
+    ) {
+        binding.apply {
+            chainImg.setImageResource(line.logo)
+            chainName.text = line.name.uppercase()
+            if (account.type == BaseAccountType.MNEMONIC) {
+                chainPath.text = line.getHDPath(account.lastHDPath)
+            } else {
+                chainPath.text = line.address
+            }
+            updateView(line, selectedEvmTags)
+
+            if (line.fetched) {
+                val availableAmount =
+                    line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+                chainBalance.text = formatAmount(availableAmount.toString(), 18)
+                chainDenom.text = line.coinSymbol
+                line.stakeDenom?.let { denom ->
+                    BaseData.getAsset(line.apiName, denom)?.let { asset ->
+                        chainDenom.setTextColor(asset.assetColor())
+                    }
+                } ?: run {
+                    chainDenom.setTextColor(Color.parseColor("#ffffff"))
+                }
+
+                if (line.evmBalance > BigDecimal.ZERO) {
+                    chainAssetCnt.text = "1 Coins"
+                } else {
+                    chainAssetCnt.text = "0 Coins"
+                }
+
+                skeletonChainValue.visibility = View.GONE
+            }
+
+            selectView.setOnClickListener {
+                if (selectedEvmTags.contains(line.tag)) {
+                    selectedEvmTags.removeIf { it == line.tag }
+                } else {
+                    selectedEvmTags.add(line.tag)
+                }
+                updateView(line, selectedEvmTags)
+                evmSelectListener.evmSelect(selectedEvmTags)
+            }
+        }
+    }
 
     fun bind(
         account: BaseAccount,
@@ -28,50 +80,56 @@ class WalletSelectViewHolder(
         binding.apply {
             chainImg.setImageResource(line.logo)
             chainName.text = line.name.uppercase()
+
             if (account.type == BaseAccountType.MNEMONIC) {
                 chainPath.text = line.getHDPath(account.lastHDPath)
+                if (!line.isDefault) {
+                    chainLegacy.visibility = View.VISIBLE
+                    chainTypeBadge.visibility = View.VISIBLE
+                    when (line.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
+                } else {
+                    chainLegacy.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
+                }
+
             } else {
                 chainPath.text = line.address
+                if (!line.isDefault) {
+                    chainLegacy.visibility = View.VISIBLE
+                    chainTypeBadge.visibility = View.VISIBLE
+                    when (line.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
+                } else {
+                    chainLegacy.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
+                }
             }
             updateView(line, selectedCosmosTags)
-
-            if (account.type == BaseAccountType.MNEMONIC) {
-                if (line.evmCompatible) {
-                    chainLegacy.visibility = View.VISIBLE
-                    chainLegacy.text = context.getString(R.string.str_evm)
-                    chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
-                    chainLegacy.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base01
-                        )
-                    )
-                } else if (!line.isDefault) {
-                    chainLegacy.visibility = View.VISIBLE
-                    chainLegacy.text = context.getString(R.string.str_legacy)
-                    chainLegacy.setBackgroundResource(R.drawable.round_box_deprecated)
-                    chainLegacy.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base02
-                        )
-                    )
-                } else {
-                    chainLegacy.visibility = View.GONE
-                }
-
-            } else {
-                if (line.evmCompatible) {
-                    chainLegacy.visibility = View.VISIBLE
-                    chainLegacy.text = context.getString(R.string.str_evm)
-                    chainLegacy.setBackgroundResource(R.drawable.round_box_evm)
-                    chainLegacy.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base01
-                        )
-                    )
-                } else {
-                    chainLegacy.visibility = View.GONE
-                }
-            }
 
             line.stakeDenom?.let { denom ->
                 var cnt = 0
@@ -83,12 +141,22 @@ class WalletSelectViewHolder(
                         chainDenom.setTextColor(Color.parseColor("#ffffff"))
                         cnt = line.lcdAccountInfo?.balances?.size ?: 0
 
-                    } else if (line is ChainOkt60) {
+                        chainBalance.visibility = View.VISIBLE
+                        chainDenom.visibility = View.VISIBLE
+                        chainNotRespond.visibility = View.GONE
+                        chainAssetCnt.visibility = View.VISIBLE
+
+                    } else if (line is ChainOkt996Keccak) {
                         val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
                         chainBalance.text = formatAmount(availableAmount.toString(), 18)
                         chainDenom.text = line.stakeDenom?.uppercase()
                         chainDenom.setTextColor(Color.parseColor("#ffffff"))
                         cnt = line.oktLcdAccountInfo?.value?.coins?.size ?: 0
+
+                        chainBalance.visibility = View.VISIBLE
+                        chainDenom.visibility = View.VISIBLE
+                        chainNotRespond.visibility = View.GONE
+                        chainAssetCnt.visibility = View.VISIBLE
 
                     } else {
                         if (line.cosmosBalances == null) {

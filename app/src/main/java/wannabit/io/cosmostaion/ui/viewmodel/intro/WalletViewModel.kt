@@ -11,6 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -25,6 +26,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
@@ -272,6 +274,23 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     private var _balanceResult = MutableLiveData<String>()
     val balanceResult: LiveData<String> get() = _balanceResult
+
+    fun evmBalance(line: EthereumLine) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.evmBalance(line)) {
+            is NetworkResult.Success -> {
+                line.evmBalance = response.data.toBigDecimal()
+                line.fetched = true
+                _balanceResult.postValue(line.tag)
+            }
+
+            is NetworkResult.Error -> {
+                line.evmBalance = BigDecimal.ZERO
+                line.fetched = true
+                _balanceResult.postValue("null")
+            }
+        }
+    }
+
     fun balance(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
         when (line) {
             is ChainBinanceBeacon -> {

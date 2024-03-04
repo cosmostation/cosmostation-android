@@ -384,7 +384,7 @@ class DashboardFragment : Fragment() {
                     delay(100)
                     withContext(Dispatchers.Main) {
                         initRecyclerView()
-                        setupLoadedData()
+                        updateTotalValue()
                         PushManager.syncAddresses(Prefs.fcmToken)
                     }
                 }

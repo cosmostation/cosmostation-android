@@ -2,10 +2,10 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
@@ -24,7 +24,6 @@ open class EthereumLine : CosmosLine(), Parcelable {
     open var addressURL = ""
     open var txURL = ""
 
-    var web3j: Web3j? = null
     var evmBalance = BigDecimal.ZERO
 
     var evmTokens = mutableListOf<Token>()
@@ -70,6 +69,7 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainEthereum())
     lines.add(ChainEvmosEvm())
     lines.add(ChainKavaEvm())
+    lines.add(ChainOktEvm())
 
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {

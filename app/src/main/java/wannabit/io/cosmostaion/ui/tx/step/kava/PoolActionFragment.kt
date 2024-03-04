@@ -357,7 +357,6 @@ class PoolActionFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     InsertAmountFragment(
                         TxType.POOL_WITHDRAW,
-                        null,
                         deposit.sharesOwned?.toBigDecimal(),
                         toWithdrawAmount,
                         null,

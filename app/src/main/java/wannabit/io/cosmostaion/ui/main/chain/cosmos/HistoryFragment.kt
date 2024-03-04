@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.BnbHistory
@@ -116,13 +116,7 @@ class HistoryFragment : Fragment() {
                 )
             }
 
-            is ChainOkt996Keccak -> {
-                historyViewModel.oktHistory(
-                    "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
-                )
-            }
-
-            is ChainOkt60 -> {
+            is ChainOkt996Keccak, is ChainOktEvm -> {
                 historyViewModel.oktHistory(
                     "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
                 )
