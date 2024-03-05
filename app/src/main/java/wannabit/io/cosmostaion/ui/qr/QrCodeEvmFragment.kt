@@ -9,9 +9,12 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -20,9 +23,14 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
+import wannabit.io.cosmostaion.databinding.ItemSegmentChainBinding
 
 class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
@@ -81,8 +89,55 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         BaseData.baseAccount?.let { account ->
             binding.apply {
-                setQrAddress(selectedEvmChain.address)
-                addressTitle.text = getString(R.string.str_address)
+                chainBadge.visibility = View.GONE
+                chainTypeBadge.visibility = View.GONE
+                chainSegment.visibleOrGone(selectedEvmChain.supportCosmos)
+
+                if (!selectedEvmChain.supportCosmos) {
+                    setQrAddress(selectedEvmChain.address)
+
+                } else {
+                    segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+                    chainSegment.apply {
+                        setSelectedBackground(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_accent_purple
+                            )
+                        )
+                        setRipple(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_accent_purple
+                            )
+                        )
+                    }
+
+                    for (i in 0 until 2) {
+                        val segmentView = ItemSegmentChainBinding.inflate(layoutInflater)
+                        chainSegment.addView(
+                            segmentView.root,
+                            i,
+                            LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                        )
+                        when (i) {
+                            0 -> {
+                                segmentView.btnChain.text = "ETHEREUM"
+                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                    requireContext(), R.drawable.icon_ethereum_address
+                                )
+                                setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
+                                addressTitle.text = getString(R.string.str_ethereum_address)
+                            }
+
+                            else -> {
+                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
+                                    requireContext(), selectedEvmChain.addressLogo
+                                )
+                                segmentView.btnChain.text = selectedEvmChain.apiName.uppercase()
+                                addressTitle.text = getString(R.string.str_address)
+                            }
+                        }
+                    }
+                }
 
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 chainName.text = selectedEvmChain.name
@@ -98,7 +153,6 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private fun setQrAddress(selectAddress: String?) {
         binding.apply {
-            chainSegment.visibility = View.GONE
             val hints = mutableMapOf<EncodeHintType, Int>()
             hints[EncodeHintType.MARGIN] = 0
 
@@ -113,6 +167,20 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private fun setupClickAction() {
         binding.apply {
+            chainSegment.setOnPositionChangedListener { position ->
+                when (position) {
+                    0 -> {
+                        setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
+                        addressTitle.text = getString(R.string.str_ethereum_address)
+                    }
+
+                    else -> {
+                        setQrAddress(selectedEvmChain.address)
+                        addressTitle.text = getString(R.string.str_address)
+                    }
+                }
+            }
+
             addressView.setOnClickListener {
                 val clipboard =
                     requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

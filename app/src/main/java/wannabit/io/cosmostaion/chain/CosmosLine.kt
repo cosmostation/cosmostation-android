@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCanto
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
@@ -35,7 +34,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainHumans
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
@@ -78,7 +76,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainXplaKeccak256
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -531,7 +528,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainBand())
     lines.add(ChainBitcanna())
     lines.add(ChainBitsong())
-    lines.add(ChainCanto())
     lines.add(ChainCelestia())
     lines.add(ChainChihuahua())
     lines.add(ChainComdex())
@@ -546,7 +542,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainFetchAi60Secp())
     lines.add(ChainFetchAi60Old())
     lines.add(ChainGravityBridge())
-    lines.add(ChainHumans())
     lines.add(ChainInjective())
     lines.add(ChainIris())
     lines.add(ChainIxo())
@@ -586,7 +581,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainTeritori())
     lines.add(ChainTerra())
     lines.add(ChainUx())
-    lines.add(ChainXplaKeccak256())
     lines.add(ChainXpla())
     lines.add(ChainBinanceBeacon())
     lines.add(ChainOkt996Keccak())

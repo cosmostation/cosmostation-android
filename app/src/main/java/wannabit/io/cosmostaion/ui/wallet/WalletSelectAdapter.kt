@@ -13,7 +13,6 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectBinding
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectHeaderBinding
-import wannabit.io.cosmostaion.ui.main.DashboardAdapter
 
 class WalletSelectAdapter(
     private val context: Context,
@@ -55,11 +54,11 @@ class WalletSelectAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is WalletSelectHeaderViewHolder -> {
-                holder.bind()
+                holder.bind(position)
             }
 
             is WalletSelectViewHolder -> {
-                if (holder.itemViewType == DashboardAdapter.VIEW_TYPE_ETHEREUM_ITEM) {
+                if (holder.itemViewType == VIEW_TYPE_ETHEREUM_ITEM) {
                     val evmLine = allEvmChains[position - 1]
                     holder.evmBind(account, evmLine, selectedEthTags, listener)
 
@@ -91,12 +90,11 @@ class WalletSelectAdapter(
         private val binding: ItemWalletSelectHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
+        fun bind(viewType: Int) {
             binding.apply {
-                if (getItemViewType(position) == DashboardAdapter.VIEW_TYPE_ETHEREUM_HEADER) {
+                if (viewType == VIEW_TYPE_ETHEREUM_HEADER) {
                     headerTitle.text = context.getString(R.string.str_ethereum_class)
                     headerCnt.text = allEvmChains.size.toString()
-
                 } else {
                     headerTitle.text = context.getString(R.string.str_cosmos_class)
                     headerCnt.text = allCosmosChains.size.toString()

@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseData
@@ -33,7 +32,6 @@ open class ChainOkt996Keccak : CosmosLine() {
     var oktValidatorInfo: MutableList<OktValidatorResponse> = mutableListOf()
 
     override var isDefault = false
-    override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "OKT"
     override var chainId: String = "exchain-66"
     override var tag: String = "okt996_Keccak"

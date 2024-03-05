@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 
 class ChainManageFragment : Fragment() {
@@ -39,31 +41,50 @@ class ChainManageFragment : Fragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
+            val allEvmLines: MutableList<EthereumLine> = mutableListOf()
+            var searchEvmLines: MutableList<EthereumLine> = mutableListOf()
+
             val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
             var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
-            CoroutineScope(Dispatchers.IO).launch {
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                allEvmLines.clear()
                 allCosmosLines.clear()
 
-                allCosmosLines.addAll(allCosmosLines().filter { it.isDefault }
-                    .distinctBy { it.name })
+                for (evmChain in allEvmLines()) {
+                    if (!allEvmLines.any { it.name == evmChain.name }) {
+                        allEvmLines.add(evmChain)
+                    }
+                }
+
+                for (chain in allCosmosLines().filter { it.isDefault }) {
+                    if (!allCosmosLines.any { it.name == chain.name } &&
+                        !allEvmLines.any { it.name == chain.name }) {
+                        allCosmosLines.add(chain)
+                    }
+                }
+
+                searchEvmLines = allEvmLines
                 searchCosmosLines = allCosmosLines
-                binding.headerCnt.text = allCosmosLines.count().toString()
 
                 withContext(Dispatchers.Main) {
-                    chainManageAdapter = ChainManageAdapter()
+                    chainManageAdapter = ChainManageAdapter(searchEvmLines, searchCosmosLines)
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter
-                    chainManageAdapter.submitList(searchCosmosLines)
+                    chainManageAdapter.submitList(searchEvmLines + searchCosmosLines)
                 }
             }
 
-            initSearchView(allCosmosLines, searchCosmosLines)
+            initSearchView(allEvmLines, allCosmosLines, searchEvmLines, searchCosmosLines)
         }
     }
 
     private fun initSearchView(
-        allCosmosLines: MutableList<CosmosLine>, searchCosmosLines: MutableList<CosmosLine>
+        allEvmLines: MutableList<EthereumLine>,
+        allCosmosLines: MutableList<CosmosLine>,
+        searchEvmLines: MutableList<EthereumLine>,
+        searchCosmosLines: MutableList<CosmosLine>
     ) {
         binding.apply {
             searchView.setQuery("", false)
@@ -74,17 +95,24 @@ class ChainManageFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
+                    searchEvmLines.clear()
                     searchCosmosLines.clear()
                     if (StringUtils.isEmpty(newText)) {
+                        searchEvmLines.addAll(allEvmLines)
                         searchCosmosLines.addAll(allCosmosLines)
+
                     } else {
                         newText?.let { searchTxt ->
+                            searchEvmLines.addAll(allEvmLines.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+
                             searchCosmosLines.addAll(allCosmosLines.filter { chain ->
                                 chain.name.contains(searchTxt, ignoreCase = true)
                             })
                         }
                     }
-                    chainManageAdapter.submitList(searchCosmosLines)
+                    chainManageAdapter.submitList(searchEvmLines + searchCosmosLines)
                     chainManageAdapter.notifyDataSetChanged()
                     return true
                 }

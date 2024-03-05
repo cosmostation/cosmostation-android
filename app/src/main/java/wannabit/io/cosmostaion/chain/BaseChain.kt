@@ -6,7 +6,6 @@ import java.math.BigDecimal
 
 open class BaseChain : Serializable {
 
-    open var chainType: ChainType? = null
     open var name: String = ""
     open var tag: String = ""
     open var chainId: String = ""
@@ -40,8 +39,6 @@ open class BaseChain : Serializable {
 
     open fun allValue(isUsd: Boolean?): BigDecimal { return BigDecimal.ZERO }
 }
-
-enum class ChainType { COSMOS_TYPE, ETH_TYPE, SUI_TYPE }
 
 data class AccountKeyType(
     var pubkeyType: PubKeyType,

@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 class ChainRegen : CosmosLine() {
 
-    override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Regen"
     override var tag: String = "regen118"
     override var logo: Int = R.drawable.chain_regen

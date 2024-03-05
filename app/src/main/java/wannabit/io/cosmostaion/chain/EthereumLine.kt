@@ -2,10 +2,15 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
@@ -19,6 +24,7 @@ open class EthereumLine : CosmosLine(), Parcelable {
     open var coinSymbol = ""
     open var coinGeckoId = ""
     open var coinLogo = -1
+    open var addressLogo = -1
 
     open var explorerURL = ""
     open var addressURL = ""
@@ -67,9 +73,14 @@ open class EthereumLine : CosmosLine(), Parcelable {
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
     lines.add(ChainEthereum())
+//    lines.add(ChainAltheaEvm())
+    lines.add(ChainCantoEvm())
+    lines.add(ChainDymensionEvm())
     lines.add(ChainEvmosEvm())
+    lines.add(ChainHumansEvm())
     lines.add(ChainKavaEvm())
     lines.add(ChainOktEvm())
+    lines.add(ChainXplaEvm())
 
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {
@@ -80,6 +91,6 @@ fun allEvmLines(): MutableList<EthereumLine> {
     return lines
 }
 
-val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60", "kava60")
+val DEFAULT_DISPLAY_EVM = mutableListOf("ethereum60", "dymension60", "kava60")
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

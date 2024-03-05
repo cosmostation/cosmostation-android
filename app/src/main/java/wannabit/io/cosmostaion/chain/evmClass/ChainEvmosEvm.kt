@@ -20,6 +20,7 @@ class ChainEvmosEvm : EthereumLine() {
     override var coinSymbol: String = "EVMOS"
     override var coinGeckoId: String = "evmos"
     override var coinLogo: Int = R.drawable.token_evmos
+    override var addressLogo: Int = R.drawable.icon_evmos_address
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

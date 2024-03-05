@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
+import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
@@ -119,11 +120,8 @@ class CosmosDetailFragment : Fragment() {
                     accountEvmAddress.visibility = View.VISIBLE
 
                     handler.postDelayed(starEvmAddressAnimation, 5000)
-                    btnAccount.setImageResource(R.drawable.icon_eth_account)
-
                 } else {
                     accountAddress.text = selectedChain.address
-                    btnAccount.setImageResource(R.drawable.btn_account)
                 }
 
                 if (Prefs.hideValue) {
@@ -252,9 +250,24 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountAddress.setOnClickListener {
-                QrCodeFragment.newInstance(selectedChain).show(
-                    requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-                )
+                if (selectedChain is EthereumLine) {
+                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+
+                } else {
+                    QrCodeFragment.newInstance(selectedChain).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+                }
+            }
+
+            accountEvmAddress.setOnClickListener {
+                if (selectedChain is EthereumLine) {
+                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+                }
             }
 
             btnHide.setOnClickListener {
@@ -480,7 +493,10 @@ class CosmosDetailFragment : Fragment() {
                 fragments.add(CoinFragment.newInstance(selectedChain))
                 fragments.add(TokenFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
-                fragments.add(AboutFragment.newInstance(selectedChain))
+
+                if (selectedChain.supportCosmos && !selectedChain.tag.contains("okt60_Keccak")) {
+                    fragments.add(AboutFragment.newInstance(selectedChain))
+                }
 
             } else if (selectedChain is ChainBinanceBeacon) {
                 fragments.add(CoinFragment.newInstance(selectedChain))

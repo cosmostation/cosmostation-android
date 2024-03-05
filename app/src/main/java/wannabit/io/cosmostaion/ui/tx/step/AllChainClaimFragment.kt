@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.tx.step
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,6 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAllChainClaimBinding
-import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
@@ -87,8 +85,24 @@ class AllChainClaimFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
-                        account.sortedDisplayCosmosLines().forEach { chain ->
+                    if (account.sortedDisplayEvmLines()
+                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+                            .none { !it.fetched }
+                    ) {
+                        for (evmChain in account.sortedDisplayEvmLines()
+                            .filter { it.supportCosmos }) {
+                            val valueAbleReward = evmChain.valueAbleRewards()
+                            val txFee = evmChain.getInitFee(requireContext())
+                            if (valueAbleReward.isNotEmpty() && txFee != null) {
+                                valueAbleRewards.add(
+                                    ValueAbleReward(
+                                        evmChain, valueAbleReward, null, false, null
+                                    )
+                                )
+                            }
+                        }
+
+                        for (chain in account.sortedDisplayCosmosLines()) {
                             val valueAbleReward = chain.valueAbleRewards()
                             val txFee = chain.getInitFee(requireContext())
                             if (valueAbleReward.isNotEmpty() && txFee != null) {
@@ -154,13 +168,14 @@ class AllChainClaimFragment : BaseTxFragment() {
                                     val txGasLimit =
                                         (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
                                             .toBigDecimal()
-                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull {
-                                        it.denom == txFee?.getAmount(0)?.denom
+                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
+                                        feeData.denom == txFee?.getAmount(0)?.denom
                                     }?.let { gasRate ->
                                         val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
                                             ?.setScale(0, RoundingMode.UP)
                                         val feeCoin =
-                                            CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(txFee?.getAmount(0)?.denom)
                                                 .setAmount(feeCoinAmount.toString()).build()
 
                                         txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
@@ -196,9 +211,14 @@ class AllChainClaimFragment : BaseTxFragment() {
             btnConfirm.setOnClickListener {
                 dismiss()
                 BaseData.baseAccount?.let { account ->
-                    account.sortedDisplayCosmosLines().forEach { chain ->
+                    for (evmChain in account.sortedDisplayEvmLines()) {
+                        evmChain.fetched = false
+                        initDisplayData(account)
+                    }
+
+                    for (chain in account.sortedDisplayCosmosLines()) {
                         chain.fetched = false
-                        initDisplayData(account, chain)
+                        initDisplayData(account)
                     }
                 }
             }
@@ -323,28 +343,47 @@ class AllChainClaimFragment : BaseTxFragment() {
         }
     }
 
-    private fun initDisplayData(baseAccount: BaseAccount, chain: CosmosLine) {
+    private fun initDisplayData(baseAccount: BaseAccount) {
         baseAccount.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (type == BaseAccountType.MNEMONIC) {
-                    sortedDisplayCosmosLines().forEach { line ->
+                    for (line in sortedDisplayEvmLines()) {
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        }
+                        if (!line.fetched) {
+                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+                        }
+                    }
+
+                    for (line in sortedDisplayCosmosLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
 
                         }
                         if (!line.fetched) {
-//                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
+                            ApplicationViewModel.shared.loadChainData(line, id, false)
                         }
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    sortedDisplayCosmosLines().forEach { line ->
+                    for (line in sortedDisplayEvmLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
 
                         }
                         if (!line.fetched) {
-//                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
+                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+                        }
+                    }
+
+                    for (line in sortedDisplayCosmosLines()) {
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithPrivateKey(privateKey)
+
+                        }
+                        if (!line.fetched) {
+                            ApplicationViewModel.shared.loadChainData(line, id, false)
                         }
                     }
                 }

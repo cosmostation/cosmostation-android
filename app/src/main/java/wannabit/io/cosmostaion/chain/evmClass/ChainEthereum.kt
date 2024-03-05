@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 class ChainEthereum : EthereumLine() {
 
-    override var chainType: ChainType? = ChainType.ETH_TYPE
     override var name: String = "Ethereum"
     override var tag: String = "ethereum60"
     override var logo: Int = R.drawable.chain_ethereum

@@ -29,14 +29,15 @@ class ChainOktEvm : EthereumLine() {
     override var name: String = "OKT"
     override var chainId: String = "exchain-66"
     override var tag: String = "okt60_Keccak"
-    override var logo: Int = R.drawable.chain_okt
-    override var swipeLogo: Int = R.drawable.chain_swipe_okt
+    override var logo: Int = R.drawable.chain_evm_okt
+    override var swipeLogo: Int = R.drawable.chain_evm_swipe_okt
     override var apiName: String = "okc"
     override var stakeDenom: String? = "okt"
 
     override var coinSymbol: String = "OKT"
     override var coinGeckoId: String = "oec-token"
     override var coinLogo: Int = R.drawable.token_okt
+    override var addressLogo: Int = R.drawable.icon_okt_address
     override var supportStaking = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

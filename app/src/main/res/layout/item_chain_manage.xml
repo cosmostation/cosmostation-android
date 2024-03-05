@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/space_8"
     android:layout_marginHorizontal="@dimen/space_12"
+    android:layout_marginTop="@dimen/space_8"
     android:scaleX="1.0"
     android:scaleY="1.0">
 
@@ -12,8 +12,8 @@
         android:id="@+id/chain_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardPreventCornerOverlap="true"
         android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -52,33 +52,87 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/endpoint_type"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rpc_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/space_16"
-                    android:background="@drawable/round_box_deprecated"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="@dimen/space_2"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:text="grpc"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base02"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/endpoint"
-                    style="@style/font_sm_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_8"
-                    android:layout_marginBottom="@dimen/space_4"
-                    android:textColor="@color/color_base01"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chain_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/chain_name">
+
+                    <TextView
+                        android:id="@+id/rpc_endpoint"
+                        style="@style/font_sm_10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:ellipsize="middle"
+                        android:maxLines="1"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/rpc_endpoint_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/rpc_endpoint_type"
+                        style="@style/font_sm_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_marginEnd="@dimen/space_16"
+                        android:background="@drawable/round_box_deprecated"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="@dimen/space_2"
+                        android:text="EVM RPC"
+                        android:textAllCaps="true"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/grpc_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rpc_layout">
+
+                    <TextView
+                        android:id="@+id/grpc_endpoint"
+                        style="@style/font_sm_10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:ellipsize="middle"
+                        android:maxLines="1"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/grpc_endpoint_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/grpc_endpoint_type"
+                        style="@style/font_sm_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_marginEnd="@dimen/space_16"
+                        android:background="@drawable/round_box_deprecated"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="@dimen/space_2"
+                        android:text="grpc"
+                        android:textAllCaps="true"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
