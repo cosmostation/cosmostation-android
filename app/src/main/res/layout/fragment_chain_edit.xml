@@ -125,12 +125,12 @@
             android:scaleType="fitXY"
             android:src="@drawable/icon_no_data"
             android:layout_marginBottom="@dimen/space_10"
-            app:layout_constraintBottom_toTopOf="@+id/empty_history_title"
+            app:layout_constraintBottom_toTopOf="@+id/empty_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/empty_history_title"
+            android:id="@+id/empty_title"
             style="@style/font_sb_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

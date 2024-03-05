@@ -225,16 +225,14 @@ class WithdrawEarningFragment : BaseTxFragment() {
         binding.apply {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(
-                        TxType.EARN_WITHDRAW,
-                        availableAmount,
+                    InsertAmountFragment.newInstance(TxType.EARN_WITHDRAW,
+                        availableAmount.toString(),
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let { denom ->
                             BaseData.getAsset(
                                 selectedChain.apiName, denom
                             )
                         },
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
@@ -253,8 +251,8 @@ class WithdrawEarningFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

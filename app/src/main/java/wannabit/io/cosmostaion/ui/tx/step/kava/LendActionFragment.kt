@@ -122,8 +122,9 @@ class LendActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)
-                        ?.let { selectedChain = it }
+                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                        selectedChain = it
+                    }
                     getSerializable(
                         "lendActionType", LendActionType::class.java
                     )?.let { lendActionType = it }
@@ -320,12 +321,10 @@ class LendActionFragment : BaseTxFragment() {
                 when (lendActionType) {
                     LendActionType.DEPOSIT -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(
-                                TxType.LEND_DEPOSIT,
-                                availableAmount,
+                            InsertAmountFragment.newInstance(TxType.LEND_DEPOSIT,
+                                availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
-                                null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
                                         updateAmountView(toAmount)
@@ -337,12 +336,10 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.WITHDRAW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(
-                                TxType.LEND_WITHDRAW,
-                                availableAmount,
+                            InsertAmountFragment.newInstance(TxType.LEND_WITHDRAW,
+                                availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
-                                null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
                                         updateAmountView(toAmount)
@@ -353,12 +350,10 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.BORROW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(
-                                TxType.LEND_BORROW,
-                                availableAmount,
+                            InsertAmountFragment.newInstance(TxType.LEND_BORROW,
+                                availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
-                                null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
                                         updateAmountView(toAmount)
@@ -369,12 +364,10 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.REPAY -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment(
-                                TxType.LEND_REPAY,
-                                availableAmount,
+                            InsertAmountFragment.newInstance(TxType.LEND_REPAY,
+                                availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
-                                null,
                                 object : AmountSelectListener {
                                     override fun select(toAmount: String) {
                                         updateAmountView(toAmount)
@@ -397,8 +390,8 @@ class LendActionFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

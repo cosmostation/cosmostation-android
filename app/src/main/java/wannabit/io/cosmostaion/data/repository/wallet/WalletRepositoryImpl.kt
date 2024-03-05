@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
@@ -405,9 +404,7 @@ class WalletRepositoryImpl : WalletRepository {
             } else {
                 evmLine.address
             }
-            Log.e("Test1234 : ", evmAddress.toString())
             val balance = web3j.ethGetBalance(evmAddress, DefaultBlockParameterName.LATEST).send()
-            Log.e("Test1234 : ", balance.toString())
             balance.balance.toString()
         }
     }

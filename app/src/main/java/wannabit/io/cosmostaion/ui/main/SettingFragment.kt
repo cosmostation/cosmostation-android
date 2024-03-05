@@ -24,15 +24,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.walletconnect.util.bytesToHex
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -75,6 +76,7 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initChainManageCnt()
         setUpClickAction()
         setUpSwitchAction()
         checkAccountStatus()
@@ -112,12 +114,28 @@ class SettingFragment : Fragment() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                supportChainCnt.text =
-                    allCosmosLines().filter { it.isDefault }.distinctBy { it.name }.count()
-                        .toString()
+            }
+            walletViewModel.pushStatus(Prefs.fcmToken)
+        }
+    }
+
+    private fun initChainManageCnt() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val chainNames: MutableList<String> = mutableListOf()
+            allEvmLines().forEach { chain ->
+                if (!chainNames.contains(chain.name)) {
+                    chainNames.add(chain.name)
+                }
             }
 
-            walletViewModel.pushStatus(Prefs.fcmToken)
+            allCosmosLines().forEach { chain ->
+                if (!chainNames.contains(chain.name)) {
+                    chainNames.add(chain.name)
+                }
+            }
+            withContext(Dispatchers.Main) {
+                binding.supportChainCnt.text = chainNames.size.toString()
+            }
         }
     }
 
@@ -387,7 +405,7 @@ class SettingFragment : Fragment() {
             bioSwitch.isChecked = Prefs.usingBio
             bioSwitch.setSwitchView()
 
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val addressCnt =
                     AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
                 withContext(Dispatchers.Main) {

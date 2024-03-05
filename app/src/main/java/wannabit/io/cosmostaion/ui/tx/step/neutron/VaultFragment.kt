@@ -257,20 +257,18 @@ class VaultFragment : BaseTxFragment() {
         binding.apply {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(insertTxType(),
-                        availableAmount,
+                    InsertAmountFragment.newInstance(insertTxType(),
+                        availableAmount.toString(),
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let {
                             BaseData.getAsset(
                                 selectedChain.apiName, it
                             )
                         },
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
                             }
-
                         })
                 )
             }
@@ -287,8 +285,8 @@ class VaultFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

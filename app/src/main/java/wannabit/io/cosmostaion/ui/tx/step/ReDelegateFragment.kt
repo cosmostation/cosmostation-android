@@ -322,21 +322,18 @@ class ReDelegateFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(
-                        TxType.RE_DELEGATE,
-                        availableAmount,
+                    InsertAmountFragment.newInstance(TxType.RE_DELEGATE,
+                        availableAmount.toString(),
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let {
                             BaseData.getAsset(
                                 selectedChain.apiName, it
                             )
                         },
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
                             }
-
                         })
                 )
             }
@@ -354,8 +351,8 @@ class ReDelegateFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

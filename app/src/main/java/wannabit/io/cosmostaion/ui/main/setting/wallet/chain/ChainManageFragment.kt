@@ -25,6 +25,11 @@ class ChainManageFragment : Fragment() {
 
     private lateinit var chainManageAdapter: ChainManageAdapter
 
+    private val allEvmLines: MutableList<EthereumLine> = mutableListOf()
+    private var searchEvmLines: MutableList<EthereumLine> = mutableListOf()
+    private val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
+    private var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -36,56 +41,37 @@ class ChainManageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        initSearchView()
         setUpClickAction()
     }
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            val allEvmLines: MutableList<EthereumLine> = mutableListOf()
-            var searchEvmLines: MutableList<EthereumLine> = mutableListOf()
-
-            val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
-            var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
-
             lifecycleScope.launch(Dispatchers.IO) {
-                allEvmLines.clear()
-                allCosmosLines.clear()
-
                 for (evmChain in allEvmLines()) {
                     if (!allEvmLines.any { it.name == evmChain.name }) {
                         allEvmLines.add(evmChain)
                     }
                 }
-
                 for (chain in allCosmosLines().filter { it.isDefault }) {
-                    if (!allCosmosLines.any { it.name == chain.name } &&
-                        !allEvmLines.any { it.name == chain.name }) {
+                    if (!allCosmosLines.any { it.name == chain.name } && !allEvmLines.any { it.name == chain.name }) {
                         allCosmosLines.add(chain)
                     }
                 }
-
-                searchEvmLines = allEvmLines
-                searchCosmosLines = allCosmosLines
+                searchEvmLines.addAll(allEvmLines)
+                searchCosmosLines.addAll(allCosmosLines)
 
                 withContext(Dispatchers.Main) {
                     chainManageAdapter = ChainManageAdapter(searchEvmLines, searchCosmosLines)
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter
-                    chainManageAdapter.submitList(searchEvmLines + searchCosmosLines)
                 }
             }
-
-            initSearchView(allEvmLines, allCosmosLines, searchEvmLines, searchCosmosLines)
         }
     }
 
-    private fun initSearchView(
-        allEvmLines: MutableList<EthereumLine>,
-        allCosmosLines: MutableList<CosmosLine>,
-        searchEvmLines: MutableList<EthereumLine>,
-        searchCosmosLines: MutableList<CosmosLine>
-    ) {
+    private fun initSearchView() {
         binding.apply {
             searchView.setQuery("", false)
             searchView.clearFocus()
@@ -97,6 +83,7 @@ class ChainManageFragment : Fragment() {
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchEvmLines.clear()
                     searchCosmosLines.clear()
+
                     if (StringUtils.isEmpty(newText)) {
                         searchEvmLines.addAll(allEvmLines)
                         searchCosmosLines.addAll(allCosmosLines)
@@ -112,8 +99,14 @@ class ChainManageFragment : Fragment() {
                             })
                         }
                     }
-                    chainManageAdapter.submitList(searchEvmLines + searchCosmosLines)
-                    chainManageAdapter.notifyDataSetChanged()
+                    if (searchEvmLines.isEmpty() && searchCosmosLines.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        chainManageAdapter.notifyDataSetChanged()
+                    }
                     return true
                 }
             })

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -280,7 +279,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         when (val response = walletRepository.evmBalance(line)) {
             is NetworkResult.Success -> {
                 line.evmBalance = response.data.toBigDecimal()
-                Log.e("test1234 : ", response.data.toString())
                 line.fetched = true
                 _balanceResult.postValue(line.tag)
             }

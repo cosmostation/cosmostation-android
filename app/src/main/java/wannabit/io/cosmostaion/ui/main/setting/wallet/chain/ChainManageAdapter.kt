@@ -1,10 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.chain
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -15,7 +12,7 @@ import wannabit.io.cosmostaion.ui.main.edit.ChainEditAdapter
 class ChainManageAdapter(
     private val allEvmLines: MutableList<EthereumLine>,
     private val allCosmosLines: MutableList<CosmosLine>
-) : ListAdapter<CosmosLine, RecyclerView.ViewHolder>(ChainManageDiffCallback()) {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_EVM_HEADER = 0
@@ -88,18 +85,6 @@ class ChainManageAdapter(
                     headerCnt.text = allCosmosLines.size.toString()
                 }
             }
-        }
-    }
-
-    private class ChainManageDiffCallback : DiffUtil.ItemCallback<CosmosLine>() {
-
-        override fun areItemsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
-            return oldItem == newItem
-        }
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
-            return oldItem == newItem
         }
     }
 }

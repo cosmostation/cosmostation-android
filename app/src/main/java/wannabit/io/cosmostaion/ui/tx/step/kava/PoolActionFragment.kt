@@ -355,11 +355,9 @@ class PoolActionFragment : BaseTxFragment() {
 
             shareAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(
-                        TxType.POOL_WITHDRAW,
-                        deposit.sharesOwned?.toBigDecimal(),
+                    InsertAmountFragment.newInstance(TxType.POOL_WITHDRAW,
+                        deposit.sharesOwned,
                         toWithdrawAmount,
-                        null,
                         null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
@@ -407,8 +405,8 @@ class PoolActionFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

@@ -268,12 +268,10 @@ class CreateMintFragment : BaseTxFragment() {
         binding.apply {
             collateralAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(
-                        TxType.MINT_CREATE_COLLATERAL,
-                        collateralAvailableAmount,
+                    InsertAmountFragment.newInstance(TxType.MINT_CREATE_COLLATERAL,
+                        collateralAvailableAmount.toString(),
                         toCollateralAmount,
                         collateralAsset,
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateCollateralAmountView(toAmount)
@@ -284,14 +282,12 @@ class CreateMintFragment : BaseTxFragment() {
 
             principalAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(
-                        TxType.MINT_CREATE_PRINCIPAL,
-                        collateralParam?.expectUSDXLTV(
+                    InsertAmountFragment.newInstance(TxType.MINT_CREATE_PRINCIPAL,
+                        collateralParam.expectUSDXLTV(
                             toCollateralAmount.toBigDecimal(), priceFeed
-                        ),
+                        ).toString(),
                         toPrincipalAmount,
                         principalAsset,
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updatePrincipalAmountView(toAmount)
@@ -312,8 +308,8 @@ class CreateMintFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())
