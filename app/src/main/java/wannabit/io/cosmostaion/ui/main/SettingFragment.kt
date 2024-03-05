@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +19,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.Fragment
@@ -174,11 +177,15 @@ class SettingFragment : Fragment() {
             }
 
             importView.setOnClickListener {
-                val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
-                qrCodeResultLauncher.launch(intent)
-                requireActivity().overridePendingTransition(
-                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                )
+                if (ActivityCompat.checkSelfPermission(
+                        requireActivity(), Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    cameraPermissionRequest.launch(Manifest.permission.CAMERA)
+
+                } else {
+                    startImportBarcodeActivity()
+                }
             }
 
             chainView.setOnClickListener {
@@ -339,10 +346,6 @@ class SettingFragment : Fragment() {
                         return@registerForActivityResult
                     }
                 }
-
-            } else {
-                requireActivity().makeToast(R.string.error_unknown_qr_code)
-                return@registerForActivityResult
             }
         }
 
@@ -492,6 +495,23 @@ class SettingFragment : Fragment() {
                 binding.appLockSwitch.thumbDrawable =
                     ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 Prefs.appLock = false
+            }
+        }
+
+    private fun startImportBarcodeActivity() {
+        val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
+        qrCodeResultLauncher.launch(intent)
+        requireActivity().overridePendingTransition(
+            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+        )
+    }
+
+    private val cameraPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startImportBarcodeActivity()
+            } else {
+                return@registerForActivityResult
             }
         }
 

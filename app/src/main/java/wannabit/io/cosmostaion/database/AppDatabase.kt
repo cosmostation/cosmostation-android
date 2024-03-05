@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.database
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import wannabit.io.cosmostaion.database.dao.AddressBookDao
@@ -31,11 +33,19 @@ abstract class AppDatabase : RoomDatabase() {
                     val builder = Room.databaseBuilder(CosmostationApp.instance, AppDatabase::class.java, "cosmostation_wallet.db")
                     val factory = SupportFactory(SQLiteDatabase.getBytes(Prefs.passphrase.toCharArray()))
                     builder.openHelperFactory(factory)
+
+//                    builder.addMigrations(MIGRATION_1_2)
                     instance = builder.build()
                 }
             }
 
             return instance!!
+        }
+
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE refAddress ADD COLUMN evmAddress TEXT")
+            }
         }
     }
 }

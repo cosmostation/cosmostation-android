@@ -13,6 +13,7 @@
     app:drawableHeight="@dimen/space_16"
     app:drawable="@drawable/icon_kava_address"
     app:drawableGravity="left"
+    app:drawableTint="@color/color_base04"
     app:selectedTextColor="@color/color_base01"
     app:selectedDrawableTint="@color/color_base01"
     app:borderColor ="@color/color_base05">

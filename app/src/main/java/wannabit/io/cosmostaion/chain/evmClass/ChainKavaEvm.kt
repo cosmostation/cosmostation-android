@@ -30,7 +30,7 @@ class ChainKavaEvm : EthereumLine() {
     override var accountPrefix: String? = "kava"
 
     override var grpcHost: String = "grpc-kava.cosmostation.io"
-    override var rpcUrl: String = "https://rpc-kava-app.cosmostation.io"
+    override var rpcUrl: String = "https://rpc-kava-evm.cosmostation.io"
 
     override var explorerURL = "https://kavascan.io/"
     override var addressURL = explorerURL + "address/"

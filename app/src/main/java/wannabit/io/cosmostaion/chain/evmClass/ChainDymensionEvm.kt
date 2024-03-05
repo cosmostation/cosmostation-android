@@ -30,7 +30,7 @@ class ChainDymensionEvm : EthereumLine() {
     override var accountPrefix: String? = "dym"
 
     override var grpcHost: String = "grpc-dymension.cosmostation.io"
-    override var rpcUrl: String = "https://rpc-dymension-app.cosmostation.io"
+    override var rpcUrl: String = "https://rpc-dymension-evm.cosmostation.io"
 
     override var explorerURL = "https://www.mintscan.io/dymension/"
     override var addressURL = explorerURL + "address/"

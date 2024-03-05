@@ -122,7 +122,7 @@ class DashboardFragment : Fragment() {
                 itemAnimator = null
 
                 dashAdapter.setOnItemClickListener { tag ->
-                    if (tag.contains("ethereum60")) {
+                    if (tag.contains("ethereum60") || tag.contains("polygon60") || tag.contains("optimism60")) {
                         Intent(requireContext(), EvmActivity::class.java).apply {
                             putExtra("selectedChainTag", tag)
                             startActivity(this)

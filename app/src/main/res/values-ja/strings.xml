@@ -4,6 +4,8 @@
     <string name="str_today">今日</string>
     <string name="str_next">次</string>
     <string name="str_share_address">住所共有です</string>
+    <string name="str_share_evm_address">Evm スタイルのアドレスを\n共有する</string>
+    <string name="str_share_cosmos_address">Cosmos スタイルのアドレス\nを共有する</string>
     <string name="str_address">アドレス</string>
     <string name="str_ethereum_address">イーサリアムのアドレスです</string>
     <string name="str_confirm">確認</string>

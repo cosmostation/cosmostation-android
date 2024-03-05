@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -10,6 +9,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
+import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -80,6 +81,8 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainHumansEvm())
     lines.add(ChainKavaEvm())
     lines.add(ChainOktEvm())
+    lines.add(ChainOptimism())
+    lines.add(ChainPolygon())
     lines.add(ChainXplaEvm())
 
     lines.forEach { line ->

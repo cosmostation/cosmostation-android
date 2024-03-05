@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.view.Window
-import androidx.core.content.ContextCompat
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -22,7 +21,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.DialogQrBinding
 
 class QrDialog(
-    context: Context, val selectedEvmChain: EthereumLine?, val selectedChain: CosmosLine?
+    context: Context, private val selectedEvmChain: EthereumLine?, val selectedChain: CosmosLine?
 ) : Dialog(context, R.style.CustomDialogTheme) {
 
     private lateinit var binding: DialogQrBinding
@@ -54,6 +53,7 @@ class QrDialog(
                     accountName.text = "(" + account.name + ")"
                     accountPath.text = evmChain.getHDPath(account.lastHDPath)
                     chainBadge.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
                     chainImg.setImageResource(evmChain.logo)
 
                     bitmap = barcodeEncoder.encodeBitmap(
@@ -71,24 +71,27 @@ class QrDialog(
                     accountName.text = "(" + account.name + ")"
                     accountPath.text = chain.getHDPath(account.lastHDPath)
 
-                    if (chain.evmCompatible) {
-                        chainBadge.text = context.getString(R.string.str_evm)
-                        chainBadge.setBackgroundResource(R.drawable.round_box_evm)
-                        chainBadge.setTextColor(
-                            ContextCompat.getColor(
-                                context, R.color.color_base01
-                            )
-                        )
-                    } else if (!chain.isDefault) {
-                        chainBadge.text = context.getString(R.string.str_deprecated)
-                        chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
-                        chainBadge.setTextColor(
-                            ContextCompat.getColor(
-                                context, R.color.color_base02
-                            )
-                        )
+                    if (!chain.isDefault) {
+                        chainBadge.text = context.getString(R.string.str_legacy)
+                        when (selectedChain.tag) {
+                            "okt996_Keccak" -> {
+                                chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                                chainTypeBadge.visibility = View.VISIBLE
+                            }
+
+                            "okt996_Secp" -> {
+                                chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                                chainTypeBadge.visibility = View.VISIBLE
+                            }
+
+                            else -> {
+                                chainTypeBadge.visibility = View.GONE
+                            }
+                        }
+
                     } else {
                         chainBadge.visibility = View.GONE
+                        chainTypeBadge.visibility = View.GONE
                     }
                     chainImg.setImageResource(chain.logo)
 

@@ -30,7 +30,7 @@ class ChainCantoEvm : EthereumLine() {
     override var accountPrefix: String? = "canto"
 
     override var grpcHost: String = "grpc-canto.cosmostation.io"
-    override var rpcUrl: String = "https://rpc-canto-app.cosmostation.io"
+    override var rpcUrl: String = "https://rpc-canto-evm.cosmostation.io"
 
     override var explorerURL = "https://www.mintscan.io/canto/"
     override var addressURL = explorerURL + "address/"

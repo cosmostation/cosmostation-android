@@ -30,7 +30,7 @@ class ChainAltheaEvm : EthereumLine() {
     override var accountPrefix: String? = "althea"
 
     override var grpcHost: String = "grpc-althea.cosmostation.io"
-    override var rpcUrl: String = "https://rpc-althea-app.cosmostation.io"
+    override var rpcUrl: String = "https://rpc-althea-evm.cosmostation.io"
 
     override var explorerURL = "https://www.mintscan.io/althea/"
     override var addressURL = explorerURL + "address/"

@@ -8,7 +8,6 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import io.grpc.ManagedChannel
 import retrofit2.Response
-import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -87,8 +86,6 @@ interface WalletRepository {
     suspend fun unBondingValidator(
         channel: ManagedChannel
     ): NetworkResult<MutableList<StakingProto.Validator>>
-
-    suspend fun evmTxHash(chain: String?, evmTxHash: String?): NetworkResult<Response<String>>
 
     suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>>
 

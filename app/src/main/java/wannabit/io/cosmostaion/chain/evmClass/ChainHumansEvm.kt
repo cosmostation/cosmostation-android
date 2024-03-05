@@ -30,7 +30,7 @@ class ChainHumansEvm : EthereumLine() {
     override var accountPrefix: String? = "human"
 
     override var grpcHost: String = "grpc-humans.cosmostation.io"
-    override var rpcUrl: String = "https://rpc-humans-app.cosmostation.io"
+    override var rpcUrl: String = "https://rpc-humans-evm.cosmostation.io"
 
     override var explorerURL = "https://www.mintscan.io/humans/"
     override var addressURL = explorerURL + "address/"

@@ -121,6 +121,7 @@ class CosmosDetailFragment : Fragment() {
 
                     handler.postDelayed(starEvmAddressAnimation, 5000)
                 } else {
+                    accountEvmAddress.visibility = View.INVISIBLE
                     accountAddress.text = selectedChain.address
                 }
 

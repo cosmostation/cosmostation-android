@@ -42,23 +42,18 @@ interface MintscanApi {
         @Query("search_after") searchAfter: String
     ): Response<List<CosmosHistory>>
 
-    @GET("v1/{chain}/proposals")
+    @GET("v10/{chain}/proposals")
     suspend fun cosmosProposal(@Path("chain") chain: String): Response<MutableList<CosmosProposal>>
 
-    @GET("v1/{chain}/account/{account}/votes")
+    @GET("v10/{chain}/account/{account}/votes")
     suspend fun voteStatus(
         @Path("chain") chain: String?, @Path("account") account: String?
     ): Response<VoteStatus>
 
-    @GET("v1/{chain}/dao/address/{address}/votes")
+    @GET("v10/{chain}/dao/address/{address}/votes")
     suspend fun daoVoteStatus(
         @Path("chain") chain: String?, @Path("address") address: String?
     ): Response<MutableList<ResDaoVoteStatus>>
-
-    @GET("v1/{chain}/evm/tx/{etherTxHash}")
-    suspend fun evmTxHash(
-        @Path("chain") chain: String?, @Path("etherTxHash") etherTxHash: String?
-    ): Response<String>
 
     @GET("v1/utils/proxy/okc-transaction-list")
     suspend fun oktHistory(

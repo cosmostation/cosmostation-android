@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
+import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 
 class DashboardAdapter(
     val context: Context,
@@ -66,7 +67,11 @@ class DashboardAdapter(
                         if (line.fetched) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = QrDialog(context, line, null)
+                            val customDialog = if (line.supportCosmos) {
+                                QrEvmDialog(context, line)
+                            } else {
+                                QrDialog(context, line, null)
+                            }
 
                             if (scaleX == 1.0f && scaleY == 1.0f) {
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
