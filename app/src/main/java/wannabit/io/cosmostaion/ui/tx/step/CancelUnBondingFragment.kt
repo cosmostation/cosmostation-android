@@ -308,7 +308,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindCancelUnBonding(),
                 txFee,
-                txMemo
+                txMemo,
+                selectedChain
             )
         }
     }

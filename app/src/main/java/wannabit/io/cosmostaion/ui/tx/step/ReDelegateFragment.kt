@@ -434,7 +434,7 @@ class ReDelegateFragment : BaseTxFragment() {
             btnRedelegate.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateReDelegate(
-                getChannel(selectedChain), selectedChain.address, onBindReDelegate(), txFee, txMemo
+                getChannel(selectedChain), selectedChain.address, onBindReDelegate(), txFee, txMemo, selectedChain
             )
         }
     }

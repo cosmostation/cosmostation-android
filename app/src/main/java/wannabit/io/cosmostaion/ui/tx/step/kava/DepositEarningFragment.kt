@@ -283,7 +283,8 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
+                    ValidatorDefaultFragment(
+                        selectedChain,
                         null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
@@ -406,7 +407,12 @@ class DepositEarningFragment : BaseTxFragment() {
             btnDepositLiquidity.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateEarnDeposit(
-                getChannel(selectedChain), selectedChain.address, onBindEarnDeposit(), txFee, txMemo
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindEarnDeposit(),
+                txFee,
+                txMemo,
+                selectedChain
             )
         }
     }

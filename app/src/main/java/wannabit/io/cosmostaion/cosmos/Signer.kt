@@ -194,9 +194,13 @@ object Signer {
     }
 
     fun genDelegateSimulate(
-        auth: QueryAccountResponse?, msgDelegate: MsgDelegate?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgDelegate: MsgDelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, delegateMsg(msgDelegate), fee, memo)
+        return signSimulTx(auth, delegateMsg(msgDelegate), fee, memo, selectedChain)
     }
 
     private fun delegateMsg(msgDelegate: MsgDelegate?): MutableList<Any> {
@@ -219,9 +223,13 @@ object Signer {
     }
 
     fun genUnDelegateSimulate(
-        auth: QueryAccountResponse?, msgUnDelegate: MsgUndelegate?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgUnDelegate: MsgUndelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, unDelegateMsg(msgUnDelegate), fee, memo)
+        return signSimulTx(auth, unDelegateMsg(msgUnDelegate), fee, memo, selectedChain)
     }
 
     private fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
@@ -244,9 +252,13 @@ object Signer {
     }
 
     fun genReDelegateSimulate(
-        auth: QueryAccountResponse?, msgReDelegate: MsgBeginRedelegate?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgReDelegate: MsgBeginRedelegate?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, reDelegateMsg(msgReDelegate), fee, memo)
+        return signSimulTx(auth, reDelegateMsg(msgReDelegate), fee, memo, selectedChain)
     }
 
     private fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
@@ -274,9 +286,12 @@ object Signer {
         auth: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, memo)
+        return signSimulTx(
+            auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, memo, selectedChain
+        )
     }
 
     private fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
@@ -302,9 +317,10 @@ object Signer {
         auth: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, claimStakingRewardMsg(auth, rewards), fee, memo)
+        return signSimulTx(auth, claimStakingRewardMsg(auth, rewards), fee, memo, selectedChain)
     }
 
     private fun claimStakingRewardMsg(
@@ -341,9 +357,12 @@ object Signer {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, compoundingMsg(auth, rewards, stakingDenom), fee, memo)
+        return signSimulTx(
+            auth, compoundingMsg(auth, rewards, stakingDenom), fee, memo, selectedChain
+        )
     }
 
     private fun compoundingMsg(
@@ -392,9 +411,12 @@ object Signer {
         auth: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, changeRewardAddress(msgSetWithdrawAddress), fee, memo)
+        return signSimulTx(
+            auth, changeRewardAddress(msgSetWithdrawAddress), fee, memo, selectedChain
+        )
     }
 
     private fun changeRewardAddress(msgSetWithdrawAddress: MsgSetWithdrawAddress?): MutableList<Any> {
@@ -420,9 +442,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, voteMsg(msgVotes), fee, memo)
+        return signSimulTx(auth, voteMsg(msgVotes), fee, memo, selectedChain)
     }
 
     private fun voteMsg(msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
@@ -446,9 +469,13 @@ object Signer {
     }
 
     fun genClaimIncentiveSimulate(
-        auth: QueryAccountResponse?, incentive: QueryRewardsResponse, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        incentive: QueryRewardsResponse,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, claimIncentiveMsg(auth, incentive), fee, memo)
+        return signSimulTx(auth, claimIncentiveMsg(auth, incentive), fee, memo, selectedChain)
     }
 
     private fun claimIncentiveMsg(
@@ -537,9 +564,13 @@ object Signer {
     }
 
     fun genMintCreateSimulate(
-        auth: QueryAccountResponse?, msgCreateMint: MsgCreateCDP?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgCreateMint: MsgCreateCDP?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, mintCreateMsg(msgCreateMint), fee, memo)
+        return signSimulTx(auth, mintCreateMsg(msgCreateMint), fee, memo, selectedChain)
     }
 
     private fun mintCreateMsg(msgCreateMint: MsgCreateCDP?): MutableList<Any> {
@@ -562,9 +593,13 @@ object Signer {
     }
 
     fun genMintDepositSimulate(
-        auth: QueryAccountResponse?, msgDeposit: MsgDeposit?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgDeposit: MsgDeposit?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, mintDepositMsg(msgDeposit), fee, memo)
+        return signSimulTx(auth, mintDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
 
     private fun mintDepositMsg(msgDeposit: MsgDeposit?): MutableList<Any> {
@@ -587,9 +622,13 @@ object Signer {
     }
 
     fun genMintWithdrawSimulate(
-        auth: QueryAccountResponse?, msgWithdraw: MsgWithdraw?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgWithdraw: MsgWithdraw?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, mintWithdrawMsg(msgWithdraw), fee, memo)
+        return signSimulTx(auth, mintWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
 
     private fun mintWithdrawMsg(msgWithdraw: MsgWithdraw?): MutableList<Any> {
@@ -612,9 +651,13 @@ object Signer {
     }
 
     fun genMintBorrowSimulate(
-        auth: QueryAccountResponse?, msgDrawDebt: MsgDrawDebt?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgDrawDebt: MsgDrawDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, mintBorrowMsg(msgDrawDebt), fee, memo)
+        return signSimulTx(auth, mintBorrowMsg(msgDrawDebt), fee, memo, selectedChain)
     }
 
     private fun mintBorrowMsg(msgDrawDebt: MsgDrawDebt?): MutableList<Any> {
@@ -637,9 +680,13 @@ object Signer {
     }
 
     fun genMintRepaySimulate(
-        auth: QueryAccountResponse?, msgRepayDebt: MsgRepayDebt?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgRepayDebt: MsgRepayDebt?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, mintRepayMsg(msgRepayDebt), fee, memo)
+        return signSimulTx(auth, mintRepayMsg(msgRepayDebt), fee, memo, selectedChain)
     }
 
     private fun mintRepayMsg(msgRepayDebt: MsgRepayDebt?): MutableList<Any> {
@@ -665,9 +712,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, lendDepositMsg(msgDeposit), fee, memo)
+        return signSimulTx(auth, lendDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
 
     private fun lendDepositMsg(msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
@@ -693,9 +741,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, lendWithdrawMsg(msgWithdraw), fee, memo)
+        return signSimulTx(auth, lendWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
 
     private fun lendWithdrawMsg(msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
@@ -718,9 +767,13 @@ object Signer {
     }
 
     fun genLendBorrowSimulate(
-        auth: QueryAccountResponse?, msgBorrow: MsgBorrow?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgBorrow: MsgBorrow?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, lendBorrowMsg(msgBorrow), fee, memo)
+        return signSimulTx(auth, lendBorrowMsg(msgBorrow), fee, memo, selectedChain)
     }
 
     private fun lendBorrowMsg(msgBorrow: MsgBorrow?): MutableList<Any> {
@@ -743,9 +796,13 @@ object Signer {
     }
 
     fun genLendRepaySimulate(
-        auth: QueryAccountResponse?, msgRepay: MsgRepay?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgRepay: MsgRepay?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, lendRepayMsg(msgRepay), fee, memo)
+        return signSimulTx(auth, lendRepayMsg(msgRepay), fee, memo, selectedChain)
     }
 
     private fun lendRepayMsg(msgRepay: MsgRepay?): MutableList<Any> {
@@ -771,9 +828,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, poolDepositMsg(msgDeposit), fee, memo)
+        return signSimulTx(auth, poolDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
 
     private fun poolDepositMsg(msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
@@ -799,9 +857,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, poolWithdrawMsg(msgWithdraw), fee, memo)
+        return signSimulTx(auth, poolWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
 
     private fun poolWithdrawMsg(msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
@@ -827,9 +886,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, earnDepositMsg(msgDeposit), fee, memo)
+        return signSimulTx(auth, earnDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
 
     private fun earnDepositMsg(msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?): MutableList<Any> {
@@ -855,9 +915,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, earnWithdrawMsg(msgWithdraw), fee, memo)
+        return signSimulTx(auth, earnWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
 
     private fun earnWithdrawMsg(msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?): MutableList<Any> {
@@ -1004,16 +1065,6 @@ object Signer {
         return BroadcastTxRequest.newBuilder()
             .setModeValue(BroadcastMode.BROADCAST_MODE_SYNC.number)
             .setTxBytes(broadcastTx?.toByteString()).build()
-    }
-
-    private fun signSimulTx(
-        auth: QueryAccountResponse?, msgAnys: List<Any>?, fee: Fee?, memo: String
-    ): SimulateRequest? {
-        val txBody = grpcTxBody(msgAnys, memo)
-        val signerInfo = grpcSimulInfo(auth)
-        val authInfo = grpcAuthInfo(signerInfo, fee)
-        val simulateTx = grpcSimulTx(txBody, authInfo)
-        return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
     }
 
     private fun signSimulTx(

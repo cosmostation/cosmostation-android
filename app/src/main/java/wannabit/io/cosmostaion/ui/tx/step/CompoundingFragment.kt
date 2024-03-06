@@ -316,7 +316,8 @@ class CompoundingFragment : BaseTxFragment() {
                 claimableRewards,
                 selectedChain.stakeDenom,
                 txFee,
-                txMemo
+                txMemo,
+                selectedChain
             )
         }
     }

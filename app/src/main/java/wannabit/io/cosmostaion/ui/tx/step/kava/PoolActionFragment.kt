@@ -111,7 +111,6 @@ class PoolActionFragment : BaseTxFragment() {
         initView()
         initFee()
         updateFeeView()
-        txSimulate()
         setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
@@ -511,7 +510,8 @@ class PoolActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -529,7 +529,8 @@ class PoolActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
             }

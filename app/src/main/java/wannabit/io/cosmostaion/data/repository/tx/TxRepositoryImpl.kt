@@ -532,12 +532,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genDelegateSimulate(account, msgDelegate, fee, memo)
+            val simulateTx = Signer.genDelegateSimulate(account, msgDelegate, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -570,12 +571,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo)
+            val simulateTx = Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -608,12 +610,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genReDelegateSimulate(account, msgReDelegate, fee, memo)
+            val simulateTx = Signer.genReDelegateSimulate(account, msgReDelegate, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -647,13 +650,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genCancelUnbondingSimulate(account, msgCancelUnbondingDelegation, fee, memo)
+                Signer.genCancelUnbondingSimulate(account, msgCancelUnbondingDelegation, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -686,12 +690,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genClaimRewardsSimulate(account, rewards, fee, memo)
+            val simulateTx = Signer.genClaimRewardsSimulate(account, rewards, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -727,13 +732,14 @@ class TxRepositoryImpl : TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genCompoundingSimulate(account, rewards, stakingDenom, fee, memo)
+                Signer.genCompoundingSimulate(account, rewards, stakingDenom, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -767,13 +773,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genChangeRewardAddressSimulate(account, msgSetWithdrawAddress, fee, memo)
+                Signer.genChangeRewardAddressSimulate(account, msgSetWithdrawAddress, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -805,12 +812,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<MsgVote?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, memo)
+            val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -843,12 +851,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genClaimIncentiveSimulate(account, incentive, fee, memo)
+            val simulateTx = Signer.genClaimIncentiveSimulate(account, incentive, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -881,12 +890,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintCreateSimulate(account, msgCreateCDP, fee, memo)
+            val simulateTx = Signer.genMintCreateSimulate(account, msgCreateCDP, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -919,12 +929,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintDepositSimulate(account, msgDeposit, fee, memo)
+            val simulateTx = Signer.genMintDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -957,12 +968,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, memo)
+            val simulateTx = Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -995,12 +1007,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, memo)
+            val simulateTx = Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1033,12 +1046,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintRepaySimulate(account, msgRepayDebt, fee, memo)
+            val simulateTx = Signer.genMintRepaySimulate(account, msgRepayDebt, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1071,12 +1085,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendDepositSimulate(account, msgDeposit, fee, memo)
+            val simulateTx = Signer.genLendDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1109,12 +1124,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, memo)
+            val simulateTx = Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1147,12 +1163,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendBorrowSimulate(account, msgBorrow, fee, memo)
+            val simulateTx = Signer.genLendBorrowSimulate(account, msgBorrow, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1185,12 +1202,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendRepaySimulate(account, msgRepay, fee, memo)
+            val simulateTx = Signer.genLendRepaySimulate(account, msgRepay, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1223,12 +1241,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genPoolDepositSimulate(account, msgDeposit, fee, memo)
+            val simulateTx = Signer.genPoolDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1261,12 +1280,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, memo)
+            val simulateTx = Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1299,12 +1319,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genEarnDepositSimulate(account, msgDeposit, fee, memo)
+            val simulateTx = Signer.genEarnDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1337,12 +1358,13 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, memo)
+            val simulateTx = Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {

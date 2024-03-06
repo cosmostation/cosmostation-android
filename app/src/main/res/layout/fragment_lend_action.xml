@@ -281,14 +281,15 @@
                     android:id="@+id/fee_segment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:background="@color/color_transparent"
                     android:layout_margin="@dimen/space_4"
-                    app:borderColor="@color/color_base05"
-                    app:borderWidth="1dp"
                     app:radius="@dimen/space_8"
+                    app:selectedButtonRadius="@dimen/space_8"
+                    app:draggable="true"
                     app:ripple="true"
-                    app:rippleColor="@color/color_transparent" />
+                    app:rippleColor="@color/color_transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"/>
 
             </androidx.cardview.widget.CardView>
 

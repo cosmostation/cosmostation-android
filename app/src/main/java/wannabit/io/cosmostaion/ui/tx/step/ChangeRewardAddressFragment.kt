@@ -335,7 +335,8 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindChangeRewardAddress(),
                 txFee,
-                txMemo
+                txMemo,
+                selectedChain
             )
         }
     }

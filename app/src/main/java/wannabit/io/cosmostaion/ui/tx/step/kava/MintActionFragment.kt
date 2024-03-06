@@ -112,7 +112,6 @@ class MintActionFragment : BaseTxFragment() {
         initView()
         initFee()
         updateFeeView()
-        txSimulate()
         setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
@@ -148,7 +147,7 @@ class MintActionFragment : BaseTxFragment() {
                     (getSerializable("collateralParam") as? CollateralParam)?.let {
                         collateralParam = it
                     }
-                    (getSerializable("priceFeed") as? CDPResponse)?.let {
+                    (getSerializable("myCdp") as? CDPResponse)?.let {
                         myCdp = it
                     }
                 }
@@ -544,7 +543,8 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -562,7 +562,8 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -580,7 +581,8 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindBorrowMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -598,7 +600,8 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindRepayMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
             }

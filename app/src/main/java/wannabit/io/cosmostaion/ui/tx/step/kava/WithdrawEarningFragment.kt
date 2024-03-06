@@ -334,7 +334,8 @@ class WithdrawEarningFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindEarnWithdraw(),
                 txFee,
-                txMemo
+                txMemo,
+                selectedChain
             )
         }
     }

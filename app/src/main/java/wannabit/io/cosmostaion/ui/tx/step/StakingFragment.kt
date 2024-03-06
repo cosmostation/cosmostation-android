@@ -401,7 +401,7 @@ class StakingFragment : BaseTxFragment() {
             btnStake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateDelegate(
-                getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo
+                getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo, selectedChain
             )
         }
     }

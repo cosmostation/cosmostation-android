@@ -330,7 +330,12 @@ class ClaimIncentiveFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             btnClaimIncentive.updateButtonView(false)
             txViewModel.simulateClaimIncentive(
-                getChannel(selectedChain), selectedChain.address, incentive, txFee, txMemo
+                getChannel(selectedChain),
+                selectedChain.address,
+                incentive,
+                txFee,
+                txMemo,
+                selectedChain
             )
         }
     }

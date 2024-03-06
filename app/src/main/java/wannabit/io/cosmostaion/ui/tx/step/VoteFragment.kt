@@ -328,7 +328,7 @@ class VoteFragment : BaseTxFragment() {
                 toVotes?.add(voteMsg)
             }
             txViewModel.simulateVote(
-                getChannel(selectedChain), selectedChain.address, toVotes, txFee, txMemo
+                getChannel(selectedChain), selectedChain.address, toVotes, txFee, txMemo, selectedChain
             )
         }
     }

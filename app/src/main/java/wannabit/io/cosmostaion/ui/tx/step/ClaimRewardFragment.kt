@@ -330,7 +330,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             btnGetReward.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateGetRewards(
-                getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo
+                getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo, selectedChain
             )
         }
     }

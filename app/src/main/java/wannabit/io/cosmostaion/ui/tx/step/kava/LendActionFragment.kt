@@ -112,7 +112,6 @@ class LendActionFragment : BaseTxFragment() {
         initView()
         initFee()
         updateFeeView()
-        txSimulate()
         setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
@@ -521,7 +520,8 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -531,7 +531,8 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -541,7 +542,8 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindBorrowMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
 
@@ -551,7 +553,8 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindRepayMsg(),
                         txFee,
-                        txMemo
+                        txMemo,
+                        selectedChain
                     )
                 }
             }

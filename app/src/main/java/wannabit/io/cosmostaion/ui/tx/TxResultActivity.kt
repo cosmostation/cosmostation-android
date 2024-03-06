@@ -72,11 +72,18 @@ class TxResultActivity : BaseActivity() {
 
     private fun initView() {
         binding.apply {
-            selectedChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
-                it.tag == intent.getStringExtra(
+            BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull { line ->
+                line.tag == intent.getStringExtra(
                     "selectedChain"
                 ).toString()
+            }?.let { selectedChain = it } ?: run {
+                BaseData.baseAccount?.sortedDisplayEvmLines()?.firstOrNull { evmLine ->
+                    evmLine.tag == intent.getStringExtra(
+                        "selectedChain"
+                    ).toString()
+                }?.let { selectedChain = it }
             }
+
             isSuccess = intent.getBooleanExtra("isSuccess", false)
             errorMsg = intent.getStringExtra("errorMsg") ?: ""
             txHash = intent.getStringExtra("txHash") ?: ""

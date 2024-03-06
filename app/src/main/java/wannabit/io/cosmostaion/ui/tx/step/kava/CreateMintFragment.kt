@@ -396,7 +396,12 @@ class CreateMintFragment : BaseTxFragment() {
             btnCreateMint.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateMintCreate(
-                getChannel(selectedChain), selectedChain.address, onBindCreateMint(), txFee, txMemo
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindCreateMint(),
+                txFee,
+                txMemo,
+                selectedChain
             )
         }
     }

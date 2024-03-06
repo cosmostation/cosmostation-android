@@ -274,7 +274,8 @@ class AllChainClaimFragment : BaseTxFragment() {
                         loadAuth(channel, chain.address),
                         claimableRewards,
                         chain.getInitFee(it),
-                        ""
+                        "",
+                        chain
                     )
                     val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
                     onComplete(gasUsed.toString())

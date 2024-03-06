@@ -387,7 +387,7 @@ class UnStakingFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             btnUnstake.updateButtonView(false)
             txViewModel.simulateUnDelegate(
-                getChannel(selectedChain), selectedChain.address, onBindUnDelegate(), txFee, txMemo
+                getChannel(selectedChain), selectedChain.address, onBindUnDelegate(), txFee, txMemo, selectedChain
             )
         }
     }
