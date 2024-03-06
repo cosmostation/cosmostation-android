@@ -75,6 +75,20 @@
                     android:layout_below="@+id/chain_name"
                     android:textAllCaps="true"/>
 
+                <TextView
+                    android:id="@+id/chain_type_badge"
+                    style="@style/font_sm_8"
+                    android:background="@drawable/round_box_deprecated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_1"
+                    android:layout_marginStart="@dimen/space_2"
+                    android:textColor="@color/color_base02"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_toRightOf="@+id/chain_badge" />
+
             </RelativeLayout>
 
             <com.facebook.shimmer.ShimmerFrameLayout

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.book
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,14 +11,26 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentAddressBookManageOptionBinding
 
-class AddressBookManageOptionFragment(
-    private val addressBook: AddressBook
-) : BottomSheetDialogFragment() {
+class AddressBookManageOptionFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentAddressBookManageOptionBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var addressBook: AddressBook
+
     private var isClickable = true
+
+    companion object {
+        @JvmStatic
+        fun newInstance(addressBook: AddressBook): AddressBookManageOptionFragment {
+            val args = Bundle().apply {
+                putParcelable("addressBook", addressBook)
+            }
+            val fragment = AddressBookManageOptionFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,14 +42,33 @@ class AddressBookManageOptionFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         setUpClickAction()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("addressBook", AddressBook::class.java)
+                ?.let { addressBook = it }
+
+        } else {
+            (arguments?.getParcelable("addressBook") as? AddressBook)?.let {
+                addressBook = it
+            }
+        }
     }
 
     private fun setUpClickAction() {
         binding.apply {
             editLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    SetAddressFragment(addressBook, null, "", "")
+                    SetAddressFragment.newInstance(
+                        addressBook,
+                        null,
+                        "",
+                        "",
+                        AddressBookType.ManualEdit
+                    )
                 )
             }
 

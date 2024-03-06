@@ -38,7 +38,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentDepositEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -283,8 +283,7 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(
-                        selectedChain,
+                    ValidatorDefaultFragment(selectedChain,
                         null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
@@ -298,16 +297,14 @@ class DepositEarningFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.EARN_DEPOSIT,
-                        null,
-                        availableAmount,
+                    InsertAmountFragment.newInstance(TxType.EARN_DEPOSIT,
+                        availableAmount.toString(),
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let { denom ->
                             BaseData.getAsset(
                                 selectedChain.apiName, denom
                             )
                         },
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
@@ -317,7 +314,7 @@ class DepositEarningFragment : BaseTxFragment() {
             }
 
             memoView.setOnClickListener {
-                handleOneClickWithDelay(MemoFragment(txMemo, object : MemoListener {
+                handleOneClickWithDelay(MemoFragment.newInstance(txMemo, object : MemoListener {
                     override fun memo(memo: String) {
                         updateMemoView(memo)
                     }
@@ -326,8 +323,8 @@ class DepositEarningFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

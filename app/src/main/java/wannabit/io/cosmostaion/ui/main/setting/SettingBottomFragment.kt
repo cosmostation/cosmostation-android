@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,16 +8,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.data.model.res.Params
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 
-class SettingBottomFragment(private val settingType: SettingType) : BottomSheetDialogFragment() {
+class SettingBottomFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
+    private var fromChain: CosmosLine? = null
+    private lateinit var settingType: SettingType
+
     private lateinit var settingAdapter: SettingBottomAdapter
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            fromChain: CosmosLine?, settingType: SettingType
+        ): SettingBottomFragment {
+            val args = Bundle().apply {
+                putParcelable("fromChain", fromChain)
+                putSerializable("settingType", settingType)
+            }
+            val fragment = SettingBottomFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,6 +54,31 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
 
     private fun initView() {
         binding.apply {
+            arguments?.apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    getParcelable("fromChain", CosmosLine::class.java)?.let {
+                        fromChain = it
+                    }
+                    getSerializable(
+                        "settingType", SettingType::class.java
+                    )?.let { settingType = it }
+
+                } else {
+                    (getParcelable("fromChain") as? CosmosLine)?.let {
+                        fromChain = it
+                    }
+                    (getSerializable("settingType") as? SettingType)?.let {
+                        settingType = it
+                    }
+                }
+            }
+
+            initRecyclerView()
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.apply {
             when (settingType) {
                 SettingType.LANGUAGE -> {
                     selectTitle.text = getString(R.string.str_select_language)
@@ -43,7 +89,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                         getString(R.string.title_language_ja)
                     )
 
-                    settingAdapter = SettingBottomAdapter(requireContext(), SettingType.LANGUAGE)
+                    settingAdapter = SettingBottomAdapter(requireContext(), null, SettingType.LANGUAGE)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -61,7 +107,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                     selectTitle.text = getString(R.string.str_select_currency)
                     val currencyList = resources.getStringArray(R.array.currency_unit_array)
 
-                    settingAdapter = SettingBottomAdapter(requireContext(), SettingType.CURRENCY)
+                    settingAdapter = SettingBottomAdapter(requireContext(), null, SettingType.CURRENCY)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -82,7 +128,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                     selectTitle.text = getString(R.string.title_price_change_color)
 
                     settingAdapter =
-                        SettingBottomAdapter(requireContext(), SettingType.PRICE_STATUS)
+                        SettingBottomAdapter(requireContext(), null, SettingType.PRICE_STATUS)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -100,7 +146,7 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                     selectTitle.text = getString(R.string.title_buy_crypto)
                     val buyCryptoList = listOf("MOONPAY", "KADO", "BINANCE")
 
-                    settingAdapter = SettingBottomAdapter(requireContext(), SettingType.BUY_CRYPTO)
+                    settingAdapter = SettingBottomAdapter(requireContext(), null, SettingType.BUY_CRYPTO)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -112,6 +158,15 @@ class SettingBottomFragment(private val settingType: SettingType) : BottomSheetD
                         parentFragmentManager.setFragmentResult("crypto", bundle)
                         dismiss()
                     }
+                }
+
+                SettingType.END_POINT -> {
+                    selectTitle.text = getString(R.string.title_select_end_point)
+                    settingAdapter = SettingBottomAdapter(requireContext(), fromChain, SettingType.END_POINT)
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.adapter = settingAdapter
+                    settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.grpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
                 }
             }
         }

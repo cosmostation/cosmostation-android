@@ -82,6 +82,18 @@
             android:textAllCaps="true"
             android:textColor="@color/color_base02" />
 
+        <TextView
+            android:id="@+id/chain_type_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_2"
+            android:background="@drawable/round_box_deprecated"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:textAllCaps="true"
+            android:textColor="@color/color_base02" />
+
     </LinearLayout>
 
     <ImageView

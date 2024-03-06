@@ -6,12 +6,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -21,24 +21,30 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
-import wannabit.io.cosmostaion.databinding.ItemSegmentChainBinding
 
 
-class QrCodeFragment(
-    private val selectedChain: CosmosLine
-) : BottomSheetDialogFragment() {
+class QrCodeFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentQrCodeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var selectedChain: CosmosLine
+
+    companion object {
+        @JvmStatic
+        fun newInstance(selectedChain: CosmosLine): QrCodeFragment {
+            val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
+            }
+            val fragment = QrCodeFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -58,105 +64,59 @@ class QrCodeFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initData()
         initView()
         setupClickAction()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                ?.let { selectedChain = it }
+        } else {
+            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                selectedChain = it
+            }
+        }
     }
 
     private fun initView() {
         BaseData.baseAccount?.let { account ->
             binding.apply {
-                segmentView.setBackgroundResource(R.drawable.cell_search_bg)
-                chainSegment.apply {
-                    setSelectedBackground(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_accent_purple
-                        )
-                    )
-                    setRipple(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_accent_purple
-                        )
-                    )
-                }
-
-                for (i in 0 until 2) {
-                    val segmentView = ItemSegmentChainBinding.inflate(layoutInflater)
-                    chainSegment.addView(
-                        segmentView.root,
-                        i,
-                        LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                    )
-                    when (i) {
-                        0 -> {
-                            when (selectedChain) {
-                                is ChainKava60 -> {
-                                    segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                        requireContext(), R.drawable.icon_kava_address
-                                    )
-                                }
-
-                                is ChainEvmos -> {
-                                    segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                        requireContext(), R.drawable.icon_evmos_address
-                                    )
-                                }
-
-                                else -> {
-                                    segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                        requireContext(), R.drawable.icon_xpla_address
-                                    )
-                                }
-                            }
-                            segmentView.btnChain.text = selectedChain.apiName.uppercase()
-                        }
-
-                        else -> {
-                            segmentView.btnChain.text = "ETHEREUM"
-                            segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                requireContext(), R.drawable.icon_ethereum_address
-                            )
-                        }
-                    }
-                }
-
-                if (selectedChain is ChainOkt60 || selectedChain.tag == "kava60" || selectedChain.tag == "xplaKeccak256") {
-                    chainSegment.setPosition(1, false)
-                    setQrAddress(ByteUtils.convertBech32ToEvm(selectedChain.address))
-                    addressTitle.text = getString(R.string.str_ethereum_address)
-
-                } else {
-                    chainSegment.setPosition(0, false)
-                    setQrAddress(selectedChain.address)
-                    addressTitle.text = getString(R.string.str_address)
-                }
-
+                setQrAddress(selectedChain.address)
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 chainName.text = selectedChain.name
                 accountPath.text = selectedChain.getHDPath(account.lastHDPath)
                 chainImg.setImageResource(selectedChain.logo)
 
-                if (selectedChain.evmCompatible) {
+                if (!selectedChain.isDefault) {
                     chainBadge.visibility = View.VISIBLE
-                    chainBadge.text = getString(R.string.str_evm)
-                    chainBadge.setBackgroundResource(R.drawable.round_box_evm)
-                    chainBadge.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.color_base01
-                        )
-                    )
-                } else if (!selectedChain.isDefault) {
-                    chainBadge.visibility = View.VISIBLE
-                    chainBadge.text = getString(R.string.str_legacy)
                     chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                     chainBadge.setTextColor(
                         ContextCompat.getColor(
-                            requireContext(),
-                            R.color.color_base02
+                            requireContext(), R.color.color_base02
                         )
                     )
+                    chainBadge.text = requireActivity().getString(R.string.str_legacy)
+                    when (selectedChain.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text =
+                                requireActivity().getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text =
+                                requireActivity().getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
                 } else {
                     chainBadge.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
                 }
 
                 qrView.radius = resources.getDimension(R.dimen.space_8)
@@ -167,7 +127,7 @@ class QrCodeFragment(
 
     private fun setQrAddress(selectAddress: String?) {
         binding.apply {
-            chainSegment.visibleOrGone(selectedChain.evmCompatible)
+            chainSegment.visibility = View.GONE
             val hints = mutableMapOf<EncodeHintType, Int>()
             hints[EncodeHintType.MARGIN] = 0
 
@@ -182,20 +142,6 @@ class QrCodeFragment(
 
     private fun setupClickAction() {
         binding.apply {
-            chainSegment.setOnPositionChangedListener { position ->
-                when (position) {
-                    0 -> {
-                        setQrAddress(selectedChain.address)
-                        addressTitle.text = getString(R.string.str_address)
-                    }
-
-                    else -> {
-                        setQrAddress(ByteUtils.convertBech32ToEvm(selectedChain.address))
-                        addressTitle.text = getString(R.string.str_ethereum_address)
-                    }
-                }
-            }
-
             addressView.setOnClickListener {
                 val clipboard =
                     requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

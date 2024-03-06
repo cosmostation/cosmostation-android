@@ -43,7 +43,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemToastBinding
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -60,16 +61,27 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.math.ceil
 
 fun formatString(input: String, point: Int): SpannableString {
     val spannableString = SpannableString(input)
-    spannableString.setSpan(RelativeSizeSpan(0.8f), spannableString.length - point, spannableString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    spannableString.setSpan(
+        RelativeSizeSpan(0.8f),
+        spannableString.length - point,
+        spannableString.length,
+        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+    )
     return spannableString
 }
 
 fun formatAmount(input: String, decimal: Int): SpannableString {
     val spannableString = SpannableString(getDecimalFormat(decimal).format(input.toBigDecimal()))
-    spannableString.setSpan(RelativeSizeSpan(0.8f), spannableString.length - decimal, spannableString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    spannableString.setSpan(
+        RelativeSizeSpan(0.8f),
+        spannableString.length - decimal,
+        spannableString.length,
+        Spannable.SPAN_INCLUSIVE_INCLUSIVE
+    )
     return spannableString
 }
 
@@ -129,33 +141,28 @@ fun TextView.hiddenStatus(amount: SpannableString) {
 
 fun Activity.toMoveAnimation() {
     this.overridePendingTransition(
-        R.anim.anim_slide_in_left,
-        R.anim.anim_slide_out_right)
+        R.anim.anim_slide_in_left, R.anim.anim_slide_out_right
+    )
 }
 
 fun Activity.toMoveBack() {
     this.overridePendingTransition(
-        R.anim.anim_slide_in_right,
-        R.anim.anim_slide_out_left)
+        R.anim.anim_slide_in_right, R.anim.anim_slide_out_left
+    )
 }
 
-fun FragmentActivity.toMoveFragment(currentFragment: Fragment, moveFragment: Fragment, stackName: String) {
-    this.supportFragmentManager.beginTransaction()
-        .setCustomAnimations(
-            R.animator.to_right,
-            R.animator.from_right,
-            R.animator.to_left,
-            R.animator.from_left
-        )
-        .add(R.id.fragment_container, moveFragment)
-        .hide(currentFragment)
-        .setReorderingAllowed(true)
-        .addToBackStack(stackName)
-        .commitAllowingStateLoss()
+fun FragmentActivity.toMoveFragment(
+    currentFragment: Fragment, moveFragment: Fragment, stackName: String
+) {
+    this.supportFragmentManager.beginTransaction().setCustomAnimations(
+        R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left
+    ).add(R.id.fragment_container, moveFragment).hide(currentFragment).setReorderingAllowed(true)
+        .addToBackStack(stackName).commitAllowingStateLoss()
 }
 
 fun ImageView.setTokenImg(asset: Asset) {
-    Picasso.get().load(CosmostationConstants.CHAIN_BASE_URL + asset.image).error(R.drawable.token_default).into(this)
+    Picasso.get().load(CosmostationConstants.CHAIN_BASE_URL + asset.image)
+        .error(R.drawable.token_default).into(this)
 }
 
 fun ImageView.setTokenImg(tokenImg: String) {
@@ -167,7 +174,8 @@ fun ImageView.setImg(resourceId: Int) {
 }
 
 fun ImageView.setMonikerImg(line: CosmosLine, opAddress: String?) {
-    Picasso.get().load(line.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator).into(this)
+    Picasso.get().load(line.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
+        .into(this)
 }
 
 fun AppCompatActivity.makeToast(id: Int) {
@@ -184,7 +192,8 @@ fun Context.makeToast(msg: String?) {
 
 fun Context.showToast(view: View?, msg: String?, isTx: Boolean) {
     val inflater = LayoutInflater.from(this)
-    val toastBinding = ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
+    val toastBinding =
+        ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
     toastBinding.toastTitle.visibleOrGone(isTx)
     toastBinding.toastMsg.text = msg
 
@@ -195,7 +204,8 @@ fun Context.showToast(view: View?, msg: String?, isTx: Boolean) {
 
 fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
     val inflater = LayoutInflater.from(this)
-    val toastBinding = ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
+    val toastBinding =
+        ItemToastBinding.inflate(inflater, view?.findViewById(R.id.toast_layout), false)
     toastBinding.toastTitle.visibleOrGone(isTx)
     toastBinding.toastMsg.text = this.getString(id)
 
@@ -220,8 +230,7 @@ fun formatCurrentTimeToYear(): String {
             } else {
                 "yyyy.M.d"
             }
-        },
-        locale
+        }, locale
     )
     return dateFormat.format(date.time)
 }
@@ -244,8 +253,7 @@ fun formatTxTime(context: Context, timeString: String): String {
             } else {
                 "yyyy.M.d"
             }
-        },
-        locale
+        }, locale
     )
     outputFormat.timeZone = TimeZone.getDefault()
     return outputFormat.format(date)
@@ -269,8 +277,7 @@ fun formatTxTimeToYear(context: Context, timeString: String): String {
             } else {
                 "yyyy.M.d"
             }
-        },
-        locale
+        }, locale
     )
     outputFormat.timeZone = TimeZone.getDefault()
     return outputFormat.format(date)
@@ -314,8 +321,7 @@ fun dpTime(time: Long): String {
             } else {
                 "yyyy-MM-dd HH:mm:ss"
             }
-        },
-        locale
+        }, locale
     )
     return outputFormat.format(calendar.timeInMillis)
 }
@@ -338,8 +344,7 @@ fun dpTimeToYear(time: Long): String {
             } else {
                 "yyyy-MM-dd"
             }
-        },
-        locale
+        }, locale
     )
     return outputFormat.format(calendar.timeInMillis)
 }
@@ -362,8 +367,7 @@ fun voteDpTime(time: Long): String {
             } else {
                 "yyyy-MM-dd HH:mm:ss"
             }
-        },
-        locale
+        }, locale
     )
     return outputFormat.format(calendar.timeInMillis)
 }
@@ -437,9 +441,11 @@ fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
         is ChainBinanceBeacon -> {
             EXPLORER_BINANCE_URL + "tx/" + txHash
         }
-        is ChainOkt60 -> {
+
+        is ChainOkt996Keccak -> {
             OKT_EXPLORER + "tx/" + txHash
         }
+
         else -> {
             CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName + "/transactions/" + txHash
         }
@@ -456,8 +462,7 @@ fun BigDecimal.handlerRight(decimal: Int, scale: Int): BigDecimal {
 }
 
 suspend fun <T> safeApiCall(
-    dispatcher: CoroutineDispatcher,
-    apiCall: suspend () -> T
+    dispatcher: CoroutineDispatcher, apiCall: suspend () -> T
 ): NetworkResult<T> {
     return withContext(dispatcher) {
         try {
@@ -523,14 +528,13 @@ fun getDecimalFormat(cnt: Int): DecimalFormat {
 
 fun dpToPx(context: Context, dp: Int): Int {
     return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        dp.toFloat(),
-        context.resources.displayMetrics
+        TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics
     ).toInt()
 }
 
 fun getChannel(selectedChain: CosmosLine): ManagedChannel {
-    return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort).useTransportSecurity().build()
+    return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort)
+        .useTransportSecurity().build()
 }
 
 // kava
@@ -545,7 +549,8 @@ fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.C
                 result.indexOfFirst { it.denom == usdxReward.denom }.let { already ->
                     if (already != -1) {
                         val sumReward = result[already].amount.toBigDecimal().add(amount)
-                        result[already] = CoinProto.Coin.newBuilder().setDenom(usdxReward.denom).setAmount(sumReward.toPlainString()).build()
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(usdxReward.denom)
+                            .setAmount(sumReward.toPlainString()).build()
                     } else {
                         result.add(usdxReward)
                     }
@@ -561,7 +566,8 @@ fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.C
                 result.indexOfFirst { it.denom == hardReward.denom }.let { already ->
                     if (already != -1) {
                         val sumReward = result[already].amount.toBigDecimal().add(amount)
-                        result[already] = CoinProto.Coin.newBuilder().setDenom(hardReward.denom).setAmount(sumReward.toPlainString()).build()
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(hardReward.denom)
+                            .setAmount(sumReward.toPlainString()).build()
                     } else {
                         result.add(hardReward)
                     }
@@ -577,7 +583,8 @@ fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.C
                 result.indexOfFirst { it.denom == deleClaim.denom }.let { already ->
                     if (already != -1) {
                         val sumReward = result[already].amount.toBigDecimal().add(amount)
-                        result[already] = CoinProto.Coin.newBuilder().setDenom(deleClaim.denom).setAmount(sumReward.toPlainString()).build()
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(deleClaim.denom)
+                            .setAmount(sumReward.toPlainString()).build()
                     } else {
                         result.add(deleClaim)
                     }
@@ -593,7 +600,8 @@ fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.C
                 result.indexOfFirst { it.denom == swapClaim.denom }.let { already ->
                     if (already != -1) {
                         val sumReward = result[already].amount.toBigDecimal().add(amount)
-                        result[already] = CoinProto.Coin.newBuilder().setDenom(swapClaim.denom).setAmount(sumReward.toPlainString()).build()
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(swapClaim.denom)
+                            .setAmount(sumReward.toPlainString()).build()
                     } else {
                         result.add(swapClaim)
                     }
@@ -609,7 +617,8 @@ fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.C
                 result.indexOfFirst { it.denom == earnClaim.denom }.let { already ->
                     if (already != -1) {
                         val sumReward = result[already].amount.toBigDecimal().add(amount)
-                        result[already] = CoinProto.Coin.newBuilder().setDenom(earnClaim.denom).setAmount(sumReward.toPlainString()).build()
+                        result[already] = CoinProto.Coin.newBuilder().setDenom(earnClaim.denom)
+                            .setAmount(sumReward.toPlainString()).build()
                     } else {
                         result.add(earnClaim)
                     }
@@ -621,8 +630,7 @@ fun QueryProto.QueryRewardsResponse.allIncentiveCoins(): MutableList<CoinProto.C
 }
 
 fun QueryProto.QueryRewardsResponse.hasUsdxMinting(): Boolean {
-    if (usdxMintingClaimsCount > 0 && usdxMintingClaimsList[0].hasBaseClaim()
-        && usdxMintingClaimsList[0].baseClaim.hasReward() && usdxMintingClaimsList[0].baseClaim.reward.amount != "0") {
+    if (usdxMintingClaimsCount > 0 && usdxMintingClaimsList[0].hasBaseClaim() && usdxMintingClaimsList[0].baseClaim.hasReward() && usdxMintingClaimsList[0].baseClaim.reward.amount != "0") {
         return true
     }
     return false
@@ -680,14 +688,22 @@ fun CollateralParam.liquidationRatioAmount(): BigDecimal {
     return liquidationRatio.toBigDecimal().movePointLeft(18).setScale(18, RoundingMode.DOWN)
 }
 
-fun CollateralParam.expectCollateralUSDXValue(collateralAmount: BigDecimal?, priceFeed: QueryPricesResponse?): BigDecimal {
+fun CollateralParam.expectCollateralUSDXValue(
+    collateralAmount: BigDecimal?, priceFeed: QueryPricesResponse?
+): BigDecimal {
     val collateralPrice = priceFeed?.kavaOraclePrice(liquidationMarketId)
-    val collateralValue = collateralAmount?.multiply(collateralPrice)?.movePointLeft(conversionFactor.toInt())?.setScale(6, RoundingMode.DOWN)
+    val collateralValue =
+        collateralAmount?.multiply(collateralPrice)?.movePointLeft(conversionFactor.toInt())
+            ?.setScale(6, RoundingMode.DOWN)
     return collateralValue?.movePointRight(6)?.setScale(0, RoundingMode.DOWN) ?: BigDecimal.ZERO
 }
 
-fun CollateralParam.expectUSDXLTV(collateralAmount: BigDecimal?, priceFeed: QueryPricesResponse?): BigDecimal {
-    return expectCollateralUSDXValue(collateralAmount, priceFeed).divide(liquidationRatioAmount(), 0, RoundingMode.DOWN)
+fun CollateralParam.expectUSDXLTV(
+    collateralAmount: BigDecimal?, priceFeed: QueryPricesResponse?
+): BigDecimal {
+    return expectCollateralUSDXValue(collateralAmount, priceFeed).divide(
+        liquidationRatioAmount(), 0, RoundingMode.DOWN
+    )
 }
 
 fun CDPResponse.collateralUSDXAmount(): BigDecimal {
@@ -695,7 +711,9 @@ fun CDPResponse.collateralUSDXAmount(): BigDecimal {
 }
 
 fun CDPResponse.UsdxLTV(collateralParam: CollateralParam): BigDecimal {
-    return collateralUSDXAmount().divide(collateralParam.liquidationRatioAmount(), 6, RoundingMode.DOWN)
+    return collateralUSDXAmount().divide(
+        collateralParam.liquidationRatioAmount(), 6, RoundingMode.DOWN
+    )
 }
 
 fun CDPResponse.principalAmount(): BigDecimal {
@@ -712,8 +730,11 @@ fun CDPResponse.debtUsdxValue(): BigDecimal {
 
 fun CDPResponse.liquidationPrice(collateralParam: CollateralParam): BigDecimal {
     val cDenomDecimal = collateralParam.conversionFactor.toInt()
-    val collateralAmount = collateral.amount.toBigDecimal().movePointLeft(cDenomDecimal).setScale(cDenomDecimal, RoundingMode.DOWN)
-    val rawDebtAmount = debtAmount().multiply(collateralParam.liquidationRatioAmount()).movePointLeft(6).setScale(6, RoundingMode.DOWN)
+    val collateralAmount = collateral.amount.toBigDecimal().movePointLeft(cDenomDecimal)
+        .setScale(cDenomDecimal, RoundingMode.DOWN)
+    val rawDebtAmount =
+        debtAmount().multiply(collateralParam.liquidationRatioAmount()).movePointLeft(6)
+            .setScale(6, RoundingMode.DOWN)
     return rawDebtAmount.divide(collateralAmount, 6, RoundingMode.DOWN)
 }
 
@@ -746,7 +767,8 @@ fun MutableList<MoneyMarket>.spotMarketId(denom: String?): String {
 }
 
 fun DepositResponse.usdxAmount(): BigDecimal {
-    return sharesValueList.firstOrNull { it.denom == "usdx" }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+    return sharesValueList.firstOrNull { it.denom == "usdx" }?.amount?.toBigDecimal()
+        ?: BigDecimal.ZERO
 }
 
 fun PoolResponse.usdxAmount(): BigDecimal {
@@ -785,5 +807,32 @@ fun Context.dialogResize(dialog: Dialog, width: Float, height: Float) {
         val y = (rect.height() * height).toInt()
         window?.setLayout(x, y)
     }
+}
+
+fun <T : Comparable<T>> MutableList<T>.percentile(value: Double): T? {
+    if (isEmpty()) return null
+
+    val normalizedValue = value / 100 * size.toDouble()
+    val index = ceil(normalizedValue).toInt()
+
+    val sortedData = sorted()
+    if (index >= size) return sortedData[size - 1]
+    return sortedData[index]
+}
+
+fun soft(array: List<List<BigInteger>>): List<BigInteger> {
+    return array.mapNotNull { percentileArray ->
+        if (percentileArray.isNotEmpty()) {
+            listOf(percentileArray.mean()!!)
+        } else {
+            null
+        }
+    }.flatten()
+}
+
+fun List<BigInteger>.mean(): BigInteger? {
+    if (isEmpty()) return null
+    val sum = this.fold(BigInteger.ZERO) { acc, value -> acc + value }
+    return sum / size.toString().toBigInteger()
 }
 

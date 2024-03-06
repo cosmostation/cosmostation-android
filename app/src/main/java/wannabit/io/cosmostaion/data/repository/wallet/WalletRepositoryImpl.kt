@@ -33,6 +33,7 @@ import org.web3j.protocol.core.methods.response.EthCall
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VAULT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
@@ -65,10 +66,10 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.data.model.res.TokenResponse
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigInteger
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
 class WalletRepositoryImpl : WalletRepository {
@@ -133,7 +134,7 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun token(line: CosmosLine): NetworkResult<TokenResponse> {
+    override suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
             if (line.supportCw20) {
                 mintscanApi.cw20token(line.apiName)
@@ -252,14 +253,6 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun evmTxHash(
-        chain: String?, evmTxHash: String?
-    ): NetworkResult<Response<String>> {
-        return safeApiCall(Dispatchers.IO) {
-            mintscanApi.evmTxHash(chain, evmTxHash)
-        }
-    }
-
     override suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>> {
         return safeApiCall(Dispatchers.IO) {
             walletApi.moonPay(data)
@@ -289,8 +282,19 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun erc20Balance(line: CosmosLine, token: Token) {
-        val web3j = Web3j.build(HttpService(line.rpcUrl))
-        val ethAddress = ByteUtils.convertBech32ToEvm(line.address)
+        val web3j: Web3j
+        var ethAddress = ""
+        if (line is EthereumLine) {
+            web3j = Web3j.build(HttpService(line.rpcUrl))
+            ethAddress = if (line.supportCosmos) {
+                ByteUtils.convertBech32ToEvm(line.address)
+            } else {
+                line.address.toString()
+            }
+        } else {
+            web3j = Web3j.build(HttpService(line.rpcUrl))
+            ethAddress = ByteUtils.convertBech32ToEvm(line.address)
+        }
         val params: MutableList<Type<*>> = ArrayList()
         params.add(Address(ethAddress))
 
@@ -298,13 +302,23 @@ class WalletRepositoryImpl : WalletRepository {
         val function = Function("balanceOf", params, returnTypes)
 
         val txData = FunctionEncoder.encode(function)
-        val response: EthCall = web3j.ethCall(
-            Transaction.createEthCallTransaction(ethAddress, token.address, txData),
-            DefaultBlockParameterName.LATEST
-        ).sendAsync().get()
-        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
-        val balance = results[0].value as BigInteger
-        token.amount = balance.toString()
+
+        try {
+            val response: EthCall = web3j.ethCall(
+                Transaction.createEthCallTransaction(ethAddress, token.address, txData),
+                DefaultBlockParameterName.LATEST
+            ).sendAsync().get()
+            val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+            if (results.isNotEmpty()) {
+                val balance = results[0].value as BigInteger
+                token.amount = balance.toString()
+            } else {
+                token.amount = "0"
+            }
+
+        } catch (e: SocketTimeoutException) {
+            token.amount = "0"
+        }
     }
 
     override suspend fun vestingData(
@@ -380,6 +394,25 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun oktToken(line: CosmosLine): NetworkResult<OktTokenResponse?> {
         return safeApiCall(Dispatchers.IO) {
             oktApi.oktTokens()
+        }
+    }
+
+    override suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.erc20token(evmLine.apiName)
+        }
+    }
+
+    override suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String> {
+        return safeApiCall(Dispatchers.IO) {
+            val web3j = Web3j.build(HttpService(evmLine.rpcUrl))
+            val evmAddress = if (evmLine.supportCosmos) {
+                ByteUtils.convertBech32ToEvm(evmLine.address)
+            } else {
+                evmLine.address
+            }
+            val balance = web3j.ethGetBalance(evmAddress, DefaultBlockParameterName.LATEST).send()
+            balance.balance.toString()
         }
     }
 }

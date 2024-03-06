@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCanto
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
@@ -31,19 +30,16 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainCudos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainHumans
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
@@ -54,7 +50,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
@@ -81,7 +76,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainXplaKeccak256
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -124,8 +118,6 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     var tokens = mutableListOf<Token>()
 
-    var cw20tokens = mutableListOf<Token>()
-    var erc20tokens = mutableListOf<Token>()
     var param: Param? = null
 
     var lcdAccountInfo: AccountResponse? = null
@@ -147,15 +139,6 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     open fun lcdBalanceValue(denom: String?, isUsd: Boolean? = false): BigDecimal {
         return BigDecimal.ZERO
-    }
-
-    open fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
-            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
-    }
-
-    fun allValue(isUsd: Boolean?): BigDecimal {
-        return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
@@ -266,32 +249,6 @@ open class CosmosLine : BaseChain(), Parcelable {
 
             is NetworkResult.Error -> {
                 null
-            }
-        }
-    }
-
-    suspend fun loadCw20Token(): MutableList<Token> {
-        return when (val response =
-            safeApiCall { RetrofitInstance.mintscanApi.cw20token(apiName) }) {
-            is NetworkResult.Success -> {
-                response.data.assets
-            }
-
-            is NetworkResult.Error -> {
-                mutableListOf()
-            }
-        }
-    }
-
-    suspend fun loadErc20Token(): MutableList<Token> {
-        return when (val response =
-            safeApiCall { RetrofitInstance.mintscanApi.erc20token(this.apiName) }) {
-            is NetworkResult.Success -> {
-                response.data.assets
-            }
-
-            is NetworkResult.Error -> {
-                mutableListOf()
             }
         }
     }
@@ -513,7 +470,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
+    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
         tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
@@ -523,7 +480,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
         var result = BigDecimal.ZERO
         tokens.forEach { token ->
             val price = BaseData.getPrice(token.coinGeckoId, isUsd)
@@ -532,6 +489,15 @@ open class CosmosLine : BaseChain(), Parcelable {
             result = result.add(value)
         }
         return result
+    }
+
+    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
+            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
+    }
+
+    override fun allValue(isUsd: Boolean?): BigDecimal {
+        return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
@@ -562,7 +528,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainBand())
     lines.add(ChainBitcanna())
     lines.add(ChainBitsong())
-    lines.add(ChainCanto())
     lines.add(ChainCelestia())
     lines.add(ChainChihuahua())
     lines.add(ChainComdex())
@@ -573,17 +538,14 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainDesmos())
     lines.add(ChainDydx())
     lines.add(ChainEmoney())
-    lines.add(ChainEvmos())
     lines.add(ChainFetchAi())
     lines.add(ChainFetchAi60Secp())
     lines.add(ChainFetchAi60Old())
     lines.add(ChainGravityBridge())
-    lines.add(ChainHumans())
     lines.add(ChainInjective())
     lines.add(ChainIris())
     lines.add(ChainIxo())
     lines.add(ChainJuno())
-    lines.add(ChainKava60())
     lines.add(ChainKava459())
     lines.add(ChainKava118())
     lines.add(ChainKi())
@@ -619,10 +581,8 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainTeritori())
     lines.add(ChainTerra())
     lines.add(ChainUx())
-    lines.add(ChainXplaKeccak256())
     lines.add(ChainXpla())
     lines.add(ChainBinanceBeacon())
-    lines.add(ChainOkt60())
     lines.add(ChainOkt996Keccak())
     lines.add(ChainOkt996Secp())
 

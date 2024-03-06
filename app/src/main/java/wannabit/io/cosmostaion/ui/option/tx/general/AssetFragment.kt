@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.option.tx.general
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +12,39 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.data.model.res.FeeData
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
-class AssetFragment(
-    private val selectedChain: CosmosLine,
-    private val feeData: List<FeeData>,
-    val listener: AssetSelectListener
-) : BottomSheetDialogFragment() {
+interface AssetSelectListener {
+    fun select(denom: String)
+}
+
+class AssetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var fromChain: CosmosLine
+    private var feeDatas: MutableList<FeeData>? = mutableListOf()
+
     private lateinit var assetAdapter: AssetAdapter
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            fromChain: CosmosLine,
+            feeDatas: MutableList<FeeData>,
+            listener: AssetSelectListener,
+        ): AssetFragment {
+            val args = Bundle().apply {
+                putParcelable("fromChain", fromChain)
+                putParcelableArrayList("recipientAbleChains", ArrayList(feeDatas))
+            }
+            val fragment = AssetFragment()
+            fragment.arguments = args
+            fragment.assetSelectListener = listener
+            return fragment
+        }
+    }
+
+    private var assetSelectListener: AssetSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,16 +61,35 @@ class AssetFragment(
 
     private fun initView() {
         binding.apply {
+            arguments?.apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    getParcelable("fromChain", CosmosLine::class.java)?.let {
+                        fromChain = it
+                    }
+
+                } else {
+                    (getParcelable("fromChain") as? CosmosLine)?.let {
+                        fromChain = it
+                    }
+                }
+                feeDatas = getParcelableArrayList("feeDatas")
+            }
             selectTitle.text = getString(R.string.title_fee_select)
 
-            assetAdapter = AssetAdapter(selectedChain)
+            initRecyclerView()
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.apply {
+            assetAdapter = AssetAdapter(fromChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = assetAdapter
-            assetAdapter.submitList(feeData)
+            assetAdapter.submitList(feeDatas)
 
             assetAdapter.setOnItemClickListener {
-                listener.select(it)
+                assetSelectListener?.select(it)
                 dismiss()
             }
         }
@@ -56,8 +99,4 @@ class AssetFragment(
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface AssetSelectListener {
-    fun select(denom: String)
 }

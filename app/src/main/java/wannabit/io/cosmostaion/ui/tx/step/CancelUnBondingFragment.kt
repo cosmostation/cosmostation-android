@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -212,7 +213,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
         binding.apply {
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -222,8 +223,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())
@@ -319,7 +320,11 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             isBroadCastTx(false)
-            requireContext().showToast(view, response, true)
+            if (response.contains("unable to resolve type")) {
+                requireContext().makeToast(R.string.error_not_support_cancel_unbonding)
+            } else {
+                requireContext().showToast(view, response, true)
+            }
             return@observe
         }
     }

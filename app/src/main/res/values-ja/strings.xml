@@ -4,6 +4,8 @@
     <string name="str_today">今日</string>
     <string name="str_next">次</string>
     <string name="str_share_address">住所共有です</string>
+    <string name="str_share_evm_address">Evm スタイルのアドレスを\n共有する</string>
+    <string name="str_share_cosmos_address">Cosmos スタイルのアドレス\nを共有する</string>
     <string name="str_address">アドレス</string>
     <string name="str_ethereum_address">イーサリアムのアドレスです</string>
     <string name="str_confirm">確認</string>
@@ -37,8 +39,9 @@
     <string name="str_fixed">固定</string>
     <string name="str_free">無料</string>
     <string name="str_tiny">最小</string>
-    <string name="str_low">低い</string>
-    <string name="str_average">平均</string>
+    <string name="str_low">低</string>
+    <string name="str_average">平</string>
+    <string name="str_high">高</string>
     <string name="str_send">申請者</string>
     <string name="str_insert_memo">メモをにゅうりょくしてください。(オプション)</string>
     <string name="str_address_book">連絡先の管理</string>
@@ -95,6 +98,7 @@
     <string name="str_under_maintenance">点検中</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">すべてを請求する</string>
+    <string name="str_amount">数量</string>
 
 
     //title
@@ -120,6 +124,7 @@
     <string name="title_twitter">X(Twitter)</string>
     <string name="title_telegram">テレグラム</string>
     <string name="title_youtube">Youtube</string>
+    <string name="title_about">アプリ情報です</string>
     <string name="title_term">利用規約</string>
     <string name="title_privacy">個人情報処理方針</string>
     <string name="title_version">バージョン</string>
@@ -135,6 +140,7 @@
     <string name="title_hd_path_setting">HD path setting</string>
     <string name="title_restore_private">Restore with privateKey</string>
     <string name="title_coin_send">資産転送</string>
+    <string name="title_asset_send">%1$s 電送</string>
     <string name="title_ibc_send">IBC 資産転送</string>
     <string name="title_recipient_address">お受け取りの住所</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>
@@ -203,6 +209,7 @@
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">資産の損失です</string>
     <string name="title_claimable_chains">リワード対象チェーン</string>
+    <string name="title_select_end_point">エンドポイントの選択</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -258,6 +265,7 @@
     <string name="str_data_synchronizing">データ同期。</string>
     <string name="str_enter_encryption_msg">アカウントを復元するには、画面に表示される暗号化キーを入力してください。</string>
     <string name="str_broadcasting_msg">現在、トランザクションは実行中です。\n少々お待ちください</string>
+    <string name="str_addressbook_memo_changed_msg">既存のアドレス帳と比べてメモが変わりました。\n新しいメモで更新しますか?</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -289,6 +297,8 @@
     <string name="error_not_support">%1$s is an unsupported chain.</string>
     <string name="error_unknown_qr_code">未知のQRコードです。</string>
     <string name="error_decrytion">復号化エラー</string>
+    <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
+    <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
 
 
     <string name="tx_unknown">不明</string>

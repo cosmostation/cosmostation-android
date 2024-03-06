@@ -68,7 +68,11 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
             R.drawable.bg_00,
             R.drawable.bg_01,
             R.drawable.bg_02,
-            R.drawable.bg_03
+            R.drawable.bg_03,
+            R.drawable.bg_04,
+            R.drawable.bg_05,
+            R.drawable.bg_06,
+            R.drawable.bg_07,
         )
 
         val randomIndex = (Math.random() * imageArray.size).toInt()

@@ -50,7 +50,7 @@ import org.json.JSONObject
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEvmos
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -107,6 +107,7 @@ class DappActivity : BaseActivity() {
                     object : DappUrlDialog.UrlListener {
                         override fun input(url: String) {
                             if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
+                                wcUrl = url
                                 binding.dappWebView.loadUrl(url)
                             }
                         }
@@ -190,7 +191,7 @@ class DappActivity : BaseActivity() {
             makeToast(R.string.str_wc_connected)
 
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.isDefault }
+                account.allCosmosLineChains.firstOrNull { it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.tag.contains("kava459")}
                     ?.let { chain ->
                         selectedChain = chain
                         selectedChain?.fetchFilteredCosmosChain()
@@ -966,12 +967,12 @@ class DappActivity : BaseActivity() {
         accountJson.put("isEthermint", false)
         accountJson.put("isLedger", false)
         BaseData.baseAccount?.let { account ->
-            account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId && it.isDefault }
+            account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
                 ?.let { filteredChainsWithChainName ->
                     selectedChain = filteredChainsWithChainName
 
                 } ?: run {
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId && it.isDefault }
+                account.allCosmosLineChains.firstOrNull { it.chainId == chainId.lowercase() && it.isDefault }
                     ?.let { filteredChainsWithChainId ->
                         selectedChain = filteredChainsWithChainId
                     }
@@ -1020,7 +1021,7 @@ class DappActivity : BaseActivity() {
     private fun pubKeyType(): String {
         return when (selectedChain) {
             is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
-            is ChainEvmos -> ETHERMINT_KEY_TYPE_PUBLIC
+            is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
             else -> COSMOS_KEY_TYPE_PUBLIC
         }
     }

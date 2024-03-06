@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -17,19 +19,21 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.walletconnect.util.bytesToHex
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -72,6 +76,7 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initChainManageCnt()
         setUpClickAction()
         setUpSwitchAction()
         checkAccountStatus()
@@ -109,12 +114,28 @@ class SettingFragment : Fragment() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                supportChainCnt.text =
-                    allCosmosLines().filter { it.isDefault }.distinctBy { it.name }.count()
-                        .toString()
+            }
+            walletViewModel.pushStatus(Prefs.fcmToken)
+        }
+    }
+
+    private fun initChainManageCnt() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val chainNames: MutableList<String> = mutableListOf()
+            allEvmLines().forEach { chain ->
+                if (!chainNames.contains(chain.name)) {
+                    chainNames.add(chain.name)
+                }
             }
 
-            walletViewModel.pushStatus(Prefs.fcmToken)
+            allCosmosLines().forEach { chain ->
+                if (!chainNames.contains(chain.name)) {
+                    chainNames.add(chain.name)
+                }
+            }
+            withContext(Dispatchers.Main) {
+                binding.supportChainCnt.text = chainNames.size.toString()
+            }
         }
     }
 
@@ -174,11 +195,15 @@ class SettingFragment : Fragment() {
             }
 
             importView.setOnClickListener {
-                val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
-                qrCodeResultLauncher.launch(intent)
-                requireActivity().overridePendingTransition(
-                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                )
+                if (ActivityCompat.checkSelfPermission(
+                        requireActivity(), Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    cameraPermissionRequest.launch(Manifest.permission.CAMERA)
+
+                } else {
+                    startImportBarcodeActivity()
+                }
             }
 
             chainView.setOnClickListener {
@@ -197,13 +222,13 @@ class SettingFragment : Fragment() {
 
             languageView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.LANGUAGE)
+                    SettingBottomFragment.newInstance(null, SettingType.LANGUAGE)
                 )
             }
 
             currencyView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.CURRENCY)
+                    SettingBottomFragment.newInstance(null, SettingType.CURRENCY)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "currency", this@SettingFragment
@@ -215,7 +240,7 @@ class SettingFragment : Fragment() {
 
             priceView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.PRICE_STATUS)
+                    SettingBottomFragment.newInstance(null, SettingType.PRICE_STATUS)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "priceStyle", this@SettingFragment
@@ -339,10 +364,6 @@ class SettingFragment : Fragment() {
                         return@registerForActivityResult
                     }
                 }
-
-            } else {
-                requireActivity().makeToast(R.string.error_unknown_qr_code)
-                return@registerForActivityResult
             }
         }
 
@@ -384,7 +405,7 @@ class SettingFragment : Fragment() {
             bioSwitch.isChecked = Prefs.usingBio
             bioSwitch.setSwitchView()
 
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 val addressCnt =
                     AppDatabase.getInstance().addressBookDao().selectAll().size.toString()
                 withContext(Dispatchers.Main) {
@@ -495,10 +516,27 @@ class SettingFragment : Fragment() {
             }
         }
 
+    private fun startImportBarcodeActivity() {
+        val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
+        qrCodeResultLauncher.launch(intent)
+        requireActivity().overridePendingTransition(
+            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+        )
+    }
+
+    private val cameraPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startImportBarcodeActivity()
+            } else {
+                return@registerForActivityResult
+            }
+        }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
 }
 
-enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, BUY_CRYPTO }
+enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, BUY_CRYPTO, END_POINT }

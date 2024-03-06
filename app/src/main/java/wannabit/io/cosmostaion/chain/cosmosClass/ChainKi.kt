@@ -4,13 +4,11 @@ import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 class ChainKi : CosmosLine() {
 
-    override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "KiChain"
     override var tag: String = "ki118"
     override var logo: Int = R.drawable.chain_ki
@@ -23,6 +21,7 @@ class ChainKi : CosmosLine() {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
     override var accountPrefix: String? = "ki"
+    override var supportCw20: Boolean = true
 
     override var grpcHost: String = "grpc-ki-chain.cosmostation.io"
 }

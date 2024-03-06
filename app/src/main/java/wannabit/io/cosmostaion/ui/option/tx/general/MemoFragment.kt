@@ -14,11 +14,32 @@ import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.databinding.FragmentMemoBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 
-class MemoFragment(private val memo: String, val listener: MemoListener) :
-    BottomSheetDialogFragment() {
+
+interface MemoListener {
+    fun memo(memo: String)
+}
+
+class MemoFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentMemoBinding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            memo: String, listener: MemoListener
+        ): MemoFragment {
+            val args = Bundle().apply {
+                putString("memo", memo)
+            }
+            val fragment = MemoFragment()
+            fragment.arguments = args
+            fragment.memoListener = listener
+            return fragment
+        }
+    }
+
+    private var memoListener: MemoListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,9 +57,10 @@ class MemoFragment(private val memo: String, val listener: MemoListener) :
 
     private fun initView() {
         binding.memoTxt.apply {
-            requestFocus()
-            text = Editable.Factory.getInstance().newEditable(memo)
-            setSelection(binding.memoTxt.text.toString().length)
+            arguments?.getString("memo")?.let { memo ->
+                text = Editable.Factory.getInstance().newEditable(memo)
+                setSelection(binding.memoTxt.text.toString().length)
+            }
         }
     }
 
@@ -52,7 +74,7 @@ class MemoFragment(private val memo: String, val listener: MemoListener) :
             }
 
             btnConfirm.setOnClickListener {
-                listener.memo(memoTxt.text.toString().trim())
+                memoListener?.memo(memoTxt.text.toString().trim())
                 dismiss()
             }
         }
@@ -67,8 +89,9 @@ class MemoFragment(private val memo: String, val listener: MemoListener) :
                 }
             }
         }
-}
 
-interface MemoListener {
-    fun memo(memo: String)
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }

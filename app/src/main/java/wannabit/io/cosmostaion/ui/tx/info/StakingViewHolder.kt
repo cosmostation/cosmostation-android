@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
-import wannabit.io.cosmostaion.ui.main.chain.RewardDialog
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.RewardDialog
 import java.math.BigDecimal
 import java.math.RoundingMode
 

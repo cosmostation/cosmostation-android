@@ -5,6 +5,8 @@
     <string name="str_today">오늘</string>
     <string name="str_next">다음</string>
     <string name="str_share_address">주소 공유</string>
+    <string name="str_share_evm_address">Evm형식 주소공유</string>
+    <string name="str_share_cosmos_address">Cosmos형식 주소공유</string>
     <string name="str_address">주소</string>
     <string name="str_ethereum_address">이더리움 주소</string>
     <string name="str_confirm">확인</string>
@@ -35,6 +37,7 @@
     <string name="str_tiny">최소</string>
     <string name="str_low">낮음</string>
     <string name="str_average">평균</string>
+    <string name="str_high">높음</string>
     <string name="str_send">전송</string>
     <string name="str_insert_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_address_book">주소록</string>
@@ -90,6 +93,7 @@
     <string name="str_go_playstore">플레이스토어 이동</string>
     <string name="str_under_maintenance">점검중</string>
     <string name="str_mintscan">민트스캔</string>
+    <string name="str_amount">수량</string>
 
 
     //title
@@ -114,6 +118,7 @@
     <string name="title_twitter">X(트위터)</string>
     <string name="title_telegram">텔레그렘</string>
     <string name="title_youtube">유튜브</string>
+    <string name="title_about">앱 정보</string>
     <string name="title_term">약관</string>
     <string name="title_privacy">개인정보 보호</string>
     <string name="title_version">버전</string>
@@ -130,6 +135,7 @@
     <string name="title_hd_path_setting">HD Path 설정</string>
     <string name="title_restore_private">개인키로 지갑복원</string>
     <string name="title_coin_send">자산 전송</string>
+    <string name="title_asset_send">%1$s 전송</string>
     <string name="title_ibc_send">IBC 자산 전송</string>
     <string name="title_select_recipient_chain">수신 체인 선택</string>
     <string name="title_insert_amount">수량 입력</string>
@@ -199,6 +205,7 @@
     <string name="title_big_loss">자산 손실</string>
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
+    <string name="title_select_end_point">End-Point 선택</string>
 
 
     // msg
@@ -255,6 +262,7 @@
     <string name="str_data_synchronizing">데이터 동기화중입니다</string>
     <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encription Key를 입력하세요.</string>
     <string name="str_broadcasting_msg">현재 트랜잭션이 실행 중입니다.\n잠시만 기다려 주세요.</string>
+    <string name="str_addressbook_memo_changed_msg">기존 주소록과 비교해서 메모가 변경되었습니다.\n새로운 메모로 업데이트 하시겠습니까?</string>
 
 
     // error
@@ -287,6 +295,8 @@
     <string name="error_not_support">%1$s 지원하지 않는 체인입니다.</string>
     <string name="error_unknown_qr_code">알 수 없는 QR Code 입니다.</string>
     <string name="error_decrytion">복호화 에러</string>
+    <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
+    <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
 
 
     //header

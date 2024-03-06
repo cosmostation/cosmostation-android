@@ -37,7 +37,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentPoolActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -355,11 +355,9 @@ class PoolActionFragment : BaseTxFragment() {
 
             shareAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.POOL_WITHDRAW,
-                        null,
-                        deposit.sharesOwned?.toBigDecimal(),
+                    InsertAmountFragment.newInstance(TxType.POOL_WITHDRAW,
+                        deposit.sharesOwned,
                         toWithdrawAmount,
-                        null,
                         null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
@@ -397,7 +395,7 @@ class PoolActionFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -407,8 +405,8 @@ class PoolActionFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

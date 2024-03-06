@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.data.model.res
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
 
 data class FeeInfo(
@@ -13,10 +15,11 @@ data class FeeInfo(
     }
 }
 
+@Parcelize
 data class FeeData(
     var denom: String? = null,
     var gasRate: BigDecimal? = null
-) {
+) : Parcelable {
     constructor(data: String?) : this() {
         val regex = Regex("[0-9]*\\.?[0-9]*")
         val matchResult = regex.find(data ?: "")

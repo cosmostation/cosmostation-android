@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.FragmentOktValidatorBinding
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 
 class OktValidatorFragment(
-    private val selectedChain: ChainOkt60,
+    private val selectedChain: ChainOkt996Keccak,
     private val myValidators: MutableList<OktValidatorResponse>,
     val listener: OkValidatorListener
 ) : BaseTxFragment() {
@@ -66,7 +66,8 @@ class OktValidatorFragment(
     private fun clickAction() {
         oktValidatorAdapter.setOnItemClickListener { position ->
             val selectValidator = selectedChain.oktValidatorInfo[position]
-            if (tempValidators.map { it.operatorAddress }.contains(selectValidator.operatorAddress)) {
+            if (tempValidators.map { it.operatorAddress }
+                    .contains(selectValidator.operatorAddress)) {
                 if (tempValidators.size <= 1) {
                     requireContext().makeToast(R.string.error_min_1_validator_msg)
                     return@setOnItemClickListener

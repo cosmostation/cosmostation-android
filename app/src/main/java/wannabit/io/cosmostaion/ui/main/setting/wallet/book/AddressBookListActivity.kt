@@ -61,7 +61,7 @@ class AddressBookListActivity : BaseActivity() {
             recycler.adapter = setAddressBookAdapter
 
             setAddressBookAdapter.setOnItemClickListener { addressBook ->
-                AddressBookManageOptionFragment(addressBook).show(
+                AddressBookManageOptionFragment.newInstance(addressBook).show(
                     supportFragmentManager, AddressBookManageOptionFragment::class.java.name
                 )
             }
@@ -101,7 +101,7 @@ class AddressBookListActivity : BaseActivity() {
                 if (isClickable) {
                     isClickable = false
 
-                    SetAddressFragment(null, null, "", "").show(
+                    SetAddressFragment.newInstance(null, null, "", "", AddressBookType.ManualNew).show(
                         supportFragmentManager, SetAddressFragment::class.java.name
                     )
 

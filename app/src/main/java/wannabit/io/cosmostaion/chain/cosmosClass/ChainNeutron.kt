@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseData
@@ -17,7 +16,6 @@ class ChainNeutron : CosmosLine() {
     var neutronDeposited: BigDecimal = BigDecimal.ZERO
     var neutronVesting: VestingData? = null
 
-    override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "Neutron"
     override var tag: String = "neutron118"
     override var logo: Int = R.drawable.chain_neutron

@@ -174,15 +174,15 @@ class StakeInfoFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
     private fun setUpStakeInfo() {
         ApplicationViewModel.shared.fetchedStakeResult.observe(viewLifecycleOwner) {
             initView()
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }
 

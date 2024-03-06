@@ -515,11 +515,11 @@ class SwapFragment : BaseTxFragment() {
 
                 if (skipMsg.msg_type_url == "/ibc.applications.transfer.v1.MsgTransfer") {
                     skipTxViewModel.simulateSkipIbcSend(
-                        getChannel(line), line.address, bindIbcSend(innerMsg), txFee, ""
+                        getChannel(line), line.address, bindIbcSend(innerMsg), txFee, "", line
                     )
                 } else if (skipMsg.msg_type_url == "/cosmwasm.wasm.v1.MsgExecuteContract") {
                     skipTxViewModel.simulateWasm(
-                        getChannel(line), line.address, bindWasm(innerMsg), txFee, ""
+                        getChannel(line), line.address, bindWasm(innerMsg), txFee, "", line
                     )
                 }
             }
@@ -618,7 +618,7 @@ class SwapFragment : BaseTxFragment() {
 
             inputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment(skipChains,
+                    ChainFragment.newInstance(skipChains,
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -702,7 +702,7 @@ class SwapFragment : BaseTxFragment() {
 
             outputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment(skipChains,
+                    ChainFragment.newInstance(skipChains,
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {

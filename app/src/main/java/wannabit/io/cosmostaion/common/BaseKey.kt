@@ -76,7 +76,11 @@ object BaseKey {
 
                 val address = Keys.getAddress(pub)
                 val bytes = ByteUtils.convertBits(address, 8, 5, true)
-                result = Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
+                result = if (prefix?.isEmpty() == true) {
+                    "0x" + address.toHex()
+                } else {
+                    Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
+                }
             }
 
             else -> return result

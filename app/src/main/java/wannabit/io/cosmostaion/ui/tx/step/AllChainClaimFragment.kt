@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.tx.step
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +50,7 @@ import kotlin.coroutines.suspendCoroutine
 class AllChainClaimFragment : BaseTxFragment() {
 
     private var _binding: FragmentAllChainClaimBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentAllChainClaimBinding? get() = _binding
 
     private lateinit var viewModel: TxViewModel
 
@@ -63,7 +62,7 @@ class AllChainClaimFragment : BaseTxFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAllChainClaimBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,11 +82,27 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun initView() {
-        binding.apply {
+        binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
-                        account.sortedDisplayCosmosLines().forEach { chain ->
+                    if (account.sortedDisplayEvmLines()
+                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+                            .none { !it.fetched }
+                    ) {
+                        for (evmChain in account.sortedDisplayEvmLines()
+                            .filter { it.supportCosmos }) {
+                            val valueAbleReward = evmChain.valueAbleRewards()
+                            val txFee = evmChain.getInitFee(requireContext())
+                            if (valueAbleReward.isNotEmpty() && txFee != null) {
+                                valueAbleRewards.add(
+                                    ValueAbleReward(
+                                        evmChain, valueAbleReward, null, false, null
+                                    )
+                                )
+                            }
+                        }
+
+                        for (chain in account.sortedDisplayCosmosLines()) {
                             val valueAbleReward = chain.valueAbleRewards()
                             val txFee = chain.getInitFee(requireContext())
                             if (valueAbleReward.isNotEmpty() && txFee != null) {
@@ -125,7 +140,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun initRecyclerView() {
-        binding.recycler.apply {
+        binding?.recycler?.apply {
             allChainClaimAdapter = AllChainClaimAdapter()
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -137,37 +152,42 @@ class AllChainClaimFragment : BaseTxFragment() {
     private fun txSimulate() {
         lifecycleScope.launch(Dispatchers.IO) {
             for (i in 0 until valueAbleRewards.size) {
-                if (!valueAbleRewards[i].cosmosLine.isGasSimulable()) {
-                    valueAbleRewards[i].fee =
-                        valueAbleRewards[i].cosmosLine.getInitFee(requireContext())
+                if (isAdded) {
+                    activity?.let {
+                        if (!valueAbleRewards[i].cosmosLine.isGasSimulable()) {
+                            valueAbleRewards[i].fee =
+                                valueAbleRewards[i].cosmosLine.getInitFee(it)
 
-                } else {
-                    val valueAbleReward = valueAbleRewards[i]
-                    var txFee = valueAbleReward.cosmosLine.getInitFee(requireContext())
-                    simulateClaimTx(
-                        valueAbleReward.cosmosLine, valueAbleReward.rewards
-                    ) { gasUsed ->
-                        gasUsed?.let { toGas ->
-                            val txGasLimit =
-                                (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
-                                    .toBigDecimal()
-                            valueAbleReward.cosmosLine.getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
-                                it.denom == txFee?.getAmount(0)?.denom
-                            }?.let { gasRate ->
-                                val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
-                                    ?.setScale(0, RoundingMode.UP)
-                                val feeCoin =
-                                    CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
-                                        .setAmount(feeCoinAmount.toString()).build()
+                        } else {
+                            val valueAbleReward = valueAbleRewards[i]
+                            var txFee = valueAbleReward.cosmosLine.getInitFee(it)
+                            simulateClaimTx(
+                                valueAbleReward.cosmosLine, valueAbleReward.rewards
+                            ) { gasUsed ->
+                                gasUsed?.let { toGas ->
+                                    val txGasLimit =
+                                        (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
+                                            .toBigDecimal()
+                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
+                                        feeData.denom == txFee?.getAmount(0)?.denom
+                                    }?.let { gasRate ->
+                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
+                                            ?.setScale(0, RoundingMode.UP)
+                                        val feeCoin =
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(txFee?.getAmount(0)?.denom)
+                                                .setAmount(feeCoinAmount.toString()).build()
 
-                                txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
-                                    .addAmount(feeCoin).build()
-                            }
-                            valueAbleRewards[i].fee = txFee
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                allChainClaimAdapter.notifyItemChanged(i)
-                                if (valueAbleRewards.count { it.fee == null } == 0) {
-                                    binding.btnClaimAll.updateButtonView(true)
+                                        txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
+                                            .addAmount(feeCoin).build()
+                                    }
+                                    valueAbleRewards[i].fee = txFee
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        allChainClaimAdapter.notifyItemChanged(i)
+                                        if (valueAbleRewards.count { reward -> reward.fee == null } == 0) {
+                                            binding?.btnClaimAll?.updateButtonView(true)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -178,7 +198,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun setUpClickAction() {
-        binding.apply {
+        binding?.apply {
             btnClaimAll.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     claimAllResultLauncher.launch(this)
@@ -191,9 +211,14 @@ class AllChainClaimFragment : BaseTxFragment() {
             btnConfirm.setOnClickListener {
                 dismiss()
                 BaseData.baseAccount?.let { account ->
-                    account.sortedDisplayCosmosLines().forEach { chain ->
+                    for (evmChain in account.sortedDisplayEvmLines()) {
+                        evmChain.fetched = false
+                        initDisplayData(account)
+                    }
+
+                    for (chain in account.sortedDisplayCosmosLines()) {
                         chain.fetched = false
-                        initDisplayData(account, chain)
+                        initDisplayData(account)
                     }
                 }
             }
@@ -207,8 +232,8 @@ class AllChainClaimFragment : BaseTxFragment() {
                     valueAbleRewards[i].isSuccess = true
                 }
                 allChainClaimAdapter.notifyDataSetChanged()
-                binding.btnClaimAll.visibility = View.GONE
-                binding.btnConfirm.visibility = View.VISIBLE
+                binding?.btnClaimAll?.visibility = View.GONE
+                binding?.btnConfirm?.visibility = View.VISIBLE
 
                 for (i in 0 until valueAbleRewards.size) {
                     val valueAbleReward = valueAbleRewards[i]
@@ -227,7 +252,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 lifecycleScope.launch(Dispatchers.Main) {
                     allChainClaimAdapter.notifyItemChanged(index)
                     if (valueAbleRewards.count { it.txResponse == null } == 0) {
-                        binding.btnConfirm.updateButtonView(true)
+                        binding?.btnConfirm?.updateButtonView(true)
                     }
                 }
             }
@@ -240,17 +265,21 @@ class AllChainClaimFragment : BaseTxFragment() {
         onComplete: (String?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val channel = getChannel(chain)
-            val simulateStub =
-                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val simulateTx = Signer.genClaimRewardsSimulate(
-                loadAuth(channel, chain.address),
-                claimableRewards,
-                chain.getInitFee(requireActivity()),
-                ""
-            )
-            val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
-            onComplete(gasUsed.toString())
+            if (isAdded) {
+                activity?.let {
+                    val channel = getChannel(chain)
+                    val simulateStub =
+                        ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                    val simulateTx = Signer.genClaimRewardsSimulate(
+                        loadAuth(channel, chain.address),
+                        claimableRewards,
+                        chain.getInitFee(it),
+                        ""
+                    )
+                    val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
+                    onComplete(gasUsed.toString())
+                }
+            }
         }
     }
 
@@ -314,28 +343,47 @@ class AllChainClaimFragment : BaseTxFragment() {
         }
     }
 
-    private fun initDisplayData(baseAccount: BaseAccount, chain: CosmosLine) {
+    private fun initDisplayData(baseAccount: BaseAccount) {
         baseAccount.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (type == BaseAccountType.MNEMONIC) {
-                    sortedDisplayCosmosLines().forEach { line ->
+                    for (line in sortedDisplayEvmLines()) {
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        }
+                        if (!line.fetched) {
+                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+                        }
+                    }
+
+                    for (line in sortedDisplayCosmosLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
 
                         }
                         if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
+                            ApplicationViewModel.shared.loadChainData(line, id, false)
                         }
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    sortedDisplayCosmosLines().forEach { line ->
+                    for (line in sortedDisplayEvmLines()) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
 
                         }
                         if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(chain, baseAccount.id)
+                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+                        }
+                    }
+
+                    for (line in sortedDisplayCosmosLines()) {
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithPrivateKey(privateKey)
+
+                        }
+                        if (!line.fetched) {
+                            ApplicationViewModel.shared.loadChainData(line, id, false)
                         }
                     }
                 }

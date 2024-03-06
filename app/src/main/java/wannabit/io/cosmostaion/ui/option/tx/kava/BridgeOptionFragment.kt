@@ -9,10 +9,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.FragmentBridgeOptionBinding
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 
 interface BridgeClickListener {
     fun bep3Transfer(line: CosmosLine, denom: String)
-    fun simpleTransfer(line: CosmosLine, denom: String)
+    fun simpleTransfer(line: CosmosLine, denom: String, sendAssetType: SendAssetType)
 }
 
 class BridgeOptionFragment : BottomSheetDialogFragment() {
@@ -22,15 +23,20 @@ class BridgeOptionFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedChain: CosmosLine
     private lateinit var denom: String
+    private lateinit var sendAssetType: SendAssetType
 
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, denom: String, listener: BridgeClickListener
+            selectedChain: CosmosLine,
+            denom: String,
+            sendAssetType: SendAssetType,
+            listener: BridgeClickListener
         ): BridgeOptionFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putString("denom", denom)
+                putSerializable("sendAssetType", sendAssetType)
             }
             val fragment = BridgeOptionFragment()
             fragment.arguments = args
@@ -62,11 +68,17 @@ class BridgeOptionFragment : BottomSheetDialogFragment() {
                     selectedChain = it
                 }
                 getSerializable("withdrawCoin", CoinProto.Coin::class.java)
+                getSerializable(
+                    "sendAssetType", SendAssetType::class.java
+                )?.let { sendAssetType = it }
             }
         } else {
             arguments?.apply {
                 (getParcelable("selectedChain") as? CosmosLine)?.let {
                     selectedChain = it
+                }
+                (getSerializable("sendAssetType") as? SendAssetType)?.let {
+                    sendAssetType = it
                 }
             }
         }
@@ -81,7 +93,7 @@ class BridgeOptionFragment : BottomSheetDialogFragment() {
             }
 
             transferLayout.setOnClickListener {
-                bridgeClickListener?.simpleTransfer(selectedChain, denom)
+                bridgeClickListener?.simpleTransfer(selectedChain, denom, sendAssetType)
                 dismiss()
             }
         }

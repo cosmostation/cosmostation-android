@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -264,7 +263,7 @@ class DaoVoteFragment : BaseTxFragment() {
         binding.apply {
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -274,8 +273,8 @@ class DaoVoteFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())
@@ -351,7 +350,8 @@ class DaoVoteFragment : BaseTxFragment() {
             }
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateWasm(
-                getChannel(), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo
+                getChannel(), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo,
+                selectedChain
             )
         }
     }

@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.ChainType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseData
@@ -15,7 +14,6 @@ import java.math.RoundingMode
 
 class ChainBinanceBeacon : CosmosLine() {
 
-    override var chainType: ChainType? = ChainType.COSMOS_TYPE
     override var name: String = "BNB Beacon"
     override var tag: String = "binance714"
     override var logo: Int = R.drawable.chain_binance

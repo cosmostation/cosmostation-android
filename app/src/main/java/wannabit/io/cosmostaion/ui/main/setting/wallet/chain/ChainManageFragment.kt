@@ -1,20 +1,27 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.chain
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
+import wannabit.io.cosmostaion.ui.main.SettingType
+import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class ChainManageFragment : Fragment() {
 
@@ -22,6 +29,13 @@ class ChainManageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var chainManageAdapter: ChainManageAdapter
+
+    private val allEvmLines: MutableList<EthereumLine> = mutableListOf()
+    private var searchEvmLines: MutableList<EthereumLine> = mutableListOf()
+    private val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
+    private var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
+
+    private var isClickable = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,37 +48,75 @@ class ChainManageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        initSearchView()
         setUpClickAction()
+        setUpParam()
     }
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
-            var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
-            CoroutineScope(Dispatchers.IO).launch {
-                allCosmosLines.clear()
-
-                allCosmosLines.addAll(allCosmosLines().filter { it.isDefault }
-                    .distinctBy { it.name })
-                searchCosmosLines = allCosmosLines
-                binding.headerCnt.text = allCosmosLines.count().toString()
+            lifecycleScope.launch(Dispatchers.IO) {
+                for (evmChain in allEvmLines()) {
+                    if (!allEvmLines.any { it.name == evmChain.name }) {
+                        allEvmLines.add(evmChain)
+                    }
+                }
+                for (chain in allCosmosLines().filter { it.isDefault }) {
+                    if (!allCosmosLines.any { it.name == chain.name } && !allEvmLines.any { it.name == chain.name }) {
+                        allCosmosLines.add(chain)
+                    }
+                }
+                searchEvmLines.addAll(allEvmLines)
+                searchCosmosLines.addAll(allCosmosLines)
 
                 withContext(Dispatchers.Main) {
-                    chainManageAdapter = ChainManageAdapter()
+                    chainManageAdapter = ChainManageAdapter(searchEvmLines, searchCosmosLines)
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter
-                    chainManageAdapter.submitList(searchCosmosLines)
+
+//                    chainManageAdapter.setOnItemClickListener { chain ->
+//                        if (chain is EthereumLine) {
+//                            if (chain.supportCosmos && chain !is ChainOktEvm) {
+//                                if (chain.param?.params?.chainlistParams == null) {
+//                                    ApplicationViewModel.shared.param(chain)
+//                                } else {
+//                                    selectEndPoint(chain)
+//                                }
+//                            } else {
+//                                return@setOnItemClickListener
+//                            }
+//
+//                        } else {
+//
+//                        }
+//                    }
                 }
             }
-
-            initSearchView(allCosmosLines, searchCosmosLines)
         }
     }
 
-    private fun initSearchView(
-        allCosmosLines: MutableList<CosmosLine>, searchCosmosLines: MutableList<CosmosLine>
-    ) {
+    private fun setUpParam() {
+        ApplicationViewModel.shared.paramResult.observe(viewLifecycleOwner) {
+            selectEndPoint(it)
+        }
+    }
+
+    private fun selectEndPoint(chain: CosmosLine) {
+        if (isClickable) {
+            isClickable = false
+
+            SettingBottomFragment.newInstance(chain, SettingType.END_POINT).show(
+                parentFragmentManager, SettingBottomFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
+        }
+    }
+
+    private fun initSearchView() {
         binding.apply {
             searchView.setQuery("", false)
             searchView.clearFocus()
@@ -74,18 +126,32 @@ class ChainManageFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
+                    searchEvmLines.clear()
                     searchCosmosLines.clear()
+
                     if (StringUtils.isEmpty(newText)) {
+                        searchEvmLines.addAll(allEvmLines)
                         searchCosmosLines.addAll(allCosmosLines)
+
                     } else {
                         newText?.let { searchTxt ->
+                            searchEvmLines.addAll(allEvmLines.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+
                             searchCosmosLines.addAll(allCosmosLines.filter { chain ->
                                 chain.name.contains(searchTxt, ignoreCase = true)
                             })
                         }
                     }
-                    chainManageAdapter.submitList(searchCosmosLines)
-                    chainManageAdapter.notifyDataSetChanged()
+                    if (searchEvmLines.isEmpty() && searchCosmosLines.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        chainManageAdapter.notifyDataSetChanged()
+                    }
                     return true
                 }
             })

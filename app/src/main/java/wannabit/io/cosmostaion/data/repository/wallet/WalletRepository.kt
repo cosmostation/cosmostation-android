@@ -9,6 +9,7 @@ import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
@@ -27,7 +28,6 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.data.model.res.TokenResponse
 import wannabit.io.cosmostaion.database.model.Password
 
 interface WalletRepository {
@@ -51,7 +51,7 @@ interface WalletRepository {
 
     suspend fun param(line: CosmosLine): NetworkResult<Param?>
 
-    suspend fun token(line: CosmosLine): NetworkResult<TokenResponse>
+    suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>>
 
     suspend fun auth(
         managedChannel: ManagedChannel, line: CosmosLine
@@ -87,8 +87,6 @@ interface WalletRepository {
         channel: ManagedChannel
     ): NetworkResult<MutableList<StakingProto.Validator>>
 
-    suspend fun evmTxHash(chain: String?, evmTxHash: String?): NetworkResult<Response<String>>
-
     suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>>
 
     suspend fun cw20Balance(
@@ -101,13 +99,11 @@ interface WalletRepository {
 
     //neutron
     suspend fun vestingData(
-        channel: ManagedChannel,
-        line: CosmosLine
+        channel: ManagedChannel, line: CosmosLine
     ): NetworkResult<QuerySmartContractStateResponse>
 
     suspend fun vaultDeposit(
-        channel: ManagedChannel,
-        line: ChainNeutron
+        channel: ManagedChannel, line: ChainNeutron
     ): NetworkResult<String?>
 
     //lcd
@@ -133,4 +129,8 @@ interface WalletRepository {
     suspend fun oktToken(
         line: CosmosLine
     ): NetworkResult<OktTokenResponse?>
+
+    suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
+
+    suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String>
 }

@@ -33,13 +33,11 @@ import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
-import wannabit.io.cosmostaion.database.model.AddressBook
-import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.option.tx.address.CommonAddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
@@ -225,30 +223,13 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
         binding.apply {
             newLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AddressFragment(selectedChain,
-                        selectedChain,
+                    CommonAddressFragment.newInstance(selectedChain,
                         existedAddress,
                         AddressType.REWARD_ADDRESS,
                         object : AddressListener {
-                            override fun selectAddress(
-                                refAddress: RefAddress?,
-                                addressBook: AddressBook?,
-                                addressTxt: String
-                            ) {
-                                refAddress?.dpAddress?.let {
-                                    updateAddressView(it)
-                                    updateMemoView("")
-
-                                } ?: run {
-                                    addressBook?.let {
-                                        updateAddressView(it.address)
-                                        updateMemoView(it.memo)
-
-                                    } ?: run {
-                                        updateAddressView(addressTxt)
-                                        updateMemoView("")
-                                    }
-                                }
+                            override fun selectAddress(address: String, memo: String) {
+                                updateAddressView(address)
+                                updateMemoView(memo)
                             }
                         })
                 )
@@ -256,7 +237,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -267,8 +248,8 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

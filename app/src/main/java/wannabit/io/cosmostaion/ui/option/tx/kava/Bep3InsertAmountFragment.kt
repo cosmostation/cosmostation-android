@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.ui.option.tx.kava
 
+import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,19 +21,44 @@ import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class Bep3InsertAmountFragment(
-    private val fromChain: CosmosLine,
-    private val toSendDenom: String,
-    private val minAvailableAmount: BigDecimal?,
-    private val availAmount: BigDecimal?,
-    private val toAmount: String?,
-    val listener: AmountSelectListener
-) : BottomSheetDialogFragment() {
+class Bep3InsertAmountFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBep3InsertAmountBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var fromChain: CosmosLine
+    private var toSendDenom = ""
+    private var minAvailableAmount = ""
+    private var availAmount = ""
+    private var toAmount = ""
+
     private var assetDecimal: Int = 6
+
+    companion object {
+        @JvmStatic
+        fun newInstance(
+            fromChain: CosmosLine,
+            toSendDenom: String,
+            minAvailableAmount: String?,
+            availAmount: String?,
+            toAmount: String?,
+            listener: AmountSelectListener
+        ): Bep3InsertAmountFragment {
+            val args = Bundle().apply {
+                putParcelable("fromChain", fromChain)
+                putString("toSendDenom", toSendDenom)
+                putString("minAvailableAmount", minAvailableAmount)
+                putString("availAmount", availAmount)
+                putString("toAmount", toAmount)
+            }
+            val fragment = Bep3InsertAmountFragment()
+            fragment.arguments = args
+            fragment.amountSelectListener = listener
+            return fragment
+        }
+    }
+
+    private var amountSelectListener: AmountSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -46,49 +73,85 @@ class Bep3InsertAmountFragment(
         initView()
         textChange()
         updateView()
-        clickAction()
+        setUpClickAction()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        if (binding.amountTxt.text?.isNotEmpty() == true) {
+            val amount =
+                BigDecimal(binding.amountTxt.text.toString().trim()).movePointRight(assetDecimal)
+                    .setScale(0)
+            amountSelectListener?.select(amount.toPlainString())
+        }
     }
 
     private fun initView() {
         binding.apply {
             editLayout.setHint(R.string.str_send_amount)
 
-            if (fromChain is ChainBinanceBeacon) {
-                assetDecimal = 8
-                fromChain.lcdBeaconTokens.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-                    minAvailableAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                        minAvailable.text = formatAmount(amount.toPlainString(), assetDecimal)
-                    }
+            arguments?.apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    getSerializable(
+                        "fromChain", CosmosLine::class.java
+                    )?.let { fromChain = it }
 
-                    availAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                        available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                        availableDenom.text = tokenInfo.originalSymbol.uppercase()
+                } else {
+                    (getSerializable("fromChain") as? CosmosLine)?.let {
+                        fromChain = it
                     }
                 }
+                getString("toSendDenom")?.let { toSendDenom = it }
+                getString("minAvailableAmount")?.let { minAvailableAmount = it }
+                getString("availAmount")?.let { availAmount = it }
+                getString("toAmount")?.let { toAmount = it }
+            }
+
+            if (fromChain is ChainBinanceBeacon) {
+                assetDecimal = 8
+                fromChain.lcdBeaconTokens.firstOrNull { it.symbol == toSendDenom }
+                    ?.let { tokenInfo ->
+                        minAvailableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                minAvailable.text =
+                                    formatAmount(amount.toPlainString(), assetDecimal)
+                            }
+
+                        availAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = tokenInfo.originalSymbol.uppercase()
+                            }
+                    }
 
             } else {
-                BaseData.assets?.firstOrNull { it.denom?.lowercase() == toSendDenom }?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        assetDecimal = decimal
+                BaseData.assets?.firstOrNull { it.denom?.lowercase() == toSendDenom }
+                    ?.let { asset ->
+                        asset.decimals?.let { decimal ->
+                            assetDecimal = decimal
 
-                        minAvailableAmount?.movePointLeft(decimal)?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
-                            minAvailable.text = formatAmount(amount.toPlainString(), decimal)
-                        }
+                            minAvailableAmount.toBigDecimal().movePointLeft(decimal)
+                                ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                                    minAvailable.text =
+                                        formatAmount(amount.toPlainString(), decimal)
+                                }
 
-                        availAmount?.movePointLeft(decimal)?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
-                            available.text = formatAmount(amount.toPlainString(), decimal)
-                            availableDenom.text = asset.symbol
-                        }
-
-                        toAmount?.let {
-                            if (it.isNotEmpty()) {
-                                val dpToSendAmount = it.toBigDecimal().movePointLeft(decimal).setScale(decimal).stripTrailingZeros().toPlainString()
-                                amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
-                            } else {
-                                amountTxt.text = Editable.Factory.getInstance().newEditable(it)
-                            }
+                            availAmount.toBigDecimal().movePointLeft(decimal)
+                                ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                                    available.text = formatAmount(amount.toPlainString(), decimal)
+                                    availableDenom.text = asset.symbol
+                                }
                         }
                     }
+            }
+
+            toAmount.let {
+                if (it.isNotEmpty()) {
+                    val dpToSendAmount = it.toBigDecimal().setScale(assetDecimal, RoundingMode.DOWN)
+                        .stripTrailingZeros().toPlainString()
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(dpToSendAmount)
+                } else {
+                    amountTxt.text = Editable.Factory.getInstance().newEditable(it)
                 }
             }
         }
@@ -98,10 +161,7 @@ class Bep3InsertAmountFragment(
         binding.apply {
             amountTxt.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
+                    s: CharSequence?, start: Int, count: Int, after: Int
                 ) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -115,7 +175,9 @@ class Bep3InsertAmountFragment(
                     } else if (userInput.contains(".")) {
                         val decimalPlaces: Int = userInput.length - userInput.indexOf(".") - 1
                         if (decimalPlaces == assetDecimal) {
-                            if (userInput.toBigDecimal().handlerRight(assetDecimal, 0) == BigDecimal.ZERO) {
+                            if (userInput.toBigDecimal()
+                                    .handlerRight(assetDecimal, 0) == BigDecimal.ZERO
+                            ) {
                                 s?.delete(s.length - 1, s.length)
                             }
                         } else if (decimalPlaces > assetDecimal) {
@@ -146,58 +208,68 @@ class Bep3InsertAmountFragment(
                 }
 
                 BigDecimal(text).apply {
-                    minAvailableAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal)?.let { minAmount ->
-                        availAmount?.movePointLeft(assetDecimal)?.setScale(assetDecimal)?.let { amount ->
-                            if (this != BigDecimal.ZERO && amount >= this && this >= minAmount) {
-                                editLayout.error = null
-                                invalidMsg.visibility = View.GONE
-                                btnConfirm.isEnabled = true
-                                btnConfirm.updateButtonView(true)
+                    minAvailableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                        ?.setScale(assetDecimal)?.let { minAmount ->
+                            availAmount.toBigDecimal().movePointLeft(assetDecimal)
+                                ?.setScale(assetDecimal)?.let { amount ->
+                                    if (this != BigDecimal.ZERO && amount >= this && this >= minAmount) {
+                                        editLayout.error = null
+                                        invalidMsg.visibility = View.GONE
+                                        btnConfirm.isEnabled = true
+                                        btnConfirm.updateButtonView(true)
 
-                            } else {
-                                editLayout.error = getString(R.string.error_invalid_amount)
-                                invalidMsg.visibility = View.VISIBLE
-                                btnConfirm.isEnabled = false
-                                btnConfirm.updateButtonView(false)
-                            }
-                            amountTxt.setSelection(text.length)
+                                    } else {
+                                        editLayout.error = getString(R.string.error_invalid_amount)
+                                        invalidMsg.visibility = View.VISIBLE
+                                        btnConfirm.isEnabled = false
+                                        btnConfirm.updateButtonView(false)
+                                    }
+                                    amountTxt.setSelection(text.length)
+                                }
                         }
-
-                    }
                 }
             }
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             btnQuarter.setOnClickListener {
-                availAmount?.let { amount ->
-                    val quarterAmount = amount.multiply(BigDecimal(0.25)).movePointLeft(assetDecimal).setScale(assetDecimal, RoundingMode.DOWN)
-                    amountTxt.text = Editable.Factory.getInstance().newEditable(quarterAmount.toPlainString())
+                availAmount.toBigDecimal().let { amount ->
+                    val quarterAmount =
+                        amount.multiply(BigDecimal(0.25)).movePointLeft(assetDecimal)
+                            .setScale(assetDecimal, RoundingMode.DOWN)
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(quarterAmount.toPlainString())
                     updateView()
                 }
             }
 
             btnHalf.setOnClickListener {
-                availAmount?.let { amount ->
-                    val halfAmount = amount.multiply(BigDecimal(0.5)).movePointLeft(assetDecimal).setScale(assetDecimal, RoundingMode.DOWN)
-                    amountTxt.text = Editable.Factory.getInstance().newEditable(halfAmount.toPlainString())
+                availAmount.toBigDecimal().let { amount ->
+                    val halfAmount = amount.multiply(BigDecimal(0.5)).movePointLeft(assetDecimal)
+                        .setScale(assetDecimal, RoundingMode.DOWN)
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(halfAmount.toPlainString())
                     updateView()
                 }
             }
 
             btnMax.setOnClickListener {
-                availAmount?.let { amount ->
-                    val maxAmount = amount.movePointLeft(assetDecimal).setScale(assetDecimal, RoundingMode.DOWN)
-                    amountTxt.text = Editable.Factory.getInstance().newEditable(maxAmount.toPlainString())
+                availAmount.toBigDecimal().let { amount ->
+                    val maxAmount =
+                        amount.movePointLeft(assetDecimal).setScale(assetDecimal, RoundingMode.DOWN)
+                    amountTxt.text =
+                        Editable.Factory.getInstance().newEditable(maxAmount.toPlainString())
                     updateView()
                 }
             }
 
             btnConfirm.setOnClickListener {
-                val originalAmount = BigDecimal(amountTxt.text.toString().trim()).movePointRight(assetDecimal).setScale(0)
-                listener.select(originalAmount.toPlainString())
+                val originalAmount =
+                    BigDecimal(amountTxt.text.toString().trim()).movePointRight(assetDecimal)
+                        .setScale(0)
+                amountSelectListener?.select(originalAmount.toPlainString())
                 dismiss()
             }
         }
@@ -207,8 +279,4 @@ class Bep3InsertAmountFragment(
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface AmountSelectListener {
-    fun select(toAmount: String)
 }

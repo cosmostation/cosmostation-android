@@ -57,9 +57,14 @@ import org.bouncycastle.util.Strings
 import org.bouncycastle.util.encoders.Base64
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -100,9 +105,13 @@ object Signer {
     }
 
     fun genSendSimulate(
-        auth: QueryAccountResponse?, msgSend: MsgSend?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgSend: MsgSend?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, sendMsg(msgSend), fee, memo)
+        return signSimulTx(auth, sendMsg(msgSend), fee, memo, selectedChain)
     }
 
     private fun sendMsg(msgSend: MsgSend?): MutableList<Any> {
@@ -125,9 +134,13 @@ object Signer {
     }
 
     fun genIbcSendSimulate(
-        auth: QueryAccountResponse?, msgTransfer: MsgTransfer?, fee: Fee?, memo: String
+        auth: QueryAccountResponse?,
+        msgTransfer: MsgTransfer?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, memo)
+        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
 
     private fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
@@ -153,9 +166,10 @@ object Signer {
         auth: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): SimulateRequest? {
-        return signSimulTx(auth, wasmMsg(msgWasms), fee, memo)
+        return signSimulTx(auth, wasmMsg(msgWasms), fee, memo, selectedChain)
     }
 
     private fun wasmMsg(msgWasms: MutableList<MsgExecuteContract?>?): MutableList<Any> {
@@ -895,7 +909,7 @@ object Signer {
 
     private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        return if (line?.evmCompatible == true) {
+        return if (line?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             val pubKey =
                 KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
@@ -912,23 +926,20 @@ object Signer {
         }
     }
 
-    private fun grpcByteSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): ByteArray {
+    private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        if (selectedChain?.evmCompatible == true || selectedChain is ChainInjective) {
+        if (selectedChain is EthereumLine) {
             val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
             System.arraycopy(sig.r, 0, sigData, 0, 32)
             System.arraycopy(sig.s, 0, sigData, 32, 32)
-            return sigData
-
         } else {
             val sha256Hash = Sha256Hash.hash(toSignByte)
             ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
                 System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
                 System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
-                return sigData
             }
-            return sigData
         }
+        return sigData
     }
 
     private fun parseAuthGrpc(auth: QueryAccountResponse?): Triple<String, Long, Long> {
@@ -1005,6 +1016,24 @@ object Signer {
         return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
     }
 
+    private fun signSimulTx(
+        auth: QueryAccountResponse?,
+        msgAnys: List<Any>?,
+        fee: Fee?,
+        memo: String,
+        selectedChain: CosmosLine?
+    ): SimulateRequest? {
+        val txBody = grpcTxBody(msgAnys, memo)
+        val signerInfo = grpcSimulInfo(auth)
+        val authInfo = grpcAuthInfo(signerInfo, fee)
+        val simulateTx = grpcSimulTx(txBody, authInfo)
+        return if (selectedChain is ChainEmoney) {
+            SimulateRequest.newBuilder().setTx(simulateTx).build()
+        } else {
+            SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
+        }
+    }
+
     private fun grpcTxBody(msgsAny: List<Any>?, memo: String): TxBody? {
         val builder = TxBody.newBuilder()
         msgsAny?.forEach { msg ->
@@ -1079,65 +1108,69 @@ object Signer {
     }
 
     private fun broadcast(
-        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: ChainOkt60
+        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: CosmosLine
     ): BroadcastReq {
-        val toSign = genToSignMsg(
-            selectedChain.chainId,
-            selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-            selectedChain.oktLcdAccountInfo?.value?.sequence,
-            msgs,
-            fee,
-            memo
-        )
-        val sig = signature(selectedChain, toSign.toSignByte())
-        val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
-            COSMOS_KEY_TYPE_PUBLIC, Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
-        )
-        val signature = Signature(
-            pubKey,
-            sig,
-            selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-            selectedChain.oktLcdAccountInfo?.value?.sequence
-        )
-        val signatures = mutableListOf<Signature>()
-        signatures.add(signature)
-
-        val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
-        return BroadcastReq("sync", signedTx.value)
-    }
-
-    // Legacy Tx
-    fun oktBroadcast(
-        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: ChainOkt60
-    ): BroadcastReq {
-        if (!selectedChain.evmCompatible) {
-            return broadcast(msgs, fee, memo, selectedChain)
-
-        } else {
+        (selectedChain as ChainOkt996Secp).apply {
             val toSign = genToSignMsg(
-                selectedChain.chainId,
-                selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-                selectedChain.oktLcdAccountInfo?.value?.sequence,
+                chainId,
+                oktLcdAccountInfo?.value?.accountNumber,
+                oktLcdAccountInfo?.value?.sequence,
                 msgs,
                 fee,
                 memo
             )
-            val sig = ethermintSignature(selectedChain, toSign.toSignByte())
+            val sig = signature(this, toSign.toSignByte())
             val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
-                ETHERMINT_KEY_TYPE_PUBLIC,
-                Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
+                COSMOS_KEY_TYPE_PUBLIC, Strings.fromByteArray(encode(publicKey, DEFAULT))
             )
             val signature = Signature(
                 pubKey,
                 sig,
-                selectedChain.oktLcdAccountInfo?.value?.accountNumber,
-                selectedChain.oktLcdAccountInfo?.value?.sequence
+                oktLcdAccountInfo?.value?.accountNumber,
+                oktLcdAccountInfo?.value?.sequence
             )
             val signatures = mutableListOf<Signature>()
             signatures.add(signature)
 
             val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
             return BroadcastReq("sync", signedTx.value)
+        }
+    }
+
+    // Legacy Tx
+    fun oktBroadcast(
+        msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: CosmosLine
+    ): BroadcastReq {
+        if (!selectedChain.evmCompatible) {
+            return broadcast(msgs, fee, memo, selectedChain)
+
+        } else {
+            (selectedChain as ChainOkt996Keccak).apply {
+                val toSign = genToSignMsg(
+                    selectedChain.chainId,
+                    selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+                    selectedChain.oktLcdAccountInfo?.value?.sequence,
+                    msgs,
+                    fee,
+                    memo
+                )
+                val sig = ethermintSignature(selectedChain, toSign.toSignByte())
+                val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
+                    ETHERMINT_KEY_TYPE_PUBLIC,
+                    Strings.fromByteArray(encode(selectedChain.publicKey, DEFAULT))
+                )
+                val signature = Signature(
+                    pubKey,
+                    sig,
+                    selectedChain.oktLcdAccountInfo?.value?.accountNumber,
+                    selectedChain.oktLcdAccountInfo?.value?.sequence
+                )
+                val signatures = mutableListOf<Signature>()
+                signatures.add(signature)
+
+                val signedTx = genStakeSignedTransferTx(msgs, fee, memo, signatures)
+                return BroadcastReq("sync", signedTx.value)
+            }
         }
     }
 
@@ -1222,7 +1255,7 @@ object Signer {
     }
 
     fun signature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
-        if (selectedChain?.evmCompatible == true) {
+        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             return ethermintSignature(selectedChain, toSignByte)
         } else {
             val sha256Hash = Sha256Hash.hash(toSignByte)

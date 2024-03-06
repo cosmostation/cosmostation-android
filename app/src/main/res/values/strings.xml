@@ -2,9 +2,12 @@
     <string name="app_name">Cosmostation</string>
 
     <string name="str_total_value" translatable="false">Total value</string>
+    <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
     <string name="str_legacy" translatable="false">Legacy</string>
+    <string name="str_ethsecp256k1" translatable="false">ethsecp256k1</string>
+    <string name="str_secp256k1" translatable="false">secp256k1</string>
     <string name="str_evm" translatable="false">EVM Compat</string>
     <string name="str_available" translatable="false">Available</string>
     <string name="str_vesting" translatable="false">Vesting</string>
@@ -16,6 +19,8 @@
     <string name="str_today">Today</string>
     <string name="str_next">Next</string>
     <string name="str_share_address">Share address</string>
+    <string name="str_share_evm_address">Share evm style\naddress</string>
+    <string name="str_share_cosmos_address">Share cosmos style\naddress</string>
     <string name="str_address">Address</string>
     <string name="str_ethereum_address">Ethereum address</string>
     <string name="str_confirm">Confirm</string>
@@ -57,6 +62,7 @@
     <string name="str_tiny">TINY</string>
     <string name="str_low">LOW</string>
     <string name="str_average">AVERAGE</string>
+    <string name="str_high">HIGH</string>
     <string name="str_send">Send</string>
     <string name="str_insert_memo">Insert memo (Optional)</string>
     <string name="str_qr_scan" translatable="false">QR Scan</string>
@@ -121,15 +127,18 @@
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">Claim all</string>
+    <string name="str_amount">Amount</string>
 
 
     //title
     <string name="title_update">Update</string>
     <string name="title_select_wallet">Select wallet</string>
+    <string name="title_asset" translatable="false">Assets</string>
+    <string name="title_nft" translatable="false">NFTs</string>
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
     <string name="title_history" translatable="false">History</string>
-    <string name="title_about" translatable="false">About</string>
+    <string name="title_about">About</string>
     <string name="title_select_account" translatable="false">Select account</string>
     <string name="title_mnemonic_account">Mnemonic account</string>
     <string name="title_private_account">Private key account</string>
@@ -176,6 +185,7 @@
     <string name="title_hd_path_setting">HD path setting</string>
     <string name="title_restore_private">Restore with privateKey</string>
     <string name="title_coin_send">Asset send</string>
+    <string name="title_asset_send">%1$s send</string>
     <string name="title_ibc_send">IBC Asset send</string>
     <string name="title_recipient_chain" translatable="false">Recipient chain</string>
     <string name="title_to_send_asset" translatable="false">To send asset</string>
@@ -251,6 +261,7 @@
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">Asset loss</string>
     <string name="title_claimable_chains">Claimable chains</string>
+    <string name="title_select_end_point">Select End-Point</string>
 
 
     // msg
@@ -281,7 +292,8 @@
     <string name="str_fee_speed_title_zero">This chain support zero Tx fee.</string>
     <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee.</string>
     <string name="str_tx_success_msg" translatable="false">The transaction is completed\nYou can view details on Mintscan.</string>
-    <string name="str_view_mintscan_msg" translatable="false">View in Mintscan</string>
+    <string name="str_view_mintscan_msg" translatable="false">View in MINTSCAN</string>
+    <string name="str_view_explorer_msg" translatable="false">View in EXPLORER</string>
     <string name="str_more_wait_msg">The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. \n\nPlease press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.</string>
     <string name="str_stake_msg">Add staking quantity.</string>
     <string name="str_unstake_msg">Start unstaking.</string>
@@ -317,6 +329,8 @@
     <string name="str_data_synchronizing">Data Synchronizing.</string>
     <string name="str_enter_encryption_msg">Enter the Encryption Key displayed on the screen to restore your account.</string>
     <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
+    <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
+    <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
 
 
     // header
@@ -324,6 +338,7 @@
     <string name="str_ibc_coins" translatable="false">Ibc coins</string>
     <string name="str_bridge_coins" translatable="false">Bridged coins</string>
     <string name="str_contract_tokens" translatable="false">Contract tokens</string>
+    <string name="str_erc20_tokens" translatable="false">Erc20 tokens</string>
     <string name="str_kip10_coins" translatable="false">Kip10 coins</string>
     <string name="str_kip20_tokens" translatable="false">Kip20 tokens</string>
     <string name="str_unknown_coins" translatable="false">Unknown coins</string>
@@ -367,6 +382,8 @@
     <string name="error_not_support">%1$s is an unsupported chain.</string>
     <string name="error_unknown_qr_code">Unknown QR Code.</string>
     <string name="error_decrytion">Decryption error</string>
+    <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
+    <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
 
 
     // tx
@@ -610,6 +627,7 @@
         <item>JPY</item>
         <item>CNY</item>
         <item>RUB</item>
+        <item>THB</item>
         <item>GBP</item>
         <item>INR</item>
         <item>BRL</item>
@@ -630,6 +648,7 @@
         <item>Japan</item>
         <item>China</item>
         <item>Russia</item>
+        <item>Thailand</item>
         <item>United Kingdom</item>
         <item>India</item>
         <item>Brazil</item>

@@ -11,6 +11,7 @@ data class RefAddress(
     @ColumnInfo(name = "accountId") var accountId: Long,
     @ColumnInfo(name = "chainTag") var chainTag: String,
     @ColumnInfo(name = "dpAddress") var dpAddress: String?,
+    @ColumnInfo(name = "evmAddress") var evmAddress: String? = "",
     @ColumnInfo(name = "lastMainValue") var lastMainValue: String? = "0",
     @ColumnInfo(name = "lastMainAmount") var lastMainAmount: String? = "0",
     @ColumnInfo(name = "lastTokenValue") var lastTokenValue: String? = "0",

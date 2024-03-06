@@ -38,7 +38,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCreateMintBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.TxType
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
@@ -268,12 +268,10 @@ class CreateMintFragment : BaseTxFragment() {
         binding.apply {
             collateralAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.MINT_CREATE_COLLATERAL,
-                        null,
-                        collateralAvailableAmount,
+                    InsertAmountFragment.newInstance(TxType.MINT_CREATE_COLLATERAL,
+                        collateralAvailableAmount.toString(),
                         toCollateralAmount,
                         collateralAsset,
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateCollateralAmountView(toAmount)
@@ -284,14 +282,12 @@ class CreateMintFragment : BaseTxFragment() {
 
             principalAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment(TxType.MINT_CREATE_PRINCIPAL,
-                        null,
-                        collateralParam?.expectUSDXLTV(
+                    InsertAmountFragment.newInstance(TxType.MINT_CREATE_PRINCIPAL,
+                        collateralParam.expectUSDXLTV(
                             toCollateralAmount.toBigDecimal(), priceFeed
-                        ),
+                        ).toString(),
                         toPrincipalAmount,
                         principalAsset,
-                        null,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updatePrincipalAmountView(toAmount)
@@ -302,7 +298,7 @@ class CreateMintFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -312,8 +308,8 @@ class CreateMintFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas,
+                    AssetFragment.newInstance(selectedChain,
+                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
                                 selectedChain.getDefaultFeeCoins(requireContext())

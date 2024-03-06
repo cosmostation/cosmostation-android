@@ -4,19 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.ItemOktValidatorBinding
 
 class OktValidatorAdapter(
-    private val selectedChain: ChainOkt60,
+    private val selectedChain: ChainOkt996Keccak,
     private val myValidators: MutableList<OktValidatorResponse>
 ) : ListAdapter<OktValidatorResponse, OktValidatorViewHolder>(OkValidatorDefaultDiffCallback()) {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OktValidatorViewHolder {
-        val binding = ItemOktValidatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemOktValidatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return OktValidatorViewHolder(parent.context, binding)
     }
 
@@ -31,11 +32,15 @@ class OktValidatorAdapter(
 
     private class OkValidatorDefaultDiffCallback : DiffUtil.ItemCallback<OktValidatorResponse>() {
 
-        override fun areItemsTheSame(oldItem: OktValidatorResponse, newItem: OktValidatorResponse): Boolean {
+        override fun areItemsTheSame(
+            oldItem: OktValidatorResponse, newItem: OktValidatorResponse
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: OktValidatorResponse, newItem: OktValidatorResponse): Boolean {
+        override fun areContentsTheSame(
+            oldItem: OktValidatorResponse, newItem: OktValidatorResponse
+        ): Boolean {
             return oldItem == newItem
         }
     }

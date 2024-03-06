@@ -31,11 +31,12 @@ import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt60
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 
 interface TxRepository {
 
@@ -53,6 +54,19 @@ interface TxRepository {
 
     suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse?
 
+    suspend fun broadcastEvmSendTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmSendTx(
+        toEthAddress: String?,
+        toSendAmount: String?,
+        selectedToken: Token?,
+        sendAssetType: SendAssetType,
+        selectedChain: CosmosLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
     suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
@@ -67,7 +81,8 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any?
 
     suspend fun broadcastBnbSendTx(
@@ -75,7 +90,7 @@ interface TxRepository {
     ): MutableList<TransactionMetadata>?
 
     suspend fun broadcastOktTx(
-        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: ChainOkt60
+        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
     ): LegacyRes?
 
     suspend fun broadcastIbcSendTx(
@@ -92,7 +107,8 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any?
 
     suspend fun broadcastWasmTx(
@@ -109,19 +125,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
-        memo: String
+        memo: String,
+        selectedChain: CosmosLine?
     ): Any?
-
-    suspend fun broadcastErcSendTx(
-        web3j: Web3j, hexValue: String
-    ): String?
-
-    suspend fun simulateErcSendTx(
-        toEthAddress: String?,
-        toSendAmount: String?,
-        selectedToken: Token?,
-        selectedChain: CosmosLine
-    ): Pair<String?, String?>
 
     suspend fun broadcastDelegateTx(
         managedChannel: ManagedChannel?,

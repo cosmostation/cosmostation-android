@@ -1,10 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.importQR
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import wannabit.io.cosmostaion.R
@@ -26,13 +23,6 @@ class ImportBarcodeActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_DENIED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 123)
-        }
-
         codeScanner = CodeScanner(this, binding.barcodeScanner)
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
