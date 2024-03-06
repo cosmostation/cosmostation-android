@@ -222,13 +222,13 @@ class SettingFragment : Fragment() {
 
             languageView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.LANGUAGE)
+                    SettingBottomFragment.newInstance(null, SettingType.LANGUAGE)
                 )
             }
 
             currencyView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.CURRENCY)
+                    SettingBottomFragment.newInstance(null, SettingType.CURRENCY)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "currency", this@SettingFragment
@@ -240,7 +240,7 @@ class SettingFragment : Fragment() {
 
             priceView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.PRICE_STATUS)
+                    SettingBottomFragment.newInstance(null, SettingType.PRICE_STATUS)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "priceStyle", this@SettingFragment
@@ -539,4 +539,4 @@ class SettingFragment : Fragment() {
     }
 }
 
-enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, BUY_CRYPTO }
+enum class SettingType { LANGUAGE, CURRENCY, PRICE_STATUS, BUY_CRYPTO, END_POINT }

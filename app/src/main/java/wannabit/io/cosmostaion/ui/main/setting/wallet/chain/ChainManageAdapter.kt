@@ -21,6 +21,8 @@ class ChainManageAdapter(
         const val VIEW_TYPE_COSMOS_ITEM = 3
     }
 
+    private var onItemClickListener: ((CosmosLine) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_EVM_HEADER, VIEW_TYPE_COSMOS_HEADER -> {
@@ -51,6 +53,10 @@ class ChainManageAdapter(
                 if (holder.itemViewType == VIEW_TYPE_EVM_ITEM) {
                     val line = allEvmLines[position - 1]
                     holder.evmBind(line)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let { it(line) }
+                    }
 
                 } else {
                     val line = allCosmosLines[position - (allEvmLines.size + 2)]
@@ -86,5 +92,9 @@ class ChainManageAdapter(
                 }
             }
         }
+    }
+
+    fun setOnItemClickListener(listener: (CosmosLine) -> Unit) {
+        onItemClickListener = listener
     }
 }

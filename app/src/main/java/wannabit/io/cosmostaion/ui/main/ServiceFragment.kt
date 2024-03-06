@@ -122,7 +122,7 @@ class ServiceFragment : Fragment() {
 
             buyView.setOnClickListener {
                 handleOneClickWithDelay(
-                    SettingBottomFragment(SettingType.BUY_CRYPTO)
+                    SettingBottomFragment.newInstance(null, SettingType.BUY_CRYPTO)
                 )
                 parentFragmentManager.setFragmentResultListener(
                     "crypto", this@ServiceFragment

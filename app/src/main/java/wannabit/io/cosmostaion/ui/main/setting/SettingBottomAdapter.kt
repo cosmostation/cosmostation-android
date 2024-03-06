@@ -1,22 +1,27 @@
 package wannabit.io.cosmostaion.ui.main.setting
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.data.model.res.Params
 import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
+import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
 import wannabit.io.cosmostaion.databinding.ItemPriceStyleBinding
 import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.general.CurrencyViewHolder
 import wannabit.io.cosmostaion.ui.main.setting.general.PriceStyleViewHolder
+import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.EndPointViewHolder
 
 class SettingBottomAdapter(
-    val context: Context, private val settingType: SettingType
-) : ListAdapter<String, RecyclerView.ViewHolder>(SettingDiffCallback()) {
+    val context: Context, private val fromChain: CosmosLine?, private val settingType: SettingType
+) : ListAdapter<Any, RecyclerView.ViewHolder>(SettingDiffCallback()) {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
 
@@ -50,6 +55,13 @@ class SettingBottomAdapter(
                 BuyCryptoViewHolder(parent.context, binding)
             }
 
+            SettingType.END_POINT.ordinal -> {
+                val binding = ItemEndpointBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                EndPointViewHolder(binding)
+            }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -58,7 +70,7 @@ class SettingBottomAdapter(
         when (settingType.ordinal) {
             SettingType.LANGUAGE.ordinal -> {
                 if (holder is SettingBottomViewHolder) {
-                    val stringItem = currentList[position]
+                    val stringItem = currentList[position] as String
                     holder.bind(stringItem)
 
                     holder.itemView.setOnClickListener {
@@ -69,7 +81,7 @@ class SettingBottomAdapter(
 
             SettingType.CURRENCY.ordinal -> {
                 if (holder is CurrencyViewHolder) {
-                    val currency = currentList[position]
+                    val currency = currentList[position] as String
                     holder.bind(currency)
 
                     holder.itemView.setOnClickListener {
@@ -80,7 +92,7 @@ class SettingBottomAdapter(
 
             SettingType.PRICE_STATUS.ordinal -> {
                 if (holder is PriceStyleViewHolder) {
-                    val style = currentList[position]
+                    val style = currentList[position] as String
                     holder.bind(style)
 
                     holder.itemView.setOnClickListener {
@@ -91,8 +103,19 @@ class SettingBottomAdapter(
 
             SettingType.BUY_CRYPTO.ordinal -> {
                 if (holder is BuyCryptoViewHolder) {
-                    val buy = currentList[position]
+                    val buy = currentList[position] as String
                     holder.bind(buy)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let { it(position) }
+                    }
+                }
+            }
+
+            SettingType.END_POINT.ordinal -> {
+                if (holder is EndPointViewHolder) {
+                    val endPoint = currentList[position] as Params.ChainListParams.GrpcEndpoint
+                    holder.bind(fromChain, endPoint)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let { it(position) }
@@ -102,13 +125,14 @@ class SettingBottomAdapter(
         }
     }
 
-    private class SettingDiffCallback : DiffUtil.ItemCallback<String>() {
+    private class SettingDiffCallback : DiffUtil.ItemCallback<Any>() {
 
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return oldItem == newItem
         }
     }

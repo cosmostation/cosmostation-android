@@ -205,6 +205,7 @@
     <string name="title_big_loss">자산 손실</string>
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
+    <string name="title_select_end_point">End-Point 선택</string>
 
 
     // msg

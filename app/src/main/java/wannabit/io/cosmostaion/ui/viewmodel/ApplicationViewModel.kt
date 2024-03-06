@@ -97,7 +97,7 @@ class ApplicationViewModel(
 
     fun loadChainData(
         line: CosmosLine, baseAccountId: Long, isEdit: Boolean
-    ) = viewModelScope.launch(Dispatchers.IO) {
+    ) = CoroutineScope(Dispatchers.IO).launch {
         line.apply {
             val loadParamDeferred = async { walletRepository.param(this@apply) }
             val tokenDeferred = async { walletRepository.token(this@apply) }
@@ -205,7 +205,7 @@ class ApplicationViewModel(
 
     private fun loadGrpcAuthData(
         line: CosmosLine, baseAccountId: Long, isEdit: Boolean
-    ) = viewModelScope.launch(Dispatchers.IO) {
+    ) = CoroutineScope(Dispatchers.IO).launch {
         line.apply {
             val channel = getChannel(line)
             when (val response = walletRepository.auth(channel, this)) {
@@ -246,7 +246,7 @@ class ApplicationViewModel(
 
     private fun loadLcdData(
         line: CosmosLine, baseAccountId: Long, isEdit: Boolean
-    ) = viewModelScope.launch(Dispatchers.IO) {
+    ) = CoroutineScope(Dispatchers.IO).launch {
         line.apply {
             if (this is ChainBinanceBeacon) {
                 val loadAccountInfoDeferred = async { walletRepository.binanceAccountInfo(line) }
@@ -424,7 +424,7 @@ class ApplicationViewModel(
 
     private fun loadGrpcMoreData(
         channel: ManagedChannel, id: Long, line: CosmosLine, isEdit: Boolean
-    ) = viewModelScope.launch(Dispatchers.IO) {
+    ) = CoroutineScope(Dispatchers.IO).launch {
         line.apply {
             try {
                 val loadBalanceDeferred = async { walletRepository.balance(channel, line) }
@@ -566,16 +566,19 @@ class ApplicationViewModel(
     }
 
     fun loadEvmChainData(line: EthereumLine, baseAccountId: Long, isEdit: Boolean) =
-        viewModelScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             line.apply {
                 if (supportCosmos) {
                     if (this is ChainOktEvm) {
                         val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
-                        val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+                        val loadEvmBalanceDeferred =
+                            async { walletRepository.evmBalance(this@apply) }
 
-                        val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
+                        val loadAccountInfoDeferred =
+                            async { walletRepository.oktAccountInfo(this@apply) }
                         val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
-                        val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
+                        val loadWithdrawDeferred =
+                            async { walletRepository.oktWithdraw(this@apply) }
                         val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }
 
                         val responses = awaitAll(
@@ -643,7 +646,8 @@ class ApplicationViewModel(
                                 val deferredList = mutableListOf<Deferred<Unit>>()
                                 evmTokens.forEach { token ->
                                     if (tag != "ethereum60" || token.default) {
-                                        val deferred = async { walletRepository.erc20Balance(line, token) }
+                                        val deferred =
+                                            async { walletRepository.erc20Balance(line, token) }
                                         deferredList.add(deferred)
                                     }
                                 }
@@ -696,7 +700,8 @@ class ApplicationViewModel(
                     } else {
                         val loadParamDeferred = async { walletRepository.param(this@apply) }
                         val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
-                        val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+                        val loadEvmBalanceDeferred =
+                            async { walletRepository.evmBalance(this@apply) }
 
                         val responses = awaitAll(
                             loadParamDeferred, loadEvmTokenDeferred, loadEvmBalanceDeferred
@@ -740,15 +745,20 @@ class ApplicationViewModel(
                         runBlocking {
                             deferredList.awaitAll()
 
-                            val evmRefAddress = RefAddress(baseAccountId,
+                            val evmRefAddress = RefAddress(
+                                baseAccountId,
                                 tag,
                                 address,
                                 ByteUtils.convertBech32ToEvm(address),
                                 "0",
                                 "0",
                                 allTokenValue().toPlainString(),
-                                cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
-                                    ?.toLong())
+                                cosmosBalances?.count {
+                                    BaseData.getAsset(
+                                        apiName, it.denom
+                                    ) != null
+                                }?.toLong()
+                            )
                             BaseData.updateRefAddressesToken(evmRefAddress)
                         }
                     }
@@ -933,5 +943,21 @@ class ApplicationViewModel(
     val filterDataResult: LiveData<Boolean> get() = _filterDataResult
     fun updateFilterData(isShowAll: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         _filterDataResult.postValue(isShowAll)
+    }
+
+    var paramResult = SingleLiveEvent<CosmosLine>()
+    fun param(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.param(line)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    line.param = data
+                    paramResult.postValue(line)
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
     }
 }

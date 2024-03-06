@@ -261,6 +261,7 @@
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">Asset loss</string>
     <string name="title_claimable_chains">Claimable chains</string>
+    <string name="title_select_end_point">Select End-Point</string>
 
 
     // msg

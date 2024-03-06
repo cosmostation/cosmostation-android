@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigInteger
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
 class WalletRepositoryImpl : WalletRepository {
@@ -301,15 +302,21 @@ class WalletRepositoryImpl : WalletRepository {
         val function = Function("balanceOf", params, returnTypes)
 
         val txData = FunctionEncoder.encode(function)
-        val response: EthCall = web3j.ethCall(
-            Transaction.createEthCallTransaction(ethAddress, token.address, txData),
-            DefaultBlockParameterName.LATEST
-        ).sendAsync().get()
-        val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
-        if (results.isNotEmpty()) {
-            val balance = results[0].value as BigInteger
-            token.amount = balance.toString()
-        } else {
+
+        try {
+            val response: EthCall = web3j.ethCall(
+                Transaction.createEthCallTransaction(ethAddress, token.address, txData),
+                DefaultBlockParameterName.LATEST
+            ).sendAsync().get()
+            val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+            if (results.isNotEmpty()) {
+                val balance = results[0].value as BigInteger
+                token.amount = balance.toString()
+            } else {
+                token.amount = "0"
+            }
+
+        } catch (e: SocketTimeoutException) {
             token.amount = "0"
         }
     }

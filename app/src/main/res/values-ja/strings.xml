@@ -209,6 +209,7 @@
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">資産の損失です</string>
     <string name="title_claimable_chains">リワード対象チェーン</string>
+    <string name="title_select_end_point">エンドポイントの選択</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>

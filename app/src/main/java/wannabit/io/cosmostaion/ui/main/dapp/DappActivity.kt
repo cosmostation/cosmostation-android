@@ -191,7 +191,7 @@ class DappActivity : BaseActivity() {
             makeToast(R.string.str_wc_connected)
 
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.isDefault }
+                account.allCosmosLineChains.firstOrNull { it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.tag.contains("kava459")}
                     ?.let { chain ->
                         selectedChain = chain
                         selectedChain?.fetchFilteredCosmosChain()
