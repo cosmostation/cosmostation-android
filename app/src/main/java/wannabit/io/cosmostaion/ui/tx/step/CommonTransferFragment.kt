@@ -183,9 +183,13 @@ class CommonTransferFragment : BaseTxFragment() {
 
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
-                    availableAmount = (fromChain as EthereumLine).evmBalance.subtract(
-                        EVM_BASE_FEE
-                    )
+                    availableAmount = if (EVM_BASE_FEE >= (fromChain as EthereumLine).evmBalance) {
+                        BigDecimal.ZERO
+                    } else {
+                        (fromChain as EthereumLine).evmBalance.subtract(
+                            EVM_BASE_FEE
+                        )
+                    }
                     sendTitle.text = getString(
                         R.string.title_asset_send, (fromChain as EthereumLine).coinSymbol
                     )
@@ -193,9 +197,14 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.COSMOS_EVM_COIN -> {
                     if (transferStyle == TransferStyle.WEB3_STYLE) {
-                        availableAmount = (fromChain as EthereumLine).evmBalance.subtract(
-                            EVM_BASE_FEE
-                        )
+                        availableAmount =
+                            if (EVM_BASE_FEE >= (fromChain as EthereumLine).evmBalance) {
+                                BigDecimal.ZERO
+                            } else {
+                                (fromChain as EthereumLine).evmBalance.subtract(
+                                    EVM_BASE_FEE
+                                )
+                            }
                         sendTitle.text = getString(
                             R.string.title_asset_send, (fromChain as EthereumLine).coinSymbol
                         )
@@ -204,8 +213,13 @@ class CommonTransferFragment : BaseTxFragment() {
                         toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                         availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
                         if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                            val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
-                            availableAmount = availableAmount.subtract(feeAmount)
+                            cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
+                                availableAmount = if (feeAmount >= availableAmount) {
+                                    BigDecimal.ZERO
+                                } else {
+                                    availableAmount.subtract(feeAmount)
+                                }
+                            }
                         }
                         sendTitle.text = getString(
                             R.string.title_asset_send, toSendAsset?.symbol
@@ -217,8 +231,13 @@ class CommonTransferFragment : BaseTxFragment() {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                     availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
                     if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                        val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
-                        availableAmount = availableAmount.subtract(feeAmount)
+                        cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
+                            availableAmount = if (feeAmount >= availableAmount) {
+                                BigDecimal.ZERO
+                            } else {
+                                availableAmount.subtract(feeAmount)
+                            }
+                        }
                     }
                     sendTitle.text = getString(
                         R.string.title_asset_send, toSendAsset?.symbol
@@ -592,7 +611,8 @@ class CommonTransferFragment : BaseTxFragment() {
 
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(fromChain,
+                    TransferAddressFragment.newInstance(
+                        fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,

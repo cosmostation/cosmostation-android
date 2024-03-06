@@ -95,8 +95,8 @@
 
     <ImageView
         android:id="@+id/qr_box_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_info_layout"
@@ -115,8 +115,8 @@
 
         <ImageView
             android:id="@+id/qr_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="180dp"
+            android:layout_height="180dp" />
 
         <ImageView
             android:id="@+id/chain_img"

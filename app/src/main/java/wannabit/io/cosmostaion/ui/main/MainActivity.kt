@@ -6,7 +6,6 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -75,7 +74,9 @@ class MainActivity : BaseActivity() {
         }
 
         ApplicationViewModel.shared.changeNameResult.observe(this) { account ->
-            binding.accountName.text = account?.name
+            if (BaseData.baseAccount?.id == account?.id) {
+                binding.accountName.text = account?.name
+            }
         }
     }
 

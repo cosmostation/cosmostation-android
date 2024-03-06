@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/color_base01</item>
         <item name="colorPrimaryDark">@color/color_base01</item>
         <item name="colorAccent">@color/color_base01</item>
+        <item name="android:navigationBarColor">@color/color_base07</item>
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
 
@@ -12,10 +13,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
 
         <item name="android:windowContentTransitions">true</item>
-
-        <!--        <item name="android:windowBackground">@color/color_base01</item>-->
-        <!--        <item name="android:windowContentOverlay">@null</item>-->
-        <!--        <item name="android:windowIsTranslucent">true</item>-->
     </style>
 
     <style name="AppTheme.Intro">

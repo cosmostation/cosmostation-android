@@ -147,7 +147,9 @@ class SettingFragment : Fragment() {
 
     private fun checkChangeNameData() {
         ApplicationViewModel.shared.changeNameResult.observe(viewLifecycleOwner) { account ->
-            binding.accountName.text = account?.name
+            if (BaseData.baseAccount?.id == account?.id) {
+                binding.accountName.text = account?.name
+            }
         }
     }
 
