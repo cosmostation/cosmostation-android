@@ -29,7 +29,6 @@ import org.web3j.abi.datatypes.generated.Uint256
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
-import org.web3j.protocol.core.methods.response.EthCall
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -69,7 +68,6 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigInteger
-import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
 class WalletRepositoryImpl : WalletRepository {
@@ -303,11 +301,15 @@ class WalletRepositoryImpl : WalletRepository {
 
         val txData = FunctionEncoder.encode(function)
 
-        try {
-            val response: EthCall = web3j.ethCall(
+        val response = try {
+            web3j.ethCall(
                 Transaction.createEthCallTransaction(ethAddress, token.address, txData),
                 DefaultBlockParameterName.LATEST
             ).sendAsync().get()
+        } catch (e: Exception) {
+            null
+        }
+        if (response != null) {
             val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
             if (results.isNotEmpty()) {
                 val balance = results[0].value as BigInteger
@@ -315,8 +317,7 @@ class WalletRepositoryImpl : WalletRepository {
             } else {
                 token.amount = "0"
             }
-
-        } catch (e: SocketTimeoutException) {
+        } else {
             token.amount = "0"
         }
     }

@@ -25,7 +25,7 @@ class ChainEthereum : EthereumLine() {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var rpcUrl: String = "http://eth4.cosmostation.io/rpc"
+    override var rpcUrl: String = "https://rpc-ethereum-evm.cosmostation.io/rpc"
 
     override var explorerURL = "https://etherscan.io/"
     override var addressURL = explorerURL + "address/"
