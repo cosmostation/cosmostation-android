@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
-@Database(entities = [BaseAccount::class, RefAddress::class, AddressBook::class, Password::class], version = 1, exportSchema = false)
+@Database(entities = [BaseAccount::class, RefAddress::class, AddressBook::class, Password::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun baseAccountDao(): BaseAccountDao
     abstract fun refAddressDao(): RefAddressDao
@@ -34,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
                     val factory = SupportFactory(SQLiteDatabase.getBytes(Prefs.passphrase.toCharArray()))
                     builder.openHelperFactory(factory)
 
-//                    builder.addMigrations(MIGRATION_1_2)
+                    builder.addMigrations(MIGRATION_1_2)
                     instance = builder.build()
                 }
             }

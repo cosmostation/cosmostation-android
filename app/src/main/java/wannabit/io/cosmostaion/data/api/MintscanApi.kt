@@ -22,7 +22,7 @@ interface MintscanApi {
     @GET("v10/assets")
     suspend fun asset(): Response<AssetResponse>
 
-    @GET("v1/meta/support/chains")
+    @GET("v10/meta/support/chains")
     suspend fun chain(): Response<ChainResponse>
 
     @GET("v10/utils/params/{chain}")
@@ -36,10 +36,7 @@ interface MintscanApi {
 
     @GET("v10/{chain}/account/{address}/txs")
     suspend fun cosmosHistory(
-        @Path("chain") chain: String,
-        @Path("address") address: String?,
-        @Query("limit") limit: String,
-        @Query("search_after") searchAfter: String
+        @Path("chain") chain: String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String
     ): Response<List<CosmosHistory>>
 
     @GET("v10/{chain}/proposals")
@@ -57,8 +54,6 @@ interface MintscanApi {
 
     @GET("v1/utils/proxy/okc-transaction-list")
     suspend fun oktHistory(
-        @Query("device") device: String?,
-        @Query("address") address: String?,
-        @Query("limit") limit: String?
+        @Query("device") device: String?, @Query("address") address: String?, @Query("limit") limit: String?
     ): Response<OktHistoryResponse>
 }
