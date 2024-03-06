@@ -59,7 +59,7 @@ class EvmHistoryFragment : Fragment() {
     }
 
     private fun setUpClickAction() {
-        binding.frontLayout.setOnClickListener {
+        binding.btnCheckHistory.setOnClickListener {
             val explorerUrl = selectedEvmChain.addressURL + selectedEvmChain.address
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
         }

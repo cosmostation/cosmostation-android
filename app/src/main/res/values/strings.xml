@@ -292,8 +292,8 @@
     <string name="str_fee_speed_title_zero">This chain support zero Tx fee.</string>
     <string name="str_fee_speed_title_fixed">This chain support fixed Tx fee.</string>
     <string name="str_tx_success_msg" translatable="false">The transaction is completed\nYou can view details on Mintscan.</string>
-    <string name="str_view_mintscan_msg" translatable="false">View in Mintscan</string>
-    <string name="str_view_explorer_msg" translatable="false">View in explorer</string>
+    <string name="str_view_mintscan_msg" translatable="false">View in MINTSCAN</string>
+    <string name="str_view_explorer_msg" translatable="false">View in EXPLORER</string>
     <string name="str_more_wait_msg">The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. \n\nPlease press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.</string>
     <string name="str_stake_msg">Add staking quantity.</string>
     <string name="str_unstake_msg">Start unstaking.</string>
@@ -330,6 +330,7 @@
     <string name="str_enter_encryption_msg">Enter the Encryption Key displayed on the screen to restore your account.</string>
     <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
     <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
+    <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
 
 
     // header
