@@ -299,6 +299,7 @@
     <string name="error_decrytion">復号化エラー</string>
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
+    <string name="error_tranfer_disabled">このチェーンは伝達関数をサポートしていません。</string>
 
 
     <string name="tx_unknown">不明</string>

@@ -384,6 +384,7 @@
     <string name="error_decrytion">Decryption error</string>
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
+    <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
 
 
     // tx
