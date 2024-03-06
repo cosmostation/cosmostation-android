@@ -35,7 +35,7 @@ class AssetFragment : BottomSheetDialogFragment() {
         ): AssetFragment {
             val args = Bundle().apply {
                 putParcelable("fromChain", fromChain)
-                putParcelableArrayList("recipientAbleChains", ArrayList(feeDatas))
+                putParcelableArrayList("feeDatas", ArrayList(feeDatas))
             }
             val fragment = AssetFragment()
             fragment.arguments = args

@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
@@ -541,6 +542,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainFetchAi())
     lines.add(ChainFetchAi60Secp())
     lines.add(ChainFetchAi60Old())
+    lines.add(ChainFinschia())
     lines.add(ChainGravityBridge())
     lines.add(ChainInjective())
     lines.add(ChainIris())
