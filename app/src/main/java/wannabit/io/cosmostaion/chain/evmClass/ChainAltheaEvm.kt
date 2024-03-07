@@ -12,13 +12,13 @@ class ChainAltheaEvm : EthereumLine() {
     override var supportCosmos: Boolean = true
     override var name: String = "Althea"
     override var tag: String = "althea60"
-    override var logo: Int = R.drawable.chain_althea
-    override var swipeLogo: Int = R.drawable.chain_swipe_althea
+    override var logo: Int = R.drawable.chain_evm_althea
+    override var swipeLogo: Int = R.drawable.chain_swipe_evm_althea
     override var apiName: String = "althea"
     override var stakeDenom: String? = "ualtg"
 
     override var coinSymbol: String = "ALTG"
-    override var coinGeckoId: String = ""
+    override var coinGeckoId: String = "althea"
     override var coinLogo: Int = R.drawable.token_althea
     override var addressLogo: Int = R.drawable.icon_althea_address
 
