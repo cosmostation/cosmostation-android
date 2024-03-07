@@ -76,6 +76,36 @@
                     android:textAllCaps="true"/>
 
                 <TextView
+                    android:id="@+id/chain_cw20_badge"
+                    style="@style/font_sm_8"
+                    android:background="@drawable/round_box_cw20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_1"
+                    android:textColor="@color/color_base01"
+                    android:layout_below="@+id/chain_name"
+                    android:textAllCaps="true"
+                    android:visibility="gone"
+                    android:text="CW20"/>
+
+                <TextView
+                    android:id="@+id/chain_nft_badge"
+                    style="@style/font_sm_8"
+                    android:background="@drawable/round_box_nft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_1"
+                    android:textColor="@color/color_base01"
+                    android:layout_below="@+id/chain_name"
+                    android:visibility="gone"
+                    android:textAllCaps="true"
+                    android:text="NFT"/>
+
+                <TextView
                     android:id="@+id/chain_type_badge"
                     style="@style/font_sm_8"
                     android:background="@drawable/round_box_deprecated"

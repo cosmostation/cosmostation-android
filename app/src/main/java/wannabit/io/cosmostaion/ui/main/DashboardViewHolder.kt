@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 
@@ -25,6 +26,8 @@ class DashboardViewHolder(
             chainName.text = line.name.uppercase()
             chainBadge.visibility = View.GONE
             chainTypeBadge.visibility = View.GONE
+            chainCw20Badge.visibleOrGone(line.supportCw20)
+            chainNftBadge.visibleOrGone(line.supportNft)
 
             if (line.fetched) {
                 if (Prefs.hideValue) {
@@ -72,6 +75,8 @@ class DashboardViewHolder(
                 chainBadge.visibility = View.GONE
                 chainTypeBadge.visibility = View.GONE
             }
+            chainCw20Badge.visibleOrGone(line.supportCw20)
+            chainNftBadge.visibleOrGone(line.supportNft)
 
             if (line.fetched) {
                 if (Prefs.hideValue) {

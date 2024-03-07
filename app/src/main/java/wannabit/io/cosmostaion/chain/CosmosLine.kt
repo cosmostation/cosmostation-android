@@ -101,6 +101,7 @@ open class CosmosLine : BaseChain(), Parcelable {
     open var supportCw20 = false
     open var supportErc20 = false
     open var supportStaking = true
+    open var supportNft = false
 
     open var evmCompatible = false
 
