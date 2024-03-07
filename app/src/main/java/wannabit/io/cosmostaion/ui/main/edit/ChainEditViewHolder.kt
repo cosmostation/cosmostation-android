@@ -26,7 +26,7 @@ class ChainEditViewHolder(
         baseAccount: BaseAccount,
         line: EthereumLine,
         displayEvmChains: MutableList<String>,
-        listener: ChainEditAdapter.EvmSelectListener
+        listener: ChainEditAdapter.SelectListener
     ) {
         binding.apply {
             updateView(line, displayEvmChains)
@@ -66,7 +66,7 @@ class ChainEditViewHolder(
                     displayEvmChains.add(line.tag)
                 }
                 updateView(line, displayEvmChains)
-                listener.select(displayEvmChains)
+                listener.evmSelect(displayEvmChains)
             }
         }
     }

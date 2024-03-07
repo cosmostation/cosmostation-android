@@ -162,7 +162,7 @@
     <string name="title_reward_recipient_address">利子支給アドレス</string>
     <string name="title_proposal_list">Proposal list</string>
     <string name="title_select_opinion">意見の選択です</string>
-    <string name="title_select_vault">Select Vault</string>
+    <string name="title_select_vault">Select vault</string>
     <string name="title_vault_deposit">Vault deposit</string>
     <string name="title_vault_withdraw">Vault withdraw</string>
     <string name="title_vault_deposit_amount">入金額</string>

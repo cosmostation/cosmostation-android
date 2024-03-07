@@ -203,7 +203,7 @@
     <string name="title_option">Select option</string>
     <string name="title_delegate_amount">Delegate amount</string>
     <string name="title_undelegate_amount">Undelegate amount</string>
-    <string name="title_select_validator">Select Validator</string>
+    <string name="title_select_validator">Select validator</string>
     <string name="title_redelegate_amount">Redelegate amount</string>
     <string name="title_reward_address_change">Reward address change</string>
     <string name="title_current_reward_address">Current reward address</string>
@@ -211,7 +211,7 @@
     <string name="title_reward_recipient_address">Reward recipient address</string>
     <string name="title_proposal_list">Proposal list</string>
     <string name="title_select_opinion">Select opinion</string>
-    <string name="title_select_vault">Select Vault</string>
+    <string name="title_select_vault">Select vault</string>
     <string name="title_vault_deposit">Vault deposit</string>
     <string name="title_vault_withdraw">Vault withdraw</string>
     <string name="title_vault_deposit_amount">Deposit amount</string>

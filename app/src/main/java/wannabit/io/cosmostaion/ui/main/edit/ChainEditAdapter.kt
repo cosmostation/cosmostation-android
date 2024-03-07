@@ -15,7 +15,6 @@ class ChainEditAdapter(
     private val displayEvmChains: MutableList<String>,
     private val allCosmosLines: MutableList<CosmosLine>,
     private val displayChains: MutableList<String>,
-    private var evmListener: EvmSelectListener,
     private var listener: SelectListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -54,7 +53,7 @@ class ChainEditAdapter(
             is ChainEditViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_EVM_ITEM) {
                     val evmChain = allEvmLines[position - 1]
-                    holder.evmBind(account, evmChain, displayEvmChains, evmListener)
+                    holder.evmBind(account, evmChain, displayEvmChains, listener)
 
                 } else {
                     val line = allCosmosLines[position - (allEvmLines.size + 2)]
@@ -92,11 +91,9 @@ class ChainEditAdapter(
         }
     }
 
-    interface EvmSelectListener {
-        fun select(displayEvmChains: MutableList<String>)
-    }
-
     interface SelectListener {
+        fun evmSelect(displayEvmChains: MutableList<String>)
+
         fun select(displayChains: MutableList<String>)
     }
 }

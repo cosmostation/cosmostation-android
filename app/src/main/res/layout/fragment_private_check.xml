@@ -150,4 +150,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_name_view" />
 
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_54"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_12"
+        android:background="@drawable/button_common_bg"
+        android:text="@string/str_confirm"
+        android:textAllCaps="false"
+        style="@style/font_sb_16"
+        android:visibility="gone"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

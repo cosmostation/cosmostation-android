@@ -54,7 +54,7 @@
         android:id="@+id/voting_power_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_15"
+        android:layout_marginTop="@dimen/space_16"
         android:layout_marginStart="@dimen/space_50"
         android:layout_marginEnd="@dimen/space_16"
         app:layout_constraintTop_toTopOf="parent"
@@ -95,11 +95,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_50"
         android:layout_marginEnd="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_15"
+        android:layout_marginBottom="@dimen/space_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/moniker_name"
-        app:layout_constraintTop_toBottomOf="@+id/voting_power_layout">
+        app:layout_constraintStart_toEndOf="@id/moniker_name">
 
         <TextView
             android:id="@+id/commission_title"

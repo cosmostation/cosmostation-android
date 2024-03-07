@@ -143,6 +143,28 @@ data class BaseAccount(
             ?: BigDecimal.ZERO
     }
 
+    fun reSortEvmChains(): MutableList<CosmosLine> {
+        val sortedList = allEvmLineChains.sortedWith { o1, o2 ->
+            when {
+                o1.tag == "ethereum60" -> -1
+                o2.tag == "ethereum60" -> 1
+                else -> o2.allValue(true).compareTo(o1.allValue(true))
+            }
+        }
+        return sortedList.toMutableList()
+    }
+
+    fun reSortCosmosChains(): MutableList<CosmosLine> {
+        val sortedList = allCosmosLineChains.sortedWith { o1, o2 ->
+            when {
+                o1.tag == "cosmos118" -> -1
+                o2.tag == "cosmos118" -> 1
+                else -> o2.allValue(true).compareTo(o1.allValue(true))
+            }
+        }
+        return sortedList.toMutableList()
+    }
+
     companion object {
         fun createByMnemonic(name: String, mnemonic: String, lastHDPath: String): BaseAccount? {
             val uuid = UUID.randomUUID().toString()

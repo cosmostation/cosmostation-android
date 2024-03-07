@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.option.tx.address
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -149,7 +148,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                             senderAddress
                                         )
                                     ) {
-                                        Log.e("Test1234 : ", refAddress.toString())
                                         refEvmAddresses.add(refAddress)
                                     }
 

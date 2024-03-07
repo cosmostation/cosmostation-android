@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,8 +78,7 @@ class ChainEditFragment : BaseTxFragment() {
                                 toDisplayEvmChains,
                                 searchChains,
                                 toDisplayChains,
-                                evmClickAction,
-                                cosmosClickAction
+                                selectClickAction
                             )
                             recycler.adapter = chainEditAdapter
 
@@ -178,159 +175,55 @@ class ChainEditFragment : BaseTxFragment() {
         }
     }
 
-    private val evmClickAction = object : ChainEditAdapter.EvmSelectListener {
-        override fun select(displayEvmChains: MutableList<String>) {
+    private val selectClickAction = object : ChainEditAdapter.SelectListener {
+        override fun evmSelect(displayEvmChains: MutableList<String>) {
             toDisplayEvmChains = displayEvmChains
         }
-    }
 
-    private val cosmosClickAction = object : ChainEditAdapter.SelectListener {
         override fun select(displayChains: MutableList<String>) {
             toDisplayChains = displayChains
-        }
-    }
-
-    private fun reSortEvmChains(): MutableList<EthereumLine> {
-        BaseData.baseAccount?.let { account ->
-            account.apply {
-                allEvmLineChains.sortWith { o1, o2 ->
-                    when {
-                        o1.tag == "ethereum60" -> -1
-                        o2.tag == "ethereum60" -> 1
-                        else -> {
-                            when {
-                                o1.allAssetValue(true) > o2.allAssetValue(true) -> -1
-                                o1.allAssetValue(true) < o2.allAssetValue(true) -> 1
-                                else -> 0
-                            }
-                        }
-                    }
-                }
-                return allEvmLineChains
-            }
-        }
-        return mutableListOf()
-    }
-
-    private fun valuableSorEvmChains() {
-        BaseData.baseAccount?.let { account ->
-            allEvmChains.sortWith { o1, o2 ->
-                when {
-                    o1.tag == "ethereum60" -> -1
-                    o2.tag == "ethereum60" -> 1
-                    o1.allValue(true) > o2.allValue(true) -> -1
-                    o1.allValue(true) < o2.allValue(true) -> 1
-                    else -> 0
-                }
-            }
-
-            allEvmChains.sortWith { o1, o2 ->
-                when {
-                    o1.tag == "ethereum60" -> -1
-                    o2.tag == "ethereum60" -> 1
-                    Prefs.getDisplayEvmChains(account)
-                        .contains(o1.tag) && !Prefs.getDisplayEvmChains(
-                        account
-                    ).contains(o2.tag) -> -1
-
-                    Prefs.getDisplayEvmChains(account)
-                        .contains(o2.tag) && Prefs.getDisplayEvmChains(
-                        account
-                    ).contains(o1.tag) -> 1
-
-                    else -> 0
-                }
-            }
-        }
-    }
-
-    private fun reSortCosmosChains(): MutableList<CosmosLine> {
-        BaseData.baseAccount?.let { account ->
-            account.apply {
-                allCosmosLineChains.sortWith { o1, o2 ->
-                    when {
-                        o1.tag == "cosmos118" -> -1
-                        o2.tag == "cosmos118" -> 1
-                        else -> {
-                            when {
-                                o1.allAssetValue(true) > o2.allAssetValue(true) -> -1
-                                o1.allAssetValue(true) < o2.allAssetValue(true) -> 1
-                                else -> 0
-                            }
-                        }
-                    }
-                }
-                return allCosmosLineChains
-            }
-        }
-        return mutableListOf()
-    }
-
-    private fun valuableSortCosmosChains() {
-        BaseData.baseAccount?.let { account ->
-            allCosmosChains.sortWith { o1, o2 ->
-                when {
-                    o1.tag == "cosmos118" -> -1
-                    o2.tag == "cosmos118" -> 1
-                    o1.allValue(true) > o2.allValue(true) -> -1
-                    o1.allValue(true) < o2.allValue(true) -> 1
-                    else -> 0
-                }
-            }
-
-            allCosmosChains.sortWith { o1, o2 ->
-                when {
-                    o1.tag == "cosmos118" -> -1
-                    o2.tag == "cosmos118" -> 1
-                    Prefs.getDisplayChains(account).contains(o1.tag) && !Prefs.getDisplayChains(
-                        account
-                    ).contains(o2.tag) -> -1
-
-                    Prefs.getDisplayChains(account).contains(o2.tag) && Prefs.getDisplayChains(
-                        account
-                    ).contains(o1.tag) -> 1
-
-                    else -> 0
-                }
-            }
         }
     }
 
     private fun setUpClickAction() {
         binding?.apply {
             btnSelect.setOnClickListener {
+                backdropLayout.visibility = View.VISIBLE
+                toDisplayEvmChains.clear()
+                toDisplayChains.clear()
                 if (btnSelect.isEnabled) {
                     btnSelect.isEnabled = false
-                    backdropLayout.visibility = View.VISIBLE
 
                     lifecycleScope.launch(Dispatchers.IO) {
-                        allEvmChains = reSortEvmChains()
-                        allCosmosChains = reSortCosmosChains()
+                        BaseData.baseAccount?.let { account ->
+                            account.reSortEvmChains()
+                            allEvmChains = account.allEvmLineChains
 
-                        toDisplayEvmChains.clear()
+                            for (chain in allEvmChains) {
+                                if (chain.allAssetValue(true) > BigDecimal.ONE) {
+                                    toDisplayEvmChains.add(chain.tag)
+                                }
+                            }
 
-                        toDisplayChains.clear()
-                        toDisplayChains.add("cosmos118")
+                            account.reSortCosmosChains()
+                            allCosmosChains = account.allCosmosLineChains
+                            toDisplayChains.add("cosmos118")
 
-                        allEvmChains.filter { it.allAssetValue(true) > BigDecimal.ONE }
-                            .forEach { toDisplayEvmChains.add(it.tag) }
-                        allCosmosChains.filter { it.allAssetValue(true) > BigDecimal.ONE && it.tag != "cosmos118" }
-                            .forEach { toDisplayChains.add(it.tag) }
-
-                        valuableSorEvmChains()
-                        valuableSortCosmosChains()
+                            for (chain in allCosmosChains) {
+                                if (chain.allAssetValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
+                                    toDisplayChains.add(chain.tag)
+                                }
+                            }
+                        }
 
                         withContext(Dispatchers.Main) {
+                            btnSelect.isEnabled = true
                             backdropLayout.visibility = View.GONE
                             chainEditAdapter.notifyItemRangeChanged(
                                 1, allEvmChains.size + allCosmosChains.size + 1, null
                             )
                         }
                     }
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        btnSelect.isEnabled = true
-                    }, 1000)
                 }
             }
 

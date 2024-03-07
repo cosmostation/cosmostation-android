@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/space_8"
     android:layout_marginHorizontal="@dimen/space_12"
+    android:layout_marginTop="@dimen/space_8"
     android:scaleX="1.0"
     android:scaleY="1.0">
 
@@ -12,8 +12,8 @@
         android:id="@+id/private_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        app:cardPreventCornerOverlap="true"
         android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -59,14 +59,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_6"
-                    android:background="@drawable/round_box_deprecated"
+                    android:background="@drawable/round_box_edit"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
                     android:visibility="gone"
+                    android:text="@string/str_legacy"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/chain_name"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/chain_type_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_2"
+                    android:background="@drawable/round_box_edit"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_base02"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/chain_legacy"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView

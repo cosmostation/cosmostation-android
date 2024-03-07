@@ -17,8 +17,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentPrivateCheckBinding
@@ -32,6 +35,7 @@ class PrivateCheckFragment : Fragment() {
 
     private lateinit var privateAdapter: PrivateAdapter
 
+    private val allEvmLines: MutableList<EthereumLine> = mutableListOf()
     private val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
 
     companion object {
@@ -92,7 +96,14 @@ class PrivateCheckFragment : Fragment() {
         account.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (type == BaseAccountType.MNEMONIC) {
+                    allEvmLines.addAll(allEvmLines())
                     allCosmosLines.addAll(allCosmosLines())
+
+                    allEvmLines.forEach { evmLine ->
+                        if (evmLine.address?.isEmpty() == true) {
+                            evmLine.setInfoWithSeed(seed, evmLine.setParentPath, lastHDPath)
+                        }
+                    }
                     allCosmosLines.forEach { line ->
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
@@ -100,10 +111,17 @@ class PrivateCheckFragment : Fragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    allEvmLines.addAll(allEvmLines())
                     allCosmosLines().filter { it.isDefault }.forEach { line ->
                         allCosmosLines.add(line)
                     }
-                    allCosmosLines.forEach { line ->
+
+                    for (evmLine in allEvmLines) {
+                        if (evmLine.address?.isEmpty() == true) {
+                            evmLine.setInfoWithPrivateKey(privateKey)
+                        }
+                    }
+                    for (line in allCosmosLines) {
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -119,17 +137,18 @@ class PrivateCheckFragment : Fragment() {
 
     private fun updateView() {
         binding.apply {
+            btnConfirm.visibleOrGone(account.type == BaseAccountType.PRIVATE_KEY)
+
             if (account.type == BaseAccountType.MNEMONIC) {
                 privateCheckTitle.text = getString(R.string.title_check_private_each_chain)
                 privateKeyLayout.visibility = View.GONE
                 tapMsg.visibility = View.GONE
                 recycler.visibility = View.VISIBLE
 
-                privateAdapter = PrivateAdapter(account)
+                privateAdapter = PrivateAdapter(account, allEvmLines, allCosmosLines)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = privateAdapter
-                privateAdapter.submitList(allCosmosLines as List<Any>?)
 
             } else {
                 privateCheckTitle.text = getString(R.string.str_only_private)
@@ -149,12 +168,16 @@ class PrivateCheckFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
             }
 
+            btnConfirm.setOnClickListener {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+
             privateKeyLayout.setOnClickListener {
                 val clipboard =
                     requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("address", "0x" + account.privateKey?.toHex())
                 clipboard.setPrimaryClip(clip)
-                requireActivity().makeToast(R.string.str_msg_mnemonic_copied)
+                requireActivity().makeToast(R.string.str_msg_private_copy)
             }
         }
     }
