@@ -32,6 +32,7 @@ class ChainNeutron : CosmosLine() {
         ChildNumber.ZERO
     )
     override var accountPrefix: String? = "neutron"
+    override var supportCw20: Boolean = true
 
     override var grpcHost: String = "grpc-neutron.cosmostation.io"
 

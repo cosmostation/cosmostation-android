@@ -21,6 +21,7 @@ class ChainChihuahua : CosmosLine() {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
     override var accountPrefix: String? = "chihuahua"
+    override var supportCw20: Boolean = true
 
     override var grpcHost: String = "grpc-chihuahua.cosmostation.io"
 }
