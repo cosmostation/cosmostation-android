@@ -75,12 +75,6 @@ class ChangeRewardAddressWarnFragment : BottomSheetDialogFragment() {
                         ChangeRewardAddressFragment::class.java.name
                     )
 
-
-//                    ChangeRewardAddressFragment.newInstance(selectedChain).show(
-//                        requireActivity().supportFragmentManager,
-//                        ChangeRewardAddressFragment::class.java.name
-//                    )
-
                     Handler(Looper.getMainLooper()).postDelayed({
                         isClickable = true
                     }, 1000)

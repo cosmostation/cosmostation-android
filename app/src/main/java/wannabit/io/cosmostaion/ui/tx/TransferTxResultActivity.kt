@@ -134,8 +134,12 @@ class TransferTxResultActivity : BaseActivity() {
             if (transferStyle == TransferStyle.WEB3_STYLE) {
                 loadEvmTx()
             } else {
-                if (txHash.isNotEmpty()) {
-                    loadHistoryTx()
+                if (isSuccess) {
+                    if (txHash.isNotEmpty()) {
+                        loadHistoryTx()
+                    } else {
+                        showError()
+                    }
                 } else {
                     showError()
                 }

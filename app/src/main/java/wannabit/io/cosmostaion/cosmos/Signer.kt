@@ -970,15 +970,15 @@ object Signer {
 
     private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        return if (line?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
-            val pubKey =
-                KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
-            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
-                .setValue(pubKey.toByteString()).build()
-        } else if (line is ChainInjective) {
+        return if (line is ChainInjective) {
             val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
                 .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+        } else if (line?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+            val pubKey =
+                KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
         } else {
             val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
@@ -989,7 +989,7 @@ object Signer {
 
     private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        if (selectedChain is EthereumLine) {
+        if (selectedChain is EthereumLine || selectedChain is ChainInjective) {
             val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
             System.arraycopy(sig.r, 0, sigData, 0, 32)
             System.arraycopy(sig.s, 0, sigData, 32, 32)
@@ -1034,13 +1034,13 @@ object Signer {
                     return Triple(account.address, account.accountNumber, account.sequence)
                 }
 
-            } else if (rawAccount.typeUrl.contains(AccountProto.EthAccount.getDescriptor().fullName)) {
-                AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
+                com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
                     return Triple(account.address, account.accountNumber, account.sequence)
                 }
 
-            } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
-                com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            } else if (rawAccount.typeUrl.contains(AccountProto.EthAccount.getDescriptor().fullName)) {
+                AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
                     return Triple(account.address, account.accountNumber, account.sequence)
                 }
 

@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -178,7 +177,6 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
                         availableDenom.setTextColor(asset.assetColor())
                     }
 
-                Log.e("Test1234 : ", toAmount.toString())
                 if (toAmount?.isNotEmpty() == true) {
                     val dpToSendAmount = toAmount?.toBigDecimal()?.movePointLeft(assetDecimal)
                         ?.setScale(assetDecimal, RoundingMode.DOWN)?.stripTrailingZeros()
