@@ -14,7 +14,7 @@ class ChainAlthea118 : CosmosLine() {
     override var logo: Int = R.drawable.chain_althea
     override var swipeLogo: Int = R.drawable.chain_swipe_althea
     override var apiName: String = "althea"
-    override var stakeDenom: String? = "ualtg"
+    override var stakeDenom: String? = "aalthea"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

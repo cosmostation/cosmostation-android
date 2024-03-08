@@ -58,6 +58,7 @@ class EvmDetailFragment : Fragment() {
         updateTokenValue()
         initTab()
         setUpClickAction()
+        setUpObserve()
     }
 
     private fun initData() {
@@ -106,6 +107,14 @@ class EvmDetailFragment : Fragment() {
                         btnHide.setImageResource(R.drawable.icon_not_hide)
                     }
                 }
+            }
+        }
+    }
+
+    private fun setUpObserve() {
+        ApplicationViewModel.shared.changeNameResult.observe(viewLifecycleOwner) { account ->
+            if (BaseData.baseAccount?.id == account?.id) {
+                binding.accountName.text = account?.name
             }
         }
     }

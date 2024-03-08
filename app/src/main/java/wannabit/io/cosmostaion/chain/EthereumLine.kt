@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum

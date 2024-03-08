@@ -33,18 +33,6 @@
             android:textColor="@color/color_base01"
             android:textAllCaps="true" />
 
-        <TextView
-            android:id="@+id/account_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_4"
-            android:maxWidth="@dimen/space_150"
-            android:maxLines="1"
-            android:ellipsize="middle"
-            style="@style/font_sb_14"
-            android:textColor="@color/color_base01"
-            android:textAllCaps="false" />
-
     </LinearLayout>
 
     <LinearLayout

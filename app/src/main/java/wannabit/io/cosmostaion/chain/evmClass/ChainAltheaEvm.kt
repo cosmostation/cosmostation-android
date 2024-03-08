@@ -15,9 +15,9 @@ class ChainAltheaEvm : EthereumLine() {
     override var logo: Int = R.drawable.chain_evm_althea
     override var swipeLogo: Int = R.drawable.chain_swipe_evm_althea
     override var apiName: String = "althea"
-    override var stakeDenom: String? = "ualtg"
+    override var stakeDenom: String? = "aalthea"
 
-    override var coinSymbol: String = "ALTG"
+    override var coinSymbol: String = "ALTHEA"
     override var coinGeckoId: String = "althea"
     override var coinLogo: Int = R.drawable.token_althea
     override var addressLogo: Int = R.drawable.icon_althea_address

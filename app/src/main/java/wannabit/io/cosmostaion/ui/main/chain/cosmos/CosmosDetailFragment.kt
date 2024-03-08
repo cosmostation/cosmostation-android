@@ -97,6 +97,7 @@ class CosmosDetailFragment : Fragment() {
         initTab()
         setUpClickAction()
         setFabMenuClickAction()
+        setUpObserve()
     }
 
     private fun initData() {
@@ -461,6 +462,14 @@ class CosmosDetailFragment : Fragment() {
                 handleOneClickWithDelay(
                     null, OktSelectValidatorFragment.newInstance(selectedChain as ChainOkt996Keccak)
                 )
+            }
+        }
+    }
+
+    private fun setUpObserve() {
+        ApplicationViewModel.shared.changeNameResult.observe(viewLifecycleOwner) { account ->
+            if (BaseData.baseAccount?.id == account?.id) {
+                binding.accountName.text = account?.name
             }
         }
     }

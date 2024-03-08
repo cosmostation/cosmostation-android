@@ -50,7 +50,6 @@ class QrDialog(
                     chainName.text = evmChain.name
                     addressView.setBackgroundResource(R.drawable.cell_bg)
                     address.text = evmChain.address
-                    accountName.text = "(" + account.name + ")"
                     accountPath.text = evmChain.getHDPath(account.lastHDPath)
                     chainBadge.visibility = View.GONE
                     chainTypeBadge.visibility = View.GONE
@@ -68,7 +67,6 @@ class QrDialog(
                     chainName.text = chain.name
                     addressView.setBackgroundResource(R.drawable.cell_bg)
                     address.text = chain.address
-                    accountName.text = "(" + account.name + ")"
                     accountPath.text = chain.getHDPath(account.lastHDPath)
 
                     if (!chain.isDefault) {
