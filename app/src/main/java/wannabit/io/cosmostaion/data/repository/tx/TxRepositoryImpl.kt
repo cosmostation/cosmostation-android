@@ -285,9 +285,13 @@ class TxRepositoryImpl : TxRepository {
                         resultArray
                     }
 
-                    val baseFee = suggestBaseFee[selectedFeeInfo] ?: 27500000000
+                    val baseFee = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(275000000L)) {
+                        BigInteger.valueOf(27500000000)
+                    } else {
+                        suggestBaseFee[selectedFeeInfo]
+                    }
                     val tip = suggestTipValue[selectedFeeInfo]
-                    val totalPerGas = baseFee.toLong() + tip.toLong()
+                    val totalPerGas = baseFee!!.toLong() + tip.toLong()
 
                     var rawTransaction: RawTransaction? = null
 
@@ -324,7 +328,6 @@ class TxRepositoryImpl : TxRepository {
                     Pair(hexValue, feeAmount.toString())
 
                 } else {
-
                     var rawTransaction: RawTransaction? = null
 
                     if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
