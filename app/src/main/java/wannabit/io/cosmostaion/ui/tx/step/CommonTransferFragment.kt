@@ -808,25 +808,27 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
-        cosmosTxFee?.let { fee ->
-            (fromChain as CosmosLine).apply {
-                val selectedFeeData = cosmosFeeInfos[selectedFeePosition].feeDatas.firstOrNull {
-                    it.denom == fee.getAmount(
-                        0
-                    ).denom
-                }
-                val gasRate = selectedFeeData?.gasRate
+        if (transferStyle == TransferStyle.COSMOS_STYLE) {
+            cosmosTxFee?.let { fee ->
+                (fromChain as CosmosLine).apply {
+                    val selectedFeeData = cosmosFeeInfos[selectedFeePosition].feeDatas.firstOrNull {
+                        it.denom == fee.getAmount(
+                            0
+                        ).denom
+                    }
+                    val gasRate = selectedFeeData?.gasRate
 
-                gasInfo?.let { info ->
-                    val gasLimit = (info.gasUsed.toDouble() * gasMultiply()).toLong().toBigDecimal()
-                    val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                    gasInfo?.let { info ->
+                        val gasLimit = (info.gasUsed.toDouble() * gasMultiply()).toLong().toBigDecimal()
+                        val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
+                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                            .setAmount(feeCoinAmount.toString()).build()
 
-                    cosmosTxFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
+                        cosmosTxFee =
+                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                                .build()
+                    }
                 }
             }
         }

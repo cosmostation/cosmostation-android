@@ -173,7 +173,23 @@ class LegacyTransferFragment : BaseTxFragment() {
 
             } else if (fromChain is ChainOktEvm) {
                 (fromChain as ChainOktEvm).apply {
+                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
+                        oktToken = tokenInfo
+                        val originalSymbol = tokenInfo.originalSymbol
+                        tokenImg.setTokenImg(assetImg(originalSymbol))
+                        tokenName.text = originalSymbol.uppercase()
 
+                        val available = lcdBalanceAmount(toSendDenom)
+                        availableAmount = if (toSendDenom == stakeDenom) {
+                            if (available > BigDecimal(OKT_BASE_FEE)) {
+                                available.subtract(BigDecimal(OKT_BASE_FEE))
+                            } else {
+                                BigDecimal.ZERO
+                            }
+                        } else {
+                            available
+                        }
+                    }
                 }
             }
         }
@@ -194,9 +210,22 @@ class LegacyTransferFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-            } else if (fromChain is ChainOkt996Keccak || fromChain is ChainOktEvm) {
+            } else if (fromChain is ChainOkt996Keccak) {
                 fromChain.stakeDenom?.let { stakeDenom ->
                     feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(stakeDenom))
+                    feeToken.text = stakeDenom.uppercase()
+
+                    val price = BaseData.getPrice(OKT_GECKO_ID)
+                    val amount = BigDecimal(OKT_BASE_FEE)
+                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
+
+                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
+                    feeValue.text = formatAssetValue(value)
+                }
+
+            } else if (fromChain is ChainOktEvm) {
+                fromChain.stakeDenom?.let { stakeDenom ->
+                    feeTokenImg.setTokenImg((fromChain as ChainOktEvm).assetImg(stakeDenom))
                     feeToken.text = stakeDenom.uppercase()
 
                     val price = BaseData.getPrice(OKT_GECKO_ID)

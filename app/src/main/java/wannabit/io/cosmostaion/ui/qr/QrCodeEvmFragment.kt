@@ -37,6 +37,8 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedEvmChain: EthereumLine
 
+    private var selectedPosition: Int = 0
+
     companion object {
         @JvmStatic
         fun newInstance(selectedEvmChain: EthereumLine): QrCodeEvmFragment {
@@ -166,6 +168,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun setupClickAction() {
         binding.apply {
             chainSegment.setOnPositionChangedListener { position ->
+                selectedPosition = position
                 when (position) {
                     0 -> {
                         setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
@@ -180,9 +183,14 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             }
 
             addressView.setOnClickListener {
+                val copyAddress = if (selectedPosition == 0) {
+                    ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
+                } else {
+                    selectedEvmChain.address
+                }
                 val clipboard =
                     requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("address", selectedEvmChain.address)
+                val clip = ClipData.newPlainText("address", copyAddress)
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_address_copied)
             }

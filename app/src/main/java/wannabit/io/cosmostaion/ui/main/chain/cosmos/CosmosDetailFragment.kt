@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -320,7 +321,9 @@ class CosmosDetailFragment : Fragment() {
             fabSend.setOnClickListener {
                 selectedChain.stakeDenom?.let { denom ->
                     val sendAssetType = if (selectedChain is EthereumLine) {
-                        if ((selectedChain as EthereumLine).supportCosmos) {
+                        if (selectedChain is ChainOktEvm) {
+                            SendAssetType.ONLY_EVM_COIN
+                        } else if ((selectedChain as EthereumLine).supportCosmos) {
                             SendAssetType.COSMOS_EVM_COIN
                         } else {
                             SendAssetType.ONLY_EVM_COIN
@@ -329,6 +332,7 @@ class CosmosDetailFragment : Fragment() {
                     } else {
                         SendAssetType.ONLY_COSMOS_COIN
                     }
+
                     if (selectedChain is ChainGovgen) {
                         requireActivity().makeToast(R.string.error_tranfer_disabled)
                         return@setOnClickListener
@@ -348,7 +352,13 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabReceive.setOnClickListener {
-                handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
+                if (selectedChain is ChainOktEvm) {
+                    handleOneClickWithDelay(
+                        null, QrCodeEvmFragment.newInstance(selectedChain as ChainOktEvm)
+                    )
+                } else {
+                    handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
+                }
             }
 
             fabStake.setOnClickListener {

@@ -17,6 +17,7 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
@@ -147,44 +148,6 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                 )
             }
 
-//            btnAddressBook.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    AddressBookFragment(selectedChain.address,
-//                        selectedRecipientChain,
-//                        addressType,
-//                        object : AddressBookSelectListener {
-//                            override fun select(
-//                                refAddress: RefAddress?, addressBook: AddressBook?
-//                            ) {
-//                                refAddress?.let {
-//                                    selectedRefAddress = refAddress
-//                                    if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-//                                        addressTxt.text = Editable.Factory.getInstance()
-//                                            .newEditable(ByteUtils.convertBech32ToEvm(it.dpAddress))
-//                                    } else {
-//                                        addressTxt.text =
-//                                            Editable.Factory.getInstance().newEditable(it.dpAddress)
-//                                    }
-//
-//                                } ?: run {
-//                                    selectedAddressBook = addressBook
-//                                    selectedAddressBook?.let {
-//                                        if (addressType == AddressType.EVM_TRANSFER || selectedChain is ChainOkt60) {
-//                                            addressTxt.text = Editable.Factory.getInstance()
-//                                                .newEditable(ByteUtils.convertBech32ToEvm(it.address))
-//                                        } else {
-//                                            addressTxt.text = Editable.Factory.getInstance()
-//                                                .newEditable(it.address)
-//                                        }
-//                                    }
-//                                    addressTxt.textSize = 11f
-//                                    addressTxt.setSelection(addressTxt.text.toString().length)
-//                                }
-//                            }
-//                        })
-//                )
-//            }
-
             btnConfirm.setOnClickListener {
                 addressTxt.text.toString().trim().apply {
                     val address = this
@@ -206,23 +169,18 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                         }
                     }
 
-//                    if (BaseUtils.isValidChainAddress(
-//                            selectedRecipientChain, addressTxt.text.toString().trim()
-//                        )
-//                    ) {
-////                        listener.selectAddress(
-////                            selectedRefAddress,
-////                            selectedAddressBook,
-////                            addressTxt.text.toString().trim()
-////                        )
-//                        dismiss()
-//
-//                    } else {
-//                        val prefix = selectedRecipientChain?.accountPrefix!!
-//                        txViewModel.icnsAddress(
-//                            selectedRecipientChain, addressTxt.text.toString().trim(), prefix
-//                        )
-//                    }
+                    if (BaseUtils.isValidChainAddress(
+                            fromChain,
+                            addressTxt.text.toString().trim()
+                        )
+                    ) {
+                        addressListener?.selectAddress(addressTxt.text.toString().trim(), "")
+                        dismiss()
+
+                    } else {
+                        requireContext().makeToast(R.string.error_invalid_address)
+                        return@setOnClickListener
+                    }
                 }
             }
         }
@@ -272,5 +230,5 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
     }
 }
 
-enum class AddressType { REWARD_ADDRESS, EVM_TRANSFER, DEFAULT_TRANSFER }
+enum class AddressType { REWARD_ADDRESS, DEFAULT_TRANSFER }
 

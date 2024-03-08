@@ -28,17 +28,7 @@ class AllChainClaimViewHolder(
                 chainImg.setImageResource(cosmosLine.logo)
                 chainName.text = cosmosLine.name.uppercase()
 
-                if (cosmosLine.evmCompatible) {
-                    chainBadge.visibility = View.VISIBLE
-                    chainBadge.text = context.getString(R.string.str_evm)
-                    chainBadge.setBackgroundResource(R.drawable.round_box_evm)
-                    chainBadge.setTextColor(
-                        ContextCompat.getColor(
-                            context, R.color.color_base01
-                        )
-                    )
-
-                } else if (!cosmosLine.isDefault) {
+                if (!cosmosLine.isDefault) {
                     chainBadge.visibility = View.VISIBLE
                     chainBadge.text = context.getString(R.string.str_legacy)
                     chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)

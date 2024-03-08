@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -115,7 +116,7 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
             if (fromChain is ChainBinanceBeacon) {
                 assetDecimal = 8
                 availableDenom.text = bnbTokenInfo?.originalSymbol?.uppercase()
-            } else if (fromChain is ChainOkt996Keccak) {
+            } else if (fromChain is ChainOkt996Keccak || fromChain is ChainOktEvm) {
                 assetDecimal = 18
                 availableDenom.text = oktTokenInfo?.originalSymbol?.uppercase()
             }

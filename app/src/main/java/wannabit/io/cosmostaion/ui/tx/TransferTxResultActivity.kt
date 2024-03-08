@@ -132,7 +132,11 @@ class TransferTxResultActivity : BaseActivity() {
             sendAssetType = enumValues<SendAssetType>()[intent.getIntExtra("sendAssetType", -1)]
 
             if (transferStyle == TransferStyle.WEB3_STYLE) {
-                loadEvmTx()
+                if (txHash.isNotEmpty()) {
+                    loadEvmTx()
+                } else {
+                    showError()
+                }
             } else {
                 if (isSuccess) {
                     if (txHash.isNotEmpty()) {

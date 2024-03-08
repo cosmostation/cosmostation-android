@@ -61,9 +61,11 @@ class DashboardViewHolder(
                 chainBadge.text = context.getString(R.string.str_legacy)
                 when (line.tag) {
                     "okt996_Keccak" -> {
+                        chainTypeBadge.visibility = View.VISIBLE
                         chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
                     }
                     "okt996_Secp" -> {
+                        chainTypeBadge.visibility = View.VISIBLE
                         chainTypeBadge.text = context.getString(R.string.str_secp256k1)
                     }
                     else -> {

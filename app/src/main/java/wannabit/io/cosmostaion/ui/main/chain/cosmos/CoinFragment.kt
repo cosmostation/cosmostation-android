@@ -122,7 +122,7 @@ class CoinFragment : Fragment() {
                         startLegacyTransfer(line, denom)
                     }
 
-                } else if (line is ChainOkt996Keccak) {
+                } else if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
                     startLegacyTransfer(line, denom)
 
                 } else if (line.tag.startsWith("kava")) {

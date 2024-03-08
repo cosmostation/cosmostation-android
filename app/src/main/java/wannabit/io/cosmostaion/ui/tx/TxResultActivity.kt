@@ -92,7 +92,7 @@ class TxResultActivity : BaseActivity() {
             )
 
             btnConfirm.updateButtonView(true)
-            if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
+            if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -174,9 +174,15 @@ class TxResultActivity : BaseActivity() {
                         finish()
                         BaseData.baseAccount?.let { account ->
                             selectedChain?.let { chain ->
-                                ApplicationViewModel.shared.loadChainData(
-                                    chain, account.id, false
-                                )
+                                if (chain is ChainOktEvm) {
+                                    ApplicationViewModel.shared.loadEvmChainData(
+                                        chain, account.id, false
+                                    )
+                                } else {
+                                    ApplicationViewModel.shared.loadChainData(
+                                        chain, account.id, false
+                                    )
+                                }
                             }
                         }
                     }

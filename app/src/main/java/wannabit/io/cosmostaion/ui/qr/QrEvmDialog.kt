@@ -46,12 +46,13 @@ class QrEvmDialog(
             selectedEvmChain?.let { evmChain ->
                 ethAddressView.setBackgroundResource(R.drawable.cell_bg)
                 ethAddress.text = ByteUtils.convertBech32ToEvm(evmChain.address)
+                ethChainImg.setImageResource(evmChain.logo)
 
                 bitmap = barcodeEncoder.encodeBitmap(
                     ByteUtils.convertBech32ToEvm(evmChain.address),
                     BarcodeFormat.QR_CODE,
-                    540,
-                    540,
+                    400,
+                    400,
                     hints
                 )
                 ethQrImg.setImageBitmap(bitmap)
@@ -65,7 +66,7 @@ class QrEvmDialog(
                 address.text = evmChain.address
 
                 bitmap = barcodeEncoder.encodeBitmap(
-                    evmChain.address, BarcodeFormat.QR_CODE, 540, 540, hints
+                    evmChain.address, BarcodeFormat.QR_CODE, 400, 400, hints
                 )
                 qrImg.setImageBitmap(bitmap)
                 qrView.radius = context.resources.getDimension(R.dimen.space_12)
@@ -103,8 +104,7 @@ class QrEvmDialog(
                 intent.action = Intent.ACTION_SEND
                 selectedEvmChain?.let { evmChain ->
                     intent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        ByteUtils.convertBech32ToEvm(evmChain.address)
+                        Intent.EXTRA_TEXT, ByteUtils.convertBech32ToEvm(evmChain.address)
                     )
                 }
                 intent.type = "text/plain"
