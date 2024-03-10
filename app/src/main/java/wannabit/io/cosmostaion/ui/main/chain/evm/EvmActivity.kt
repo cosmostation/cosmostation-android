@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.ui.main.chain.evm
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
@@ -22,6 +25,8 @@ class EvmActivity : BaseActivity() {
     private lateinit var txViewModel: TxViewModel
     private lateinit var walletViewModel: WalletViewModel
 
+    private lateinit var selectedChain: BaseChain
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEvmBinding.inflate(layoutInflater)
@@ -35,12 +40,14 @@ class EvmActivity : BaseActivity() {
                     "selectedChainTag"
                 )
             }?.let { chain ->
+                selectedChain = chain
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, EvmDetailFragment.newInstance(chain)
                 ).commitAllowingStateLoss()
             }
         }
         initViewModel()
+        initChainImage()
     }
 
     private fun initViewModel() {
@@ -54,6 +61,34 @@ class EvmActivity : BaseActivity() {
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
         walletViewModel =
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+    }
+
+    private fun initChainImage() {
+        binding.chainLogo.apply {
+            val width = resources.displayMetrics.widthPixels
+            val height = resources.displayMetrics.heightPixels
+            val x = (0..width - 150 - 150).random().toFloat()
+            val y = (800..height - 150).random().toFloat()
+
+            setImageResource(selectedChain.logo)
+            alpha = 0f
+            this.x = x
+            this.y = y
+            layoutParams = FrameLayout.LayoutParams(800, 800)
+
+            ObjectAnimator.ofFloat(this, "alpha", 0f, 0.1f).apply {
+                duration = 3000
+                start()
+            }
+            ObjectAnimator.ofFloat(this, "scaleX", 1.05f).apply {
+                duration = 3000
+                start()
+            }
+            ObjectAnimator.ofFloat(this, "scaleY", 1.05f).apply {
+                duration = 3000
+                start()
+            }
+        }
     }
 
     override fun onBackPressed() {

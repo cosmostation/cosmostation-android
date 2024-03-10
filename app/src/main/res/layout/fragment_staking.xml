@@ -65,11 +65,15 @@
             <TextView
                 android:id="@+id/moniker_name"
                 style="@style/font_sb_14"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_12"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toEndOf="@+id/moniker_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,6 +103,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/moniker_name" />
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/space_16"

@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
@@ -26,6 +29,8 @@ class CosmosActivity : BaseActivity() {
     private lateinit var walletViewModel: WalletViewModel
     private lateinit var proposalViewModel: ProposalViewModel
 
+    private lateinit var selectedChain: BaseChain
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCosmosBinding.inflate(layoutInflater)
@@ -39,6 +44,7 @@ class CosmosActivity : BaseActivity() {
                     "selectedChainTag"
                 )
             }?.let { chain ->
+                selectedChain = chain
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
                 ).commitAllowingStateLoss()
@@ -49,6 +55,7 @@ class CosmosActivity : BaseActivity() {
                         "selectedChainTag"
                     )
                 }?.let { chain ->
+                    selectedChain = chain
                     supportFragmentManager.beginTransaction().replace(
                         R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
                     ).commitAllowingStateLoss()
@@ -56,6 +63,7 @@ class CosmosActivity : BaseActivity() {
             }
         }
         initViewModel()
+        initChainImage()
     }
 
     private fun initViewModel() {
@@ -74,6 +82,34 @@ class CosmosActivity : BaseActivity() {
         val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
         proposalViewModel =
             ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
+    }
+
+    private fun initChainImage() {
+        binding.chainLogo.apply {
+            val width = resources.displayMetrics.widthPixels
+            val height = resources.displayMetrics.heightPixels
+            val x = (0..width - 150 - 150).random().toFloat()
+            val y = (800..height - 150).random().toFloat()
+
+           setImageResource(selectedChain.logo)
+            alpha = 0f
+            this.x = x
+            this.y = y
+            layoutParams = FrameLayout.LayoutParams(800, 800)
+
+            ObjectAnimator.ofFloat(this, "alpha", 0f, 0.1f).apply {
+                duration = 3000
+                start()
+            }
+            ObjectAnimator.ofFloat(this, "scaleX", 1.05f).apply {
+                duration = 3000
+                start()
+            }
+            ObjectAnimator.ofFloat(this, "scaleY", 1.05f).apply {
+                duration = 3000
+                start()
+            }
+        }
     }
 
     override fun onBackPressed() {

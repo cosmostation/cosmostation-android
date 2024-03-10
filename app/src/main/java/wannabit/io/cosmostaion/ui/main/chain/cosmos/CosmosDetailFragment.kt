@@ -247,8 +247,11 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                val accountUrl =
+                val accountUrl = if (selectedChain is EthereumLine) {
+                    (selectedChain as EthereumLine).addressURL + selectedChain.address
+                } else {
                     CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/address/" + selectedChain.address
+                }
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
                 Prefs.foreToBack = false
             }

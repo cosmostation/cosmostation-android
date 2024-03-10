@@ -9,6 +9,14 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/chain_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chain_ethereum" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
