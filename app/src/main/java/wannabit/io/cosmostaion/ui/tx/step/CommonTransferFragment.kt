@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -308,6 +309,24 @@ class CommonTransferFragment : BaseTxFragment() {
                     selectedFeePosition = 1
 
                 } else {
+                    if (fromChain is EthereumLine) {
+                        val evmGasTitle = listOf(
+                            getString(R.string.str_low),
+                            getString(R.string.str_average),
+                            getString(R.string.str_high)
+                        )
+                        for (i in evmGasTitle.indices) {
+                            val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                            evmFeeSegment.addView(
+                                segmentView.root,
+                                i,
+                                LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                            )
+                            segmentView.btnTitle.text = evmGasTitle[i]
+                        }
+                        evmFeeSegment.setPosition(1, false)
+                    }
+
                     (fromChain as CosmosLine).apply {
                         feeSegment.visibility = View.VISIBLE
                         evmFeeSegment.visibility = View.GONE
@@ -395,25 +414,37 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun updateTransferStyle(transferStyle: TransferStyle) {
-        if (sendAssetType == SendAssetType.COSMOS_EVM_COIN && transferStyle != this.transferStyle) {
-            this.transferStyle = transferStyle
-            if (this.transferStyle == TransferStyle.WEB3_STYLE) {
-                availableAmount = (fromChain as EthereumLine).evmBalance.subtract(
-                    EVM_BASE_FEE
-                )
-                binding.memoView.visibility = View.GONE
+        binding.apply {
+            if (sendAssetType == SendAssetType.COSMOS_EVM_COIN && transferStyle != this@CommonTransferFragment.transferStyle) {
+                updateAmountView("")
+                this@CommonTransferFragment.transferStyle = transferStyle
 
-            } else {
-                toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
-                if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                    val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
-                    availableAmount = availableAmount.subtract(feeAmount)
+                if (this@CommonTransferFragment.transferStyle == TransferStyle.WEB3_STYLE) {
+                    availableAmount = (fromChain as EthereumLine).evmBalance.subtract(
+                        EVM_BASE_FEE
+                    )
+                    memoView.visibility = View.GONE
+                    feeSegment.visibility = View.GONE
+                    evmFeeSegment.visibility = View.VISIBLE
+                    selectedFeePosition = 1
+                    evmFeeSegment.setPosition(selectedFeePosition, false)
+
+                } else {
+                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+                    availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
+                    if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
+                        val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
+                        availableAmount = availableAmount.subtract(feeAmount)
+                    }
+                    memoView.visibility = View.VISIBLE
+                    feeSegment.visibility = View.VISIBLE
+                    evmFeeSegment.visibility = View.GONE
+                    selectedFeePosition = (fromChain as CosmosLine).getFeeBasePosition()
+                    feeSegment.setPosition(selectedFeePosition, false)
+                    cosmosTxFee = (fromChain as CosmosLine).getInitFee(requireContext())
                 }
-                binding.memoView.visibility = View.VISIBLE
+                updateFeeView()
             }
-            initFee()
-            updateAmountView("")
         }
     }
 
@@ -440,10 +471,17 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
+            if (toSendAmount == toAmount) {
+                return
+            }
+
             if (toAmount.isEmpty()) {
                 tabMsgTxt.visibility = View.VISIBLE
                 sendAmount.text = ""
                 sendValue.text = ""
+                sendDenom.text = ""
+                toSendAmount = toAmount
+                isBroadCastTx(false)
 
             } else {
                 tabMsgTxt.visibility = View.GONE
@@ -455,6 +493,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(18)
                         val value = price.multiply(dpAmount)
                         sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
+                        sendDenom.text = (fromChain as EthereumLine).coinSymbol
                         sendValue.text = formatAssetValue(value)
                     }
 
@@ -505,9 +544,9 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
                 }
+                txSimulate()
             }
         }
-        txSimulate()
     }
 
     private fun updateMemoView(memo: String) {
@@ -618,8 +657,17 @@ class CommonTransferFragment : BaseTxFragment() {
                         sendAssetType,
                         object : AddressListener {
                             override fun selectAddress(address: String, memo: String) {
+                                if (memo.isNotEmpty()) {
+                                    txMemo = memo
+                                    tabMemoMsg.text = txMemo
+                                    tabMemoMsg.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            requireContext(),
+                                            R.color.color_base01
+                                        )
+                                    )
+                                }
                                 updateRecipientAddressView(address)
-                                updateMemoView(memo)
                             }
                         })
                 )
@@ -819,14 +867,17 @@ class CommonTransferFragment : BaseTxFragment() {
                     val gasRate = selectedFeeData?.gasRate
 
                     gasInfo?.let { info ->
-                        val gasLimit = (info.gasUsed.toDouble() * gasMultiply()).toLong().toBigDecimal()
-                        val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                        val gasLimit =
+                            (info.gasUsed.toDouble() * gasMultiply()).toLong().toBigDecimal()
+                        val feeCoinAmount =
+                            gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                         val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
                             .setAmount(feeCoinAmount.toString()).build()
 
                         cosmosTxFee =
-                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                                .addAmount(feeCoin)
                                 .build()
                     }
                 }

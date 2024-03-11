@@ -307,7 +307,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         _balanceResult.postValue("null")
                     }
                 }
-
             }
 
             is ChainOkt996Keccak -> {
@@ -324,7 +323,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         _balanceResult.postValue("null")
                     }
                 }
-
             }
 
             else -> {

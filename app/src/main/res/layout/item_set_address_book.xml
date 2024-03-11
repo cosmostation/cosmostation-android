@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
                     android:maxLines="1"
-                    android:maxWidth="@dimen/space_100"
+                    android:maxWidth="@dimen/space_150"
                     android:textColor="@color/color_base01"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

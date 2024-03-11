@@ -393,6 +393,23 @@ object BaseUtils {
         return true
     }
 
+    fun isValidBechAddress(line: CosmosLine?, address: String?): Boolean {
+        if (address?.isEmpty() == true) {
+            return false
+        }
+        if (address?.startsWith("0x") == true) {
+            return false
+        }
+
+        if (!BaseKey.isValidBech32(address)) {
+            return false
+        }
+        if (address?.startsWith(line?.accountPrefix + 1) == false) {
+            return false
+        }
+        return true
+    }
+
     fun isHtlcSwappableCoin(line: CosmosLine, denom: String): Boolean {
         if (line is ChainBinanceBeacon) {
             when (denom) {

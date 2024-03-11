@@ -172,7 +172,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             } else {
                 allIbcChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
                     ?.let { chain ->
-                        if (BaseUtils.isValidChainAddress(chain, addressInput)) {
+                        if (BaseUtils.isValidBechAddress(chain, addressInput)) {
                             memoLayout.visibility = View.VISIBLE
                         }
                     }
@@ -266,7 +266,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         } else {
             allIbcChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
                 ?.let { chain ->
-                    if (BaseUtils.isValidChainAddress(chain, address)) {
+                    if (BaseUtils.isValidBechAddress(chain, address)) {
                         return true
                     }
                 }

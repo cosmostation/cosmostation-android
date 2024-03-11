@@ -16,31 +16,18 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 class ProposalListAdapter(
     val context: Context,
     val selectedChain: CosmosLine,
+    val votingPeriods: MutableList<CosmosProposal>,
+    val etcPeriods: MutableList<CosmosProposal>,
     private val myVotes: MutableList<VoteData>,
     private val toVoteList: MutableList<String>?,
     var listener: CheckListener
-) : ListAdapter<CosmosProposal, RecyclerView.ViewHolder>(ProposalListDiffCallback()) {
+) :  RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
     companion object {
         const val VIEW_TYPE_VOTING_HEADER = 0
         const val VIEW_TYPE_VOTING_ITEM = 1
         const val VIEW_TYPE_VOTED_HEADER = 2
         const val VIEW_TYPE_VOTED_ITEM = 3
-    }
-
-    private val votingPeriods: MutableList<CosmosProposal> = mutableListOf()
-    private val etcPeriods: MutableList<CosmosProposal> = mutableListOf()
-
-    fun filterProposals() {
-        votingPeriods.clear()
-        etcPeriods.clear()
-        currentList.forEach { proposal ->
-            if (proposal.isVotingPeriod()) {
-                votingPeriods.add(proposal)
-            } else {
-                etcPeriods.add(proposal)
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

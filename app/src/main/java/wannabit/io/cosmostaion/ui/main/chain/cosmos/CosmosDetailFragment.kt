@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -248,7 +249,11 @@ class CosmosDetailFragment : Fragment() {
 
             btnAccount.setOnClickListener {
                 val accountUrl = if (selectedChain is EthereumLine) {
-                    (selectedChain as EthereumLine).addressURL + selectedChain.address
+                    if (selectedChain is ChainKavaEvm) {
+                        (selectedChain as EthereumLine).addressURL + ByteUtils.convertBech32ToEvm(selectedChain.address)
+                    } else {
+                        (selectedChain as EthereumLine).addressURL + selectedChain.address
+                    }
                 } else {
                     CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/address/" + selectedChain.address
                 }

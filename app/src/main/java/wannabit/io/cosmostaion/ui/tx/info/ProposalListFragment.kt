@@ -34,8 +34,10 @@ class ProposalListFragment : Fragment() {
     private var isShowAll = false
 
     private val proposals: MutableList<CosmosProposal> = mutableListOf()
-    private var filteredProposals: MutableList<CosmosProposal> = mutableListOf()
+    private var filterVotingPeriods: MutableList<CosmosProposal> = mutableListOf()
+    private var filterEtcProposals: MutableList<CosmosProposal> = mutableListOf()
     private var votingPeriods: MutableList<CosmosProposal> = mutableListOf()
+    private var etcProposals: MutableList<CosmosProposal> = mutableListOf()
     private var myVotes: MutableList<VoteData> = mutableListOf()
     private var toVoteList: MutableList<String>? = mutableListOf()
 
@@ -84,15 +86,27 @@ class ProposalListFragment : Fragment() {
     private fun setUpProposalsData() {
         binding?.apply {
             proposalViewModel.proposalResult.observe(viewLifecycleOwner) { response ->
-                proposals.clear()
-                filteredProposals.clear()
+                filterVotingPeriods.clear()
+                filterEtcProposals.clear()
                 votingPeriods.clear()
+                etcProposals.clear()
 
                 if (response?.isNotEmpty() == true) {
                     proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
                     proposals.addAll(response)
-                    filteredProposals = proposals.filter { !it.isScam() }.toMutableList()
-                    votingPeriods = proposals.filter { it.isVotingPeriod() }.toMutableList()
+                    proposals.forEach { proposal ->
+                        if (proposal.isVotingPeriod()) {
+                            votingPeriods.add(proposal)
+                            if (!proposal.isScam()) {
+                                filterVotingPeriods.add(proposal)
+                            }
+                        } else {
+                            etcProposals.add(proposal)
+                            if (!proposal.isScam()) {
+                                filterEtcProposals.add(proposal)
+                            }
+                        }
+                    }
                     initRecyclerView()
 
                 } else {
@@ -113,7 +127,7 @@ class ProposalListFragment : Fragment() {
     private fun initRecyclerView() {
         binding?.apply {
             proposalViewModel.voteStatusResult.observe(viewLifecycleOwner) { voteStatus ->
-                if (filteredProposals.isEmpty()) {
+                if (filterVotingPeriods.isEmpty() && filterEtcProposals.isEmpty()) {
                     loading.visibility = View.GONE
                     recycler.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
@@ -125,19 +139,7 @@ class ProposalListFragment : Fragment() {
                         voteStatus?.votes?.forEach { vote ->
                             myVotes.add(vote)
                         }
-
-                        proposalListAdapter = ProposalListAdapter(
-                            requireContext(),
-                            selectedChain,
-                            myVotes,
-                            toVoteList,
-                            listener = proposalCheckAction
-                        )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = proposalListAdapter
-                        proposalListAdapter.submitList(filteredProposals)
-                        proposalListAdapter.filterProposals()
+                        updateRecyclerView(filterVotingPeriods, filterEtcProposals)
 
                     } else {
                         myVotes.clear()
@@ -146,22 +148,35 @@ class ProposalListFragment : Fragment() {
                         }
                         if (isShowAll) {
                             btnFilter.setImageResource(R.drawable.icon_not_filter)
-                            proposalListAdapter.submitList(proposals) {
-                                proposalListAdapter.filterProposals()
-                                proposalListAdapter.notifyDataSetChanged()
-                            }
+                            updateRecyclerView(votingPeriods, etcProposals)
                         } else {
                             btnFilter.setImageResource(R.drawable.icon_filter)
-                            proposalListAdapter.submitList(filteredProposals) {
-                                proposalListAdapter.filterProposals()
-                                proposalListAdapter.notifyDataSetChanged()
-                            }
+                            updateRecyclerView(filterVotingPeriods, filterEtcProposals)
                         }
                     }
                 }
             }
         }
+    }
 
+    private fun updateRecyclerView(
+        votingPeriods: MutableList<CosmosProposal>, etcPeriods: MutableList<CosmosProposal>
+    ) {
+        binding?.recycler?.apply {
+            proposalListAdapter = ProposalListAdapter(
+                requireContext(),
+                selectedChain,
+                votingPeriods,
+                etcPeriods,
+                myVotes,
+                toVoteList,
+                listener = proposalCheckAction
+            )
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = proposalListAdapter
+            proposalListAdapter.notifyDataSetChanged()
+        }
     }
 
     private val proposalCheckAction = object : ProposalListAdapter.CheckListener {
@@ -197,18 +212,12 @@ class ProposalListFragment : Fragment() {
                     if (isShowAll) {
                         btnFilter.setImageResource(R.drawable.icon_not_filter)
                         requireActivity().makeToast(R.string.str_show_all_proposals_msg)
-                        proposalListAdapter.submitList(proposals) {
-                            proposalListAdapter.filterProposals()
-                            proposalListAdapter.notifyDataSetChanged()
-                        }
+                        updateRecyclerView(votingPeriods, etcProposals)
 
                     } else {
                         btnFilter.setImageResource(R.drawable.icon_filter)
                         requireActivity().makeToast(R.string.str_hide_scam_proposals)
-                        proposalListAdapter.submitList(filteredProposals) {
-                            proposalListAdapter.filterProposals()
-                            proposalListAdapter.notifyDataSetChanged()
-                        }
+                        updateRecyclerView(filterVotingPeriods, filterEtcProposals)
                     }
                 }
             }

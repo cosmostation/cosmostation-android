@@ -21,11 +21,23 @@ android {
         minSdkVersion 24
         targetSdkVersion 33
         versionCode 300
-        versionName "2.0.0"
+        versionName "1.10.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 31
         renderscriptSupportModeEnabled true
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+        }
+        release {
+            storeFile file('eostartkeystore')
+            storePassword "dnjsjqlt034#"
+            keyAlias "key0"
+            keyPassword "dnjsjqlt034#"
+        }
     }
 
     buildTypes {
@@ -40,20 +52,10 @@ android {
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectApiKey
+            signingConfig signingConfigs.release
         }
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-        }
-        release {
-            storeFile file('eostartkeystore')
-            storePassword "dnjsjqlt034#"
-            keyAlias "key0"
-            keyPassword "dnjsjqlt034#"
-        }
-    }
     packagingOptions {
         exclude 'META-INF/*'
 

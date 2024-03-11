@@ -342,7 +342,10 @@ class LegacyTransferFragment : BaseTxFragment() {
                         object : AddressListener {
                             override fun selectAddress(address: String, memo: String) {
                                 updateAddressView(address)
-                                updateMemoView(memo)
+                                if (memo.isNotEmpty()) {
+                                    txMemo = memo
+                                    tabMemoMsg.text = txMemo
+                                }
                             }
                         })
                 )

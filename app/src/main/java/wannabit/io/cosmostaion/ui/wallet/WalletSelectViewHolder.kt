@@ -134,9 +134,9 @@ class WalletSelectViewHolder(
             }
             updateView(line, selectedCosmosTags)
 
-            line.stakeDenom?.let { denom ->
+            if (line.fetched) {
                 var cnt = 0
-                if (line.fetched) {
+                line.stakeDenom?.let { denom ->
                     if (line is ChainBinanceBeacon) {
                         val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
                         chainBalance.text = formatAmount(availableAmount.toString(), 8)

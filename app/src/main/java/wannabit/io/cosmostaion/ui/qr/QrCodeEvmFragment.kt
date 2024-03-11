@@ -184,7 +184,11 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
             addressView.setOnClickListener {
                 val copyAddress = if (selectedPosition == 0) {
-                    ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
+                    if (selectedEvmChain.supportCosmos) {
+                        ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
+                    } else {
+                        selectedEvmChain.address
+                    }
                 } else {
                     selectedEvmChain.address
                 }
