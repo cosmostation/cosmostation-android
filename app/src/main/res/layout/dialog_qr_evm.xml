@@ -45,8 +45,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/eth_qr_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/space_12"
         app:layout_constraintBottom_toBottomOf="@+id/eth_qr_box_img"
         app:layout_constraintEnd_toEndOf="@+id/eth_qr_box_img"
         app:layout_constraintStart_toStartOf="@+id/eth_qr_box_img"
@@ -54,6 +55,7 @@
 
         <ImageView
             android:id="@+id/eth_qr_img"
+            android:scaleType="fitXY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -126,8 +128,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/qr_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/space_12"
         app:layout_constraintBottom_toBottomOf="@+id/qr_box_img"
         app:layout_constraintEnd_toEndOf="@+id/qr_box_img"
         app:layout_constraintStart_toStartOf="@+id/qr_box_img"
@@ -135,6 +138,7 @@
 
         <ImageView
             android:id="@+id/qr_img"
+            android:scaleType="fitXY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
