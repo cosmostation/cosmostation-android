@@ -6,7 +6,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import com.google.zxing.BarcodeFormat
@@ -94,9 +96,10 @@ class QrDialog(
                     chainImg.setImageResource(chain.logo)
 
                     bitmap = barcodeEncoder.encodeBitmap(
-                        chain.address, BarcodeFormat.QR_CODE, 540, 540, hints
+                        chain.address, BarcodeFormat.QR_CODE, 1040, 1040, hints
                     )
-                    qrImg.setImageBitmap(bitmap)
+                    
+                    qrImg.setBackgroundDrawable(BitmapDrawable(bitmap))
                     qrView.radius = context.resources.getDimension(R.dimen.space_12)
                     qrImg.clipToOutline = true
                 }
