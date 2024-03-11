@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
+import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -789,9 +790,9 @@ data class CosmosHistory(
                 val rawAmount = try {
                     msgValue["amount"].asJsonObject
                 } catch (e: Exception) {
-                    msgValue["value"].asJsonObject["amount"].asJsonObject
+                    null
                 }
-                if (!rawAmount.isJsonNull) {
+                if (rawAmount?.isJsonNull == false) {
                     val coin = CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
                         .setAmount(rawAmount["amount"].asString).build()
                     result.add(coin)

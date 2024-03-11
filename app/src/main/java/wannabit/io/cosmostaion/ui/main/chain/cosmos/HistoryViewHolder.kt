@@ -109,6 +109,12 @@ class HistoryViewHolder(
                         txCnt.visibility = View.GONE
                     }
                 }
+
+            } ?: run {
+                txAmount.text = ""
+                txDenom.text = "-"
+                txDenom.setTextColor(Color.parseColor("#ffffff"))
+                txCnt.visibility = View.GONE
             }
         }
     }

@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_8"
+        app:layout_constraintBottom_toTopOf="@+id/coin_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,9 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
         android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginVertical="@dimen/space_8"
+        android:layout_marginBottom="@dimen/space_8"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_layout">
@@ -62,10 +65,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_12"
+                app:layout_constraintBottom_toTopOf="@+id/token_value_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/token_img"
-                app:layout_constraintTop_toTopOf="@id/token_img"
-                app:layout_constraintBottom_toTopOf="@+id/token_value_layout">
+                app:layout_constraintTop_toTopOf="@id/token_img">
 
                 <TextView
                     android:id="@+id/token_name"
@@ -73,23 +76,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_base01"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/coin_amount"
                     style="@style/font_sb_14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
                     android:ellipsize="end"
                     android:gravity="end|bottom"
                     android:maxLines="1"
-                    android:layout_marginStart="@dimen/space_10"
                     android:textColor="@color/color_base01"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/token_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/token_name"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/token_name"/>
+                    app:layout_constraintStart_toEndOf="@+id/token_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,10 +102,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_12"
                 android:gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/token_img"
-                app:layout_constraintTop_toBottomOf="@+id/token_info_layout"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/token_info_layout">
 
                 <TextView
                     android:id="@+id/token_price"
@@ -119,8 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_6"
-                    app:layout_constraintStart_toEndOf="@+id/token_price"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/token_price" />
+                    app:layout_constraintBaseline_toBaselineOf="@+id/token_price"
+                    app:layout_constraintStart_toEndOf="@+id/token_price" />
 
                 <TextView
                     android:id="@+id/coin_amount_value"
@@ -132,32 +135,32 @@
                     android:gravity="end"
                     android:maxLines="1"
                     android:textColor="@color/color_base02"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/token_price"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/token_price_change"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/token_price"/>
+                    app:layout_constraintStart_toEndOf="@+id/token_price_change" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/hide_value_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:id="@+id/hide_value"
-                style="@style/font_sb_10"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/hide_value_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"
-                android:text="✱✱✱✱"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/hide_value"
+                    style="@style/font_sb_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✱✱✱✱"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
