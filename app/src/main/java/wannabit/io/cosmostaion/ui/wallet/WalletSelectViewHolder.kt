@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -32,6 +33,8 @@ class WalletSelectViewHolder(
             chainName.text = line.name.uppercase()
             if (account.type == BaseAccountType.MNEMONIC) {
                 chainPath.text = line.getHDPath(account.lastHDPath)
+            } else if (line.accountPrefix?.isNotEmpty() == true) {
+                chainPath.text = ByteUtils.convertBech32ToEvm(line.address)
             } else {
                 chainPath.text = line.address
             }
