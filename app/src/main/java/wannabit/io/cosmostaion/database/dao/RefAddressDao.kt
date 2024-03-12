@@ -12,21 +12,23 @@ interface RefAddressDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(refAddress: RefAddress): Long
 
-    @Query("update refAddress set lastMainValue = :lastMainValue, lastMainAmount = :lastMainAmount, lastCoinCnt = :lastCoinCnt where accountId = :accountId and chainTag = :chainTag and dpAddress = :dpAddress")
+    @Query("update refAddress set evmAddress = :evmAddress, lastMainValue = :lastMainValue, lastMainAmount = :lastMainAmount, lastCoinCnt = :lastCoinCnt where accountId = :accountId and chainTag = :chainTag and dpAddress = :dpAddress")
     suspend fun updateMain(
         lastMainValue: String?,
         lastMainAmount: String?,
         lastCoinCnt: Long?,
         accountId: Long?,
         chainTag: String?,
-        dpAddress: String?
+        dpAddress: String?,
+        evmAddress: String?
     )
 
-    @Query("update refAddress set lastTokenValue = :lastTokenValue where accountId = :accountId and chainTag = :chainTag and dpAddress = :dpAddress")
+    @Query("update refAddress set evmAddress = :evmAddress, lastTokenValue = :lastTokenValue where accountId = :accountId and chainTag = :chainTag and dpAddress = :dpAddress")
     suspend fun updateToken(lastTokenValue: String?,
                             accountId: Long?,
                             chainTag: String?,
-                            dpAddress: String?)
+                            dpAddress: String?,
+                            evmAddress: String?)
 
     @Query("delete from refAddress where accountId = :accountId")
     suspend fun delete(accountId: Long)

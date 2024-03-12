@@ -147,7 +147,8 @@ object BaseData {
                 refAddress.lastCoinCnt,
                 refAddress.accountId,
                 refAddress.chainTag,
-                refAddress.dpAddress
+                refAddress.dpAddress,
+                refAddress.evmAddress
             )
         } else {
             refDao.insert(refAddress)
@@ -164,7 +165,8 @@ object BaseData {
                 refAddress.lastTokenValue,
                 refAddress.accountId,
                 refAddress.chainTag,
-                refAddress.dpAddress
+                refAddress.dpAddress,
+                refAddress.evmAddress
             )
         } else {
             refDao.insert(refAddress)

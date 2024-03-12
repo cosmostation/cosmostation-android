@@ -170,6 +170,32 @@ class ChainEditFragment : BaseTxFragment() {
             }
         }
 
+        ApplicationViewModel.shared.fetchedErc20TokenResult.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
+                    .let { fetchedEvmChainIndex ->
+                        withContext(Dispatchers.Main) {
+                            if (::chainEditAdapter.isInitialized) {
+                                chainEditAdapter.notifyItemChanged(fetchedEvmChainIndex + 1)
+                            }
+                        }
+                    }
+            }
+        }
+
+        ApplicationViewModel.shared.fetchedCw20TokenResult.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                allCosmosChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
+                    .let { fetchedChainIndex ->
+                        withContext(Dispatchers.Main) {
+                            if (::chainEditAdapter.isInitialized) {
+                                chainEditAdapter.notifyItemChanged(fetchedChainIndex + searchEvmChains.size + 2)
+                            }
+                        }
+                    }
+            }
+        }
+
         ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
             return@observe
         }
