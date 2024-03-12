@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.ui.tx.info
 
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +84,7 @@ class ProposalListFragment : Fragment() {
     private fun setUpProposalsData() {
         binding?.apply {
             proposalViewModel.proposalResult.observe(viewLifecycleOwner) { response ->
+                proposals.clear()
                 filterVotingPeriods.clear()
                 filterEtcProposals.clear()
                 votingPeriods.clear()

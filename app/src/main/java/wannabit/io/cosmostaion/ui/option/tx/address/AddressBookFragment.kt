@@ -229,8 +229,8 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                     }
                 }
+                sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
-                sortRefAddresses(refEvmAddresses)
 
                 withContext(Dispatchers.Main) {
                     if (refAddresses.size == 0 && refEvmAddresses.size == 0 && addressBooks.size == 0 && evmAddressBooks.size == 0) {
@@ -259,17 +259,25 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     }
 
     private fun sortRefAddresses(refAddresses: MutableList<RefAddress>) {
-        refAddresses.sortWith { o1, o2 ->
-            val o1Account = AppDatabase.getInstance().baseAccountDao().selectAccount(o1.accountId)
-            val o2Account = AppDatabase.getInstance().baseAccountDao().selectAccount(o2.accountId)
-            when {
-                BaseData.baseAccount?.name == o1Account?.name -> -1
-                BaseData.baseAccount?.name == o2Account?.name -> 1
-                o1Account?.sortOrder!! < o2Account?.sortOrder!! -> -1
-                o1Account.sortOrder > o2Account.sortOrder -> 1
-                else -> 0
-            }
-        }
+        val accountMap =
+            AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
+        val cosmosLineMap = allCosmosLines().associateBy { it.tag }
+        val evmLineMap = allEvmLines().associateBy { it.tag }
+        refAddresses.sortWith(
+            compareBy({ if (BaseData.baseAccount?.name == accountMap[it.accountId]?.name) -1 else accountMap[it.accountId]?.sortOrder?.toInt() },
+                { if (evmLineMap[it.chainTag]?.isDefault == true) 0 else 1 },
+                { if (cosmosLineMap[it.chainTag]?.isDefault == true) 0 else 1 })
+        )
+    }
+
+    private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {
+        val accountMap =
+            AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
+        val cosmosLineMap = allEvmLines().associateBy { it.tag }
+        refAddresses.sortWith(
+            compareBy({ if (BaseData.baseAccount?.name == accountMap[it.accountId]?.name) -1 else accountMap[it.accountId]?.sortOrder?.toInt() },
+                { if (cosmosLineMap[it.chainTag]?.isDefault == true) 0 else 1 })
+        )
     }
 
     override fun onDestroyView() {

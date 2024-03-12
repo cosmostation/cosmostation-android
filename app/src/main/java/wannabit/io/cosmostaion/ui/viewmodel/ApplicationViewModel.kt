@@ -760,14 +760,6 @@ class ApplicationViewModel(
                         )
                         BaseData.updateRefAddressesMain(refAddress)
 
-                        if (isEdit) {
-                            editFetchedResult.postValue(tag)
-                        } else {
-                            fetchedResult.postValue(tag)
-                            fetchedRefreshResult.postValue(tag)
-                            fetchedSendResult.postValue(tag)
-                        }
-
                         val tokenBalanceDeferredList = evmTokens
                             .filter { tag != "ethereum60" || it.default }
                             .map { token ->
@@ -783,10 +775,18 @@ class ApplicationViewModel(
                             "0",
                             "0",
                             allTokenValue().toPlainString(),
-                            cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }?.toLong() ?: 0L
+                            0
                         )
                         BaseData.updateRefAddressesToken(evmRefAddress)
                         fetchedErc20TokenResult.postValue(tag)
+
+                        if (isEdit) {
+                            editFetchedResult.postValue(tag)
+                        } else {
+                            fetchedResult.postValue(tag)
+                            fetchedRefreshResult.postValue(tag)
+                            fetchedSendResult.postValue(tag)
+                        }
                     }
                 }
             }
