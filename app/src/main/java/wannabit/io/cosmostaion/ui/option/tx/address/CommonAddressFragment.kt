@@ -169,7 +169,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                         }
                     }
 
-                    if (BaseUtils.isValidChainAddress(
+                    if (BaseUtils.isValidBechAddress(
                             fromChain,
                             addressTxt.text.toString().trim()
                         )
