@@ -4,11 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.cosmos.staking.v1beta1.StakingProto
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
-import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
 import wannabit.io.cosmostaion.databinding.ItemVoteBinding
-import wannabit.io.cosmostaion.ui.tx.info.StakingInfoAdapter
 
 class VoteAdapter(
     private var listener: ClickListener
