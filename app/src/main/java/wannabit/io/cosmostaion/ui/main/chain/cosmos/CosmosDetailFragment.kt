@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
+import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
@@ -216,10 +217,10 @@ class CosmosDetailFragment : Fragment() {
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
 
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                val supportToken =
-                    selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
+            val supportToken =
+                selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
 
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when {
                     position == 0 -> getString(R.string.title_coin)
                     supportToken && position == 1 -> getString(R.string.title_token)
@@ -232,6 +233,8 @@ class CosmosDetailFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
+
+                    btnAddToken.visibleOrGone(supportToken && position == 1)
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -247,10 +250,18 @@ class CosmosDetailFragment : Fragment() {
                 requireActivity().onBackPressed()
             }
 
+            btnAddToken.setOnClickListener {
+                NoticeInfoFragment.newInstance(selectedChain).show(
+                    requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
+                )
+            }
+
             btnAccount.setOnClickListener {
                 val accountUrl = if (selectedChain is EthereumLine) {
                     if (selectedChain is ChainKavaEvm) {
-                        (selectedChain as EthereumLine).addressURL + ByteUtils.convertBech32ToEvm(selectedChain.address)
+                        (selectedChain as EthereumLine).addressURL + ByteUtils.convertBech32ToEvm(
+                            selectedChain.address
+                        )
                     } else {
                         (selectedChain as EthereumLine).addressURL + selectedChain.address
                     }

@@ -128,6 +128,7 @@
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">Claim all</string>
     <string name="str_amount">Amount</string>
+    <string name="str_token_github">Check token info</string>
 
 
     //title
@@ -331,6 +332,7 @@
     <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
     <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
+    <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
 
 
     // header
