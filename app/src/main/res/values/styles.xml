@@ -119,7 +119,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@color/color_mode_base05</item>
         <item name="colorPrimary">@color/color_mode_base01</item>
-        <item name="fontFamily">@font/font_semibold</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo_bold</item>
     </style>
 
     <style name="MyTabLayout" parent="Widget.Design.TabLayout">
