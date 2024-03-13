@@ -29,12 +29,12 @@ data class CosmosProposal(
     val abstain: String?,
 ) : Parcelable {
 
-    fun getSum(): BigDecimal {
+    private fun getSum(): BigDecimal {
         var sum = BigDecimal.ZERO
-        sum = sum.add(yes?.toBigDecimal())
-        sum = sum.add(no?.toBigDecimal())
-        sum = sum.add(veto?.toBigDecimal())
-        sum = sum.add(abstain?.toBigDecimal())
+        sum = sum.add(if (yes.isNullOrEmpty()) BigDecimal.ZERO else yes.toBigDecimal())
+        sum = sum.add(if (no.isNullOrEmpty()) BigDecimal.ZERO else no.toBigDecimal())
+        sum = sum.add(if (veto.isNullOrEmpty()) BigDecimal.ZERO else veto.toBigDecimal())
+        sum = sum.add(if (abstain.isNullOrEmpty()) BigDecimal.ZERO else abstain.toBigDecimal())
         return sum
     }
 
@@ -48,7 +48,7 @@ data class CosmosProposal(
     }
 
     fun isScam(): Boolean {
-        if (BigDecimal(yes) == BigDecimal.ZERO || getSum() == BigDecimal.ZERO) return true
+        if ((if (yes.isNullOrEmpty()) BigDecimal.ZERO else yes.toBigDecimal()) == BigDecimal.ZERO || getSum() == BigDecimal.ZERO) return true
         if (BigDecimal(yes).divide(getSum(), 6, RoundingMode.DOWN) > BigDecimal("0.1")) return false
         return true
     }
@@ -66,10 +66,18 @@ data class CosmosProposal(
 
     fun proposalStatusImg(c: Context): Drawable? {
         proposalStatus?.let { status ->
-            if (status.contains("DEPOSIT")) return ContextCompat.getDrawable(c, R.drawable.icon_vote_deposit)
-            else if (status.contains("VOTING")) return ContextCompat.getDrawable(c, R.drawable.icon_vote_passed)
-            else if (status.contains("PASSED")) return ContextCompat.getDrawable(c, R.drawable.icon_vote_passed)
-            else if (status.contains("REJECTED")) return ContextCompat.getDrawable(c, R.drawable.icon_vote_rejected)
+            if (status.contains("DEPOSIT")) return ContextCompat.getDrawable(
+                c, R.drawable.icon_vote_deposit
+            )
+            else if (status.contains("VOTING")) return ContextCompat.getDrawable(
+                c, R.drawable.icon_vote_passed
+            )
+            else if (status.contains("PASSED")) return ContextCompat.getDrawable(
+                c, R.drawable.icon_vote_passed
+            )
+            else if (status.contains("REJECTED")) return ContextCompat.getDrawable(
+                c, R.drawable.icon_vote_rejected
+            )
         }
         return ContextCompat.getDrawable(c, R.drawable.icon_vote_fail)
     }
