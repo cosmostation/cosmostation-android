@@ -222,7 +222,15 @@ class TxRepositoryImpl : TxRepository {
                 }
 
             } ?: run {
-                val transaction = Transaction(fromAddress, nonce, BigInteger.ZERO, BigInteger.ZERO, toEthAddress, BigInteger.ZERO, txData)
+                val transaction = Transaction(
+                    fromAddress,
+                    nonce,
+                    BigInteger.ZERO,
+                    BigInteger.ZERO,
+                    toEthAddress,
+                    BigInteger.ZERO,
+                    txData
+                )
                 web3j.ethEstimateGas(transaction).send().amountUsed
             }
 
@@ -288,11 +296,16 @@ class TxRepositoryImpl : TxRepository {
                     }
 
                     val tip = suggestTipValue[selectedFeeInfo]
-                    val totalPerGas = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(275000000L)) {
-                        (suggestBaseFee[selectedFeeInfo]?.toLong() ?: 27500000000) + tip.toLong()
-                    } else {
-                        suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
-                    }
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                275000000L
+                            )
+                        ) {
+                            (suggestBaseFee[selectedFeeInfo]?.toLong()
+                                ?: 27500000000) + tip.toLong()
+                        } else {
+                            suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                        }
 
                     var rawTransaction: RawTransaction? = null
 
@@ -542,7 +555,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genDelegateSimulate(account, msgDelegate, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genDelegateSimulate(account, msgDelegate, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -581,7 +595,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -620,7 +635,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genReDelegateSimulate(account, msgReDelegate, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genReDelegateSimulate(account, msgReDelegate, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -660,8 +676,9 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genCancelUnbondingSimulate(account, msgCancelUnbondingDelegation, fee, memo, selectedChain)
+            val simulateTx = Signer.genCancelUnbondingSimulate(
+                account, msgCancelUnbondingDelegation, fee, memo, selectedChain
+            )
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -700,7 +717,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genClaimRewardsSimulate(account, rewards, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genClaimRewardsSimulate(account, rewards, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -742,8 +760,9 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genCompoundingSimulate(account, rewards, stakingDenom, fee, memo, selectedChain)
+            val simulateTx = Signer.genCompoundingSimulate(
+                account, rewards, stakingDenom, fee, memo, selectedChain
+            )
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -783,8 +802,9 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genChangeRewardAddressSimulate(account, msgSetWithdrawAddress, fee, memo, selectedChain)
+            val simulateTx = Signer.genChangeRewardAddressSimulate(
+                account, msgSetWithdrawAddress, fee, memo, selectedChain
+            )
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -861,7 +881,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genClaimIncentiveSimulate(account, incentive, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genClaimIncentiveSimulate(account, incentive, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -900,7 +921,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintCreateSimulate(account, msgCreateCDP, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genMintCreateSimulate(account, msgCreateCDP, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -939,7 +961,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genMintDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -978,7 +1001,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1017,7 +1041,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1056,7 +1081,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genMintRepaySimulate(account, msgRepayDebt, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genMintRepaySimulate(account, msgRepayDebt, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1095,7 +1121,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genLendDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1134,7 +1161,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1173,7 +1201,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendBorrowSimulate(account, msgBorrow, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genLendBorrowSimulate(account, msgBorrow, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1212,7 +1241,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genLendRepaySimulate(account, msgRepay, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genLendRepaySimulate(account, msgRepay, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1251,7 +1281,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genPoolDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genPoolDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1290,7 +1321,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1329,7 +1361,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genEarnDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genEarnDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1368,7 +1401,8 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+            val simulateTx =
+                Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1425,7 +1459,7 @@ class TxRepositoryImpl : TxRepository {
                 .newRestClient(BinanceDexEnvironment.PROD.baseUrl)
             client.htlt(htltReq, wallet, options, true)
 
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             mutableListOf()
         }
     }
