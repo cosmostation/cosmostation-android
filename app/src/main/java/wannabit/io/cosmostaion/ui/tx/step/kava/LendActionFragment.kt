@@ -147,9 +147,14 @@ class LendActionFragment : BaseTxFragment() {
             }
             val serializableDepositList =
                 arguments?.getSerializable("lendMyDeposits") as? HashSet<*>
-            lendMyDeposits = serializableDepositList?.toList() as MutableList<CoinProto.Coin>
+            if (serializableDepositList.isNotEmpty()) {
+                lendMyDeposits = serializableDepositList.toList() as MutableList<CoinProto.Coin>
+            }
+
             val serializableBorrowList = arguments?.getSerializable("lendMyBorrows") as? HashSet<*>
-            lendMyBorrows = serializableBorrowList?.toList() as MutableList<CoinProto.Coin>
+            if (serializableBorrowList?.isNotEmpty() == true) {
+                lendMyBorrows = serializableBorrowList.toList() as MutableList<CoinProto.Coin>
+            }
             arguments?.getString("borrowAbleAmount")?.toBigDecimal()?.let {
                 borrowAbleAmount = it
             }
