@@ -96,11 +96,7 @@ class TxResultActivity : BaseActivity() {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
-                    loading.visibility = View.GONE
-                    btnConfirm.updateButtonView(true)
-                    failLayout.visibility = View.VISIBLE
-                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                    failMsg.text = errorMsg
+                    showError()
                 }
 
             } else {
@@ -130,18 +126,17 @@ class TxResultActivity : BaseActivity() {
                     Handler(Looper.getMainLooper()).postDelayed({
                         loading.visibility = View.GONE
                         successLayout.visibility = View.VISIBLE
+                        successHash.text = txHash
                     }, 3000)
 
                 } else {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
                 }
 
             } else {
-                loading.visibility = View.GONE
-                failLayout.visibility = View.VISIBLE
-                failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                failMsg.text = errorMsg
+                showError()
             }
         }
     }
@@ -263,8 +258,13 @@ class TxResultActivity : BaseActivity() {
         binding.apply {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
-            failMsg.visibleOrGone(errorMsg.isNotEmpty())
-            failMsg.text = errorMsg
+            failHash.visibleOrGone(errorMsg.isNotEmpty())
+            failHash.text = errorMsg
+            if (txHash.isNotEmpty()) {
+                viewFailMintscan.visibility = View.VISIBLE
+            } else {
+                viewFailMintscan.visibility = View.GONE
+            }
             btnConfirm.updateButtonView(true)
         }
     }
