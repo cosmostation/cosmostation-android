@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cosmos.base.v1beta1.CoinProto
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.ItemAssetSelectBinding
 
 class AssetSelectAdapter(
+    private val selectedChain: CosmosLine?,
     private val balances: MutableList<CoinProto.Coin>?
 ) : ListAdapter<Asset, AssetSelectViewHolder>(AssetDiffCallback()) {
 
@@ -21,7 +23,7 @@ class AssetSelectAdapter(
 
     override fun onBindViewHolder(holder: AssetSelectViewHolder, position: Int) {
         val asset = currentList[position]
-        holder.bind(asset, balances)
+        holder.bind(selectedChain, asset, balances)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
