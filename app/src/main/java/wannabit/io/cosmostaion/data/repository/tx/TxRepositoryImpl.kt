@@ -43,6 +43,7 @@ import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
@@ -221,7 +222,8 @@ class TxRepositoryImpl : TxRepository {
                 }
 
             } ?: run {
-                BigInteger.valueOf(21000L)
+                val transaction = Transaction(fromAddress, nonce, BigInteger.ZERO, BigInteger.ZERO, toEthAddress, BigInteger.ZERO, txData)
+                web3j.ethEstimateGas(transaction).send().amountUsed
             }
 
             val request = JsonRpcRequest(

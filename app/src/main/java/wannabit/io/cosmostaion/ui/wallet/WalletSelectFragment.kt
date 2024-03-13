@@ -268,7 +268,7 @@ class WalletSelectFragment : Fragment() {
             }
 
             var isClickable = true
-            btnPath.setOnClickListener {
+            pathLayout.setOnClickListener {
                 if (isClickable) {
                     isClickable = false
 

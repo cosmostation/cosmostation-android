@@ -89,6 +89,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         BaseData.baseAccount?.let { account ->
             binding.apply {
+                segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
                 chainBadge.visibility = View.GONE
                 chainTypeBadge.visibility = View.GONE
                 chainSegment.visibleOrGone(selectedEvmChain.supportCosmos)
@@ -118,6 +119,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                             i,
                             LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                         )
+
                         when (i) {
                             0 -> {
                                 segmentView.btnChain.text = "ETHEREUM"
@@ -125,7 +127,6 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                                     requireContext(), R.drawable.icon_ethereum_address
                                 )
                                 setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
-                                addressTitle.text = getString(R.string.str_ethereum_address)
                             }
 
                             else -> {
@@ -133,9 +134,13 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                                     requireContext(), selectedEvmChain.addressLogo
                                 )
                                 segmentView.btnChain.text = selectedEvmChain.apiName.uppercase()
-                                addressTitle.text = getString(R.string.str_address)
                             }
                         }
+                    }
+                    addressTitle.text = if (selectedPosition == 0) {
+                        getString(R.string.str_ethereum_address)
+                    } else {
+                        getString(R.string.str_address)
                     }
                 }
 

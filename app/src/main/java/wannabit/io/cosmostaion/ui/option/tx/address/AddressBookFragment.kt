@@ -263,21 +263,15 @@ class AddressBookFragment : BottomSheetDialogFragment() {
             AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
         val cosmosLineMap = allCosmosLines().associateBy { it.tag }
         val evmLineMap = allEvmLines().associateBy { it.tag }
-        refAddresses.sortWith(
-            compareBy({ if (BaseData.baseAccount?.name == accountMap[it.accountId]?.name) -1 else accountMap[it.accountId]?.sortOrder?.toInt() },
-                { if (evmLineMap[it.chainTag]?.isDefault == true) 0 else 1 },
-                { if (cosmosLineMap[it.chainTag]?.isDefault == true) 0 else 1 })
-        )
+        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId }
+            .thenByDescending { evmLineMap[it.chainTag]?.isDefault == true }
+            .thenByDescending { cosmosLineMap[it.chainTag]?.isDefault == true })
     }
 
     private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {
         val accountMap =
             AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
-        val cosmosLineMap = allEvmLines().associateBy { it.tag }
-        refAddresses.sortWith(
-            compareBy({ if (BaseData.baseAccount?.name == accountMap[it.accountId]?.name) -1 else accountMap[it.accountId]?.sortOrder?.toInt() },
-                { if (cosmosLineMap[it.chainTag]?.isDefault == true) 0 else 1 })
-        )
+        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })
     }
 
     override fun onDestroyView() {
