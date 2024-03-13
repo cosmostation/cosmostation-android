@@ -158,24 +158,24 @@ class TransferTxResultActivity : BaseActivity() {
                 loading.visibility = View.GONE
                 if (evmRecipient?.isStatusOK == true) {
                     successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
                     showAddressBook()
 
                 } else {
                     failLayout.visibility = View.VISIBLE
-                    failMsg.text = evmRecipient?.logsBloom.toString()
+                    failHash.text = evmRecipient?.logsBloom.toString()
+                    viewFailMintscan.visibility = View.GONE
                 }
 
             } else {
                 if (isSuccess) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
                     showAddressBook()
 
                 } else {
-                    loading.visibility = View.GONE
-                    failLayout.visibility = View.VISIBLE
-                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                    failMsg.text = errorMsg
+                    showError()
                 }
             }
         }
@@ -363,8 +363,13 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
-            failMsg.visibleOrGone(errorMsg.isNotEmpty())
-            failMsg.text = errorMsg
+            failHash.visibleOrGone(errorMsg.isNotEmpty())
+            failHash.text = errorMsg
+            if (txHash.isNotEmpty()) {
+                viewFailMintscan.visibility = View.VISIBLE
+            } else {
+                viewFailMintscan.visibility = View.GONE
+            }
             btnConfirm.updateButtonView(true)
         }
     }
