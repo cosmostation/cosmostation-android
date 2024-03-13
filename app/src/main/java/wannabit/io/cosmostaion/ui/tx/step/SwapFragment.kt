@@ -39,6 +39,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -92,6 +93,7 @@ class SwapFragment : BaseTxFragment() {
 
     private var skipDataJob: Job? = null
 
+    private var allEvmLines: MutableList<CosmosLine>? = mutableListOf()
     private var allCosmosLines: MutableList<CosmosLine>? = mutableListOf()
     private var skipChains: MutableList<CosmosLine> = mutableListOf()
     private var skipAssets: JsonObject? = null
@@ -157,6 +159,12 @@ class SwapFragment : BaseTxFragment() {
         BaseData.baseAccount?.let { account ->
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
+                    allEvmLineChains.forEach {line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        }
+                    }
+
                     allCosmosLineChains.forEach { line ->
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
@@ -164,12 +172,19 @@ class SwapFragment : BaseTxFragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    allEvmLineChains.forEach {line ->
+                        if (line.address?.isEmpty() == true) {
+                            line.setInfoWithPrivateKey(privateKey)
+                        }
+                    }
+
                     allCosmosLineChains.forEach { line ->
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
                     }
                 }
+                allEvmLines?.addAll(allEvmLineChains)
                 allCosmosLines?.addAll(allCosmosLineChains)
             }
         }
@@ -263,6 +278,11 @@ class SwapFragment : BaseTxFragment() {
         skipViewModel.skipDataResult.observe(viewLifecycleOwner) { response ->
             response?.let { skipData ->
                 skipData.skipChains?.chains?.forEach { sChain ->
+                    allEvmLines?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
+                        ?.let { skipChain ->
+                            skipChains.add(skipChain)
+                        }
+
                     allCosmosLines?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
                         ?.let { skipChain ->
                             skipChains.add(skipChain)
@@ -669,7 +689,7 @@ class SwapFragment : BaseTxFragment() {
 
             inputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(inputAssets,
+                    AssetSelectFragment.newInstance(inputCosmosLine, inputAssets,
                         inputCosmosLine?.cosmosBalances,
                         AssetSelectType.SWAP_INPUT,
                         object : AssetListener {
@@ -753,7 +773,7 @@ class SwapFragment : BaseTxFragment() {
 
             outputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(outputAssets,
+                    AssetSelectFragment.newInstance(outputCosmosLine, outputAssets,
                         outputCosmosLine?.cosmosBalances,
                         AssetSelectType.SWAP_OUTPUT,
                         object : AssetListener {
@@ -859,6 +879,10 @@ class SwapFragment : BaseTxFragment() {
     private fun bindSkipMsgReq(route: SkipRouteResponse): SkipMsgReq {
         val addressList = mutableListOf<String>()
         route.chain_ids?.forEach { chainId ->
+            allEvmLines?.firstOrNull { it.chainId == chainId && it.isDefault }?.address?.let { address ->
+                addressList.add(address)
+            }
+
             allCosmosLines?.firstOrNull { it.chainId == chainId && it.isDefault }?.address?.let { address ->
                 addressList.add(address)
             }

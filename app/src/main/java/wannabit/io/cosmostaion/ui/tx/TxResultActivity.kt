@@ -72,12 +72,12 @@ class TxResultActivity : BaseActivity() {
 
     private fun initView() {
         binding.apply {
-            BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull { line ->
+            BaseData.baseAccount?.allCosmosLineChains?.firstOrNull { line ->
                 line.tag == intent.getStringExtra(
                     "selectedChain"
                 ).toString()
             }?.let { selectedChain = it } ?: run {
-                BaseData.baseAccount?.sortedDisplayEvmLines()?.firstOrNull { evmLine ->
+                BaseData.baseAccount?.allEvmLineChains?.firstOrNull { evmLine ->
                     evmLine.tag == intent.getStringExtra(
                         "selectedChain"
                     ).toString()
