@@ -147,7 +147,7 @@ class LendActionFragment : BaseTxFragment() {
             }
             val serializableDepositList =
                 arguments?.getSerializable("lendMyDeposits") as? HashSet<*>
-            if (serializableDepositList.isNotEmpty()) {
+            if (serializableDepositList?.isNotEmpty() == true) {
                 lendMyDeposits = serializableDepositList.toList() as MutableList<CoinProto.Coin>
             }
 
