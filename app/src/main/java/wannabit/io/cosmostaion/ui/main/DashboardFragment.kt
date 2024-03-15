@@ -226,25 +226,22 @@ class DashboardFragment : Fragment() {
             updateTotalValue()
         }
 
-        ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
-            return@observe
-        }
-
-        ApplicationViewModel.shared.fetchedClaimResult.observe(viewLifecycleOwner) { tag ->
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
-                    if (account.sortedDisplayCosmosLines()
-                            .firstOrNull { it.tag == tag }?.fetched == true
-                    ) {
-                        withContext(Dispatchers.Main) {
-                            dashAdapter.notifyItemRangeChanged(
-                                1, (account.sortedDisplayCosmosLines().size + 1), null
-                            )
+                    for (chain in account.sortedDisplayEvmLines()) {
+                        if (chain.tag == tag) {
+                            withContext(Dispatchers.Main) {
+                                dashAdapter.notifyItemChanged(account.sortedDisplayEvmLines().size)
+                            }
                         }
                     }
                 }
             }
-            updateTotalValue()
+        }
+
+        ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
+            return@observe
         }
     }
 
@@ -347,11 +344,6 @@ class DashboardFragment : Fragment() {
             dashAdapter.notifyDataSetChanged()
         }
 
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
-            updateTotalValue()
-            dashAdapter.notifyDataSetChanged()
-        }
-
         ApplicationViewModel.shared.currentAccountResult.observe(viewLifecycleOwner) { response ->
             baseAccount = response.second
             lifecycleScope.launch(Dispatchers.IO) {
@@ -394,6 +386,8 @@ class DashboardFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
+        ApplicationViewModel.shared.fetchedTokenResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

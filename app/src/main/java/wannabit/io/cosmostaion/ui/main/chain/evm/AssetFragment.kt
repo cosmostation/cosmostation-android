@@ -17,13 +17,20 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
+import wannabit.io.cosmostaion.ui.main.edit.TokenEditFragment
+import wannabit.io.cosmostaion.ui.main.edit.TokenEditListener
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
-class AssetFragment : Fragment() {
+interface AssetFragmentInteraction {
+    fun showTokenList()
+}
+
+class AssetFragment : Fragment(), AssetFragmentInteraction {
 
     private var _binding: FragmentAssetBinding? = null
     private val binding get() = _binding!!
@@ -31,6 +38,8 @@ class AssetFragment : Fragment() {
     private lateinit var assetAdapter: AssetAdapter
 
     private lateinit var selectedEvmChain: EthereumLine
+    private var allErc20Tokens = mutableListOf<Token>()
+    private var displayErc20Tokens = mutableListOf<Token>()
 
     private var isClickable = true
 
@@ -57,8 +66,87 @@ class AssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        sortAssets()
         refreshData()
         observeViewModels()
+    }
+
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedEvmChain", EthereumLine::class.java)
+                ?.let { selectedEvmChain = it }
+        } else {
+            (arguments?.getParcelable("selectedEvmChain") as? EthereumLine)?.let {
+                selectedEvmChain = it
+            }
+        }
+    }
+
+    private fun sortAssets() {
+        val evmTokens = mutableListOf<Token>()
+        evmTokens.clear()
+        allErc20Tokens.clear()
+        displayErc20Tokens.clear()
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            evmTokens.addAll(selectedEvmChain.evmTokens)
+            evmTokens.sortBy { it.symbol.lowercase() }
+
+            BaseData.baseAccount?.let { account ->
+                Prefs.getDisplayErc20s(account.id, selectedEvmChain.tag)?.let { userCustomTokens ->
+                    evmTokens.sortWith { token0, token1 ->
+                        val address0 = token0.address
+                        val address1 = token1.address
+
+                        val containsToken0 = userCustomTokens.contains(address0)
+                        val containsToken1 = userCustomTokens.contains(address1)
+
+                        when {
+                            containsToken0 && !containsToken1 -> -1
+                            !containsToken0 && containsToken1 -> 1
+                            else -> {
+                                val value0 = selectedEvmChain.tokenValue(address0)
+                                val value1 = selectedEvmChain.tokenValue(address1)
+                                value1.compareTo(value0)
+                            }
+                        }
+                    }
+                    evmTokens.forEach { token ->
+                        if (userCustomTokens.contains(token.address) && !displayErc20Tokens.contains(
+                                token
+                            )
+                        ) {
+                            displayErc20Tokens.add(token)
+                        }
+                    }
+
+                } ?: run {
+                    evmTokens.sortWith { o1, o2 ->
+                        val value0 = selectedEvmChain.tokenValue(o1.address)
+                        val value1 = selectedEvmChain.tokenValue(o2.address)
+                        when {
+                            value0 > value1 -> -1
+                            value0 < value1 -> 1
+                            else -> 0
+                        }
+                    }
+
+                    evmTokens.forEach { token ->
+                        if (token.amount?.toBigDecimal()!! > BigDecimal.ZERO && !displayErc20Tokens.contains(
+                                token
+                            )
+                        ) {
+                            displayErc20Tokens.add(token)
+                        }
+                    }
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                allErc20Tokens.addAll(evmTokens)
+                initRecyclerView(displayErc20Tokens)
+            }
+        }
     }
 
     private fun initRecyclerView(evmTokens: MutableList<Token>) {
@@ -85,40 +173,6 @@ class AssetFragment : Fragment() {
         binding.refresher.isRefreshing = false
     }
 
-    private fun initData() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedEvmChain", EthereumLine::class.java)
-                ?.let { selectedEvmChain = it }
-        } else {
-            (arguments?.getParcelable("selectedEvmChain") as? EthereumLine)?.let {
-                selectedEvmChain = it
-            }
-        }
-
-        val evmTokens = mutableListOf<Token>()
-        evmTokens.clear()
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            selectedEvmChain.evmTokens.forEach { token ->
-                if (token.amount?.toBigDecimal()!! > BigDecimal.ZERO) {
-                    evmTokens.add(token)
-                }
-            }
-            evmTokens.sortWith { o1, o2 ->
-                val value0 = selectedEvmChain.tokenValue(o1.address)
-                val value1 = selectedEvmChain.tokenValue(o2.address)
-                when {
-                    value0 > value1 -> -1
-                    value0 < value0 -> 1
-                    else -> 0
-                }
-            }
-            withContext(Dispatchers.Main) {
-                initRecyclerView(evmTokens)
-            }
-        }
-    }
-
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             if (!selectedEvmChain.fetched) {
@@ -140,15 +194,15 @@ class AssetFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.fetchedRefreshResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
             if (selectedEvmChain.fetched) {
-                initData()
+                sortAssets()
             }
         }
 
-        ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
-            if (::assetAdapter.isInitialized) {
-                assetAdapter.notifyDataSetChanged()
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
+            if (selectedEvmChain.tag == it) {
+                sortAssets()
             }
         }
     }
@@ -167,8 +221,27 @@ class AssetFragment : Fragment() {
         }
     }
 
+    override fun showTokenList() {
+        TokenEditFragment.newInstance(selectedEvmChain,
+            allErc20Tokens,
+            displayErc20Tokens.map { it.address }.toMutableList(),
+            object : TokenEditListener {
+                override fun edit(displayErc20Tokens: MutableList<String>) {
+                    BaseData.baseAccount?.let { account ->
+                        ApplicationViewModel.shared.loadEvmChainData(
+                            selectedEvmChain, account.id, false
+                        )
+                    }
+                }
+            }).show(
+            requireActivity().supportFragmentManager, TokenEditFragment::class.java.name
+        )
+    }
+
     override fun onDestroyView() {
         _binding = null
+        ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
+        ApplicationViewModel.shared.fetchedTokenResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

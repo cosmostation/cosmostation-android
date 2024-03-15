@@ -30,6 +30,7 @@ object Prefs {
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
     private const val BACKGROUND_IMAGE = "PRE_BACKGROUND_IMAGE"
     private const val FOREGROUND_TO_BACKGROUND = "PRE_FOREGROUND_TO_BACKGROUND"
+    private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
 
     private val preference =
         CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -167,4 +168,39 @@ object Prefs {
     var foreToBack: Boolean
         get() = preference.getBoolean(FOREGROUND_TO_BACKGROUND, true)
         set(value) = preference.edit().putBoolean(FOREGROUND_TO_BACKGROUND, value).apply()
+
+    fun setDisplayErc20s(
+        baseAccountId: Long, chainTag: String, contractAddresses: List<String>
+    ) {
+        val encoded = try {
+            val jsonString = JSONArray(contractAddresses).toString()
+            jsonString.toByteArray(Charsets.UTF_8)
+        } catch (e: JSONException) {
+            null
+        }
+
+        if (encoded != null) {
+            val key = "$baseAccountId $chainTag $DISPLAY_ERC20_TOKENS"
+            preference.edit().putString(key, String(encoded)).apply()
+        }
+    }
+
+    fun getDisplayErc20s(baseAccountId: Long, chainTag: String): MutableList<String>? {
+        val key = "$baseAccountId $chainTag $DISPLAY_ERC20_TOKENS"
+        val savedDataString = preference.getString(key, null)
+
+        if (!savedDataString.isNullOrEmpty()) {
+            try {
+                val jsonArray = JSONArray(savedDataString)
+                val result = ArrayList<String>()
+                for (i in 0 until jsonArray.length()) {
+                    result.add(jsonArray.getString(i))
+                }
+                return result
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return null
+    }
 }

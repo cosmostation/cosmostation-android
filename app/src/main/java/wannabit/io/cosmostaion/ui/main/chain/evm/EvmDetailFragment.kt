@@ -5,6 +5,8 @@ import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -117,6 +119,10 @@ class EvmDetailFragment : Fragment() {
                 binding.accountName.text = account?.name
             }
         }
+
+        ApplicationViewModel.shared.fetchedTotalResult.observe(viewLifecycleOwner) {
+            updateTokenValue()
+        }
     }
 
     private fun initTab() {
@@ -153,6 +159,20 @@ class EvmDetailFragment : Fragment() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
+            }
+
+            var isClickable = true
+            btnAddToken.setOnClickListener {
+                if (isClickable) {
+                    isClickable = false
+
+                    val assetFragment = detailPagerAdapter.getAssetFragmentInstance()
+                    assetFragment?.showTokenList()
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 300)
             }
 
             btnAccount.setOnClickListener {
@@ -200,10 +220,15 @@ class EvmDetailFragment : Fragment() {
         override fun createFragment(position: Int): Fragment {
             return fragments[position]
         }
+
+        fun getAssetFragmentInstance(): AssetFragment? {
+            return fragments.firstOrNull { it is AssetFragment } as? AssetFragment
+        }
     }
 
     override fun onDestroyView() {
         _binding = null
+        ApplicationViewModel.shared.fetchedTotalResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

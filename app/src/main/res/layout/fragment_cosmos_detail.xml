@@ -46,6 +46,15 @@
             android:layout_marginRight="@dimen/space_20"
             android:src="@drawable/icon_chrome" />
 
+        <ImageView
+            android:id="@+id/btn_add_token"
+            android:layout_width="@dimen/space_28"
+            android:layout_height="@dimen/space_28"
+            android:layout_gravity="end"
+            android:layout_marginRight="@dimen/space_15"
+            android:visibility="gone"
+            android:src="@drawable/icon_add_token_explain" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <TextView

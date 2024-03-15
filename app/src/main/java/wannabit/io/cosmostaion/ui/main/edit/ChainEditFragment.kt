@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -139,6 +140,7 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun setupLoadedView() {
         ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) {
+            Log.e("Test1234 : ", "여기요111111")
             lifecycleScope.launch(Dispatchers.IO) {
                 allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
                     .let { fetchedEvmChainIndex ->
@@ -170,7 +172,7 @@ class ChainEditFragment : BaseTxFragment() {
             }
         }
 
-        ApplicationViewModel.shared.fetchedErc20TokenResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.editFetchedTokenResult.observe(viewLifecycleOwner) {
             lifecycleScope.launch(Dispatchers.IO) {
                 allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
                     .let { fetchedEvmChainIndex ->
@@ -180,11 +182,7 @@ class ChainEditFragment : BaseTxFragment() {
                             }
                         }
                     }
-            }
-        }
 
-        ApplicationViewModel.shared.fetchedCw20TokenResult.observe(viewLifecycleOwner) {
-            lifecycleScope.launch(Dispatchers.IO) {
                 allCosmosChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
                     .let { fetchedChainIndex ->
                         withContext(Dispatchers.Main) {

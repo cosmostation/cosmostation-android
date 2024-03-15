@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -185,7 +186,11 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    val explorerUrl = (fromChain as EthereumLine).txURL + txHash
+                    val explorerUrl = if (fromChain is EthereumLine) {
+                        (fromChain as EthereumLine).txURL + txHash
+                    } else {
+                        OKT_EXPLORER + "tx/" + txHash
+                    }
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
                 } else {
                     historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
@@ -213,10 +218,17 @@ class TransferTxResultActivity : BaseActivity() {
                                 fromChain as EthereumLine, account.id, false
                             )
                         }
+
                     } else {
-                        ApplicationViewModel.shared.loadChainData(
-                            fromChain as CosmosLine, account.id, false
-                        )
+                        if (fromChain is EthereumLine) {
+                            ApplicationViewModel.shared.loadEvmChainData(
+                                fromChain as EthereumLine, account.id, false
+                            )
+                        } else {
+                            ApplicationViewModel.shared.loadChainData(
+                                fromChain as CosmosLine, account.id, false
+                            )
+                        }
                     }
                 }
                 finish()

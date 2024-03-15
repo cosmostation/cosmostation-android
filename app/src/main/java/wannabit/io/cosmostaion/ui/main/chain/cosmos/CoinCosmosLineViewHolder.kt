@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -290,7 +291,7 @@ class CoinCosmosLineViewHolder(
                         total.text = if (hideValue) "" else formatAmount(
                             (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                         )
-                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
+                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
                     }
                 }
 
@@ -326,7 +327,7 @@ class CoinCosmosLineViewHolder(
                         total.text = if (hideValue) "" else formatAmount(
                             (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                         )
-                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
+                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
                     }
                 }
             }
