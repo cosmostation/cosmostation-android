@@ -101,6 +101,7 @@ class HistoryViewHolder(
                         ) == context.getString(R.string.tx_vote)
                     ) {
                         txDenom.text = historyGroup.second.getVoteOption()
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
                         txAmount.text = ""
                     } else {
                         txAmount.text = ""

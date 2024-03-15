@@ -94,6 +94,7 @@
     <string name="str_deposit_liquidity">Add liquidity</string>
     <string name="str_remove_liquidity">Remove liquidity</string>
     <string name="str_search_chain">チェーン検索</string>
+    <string name="str_search_token">トークン検索です</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">点検中</string>
     <string name="str_mintscan">Mintscan</string>
@@ -211,6 +212,7 @@
     <string name="title_big_loss">資産の損失です</string>
     <string name="title_claimable_chains">リワード対象チェーン</string>
     <string name="title_select_end_point">エンドポイントの選択</string>
+    <string name="title_edit_token_list">トークンの編集</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>

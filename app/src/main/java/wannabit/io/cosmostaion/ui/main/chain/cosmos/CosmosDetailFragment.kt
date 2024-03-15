@@ -130,15 +130,7 @@ class CosmosDetailFragment : Fragment() {
                     accountAddress.text = selectedChain.address
                 }
 
-                if (Prefs.hideValue) {
-                    accountValue.text = "✱✱✱✱✱"
-                    accountValue.textSize = 18f
-                    btnHide.setImageResource(R.drawable.icon_hide)
-                } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
-                    accountValue.textSize = 24f
-                    btnHide.setImageResource(R.drawable.icon_not_hide)
-                }
+                updateAccountValue()
                 btnHide.setColorFilter(
                     ContextCompat.getColor(requireContext(), R.color.color_base03),
                     PorterDuff.Mode.SRC_IN
@@ -244,6 +236,24 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
+    private fun updateAccountValue() {
+        if (isAdded) {
+            requireActivity().runOnUiThread {
+                binding.apply {
+                    if (Prefs.hideValue) {
+                        accountValue.text = "✱✱✱✱✱"
+                        accountValue.textSize = 18f
+                        btnHide.setImageResource(R.drawable.icon_hide)
+                    } else {
+                        accountValue.text = formatAssetValue(selectedChain.allValue(false))
+                        accountValue.textSize = 24f
+                        btnHide.setImageResource(R.drawable.icon_not_hide)
+                    }
+                }
+            }
+        }
+    }
+
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -295,15 +305,7 @@ class CosmosDetailFragment : Fragment() {
 
             btnHide.setOnClickListener {
                 Prefs.hideValue = !Prefs.hideValue
-                if (Prefs.hideValue) {
-                    accountValue.text = "✱✱✱✱✱"
-                    accountValue.textSize = 18f
-                    btnHide.setImageResource(R.drawable.icon_hide)
-                } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
-                    accountValue.textSize = 24f
-                    btnHide.setImageResource(R.drawable.icon_not_hide)
-                }
+                updateAccountValue()
                 ApplicationViewModel.shared.hideValue()
             }
 
@@ -501,6 +503,10 @@ class CosmosDetailFragment : Fragment() {
                 binding.accountName.text = account?.name
             }
         }
+
+        ApplicationViewModel.shared.fetchedTotalResult.observe(viewLifecycleOwner) {
+            updateAccountValue()
+        }
     }
 
     private fun handleOneClickWithDelay(
@@ -574,6 +580,7 @@ class CosmosDetailFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        ApplicationViewModel.shared.fetchedTotalResult.removeObservers(viewLifecycleOwner)
         handler.removeCallbacks(starEvmAddressAnimation)
     }
 }

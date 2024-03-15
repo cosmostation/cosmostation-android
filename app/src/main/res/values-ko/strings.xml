@@ -90,6 +90,7 @@
     <string name="str_deposit_liquidity">유동성 입금</string>
     <string name="str_remove_liquidity">유동성 출금</string>
     <string name="str_search_chain">체인 검색</string>
+    <string name="str_search_token">토큰 검색</string>
     <string name="str_go_playstore">플레이스토어 이동</string>
     <string name="str_under_maintenance">점검중</string>
     <string name="str_mintscan">민트스캔</string>
@@ -207,6 +208,7 @@
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
     <string name="title_select_end_point">End-Point 선택</string>
+    <string name="title_edit_token_list">토큰 편집</string>
 
 
     // msg

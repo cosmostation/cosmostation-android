@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
-import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class AccountSelectFragment : BottomSheetDialogFragment() {

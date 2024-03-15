@@ -98,7 +98,7 @@ class AssetAdapter(
                     headerCnt.text = "1"
 
                 } else {
-                    headerTitle.text = "Tokens"
+                    headerTitle.text = "Erc20 tokens"
                     headerCnt.text = evmTokens.size.toString()
                 }
             }

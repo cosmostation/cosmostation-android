@@ -237,7 +237,7 @@ class ProposalListFragment : Fragment() {
     }
 
     private fun setUpVoteInfo() {
-        ApplicationViewModel.shared.fetchedVoteResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
             proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
         }
     }
