@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.chain.evmClass
 
 import android.content.Context
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -18,7 +20,8 @@ import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class ChainOktEvm : EthereumLine() {
+@Parcelize
+class ChainOktEvm : EthereumLine(), Parcelable {
 
     var oktLcdAccountInfo: OktAccountResponse? = null
     var oktDepositedInfo: OktDepositedResponse? = null

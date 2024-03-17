@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -8,7 +10,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
 
-open class ChainKava459 : CosmosLine() {
+@Parcelize
+open class ChainKava459 : CosmosLine(), Parcelable {
 
     override var isDefault = false
     override var name: String = "Kava"

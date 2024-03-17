@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -140,7 +139,6 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun setupLoadedView() {
         ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) {
-            Log.e("Test1234 : ", "여기요111111")
             lifecycleScope.launch(Dispatchers.IO) {
                 allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
                     .let { fetchedEvmChainIndex ->

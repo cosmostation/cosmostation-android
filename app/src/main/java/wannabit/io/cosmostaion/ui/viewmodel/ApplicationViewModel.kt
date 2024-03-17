@@ -163,6 +163,16 @@ class ApplicationViewModel(
                 is NetworkResult.Error -> {
                     fetched = true
                     if (fetched) {
+                        when (val balanceResponse = walletRepository.balance(channel, line)) {
+                            is NetworkResult.Success -> {
+                                balanceResponse.data?.balancesList?.let { cosmosBalances = it }
+                            }
+
+                            is NetworkResult.Error -> {
+                                cosmosBalances = null
+                            }
+                        }
+
                         val refAddress = RefAddress(
                             baseAccountId,
                             tag,

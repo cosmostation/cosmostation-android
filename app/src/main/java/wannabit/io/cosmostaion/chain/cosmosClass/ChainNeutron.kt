@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -11,7 +13,8 @@ import wannabit.io.cosmostaion.data.model.res.VestingData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class ChainNeutron : CosmosLine() {
+@Parcelize
+class ChainNeutron : CosmosLine(), Parcelable {
 
     var neutronDeposited: BigDecimal = BigDecimal.ZERO
     var neutronVesting: VestingData? = null

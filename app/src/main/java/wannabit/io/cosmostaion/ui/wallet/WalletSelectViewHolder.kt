@@ -41,6 +41,7 @@ class WalletSelectViewHolder(
             updateView(line, selectedEvmTags)
 
             if (line.fetched) {
+                skeletonChainValue.visibility = View.GONE
                 val availableAmount =
                     line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
                 chainBalance.text = formatAmount(availableAmount.toString(), 18)
@@ -58,8 +59,6 @@ class WalletSelectViewHolder(
                 } else {
                     chainAssetCnt.text = "0 Coins"
                 }
-
-                skeletonChainValue.visibility = View.GONE
             }
 
             selectView.setOnClickListener {
@@ -146,7 +145,6 @@ class WalletSelectViewHolder(
 
                         chainBalance.visibility = View.VISIBLE
                         chainDenom.visibility = View.VISIBLE
-                        chainNotRespond.visibility = View.GONE
                         chainAssetCnt.visibility = View.VISIBLE
 
                     } else if (line is ChainOkt996Keccak) {
@@ -158,20 +156,19 @@ class WalletSelectViewHolder(
 
                         chainBalance.visibility = View.VISIBLE
                         chainDenom.visibility = View.VISIBLE
-                        chainNotRespond.visibility = View.GONE
                         chainAssetCnt.visibility = View.VISIBLE
 
                     } else {
                         if (line.cosmosBalances == null) {
                             chainBalance.visibility = View.GONE
                             chainDenom.visibility = View.GONE
-                            chainNotRespond.visibility = View.VISIBLE
+                            respondLayout.visibility = View.VISIBLE
                             chainAssetCnt.visibility = View.GONE
 
                         } else {
                             chainBalance.visibility = View.VISIBLE
                             chainDenom.visibility = View.VISIBLE
-                            chainNotRespond.visibility = View.GONE
+                            respondLayout.visibility = View.GONE
                             chainAssetCnt.visibility = View.VISIBLE
 
                             BaseData.getAsset(line.apiName, denom)?.let { asset ->

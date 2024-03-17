@@ -130,6 +130,7 @@
     <string name="str_claim_all">Claim all</string>
     <string name="str_amount">Amount</string>
     <string name="str_token_github">Check token info</string>
+    <string name="str_node_down">Node down</string>
 
 
     //title
@@ -335,6 +336,7 @@
     <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
     <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
+    <string name="str_node_down_msg">▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
 
 
     // header

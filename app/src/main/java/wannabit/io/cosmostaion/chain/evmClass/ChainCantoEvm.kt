@@ -1,13 +1,18 @@
 package wannabit.io.cosmostaion.chain.evmClass
 
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
-class ChainCantoEvm : EthereumLine() {
+@Parcelize
+class ChainCantoEvm : EthereumLine(), Parcelable {
 
     override var supportCosmos: Boolean = true
     override var name: String = "Canto"

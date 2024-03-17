@@ -2,7 +2,8 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -69,6 +70,10 @@ open class EthereumLine : CosmosLine(), Parcelable {
             result = result.add(value)
         }
         return result
+    }
+
+    override fun web3j(): Web3j? {
+        return Web3j.build(HttpService(rpcUrl))
     }
 }
 

@@ -1,12 +1,20 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
@@ -30,6 +38,27 @@ class DashboardViewHolder(
             chainNftBadge.visibleOrGone(line.supportNft)
 
             if (line.fetched) {
+                skeletonChainValue.visibility = View.GONE
+                if (line !is ChainOktEvm) {
+                    if (line.supportCosmos && line.cosmosBalances == null) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainValue.visibility = View.GONE
+                        return
+                    }
+                }
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        line.web3j()?.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return@withContext
+                        }
+                    }
+                }
+
                 if (Prefs.hideValue) {
                     chainValue.text = "✱✱✱✱"
                     chainValue.textSize = 10f
@@ -37,7 +66,6 @@ class DashboardViewHolder(
                     chainValue.text = formatAssetValue(line.allValue(false))
                     chainValue.textSize = 14f
                 }
-                skeletonChainValue.visibility = View.GONE
             }
         }
     }
@@ -81,6 +109,16 @@ class DashboardViewHolder(
             chainNftBadge.visibleOrGone(line.supportNft)
 
             if (line.fetched) {
+                skeletonChainValue.visibility = View.GONE
+
+                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                    if (line.cosmosBalances == null) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainValue.visibility = View.GONE
+                        return
+                    }
+                }
+
                 if (Prefs.hideValue) {
                     chainValue.text = "✱✱✱✱"
                     chainValue.textSize = 10f
@@ -88,7 +126,6 @@ class DashboardViewHolder(
                     chainValue.text = formatAssetValue(line.allValue(false))
                     chainValue.textSize = 14f
                 }
-                skeletonChainValue.visibility = View.GONE
             }
         }
     }
