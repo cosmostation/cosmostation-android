@@ -345,7 +345,7 @@ class ApplicationViewModel(
                             ByteUtils.convertBech32ToEvm(address),
                             "0",
                             "0",
-                            allTokenValue().toPlainString()
+                            allTokenValue(true).toPlainString()
                         )
                         BaseData.updateRefAddressesToken(evmRefAddress)
                         if (isEdit) {
@@ -517,7 +517,7 @@ class ApplicationViewModel(
                             ByteUtils.convertBech32ToEvm(address),
                             "0",
                             "0",
-                            allTokenValue().toPlainString(),
+                            allTokenValue(true).toPlainString(),
                             0
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
@@ -641,7 +641,7 @@ class ApplicationViewModel(
                                     ByteUtils.convertBech32ToEvm(address),
                                     "0",
                                     "0",
-                                    allTokenValue().toPlainString(),
+                                    allTokenValue(true).toPlainString(),
                                     0
                                 )
                                 BaseData.updateRefAddressesToken(evmRefAddress)
@@ -709,7 +709,7 @@ class ApplicationViewModel(
                             ByteUtils.convertBech32ToEvm(address),
                             "0",
                             "0",
-                            allTokenValue().toPlainString(),
+                            allTokenValue(true).toPlainString(),
                             cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
                                 ?.toLong() ?: 0L)
                         BaseData.updateRefAddressesToken(evmRefAddress)
@@ -779,7 +779,7 @@ class ApplicationViewModel(
                             address,
                             "0",
                             "0",
-                            allTokenValue().toPlainString(),
+                            allTokenValue(true).toPlainString(),
                             0
                         )
                         BaseData.updateRefAddressesToken(evmRefAddress)
