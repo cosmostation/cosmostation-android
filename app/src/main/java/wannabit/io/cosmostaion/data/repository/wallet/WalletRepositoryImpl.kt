@@ -280,7 +280,11 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun erc20Balance(line: CosmosLine, token: Token) {
-        val web3j = Web3j.build(HttpService(line.rpcUrl))
+        val web3j = if (line is EthereumLine) {
+            Web3j.build(HttpService(line.getEvmRpc()))
+        } else {
+            Web3j.build(HttpService(line.rpcUrl))
+        }
         val ethAddress = if (line is EthereumLine) {
             if (line.supportCosmos) {
                 ByteUtils.convertBech32ToEvm(line.address)
@@ -403,7 +407,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String> {
         return safeApiCall(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService(evmLine.rpcUrl))
+            val web3j = Web3j.build(HttpService(evmLine.getEvmRpc()))
             val evmAddress = if (evmLine.supportCosmos) {
                 ByteUtils.convertBech32ToEvm(evmLine.address)
             } else {

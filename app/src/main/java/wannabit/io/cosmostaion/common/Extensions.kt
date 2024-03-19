@@ -533,7 +533,7 @@ fun dpToPx(context: Context, dp: Int): Int {
 }
 
 fun getChannel(selectedChain: CosmosLine): ManagedChannel {
-    return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort)
+    return ManagedChannelBuilder.forAddress(selectedChain.getGrpc().first, selectedChain.getGrpc().second)
         .useTransportSecurity().build()
 }
 

@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainEmoney : CosmosLine(), Parcelable {
 
-    override var name: String = "Emoney"
+    override var name: String = "E-money"
     override var tag: String = "emoney118"
     override var logo: Int = R.drawable.chain_emoney
     override var swipeLogo: Int = R.drawable.chain_swipe_emoney

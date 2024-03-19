@@ -209,6 +209,8 @@
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
     <string name="title_select_end_point">End-Point 선택</string>
+    <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
+    <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
     <string name="title_edit_token_list">토큰 편집</string>
 
 
@@ -304,6 +306,7 @@
     <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
     <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
     <string name="error_tranfer_disabled">전송 기능을 지원하지 않는 체인입니다.</string>
+    <string name="error_useless_end_point">사용할 수 없습니다.</string>
 
 
     //header

@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -73,7 +74,16 @@ open class EthereumLine : CosmosLine(), Parcelable {
     }
 
     override fun web3j(): Web3j? {
-        return Web3j.build(HttpService(rpcUrl))
+        return Web3j.build(HttpService(getEvmRpc()))
+    }
+
+    fun getEvmRpc(): String {
+        val endpoint = Prefs.getEvmRpcEndpoint(this)
+        return if (endpoint?.isNotEmpty() == true) {
+            endpoint
+        } else {
+            rpcUrl
+        }
     }
 }
 

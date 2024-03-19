@@ -128,22 +128,6 @@ class DashboardFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = dashAdapter
                 itemAnimator = null
-
-//                dashAdapter.setOnItemClickListener { tag ->
-//                    if (tag.contains("ethereum60") || tag.contains("polygon60") || tag.contains("optimism60")) {
-//                        Intent(requireContext(), EvmActivity::class.java).apply {
-//                            putExtra("selectedChainTag", tag)
-//                            startActivity(this)
-//                        }
-//
-//                    } else {
-//                        Intent(requireContext(), CosmosActivity::class.java).apply {
-//                            putExtra("selectedChainTag", tag)
-//                            startActivity(this)
-//                        }
-//                    }
-//                    requireActivity().toMoveAnimation()
-//                }
             }
         }
     }

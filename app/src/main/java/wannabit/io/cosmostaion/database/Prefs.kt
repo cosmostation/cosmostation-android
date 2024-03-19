@@ -4,6 +4,7 @@ import SecureSharedPreferences
 import android.content.Context
 import org.json.JSONArray
 import org.json.JSONException
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_EVM
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -31,6 +32,8 @@ object Prefs {
     private const val BACKGROUND_IMAGE = "PRE_BACKGROUND_IMAGE"
     private const val FOREGROUND_TO_BACKGROUND = "PRE_FOREGROUND_TO_BACKGROUND"
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
+    private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
+    private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
 
     private val preference =
         CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -202,5 +205,23 @@ object Prefs {
             }
         }
         return null
+    }
+
+    fun setGrpcEndpoint(chain: CosmosLine?, endpoint: String) {
+        val key = GRPC_ENDPOINT + ":" + chain?.name
+        preference.edit().putString(key, endpoint).apply()
+    }
+
+    fun getGrpcEndpoint(chain: CosmosLine): String {
+        return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
+    }
+
+    fun setEvmRpcEndpoint(chain: CosmosLine?, endpoint: String) {
+        val key = EVM_RPC_ENDPOINT + ":" + chain?.name
+        preference.edit().putString(key, endpoint).apply()
+    }
+
+    fun getEvmRpcEndpoint(chain: CosmosLine): String? {
+        return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
     }
 }

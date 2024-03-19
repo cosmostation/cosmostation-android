@@ -265,6 +265,8 @@
     <string name="title_big_loss">Asset loss</string>
     <string name="title_claimable_chains">Claimable chains</string>
     <string name="title_select_end_point">Select End-Point</string>
+    <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
+    <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
 
 
@@ -391,6 +393,7 @@
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
     <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
+    <string name="error_useless_end_point">Can not use this</string>
 
 
     // tx

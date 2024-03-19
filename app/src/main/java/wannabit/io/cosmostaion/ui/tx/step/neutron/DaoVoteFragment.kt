@@ -22,8 +22,6 @@ import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -33,6 +31,7 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -335,7 +334,11 @@ class DaoVoteFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcastWasm(
-                    getChannel(), onBindWasmVoteMsg(), txFee, txMemo, selectedChain
+                    wannabit.io.cosmostaion.common.getChannel(selectedChain),
+                    onBindWasmVoteMsg(),
+                    txFee,
+                    txMemo,
+                    selectedChain
                 )
             }
         }
@@ -350,7 +353,7 @@ class DaoVoteFragment : BaseTxFragment() {
             }
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateWasm(
-                getChannel(), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo,
+                getChannel(selectedChain), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo,
                 selectedChain
             )
         }
@@ -411,11 +414,6 @@ class DaoVoteFragment : BaseTxFragment() {
             }
             dismiss()
         }
-    }
-
-    private fun getChannel(): ManagedChannel {
-        return ManagedChannelBuilder.forAddress(selectedChain.grpcHost, selectedChain.grpcPort)
-            .useTransportSecurity().build()
     }
 
     private fun onBindWasmVoteMsg(): MutableList<MsgExecuteContract?> {

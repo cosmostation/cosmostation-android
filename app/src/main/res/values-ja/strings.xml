@@ -213,6 +213,8 @@
     <string name="title_big_loss">資産の損失です</string>
     <string name="title_claimable_chains">リワード対象チェーン</string>
     <string name="title_select_end_point">エンドポイントの選択</string>
+    <string name="title_select_end_point_grpc">エンドポイントの選択 (gRPC)</string>
+    <string name="title_select_end_point_rpc">エンドポイントの選択 (EVM RPC)</string>
     <string name="title_edit_token_list">トークンの編集</string>
 
 
@@ -306,6 +308,7 @@
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
     <string name="error_tranfer_disabled">このチェーンは伝達関数をサポートしていません。</string>
+    <string name="error_useless_end_point">使用できません。</string>
 
 
     <string name="tx_unknown">不明</string>
