@@ -145,7 +145,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         return if (getDefaultFeeCoins(c).isNotEmpty()) {
             val fee = getDefaultFeeCoins(c).first()
             val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-            TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin)
+            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
                 .build()
         } else {
             null
@@ -162,11 +162,11 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
-        val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
+        val gasAmount = getFeeBaseGasDpAmount()
         val feeDatas = getFeeInfos(c)[position].feeDatas
         val rate = feeDatas.firstOrNull { it.denom == denom }?.gasRate ?: BigDecimal.ZERO
         val coinAmount = rate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-        return TxProto.Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(
+        return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(
             Coin.newBuilder().setDenom(denom).setAmount(coinAmount.toString()).build()
         ).build()
     }
@@ -177,6 +177,16 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun getFeeBasePosition(): Int {
         return getChainListParam().getAsJsonObject("fee")?.get("base")?.asInt ?: 0
+    }
+
+    private fun getFeeBaseGasAmount(): Long {
+        return getChainListParam().getAsJsonObject("fee").get("init_gas_limit")?.asLong ?: run {
+            BASE_GAS_AMOUNT.toLong()
+        }
+    }
+
+    private fun getFeeBaseGasDpAmount(): BigDecimal {
+        return BigDecimal(getFeeBaseGasAmount().toString())
     }
 
     open fun isTxFeePayable(c: Context): Boolean {
@@ -190,7 +200,7 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun getDefaultFeeCoins(c: Context): MutableList<Coin> {
         val result: MutableList<Coin> = mutableListOf()
-        val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
+        val gasAmount = getFeeBaseGasDpAmount()
         if (getFeeInfos(c).size > 0) {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->

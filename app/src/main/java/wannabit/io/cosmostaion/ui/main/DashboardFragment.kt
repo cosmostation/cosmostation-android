@@ -145,18 +145,30 @@ class DashboardFragment : Fragment() {
                     }
                 }
 
-                try {
-                    line.web3j()?.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
-                } catch (e: Exception) {
-                    nodeDownPopup()
-                    return
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        line.web3j()?.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            nodeDownPopup()
+                            return@withContext
+                        }
+                    }
                 }
 
-                Intent(requireContext(), EvmActivity::class.java).apply {
-                    putExtra("selectedChain", line as Parcelable)
-                    startActivity(this)
+                if (line.supportCosmos) {
+                    Intent(requireContext(), CosmosActivity::class.java).apply {
+                        putExtra("selectedChain", line as Parcelable)
+                        startActivity(this)
+                    }
+                    requireActivity().toMoveAnimation()
+                } else {
+                    Intent(requireContext(), EvmActivity::class.java).apply {
+                        putExtra("selectedChain", line as Parcelable)
+                        startActivity(this)
+                    }
+                    requireActivity().toMoveAnimation()
                 }
-                requireActivity().toMoveAnimation()
 
             } else {
                 if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
