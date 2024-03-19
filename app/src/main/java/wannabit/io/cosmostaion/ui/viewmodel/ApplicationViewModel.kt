@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
 import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
-import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
@@ -93,41 +92,14 @@ class ApplicationViewModel(
         line: CosmosLine, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         line.apply {
-            val loadParamDeferred = async { walletRepository.param(this@apply) }
-            val tokenDeferred = async { walletRepository.token(this@apply) }
-
             if (supportCw20 || supportErc20) {
-                val responses = awaitAll(loadParamDeferred, tokenDeferred)
-                responses.forEach { response ->
-                    when (response) {
-                        is NetworkResult.Success -> {
-                            when (response.data) {
-                                is Param -> {
-                                    line.param = response.data
-                                }
-
-                                is MutableList<*> -> {
-                                    if (response.data.all { it is Token }) {
-                                        line.tokens = response.data as MutableList<Token>
-                                    }
-                                }
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                        }
-                    }
-                }
-
-            } else {
-                when (val paramResponse = loadParamDeferred.await()) {
+                when (val response = walletRepository.token(this)) {
                     is NetworkResult.Success -> {
-                        param = paramResponse.data
+                        line.tokens = response.data
                     }
 
                     is NetworkResult.Error -> {
-                        _chainDataErrorMessage.postValue("error type : ${paramResponse.errorType}  error message : ${paramResponse.errorMessage}")
+                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                     }
                 }
             }
@@ -674,18 +646,12 @@ class ApplicationViewModel(
                         }
 
                     } else {
-                        val loadParamDeferred = async { walletRepository.param(this@apply) }
                         val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
                         val loadEvmBalanceDeferred =
                             async { walletRepository.evmBalance(this@apply) }
 
-                        val paramResult = loadParamDeferred.await()
                         val tokenResult = loadEvmTokenDeferred.await()
                         val balanceResult = loadEvmBalanceDeferred.await()
-
-                        if (paramResult is NetworkResult.Success && paramResult.data is Param) {
-                            line.param = paramResult.data
-                        }
 
                         if (tokenResult is NetworkResult.Success && tokenResult.data is MutableList<*> && tokenResult.data.all { it is Token }) {
                             evmTokens = tokenResult.data
@@ -799,21 +765,5 @@ class ApplicationViewModel(
     val filterDataResult: LiveData<Boolean> get() = _filterDataResult
     fun updateFilterData(isShowAll: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         _filterDataResult.postValue(isShowAll)
-    }
-
-    var paramResult = SingleLiveEvent<CosmosLine>()
-    fun param(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.param(line)) {
-            is NetworkResult.Success -> {
-                response.data.let { data ->
-                    line.param = data
-                    paramResult.postValue(line)
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
     }
 }

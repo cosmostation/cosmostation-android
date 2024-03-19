@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.data.model.res
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-
 @JsonClass(generateAdapter = true)
 data class Param(
     @Json(name = "chain_id") val chainId: String?,

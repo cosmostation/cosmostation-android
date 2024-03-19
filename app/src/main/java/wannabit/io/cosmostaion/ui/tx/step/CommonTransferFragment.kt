@@ -357,12 +357,12 @@ class CommonTransferFragment : BaseTxFragment() {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
-                    } else if (asset.counterParty?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    } else if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
 
                 } else {
-                    if (asset.counterParty?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
                 }
@@ -1093,18 +1093,18 @@ class CommonTransferFragment : BaseTxFragment() {
                 ) {
                     return AssetPath(asset.channel, asset.port)
                 }
-                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom?.equals(
+                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counter_party?.denom?.equals(
                         denom, true
                     ) == true
                 ) {
-                    return AssetPath(asset.counterParty.channel, asset.counterParty.port)
+                    return AssetPath(asset.counter_party.channel, asset.counter_party.port)
                 }
             } else {
-                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom.equals(
+                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counter_party?.denom.equals(
                         msToken.address, true
                     )
                 ) {
-                    return AssetPath(asset.counterParty?.channel, asset.counterParty?.port)
+                    return AssetPath(asset.counter_party?.channel, asset.counter_party?.port)
                 }
             }
         }

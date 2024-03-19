@@ -394,6 +394,8 @@
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
     <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
     <string name="error_useless_end_point">Can not use this</string>
+    <string name="error_no_bonding_no_vote">You cannot vote because there is not enough delegation.</string>
+
 
 
     // tx

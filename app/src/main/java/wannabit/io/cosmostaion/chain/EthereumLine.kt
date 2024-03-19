@@ -104,7 +104,7 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {
             line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
         }
     }
     return lines

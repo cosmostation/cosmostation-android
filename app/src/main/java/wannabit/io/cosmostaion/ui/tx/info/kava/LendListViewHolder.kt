@@ -39,7 +39,7 @@ class LendListViewHolder(
 
             BaseData.assets?.firstOrNull { it.denom == lendMarket?.denom }?.let { asset ->
                 asset.decimals?.let { decimal ->
-                    val lendImgDenom = asset.originDenom
+                    val lendImgDenom = asset.origin_denom
                     Picasso.get().load(KAVA_LEND_IMG_URL + "lp" + lendImgDenom + ".png").fit()
                         .into(marketImg)
                     val title = lendMarket?.spotMarketId?.replace(":30", "")?.replace(":720", "")

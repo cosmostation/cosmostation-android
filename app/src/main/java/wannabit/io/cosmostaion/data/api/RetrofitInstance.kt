@@ -49,9 +49,18 @@ object RetrofitInstance {
             .build()
     }
 
+    private val mintScanJsonRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(CosmostationConstants.MINTSCAN_API_URL)
+            .build()
+    }
+
     private val beaconRetrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .baseUrl(ChainBinanceBeacon().lcdUrl)
@@ -91,6 +100,10 @@ object RetrofitInstance {
 
     val mintscanApi: MintscanApi by lazy {
         mintScanRetrofit.create(MintscanApi::class.java)
+    }
+
+    val mintscanJsonApi: MintscanApi by lazy {
+        mintScanJsonRetrofit.create(MintscanApi::class.java)
     }
 
     val beaconApi: LcdApi by lazy {

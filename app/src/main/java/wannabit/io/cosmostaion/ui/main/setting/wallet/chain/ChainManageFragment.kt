@@ -18,12 +18,9 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class ChainManageFragment : Fragment() {
 
@@ -52,7 +49,6 @@ class ChainManageFragment : Fragment() {
         initRecyclerView()
         initSearchView()
         setUpClickAction()
-        setUpParam()
     }
 
     private fun initRecyclerView() {
@@ -78,24 +74,10 @@ class ChainManageFragment : Fragment() {
                     adapter = chainManageAdapter
 
                     chainManageAdapter.setOnItemClickListener { chain ->
-                        if (chain !is ChainOktEvm && chain !is ChainBinanceBeacon) {
-                            if (chain.param?.params?.chainlistParams == null) {
-                                ApplicationViewModel.shared.param(chain)
-                            } else {
-                                selectEndPoint(chain)
-                            }
-                        } else {
-                            return@setOnItemClickListener
-                        }
+                        selectEndPoint(chain)
                     }
                 }
             }
-        }
-    }
-
-    private fun setUpParam() {
-        ApplicationViewModel.shared.paramResult.observe(viewLifecycleOwner) {
-            selectEndPoint(it)
         }
     }
 

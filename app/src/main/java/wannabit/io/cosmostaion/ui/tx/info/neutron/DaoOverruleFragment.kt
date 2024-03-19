@@ -93,11 +93,14 @@ class DaoOverruleFragment : Fragment() {
         }
         neutronMyVotes = arguments?.getParcelableArrayList("neutronMyVotes")
 
-        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(2)?.address?.let { contAddress ->
-            proposalViewModel.daoProposals(
-                getChannel(selectedChain), contAddress, NEUTRON_OVERRULE_MODULE
-            )
-        }
+        selectedChain.getChainListParam().getAsJsonArray("daos")
+            .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+            ?.get(2)?.asJsonObject?.get("address")?.asString?.let { contAddress ->
+                proposalViewModel.daoProposals(
+                    getChannel(selectedChain), contAddress, NEUTRON_OVERRULE_MODULE
+                )
+            }
+
         setUpProposalData()
     }
 

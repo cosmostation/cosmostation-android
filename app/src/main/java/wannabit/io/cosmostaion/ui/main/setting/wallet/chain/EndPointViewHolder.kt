@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.tendermint.v1beta1.QueryProto.GetNodeInfoRequest
 import com.cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub
+import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +18,6 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.goneOrVisible
-import wannabit.io.cosmostaion.data.model.res.Params
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomAdapter
 
@@ -29,15 +29,15 @@ class EndPointViewHolder(
 
     fun evmBind(
         fromChain: EthereumLine?,
-        endpoint: Params.ChainListParams.GrpcEndpoint,
+        endpoint: JsonObject,
         listener: SettingBottomAdapter.EndpointListener?
     ) {
         binding.apply {
-            provider.text = endpoint.provider
-            providerUrl.text = endpoint.url.replace("https://", "")
+            provider.text = endpoint.get("provider").asString
+            providerUrl.text = endpoint.get("url").asString.replace("https://", "")
 
             val checkTime = System.currentTimeMillis() / 1000.0
-            val url = endpoint.url
+            val url = endpoint.get("url").asString
             checkImg.goneOrVisible(fromChain?.getEvmRpc() != url)
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -71,23 +71,24 @@ class EndPointViewHolder(
             }
 
             endpointView.setOnClickListener {
-                listener?.rpcSelect(endpoint.url, gapTime)
+                listener?.rpcSelect(endpoint.get("url").asString, gapTime)
             }
         }
     }
 
     fun bind(
         fromChain: CosmosLine?,
-        endpoint: Params.ChainListParams.GrpcEndpoint,
+        endpoint: JsonObject,
         listener: SettingBottomAdapter.EndpointListener?
     ) {
         binding.apply {
-            provider.text = endpoint.provider
-            providerUrl.text = endpoint.url
+            provider.text = endpoint.get("provider").asString
+            providerUrl.text = endpoint.get("url").asString
 
             val checkTime = System.currentTimeMillis() / 1000.0
-            val host = endpoint.url.split(":")[0].trim()
-            val port = endpoint.url.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+            val host = endpoint.get("url").asString.split(":")[0].trim()
+            val port =
+                endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
             checkImg.goneOrVisible(fromChain?.getGrpc()?.first != host)
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -136,7 +137,7 @@ class EndPointViewHolder(
             }
 
             endpointView.setOnClickListener {
-                listener?.select(endpoint.url, gapTime)
+                listener?.select(endpoint.get("url").asString, gapTime)
             }
         }
     }

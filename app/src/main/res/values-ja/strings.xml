@@ -309,6 +309,7 @@
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
     <string name="error_tranfer_disabled">このチェーンは伝達関数をサポートしていません。</string>
     <string name="error_useless_end_point">使用できません。</string>
+    <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
 
 
     <string name="tx_unknown">不明</string>

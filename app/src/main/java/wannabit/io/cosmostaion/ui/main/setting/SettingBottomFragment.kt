@@ -15,11 +15,11 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.data.model.res.Params
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
+
 
 class SettingBottomFragment : BottomSheetDialogFragment() {
 
@@ -179,7 +179,14 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
-                    settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.evmRpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+
+                    val rpcEndpoints: MutableList<Any> = ArrayList()
+                    fromChain?.getChainListParam()?.getAsJsonArray("evm_rpc_endpoint")?.let {
+                        for (jsonElement in it) {
+                            rpcEndpoints.add(jsonElement.asJsonObject)
+                        }
+                    }
+                    settingAdapter.submitList(rpcEndpoints)
                 }
 
                 SettingType.END_POINT_COSMOS -> {
@@ -207,7 +214,14 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
-                    settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.grpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+
+                    val grpcEndpoints: MutableList<Any> = ArrayList()
+                    fromChain?.getChainListParam()?.getAsJsonArray("grpc_endpoint")?.let {
+                        for (jsonElement in it) {
+                            grpcEndpoints.add(jsonElement.asJsonObject)
+                        }
+                    }
+                    settingAdapter.submitList(grpcEndpoints)
                 }
             }
         }
@@ -298,7 +312,14 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = settingAdapter
-                        settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.grpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+
+                        val grpcEndpoints: MutableList<Any> = ArrayList()
+                        fromChain?.getChainListParam()?.getAsJsonArray("grpc_endpoint")?.let {
+                            for (jsonElement in it) {
+                                grpcEndpoints.add(jsonElement.asJsonObject)
+                            }
+                        }
+                        settingAdapter.submitList(grpcEndpoints)
                     }
 
                     else -> {
@@ -311,7 +332,14 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = settingAdapter
-                        settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.evmRpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+
+                        val rpcEndpoints: MutableList<Any> = ArrayList()
+                        fromChain?.getChainListParam()?.getAsJsonArray("evm_rpc_endpoint")?.let {
+                            for (jsonElement in it) {
+                                rpcEndpoints.add(jsonElement.asJsonObject)
+                            }
+                        }
+                        settingAdapter.submitList(rpcEndpoints)
                     }
                 }
             }

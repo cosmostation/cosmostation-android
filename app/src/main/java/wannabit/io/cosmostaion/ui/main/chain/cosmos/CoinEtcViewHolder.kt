@@ -31,8 +31,8 @@ class CoinEtcViewHolder(
 
             val token = line.lcdBeaconTokens.firstOrNull { it.symbol == coin.denom }
             if (token != null) {
-                tokenImg.setTokenImg(ChainBinanceBeacon().assetImg(token.originalSymbol))
-                tokenName.text = token.originalSymbol.uppercase()
+                tokenImg.setTokenImg(ChainBinanceBeacon().assetImg(token.original_symbol))
+                tokenName.text = token.original_symbol.uppercase()
                 tokenDescription.text = token.name
             }
 
@@ -55,8 +55,8 @@ class CoinEtcViewHolder(
 
             if (chain is ChainOkt996Keccak) {
                 chain.oktTokenInfo?.data?.firstOrNull { it.symbol == coin.denom }?.let { token ->
-                    tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(token.originalSymbol))
-                    tokenName.text = token.originalSymbol.uppercase()
+                    tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(token.original_symbol))
+                    tokenName.text = token.original_symbol.uppercase()
                     tokenDescription.text = token.description
 
                     if (Prefs.hideValue) {
@@ -71,8 +71,8 @@ class CoinEtcViewHolder(
 
             } else if (chain is ChainOktEvm) {
                 chain.oktTokenInfo?.data?.firstOrNull { it.symbol == coin.denom }?.let { token ->
-                    tokenImg.setTokenImg(ChainOktEvm().assetImg(token.originalSymbol))
-                    tokenName.text = token.originalSymbol.uppercase()
+                    tokenImg.setTokenImg(ChainOktEvm().assetImg(token.original_symbol))
+                    tokenName.text = token.original_symbol.uppercase()
                     tokenDescription.text = token.description
 
                     if (Prefs.hideValue) {

@@ -133,7 +133,7 @@ class LegacyTransferFragment : BaseTxFragment() {
                 (fromChain as ChainBinanceBeacon).apply {
                     lcdBeaconTokens.firstOrNull { it.symbol == toSendDenom }?.let { token ->
                         bnbToken = token
-                        val originalSymbol = token.originalSymbol
+                        val originalSymbol = token.original_symbol
                         tokenImg.setTokenImg(assetImg(originalSymbol))
                         tokenName.text = originalSymbol.uppercase()
 
@@ -154,7 +154,7 @@ class LegacyTransferFragment : BaseTxFragment() {
                 (fromChain as ChainOkt996Keccak).apply {
                     oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
                         oktToken = tokenInfo
-                        val originalSymbol = tokenInfo.originalSymbol
+                        val originalSymbol = tokenInfo.original_symbol
                         tokenImg.setTokenImg(assetImg(originalSymbol))
                         tokenName.text = originalSymbol.uppercase()
 
@@ -175,7 +175,7 @@ class LegacyTransferFragment : BaseTxFragment() {
                 (fromChain as ChainOktEvm).apply {
                     oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
                         oktToken = tokenInfo
-                        val originalSymbol = tokenInfo.originalSymbol
+                        val originalSymbol = tokenInfo.original_symbol
                         tokenImg.setTokenImg(assetImg(originalSymbol))
                         tokenName.text = originalSymbol.uppercase()
 
@@ -444,7 +444,7 @@ class LegacyTransferFragment : BaseTxFragment() {
                     ECKey.fromPrivate(fromChain.privateKey)?.let {
                         val wallet = Wallet(it.privateKeyAsHex, BinanceDexEnvironment.PROD)
                         fromChain.lcdAccountInfo?.let { account ->
-                            wallet.accountNumber = account.accountNumber
+                            wallet.accountNumber = account.account_number
                             wallet.sequence = account.sequence.toLong()
                         }
 

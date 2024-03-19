@@ -104,6 +104,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
+    fun param() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.param()) {
+            is NetworkResult.Success -> {
+                response.data?.let { data ->
+                    if (!data.isJsonNull) {
+                        BaseData.chainParam = data
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
     var updatePriceResult = SingleLiveEvent<String>()
 
     fun price(currency: String, force: Boolean? = false) = viewModelScope.launch(Dispatchers.IO) {

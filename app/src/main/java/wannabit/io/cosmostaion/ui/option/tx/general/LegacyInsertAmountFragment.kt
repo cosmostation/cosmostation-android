@@ -115,10 +115,10 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
 
             if (fromChain is ChainBinanceBeacon) {
                 assetDecimal = 8
-                availableDenom.text = bnbTokenInfo?.originalSymbol?.uppercase()
+                availableDenom.text = bnbTokenInfo?.original_symbol?.uppercase()
             } else if (fromChain is ChainOkt996Keccak || fromChain is ChainOktEvm) {
                 assetDecimal = 18
-                availableDenom.text = oktTokenInfo?.originalSymbol?.uppercase()
+                availableDenom.text = oktTokenInfo?.original_symbol?.uppercase()
             }
 
             availableAmount.toBigDecimal().setScale(assetDecimal, RoundingMode.DOWN)
