@@ -104,17 +104,6 @@ class ProposalListAdapter(
         }
     }
 
-    private class ProposalListDiffCallback : DiffUtil.ItemCallback<CosmosProposal>() {
-
-        override fun areItemsTheSame(oldItem: CosmosProposal, newItem: CosmosProposal): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: CosmosProposal, newItem: CosmosProposal): Boolean {
-            return oldItem == newItem
-        }
-    }
-
     interface CheckListener {
         fun proposalCheck(isChecked: Boolean, proposalId: String)
     }

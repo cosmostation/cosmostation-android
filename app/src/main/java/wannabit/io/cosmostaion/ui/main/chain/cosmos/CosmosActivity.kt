@@ -1,11 +1,12 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
@@ -29,8 +30,6 @@ class CosmosActivity : BaseActivity() {
     private lateinit var walletViewModel: WalletViewModel
     private lateinit var proposalViewModel: ProposalViewModel
 
-    private lateinit var selectedChain: BaseChain
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCosmosBinding.inflate(layoutInflater)
@@ -39,21 +38,24 @@ class CosmosActivity : BaseActivity() {
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
         if (savedInstanceState == null) {
+            var selectedChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra("selectedChain", CosmosLine::class.java)
+            } else {
+                (intent.getParcelableExtra("selectedChain")) as? CosmosLine
+            }
+
             BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {
-                it.tag == intent.getStringExtra(
-                    "selectedChainTag"
-                )
-            }?.let { chain ->
-                selectedChain = chain
+                it.tag == selectedChain?.tag
+            }?.let {
+                selectedChain = it
                 supportFragmentManager.beginTransaction().replace(
-                    R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
+                    R.id.fragment_container,
+                    CosmosDetailFragment.newInstance(selectedChain as CosmosLine)
                 ).commitAllowingStateLoss()
 
             } ?: run {
                 BaseData.baseAccount?.allEvmLineChains?.firstOrNull {
-                    it.tag == intent.getStringExtra(
-                        "selectedChainTag"
-                    )
+                    it.tag == selectedChain?.tag
                 }?.let { chain ->
                     selectedChain = chain
                     supportFragmentManager.beginTransaction().replace(
@@ -61,9 +63,9 @@ class CosmosActivity : BaseActivity() {
                     ).commitAllowingStateLoss()
                 }
             }
+            selectedChain?.let { initChainImage(it) }
+            initViewModel()
         }
-        initViewModel()
-        initChainImage()
     }
 
     private fun initViewModel() {
@@ -84,14 +86,14 @@ class CosmosActivity : BaseActivity() {
             ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
     }
 
-    private fun initChainImage() {
+    private fun initChainImage(chain: CosmosLine) {
         binding.chainLogo.apply {
             val width = resources.displayMetrics.widthPixels
             val height = resources.displayMetrics.heightPixels
             val x = (0..width - 150 - 150).random().toFloat()
             val y = (800..height - 150).random().toFloat()
 
-           setImageResource(selectedChain.logo)
+            setImageResource(chain.logo)
             alpha = 0f
             this.x = x
             this.y = y
@@ -119,7 +121,5 @@ class CosmosActivity : BaseActivity() {
 }
 
 enum class TxType {
-    DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW,
-    MINT_CREATE_COLLATERAL, MINT_CREATE_PRINCIPAL, MINT_DEPOSIT, MINT_WITHDRAW, MINT_BORROW, MINT_REPAY,
-    LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_WITHDRAW, EARN_DEPOSIT, EARN_WITHDRAW
+    DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW, MINT_CREATE_COLLATERAL, MINT_CREATE_PRINCIPAL, MINT_DEPOSIT, MINT_WITHDRAW, MINT_BORROW, MINT_REPAY, LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_WITHDRAW, EARN_DEPOSIT, EARN_WITHDRAW
 }

@@ -169,7 +169,12 @@ class TxRepositoryImpl : TxRepository {
     ): Pair<String?, String?> {
         return try {
             val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
-            val web3j = Web3j.build(HttpService(selectedChain.rpcUrl))
+            val rpcUrl = if (selectedChain is EthereumLine) {
+                selectedChain.getEvmRpc()
+            } else {
+                selectedChain.rpcUrl
+            }
+            val web3j = Web3j.build(HttpService(rpcUrl))
             val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
 
             val ethGetTransactionCount: EthGetTransactionCount =
@@ -206,7 +211,7 @@ class TxRepositoryImpl : TxRepository {
                     )
                 )
                 val estimateGasJsonRequest = ObjectMapper().writeValueAsString(estimateGasRequest)
-                val estimateGasRpcRequest = Request.Builder().url(selectedChain.rpcUrl)
+                val estimateGasRpcRequest = Request.Builder().url(rpcUrl)
                     .post(estimateGasJsonRequest.toRequestBody("application/json".toMediaTypeOrNull()))
                     .build()
 
@@ -240,7 +245,7 @@ class TxRepositoryImpl : TxRepository {
                 )
             )
             val jsonRequest = ObjectMapper().writeValueAsString(request)
-            val rpcRequest = Request.Builder().url(selectedChain.rpcUrl)
+            val rpcRequest = Request.Builder().url(rpcUrl)
                 .post(jsonRequest.toRequestBody("application/json".toMediaTypeOrNull())).build()
 
             val response = OkHttpClient().newCall(rpcRequest).execute()

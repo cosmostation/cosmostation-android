@@ -25,10 +25,11 @@ data class Params(
     }
 
     data class ChainListParams(
-        val fee: Fee,
+        val fee: Fee?,
         @Json(name = "grpc_endpoint") val grpcEndpoint: MutableList<GrpcEndpoint>?,
-        val about: About,
-        val description: Description,
+        @Json(name = "evm_rpc_endpoint") val evmRpcEndpoint: MutableList<GrpcEndpoint>?,
+        val about: About?,
+        val description: Description?,
         val daos: MutableList<Dao>?,
         val vaults: MutableList<Vault>?
     ) {

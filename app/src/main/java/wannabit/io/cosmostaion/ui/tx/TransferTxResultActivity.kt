@@ -277,7 +277,7 @@ class TransferTxResultActivity : BaseActivity() {
             val web3j = if (fromChain is ChainOkt996Keccak) {
                 Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
             } else {
-                Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+                Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
             }
 
             try {

@@ -2,7 +2,8 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -15,6 +16,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -69,6 +71,19 @@ open class EthereumLine : CosmosLine(), Parcelable {
             result = result.add(value)
         }
         return result
+    }
+
+    override fun web3j(): Web3j? {
+        return Web3j.build(HttpService(getEvmRpc()))
+    }
+
+    fun getEvmRpc(): String {
+        val endpoint = Prefs.getEvmRpcEndpoint(this)
+        return if (endpoint?.isNotEmpty() == true) {
+            endpoint
+        } else {
+            rpcUrl
+        }
     }
 }
 

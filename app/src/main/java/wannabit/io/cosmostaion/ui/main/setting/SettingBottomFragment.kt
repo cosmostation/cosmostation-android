@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Params
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 
 class SettingBottomFragment : BottomSheetDialogFragment() {
@@ -50,6 +57,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -89,7 +97,8 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         getString(R.string.title_language_ja)
                     )
 
-                    settingAdapter = SettingBottomAdapter(requireContext(), null, SettingType.LANGUAGE)
+                    settingAdapter =
+                        SettingBottomAdapter(requireContext(), null, SettingType.LANGUAGE, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -107,7 +116,8 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.str_select_currency)
                     val currencyList = resources.getStringArray(R.array.currency_unit_array)
 
-                    settingAdapter = SettingBottomAdapter(requireContext(), null, SettingType.CURRENCY)
+                    settingAdapter =
+                        SettingBottomAdapter(requireContext(), null, SettingType.CURRENCY, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -128,7 +138,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.title_price_change_color)
 
                     settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, SettingType.PRICE_STATUS)
+                        SettingBottomAdapter(requireContext(), null, SettingType.PRICE_STATUS, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -146,7 +156,8 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.title_buy_crypto)
                     val buyCryptoList = listOf("MOONPAY", "KADO", "BINANCE")
 
-                    settingAdapter = SettingBottomAdapter(requireContext(), null, SettingType.BUY_CRYPTO)
+                    settingAdapter =
+                        SettingBottomAdapter(requireContext(), null, SettingType.BUY_CRYPTO, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -160,13 +171,148 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
                 }
 
-                SettingType.END_POINT -> {
-                    selectTitle.text = getString(R.string.title_select_end_point)
-                    settingAdapter = SettingBottomAdapter(requireContext(), fromChain, SettingType.END_POINT)
+                SettingType.END_POINT_EVM -> {
+                    selectTitle.text = getString(R.string.title_select_end_point_rpc)
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(), fromChain, SettingType.END_POINT_EVM, endpointClickAction
+                    )
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.adapter = settingAdapter
+                    settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.evmRpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+                }
+
+                SettingType.END_POINT_COSMOS -> {
+                    if (fromChain is EthereumLine) {
+                        selectTitle.text = getString(R.string.title_select_end_point)
+                        segmentView.visibility = View.VISIBLE
+
+                        val recyclerViewLayoutParams =
+                            recycler.layoutParams as RelativeLayout.LayoutParams
+                        recyclerViewLayoutParams.addRule(RelativeLayout.BELOW, R.id.segment_view)
+                        recycler.layoutParams = recyclerViewLayoutParams
+                        initSegmentView()
+
+                    } else {
+                        selectTitle.text = getString(R.string.title_select_end_point_grpc)
+                        segmentView.visibility = View.GONE
+                    }
+
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(),
+                        fromChain,
+                        SettingType.END_POINT_COSMOS,
+                        endpointClickAction
+                    )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.grpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+                }
+            }
+        }
+    }
+
+    private val endpointClickAction = object : SettingBottomAdapter.EndpointListener {
+        override fun select(endpoint: String, gapTime: Double?) {
+            if (gapTime != null) {
+                Prefs.setGrpcEndpoint(fromChain, endpoint)
+                dismiss()
+
+                val bundle = Bundle()
+                bundle.putString("endpoint", endpoint)
+                parentFragmentManager.setFragmentResult("endpoint", bundle)
+                dismiss()
+
+            } else {
+                requireActivity().makeToast(R.string.error_useless_end_point)
+                return
+            }
+        }
+
+        override fun rpcSelect(endpoint: String, gapTime: Double?) {
+            if (gapTime != null) {
+                Prefs.setEvmRpcEndpoint(fromChain as EthereumLine, endpoint)
+                dismiss()
+
+                val bundle = Bundle()
+                bundle.putString("endpoint", endpoint)
+                parentFragmentManager.setFragmentResult("endpoint", bundle)
+                dismiss()
+
+            } else {
+                requireActivity().makeToast(R.string.error_useless_end_point)
+                return
+            }
+        }
+    }
+
+    private fun initSegmentView() {
+        binding.apply {
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            rpcSegment.apply {
+                setSelectedBackground(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+                setRipple(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+            }
+
+            for (i in 0 until 2) {
+                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                rpcSegment.addView(
+                    segmentView.root,
+                    i,
+                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                )
+
+                when (i) {
+                    0 -> {
+                        segmentView.btnTitle.text = "gRPC Endpoint"
+                    }
+
+                    else -> {
+                        segmentView.btnTitle.text = "EVM RPC Endpoint"
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
+        binding.apply {
+            rpcSegment.setOnPositionChangedListener { position ->
+                when (position) {
+                    0 -> {
+                        settingAdapter = SettingBottomAdapter(
+                            requireContext(),
+                            fromChain,
+                            SettingType.END_POINT_COSMOS,
+                            endpointClickAction
+                        )
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = settingAdapter
+                        settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.grpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+                    }
+
+                    else -> {
+                        settingAdapter = SettingBottomAdapter(
+                            requireContext(),
+                            fromChain,
+                            SettingType.END_POINT_EVM,
+                            endpointClickAction
+                        )
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = settingAdapter
+                        settingAdapter.submitList(fromChain?.param?.params?.chainlistParams?.evmRpcEndpoint as List<Params.ChainListParams.GrpcEndpoint>?)
+                    }
                 }
             }
         }

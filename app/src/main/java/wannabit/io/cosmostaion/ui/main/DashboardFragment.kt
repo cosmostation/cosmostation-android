@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
@@ -27,6 +33,7 @@ import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
+import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
@@ -112,7 +119,8 @@ class DashboardFragment : Fragment() {
             dashAdapter = DashboardAdapter(
                 requireContext(),
                 account.sortedDisplayEvmLines(),
-                account.sortedDisplayCosmosLines()
+                account.sortedDisplayCosmosLines(),
+                listener = nodeDownCheckAction
             )
 
             binding?.recycler?.apply {
@@ -120,22 +128,48 @@ class DashboardFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = dashAdapter
                 itemAnimator = null
+            }
+        }
+    }
 
-                dashAdapter.setOnItemClickListener { tag ->
-                    if (tag.contains("ethereum60") || tag.contains("polygon60") || tag.contains("optimism60")) {
-                        Intent(requireContext(), EvmActivity::class.java).apply {
-                            putExtra("selectedChainTag", tag)
-                            startActivity(this)
-                        }
-
-                    } else {
-                        Intent(requireContext(), CosmosActivity::class.java).apply {
-                            putExtra("selectedChainTag", tag)
-                            startActivity(this)
-                        }
+    private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
+        override fun nodeDown(line: CosmosLine) {
+            if (!line.fetched) {
+                return
+            }
+            if (line is EthereumLine) {
+                if (line !is ChainOktEvm) {
+                    if (line.supportCosmos && line.cosmosBalances == null) {
+                        nodeDownPopup()
+                        return
                     }
-                    requireActivity().toMoveAnimation()
                 }
+
+                try {
+                    line.web3j()?.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
+                } catch (e: Exception) {
+                    nodeDownPopup()
+                    return
+                }
+
+                Intent(requireContext(), EvmActivity::class.java).apply {
+                    putExtra("selectedChain", line as Parcelable)
+                    startActivity(this)
+                }
+                requireActivity().toMoveAnimation()
+
+            } else {
+                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                    if (line.cosmosBalances == null) {
+                        nodeDownPopup()
+                        return
+                    }
+                }
+                Intent(requireContext(), CosmosActivity::class.java).apply {
+                    putExtra("selectedChain", line as Parcelable)
+                    startActivity(this)
+                }
+                requireActivity().toMoveAnimation()
             }
         }
     }
@@ -210,13 +244,19 @@ class DashboardFragment : Fragment() {
 
                         }
                     }
+
                     if (account.sortedDisplayCosmosLines()
                             .firstOrNull { it.tag == tag }?.fetched == true
                     ) {
                         withContext(Dispatchers.Main) {
+                            val startPosition = if (account.sortedDisplayEvmLines().isNotEmpty()) {
+                                account.sortedDisplayEvmLines().size + 2
+                            } else {
+                                1
+                            }
                             dashAdapter.notifyItemRangeChanged(
-                                account.sortedDisplayEvmLines().size + 2,
-                                (account.sortedDisplayEvmLines().size + account.sortedDisplayCosmosLines().size + 1),
+                                startPosition,
+                                (account.sortedDisplayEvmLines().size + account.sortedDisplayCosmosLines().size + 2),
                                 null
                             )
                         }
@@ -307,6 +347,12 @@ class DashboardFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun nodeDownPopup() {
+        NoticeInfoFragment.newInstance(null).show(
+            requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
+        )
     }
 
     private fun observeViewModels() {

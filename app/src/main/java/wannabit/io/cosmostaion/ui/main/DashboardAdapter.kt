@@ -16,7 +16,8 @@ import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 class DashboardAdapter(
     val context: Context,
     private val displayEvmLines: MutableList<EthereumLine>,
-    private val displayCosmosLines: MutableList<CosmosLine>
+    private val displayCosmosLines: MutableList<CosmosLine>,
+    val listener: NodeDownListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -25,8 +26,6 @@ class DashboardAdapter(
         const val VIEW_TYPE_COSMOS_HEADER = 2
         const val VIEW_TYPE_COSMOS_ITEM = 3
     }
-
-    private var onItemClickListener: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -59,8 +58,7 @@ class DashboardAdapter(
                     holder.evmBind(line)
 
                     holder.itemView.setOnClickListener {
-                        if (line.fetched) onItemClickListener?.let { it(line.tag) }
-                        else return@setOnClickListener
+                        listener.nodeDown(line)
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
@@ -99,8 +97,7 @@ class DashboardAdapter(
                     }
                     holder.bind(line)
                     holder.itemView.setOnClickListener {
-                        if (line.fetched) onItemClickListener?.let { it(line.tag) }
-                        else return@setOnClickListener
+                        listener.nodeDown(line)
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
@@ -169,7 +166,7 @@ class DashboardAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (String) -> Unit) {
-        onItemClickListener = listener
+    interface NodeDownListener {
+        fun nodeDown(line: CosmosLine)
     }
 }

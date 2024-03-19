@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R

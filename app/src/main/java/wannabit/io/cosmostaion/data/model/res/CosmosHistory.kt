@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
-import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonArray

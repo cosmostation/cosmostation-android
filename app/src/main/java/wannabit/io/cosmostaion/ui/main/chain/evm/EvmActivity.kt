@@ -1,11 +1,12 @@
 package wannabit.io.cosmostaion.ui.main.chain.evm
 
 import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
@@ -13,6 +14,7 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityEvmBinding
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosDetailFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
@@ -25,8 +27,6 @@ class EvmActivity : BaseActivity() {
     private lateinit var txViewModel: TxViewModel
     private lateinit var walletViewModel: WalletViewModel
 
-    private lateinit var selectedChain: BaseChain
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEvmBinding.inflate(layoutInflater)
@@ -35,19 +35,23 @@ class EvmActivity : BaseActivity() {
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
         if (savedInstanceState == null) {
+            var selectedChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra("selectedChain", EthereumLine::class.java)
+            } else {
+                (intent.getParcelableExtra("selectedChain")) as? EthereumLine
+            }
+
             BaseData.baseAccount?.allEvmLineChains?.firstOrNull {
-                it.tag == intent.getStringExtra(
-                    "selectedChainTag"
-                )
+                it.tag == selectedChain?.tag
             }?.let { chain ->
                 selectedChain = chain
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, EvmDetailFragment.newInstance(chain)
                 ).commitAllowingStateLoss()
             }
+            selectedChain?.let { initChainImage(it) }
+            initViewModel()
         }
-        initViewModel()
-        initChainImage()
     }
 
     private fun initViewModel() {
@@ -63,14 +67,14 @@ class EvmActivity : BaseActivity() {
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
-    private fun initChainImage() {
+    private fun initChainImage(line: EthereumLine) {
         binding.chainLogo.apply {
             val width = resources.displayMetrics.widthPixels
             val height = resources.displayMetrics.heightPixels
             val x = (0..width - 150 - 150).random().toFloat()
             val y = (800..height - 150).random().toFloat()
 
-            setImageResource(selectedChain.logo)
+            setImageResource(line.logo)
             alpha = 0f
             this.x = x
             this.y = y

@@ -61,6 +61,10 @@ class ChainManageAdapter(
                 } else {
                     val line = allCosmosLines[position - (allEvmLines.size + 2)]
                     holder.bind(line)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let { it(line) }
+                    }
                 }
             }
         }

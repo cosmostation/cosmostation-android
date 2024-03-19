@@ -10,9 +10,10 @@ import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
@@ -114,7 +115,7 @@ open class CosmosLine : BaseChain(), Parcelable {
     var rewardAddress: String? = ""
     var cosmosAuth: com.google.protobuf.Any? = null
     var cosmosValidators = mutableListOf<StakingProto.Validator>()
-    var cosmosBalances: MutableList<Coin>? = mutableListOf()
+    var cosmosBalances: MutableList<Coin>? = null
     var cosmosVestings = mutableListOf<Coin>()
     var cosmosDelegations = mutableListOf<DelegationResponse>()
     var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
@@ -518,6 +519,20 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun monikerImg(opAddress: String?): String {
         return "$CHAIN_BASE_URL$apiName/moniker/$opAddress.png"
+    }
+
+    override fun web3j(): Web3j? {
+        return Web3j.build(HttpService(rpcUrl))
+    }
+
+    fun getGrpc(): Pair<String, Int> {
+        val endPoint = Prefs.getGrpcEndpoint(this)
+        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
+            val host = endPoint.split(":")[0].trim()
+            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+            return Pair(host, port)
+        }
+        return Pair(grpcHost, grpcPort)
     }
 }
 

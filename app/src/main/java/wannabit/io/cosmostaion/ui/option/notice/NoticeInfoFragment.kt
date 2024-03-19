@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.databinding.FragmentNoticeInfoBinding
@@ -17,11 +18,11 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentNoticeInfoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private var selectedChain: CosmosLine? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): NoticeInfoFragment {
+        fun newInstance(selectedChain: CosmosLine?): NoticeInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -54,15 +55,29 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                 selectedChain = it
             }
         }
+
+        binding.apply {
+            selectedChain?.let {
+                nodeLayout.visibility = View.GONE
+                btnGithub.visibility = View.VISIBLE
+                binding.dialogMsg.text = getString(R.string.str_token_github_msg)
+
+            } ?: run {
+                dialogTitle.text = ""
+                nodeLayout.visibility = View.VISIBLE
+                btnGithub.visibility = View.GONE
+                binding.dialogMsg.text = getString(R.string.str_node_down_msg)
+            }
+        }
     }
 
     private fun setUpClickAction() {
         binding.apply {
             btnGithub.setOnClickListener {
                 val githubUrl = if (selectedChain is EthereumLine) {
-                    "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain.apiName + "/erc20.json"
+                    "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/erc20.json"
                 } else {
-                    "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain.apiName + "/cw20.json"
+                    "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw20.json"
                 }
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
             }

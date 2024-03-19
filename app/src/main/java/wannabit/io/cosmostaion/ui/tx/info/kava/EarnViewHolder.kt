@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.tx.info.kava
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto.Coin

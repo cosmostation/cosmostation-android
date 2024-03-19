@@ -1,11 +1,14 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
-class ChainPersistence750 : ChainPersistence118() {
+@Parcelize
+class ChainPersistence750 : ChainPersistence118(), Parcelable {
 
     override var isDefault = false
     override var tag: String = "persistence750"

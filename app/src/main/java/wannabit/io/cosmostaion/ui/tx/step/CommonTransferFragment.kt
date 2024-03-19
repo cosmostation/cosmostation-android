@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -937,7 +936,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     val web3j = if (fromChain is ChainOkt996Keccak) {
                         Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
                     } else {
-                        Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+                        Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
                     }
                     txViewModel.broadcastEvmSend(web3j, evmHexValue)
 
@@ -1078,7 +1077,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun getRecipientChannel(): ManagedChannel? {
         return (toChain as CosmosLine).run {
-            ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
+            ManagedChannelBuilder.forAddress(getGrpc().first, getGrpc().second).useTransportSecurity().build()
         }
     }
 
