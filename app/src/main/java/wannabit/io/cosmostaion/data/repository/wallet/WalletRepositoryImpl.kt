@@ -15,6 +15,7 @@ import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsR
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +42,7 @@ import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.beaconApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.chainApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
@@ -60,7 +62,6 @@ import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
 import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
-import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
@@ -126,9 +127,9 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun param(line: CosmosLine): NetworkResult<Param?> {
+    override suspend fun param(): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanApi.param(line.apiName).body()
+            mintscanJsonApi.param().body()
         }
     }
 

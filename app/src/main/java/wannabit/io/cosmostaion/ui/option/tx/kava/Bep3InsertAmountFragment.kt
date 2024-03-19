@@ -120,7 +120,7 @@ class Bep3InsertAmountFragment : BottomSheetDialogFragment() {
                         availAmount.toBigDecimal().movePointLeft(assetDecimal)
                             ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
                                 available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                                availableDenom.text = tokenInfo.originalSymbol.uppercase()
+                                availableDenom.text = tokenInfo.original_symbol.uppercase()
                             }
                     }
 

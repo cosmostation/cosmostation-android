@@ -38,9 +38,6 @@ import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import com.walletconnect.sign.client.SignInterface
 import com.walletconnect.util.bytesToHex
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import net.i2p.crypto.eddsa.Utils
 import okhttp3.OkHttpClient
 import org.apache.commons.lang3.StringUtils
@@ -191,7 +188,11 @@ class DappActivity : BaseActivity() {
             makeToast(R.string.str_wc_connected)
 
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.tag.contains("kava459")}
+                account.allCosmosLineChains.firstOrNull {
+                    it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.tag.contains(
+                        "kava459"
+                    )
+                }
                     ?.let { chain ->
                         selectedChain = chain
                         selectedChain?.fetchFilteredCosmosChain()
@@ -1031,21 +1032,11 @@ class DappActivity : BaseActivity() {
             if (type == BaseAccountType.MNEMONIC) {
                 if (address?.isEmpty() == true) {
                     setInfoWithSeed(seed, setParentPath, lastHDPath)
-                    if (param == null) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            param = loadParam()
-                        }
-                    }
                 }
 
             } else if (type == BaseAccountType.PRIVATE_KEY) {
                 if (address?.isEmpty() == true) {
                     setInfoWithPrivateKey(privateKey)
-                    if (param == null) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            param = loadParam()
-                        }
-                    }
                 }
             }
         }

@@ -44,7 +44,7 @@ class ProposalListViewHolder(
                 voteRemainTime.visibility = View.VISIBLE
                 switchView.visibility = View.VISIBLE
                 val endTimeToLong = dateToLong(
-                    context.getString(R.string.str_tx_time_format), proposal.votingEndTime
+                    context.getString(R.string.str_tx_time_format), proposal.voting_end_time
                 )
                 voteRemainTime.text = "${voteDpTime(endTimeToLong)} (${gapTime(endTimeToLong)})"
                 selectSwitch.thumbDrawable =
@@ -61,9 +61,9 @@ class ProposalListViewHolder(
                     )
                 )
             }
-            expeditedImg.visibleOrGone(proposal.isExpedited)
+            expeditedImg.visibleOrGone(proposal.is_expedited)
 
-            myVotes.firstOrNull { it.proposalId == proposal.id }?.let { rawVote ->
+            myVotes.firstOrNull { it.proposal_id == proposal.id }?.let { rawVote ->
                 if (rawVote.votes.size > 1) {
                     statusImg.setImageResource(R.drawable.icon_weight)
                     return

@@ -18,14 +18,12 @@ data class CosmosProposal(
     val id: String?,
     val title: String?,
     val description: String?,
-    @Json(name = "proposal_type") val proposalType: String?,
-    @Json(name = "proposal_status") val proposalStatus: String?,
-    @Json(name = "voting_start_time") val votingStartTime: String?,
-    @Json(name = "voting_end_time") val votingEndTime: String?,
-    @Json(name = "is_expedited") val isExpedited: Boolean = false,
+    val proposal_status: String?,
+    val voting_end_time: String?,
+    val is_expedited: Boolean = false,
     val yes: String?,
     val no: String?,
-    @Json(name = "no_with_veto") val veto: String?,
+    val no_with_veto: String?,
     val abstain: String?,
 ) : Parcelable {
 
@@ -33,13 +31,13 @@ data class CosmosProposal(
         var sum = BigDecimal.ZERO
         sum = sum.add(if (yes.isNullOrEmpty()) BigDecimal.ZERO else yes.toBigDecimal())
         sum = sum.add(if (no.isNullOrEmpty()) BigDecimal.ZERO else no.toBigDecimal())
-        sum = sum.add(if (veto.isNullOrEmpty()) BigDecimal.ZERO else veto.toBigDecimal())
+        sum = sum.add(if (no_with_veto.isNullOrEmpty()) BigDecimal.ZERO else no_with_veto.toBigDecimal())
         sum = sum.add(if (abstain.isNullOrEmpty()) BigDecimal.ZERO else abstain.toBigDecimal())
         return sum
     }
 
     fun isVotingPeriod(): Boolean {
-        proposalStatus?.let { status ->
+        proposal_status?.let { status ->
             if (status.contains("VOTING")) {
                 return true
             }
@@ -54,7 +52,7 @@ data class CosmosProposal(
     }
 
     fun proposalStatusTxt(): String {
-        proposalStatus?.let { status ->
+        proposal_status?.let { status ->
             if (status.contains("DEPOSIT")) return "DepositPeriod"
             else if (status.contains("VOTING")) return "VotingPeriod"
             else if (status.contains("PASSED")) return "Passed"
@@ -65,7 +63,7 @@ data class CosmosProposal(
     }
 
     fun proposalStatusImg(c: Context): Drawable? {
-        proposalStatus?.let { status ->
+        proposal_status?.let { status ->
             if (status.contains("DEPOSIT")) return ContextCompat.getDrawable(
                 c, R.drawable.icon_vote_deposit
             )
@@ -89,13 +87,12 @@ data class CosmosProposal(
 data class VoteStatus(var votes: MutableList<VoteData> = mutableListOf())
 
 data class VoteData(
-    @Json(name = "proposal_id") val proposalId: String?,
+    val proposal_id: String?,
     val votes: MutableList<Vote> = mutableListOf()
 )
 
 data class Vote(
     val voter: String?,
     val option: String?,
-    @Json(name = "tx_hash") val txHash: String?,
     val timestamp: String?
 )

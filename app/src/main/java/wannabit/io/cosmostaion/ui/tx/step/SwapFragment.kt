@@ -39,7 +39,6 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -159,7 +158,7 @@ class SwapFragment : BaseTxFragment() {
         BaseData.baseAccount?.let { account ->
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    allEvmLineChains.forEach {line ->
+                    allEvmLineChains.forEach { line ->
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                         }
@@ -172,7 +171,7 @@ class SwapFragment : BaseTxFragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allEvmLineChains.forEach {line ->
+                    allEvmLineChains.forEach { line ->
                         if (line.address?.isEmpty() == true) {
                             line.setInfoWithPrivateKey(privateKey)
                         }
@@ -245,10 +244,10 @@ class SwapFragment : BaseTxFragment() {
                     } else {
                         availableAmount = inputBalance
                     }
-                    val dpAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
+                    val inputDpAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
                         .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
                     inputAvailable.text =
-                        formatAmount(dpAmount.toPlainString(), inputAsset?.decimals ?: 6)
+                        formatAmount(inputDpAmount.toPlainString(), inputAsset?.decimals ?: 6)
 
                     outputCosmosLine?.let { line ->
                         toAddress.text = line.address
@@ -263,10 +262,12 @@ class SwapFragment : BaseTxFragment() {
                             }
 
                             val outputBalance = line.balanceAmount(outputDenom)
-                            val dpAmount = outputBalance.movePointLeft(outputAsset?.decimals ?: 6)
-                                .setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
-                            outputAvailable.text =
-                                formatAmount(dpAmount.toPlainString(), outputAsset?.decimals ?: 6)
+                            val outputDpAmount =
+                                outputBalance.movePointLeft(outputAsset?.decimals ?: 6)
+                                    .setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
+                            outputAvailable.text = formatAmount(
+                                outputDpAmount.toPlainString(), outputAsset?.decimals ?: 6
+                            )
                         }
                     }
                 }
@@ -320,11 +321,9 @@ class SwapFragment : BaseTxFragment() {
                     val channel = getChannel(line)
                     val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
                     val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
-                    val loadInputParamDeferred = async { line.loadParam() }
 
                     line.cosmosAuth = loadInputAuthDeferred.await()?.account
                     line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
-                    line.param = loadInputParamDeferred.await()
                     BaseUtils.onParseVestingAccount(line)
                 }
 
@@ -332,11 +331,9 @@ class SwapFragment : BaseTxFragment() {
                     val channel = getChannel(line)
                     val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
                     val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
-                    val loadOutputParamDeferred = async { line.loadParam() }
 
                     line.cosmosAuth = loadOutputAuthDeferred.await()?.account
                     line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
-                    line.param = loadOutputParamDeferred.await()
                     BaseUtils.onParseVestingAccount(line)
                 }
 
@@ -638,7 +635,8 @@ class SwapFragment : BaseTxFragment() {
 
             inputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(skipChains,
+                    ChainFragment.newInstance(
+                        skipChains,
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -668,12 +666,10 @@ class SwapFragment : BaseTxFragment() {
                                                 async { loadAuth(channel, line.address) }
                                             val loadInputBalanceDeferred =
                                                 async { loadBalance(channel, line.address) }
-                                            val loadInputParamDeferred = async { line.loadParam() }
 
                                             line.cosmosAuth = loadInputAuthDeferred.await()?.account
                                             line.cosmosBalances =
                                                 loadInputBalanceDeferred.await().balancesList
-                                            line.param = loadInputParamDeferred.await()
                                             BaseUtils.onParseVestingAccount(line)
                                         }
 
@@ -689,7 +685,8 @@ class SwapFragment : BaseTxFragment() {
 
             inputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(inputCosmosLine, inputAssets,
+                    AssetSelectFragment.newInstance(inputCosmosLine,
+                        inputAssets,
                         inputCosmosLine?.cosmosBalances,
                         AssetSelectType.SWAP_INPUT,
                         object : AssetListener {
@@ -722,7 +719,8 @@ class SwapFragment : BaseTxFragment() {
 
             outputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(skipChains,
+                    ChainFragment.newInstance(
+                        skipChains,
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -752,12 +750,11 @@ class SwapFragment : BaseTxFragment() {
                                                 async { loadAuth(channel, line.address) }
                                             val loadOutputBalanceDeferred =
                                                 async { loadBalance(channel, line.address) }
-                                            val loadOutputParamDeferred = async { line.loadParam() }
 
-                                            line.cosmosAuth = loadOutputAuthDeferred.await()?.account
+                                            line.cosmosAuth =
+                                                loadOutputAuthDeferred.await()?.account
                                             line.cosmosBalances =
                                                 loadOutputBalanceDeferred.await().balancesList
-                                            line.param = loadOutputParamDeferred.await()
                                             BaseUtils.onParseVestingAccount(line)
                                         }
 
@@ -773,7 +770,8 @@ class SwapFragment : BaseTxFragment() {
 
             outputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(outputCosmosLine, outputAssets,
+                    AssetSelectFragment.newInstance(outputCosmosLine,
+                        outputAssets,
                         outputCosmosLine?.cosmosBalances,
                         AssetSelectType.SWAP_OUTPUT,
                         object : AssetListener {

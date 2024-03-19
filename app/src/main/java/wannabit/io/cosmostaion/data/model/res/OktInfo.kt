@@ -38,7 +38,7 @@ data class OktTokenResponse(
 data class OktToken(
     val description: String?,
     val symbol: String,
-    @Json(name = "original_symbol") val originalSymbol: String
+    val original_symbol: String
 ) : Parcelable
 
 data class OktHistoryResponse(

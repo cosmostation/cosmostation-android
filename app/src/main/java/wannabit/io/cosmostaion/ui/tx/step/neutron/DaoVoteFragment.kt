@@ -353,7 +353,11 @@ class DaoVoteFragment : BaseTxFragment() {
             }
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateWasm(
-                getChannel(selectedChain), selectedChain.address, onBindWasmVoteMsg(), txFee, txMemo,
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindWasmVoteMsg(),
+                txFee,
+                txMemo,
                 selectedChain
             )
         }
@@ -424,12 +428,13 @@ class DaoVoteFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                        0
-                    )?.address
+                    selectedChain.getChainListParam().getAsJsonArray("daos")
+                        .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                        ?.get(0)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )
         }
+
         toMultipleProposals?.forEach { multi ->
             val req = MultiVoteReq(
                 MultiVote(multi.id?.toInt(), WeightVote(multi.myVote?.toInt()))
@@ -438,21 +443,22 @@ class DaoVoteFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                        1
-                    )?.address
+                    selectedChain.getChainListParam().getAsJsonArray("daos")
+                        .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                        ?.get(1)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )
         }
+
         toOverruleProposals?.forEach { overrule ->
             val req = VoteReq(Vote(overrule.id?.toInt(), overrule.myVote))
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                        2
-                    )?.address
+                    selectedChain.getChainListParam().getAsJsonArray("daos")
+                        .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                        ?.get(2)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )
         }

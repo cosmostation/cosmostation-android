@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -92,6 +93,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 response.data.let { data ->
                     if (data.isSuccessful) {
                         BaseData.chains = data.body()?.chains
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    fun param() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.param()) {
+            is NetworkResult.Success -> {
+                response.data?.let { data ->
+                    if (!data.isJsonNull) {
+                        BaseData.chainParam = data
                     } else {
                         _errorMessage.postValue("Error")
                     }

@@ -106,7 +106,7 @@ class OktWithdrawFragment : BaseTxFragment() {
             selectedChain.oktTokenInfo?.data?.firstOrNull { it.symbol == selectedChain.stakeDenom }
                 ?.let { tokenInfo ->
                     oktTokenInfo = tokenInfo
-                    val originalSymbol = tokenInfo.originalSymbol
+                    val originalSymbol = tokenInfo.original_symbol
                     tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
                     tokenName.text = originalSymbol.uppercase()
                     availableAmount = selectedChain.lcdOktDepositAmount()

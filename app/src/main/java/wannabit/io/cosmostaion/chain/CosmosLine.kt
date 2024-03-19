@@ -8,6 +8,7 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.gson.JsonObject
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
@@ -84,13 +85,9 @@ import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
-import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
-import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -122,8 +119,6 @@ open class CosmosLine : BaseChain(), Parcelable {
     var cosmosRewards = mutableListOf<DelegationDelegatorReward>()
 
     var tokens = mutableListOf<Token>()
-
-    var param: Param? = null
 
     var lcdAccountInfo: AccountResponse? = null
     var lcdBeaconTokens = mutableListOf<BnbToken>()
@@ -157,6 +152,15 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
+    fun getChainParam(): JsonObject {
+        return BaseData.chainParam?.getAsJsonObject(apiName) ?: JsonObject()
+    }
+
+    fun getChainListParam(): JsonObject {
+        return getChainParam().getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+            ?: JsonObject()
+    }
+
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
         val gasAmount = BigDecimal(BASE_GAS_AMOUNT)
         val feeDatas = getFeeInfos(c)[position].feeDatas
@@ -172,7 +176,7 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getFeeBasePosition(): Int {
-        return param?.params?.chainlistParams?.fee?.base?.toInt() ?: 0
+        return getChainListParam().getAsJsonObject("fee")?.get("base")?.asInt ?: 0
     }
 
     open fun isTxFeePayable(c: Context): Boolean {
@@ -201,8 +205,8 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun getFeeInfos(c: Context): MutableList<FeeInfo> {
         val result: MutableList<FeeInfo> = mutableListOf()
-        param?.params?.chainlistParams?.fee?.rate?.forEach { rate ->
-            result.add(FeeInfo(rate))
+        getChainListParam().getAsJsonObject("fee").getAsJsonArray("rate").forEach { rate ->
+            result.add(FeeInfo(rate.asString))
         }
 
         if (result.size == 1) {
@@ -235,27 +239,14 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun isGasSimulable(): Boolean {
-        return param?.params?.chainlistParams?.fee?.isSimulable ?: true
+        return getChainListParam().getAsJsonObject("fee").get("isSimulable")?.asBoolean ?: true
     }
 
     fun gasMultiply(): Double {
-        param?.params?.chainlistParams?.fee?.simulGasMultiply?.let { multiply ->
-            return multiply
-        } ?: run {
-            return 1.2
-        }
-    }
-
-    suspend fun loadParam(): Param? {
-        return when (val response = safeApiCall { RetrofitInstance.mintscanApi.param(apiName) }) {
-            is NetworkResult.Success -> {
-                response.data.body()
+        return getChainListParam().getAsJsonObject("fee").get("simul_gas_multiply")?.asDouble
+            ?: run {
+                1.2
             }
-
-            is NetworkResult.Error -> {
-                null
-            }
-        }
     }
 
     fun balanceAmount(denom: String): BigDecimal {
@@ -611,7 +602,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {
             line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
         }
     }
     if (!Prefs.displayLegacy) {

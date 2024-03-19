@@ -234,31 +234,33 @@ class DashboardFragment : Fragment() {
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .firstOrNull { it.tag == tag }?.fetched == true
-                    ) {
-                        withContext(Dispatchers.Main) {
-                            dashAdapter.notifyItemRangeChanged(
-                                1, account.sortedDisplayEvmLines().size + 1, null
-                            )
+                    for (i in 0 until account.sortedDisplayEvmLines().size) {
+                        if (account.sortedDisplayEvmLines()[i].fetched) {
+                            withContext(Dispatchers.Main) {
+                                dashAdapter.notifyItemRangeChanged(
+                                    1, account.sortedDisplayEvmLines().size + 1, null
+                                )
 
+                            }
                         }
                     }
 
-                    if (account.sortedDisplayCosmosLines()
-                            .firstOrNull { it.tag == tag }?.fetched == true
-                    ) {
-                        withContext(Dispatchers.Main) {
-                            val startPosition = if (account.sortedDisplayEvmLines().isNotEmpty()) {
-                                account.sortedDisplayEvmLines().size + 2
-                            } else {
-                                1
+                    for (i in 0 until account.sortedDisplayCosmosLines().size) {
+                        if (account.sortedDisplayCosmosLines()[i].fetched) {
+                            withContext(Dispatchers.Main) {
+                                val startPosition =
+                                    if (account.sortedDisplayEvmLines().isNotEmpty()) {
+                                        account.sortedDisplayEvmLines().size + 2
+                                    } else {
+                                        1
+                                    }
+                                dashAdapter.notifyItemRangeChanged(
+                                    startPosition,
+                                    (account.sortedDisplayEvmLines().size + account.sortedDisplayCosmosLines().size + 2),
+                                    null
+                                )
+
                             }
-                            dashAdapter.notifyItemRangeChanged(
-                                startPosition,
-                                (account.sortedDisplayEvmLines().size + account.sortedDisplayCosmosLines().size + 2),
-                                null
-                            )
                         }
                     }
                 }

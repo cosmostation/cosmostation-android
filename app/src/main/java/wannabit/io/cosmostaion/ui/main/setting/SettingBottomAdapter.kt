@@ -2,14 +2,15 @@ package wannabit.io.cosmostaion.ui.main.setting
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.data.model.res.Params
 import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
@@ -117,14 +118,14 @@ class SettingBottomAdapter(
             }
 
             SettingType.END_POINT_EVM.ordinal -> {
-                val endPoint = currentList[position] as Params.ChainListParams.GrpcEndpoint
+                val endPoint = currentList[position] as JsonObject
                 if (holder is EndPointViewHolder) {
                     holder.evmBind(fromChain as EthereumLine, endPoint, listener)
                 }
             }
 
             SettingType.END_POINT_COSMOS.ordinal -> {
-                val endPoint = currentList[position] as Params.ChainListParams.GrpcEndpoint
+                val endPoint = currentList[position] as JsonObject
                 if (holder is EndPointViewHolder) {
                     holder.bind(fromChain, endPoint, listener)
                 }

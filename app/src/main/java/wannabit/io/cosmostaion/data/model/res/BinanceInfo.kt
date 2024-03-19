@@ -1,23 +1,11 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
-
-@JsonClass(generateAdapter = true)
-data class NodeInfoResponse(@Json(name = "node_info") val nodeInfo: NodeInfo?)
-
-data class NodeInfo(
-    val network: String,
-    val version: String,
-    val moniker: String
-)
-
 
 data class AccountResponse(
     val address: String,
-    @Json(name = "account_number") val accountNumber: Int,
+    val account_number: Int,
     val sequence: Int,
     val balances: List<Balance>?
 )
@@ -33,7 +21,7 @@ data class Balance(
 data class BnbToken(
     val name: String,
     val symbol: String,
-    @Json(name = "original_symbol") val originalSymbol: String
+    val original_symbol: String
 ) : Parcelable
 
 data class SwapIdResponse(

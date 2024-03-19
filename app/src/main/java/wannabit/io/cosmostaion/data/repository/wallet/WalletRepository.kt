@@ -6,6 +6,7 @@ import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRes
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
+import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -23,7 +24,6 @@ import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
 import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
 import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
-import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
@@ -49,7 +49,7 @@ interface WalletRepository {
 
     suspend fun asset(): NetworkResult<Response<AssetResponse>>
 
-    suspend fun param(line: CosmosLine): NetworkResult<Param?>
+    suspend fun param(): NetworkResult<JsonObject?>
 
     suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>>
 

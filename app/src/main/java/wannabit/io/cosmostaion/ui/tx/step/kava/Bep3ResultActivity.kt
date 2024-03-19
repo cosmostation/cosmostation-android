@@ -220,7 +220,7 @@ class Bep3ResultActivity : BaseActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             ECKey.fromPrivate(toChain?.privateKey)?.let {
                 val wallet = Wallet(it.privateKeyAsHex, BinanceDexEnvironment.PROD)
-                wallet.accountNumber = account.accountNumber
+                wallet.accountNumber = account.account_number
                 wallet.sequence = account.sequence.toLong()
 
                 val client = BinanceDexApiClientFactory.newInstance()
@@ -261,7 +261,7 @@ class Bep3ResultActivity : BaseActivity() {
         ECKey.fromPrivate(fromChain?.privateKey)?.let {
             val wallet = Wallet(it.privateKeyAsHex, BinanceDexEnvironment.PROD)
             fromChain?.lcdAccountInfo?.let { account ->
-                wallet.accountNumber = account.accountNumber
+                wallet.accountNumber = account.account_number
                 wallet.sequence = account.sequence.toLong()
             }
 

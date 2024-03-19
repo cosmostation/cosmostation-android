@@ -23,7 +23,7 @@ class VoteViewHolder(
 
             voteId.text = "# " + proposal.id + "."
             voteTitle.text = proposal.title
-            val endTimeToLong = dateToLong(context.getString(R.string.str_tx_time_format), proposal.votingEndTime)
+            val endTimeToLong = dateToLong(context.getString(R.string.str_tx_time_format), proposal.voting_end_time)
             voteRemainTime.text = voteDpTime(endTimeToLong) + " (" + gapTime(endTimeToLong) + ")"
 
             yesView.setOnClickListener {

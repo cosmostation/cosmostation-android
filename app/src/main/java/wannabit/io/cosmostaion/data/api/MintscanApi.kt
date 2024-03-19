@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.api
 
+import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,7 +10,6 @@ import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
-import wannabit.io.cosmostaion.data.model.res.Param
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -25,8 +25,8 @@ interface MintscanApi {
     @GET("v10/meta/support/chains")
     suspend fun chain(): Response<ChainResponse>
 
-    @GET("v10/utils/params/{chain}")
-    suspend fun param(@Path("chain") chain: String): Response<Param>
+    @GET("v10/utils/params")
+    suspend fun param(): Response<JsonObject>
 
     @GET("v10/assets/{chain}/cw20/info")
     suspend fun cw20token(@Path("chain") chain: String): MutableList<Token>

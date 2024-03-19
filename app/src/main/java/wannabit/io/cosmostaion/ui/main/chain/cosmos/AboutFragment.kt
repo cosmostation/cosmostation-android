@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,79 +67,136 @@ class AboutFragment : Fragment() {
             }
 
             chainName.text = selectedChain.name.uppercase()
-            selectedChain.param?.params?.let {
+            selectedChain.getChainListParam().let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
-                    chainDescription.text = it.chainlistParams?.description?.ko
+                    chainDescription.text = it.getAsJsonObject("description").get("ko").asString
                 } else if (Prefs.language == BaseUtils.LANGUAGE_ENGLISH || Locale.getDefault().language == "en") {
-                    chainDescription.text = it.chainlistParams?.description?.en
+                    chainDescription.text = it.getAsJsonObject("description").get("en").asString
                 } else {
-                    chainDescription.text = it.chainlistParams?.description?.ja
+                    chainDescription.text = it.getAsJsonObject("description").get("ja").asString
                 }
-
-                val unBondingTime = unBondingTime(selectedChain)
-                val inflation = try {
-                    (it.mintInflation?.inflation ?: 0).toString().toBigDecimal().movePointRight(2)
-                        .setScale(2, RoundingMode.DOWN)
-                } catch (e: NumberFormatException) {
-                    BigDecimal("0.00")
-                }
-                val apr = try {
-                    (it.apr ?: 0).toString().toBigDecimal().movePointRight(2)
-                        .setScale(2, RoundingMode.DOWN)
-                } catch (e: NumberFormatException) {
-                    BigDecimal("0.00")
-                }
-                unbondingTime.text = unBondingTime.toString() + " Days"
-                chainInflation.text = formatPercent(inflation.toPlainString())
-                chainApr.text = formatPercent(apr.toPlainString())
             }
+
+            val unBondingTime = unBondingTime(selectedChain)
+            val inflation = try {
+                val inflation = selectedChain.getChainParam().getAsJsonObject("params")
+                    .getAsJsonObject("minting_inflation").get("inflation").asString ?: "0"
+                inflation.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN).toString()
+            } catch (e: Exception) {
+                ""
+            }
+            val apr = try {
+                val apr =
+                    selectedChain.getChainParam().getAsJsonObject("params").get("apr").asString
+                        ?: "0"
+                apr.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
+            } catch (e: NumberFormatException) {
+                BigDecimal("0.00")
+            }
+
+            unbondingTime.text = if (unBondingTime.isNotEmpty()) {
+                "$unBondingTime Days"
+            } else {
+                "-"
+            }
+            chainInflation.text = if (inflation.isNotEmpty()) {
+                formatPercent(inflation)
+            } else {
+                "-"
+            }
+            chainApr.text = formatPercent(apr.toPlainString())
         }
     }
 
     private fun clickAction() {
         binding.apply {
-            selectedChain.param?.params?.chainlistParams?.about?.let { about ->
-                if (about.website?.isNotEmpty() == true) {
-                    website.setOnClickListener {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(about.website)))
+            selectedChain.getChainListParam().getAsJsonObject("about")?.let { about ->
+                about.get("website")?.let {
+                    if (about.get("website").asString?.isNotEmpty() == true) {
+                        website.setOnClickListener {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW, Uri.parse(about.get("website").asString)
+                                )
+                            )
+                        }
                     }
+                } ?: run {
+                    return
                 }
 
-                if (about.twitter?.isNotEmpty() == true) {
-                    twitter.setOnClickListener {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(about.twitter)))
+                about.get("twitter")?.let {
+                    if (about.get("twitter").asString?.isNotEmpty() == true) {
+                        twitter.setOnClickListener {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW, Uri.parse(about.get("twitter").asString)
+                                )
+                            )
+                        }
                     }
+
+                } ?: run {
+                    return
                 }
 
-                if (about.github?.isNotEmpty() == true) {
-                    github.setOnClickListener {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(about.github)))
+                about.get("github")?.let {
+                    if (about.get("github").asString?.isNotEmpty() == true) {
+                        github.setOnClickListener {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW, Uri.parse(about.get("github").asString)
+                                )
+                            )
+                        }
                     }
+
+                } ?: run {
+                    return
                 }
 
-                if (about.blog?.isNotEmpty() == true) {
-                    blog.setOnClickListener {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(about.blog)))
+                about.get("blog")?.let {
+                    if (about.get("blog").asString?.isNotEmpty() == true) {
+                        blog.setOnClickListener {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW, Uri.parse(about.get("blog").asString)
+                                )
+                            )
+                        }
                     }
+
+                } ?: run {
+                    return
                 }
 
-                if (about.coingecko?.isNotEmpty() == true) {
-                    coingecko.setOnClickListener {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(about.coingecko)))
+                about.get("coingecko")?.let {
+                    if (about.get("coingecko").asString?.isNotEmpty() == true) {
+                        coingecko.setOnClickListener {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW, Uri.parse(about.get("coingecko").asString)
+                                )
+                            )
+                        }
                     }
+
+                } ?: run {
+                    return
                 }
             }
         }
     }
 
-    private fun unBondingTime(selectedChain: CosmosLine?): Int? {
-        var result: Int? = 0
-        var unBondingTime: String? = ""
-        selectedChain?.param?.params?.let { param ->
-            unBondingTime = param.stakingParams?.params?.unbondingTime ?: "0"
-            result = unBondingTime?.replace("s", "")?.toInt()?.div(60)?.div(60)?.div(24)
+    private fun unBondingTime(selectedChain: CosmosLine?): String {
+        val unBondingTime = selectedChain?.getChainParam()?.getAsJsonObject("params")
+            ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
+            ?.get("unbonding_time")?.asString ?: ""
+        return if (unBondingTime.isNotEmpty()) {
+            unBondingTime.replace("s", "").toInt().div(60).div(60).div(24).toString()
+        } else {
+            ""
         }
-        return result
     }
 
     override fun onDestroyView() {
