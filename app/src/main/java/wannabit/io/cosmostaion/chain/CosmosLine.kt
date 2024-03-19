@@ -242,6 +242,12 @@ open class CosmosLine : BaseChain(), Parcelable {
         return getChainListParam().getAsJsonObject("fee").get("isSimulable")?.asBoolean ?: true
     }
 
+    fun voteThreshold(): String {
+        return getChainListParam().get("voting_threshold")?.asString ?: run {
+            ""
+        }
+    }
+
     fun gasMultiply(): Double {
         return getChainListParam().getAsJsonObject("fee").get("simul_gas_multiply")?.asDouble
             ?: run {

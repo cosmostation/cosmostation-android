@@ -307,6 +307,7 @@
     <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
     <string name="error_tranfer_disabled">전송 기능을 지원하지 않는 체인입니다.</string>
     <string name="error_useless_end_point">사용할 수 없습니다.</string>
+    <string name="error_no_bonding_no_vote">위임량이 충분하지 않아 투표를 하실 수 없습니다.</string>
 
 
     //header
