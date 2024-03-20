@@ -54,6 +54,8 @@ class DashboardFragment : Fragment() {
 
     private var isNew: Boolean = false
 
+    private var isClickable = true
+
     companion object {
         @JvmStatic
         fun newInstance(baseAccount: BaseAccount?): DashboardFragment {
@@ -145,15 +147,9 @@ class DashboardFragment : Fragment() {
                     }
                 }
 
-                lifecycleScope.launch(Dispatchers.IO) {
-                    try {
-                        line.web3j()?.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main) {
-                            nodeDownPopup()
-                            return@withContext
-                        }
-                    }
+                if (line.web3j() == null) {
+                    nodeDownPopup()
+                    return
                 }
 
                 if (line.supportCosmos) {

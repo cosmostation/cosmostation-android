@@ -1,14 +1,9 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -47,16 +42,12 @@ class DashboardViewHolder(
                     }
                 }
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        line.web3j()?.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            return@withContext
-                        }
-                    }
+                if (line.web3j() == null) {
+                    respondLayout.visibility = View.VISIBLE
+                    chainValue.visibility = View.GONE
+                } else {
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.VISIBLE
                 }
 
                 if (Prefs.hideValue) {
@@ -92,10 +83,12 @@ class DashboardViewHolder(
                         chainTypeBadge.visibility = View.VISIBLE
                         chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
                     }
+
                     "okt996_Secp" -> {
                         chainTypeBadge.visibility = View.VISIBLE
                         chainTypeBadge.text = context.getString(R.string.str_secp256k1)
                     }
+
                     else -> {
                         chainTypeBadge.visibility = View.GONE
                     }

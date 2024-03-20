@@ -1,6 +1,10 @@
 package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
@@ -74,7 +78,15 @@ open class EthereumLine : CosmosLine(), Parcelable {
     }
 
     override fun web3j(): Web3j? {
-        return Web3j.build(HttpService(getEvmRpc()))
+        return runBlocking(Dispatchers.IO) {
+            try {
+                val web3j = Web3j.build(HttpService(rpcUrl))
+                web3j.web3ClientVersion().sendAsync().get().web3ClientVersion
+                web3j
+            } catch (e: Exception) {
+                null
+            }
+        }
     }
 
     fun getEvmRpc(): String {
