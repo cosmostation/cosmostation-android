@@ -1,15 +1,17 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
+import android.app.Activity
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.widget.FrameLayout
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
@@ -65,45 +67,54 @@ class TokenEditFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            setupRatio(bottomSheetDialog)
+        }
+        return dialog
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
         setUpClickAction()
         initSearchView()
-        view.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                calculateBottomSheetMargin()
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-            }
-        })
+//        view.viewTreeObserver.addOnGlobalLayoutListener(object :
+//            ViewTreeObserver.OnGlobalLayoutListener {
+//            override fun onGlobalLayout() {
+//                calculateBottomSheetMargin()
+//                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//            }
+//        })
     }
 
-    private fun calculateBottomSheetMargin() {
-        dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            ?.let { bottomSheet ->
-                val location = intArrayOf(0, 0)
-                bottomSheet.getLocationOnScreen(location)
-
-                val params = binding.root.layoutParams as? FrameLayout.LayoutParams
-                params?.let {
-                    it.bottomMargin = location[1] - 90
-                    binding.root.layoutParams = it
-                }
-            }
-    }
+//    private fun calculateBottomSheetMargin() {
+//        dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+//            ?.let { bottomSheet ->
+//                val location = intArrayOf(0, 0)
+//                bottomSheet.getLocationOnScreen(location)
+//
+//                val params = binding.root.layoutParams as? FrameLayout.LayoutParams
+//                params?.let {
+//                    it.bottomMargin = location[1] - 90
+//                    binding.root.layoutParams = it
+//                }
+//            }
+//    }
 
     private fun initView() {
-        val behavior =
-            BottomSheetBehavior.from(dialog!!.findViewById(com.google.android.material.R.id.design_bottom_sheet))
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                calculateBottomSheetMargin()
-            }
-        })
+//        val behavior =
+//            BottomSheetBehavior.from(dialog!!.findViewById(com.google.android.material.R.id.design_bottom_sheet))
+//        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+//
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//                calculateBottomSheetMargin()
+//            }
+//        })
 
         binding.apply {
             selectTitle.text = getString(R.string.title_edit_token_list)
@@ -181,6 +192,25 @@ class TokenEditFragment : BottomSheetDialogFragment() {
             }
             dismiss()
         }
+    }
+
+    private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
+        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
+        val behavior = BottomSheetBehavior.from(bottomSheet)
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = getBottomSheetDialogDefaultHeight()
+        bottomSheet.layoutParams = layoutParams
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun getBottomSheetDialogDefaultHeight(): Int {
+        return getWindowHeight() * 13 / 16
+    }
+
+    private fun getWindowHeight(): Int {
+        val displayMetrics = DisplayMetrics()
+        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
     }
 
     override fun onDestroyView() {
