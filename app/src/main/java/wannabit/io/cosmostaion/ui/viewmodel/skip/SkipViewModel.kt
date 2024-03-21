@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.data.model.res.SkipErrorResponse
 import wannabit.io.cosmostaion.data.model.res.SkipMsgResponse
 import wannabit.io.cosmostaion.data.model.res.SkipRouteResponse
 import wannabit.io.cosmostaion.data.repository.skip.SkipRepository
+import wannabit.io.cosmostaion.database.Prefs
 
 class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
 
@@ -28,13 +29,23 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
     private var _skipDataResult = MutableLiveData<SkipData?>()
     val skipDataResult: LiveData<SkipData?> get() = _skipDataResult
     fun loadData() = CoroutineScope(Dispatchers.IO).launch {
-        if (BaseData.skipChains == null) {
-            BaseData.skipChains = skipChains()
+        val sChains: SkipChainResponse?
+        val sAssets: JsonObject?
+        if (BaseData.needSwapInfoUpdate()) {
+            sChains = skipChains()
+            sAssets = skipAssets()
+
+            if (sChains != null && sAssets != null) {
+                BaseData.setLastSwapInfoTime()
+                Prefs.skipChainInfo = sChains
+                Prefs.skipAssetInfo = sAssets
+            }
+
+        } else {
+            sChains = Prefs.skipChainInfo
+            sAssets = Prefs.skipAssetInfo
         }
-        if (BaseData.skipAssets == null) {
-            BaseData.skipAssets = skipAssets()
-        }
-        _skipDataResult.postValue(SkipData(BaseData.skipChains, BaseData.skipAssets))
+        _skipDataResult.postValue(SkipData(sChains, sAssets))
     }
 
     private suspend fun skipChains(): SkipChainResponse? {
@@ -73,7 +84,9 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
                 if (response.data.isSuccessful) {
                     _skipRouteResult.postValue(response.data.body())
                 } else {
-                    val errorResponse = Gson().fromJson(response.data.errorBody()?.string(), SkipErrorResponse::class.java)
+                    val errorResponse = Gson().fromJson(
+                        response.data.errorBody()?.string(), SkipErrorResponse::class.java
+                    )
                     _skipRouteErrorResult.postValue(errorResponse)
                 }
             }
@@ -93,7 +106,9 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
                 if (response.data.isSuccessful) {
                     _skipMsgResult.postValue(response.data.body())
                 } else {
-                    val errorResponse = Gson().fromJson(response.data.errorBody()?.string(), SkipErrorResponse::class.java)
+                    val errorResponse = Gson().fromJson(
+                        response.data.errorBody()?.string(), SkipErrorResponse::class.java
+                    )
                     _skipRouteErrorResult.postValue(errorResponse)
                 }
             }
@@ -106,6 +121,5 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
 }
 
 data class SkipData(
-    var skipChains: SkipChainResponse?,
-    var skipAssets: JsonObject?
+    var skipChains: SkipChainResponse?, var skipAssets: JsonObject?
 )

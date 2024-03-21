@@ -26,7 +26,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedChain: CosmosLine
     private var swapAssets: MutableList<Asset>? = mutableListOf()
-    private lateinit var swapBalance: MutableList<CoinProto.Coin>
+    private var swapBalance: MutableList<CoinProto.Coin>? = mutableListOf()
     private lateinit var assetSelectType: AssetSelectType
 
     private lateinit var assetSelectAdapter: AssetSelectAdapter
@@ -90,7 +90,9 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
         }
         swapAssets = arguments?.getParcelableArrayList("swapAssets")
         val serializableSwapBalance = arguments?.getSerializable("swapBalance") as? HashSet<*>
-        swapBalance = serializableSwapBalance?.toList() as MutableList<CoinProto.Coin>
+        if (serializableSwapBalance?.isNotEmpty() == true) {
+            swapBalance = serializableSwapBalance.toList() as MutableList<CoinProto.Coin>
+        }
     }
 
     private fun initView() {

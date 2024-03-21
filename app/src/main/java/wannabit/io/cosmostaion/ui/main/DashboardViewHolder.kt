@@ -42,12 +42,10 @@ class DashboardViewHolder(
                     }
                 }
 
-                if (line.web3j() == null) {
+                if (line.web3j == null) {
                     respondLayout.visibility = View.VISIBLE
                     chainValue.visibility = View.GONE
-                } else {
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.VISIBLE
+                    return
                 }
 
                 if (Prefs.hideValue) {
@@ -103,12 +101,14 @@ class DashboardViewHolder(
 
             if (line.fetched) {
                 skeletonChainValue.visibility = View.GONE
-
                 if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
                     if (line.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
-                        return
+
+                    } else {
+                        respondLayout.visibility = View.GONE
+                        chainValue.visibility = View.VISIBLE
                     }
                 }
 

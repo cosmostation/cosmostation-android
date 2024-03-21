@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.hideKeyboard
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.FragmentCreateNameBinding
@@ -40,6 +41,8 @@ class CreateNameFragment : BottomSheetDialogFragment() {
                         requireActivity().makeToast(R.string.error_account_name)
                         return@setOnClickListener
                     }
+                    requireActivity().hideKeyboard(btnConfirm)
+
                     CoroutineScope(Dispatchers.IO).launch {
                         val appDatabase = AppDatabase.getInstance()
                         val selectAllAccount = appDatabase.baseAccountDao().selectAll()

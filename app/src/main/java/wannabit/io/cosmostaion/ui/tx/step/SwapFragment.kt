@@ -39,6 +39,8 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -59,6 +61,7 @@ import wannabit.io.cosmostaion.data.model.res.SkipRouteResponse
 import wannabit.io.cosmostaion.data.model.res.SwapVenue
 import wannabit.io.cosmostaion.data.repository.skip.SkipRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.DialogBigLossWarnBinding
 import wannabit.io.cosmostaion.databinding.FragmentSwapBinding
@@ -92,8 +95,8 @@ class SwapFragment : BaseTxFragment() {
 
     private var skipDataJob: Job? = null
 
-    private var allEvmLines: MutableList<CosmosLine>? = mutableListOf()
-    private var allCosmosLines: MutableList<CosmosLine>? = mutableListOf()
+    private var allSwapAbleChains: MutableList<CosmosLine>? = mutableListOf()
+
     private var skipChains: MutableList<CosmosLine> = mutableListOf()
     private var skipAssets: JsonObject? = null
     private var skipSlippage = "1"
@@ -149,44 +152,48 @@ class SwapFragment : BaseTxFragment() {
 
     private fun initData() {
         skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-            initAllKeyData()
+            allSwapAbleChains = initAllKeyData()
             skipViewModel.loadData()
         }
     }
 
-    private fun initAllKeyData() {
+    private fun initAllKeyData(): MutableList<CosmosLine> {
+        val result = mutableListOf<CosmosLine>()
         BaseData.baseAccount?.let { account ->
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    allEvmLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                        }
+                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
+                        result.add(chain)
                     }
 
-                    allCosmosLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
+                        result.add(chain)
+                    }
+
+                    result.forEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allEvmLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
-                        }
+                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
+                        result.add(chain)
                     }
 
-                    allCosmosLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
+                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
+                        result.add(chain)
+                    }
+
+                    result.forEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithPrivateKey(privateKey)
                         }
                     }
                 }
-                allEvmLines?.addAll(allEvmLineChains)
-                allCosmosLines?.addAll(allCosmosLineChains)
             }
         }
+        return result
     }
 
     private fun updateView() {
@@ -218,21 +225,23 @@ class SwapFragment : BaseTxFragment() {
             errorView.visibility = View.GONE
             inputAmountTxt.setText("")
             outputAmount.text = ""
+            inputAmountValue.text = ""
+            outputAmountValue.text = ""
 
             txFee = baseFee()
-            inputCosmosLine?.let { line ->
-                fromAddress.text = line.address
-                inputChainImg.setImageResource(line.logo)
-                inputChain.text = line.name.uppercase()
+            inputCosmosLine?.let { inputLine ->
+                fromAddress.text = inputLine.address
+                inputChainImg.setImageResource(inputLine.logo)
+                inputChain.text = inputLine.name.uppercase()
 
                 inputAssetSelected?.denom?.let { inputDenom ->
-                    inputAsset = BaseData.getAsset(line.apiName, inputDenom)
+                    inputAsset = BaseData.getAsset(inputLine.apiName, inputDenom)
                     inputAsset?.let { asset ->
                         inputTokenImg.setTokenImg(asset.assetImg())
                         inputToken.text = asset.symbol
                     }
 
-                    val inputBalance = line.balanceAmount(inputDenom)
+                    val inputBalance = inputLine.balanceAmount(inputDenom)
                     if (txFee?.getAmount(0)?.denom == inputDenom) {
                         txFee?.getAmount(0)?.amount?.toBigDecimal()?.let { txFeeAmount ->
                             availableAmount = if (txFeeAmount >= inputBalance) {
@@ -249,19 +258,19 @@ class SwapFragment : BaseTxFragment() {
                     inputAvailable.text =
                         formatAmount(inputDpAmount.toPlainString(), inputAsset?.decimals ?: 6)
 
-                    outputCosmosLine?.let { line ->
-                        toAddress.text = line.address
-                        outputChainImg.setImageResource(line.logo)
-                        outputChain.text = line.name.uppercase()
+                    outputCosmosLine?.let { outPutLine ->
+                        toAddress.text = outPutLine.address
+                        outputChainImg.setImageResource(outPutLine.logo)
+                        outputChain.text = outPutLine.name.uppercase()
 
                         outputAssetSelected?.denom?.let { outputDenom ->
-                            outputAsset = BaseData.getAsset(line.apiName, outputDenom)
+                            outputAsset = BaseData.getAsset(outPutLine.apiName, outputDenom)
                             outputAsset?.let { asset ->
                                 outputTokenImg.setTokenImg(asset.assetImg())
                                 outputToken.text = asset.symbol
                             }
 
-                            val outputBalance = line.balanceAmount(outputDenom)
+                            val outputBalance = outPutLine.balanceAmount(outputDenom)
                             val outputDpAmount =
                                 outputBalance.movePointLeft(outputAsset?.decimals ?: 6)
                                     .setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
@@ -269,6 +278,13 @@ class SwapFragment : BaseTxFragment() {
                                 outputDpAmount.toPlainString(), outputAsset?.decimals ?: 6
                             )
                         }
+
+                        Prefs.lastSwapSet = mutableListOf(
+                            inputLine.tag,
+                            inputAssetSelected?.denom.toString(),
+                            outPutLine.tag,
+                            outputAssetSelected?.denom.toString()
+                        )
                     }
                 }
             }
@@ -279,19 +295,29 @@ class SwapFragment : BaseTxFragment() {
         skipViewModel.skipDataResult.observe(viewLifecycleOwner) { response ->
             response?.let { skipData ->
                 skipData.skipChains?.chains?.forEach { sChain ->
-                    allEvmLines?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
-                        ?.let { skipChain ->
-                            skipChains.add(skipChain)
-                        }
-
-                    allCosmosLines?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
+                    allSwapAbleChains?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
                         ?.let { skipChain ->
                             skipChains.add(skipChain)
                         }
                 }
                 skipAssets = skipData.skipAssets
 
-                inputCosmosLine = skipChains.firstOrNull { it.tag == "cosmos118" }
+                val chainIds = skipChains.map { chain ->
+                    chain.chainId
+                }
+                chainIds.forEach { chainId ->
+                    if ((skipAssets?.getAsJsonObject("chain_to_assets_map")
+                            ?.getAsJsonObject(chainId)
+                            ?.getAsJsonArray("assets")?.asJsonArray?.count() ?: 0) == 0
+                    ) {
+                        skipChains.removeIf { it.chainId == chainId }
+                    }
+                }
+
+                val lastSwapSet = Prefs.lastSwapSet
+
+                inputCosmosLine = skipChains.firstOrNull { it.tag == lastSwapSet[0] }
+                    ?: skipChains.firstOrNull { it.tag == "cosmos118" }
                 inputCosmosLine?.let { line ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
                         ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
@@ -300,10 +326,12 @@ class SwapFragment : BaseTxFragment() {
                                     inputAssets.add(asset)
                                 }
                         }
-                    inputAssetSelected = inputAssets.firstOrNull { it.denom == line.stakeDenom }
+                    inputAssetSelected = inputAssets.firstOrNull { it.denom == lastSwapSet[1] }
+                        ?: inputAssets.firstOrNull { it.denom == line.stakeDenom }
                 }
 
-                outputCosmosLine = skipChains.firstOrNull { it.tag == "neutron118" }
+                outputCosmosLine = skipChains.firstOrNull { it.tag == lastSwapSet[2] }
+                    ?: skipChains.firstOrNull { it.tag == "neutron118" }
                 outputCosmosLine?.let { line ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
                         ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
@@ -312,7 +340,8 @@ class SwapFragment : BaseTxFragment() {
                                     outputAssets.add(asset)
                                 }
                         }
-                    outputAssetSelected = outputAssets.firstOrNull { it.denom == line.stakeDenom }
+                    outputAssetSelected = outputAssets.firstOrNull { it.denom == lastSwapSet[3] }
+                        ?: outputAssets.firstOrNull { it.denom == line.stakeDenom }
                 }
             }
 
@@ -635,8 +664,7 @@ class SwapFragment : BaseTxFragment() {
 
             inputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(
-                        skipChains,
+                    ChainFragment.newInstance(skipChains,
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -719,8 +747,7 @@ class SwapFragment : BaseTxFragment() {
 
             outputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(
-                        skipChains,
+                    ChainFragment.newInstance(skipChains,
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -877,11 +904,7 @@ class SwapFragment : BaseTxFragment() {
     private fun bindSkipMsgReq(route: SkipRouteResponse): SkipMsgReq {
         val addressList = mutableListOf<String>()
         route.chain_ids?.forEach { chainId ->
-            allEvmLines?.firstOrNull { it.chainId == chainId && it.isDefault }?.address?.let { address ->
-                addressList.add(address)
-            }
-
-            allCosmosLines?.firstOrNull { it.chainId == chainId && it.isDefault }?.address?.let { address ->
+            allSwapAbleChains?.firstOrNull { it.chainId == chainId && it.isDefault }?.address?.let { address ->
                 addressList.add(address)
             }
         }

@@ -178,7 +178,9 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     private fun getFeeBaseGasAmount(): Long {
-        return getChainListParam().getAsJsonObject("fee").get("init_gas_limit")?.asLong ?: run {
+        return getChainListParam().getAsJsonObject("fee")?.let {
+            it.get("init_gas_limit")?.asLong
+        } ?: run {
             BASE_GAS_AMOUNT.toLong()
         }
     }
@@ -213,8 +215,10 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun getFeeInfos(c: Context): MutableList<FeeInfo> {
         val result: MutableList<FeeInfo> = mutableListOf()
-        getChainListParam().getAsJsonObject("fee").getAsJsonArray("rate").forEach { rate ->
-            result.add(FeeInfo(rate.asString))
+        getChainListParam().getAsJsonObject("fee")?.let {
+            it.getAsJsonArray("rate").forEach { rate ->
+                result.add(FeeInfo(rate.asString))
+            }
         }
 
         if (result.size == 1) {

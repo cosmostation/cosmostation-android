@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
@@ -50,11 +52,14 @@ class DashboardFragment : Fragment() {
 
     private var baseAccount: BaseAccount? = null
 
+    private var toDisplayEvmChains = mutableListOf<EthereumLine>()
+    private var searchEvmChains = mutableListOf<EthereumLine>()
+    private var toDisplayCosmosChains = mutableListOf<CosmosLine>()
+    private var searchCosmosChains = mutableListOf<CosmosLine>()
+
     private var totalChainValue: BigDecimal = BigDecimal.ZERO
 
     private var isNew: Boolean = false
-
-    private var isClickable = true
 
     companion object {
         @JvmStatic
@@ -84,6 +89,16 @@ class DashboardFragment : Fragment() {
         refreshData()
     }
 
+    private fun initData(baseAccount: BaseAccount?) {
+        baseAccount?.let { account ->
+            toDisplayEvmChains = account.sortedDisplayEvmLines()
+            searchEvmChains = toDisplayEvmChains
+
+            toDisplayCosmosChains = account.sortedDisplayCosmosLines()
+            searchCosmosChains = toDisplayCosmosChains
+        }
+    }
+
     private fun initView() {
         binding?.apply {
             baseAccount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -91,6 +106,7 @@ class DashboardFragment : Fragment() {
             } else {
                 arguments?.getParcelable("baseAccount") as? BaseAccount
             }
+            initData(baseAccount)
 
             if (Prefs.hideValue) {
                 totalValue.text = "✱✱✱✱✱"
@@ -117,20 +133,15 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        baseAccount?.let { account ->
-            dashAdapter = DashboardAdapter(
-                requireContext(),
-                account.sortedDisplayEvmLines(),
-                account.sortedDisplayCosmosLines(),
-                listener = nodeDownCheckAction
-            )
+        dashAdapter = DashboardAdapter(
+            requireContext(), searchEvmChains, searchCosmosChains, listener = nodeDownCheckAction
+        )
 
-            binding?.recycler?.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = dashAdapter
-                itemAnimator = null
-            }
+        binding?.recycler?.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = dashAdapter
+            itemAnimator = null
         }
     }
 
@@ -147,7 +158,7 @@ class DashboardFragment : Fragment() {
                     }
                 }
 
-                if (line.web3j() == null) {
+                if (line.web3j == null) {
                     nodeDownPopup()
                     return
                 }
@@ -187,7 +198,7 @@ class DashboardFragment : Fragment() {
             account.apply {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
-                        for (line in sortedDisplayEvmLines()) {
+                        sortedDisplayEvmLines().asSequence().concurrentForEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
                             }
@@ -196,10 +207,9 @@ class DashboardFragment : Fragment() {
                             }
                         }
 
-                        for (line in sortedDisplayCosmosLines()) {
+                        sortedDisplayCosmosLines().asSequence().concurrentForEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-
                             }
                             if (!line.fetched) {
                                 ApplicationViewModel.shared.loadChainData(line, id, false)
@@ -210,17 +220,16 @@ class DashboardFragment : Fragment() {
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        for (line in sortedDisplayEvmLines()) {
+                        sortedDisplayEvmLines().asSequence().concurrentForEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithPrivateKey(privateKey)
-
                             }
                             if (!line.fetched) {
                                 ApplicationViewModel.shared.loadEvmChainData(line, id, false)
                             }
                         }
 
-                        for (line in sortedDisplayCosmosLines()) {
+                        sortedDisplayCosmosLines().asSequence().concurrentForEach { line ->
                             if (line.address?.isEmpty() == true) {
                                 line.setInfoWithPrivateKey(privateKey)
 
@@ -240,75 +249,58 @@ class DashboardFragment : Fragment() {
 
     private fun setupLoadedData() {
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
-            lifecycleScope.launch(Dispatchers.IO) {
-                baseAccount?.let { account ->
-                    for (i in 0 until account.sortedDisplayEvmLines().size) {
-                        if (account.sortedDisplayEvmLines()[i].fetched) {
-                            withContext(Dispatchers.Main) {
-                                dashAdapter.notifyItemRangeChanged(
-                                    1, account.sortedDisplayEvmLines().size + 1, null
-                                )
-
-                            }
-                        }
-                    }
-
-                    for (i in 0 until account.sortedDisplayCosmosLines().size) {
-                        if (account.sortedDisplayCosmosLines()[i].fetched) {
-                            withContext(Dispatchers.Main) {
-                                val startPosition =
-                                    if (account.sortedDisplayEvmLines().isNotEmpty()) {
-                                        account.sortedDisplayEvmLines().size + 2
-                                    } else {
-                                        1
-                                    }
-                                dashAdapter.notifyItemRangeChanged(
-                                    startPosition,
-                                    (account.sortedDisplayEvmLines().size + account.sortedDisplayCosmosLines().size + 2),
-                                    null
-                                )
-
-                            }
-                        }
-                    }
-                }
-            }
-            updateTotalValue()
+            updateRowData(tag)
         }
 
         ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
-            lifecycleScope.launch(Dispatchers.IO) {
-                baseAccount?.let { account ->
-                    for (chain in account.sortedDisplayEvmLines()) {
-                        if (chain.tag == tag) {
-                            withContext(Dispatchers.Main) {
-                                dashAdapter.notifyItemChanged(account.sortedDisplayEvmLines().size)
-                            }
+            updateRowData(tag)
+        }
+    }
+
+    private fun updateRowData(tag: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            for (i in 0 until searchEvmChains.size) {
+                if (searchEvmChains[i].tag == tag) {
+                    withContext(Dispatchers.Main) {
+                        if (::dashAdapter.isInitialized) {
+                            dashAdapter.notifyItemChanged(i + 1)
+                        }
+                    }
+                }
+            }
+
+            for (i in 0 until searchCosmosChains.size) {
+                if (searchCosmosChains[i].tag == tag) {
+                    withContext(Dispatchers.Main) {
+                        val position = if (searchEvmChains.size > 0) {
+                            searchEvmChains.size + 2
+                        } else {
+                            1
+                        }
+                        if (::dashAdapter.isInitialized) {
+                            dashAdapter.notifyItemChanged(position + i)
                         }
                     }
                 }
             }
         }
-
-        ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
-            return@observe
-        }
+        updateTotalValue()
     }
 
     private fun updateTotalValue() {
-        var totalSum = BigDecimal.ZERO
+        lifecycleScope.launch(Dispatchers.IO) {
+            var totalSum = BigDecimal.ZERO
 
-        baseAccount?.let { account ->
-            account.sortedDisplayEvmLines().forEach { line ->
-                totalSum = totalSum.add(line.allValue(false))
+            toDisplayEvmChains.forEach { chain ->
+                totalSum = totalSum.add(chain.allValue(false))
             }
 
-            account.sortedDisplayCosmosLines().forEach { line ->
-                totalSum = totalSum.add(line.allValue(false))
+            toDisplayCosmosChains.forEach { chain ->
+                totalSum = totalSum.add(chain.allValue(false))
             }
 
-            if (isAdded) {
-                requireActivity().runOnUiThread {
+            withContext(Dispatchers.Main) {
+                if (isAdded) {
                     totalChainValue = totalSum
 
                     val totalValueTxt = binding?.totalValue
@@ -405,6 +397,7 @@ class DashboardFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.initAccount()
                 withContext(Dispatchers.Main) {
+                    initData(baseAccount)
                     val totalValueTxt = binding?.totalValue
                     totalValueTxt?.text =
                         if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(BigDecimal.ZERO)
@@ -429,8 +422,10 @@ class DashboardFragment : Fragment() {
                     Prefs.setDisplayChains(account, response.second)
                     account.sortLine()
                     initDisplayData()
+
                     delay(100)
                     withContext(Dispatchers.Main) {
+                        initData(baseAccount)
                         initRecyclerView()
                         updateTotalValue()
                         PushManager.syncAddresses(Prefs.fcmToken)
