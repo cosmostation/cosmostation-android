@@ -151,22 +151,26 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            for (i in 0 until searchEvmChains.size) {
-                if (searchEvmChains[i].tag == tag) {
+            val searchEvmResult = searchEvmChains.filter { it.tag == tag }
+            val evmIterator = searchEvmResult.iterator()
+            while (evmIterator.hasNext()) {
+                val chain = evmIterator.next()
+                val index = searchEvmChains.indexOf(chain)
+                if (::chainEditAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        if (::chainEditAdapter.isInitialized) {
-                            chainEditAdapter.notifyItemChanged(i + 1)
-                        }
+                        chainEditAdapter.notifyItemChanged(index + 1)
                     }
                 }
             }
 
-            for (i in 0 until searchChains.size) {
-                if (searchChains[i].tag == tag) {
+            val searchResult = searchChains.filter { it.tag == tag }
+            val iterator = searchResult.iterator()
+            while (iterator.hasNext()) {
+                val chain = iterator.next()
+                val index = searchChains.indexOf(chain)
+                if (::chainEditAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        if (::chainEditAdapter.isInitialized) {
-                            chainEditAdapter.notifyItemChanged(i + (searchEvmChains.size + 2))
-                        }
+                        chainEditAdapter.notifyItemChanged(index + (searchEvmChains.size + 2))
                     }
                 }
             }

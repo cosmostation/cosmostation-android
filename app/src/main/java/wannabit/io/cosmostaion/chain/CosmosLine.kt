@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import android.content.Context
 import android.os.Parcelable
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.StakingProto
@@ -148,6 +149,22 @@ open class CosmosLine : BaseChain(), Parcelable {
         } else {
             null
         }
+    }
+
+    fun getInitPayableFee(c: Context): TxProto.Fee? {
+        var feeCoin: Coin? = null
+        for (i in 0 until getDefaultFeeCoins(c).size) {
+            val minFee = getDefaultFeeCoins(c)[i]
+            if (balanceAmount(minFee.denom) >= minFee.amount.toBigDecimal()) {
+                feeCoin = minFee
+                break
+            }
+        }
+        if (feeCoin != null) {
+            return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
+                .build()
+        }
+        return null
     }
 
     fun getChainParam(): JsonObject {
