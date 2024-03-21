@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.updateSelectButtonView
 import wannabit.io.cosmostaion.database.Prefs
@@ -96,40 +98,40 @@ class ChainEditFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    for (line in allEvmChains) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                    allEvmChains.asSequence().concurrentForEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(line, id, true)
+                        if (!chain.fetched) {
+                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
                         }
                     }
 
-                    for (line in allCosmosChains) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                    allCosmosChains.asSequence().concurrentForEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(line, id, true)
+                        if (!chain.fetched) {
+                            ApplicationViewModel.shared.loadChainData(chain, id, true)
                         }
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    for (line in allEvmChains) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
+                    allEvmChains.asSequence().concurrentForEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithPrivateKey(privateKey)
                         }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(line, id, true)
+                        if (!chain.fetched) {
+                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
                         }
                     }
 
-                    for (line in allCosmosChains) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
+                    allCosmosChains.asSequence().concurrentForEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithPrivateKey(privateKey)
                         }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(line, id, true)
+                        if (!chain.fetched) {
+                            ApplicationViewModel.shared.loadChainData(chain, id, true)
                         }
                     }
                 }
@@ -138,62 +140,50 @@ class ChainEditFragment : BaseTxFragment() {
     }
 
     private fun setupLoadedView() {
-        ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
-                    .let { fetchedEvmChainIndex ->
-                        withContext(Dispatchers.Main) {
-                            if (::chainEditAdapter.isInitialized) {
-                                chainEditAdapter.notifyItemChanged(fetchedEvmChainIndex + 1)
-                            }
-                        }
-                    }
+        ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) { tag ->
+            updateRowData(tag)
+        }
 
-                allCosmosChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
-                    .let { fetchedChainIndex ->
-                        withContext(Dispatchers.Main) {
-                            if (::chainEditAdapter.isInitialized) {
-                                chainEditAdapter.notifyItemChanged(fetchedChainIndex + searchEvmChains.size + 2)
-                            }
-                        }
-                    }
+        ApplicationViewModel.shared.editFetchedTokenResult.observe(viewLifecycleOwner) { tag ->
+            updateRowData(tag)
+        }
+    }
 
-                withContext(Dispatchers.Main) {
-                    if (allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched }) {
-                        binding?.apply {
-                            btnSelect.updateSelectButtonView(true)
-                            progress.cancelAnimation()
-                            progress.visibility = View.GONE
-                        }
+    private fun updateRowData(tag: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val searchEvmResult = searchEvmChains.filter { it.tag == tag }
+            val evmIterator = searchEvmResult.iterator()
+            while (evmIterator.hasNext()) {
+                val chain = evmIterator.next()
+                val index = searchEvmChains.indexOf(chain)
+                if (::chainEditAdapter.isInitialized) {
+                    withContext(Dispatchers.Main) {
+                        chainEditAdapter.notifyItemChanged(index + 1)
                     }
                 }
             }
-        }
 
-        ApplicationViewModel.shared.editFetchedTokenResult.observe(viewLifecycleOwner) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                allEvmChains.indexOf(searchEvmChains.firstOrNull { line -> line.tag == it })
-                    .let { fetchedEvmChainIndex ->
-                        withContext(Dispatchers.Main) {
-                            if (::chainEditAdapter.isInitialized) {
-                                chainEditAdapter.notifyItemChanged(fetchedEvmChainIndex + 1)
-                            }
-                        }
+            val searchResult = searchChains.filter { it.tag == tag }
+            val iterator = searchResult.iterator()
+            while (iterator.hasNext()) {
+                val chain = iterator.next()
+                val index = searchChains.indexOf(chain)
+                if (::chainEditAdapter.isInitialized) {
+                    withContext(Dispatchers.Main) {
+                        chainEditAdapter.notifyItemChanged(index + (searchEvmChains.size + 2))
                     }
-
-                allCosmosChains.indexOf(searchChains.firstOrNull { line -> line.tag == it })
-                    .let { fetchedChainIndex ->
-                        withContext(Dispatchers.Main) {
-                            if (::chainEditAdapter.isInitialized) {
-                                chainEditAdapter.notifyItemChanged(fetchedChainIndex + searchEvmChains.size + 2)
-                            }
-                        }
-                    }
+                }
             }
-        }
 
-        ApplicationViewModel.shared.chainDataErrorMessage.observe(viewLifecycleOwner) {
-            return@observe
+            withContext(Dispatchers.Main) {
+                if (searchEvmChains.none { !it.fetched } && searchChains.none { !it.fetched }) {
+                    binding?.apply {
+                        btnSelect.updateSelectButtonView(true)
+                        progress.cancelAnimation()
+                        progress.visibility = View.GONE
+                    }
+                }
+            }
         }
     }
 

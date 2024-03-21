@@ -2,11 +2,16 @@ package wannabit.io.cosmostaion.database
 
 import SecureSharedPreferences
 import android.content.Context
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_EVM
+import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
@@ -23,6 +28,10 @@ object Prefs {
     private const val LAST_TIME = "PRE_LAST_TIME"
     private const val APP_LOCK = "PRE_APP_LOCK"
     private const val SWAP_WARN = "PRE_SWAP_WARN"
+    private const val SWAP_INFO_TIME = "PRE_SWAP_INFO_TIME"
+    private const val SWAP_USER_SET = "PRE_SWAP_USER_SET"
+    private const val SKIP_CHAIN_INFO = "PRE_SKIP_CHAIN_INFO"
+    private const val SKIP_ASSET_INFO = "PRE_SKIP_ASSET_INFO"
     private const val HIDE_VALUE = "PRE_HIDE_VALUE"
     private const val DISPLAY_LEGACY = "PRE_DISPLAY_LEGACY"
     private const val BIO = "PRE_BIO"
@@ -34,6 +43,7 @@ object Prefs {
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
+
 
     private val preference =
         CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -151,6 +161,52 @@ object Prefs {
     var swapWarn: Long
         get() = preference.getLong(SWAP_WARN, 0)
         set(value) = preference.edit().putLong(SWAP_WARN, value).apply()
+
+    var swapInfoTime: Long
+        get() = preference.getLong(SWAP_INFO_TIME, 0)
+        set(value) = preference.edit().putLong(SWAP_INFO_TIME, value).apply()
+
+    var lastSwapSet: List<String>
+        get() {
+            val jsonString = preference.getString(SWAP_USER_SET, null)
+            if (!jsonString.isNullOrEmpty()) {
+                val typeToken = object : TypeToken<List<String>>() {}.type
+                return Gson().fromJson(jsonString, typeToken)
+            }
+            return listOf("", "", "", "")
+        }
+        set(value) {
+            val encoded = Gson().toJson(value)
+            preference.edit().putString(SWAP_USER_SET, encoded).apply()
+        }
+
+    var skipChainInfo: SkipChainResponse?
+        get() {
+            val jsonString = preference.getString(SKIP_CHAIN_INFO, null)
+            return if (jsonString != null) {
+                Gson().fromJson(jsonString, SkipChainResponse::class.java)
+            } else {
+                null
+            }
+        }
+        set(value) {
+            val jsonString = Gson().toJson(value)
+            preference.edit().putString(SKIP_CHAIN_INFO, jsonString).apply()
+        }
+
+    var skipAssetInfo: JsonObject?
+        get() {
+            val jsonString = preference.getString(SKIP_ASSET_INFO, null)
+            return try {
+                Gson().fromJson(jsonString, JsonObject::class.java)
+            } catch (e: JsonSyntaxException) {
+                null
+            }
+        }
+        set(value) {
+            val jsonString = Gson().toJson(value)
+            preference.edit().putString(SKIP_ASSET_INFO, jsonString).apply()
+        }
 
     var hideValue: Boolean
         get() = preference.getBoolean(HIDE_VALUE, false)

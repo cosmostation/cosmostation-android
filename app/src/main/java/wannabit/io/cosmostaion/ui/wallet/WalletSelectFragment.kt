@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,6 +21,7 @@ import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
+import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -178,40 +180,40 @@ class WalletSelectFragment : Fragment() {
                 if (mnemonic.isNotEmpty()) {
                     val wordList = mnemonic.split(" ")
                     val seed = BaseKey.getByteSeedFromWords(wordList)
-                    allEvmLineChains.forEach { evmLine ->
-                        if (evmLine.address?.isEmpty() == true) {
-                            evmLine.setInfoWithSeed(seed, evmLine.setParentPath, lastHDPath)
+                    allEvmLineChains.asSequence().concurrentForEach { evmChain ->
+                        if (evmChain.address?.isEmpty() == true) {
+                            evmChain.setInfoWithSeed(seed, evmChain.setParentPath, lastHDPath)
                         }
-                        if (!evmLine.fetched) {
-                            walletViewModel.evmBalance(evmLine)
+                        if (!evmChain.fetched) {
+                            walletViewModel.evmBalance(evmChain)
                         }
                     }
 
-                    allCosmosLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                    allCosmosLineChains.asSequence().concurrentForEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
-                        if (!line.fetched) {
-                            walletViewModel.balance(line)
+                        if (!chain.fetched) {
+                            walletViewModel.balance(chain)
                         }
                     }
 
                 } else {
-                    allEvmLineChains.forEach { evmLine ->
-                        if (evmLine.address?.isEmpty() == true) {
-                            evmLine.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                    allEvmLineChains.asSequence().concurrentForEach { evmChain ->
+                        if (evmChain.address?.isEmpty() == true) {
+                            evmChain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
                         }
-                        if (!evmLine.fetched) {
-                            walletViewModel.evmBalance(evmLine)
+                        if (!evmChain.fetched) {
+                            walletViewModel.evmBalance(evmChain)
                         }
                     }
 
-                    allCosmosLineChains.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                    allCosmosLineChains.asSequence().concurrentForEach { chain ->
+                        if (chain.address?.isEmpty() == true) {
+                            chain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
                         }
-                        if (!line.fetched) {
-                            walletViewModel.balance(line)
+                        if (!chain.fetched) {
+                            walletViewModel.balance(chain)
                         }
                     }
                 }
@@ -220,11 +222,11 @@ class WalletSelectFragment : Fragment() {
     }
 
     private fun setupLoadedData() {
-        walletViewModel.balanceResult.observe(viewLifecycleOwner) {
-            lifecycleScope.launch(Dispatchers.IO) {
+        walletViewModel.balanceResult.observe(viewLifecycleOwner) { tag ->
+            CoroutineScope(Dispatchers.IO).launch {
                 toAddAccount?.let { account ->
                     for (i in 0 until account.allEvmLineChains.size) {
-                        if (account.allEvmLineChains[i].fetched) {
+                        if (account.allEvmLineChains[i].tag == tag) {
                             withContext(Dispatchers.Main) {
                                 if (::walletSelectAdapter.isInitialized) {
                                     walletSelectAdapter.notifyItemChanged(i + 1)
@@ -234,20 +236,16 @@ class WalletSelectFragment : Fragment() {
                     }
 
                     for (i in 0 until account.allCosmosLineChains.size) {
-                        if (account.allCosmosLineChains[i].fetched) {
+                        if (account.allCosmosLineChains[i].tag == tag) {
                             withContext(Dispatchers.Main) {
                                 if (::walletSelectAdapter.isInitialized) {
-                                    walletSelectAdapter.notifyItemChanged(i + account.allEvmLineChains.size + 2)
+                                    walletSelectAdapter.notifyItemChanged(i + (account.allEvmLineChains.size + 2))
                                 }
                             }
                         }
                     }
                 }
             }
-        }
-
-        walletViewModel.chainDataErrorMessage.observe(viewLifecycleOwner) {
-            return@observe
         }
     }
 

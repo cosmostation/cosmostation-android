@@ -179,8 +179,8 @@ class TokenFragment : Fragment() {
     }
 
     private fun setUpRefreshData() {
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
-            if (selectedChain.tag == it) {
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
                 setUpInitData()
             }
         }

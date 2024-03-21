@@ -1,13 +1,8 @@
 package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -42,6 +37,8 @@ open class EthereumLine : CosmosLine(), Parcelable {
 
     var evmTokens = mutableListOf<Token>()
 
+    var web3j: Web3j? = null
+
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return if (supportCosmos) {
             super.allAssetValue(isUsd)
@@ -75,18 +72,6 @@ open class EthereumLine : CosmosLine(), Parcelable {
             result = result.add(value)
         }
         return result
-    }
-
-    override fun web3j(): Web3j? {
-        return runBlocking(Dispatchers.IO) {
-            try {
-                val web3j = Web3j.build(HttpService(rpcUrl))
-                web3j.web3ClientVersion().sendAsync().get().web3ClientVersion
-                web3j
-            } catch (e: Exception) {
-                null
-            }
-        }
     }
 
     fun getEvmRpc(): String {

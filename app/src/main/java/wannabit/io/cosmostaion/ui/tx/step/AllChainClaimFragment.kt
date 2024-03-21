@@ -92,7 +92,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                         for (evmChain in account.sortedDisplayEvmLines()
                             .filter { it.supportCosmos }) {
                             val valueAbleReward = evmChain.valueAbleRewards()
-                            val txFee = evmChain.getInitFee(requireContext())
+                            val txFee = evmChain.getInitPayableFee(requireContext())
                             if (valueAbleReward.isNotEmpty() && txFee != null) {
                                 valueAbleRewards.add(
                                     ValueAbleReward(
@@ -104,7 +104,7 @@ class AllChainClaimFragment : BaseTxFragment() {
 
                         for (chain in account.sortedDisplayCosmosLines()) {
                             val valueAbleReward = chain.valueAbleRewards()
-                            val txFee = chain.getInitFee(requireContext())
+                            val txFee = chain.getInitPayableFee(requireContext())
                             if (valueAbleReward.isNotEmpty() && txFee != null) {
                                 valueAbleRewards.add(
                                     ValueAbleReward(
@@ -156,11 +156,11 @@ class AllChainClaimFragment : BaseTxFragment() {
                     activity?.let {
                         if (!valueAbleRewards[i].cosmosLine.isGasSimulable()) {
                             valueAbleRewards[i].fee =
-                                valueAbleRewards[i].cosmosLine.getInitFee(it)
+                                valueAbleRewards[i].cosmosLine.getInitPayableFee(it)
 
                         } else {
                             val valueAbleReward = valueAbleRewards[i]
-                            var txFee = valueAbleReward.cosmosLine.getInitFee(it)
+                            var txFee = valueAbleReward.cosmosLine.getInitPayableFee(it)
                             simulateClaimTx(
                                 valueAbleReward.cosmosLine, valueAbleReward.rewards
                             ) { gasUsed ->
@@ -173,10 +173,9 @@ class AllChainClaimFragment : BaseTxFragment() {
                                     }?.let { gasRate ->
                                         val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
                                             ?.setScale(0, RoundingMode.UP)
-                                        val feeCoin =
-                                            CoinProto.Coin.newBuilder()
-                                                .setDenom(txFee?.getAmount(0)?.denom)
-                                                .setAmount(feeCoinAmount.toString()).build()
+                                        val feeCoin = CoinProto.Coin.newBuilder()
+                                            .setDenom(txFee?.getAmount(0)?.denom)
+                                            .setAmount(feeCoinAmount.toString()).build()
 
                                         txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
                                             .addAmount(feeCoin).build()
@@ -273,7 +272,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                     val simulateTx = Signer.genClaimRewardsSimulate(
                         loadAuth(channel, chain.address),
                         claimableRewards,
-                        chain.getInitFee(it),
+                        chain.getInitPayableFee(it),
                         "",
                         chain
                     )

@@ -42,6 +42,14 @@ class WalletSelectViewHolder(
 
             if (line.fetched) {
                 skeletonChainValue.visibility = View.GONE
+                if (line.web3j == null) {
+                    chainBalance.visibility = View.GONE
+                    chainDenom.visibility = View.GONE
+                    respondLayout.visibility = View.VISIBLE
+                    chainAssetCnt.visibility = View.GONE
+                    return
+                }
+
                 val availableAmount =
                     line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
                 chainBalance.text = formatAmount(availableAmount.toString(), 18)

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import android.content.Context
 import android.os.Parcelable
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.staking.v1beta1.StakingProto
@@ -150,6 +151,22 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
+    fun getInitPayableFee(c: Context): TxProto.Fee? {
+        var feeCoin: Coin? = null
+        for (i in 0 until getDefaultFeeCoins(c).size) {
+            val minFee = getDefaultFeeCoins(c)[i]
+            if (balanceAmount(minFee.denom) >= minFee.amount.toBigDecimal()) {
+                feeCoin = minFee
+                break
+            }
+        }
+        if (feeCoin != null) {
+            return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
+                .build()
+        }
+        return null
+    }
+
     fun getChainParam(): JsonObject {
         return BaseData.chainParam?.getAsJsonObject(apiName) ?: JsonObject()
     }
@@ -178,7 +195,9 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     private fun getFeeBaseGasAmount(): Long {
-        return getChainListParam().getAsJsonObject("fee").get("init_gas_limit")?.asLong ?: run {
+        return getChainListParam().getAsJsonObject("fee")?.let {
+            it.get("init_gas_limit")?.asLong
+        } ?: run {
             BASE_GAS_AMOUNT.toLong()
         }
     }
@@ -213,8 +232,10 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun getFeeInfos(c: Context): MutableList<FeeInfo> {
         val result: MutableList<FeeInfo> = mutableListOf()
-        getChainListParam().getAsJsonObject("fee").getAsJsonArray("rate").forEach { rate ->
-            result.add(FeeInfo(rate.asString))
+        getChainListParam().getAsJsonObject("fee")?.let {
+            it.getAsJsonArray("rate").forEach { rate ->
+                result.add(FeeInfo(rate.asString))
+            }
         }
 
         if (result.size == 1) {

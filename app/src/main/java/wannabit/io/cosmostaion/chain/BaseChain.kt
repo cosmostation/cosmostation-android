@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.chain
 
 import org.bitcoinj.crypto.ChildNumber
-import org.web3j.protocol.Web3j
 import java.io.Serializable
 import java.math.BigDecimal
 
@@ -39,8 +38,6 @@ open class BaseChain : Serializable {
     open fun allAssetValue(isUsd: Boolean?): BigDecimal { return BigDecimal.ZERO }
 
     open fun allValue(isUsd: Boolean?): BigDecimal { return BigDecimal.ZERO }
-
-    open fun web3j(): Web3j? { return null }
 }
 
 data class AccountKeyType(

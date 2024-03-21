@@ -262,8 +262,8 @@ class CoinFragment : Fragment() {
             coinAdapter.notifyDataSetChanged()
         }
 
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
-            if (selectedChain.fetched) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
                 initData()
             }
         }

@@ -4,7 +4,6 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Chain
 import wannabit.io.cosmostaion.data.model.res.Price
-import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
@@ -13,6 +12,7 @@ import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 object BaseData {
 
@@ -23,9 +23,6 @@ object BaseData {
     var prices: List<Price>? = mutableListOf()
     var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
-
-    var skipChains: SkipChainResponse? = null
-    var skipAssets: JsonObject? = null
 
     fun getPrice(coinGeckoId: String?, isUsd: Boolean? = false): BigDecimal {
         val price = if (isUsd == true) {
@@ -43,7 +40,8 @@ object BaseData {
     fun lastUpDown(coinGeckoId: String?): BigDecimal {
         val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
         if (price != null) {
-            return (price.daily_price_change_in_percent ?: 0.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
+            return (price.daily_price_change_in_percent ?: 0.0).toBigDecimal()
+                .setScale(2, RoundingMode.HALF_DOWN)
         }
         return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN)
     }
@@ -85,6 +83,18 @@ object BaseData {
     fun getSwapWarn(): Boolean {
         val last = Prefs.swapWarn
         val now = Calendar.getInstance().timeInMillis
+        return last < now
+    }
+
+    fun setLastSwapInfoTime() {
+        val now = Calendar.getInstance().timeInMillis
+        Prefs.swapInfoTime = now
+    }
+
+    fun needSwapInfoUpdate(): Boolean {
+        val now = Calendar.getInstance().timeInMillis
+        val day: Long = TimeUnit.DAYS.toMillis(1)
+        val last = Prefs.swapInfoTime + (day * 3)
         return last < now
     }
 
