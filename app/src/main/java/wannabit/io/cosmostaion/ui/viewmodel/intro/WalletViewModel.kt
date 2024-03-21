@@ -37,6 +37,9 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    private val _networkErrorMessage = MutableLiveData<String>()
+    val networkErrorMessage: LiveData<String> get() = _networkErrorMessage
+
     private val _hasPassword = MutableLiveData<Boolean>()
     val hasPassword: LiveData<Boolean> get() = _hasPassword
 
@@ -78,13 +81,13 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     if (data.isSuccessful) {
                         _walletAppVersionResult.postValue(data.body())
                     } else {
-                        _errorMessage.postValue("Error")
+                        _networkErrorMessage.postValue("Error")
                     }
                 }
             }
 
             is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                _networkErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }

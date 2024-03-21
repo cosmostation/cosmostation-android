@@ -64,7 +64,7 @@ class MintListAdapter(
 
             is MintMyViewHolder -> {
                 if (myCollateralParams.isNotEmpty()) {
-                    val collateralParam = myCollateralParams[myCollateralParams.size - 1]
+                    val collateralParam = myCollateralParams[position - 1]
                     val myCdp = cdps?.firstOrNull { it.type == collateralParam.type }
                     holder.bind(collateralParam, priceFeed, myCdp, listener)
                 }
@@ -73,7 +73,7 @@ class MintListAdapter(
             is MintOtherViewHolder -> {
                 val collateralParam: GenesisProto.CollateralParam? =
                     if (myCollateralParams.isNotEmpty()) {
-                        otherCollateralParams.getOrNull(position - myCollateralParams.size - 2)
+                        otherCollateralParams.getOrNull(position - (myCollateralParams.size - 2))
                     } else {
                         otherCollateralParams.getOrNull(position - 1)
                     }

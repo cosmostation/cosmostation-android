@@ -249,7 +249,7 @@ class IntroActivity : AppCompatActivity() {
             }
         }
 
-        walletViewModel.errorMessage.observe(this) {
+        walletViewModel.networkErrorMessage.observe(this) {
             showNetworkErrorDialog()
         }
     }
