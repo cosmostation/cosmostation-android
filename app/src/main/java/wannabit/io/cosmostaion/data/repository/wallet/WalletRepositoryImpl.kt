@@ -146,8 +146,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun auth(
         managedChannel: ManagedChannel, line: CosmosLine
     ): NetworkResult<QueryProto.QueryAccountResponse?> {
-        val stub = com.cosmos.auth.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val stub = com.cosmos.auth.v1beta1.QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(line.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.account(request)
@@ -159,9 +158,7 @@ class WalletRepositoryImpl : WalletRepository {
     ): NetworkResult<QueryAllBalancesResponse?> {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(line.address)
-                .build()
+        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(line.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.allBalances(request)
         }
@@ -171,8 +168,7 @@ class WalletRepositoryImpl : WalletRepository {
         channel: ManagedChannel, line: CosmosLine
     ): NetworkResult<QueryDelegatorDelegationsResponse> {
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(line.address).build()
+        val request = QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(line.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorDelegations(request)
         }
@@ -182,9 +178,7 @@ class WalletRepositoryImpl : WalletRepository {
         channel: ManagedChannel, line: CosmosLine
     ): NetworkResult<QueryDelegatorUnbondingDelegationsResponse> {
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(line.address)
-                .build()
+        val request = QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(line.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorUnbondingDelegations(request)
         }
@@ -193,11 +187,8 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun reward(
         channel: ManagedChannel, line: CosmosLine
     ): NetworkResult<QueryDelegationTotalRewardsResponse> {
-        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(line.address)
-                .build()
+        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(line.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegationTotalRewards(request)
         }
@@ -206,11 +197,8 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun rewardAddress(
         channel: ManagedChannel, line: CosmosLine
     ): NetworkResult<String> {
-        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            com.cosmos.distribution.v1beta1.QueryProto.QueryDelegatorWithdrawAddressRequest.newBuilder()
-                .setDelegatorAddress(line.address).build()
+        val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmos.distribution.v1beta1.QueryProto.QueryDelegatorWithdrawAddressRequest.newBuilder().setDelegatorAddress(line.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorWithdrawAddress(request).withdrawAddress
         }
@@ -221,8 +209,7 @@ class WalletRepositoryImpl : WalletRepository {
     ): NetworkResult<MutableList<StakingProto.Validator>> {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
+        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
         return safeApiCall(Dispatchers.IO) {
             stub.validators(request).validatorsList
         }
@@ -233,8 +220,7 @@ class WalletRepositoryImpl : WalletRepository {
     ): NetworkResult<MutableList<StakingProto.Validator>> {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
+        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
         return safeApiCall(Dispatchers.IO) {
             stub.validators(request).validatorsList
         }
@@ -245,8 +231,7 @@ class WalletRepositoryImpl : WalletRepository {
     ): NetworkResult<MutableList<StakingProto.Validator>> {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
+        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
         return safeApiCall(Dispatchers.IO) {
             stub.validators(request).validatorsList
         }
@@ -261,14 +246,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun cw20Balance(
         channel: ManagedChannel, line: CosmosLine, token: Token
     ) {
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val req = Cw20Balance(line.address)
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-            .setAddress(token.address).setQueryData(queryData).build()
+        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(token.address).setQueryData(queryData).build()
 
         try {
             stub.smartContractState(request)?.let { response ->
@@ -298,20 +281,14 @@ class WalletRepositoryImpl : WalletRepository {
         val params: MutableList<Type<*>> = ArrayList()
         params.add(Address(ethAddress))
 
-        val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
-        val function = Function("balanceOf", params, returnTypes)
+        try {
+            val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
+            val function = Function("balanceOf", params, returnTypes)
 
-        val txData = FunctionEncoder.encode(function)
-
-        val response = try {
-            web3j.ethCall(
-                Transaction.createEthCallTransaction(ethAddress, token.address, txData),
-                DefaultBlockParameterName.LATEST
+            val txData = FunctionEncoder.encode(function)
+            val response = web3j.ethCall(
+                Transaction.createEthCallTransaction(ethAddress, token.address, txData), DefaultBlockParameterName.LATEST
             ).sendAsync().get()
-        } catch (e: Exception) {
-            null
-        }
-        if (response != null) {
             val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
             if (results.isNotEmpty()) {
                 val balance = results[0].value as BigInteger
@@ -319,7 +296,7 @@ class WalletRepositoryImpl : WalletRepository {
             } else {
                 token.amount = "0"
             }
-        } else {
+        } catch (e: Exception) {
             token.amount = "0"
         }
     }
@@ -331,10 +308,8 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-            .setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS).setQueryData(queryData).build()
+        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS).setQueryData(queryData).build()
 
         return safeApiCall(Dispatchers.IO) {
             stub.smartContractState(request)
@@ -349,12 +324,10 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(8, TimeUnit.SECONDS)
-        val request =
-            com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(
-                NEUTRON_VAULT_ADDRESS
-            ).setQueryData(queryData).build()
+        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel).withDeadlineAfter(8, TimeUnit.SECONDS)
+        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(
+            NEUTRON_VAULT_ADDRESS
+        ).setQueryData(queryData).build()
 
         return safeApiCall(Dispatchers.IO) {
             stub.smartContractState(request)?.let { response ->
