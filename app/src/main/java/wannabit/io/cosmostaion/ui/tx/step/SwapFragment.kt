@@ -336,7 +336,9 @@ class SwapFragment : BaseTxFragment() {
                         line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
                         BaseUtils.onParseVestingAccount(line)
                     } catch (e: Exception) {
-                        activity?.makeToast(R.string.str_unknown_error)
+                        if (isAdded) {
+                            activity?.makeToast(R.string.str_unknown_error)
+                        }
                     }
                 }
 
@@ -350,7 +352,9 @@ class SwapFragment : BaseTxFragment() {
                         line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
                         BaseUtils.onParseVestingAccount(line)
                     } catch (e: Exception) {
-                        activity?.makeToast(R.string.str_unknown_error)
+                        if (isAdded) {
+                            activity?.makeToast(R.string.str_unknown_error)
+                        }
                     }
                 }
 
