@@ -93,8 +93,8 @@ class DaoSingleFragment : Fragment() {
         }
         neutronMyVotes = arguments?.getParcelableArrayList("neutronMyVotes")
 
-        selectedChain.getChainListParam().getAsJsonArray("daos")
-            .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
             ?.get(0)?.asJsonObject?.get("address")?.asString?.let { contAddress ->
                 proposalViewModel.daoProposals(
                     getChannel(selectedChain), contAddress, NEUTRON_SINGLE_MODULE

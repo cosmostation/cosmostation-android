@@ -93,20 +93,20 @@ class DaoViewHolder(
 
                 val module = when (type) {
                     NEUTRON_SINGLE_MODULE -> {
-                        selectedChain.getChainListParam().getAsJsonArray("daos")
-                            .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
                             ?.get(0)?.asJsonObject
                     }
 
                     NEUTRON_MULTI_MODULE -> {
-                        selectedChain.getChainListParam().getAsJsonArray("daos")
-                            .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
                             ?.get(1)?.asJsonObject
                     }
 
                     else -> {
-                        selectedChain.getChainListParam().getAsJsonArray("daos")
-                            .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
                             ?.get(2)?.asJsonObject
                     }
                 }

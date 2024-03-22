@@ -428,8 +428,8 @@ class DaoVoteFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam().getAsJsonArray("daos")
-                        .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
                         ?.get(0)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )
@@ -443,8 +443,8 @@ class DaoVoteFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam().getAsJsonArray("daos")
-                        .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
                         ?.get(1)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )
@@ -456,8 +456,8 @@ class DaoVoteFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam().getAsJsonArray("daos")
-                        .get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
                         ?.get(2)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )

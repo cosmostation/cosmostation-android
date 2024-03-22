@@ -68,25 +68,25 @@ class AboutFragment : Fragment() {
             chainName.text = selectedChain.name.uppercase()
             selectedChain.getChainListParam().let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
-                    chainDescription.text = it.getAsJsonObject("description").get("ko").asString
+                    chainDescription.text = it?.getAsJsonObject("description")?.get("ko")?.asString
                 } else if (Prefs.language == BaseUtils.LANGUAGE_ENGLISH || Locale.getDefault().language == "en") {
-                    chainDescription.text = it.getAsJsonObject("description").get("en").asString
+                    chainDescription.text = it?.getAsJsonObject("description")?.get("en")?.asString
                 } else {
-                    chainDescription.text = it.getAsJsonObject("description").get("ja").asString
+                    chainDescription.text = it?.getAsJsonObject("description")?.get("ja")?.asString
                 }
             }
 
             val unBondingTime = unBondingTime(selectedChain)
             val inflation = try {
-                val inflation = selectedChain.getChainParam().getAsJsonObject("params")
-                    .getAsJsonObject("minting_inflation").get("inflation").asString ?: "0"
+                val inflation = selectedChain.getChainParam()?.getAsJsonObject("params")
+                    ?.getAsJsonObject("minting_inflation")?.get("inflation")?.asString ?: "0"
                 inflation.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN).toString()
             } catch (e: Exception) {
                 ""
             }
             val apr = try {
                 val apr =
-                    selectedChain.getChainParam().getAsJsonObject("params").get("apr").asString
+                    selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
                         ?: "0"
                 apr.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
             } catch (e: NumberFormatException) {
@@ -109,7 +109,7 @@ class AboutFragment : Fragment() {
 
     private fun clickAction() {
         binding.apply {
-            selectedChain.getChainListParam().getAsJsonObject("about")?.let { about ->
+            selectedChain.getChainListParam()?.getAsJsonObject("about")?.let { about ->
                 about.get("website")?.let {
                     if (about.get("website").asString?.isNotEmpty() == true) {
                         website.setOnClickListener {

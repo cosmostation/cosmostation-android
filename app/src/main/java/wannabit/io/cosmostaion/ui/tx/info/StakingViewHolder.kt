@@ -133,7 +133,7 @@ class StakingViewHolder(
                             )
                         }
 
-                        val apr = line.getChainParam().getAsJsonObject("params").get("apr").asString
+                        val apr = line.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
                             ?: "0"
                         val staked = delegation.balance.amount.toBigDecimal()
                         val comm = BigDecimal.ONE.subtract(

@@ -443,8 +443,8 @@ class VaultFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam().getAsJsonArray("vaults")
-                        .get(0)?.asJsonObject?.get("address")?.asString
+                    selectedChain.getChainListParam()?.getAsJsonArray("vaults")
+                        ?.get(0)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).addFunds(toCoin).build()
             )
             return result
@@ -455,8 +455,8 @@ class VaultFragment : BaseTxFragment() {
             val msg = ByteString.copyFromUtf8(jsonData)
             result.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                        selectedChain.getChainListParam().getAsJsonArray("vaults")
-                            .get(0)?.asJsonObject?.get("address")?.asString
+                        selectedChain.getChainListParam()?.getAsJsonArray("vaults")
+                            ?.get(0)?.asJsonObject?.get("address")?.asString
                     ).setMsg(msg).build()
             )
             return result
