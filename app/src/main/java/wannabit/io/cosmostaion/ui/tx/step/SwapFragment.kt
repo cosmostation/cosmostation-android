@@ -756,44 +756,48 @@ class SwapFragment : BaseTxFragment() {
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
-                                if (outputCosmosLine?.chainId != chainId) {
-                                    loading.visibility = View.VISIBLE
+                                try {
+                                    if (outputCosmosLine?.chainId != chainId) {
+                                        loading.visibility = View.VISIBLE
 
-                                    skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-                                        outputCosmosLine =
-                                            skipChains.firstOrNull { it.chainId == chainId }
-                                        outputAssets.clear()
-                                        outputCosmosLine?.let { line ->
-                                            skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                                ?.getAsJsonObject(line.chainId)
-                                                ?.getAsJsonArray("assets")?.forEach { json ->
-                                                    BaseData.getAsset(
-                                                        line.apiName,
-                                                        json.asJsonObject.get("denom").asString
-                                                    )?.let { asset ->
-                                                        outputAssets.add(asset)
+                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
+                                            outputCosmosLine =
+                                                skipChains.firstOrNull { it.chainId == chainId }
+                                            outputAssets.clear()
+                                            outputCosmosLine?.let { line ->
+                                                skipAssets?.getAsJsonObject("chain_to_assets_map")
+                                                    ?.getAsJsonObject(line.chainId)
+                                                    ?.getAsJsonArray("assets")?.forEach { json ->
+                                                        BaseData.getAsset(
+                                                            line.apiName,
+                                                            json.asJsonObject.get("denom").asString
+                                                        )?.let { asset ->
+                                                            outputAssets.add(asset)
+                                                        }
                                                     }
-                                                }
-                                            outputAssetSelected =
-                                                outputAssets.firstOrNull { it.denom == line.stakeDenom }
+                                                outputAssetSelected =
+                                                    outputAssets.firstOrNull { it.denom == line.stakeDenom }
 
-                                            val channel = getChannel(line)
-                                            val loadOutputAuthDeferred =
-                                                async { loadAuth(channel, line.address) }
-                                            val loadOutputBalanceDeferred =
-                                                async { loadBalance(channel, line.address) }
+                                                val channel = getChannel(line)
+                                                val loadOutputAuthDeferred =
+                                                    async { loadAuth(channel, line.address) }
+                                                val loadOutputBalanceDeferred =
+                                                    async { loadBalance(channel, line.address) }
 
-                                            line.cosmosAuth =
-                                                loadOutputAuthDeferred.await()?.account
-                                            line.cosmosBalances =
-                                                loadOutputBalanceDeferred.await().balancesList
-                                            BaseUtils.onParseVestingAccount(line)
-                                        }
+                                                line.cosmosAuth =
+                                                    loadOutputAuthDeferred.await()?.account
+                                                line.cosmosBalances =
+                                                    loadOutputBalanceDeferred.await().balancesList
+                                                BaseUtils.onParseVestingAccount(line)
+                                            }
 
-                                        withContext(Dispatchers.Main) {
-                                            initView()
+                                            withContext(Dispatchers.Main) {
+                                                initView()
+                                            }
                                         }
                                     }
+                                } catch (e: Exception) {
+                                    
                                 }
                             }
                         })
