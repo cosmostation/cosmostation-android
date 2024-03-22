@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.handlerRight
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -668,43 +669,47 @@ class SwapFragment : BaseTxFragment() {
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
-                                if (inputCosmosLine?.chainId != chainId) {
-                                    loading.visibility = View.VISIBLE
+                                try {
+                                    if (inputCosmosLine?.chainId != chainId) {
+                                        loading.visibility = View.VISIBLE
 
-                                    skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-                                        inputCosmosLine =
-                                            skipChains.firstOrNull { it.chainId == chainId }
-                                        inputAssets.clear()
-                                        inputCosmosLine?.let { line ->
-                                            skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                                ?.getAsJsonObject(line.chainId)
-                                                ?.getAsJsonArray("assets")?.forEach { json ->
-                                                    BaseData.getAsset(
-                                                        line.apiName,
-                                                        json.asJsonObject.get("denom").asString
-                                                    )?.let { asset ->
-                                                        inputAssets.add(asset)
+                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
+                                            inputCosmosLine =
+                                                skipChains.firstOrNull { it.chainId == chainId }
+                                            inputAssets.clear()
+                                            inputCosmosLine?.let { line ->
+                                                skipAssets?.getAsJsonObject("chain_to_assets_map")
+                                                    ?.getAsJsonObject(line.chainId)
+                                                    ?.getAsJsonArray("assets")?.forEach { json ->
+                                                        BaseData.getAsset(
+                                                            line.apiName,
+                                                            json.asJsonObject.get("denom").asString
+                                                        )?.let { asset ->
+                                                            inputAssets.add(asset)
+                                                        }
                                                     }
-                                                }
-                                            inputAssetSelected =
-                                                inputAssets.firstOrNull { it.denom == line.stakeDenom }
+                                                inputAssetSelected =
+                                                    inputAssets.firstOrNull { it.denom == line.stakeDenom }
 
-                                            val channel = getChannel(line)
-                                            val loadInputAuthDeferred =
-                                                async { loadAuth(channel, line.address) }
-                                            val loadInputBalanceDeferred =
-                                                async { loadBalance(channel, line.address) }
+                                                val channel = getChannel(line)
+                                                val loadInputAuthDeferred =
+                                                    async { loadAuth(channel, line.address) }
+                                                val loadInputBalanceDeferred =
+                                                    async { loadBalance(channel, line.address) }
 
-                                            line.cosmosAuth = loadInputAuthDeferred.await()?.account
-                                            line.cosmosBalances =
-                                                loadInputBalanceDeferred.await().balancesList
-                                            BaseUtils.onParseVestingAccount(line)
-                                        }
+                                                line.cosmosAuth = loadInputAuthDeferred.await()?.account
+                                                line.cosmosBalances =
+                                                    loadInputBalanceDeferred.await().balancesList
+                                                BaseUtils.onParseVestingAccount(line)
+                                            }
 
-                                        withContext(Dispatchers.Main) {
-                                            initView()
+                                            withContext(Dispatchers.Main) {
+                                                initView()
+                                            }
                                         }
                                     }
+                                } catch (e: Exception) {
+                                    activity?.makeToast(R.string.str_unknown_error)
                                 }
                             }
                         })
