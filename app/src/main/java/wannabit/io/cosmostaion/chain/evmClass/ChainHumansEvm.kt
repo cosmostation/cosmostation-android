@@ -1,13 +1,16 @@
 package wannabit.io.cosmostaion.chain.evmClass
 
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.PubKeyType
 
-class ChainHumansEvm : EthereumLine() {
+@Parcelize
+class ChainHumansEvm : EthereumLine(), Parcelable {
 
     override var supportCosmos: Boolean = true
     override var name: String = "Humans"

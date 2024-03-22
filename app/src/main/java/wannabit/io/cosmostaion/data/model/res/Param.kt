@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.data.model.res
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-
 @JsonClass(generateAdapter = true)
 data class Param(
     @Json(name = "chain_id") val chainId: String?,
@@ -25,10 +24,11 @@ data class Params(
     }
 
     data class ChainListParams(
-        val fee: Fee,
+        val fee: Fee?,
         @Json(name = "grpc_endpoint") val grpcEndpoint: MutableList<GrpcEndpoint>?,
-        val about: About,
-        val description: Description,
+        @Json(name = "evm_rpc_endpoint") val evmRpcEndpoint: MutableList<GrpcEndpoint>?,
+        val about: About?,
+        val description: Description?,
         val daos: MutableList<Dao>?,
         val vaults: MutableList<Vault>?
     ) {

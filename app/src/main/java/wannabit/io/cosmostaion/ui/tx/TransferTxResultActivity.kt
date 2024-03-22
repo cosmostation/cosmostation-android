@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -158,24 +159,24 @@ class TransferTxResultActivity : BaseActivity() {
                 loading.visibility = View.GONE
                 if (evmRecipient?.isStatusOK == true) {
                     successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
                     showAddressBook()
 
                 } else {
                     failLayout.visibility = View.VISIBLE
-                    failMsg.text = evmRecipient?.logsBloom.toString()
+                    failHash.text = evmRecipient?.logsBloom.toString()
+                    viewFailMintscan.visibility = View.GONE
                 }
 
             } else {
                 if (isSuccess) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
                     showAddressBook()
 
                 } else {
-                    loading.visibility = View.GONE
-                    failLayout.visibility = View.VISIBLE
-                    failMsg.visibleOrGone(errorMsg.isNotEmpty())
-                    failMsg.text = errorMsg
+                    showError()
                 }
             }
         }
@@ -185,7 +186,11 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    val explorerUrl = (fromChain as EthereumLine).txURL + txHash
+                    val explorerUrl = if (fromChain is EthereumLine) {
+                        (fromChain as EthereumLine).txURL + txHash
+                    } else {
+                        OKT_EXPLORER + "tx/" + txHash
+                    }
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
                 } else {
                     historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
@@ -213,10 +218,17 @@ class TransferTxResultActivity : BaseActivity() {
                                 fromChain as EthereumLine, account.id, false
                             )
                         }
+
                     } else {
-                        ApplicationViewModel.shared.loadChainData(
-                            fromChain as CosmosLine, account.id, false
-                        )
+                        if (fromChain is EthereumLine) {
+                            ApplicationViewModel.shared.loadEvmChainData(
+                                fromChain as EthereumLine, account.id, false
+                            )
+                        } else {
+                            ApplicationViewModel.shared.loadChainData(
+                                fromChain as CosmosLine, account.id, false
+                            )
+                        }
                     }
                 }
                 finish()
@@ -265,7 +277,7 @@ class TransferTxResultActivity : BaseActivity() {
             val web3j = if (fromChain is ChainOkt996Keccak) {
                 Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
             } else {
-                Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+                Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
             }
 
             try {
@@ -363,8 +375,13 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
-            failMsg.visibleOrGone(errorMsg.isNotEmpty())
-            failMsg.text = errorMsg
+            failHash.visibleOrGone(errorMsg.isNotEmpty())
+            failHash.text = errorMsg
+            if (txHash.isNotEmpty()) {
+                viewFailMintscan.visibility = View.VISIBLE
+            } else {
+                viewFailMintscan.visibility = View.GONE
+            }
             btnConfirm.updateButtonView(true)
         }
     }

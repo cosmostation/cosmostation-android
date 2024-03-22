@@ -249,13 +249,14 @@ class IntroActivity : AppCompatActivity() {
             }
         }
 
-        walletViewModel.errorMessage.observe(this) {
+        walletViewModel.networkErrorMessage.observe(this) {
             showNetworkErrorDialog()
         }
     }
 
     private fun initPriceInfo() {
         walletViewModel.chain()
+        walletViewModel.param()
         walletViewModel.price(BaseData.currencyName().lowercase())
         walletViewModel.supportConfig()
         walletViewModel.asset()

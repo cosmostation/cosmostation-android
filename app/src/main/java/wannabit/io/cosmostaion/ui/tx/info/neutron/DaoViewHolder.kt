@@ -93,25 +93,25 @@ class DaoViewHolder(
 
                 val module = when (type) {
                     NEUTRON_SINGLE_MODULE -> {
-                        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                            0
-                        )
+                        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                            ?.get(0)?.asJsonObject
                     }
 
                     NEUTRON_MULTI_MODULE -> {
-                        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                            1
-                        )
+                        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                            ?.get(1)?.asJsonObject
                     }
 
                     else -> {
-                        selectedChain.param?.params?.chainlistParams?.daos?.get(0)?.proposal_modules?.get(
-                            2
-                        )
+                        selectedChain.getChainListParam()?.getAsJsonArray("daos")
+                            ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+                            ?.get(2)?.asJsonObject
                     }
                 }
 
-                neutronMyVotes?.firstOrNull { it.contract_address == module?.address && it.proposal_id.toString() == proposal.id }
+                neutronMyVotes?.firstOrNull { it.contract_address == module?.get("address")?.asString && it.proposal_id.toString() == proposal.id }
                     ?.let { myVote ->
                         myVote.option?.let { option ->
                             if (option.isOptionInteger()) {
@@ -173,15 +173,21 @@ class DaoViewHolder(
                 proposalView.setOnClickListener {
                     val url: String = when (type) {
                         NEUTRON_SINGLE_MODULE -> {
-                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/single/" + module?.address
+                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/single/" + module?.get(
+                                "address"
+                            )?.asString
                         }
 
                         NEUTRON_MULTI_MODULE -> {
-                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/multiple/" + module?.address
+                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/multiple/" + module?.get(
+                                "address"
+                            )?.asString
                         }
 
                         else -> {
-                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/overrule/" + module?.address
+                            CosmostationConstants.EXPLORER_BASE_URL + "neutron/dao/proposals/" + proposal.id + "/overrule/" + module?.get(
+                                "address"
+                            )?.asString
                         }
                     }
                     Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {

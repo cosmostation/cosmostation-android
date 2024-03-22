@@ -290,7 +290,7 @@ class CoinCosmosLineViewHolder(
                         total.text = if (hideValue) "" else formatAmount(
                             (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                         )
-                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
+                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
                     }
                 }
 
@@ -326,7 +326,7 @@ class CoinCosmosLineViewHolder(
                         total.text = if (hideValue) "" else formatAmount(
                             (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                         )
-                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
+                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
                     }
                 }
             }

@@ -90,10 +90,13 @@
     <string name="str_deposit_liquidity">유동성 입금</string>
     <string name="str_remove_liquidity">유동성 출금</string>
     <string name="str_search_chain">체인 검색</string>
+    <string name="str_search_token">토큰 검색</string>
     <string name="str_go_playstore">플레이스토어 이동</string>
     <string name="str_under_maintenance">점검중</string>
     <string name="str_mintscan">민트스캔</string>
     <string name="str_amount">수량</string>
+    <string name="str_token_github">토큰 정보 확인</string>
+    <string name="str_node_down">노드 다운</string>
 
 
     //title
@@ -206,6 +209,9 @@
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
     <string name="title_select_end_point">End-Point 선택</string>
+    <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
+    <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
+    <string name="title_edit_token_list">토큰 편집</string>
 
 
     // msg
@@ -263,6 +269,8 @@
     <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encription Key를 입력하세요.</string>
     <string name="str_broadcasting_msg">현재 트랜잭션이 실행 중입니다.\n잠시만 기다려 주세요.</string>
     <string name="str_addressbook_memo_changed_msg">기존 주소록과 비교해서 메모가 변경되었습니다.\n새로운 메모로 업데이트 하시겠습니까?</string>
+    <string name="str_token_github_msg">현재 사용하고 계신 체인에서는 커뮤니티에 알려진 토큰(cw20, erc20)을 보유한 경우 자동으로 토큰 목록에 표시됩니다.\n\n원하는 토큰 정보가 보이지 않는 경우, 아래 GitHub 링크를 통해 PR을 제출해주세요.</string>
+    <string name="str_node_down_msg">▪ 현재 사용 중인 노드에 문제가 있는 경우, [설정 > 체인 관리]를 통해 다른 노드로 손쉽게 전환하여 서비스를 계속 이용하실 수 있습니다.\n\n ▪ 모든 노드가 사용이 불가능한 경우 사용중인 체인 업그레이드가 진행 중인 경우로, 업그레이드가 완료될 때까지 기다려주시기 바랍니다.</string>
 
 
     // error
@@ -298,6 +306,8 @@
     <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
     <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
     <string name="error_tranfer_disabled">전송 기능을 지원하지 않는 체인입니다.</string>
+    <string name="error_useless_end_point">사용할 수 없습니다.</string>
+    <string name="error_no_bonding_no_vote">위임량이 충분하지 않아 투표를 하실 수 없습니다.</string>
 
 
     //header

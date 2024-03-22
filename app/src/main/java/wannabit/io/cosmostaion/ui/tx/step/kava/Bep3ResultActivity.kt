@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -106,22 +105,20 @@ class Bep3ResultActivity : BaseActivity() {
         initViewModel()
         initView()
         setUpBroadcast()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initViewModel() {
         val txRepository = TxRepositoryImpl()
         val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
         txViewModel = ViewModelProvider(
-            this,
-            txViewModelProviderFactory
+            this, txViewModelProviderFactory
         )[TxViewModel::class.java]
 
         val kavaRepository = KavaRepositoryImpl()
         val kavaViewModelProviderFactory = KavaViewModelProviderFactory(kavaRepository)
         kavaViewModel = ViewModelProvider(
-            this,
-            kavaViewModelProviderFactory
+            this, kavaViewModelProviderFactory
         )[KavaViewModel::class.java]
     }
 
@@ -131,9 +128,17 @@ class Bep3ResultActivity : BaseActivity() {
 
             fromChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
                 it.tag == intent.getStringExtra("fromChain")
+            } ?: run {
+                BaseData.baseAccount?.sortedDisplayEvmLines()?.firstOrNull {
+                    it.tag == intent.getStringExtra("fromChain")
+                }
             }
-            toChain = BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
+            toChain = BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {
                 it.tag == intent.getStringExtra("toChain")
+            } ?: run {
+                BaseData.baseAccount?.allEvmLineChains?.firstOrNull {
+                    it.tag == intent.getStringExtra("toChain")
+                }
             }
             recipientAddress = intent.getStringExtra("toAddress")
             toSendDenom = intent.getStringExtra("toSendDenom")
@@ -195,34 +200,32 @@ class Bep3ResultActivity : BaseActivity() {
         fromChain?.let { chain ->
             toSendDenom?.let { denom ->
                 BaseData.getAsset(chain.apiName, denom)?.let { asset ->
-                    sendAmount = toSendAmount?.movePointRight(asset.decimals ?: 6)?.setScale(0, RoundingMode.DOWN)?.toString()
+                    sendAmount = toSendAmount?.movePointRight(asset.decimals ?: 6)
+                        ?.setScale(0, RoundingMode.DOWN)?.toString()
                 }
             }
         }
 
-        return TxProto.MsgCreateAtomicSwap.newBuilder()
-            .setFrom(fromChain?.address)
+        return TxProto.MsgCreateAtomicSwap.newBuilder().setFrom(fromChain?.address)
             .setTo(duputyKavaAddress(toSendDenom))
             .setSenderOtherChain(duputyBnbAddress(toSendDenom))
             .setRecipientOtherChain(recipientAddress)
             .setRandomNumberHash(Sha256Hash.hash(originData).toHex().uppercase())
-            .setTimestamp(timeStamp)
-            .addAmount(CoinProto.Coin.newBuilder().setDenom(toSendDenom).setAmount(sendAmount).build())
-            .setHeightSpan(24686)
-            .build()
+            .setTimestamp(timeStamp).addAmount(
+                CoinProto.Coin.newBuilder().setDenom(toSendDenom).setAmount(sendAmount).build()
+            ).setHeightSpan(24686).build()
     }
 
     private fun kToBClaimSend(account: AccountResponse) {
         CoroutineScope(Dispatchers.IO).launch {
             ECKey.fromPrivate(toChain?.privateKey)?.let {
                 val wallet = Wallet(it.privateKeyAsHex, BinanceDexEnvironment.PROD)
-                wallet.accountNumber = account.accountNumber
+                wallet.accountNumber = account.account_number
                 wallet.sequence = account.sequence.toLong()
 
                 val client = BinanceDexApiClientFactory.newInstance()
                     .newRestClient(BinanceDexEnvironment.PROD.baseUrl)
-                val options =
-                    TransactionOption(SWAP_MEMO_CLAIM, 82, null)
+                val options = TransactionOption(SWAP_MEMO_CLAIM, 82, null)
                 val resp = client.claimHtlt(
                     expectedSwapId?.lowercase(),
                     hexStringToByteArray(randomNumber!!),
@@ -258,7 +261,7 @@ class Bep3ResultActivity : BaseActivity() {
         ECKey.fromPrivate(fromChain?.privateKey)?.let {
             val wallet = Wallet(it.privateKeyAsHex, BinanceDexEnvironment.PROD)
             fromChain?.lcdAccountInfo?.let { account ->
-                wallet.accountNumber = account.accountNumber
+                wallet.accountNumber = account.account_number
                 wallet.sequence = account.sequence.toLong()
             }
 
@@ -271,30 +274,24 @@ class Bep3ResultActivity : BaseActivity() {
             val randomNumberHash = htltReq.randomNumberHash
             expectedSwapId = expectedSwapId(fromChain, toSendDenom, randomNumberHash)
 
-            val options =
-                TransactionOption(SWAP_MEMO_CLAIM, 82, null)
+            val options = TransactionOption(SWAP_MEMO_CLAIM, 82, null)
 
             txViewModel.broadcastBnbCreateSwap(htltReq, wallet, options)
         }
     }
 
     private fun bToKClaimSend(): MsgClaimAtomicSwap? {
-        return MsgClaimAtomicSwap.newBuilder().setFrom(toChain?.address).setSwapId(expectedSwapId).setRandomNumber(randomNumber).build()
+        return MsgClaimAtomicSwap.newBuilder().setFrom(toChain?.address).setSwapId(expectedSwapId)
+            .setRandomNumber(randomNumber).build()
     }
 
     private fun txFee(): Fee? {
-        val feeCoin = CoinProto.Coin.newBuilder()
-            .setDenom("ukava")
-            .setAmount("12500")
-            .build()
+        val feeCoin = CoinProto.Coin.newBuilder().setDenom("ukava").setAmount("12500").build()
 
-        return Fee.newBuilder()
-            .setGasLimit(BASE_GAS_AMOUNT.toLong())
-            .addAmount(feeCoin)
-            .build()
+        return Fee.newBuilder().setGasLimit(BASE_GAS_AMOUNT.toLong()).addAmount(feeCoin).build()
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             checkSendView.setOnClickListener {
                 historyToMintscan(fromChain, createTxHash)
@@ -347,12 +344,19 @@ class Bep3ResultActivity : BaseActivity() {
 
         txViewModel.broadBnbCreateSwap.observe(this) { response ->
             response?.let {
-                if (it[0].isOk) {
-                    updateProgress(1)
-                    kavaViewModel.bep3SwapId(getChannel(ChainKava459()), expectedSwapId, toChain)
-                    createTxHash = it[0].hash
+                if (it.isNotEmpty()) {
+                    if (it[0].isOk) {
+                        updateProgress(1)
+                        kavaViewModel.bep3SwapId(
+                            getChannel(ChainKava459()), expectedSwapId, toChain
+                        )
+                        createTxHash = it[0].hash
+                    } else {
+                        showError(it[0].log)
+                    }
+
                 } else {
-                    showError(it[0].log)
+                    showError(it.toString())
                 }
             }
         }
@@ -398,7 +402,9 @@ class Bep3ResultActivity : BaseActivity() {
         }
     }
 
-    private fun swapId(randomNumberHash: ByteArray, sender: String?, otherChainSender: String): String {
+    private fun swapId(
+        randomNumberHash: ByteArray, sender: String?, otherChainSender: String
+    ): String {
         val s: ByteArray = ByteUtils.convertBits(Bech32.decode(sender).data, 5, 8, false)
         val rhs = ByteArray(randomNumberHash.size + s.size)
         System.arraycopy(randomNumberHash, 0, rhs, 0, randomNumberHash.size)
@@ -413,22 +419,28 @@ class Bep3ResultActivity : BaseActivity() {
         return expectedSwapIdSha.toHex()
     }
 
-    private fun expectedSwapId(fromChain: CosmosLine?, toSendDenom: String?, randomNumberHash: ByteArray): String {
+    private fun expectedSwapId(
+        fromChain: CosmosLine?, toSendDenom: String?, randomNumberHash: ByteArray
+    ): String {
         if (fromChain is ChainKava459) {
             fromChain.address?.let { address ->
                 when (toSendDenom) {
                     TOKEN_HTLC_KAVA_BNB -> {
                         return swapId(randomNumberHash, BINANCE_MAIN_BNB_DEPUTY, address)
                     }
+
                     TOKEN_HTLC_KAVA_BTCB -> {
                         return swapId(randomNumberHash, BINANCE_MAIN_BTCB_DEPUTY, address)
                     }
+
                     TOKEN_HTLC_KAVA_XRPB -> {
                         return swapId(randomNumberHash, BINANCE_MAIN_XRPB_DEPUTY, address)
                     }
+
                     TOKEN_HTLC_KAVA_BUSD -> {
                         return swapId(randomNumberHash, BINANCE_MAIN_BUSD_DEPUTY, address)
                     }
+
                     else -> ""
                 }
             }
@@ -439,15 +451,19 @@ class Bep3ResultActivity : BaseActivity() {
                     TOKEN_HTLC_BINANCE_BNB -> {
                         return swapId(randomNumberHash, KAVA_MAIN_BNB_DEPUTY, address)
                     }
+
                     TOKEN_HTLC_BINANCE_BTCB -> {
                         return swapId(randomNumberHash, KAVA_MAIN_BTCB_DEPUTY, address)
                     }
+
                     TOKEN_HTLC_BINANCE_XRPB -> {
                         return swapId(randomNumberHash, KAVA_MAIN_XRPB_DEPUTY, address)
                     }
+
                     TOKEN_HTLC_BINANCE_BUSD -> {
                         return swapId(randomNumberHash, KAVA_MAIN_BUSD_DEPUTY, address)
                     }
+
                     else -> ""
                 }
             }
@@ -488,14 +504,17 @@ class Bep3ResultActivity : BaseActivity() {
                 htltReq.recipient = BINANCE_MAIN_BNB_DEPUTY
                 htltReq.senderOtherChain = KAVA_MAIN_BNB_DEPUTY
             }
+
             TOKEN_HTLC_BINANCE_BTCB -> {
                 htltReq.recipient = BINANCE_MAIN_BTCB_DEPUTY
                 htltReq.senderOtherChain = KAVA_MAIN_BTCB_DEPUTY
             }
+
             TOKEN_HTLC_BINANCE_XRPB -> {
                 htltReq.recipient = BINANCE_MAIN_XRPB_DEPUTY
                 htltReq.senderOtherChain = KAVA_MAIN_XRPB_DEPUTY
             }
+
             TOKEN_HTLC_BINANCE_BUSD -> {
                 htltReq.recipient = BINANCE_MAIN_BUSD_DEPUTY
                 htltReq.senderOtherChain = KAVA_MAIN_BUSD_DEPUTY
@@ -509,7 +528,8 @@ class Bep3ResultActivity : BaseActivity() {
         token.denom = toSendDenom
         token.amount = toSendAmount?.movePointRight(8)?.toLong()
         htltReq.outAmount = listOf(token)
-        htltReq.expectedIncome = toSendAmount?.movePointRight(8)?.toPlainString() + ":" + toSendDenom
+        htltReq.expectedIncome =
+            toSendAmount?.movePointRight(8)?.toPlainString() + ":" + toSendDenom
         htltReq.heightSpan = 407547
         htltReq.isCrossChain = true
         return htltReq
@@ -518,8 +538,8 @@ class Bep3ResultActivity : BaseActivity() {
     private fun showError(errorMsg: String) {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = DialogErrorBinding.inflate(inflater)
-        val alertDialog = AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme)
-            .setView(binding.root)
+        val alertDialog =
+            AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
 
         val dialog = alertDialog.create()
         dialog.show()
@@ -535,8 +555,8 @@ class Bep3ResultActivity : BaseActivity() {
     private fun showMoreWait() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val binding = DialogWaitBinding.inflate(inflater)
-        val alertDialog = AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme)
-            .setView(binding.root)
+        val alertDialog =
+            AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
 
         val dialog = alertDialog.create()
         dialog.show()

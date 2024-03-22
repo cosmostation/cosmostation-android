@@ -1,11 +1,14 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
-class ChainFetchAi60Old : ChainFetchAi() {
+@Parcelize
+class ChainFetchAi60Old : ChainFetchAi(), Parcelable {
 
     override var isDefault = false
     override var tag: String = "fetchai60_Old"

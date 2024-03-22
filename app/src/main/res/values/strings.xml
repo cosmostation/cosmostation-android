@@ -123,11 +123,14 @@
     <string name="str_deposit_liquidity">Add liquidity</string>
     <string name="str_remove_liquidity">Remove liquidity</string>
     <string name="str_search_chain">Search chain</string>
+    <string name="str_search_token">Search token</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">Claim all</string>
     <string name="str_amount">Amount</string>
+    <string name="str_token_github">Check token info</string>
+    <string name="str_node_down">Node down</string>
 
 
     //title
@@ -262,6 +265,9 @@
     <string name="title_big_loss">Asset loss</string>
     <string name="title_claimable_chains">Claimable chains</string>
     <string name="title_select_end_point">Select End-Point</string>
+    <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
+    <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
+    <string name="title_edit_token_list">Edit token list</string>
 
 
     // msg
@@ -331,13 +337,15 @@
     <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
     <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
+    <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
+    <string name="str_node_down_msg">▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
 
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>
     <string name="str_ibc_coins" translatable="false">Ibc coins</string>
     <string name="str_bridge_coins" translatable="false">Bridged coins</string>
-    <string name="str_contract_tokens" translatable="false">Contract tokens</string>
+    <string name="str_contract_tokens" translatable="false">Cw20 tokens</string>
     <string name="str_erc20_tokens" translatable="false">Erc20 tokens</string>
     <string name="str_kip10_coins" translatable="false">Kip10 coins</string>
     <string name="str_kip20_tokens" translatable="false">Kip20 tokens</string>
@@ -385,6 +393,9 @@
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
     <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
+    <string name="error_useless_end_point">Can not use this</string>
+    <string name="error_no_bonding_no_vote">You cannot vote because there is not enough delegation.</string>
+
 
 
     // tx

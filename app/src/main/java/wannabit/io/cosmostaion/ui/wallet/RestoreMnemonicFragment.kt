@@ -53,9 +53,7 @@ class RestoreMnemonicFragment(private val initType: Int) : Fragment() {
                     }
 
                     requireActivity().toMoveFragment(
-                        this@RestoreMnemonicFragment,
-                        RestoreMnemonicConfirmFragment(mnemonic, initType),
-                        "RestorePath"
+                        this@RestoreMnemonicFragment, RestoreMnemonicConfirmFragment(mnemonic, initType), "RestorePath"
                     )
                 }
             }
@@ -63,9 +61,14 @@ class RestoreMnemonicFragment(private val initType: Int) : Fragment() {
     }
 
     private fun isValidWords(wordList: List<String>): Boolean {
-        return (wordList.size == 12 || wordList.size == 18 || wordList.size == 24) && BaseKey.isMnemonicWords(
-            wordList
-        ) && BaseKey.isValidStringHdSeedFromWords(wordList)
+        return try {
+            (wordList.size == 12 || wordList.size == 18 || wordList.size == 24) && BaseKey.isMnemonicWords(
+                wordList
+            ) && BaseKey.isValidStringHdSeedFromWords(wordList)
+        } catch (e: Exception) {
+            activity?.makeToast(R.string.str_unknown_error)
+            false
+        }
     }
 
     override fun onDestroyView() {

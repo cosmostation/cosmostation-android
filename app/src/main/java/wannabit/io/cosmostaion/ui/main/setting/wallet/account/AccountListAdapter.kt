@@ -78,7 +78,7 @@ class AccountListAdapter(
 
                         } else {
                             val privateAccount =
-                                privateAccounts[position - (mnemonicAccounts.size + 2)]
+                                privateAccounts[(position - (mnemonicAccounts.size + 2)).coerceAtLeast(0)]
                             holder.bind(privateAccount)
 
                             holder.itemView.setOnClickListener {

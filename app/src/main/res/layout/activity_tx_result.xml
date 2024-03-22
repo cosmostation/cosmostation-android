@@ -99,8 +99,8 @@
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_success"
-            android:textAllCaps="true"
+            android:text="Transaction Success"
+            android:textAllCaps="false"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,14 +108,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/success_msg"
+            android:id="@+id/success_hash"
             style="@style/font_sm_12"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
+            android:layout_marginHorizontal="@dimen/space_60"
             android:gravity="center"
-            android:text="@string/str_tx_success_msg"
-            android:textColor="@color/color_accent_green"
+            android:textColor="@color/color_base02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/success_txt" />
@@ -127,7 +127,7 @@
             android:layout_marginTop="@dimen/space_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/success_msg">
+            app:layout_constraintTop_toBottomOf="@+id/success_hash">
 
             <TextView
                 style="@style/font_sm_12"
@@ -180,13 +180,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/fail_msg"
+            android:id="@+id/fail_hash"
             style="@style/font_sm_12"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_6"
             android:ellipsize="middle"
             android:gravity="center"
+            android:layout_marginHorizontal="@dimen/space_60"
             android:maxHeight="@dimen/space_100"
             android:paddingHorizontal="@dimen/space_100"
             android:textColor="@color/color_accent_red"
@@ -201,7 +202,7 @@
             android:layout_marginTop="@dimen/space_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fail_msg">
+            app:layout_constraintTop_toBottomOf="@+id/fail_hash">
 
             <TextView
                 style="@style/font_sm_12"

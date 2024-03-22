@@ -10,6 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
@@ -33,6 +36,9 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
+
+    private val _networkErrorMessage = MutableLiveData<String>()
+    val networkErrorMessage: LiveData<String> get() = _networkErrorMessage
 
     private val _hasPassword = MutableLiveData<Boolean>()
     val hasPassword: LiveData<Boolean> get() = _hasPassword
@@ -75,6 +81,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     if (data.isSuccessful) {
                         _walletAppVersionResult.postValue(data.body())
                     } else {
+                        _networkErrorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _networkErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    fun chain() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.chain()) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        BaseData.chains = data.body()?.chains
+                    } else {
                         _errorMessage.postValue("Error")
                     }
                 }
@@ -86,12 +110,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
-    fun chain() = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.chain()) {
+    fun param() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.param()) {
             is NetworkResult.Success -> {
-                response.data.let { data ->
-                    if (data.isSuccessful) {
-                        BaseData.chains = data.body()?.chains
+                response.data?.let { data ->
+                    if (!data.isJsonNull) {
+                        BaseData.chainParam = data
                     } else {
                         _errorMessage.postValue("Error")
                     }
@@ -279,14 +303,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         when (val response = walletRepository.evmBalance(line)) {
             is NetworkResult.Success -> {
                 line.evmBalance = response.data.toBigDecimal()
+                line.web3j = Web3j.build(HttpService(line.getEvmRpc()))
                 line.fetched = true
-                _balanceResult.postValue(line.tag)
+                if (line.fetched) {
+                    withContext(Dispatchers.Main) {
+                        _balanceResult.value = line.tag
+                    }
+                }
             }
 
             is NetworkResult.Error -> {
                 line.evmBalance = BigDecimal.ZERO
+                line.web3j = null
                 line.fetched = true
-                _balanceResult.postValue("null")
+                if (line.fetched) {
+                    withContext(Dispatchers.Main) {
+                        _balanceResult.value = line.tag
+                    }
+                }
             }
         }
     }
@@ -298,13 +332,21 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     is NetworkResult.Success -> {
                         line.lcdAccountInfo = response.data
                         line.fetched = true
-                        _balanceResult.postValue(line.tag)
+                        if (line.fetched) {
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = line.tag
+                            }
+                        }
                     }
 
                     is NetworkResult.Error -> {
                         line.lcdAccountInfo = null
                         line.fetched = true
-                        _balanceResult.postValue("null")
+                        if (line.fetched) {
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = line.tag
+                            }
+                        }
                     }
                 }
             }
@@ -314,13 +356,21 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     is NetworkResult.Success -> {
                         line.oktLcdAccountInfo = response.data
                         line.fetched = true
-                        _balanceResult.postValue(line.tag)
+                        if (line.fetched) {
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = line.tag
+                            }
+                        }
                     }
 
                     is NetworkResult.Error -> {
                         line.oktLcdAccountInfo = null
                         line.fetched = true
-                        _balanceResult.postValue("null")
+                        if (line.fetched) {
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = line.tag
+                            }
+                        }
                     }
                 }
             }
@@ -332,14 +382,22 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         response.data?.balancesList?.let {
                             line.cosmosBalances = it
                             line.fetched = true
-                            _balanceResult.postValue(line.tag)
+                            if (line.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = line.tag
+                                }
+                            }
                         }
                     }
 
                     is NetworkResult.Error -> {
                         line.cosmosBalances = null
                         line.fetched = true
-                        _balanceResult.postValue("null")
+                        if (line.fetched) {
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = line.tag
+                            }
+                        }
                     }
                 }
             }

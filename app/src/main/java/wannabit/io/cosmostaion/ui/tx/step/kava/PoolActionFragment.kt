@@ -81,10 +81,7 @@ class PoolActionFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine,
-            poolActionType: PoolActionType,
-            swapPool: QueryProto.PoolResponse?,
-            deposit: QueryProto.DepositResponse?
+            selectedChain: CosmosLine, poolActionType: PoolActionType, swapPool: QueryProto.PoolResponse?, deposit: QueryProto.DepositResponse?
         ): PoolActionFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -164,56 +161,55 @@ class PoolActionFragment : BaseTxFragment() {
                 shareAmountView.visibility = View.GONE
                 btnPool.text = getString(R.string.str_deposit)
 
-                BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(0).denom)
-                    ?.let { asset1 ->
-                        BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(1).denom)
-                            ?.let { asset2 ->
-                                pool1Asset = asset1
-                                pool2Asset = asset2
+                BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(0).denom)?.let { asset1 ->
+                    BaseData.getAsset(selectedChain.apiName, swapPool.getCoins(1).denom)?.let { asset2 ->
+                        pool1Asset = asset1
+                        pool2Asset = asset2
 
-                                pool1TokenImg.setTokenImg(asset1)
-                                pool1TokenName.text = asset1.symbol
-                                pool1Amount.text = formatAmount(
-                                    BigDecimal.ZERO.toPlainString(), asset1.decimals ?: 6
-                                )
-                                pool1Value.text = formatAssetValue(BigDecimal.ZERO)
+                        pool1TokenImg.setTokenImg(asset1)
+                        pool1TokenName.text = asset1.symbol
+                        pool1Amount.text = formatAmount(
+                            BigDecimal.ZERO.toPlainString(), asset1.decimals ?: 6
+                        )
+                        pool1Value.text = formatAssetValue(BigDecimal.ZERO)
 
-                                pool2TokenImg.setTokenImg(asset2)
-                                pool2TokenName.text = asset2.symbol
-                                pool2Amount.text = formatAmount(
-                                    BigDecimal.ZERO.toPlainString(), asset2.decimals ?: 6
-                                )
-                                pool2Value.text = formatAssetValue(BigDecimal.ZERO)
+                        pool2TokenImg.setTokenImg(asset2)
+                        pool2TokenName.text = asset2.symbol
+                        pool2Amount.text = formatAmount(
+                            BigDecimal.ZERO.toPlainString(), asset2.decimals ?: 6
+                        )
+                        pool2Value.text = formatAssetValue(BigDecimal.ZERO)
 
-                                val poolCoin1Amount = swapPool.getCoins(0).amount
-                                val poolCoin2Amount = swapPool.getCoins(1).amount
-                                var availableCoin1Amount =
-                                    selectedChain.balanceAmount(swapPool.getCoins(0).denom)
-                                if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
-                                    val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                    availableCoin1Amount = availableCoin1Amount.subtract(feeAmount)
-                                }
-                                val availableCoin2Amount =
-                                    selectedChain.balanceAmount(swapPool.getCoins(1).denom)
+                        val poolCoin1Amount = swapPool.getCoins(0).amount
+                        val poolCoin2Amount = swapPool.getCoins(1).amount
+                        var availableCoin1Amount = selectedChain.balanceAmount(swapPool.getCoins(0).denom)
+                        if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
+                            val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
+                            availableCoin1Amount = availableCoin1Amount.subtract(feeAmount)
+                        }
+                        val availableCoin2Amount = selectedChain.balanceAmount(swapPool.getCoins(1).denom)
 
-                                swapRate = poolCoin1Amount.toBigDecimal().divide(
-                                    poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN
-                                )
-                                val availableRate = availableCoin1Amount.divide(
-                                    availableCoin2Amount, 24, RoundingMode.DOWN
-                                )
-                                if (swapRate > availableRate) {
-                                    coin1AvailableAmount = availableCoin1Amount
-                                    coin2AvailableAmount = availableCoin1Amount.divide(
-                                        swapRate, 0, RoundingMode.DOWN
-                                    )
-                                } else {
-                                    coin2AvailableAmount = availableCoin2Amount
-                                    coin1AvailableAmount = availableCoin2Amount.multiply(swapRate)
-                                        .setScale(0, RoundingMode.DOWN)
-                                }
-                            }
+                        swapRate = poolCoin1Amount.toBigDecimal().divide(
+                            poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN
+                        )
+                        val availableRate = if (availableCoin2Amount <= BigDecimal.ZERO) {
+                            BigDecimal.ZERO
+                        } else {
+                            availableCoin1Amount.divide(
+                                availableCoin2Amount, 24, RoundingMode.DOWN
+                            )
+                        }
+                        if (swapRate > availableRate) {
+                            coin1AvailableAmount = availableCoin1Amount
+                            coin2AvailableAmount = availableCoin1Amount.divide(
+                                swapRate, 0, RoundingMode.DOWN
+                            )
+                        } else {
+                            coin2AvailableAmount = availableCoin2Amount
+                            coin1AvailableAmount = availableCoin2Amount.multiply(swapRate).setScale(0, RoundingMode.DOWN)
+                        }
                     }
+                }
 
             } else {
                 poolActionTitle.text = getString(R.string.title_pool_withdraw)
@@ -242,9 +238,7 @@ class PoolActionFragment : BaseTxFragment() {
             for (i in feeInfos.indices) {
                 val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
                 feeSegment.addView(
-                    segmentView.root,
-                    i,
-                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                    segmentView.root, i, LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                 )
                 segmentView.btnTitle.text = feeInfos[i].title
             }
@@ -258,8 +252,7 @@ class PoolActionFragment : BaseTxFragment() {
         binding.apply {
             coin1ToAmount = amount1
             pool1Asset?.decimals?.let { decimal ->
-                val dpAmount = coin1ToAmount.toBigDecimal().movePointLeft(decimal)
-                    .setScale(decimal, RoundingMode.DOWN)
+                val dpAmount = coin1ToAmount.toBigDecimal().movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                 val coin1Price = BaseData.getPrice(pool1Asset?.coinGeckoId)
                 val coin1Value = coin1Price.multiply(dpAmount)
 
@@ -269,8 +262,7 @@ class PoolActionFragment : BaseTxFragment() {
 
             coin2ToAmount = amount2
             pool2Asset?.decimals?.let { decimal ->
-                val dpAmount = coin2ToAmount.toBigDecimal().movePointLeft(decimal)
-                    .setScale(decimal, RoundingMode.DOWN)
+                val dpAmount = coin2ToAmount.toBigDecimal().movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                 val coin2Price = BaseData.getPrice(pool2Asset?.coinGeckoId)
                 val coin2Value = coin2Price.multiply(dpAmount)
 
@@ -337,50 +329,35 @@ class PoolActionFragment : BaseTxFragment() {
         binding.apply {
             poolView.setOnClickListener {
                 handleOneClickWithDelay(
-                    PoolInsertAmountFragment(pool1Asset,
-                        pool2Asset,
-                        coin1AvailableAmount,
-                        coin2AvailableAmount,
-                        swapRate,
-                        coin1ToAmount,
-                        coin2ToAmount,
-                        object : PoolAmountSelectListener {
-                            override fun select(coin1ToAmount: String, coin2ToAmount: String) {
-                                updateDepositAmountView(coin1ToAmount, coin2ToAmount)
-                            }
-                        })
+                    PoolInsertAmountFragment(pool1Asset, pool2Asset, coin1AvailableAmount, coin2AvailableAmount, swapRate, coin1ToAmount, coin2ToAmount, object : PoolAmountSelectListener {
+                        override fun select(coin1ToAmount: String, coin2ToAmount: String) {
+                            updateDepositAmountView(coin1ToAmount, coin2ToAmount)
+                        }
+                    })
                 )
             }
 
             shareAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.POOL_WITHDRAW,
-                        deposit.sharesOwned,
-                        toWithdrawAmount,
-                        null,
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateWithdrawAmountView(toAmount)
-                            }
-                        })
+                    InsertAmountFragment.newInstance(TxType.POOL_WITHDRAW, deposit.sharesOwned, toWithdrawAmount, null, object : AmountSelectListener {
+                        override fun select(toAmount: String) {
+                            updateWithdrawAmountView(toAmount)
+                        }
+                    })
                 )
             }
 
             btnQuarter.setOnClickListener {
-                val coin1QuarterAmount =
-                    coin1AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
-                val coin2QuarterAmount =
-                    coin2AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
+                val coin1QuarterAmount = coin1AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
+                val coin2QuarterAmount = coin2AvailableAmount.multiply(BigDecimal("0.25")).setScale(0, RoundingMode.DOWN)
                 updateDepositAmountView(
                     coin1QuarterAmount.toPlainString(), coin2QuarterAmount.toPlainString()
                 )
             }
 
             btnHalf.setOnClickListener {
-                val coin1HalfAmount =
-                    coin1AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
-                val coin2HalfAmount =
-                    coin2AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
+                val coin1HalfAmount = coin1AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
+                val coin2HalfAmount = coin2AvailableAmount.multiply(BigDecimal("0.5")).setScale(0, RoundingMode.DOWN)
                 updateDepositAmountView(
                     coin1HalfAmount.toPlainString(), coin2HalfAmount.toPlainString()
                 )
@@ -404,26 +381,19 @@ class PoolActionFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment.newInstance(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
-                        object : AssetSelectListener {
-                            override fun select(denom: String) {
-                                selectedChain.getDefaultFeeCoins(requireContext())
-                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                        val updateFeeCoin =
-                                            CoinProto.Coin.newBuilder().setDenom(denom)
-                                                .setAmount(feeCoin.amount).build()
+                    AssetFragment.newInstance(selectedChain, feeInfos[selectedFeeInfo].feeDatas.toMutableList(), object : AssetSelectListener {
+                        override fun select(denom: String) {
+                            selectedChain.getDefaultFeeCoins(requireContext()).firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoin.amount).build()
 
-                                        val updateTxFee = TxProto.Fee.newBuilder()
-                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                            .addAmount(updateFeeCoin).build()
+                                val updateTxFee = TxProto.Fee.newBuilder().setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong()).addAmount(updateFeeCoin).build()
 
-                                        txFee = updateTxFee
-                                        updateFeeView()
-                                        txSimulate()
-                                    }
+                                txFee = updateTxFee
+                                updateFeeView()
+                                txSimulate()
                             }
-                        })
+                        }
+                    })
                 )
             }
 
@@ -461,36 +431,25 @@ class PoolActionFragment : BaseTxFragment() {
         }
     }
 
-    private val getPoolResultLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && isAdded) {
-                binding.backdropLayout.visibility = View.VISIBLE
+    private val getPoolResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK && isAdded) {
+            binding.backdropLayout.visibility = View.VISIBLE
 
-                when (poolActionType) {
-                    PoolActionType.DEPOSIT -> {
-                        txViewModel.broadPoolDeposit(
-                            getChannel(selectedChain),
-                            selectedChain.address,
-                            onBindDepositMsg(),
-                            txFee,
-                            txMemo,
-                            selectedChain
-                        )
-                    }
+            when (poolActionType) {
+                PoolActionType.DEPOSIT -> {
+                    txViewModel.broadPoolDeposit(
+                        getChannel(selectedChain), selectedChain.address, onBindDepositMsg(), txFee, txMemo, selectedChain
+                    )
+                }
 
-                    PoolActionType.WITHDRAW -> {
-                        txViewModel.broadPoolWithdraw(
-                            getChannel(selectedChain),
-                            selectedChain.address,
-                            onBindWithdrawMsg(),
-                            txFee,
-                            txMemo,
-                            selectedChain
-                        )
-                    }
+                PoolActionType.WITHDRAW -> {
+                    txViewModel.broadPoolWithdraw(
+                        getChannel(selectedChain), selectedChain.address, onBindWithdrawMsg(), txFee, txMemo, selectedChain
+                    )
                 }
             }
         }
+    }
 
     private fun txSimulate() {
         binding.apply {
@@ -506,12 +465,7 @@ class PoolActionFragment : BaseTxFragment() {
                     btnPool.updateButtonView(false)
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulatePoolDeposit(
-                        getChannel(selectedChain),
-                        selectedChain.address,
-                        onBindDepositMsg(),
-                        txFee,
-                        txMemo,
-                        selectedChain
+                        getChannel(selectedChain), selectedChain.address, onBindDepositMsg(), txFee, txMemo, selectedChain
                     )
                 }
 
@@ -525,12 +479,7 @@ class PoolActionFragment : BaseTxFragment() {
 
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulatePoolWithdraw(
-                        getChannel(selectedChain),
-                        selectedChain.address,
-                        onBindWithdrawMsg(),
-                        txFee,
-                        txMemo,
-                        selectedChain
+                        getChannel(selectedChain), selectedChain.address, onBindWithdrawMsg(), txFee, txMemo, selectedChain
                     )
                 }
             }
@@ -540,34 +489,24 @@ class PoolActionFragment : BaseTxFragment() {
     private fun onBindDepositMsg(): MsgDeposit? {
         val slippage = "30000000000000000"
         val deadLine = (System.currentTimeMillis() / 1000) + 300
-        val depositCoin1 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
-            .setAmount(coin1ToAmount).build()
-        val depositCoin2 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
-            .setAmount(coin2ToAmount).build()
-        return MsgDeposit.newBuilder().setDepositor(selectedChain.address).setTokenA(depositCoin1)
-            .setTokenB(depositCoin2).setSlippage(slippage).setDeadline(deadLine).build()
+        val depositCoin1 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom).setAmount(coin1ToAmount).build()
+        val depositCoin2 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom).setAmount(coin2ToAmount).build()
+        return MsgDeposit.newBuilder().setDepositor(selectedChain.address).setTokenA(depositCoin1).setTokenB(depositCoin2).setSlippage(slippage).setDeadline(deadLine).build()
     }
 
     private fun onBindWithdrawMsg(): MsgWithdraw? {
         val totalShare = swapPool.totalShares.toBigDecimal()
         val padding = BigDecimal("0.97")
         val poolCoin1Amount =
-            swapPool.getCoins(0).amount.toBigDecimal().multiply(toWithdrawAmount.toBigDecimal())
-                .divide(totalShare, 0, RoundingMode.DOWN).multiply(padding)
-                .setScale(0, RoundingMode.DOWN)
+            swapPool.getCoins(0).amount.toBigDecimal().multiply(toWithdrawAmount.toBigDecimal()).divide(totalShare, 0, RoundingMode.DOWN).multiply(padding).setScale(0, RoundingMode.DOWN)
         val poolCoin2Amount =
-            swapPool.getCoins(1).amount.toBigDecimal().multiply(toWithdrawAmount.toBigDecimal())
-                .divide(totalShare, 0, RoundingMode.DOWN).multiply(padding)
-                .setScale(0, RoundingMode.DOWN)
+            swapPool.getCoins(1).amount.toBigDecimal().multiply(toWithdrawAmount.toBigDecimal()).divide(totalShare, 0, RoundingMode.DOWN).multiply(padding).setScale(0, RoundingMode.DOWN)
         val deadLine = (System.currentTimeMillis() / 1000) + 300
-        return MsgWithdraw.newBuilder().setFrom(selectedChain.address).setShares(toWithdrawAmount)
-            .setMinTokenA(
-                CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
-                    .setAmount(poolCoin1Amount.toPlainString())
-            ).setMinTokenB(
-                CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
-                    .setAmount(poolCoin2Amount.toPlainString())
-            ).setDeadline(deadLine).build()
+        return MsgWithdraw.newBuilder().setFrom(selectedChain.address).setShares(toWithdrawAmount).setMinTokenA(
+            CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom).setAmount(poolCoin1Amount.toPlainString())
+        ).setMinTokenB(
+            CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom).setAmount(poolCoin2Amount.toPlainString())
+        ).setDeadline(deadLine).build()
     }
 
     private fun setUpSimulate() {
@@ -584,20 +523,16 @@ class PoolActionFragment : BaseTxFragment() {
 
     private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            val selectedFeeData =
-                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+            val selectedFeeData = feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-                val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val gasLimit = (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                    .setAmount(feeCoinAmount.toString()).build()
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom).setAmount(feeCoinAmount.toString()).build()
 
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                    .build()
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
             }
         }
         updateFeeView()

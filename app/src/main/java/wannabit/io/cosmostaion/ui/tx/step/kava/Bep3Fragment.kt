@@ -131,7 +131,7 @@ class Bep3Fragment : BaseTxFragment() {
 
                     fromChain.lcdBeaconTokens.firstOrNull { it.symbol == denom }
                         ?.let { bnbTokenInfo ->
-                            val originalSymbol = bnbTokenInfo.originalSymbol
+                            val originalSymbol = bnbTokenInfo.original_symbol
                             tokenImg.setTokenImg(
                                 (fromChain as ChainBinanceBeacon).assetImg(
                                     originalSymbol

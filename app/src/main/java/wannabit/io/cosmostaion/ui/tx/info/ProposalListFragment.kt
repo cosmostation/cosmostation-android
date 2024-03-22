@@ -222,6 +222,15 @@ class ProposalListFragment : Fragment() {
             }
 
             btnVote.setOnClickListener {
+                val delegated = selectedChain.delegationAmountSum()
+                val voteThreshold = selectedChain.voteThreshold()
+                if (voteThreshold.isNotEmpty()) {
+                    if (delegated <= voteThreshold.toBigDecimal()) {
+                        requireActivity().makeToast(R.string.error_no_bonding_no_vote)
+                        return@setOnClickListener
+                    }
+                }
+
                 val toVoteProposals: MutableList<CosmosProposal> = mutableListOf()
                 votingPeriods.forEach { proposal ->
                     proposal.toVoteOption = null
@@ -237,7 +246,7 @@ class ProposalListFragment : Fragment() {
     }
 
     private fun setUpVoteInfo() {
-        ApplicationViewModel.shared.fetchedVoteResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
             proposalViewModel.voteStatus(selectedChain.apiName, selectedChain.address)
         }
     }

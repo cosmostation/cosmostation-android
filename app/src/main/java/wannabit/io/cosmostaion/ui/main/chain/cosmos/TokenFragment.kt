@@ -56,14 +56,13 @@ class TokenFragment : Fragment() {
 
         setUpHideValue()
         setUpRefreshData()
-        initRecyclerView()
+        initData()
         setUpInitData()
         refreshData()
-        setUpClickAction()
     }
 
-    private fun initRecyclerView() {
-        binding.recycler.apply {
+    private fun initData() {
+        binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.getParcelable("selectedChain", CosmosLine::class.java)
                     ?.let { selectedChain = it }
@@ -72,10 +71,41 @@ class TokenFragment : Fragment() {
                     selectedChain = it
                 }
             }
-            tokenAdapter = TokenAdapter(requireContext(), selectedChain)
+
+            setUpInitData()
+        }
+    }
+
+    private fun initRecyclerView(tokens: MutableList<Token>) {
+        binding.recycler.apply {
+            tokenAdapter = TokenAdapter(selectedChain)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = tokenAdapter
+            tokenAdapter.submitList(tokens)
+
+            var isClickable = true
+            if (::tokenAdapter.isInitialized) {
+                tokenAdapter.setOnItemClickListener { line, denom ->
+                    if (isClickable) {
+                        isClickable = false
+
+                        val sendAssetType = if (selectedChain.supportCw20) {
+                            SendAssetType.ONLY_COSMOS_CW20
+                        } else {
+                            SendAssetType.ONLY_EVM_ERC20
+                        }
+                        CommonTransferFragment.newInstance(line, denom, sendAssetType).show(
+                            requireActivity().supportFragmentManager,
+                            CommonTransferFragment::class.java.name
+                        )
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            isClickable = true
+                        }, 300)
+                    }
+                }
+            }
         }
     }
 
@@ -113,10 +143,7 @@ class TokenFragment : Fragment() {
                         loading.visibility = View.GONE
                         refresher.visibleOrGone(tokens.isNotEmpty())
                         emptyLayout.visibleOrGone(tokens.isEmpty())
-                        tokenAdapter.submitList(tokens)
-                        tokenAdapter.notifyDataSetChanged()
-
-                        ApplicationViewModel.shared.fetchedToken()
+                        initRecyclerView(tokens)
                     }
                 }
             }
@@ -126,43 +153,18 @@ class TokenFragment : Fragment() {
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain is EthereumLine || selectedChain.supportErc20) {
-                    ApplicationViewModel.shared.loadAllErc20TokenBalance(
-                        selectedChain, account.id
+                if (selectedChain is EthereumLine) {
+                    ApplicationViewModel.shared.loadEvmChainData(
+                        selectedChain as EthereumLine, account.id, false
                     )
 
                 } else {
                     if (selectedChain.supportCw20) {
-                        ApplicationViewModel.shared.loadAllCw20TokenBalance(selectedChain, account.id)
+                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
                     } else {
                         binding.refresher.isRefreshing = false
                         return@setOnRefreshListener
                     }
-                }
-            }
-        }
-    }
-
-    private fun setUpClickAction() {
-        var isClickable = true
-        if (::tokenAdapter.isInitialized) {
-            tokenAdapter.setOnItemClickListener { line, denom ->
-                if (isClickable) {
-                    isClickable = false
-
-                    val sendAssetType = if (selectedChain.supportCw20) {
-                        SendAssetType.ONLY_COSMOS_CW20
-                    } else {
-                        SendAssetType.ONLY_EVM_ERC20
-                    }
-                    CommonTransferFragment.newInstance(line, denom, sendAssetType).show(
-                        requireActivity().supportFragmentManager,
-                        CommonTransferFragment::class.java.name
-                    )
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isClickable = true
-                    }, 300)
                 }
             }
         }
@@ -177,8 +179,8 @@ class TokenFragment : Fragment() {
     }
 
     private fun setUpRefreshData() {
-        ApplicationViewModel.shared.loadTokenResult.observe(viewLifecycleOwner) {
-            if (::tokenAdapter.isInitialized) {
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
                 setUpInitData()
             }
         }

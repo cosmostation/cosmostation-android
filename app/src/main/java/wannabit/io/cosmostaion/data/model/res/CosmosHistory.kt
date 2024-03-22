@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
-import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -766,20 +765,41 @@ data class CosmosHistory(
             val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")].asJsonObject
 
             if (msgType.contains("MsgSend")) {
-                try {
-                    msgValue["amount"].asJsonArray?.let { rawAmounts ->
-                        val coin = CoinProto.Coin.newBuilder()
-                            .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
-                            .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
-                        result.add(coin)
+                val rawAmounts = try {
+                    msgValue["amount"].asJsonArray
+                } catch (e: Exception) {
+                    null
+                }
+                if (rawAmounts?.isJsonNull == false) {
+                    val coin = CoinProto.Coin.newBuilder()
+                        .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
+                        .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
+                    result.add(coin)
+                } else {
+                    val rawValue = try {
+                        msgValue["value"].asJsonObject
+                    } catch (e: Exception) {
+                        null
                     }
 
-                } catch (e: Exception) {
-                    msgValue["value"].asJsonObject["amount"].asJsonArray?.let { rawAmounts ->
-                        val coin = CoinProto.Coin.newBuilder()
-                            .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
-                            .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString).build()
-                        result.add(coin)
+                    if (rawValue?.isJsonNull == false) {
+                        val rawValueAmounts = try {
+                            rawValue["amount"].asJsonArray
+                        } catch (e: Exception) {
+                            null
+                        }
+
+                        if (rawValueAmounts?.isJsonNull == false) {
+                            val coin = CoinProto.Coin.newBuilder()
+                                .setDenom(rawValueAmounts[0].asJsonObject.get("denom").asString)
+                                .setAmount(rawValueAmounts[0].asJsonObject.get("amount").asString)
+                                .build()
+                            result.add(coin)
+                        } else {
+                            result.add(CoinProto.Coin.newBuilder().build())
+                        }
+                    } else {
+                        result.add(CoinProto.Coin.newBuilder().build())
                     }
                 }
 

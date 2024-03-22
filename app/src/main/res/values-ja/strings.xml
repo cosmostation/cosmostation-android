@@ -94,11 +94,14 @@
     <string name="str_deposit_liquidity">Add liquidity</string>
     <string name="str_remove_liquidity">Remove liquidity</string>
     <string name="str_search_chain">チェーン検索</string>
+    <string name="str_search_token">トークン検索です</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">点検中</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">すべてを請求する</string>
     <string name="str_amount">数量</string>
+    <string name="str_token_github">Token 情報確認</string>
+    <string name="str_node_down">ノードダウン</string>
 
 
     //title
@@ -210,6 +213,9 @@
     <string name="title_big_loss">資産の損失です</string>
     <string name="title_claimable_chains">リワード対象チェーン</string>
     <string name="title_select_end_point">エンドポイントの選択</string>
+    <string name="title_select_end_point_grpc">エンドポイントの選択 (gRPC)</string>
+    <string name="title_select_end_point_rpc">エンドポイントの選択 (EVM RPC)</string>
+    <string name="title_edit_token_list">トークンの編集</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -266,6 +272,8 @@
     <string name="str_enter_encryption_msg">アカウントを復元するには、画面に表示される暗号化キーを入力してください。</string>
     <string name="str_broadcasting_msg">現在、トランザクションは実行中です。\n少々お待ちください</string>
     <string name="str_addressbook_memo_changed_msg">既存のアドレス帳と比べてメモが変わりました。\n新しいメモで更新しますか?</string>
+    <string name="str_token_github_msg">現時点では、選択したチェーンにトークンを手動で追加する必要はありません。 Cosmostation Wallet には、既存の数量を持つすべてのトークン (CW20、ERC20) の情報が表示されます。\n\nトークンを保持しているのにそれが表示されない場合は、以下の Github リンクから PR を送信してみてください。</string>
+    <string name="str_node_down_msg">▪ 現在使用しているノードに問題がある場合は、[設定 > チェーン管理]から簡単に別のノードに切り替えてサービスを継続してご利用いただけます。\n\n ▪ すべてのノードが使用できない場合、使用されているチェーンはアップグレード中です。 アップグレードが完了するまでお待ちください。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -300,6 +308,8 @@
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
     <string name="error_tranfer_disabled">このチェーンは伝達関数をサポートしていません。</string>
+    <string name="error_useless_end_point">使用できません。</string>
+    <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
 
 
     <string name="tx_unknown">不明</string>

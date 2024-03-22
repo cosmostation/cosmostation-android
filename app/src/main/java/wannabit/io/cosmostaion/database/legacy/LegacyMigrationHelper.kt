@@ -22,7 +22,15 @@ object LegacyMigrationHelper {
             return
         }
 
-        val cursor = getDatabase().query(CosmostationConstants.LEGACY_DB_TABLE_PASSWORD, arrayOf("resource", "spec"), null, null, null, null, null)
+        val cursor = getDatabase().query(
+            CosmostationConstants.LEGACY_DB_TABLE_PASSWORD,
+            arrayOf("resource", "spec"),
+            null,
+            null,
+            null,
+            null,
+            null
+        )
         if (cursor != null && cursor.moveToFirst()) {
             val resource = cursor.getString(0)
             AppDatabase.getInstance().passwordDao().insert(Password(0, resource))
@@ -40,15 +48,35 @@ object LegacyMigrationHelper {
 
         val newBaseAccount = mutableListOf<BaseAccount>()
         legacyAllMnemonics.forEach {
-            newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName ?: "Wallet", BaseAccountType.MNEMONIC, "0"))
+            newBaseAccount.add(
+                BaseAccount(
+                    it.uuid,
+                    it.resource,
+                    it.spec,
+                    it.nickName ?: "Wallet",
+                    BaseAccountType.MNEMONIC,
+                    "0"
+                )
+            )
         }
 
         val pkeyList = mutableListOf<String>()
         legacyAccountsByPrivateKey.forEach {
-            CryptoHelper.doDecryptData(CosmostationConstants.ENCRYPT_PRIVATE_KEY + it.uuid, it.resource, it.spec)?.let { pKey ->
+            CryptoHelper.doDecryptData(
+                CosmostationConstants.ENCRYPT_PRIVATE_KEY + it.uuid, it.resource, it.spec
+            )?.let { pKey ->
                 if (!pkeyList.contains(pKey)) {
                     pkeyList.add(pKey)
-                    newBaseAccount.add(BaseAccount(it.uuid, it.resource, it.spec, it.nickName ?: "Wallet" , BaseAccountType.PRIVATE_KEY, "0"))
+                    newBaseAccount.add(
+                        BaseAccount(
+                            it.uuid,
+                            it.resource,
+                            it.spec,
+                            it.nickName ?: "Wallet",
+                            BaseAccountType.PRIVATE_KEY,
+                            "0"
+                        )
+                    )
                 }
             }
         }
@@ -59,7 +87,9 @@ object LegacyMigrationHelper {
 
     private fun getLegacyAllMnemonics(): MutableList<MWords> {
         val cursor = getDatabase().query(
-            CosmostationConstants.LEGACY_DB_TABLE_MNEMONIC, arrayOf("id", "uuid", "resource", "spec", "nickName", "wordsCnt", "isFavo", "importTime"), null, null, null, null, null
+            CosmostationConstants.LEGACY_DB_TABLE_MNEMONIC, arrayOf(
+                "id", "uuid", "resource", "spec", "nickName", "wordsCnt", "isFavo", "importTime"
+            ), "uuid IS NOT NULL AND uuid != '' AND resource IS NOT NULL AND resource != '' AND spec IS NOT NULL AND spec != ''", null, null, null, null
         )
         val mnemonics = mutableListOf<MWords>()
         if (cursor != null && cursor.moveToFirst()) {
@@ -72,7 +102,11 @@ object LegacyMigrationHelper {
                 val wordsCount = cursor.getInt(5)
                 val isLedger = cursor.getInt(6) > 0
                 val importTime = cursor.getLong(7)
-                mnemonics.add(MWords(id, uuid, resource, spec, nickname, wordsCount, isLedger, importTime))
+                mnemonics.add(
+                    MWords(
+                        id, uuid, resource, spec, nickname, wordsCount, isLedger, importTime
+                    )
+                )
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -81,7 +115,8 @@ object LegacyMigrationHelper {
 
     private fun getLegacyAllAccounts(): MutableList<Account> {
         val cursor = getDatabase().query(
-            CosmostationConstants.LEGACY_DB_TABLE_ACCOUNT, arrayOf(
+            CosmostationConstants.LEGACY_DB_TABLE_ACCOUNT,
+            arrayOf(
                 "id",
                 "uuid",
                 "nickName",
@@ -105,7 +140,13 @@ object LegacyMigrationHelper {
                 "newBip",
                 "customPath",
                 "mnemonicId"
-            ), "resource IS NOT NULL AND resource != ''", null, null, null, null, null
+            ),
+            "uuid IS NOT NULL AND uuid != '' AND resource IS NOT NULL AND resource != '' AND spec IS NOT NULL AND spec != ''",
+            null,
+            null,
+            null,
+            null,
+            null
         )
         val accounts = mutableListOf<Account>()
         if (cursor != null && cursor.moveToFirst()) {

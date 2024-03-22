@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -358,12 +357,12 @@ class CommonTransferFragment : BaseTxFragment() {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
-                    } else if (asset.counterParty?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    } else if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
 
                 } else {
-                    if (asset.counterParty?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
                 }
@@ -692,6 +691,10 @@ class CommonTransferFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
+                    if (cosmosFeeInfos.isEmpty()) {
+                        activity?.makeToast(R.string.str_unknown_error)
+                        return@setOnClickListener
+                    }
                     handleOneClickWithDelay(
                         FeeAssetFragment.newInstance(fromChain,
                             cosmosFeeInfos[selectedFeePosition].feeDatas.toMutableList(),
@@ -937,7 +940,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     val web3j = if (fromChain is ChainOkt996Keccak) {
                         Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
                     } else {
-                        Web3j.build(HttpService((fromChain as EthereumLine).rpcUrl))
+                        Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
                     }
                     txViewModel.broadcastEvmSend(web3j, evmHexValue)
 
@@ -1078,7 +1081,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun getRecipientChannel(): ManagedChannel? {
         return (toChain as CosmosLine).run {
-            ManagedChannelBuilder.forAddress(grpcHost, grpcPort).useTransportSecurity().build()
+            ManagedChannelBuilder.forAddress(getGrpc().first, getGrpc().second).useTransportSecurity().build()
         }
     }
 
@@ -1094,18 +1097,18 @@ class CommonTransferFragment : BaseTxFragment() {
                 ) {
                     return AssetPath(asset.channel, asset.port)
                 }
-                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom?.equals(
+                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counter_party?.denom?.equals(
                         denom, true
                     ) == true
                 ) {
-                    return AssetPath(asset.counterParty.channel, asset.counterParty.port)
+                    return AssetPath(asset.counter_party.channel, asset.counter_party.port)
                 }
             } else {
-                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counterParty?.denom.equals(
+                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counter_party?.denom.equals(
                         msToken.address, true
                     )
                 ) {
-                    return AssetPath(asset.counterParty?.channel, asset.counterParty?.port)
+                    return AssetPath(asset.counter_party?.channel, asset.counter_party?.port)
                 }
             }
         }

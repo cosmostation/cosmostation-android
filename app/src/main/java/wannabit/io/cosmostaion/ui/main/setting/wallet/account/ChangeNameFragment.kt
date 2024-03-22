@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.hideKeyboard
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChangeNameBinding
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -79,6 +77,7 @@ class ChangeNameFragment : BottomSheetDialogFragment() {
                 val inputText = accountName.text.toString().trim()
                 if (inputText.equals(baseAccount.name, true)) {
                     dismiss()
+                    requireActivity().hideKeyboard(btnConfirm)
                     return@setOnClickListener
                 } else if (inputText.isBlank()) {
                     Toast.makeText(
@@ -88,6 +87,7 @@ class ChangeNameFragment : BottomSheetDialogFragment() {
                     baseAccount.name = inputText
                     accountViewModel.insertAccount(baseAccount)
                     ApplicationViewModel.shared.changeName(baseAccount)
+                    requireActivity().hideKeyboard(btnConfirm)
                     dismiss()
                 }
             }

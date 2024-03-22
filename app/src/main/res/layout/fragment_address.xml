@@ -97,7 +97,7 @@
                     android:layout_height="@dimen/space_30"
                     android:layout_marginEnd="@dimen/space_8"
                     android:background="@drawable/button_amount_bg"
-                    android:paddingHorizontal="@dimen/space_8"
+                    android:paddingHorizontal="@dimen/space_16"
                     android:text="@string/str_address_book"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base01"

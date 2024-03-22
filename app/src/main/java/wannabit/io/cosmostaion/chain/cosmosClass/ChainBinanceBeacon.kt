@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
 import android.content.Context
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -12,7 +14,8 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class ChainBinanceBeacon : CosmosLine() {
+@Parcelize
+class ChainBinanceBeacon : CosmosLine(), Parcelable {
 
     override var name: String = "BNB Beacon"
     override var tag: String = "binance714"

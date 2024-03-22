@@ -1,10 +1,10 @@
 package wannabit.io.cosmostaion.common
 
 import com.google.gson.JsonObject
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Chain
 import wannabit.io.cosmostaion.data.model.res.Price
-import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
@@ -13,18 +13,17 @@ import wannabit.io.cosmostaion.database.model.RefAddress
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 object BaseData {
 
     var baseAccount: BaseAccount? = null
     var chains: List<Chain>? = mutableListOf()
+    var chainParam: JsonObject? = null
     var supportConfig: SupportConfig? = null
     var prices: List<Price>? = mutableListOf()
     var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
-
-    var skipChains: SkipChainResponse? = null
-    var skipAssets: JsonObject? = null
 
     fun getPrice(coinGeckoId: String?, isUsd: Boolean? = false): BigDecimal {
         val price = if (isUsd == true) {
@@ -33,7 +32,7 @@ object BaseData {
             prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
         }
         if (price != null) {
-            val currentPrice = price.currentPrice ?: 0.0
+            val currentPrice = price.current_price ?: 0.0
             return currentPrice.toBigDecimal().setScale(12, RoundingMode.HALF_DOWN)
         }
         return BigDecimal.ZERO.setScale(12, RoundingMode.HALF_DOWN)
@@ -42,7 +41,7 @@ object BaseData {
     fun lastUpDown(coinGeckoId: String?): BigDecimal {
         val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
         if (price != null) {
-            return (price.dailyPercent ?: 0.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
+            return (price.daily_price_change_in_percent ?: 0.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
         }
         return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN)
     }
@@ -53,8 +52,10 @@ object BaseData {
 
     fun getLastAccount(): BaseAccount? {
         val id = Prefs.lastAccountId
-        val account = AppDatabase.getInstance().baseAccountDao().selectAccount(id)
-        return account ?: AppDatabase.getInstance().baseAccountDao().selectAll().firstOrNull()
+        val accounts = AppDatabase.getInstance().baseAccountDao().selectAll()
+        val validAccounts = accounts.filter { StringUtils.isNotBlank(it.uuid) && StringUtils.isNotBlank(it.resource) && StringUtils.isNotBlank(it.spec) }
+        val findAccount = validAccounts.find { it.id == id }
+        return findAccount ?: validAccounts.firstOrNull()
     }
 
     fun setLastPriceTime() {
@@ -84,6 +85,18 @@ object BaseData {
     fun getSwapWarn(): Boolean {
         val last = Prefs.swapWarn
         val now = Calendar.getInstance().timeInMillis
+        return last < now
+    }
+
+    fun setLastSwapInfoTime() {
+        val now = Calendar.getInstance().timeInMillis
+        Prefs.swapInfoTime = now
+    }
+
+    fun needSwapInfoUpdate(): Boolean {
+        val now = Calendar.getInstance().timeInMillis
+        val day: Long = TimeUnit.DAYS.toMillis(1)
+        val last = Prefs.swapInfoTime + (day * 3)
         return last < now
     }
 
@@ -138,17 +151,10 @@ object BaseData {
     suspend fun updateRefAddressesMain(refAddress: RefAddress) {
         val refDao = AppDatabase.getInstance().refAddressDao()
 
-        val existRefAddress =
-            refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
+        val existRefAddress = refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
         if (existRefAddress != null) {
             refDao.updateMain(
-                refAddress.lastMainValue,
-                refAddress.lastMainAmount,
-                refAddress.lastCoinCnt,
-                refAddress.accountId,
-                refAddress.chainTag,
-                refAddress.dpAddress,
-                refAddress.evmAddress
+                refAddress.lastMainValue, refAddress.lastMainAmount, refAddress.lastCoinCnt, refAddress.accountId, refAddress.chainTag, refAddress.dpAddress, refAddress.evmAddress
             )
         } else {
             refDao.insert(refAddress)
@@ -158,15 +164,10 @@ object BaseData {
     suspend fun updateRefAddressesToken(refAddress: RefAddress) {
         val refDao = AppDatabase.getInstance().refAddressDao()
 
-        val existRefAddress =
-            refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
+        val existRefAddress = refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
         if (existRefAddress != null) {
             refDao.updateToken(
-                refAddress.lastTokenValue,
-                refAddress.accountId,
-                refAddress.chainTag,
-                refAddress.dpAddress,
-                refAddress.evmAddress
+                refAddress.lastTokenValue, refAddress.accountId, refAddress.chainTag, refAddress.dpAddress, refAddress.evmAddress
             )
         } else {
             refDao.insert(refAddress)

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.data.model.res
 
 import android.graphics.Color
 import android.os.Parcelable
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -16,21 +15,18 @@ data class Asset(
     val chain: String?,
     val denom: String?,
     val type: String?,
-    @Json(name = "origin_chain") val originChain: String?,
-    @Json(name = "origin_denom") val originDenom: String?,
-    @Json(name = "origin_type") val originType: String?,
+    val origin_denom: String?,
     val symbol: String?,
     val decimals: Int?,
     val description: String?,
     val image: String?,
     val coinGeckoId: String?,
     val color: String?,
-
     val enable: Boolean?,
     val path: String?,
     val channel: String?,
     val port: String?,
-    @Json(name = "counter_party") val counterParty: CounterParty?,
+    val counter_party: CounterParty?,
 ) : Parcelable {
 
     fun beforeChain(apiName: String): String? {

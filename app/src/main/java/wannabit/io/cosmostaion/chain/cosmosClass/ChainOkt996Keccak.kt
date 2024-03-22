@@ -1,10 +1,12 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
 import android.content.Context
+import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -23,7 +25,8 @@ import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-open class ChainOkt996Keccak : CosmosLine() {
+@Parcelize
+open class ChainOkt996Keccak : CosmosLine(), Parcelable {
 
     var oktLcdAccountInfo: OktAccountResponse? = null
     var oktDepositedInfo: OktDepositedResponse? = null

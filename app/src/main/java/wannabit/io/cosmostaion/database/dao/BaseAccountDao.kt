@@ -19,15 +19,15 @@ interface BaseAccountDao {
     @Delete
     suspend fun delete(baseAccount: BaseAccount)
 
-    @Query("select * from account order by type, sortOrder")
+    @Query("select * from account where (uuid is not null and uuid != '') and (resource is not null and resource != '') and (spec is not null and spec != '') order by type, sortOrder")
     fun selectAll(): List<BaseAccount>
 
-    @Query("select * from account where id = :id")
+    @Query("select * from account where id = :id AND (uuid is not null and uuid != '') and (resource is not null and resource != '') and (spec is not null and spec != '')")
     fun selectAccount(id: Long): BaseAccount?
 
     @Query("update account set name = :name, sortOrder = :sortOrder where id = :id")
     suspend fun updateAccount(id: Long, name: String, sortOrder: Long)
 
-    @Query("select * from account where type = :type order by sortOrder")
+    @Query("select * from account where type = :type AND (uuid is not null and uuid != '') and (resource is not null and resource != '') and (spec is not null and spec != '') order by sortOrder")
     fun selectsAccount(type: BaseAccountType): List<BaseAccount>
 }

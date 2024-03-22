@@ -2,10 +2,16 @@ package wannabit.io.cosmostaion.database
 
 import SecureSharedPreferences
 import android.content.Context
+import com.google.common.reflect.TypeToken
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_EVM
+import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
@@ -22,6 +28,10 @@ object Prefs {
     private const val LAST_TIME = "PRE_LAST_TIME"
     private const val APP_LOCK = "PRE_APP_LOCK"
     private const val SWAP_WARN = "PRE_SWAP_WARN"
+    private const val SWAP_INFO_TIME = "PRE_SWAP_INFO_TIME"
+    private const val SWAP_USER_SET = "PRE_SWAP_USER_SET"
+    private const val SKIP_CHAIN_INFO = "PRE_SKIP_CHAIN_INFO"
+    private const val SKIP_ASSET_INFO = "PRE_SKIP_ASSET_INFO"
     private const val HIDE_VALUE = "PRE_HIDE_VALUE"
     private const val DISPLAY_LEGACY = "PRE_DISPLAY_LEGACY"
     private const val BIO = "PRE_BIO"
@@ -30,6 +40,10 @@ object Prefs {
     private const val DATABASE_PASSPHRASE = "DB_PASSPHRASE"
     private const val BACKGROUND_IMAGE = "PRE_BACKGROUND_IMAGE"
     private const val FOREGROUND_TO_BACKGROUND = "PRE_FOREGROUND_TO_BACKGROUND"
+    private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
+    private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
+    private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
+
 
     private val preference =
         CosmostationApp.instance.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -148,6 +162,52 @@ object Prefs {
         get() = preference.getLong(SWAP_WARN, 0)
         set(value) = preference.edit().putLong(SWAP_WARN, value).apply()
 
+    var swapInfoTime: Long
+        get() = preference.getLong(SWAP_INFO_TIME, 0)
+        set(value) = preference.edit().putLong(SWAP_INFO_TIME, value).apply()
+
+    var lastSwapSet: List<String>
+        get() {
+            val jsonString = preference.getString(SWAP_USER_SET, null)
+            if (!jsonString.isNullOrEmpty()) {
+                val typeToken = object : TypeToken<List<String>>() {}.type
+                return Gson().fromJson(jsonString, typeToken)
+            }
+            return listOf("", "", "", "")
+        }
+        set(value) {
+            val encoded = Gson().toJson(value)
+            preference.edit().putString(SWAP_USER_SET, encoded).apply()
+        }
+
+    var skipChainInfo: SkipChainResponse?
+        get() {
+            val jsonString = preference.getString(SKIP_CHAIN_INFO, null)
+            return if (jsonString != null) {
+                Gson().fromJson(jsonString, SkipChainResponse::class.java)
+            } else {
+                null
+            }
+        }
+        set(value) {
+            val jsonString = Gson().toJson(value)
+            preference.edit().putString(SKIP_CHAIN_INFO, jsonString).apply()
+        }
+
+    var skipAssetInfo: JsonObject?
+        get() {
+            val jsonString = preference.getString(SKIP_ASSET_INFO, null)
+            return try {
+                Gson().fromJson(jsonString, JsonObject::class.java)
+            } catch (e: JsonSyntaxException) {
+                null
+            }
+        }
+        set(value) {
+            val jsonString = Gson().toJson(value)
+            preference.edit().putString(SKIP_ASSET_INFO, jsonString).apply()
+        }
+
     var hideValue: Boolean
         get() = preference.getBoolean(HIDE_VALUE, false)
         set(value) = preference.edit().putBoolean(HIDE_VALUE, value).apply()
@@ -167,4 +227,57 @@ object Prefs {
     var foreToBack: Boolean
         get() = preference.getBoolean(FOREGROUND_TO_BACKGROUND, true)
         set(value) = preference.edit().putBoolean(FOREGROUND_TO_BACKGROUND, value).apply()
+
+    fun setDisplayErc20s(
+        baseAccountId: Long, chainTag: String, contractAddresses: List<String>
+    ) {
+        val encoded = try {
+            val jsonString = JSONArray(contractAddresses).toString()
+            jsonString.toByteArray(Charsets.UTF_8)
+        } catch (e: JSONException) {
+            null
+        }
+
+        if (encoded != null) {
+            val key = "$baseAccountId $chainTag $DISPLAY_ERC20_TOKENS"
+            preference.edit().putString(key, String(encoded)).apply()
+        }
+    }
+
+    fun getDisplayErc20s(baseAccountId: Long, chainTag: String): MutableList<String>? {
+        val key = "$baseAccountId $chainTag $DISPLAY_ERC20_TOKENS"
+        val savedDataString = preference.getString(key, null)
+
+        if (!savedDataString.isNullOrEmpty()) {
+            try {
+                val jsonArray = JSONArray(savedDataString)
+                val result = ArrayList<String>()
+                for (i in 0 until jsonArray.length()) {
+                    result.add(jsonArray.getString(i))
+                }
+                return result
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return null
+    }
+
+    fun setGrpcEndpoint(chain: CosmosLine?, endpoint: String) {
+        val key = GRPC_ENDPOINT + ":" + chain?.name
+        preference.edit().putString(key, endpoint).apply()
+    }
+
+    fun getGrpcEndpoint(chain: CosmosLine): String {
+        return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
+    }
+
+    fun setEvmRpcEndpoint(chain: CosmosLine?, endpoint: String) {
+        val key = EVM_RPC_ENDPOINT + ":" + chain?.name
+        preference.edit().putString(key, endpoint).apply()
+    }
+
+    fun getEvmRpcEndpoint(chain: CosmosLine): String? {
+        return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
+    }
 }

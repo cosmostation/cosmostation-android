@@ -65,91 +65,86 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     var nameServices = SingleLiveEvent<MutableList<NameService>>()
 
-    fun icnsAddress(recipientChain: CosmosLine, userInput: String, prefix: String) =
-        viewModelScope.launch(Dispatchers.IO) {
-            val nameServiceList = mutableListOf<NameService>()
-            when (recipientChain) {
-                is ChainStargaze -> {
-                    val osIcnsDeferred = async {
-                        txRepository.osIcnsAddress(
-                            getChannel(ChainOsmosis()), userInput, prefix
+    fun icnsAddress(recipientChain: CosmosLine, userInput: String, prefix: String) = viewModelScope.launch(Dispatchers.IO) {
+        val nameServiceList = mutableListOf<NameService>()
+        when (recipientChain) {
+            is ChainStargaze -> {
+                val osIcnsDeferred = async {
+                    txRepository.osIcnsAddress(
+                        getChannel(ChainOsmosis()), userInput, prefix
+                    )
+                }
+                val starIcnsDeferred = async {
+                    txRepository.sgIcnsAddress(
+                        getChannel(ChainStargaze()), userInput
+                    )
+                }
+                val responses = awaitAll(osIcnsDeferred, starIcnsDeferred)
+                if (responses[0]?.isNotEmpty() == true) {
+                    nameServiceList.add(
+                        NameService(
+                            NameService.NameServiceType.ICNS, userInput, responses[0].toString()
                         )
-                    }
-                    val starIcnsDeferred = async {
-                        txRepository.sgIcnsAddress(
-                            getChannel(ChainStargaze()), userInput
+                    )
+                }
+                if (responses[1]?.isNotEmpty() == true) {
+                    nameServiceList.add(
+                        NameService(
+                            NameService.NameServiceType.STARGAZE, userInput, responses[1].toString()
                         )
-                    }
-                    val responses = awaitAll(osIcnsDeferred, starIcnsDeferred)
-                    if (responses[0]?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.ICNS, userInput, responses[0].toString()
-                            )
-                        )
-                    }
-                    if (responses[1]?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.STARGAZE,
-                                userInput,
-                                responses[1].toString()
-                            )
-                        )
-                    }
-                    nameServices.postValue(nameServiceList)
+                    )
+                }
+                nameServices.postValue(nameServiceList)
+            }
+
+            is ChainArchway -> {
+                val osIcnsDeferred = async {
+                    txRepository.osIcnsAddress(
+                        getChannel(ChainOsmosis()), userInput, prefix
+                    )
+                }
+                val archIcnsDeferred = async {
+                    txRepository.archIcnsAddress(
+                        getChannel(ChainArchway()), userInput
+                    )
                 }
 
-                is ChainArchway -> {
-                    val osIcnsDeferred = async {
-                        txRepository.osIcnsAddress(
-                            getChannel(ChainOsmosis()), userInput, prefix
+                val responses = awaitAll(osIcnsDeferred, archIcnsDeferred)
+                if (responses[0]?.isNotEmpty() == true) {
+                    nameServiceList.add(
+                        NameService(
+                            NameService.NameServiceType.ICNS, userInput, responses[0].toString()
                         )
-                    }
-                    val archIcnsDeferred = async {
-                        txRepository.archIcnsAddress(
-                            getChannel(ChainArchway()), userInput
-                        )
-                    }
-
-                    val responses = awaitAll(osIcnsDeferred, archIcnsDeferred)
-                    if (responses[0]?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.ICNS, userInput, responses[0].toString()
-                            )
-                        )
-                    }
-                    if (responses[1]?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.ARCHWAY,
-                                userInput,
-                                responses[1].toString()
-                            )
-                        )
-                    }
-                    nameServices.postValue(nameServiceList)
+                    )
                 }
-
-                else -> {
-                    val osIcnsDeferred = async {
-                        txRepository.osIcnsAddress(
-                            getChannel(ChainOsmosis()), userInput, prefix
+                if (responses[1]?.isNotEmpty() == true) {
+                    nameServiceList.add(
+                        NameService(
+                            NameService.NameServiceType.ARCHWAY, userInput, responses[1].toString()
                         )
-                    }
-                    val response = osIcnsDeferred.await()
-                    if (response?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.ICNS, userInput, response.toString()
-                            )
-                        )
-                    }
-                    nameServices.postValue(nameServiceList)
+                    )
                 }
+                nameServices.postValue(nameServiceList)
+            }
+
+            else -> {
+                val osIcnsDeferred = async {
+                    txRepository.osIcnsAddress(
+                        getChannel(ChainOsmosis()), userInput, prefix
+                    )
+                }
+                val response = osIcnsDeferred.await()
+                if (response?.isNotEmpty() == true) {
+                    nameServiceList.add(
+                        NameService(
+                            NameService.NameServiceType.ICNS, userInput, response.toString()
+                        )
+                    )
+                }
+                nameServices.postValue(nameServiceList)
             }
         }
+    }
 
     val broadcastEvmSendTx = SingleLiveEvent<String?>()
     fun broadcastEvmSend(
@@ -163,12 +158,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val erc20ErrorMessage = SingleLiveEvent<Pair<String?, String?>>()
 
     fun simulateEvmSend(
-        toEthAddress: String?,
-        toSendAmount: String?,
-        selectedToken: Token?,
-        sendAssetType: SendAssetType,
-        selectedChain: CosmosLine,
-        selectedFeeInfo: Int
+        toEthAddress: String?, toSendAmount: String?, selectedToken: Token?, sendAssetType: SendAssetType, selectedChain: CosmosLine, selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmSendTx(
             toEthAddress, toSendAmount, selectedToken, sendAssetType, selectedChain, selectedFeeInfo
@@ -187,12 +177,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val simulate = SingleLiveEvent<AbciProto.GasInfo>()
 
     fun broadcastSend(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgSend: MsgSend?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastSendTx(
@@ -203,12 +188,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateSend(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgSend: MsgSend?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -228,11 +208,10 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     val broadcastBnbTx = SingleLiveEvent<MutableList<TransactionMetadata>?>()
-    fun broadcastBnbSend(transfer: Transfer, wallet: Wallet, options: TransactionOption) =
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = txRepository.broadcastBnbSendTx(transfer, wallet, options)
-            broadcastBnbTx.postValue(response)
-        }
+    fun broadcastBnbSend(transfer: Transfer, wallet: Wallet, options: TransactionOption) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastBnbSendTx(transfer, wallet, options)
+        broadcastBnbTx.postValue(response)
+    }
 
     fun broadcastIbcSend(
         managedChannel: ManagedChannel?,
@@ -246,33 +225,30 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, selectedChain?.address)?.let {
-            val blockStub = ServiceGrpc.newBlockingStub(recipientChannel)
-                .withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val blockRequest = GetLatestBlockRequest.newBuilder().build()
-            val lastBlock = blockStub.getLatestBlock(blockRequest)
+            try {
+                val blockStub = ServiceGrpc.newBlockingStub(recipientChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                val blockRequest = GetLatestBlockRequest.newBuilder().build()
+                val lastBlock = blockStub.getLatestBlock(blockRequest)
 
-            val ibcClientStub =
-                QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder()
-                .setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
-            val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
-            val lastHeight =
-                TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
-            val height =
-                ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber)
-                    .setRevisionHeight(lastBlock.block.header.height + 200)
+                val ibcClientStub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
+                val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
+                val lastHeight = TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
+                val height = ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber).setRevisionHeight(lastBlock.block.header.height + 200)
 
-            val sendCoin = Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
+                val sendCoin = Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
 
-            val msgTransfer =
-                MsgTransfer.newBuilder().setSender(selectedChain?.address).setReceiver(toAddress)
-                    .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
-                    .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
+                val msgTransfer =
+                    MsgTransfer.newBuilder().setSender(selectedChain?.address).setReceiver(toAddress).setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port).setTimeoutHeight(height)
+                        .setTimeoutTimestamp(0).setToken(sendCoin).build()
 
-            val response = txRepository.broadcastIbcSendTx(
-                managedChannel, it, msgTransfer, fee, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
+                val response = txRepository.broadcastIbcSendTx(
+                    managedChannel, it, msgTransfer, fee, memo, selectedChain
+                )
+                broadcastTx.postValue(response?.txResponse)
+            } catch (e: Exception) {
+                errorMessage.postValue("Unknown Error")
+            }
         }
     }
 
@@ -289,38 +265,32 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, fromAddress)?.let {
-            val blockStub = ServiceGrpc.newBlockingStub(recipientChannel)
-                .withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val blockRequest = GetLatestBlockRequest.newBuilder().build()
-            val lastBlock = blockStub.getLatestBlock(blockRequest)
-
-            val ibcClientStub =
-                QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder()
-                .setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
-            val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
-            val lastHeight =
-                TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
-            val height =
-                ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber)
-                    .setRevisionHeight(lastBlock.block.header.height + 200)
-
-            val sendCoin = Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
-
-            val msgTransfer = MsgTransfer.newBuilder().setSender(fromAddress).setReceiver(toAddress)
-                .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
-                .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
-
             try {
+                val blockStub = ServiceGrpc.newBlockingStub(recipientChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                val blockRequest = GetLatestBlockRequest.newBuilder().build()
+                val lastBlock = blockStub.getLatestBlock(blockRequest)
+
+                val ibcClientStub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
+                val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
+                val lastHeight = TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
+                val height = ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber).setRevisionHeight(lastBlock.block.header.height + 200)
+
+                val sendCoin = Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
+
+                val msgTransfer = MsgTransfer.newBuilder().setSender(fromAddress).setReceiver(toAddress).setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port).setTimeoutHeight(height)
+                    .setTimeoutTimestamp(0).setToken(sendCoin).build()
+
                 val response = txRepository.simulateIbcSendTx(
                     managedChannel, it, msgTransfer, fee, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
+                )
+                when (response) {
+                    is SimulateResponse -> simulate.postValue(response.gasInfo)
+                    is String -> errorMessage.postValue(response as? String)
+                    else -> errorMessage.postValue("Unknown Error")
+                }
             } catch (e: Exception) {
-                val errorResponse = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
+                errorMessage.postValue("Unknown Error")
             }
         } ?: run {
             errorMessage.postValue("No key account")
@@ -328,12 +298,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadDelegate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDelegate: MsgDelegate?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDelegate: MsgDelegate?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastDelegateTx(
@@ -344,12 +309,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateDelegate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDelegate: MsgDelegate,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDelegate: MsgDelegate, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -369,12 +329,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadUnDelegate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgUnDelegate: MsgUndelegate?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgUnDelegate: MsgUndelegate?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastUnDelegateTx(
@@ -385,12 +340,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateUnDelegate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgUnDelegate: MsgUndelegate?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgUnDelegate: MsgUndelegate?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -410,12 +360,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadReDelegate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgReDelegate: MsgBeginRedelegate?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgReDelegate: MsgBeginRedelegate?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastReDelegateTx(
@@ -426,12 +371,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateReDelegate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgReDelegate: MsgBeginRedelegate?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgReDelegate: MsgBeginRedelegate?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -451,12 +391,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadCancelUnbonding(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastCancelUnbondingTx(
@@ -467,12 +402,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateCancelUnbonding(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -492,12 +422,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadGetRewards(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, rewards: MutableList<DelegationDelegatorReward?>, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastGetRewardsTx(
@@ -508,12 +433,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateGetRewards(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, rewards: MutableList<DelegationDelegatorReward?>, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -533,13 +453,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadCompounding(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, rewards: MutableList<DelegationDelegatorReward?>, stakingDenom: String?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastCompoundingTx(
@@ -550,13 +464,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateCompounding(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, rewards: MutableList<DelegationDelegatorReward?>, stakingDenom: String?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -576,12 +484,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadChangeRewardAddress(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgSetWithdrawAddress: MsgSetWithdrawAddress?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastChangeRewardAddressTx(
@@ -592,12 +495,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateChangeRewardAddress(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgSetWithdrawAddress: MsgSetWithdrawAddress?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -617,12 +515,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadVote(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgVotes: MutableList<TxProto.MsgVote?>?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgVotes: MutableList<TxProto.MsgVote?>?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastVoteTx(
@@ -633,12 +526,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateVote(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgVotes: MutableList<TxProto.MsgVote?>?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgVotes: MutableList<TxProto.MsgVote?>?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -658,11 +546,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadcastWasm(
-        managedChannel: ManagedChannel?,
-        msgWasms: MutableList<MsgExecuteContract?>?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, msgWasms: MutableList<MsgExecuteContract?>?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, selectedChain?.address)?.let {
             val response = txRepository.broadcastWasmTx(
@@ -673,12 +557,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateWasm(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWasms: MutableList<MsgExecuteContract?>?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWasms: MutableList<MsgExecuteContract?>?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -698,12 +577,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadClaimIncentive(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        incentive: QueryRewardsResponse,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, incentive: QueryRewardsResponse, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastClaimIncentiveTx(
@@ -714,12 +588,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateClaimIncentive(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        incentive: QueryRewardsResponse,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, incentive: QueryRewardsResponse, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -739,12 +608,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadMintCreate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgCreateCDP: MsgCreateCDP?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgCreateCDP: MsgCreateCDP?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastMintCreateTx(
@@ -755,12 +619,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateMintCreate(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgCreateCDP: MsgCreateCDP?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgCreateCDP: MsgCreateCDP?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -780,12 +639,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadMintDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: MsgDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastMintDepositTx(
@@ -796,12 +650,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateMintDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: MsgDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -821,12 +670,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadMintWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: MsgWithdraw?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastMintWithdrawTx(
@@ -837,12 +681,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateMintWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: MsgWithdraw?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -862,12 +701,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadMintBorrow(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDrawDebt: MsgDrawDebt?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastMintBorrowTx(
@@ -878,12 +712,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateMintBorrow(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDrawDebt: MsgDrawDebt?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -903,12 +732,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadMintRepay(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgRepayDebt: MsgRepayDebt?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastMintRepayTx(
@@ -919,12 +743,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateMintRepay(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgRepayDebt: MsgRepayDebt?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -944,12 +763,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadLendDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastLendDepositTx(
@@ -960,12 +774,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateLendDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -985,12 +794,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadLendWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastLendWithdrawTx(
@@ -1001,12 +805,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateLendWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1026,12 +825,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadLendBorrow(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgBorrow: MsgBorrow?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgBorrow: MsgBorrow?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastLendBorrowTx(
@@ -1042,12 +836,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateLendBorrow(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgBorrow: MsgBorrow?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgBorrow: MsgBorrow?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1067,12 +856,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadLendRepay(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgRepay: MsgRepay?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgRepay: MsgRepay?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastLendRepayTx(
@@ -1083,11 +867,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateLendRepay(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgRepay: MsgRepay?,
-        fee: Fee?,
-        memo: String, selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgRepay: MsgRepay?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1107,12 +887,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadPoolDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastPoolDepositTx(
@@ -1123,12 +898,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulatePoolDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1148,12 +918,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadPoolWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastPoolWithdrawTx(
@@ -1164,12 +929,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulatePoolWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1189,12 +949,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadEarnDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: MsgDelegateMintDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: MsgDelegateMintDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastEarnDepositTx(
@@ -1205,12 +960,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun broadEarnWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: MsgWithdrawBurn?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: MsgWithdrawBurn?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastEarnWithdrawTx(
@@ -1221,12 +971,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateEarnDeposit(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgDeposit: MsgDelegateMintDeposit?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgDeposit: MsgDelegateMintDeposit?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1246,12 +991,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateEarnWithdraw(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgWithdraw: MsgWithdrawBurn?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgWithdraw: MsgWithdrawBurn?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {
@@ -1272,12 +1012,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val broadCreateSwap = SingleLiveEvent<AbciProto.TxResponse>()
     fun broadCreateSwap(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgCreateAtomicSwap: MsgCreateAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgCreateAtomicSwap: MsgCreateAtomicSwap?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastCreateSwapTx(
@@ -1289,12 +1024,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val broadClaimSwap = SingleLiveEvent<AbciProto.TxResponse>()
     fun broadClaimSwap(
-        managedChannel: ManagedChannel?,
-        address: String?,
-        msgClaimAtomicSwap: MsgClaimAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, address: String?, msgClaimAtomicSwap: MsgClaimAtomicSwap?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastClaimSwapTx(
@@ -1305,25 +1035,19 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     val broadBnbCreateSwap = SingleLiveEvent<MutableList<TransactionMetadata>?>()
-    fun broadcastBnbCreateSwap(htltReq: HtltReq, wallet: Wallet, options: TransactionOption) =
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = txRepository.broadcastBnbCreateSwapTx(htltReq, wallet, options)
-            broadBnbCreateSwap.postValue(response)
-        }
+    fun broadcastBnbCreateSwap(htltReq: HtltReq, wallet: Wallet, options: TransactionOption) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastBnbCreateSwapTx(htltReq, wallet, options)
+        broadBnbCreateSwap.postValue(response)
+    }
 
     val broadcastOktTx = SingleLiveEvent<LegacyRes?>()
-    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine) =
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
-            broadcastOktTx.postValue(response)
-        }
+    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
+        broadcastOktTx.postValue(response)
+    }
 
     fun broadcastSkipIbcSend(
-        managedChannel: ManagedChannel?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, msgTransfer: MsgTransfer?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, selectedChain?.address)?.let {
             val response = txRepository.broadcastIbcSendTx(
@@ -1334,12 +1058,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun simulateSkipIbcSend(
-        managedChannel: ManagedChannel?,
-        fromAddress: String?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
+        managedChannel: ManagedChannel?, fromAddress: String?, msgTransfer: MsgTransfer?, fee: Fee?, memo: String, selectedChain: CosmosLine?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, fromAddress)?.let {
             try {

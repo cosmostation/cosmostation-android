@@ -21,7 +21,6 @@ import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class ChainManageFragment : Fragment() {
 
@@ -50,7 +49,6 @@ class ChainManageFragment : Fragment() {
         initRecyclerView()
         initSearchView()
         setUpClickAction()
-        setUpParam()
     }
 
     private fun initRecyclerView() {
@@ -75,30 +73,11 @@ class ChainManageFragment : Fragment() {
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter
 
-//                    chainManageAdapter.setOnItemClickListener { chain ->
-//                        if (chain is EthereumLine) {
-//                            if (chain.supportCosmos && chain !is ChainOktEvm) {
-//                                if (chain.param?.params?.chainlistParams == null) {
-//                                    ApplicationViewModel.shared.param(chain)
-//                                } else {
-//                                    selectEndPoint(chain)
-//                                }
-//                            } else {
-//                                return@setOnItemClickListener
-//                            }
-//
-//                        } else {
-//
-//                        }
-//                    }
+                    chainManageAdapter.setOnItemClickListener { chain ->
+                        selectEndPoint(chain)
+                    }
                 }
             }
-        }
-    }
-
-    private fun setUpParam() {
-        ApplicationViewModel.shared.paramResult.observe(viewLifecycleOwner) {
-            selectEndPoint(it)
         }
     }
 
@@ -106,13 +85,28 @@ class ChainManageFragment : Fragment() {
         if (isClickable) {
             isClickable = false
 
-            SettingBottomFragment.newInstance(chain, SettingType.END_POINT).show(
+            val settingType = if (chain is EthereumLine) {
+                if (chain.supportCosmos) {
+                    SettingType.END_POINT_COSMOS
+                } else {
+                    SettingType.END_POINT_EVM
+                }
+            } else {
+                SettingType.END_POINT_COSMOS
+            }
+            SettingBottomFragment.newInstance(chain, settingType).show(
                 parentFragmentManager, SettingBottomFragment::class.java.name
             )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
             }, 300)
+
+            parentFragmentManager.setFragmentResultListener(
+                "endpoint", this@ChainManageFragment
+            ) { _, _ ->
+                chainManageAdapter.notifyDataSetChanged()
+            }
         }
     }
 

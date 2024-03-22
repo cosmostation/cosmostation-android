@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
+import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -35,6 +36,8 @@ open class EthereumLine : CosmosLine(), Parcelable {
     var evmBalance = BigDecimal.ZERO
 
     var evmTokens = mutableListOf<Token>()
+
+    var web3j: Web3j? = null
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return if (supportCosmos) {
@@ -70,6 +73,15 @@ open class EthereumLine : CosmosLine(), Parcelable {
         }
         return result
     }
+
+    fun getEvmRpc(): String {
+        val endpoint = Prefs.getEvmRpcEndpoint(this)
+        return if (endpoint?.isNotEmpty() == true) {
+            endpoint
+        } else {
+            rpcUrl
+        }
+    }
 }
 
 fun allEvmLines(): MutableList<EthereumLine> {
@@ -89,7 +101,7 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.forEach { line ->
         if (line.chainId.isEmpty()) {
             line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chainId.toString()
+                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
         }
     }
     return lines

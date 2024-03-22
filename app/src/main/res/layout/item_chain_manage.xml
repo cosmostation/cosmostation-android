@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chain_name">
+                    app:layout_constraintTop_toBottomOf="@+id/grpc_layout">
 
                     <TextView
                         android:id="@+id/rpc_endpoint"
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rpc_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/chain_name">
 
                     <TextView
                         android:id="@+id/grpc_endpoint"

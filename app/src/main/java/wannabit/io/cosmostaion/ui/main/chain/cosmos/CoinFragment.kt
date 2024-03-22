@@ -246,7 +246,9 @@ class CoinFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     if (selectedChain is EthereumLine) {
-                        ApplicationViewModel.shared.loadEvmChainData(selectedChain as EthereumLine, account.id, false)
+                        ApplicationViewModel.shared.loadEvmChainData(
+                            selectedChain as EthereumLine, account.id, false
+                        )
                     } else {
                         ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
                     }
@@ -260,14 +262,10 @@ class CoinFragment : Fragment() {
             coinAdapter.notifyDataSetChanged()
         }
 
-        ApplicationViewModel.shared.fetchedRefreshResult.observe(viewLifecycleOwner) {
-            if (selectedChain.fetched) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
                 initData()
             }
-        }
-
-        ApplicationViewModel.shared.fetchedSendResult.observe(viewLifecycleOwner) {
-            coinAdapter.notifyDataSetChanged()
         }
     }
 
@@ -323,6 +321,7 @@ class CoinFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

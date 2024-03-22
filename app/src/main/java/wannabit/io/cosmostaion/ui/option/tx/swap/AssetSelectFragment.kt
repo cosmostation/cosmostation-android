@@ -11,6 +11,7 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
@@ -23,8 +24,9 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var selectedChain: CosmosLine
     private var swapAssets: MutableList<Asset>? = mutableListOf()
-    private lateinit var swapBalance: MutableList<CoinProto.Coin>
+    private var swapBalance: MutableList<CoinProto.Coin>? = mutableListOf()
     private lateinit var assetSelectType: AssetSelectType
 
     private lateinit var assetSelectAdapter: AssetSelectAdapter
@@ -34,12 +36,14 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
+            selectedChain: CosmosLine?,
             swapAssets: MutableList<Asset>?,
             swapBalance: MutableList<CoinProto.Coin>?,
             assetSelectType: AssetSelectType,
             listener: AssetListener
         ): AssetSelectFragment {
             val args = Bundle().apply {
+                putParcelable("selectedChain", selectedChain)
                 putParcelableArrayList("swapAssets", swapAssets?.let { ArrayList(it) })
                 putSerializable("swapBalance", swapBalance?.toHashSet())
                 putSerializable("assetSelectType", assetSelectType)
@@ -70,17 +74,25 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                selectedChain = it
+            }
             arguments?.getSerializable(
                 "assetSelectType", AssetSelectType::class.java
             )?.let { assetSelectType = it }
         } else {
+            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                selectedChain = it
+            }
             (arguments?.getSerializable("assetSelectType") as? AssetSelectType)?.let {
                 assetSelectType = it
             }
         }
         swapAssets = arguments?.getParcelableArrayList("swapAssets")
         val serializableSwapBalance = arguments?.getSerializable("swapBalance") as? HashSet<*>
-        swapBalance = serializableSwapBalance?.toList() as MutableList<CoinProto.Coin>
+        if (serializableSwapBalance?.isNotEmpty() == true) {
+            swapBalance = serializableSwapBalance.toList() as MutableList<CoinProto.Coin>
+        }
     }
 
     private fun initView() {
@@ -110,7 +122,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            assetSelectAdapter = AssetSelectAdapter(swapBalance)
+            assetSelectAdapter = AssetSelectAdapter(selectedChain, swapBalance)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = assetSelectAdapter
