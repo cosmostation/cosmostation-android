@@ -160,19 +160,20 @@ open class CosmosLine : BaseChain(), Parcelable {
                 break
             }
         }
-        if (feeCoin != null) {
+        feeCoin?.let {
             return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
                 .build()
+        } ?: run {
+            return TxProto.Fee.newBuilder().build()
         }
-        return null
     }
 
-    fun getChainParam(): JsonObject {
+    fun getChainParam(): JsonObject? {
         return BaseData.chainParam?.getAsJsonObject(apiName) ?: JsonObject()
     }
 
-    fun getChainListParam(): JsonObject {
-        return getChainParam().getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+    fun getChainListParam(): JsonObject? {
+        return getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
             ?: JsonObject()
     }
 
@@ -191,11 +192,11 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getFeeBasePosition(): Int {
-        return getChainListParam().getAsJsonObject("fee")?.get("base")?.asInt ?: 0
+        return getChainListParam()?.getAsJsonObject("fee")?.get("base")?.asInt ?: 0
     }
 
     private fun getFeeBaseGasAmount(): Long {
-        return getChainListParam().getAsJsonObject("fee")?.let {
+        return getChainListParam()?.getAsJsonObject("fee")?.let {
             it.get("init_gas_limit")?.asLong
         } ?: run {
             BASE_GAS_AMOUNT.toLong()
@@ -232,7 +233,7 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun getFeeInfos(c: Context): MutableList<FeeInfo> {
         val result: MutableList<FeeInfo> = mutableListOf()
-        getChainListParam().getAsJsonObject("fee")?.let {
+        getChainListParam()?.getAsJsonObject("fee")?.let {
             it.getAsJsonArray("rate").forEach { rate ->
                 result.add(FeeInfo(rate.asString))
             }
@@ -268,17 +269,17 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun isGasSimulable(): Boolean {
-        return getChainListParam().getAsJsonObject("fee").get("isSimulable")?.asBoolean ?: true
+        return getChainListParam()?.getAsJsonObject("fee")?.get("isSimulable")?.asBoolean ?: true
     }
 
     fun voteThreshold(): String {
-        return getChainListParam().get("voting_threshold")?.asString ?: run {
+        return getChainListParam()?.get("voting_threshold")?.asString ?: run {
             ""
         }
     }
 
     fun gasMultiply(): Double {
-        return getChainListParam().getAsJsonObject("fee").get("simul_gas_multiply")?.asDouble
+        return getChainListParam()?.getAsJsonObject("fee")?.get("simul_gas_multiply")?.asDouble
             ?: run {
                 1.2
             }

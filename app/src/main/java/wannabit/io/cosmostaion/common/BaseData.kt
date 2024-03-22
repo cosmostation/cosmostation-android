@@ -53,7 +53,7 @@ object BaseData {
     fun getLastAccount(): BaseAccount? {
         val id = Prefs.lastAccountId
         val accounts = AppDatabase.getInstance().baseAccountDao().selectAll()
-        val validAccounts = accounts.filter { StringUtils.isAllBlank(it.uuid) && StringUtils.isAllBlank(it.resource) && StringUtils.isAllBlank(it.spec) }
+        val validAccounts = accounts.filter { StringUtils.isNotBlank(it.uuid) && StringUtils.isNotBlank(it.resource) && StringUtils.isNotBlank(it.spec) }
         val findAccount = validAccounts.find { it.id == id }
         return findAccount ?: validAccounts.firstOrNull()
     }
