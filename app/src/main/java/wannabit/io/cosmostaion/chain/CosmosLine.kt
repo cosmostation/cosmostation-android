@@ -272,7 +272,7 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun voteThreshold(): String {
         return getChainListParam()?.get("voting_threshold")?.asString ?: run {
-            ""
+            "0"
         }
     }
 
