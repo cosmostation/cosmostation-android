@@ -691,6 +691,10 @@ class CommonTransferFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
+                    if (cosmosFeeInfos.isEmpty()) {
+                        activity?.makeToast(R.string.str_unknown_error)
+                        return@setOnClickListener
+                    }
                     handleOneClickWithDelay(
                         FeeAssetFragment.newInstance(fromChain,
                             cosmosFeeInfos[selectedFeePosition].feeDatas.toMutableList(),

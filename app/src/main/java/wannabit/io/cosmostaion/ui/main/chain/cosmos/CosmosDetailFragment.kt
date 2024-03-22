@@ -120,7 +120,9 @@ class CosmosDetailFragment : Fragment() {
 
                 if (selectedChain is EthereumLine && (selectedChain as EthereumLine).supportCosmos) {
                     accountAddress.text = selectedChain.address
-                    accountEvmAddress.text = ByteUtils.convertBech32ToEvm(selectedChain.address)
+                    selectedChain.address?.let {
+                        accountEvmAddress.text = ByteUtils.convertBech32ToEvm(it)
+                    }
                     accountAddress.visibility = View.INVISIBLE
                     accountEvmAddress.visibility = View.VISIBLE
 

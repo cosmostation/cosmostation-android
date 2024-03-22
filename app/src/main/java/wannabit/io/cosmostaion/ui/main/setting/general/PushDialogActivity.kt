@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.databinding.ActivityPushDialogBinding
@@ -17,8 +18,7 @@ class PushDialogActivity : Activity() {
         val url = bundle?.getString("link")
 
         val binding = ActivityPushDialogBinding.inflate(layoutInflater)
-        val alertDialog =
-            AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
+        val alertDialog = AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
 
         val dialog = alertDialog.create()
         dialog.show()
@@ -30,10 +30,13 @@ class PushDialogActivity : Activity() {
             btnClose.setOnClickListener {
                 finish()
             }
+            btnExplorer.visibility = if (url == null) View.GONE else View.VISIBLE
             btnExplorer.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-                finish()
+                url?.let {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                    startActivity(intent);
+                    finish()
+                }
             }
         }
     }

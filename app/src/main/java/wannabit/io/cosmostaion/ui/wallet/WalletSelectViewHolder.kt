@@ -23,10 +23,7 @@ class WalletSelectViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun evmBind(
-        account: BaseAccount,
-        line: EthereumLine,
-        selectedEvmTags: MutableList<String>,
-        evmSelectListener: WalletSelectAdapter.SelectListener
+        account: BaseAccount, line: EthereumLine, selectedEvmTags: MutableList<String>, evmSelectListener: WalletSelectAdapter.SelectListener
     ) {
         binding.apply {
             chainImg.setImageResource(line.logo)
@@ -34,7 +31,9 @@ class WalletSelectViewHolder(
             if (account.type == BaseAccountType.MNEMONIC) {
                 chainPath.text = line.getHDPath(account.lastHDPath)
             } else if (line.accountPrefix?.isNotEmpty() == true) {
-                chainPath.text = ByteUtils.convertBech32ToEvm(line.address)
+                line.address?.let {
+                    chainPath.text = ByteUtils.convertBech32ToEvm(it)
+                }
             } else {
                 chainPath.text = line.address
             }
@@ -50,8 +49,7 @@ class WalletSelectViewHolder(
                     return
                 }
 
-                val availableAmount =
-                    line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+                val availableAmount = line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
                 chainBalance.text = formatAmount(availableAmount.toString(), 18)
                 chainDenom.text = line.coinSymbol
                 line.stakeDenom?.let { denom ->
@@ -82,10 +80,7 @@ class WalletSelectViewHolder(
     }
 
     fun bind(
-        account: BaseAccount,
-        line: CosmosLine,
-        selectedCosmosTags: MutableList<String>,
-        listener: WalletSelectAdapter.SelectListener
+        account: BaseAccount, line: CosmosLine, selectedCosmosTags: MutableList<String>, listener: WalletSelectAdapter.SelectListener
     ) {
         binding.apply {
             chainImg.setImageResource(line.logo)
@@ -180,10 +175,8 @@ class WalletSelectViewHolder(
                             chainAssetCnt.visibility = View.VISIBLE
 
                             BaseData.getAsset(line.apiName, denom)?.let { asset ->
-                                val availableAmount =
-                                    line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)
-                                chainBalance.text =
-                                    formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                                val availableAmount = line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)
+                                chainBalance.text = formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                                 chainDenom.text = asset.symbol
                                 chainDenom.setTextColor(asset.assetColor())
                             }
