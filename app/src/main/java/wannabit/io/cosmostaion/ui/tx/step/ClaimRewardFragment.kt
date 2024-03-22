@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -249,6 +250,11 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
+                if (feeInfos.isEmpty()) {
+                    activity?.makeToast(R.string.str_unknown_error)
+                    return@setOnClickListener
+                }
+
                 handleOneClickWithDelay(
                     AssetFragment.newInstance(selectedChain,
                         feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
