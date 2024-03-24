@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
@@ -37,6 +38,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
@@ -57,6 +59,7 @@ import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.math.BigDecimal
 
 class CosmosDetailFragment : Fragment() {
@@ -68,7 +71,7 @@ class CosmosDetailFragment : Fragment() {
 
     private lateinit var selectedChain: CosmosLine
 
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private lateinit var walletViewModel: WalletViewModel
 
     private var isClickable = true
 
@@ -96,11 +99,19 @@ class CosmosDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initData()
         initTab()
         setUpClickAction()
         setFabMenuClickAction()
         setUpObserve()
+    }
+
+    private fun initViewModel() {
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initData() {

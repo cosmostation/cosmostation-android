@@ -40,7 +40,7 @@ object BaseKey {
         return words
     }
 
-    private fun getHDSeed(entropy: ByteArray?): ByteArray? {
+    fun getHDSeed(entropy: ByteArray?): ByteArray? {
         return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "")
     }
 
@@ -48,9 +48,18 @@ object BaseKey {
         return getHDSeed(MnemonicCode().toEntropy(words))
     }
 
-    fun getPrivateKey(seed: ByteArray?, parentPaths: List<ChildNumber>, lastPath: String): ByteArray? {
+    fun getPrivateKey(
+        seed: ByteArray?,
+        parentPaths: List<ChildNumber>,
+        lastPath: String
+    ): ByteArray? {
         val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
-        val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(parentPaths, true, true, ChildNumber(Integer.parseInt(lastPath)))
+        val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
+            parentPaths,
+            true,
+            true,
+            ChildNumber(Integer.parseInt(lastPath))
+        )
         return deterministicKey.privKeyBytes
     }
 
@@ -59,7 +68,11 @@ object BaseKey {
         return ecKey.pubKey
     }
 
-    fun getAddressFromPubKey(pubKey: ByteArray?, pubKeyType: PubKeyType, prefix: String? = null): String {
+    fun getAddressFromPubKey(
+        pubKey: ByteArray?,
+        pubKeyType: PubKeyType,
+        prefix: String? = null
+    ): String {
         var result = ""
         when (pubKeyType) {
             PubKeyType.COSMOS_SECP256K1 -> {
@@ -109,7 +122,8 @@ object BaseKey {
         try {
             Bech32.decode(address)
             result = true
-        } catch (_: Exception) { }
+        } catch (_: Exception) {
+        }
         return result
     }
 
