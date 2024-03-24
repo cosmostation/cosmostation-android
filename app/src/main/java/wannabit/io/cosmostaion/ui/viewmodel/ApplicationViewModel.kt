@@ -286,6 +286,7 @@ class ApplicationViewModel(
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
+                            txFetchedResult.value = tag
                         }
                     }
 
@@ -505,7 +506,6 @@ class ApplicationViewModel(
                                 editFetchedTokenResult.value = tag
                             } else {
                                 fetchedTokenResult.value = tag
-                                txFetchedResult.value = tag
                             }
                         }
                         fetchedTotalResult.postValue(tag)

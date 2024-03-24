@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.common
 
+import org.bitcoinj.core.AddressFormatException
 import org.bitcoinj.core.Bech32
 import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
@@ -77,8 +78,13 @@ object ByteUtils {
     }
 
     fun convertBech32ToEvm(address: String?): String {
-        val pub = convertBits(Bech32.decode(address).data, 5, 8, false)
-        return "0x" + pub.toHex()
+        try {
+            val pub = convertBits(Bech32.decode(address).data, 5, 8, false)
+            return "0x" + pub.toHex()
+        } catch (e: AddressFormatException.InvalidDataLength) {
+            e.printStackTrace()
+        }
+        return ""
     }
 
     fun convertEvmToBech32(address: String, prefix: String?): String {

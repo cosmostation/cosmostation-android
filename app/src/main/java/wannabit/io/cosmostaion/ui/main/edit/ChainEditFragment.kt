@@ -71,6 +71,8 @@ class ChainEditFragment : BaseTxFragment() {
                         searchChains.addAll(allCosmosChains)
                         toDisplayChains.addAll(Prefs.getDisplayChains(account))
 
+                        initAllData(account)
+
                         withContext(Dispatchers.Main) {
                             recycler.setHasFixedSize(true)
                             recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -87,7 +89,6 @@ class ChainEditFragment : BaseTxFragment() {
                             btnSelect.updateSelectButtonView(allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched })
                             progress.goneOrVisible(allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched })
                         }
-                        initAllData(account)
                     }
                 }
             }
