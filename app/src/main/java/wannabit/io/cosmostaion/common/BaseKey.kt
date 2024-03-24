@@ -44,7 +44,7 @@ object BaseKey {
         return MnemonicCode.toSeed(MnemonicCode.INSTANCE.toMnemonic(entropy), "")
     }
 
-    fun getByteSeedFromWords(words: List<String>): ByteArray? {
+    private fun getByteSeedFromWords(words: List<String>): ByteArray? {
         return getHDSeed(MnemonicCode().toEntropy(words))
     }
 
