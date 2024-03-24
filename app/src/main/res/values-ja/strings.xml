@@ -102,6 +102,7 @@
     <string name="str_amount">数量</string>
     <string name="str_token_github">Token 情報確認</string>
     <string name="str_node_down">ノードダウン</string>
+    <string name="str_vote_all">全員に投票する</string>
 
 
     //title

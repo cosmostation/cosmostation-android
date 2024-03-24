@@ -131,6 +131,7 @@
     <string name="str_amount">Amount</string>
     <string name="str_token_github">Check token info</string>
     <string name="str_node_down">Node down</string>
+    <string name="str_vote_all">Vote all</string>
 
 
     //title
@@ -309,11 +310,12 @@
     <string name="str_unstake_cancel_msg">Cancel unstake and immediately make staked state.</string>
     <string name="str_reward_address_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.</string>
     <string name="str_reward_address_msg2">Do not set as exchange address.</string>
-    <string name="str_swap_msg" translatable="false">Exchange the coins you have for a\nvariety of different coins</string>
-    <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
-    <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
+    <string name="str_swap_msg" translatable="false">Exchange the coins you have\nfor a variety of different coins</string>
+    <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade\nEverything DeFi, NFT and\nGaming</string>
+    <string name="str_buy_msg" translatable="false">The coins purchased can be\nused for online transactions\nand investments</string>
     <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
-    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards exceeding\n$0.1 across Cosmos Chains\nwith a single click.</string>
+    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards\nexceeding $0.1 across Cosmos\nchains with a single click.</string>
+    <string name="str_all_vote_msg" translatable="false">Check the list of live proposals\nof the chains you staked and\nvote for</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV</string>
     <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform</string>

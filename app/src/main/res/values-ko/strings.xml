@@ -97,6 +97,7 @@
     <string name="str_amount">수량</string>
     <string name="str_token_github">토큰 정보 확인</string>
     <string name="str_node_down">노드 다운</string>
+    <string name="str_vote_all">모두 투표</string>
 
 
     //title

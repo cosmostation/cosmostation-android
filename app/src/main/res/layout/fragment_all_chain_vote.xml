@@ -18,6 +18,17 @@
         app:lottie_rawRes="@raw/loading"
         tools:ignore="NotSibling" />
 
+    <TextView
+        android:id="@+id/checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_base01"
+        style="@style/font_sm_12"
+        android:layout_marginTop="@dimen/space_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loading" />
+
     <LinearLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
@@ -101,7 +112,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_claim_all"
+            android:id="@+id/btn_vote_all"
             style="@style/font_sb_16"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_54"
@@ -109,7 +120,7 @@
             android:layout_marginBottom="@dimen/space_12"
             android:background="@drawable/button_disable_bg"
             android:enabled="false"
-            android:text="@string/str_claim_all"
+            android:text="@string/str_vote_all"
             android:textAllCaps="false"
             android:textColor="@color/color_base03"
             app:layout_constraintBottom_toBottomOf="parent"
