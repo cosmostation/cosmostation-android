@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +10,7 @@ import com.cosmos.gov.v1beta1.GovProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.formatAmount
@@ -98,7 +101,7 @@ class AllChainVoteViewHolder(
                         statusImg.setImageResource(R.drawable.icon_not_voted)
                     }
 
-                    voteId.text = proposal.id
+                    voteId.text = "# " + proposal.id
                     voteTitle.text = proposal.title
                     val endTimeToLong = dateToLong(
                         context.getString(R.string.str_tx_time_format), proposal.voting_end_time
@@ -123,6 +126,14 @@ class AllChainVoteViewHolder(
                     abstainView.setOnClickListener {
                         updateView(this, proposal)
                         listener.proposalCheck(voteAllModel, proposal, 2)
+                    }
+
+                    proposalView.setOnClickListener {
+                        val url: String =
+                            CosmostationConstants.EXPLORER_BASE_URL + voteAllModel.basechain?.apiName + "/proposals/" + proposal.id
+                        Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                            context.startActivity(this)
+                        }
                     }
                 }
             }

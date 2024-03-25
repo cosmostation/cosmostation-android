@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cosmos.auth.v1beta1.QueryGrpc
+import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.gov.v1beta1.GovProto
 import com.cosmos.gov.v1beta1.TxProto.MsgVote
+import com.cosmos.tx.v1beta1.ServiceGrpc
+import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
+import com.cosmos.tx.v1beta1.ServiceProto.SimulateResponse
 import com.cosmos.tx.v1beta1.TxProto
+import io.grpc.ManagedChannel
+import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
@@ -30,27 +37,27 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
-import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAllChainVoteBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 import java.math.RoundingMode
+import java.util.concurrent.TimeUnit
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class AllChainVoteFragment : BaseTxFragment() {
 
     private var _binding: FragmentAllChainVoteBinding? = null
     private val binding: FragmentAllChainVoteBinding? get() = _binding
 
-    private lateinit var viewModel: TxViewModel
     private lateinit var proposalViewModel: ProposalViewModel
 
     private val stakedChains = mutableListOf<BaseChain>()
@@ -59,8 +66,6 @@ class AllChainVoteFragment : BaseTxFragment() {
     private var toDisplayInfos = mutableListOf<VoteAllModel>()
 
     private lateinit var allChainVoteAdapter: AllChainVoteAdapter
-
-    private var txFee: TxProto.Fee? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -78,12 +83,6 @@ class AllChainVoteFragment : BaseTxFragment() {
     }
 
     private fun initViewModel() {
-        val txRepository = TxRepositoryImpl()
-        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
-        viewModel = ViewModelProvider(
-            this, txViewModelProviderFactory
-        )[TxViewModel::class.java]
-
         val proposalRepository = ProposalRepositoryImpl()
         val proposalViewModelProviderFactory = ProposalViewModelProviderFactory(proposalRepository)
         proposalViewModel = ViewModelProvider(
@@ -120,9 +119,10 @@ class AllChainVoteFragment : BaseTxFragment() {
                             }
                     }
                 }
+                val tempStakedChains = stakedChains.distinctBy { it.apiName }.toMutableList()
                 allLiveInfo.clear()
                 toDisplayInfos.clear()
-                fetchProposalInfos(stakedChains)
+                fetchProposalInfos(tempStakedChains)
             }
         }
     }
@@ -161,6 +161,12 @@ class AllChainVoteFragment : BaseTxFragment() {
                     }
                 }
             }
+
+            withContext(Dispatchers.Main) {
+                if (stakedChains.isEmpty()) {
+                    updateView()
+                }
+            }
         }
     }
 
@@ -174,6 +180,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             checked.visibility = View.GONE
             btnLayout.visibility = View.VISIBLE
             titleLayout.visibility = View.VISIBLE
+            voteExplain.visibility = View.VISIBLE
             emptyLayout.visibility = View.GONE
 
             allLiveInfo.sortWith { o1, o2 ->
@@ -186,7 +193,11 @@ class AllChainVoteFragment : BaseTxFragment() {
                 }
             }
 
+            allLiveInfo.forEach { voteModel ->
+                voteModel.proposals.forEach { it.toVoteOption = null }
+            }
             toDisplayInfos.clear()
+
             if (isShowAll) {
                 btnFilter.setImageResource(R.drawable.icon_all_vote)
                 allVoteTitle.text = getString(R.string.title_all_vote_list)
@@ -210,14 +221,16 @@ class AllChainVoteFragment : BaseTxFragment() {
                         toDisplayInfos.add(VoteAllModel(info.basechain, filteredProposal, myVotes))
                     }
                 }
-
-                if (toDisplayInfos.isEmpty()) {
-                    emptyLayout.visibility = View.VISIBLE
-                } else {
-                    btnVoteAll.visibility = View.VISIBLE
-                }
-                recycler.visibility = View.VISIBLE
             }
+
+            if (toDisplayInfos.isEmpty()) {
+                emptyLayout.visibility = View.VISIBLE
+                voteExplain.visibility = View.GONE
+            } else {
+                btnVoteAll.visibility = View.VISIBLE
+                voteExplain.visibility = View.VISIBLE
+            }
+            recycler.visibility = View.VISIBLE
             initRecyclerView()
         }
     }
@@ -245,31 +258,15 @@ class AllChainVoteFragment : BaseTxFragment() {
                 return
             }
             when (tag) {
-                1 -> {
-                    proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_YES
-                }
-
-                2 -> {
-                    proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_ABSTAIN
-                }
-
-                3 -> {
-                    proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO
-                }
-
-                4 -> {
-                    proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO_WITH_VETO
-                }
-
-                else -> {
-                    proposal.toVoteOption = null
-                }
+                1 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_YES }
+                2 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_ABSTAIN }
+                3 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO }
+                4 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO_WITH_VETO }
+                else -> { proposal.toVoteOption = null }
             }
             Handler(Looper.getMainLooper()).postDelayed({
-                requireActivity().runOnUiThread {
-                    allChainVoteAdapter.notifyDataSetChanged()
-                    txSimulate(voteModel)
-                }
+                allChainVoteAdapter.notifyDataSetChanged()
+                txSimulate(voteModel)
             }, 80)
         }
     }
@@ -282,7 +279,7 @@ class AllChainVoteFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             voteAllModel.onClear()
             val chain = voteAllModel.basechain as CosmosLine
-            txFee = chain.getInitPayableFee(requireContext())
+            val txFee = chain.getInitPayableFee(requireContext())
             val toVotes = mutableListOf<MsgVote?>()
             voteAllModel.proposals.forEach { proposal ->
                 val voteMsg = proposal.id?.let { id ->
@@ -298,10 +295,11 @@ class AllChainVoteFragment : BaseTxFragment() {
                 if (::allChainVoteAdapter.isInitialized) {
                     allChainVoteAdapter.notifyItemChanged(index)
                 }
-                viewModel.simulateVote(
-                    getChannel(chain), chain.address, toVotes, txFee, "", chain
-                )
-                setUpSimulate(voteAllModel, toVotes)
+            }
+            simulateVoteTx(chain, toVotes)?.let { response ->
+                withContext(Dispatchers.Main) {
+                    updateFeeViewWithSimulate(voteAllModel, toVotes, txFee, response.gasInfo)
+                }
             }
         }
     }
@@ -315,6 +313,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 if (toDisplayInfos.count { it.txResponse != null } > 0) {
                     return@setOnClickListener
                 }
+
                 isShowAll = !isShowAll
                 if (isShowAll) {
                     requireActivity().makeToast(R.string.str_show_all_proposals_msg)
@@ -335,20 +334,11 @@ class AllChainVoteFragment : BaseTxFragment() {
         }
     }
 
-    private fun setUpSimulate(voteAllModel: VoteAllModel, toVotes: MutableList<MsgVote?>) {
-        viewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(voteAllModel, toVotes, gasInfo)
-        }
-
-        viewModel.errorMessage.observe(viewLifecycleOwner) { response ->
-            binding?.btnVoteAll?.updateButtonView(false)
-            requireContext().showToast(view, response, true)
-            return@observe
-        }
-    }
-
     private fun updateFeeViewWithSimulate(
-        voteAllModel: VoteAllModel, toVotes: MutableList<MsgVote?>, gasInfo: AbciProto.GasInfo?
+        voteAllModel: VoteAllModel,
+        toVotes: MutableList<MsgVote?>?,
+        txFee: TxProto.Fee?,
+        gasInfo: AbciProto.GasInfo?
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             gasInfo?.let { info ->
@@ -374,7 +364,6 @@ class AllChainVoteFragment : BaseTxFragment() {
             }
             withContext(Dispatchers.Main) {
                 val index = toDisplayInfos.indexOf(voteAllModel)
-                Log.e("Test1234 : ", index.toString())
                 if (::allChainVoteAdapter.isInitialized) {
                     allChainVoteAdapter.notifyItemChanged(index)
                 }
@@ -390,20 +379,123 @@ class AllChainVoteFragment : BaseTxFragment() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK && isAdded) {
-//            for (i in 0 until valueAbleRewards.size) {
-//                valueAbleRewards[i].isSuccess = true
-//            }
-//            allChainClaimAdapter.notifyDataSetChanged()
-//            binding?.btnClaimAll?.visibility = View.GONE
-//            binding?.btnConfirm?.visibility = View.VISIBLE
-//
-//            for (i in 0 until valueAbleRewards.size) {
-//                val valueAbleReward = valueAbleRewards[i]
-//                broadCastClaimTx(valueAbleReward) {
-//                    val channel = getChannel(valueAbleReward.cosmosLine)
-//                    checkTx(i, channel, it?.txResponse)
-//                }
-//            }
+            binding?.apply {
+                btnVoteAll.visibility = View.GONE
+                btnConfirm.visibility = View.VISIBLE
+                for (i in toDisplayInfos.indices) {
+                    toDisplayInfos[i].isBusy = true
+                }
+                allChainVoteAdapter.notifyDataSetChanged()
+
+                for (i in 0 until toDisplayInfos.size) {
+                    val voteAllModel = toDisplayInfos[i]
+                    broadCastVoteTx(voteAllModel) {
+                        val channel = getChannel(voteAllModel.basechain as CosmosLine)
+                        checkTx(voteAllModel, channel, it?.txResponse)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun simulateVoteTx(
+        chain: CosmosLine, toVotes: MutableList<MsgVote?>?
+    ): SimulateResponse? {
+        val channel = getChannel(chain)
+        return try {
+            loadAuth(channel, chain.address)?.let {
+                val simulStub =
+                    ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                val simulateTx = Signer.genVoteSimulate(
+                    it, toVotes, chain.getInitPayableFee(requireContext()), "", chain
+                )
+                simulStub.simulate(simulateTx)
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun broadCastVoteTx(
+        voteAllModel: VoteAllModel, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val chain = voteAllModel.basechain as CosmosLine
+            val toVotes = voteAllModel.toVotes
+            val txFee = voteAllModel.txFee
+            val channel = getChannel(chain)
+
+            val txStub =
+                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val broadcastTx = Signer.genVoteBroadcast(
+                loadAuth(channel, chain.address), toVotes, txFee, "", chain
+            )
+            try {
+                onComplete(txStub.broadcastTx(broadcastTx))
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    private fun checkTx(
+        voteAllModel: VoteAllModel,
+        managedChannel: ManagedChannel,
+        txResponse: AbciProto.TxResponse?
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            loadTx(managedChannel, txResponse?.txhash) { response ->
+                voteAllModel.isBusy = false
+                voteAllModel.txResponse = response
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val index = toDisplayInfos.indexOf(voteAllModel)
+                    allChainVoteAdapter.notifyItemChanged(index)
+                    if (toDisplayInfos.none { it.txResponse == null }) {
+                        binding?.btnConfirm?.updateButtonView(true)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadAuth(
+        managedChannel: ManagedChannel, address: String?
+    ): QueryProto.QueryAccountResponse? {
+        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
+        return try {
+            stub.account(request)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun loadTx(
+        managedChannel: ManagedChannel, txHash: String?, onComplete: (GetTxResponse?) -> Unit
+    ) {
+        try {
+            val stub = ServiceGrpc.newStub(managedChannel)
+            val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
+
+            val response = withContext(Dispatchers.IO) {
+                suspendCoroutine { continuation ->
+                    val observer = object : StreamObserver<GetTxResponse> {
+                        override fun onNext(value: GetTxResponse?) {
+                            continuation.resume(value)
+                        }
+
+                        override fun onError(t: Throwable?) {
+                            continuation.resumeWithException(t ?: RuntimeException("Unknown error"))
+                        }
+
+                        override fun onCompleted() {}
+                    }
+                    stub.getTx(request, observer)
+                }
+            }
+            onComplete(response)
+        } catch (e: Throwable) {
+            delay(3000)
+            loadTx(managedChannel, txHash, onComplete)
         }
     }
 

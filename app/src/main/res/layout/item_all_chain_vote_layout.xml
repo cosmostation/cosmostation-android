@@ -57,8 +57,8 @@
 
         <ImageView
             android:id="@+id/state_img"
-            android:layout_width="@dimen/space_30"
-            android:layout_height="@dimen/space_30"
+            android:layout_width="@dimen/space_24"
+            android:layout_height="@dimen/space_24"
             android:layout_marginEnd="@dimen/space_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
