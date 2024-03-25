@@ -119,10 +119,9 @@ class AllChainVoteFragment : BaseTxFragment() {
                             }
                     }
                 }
-                val tempStakedChains = stakedChains.distinctBy { it.apiName }.toMutableList()
                 allLiveInfo.clear()
                 toDisplayInfos.clear()
-                fetchProposalInfos(tempStakedChains)
+                fetchProposalInfos(stakedChains)
             }
         }
     }
