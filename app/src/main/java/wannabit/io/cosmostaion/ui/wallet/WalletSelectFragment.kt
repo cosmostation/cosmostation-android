@@ -179,7 +179,7 @@ class WalletSelectFragment : Fragment() {
             account.apply {
                 if (mnemonic.isNotEmpty()) {
                     val wordList = mnemonic.split(" ")
-                    val seed = BaseKey.getByteSeedFromWords(wordList)
+                    val seed = BaseKey.getHDSeed(BaseKey.toEntropy(wordList))
                     allEvmLineChains.asSequence().concurrentForEach { evmChain ->
                         if (evmChain.address?.isEmpty() == true) {
                             evmChain.setInfoWithSeed(seed, evmChain.setParentPath, lastHDPath)

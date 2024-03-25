@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain
 
 import org.bitcoinj.crypto.ChildNumber
+import wannabit.io.cosmostaion.R
 import java.io.Serializable
 import java.math.BigDecimal
 
@@ -9,7 +10,7 @@ open class BaseChain : Serializable {
     open var name: String = ""
     open var tag: String = ""
     open var chainId: String = ""
-    open var logo: Int = -1
+    open var logo: Int = R.drawable.token_default
     open var swipeLogo: Int = -1
     open var isDefault: Boolean = true
     open var apiName: String = ""

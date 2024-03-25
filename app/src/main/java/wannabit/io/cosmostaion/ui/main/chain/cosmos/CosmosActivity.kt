@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
@@ -87,30 +88,35 @@ class CosmosActivity : BaseActivity() {
     }
 
     private fun initChainImage(chain: CosmosLine) {
-        binding.chainLogo.apply {
-            val width = resources.displayMetrics.widthPixels
-            val height = resources.displayMetrics.heightPixels
-            val x = (0..width - 150 - 150).random().toFloat()
-            val y = (800..height - 150).random().toFloat()
+        try {
+            binding.chainLogo.apply {
+                val width = resources.displayMetrics.widthPixels
+                val height = resources.displayMetrics.heightPixels
+                val x = (0..width - 150 - 150).random().toFloat()
+                val y = (800..height - 150).random().toFloat()
 
-            setImageResource(chain.logo)
-            alpha = 0f
-            this.x = x
-            this.y = y
-            layoutParams = FrameLayout.LayoutParams(800, 800)
+                setImageResource(chain.logo)
+                alpha = 0f
+                this.x = x
+                this.y = y
+                layoutParams = FrameLayout.LayoutParams(800, 800)
 
-            ObjectAnimator.ofFloat(this, "alpha", 0f, 0.1f).apply {
-                duration = 3000
-                start()
+                ObjectAnimator.ofFloat(this, "alpha", 0f, 0.1f).apply {
+                    duration = 3000
+                    start()
+                }
+                ObjectAnimator.ofFloat(this, "scaleX", 1.05f).apply {
+                    duration = 3000
+                    start()
+                }
+                ObjectAnimator.ofFloat(this, "scaleY", 1.05f).apply {
+                    duration = 3000
+                    start()
+                }
             }
-            ObjectAnimator.ofFloat(this, "scaleX", 1.05f).apply {
-                duration = 3000
-                start()
-            }
-            ObjectAnimator.ofFloat(this, "scaleY", 1.05f).apply {
-                duration = 3000
-                start()
-            }
+
+        } catch (e: NoSuchElementException) {
+            binding.chainLogo.visibility = View.GONE
         }
     }
 

@@ -107,6 +107,7 @@ class DashboardFragment : Fragment() {
                 arguments?.getParcelable("baseAccount") as? BaseAccount
             }
             initData(baseAccount)
+            updateViewWithLoadedData(baseAccount)
 
             if (Prefs.hideValue) {
                 totalValue.text = "✱✱✱✱✱"
@@ -122,12 +123,11 @@ class DashboardFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.color_base03),
                 PorterDuff.Mode.SRC_IN
             )
-            updateViewWithLoadedData()
         }
     }
 
-    private fun updateViewWithLoadedData() {
-        initDisplayData()
+    private fun updateViewWithLoadedData(baseAccount: BaseAccount?) {
+        initDisplayData(baseAccount)
         initRecyclerView()
         setupLoadedData()
     }
@@ -193,7 +193,7 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun initDisplayData() {
+    private fun initDisplayData(baseAccount: BaseAccount?) {
         baseAccount?.let { account ->
             account.apply {
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -341,7 +341,7 @@ class DashboardFragment : Fragment() {
                                 line.fetched = false
                             }
                             withContext(Dispatchers.Main) {
-                                updateViewWithLoadedData()
+                                updateViewWithLoadedData(account)
                                 refresher.isRefreshing = false
                             }
                         }
@@ -367,12 +367,13 @@ class DashboardFragment : Fragment() {
             ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
             walletViewModel.price(BaseData.currencyName().lowercase())
             lifecycleScope.launch(Dispatchers.IO) {
-                BaseData.baseAccount?.initAccount()
-                BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach { line ->
+                baseAccount?.initAccount()
+                baseAccount?.sortedDisplayCosmosLines()?.forEach { line ->
                     line.fetched = false
                 }
                 withContext(Dispatchers.Main) {
-                    updateViewWithLoadedData()
+                    initData(baseAccount)
+                    updateViewWithLoadedData(baseAccount)
                 }
             }
         }
@@ -403,7 +404,7 @@ class DashboardFragment : Fragment() {
                         if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(BigDecimal.ZERO)
                     totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
 
-                    updateViewWithLoadedData()
+                    updateViewWithLoadedData(baseAccount)
                     isNew = response.first
                 }
             }
@@ -421,7 +422,7 @@ class DashboardFragment : Fragment() {
                     Prefs.setDisplayEvmChains(account, response.first)
                     Prefs.setDisplayChains(account, response.second)
                     account.sortLine()
-                    initDisplayData()
+                    initDisplayData(account)
 
                     delay(100)
                     withContext(Dispatchers.Main) {

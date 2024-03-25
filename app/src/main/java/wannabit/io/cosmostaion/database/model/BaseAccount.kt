@@ -41,7 +41,7 @@ data class BaseAccount(
         CryptoHelper.doDecryptData(
             CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec
         )?.let { hexEntropy ->
-            BaseKey.getByteSeedFromWords(BaseKey.getMnemonicWords(Utils.hexToBytes(hexEntropy)))
+            BaseKey.getHDSeed(Utils.hexToBytes(hexEntropy))
         }
     }
 
