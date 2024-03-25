@@ -20,11 +20,11 @@
 
     <TextView
         android:id="@+id/checked"
+        style="@style/font_sm_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_base01"
-        style="@style/font_sm_12"
         android:layout_marginTop="@dimen/space_4"
+        android:textColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loading" />
@@ -38,9 +38,11 @@
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
 
         <TextView
+            android:id="@+id/all_vote_title"
             style="@style/font_sb_16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,15 +50,12 @@
             android:text="@string/title_claimable_chains"
             android:textColor="@color/color_base01" />
 
-        <TextView
-            android:id="@+id/reward_cnt"
-            style="@style/font_sb_16"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/btn_filter"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/color_base01"
-            android:layout_gravity="end"
-            android:gravity="end|center_vertical" />
+            android:gravity="end|center_vertical"
+            android:src="@drawable/icon_not_vote"/>
 
     </LinearLayout>
 
@@ -73,17 +72,17 @@
             android:layout_marginBottom="@dimen/space_10"
             android:scaleType="fitXY"
             android:src="@drawable/icon_no_data"
-            app:layout_constraintBottom_toTopOf="@+id/empty_claim_title"
+            app:layout_constraintBottom_toTopOf="@+id/empty_vote_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/empty_claim_title"
+            android:id="@+id/empty_vote_title"
             style="@style/font_sb_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="NO REWARD TO CLAIM"
+            android:text="NO VOTABLE PROPOSALS"
             android:textAllCaps="true"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -107,6 +106,7 @@
         android:id="@+id/btn_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -139,10 +139,10 @@
             android:text="@string/str_confirm"
             android:textAllCaps="false"
             android:textColor="@color/color_base03"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

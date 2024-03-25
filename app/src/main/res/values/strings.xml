@@ -269,6 +269,8 @@
     <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
+    <string name="title_not_vote_list">Live proposals</string>
+    <string name="title_all_vote_list">Excluding the proposals I voted</string>
 
 
     // msg
@@ -341,6 +343,7 @@
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
     <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
     <string name="str_node_down_msg">▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
+    <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on.</string>
 
 
     // header
