@@ -265,7 +265,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun erc20Balance(line: CosmosLine, token: Token) {
         val web3j = if (line is EthereumLine) {
-            Web3j.build(HttpService(line.getEvmRpc()))
+            line.web3j
         } else {
             Web3j.build(HttpService(line.rpcUrl))
         }
@@ -286,10 +286,10 @@ class WalletRepositoryImpl : WalletRepository {
             val function = Function("balanceOf", params, returnTypes)
 
             val txData = FunctionEncoder.encode(function)
-            val response = web3j.ethCall(
+            val response = web3j?.ethCall(
                 Transaction.createEthCallTransaction(ethAddress, token.address, txData), DefaultBlockParameterName.LATEST
-            ).sendAsync().get()
-            val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+            )?.sendAsync()?.get()
+            val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
             if (results.isNotEmpty()) {
                 val balance = results[0].value as BigInteger
                 token.amount = balance.toString()
