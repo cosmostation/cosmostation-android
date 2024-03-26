@@ -17,16 +17,16 @@ import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
 interface MintscanApi {
     @GET("v10/utils/market/prices")
-    suspend fun price(@Query("currency") currency: String): Response<List<Price>>
+    suspend fun price(@Query("currency") currency: String): List<Price>
 
     @GET("v10/assets")
-    suspend fun asset(): Response<AssetResponse>
+    suspend fun asset(): AssetResponse
 
     @GET("v10/meta/support/chains")
-    suspend fun chain(): Response<ChainResponse>
+    suspend fun chain(): ChainResponse
 
     @GET("v10/utils/params")
-    suspend fun param(): Response<JsonObject>
+    suspend fun param(): JsonObject
 
     @GET("v10/assets/{chain}/cw20/info")
     suspend fun cw20token(@Path("chain") chain: String): MutableList<Token>

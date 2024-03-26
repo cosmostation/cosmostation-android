@@ -91,19 +91,19 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun chain(): NetworkResult<Response<ChainResponse>> {
+    override suspend fun chain(): NetworkResult<ChainResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.chain()
         }
     }
 
-    override suspend fun price(currency: String): NetworkResult<Response<List<Price>>> {
+    override suspend fun price(currency: String): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price(currency)
         }
     }
 
-    override suspend fun usdPrice(): NetworkResult<Response<List<Price>>> {
+    override suspend fun usdPrice(): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price("usd")
         }
@@ -115,13 +115,13 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun supportConfig(): NetworkResult<Response<SupportConfig>> {
+    override suspend fun supportConfig(): NetworkResult<SupportConfig> {
         return safeApiCall(Dispatchers.IO) {
             chainApi.supportConfig()
         }
     }
 
-    override suspend fun asset(): NetworkResult<Response<AssetResponse>> {
+    override suspend fun asset(): NetworkResult<AssetResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.asset()
         }
@@ -129,7 +129,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun param(): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.param().body()
+            mintscanJsonApi.param()
         }
     }
 
