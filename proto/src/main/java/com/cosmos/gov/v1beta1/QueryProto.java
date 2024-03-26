@@ -13151,11 +13151,12 @@ public final class QueryProto {
       "a1.QueryTallyResultRequest\032,.cosmos.gov." +
       "v1beta1.QueryTallyResultResponse\"9\202\323\344\223\0023" +
       "\0221/cosmos/gov/v1beta1/proposals/{proposa" +
-      "l_id}/tallyB\256\001\n\026com.cosmos.gov.v1beta1B\n" +
-      "QueryProtoZ cosmossdk.io/x/gov/types/v1b" +
-      "eta1\242\002\003CGX\252\002\022Cosmos.Gov.V1beta1\312\002\022Cosmos" +
-      "\\Gov\\V1beta1\342\002\036Cosmos\\Gov\\V1beta1\\GPBMet" +
-      "adata\352\002\024Cosmos::Gov::V1beta1b\006proto3"
+      "l_id}/tallyB\276\001\n\026com.cosmos.gov.v1beta1B\n" +
+      "QueryProtoZ0github.com/cosmos/cosmos-sdk" +
+      "/x/gov/types/v1beta1\242\002\003CGX\252\002\022Cosmos.Gov." +
+      "V1beta1\312\002\022Cosmos\\Gov\\V1beta1\342\002\036Cosmos\\Go" +
+      "v\\V1beta1\\GPBMetadata\352\002\024Cosmos::Gov::V1b" +
+      "eta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

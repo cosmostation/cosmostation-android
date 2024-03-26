@@ -435,13 +435,13 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n&cosmos/evidence/module/v1/module.proto" +
       "\022\031cosmos.evidence.module.v1\032 cosmos/app/" +
-      "v1alpha1/module.proto\")\n\006Module:\037\272\300\226\332\001\031\n" +
-      "\027cosmossdk.io/x/evidenceB\261\001\n\035com.cosmos." +
-      "evidence.module.v1B\013ModuleProto\242\002\003CEM\252\002\031" +
-      "Cosmos.Evidence.Module.V1\312\002\031Cosmos\\Evide" +
-      "nce\\Module\\V1\342\002%Cosmos\\Evidence\\Module\\V" +
-      "1\\GPBMetadata\352\002\034Cosmos::Evidence::Module" +
-      "::V1b\006proto3"
+      "v1alpha1/module.proto\"9\n\006Module:/\272\300\226\332\001)\n" +
+      "\'github.com/cosmos/cosmos-sdk/x/evidence" +
+      "B\261\001\n\035com.cosmos.evidence.module.v1B\013Modu" +
+      "leProto\242\002\003CEM\252\002\031Cosmos.Evidence.Module.V" +
+      "1\312\002\031Cosmos\\Evidence\\Module\\V1\342\002%Cosmos\\E" +
+      "vidence\\Module\\V1\\GPBMetadata\352\002\034Cosmos::" +
+      "Evidence::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

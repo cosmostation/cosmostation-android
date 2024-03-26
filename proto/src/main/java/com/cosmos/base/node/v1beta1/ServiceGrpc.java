@@ -49,37 +49,6 @@ public final class ServiceGrpc {
     return getConfigMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.cosmos.base.node.v1beta1.QueryProto.StatusRequest,
-      com.cosmos.base.node.v1beta1.QueryProto.StatusResponse> getStatusMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Status",
-      requestType = com.cosmos.base.node.v1beta1.QueryProto.StatusRequest.class,
-      responseType = com.cosmos.base.node.v1beta1.QueryProto.StatusResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.cosmos.base.node.v1beta1.QueryProto.StatusRequest,
-      com.cosmos.base.node.v1beta1.QueryProto.StatusResponse> getStatusMethod() {
-    io.grpc.MethodDescriptor<com.cosmos.base.node.v1beta1.QueryProto.StatusRequest, com.cosmos.base.node.v1beta1.QueryProto.StatusResponse> getStatusMethod;
-    if ((getStatusMethod = ServiceGrpc.getStatusMethod) == null) {
-      synchronized (ServiceGrpc.class) {
-        if ((getStatusMethod = ServiceGrpc.getStatusMethod) == null) {
-          ServiceGrpc.getStatusMethod = getStatusMethod =
-              io.grpc.MethodDescriptor.<com.cosmos.base.node.v1beta1.QueryProto.StatusRequest, com.cosmos.base.node.v1beta1.QueryProto.StatusResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Status"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.base.node.v1beta1.QueryProto.StatusRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.base.node.v1beta1.QueryProto.StatusResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ServiceMethodDescriptorSupplier("Status"))
-              .build();
-        }
-      }
-    }
-    return getStatusMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -140,16 +109,6 @@ public final class ServiceGrpc {
         io.grpc.stub.StreamObserver<com.cosmos.base.node.v1beta1.QueryProto.ConfigResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getConfigMethod(), responseObserver);
     }
-
-    /**
-     * <pre>
-     * Status queries for the node status.
-     * </pre>
-     */
-    default void status(com.cosmos.base.node.v1beta1.QueryProto.StatusRequest request,
-        io.grpc.stub.StreamObserver<com.cosmos.base.node.v1beta1.QueryProto.StatusResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStatusMethod(), responseObserver);
-    }
   }
 
   /**
@@ -195,17 +154,6 @@ public final class ServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getConfigMethod(), getCallOptions()), request, responseObserver);
     }
-
-    /**
-     * <pre>
-     * Status queries for the node status.
-     * </pre>
-     */
-    public void status(com.cosmos.base.node.v1beta1.QueryProto.StatusRequest request,
-        io.grpc.stub.StreamObserver<com.cosmos.base.node.v1beta1.QueryProto.StatusResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getStatusMethod(), getCallOptions()), request, responseObserver);
-    }
   }
 
   /**
@@ -235,16 +183,6 @@ public final class ServiceGrpc {
     public com.cosmos.base.node.v1beta1.QueryProto.ConfigResponse config(com.cosmos.base.node.v1beta1.QueryProto.ConfigRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getConfigMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Status queries for the node status.
-     * </pre>
-     */
-    public com.cosmos.base.node.v1beta1.QueryProto.StatusResponse status(com.cosmos.base.node.v1beta1.QueryProto.StatusRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getStatusMethod(), getCallOptions(), request);
     }
   }
 
@@ -277,21 +215,9 @@ public final class ServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getConfigMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * Status queries for the node status.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.cosmos.base.node.v1beta1.QueryProto.StatusResponse> status(
-        com.cosmos.base.node.v1beta1.QueryProto.StatusRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getStatusMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_CONFIG = 0;
-  private static final int METHODID_STATUS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -313,10 +239,6 @@ public final class ServiceGrpc {
         case METHODID_CONFIG:
           serviceImpl.config((com.cosmos.base.node.v1beta1.QueryProto.ConfigRequest) request,
               (io.grpc.stub.StreamObserver<com.cosmos.base.node.v1beta1.QueryProto.ConfigResponse>) responseObserver);
-          break;
-        case METHODID_STATUS:
-          serviceImpl.status((com.cosmos.base.node.v1beta1.QueryProto.StatusRequest) request,
-              (io.grpc.stub.StreamObserver<com.cosmos.base.node.v1beta1.QueryProto.StatusResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -343,13 +265,6 @@ public final class ServiceGrpc {
               com.cosmos.base.node.v1beta1.QueryProto.ConfigRequest,
               com.cosmos.base.node.v1beta1.QueryProto.ConfigResponse>(
                 service, METHODID_CONFIG)))
-        .addMethod(
-          getStatusMethod(),
-          io.grpc.stub.ServerCalls.asyncUnaryCall(
-            new MethodHandlers<
-              com.cosmos.base.node.v1beta1.QueryProto.StatusRequest,
-              com.cosmos.base.node.v1beta1.QueryProto.StatusResponse>(
-                service, METHODID_STATUS)))
         .build();
   }
 
@@ -399,7 +314,6 @@ public final class ServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ServiceFileDescriptorSupplier())
               .addMethod(getConfigMethod())
-              .addMethod(getStatusMethod())
               .build();
         }
       }

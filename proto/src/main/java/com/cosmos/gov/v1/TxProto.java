@@ -67,7 +67,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getInitialDepositList();
@@ -76,7 +76,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getInitialDeposit(int index);
     /**
@@ -84,7 +84,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     int getInitialDepositCount();
     /**
@@ -92,7 +92,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getInitialDepositOrBuilderList();
@@ -101,7 +101,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getInitialDepositOrBuilder(
         int index);
@@ -193,18 +193,6 @@ public final class TxProto {
      */
     com.google.protobuf.ByteString
         getSummaryBytes();
-
-    /**
-     * <pre>
-     * expedited defines if the proposal is expedited or not
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>bool expedited = 7 [json_name = "expedited"];</code>
-     * @return The expedited.
-     */
-    boolean getExpedited();
   }
   /**
    * <pre>
@@ -321,7 +309,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getInitialDepositList() {
@@ -332,7 +320,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -344,7 +332,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public int getInitialDepositCount() {
@@ -355,7 +343,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getInitialDeposit(int index) {
@@ -366,7 +354,7 @@ public final class TxProto {
      * initial_deposit is the deposit value that must be paid at proposal submission.
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getInitialDepositOrBuilder(
@@ -570,23 +558,6 @@ public final class TxProto {
       }
     }
 
-    public static final int EXPEDITED_FIELD_NUMBER = 7;
-    private boolean expedited_ = false;
-    /**
-     * <pre>
-     * expedited defines if the proposal is expedited or not
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>bool expedited = 7 [json_name = "expedited"];</code>
-     * @return The expedited.
-     */
-    @java.lang.Override
-    public boolean getExpedited() {
-      return expedited_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -619,9 +590,6 @@ public final class TxProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(summary_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, summary_);
       }
-      if (expedited_ != false) {
-        output.writeBool(7, expedited_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -651,10 +619,6 @@ public final class TxProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(summary_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, summary_);
       }
-      if (expedited_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(7, expedited_);
-      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -682,8 +646,6 @@ public final class TxProto {
           .equals(other.getTitle())) return false;
       if (!getSummary()
           .equals(other.getSummary())) return false;
-      if (getExpedited()
-          != other.getExpedited()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -711,9 +673,6 @@ public final class TxProto {
       hash = (53 * hash) + getTitle().hashCode();
       hash = (37 * hash) + SUMMARY_FIELD_NUMBER;
       hash = (53 * hash) + getSummary().hashCode();
-      hash = (37 * hash) + EXPEDITED_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getExpedited());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -868,7 +827,6 @@ public final class TxProto {
         metadata_ = "";
         title_ = "";
         summary_ = "";
-        expedited_ = false;
         return this;
       }
 
@@ -935,9 +893,6 @@ public final class TxProto {
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
           result.summary_ = summary_;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.expedited_ = expedited_;
         }
       }
 
@@ -1057,9 +1012,6 @@ public final class TxProto {
           bitField0_ |= 0x00000020;
           onChanged();
         }
-        if (other.getExpedited() != false) {
-          setExpedited(other.getExpedited());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1132,11 +1084,6 @@ public final class TxProto {
                 bitField0_ |= 0x00000020;
                 break;
               } // case 50
-              case 56: {
-                expedited_ = input.readBool();
-                bitField0_ |= 0x00000040;
-                break;
-              } // case 56
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1483,7 +1430,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getInitialDepositList() {
         if (initialDepositBuilder_ == null) {
@@ -1497,7 +1444,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public int getInitialDepositCount() {
         if (initialDepositBuilder_ == null) {
@@ -1511,7 +1458,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getInitialDeposit(int index) {
         if (initialDepositBuilder_ == null) {
@@ -1525,7 +1472,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setInitialDeposit(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1546,7 +1493,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setInitialDeposit(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1564,7 +1511,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder addInitialDeposit(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (initialDepositBuilder_ == null) {
@@ -1584,7 +1531,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder addInitialDeposit(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1605,7 +1552,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder addInitialDeposit(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1623,7 +1570,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder addInitialDeposit(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1641,7 +1588,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAllInitialDeposit(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -1660,7 +1607,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearInitialDeposit() {
         if (initialDepositBuilder_ == null) {
@@ -1677,7 +1624,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder removeInitialDeposit(int index) {
         if (initialDepositBuilder_ == null) {
@@ -1694,7 +1641,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getInitialDepositBuilder(
           int index) {
@@ -1705,7 +1652,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getInitialDepositOrBuilder(
           int index) {
@@ -1719,7 +1666,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getInitialDepositOrBuilderList() {
@@ -1734,7 +1681,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addInitialDepositBuilder() {
         return getInitialDepositFieldBuilder().addBuilder(
@@ -1745,7 +1692,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addInitialDepositBuilder(
           int index) {
@@ -1757,7 +1704,7 @@ public final class TxProto {
        * initial_deposit is the deposit value that must be paid at proposal submission.
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [json_name = "initialDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getInitialDepositBuilderList() {
@@ -2162,56 +2109,6 @@ public final class TxProto {
         checkByteStringIsUtf8(value);
         summary_ = value;
         bitField0_ |= 0x00000020;
-        onChanged();
-        return this;
-      }
-
-      private boolean expedited_ ;
-      /**
-       * <pre>
-       * expedited defines if the proposal is expedited or not
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>bool expedited = 7 [json_name = "expedited"];</code>
-       * @return The expedited.
-       */
-      @java.lang.Override
-      public boolean getExpedited() {
-        return expedited_;
-      }
-      /**
-       * <pre>
-       * expedited defines if the proposal is expedited or not
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>bool expedited = 7 [json_name = "expedited"];</code>
-       * @param value The expedited to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExpedited(boolean value) {
-
-        expedited_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * expedited defines if the proposal is expedited or not
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>bool expedited = 7 [json_name = "expedited"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearExpedited() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        expedited_ = false;
         onChanged();
         return this;
       }
@@ -10111,1559 +10008,6 @@ public final class TxProto {
 
   }
 
-  public interface MsgCancelProposalOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.MsgCancelProposal)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * proposal_id defines the unique id of the proposal.
-     * </pre>
-     *
-     * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-     * @return The proposalId.
-     */
-    long getProposalId();
-
-    /**
-     * <pre>
-     * proposer is the account address of the proposer.
-     * </pre>
-     *
-     * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The proposer.
-     */
-    java.lang.String getProposer();
-    /**
-     * <pre>
-     * proposer is the account address of the proposer.
-     * </pre>
-     *
-     * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The bytes for proposer.
-     */
-    com.google.protobuf.ByteString
-        getProposerBytes();
-  }
-  /**
-   * <pre>
-   * MsgCancelProposal is the Msg/CancelProposal request type.
-   *
-   * Since: cosmos-sdk 0.50
-   * </pre>
-   *
-   * Protobuf type {@code cosmos.gov.v1.MsgCancelProposal}
-   */
-  public static final class MsgCancelProposal extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.gov.v1.MsgCancelProposal)
-      MsgCancelProposalOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use MsgCancelProposal.newBuilder() to construct.
-    private MsgCancelProposal(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private MsgCancelProposal() {
-      proposer_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new MsgCancelProposal();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposal_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposal_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.cosmos.gov.v1.TxProto.MsgCancelProposal.class, com.cosmos.gov.v1.TxProto.MsgCancelProposal.Builder.class);
-    }
-
-    public static final int PROPOSAL_ID_FIELD_NUMBER = 1;
-    private long proposalId_ = 0L;
-    /**
-     * <pre>
-     * proposal_id defines the unique id of the proposal.
-     * </pre>
-     *
-     * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-     * @return The proposalId.
-     */
-    @java.lang.Override
-    public long getProposalId() {
-      return proposalId_;
-    }
-
-    public static final int PROPOSER_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object proposer_ = "";
-    /**
-     * <pre>
-     * proposer is the account address of the proposer.
-     * </pre>
-     *
-     * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The proposer.
-     */
-    @java.lang.Override
-    public java.lang.String getProposer() {
-      java.lang.Object ref = proposer_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        proposer_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * proposer is the account address of the proposer.
-     * </pre>
-     *
-     * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The bytes for proposer.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getProposerBytes() {
-      java.lang.Object ref = proposer_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        proposer_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (proposalId_ != 0L) {
-        output.writeUInt64(1, proposalId_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposer_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, proposer_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (proposalId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, proposalId_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposer_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, proposer_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.cosmos.gov.v1.TxProto.MsgCancelProposal)) {
-        return super.equals(obj);
-      }
-      com.cosmos.gov.v1.TxProto.MsgCancelProposal other = (com.cosmos.gov.v1.TxProto.MsgCancelProposal) obj;
-
-      if (getProposalId()
-          != other.getProposalId()) return false;
-      if (!getProposer()
-          .equals(other.getProposer())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PROPOSAL_ID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getProposalId());
-      hash = (37 * hash) + PROPOSER_FIELD_NUMBER;
-      hash = (53 * hash) + getProposer().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.cosmos.gov.v1.TxProto.MsgCancelProposal prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * MsgCancelProposal is the Msg/CancelProposal request type.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * Protobuf type {@code cosmos.gov.v1.MsgCancelProposal}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.gov.v1.MsgCancelProposal)
-        com.cosmos.gov.v1.TxProto.MsgCancelProposalOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposal_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposal_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.cosmos.gov.v1.TxProto.MsgCancelProposal.class, com.cosmos.gov.v1.TxProto.MsgCancelProposal.Builder.class);
-      }
-
-      // Construct using com.cosmos.gov.v1.TxProto.MsgCancelProposal.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        proposalId_ = 0L;
-        proposer_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposal_descriptor;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.TxProto.MsgCancelProposal getDefaultInstanceForType() {
-        return com.cosmos.gov.v1.TxProto.MsgCancelProposal.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.TxProto.MsgCancelProposal build() {
-        com.cosmos.gov.v1.TxProto.MsgCancelProposal result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.TxProto.MsgCancelProposal buildPartial() {
-        com.cosmos.gov.v1.TxProto.MsgCancelProposal result = new com.cosmos.gov.v1.TxProto.MsgCancelProposal(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(com.cosmos.gov.v1.TxProto.MsgCancelProposal result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.proposalId_ = proposalId_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.proposer_ = proposer_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.cosmos.gov.v1.TxProto.MsgCancelProposal) {
-          return mergeFrom((com.cosmos.gov.v1.TxProto.MsgCancelProposal)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.cosmos.gov.v1.TxProto.MsgCancelProposal other) {
-        if (other == com.cosmos.gov.v1.TxProto.MsgCancelProposal.getDefaultInstance()) return this;
-        if (other.getProposalId() != 0L) {
-          setProposalId(other.getProposalId());
-        }
-        if (!other.getProposer().isEmpty()) {
-          proposer_ = other.proposer_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 8: {
-                proposalId_ = input.readUInt64();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 8
-              case 18: {
-                proposer_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private long proposalId_ ;
-      /**
-       * <pre>
-       * proposal_id defines the unique id of the proposal.
-       * </pre>
-       *
-       * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-       * @return The proposalId.
-       */
-      @java.lang.Override
-      public long getProposalId() {
-        return proposalId_;
-      }
-      /**
-       * <pre>
-       * proposal_id defines the unique id of the proposal.
-       * </pre>
-       *
-       * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-       * @param value The proposalId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposalId(long value) {
-
-        proposalId_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * proposal_id defines the unique id of the proposal.
-       * </pre>
-       *
-       * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProposalId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        proposalId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object proposer_ = "";
-      /**
-       * <pre>
-       * proposer is the account address of the proposer.
-       * </pre>
-       *
-       * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @return The proposer.
-       */
-      public java.lang.String getProposer() {
-        java.lang.Object ref = proposer_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          proposer_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * proposer is the account address of the proposer.
-       * </pre>
-       *
-       * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @return The bytes for proposer.
-       */
-      public com.google.protobuf.ByteString
-          getProposerBytes() {
-        java.lang.Object ref = proposer_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          proposer_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * proposer is the account address of the proposer.
-       * </pre>
-       *
-       * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @param value The proposer to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposer(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        proposer_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * proposer is the account address of the proposer.
-       * </pre>
-       *
-       * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProposer() {
-        proposer_ = getDefaultInstance().getProposer();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * proposer is the account address of the proposer.
-       * </pre>
-       *
-       * <code>string proposer = 2 [json_name = "proposer", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @param value The bytes for proposer to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposerBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        proposer_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmos.gov.v1.MsgCancelProposal)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmos.gov.v1.MsgCancelProposal)
-    private static final com.cosmos.gov.v1.TxProto.MsgCancelProposal DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.cosmos.gov.v1.TxProto.MsgCancelProposal();
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposal getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<MsgCancelProposal>
-        PARSER = new com.google.protobuf.AbstractParser<MsgCancelProposal>() {
-      @java.lang.Override
-      public MsgCancelProposal parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<MsgCancelProposal> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MsgCancelProposal> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.cosmos.gov.v1.TxProto.MsgCancelProposal getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface MsgCancelProposalResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.MsgCancelProposalResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * proposal_id defines the unique id of the proposal.
-     * </pre>
-     *
-     * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-     * @return The proposalId.
-     */
-    long getProposalId();
-
-    /**
-     * <pre>
-     * canceled_time is the time when proposal is canceled.
-     * </pre>
-     *
-     * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-     * @return Whether the canceledTime field is set.
-     */
-    boolean hasCanceledTime();
-    /**
-     * <pre>
-     * canceled_time is the time when proposal is canceled.
-     * </pre>
-     *
-     * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-     * @return The canceledTime.
-     */
-    com.google.protobuf.Timestamp getCanceledTime();
-    /**
-     * <pre>
-     * canceled_time is the time when proposal is canceled.
-     * </pre>
-     *
-     * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-     */
-    com.google.protobuf.TimestampOrBuilder getCanceledTimeOrBuilder();
-
-    /**
-     * <pre>
-     * canceled_height defines the block height at which the proposal is canceled.
-     * </pre>
-     *
-     * <code>uint64 canceled_height = 3 [json_name = "canceledHeight"];</code>
-     * @return The canceledHeight.
-     */
-    long getCanceledHeight();
-  }
-  /**
-   * <pre>
-   * MsgCancelProposalResponse defines the response structure for executing a
-   * MsgCancelProposal message.
-   *
-   * Since: cosmos-sdk 0.50
-   * </pre>
-   *
-   * Protobuf type {@code cosmos.gov.v1.MsgCancelProposalResponse}
-   */
-  public static final class MsgCancelProposalResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.gov.v1.MsgCancelProposalResponse)
-      MsgCancelProposalResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use MsgCancelProposalResponse.newBuilder() to construct.
-    private MsgCancelProposalResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private MsgCancelProposalResponse() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new MsgCancelProposalResponse();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposalResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposalResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.class, com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.Builder.class);
-    }
-
-    public static final int PROPOSAL_ID_FIELD_NUMBER = 1;
-    private long proposalId_ = 0L;
-    /**
-     * <pre>
-     * proposal_id defines the unique id of the proposal.
-     * </pre>
-     *
-     * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-     * @return The proposalId.
-     */
-    @java.lang.Override
-    public long getProposalId() {
-      return proposalId_;
-    }
-
-    public static final int CANCELED_TIME_FIELD_NUMBER = 2;
-    private com.google.protobuf.Timestamp canceledTime_;
-    /**
-     * <pre>
-     * canceled_time is the time when proposal is canceled.
-     * </pre>
-     *
-     * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-     * @return Whether the canceledTime field is set.
-     */
-    @java.lang.Override
-    public boolean hasCanceledTime() {
-      return canceledTime_ != null;
-    }
-    /**
-     * <pre>
-     * canceled_time is the time when proposal is canceled.
-     * </pre>
-     *
-     * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-     * @return The canceledTime.
-     */
-    @java.lang.Override
-    public com.google.protobuf.Timestamp getCanceledTime() {
-      return canceledTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : canceledTime_;
-    }
-    /**
-     * <pre>
-     * canceled_time is the time when proposal is canceled.
-     * </pre>
-     *
-     * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.TimestampOrBuilder getCanceledTimeOrBuilder() {
-      return canceledTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : canceledTime_;
-    }
-
-    public static final int CANCELED_HEIGHT_FIELD_NUMBER = 3;
-    private long canceledHeight_ = 0L;
-    /**
-     * <pre>
-     * canceled_height defines the block height at which the proposal is canceled.
-     * </pre>
-     *
-     * <code>uint64 canceled_height = 3 [json_name = "canceledHeight"];</code>
-     * @return The canceledHeight.
-     */
-    @java.lang.Override
-    public long getCanceledHeight() {
-      return canceledHeight_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (proposalId_ != 0L) {
-        output.writeUInt64(1, proposalId_);
-      }
-      if (canceledTime_ != null) {
-        output.writeMessage(2, getCanceledTime());
-      }
-      if (canceledHeight_ != 0L) {
-        output.writeUInt64(3, canceledHeight_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (proposalId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, proposalId_);
-      }
-      if (canceledTime_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getCanceledTime());
-      }
-      if (canceledHeight_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, canceledHeight_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse)) {
-        return super.equals(obj);
-      }
-      com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse other = (com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse) obj;
-
-      if (getProposalId()
-          != other.getProposalId()) return false;
-      if (hasCanceledTime() != other.hasCanceledTime()) return false;
-      if (hasCanceledTime()) {
-        if (!getCanceledTime()
-            .equals(other.getCanceledTime())) return false;
-      }
-      if (getCanceledHeight()
-          != other.getCanceledHeight()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PROPOSAL_ID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getProposalId());
-      if (hasCanceledTime()) {
-        hash = (37 * hash) + CANCELED_TIME_FIELD_NUMBER;
-        hash = (53 * hash) + getCanceledTime().hashCode();
-      }
-      hash = (37 * hash) + CANCELED_HEIGHT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCanceledHeight());
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * MsgCancelProposalResponse defines the response structure for executing a
-     * MsgCancelProposal message.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * Protobuf type {@code cosmos.gov.v1.MsgCancelProposalResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.gov.v1.MsgCancelProposalResponse)
-        com.cosmos.gov.v1.TxProto.MsgCancelProposalResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposalResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposalResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.class, com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.Builder.class);
-      }
-
-      // Construct using com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        proposalId_ = 0L;
-        canceledTime_ = null;
-        if (canceledTimeBuilder_ != null) {
-          canceledTimeBuilder_.dispose();
-          canceledTimeBuilder_ = null;
-        }
-        canceledHeight_ = 0L;
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.cosmos.gov.v1.TxProto.internal_static_cosmos_gov_v1_MsgCancelProposalResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse getDefaultInstanceForType() {
-        return com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse build() {
-        com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse buildPartial() {
-        com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse result = new com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.proposalId_ = proposalId_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.canceledTime_ = canceledTimeBuilder_ == null
-              ? canceledTime_
-              : canceledTimeBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.canceledHeight_ = canceledHeight_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse) {
-          return mergeFrom((com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse other) {
-        if (other == com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.getDefaultInstance()) return this;
-        if (other.getProposalId() != 0L) {
-          setProposalId(other.getProposalId());
-        }
-        if (other.hasCanceledTime()) {
-          mergeCanceledTime(other.getCanceledTime());
-        }
-        if (other.getCanceledHeight() != 0L) {
-          setCanceledHeight(other.getCanceledHeight());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 8: {
-                proposalId_ = input.readUInt64();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 8
-              case 18: {
-                input.readMessage(
-                    getCanceledTimeFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 24: {
-                canceledHeight_ = input.readUInt64();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 24
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private long proposalId_ ;
-      /**
-       * <pre>
-       * proposal_id defines the unique id of the proposal.
-       * </pre>
-       *
-       * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-       * @return The proposalId.
-       */
-      @java.lang.Override
-      public long getProposalId() {
-        return proposalId_;
-      }
-      /**
-       * <pre>
-       * proposal_id defines the unique id of the proposal.
-       * </pre>
-       *
-       * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-       * @param value The proposalId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposalId(long value) {
-
-        proposalId_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * proposal_id defines the unique id of the proposal.
-       * </pre>
-       *
-       * <code>uint64 proposal_id = 1 [json_name = "proposalId", (.gogoproto.jsontag) = "proposal_id"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProposalId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        proposalId_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.Timestamp canceledTime_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> canceledTimeBuilder_;
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       * @return Whether the canceledTime field is set.
-       */
-      public boolean hasCanceledTime() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       * @return The canceledTime.
-       */
-      public com.google.protobuf.Timestamp getCanceledTime() {
-        if (canceledTimeBuilder_ == null) {
-          return canceledTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : canceledTime_;
-        } else {
-          return canceledTimeBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      public Builder setCanceledTime(com.google.protobuf.Timestamp value) {
-        if (canceledTimeBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          canceledTime_ = value;
-        } else {
-          canceledTimeBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      public Builder setCanceledTime(
-          com.google.protobuf.Timestamp.Builder builderForValue) {
-        if (canceledTimeBuilder_ == null) {
-          canceledTime_ = builderForValue.build();
-        } else {
-          canceledTimeBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      public Builder mergeCanceledTime(com.google.protobuf.Timestamp value) {
-        if (canceledTimeBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
-            canceledTime_ != null &&
-            canceledTime_ != com.google.protobuf.Timestamp.getDefaultInstance()) {
-            getCanceledTimeBuilder().mergeFrom(value);
-          } else {
-            canceledTime_ = value;
-          }
-        } else {
-          canceledTimeBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      public Builder clearCanceledTime() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        canceledTime_ = null;
-        if (canceledTimeBuilder_ != null) {
-          canceledTimeBuilder_.dispose();
-          canceledTimeBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      public com.google.protobuf.Timestamp.Builder getCanceledTimeBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getCanceledTimeFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      public com.google.protobuf.TimestampOrBuilder getCanceledTimeOrBuilder() {
-        if (canceledTimeBuilder_ != null) {
-          return canceledTimeBuilder_.getMessageOrBuilder();
-        } else {
-          return canceledTime_ == null ?
-              com.google.protobuf.Timestamp.getDefaultInstance() : canceledTime_;
-        }
-      }
-      /**
-       * <pre>
-       * canceled_time is the time when proposal is canceled.
-       * </pre>
-       *
-       * <code>.google.protobuf.Timestamp canceled_time = 2 [json_name = "canceledTime", (.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
-          getCanceledTimeFieldBuilder() {
-        if (canceledTimeBuilder_ == null) {
-          canceledTimeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
-                  getCanceledTime(),
-                  getParentForChildren(),
-                  isClean());
-          canceledTime_ = null;
-        }
-        return canceledTimeBuilder_;
-      }
-
-      private long canceledHeight_ ;
-      /**
-       * <pre>
-       * canceled_height defines the block height at which the proposal is canceled.
-       * </pre>
-       *
-       * <code>uint64 canceled_height = 3 [json_name = "canceledHeight"];</code>
-       * @return The canceledHeight.
-       */
-      @java.lang.Override
-      public long getCanceledHeight() {
-        return canceledHeight_;
-      }
-      /**
-       * <pre>
-       * canceled_height defines the block height at which the proposal is canceled.
-       * </pre>
-       *
-       * <code>uint64 canceled_height = 3 [json_name = "canceledHeight"];</code>
-       * @param value The canceledHeight to set.
-       * @return This builder for chaining.
-       */
-      public Builder setCanceledHeight(long value) {
-
-        canceledHeight_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * canceled_height defines the block height at which the proposal is canceled.
-       * </pre>
-       *
-       * <code>uint64 canceled_height = 3 [json_name = "canceledHeight"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearCanceledHeight() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        canceledHeight_ = 0L;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmos.gov.v1.MsgCancelProposalResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmos.gov.v1.MsgCancelProposalResponse)
-    private static final com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse();
-    }
-
-    public static com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<MsgCancelProposalResponse>
-        PARSER = new com.google.protobuf.AbstractParser<MsgCancelProposalResponse>() {
-      @java.lang.Override
-      public MsgCancelProposalResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<MsgCancelProposalResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MsgCancelProposalResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_gov_v1_MsgSubmitProposal_descriptor;
   private static final 
@@ -11724,16 +10068,6 @@ public final class TxProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_gov_v1_MsgUpdateParamsResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_gov_v1_MsgCancelProposal_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_gov_v1_MsgCancelProposal_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_gov_v1_MsgCancelProposalResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_gov_v1_MsgCancelProposalResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -11748,78 +10082,65 @@ public final class TxProto {
       "gov/v1/gov.proto\032\024gogoproto/gogo.proto\032\031" +
       "cosmos_proto/cosmos.proto\032\031google/protob" +
       "uf/any.proto\032\027cosmos/msg/v1/msg.proto\032\021a" +
-      "mino/amino.proto\032\037google/protobuf/timest" +
-      "amp.proto\"\245\003\n\021MsgSubmitProposal\0220\n\010messa" +
-      "ges\030\001 \003(\0132\024.google.protobuf.AnyR\010message" +
-      "s\022\212\001\n\017initial_deposit\030\002 \003(\0132\031.cosmos.bas" +
-      "e.v1beta1.CoinBF\310\336\037\000\252\337\037(github.com/cosmo" +
-      "s/cosmos-sdk/types.Coins\232\347\260*\014legacy_coin" +
-      "s\250\347\260*\001R\016initialDeposit\0224\n\010proposer\030\003 \001(\t" +
-      "B\030\322\264-\024cosmos.AddressStringR\010proposer\022\032\n\010" +
-      "metadata\030\004 \001(\tR\010metadata\022\024\n\005title\030\005 \001(\tR" +
-      "\005title\022\030\n\007summary\030\006 \001(\tR\007summary\022\034\n\texpe" +
-      "dited\030\007 \001(\010R\texpedited:1\202\347\260*\010proposer\212\347\260" +
-      "*\037cosmos-sdk/v1/MsgSubmitProposal\"<\n\031Msg" +
-      "SubmitProposalResponse\022\037\n\013proposal_id\030\001 " +
-      "\001(\004R\nproposalId\"\273\001\n\024MsgExecLegacyContent" +
-      "\022N\n\007content\030\001 \001(\0132\024.google.protobuf.AnyB" +
-      "\036\312\264-\032cosmos.gov.v1beta1.ContentR\007content" +
-      "\022\034\n\tauthority\030\002 \001(\tR\tauthority:5\202\347\260*\taut" +
-      "hority\212\347\260*\"cosmos-sdk/v1/MsgExecLegacyCo" +
-      "ntent\"\036\n\034MsgExecLegacyContentResponse\"\345\001" +
-      "\n\007MsgVote\0225\n\013proposal_id\030\001 \001(\004B\024\352\336\037\013prop" +
-      "osal_id\250\347\260*\001R\nproposalId\022.\n\005voter\030\002 \001(\tB" +
-      "\030\322\264-\024cosmos.AddressStringR\005voter\0221\n\006opti" +
-      "on\030\003 \001(\0162\031.cosmos.gov.v1.VoteOptionR\006opt" +
-      "ion\022\032\n\010metadata\030\004 \001(\tR\010metadata:$\202\347\260*\005vo" +
-      "ter\212\347\260*\025cosmos-sdk/v1/MsgVote\"\021\n\017MsgVote" +
-      "Response\"\377\001\n\017MsgVoteWeighted\0225\n\013proposal" +
-      "_id\030\001 \001(\004B\024\352\336\037\013proposal_id\250\347\260*\001R\nproposa" +
-      "lId\022.\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressSt" +
-      "ringR\005voter\022;\n\007options\030\003 \003(\0132!.cosmos.go" +
-      "v.v1.WeightedVoteOptionR\007options\022\032\n\010meta" +
-      "data\030\004 \001(\tR\010metadata:,\202\347\260*\005voter\212\347\260*\035cos" +
-      "mos-sdk/v1/MsgVoteWeighted\"\031\n\027MsgVoteWei" +
-      "ghtedResponse\"\346\001\n\nMsgDeposit\0225\n\013proposal" +
-      "_id\030\001 \001(\004B\024\352\336\037\013proposal_id\250\347\260*\001R\nproposa" +
-      "lId\0226\n\tdepositor\030\002 \001(\tB\030\322\264-\024cosmos.Addre" +
-      "ssStringR\tdepositor\022<\n\006amount\030\003 \003(\0132\031.co" +
-      "smos.base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\006amoun" +
-      "t:+\202\347\260*\tdepositor\212\347\260*\030cosmos-sdk/v1/MsgD" +
-      "eposit\"\024\n\022MsgDepositResponse\"\273\001\n\017MsgUpda" +
-      "teParams\0226\n\tauthority\030\001 \001(\tB\030\322\264-\024cosmos." +
-      "AddressStringR\tauthority\0228\n\006params\030\002 \001(\013" +
-      "2\025.cosmos.gov.v1.ParamsB\t\310\336\037\000\250\347\260*\001R\006para" +
-      "ms:6\202\347\260*\tauthority\212\347\260*#cosmos-sdk/x/gov/" +
-      "v1/MsgUpdateParams\"\031\n\027MsgUpdateParamsRes" +
-      "ponse\"\212\001\n\021MsgCancelProposal\0220\n\013proposal_" +
-      "id\030\001 \001(\004B\017\352\336\037\013proposal_idR\nproposalId\0224\n" +
-      "\010proposer\030\002 \001(\tB\030\322\264-\024cosmos.AddressStrin" +
-      "gR\010proposer:\r\202\347\260*\010proposer\"\301\001\n\031MsgCancel" +
-      "ProposalResponse\0220\n\013proposal_id\030\001 \001(\004B\017\352" +
-      "\336\037\013proposal_idR\nproposalId\022I\n\rcanceled_t" +
-      "ime\030\002 \001(\0132\032.google.protobuf.TimestampB\010\310" +
-      "\336\037\000\220\337\037\001R\014canceledTime\022\'\n\017canceled_height" +
-      "\030\003 \001(\004R\016canceledHeight2\350\004\n\003Msg\022\\\n\016Submit" +
-      "Proposal\022 .cosmos.gov.v1.MsgSubmitPropos" +
-      "al\032(.cosmos.gov.v1.MsgSubmitProposalResp" +
-      "onse\022e\n\021ExecLegacyContent\022#.cosmos.gov.v" +
-      "1.MsgExecLegacyContent\032+.cosmos.gov.v1.M" +
-      "sgExecLegacyContentResponse\022>\n\004Vote\022\026.co" +
-      "smos.gov.v1.MsgVote\032\036.cosmos.gov.v1.MsgV" +
-      "oteResponse\022V\n\014VoteWeighted\022\036.cosmos.gov" +
-      ".v1.MsgVoteWeighted\032&.cosmos.gov.v1.MsgV" +
-      "oteWeightedResponse\022G\n\007Deposit\022\031.cosmos." +
-      "gov.v1.MsgDeposit\032!.cosmos.gov.v1.MsgDep" +
-      "ositResponse\022V\n\014UpdateParams\022\036.cosmos.go" +
-      "v.v1.MsgUpdateParams\032&.cosmos.gov.v1.Msg" +
-      "UpdateParamsResponse\022\\\n\016CancelProposal\022 " +
-      ".cosmos.gov.v1.MsgCancelProposal\032(.cosmo" +
-      "s.gov.v1.MsgCancelProposalResponse\032\005\200\347\260*" +
-      "\001B\215\001\n\021com.cosmos.gov.v1B\007TxProtoZ\033cosmos" +
-      "sdk.io/x/gov/types/v1\242\002\003CGX\252\002\rCosmos.Gov" +
-      ".V1\312\002\rCosmos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\GPBM" +
-      "etadata\352\002\017Cosmos::Gov::V1b\006proto3"
+      "mino/amino.proto\"\311\002\n\021MsgSubmitProposal\0220" +
+      "\n\010messages\030\001 \003(\0132\024.google.protobuf.AnyR\010" +
+      "messages\022M\n\017initial_deposit\030\002 \003(\0132\031.cosm" +
+      "os.base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\016initial" +
+      "Deposit\0224\n\010proposer\030\003 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressStringR\010proposer\022\032\n\010metadata\030\004 \001(\tR" +
+      "\010metadata\022\024\n\005title\030\005 \001(\tR\005title\022\030\n\007summa" +
+      "ry\030\006 \001(\tR\007summary:1\202\347\260*\010proposer\212\347\260*\037cos" +
+      "mos-sdk/v1/MsgSubmitProposal\"<\n\031MsgSubmi" +
+      "tProposalResponse\022\037\n\013proposal_id\030\001 \001(\004R\n" +
+      "proposalId\"\273\001\n\024MsgExecLegacyContent\022N\n\007c" +
+      "ontent\030\001 \001(\0132\024.google.protobuf.AnyB\036\312\264-\032" +
+      "cosmos.gov.v1beta1.ContentR\007content\022\034\n\ta" +
+      "uthority\030\002 \001(\tR\tauthority:5\202\347\260*\tauthorit" +
+      "y\212\347\260*\"cosmos-sdk/v1/MsgExecLegacyContent" +
+      "\"\036\n\034MsgExecLegacyContentResponse\"\345\001\n\007Msg" +
+      "Vote\0225\n\013proposal_id\030\001 \001(\004B\024\352\336\037\013proposal_" +
+      "id\250\347\260*\001R\nproposalId\022.\n\005voter\030\002 \001(\tB\030\322\264-\024" +
+      "cosmos.AddressStringR\005voter\0221\n\006option\030\003 " +
+      "\001(\0162\031.cosmos.gov.v1.VoteOptionR\006option\022\032" +
+      "\n\010metadata\030\004 \001(\tR\010metadata:$\202\347\260*\005voter\212\347" +
+      "\260*\025cosmos-sdk/v1/MsgVote\"\021\n\017MsgVoteRespo" +
+      "nse\"\377\001\n\017MsgVoteWeighted\0225\n\013proposal_id\030\001" +
+      " \001(\004B\024\352\336\037\013proposal_id\250\347\260*\001R\nproposalId\022." +
+      "\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR" +
+      "\005voter\022;\n\007options\030\003 \003(\0132!.cosmos.gov.v1." +
+      "WeightedVoteOptionR\007options\022\032\n\010metadata\030" +
+      "\004 \001(\tR\010metadata:,\202\347\260*\005voter\212\347\260*\035cosmos-s" +
+      "dk/v1/MsgVoteWeighted\"\031\n\027MsgVoteWeighted" +
+      "Response\"\346\001\n\nMsgDeposit\0225\n\013proposal_id\030\001" +
+      " \001(\004B\024\352\336\037\013proposal_id\250\347\260*\001R\nproposalId\0226" +
+      "\n\tdepositor\030\002 \001(\tB\030\322\264-\024cosmos.AddressStr" +
+      "ingR\tdepositor\022<\n\006amount\030\003 \003(\0132\031.cosmos." +
+      "base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\006amount:+\202\347" +
+      "\260*\tdepositor\212\347\260*\030cosmos-sdk/v1/MsgDeposi" +
+      "t\"\024\n\022MsgDepositResponse\"\273\001\n\017MsgUpdatePar" +
+      "ams\0226\n\tauthority\030\001 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssStringR\tauthority\0228\n\006params\030\002 \001(\0132\025.co" +
+      "smos.gov.v1.ParamsB\t\310\336\037\000\250\347\260*\001R\006params:6\202" +
+      "\347\260*\tauthority\212\347\260*#cosmos-sdk/x/gov/v1/Ms" +
+      "gUpdateParams\"\031\n\027MsgUpdateParamsResponse" +
+      "2\212\004\n\003Msg\022\\\n\016SubmitProposal\022 .cosmos.gov." +
+      "v1.MsgSubmitProposal\032(.cosmos.gov.v1.Msg" +
+      "SubmitProposalResponse\022e\n\021ExecLegacyCont" +
+      "ent\022#.cosmos.gov.v1.MsgExecLegacyContent" +
+      "\032+.cosmos.gov.v1.MsgExecLegacyContentRes" +
+      "ponse\022>\n\004Vote\022\026.cosmos.gov.v1.MsgVote\032\036." +
+      "cosmos.gov.v1.MsgVoteResponse\022V\n\014VoteWei" +
+      "ghted\022\036.cosmos.gov.v1.MsgVoteWeighted\032&." +
+      "cosmos.gov.v1.MsgVoteWeightedResponse\022G\n" +
+      "\007Deposit\022\031.cosmos.gov.v1.MsgDeposit\032!.co" +
+      "smos.gov.v1.MsgDepositResponse\022V\n\014Update" +
+      "Params\022\036.cosmos.gov.v1.MsgUpdateParams\032&" +
+      ".cosmos.gov.v1.MsgUpdateParamsResponse\032\005" +
+      "\200\347\260*\001B\235\001\n\021com.cosmos.gov.v1B\007TxProtoZ+gi" +
+      "thub.com/cosmos/cosmos-sdk/x/gov/types/v" +
+      "1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCosmos\\Gov\\V1\342" +
+      "\002\031Cosmos\\Gov\\V1\\GPBMetadata\352\002\017Cosmos::Go" +
+      "v::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11831,14 +10152,13 @@ public final class TxProto {
           com.google.protobuf.AnyProto.getDescriptor(),
           com.cosmos.msg.v1.MsgProto.getDescriptor(),
           com.amino.AminoProto.getDescriptor(),
-          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_cosmos_gov_v1_MsgSubmitProposal_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_cosmos_gov_v1_MsgSubmitProposal_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_MsgSubmitProposal_descriptor,
-        new java.lang.String[] { "Messages", "InitialDeposit", "Proposer", "Metadata", "Title", "Summary", "Expedited", });
+        new java.lang.String[] { "Messages", "InitialDeposit", "Proposer", "Metadata", "Title", "Summary", });
     internal_static_cosmos_gov_v1_MsgSubmitProposalResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_cosmos_gov_v1_MsgSubmitProposalResponse_fieldAccessorTable = new
@@ -11905,31 +10225,16 @@ public final class TxProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_MsgUpdateParamsResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_cosmos_gov_v1_MsgCancelProposal_descriptor =
-      getDescriptor().getMessageTypes().get(12);
-    internal_static_cosmos_gov_v1_MsgCancelProposal_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_gov_v1_MsgCancelProposal_descriptor,
-        new java.lang.String[] { "ProposalId", "Proposer", });
-    internal_static_cosmos_gov_v1_MsgCancelProposalResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
-    internal_static_cosmos_gov_v1_MsgCancelProposalResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_gov_v1_MsgCancelProposalResponse_descriptor,
-        new java.lang.String[] { "ProposalId", "CanceledTime", "CanceledHeight", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);
-    registry.add(com.amino.AminoProto.encoding);
     registry.add(com.amino.AminoProto.name);
     registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
     registry.add(com.cosmos_proto.CosmosProto.acceptsInterface);
     registry.add(com.cosmos_proto.CosmosProto.scalar);
-    registry.add(com.gogoproto.GogoProto.castrepeated);
     registry.add(com.gogoproto.GogoProto.jsontag);
     registry.add(com.gogoproto.GogoProto.nullable);
-    registry.add(com.gogoproto.GogoProto.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.cosmos.base.v1beta1.CoinProto.getDescriptor();
@@ -11939,7 +10244,6 @@ public final class TxProto {
     com.google.protobuf.AnyProto.getDescriptor();
     com.cosmos.msg.v1.MsgProto.getDescriptor();
     com.amino.AminoProto.getDescriptor();
-    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

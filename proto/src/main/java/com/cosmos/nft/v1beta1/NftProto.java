@@ -3219,11 +3219,11 @@ public final class NftProto {
       "class_id\030\001 \001(\tR\007classId\022\016\n\002id\030\002 \001(\tR\002id\022" +
       "\020\n\003uri\030\003 \001(\tR\003uri\022\031\n\010uri_hash\030\004 \001(\tR\007uri" +
       "Hash\022(\n\004data\030\n \001(\0132\024.google.protobuf.Any" +
-      "R\004dataB\236\001\n\026com.cosmos.nft.v1beta1B\010NftPr" +
-      "otoZ\022cosmossdk.io/x/nft\242\002\003CNX\252\002\022Cosmos.N" +
-      "ft.V1beta1\312\002\022Cosmos\\Nft\\V1beta1\342\002\036Cosmos" +
-      "\\Nft\\V1beta1\\GPBMetadata\352\002\024Cosmos::Nft::" +
-      "V1beta1b\006proto3"
+      "R\004dataB\256\001\n\026com.cosmos.nft.v1beta1B\010NftPr" +
+      "otoZ\"github.com/cosmos/cosmos-sdk/x/nft\242" +
+      "\002\003CNX\252\002\022Cosmos.Nft.V1beta1\312\002\022Cosmos\\Nft\\" +
+      "V1beta1\342\002\036Cosmos\\Nft\\V1beta1\\GPBMetadata" +
+      "\352\002\024Cosmos::Nft::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

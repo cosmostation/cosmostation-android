@@ -14,971 +14,6 @@ public final class QueryProto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface QueryConstitutionRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.QueryConstitutionRequest)
-      com.google.protobuf.MessageOrBuilder {
-  }
-  /**
-   * <pre>
-   * QueryConstitutionRequest is the request type for the Query/Constitution RPC method
-   * </pre>
-   *
-   * Protobuf type {@code cosmos.gov.v1.QueryConstitutionRequest}
-   */
-  public static final class QueryConstitutionRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.gov.v1.QueryConstitutionRequest)
-      QueryConstitutionRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryConstitutionRequest.newBuilder() to construct.
-    private QueryConstitutionRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryConstitutionRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryConstitutionRequest();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.class, com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.Builder.class);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest)) {
-        return super.equals(obj);
-      }
-      com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest other = (com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest) obj;
-
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryConstitutionRequest is the request type for the Query/Constitution RPC method
-     * </pre>
-     *
-     * Protobuf type {@code cosmos.gov.v1.QueryConstitutionRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.gov.v1.QueryConstitutionRequest)
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.class, com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.Builder.class);
-      }
-
-      // Construct using com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest getDefaultInstanceForType() {
-        return com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest build() {
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest buildPartial() {
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest result = new com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest(this);
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest) {
-          return mergeFrom((com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest other) {
-        if (other == com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.getDefaultInstance()) return this;
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmos.gov.v1.QueryConstitutionRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmos.gov.v1.QueryConstitutionRequest)
-    private static final com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest();
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryConstitutionRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryConstitutionRequest>() {
-      @java.lang.Override
-      public QueryConstitutionRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryConstitutionRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryConstitutionRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryConstitutionResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.QueryConstitutionResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string constitution = 1 [json_name = "constitution"];</code>
-     * @return The constitution.
-     */
-    java.lang.String getConstitution();
-    /**
-     * <code>string constitution = 1 [json_name = "constitution"];</code>
-     * @return The bytes for constitution.
-     */
-    com.google.protobuf.ByteString
-        getConstitutionBytes();
-  }
-  /**
-   * <pre>
-   * QueryConstitutionResponse is the response type for the Query/Constitution RPC method
-   * </pre>
-   *
-   * Protobuf type {@code cosmos.gov.v1.QueryConstitutionResponse}
-   */
-  public static final class QueryConstitutionResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.gov.v1.QueryConstitutionResponse)
-      QueryConstitutionResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryConstitutionResponse.newBuilder() to construct.
-    private QueryConstitutionResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryConstitutionResponse() {
-      constitution_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryConstitutionResponse();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.class, com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.Builder.class);
-    }
-
-    public static final int CONSTITUTION_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object constitution_ = "";
-    /**
-     * <code>string constitution = 1 [json_name = "constitution"];</code>
-     * @return The constitution.
-     */
-    @java.lang.Override
-    public java.lang.String getConstitution() {
-      java.lang.Object ref = constitution_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        constitution_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string constitution = 1 [json_name = "constitution"];</code>
-     * @return The bytes for constitution.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getConstitutionBytes() {
-      java.lang.Object ref = constitution_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        constitution_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(constitution_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, constitution_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(constitution_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, constitution_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse)) {
-        return super.equals(obj);
-      }
-      com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse other = (com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse) obj;
-
-      if (!getConstitution()
-          .equals(other.getConstitution())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CONSTITUTION_FIELD_NUMBER;
-      hash = (53 * hash) + getConstitution().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryConstitutionResponse is the response type for the Query/Constitution RPC method
-     * </pre>
-     *
-     * Protobuf type {@code cosmos.gov.v1.QueryConstitutionResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.gov.v1.QueryConstitutionResponse)
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.class, com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.Builder.class);
-      }
-
-      // Construct using com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        constitution_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.cosmos.gov.v1.QueryProto.internal_static_cosmos_gov_v1_QueryConstitutionResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse getDefaultInstanceForType() {
-        return com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse build() {
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse buildPartial() {
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse result = new com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.constitution_ = constitution_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse) {
-          return mergeFrom((com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse other) {
-        if (other == com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.getDefaultInstance()) return this;
-        if (!other.getConstitution().isEmpty()) {
-          constitution_ = other.constitution_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                constitution_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object constitution_ = "";
-      /**
-       * <code>string constitution = 1 [json_name = "constitution"];</code>
-       * @return The constitution.
-       */
-      public java.lang.String getConstitution() {
-        java.lang.Object ref = constitution_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          constitution_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string constitution = 1 [json_name = "constitution"];</code>
-       * @return The bytes for constitution.
-       */
-      public com.google.protobuf.ByteString
-          getConstitutionBytes() {
-        java.lang.Object ref = constitution_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          constitution_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string constitution = 1 [json_name = "constitution"];</code>
-       * @param value The constitution to set.
-       * @return This builder for chaining.
-       */
-      public Builder setConstitution(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        constitution_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string constitution = 1 [json_name = "constitution"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearConstitution() {
-        constitution_ = getDefaultInstance().getConstitution();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string constitution = 1 [json_name = "constitution"];</code>
-       * @param value The bytes for constitution to set.
-       * @return This builder for chaining.
-       */
-      public Builder setConstitutionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        constitution_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmos.gov.v1.QueryConstitutionResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmos.gov.v1.QueryConstitutionResponse)
-    private static final com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse();
-    }
-
-    public static com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryConstitutionResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryConstitutionResponse>() {
-      @java.lang.Override
-      public QueryConstitutionResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryConstitutionResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryConstitutionResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface QueryProposalRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.QueryProposalRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -8382,7 +7417,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=148
+     *     See cosmos/gov/v1/query.proto;l=136
      * @return Whether the votingParams field is set.
      */
     @java.lang.Deprecated boolean hasVotingParams();
@@ -8394,7 +7429,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=148
+     *     See cosmos/gov/v1/query.proto;l=136
      * @return The votingParams.
      */
     @java.lang.Deprecated com.cosmos.gov.v1.GovProto.VotingParams getVotingParams();
@@ -8416,7 +7451,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=151
+     *     See cosmos/gov/v1/query.proto;l=139
      * @return Whether the depositParams field is set.
      */
     @java.lang.Deprecated boolean hasDepositParams();
@@ -8428,7 +7463,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=151
+     *     See cosmos/gov/v1/query.proto;l=139
      * @return The depositParams.
      */
     @java.lang.Deprecated com.cosmos.gov.v1.GovProto.DepositParams getDepositParams();
@@ -8450,7 +7485,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=154
+     *     See cosmos/gov/v1/query.proto;l=142
      * @return Whether the tallyParams field is set.
      */
     @java.lang.Deprecated boolean hasTallyParams();
@@ -8462,7 +7497,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=154
+     *     See cosmos/gov/v1/query.proto;l=142
      * @return The tallyParams.
      */
     @java.lang.Deprecated com.cosmos.gov.v1.GovProto.TallyParams getTallyParams();
@@ -8558,7 +7593,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=148
+     *     See cosmos/gov/v1/query.proto;l=136
      * @return Whether the votingParams field is set.
      */
     @java.lang.Override
@@ -8573,7 +7608,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=148
+     *     See cosmos/gov/v1/query.proto;l=136
      * @return The votingParams.
      */
     @java.lang.Override
@@ -8603,7 +7638,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=151
+     *     See cosmos/gov/v1/query.proto;l=139
      * @return Whether the depositParams field is set.
      */
     @java.lang.Override
@@ -8618,7 +7653,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=151
+     *     See cosmos/gov/v1/query.proto;l=139
      * @return The depositParams.
      */
     @java.lang.Override
@@ -8648,7 +7683,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=154
+     *     See cosmos/gov/v1/query.proto;l=142
      * @return Whether the tallyParams field is set.
      */
     @java.lang.Override
@@ -8663,7 +7698,7 @@ public final class QueryProto {
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
      * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-     *     See cosmos/gov/v1/query.proto;l=154
+     *     See cosmos/gov/v1/query.proto;l=142
      * @return The tallyParams.
      */
     @java.lang.Override
@@ -9188,7 +8223,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=148
+       *     See cosmos/gov/v1/query.proto;l=136
        * @return Whether the votingParams field is set.
        */
       @java.lang.Deprecated public boolean hasVotingParams() {
@@ -9202,7 +8237,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 1 [json_name = "votingParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.voting_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=148
+       *     See cosmos/gov/v1/query.proto;l=136
        * @return The votingParams.
        */
       @java.lang.Deprecated public com.cosmos.gov.v1.GovProto.VotingParams getVotingParams() {
@@ -9356,7 +8391,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=151
+       *     See cosmos/gov/v1/query.proto;l=139
        * @return Whether the depositParams field is set.
        */
       @java.lang.Deprecated public boolean hasDepositParams() {
@@ -9370,7 +8405,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 2 [json_name = "depositParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.deposit_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=151
+       *     See cosmos/gov/v1/query.proto;l=139
        * @return The depositParams.
        */
       @java.lang.Deprecated public com.cosmos.gov.v1.GovProto.DepositParams getDepositParams() {
@@ -9524,7 +8559,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=154
+       *     See cosmos/gov/v1/query.proto;l=142
        * @return Whether the tallyParams field is set.
        */
       @java.lang.Deprecated public boolean hasTallyParams() {
@@ -9538,7 +8573,7 @@ public final class QueryProto {
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 3 [json_name = "tallyParams", deprecated = true];</code>
        * @deprecated cosmos.gov.v1.QueryParamsResponse.tally_params is deprecated.
-       *     See cosmos/gov/v1/query.proto;l=154
+       *     See cosmos/gov/v1/query.proto;l=142
        * @return The tallyParams.
        */
       @java.lang.Deprecated public com.cosmos.gov.v1.GovProto.TallyParams getTallyParams() {
@@ -14367,16 +13402,6 @@ public final class QueryProto {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_gov_v1_QueryConstitutionRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_gov_v1_QueryConstitutionRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_gov_v1_QueryConstitutionResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_gov_v1_QueryConstitutionResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_gov_v1_QueryProposalRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -14469,93 +13494,87 @@ public final class QueryProto {
       "v1\032*cosmos/base/query/v1beta1/pagination" +
       ".proto\032\034google/api/annotations.proto\032\027co" +
       "smos/gov/v1/gov.proto\032\031cosmos_proto/cosm" +
-      "os.proto\"\032\n\030QueryConstitutionRequest\"?\n\031" +
-      "QueryConstitutionResponse\022\"\n\014constitutio" +
-      "n\030\001 \001(\tR\014constitution\"7\n\024QueryProposalRe" +
-      "quest\022\037\n\013proposal_id\030\001 \001(\004R\nproposalId\"L" +
-      "\n\025QueryProposalResponse\0223\n\010proposal\030\001 \001(" +
-      "\0132\027.cosmos.gov.v1.ProposalR\010proposal\"\217\002\n" +
-      "\025QueryProposalsRequest\022F\n\017proposal_statu" +
-      "s\030\001 \001(\0162\035.cosmos.gov.v1.ProposalStatusR\016" +
-      "proposalStatus\022.\n\005voter\030\002 \001(\tB\030\322\264-\024cosmo" +
-      "s.AddressStringR\005voter\0226\n\tdepositor\030\003 \001(" +
-      "\tB\030\322\264-\024cosmos.AddressStringR\tdepositor\022F" +
-      "\n\npagination\030\004 \001(\0132&.cosmos.base.query.v" +
-      "1beta1.PageRequestR\npagination\"\230\001\n\026Query" +
-      "ProposalsResponse\0225\n\tproposals\030\001 \003(\0132\027.c" +
-      "osmos.gov.v1.ProposalR\tproposals\022G\n\npagi" +
-      "nation\030\002 \001(\0132\'.cosmos.base.query.v1beta1" +
-      ".PageResponseR\npagination\"c\n\020QueryVoteRe" +
-      "quest\022\037\n\013proposal_id\030\001 \001(\004R\nproposalId\022." +
-      "\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR" +
-      "\005voter\"<\n\021QueryVoteResponse\022\'\n\004vote\030\001 \001(" +
-      "\0132\023.cosmos.gov.v1.VoteR\004vote\"|\n\021QueryVot" +
-      "esRequest\022\037\n\013proposal_id\030\001 \001(\004R\nproposal" +
-      "Id\022F\n\npagination\030\002 \001(\0132&.cosmos.base.que" +
-      "ry.v1beta1.PageRequestR\npagination\"\210\001\n\022Q" +
-      "ueryVotesResponse\022)\n\005votes\030\001 \003(\0132\023.cosmo" +
-      "s.gov.v1.VoteR\005votes\022G\n\npagination\030\002 \001(\013" +
-      "2\'.cosmos.base.query.v1beta1.PageRespons" +
-      "eR\npagination\"5\n\022QueryParamsRequest\022\037\n\013p" +
-      "arams_type\030\001 \001(\tR\nparamsType\"\226\002\n\023QueryPa" +
-      "ramsResponse\022D\n\rvoting_params\030\001 \001(\0132\033.co" +
-      "smos.gov.v1.VotingParamsB\002\030\001R\014votingPara" +
-      "ms\022G\n\016deposit_params\030\002 \001(\0132\034.cosmos.gov." +
-      "v1.DepositParamsB\002\030\001R\rdepositParams\022A\n\014t" +
-      "ally_params\030\003 \001(\0132\032.cosmos.gov.v1.TallyP" +
-      "aramsB\002\030\001R\013tallyParams\022-\n\006params\030\004 \001(\0132\025" +
-      ".cosmos.gov.v1.ParamsR\006params\"n\n\023QueryDe" +
-      "positRequest\022\037\n\013proposal_id\030\001 \001(\004R\npropo" +
-      "salId\0226\n\tdepositor\030\002 \001(\tB\030\322\264-\024cosmos.Add" +
-      "ressStringR\tdepositor\"H\n\024QueryDepositRes" +
-      "ponse\0220\n\007deposit\030\001 \001(\0132\026.cosmos.gov.v1.D" +
-      "epositR\007deposit\"\177\n\024QueryDepositsRequest\022" +
-      "\037\n\013proposal_id\030\001 \001(\004R\nproposalId\022F\n\npagi" +
-      "nation\030\002 \001(\0132&.cosmos.base.query.v1beta1" +
-      ".PageRequestR\npagination\"\224\001\n\025QueryDeposi" +
-      "tsResponse\0222\n\010deposits\030\001 \003(\0132\026.cosmos.go" +
-      "v.v1.DepositR\010deposits\022G\n\npagination\030\002 \001" +
-      "(\0132\'.cosmos.base.query.v1beta1.PageRespo" +
-      "nseR\npagination\":\n\027QueryTallyResultReque" +
-      "st\022\037\n\013proposal_id\030\001 \001(\004R\nproposalId\"L\n\030Q" +
-      "ueryTallyResultResponse\0220\n\005tally\030\001 \001(\0132\032" +
-      ".cosmos.gov.v1.TallyResultR\005tally2\343\t\n\005Qu" +
-      "ery\022\206\001\n\014Constitution\022\'.cosmos.gov.v1.Que" +
-      "ryConstitutionRequest\032(.cosmos.gov.v1.Qu" +
-      "eryConstitutionResponse\"#\202\323\344\223\002\035\022\033/cosmos" +
-      "/gov/v1/constitution\022\205\001\n\010Proposal\022#.cosm" +
-      "os.gov.v1.QueryProposalRequest\032$.cosmos." +
-      "gov.v1.QueryProposalResponse\".\202\323\344\223\002(\022&/c" +
-      "osmos/gov/v1/proposals/{proposal_id}\022z\n\t" +
-      "Proposals\022$.cosmos.gov.v1.QueryProposals" +
-      "Request\032%.cosmos.gov.v1.QueryProposalsRe" +
-      "sponse\" \202\323\344\223\002\032\022\030/cosmos/gov/v1/proposals" +
-      "\022\207\001\n\004Vote\022\037.cosmos.gov.v1.QueryVoteReque" +
-      "st\032 .cosmos.gov.v1.QueryVoteResponse\"<\202\323" +
-      "\344\223\0026\0224/cosmos/gov/v1/proposals/{proposal" +
-      "_id}/votes/{voter}\022\202\001\n\005Votes\022 .cosmos.go" +
-      "v.v1.QueryVotesRequest\032!.cosmos.gov.v1.Q" +
-      "ueryVotesResponse\"4\202\323\344\223\002.\022,/cosmos/gov/v" +
-      "1/proposals/{proposal_id}/votes\022|\n\006Param" +
-      "s\022!.cosmos.gov.v1.QueryParamsRequest\032\".c" +
-      "osmos.gov.v1.QueryParamsResponse\"+\202\323\344\223\002%" +
-      "\022#/cosmos/gov/v1/params/{params_type}\022\227\001" +
-      "\n\007Deposit\022\".cosmos.gov.v1.QueryDepositRe" +
-      "quest\032#.cosmos.gov.v1.QueryDepositRespon" +
-      "se\"C\202\323\344\223\002=\022;/cosmos/gov/v1/proposals/{pr" +
-      "oposal_id}/deposits/{depositor}\022\216\001\n\010Depo" +
-      "sits\022#.cosmos.gov.v1.QueryDepositsReques" +
-      "t\032$.cosmos.gov.v1.QueryDepositsResponse\"" +
-      "7\202\323\344\223\0021\022//cosmos/gov/v1/proposals/{propo" +
-      "sal_id}/deposits\022\224\001\n\013TallyResult\022&.cosmo" +
-      "s.gov.v1.QueryTallyResultRequest\032\'.cosmo" +
-      "s.gov.v1.QueryTallyResultResponse\"4\202\323\344\223\002" +
-      ".\022,/cosmos/gov/v1/proposals/{proposal_id" +
-      "}/tallyB\220\001\n\021com.cosmos.gov.v1B\nQueryProt" +
-      "oZ\033cosmossdk.io/x/gov/types/v1\242\002\003CGX\252\002\rC" +
-      "osmos.Gov.V1\312\002\rCosmos\\Gov\\V1\342\002\031Cosmos\\Go" +
-      "v\\V1\\GPBMetadata\352\002\017Cosmos::Gov::V1b\006prot" +
-      "o3"
+      "os.proto\"7\n\024QueryProposalRequest\022\037\n\013prop" +
+      "osal_id\030\001 \001(\004R\nproposalId\"L\n\025QueryPropos" +
+      "alResponse\0223\n\010proposal\030\001 \001(\0132\027.cosmos.go" +
+      "v.v1.ProposalR\010proposal\"\217\002\n\025QueryProposa" +
+      "lsRequest\022F\n\017proposal_status\030\001 \001(\0162\035.cos" +
+      "mos.gov.v1.ProposalStatusR\016proposalStatu" +
+      "s\022.\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressStri" +
+      "ngR\005voter\0226\n\tdepositor\030\003 \001(\tB\030\322\264-\024cosmos" +
+      ".AddressStringR\tdepositor\022F\n\npagination\030" +
+      "\004 \001(\0132&.cosmos.base.query.v1beta1.PageRe" +
+      "questR\npagination\"\230\001\n\026QueryProposalsResp" +
+      "onse\0225\n\tproposals\030\001 \003(\0132\027.cosmos.gov.v1." +
+      "ProposalR\tproposals\022G\n\npagination\030\002 \001(\0132" +
+      "\'.cosmos.base.query.v1beta1.PageResponse" +
+      "R\npagination\"c\n\020QueryVoteRequest\022\037\n\013prop" +
+      "osal_id\030\001 \001(\004R\nproposalId\022.\n\005voter\030\002 \001(\t" +
+      "B\030\322\264-\024cosmos.AddressStringR\005voter\"<\n\021Que" +
+      "ryVoteResponse\022\'\n\004vote\030\001 \001(\0132\023.cosmos.go" +
+      "v.v1.VoteR\004vote\"|\n\021QueryVotesRequest\022\037\n\013" +
+      "proposal_id\030\001 \001(\004R\nproposalId\022F\n\npaginat" +
+      "ion\030\002 \001(\0132&.cosmos.base.query.v1beta1.Pa" +
+      "geRequestR\npagination\"\210\001\n\022QueryVotesResp" +
+      "onse\022)\n\005votes\030\001 \003(\0132\023.cosmos.gov.v1.Vote" +
+      "R\005votes\022G\n\npagination\030\002 \001(\0132\'.cosmos.bas" +
+      "e.query.v1beta1.PageResponseR\npagination" +
+      "\"5\n\022QueryParamsRequest\022\037\n\013params_type\030\001 " +
+      "\001(\tR\nparamsType\"\226\002\n\023QueryParamsResponse\022" +
+      "D\n\rvoting_params\030\001 \001(\0132\033.cosmos.gov.v1.V" +
+      "otingParamsB\002\030\001R\014votingParams\022G\n\016deposit" +
+      "_params\030\002 \001(\0132\034.cosmos.gov.v1.DepositPar" +
+      "amsB\002\030\001R\rdepositParams\022A\n\014tally_params\030\003" +
+      " \001(\0132\032.cosmos.gov.v1.TallyParamsB\002\030\001R\013ta" +
+      "llyParams\022-\n\006params\030\004 \001(\0132\025.cosmos.gov.v" +
+      "1.ParamsR\006params\"n\n\023QueryDepositRequest\022" +
+      "\037\n\013proposal_id\030\001 \001(\004R\nproposalId\0226\n\tdepo" +
+      "sitor\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\td" +
+      "epositor\"H\n\024QueryDepositResponse\0220\n\007depo" +
+      "sit\030\001 \001(\0132\026.cosmos.gov.v1.DepositR\007depos" +
+      "it\"\177\n\024QueryDepositsRequest\022\037\n\013proposal_i" +
+      "d\030\001 \001(\004R\nproposalId\022F\n\npagination\030\002 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequestR" +
+      "\npagination\"\224\001\n\025QueryDepositsResponse\0222\n" +
+      "\010deposits\030\001 \003(\0132\026.cosmos.gov.v1.DepositR" +
+      "\010deposits\022G\n\npagination\030\002 \001(\0132\'.cosmos.b" +
+      "ase.query.v1beta1.PageResponseR\npaginati" +
+      "on\":\n\027QueryTallyResultRequest\022\037\n\013proposa" +
+      "l_id\030\001 \001(\004R\nproposalId\"L\n\030QueryTallyResu" +
+      "ltResponse\0220\n\005tally\030\001 \001(\0132\032.cosmos.gov.v" +
+      "1.TallyResultR\005tally2\332\010\n\005Query\022\205\001\n\010Propo" +
+      "sal\022#.cosmos.gov.v1.QueryProposalRequest" +
+      "\032$.cosmos.gov.v1.QueryProposalResponse\"." +
+      "\202\323\344\223\002(\022&/cosmos/gov/v1/proposals/{propos" +
+      "al_id}\022z\n\tProposals\022$.cosmos.gov.v1.Quer" +
+      "yProposalsRequest\032%.cosmos.gov.v1.QueryP" +
+      "roposalsResponse\" \202\323\344\223\002\032\022\030/cosmos/gov/v1" +
+      "/proposals\022\207\001\n\004Vote\022\037.cosmos.gov.v1.Quer" +
+      "yVoteRequest\032 .cosmos.gov.v1.QueryVoteRe" +
+      "sponse\"<\202\323\344\223\0026\0224/cosmos/gov/v1/proposals" +
+      "/{proposal_id}/votes/{voter}\022\202\001\n\005Votes\022 " +
+      ".cosmos.gov.v1.QueryVotesRequest\032!.cosmo" +
+      "s.gov.v1.QueryVotesResponse\"4\202\323\344\223\002.\022,/co" +
+      "smos/gov/v1/proposals/{proposal_id}/vote" +
+      "s\022|\n\006Params\022!.cosmos.gov.v1.QueryParamsR" +
+      "equest\032\".cosmos.gov.v1.QueryParamsRespon" +
+      "se\"+\202\323\344\223\002%\022#/cosmos/gov/v1/params/{param" +
+      "s_type}\022\227\001\n\007Deposit\022\".cosmos.gov.v1.Quer" +
+      "yDepositRequest\032#.cosmos.gov.v1.QueryDep" +
+      "ositResponse\"C\202\323\344\223\002=\022;/cosmos/gov/v1/pro" +
+      "posals/{proposal_id}/deposits/{depositor" +
+      "}\022\216\001\n\010Deposits\022#.cosmos.gov.v1.QueryDepo" +
+      "sitsRequest\032$.cosmos.gov.v1.QueryDeposit" +
+      "sResponse\"7\202\323\344\223\0021\022//cosmos/gov/v1/propos" +
+      "als/{proposal_id}/deposits\022\224\001\n\013TallyResu" +
+      "lt\022&.cosmos.gov.v1.QueryTallyResultReque" +
+      "st\032\'.cosmos.gov.v1.QueryTallyResultRespo" +
+      "nse\"4\202\323\344\223\002.\022,/cosmos/gov/v1/proposals/{p" +
+      "roposal_id}/tallyB\240\001\n\021com.cosmos.gov.v1B" +
+      "\nQueryProtoZ+github.com/cosmos/cosmos-sd" +
+      "k/x/gov/types/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002" +
+      "\rCosmos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\GPBMetada" +
+      "ta\352\002\017Cosmos::Gov::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -14565,110 +13584,98 @@ public final class QueryProto {
           com.cosmos.gov.v1.GovProto.getDescriptor(),
           com.cosmos_proto.CosmosProto.getDescriptor(),
         });
-    internal_static_cosmos_gov_v1_QueryConstitutionRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_cosmos_gov_v1_QueryConstitutionRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_gov_v1_QueryConstitutionRequest_descriptor,
-        new java.lang.String[] { });
-    internal_static_cosmos_gov_v1_QueryConstitutionResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_cosmos_gov_v1_QueryConstitutionResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_gov_v1_QueryConstitutionResponse_descriptor,
-        new java.lang.String[] { "Constitution", });
     internal_static_cosmos_gov_v1_QueryProposalRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_cosmos_gov_v1_QueryProposalRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryProposalRequest_descriptor,
         new java.lang.String[] { "ProposalId", });
     internal_static_cosmos_gov_v1_QueryProposalResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_cosmos_gov_v1_QueryProposalResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryProposalResponse_descriptor,
         new java.lang.String[] { "Proposal", });
     internal_static_cosmos_gov_v1_QueryProposalsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_cosmos_gov_v1_QueryProposalsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryProposalsRequest_descriptor,
         new java.lang.String[] { "ProposalStatus", "Voter", "Depositor", "Pagination", });
     internal_static_cosmos_gov_v1_QueryProposalsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_cosmos_gov_v1_QueryProposalsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryProposalsResponse_descriptor,
         new java.lang.String[] { "Proposals", "Pagination", });
     internal_static_cosmos_gov_v1_QueryVoteRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_cosmos_gov_v1_QueryVoteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryVoteRequest_descriptor,
         new java.lang.String[] { "ProposalId", "Voter", });
     internal_static_cosmos_gov_v1_QueryVoteResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_cosmos_gov_v1_QueryVoteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryVoteResponse_descriptor,
         new java.lang.String[] { "Vote", });
     internal_static_cosmos_gov_v1_QueryVotesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_cosmos_gov_v1_QueryVotesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryVotesRequest_descriptor,
         new java.lang.String[] { "ProposalId", "Pagination", });
     internal_static_cosmos_gov_v1_QueryVotesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_cosmos_gov_v1_QueryVotesResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryVotesResponse_descriptor,
         new java.lang.String[] { "Votes", "Pagination", });
     internal_static_cosmos_gov_v1_QueryParamsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_cosmos_gov_v1_QueryParamsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryParamsRequest_descriptor,
         new java.lang.String[] { "ParamsType", });
     internal_static_cosmos_gov_v1_QueryParamsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_cosmos_gov_v1_QueryParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryParamsResponse_descriptor,
         new java.lang.String[] { "VotingParams", "DepositParams", "TallyParams", "Params", });
     internal_static_cosmos_gov_v1_QueryDepositRequest_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_cosmos_gov_v1_QueryDepositRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryDepositRequest_descriptor,
         new java.lang.String[] { "ProposalId", "Depositor", });
     internal_static_cosmos_gov_v1_QueryDepositResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_cosmos_gov_v1_QueryDepositResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryDepositResponse_descriptor,
         new java.lang.String[] { "Deposit", });
     internal_static_cosmos_gov_v1_QueryDepositsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_cosmos_gov_v1_QueryDepositsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryDepositsRequest_descriptor,
         new java.lang.String[] { "ProposalId", "Pagination", });
     internal_static_cosmos_gov_v1_QueryDepositsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_cosmos_gov_v1_QueryDepositsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryDepositsResponse_descriptor,
         new java.lang.String[] { "Deposits", "Pagination", });
     internal_static_cosmos_gov_v1_QueryTallyResultRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_cosmos_gov_v1_QueryTallyResultRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryTallyResultRequest_descriptor,
         new java.lang.String[] { "ProposalId", });
     internal_static_cosmos_gov_v1_QueryTallyResultResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_cosmos_gov_v1_QueryTallyResultResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_QueryTallyResultResponse_descriptor,

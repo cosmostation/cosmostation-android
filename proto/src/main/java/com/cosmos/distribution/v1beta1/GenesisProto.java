@@ -807,7 +807,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -816,7 +816,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -915,7 +915,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -936,7 +936,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -1423,7 +1423,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -1443,7 +1443,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -1464,7 +1464,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -1481,7 +1481,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -1495,7 +1495,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -1893,7 +1893,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -1902,7 +1902,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -1984,7 +1984,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -2005,7 +2005,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -2434,7 +2434,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -2454,7 +2454,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -2475,7 +2475,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -2492,7 +2492,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -2506,7 +2506,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -2747,7 +2747,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -2756,7 +2756,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -2848,7 +2848,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -2869,7 +2869,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -3337,7 +3337,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -3357,7 +3357,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -3378,7 +3378,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -3395,7 +3395,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -3409,7 +3409,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -3694,7 +3694,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -3703,7 +3703,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -3784,7 +3784,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -3805,7 +3805,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -4233,7 +4233,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -4253,7 +4253,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -4274,7 +4274,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -4291,7 +4291,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -4305,7 +4305,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -4566,7 +4566,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -4575,7 +4575,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -4704,7 +4704,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -4725,7 +4725,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -5269,7 +5269,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -5289,7 +5289,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -5310,7 +5310,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5327,7 +5327,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -5341,7 +5341,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5582,7 +5582,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -5591,7 +5591,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -5692,7 +5692,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -5713,7 +5713,7 @@ public final class GenesisProto {
      * validator_address is the address of the validator.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -6219,7 +6219,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -6239,7 +6239,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -6260,7 +6260,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -6277,7 +6277,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -6291,7 +6291,7 @@ public final class GenesisProto {
        * validator_address is the address of the validator.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -11183,81 +11183,80 @@ public final class GenesisProto {
       "awInfo\022E\n\021delegator_address\030\001 \001(\tB\030\322\264-\024c" +
       "osmos.AddressStringR\020delegatorAddress\022C\n" +
       "\020withdraw_address\030\002 \001(\tB\030\322\264-\024cosmos.Addr" +
-      "essStringR\017withdrawAddress:\010\210\240\037\000\350\240\037\000\"\207\002\n" +
-      "!ValidatorOutstandingRewardsRecord\022N\n\021va" +
-      "lidator_address\030\001 \001(\tB!\322\264-\035cosmos.Valida" +
-      "torAddressStringR\020validatorAddress\022\207\001\n\023o" +
-      "utstanding_rewards\030\002 \003(\0132\034.cosmos.base.v" +
-      "1beta1.DecCoinB8\310\336\037\000\252\337\037+github.com/cosmo" +
-      "s/cosmos-sdk/types.DecCoins\250\347\260*\001R\022outsta" +
-      "ndingRewards:\010\210\240\037\000\350\240\037\000\"\352\001\n$ValidatorAccu" +
-      "mulatedCommissionRecord\022N\n\021validator_add" +
-      "ress\030\001 \001(\tB!\322\264-\035cosmos.ValidatorAddressS" +
-      "tringR\020validatorAddress\022h\n\013accumulated\030\002" +
-      " \001(\0132;.cosmos.distribution.v1beta1.Valid" +
-      "atorAccumulatedCommissionB\t\310\336\037\000\250\347\260*\001R\013ac" +
-      "cumulated:\010\210\240\037\000\350\240\037\000\"\362\001\n ValidatorHistori" +
-      "calRewardsRecord\022N\n\021validator_address\030\001 " +
-      "\001(\tB!\322\264-\035cosmos.ValidatorAddressStringR\020" +
-      "validatorAddress\022\026\n\006period\030\002 \001(\004R\006period" +
-      "\022\\\n\007rewards\030\003 \001(\01327.cosmos.distribution." +
-      "v1beta1.ValidatorHistoricalRewardsB\t\310\336\037\000" +
-      "\250\347\260*\001R\007rewards:\010\210\240\037\000\350\240\037\000\"\324\001\n\035ValidatorCu" +
-      "rrentRewardsRecord\022N\n\021validator_address\030" +
-      "\001 \001(\tB!\322\264-\035cosmos.ValidatorAddressString" +
-      "R\020validatorAddress\022Y\n\007rewards\030\002 \001(\01324.co" +
-      "smos.distribution.v1beta1.ValidatorCurre" +
-      "ntRewardsB\t\310\336\037\000\250\347\260*\001R\007rewards:\010\210\240\037\000\350\240\037\000\"" +
-      "\242\002\n\033DelegatorStartingInfoRecord\022E\n\021deleg" +
+      "essStringR\017withdrawAddress:\010\210\240\037\000\350\240\037\000\"\376\001\n" +
+      "!ValidatorOutstandingRewardsRecord\022E\n\021va" +
+      "lidator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addres" +
+      "sStringR\020validatorAddress\022\207\001\n\023outstandin" +
+      "g_rewards\030\002 \003(\0132\034.cosmos.base.v1beta1.De" +
+      "cCoinB8\310\336\037\000\252\337\037+github.com/cosmos/cosmos-" +
+      "sdk/types.DecCoins\250\347\260*\001R\022outstandingRewa" +
+      "rds:\010\210\240\037\000\350\240\037\000\"\341\001\n$ValidatorAccumulatedCo" +
+      "mmissionRecord\022E\n\021validator_address\030\001 \001(" +
+      "\tB\030\322\264-\024cosmos.AddressStringR\020validatorAd" +
+      "dress\022h\n\013accumulated\030\002 \001(\0132;.cosmos.dist" +
+      "ribution.v1beta1.ValidatorAccumulatedCom" +
+      "missionB\t\310\336\037\000\250\347\260*\001R\013accumulated:\010\210\240\037\000\350\240\037" +
+      "\000\"\351\001\n ValidatorHistoricalRewardsRecord\022E" +
+      "\n\021validator_address\030\001 \001(\tB\030\322\264-\024cosmos.Ad" +
+      "dressStringR\020validatorAddress\022\026\n\006period\030" +
+      "\002 \001(\004R\006period\022\\\n\007rewards\030\003 \001(\01327.cosmos." +
+      "distribution.v1beta1.ValidatorHistorical" +
+      "RewardsB\t\310\336\037\000\250\347\260*\001R\007rewards:\010\210\240\037\000\350\240\037\000\"\313\001" +
+      "\n\035ValidatorCurrentRewardsRecord\022E\n\021valid" +
       "ator_address\030\001 \001(\tB\030\322\264-\024cosmos.AddressSt" +
-      "ringR\020delegatorAddress\022N\n\021validator_addr" +
-      "ess\030\002 \001(\tB!\322\264-\035cosmos.ValidatorAddressSt" +
-      "ringR\020validatorAddress\022b\n\rstarting_info\030" +
-      "\003 \001(\01322.cosmos.distribution.v1beta1.Dele" +
-      "gatorStartingInfoB\t\310\336\037\000\250\347\260*\001R\014startingIn" +
-      "fo:\010\210\240\037\000\350\240\037\000\"\226\002\n\031ValidatorSlashEventReco" +
-      "rd\022N\n\021validator_address\030\001 \001(\tB!\322\264-\035cosmo" +
-      "s.ValidatorAddressStringR\020validatorAddre" +
-      "ss\022\026\n\006height\030\002 \001(\004R\006height\022\026\n\006period\030\003 \001" +
-      "(\004R\006period\022o\n\025validator_slash_event\030\004 \001(" +
-      "\01320.cosmos.distribution.v1beta1.Validato" +
-      "rSlashEventB\t\310\336\037\000\250\347\260*\001R\023validatorSlashEv" +
-      "ent:\010\210\240\037\000\350\240\037\000\"\214\t\n\014GenesisState\022F\n\006params" +
-      "\030\001 \001(\0132#.cosmos.distribution.v1beta1.Par" +
-      "amsB\t\310\336\037\000\250\347\260*\001R\006params\022J\n\010fee_pool\030\002 \001(\013" +
-      "2$.cosmos.distribution.v1beta1.FeePoolB\t" +
-      "\310\336\037\000\250\347\260*\001R\007feePool\022w\n\030delegator_withdraw" +
-      "_infos\030\003 \003(\01322.cosmos.distribution.v1bet" +
-      "a1.DelegatorWithdrawInfoB\t\310\336\037\000\250\347\260*\001R\026del" +
-      "egatorWithdrawInfos\022E\n\021previous_proposer" +
-      "\030\004 \001(\tB\030\322\264-\024cosmos.AddressStringR\020previo" +
-      "usProposer\022z\n\023outstanding_rewards\030\005 \003(\0132" +
-      ">.cosmos.distribution.v1beta1.ValidatorO" +
-      "utstandingRewardsRecordB\t\310\336\037\000\250\347\260*\001R\022outs" +
-      "tandingRewards\022\230\001\n!validator_accumulated" +
-      "_commissions\030\006 \003(\0132A.cosmos.distribution" +
-      ".v1beta1.ValidatorAccumulatedCommissionR" +
-      "ecordB\t\310\336\037\000\250\347\260*\001R\037validatorAccumulatedCo" +
-      "mmissions\022\212\001\n\034validator_historical_rewar" +
-      "ds\030\007 \003(\0132=.cosmos.distribution.v1beta1.V" +
-      "alidatorHistoricalRewardsRecordB\t\310\336\037\000\250\347\260" +
-      "*\001R\032validatorHistoricalRewards\022\201\001\n\031valid" +
-      "ator_current_rewards\030\010 \003(\0132:.cosmos.dist" +
-      "ribution.v1beta1.ValidatorCurrentRewards" +
-      "RecordB\t\310\336\037\000\250\347\260*\001R\027validatorCurrentRewar" +
-      "ds\022}\n\030delegator_starting_infos\030\t \003(\01328.c" +
-      "osmos.distribution.v1beta1.DelegatorStar" +
-      "tingInfoRecordB\t\310\336\037\000\250\347\260*\001R\026delegatorStar" +
-      "tingInfos\022w\n\026validator_slash_events\030\n \003(" +
-      "\01326.cosmos.distribution.v1beta1.Validato" +
-      "rSlashEventRecordB\t\310\336\037\000\250\347\260*\001R\024validatorS" +
-      "lashEvents:\010\210\240\037\000\350\240\037\000B\342\001\n\037com.cosmos.dist" +
-      "ribution.v1beta1B\014GenesisProtoZ!cosmossd" +
-      "k.io/x/distribution/types\242\002\003CDX\252\002\033Cosmos" +
-      ".Distribution.V1beta1\312\002\033Cosmos\\Distribut" +
-      "ion\\V1beta1\342\002\'Cosmos\\Distribution\\V1beta" +
-      "1\\GPBMetadata\352\002\035Cosmos::Distribution::V1" +
-      "beta1\250\342\036\001b\006proto3"
+      "ringR\020validatorAddress\022Y\n\007rewards\030\002 \001(\0132" +
+      "4.cosmos.distribution.v1beta1.ValidatorC" +
+      "urrentRewardsB\t\310\336\037\000\250\347\260*\001R\007rewards:\010\210\240\037\000\350" +
+      "\240\037\000\"\231\002\n\033DelegatorStartingInfoRecord\022E\n\021d" +
+      "elegator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addre" +
+      "ssStringR\020delegatorAddress\022E\n\021validator_" +
+      "address\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR" +
+      "\020validatorAddress\022b\n\rstarting_info\030\003 \001(\013" +
+      "22.cosmos.distribution.v1beta1.Delegator" +
+      "StartingInfoB\t\310\336\037\000\250\347\260*\001R\014startingInfo:\010\210" +
+      "\240\037\000\350\240\037\000\"\215\002\n\031ValidatorSlashEventRecord\022E\n" +
+      "\021validator_address\030\001 \001(\tB\030\322\264-\024cosmos.Add" +
+      "ressStringR\020validatorAddress\022\026\n\006height\030\002" +
+      " \001(\004R\006height\022\026\n\006period\030\003 \001(\004R\006period\022o\n\025" +
+      "validator_slash_event\030\004 \001(\01320.cosmos.dis" +
+      "tribution.v1beta1.ValidatorSlashEventB\t\310" +
+      "\336\037\000\250\347\260*\001R\023validatorSlashEvent:\010\210\240\037\000\350\240\037\000\"" +
+      "\214\t\n\014GenesisState\022F\n\006params\030\001 \001(\0132#.cosmo" +
+      "s.distribution.v1beta1.ParamsB\t\310\336\037\000\250\347\260*\001" +
+      "R\006params\022J\n\010fee_pool\030\002 \001(\0132$.cosmos.dist" +
+      "ribution.v1beta1.FeePoolB\t\310\336\037\000\250\347\260*\001R\007fee" +
+      "Pool\022w\n\030delegator_withdraw_infos\030\003 \003(\01322" +
+      ".cosmos.distribution.v1beta1.DelegatorWi" +
+      "thdrawInfoB\t\310\336\037\000\250\347\260*\001R\026delegatorWithdraw" +
+      "Infos\022E\n\021previous_proposer\030\004 \001(\tB\030\322\264-\024co" +
+      "smos.AddressStringR\020previousProposer\022z\n\023" +
+      "outstanding_rewards\030\005 \003(\0132>.cosmos.distr" +
+      "ibution.v1beta1.ValidatorOutstandingRewa" +
+      "rdsRecordB\t\310\336\037\000\250\347\260*\001R\022outstandingRewards" +
+      "\022\230\001\n!validator_accumulated_commissions\030\006" +
+      " \003(\0132A.cosmos.distribution.v1beta1.Valid" +
+      "atorAccumulatedCommissionRecordB\t\310\336\037\000\250\347\260" +
+      "*\001R\037validatorAccumulatedCommissions\022\212\001\n\034" +
+      "validator_historical_rewards\030\007 \003(\0132=.cos" +
+      "mos.distribution.v1beta1.ValidatorHistor" +
+      "icalRewardsRecordB\t\310\336\037\000\250\347\260*\001R\032validatorH" +
+      "istoricalRewards\022\201\001\n\031validator_current_r" +
+      "ewards\030\010 \003(\0132:.cosmos.distribution.v1bet" +
+      "a1.ValidatorCurrentRewardsRecordB\t\310\336\037\000\250\347" +
+      "\260*\001R\027validatorCurrentRewards\022}\n\030delegato" +
+      "r_starting_infos\030\t \003(\01328.cosmos.distribu" +
+      "tion.v1beta1.DelegatorStartingInfoRecord" +
+      "B\t\310\336\037\000\250\347\260*\001R\026delegatorStartingInfos\022w\n\026v" +
+      "alidator_slash_events\030\n \003(\01326.cosmos.dis" +
+      "tribution.v1beta1.ValidatorSlashEventRec" +
+      "ordB\t\310\336\037\000\250\347\260*\001R\024validatorSlashEvents:\010\210\240" +
+      "\037\000\350\240\037\000B\362\001\n\037com.cosmos.distribution.v1bet" +
+      "a1B\014GenesisProtoZ1github.com/cosmos/cosm" +
+      "os-sdk/x/distribution/types\242\002\003CDX\252\002\033Cosm" +
+      "os.Distribution.V1beta1\312\002\033Cosmos\\Distrib" +
+      "ution\\V1beta1\342\002\'Cosmos\\Distribution\\V1be" +
+      "ta1\\GPBMetadata\352\002\035Cosmos::Distribution::" +
+      "V1beta1\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

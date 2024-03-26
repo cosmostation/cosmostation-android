@@ -920,47 +920,93 @@ public final class TxProto {
 
   }
 
-  public interface MsgGrantResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.authz.v1beta1.MsgGrantResponse)
+  public interface MsgExecResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.authz.v1beta1.MsgExecResponse)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated bytes results = 1 [json_name = "results"];</code>
+     * @return A list containing the results.
+     */
+    java.util.List<com.google.protobuf.ByteString> getResultsList();
+    /**
+     * <code>repeated bytes results = 1 [json_name = "results"];</code>
+     * @return The count of results.
+     */
+    int getResultsCount();
+    /**
+     * <code>repeated bytes results = 1 [json_name = "results"];</code>
+     * @param index The index of the element to return.
+     * @return The results at the given index.
+     */
+    com.google.protobuf.ByteString getResults(int index);
   }
   /**
    * <pre>
-   * MsgGrantResponse defines the Msg/MsgGrant response type.
+   * MsgExecResponse defines the Msg/MsgExecResponse response type.
    * </pre>
    *
-   * Protobuf type {@code cosmos.authz.v1beta1.MsgGrantResponse}
+   * Protobuf type {@code cosmos.authz.v1beta1.MsgExecResponse}
    */
-  public static final class MsgGrantResponse extends
+  public static final class MsgExecResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.authz.v1beta1.MsgGrantResponse)
-      MsgGrantResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:cosmos.authz.v1beta1.MsgExecResponse)
+      MsgExecResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use MsgGrantResponse.newBuilder() to construct.
-    private MsgGrantResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use MsgExecResponse.newBuilder() to construct.
+    private MsgExecResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private MsgGrantResponse() {
+    private MsgExecResponse() {
+      results_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new MsgGrantResponse();
+      return new MsgExecResponse();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
+      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable
+      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.Builder.class);
+              com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.Builder.class);
+    }
+
+    public static final int RESULTS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<com.google.protobuf.ByteString> results_;
+    /**
+     * <code>repeated bytes results = 1 [json_name = "results"];</code>
+     * @return A list containing the results.
+     */
+    @java.lang.Override
+    public java.util.List<com.google.protobuf.ByteString>
+        getResultsList() {
+      return results_;
+    }
+    /**
+     * <code>repeated bytes results = 1 [json_name = "results"];</code>
+     * @return The count of results.
+     */
+    public int getResultsCount() {
+      return results_.size();
+    }
+    /**
+     * <code>repeated bytes results = 1 [json_name = "results"];</code>
+     * @param index The index of the element to return.
+     * @return The results at the given index.
+     */
+    public com.google.protobuf.ByteString getResults(int index) {
+      return results_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -977,6 +1023,9 @@ public final class TxProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      for (int i = 0; i < results_.size(); i++) {
+        output.writeBytes(1, results_.get(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -986,6 +1035,15 @@ public final class TxProto {
       if (size != -1) return size;
 
       size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < results_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(results_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getResultsList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -996,11 +1054,13 @@ public final class TxProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse)) {
+      if (!(obj instanceof com.cosmos.authz.v1beta1.TxProto.MsgExecResponse)) {
         return super.equals(obj);
       }
-      com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse other = (com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse) obj;
+      com.cosmos.authz.v1beta1.TxProto.MsgExecResponse other = (com.cosmos.authz.v1beta1.TxProto.MsgExecResponse) obj;
 
+      if (!getResultsList()
+          .equals(other.getResultsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1012,49 +1072,53 @@ public final class TxProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      if (getResultsCount() > 0) {
+        hash = (37 * hash) + RESULTS_FIELD_NUMBER;
+        hash = (53 * hash) + getResultsList().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(byte[] data)
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(java.io.InputStream input)
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1062,26 +1126,26 @@ public final class TxProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseDelimitedFrom(java.io.InputStream input)
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseDelimitedFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1094,7 +1158,7 @@ public final class TxProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse prototype) {
+    public static Builder newBuilder(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1111,29 +1175,29 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * MsgGrantResponse defines the Msg/MsgGrant response type.
+     * MsgExecResponse defines the Msg/MsgExecResponse response type.
      * </pre>
      *
-     * Protobuf type {@code cosmos.authz.v1beta1.MsgGrantResponse}
+     * Protobuf type {@code cosmos.authz.v1beta1.MsgExecResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.authz.v1beta1.MsgGrantResponse)
-        com.cosmos.authz.v1beta1.TxProto.MsgGrantResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:cosmos.authz.v1beta1.MsgExecResponse)
+        com.cosmos.authz.v1beta1.TxProto.MsgExecResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
+        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable
+        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.Builder.class);
+                com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.Builder.class);
       }
 
-      // Construct using com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.newBuilder()
+      // Construct using com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.newBuilder()
       private Builder() {
 
       }
@@ -1146,23 +1210,25 @@ public final class TxProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
+        results_ = java.util.Collections.emptyList();
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
+        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
       }
 
       @java.lang.Override
-      public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse getDefaultInstanceForType() {
-        return com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.getDefaultInstance();
+      public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse getDefaultInstanceForType() {
+        return com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse build() {
-        com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse result = buildPartial();
+      public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse build() {
+        com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1170,10 +1236,24 @@ public final class TxProto {
       }
 
       @java.lang.Override
-      public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse buildPartial() {
-        com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse result = new com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse(this);
+      public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse buildPartial() {
+        com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result = new com.cosmos.authz.v1beta1.TxProto.MsgExecResponse(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartialRepeatedFields(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result) {
+        if (((bitField0_ & 0x00000001) != 0)) {
+          results_ = java.util.Collections.unmodifiableList(results_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.results_ = results_;
+      }
+
+      private void buildPartial0(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result) {
+        int from_bitField0_ = bitField0_;
       }
 
       @java.lang.Override
@@ -1210,16 +1290,26 @@ public final class TxProto {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse) {
-          return mergeFrom((com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse)other);
+        if (other instanceof com.cosmos.authz.v1beta1.TxProto.MsgExecResponse) {
+          return mergeFrom((com.cosmos.authz.v1beta1.TxProto.MsgExecResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse other) {
-        if (other == com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse other) {
+        if (other == com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.getDefaultInstance()) return this;
+        if (!other.results_.isEmpty()) {
+          if (results_.isEmpty()) {
+            results_ = other.results_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureResultsIsMutable();
+            results_.addAll(other.results_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1246,6 +1336,12 @@ public final class TxProto {
               case 0:
                 done = true;
                 break;
+              case 10: {
+                com.google.protobuf.ByteString v = input.readBytes();
+                ensureResultsIsMutable();
+                results_.add(v);
+                break;
+              } // case 10
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1261,6 +1357,88 @@ public final class TxProto {
         } // finally
         return this;
       }
+      private int bitField0_;
+
+      private java.util.List<com.google.protobuf.ByteString> results_ = java.util.Collections.emptyList();
+      private void ensureResultsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          results_ = new java.util.ArrayList<com.google.protobuf.ByteString>(results_);
+          bitField0_ |= 0x00000001;
+        }
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @return A list containing the results.
+       */
+      public java.util.List<com.google.protobuf.ByteString>
+          getResultsList() {
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(results_) : results_;
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @return The count of results.
+       */
+      public int getResultsCount() {
+        return results_.size();
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @param index The index of the element to return.
+       * @return The results at the given index.
+       */
+      public com.google.protobuf.ByteString getResults(int index) {
+        return results_.get(index);
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @param index The index to set the value at.
+       * @param value The results to set.
+       * @return This builder for chaining.
+       */
+      public Builder setResults(
+          int index, com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureResultsIsMutable();
+        results_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @param value The results to add.
+       * @return This builder for chaining.
+       */
+      public Builder addResults(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureResultsIsMutable();
+        results_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @param values The results to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllResults(
+          java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
+        ensureResultsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, results_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated bytes results = 1 [json_name = "results"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearResults() {
+        results_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1274,23 +1452,23 @@ public final class TxProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:cosmos.authz.v1beta1.MsgGrantResponse)
+      // @@protoc_insertion_point(builder_scope:cosmos.authz.v1beta1.MsgExecResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:cosmos.authz.v1beta1.MsgGrantResponse)
-    private static final com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:cosmos.authz.v1beta1.MsgExecResponse)
+    private static final com.cosmos.authz.v1beta1.TxProto.MsgExecResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse();
+      DEFAULT_INSTANCE = new com.cosmos.authz.v1beta1.TxProto.MsgExecResponse();
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse getDefaultInstance() {
+    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<MsgGrantResponse>
-        PARSER = new com.google.protobuf.AbstractParser<MsgGrantResponse>() {
+    private static final com.google.protobuf.Parser<MsgExecResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgExecResponse>() {
       @java.lang.Override
-      public MsgGrantResponse parsePartialFrom(
+      public MsgExecResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1309,17 +1487,17 @@ public final class TxProto {
       }
     };
 
-    public static com.google.protobuf.Parser<MsgGrantResponse> parser() {
+    public static com.google.protobuf.Parser<MsgExecResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<MsgGrantResponse> getParserForType() {
+    public com.google.protobuf.Parser<MsgExecResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse getDefaultInstanceForType() {
+    public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2435,93 +2613,47 @@ public final class TxProto {
 
   }
 
-  public interface MsgExecResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmos.authz.v1beta1.MsgExecResponse)
+  public interface MsgGrantResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.authz.v1beta1.MsgGrantResponse)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated bytes results = 1 [json_name = "results"];</code>
-     * @return A list containing the results.
-     */
-    java.util.List<com.google.protobuf.ByteString> getResultsList();
-    /**
-     * <code>repeated bytes results = 1 [json_name = "results"];</code>
-     * @return The count of results.
-     */
-    int getResultsCount();
-    /**
-     * <code>repeated bytes results = 1 [json_name = "results"];</code>
-     * @param index The index of the element to return.
-     * @return The results at the given index.
-     */
-    com.google.protobuf.ByteString getResults(int index);
   }
   /**
    * <pre>
-   * MsgExecResponse defines the Msg/MsgExecResponse response type.
+   * MsgGrantResponse defines the Msg/MsgGrant response type.
    * </pre>
    *
-   * Protobuf type {@code cosmos.authz.v1beta1.MsgExecResponse}
+   * Protobuf type {@code cosmos.authz.v1beta1.MsgGrantResponse}
    */
-  public static final class MsgExecResponse extends
+  public static final class MsgGrantResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmos.authz.v1beta1.MsgExecResponse)
-      MsgExecResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:cosmos.authz.v1beta1.MsgGrantResponse)
+      MsgGrantResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use MsgExecResponse.newBuilder() to construct.
-    private MsgExecResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use MsgGrantResponse.newBuilder() to construct.
+    private MsgGrantResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private MsgExecResponse() {
-      results_ = java.util.Collections.emptyList();
+    private MsgGrantResponse() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new MsgExecResponse();
+      return new MsgGrantResponse();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
+      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable
+      return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.Builder.class);
-    }
-
-    public static final int RESULTS_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private java.util.List<com.google.protobuf.ByteString> results_;
-    /**
-     * <code>repeated bytes results = 1 [json_name = "results"];</code>
-     * @return A list containing the results.
-     */
-    @java.lang.Override
-    public java.util.List<com.google.protobuf.ByteString>
-        getResultsList() {
-      return results_;
-    }
-    /**
-     * <code>repeated bytes results = 1 [json_name = "results"];</code>
-     * @return The count of results.
-     */
-    public int getResultsCount() {
-      return results_.size();
-    }
-    /**
-     * <code>repeated bytes results = 1 [json_name = "results"];</code>
-     * @param index The index of the element to return.
-     * @return The results at the given index.
-     */
-    public com.google.protobuf.ByteString getResults(int index) {
-      return results_.get(index);
+              com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2538,9 +2670,6 @@ public final class TxProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      for (int i = 0; i < results_.size(); i++) {
-        output.writeBytes(1, results_.get(i));
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -2550,15 +2679,6 @@ public final class TxProto {
       if (size != -1) return size;
 
       size = 0;
-      {
-        int dataSize = 0;
-        for (int i = 0; i < results_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(results_.get(i));
-        }
-        size += dataSize;
-        size += 1 * getResultsList().size();
-      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2569,13 +2689,11 @@ public final class TxProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.cosmos.authz.v1beta1.TxProto.MsgExecResponse)) {
+      if (!(obj instanceof com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse)) {
         return super.equals(obj);
       }
-      com.cosmos.authz.v1beta1.TxProto.MsgExecResponse other = (com.cosmos.authz.v1beta1.TxProto.MsgExecResponse) obj;
+      com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse other = (com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse) obj;
 
-      if (!getResultsList()
-          .equals(other.getResultsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -2587,53 +2705,49 @@ public final class TxProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (getResultsCount() > 0) {
-        hash = (37 * hash) + RESULTS_FIELD_NUMBER;
-        hash = (53 * hash) + getResultsList().hashCode();
-      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(byte[] data)
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(java.io.InputStream input)
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2641,26 +2755,26 @@ public final class TxProto {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseDelimitedFrom(java.io.InputStream input)
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseDelimitedFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse parseFrom(
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2673,7 +2787,7 @@ public final class TxProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse prototype) {
+    public static Builder newBuilder(com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2690,29 +2804,29 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * MsgExecResponse defines the Msg/MsgExecResponse response type.
+     * MsgGrantResponse defines the Msg/MsgGrant response type.
      * </pre>
      *
-     * Protobuf type {@code cosmos.authz.v1beta1.MsgExecResponse}
+     * Protobuf type {@code cosmos.authz.v1beta1.MsgGrantResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmos.authz.v1beta1.MsgExecResponse)
-        com.cosmos.authz.v1beta1.TxProto.MsgExecResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:cosmos.authz.v1beta1.MsgGrantResponse)
+        com.cosmos.authz.v1beta1.TxProto.MsgGrantResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
+        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable
+        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.Builder.class);
+                com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.class, com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.Builder.class);
       }
 
-      // Construct using com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.newBuilder()
+      // Construct using com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.newBuilder()
       private Builder() {
 
       }
@@ -2725,25 +2839,23 @@ public final class TxProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        bitField0_ = 0;
-        results_ = java.util.Collections.emptyList();
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
+        return com.cosmos.authz.v1beta1.TxProto.internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
       }
 
       @java.lang.Override
-      public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse getDefaultInstanceForType() {
-        return com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.getDefaultInstance();
+      public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse getDefaultInstanceForType() {
+        return com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse build() {
-        com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result = buildPartial();
+      public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse build() {
+        com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2751,24 +2863,10 @@ public final class TxProto {
       }
 
       @java.lang.Override
-      public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse buildPartial() {
-        com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result = new com.cosmos.authz.v1beta1.TxProto.MsgExecResponse(this);
-        buildPartialRepeatedFields(result);
-        if (bitField0_ != 0) { buildPartial0(result); }
+      public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse buildPartial() {
+        com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse result = new com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse(this);
         onBuilt();
         return result;
-      }
-
-      private void buildPartialRepeatedFields(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result) {
-        if (((bitField0_ & 0x00000001) != 0)) {
-          results_ = java.util.Collections.unmodifiableList(results_);
-          bitField0_ = (bitField0_ & ~0x00000001);
-        }
-        result.results_ = results_;
-      }
-
-      private void buildPartial0(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse result) {
-        int from_bitField0_ = bitField0_;
       }
 
       @java.lang.Override
@@ -2805,26 +2903,16 @@ public final class TxProto {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.cosmos.authz.v1beta1.TxProto.MsgExecResponse) {
-          return mergeFrom((com.cosmos.authz.v1beta1.TxProto.MsgExecResponse)other);
+        if (other instanceof com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse) {
+          return mergeFrom((com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.cosmos.authz.v1beta1.TxProto.MsgExecResponse other) {
-        if (other == com.cosmos.authz.v1beta1.TxProto.MsgExecResponse.getDefaultInstance()) return this;
-        if (!other.results_.isEmpty()) {
-          if (results_.isEmpty()) {
-            results_ = other.results_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureResultsIsMutable();
-            results_.addAll(other.results_);
-          }
-          onChanged();
-        }
+      public Builder mergeFrom(com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse other) {
+        if (other == com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse.getDefaultInstance()) return this;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -2851,12 +2939,6 @@ public final class TxProto {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                com.google.protobuf.ByteString v = input.readBytes();
-                ensureResultsIsMutable();
-                results_.add(v);
-                break;
-              } // case 10
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2872,88 +2954,6 @@ public final class TxProto {
         } // finally
         return this;
       }
-      private int bitField0_;
-
-      private java.util.List<com.google.protobuf.ByteString> results_ = java.util.Collections.emptyList();
-      private void ensureResultsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          results_ = new java.util.ArrayList<com.google.protobuf.ByteString>(results_);
-          bitField0_ |= 0x00000001;
-        }
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @return A list containing the results.
-       */
-      public java.util.List<com.google.protobuf.ByteString>
-          getResultsList() {
-        return ((bitField0_ & 0x00000001) != 0) ?
-                 java.util.Collections.unmodifiableList(results_) : results_;
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @return The count of results.
-       */
-      public int getResultsCount() {
-        return results_.size();
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @param index The index of the element to return.
-       * @return The results at the given index.
-       */
-      public com.google.protobuf.ByteString getResults(int index) {
-        return results_.get(index);
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @param index The index to set the value at.
-       * @param value The results to set.
-       * @return This builder for chaining.
-       */
-      public Builder setResults(
-          int index, com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        ensureResultsIsMutable();
-        results_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @param value The results to add.
-       * @return This builder for chaining.
-       */
-      public Builder addResults(com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        ensureResultsIsMutable();
-        results_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @param values The results to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllResults(
-          java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
-        ensureResultsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, results_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated bytes results = 1 [json_name = "results"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearResults() {
-        results_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2967,23 +2967,23 @@ public final class TxProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:cosmos.authz.v1beta1.MsgExecResponse)
+      // @@protoc_insertion_point(builder_scope:cosmos.authz.v1beta1.MsgGrantResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:cosmos.authz.v1beta1.MsgExecResponse)
-    private static final com.cosmos.authz.v1beta1.TxProto.MsgExecResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:cosmos.authz.v1beta1.MsgGrantResponse)
+    private static final com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.cosmos.authz.v1beta1.TxProto.MsgExecResponse();
+      DEFAULT_INSTANCE = new com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse();
     }
 
-    public static com.cosmos.authz.v1beta1.TxProto.MsgExecResponse getDefaultInstance() {
+    public static com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<MsgExecResponse>
-        PARSER = new com.google.protobuf.AbstractParser<MsgExecResponse>() {
+    private static final com.google.protobuf.Parser<MsgGrantResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgGrantResponse>() {
       @java.lang.Override
-      public MsgExecResponse parsePartialFrom(
+      public MsgGrantResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3002,17 +3002,17 @@ public final class TxProto {
       }
     };
 
-    public static com.google.protobuf.Parser<MsgExecResponse> parser() {
+    public static com.google.protobuf.Parser<MsgGrantResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<MsgExecResponse> getParserForType() {
+    public com.google.protobuf.Parser<MsgGrantResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.cosmos.authz.v1beta1.TxProto.MsgExecResponse getDefaultInstanceForType() {
+    public com.cosmos.authz.v1beta1.TxProto.MsgGrantResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4287,20 +4287,20 @@ public final class TxProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_authz_v1beta1_MsgGrant_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
+    internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable;
+      internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_authz_v1beta1_MsgExec_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_authz_v1beta1_MsgExec_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor;
+    internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable;
+      internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_authz_v1beta1_MsgRevoke_descriptor;
   private static final 
@@ -4330,13 +4330,13 @@ public final class TxProto {
       "tee\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\007gra" +
       "ntee\022<\n\005grant\030\003 \001(\0132\033.cosmos.authz.v1bet" +
       "a1.GrantB\t\310\336\037\000\250\347\260*\001R\005grant:$\202\347\260*\007granter" +
-      "\212\347\260*\023cosmos-sdk/MsgGrant\"\022\n\020MsgGrantResp" +
-      "onse\"\251\001\n\007MsgExec\0222\n\007grantee\030\001 \001(\tB\030\322\264-\024c" +
-      "osmos.AddressStringR\007grantee\022E\n\004msgs\030\002 \003" +
-      "(\0132\024.google.protobuf.AnyB\033\312\264-\027cosmos.bas" +
-      "e.v1beta1.MsgR\004msgs:#\202\347\260*\007grantee\212\347\260*\022co" +
-      "smos-sdk/MsgExec\"+\n\017MsgExecResponse\022\030\n\007r" +
-      "esults\030\001 \003(\014R\007results\"\274\001\n\tMsgRevoke\0222\n\007g" +
+      "\212\347\260*\023cosmos-sdk/MsgGrant\"+\n\017MsgExecRespo" +
+      "nse\022\030\n\007results\030\001 \003(\014R\007results\"\251\001\n\007MsgExe" +
+      "c\0222\n\007grantee\030\001 \001(\tB\030\322\264-\024cosmos.AddressSt" +
+      "ringR\007grantee\022E\n\004msgs\030\002 \003(\0132\024.google.pro" +
+      "tobuf.AnyB\033\312\264-\027cosmos.base.v1beta1.MsgR\004" +
+      "msgs:#\202\347\260*\007grantee\212\347\260*\022cosmos-sdk/MsgExe" +
+      "c\"\022\n\020MsgGrantResponse\"\274\001\n\tMsgRevoke\0222\n\007g" +
       "ranter\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\007" +
       "granter\0222\n\007grantee\030\002 \001(\tB\030\322\264-\024cosmos.Add" +
       "ressStringR\007grantee\022 \n\014msg_type_url\030\003 \001(" +
@@ -4348,11 +4348,12 @@ public final class TxProto {
       "c\032%.cosmos.authz.v1beta1.MsgExecResponse" +
       "\022R\n\006Revoke\022\037.cosmos.authz.v1beta1.MsgRev" +
       "oke\032\'.cosmos.authz.v1beta1.MsgRevokeResp" +
-      "onse\032\005\200\347\260*\001B\255\001\n\030com.cosmos.authz.v1beta1" +
-      "B\007TxProtoZ\024cosmossdk.io/x/authz\242\002\003CAX\252\002\024" +
-      "Cosmos.Authz.V1beta1\312\002\024Cosmos\\Authz\\V1be" +
-      "ta1\342\002 Cosmos\\Authz\\V1beta1\\GPBMetadata\352\002" +
-      "\026Cosmos::Authz::V1beta1\310\341\036\000b\006proto3"
+      "onse\032\005\200\347\260*\001B\275\001\n\030com.cosmos.authz.v1beta1" +
+      "B\007TxProtoZ$github.com/cosmos/cosmos-sdk/" +
+      "x/authz\242\002\003CAX\252\002\024Cosmos.Authz.V1beta1\312\002\024C" +
+      "osmos\\Authz\\V1beta1\342\002 Cosmos\\Authz\\V1bet" +
+      "a1\\GPBMetadata\352\002\026Cosmos::Authz::V1beta1\310" +
+      "\341\036\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4370,24 +4371,24 @@ public final class TxProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_authz_v1beta1_MsgGrant_descriptor,
         new java.lang.String[] { "Granter", "Grantee", "Grant", });
-    internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor =
+    internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable = new
+    internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor,
-        new java.lang.String[] { });
+        internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor,
+        new java.lang.String[] { "Results", });
     internal_static_cosmos_authz_v1beta1_MsgExec_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_cosmos_authz_v1beta1_MsgExec_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_authz_v1beta1_MsgExec_descriptor,
         new java.lang.String[] { "Grantee", "Msgs", });
-    internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor =
+    internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_cosmos_authz_v1beta1_MsgExecResponse_fieldAccessorTable = new
+    internal_static_cosmos_authz_v1beta1_MsgGrantResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmos_authz_v1beta1_MsgExecResponse_descriptor,
-        new java.lang.String[] { "Results", });
+        internal_static_cosmos_authz_v1beta1_MsgGrantResponse_descriptor,
+        new java.lang.String[] { });
     internal_static_cosmos_authz_v1beta1_MsgRevoke_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_cosmos_authz_v1beta1_MsgRevoke_fieldAccessorTable = new

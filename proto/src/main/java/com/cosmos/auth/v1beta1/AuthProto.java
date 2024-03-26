@@ -3543,29 +3543,28 @@ public final class AuthProto {
       "er\030\003 \001(\004R\raccountNumber\022\032\n\010sequence\030\004 \001(" +
       "\004R\010sequence:C\210\240\037\000\350\240\037\000\312\264-\034cosmos.auth.v1b" +
       "eta1.AccountI\212\347\260*\026cosmos-sdk/BaseAccount" +
-      "\"\354\001\n\rModuleAccount\022I\n\014base_account\030\001 \001(\013" +
+      "\"\331\001\n\rModuleAccount\022I\n\014base_account\030\001 \001(\013" +
       "2 .cosmos.auth.v1beta1.BaseAccountB\004\320\336\037\001" +
       "R\013baseAccount\022\022\n\004name\030\002 \001(\tR\004name\022 \n\013per" +
-      "missions\030\003 \003(\tR\013permissions:Z\210\240\037\000\312\264-\"cos" +
+      "missions\030\003 \003(\tR\013permissions:G\210\240\037\000\312\264-\"cos" +
       "mos.auth.v1beta1.ModuleAccountI\212\347\260*\030cosm" +
-      "os-sdk/ModuleAccount\222\347\260*\016module_account\"" +
-      "\204\001\n\020ModuleCredential\022\037\n\013module_name\030\001 \001(" +
-      "\tR\nmoduleName\022\'\n\017derivation_keys\030\002 \003(\014R\016" +
-      "derivationKeys:&\212\347\260*!cosmos-sdk/GroupAcc" +
-      "ountCredential\"\327\002\n\006Params\022.\n\023max_memo_ch" +
-      "aracters\030\001 \001(\004R\021maxMemoCharacters\022 \n\014tx_" +
-      "sig_limit\030\002 \001(\004R\ntxSigLimit\0220\n\025tx_size_c" +
-      "ost_per_byte\030\003 \001(\004R\021txSizeCostPerByte\022O\n" +
-      "\027sig_verify_cost_ed25519\030\004 \001(\004B\030\342\336\037\024SigV" +
-      "erifyCostED25519R\024sigVerifyCostEd25519\022U" +
-      "\n\031sig_verify_cost_secp256k1\030\005 \001(\004B\032\342\336\037\026S" +
-      "igVerifyCostSecp256k1R\026sigVerifyCostSecp" +
-      "256k1:!\350\240\037\001\212\347\260*\030cosmos-sdk/x/auth/Params" +
-      "B\273\001\n\027com.cosmos.auth.v1beta1B\tAuthProtoZ" +
-      ")github.com/cosmos/cosmos-sdk/x/auth/typ" +
-      "es\242\002\003CAX\252\002\023Cosmos.Auth.V1beta1\312\002\023Cosmos\\" +
-      "Auth\\V1beta1\342\002\037Cosmos\\Auth\\V1beta1\\GPBMe" +
-      "tadata\352\002\025Cosmos::Auth::V1beta1b\006proto3"
+      "os-sdk/ModuleAccount\"\\\n\020ModuleCredential" +
+      "\022\037\n\013module_name\030\001 \001(\tR\nmoduleName\022\'\n\017der" +
+      "ivation_keys\030\002 \003(\014R\016derivationKeys\"\327\002\n\006P" +
+      "arams\022.\n\023max_memo_characters\030\001 \001(\004R\021maxM" +
+      "emoCharacters\022 \n\014tx_sig_limit\030\002 \001(\004R\ntxS" +
+      "igLimit\0220\n\025tx_size_cost_per_byte\030\003 \001(\004R\021" +
+      "txSizeCostPerByte\022O\n\027sig_verify_cost_ed2" +
+      "5519\030\004 \001(\004B\030\342\336\037\024SigVerifyCostED25519R\024si" +
+      "gVerifyCostEd25519\022U\n\031sig_verify_cost_se" +
+      "cp256k1\030\005 \001(\004B\032\342\336\037\026SigVerifyCostSecp256k" +
+      "1R\026sigVerifyCostSecp256k1:!\350\240\037\001\212\347\260*\030cosm" +
+      "os-sdk/x/auth/ParamsB\273\001\n\027com.cosmos.auth" +
+      ".v1beta1B\tAuthProtoZ)github.com/cosmos/c" +
+      "osmos-sdk/x/auth/types\242\002\003CAX\252\002\023Cosmos.Au" +
+      "th.V1beta1\312\002\023Cosmos\\Auth\\V1beta1\342\002\037Cosmo" +
+      "s\\Auth\\V1beta1\\GPBMetadata\352\002\025Cosmos::Aut" +
+      "h::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3602,7 +3601,6 @@ public final class AuthProto {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.fieldName);
-    registry.add(com.amino.AminoProto.messageEncoding);
     registry.add(com.amino.AminoProto.name);
     registry.add(com.cosmos_proto.CosmosProto.implementsInterface);
     registry.add(com.cosmos_proto.CosmosProto.scalar);

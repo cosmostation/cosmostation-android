@@ -4,7 +4,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  * <pre>
- * Msg defines the consensus Msg service.
+ * Msg defines the bank Msg service.
  * </pre>
  */
 @javax.annotation.Generated(
@@ -95,14 +95,14 @@ public final class MsgGrpc {
 
   /**
    * <pre>
-   * Msg defines the consensus Msg service.
+   * Msg defines the bank Msg service.
    * </pre>
    */
   public interface AsyncService {
 
     /**
      * <pre>
-     * UpdateParams defines a governance operation for updating the x/consensus module parameters.
+     * UpdateParams defines a governance operation for updating the x/consensus_param module parameters.
      * The authority is defined in the keeper.
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -116,7 +116,7 @@ public final class MsgGrpc {
   /**
    * Base class for the server implementation of the service Msg.
    * <pre>
-   * Msg defines the consensus Msg service.
+   * Msg defines the bank Msg service.
    * </pre>
    */
   public static abstract class MsgImplBase
@@ -130,7 +130,7 @@ public final class MsgGrpc {
   /**
    * A stub to allow clients to do asynchronous rpc calls to service Msg.
    * <pre>
-   * Msg defines the consensus Msg service.
+   * Msg defines the bank Msg service.
    * </pre>
    */
   public static final class MsgStub
@@ -148,7 +148,7 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UpdateParams defines a governance operation for updating the x/consensus module parameters.
+     * UpdateParams defines a governance operation for updating the x/consensus_param module parameters.
      * The authority is defined in the keeper.
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -163,7 +163,7 @@ public final class MsgGrpc {
   /**
    * A stub to allow clients to do synchronous rpc calls to service Msg.
    * <pre>
-   * Msg defines the consensus Msg service.
+   * Msg defines the bank Msg service.
    * </pre>
    */
   public static final class MsgBlockingStub
@@ -181,7 +181,7 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UpdateParams defines a governance operation for updating the x/consensus module parameters.
+     * UpdateParams defines a governance operation for updating the x/consensus_param module parameters.
      * The authority is defined in the keeper.
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -195,7 +195,7 @@ public final class MsgGrpc {
   /**
    * A stub to allow clients to do ListenableFuture-style rpc calls to service Msg.
    * <pre>
-   * Msg defines the consensus Msg service.
+   * Msg defines the bank Msg service.
    * </pre>
    */
   public static final class MsgFutureStub
@@ -213,7 +213,7 @@ public final class MsgGrpc {
 
     /**
      * <pre>
-     * UpdateParams defines a governance operation for updating the x/consensus module parameters.
+     * UpdateParams defines a governance operation for updating the x/consensus_param module parameters.
      * The authority is defined in the keeper.
      * Since: cosmos-sdk 0.47
      * </pre>

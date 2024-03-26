@@ -424,19 +424,19 @@ public final class GovProto {
 
     /**
      * <pre>
-     * weight is the vote weight associated with the vote option.
+     * weight is the vote weight associated with the vote option. 
      * </pre>
      *
-     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The weight.
      */
     java.lang.String getWeight();
     /**
      * <pre>
-     * weight is the vote weight associated with the vote option.
+     * weight is the vote weight associated with the vote option. 
      * </pre>
      *
-     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for weight.
      */
     com.google.protobuf.ByteString
@@ -516,10 +516,10 @@ public final class GovProto {
     private volatile java.lang.Object weight_ = "";
     /**
      * <pre>
-     * weight is the vote weight associated with the vote option.
+     * weight is the vote weight associated with the vote option. 
      * </pre>
      *
-     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The weight.
      */
     @java.lang.Override
@@ -537,10 +537,10 @@ public final class GovProto {
     }
     /**
      * <pre>
-     * weight is the vote weight associated with the vote option.
+     * weight is the vote weight associated with the vote option. 
      * </pre>
      *
-     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for weight.
      */
     @java.lang.Override
@@ -988,10 +988,10 @@ public final class GovProto {
       private java.lang.Object weight_ = "";
       /**
        * <pre>
-       * weight is the vote weight associated with the vote option.
+       * weight is the vote weight associated with the vote option. 
        * </pre>
        *
-       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The weight.
        */
       public java.lang.String getWeight() {
@@ -1008,10 +1008,10 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * weight is the vote weight associated with the vote option.
+       * weight is the vote weight associated with the vote option. 
        * </pre>
        *
-       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The bytes for weight.
        */
       public com.google.protobuf.ByteString
@@ -1029,10 +1029,10 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * weight is the vote weight associated with the vote option.
+       * weight is the vote weight associated with the vote option. 
        * </pre>
        *
-       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The weight to set.
        * @return This builder for chaining.
        */
@@ -1046,10 +1046,10 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * weight is the vote weight associated with the vote option.
+       * weight is the vote weight associated with the vote option. 
        * </pre>
        *
-       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return This builder for chaining.
        */
       public Builder clearWeight() {
@@ -1060,10 +1060,10 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * weight is the vote weight associated with the vote option.
+       * weight is the vote weight associated with the vote option. 
        * </pre>
        *
-       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string weight = 2 [json_name = "weight", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The bytes for weight to set.
        * @return This builder for chaining.
        */
@@ -5814,7 +5814,7 @@ public final class GovProto {
      * yes is the number of yes votes on a proposal.
      * </pre>
      *
-     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The yes.
      */
     java.lang.String getYes();
@@ -5823,7 +5823,7 @@ public final class GovProto {
      * yes is the number of yes votes on a proposal.
      * </pre>
      *
-     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for yes.
      */
     com.google.protobuf.ByteString
@@ -5834,7 +5834,7 @@ public final class GovProto {
      * abstain is the number of abstain votes on a proposal.
      * </pre>
      *
-     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The abstain.
      */
     java.lang.String getAbstain();
@@ -5843,7 +5843,7 @@ public final class GovProto {
      * abstain is the number of abstain votes on a proposal.
      * </pre>
      *
-     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for abstain.
      */
     com.google.protobuf.ByteString
@@ -5854,7 +5854,7 @@ public final class GovProto {
      * no is the number of no votes on a proposal.
      * </pre>
      *
-     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The no.
      */
     java.lang.String getNo();
@@ -5863,7 +5863,7 @@ public final class GovProto {
      * no is the number of no votes on a proposal.
      * </pre>
      *
-     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for no.
      */
     com.google.protobuf.ByteString
@@ -5874,7 +5874,7 @@ public final class GovProto {
      * no_with_veto is the number of no with veto votes on a proposal.
      * </pre>
      *
-     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The noWithVeto.
      */
     java.lang.String getNoWithVeto();
@@ -5883,7 +5883,7 @@ public final class GovProto {
      * no_with_veto is the number of no with veto votes on a proposal.
      * </pre>
      *
-     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for noWithVeto.
      */
     com.google.protobuf.ByteString
@@ -5940,7 +5940,7 @@ public final class GovProto {
      * yes is the number of yes votes on a proposal.
      * </pre>
      *
-     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The yes.
      */
     @java.lang.Override
@@ -5961,7 +5961,7 @@ public final class GovProto {
      * yes is the number of yes votes on a proposal.
      * </pre>
      *
-     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for yes.
      */
     @java.lang.Override
@@ -5987,7 +5987,7 @@ public final class GovProto {
      * abstain is the number of abstain votes on a proposal.
      * </pre>
      *
-     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The abstain.
      */
     @java.lang.Override
@@ -6008,7 +6008,7 @@ public final class GovProto {
      * abstain is the number of abstain votes on a proposal.
      * </pre>
      *
-     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for abstain.
      */
     @java.lang.Override
@@ -6034,7 +6034,7 @@ public final class GovProto {
      * no is the number of no votes on a proposal.
      * </pre>
      *
-     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The no.
      */
     @java.lang.Override
@@ -6055,7 +6055,7 @@ public final class GovProto {
      * no is the number of no votes on a proposal.
      * </pre>
      *
-     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for no.
      */
     @java.lang.Override
@@ -6081,7 +6081,7 @@ public final class GovProto {
      * no_with_veto is the number of no with veto votes on a proposal.
      * </pre>
      *
-     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The noWithVeto.
      */
     @java.lang.Override
@@ -6102,7 +6102,7 @@ public final class GovProto {
      * no_with_veto is the number of no with veto votes on a proposal.
      * </pre>
      *
-     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+     * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
      * @return The bytes for noWithVeto.
      */
     @java.lang.Override
@@ -6528,7 +6528,7 @@ public final class GovProto {
        * yes is the number of yes votes on a proposal.
        * </pre>
        *
-       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The yes.
        */
       public java.lang.String getYes() {
@@ -6548,7 +6548,7 @@ public final class GovProto {
        * yes is the number of yes votes on a proposal.
        * </pre>
        *
-       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The bytes for yes.
        */
       public com.google.protobuf.ByteString
@@ -6569,7 +6569,7 @@ public final class GovProto {
        * yes is the number of yes votes on a proposal.
        * </pre>
        *
-       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The yes to set.
        * @return This builder for chaining.
        */
@@ -6586,7 +6586,7 @@ public final class GovProto {
        * yes is the number of yes votes on a proposal.
        * </pre>
        *
-       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearYes() {
@@ -6600,7 +6600,7 @@ public final class GovProto {
        * yes is the number of yes votes on a proposal.
        * </pre>
        *
-       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string yes = 1 [json_name = "yes", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The bytes for yes to set.
        * @return This builder for chaining.
        */
@@ -6620,7 +6620,7 @@ public final class GovProto {
        * abstain is the number of abstain votes on a proposal.
        * </pre>
        *
-       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The abstain.
        */
       public java.lang.String getAbstain() {
@@ -6640,7 +6640,7 @@ public final class GovProto {
        * abstain is the number of abstain votes on a proposal.
        * </pre>
        *
-       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The bytes for abstain.
        */
       public com.google.protobuf.ByteString
@@ -6661,7 +6661,7 @@ public final class GovProto {
        * abstain is the number of abstain votes on a proposal.
        * </pre>
        *
-       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The abstain to set.
        * @return This builder for chaining.
        */
@@ -6678,7 +6678,7 @@ public final class GovProto {
        * abstain is the number of abstain votes on a proposal.
        * </pre>
        *
-       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearAbstain() {
@@ -6692,7 +6692,7 @@ public final class GovProto {
        * abstain is the number of abstain votes on a proposal.
        * </pre>
        *
-       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string abstain = 2 [json_name = "abstain", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The bytes for abstain to set.
        * @return This builder for chaining.
        */
@@ -6712,7 +6712,7 @@ public final class GovProto {
        * no is the number of no votes on a proposal.
        * </pre>
        *
-       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The no.
        */
       public java.lang.String getNo() {
@@ -6732,7 +6732,7 @@ public final class GovProto {
        * no is the number of no votes on a proposal.
        * </pre>
        *
-       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The bytes for no.
        */
       public com.google.protobuf.ByteString
@@ -6753,7 +6753,7 @@ public final class GovProto {
        * no is the number of no votes on a proposal.
        * </pre>
        *
-       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The no to set.
        * @return This builder for chaining.
        */
@@ -6770,7 +6770,7 @@ public final class GovProto {
        * no is the number of no votes on a proposal.
        * </pre>
        *
-       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearNo() {
@@ -6784,7 +6784,7 @@ public final class GovProto {
        * no is the number of no votes on a proposal.
        * </pre>
        *
-       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no = 3 [json_name = "no", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The bytes for no to set.
        * @return This builder for chaining.
        */
@@ -6804,7 +6804,7 @@ public final class GovProto {
        * no_with_veto is the number of no with veto votes on a proposal.
        * </pre>
        *
-       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The noWithVeto.
        */
       public java.lang.String getNoWithVeto() {
@@ -6824,7 +6824,7 @@ public final class GovProto {
        * no_with_veto is the number of no with veto votes on a proposal.
        * </pre>
        *
-       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return The bytes for noWithVeto.
        */
       public com.google.protobuf.ByteString
@@ -6845,7 +6845,7 @@ public final class GovProto {
        * no_with_veto is the number of no with veto votes on a proposal.
        * </pre>
        *
-       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The noWithVeto to set.
        * @return This builder for chaining.
        */
@@ -6862,7 +6862,7 @@ public final class GovProto {
        * no_with_veto is the number of no with veto votes on a proposal.
        * </pre>
        *
-       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @return This builder for chaining.
        */
       public Builder clearNoWithVeto() {
@@ -6876,7 +6876,7 @@ public final class GovProto {
        * no_with_veto is the number of no with veto votes on a proposal.
        * </pre>
        *
-       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
+       * <code>string no_with_veto = 4 [json_name = "noWithVeto", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
        * @param value The bytes for noWithVeto to set.
        * @return This builder for chaining.
        */
@@ -6996,7 +6996,7 @@ public final class GovProto {
      *
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
      * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-     *     See cosmos/gov/v1beta1/gov.proto;l=193
+     *     See cosmos/gov/v1beta1/gov.proto;l=194
      * @return The enum numeric value on the wire for option.
      */
     @java.lang.Deprecated int getOptionValue();
@@ -7009,7 +7009,7 @@ public final class GovProto {
      *
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
      * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-     *     See cosmos/gov/v1beta1/gov.proto;l=193
+     *     See cosmos/gov/v1beta1/gov.proto;l=194
      * @return The option.
      */
     @java.lang.Deprecated com.cosmos.gov.v1beta1.GovProto.VoteOption getOption();
@@ -7184,7 +7184,7 @@ public final class GovProto {
      *
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
      * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-     *     See cosmos/gov/v1beta1/gov.proto;l=193
+     *     See cosmos/gov/v1beta1/gov.proto;l=194
      * @return The enum numeric value on the wire for option.
      */
     @java.lang.Override @java.lang.Deprecated public int getOptionValue() {
@@ -7199,7 +7199,7 @@ public final class GovProto {
      *
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
      * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-     *     See cosmos/gov/v1beta1/gov.proto;l=193
+     *     See cosmos/gov/v1beta1/gov.proto;l=194
      * @return The option.
      */
     @java.lang.Override @java.lang.Deprecated public com.cosmos.gov.v1beta1.GovProto.VoteOption getOption() {
@@ -7873,7 +7873,7 @@ public final class GovProto {
        *
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
        * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-       *     See cosmos/gov/v1beta1/gov.proto;l=193
+       *     See cosmos/gov/v1beta1/gov.proto;l=194
        * @return The enum numeric value on the wire for option.
        */
       @java.lang.Override @java.lang.Deprecated public int getOptionValue() {
@@ -7888,7 +7888,7 @@ public final class GovProto {
        *
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
        * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-       *     See cosmos/gov/v1beta1/gov.proto;l=193
+       *     See cosmos/gov/v1beta1/gov.proto;l=194
        * @param value The enum numeric value on the wire for option to set.
        * @return This builder for chaining.
        */
@@ -7907,7 +7907,7 @@ public final class GovProto {
        *
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
        * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-       *     See cosmos/gov/v1beta1/gov.proto;l=193
+       *     See cosmos/gov/v1beta1/gov.proto;l=194
        * @return The option.
        */
       @java.lang.Override
@@ -7924,7 +7924,7 @@ public final class GovProto {
        *
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
        * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-       *     See cosmos/gov/v1beta1/gov.proto;l=193
+       *     See cosmos/gov/v1beta1/gov.proto;l=194
        * @param value The option to set.
        * @return This builder for chaining.
        */
@@ -7946,7 +7946,7 @@ public final class GovProto {
        *
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3 [json_name = "option", deprecated = true];</code>
        * @deprecated cosmos.gov.v1beta1.Vote.option is deprecated.
-       *     See cosmos/gov/v1beta1/gov.proto;l=193
+       *     See cosmos/gov/v1beta1/gov.proto;l=194
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearOption() {
@@ -10218,7 +10218,7 @@ public final class GovProto {
      * considered valid.
      * </pre>
      *
-     * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "quorum,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
      * @return The quorum.
      */
     com.google.protobuf.ByteString getQuorum();
@@ -10228,7 +10228,7 @@ public final class GovProto {
      * Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
      * </pre>
      *
-     * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
      * @return The threshold.
      */
     com.google.protobuf.ByteString getThreshold();
@@ -10239,7 +10239,7 @@ public final class GovProto {
      * vetoed. Default value: 1/3.
      * </pre>
      *
-     * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty"];</code>
      * @return The vetoThreshold.
      */
     com.google.protobuf.ByteString getVetoThreshold();
@@ -10294,7 +10294,7 @@ public final class GovProto {
      * considered valid.
      * </pre>
      *
-     * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "quorum,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
      * @return The quorum.
      */
     @java.lang.Override
@@ -10309,7 +10309,7 @@ public final class GovProto {
      * Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
      * </pre>
      *
-     * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
      * @return The threshold.
      */
     @java.lang.Override
@@ -10325,7 +10325,7 @@ public final class GovProto {
      * vetoed. Default value: 1/3.
      * </pre>
      *
-     * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty"];</code>
      * @return The vetoThreshold.
      */
     @java.lang.Override
@@ -10715,7 +10715,7 @@ public final class GovProto {
        * considered valid.
        * </pre>
        *
-       * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "quorum,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
        * @return The quorum.
        */
       @java.lang.Override
@@ -10728,7 +10728,7 @@ public final class GovProto {
        * considered valid.
        * </pre>
        *
-       * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "quorum,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
        * @param value The quorum to set.
        * @return This builder for chaining.
        */
@@ -10745,7 +10745,7 @@ public final class GovProto {
        * considered valid.
        * </pre>
        *
-       * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "quorum,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes quorum = 1 [json_name = "quorum", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
        * @return This builder for chaining.
        */
       public Builder clearQuorum() {
@@ -10761,7 +10761,7 @@ public final class GovProto {
        * Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
        * </pre>
        *
-       * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
        * @return The threshold.
        */
       @java.lang.Override
@@ -10773,7 +10773,7 @@ public final class GovProto {
        * Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
        * </pre>
        *
-       * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
        * @param value The threshold to set.
        * @return This builder for chaining.
        */
@@ -10789,7 +10789,7 @@ public final class GovProto {
        * Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
        * </pre>
        *
-       * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes threshold = 2 [json_name = "threshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
        * @return This builder for chaining.
        */
       public Builder clearThreshold() {
@@ -10806,7 +10806,7 @@ public final class GovProto {
        * vetoed. Default value: 1/3.
        * </pre>
        *
-       * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty"];</code>
        * @return The vetoThreshold.
        */
       @java.lang.Override
@@ -10819,7 +10819,7 @@ public final class GovProto {
        * vetoed. Default value: 1/3.
        * </pre>
        *
-       * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty"];</code>
        * @param value The vetoThreshold to set.
        * @return This builder for chaining.
        */
@@ -10836,7 +10836,7 @@ public final class GovProto {
        * vetoed. Default value: 1/3.
        * </pre>
        *
-       * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>bytes veto_threshold = 3 [json_name = "vetoThreshold", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty"];</code>
        * @return This builder for chaining.
        */
       public Builder clearVetoThreshold() {
@@ -10969,88 +10969,91 @@ public final class GovProto {
       "f/timestamp.proto\032\031google/protobuf/any.p" +
       "roto\032\036google/protobuf/duration.proto\032\031co" +
       "smos_proto/cosmos.proto\032\021amino/amino.pro" +
-      "to\"\234\001\n\022WeightedVoteOption\0226\n\006option\030\001 \001(" +
+      "to\"\242\001\n\022WeightedVoteOption\0226\n\006option\030\001 \001(" +
       "\0162\036.cosmos.gov.v1beta1.VoteOptionR\006optio" +
-      "n\022N\n\006weight\030\002 \001(\tB6\310\336\037\000\332\336\037\033cosmossdk.io/" +
-      "math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001R\006weigh" +
-      "t\"\206\001\n\014TextProposal\022\024\n\005title\030\001 \001(\tR\005title" +
-      "\022 \n\013description\030\002 \001(\tR\013description:>\350\240\037\001" +
-      "\312\264-\032cosmos.gov.v1beta1.Content\212\347\260*\027cosmo" +
-      "s-sdk/TextProposal\"\326\001\n\007Deposit\022\037\n\013propos" +
-      "al_id\030\001 \001(\004R\nproposalId\0226\n\tdepositor\030\002 \001" +
-      "(\tB\030\322\264-\024cosmos.AddressStringR\tdepositor\022" +
-      "h\n\006amount\030\003 \003(\0132\031.cosmos.base.v1beta1.Co" +
-      "inB5\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.Coins\250\347\260*\001R\006amount:\010\210\240\037\000\350\240\037\000\"\331\005\n\010" +
-      "Proposal\022\037\n\013proposal_id\030\001 \001(\004R\nproposalI" +
-      "d\022N\n\007content\030\002 \001(\0132\024.google.protobuf.Any" +
-      "B\036\312\264-\032cosmos.gov.v1beta1.ContentR\007conten" +
-      "t\022:\n\006status\030\003 \001(\0162\".cosmos.gov.v1beta1.P" +
-      "roposalStatusR\006status\022X\n\022final_tally_res" +
-      "ult\030\004 \001(\0132\037.cosmos.gov.v1beta1.TallyResu" +
-      "ltB\t\310\336\037\000\250\347\260*\001R\020finalTallyResult\022J\n\013submi" +
-      "t_time\030\005 \001(\0132\032.google.protobuf.Timestamp" +
-      "B\r\310\336\037\000\220\337\037\001\250\347\260*\001R\nsubmitTime\022S\n\020deposit_e" +
-      "nd_time\030\006 \001(\0132\032.google.protobuf.Timestam" +
-      "pB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\016depositEndTime\022u\n\rtota" +
-      "l_deposit\030\007 \003(\0132\031.cosmos.base.v1beta1.Co" +
-      "inB5\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.Coins\250\347\260*\001R\014totalDeposit\022U\n\021votin" +
-      "g_start_time\030\010 \001(\0132\032.google.protobuf.Tim" +
-      "estampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\017votingStartTime\022Q" +
-      "\n\017voting_end_time\030\t \001(\0132\032.google.protobu" +
-      "f.TimestampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\rvotingEndTim" +
-      "e:\004\350\240\037\001\"\245\002\n\013TallyResult\022=\n\003yes\030\001 \001(\tB+\310\336" +
-      "\037\000\332\336\037\025cosmossdk.io/math.Int\322\264-\ncosmos.In" +
-      "tR\003yes\022E\n\007abstain\030\002 \001(\tB+\310\336\037\000\332\336\037\025cosmoss" +
-      "dk.io/math.Int\322\264-\ncosmos.IntR\007abstain\022;\n" +
-      "\002no\030\003 \001(\tB+\310\336\037\000\332\336\037\025cosmossdk.io/math.Int" +
-      "\322\264-\ncosmos.IntR\002no\022M\n\014no_with_veto\030\004 \001(\t" +
-      "B+\310\336\037\000\332\336\037\025cosmossdk.io/math.Int\322\264-\ncosmo" +
-      "s.IntR\nnoWithVeto:\004\350\240\037\001\"\372\001\n\004Vote\0223\n\013prop" +
-      "osal_id\030\001 \001(\004B\022\352\336\037\002id\242\347\260*\002id\250\347\260*\001R\npropo" +
-      "salId\022.\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.Address" +
-      "StringR\005voter\022:\n\006option\030\003 \001(\0162\036.cosmos.g" +
-      "ov.v1beta1.VoteOptionB\002\030\001R\006option\022K\n\007opt" +
-      "ions\030\004 \003(\0132&.cosmos.gov.v1beta1.Weighted" +
-      "VoteOptionB\t\310\336\037\000\250\347\260*\001R\007options:\004\350\240\037\000\"\212\002\n" +
-      "\rDepositParams\022\205\001\n\013min_deposit\030\001 \003(\0132\031.c" +
-      "osmos.base.v1beta1.CoinBI\310\336\037\000\352\336\037\025min_dep" +
-      "osit,omitempty\252\337\037(github.com/cosmos/cosm" +
-      "os-sdk/types.CoinsR\nminDeposit\022q\n\022max_de" +
-      "posit_period\030\002 \001(\0132\031.google.protobuf.Dur" +
-      "ationB(\310\336\037\000\352\336\037\034max_deposit_period,omitem" +
-      "pty\230\337\037\001R\020maxDepositPeriod\"s\n\014VotingParam" +
-      "s\022c\n\rvoting_period\030\001 \001(\0132\031.google.protob" +
-      "uf.DurationB#\310\336\037\000\352\336\037\027voting_period,omite" +
-      "mpty\230\337\037\001R\014votingPeriod\"\312\002\n\013TallyParams\022]" +
-      "\n\006quorum\030\001 \001(\014BE\310\336\037\000\332\336\037\033cosmossdk.io/mat" +
-      "h.LegacyDec\352\336\037\020quorum,omitempty\322\264-\ncosmo" +
-      "s.DecR\006quorum\022f\n\tthreshold\030\002 \001(\014BH\310\336\037\000\332\336" +
-      "\037\033cosmossdk.io/math.LegacyDec\352\336\037\023thresho" +
-      "ld,omitempty\322\264-\ncosmos.DecR\tthreshold\022t\n" +
-      "\016veto_threshold\030\003 \001(\014BM\310\336\037\000\332\336\037\033cosmossdk" +
-      ".io/math.LegacyDec\352\336\037\030veto_threshold,omi" +
-      "tempty\322\264-\ncosmos.DecR\rvetoThreshold*\346\001\n\n" +
-      "VoteOption\022,\n\027VOTE_OPTION_UNSPECIFIED\020\000\032" +
-      "\017\212\235 \013OptionEmpty\022\"\n\017VOTE_OPTION_YES\020\001\032\r\212" +
-      "\235 \tOptionYes\022*\n\023VOTE_OPTION_ABSTAIN\020\002\032\021\212" +
-      "\235 \rOptionAbstain\022 \n\016VOTE_OPTION_NO\020\003\032\014\212\235" +
-      " \010OptionNo\0222\n\030VOTE_OPTION_NO_WITH_VETO\020\004" +
-      "\032\024\212\235 \020OptionNoWithVeto\032\004\210\243\036\000*\314\002\n\016Proposa" +
-      "lStatus\022.\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000" +
-      "\032\r\212\235 \tStatusNil\022;\n\036PROPOSAL_STATUS_DEPOS" +
-      "IT_PERIOD\020\001\032\027\212\235 \023StatusDepositPeriod\0229\n\035" +
-      "PROPOSAL_STATUS_VOTING_PERIOD\020\002\032\026\212\235 \022Sta" +
-      "tusVotingPeriod\022,\n\026PROPOSAL_STATUS_PASSE" +
-      "D\020\003\032\020\212\235 \014StatusPassed\0220\n\030PROPOSAL_STATUS" +
-      "_REJECTED\020\004\032\022\212\235 \016StatusRejected\022,\n\026PROPO" +
-      "SAL_STATUS_FAILED\020\005\032\020\212\235 \014StatusFailed\032\004\210" +
-      "\243\036\000B\260\001\n\026com.cosmos.gov.v1beta1B\010GovProto" +
-      "Z cosmossdk.io/x/gov/types/v1beta1\242\002\003CGX" +
-      "\252\002\022Cosmos.Gov.V1beta1\312\002\022Cosmos\\Gov\\V1bet" +
-      "a1\342\002\036Cosmos\\Gov\\V1beta1\\GPBMetadata\352\002\024Co" +
-      "smos::Gov::V1beta1\310\341\036\000b\006proto3"
+      "n\022T\n\006weight\030\002 \001(\tB<\310\336\037\000\332\336\037&github.com/co" +
+      "smos/cosmos-sdk/types.Dec\322\264-\ncosmos.DecR" +
+      "\006weight\"\206\001\n\014TextProposal\022\024\n\005title\030\001 \001(\tR" +
+      "\005title\022 \n\013description\030\002 \001(\tR\013description" +
+      ":>\350\240\037\001\312\264-\032cosmos.gov.v1beta1.Content\212\347\260*" +
+      "\027cosmos-sdk/TextProposal\"\326\001\n\007Deposit\022\037\n\013" +
+      "proposal_id\030\001 \001(\004R\nproposalId\0226\n\tdeposit" +
+      "or\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\tdepo" +
+      "sitor\022h\n\006amount\030\003 \003(\0132\031.cosmos.base.v1be" +
+      "ta1.CoinB5\310\336\037\000\252\337\037(github.com/cosmos/cosm" +
+      "os-sdk/types.Coins\250\347\260*\001R\006amount:\010\210\240\037\000\350\240\037" +
+      "\000\"\331\005\n\010Proposal\022\037\n\013proposal_id\030\001 \001(\004R\npro" +
+      "posalId\022N\n\007content\030\002 \001(\0132\024.google.protob" +
+      "uf.AnyB\036\312\264-\032cosmos.gov.v1beta1.ContentR\007" +
+      "content\022:\n\006status\030\003 \001(\0162\".cosmos.gov.v1b" +
+      "eta1.ProposalStatusR\006status\022X\n\022final_tal" +
+      "ly_result\030\004 \001(\0132\037.cosmos.gov.v1beta1.Tal" +
+      "lyResultB\t\310\336\037\000\250\347\260*\001R\020finalTallyResult\022J\n" +
+      "\013submit_time\030\005 \001(\0132\032.google.protobuf.Tim" +
+      "estampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\nsubmitTime\022S\n\020dep" +
+      "osit_end_time\030\006 \001(\0132\032.google.protobuf.Ti" +
+      "mestampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\016depositEndTime\022u" +
+      "\n\rtotal_deposit\030\007 \003(\0132\031.cosmos.base.v1be" +
+      "ta1.CoinB5\310\336\037\000\252\337\037(github.com/cosmos/cosm" +
+      "os-sdk/types.Coins\250\347\260*\001R\014totalDeposit\022U\n" +
+      "\021voting_start_time\030\010 \001(\0132\032.google.protob" +
+      "uf.TimestampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\017votingStart" +
+      "Time\022Q\n\017voting_end_time\030\t \001(\0132\032.google.p" +
+      "rotobuf.TimestampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\rvoting" +
+      "EndTime:\004\350\240\037\001\"\351\002\n\013TallyResult\022N\n\003yes\030\001 \001" +
+      "(\tB<\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk" +
+      "/types.Int\322\264-\ncosmos.IntR\003yes\022V\n\007abstain" +
+      "\030\002 \001(\tB<\310\336\037\000\332\336\037&github.com/cosmos/cosmos" +
+      "-sdk/types.Int\322\264-\ncosmos.IntR\007abstain\022L\n" +
+      "\002no\030\003 \001(\tB<\310\336\037\000\332\336\037&github.com/cosmos/cos" +
+      "mos-sdk/types.Int\322\264-\ncosmos.IntR\002no\022^\n\014n" +
+      "o_with_veto\030\004 \001(\tB<\310\336\037\000\332\336\037&github.com/co" +
+      "smos/cosmos-sdk/types.Int\322\264-\ncosmos.IntR" +
+      "\nnoWithVeto:\004\350\240\037\001\"\376\001\n\004Vote\0223\n\013proposal_i" +
+      "d\030\001 \001(\004B\022\352\336\037\002id\242\347\260*\002id\250\347\260*\001R\nproposalId\022" +
+      ".\n\005voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressString" +
+      "R\005voter\022:\n\006option\030\003 \001(\0162\036.cosmos.gov.v1b" +
+      "eta1.VoteOptionB\002\030\001R\006option\022K\n\007options\030\004" +
+      " \003(\0132&.cosmos.gov.v1beta1.WeightedVoteOp" +
+      "tionB\t\310\336\037\000\250\347\260*\001R\007options:\010\230\240\037\000\350\240\037\000\"\212\002\n\rD" +
+      "epositParams\022\205\001\n\013min_deposit\030\001 \003(\0132\031.cos" +
+      "mos.base.v1beta1.CoinBI\310\336\037\000\352\336\037\025min_depos" +
+      "it,omitempty\252\337\037(github.com/cosmos/cosmos" +
+      "-sdk/types.CoinsR\nminDeposit\022q\n\022max_depo" +
+      "sit_period\030\002 \001(\0132\031.google.protobuf.Durat" +
+      "ionB(\310\336\037\000\352\336\037\034max_deposit_period,omitempt" +
+      "y\230\337\037\001R\020maxDepositPeriod\"s\n\014VotingParams\022" +
+      "c\n\rvoting_period\030\001 \001(\0132\031.google.protobuf" +
+      ".DurationB#\310\336\037\000\352\336\037\027voting_period,omitemp" +
+      "ty\230\337\037\001R\014votingPeriod\"\301\002\n\013TallyParams\022Z\n\006" +
+      "quorum\030\001 \001(\014BB\310\336\037\000\332\336\037&github.com/cosmos/" +
+      "cosmos-sdk/types.Dec\352\336\037\020quorum,omitempty" +
+      "R\006quorum\022c\n\tthreshold\030\002 \001(\014BE\310\336\037\000\332\336\037&git" +
+      "hub.com/cosmos/cosmos-sdk/types.Dec\352\336\037\023t" +
+      "hreshold,omitemptyR\tthreshold\022q\n\016veto_th" +
+      "reshold\030\003 \001(\014BJ\310\336\037\000\332\336\037&github.com/cosmos" +
+      "/cosmos-sdk/types.Dec\352\336\037\030veto_threshold," +
+      "omitemptyR\rvetoThreshold*\346\001\n\nVoteOption\022" +
+      ",\n\027VOTE_OPTION_UNSPECIFIED\020\000\032\017\212\235 \013Option" +
+      "Empty\022\"\n\017VOTE_OPTION_YES\020\001\032\r\212\235 \tOptionYe" +
+      "s\022*\n\023VOTE_OPTION_ABSTAIN\020\002\032\021\212\235 \rOptionAb" +
+      "stain\022 \n\016VOTE_OPTION_NO\020\003\032\014\212\235 \010OptionNo\022" +
+      "2\n\030VOTE_OPTION_NO_WITH_VETO\020\004\032\024\212\235 \020Optio" +
+      "nNoWithVeto\032\004\210\243\036\000*\314\002\n\016ProposalStatus\022.\n\033" +
+      "PROPOSAL_STATUS_UNSPECIFIED\020\000\032\r\212\235 \tStatu" +
+      "sNil\022;\n\036PROPOSAL_STATUS_DEPOSIT_PERIOD\020\001" +
+      "\032\027\212\235 \023StatusDepositPeriod\0229\n\035PROPOSAL_ST" +
+      "ATUS_VOTING_PERIOD\020\002\032\026\212\235 \022StatusVotingPe" +
+      "riod\022,\n\026PROPOSAL_STATUS_PASSED\020\003\032\020\212\235 \014St" +
+      "atusPassed\0220\n\030PROPOSAL_STATUS_REJECTED\020\004" +
+      "\032\022\212\235 \016StatusRejected\022,\n\026PROPOSAL_STATUS_" +
+      "FAILED\020\005\032\020\212\235 \014StatusFailed\032\004\210\243\036\000B\310\001\n\026com" +
+      ".cosmos.gov.v1beta1B\010GovProtoZ0github.co" +
+      "m/cosmos/cosmos-sdk/x/gov/types/v1beta1\242" +
+      "\002\003CGX\252\002\022Cosmos.Gov.V1beta1\312\002\022Cosmos\\Gov\\" +
+      "V1beta1\342\002\036Cosmos\\Gov\\V1beta1\\GPBMetadata" +
+      "\352\002\024Cosmos::Gov::V1beta1\310\341\036\000\330\341\036\000\200\342\036\000b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -11132,10 +11135,13 @@ public final class GovProto {
     registry.add(com.gogoproto.GogoProto.goprotoEnumPrefix);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.goprotoGettersAll);
+    registry.add(com.gogoproto.GogoProto.goprotoStringer);
+    registry.add(com.gogoproto.GogoProto.goprotoStringerAll);
     registry.add(com.gogoproto.GogoProto.jsontag);
     registry.add(com.gogoproto.GogoProto.nullable);
     registry.add(com.gogoproto.GogoProto.stdduration);
     registry.add(com.gogoproto.GogoProto.stdtime);
+    registry.add(com.gogoproto.GogoProto.stringerAll);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.cosmos.base.v1beta1.CoinProto.getDescriptor();

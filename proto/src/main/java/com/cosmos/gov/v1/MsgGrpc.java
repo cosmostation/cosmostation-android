@@ -204,37 +204,6 @@ public final class MsgGrpc {
     return getUpdateParamsMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.cosmos.gov.v1.TxProto.MsgCancelProposal,
-      com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse> getCancelProposalMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CancelProposal",
-      requestType = com.cosmos.gov.v1.TxProto.MsgCancelProposal.class,
-      responseType = com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.cosmos.gov.v1.TxProto.MsgCancelProposal,
-      com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse> getCancelProposalMethod() {
-    io.grpc.MethodDescriptor<com.cosmos.gov.v1.TxProto.MsgCancelProposal, com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse> getCancelProposalMethod;
-    if ((getCancelProposalMethod = MsgGrpc.getCancelProposalMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getCancelProposalMethod = MsgGrpc.getCancelProposalMethod) == null) {
-          MsgGrpc.getCancelProposalMethod = getCancelProposalMethod =
-              io.grpc.MethodDescriptor.<com.cosmos.gov.v1.TxProto.MsgCancelProposal, com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CancelProposal"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.gov.v1.TxProto.MsgCancelProposal.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("CancelProposal"))
-              .build();
-        }
-      }
-    }
-    return getCancelProposalMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -348,17 +317,6 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.cosmos.gov.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateParamsMethod(), responseObserver);
     }
-
-    /**
-     * <pre>
-     * CancelProposal defines a method to cancel governance proposal
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     */
-    default void cancelProposal(com.cosmos.gov.v1.TxProto.MsgCancelProposal request,
-        io.grpc.stub.StreamObserver<com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCancelProposalMethod(), responseObserver);
-    }
   }
 
   /**
@@ -462,18 +420,6 @@ public final class MsgGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request, responseObserver);
     }
-
-    /**
-     * <pre>
-     * CancelProposal defines a method to cancel governance proposal
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     */
-    public void cancelProposal(com.cosmos.gov.v1.TxProto.MsgCancelProposal request,
-        io.grpc.stub.StreamObserver<com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getCancelProposalMethod(), getCallOptions()), request, responseObserver);
-    }
   }
 
   /**
@@ -556,17 +502,6 @@ public final class MsgGrpc {
     public com.cosmos.gov.v1.TxProto.MsgUpdateParamsResponse updateParams(com.cosmos.gov.v1.TxProto.MsgUpdateParams request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateParamsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * CancelProposal defines a method to cancel governance proposal
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     */
-    public com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse cancelProposal(com.cosmos.gov.v1.TxProto.MsgCancelProposal request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCancelProposalMethod(), getCallOptions(), request);
     }
   }
 
@@ -657,18 +592,6 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * CancelProposal defines a method to cancel governance proposal
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse> cancelProposal(
-        com.cosmos.gov.v1.TxProto.MsgCancelProposal request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getCancelProposalMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_SUBMIT_PROPOSAL = 0;
@@ -677,7 +600,6 @@ public final class MsgGrpc {
   private static final int METHODID_VOTE_WEIGHTED = 3;
   private static final int METHODID_DEPOSIT = 4;
   private static final int METHODID_UPDATE_PARAMS = 5;
-  private static final int METHODID_CANCEL_PROPOSAL = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -719,10 +641,6 @@ public final class MsgGrpc {
         case METHODID_UPDATE_PARAMS:
           serviceImpl.updateParams((com.cosmos.gov.v1.TxProto.MsgUpdateParams) request,
               (io.grpc.stub.StreamObserver<com.cosmos.gov.v1.TxProto.MsgUpdateParamsResponse>) responseObserver);
-          break;
-        case METHODID_CANCEL_PROPOSAL:
-          serviceImpl.cancelProposal((com.cosmos.gov.v1.TxProto.MsgCancelProposal) request,
-              (io.grpc.stub.StreamObserver<com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -784,13 +702,6 @@ public final class MsgGrpc {
               com.cosmos.gov.v1.TxProto.MsgUpdateParams,
               com.cosmos.gov.v1.TxProto.MsgUpdateParamsResponse>(
                 service, METHODID_UPDATE_PARAMS)))
-        .addMethod(
-          getCancelProposalMethod(),
-          io.grpc.stub.ServerCalls.asyncUnaryCall(
-            new MethodHandlers<
-              com.cosmos.gov.v1.TxProto.MsgCancelProposal,
-              com.cosmos.gov.v1.TxProto.MsgCancelProposalResponse>(
-                service, METHODID_CANCEL_PROPOSAL)))
         .build();
   }
 
@@ -845,7 +756,6 @@ public final class MsgGrpc {
               .addMethod(getVoteWeightedMethod())
               .addMethod(getDepositMethod())
               .addMethod(getUpdateParamsMethod())
-              .addMethod(getCancelProposalMethod())
               .build();
         }
       }

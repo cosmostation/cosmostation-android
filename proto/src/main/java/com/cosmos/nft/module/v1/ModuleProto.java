@@ -435,12 +435,12 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n!cosmos/nft/module/v1/module.proto\022\024cos" +
       "mos.nft.module.v1\032 cosmos/app/v1alpha1/m" +
-      "odule.proto\"$\n\006Module:\032\272\300\226\332\001\024\n\022cosmossdk" +
-      ".io/x/nftB\230\001\n\030com.cosmos.nft.module.v1B\013" +
-      "ModuleProto\242\002\003CNM\252\002\024Cosmos.Nft.Module.V1" +
-      "\312\002\024Cosmos\\Nft\\Module\\V1\342\002 Cosmos\\Nft\\Mod" +
-      "ule\\V1\\GPBMetadata\352\002\027Cosmos::Nft::Module" +
-      "::V1b\006proto3"
+      "odule.proto\"4\n\006Module:*\272\300\226\332\001$\n\"github.co" +
+      "m/cosmos/cosmos-sdk/x/nftB\230\001\n\030com.cosmos" +
+      ".nft.module.v1B\013ModuleProto\242\002\003CNM\252\002\024Cosm" +
+      "os.Nft.Module.V1\312\002\024Cosmos\\Nft\\Module\\V1\342" +
+      "\002 Cosmos\\Nft\\Module\\V1\\GPBMetadata\352\002\027Cos" +
+      "mos::Nft::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

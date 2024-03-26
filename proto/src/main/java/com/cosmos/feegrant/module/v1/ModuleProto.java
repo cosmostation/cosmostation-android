@@ -435,13 +435,13 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n&cosmos/feegrant/module/v1/module.proto" +
       "\022\031cosmos.feegrant.module.v1\032 cosmos/app/" +
-      "v1alpha1/module.proto\")\n\006Module:\037\272\300\226\332\001\031\n" +
-      "\027cosmossdk.io/x/feegrantB\261\001\n\035com.cosmos." +
-      "feegrant.module.v1B\013ModuleProto\242\002\003CFM\252\002\031" +
-      "Cosmos.Feegrant.Module.V1\312\002\031Cosmos\\Feegr" +
-      "ant\\Module\\V1\342\002%Cosmos\\Feegrant\\Module\\V" +
-      "1\\GPBMetadata\352\002\034Cosmos::Feegrant::Module" +
-      "::V1b\006proto3"
+      "v1alpha1/module.proto\"9\n\006Module:/\272\300\226\332\001)\n" +
+      "\'github.com/cosmos/cosmos-sdk/x/feegrant" +
+      "B\261\001\n\035com.cosmos.feegrant.module.v1B\013Modu" +
+      "leProto\242\002\003CFM\252\002\031Cosmos.Feegrant.Module.V" +
+      "1\312\002\031Cosmos\\Feegrant\\Module\\V1\342\002%Cosmos\\F" +
+      "eegrant\\Module\\V1\\GPBMetadata\352\002\034Cosmos::" +
+      "Feegrant::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

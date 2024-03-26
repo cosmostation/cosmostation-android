@@ -106,33 +106,6 @@ public final class TxProto {
      * <code>.tendermint.types.ValidatorParams validator = 4 [json_name = "validator"];</code>
      */
     com.tendermint.types.ParamsProto.ValidatorParamsOrBuilder getValidatorOrBuilder();
-
-    /**
-     * <pre>
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-     * @return Whether the abci field is set.
-     */
-    boolean hasAbci();
-    /**
-     * <pre>
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-     * @return The abci.
-     */
-    com.tendermint.types.ParamsProto.ABCIParams getAbci();
-    /**
-     * <pre>
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-     */
-    com.tendermint.types.ParamsProto.ABCIParamsOrBuilder getAbciOrBuilder();
   }
   /**
    * <pre>
@@ -323,44 +296,6 @@ public final class TxProto {
       return validator_ == null ? com.tendermint.types.ParamsProto.ValidatorParams.getDefaultInstance() : validator_;
     }
 
-    public static final int ABCI_FIELD_NUMBER = 5;
-    private com.tendermint.types.ParamsProto.ABCIParams abci_;
-    /**
-     * <pre>
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-     * @return Whether the abci field is set.
-     */
-    @java.lang.Override
-    public boolean hasAbci() {
-      return abci_ != null;
-    }
-    /**
-     * <pre>
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-     * @return The abci.
-     */
-    @java.lang.Override
-    public com.tendermint.types.ParamsProto.ABCIParams getAbci() {
-      return abci_ == null ? com.tendermint.types.ParamsProto.ABCIParams.getDefaultInstance() : abci_;
-    }
-    /**
-     * <pre>
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-     */
-    @java.lang.Override
-    public com.tendermint.types.ParamsProto.ABCIParamsOrBuilder getAbciOrBuilder() {
-      return abci_ == null ? com.tendermint.types.ParamsProto.ABCIParams.getDefaultInstance() : abci_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -387,9 +322,6 @@ public final class TxProto {
       if (validator_ != null) {
         output.writeMessage(4, getValidator());
       }
-      if (abci_ != null) {
-        output.writeMessage(5, getAbci());
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -413,10 +345,6 @@ public final class TxProto {
       if (validator_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getValidator());
-      }
-      if (abci_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, getAbci());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -450,11 +378,6 @@ public final class TxProto {
         if (!getValidator()
             .equals(other.getValidator())) return false;
       }
-      if (hasAbci() != other.hasAbci()) return false;
-      if (hasAbci()) {
-        if (!getAbci()
-            .equals(other.getAbci())) return false;
-      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -479,10 +402,6 @@ public final class TxProto {
       if (hasValidator()) {
         hash = (37 * hash) + VALIDATOR_FIELD_NUMBER;
         hash = (53 * hash) + getValidator().hashCode();
-      }
-      if (hasAbci()) {
-        hash = (37 * hash) + ABCI_FIELD_NUMBER;
-        hash = (53 * hash) + getAbci().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -635,11 +554,6 @@ public final class TxProto {
           validatorBuilder_.dispose();
           validatorBuilder_ = null;
         }
-        abci_ = null;
-        if (abciBuilder_ != null) {
-          abciBuilder_.dispose();
-          abciBuilder_ = null;
-        }
         return this;
       }
 
@@ -690,11 +604,6 @@ public final class TxProto {
           result.validator_ = validatorBuilder_ == null
               ? validator_
               : validatorBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.abci_ = abciBuilder_ == null
-              ? abci_
-              : abciBuilder_.build();
         }
       }
 
@@ -756,9 +665,6 @@ public final class TxProto {
         if (other.hasValidator()) {
           mergeValidator(other.getValidator());
         }
-        if (other.hasAbci()) {
-          mergeAbci(other.getAbci());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -811,13 +717,6 @@ public final class TxProto {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
-              case 42: {
-                input.readMessage(
-                    getAbciFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000010;
-                break;
-              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1355,161 +1254,6 @@ public final class TxProto {
         }
         return validatorBuilder_;
       }
-
-      private com.tendermint.types.ParamsProto.ABCIParams abci_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.tendermint.types.ParamsProto.ABCIParams, com.tendermint.types.ParamsProto.ABCIParams.Builder, com.tendermint.types.ParamsProto.ABCIParamsOrBuilder> abciBuilder_;
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       * @return Whether the abci field is set.
-       */
-      public boolean hasAbci() {
-        return ((bitField0_ & 0x00000010) != 0);
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       * @return The abci.
-       */
-      public com.tendermint.types.ParamsProto.ABCIParams getAbci() {
-        if (abciBuilder_ == null) {
-          return abci_ == null ? com.tendermint.types.ParamsProto.ABCIParams.getDefaultInstance() : abci_;
-        } else {
-          return abciBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      public Builder setAbci(com.tendermint.types.ParamsProto.ABCIParams value) {
-        if (abciBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          abci_ = value;
-        } else {
-          abciBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      public Builder setAbci(
-          com.tendermint.types.ParamsProto.ABCIParams.Builder builderForValue) {
-        if (abciBuilder_ == null) {
-          abci_ = builderForValue.build();
-        } else {
-          abciBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      public Builder mergeAbci(com.tendermint.types.ParamsProto.ABCIParams value) {
-        if (abciBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) != 0) &&
-            abci_ != null &&
-            abci_ != com.tendermint.types.ParamsProto.ABCIParams.getDefaultInstance()) {
-            getAbciBuilder().mergeFrom(value);
-          } else {
-            abci_ = value;
-          }
-        } else {
-          abciBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      public Builder clearAbci() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        abci_ = null;
-        if (abciBuilder_ != null) {
-          abciBuilder_.dispose();
-          abciBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      public com.tendermint.types.ParamsProto.ABCIParams.Builder getAbciBuilder() {
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return getAbciFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      public com.tendermint.types.ParamsProto.ABCIParamsOrBuilder getAbciOrBuilder() {
-        if (abciBuilder_ != null) {
-          return abciBuilder_.getMessageOrBuilder();
-        } else {
-          return abci_ == null ?
-              com.tendermint.types.ParamsProto.ABCIParams.getDefaultInstance() : abci_;
-        }
-      }
-      /**
-       * <pre>
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.tendermint.types.ABCIParams abci = 5 [json_name = "abci"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.tendermint.types.ParamsProto.ABCIParams, com.tendermint.types.ParamsProto.ABCIParams.Builder, com.tendermint.types.ParamsProto.ABCIParamsOrBuilder> 
-          getAbciFieldBuilder() {
-        if (abciBuilder_ == null) {
-          abciBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.tendermint.types.ParamsProto.ABCIParams, com.tendermint.types.ParamsProto.ABCIParams.Builder, com.tendermint.types.ParamsProto.ABCIParamsOrBuilder>(
-                  getAbci(),
-                  getParentForChildren(),
-                  isClean());
-          abci_ = null;
-        }
-        return abciBuilder_;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2001,32 +1745,28 @@ public final class TxProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\034cosmos/consensus/v1/tx.proto\022\023cosmos.c" +
-      "onsensus.v1\032\021amino/amino.proto\032\031cosmos_p" +
-      "roto/cosmos.proto\032\027cosmos/msg/v1/msg.pro" +
-      "to\032\035tendermint/types/params.proto\"\352\002\n\017Ms" +
-      "gUpdateParams\0226\n\tauthority\030\001 \001(\tB\030\322\264-\024co" +
-      "smos.AddressStringR\tauthority\0223\n\005block\030\002" +
-      " \001(\0132\035.tendermint.types.BlockParamsR\005blo" +
-      "ck\022<\n\010evidence\030\003 \001(\0132 .tendermint.types." +
-      "EvidenceParamsR\010evidence\022?\n\tvalidator\030\004 " +
-      "\001(\0132!.tendermint.types.ValidatorParamsR\t" +
-      "validator\0220\n\004abci\030\005 \001(\0132\034.tendermint.typ" +
-      "es.ABCIParamsR\004abci:9\202\347\260*\tauthority\212\347\260*&" +
-      "cosmos-sdk/x/consensus/MsgUpdateParams\"\031" +
-      "\n\027MsgUpdateParamsResponse2p\n\003Msg\022b\n\014Upda" +
-      "teParams\022$.cosmos.consensus.v1.MsgUpdate" +
-      "Params\032,.cosmos.consensus.v1.MsgUpdatePa" +
-      "ramsResponse\032\005\200\347\260*\001B\276\001\n\027com.cosmos.conse" +
-      "nsus.v1B\007TxProtoZ.github.com/cosmos/cosm" +
-      "os-sdk/x/consensus/types\242\002\003CCX\252\002\023Cosmos." +
-      "Consensus.V1\312\002\023Cosmos\\Consensus\\V1\342\002\037Cos" +
-      "mos\\Consensus\\V1\\GPBMetadata\352\002\025Cosmos::C" +
-      "onsensus::V1b\006proto3"
+      "onsensus.v1\032\031cosmos_proto/cosmos.proto\032\027" +
+      "cosmos/msg/v1/msg.proto\032\035tendermint/type" +
+      "s/params.proto\"\215\002\n\017MsgUpdateParams\0226\n\tau" +
+      "thority\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR" +
+      "\tauthority\0223\n\005block\030\002 \001(\0132\035.tendermint.t" +
+      "ypes.BlockParamsR\005block\022<\n\010evidence\030\003 \001(" +
+      "\0132 .tendermint.types.EvidenceParamsR\010evi" +
+      "dence\022?\n\tvalidator\030\004 \001(\0132!.tendermint.ty" +
+      "pes.ValidatorParamsR\tvalidator:\016\202\347\260*\taut" +
+      "hority\"\031\n\027MsgUpdateParamsResponse2i\n\003Msg" +
+      "\022b\n\014UpdateParams\022$.cosmos.consensus.v1.M" +
+      "sgUpdateParams\032,.cosmos.consensus.v1.Msg" +
+      "UpdateParamsResponseB\276\001\n\027com.cosmos.cons" +
+      "ensus.v1B\007TxProtoZ.github.com/cosmos/cos" +
+      "mos-sdk/x/consensus/types\242\002\003CCX\252\002\023Cosmos" +
+      ".Consensus.V1\312\002\023Cosmos\\Consensus\\V1\342\002\037Co" +
+      "smos\\Consensus\\V1\\GPBMetadata\352\002\025Cosmos::" +
+      "Consensus::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.amino.AminoProto.getDescriptor(),
           com.cosmos_proto.CosmosProto.getDescriptor(),
           com.cosmos.msg.v1.MsgProto.getDescriptor(),
           com.tendermint.types.ParamsProto.getDescriptor(),
@@ -2036,7 +1776,7 @@ public final class TxProto {
     internal_static_cosmos_consensus_v1_MsgUpdateParams_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_consensus_v1_MsgUpdateParams_descriptor,
-        new java.lang.String[] { "Authority", "Block", "Evidence", "Validator", "Abci", });
+        new java.lang.String[] { "Authority", "Block", "Evidence", "Validator", });
     internal_static_cosmos_consensus_v1_MsgUpdateParamsResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_cosmos_consensus_v1_MsgUpdateParamsResponse_fieldAccessorTable = new
@@ -2045,13 +1785,10 @@ public final class TxProto {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.amino.AminoProto.name);
-    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
     registry.add(com.cosmos_proto.CosmosProto.scalar);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.amino.AminoProto.getDescriptor();
     com.cosmos_proto.CosmosProto.getDescriptor();
     com.cosmos.msg.v1.MsgProto.getDescriptor();
     com.tendermint.types.ParamsProto.getDescriptor();

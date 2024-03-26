@@ -813,15 +813,16 @@ public final class ModuleProto {
       "osmos.group.module.v1\032 cosmos/app/v1alph" +
       "a1/module.proto\032\024gogoproto/gogo.proto\032\036g" +
       "oogle/protobuf/duration.proto\032\021amino/ami" +
-      "no.proto\"\254\001\n\006Module\022Z\n\024max_execution_per" +
+      "no.proto\"\274\001\n\006Module\022Z\n\024max_execution_per" +
       "iod\030\001 \001(\0132\031.google.protobuf.DurationB\r\310\336" +
       "\037\000\230\337\037\001\250\347\260*\001R\022maxExecutionPeriod\022(\n\020max_m" +
-      "etadata_len\030\002 \001(\004R\016maxMetadataLen:\034\272\300\226\332\001" +
-      "\026\n\024cosmossdk.io/x/groupB\242\001\n\032com.cosmos.g" +
-      "roup.module.v1B\013ModuleProto\242\002\003CGM\252\002\026Cosm" +
-      "os.Group.Module.V1\312\002\026Cosmos\\Group\\Module" +
-      "\\V1\342\002\"Cosmos\\Group\\Module\\V1\\GPBMetadata" +
-      "\352\002\031Cosmos::Group::Module::V1b\006proto3"
+      "etadata_len\030\002 \001(\004R\016maxMetadataLen:,\272\300\226\332\001" +
+      "&\n$github.com/cosmos/cosmos-sdk/x/groupB" +
+      "\242\001\n\032com.cosmos.group.module.v1B\013ModulePr" +
+      "oto\242\002\003CGM\252\002\026Cosmos.Group.Module.V1\312\002\026Cos" +
+      "mos\\Group\\Module\\V1\342\002\"Cosmos\\Group\\Modul" +
+      "e\\V1\\GPBMetadata\352\002\031Cosmos::Group::Module" +
+      "::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

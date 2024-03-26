@@ -162,7 +162,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * deposit_params defines all the parameters related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -171,7 +171,7 @@ public final class GenesisProto {
     boolean hasDepositParams();
     /**
      * <pre>
-     * deposit_params defines all the parameters related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -180,7 +180,7 @@ public final class GenesisProto {
     com.cosmos.gov.v1beta1.GovProto.DepositParams getDepositParams();
     /**
      * <pre>
-     * deposit_params defines all the parameters related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -189,7 +189,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * voting_params defines all the parameters related to voting.
+     * params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -198,7 +198,7 @@ public final class GenesisProto {
     boolean hasVotingParams();
     /**
      * <pre>
-     * voting_params defines all the parameters related to voting.
+     * params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -207,7 +207,7 @@ public final class GenesisProto {
     com.cosmos.gov.v1beta1.GovProto.VotingParams getVotingParams();
     /**
      * <pre>
-     * voting_params defines all the parameters related to voting.
+     * params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -216,7 +216,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * tally_params defines all the parameters related to tally.
+     * params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -225,7 +225,7 @@ public final class GenesisProto {
     boolean hasTallyParams();
     /**
      * <pre>
-     * tally_params defines all the parameters related to tally.
+     * params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -234,7 +234,7 @@ public final class GenesisProto {
     com.cosmos.gov.v1beta1.GovProto.TallyParams getTallyParams();
     /**
      * <pre>
-     * tally_params defines all the parameters related to tally.
+     * params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -485,7 +485,7 @@ public final class GenesisProto {
     private com.cosmos.gov.v1beta1.GovProto.DepositParams depositParams_;
     /**
      * <pre>
-     * deposit_params defines all the parameters related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -497,7 +497,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * deposit_params defines all the parameters related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -509,7 +509,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * deposit_params defines all the parameters related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -523,7 +523,7 @@ public final class GenesisProto {
     private com.cosmos.gov.v1beta1.GovProto.VotingParams votingParams_;
     /**
      * <pre>
-     * voting_params defines all the parameters related to voting.
+     * params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -535,7 +535,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * voting_params defines all the parameters related to voting.
+     * params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -547,7 +547,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * voting_params defines all the parameters related to voting.
+     * params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -561,7 +561,7 @@ public final class GenesisProto {
     private com.cosmos.gov.v1beta1.GovProto.TallyParams tallyParams_;
     /**
      * <pre>
-     * tally_params defines all the parameters related to tally.
+     * params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -573,7 +573,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * tally_params defines all the parameters related to tally.
+     * params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -585,7 +585,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * tally_params defines all the parameters related to tally.
+     * params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2226,7 +2226,7 @@ public final class GenesisProto {
           com.cosmos.gov.v1beta1.GovProto.DepositParams, com.cosmos.gov.v1beta1.GovProto.DepositParams.Builder, com.cosmos.gov.v1beta1.GovProto.DepositParamsOrBuilder> depositParamsBuilder_;
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2237,7 +2237,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2252,7 +2252,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2272,7 +2272,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2290,7 +2290,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2313,7 +2313,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2330,7 +2330,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2342,7 +2342,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2357,7 +2357,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * deposit_params defines all the parameters related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [json_name = "depositParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2381,7 +2381,7 @@ public final class GenesisProto {
           com.cosmos.gov.v1beta1.GovProto.VotingParams, com.cosmos.gov.v1beta1.GovProto.VotingParams.Builder, com.cosmos.gov.v1beta1.GovProto.VotingParamsOrBuilder> votingParamsBuilder_;
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2392,7 +2392,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2407,7 +2407,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2427,7 +2427,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2445,7 +2445,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2468,7 +2468,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2485,7 +2485,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2497,7 +2497,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2512,7 +2512,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * voting_params defines all the parameters related to voting.
+       * params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [json_name = "votingParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2536,7 +2536,7 @@ public final class GenesisProto {
           com.cosmos.gov.v1beta1.GovProto.TallyParams, com.cosmos.gov.v1beta1.GovProto.TallyParams.Builder, com.cosmos.gov.v1beta1.GovProto.TallyParamsOrBuilder> tallyParamsBuilder_;
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2547,7 +2547,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2562,7 +2562,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2582,7 +2582,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2600,7 +2600,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2623,7 +2623,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2640,7 +2640,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2652,7 +2652,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2667,7 +2667,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * tally_params defines all the parameters related to tally.
+       * params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [json_name = "tallyParams", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -2779,12 +2779,12 @@ public final class GenesisProto {
       "params\030\006 \001(\0132 .cosmos.gov.v1beta1.Voting" +
       "ParamsB\t\310\336\037\000\250\347\260*\001R\014votingParams\022M\n\014tally" +
       "_params\030\007 \001(\0132\037.cosmos.gov.v1beta1.Tally" +
-      "ParamsB\t\310\336\037\000\250\347\260*\001R\013tallyParamsB\260\001\n\026com.c" +
-      "osmos.gov.v1beta1B\014GenesisProtoZ cosmoss" +
-      "dk.io/x/gov/types/v1beta1\242\002\003CGX\252\002\022Cosmos" +
-      ".Gov.V1beta1\312\002\022Cosmos\\Gov\\V1beta1\342\002\036Cosm" +
-      "os\\Gov\\V1beta1\\GPBMetadata\352\002\024Cosmos::Gov" +
-      "::V1beta1b\006proto3"
+      "ParamsB\t\310\336\037\000\250\347\260*\001R\013tallyParamsB\300\001\n\026com.c" +
+      "osmos.gov.v1beta1B\014GenesisProtoZ0github." +
+      "com/cosmos/cosmos-sdk/x/gov/types/v1beta" +
+      "1\242\002\003CGX\252\002\022Cosmos.Gov.V1beta1\312\002\022Cosmos\\Go" +
+      "v\\V1beta1\342\002\036Cosmos\\Gov\\V1beta1\\GPBMetada" +
+      "ta\352\002\024Cosmos::Gov::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

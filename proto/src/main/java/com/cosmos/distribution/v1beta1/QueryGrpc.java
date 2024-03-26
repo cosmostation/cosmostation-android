@@ -328,6 +328,37 @@ public final class QueryGrpc {
     return getCommunityPoolMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest,
+      com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse> getTokenizeShareRecordRewardMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TokenizeShareRecordReward",
+      requestType = com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.class,
+      responseType = com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest,
+      com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse> getTokenizeShareRecordRewardMethod() {
+    io.grpc.MethodDescriptor<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest, com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse> getTokenizeShareRecordRewardMethod;
+    if ((getTokenizeShareRecordRewardMethod = QueryGrpc.getTokenizeShareRecordRewardMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getTokenizeShareRecordRewardMethod = QueryGrpc.getTokenizeShareRecordRewardMethod) == null) {
+          QueryGrpc.getTokenizeShareRecordRewardMethod = getTokenizeShareRecordRewardMethod =
+              io.grpc.MethodDescriptor.<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest, com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "TokenizeShareRecordReward"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("TokenizeShareRecordReward"))
+              .build();
+        }
+      }
+    }
+    return getTokenizeShareRecordRewardMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -441,7 +472,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DelegationTotalRewards queries the total rewards accrued by each
+     * DelegationTotalRewards queries the total rewards accrued by a each
      * validator.
      * </pre>
      */
@@ -473,14 +504,21 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
-     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
-     * Since: cosmos-sdk 0.50
      * </pre>
      */
-    @java.lang.Deprecated
     default void communityPool(com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request,
         io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCommunityPoolMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * TokenizeShareRecordReward queries the tokenize share record rewards
+     * </pre>
+     */
+    default void tokenizeShareRecordReward(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest request,
+        io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getTokenizeShareRecordRewardMethod(), responseObserver);
     }
   }
 
@@ -585,7 +623,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DelegationTotalRewards queries the total rewards accrued by each
+     * DelegationTotalRewards queries the total rewards accrued by a each
      * validator.
      * </pre>
      */
@@ -620,15 +658,23 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
-     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
-     * Since: cosmos-sdk 0.50
      * </pre>
      */
-    @java.lang.Deprecated
     public void communityPool(com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request,
         io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCommunityPoolMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * TokenizeShareRecordReward queries the tokenize share record rewards
+     * </pre>
+     */
+    public void tokenizeShareRecordReward(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest request,
+        io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getTokenizeShareRecordRewardMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -713,7 +759,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DelegationTotalRewards queries the total rewards accrued by each
+     * DelegationTotalRewards queries the total rewards accrued by a each
      * validator.
      * </pre>
      */
@@ -745,14 +791,21 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
-     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
-     * Since: cosmos-sdk 0.50
      * </pre>
      */
-    @java.lang.Deprecated
     public com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse communityPool(com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCommunityPoolMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * TokenizeShareRecordReward queries the tokenize share record rewards
+     * </pre>
+     */
+    public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse tokenizeShareRecordReward(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getTokenizeShareRecordRewardMethod(), getCallOptions(), request);
     }
   }
 
@@ -843,7 +896,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * DelegationTotalRewards queries the total rewards accrued by each
+     * DelegationTotalRewards queries the total rewards accrued by a each
      * validator.
      * </pre>
      */
@@ -878,15 +931,23 @@ public final class QueryGrpc {
     /**
      * <pre>
      * CommunityPool queries the community pool coins.
-     * Deprecated: Prefer to use x/protocolpool module's CommunityPool rpc method.
-     * Since: cosmos-sdk 0.50
      * </pre>
      */
-    @java.lang.Deprecated
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse> communityPool(
         com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCommunityPoolMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * TokenizeShareRecordReward queries the tokenize share record rewards
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse> tokenizeShareRecordReward(
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getTokenizeShareRecordRewardMethod(), getCallOptions()), request);
     }
   }
 
@@ -900,6 +961,7 @@ public final class QueryGrpc {
   private static final int METHODID_DELEGATOR_VALIDATORS = 7;
   private static final int METHODID_DELEGATOR_WITHDRAW_ADDRESS = 8;
   private static final int METHODID_COMMUNITY_POOL = 9;
+  private static final int METHODID_TOKENIZE_SHARE_RECORD_REWARD = 10;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -957,6 +1019,10 @@ public final class QueryGrpc {
         case METHODID_COMMUNITY_POOL:
           serviceImpl.communityPool((com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest) request,
               (io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse>) responseObserver);
+          break;
+        case METHODID_TOKENIZE_SHARE_RECORD_REWARD:
+          serviceImpl.tokenizeShareRecordReward((com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest) request,
+              (io.grpc.stub.StreamObserver<com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1046,6 +1112,13 @@ public final class QueryGrpc {
               com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolRequest,
               com.cosmos.distribution.v1beta1.QueryProto.QueryCommunityPoolResponse>(
                 service, METHODID_COMMUNITY_POOL)))
+        .addMethod(
+          getTokenizeShareRecordRewardMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest,
+              com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse>(
+                service, METHODID_TOKENIZE_SHARE_RECORD_REWARD)))
         .build();
   }
 
@@ -1104,6 +1177,7 @@ public final class QueryGrpc {
               .addMethod(getDelegatorValidatorsMethod())
               .addMethod(getDelegatorWithdrawAddressMethod())
               .addMethod(getCommunityPoolMethod())
+              .addMethod(getTokenizeShareRecordRewardMethod())
               .build();
         }
       }

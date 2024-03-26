@@ -294,36 +294,6 @@ public final class GenesisProto {
      * <code>.cosmos.gov.v1.Params params = 8 [json_name = "params"];</code>
      */
     com.cosmos.gov.v1.GovProto.ParamsOrBuilder getParamsOrBuilder();
-
-    /**
-     * <pre>
-     * The constitution allows builders to lay a foundation and define purpose.
-     * This is an immutable string set in genesis.
-     * There are no amendments, to go outside of scope, just fork.
-     * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string constitution = 9 [json_name = "constitution"];</code>
-     * @return The constitution.
-     */
-    java.lang.String getConstitution();
-    /**
-     * <pre>
-     * The constitution allows builders to lay a foundation and define purpose.
-     * This is an immutable string set in genesis.
-     * There are no amendments, to go outside of scope, just fork.
-     * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string constitution = 9 [json_name = "constitution"];</code>
-     * @return The bytes for constitution.
-     */
-    com.google.protobuf.ByteString
-        getConstitutionBytes();
   }
   /**
    * <pre>
@@ -345,7 +315,6 @@ public final class GenesisProto {
       deposits_ = java.util.Collections.emptyList();
       votes_ = java.util.Collections.emptyList();
       proposals_ = java.util.Collections.emptyList();
-      constitution_ = "";
     }
 
     @java.lang.Override
@@ -745,63 +714,6 @@ public final class GenesisProto {
       return params_ == null ? com.cosmos.gov.v1.GovProto.Params.getDefaultInstance() : params_;
     }
 
-    public static final int CONSTITUTION_FIELD_NUMBER = 9;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object constitution_ = "";
-    /**
-     * <pre>
-     * The constitution allows builders to lay a foundation and define purpose.
-     * This is an immutable string set in genesis.
-     * There are no amendments, to go outside of scope, just fork.
-     * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string constitution = 9 [json_name = "constitution"];</code>
-     * @return The constitution.
-     */
-    @java.lang.Override
-    public java.lang.String getConstitution() {
-      java.lang.Object ref = constitution_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        constitution_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * The constitution allows builders to lay a foundation and define purpose.
-     * This is an immutable string set in genesis.
-     * There are no amendments, to go outside of scope, just fork.
-     * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string constitution = 9 [json_name = "constitution"];</code>
-     * @return The bytes for constitution.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getConstitutionBytes() {
-      java.lang.Object ref = constitution_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        constitution_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -839,9 +751,6 @@ public final class GenesisProto {
       }
       if (params_ != null) {
         output.writeMessage(8, getParams());
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(constitution_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, constitution_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -883,9 +792,6 @@ public final class GenesisProto {
       if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, getParams());
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(constitution_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, constitution_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -930,8 +836,6 @@ public final class GenesisProto {
         if (!getParams()
             .equals(other.getParams())) return false;
       }
-      if (!getConstitution()
-          .equals(other.getConstitution())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -974,8 +878,6 @@ public final class GenesisProto {
         hash = (37 * hash) + PARAMS_FIELD_NUMBER;
         hash = (53 * hash) + getParams().hashCode();
       }
-      hash = (37 * hash) + CONSTITUTION_FIELD_NUMBER;
-      hash = (53 * hash) + getConstitution().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1153,7 +1055,6 @@ public final class GenesisProto {
           paramsBuilder_.dispose();
           paramsBuilder_ = null;
         }
-        constitution_ = "";
         return this;
       }
 
@@ -1240,9 +1141,6 @@ public final class GenesisProto {
           result.params_ = paramsBuilder_ == null
               ? params_
               : paramsBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.constitution_ = constitution_;
         }
       }
 
@@ -1383,11 +1281,6 @@ public final class GenesisProto {
         if (other.hasParams()) {
           mergeParams(other.getParams());
         }
-        if (!other.getConstitution().isEmpty()) {
-          constitution_ = other.constitution_;
-          bitField0_ |= 0x00000100;
-          onChanged();
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1486,11 +1379,6 @@ public final class GenesisProto {
                 bitField0_ |= 0x00000080;
                 break;
               } // case 66
-              case 74: {
-                constitution_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000100;
-                break;
-              } // case 74
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3164,123 +3052,6 @@ public final class GenesisProto {
         }
         return paramsBuilder_;
       }
-
-      private java.lang.Object constitution_ = "";
-      /**
-       * <pre>
-       * The constitution allows builders to lay a foundation and define purpose.
-       * This is an immutable string set in genesis.
-       * There are no amendments, to go outside of scope, just fork.
-       * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string constitution = 9 [json_name = "constitution"];</code>
-       * @return The constitution.
-       */
-      public java.lang.String getConstitution() {
-        java.lang.Object ref = constitution_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          constitution_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The constitution allows builders to lay a foundation and define purpose.
-       * This is an immutable string set in genesis.
-       * There are no amendments, to go outside of scope, just fork.
-       * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string constitution = 9 [json_name = "constitution"];</code>
-       * @return The bytes for constitution.
-       */
-      public com.google.protobuf.ByteString
-          getConstitutionBytes() {
-        java.lang.Object ref = constitution_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          constitution_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The constitution allows builders to lay a foundation and define purpose.
-       * This is an immutable string set in genesis.
-       * There are no amendments, to go outside of scope, just fork.
-       * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string constitution = 9 [json_name = "constitution"];</code>
-       * @param value The constitution to set.
-       * @return This builder for chaining.
-       */
-      public Builder setConstitution(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        constitution_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The constitution allows builders to lay a foundation and define purpose.
-       * This is an immutable string set in genesis.
-       * There are no amendments, to go outside of scope, just fork.
-       * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string constitution = 9 [json_name = "constitution"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearConstitution() {
-        constitution_ = getDefaultInstance().getConstitution();
-        bitField0_ = (bitField0_ & ~0x00000100);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The constitution allows builders to lay a foundation and define purpose.
-       * This is an immutable string set in genesis.
-       * There are no amendments, to go outside of scope, just fork.
-       * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string constitution = 9 [json_name = "constitution"];</code>
-       * @param value The bytes for constitution to set.
-       * @return This builder for chaining.
-       */
-      public Builder setConstitutionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        constitution_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -3360,7 +3131,7 @@ public final class GenesisProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\033cosmos/gov/v1/genesis.proto\022\rcosmos.go" +
-      "v.v1\032\027cosmos/gov/v1/gov.proto\"\373\003\n\014Genesi" +
+      "v.v1\032\027cosmos/gov/v1/gov.proto\"\327\003\n\014Genesi" +
       "sState\0220\n\024starting_proposal_id\030\001 \001(\004R\022st" +
       "artingProposalId\0222\n\010deposits\030\002 \003(\0132\026.cos" +
       "mos.gov.v1.DepositR\010deposits\022)\n\005votes\030\003 " +
@@ -3372,12 +3143,11 @@ public final class GenesisProto {
       "otingParamsB\002\030\001R\014votingParams\022A\n\014tally_p" +
       "arams\030\007 \001(\0132\032.cosmos.gov.v1.TallyParamsB" +
       "\002\030\001R\013tallyParams\022-\n\006params\030\010 \001(\0132\025.cosmo" +
-      "s.gov.v1.ParamsR\006params\022\"\n\014constitution\030" +
-      "\t \001(\tR\014constitutionB\222\001\n\021com.cosmos.gov.v" +
-      "1B\014GenesisProtoZ\033cosmossdk.io/x/gov/type" +
-      "s/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCosmos\\Gov\\" +
-      "V1\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352\002\017Cosmos:" +
-      ":Gov::V1b\006proto3"
+      "s.gov.v1.ParamsR\006paramsB\242\001\n\021com.cosmos.g" +
+      "ov.v1B\014GenesisProtoZ+github.com/cosmos/c" +
+      "osmos-sdk/x/gov/types/v1\242\002\003CGX\252\002\rCosmos." +
+      "Gov.V1\312\002\rCosmos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\G" +
+      "PBMetadata\352\002\017Cosmos::Gov::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3389,7 +3159,7 @@ public final class GenesisProto {
     internal_static_cosmos_gov_v1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_GenesisState_descriptor,
-        new java.lang.String[] { "StartingProposalId", "Deposits", "Votes", "Proposals", "DepositParams", "VotingParams", "TallyParams", "Params", "Constitution", });
+        new java.lang.String[] { "StartingProposalId", "Deposits", "Votes", "Proposals", "DepositParams", "VotingParams", "TallyParams", "Params", });
     com.cosmos.gov.v1.GovProto.getDescriptor();
   }
 

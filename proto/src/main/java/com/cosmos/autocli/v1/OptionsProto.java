@@ -20,7 +20,7 @@ public final class OptionsProto {
 
     /**
      * <pre>
-     * tx describes the tx commands for the module.
+     * tx describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -29,7 +29,7 @@ public final class OptionsProto {
     boolean hasTx();
     /**
      * <pre>
-     * tx describes the tx commands for the module.
+     * tx describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -38,7 +38,7 @@ public final class OptionsProto {
     com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor getTx();
     /**
      * <pre>
-     * tx describes the tx commands for the module.
+     * tx describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -47,7 +47,7 @@ public final class OptionsProto {
 
     /**
      * <pre>
-     * query describes the queries commands for the module.
+     * query describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -56,7 +56,7 @@ public final class OptionsProto {
     boolean hasQuery();
     /**
      * <pre>
-     * query describes the queries commands for the module.
+     * query describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -65,7 +65,7 @@ public final class OptionsProto {
     com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor getQuery();
     /**
      * <pre>
-     * query describes the queries commands for the module.
+     * query describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -115,7 +115,7 @@ public final class OptionsProto {
     private com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor tx_;
     /**
      * <pre>
-     * tx describes the tx commands for the module.
+     * tx describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -127,7 +127,7 @@ public final class OptionsProto {
     }
     /**
      * <pre>
-     * tx describes the tx commands for the module.
+     * tx describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -139,7 +139,7 @@ public final class OptionsProto {
     }
     /**
      * <pre>
-     * tx describes the tx commands for the module.
+     * tx describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -153,7 +153,7 @@ public final class OptionsProto {
     private com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor query_;
     /**
      * <pre>
-     * query describes the queries commands for the module.
+     * query describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -165,7 +165,7 @@ public final class OptionsProto {
     }
     /**
      * <pre>
-     * query describes the queries commands for the module.
+     * query describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -177,7 +177,7 @@ public final class OptionsProto {
     }
     /**
      * <pre>
-     * query describes the queries commands for the module.
+     * query describes the tx command for the module.
      * </pre>
      *
      * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -570,7 +570,7 @@ public final class OptionsProto {
           com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor, com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor.Builder, com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptorOrBuilder> txBuilder_;
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -581,7 +581,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -596,7 +596,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -616,7 +616,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -634,7 +634,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -657,7 +657,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -674,7 +674,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -686,7 +686,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -701,7 +701,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * tx describes the tx commands for the module.
+       * tx describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor tx = 1 [json_name = "tx"];</code>
@@ -725,7 +725,7 @@ public final class OptionsProto {
           com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor, com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor.Builder, com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptorOrBuilder> queryBuilder_;
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -736,7 +736,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -751,7 +751,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -771,7 +771,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -789,7 +789,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -812,7 +812,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -829,7 +829,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -841,7 +841,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -856,7 +856,7 @@ public final class OptionsProto {
       }
       /**
        * <pre>
-       * query describes the queries commands for the module.
+       * query describes the tx command for the module.
        * </pre>
        *
        * <code>.cosmos.autocli.v1.ServiceCommandDescriptor query = 2 [json_name = "query"];</code>
@@ -1083,18 +1083,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue);
      */
     com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor getSubCommandsOrThrow(
         java.lang.String key);
-
-    /**
-     * <pre>
-     * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
-     * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
-     * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
-     * </pre>
-     *
-     * <code>bool enhance_custom_command = 4 [json_name = "enhanceCustomCommand"];</code>
-     * @return The enhanceCustomCommand.
-     */
-    boolean getEnhanceCustomCommand();
   }
   /**
    * <pre>
@@ -1374,23 +1362,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
       return map.get(key);
     }
 
-    public static final int ENHANCE_CUSTOM_COMMAND_FIELD_NUMBER = 4;
-    private boolean enhanceCustomCommand_ = false;
-    /**
-     * <pre>
-     * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
-     * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
-     * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
-     * </pre>
-     *
-     * <code>bool enhance_custom_command = 4 [json_name = "enhanceCustomCommand"];</code>
-     * @return The enhanceCustomCommand.
-     */
-    @java.lang.Override
-    public boolean getEnhanceCustomCommand() {
-      return enhanceCustomCommand_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1417,9 +1388,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
           internalGetSubCommands(),
           SubCommandsDefaultEntryHolder.defaultEntry,
           3);
-      if (enhanceCustomCommand_ != false) {
-        output.writeBool(4, enhanceCustomCommand_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1446,10 +1414,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
         size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(3, subCommands__);
       }
-      if (enhanceCustomCommand_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, enhanceCustomCommand_);
-      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1471,8 +1435,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
           .equals(other.getRpcCommandOptionsList())) return false;
       if (!internalGetSubCommands().equals(
           other.internalGetSubCommands())) return false;
-      if (getEnhanceCustomCommand()
-          != other.getEnhanceCustomCommand()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1494,9 +1456,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
         hash = (37 * hash) + SUB_COMMANDS_FIELD_NUMBER;
         hash = (53 * hash) + internalGetSubCommands().hashCode();
       }
-      hash = (37 * hash) + ENHANCE_CUSTOM_COMMAND_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getEnhanceCustomCommand());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1663,7 +1622,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         internalGetMutableSubCommands().clear();
-        enhanceCustomCommand_ = false;
         return this;
       }
 
@@ -1716,9 +1674,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.subCommands_ = internalGetSubCommands();
           result.subCommands_.makeImmutable();
-        }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.enhanceCustomCommand_ = enhanceCustomCommand_;
         }
       }
 
@@ -1800,9 +1755,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
         internalGetMutableSubCommands().mergeFrom(
             other.internalGetSubCommands());
         bitField0_ |= 0x00000004;
-        if (other.getEnhanceCustomCommand() != false) {
-          setEnhanceCustomCommand(other.getEnhanceCustomCommand());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1856,11 +1808,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
-              case 32: {
-                enhanceCustomCommand_ = input.readBool();
-                bitField0_ |= 0x00000008;
-                break;
-              } // case 32
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2494,56 +2441,6 @@ com.cosmos.autocli.v1.OptionsProto.ServiceCommandDescriptor defaultValue) {
         internalGetMutableSubCommands().getMutableMap()
             .putAll(values);
         bitField0_ |= 0x00000004;
-        return this;
-      }
-
-      private boolean enhanceCustomCommand_ ;
-      /**
-       * <pre>
-       * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
-       * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
-       * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
-       * </pre>
-       *
-       * <code>bool enhance_custom_command = 4 [json_name = "enhanceCustomCommand"];</code>
-       * @return The enhanceCustomCommand.
-       */
-      @java.lang.Override
-      public boolean getEnhanceCustomCommand() {
-        return enhanceCustomCommand_;
-      }
-      /**
-       * <pre>
-       * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
-       * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
-       * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
-       * </pre>
-       *
-       * <code>bool enhance_custom_command = 4 [json_name = "enhanceCustomCommand"];</code>
-       * @param value The enhanceCustomCommand to set.
-       * @return This builder for chaining.
-       */
-      public Builder setEnhanceCustomCommand(boolean value) {
-
-        enhanceCustomCommand_ = value;
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
-       * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
-       * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
-       * </pre>
-       *
-       * <code>bool enhance_custom_command = 4 [json_name = "enhanceCustomCommand"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearEnhanceCustomCommand() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        enhanceCustomCommand_ = false;
-        onChanged();
         return this;
       }
       @java.lang.Override
@@ -6043,6 +5940,26 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
 
     /**
      * <pre>
+     * default value is the default value as text if the flag is used without any value.
+     * </pre>
+     *
+     * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+     * @return The noOptDefaultValue.
+     */
+    java.lang.String getNoOptDefaultValue();
+    /**
+     * <pre>
+     * default value is the default value as text if the flag is used without any value.
+     * </pre>
+     *
+     * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+     * @return The bytes for noOptDefaultValue.
+     */
+    com.google.protobuf.ByteString
+        getNoOptDefaultValueBytes();
+
+    /**
+     * <pre>
      * deprecated is the usage text to show if this flag is deprecated.
      * </pre>
      *
@@ -6115,6 +6032,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       shorthand_ = "";
       usage_ = "";
       defaultValue_ = "";
+      noOptDefaultValue_ = "";
       deprecated_ = "";
       shorthandDeprecated_ = "";
     }
@@ -6327,6 +6245,53 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       }
     }
 
+    public static final int NO_OPT_DEFAULT_VALUE_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object noOptDefaultValue_ = "";
+    /**
+     * <pre>
+     * default value is the default value as text if the flag is used without any value.
+     * </pre>
+     *
+     * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+     * @return The noOptDefaultValue.
+     */
+    @java.lang.Override
+    public java.lang.String getNoOptDefaultValue() {
+      java.lang.Object ref = noOptDefaultValue_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        noOptDefaultValue_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * default value is the default value as text if the flag is used without any value.
+     * </pre>
+     *
+     * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+     * @return The bytes for noOptDefaultValue.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNoOptDefaultValueBytes() {
+      java.lang.Object ref = noOptDefaultValue_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        noOptDefaultValue_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     public static final int DEPRECATED_FIELD_NUMBER = 6;
     @SuppressWarnings("serial")
     private volatile java.lang.Object deprecated_ = "";
@@ -6462,6 +6427,9 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(defaultValue_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, defaultValue_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(noOptDefaultValue_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, noOptDefaultValue_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deprecated_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, deprecated_);
       }
@@ -6491,6 +6459,9 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(defaultValue_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, defaultValue_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(noOptDefaultValue_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, noOptDefaultValue_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deprecated_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, deprecated_);
@@ -6525,6 +6496,8 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
           .equals(other.getUsage())) return false;
       if (!getDefaultValue()
           .equals(other.getDefaultValue())) return false;
+      if (!getNoOptDefaultValue()
+          .equals(other.getNoOptDefaultValue())) return false;
       if (!getDeprecated()
           .equals(other.getDeprecated())) return false;
       if (!getShorthandDeprecated()
@@ -6550,6 +6523,8 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       hash = (53 * hash) + getUsage().hashCode();
       hash = (37 * hash) + DEFAULT_VALUE_FIELD_NUMBER;
       hash = (53 * hash) + getDefaultValue().hashCode();
+      hash = (37 * hash) + NO_OPT_DEFAULT_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + getNoOptDefaultValue().hashCode();
       hash = (37 * hash) + DEPRECATED_FIELD_NUMBER;
       hash = (53 * hash) + getDeprecated().hashCode();
       hash = (37 * hash) + SHORTHAND_DEPRECATED_FIELD_NUMBER;
@@ -6699,6 +6674,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         shorthand_ = "";
         usage_ = "";
         defaultValue_ = "";
+        noOptDefaultValue_ = "";
         deprecated_ = "";
         shorthandDeprecated_ = "";
         hidden_ = false;
@@ -6748,12 +6724,15 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
           result.defaultValue_ = defaultValue_;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.deprecated_ = deprecated_;
+          result.noOptDefaultValue_ = noOptDefaultValue_;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.shorthandDeprecated_ = shorthandDeprecated_;
+          result.deprecated_ = deprecated_;
         }
         if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.shorthandDeprecated_ = shorthandDeprecated_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
           result.hidden_ = hidden_;
         }
       }
@@ -6822,14 +6801,19 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
           bitField0_ |= 0x00000008;
           onChanged();
         }
+        if (!other.getNoOptDefaultValue().isEmpty()) {
+          noOptDefaultValue_ = other.noOptDefaultValue_;
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
         if (!other.getDeprecated().isEmpty()) {
           deprecated_ = other.deprecated_;
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         if (!other.getShorthandDeprecated().isEmpty()) {
           shorthandDeprecated_ = other.shorthandDeprecated_;
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000040;
           onChanged();
         }
         if (other.getHidden() != false) {
@@ -6881,19 +6865,24 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
+              case 42: {
+                noOptDefaultValue_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               case 50: {
                 deprecated_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 break;
               } // case 50
               case 58: {
                 shorthandDeprecated_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000040;
                 break;
               } // case 58
               case 64: {
                 hidden_ = input.readBool();
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000080;
                 break;
               } // case 64
               default: {
@@ -7281,6 +7270,98 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         return this;
       }
 
+      private java.lang.Object noOptDefaultValue_ = "";
+      /**
+       * <pre>
+       * default value is the default value as text if the flag is used without any value.
+       * </pre>
+       *
+       * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+       * @return The noOptDefaultValue.
+       */
+      public java.lang.String getNoOptDefaultValue() {
+        java.lang.Object ref = noOptDefaultValue_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          noOptDefaultValue_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * default value is the default value as text if the flag is used without any value.
+       * </pre>
+       *
+       * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+       * @return The bytes for noOptDefaultValue.
+       */
+      public com.google.protobuf.ByteString
+          getNoOptDefaultValueBytes() {
+        java.lang.Object ref = noOptDefaultValue_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          noOptDefaultValue_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * default value is the default value as text if the flag is used without any value.
+       * </pre>
+       *
+       * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+       * @param value The noOptDefaultValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNoOptDefaultValue(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        noOptDefaultValue_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * default value is the default value as text if the flag is used without any value.
+       * </pre>
+       *
+       * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNoOptDefaultValue() {
+        noOptDefaultValue_ = getDefaultInstance().getNoOptDefaultValue();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * default value is the default value as text if the flag is used without any value.
+       * </pre>
+       *
+       * <code>string no_opt_default_value = 5 [json_name = "noOptDefaultValue"];</code>
+       * @param value The bytes for noOptDefaultValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNoOptDefaultValueBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        noOptDefaultValue_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object deprecated_ = "";
       /**
        * <pre>
@@ -7336,7 +7417,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         deprecated_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -7350,7 +7431,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
        */
       public Builder clearDeprecated() {
         deprecated_ = getDefaultInstance().getDeprecated();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         onChanged();
         return this;
       }
@@ -7368,7 +7449,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         deprecated_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -7428,7 +7509,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         shorthandDeprecated_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -7442,7 +7523,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
        */
       public Builder clearShorthandDeprecated() {
         shorthandDeprecated_ = getDefaultInstance().getShorthandDeprecated();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         onChanged();
         return this;
       }
@@ -7460,7 +7541,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         shorthandDeprecated_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -7490,7 +7571,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       public Builder setHidden(boolean value) {
 
         hidden_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -7503,7 +7584,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
        * @return This builder for chaining.
        */
       public Builder clearHidden() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         hidden_ = false;
         onChanged();
         return this;
@@ -7602,24 +7683,13 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
      * <pre>
      * varargs makes a positional parameter a varargs parameter. This can only be
      * applied to last positional parameter and the proto_field must a repeated
-     * field. Note: It is mutually exclusive with optional.
+     * field.
      * </pre>
      *
      * <code>bool varargs = 2 [json_name = "varargs"];</code>
      * @return The varargs.
      */
     boolean getVarargs();
-
-    /**
-     * <pre>
-     * optional makes the last positional parameter optional.
-     * Note: It is mutually exclusive with varargs.
-     * </pre>
-     *
-     * <code>bool optional = 3 [json_name = "optional"];</code>
-     * @return The optional.
-     */
-    boolean getOptional();
   }
   /**
    * <pre>
@@ -7716,7 +7786,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
      * <pre>
      * varargs makes a positional parameter a varargs parameter. This can only be
      * applied to last positional parameter and the proto_field must a repeated
-     * field. Note: It is mutually exclusive with optional.
+     * field.
      * </pre>
      *
      * <code>bool varargs = 2 [json_name = "varargs"];</code>
@@ -7725,22 +7795,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
     @java.lang.Override
     public boolean getVarargs() {
       return varargs_;
-    }
-
-    public static final int OPTIONAL_FIELD_NUMBER = 3;
-    private boolean optional_ = false;
-    /**
-     * <pre>
-     * optional makes the last positional parameter optional.
-     * Note: It is mutually exclusive with varargs.
-     * </pre>
-     *
-     * <code>bool optional = 3 [json_name = "optional"];</code>
-     * @return The optional.
-     */
-    @java.lang.Override
-    public boolean getOptional() {
-      return optional_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -7763,9 +7817,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       if (varargs_ != false) {
         output.writeBool(2, varargs_);
       }
-      if (optional_ != false) {
-        output.writeBool(3, optional_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -7781,10 +7832,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       if (varargs_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, varargs_);
-      }
-      if (optional_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, optional_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -7805,8 +7852,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
           .equals(other.getProtoField())) return false;
       if (getVarargs()
           != other.getVarargs()) return false;
-      if (getOptional()
-          != other.getOptional()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -7823,9 +7868,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       hash = (37 * hash) + VARARGS_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getVarargs());
-      hash = (37 * hash) + OPTIONAL_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getOptional());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -7963,7 +8005,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         bitField0_ = 0;
         protoField_ = "";
         varargs_ = false;
-        optional_ = false;
         return this;
       }
 
@@ -8002,9 +8043,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.varargs_ = varargs_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.optional_ = optional_;
         }
       }
 
@@ -8060,9 +8098,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
         if (other.getVarargs() != false) {
           setVarargs(other.getVarargs());
         }
-        if (other.getOptional() != false) {
-          setOptional(other.getOptional());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -8099,11 +8134,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 16
-              case 24: {
-                optional_ = input.readBool();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 24
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -8223,7 +8253,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
        * <pre>
        * varargs makes a positional parameter a varargs parameter. This can only be
        * applied to last positional parameter and the proto_field must a repeated
-       * field. Note: It is mutually exclusive with optional.
+       * field.
        * </pre>
        *
        * <code>bool varargs = 2 [json_name = "varargs"];</code>
@@ -8237,7 +8267,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
        * <pre>
        * varargs makes a positional parameter a varargs parameter. This can only be
        * applied to last positional parameter and the proto_field must a repeated
-       * field. Note: It is mutually exclusive with optional.
+       * field.
        * </pre>
        *
        * <code>bool varargs = 2 [json_name = "varargs"];</code>
@@ -8255,7 +8285,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
        * <pre>
        * varargs makes a positional parameter a varargs parameter. This can only be
        * applied to last positional parameter and the proto_field must a repeated
-       * field. Note: It is mutually exclusive with optional.
+       * field.
        * </pre>
        *
        * <code>bool varargs = 2 [json_name = "varargs"];</code>
@@ -8264,53 +8294,6 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       public Builder clearVarargs() {
         bitField0_ = (bitField0_ & ~0x00000002);
         varargs_ = false;
-        onChanged();
-        return this;
-      }
-
-      private boolean optional_ ;
-      /**
-       * <pre>
-       * optional makes the last positional parameter optional.
-       * Note: It is mutually exclusive with varargs.
-       * </pre>
-       *
-       * <code>bool optional = 3 [json_name = "optional"];</code>
-       * @return The optional.
-       */
-      @java.lang.Override
-      public boolean getOptional() {
-        return optional_;
-      }
-      /**
-       * <pre>
-       * optional makes the last positional parameter optional.
-       * Note: It is mutually exclusive with varargs.
-       * </pre>
-       *
-       * <code>bool optional = 3 [json_name = "optional"];</code>
-       * @param value The optional to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOptional(boolean value) {
-
-        optional_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * optional makes the last positional parameter optional.
-       * Note: It is mutually exclusive with varargs.
-       * </pre>
-       *
-       * <code>bool optional = 3 [json_name = "optional"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOptional() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        optional_ = false;
         onChanged();
         return this;
       }
@@ -8426,44 +8409,44 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
       "s.autocli.v1\"\217\001\n\rModuleOptions\022;\n\002tx\030\001 \001" +
       "(\0132+.cosmos.autocli.v1.ServiceCommandDes" +
       "criptorR\002tx\022A\n\005query\030\002 \001(\0132+.cosmos.auto" +
-      "cli.v1.ServiceCommandDescriptorR\005query\"\216" +
-      "\003\n\030ServiceCommandDescriptor\022\030\n\007service\030\001" +
+      "cli.v1.ServiceCommandDescriptorR\005query\"\330" +
+      "\002\n\030ServiceCommandDescriptor\022\030\n\007service\030\001" +
       " \001(\tR\007service\022T\n\023rpc_command_options\030\002 \003" +
       "(\0132$.cosmos.autocli.v1.RpcCommandOptions" +
       "R\021rpcCommandOptions\022_\n\014sub_commands\030\003 \003(" +
       "\0132<.cosmos.autocli.v1.ServiceCommandDesc" +
-      "riptor.SubCommandsEntryR\013subCommands\0224\n\026" +
-      "enhance_custom_command\030\004 \001(\010R\024enhanceCus" +
-      "tomCommand\032k\n\020SubCommandsEntry\022\020\n\003key\030\001 " +
-      "\001(\tR\003key\022A\n\005value\030\002 \001(\0132+.cosmos.autocli" +
-      ".v1.ServiceCommandDescriptorR\005value:\0028\001\"" +
-      "\234\004\n\021RpcCommandOptions\022\035\n\nrpc_method\030\001 \001(" +
-      "\tR\trpcMethod\022\020\n\003use\030\002 \001(\tR\003use\022\022\n\004long\030\003" +
-      " \001(\tR\004long\022\024\n\005short\030\004 \001(\tR\005short\022\030\n\007exam" +
-      "ple\030\005 \001(\tR\007example\022\024\n\005alias\030\006 \003(\tR\005alias" +
-      "\022\037\n\013suggest_for\030\007 \003(\tR\nsuggestFor\022\036\n\ndep" +
-      "recated\030\010 \001(\tR\ndeprecated\022\030\n\007version\030\t \001" +
-      "(\tR\007version\022X\n\014flag_options\030\n \003(\01325.cosm" +
-      "os.autocli.v1.RpcCommandOptions.FlagOpti" +
-      "onsEntryR\013flagOptions\022S\n\017positional_args" +
-      "\030\013 \003(\0132*.cosmos.autocli.v1.PositionalArg" +
-      "DescriptorR\016positionalArgs\022\022\n\004skip\030\014 \001(\010" +
-      "R\004skip\032^\n\020FlagOptionsEntry\022\020\n\003key\030\001 \001(\tR" +
-      "\003key\0224\n\005value\030\002 \001(\0132\036.cosmos.autocli.v1." +
-      "FlagOptionsR\005value:\0028\001\"\345\001\n\013FlagOptions\022\022" +
-      "\n\004name\030\001 \001(\tR\004name\022\034\n\tshorthand\030\002 \001(\tR\ts" +
-      "horthand\022\024\n\005usage\030\003 \001(\tR\005usage\022#\n\rdefaul" +
-      "t_value\030\004 \001(\tR\014defaultValue\022\036\n\ndeprecate" +
-      "d\030\006 \001(\tR\ndeprecated\0221\n\024shorthand_depreca" +
-      "ted\030\007 \001(\tR\023shorthandDeprecated\022\026\n\006hidden" +
-      "\030\010 \001(\010R\006hidden\"p\n\027PositionalArgDescripto" +
-      "r\022\037\n\013proto_field\030\001 \001(\tR\nprotoField\022\030\n\007va" +
-      "rargs\030\002 \001(\010R\007varargs\022\032\n\010optional\030\003 \001(\010R\010" +
-      "optionalB\264\001\n\025com.cosmos.autocli.v1B\014Opti" +
-      "onsProtoZ)cosmossdk.io/api/cosmos/base/c" +
-      "li/v1;cliv1\242\002\003CAX\252\002\021Cosmos.Autocli.V1\312\002\021" +
-      "Cosmos\\Autocli\\V1\342\002\035Cosmos\\Autocli\\V1\\GP" +
-      "BMetadata\352\002\023Cosmos::Autocli::V1b\006proto3"
+      "riptor.SubCommandsEntryR\013subCommands\032k\n\020" +
+      "SubCommandsEntry\022\020\n\003key\030\001 \001(\tR\003key\022A\n\005va" +
+      "lue\030\002 \001(\0132+.cosmos.autocli.v1.ServiceCom" +
+      "mandDescriptorR\005value:\0028\001\"\234\004\n\021RpcCommand" +
+      "Options\022\035\n\nrpc_method\030\001 \001(\tR\trpcMethod\022\020" +
+      "\n\003use\030\002 \001(\tR\003use\022\022\n\004long\030\003 \001(\tR\004long\022\024\n\005" +
+      "short\030\004 \001(\tR\005short\022\030\n\007example\030\005 \001(\tR\007exa" +
+      "mple\022\024\n\005alias\030\006 \003(\tR\005alias\022\037\n\013suggest_fo" +
+      "r\030\007 \003(\tR\nsuggestFor\022\036\n\ndeprecated\030\010 \001(\tR" +
+      "\ndeprecated\022\030\n\007version\030\t \001(\tR\007version\022X\n" +
+      "\014flag_options\030\n \003(\01325.cosmos.autocli.v1." +
+      "RpcCommandOptions.FlagOptionsEntryR\013flag" +
+      "Options\022S\n\017positional_args\030\013 \003(\0132*.cosmo" +
+      "s.autocli.v1.PositionalArgDescriptorR\016po" +
+      "sitionalArgs\022\022\n\004skip\030\014 \001(\010R\004skip\032^\n\020Flag" +
+      "OptionsEntry\022\020\n\003key\030\001 \001(\tR\003key\0224\n\005value\030" +
+      "\002 \001(\0132\036.cosmos.autocli.v1.FlagOptionsR\005v" +
+      "alue:\0028\001\"\226\002\n\013FlagOptions\022\022\n\004name\030\001 \001(\tR\004" +
+      "name\022\034\n\tshorthand\030\002 \001(\tR\tshorthand\022\024\n\005us" +
+      "age\030\003 \001(\tR\005usage\022#\n\rdefault_value\030\004 \001(\tR" +
+      "\014defaultValue\022/\n\024no_opt_default_value\030\005 " +
+      "\001(\tR\021noOptDefaultValue\022\036\n\ndeprecated\030\006 \001" +
+      "(\tR\ndeprecated\0221\n\024shorthand_deprecated\030\007" +
+      " \001(\tR\023shorthandDeprecated\022\026\n\006hidden\030\010 \001(" +
+      "\010R\006hidden\"T\n\027PositionalArgDescriptor\022\037\n\013" +
+      "proto_field\030\001 \001(\tR\nprotoField\022\030\n\007varargs" +
+      "\030\002 \001(\010R\007varargsB\264\001\n\025com.cosmos.autocli.v" +
+      "1B\014OptionsProtoZ)cosmossdk.io/api/cosmos" +
+      "/base/cli/v1;cliv1\242\002\003CAX\252\002\021Cosmos.Autocl" +
+      "i.V1\312\002\021Cosmos\\Autocli\\V1\342\002\035Cosmos\\Autocl" +
+      "i\\V1\\GPBMetadata\352\002\023Cosmos::Autocli::V1b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8480,7 +8463,7 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
     internal_static_cosmos_autocli_v1_ServiceCommandDescriptor_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_autocli_v1_ServiceCommandDescriptor_descriptor,
-        new java.lang.String[] { "Service", "RpcCommandOptions", "SubCommands", "EnhanceCustomCommand", });
+        new java.lang.String[] { "Service", "RpcCommandOptions", "SubCommands", });
     internal_static_cosmos_autocli_v1_ServiceCommandDescriptor_SubCommandsEntry_descriptor =
       internal_static_cosmos_autocli_v1_ServiceCommandDescriptor_descriptor.getNestedTypes().get(0);
     internal_static_cosmos_autocli_v1_ServiceCommandDescriptor_SubCommandsEntry_fieldAccessorTable = new
@@ -8504,13 +8487,13 @@ com.cosmos.autocli.v1.OptionsProto.FlagOptions defaultValue) {
     internal_static_cosmos_autocli_v1_FlagOptions_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_autocli_v1_FlagOptions_descriptor,
-        new java.lang.String[] { "Name", "Shorthand", "Usage", "DefaultValue", "Deprecated", "ShorthandDeprecated", "Hidden", });
+        new java.lang.String[] { "Name", "Shorthand", "Usage", "DefaultValue", "NoOptDefaultValue", "Deprecated", "ShorthandDeprecated", "Hidden", });
     internal_static_cosmos_autocli_v1_PositionalArgDescriptor_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_cosmos_autocli_v1_PositionalArgDescriptor_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_autocli_v1_PositionalArgDescriptor_descriptor,
-        new java.lang.String[] { "ProtoField", "Varargs", "Optional", });
+        new java.lang.String[] { "ProtoField", "Varargs", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
