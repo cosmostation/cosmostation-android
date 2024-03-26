@@ -58,8 +58,10 @@ class ChainEditViewHolder(
                         }
 
                     } ?: run {
-                    skeletonChainValue.visibility = View.VISIBLE
-                    skeletonAssetCnt.visibility = View.VISIBLE
+                    withContext(Dispatchers.Main) {
+                        skeletonChainValue.visibility = View.VISIBLE
+                        skeletonAssetCnt.visibility = View.VISIBLE
+                    }
                 }
             }
 
@@ -163,8 +165,10 @@ class ChainEditViewHolder(
                         }
 
                     } ?: run {
-                    skeletonChainValue.visibility = View.VISIBLE
-                    skeletonAssetCnt.visibility = View.VISIBLE
+                    withContext(Dispatchers.Main) {
+                        skeletonChainValue.visibility = View.VISIBLE
+                        skeletonAssetCnt.visibility = View.VISIBLE
+                    }
                 }
             }
 
