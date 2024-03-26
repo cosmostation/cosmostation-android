@@ -37,17 +37,17 @@ interface WalletRepository {
 
     suspend fun version(): NetworkResult<Response<AppVersion>>
 
-    suspend fun chain(): NetworkResult<Response<ChainResponse>>
+    suspend fun chain(): NetworkResult<ChainResponse>
 
-    suspend fun price(currency: String): NetworkResult<Response<List<Price>>>
+    suspend fun price(currency: String): NetworkResult<List<Price>>
 
-    suspend fun usdPrice(): NetworkResult<Response<List<Price>>>
+    suspend fun usdPrice(): NetworkResult<List<Price>>
 
     suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>>
 
-    suspend fun supportConfig(): NetworkResult<Response<SupportConfig>>
+    suspend fun supportConfig(): NetworkResult<SupportConfig>
 
-    suspend fun asset(): NetworkResult<Response<AssetResponse>>
+    suspend fun asset(): NetworkResult<AssetResponse>
 
     suspend fun param(): NetworkResult<JsonObject?>
 

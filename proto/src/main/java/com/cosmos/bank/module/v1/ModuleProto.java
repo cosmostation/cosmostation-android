@@ -20,8 +20,8 @@ public final class ModuleProto {
 
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -32,8 +32,8 @@ public final class ModuleProto {
         getBlockedModuleAccountsOverrideList();
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -43,8 +43,8 @@ public final class ModuleProto {
     int getBlockedModuleAccountsOverrideCount();
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -55,8 +55,8 @@ public final class ModuleProto {
     java.lang.String getBlockedModuleAccountsOverride(int index);
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -135,8 +135,8 @@ public final class ModuleProto {
         com.google.protobuf.LazyStringArrayList.emptyList();
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -149,8 +149,8 @@ public final class ModuleProto {
     }
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -162,8 +162,8 @@ public final class ModuleProto {
     }
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -176,8 +176,8 @@ public final class ModuleProto {
     }
     /**
      * <pre>
-     * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-     * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+     * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+     * If left empty it defaults to the list of account names supplied in the auth module configuration as
      * module_account_permissions
      * </pre>
      *
@@ -616,8 +616,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -631,8 +631,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -644,8 +644,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -658,8 +658,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -673,8 +673,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -694,8 +694,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -714,8 +714,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -734,8 +734,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -751,8 +751,8 @@ public final class ModuleProto {
       }
       /**
        * <pre>
-       * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
-       * funds. If left empty it defaults to the list of account names supplied in the auth module configuration as
+       * blocked_module_accounts configures exceptional module accounts which should be blocked from receiving funds.
+       * If left empty it defaults to the list of account names supplied in the auth module configuration as
        * module_account_permissions
        * </pre>
        *
@@ -942,15 +942,15 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n\"cosmos/bank/module/v1/module.proto\022\025co" +
       "smos.bank.module.v1\032 cosmos/app/v1alpha1" +
-      "/module.proto\"\214\001\n\006Module\022G\n blocked_modu" +
+      "/module.proto\"\234\001\n\006Module\022G\n blocked_modu" +
       "le_accounts_override\030\001 \003(\tR\035blockedModul" +
       "eAccountsOverride\022\034\n\tauthority\030\002 \001(\tR\tau" +
-      "thority:\033\272\300\226\332\001\025\n\023cosmossdk.io/x/bankB\235\001\n" +
-      "\031com.cosmos.bank.module.v1B\013ModuleProto\242" +
-      "\002\003CBM\252\002\025Cosmos.Bank.Module.V1\312\002\025Cosmos\\B" +
-      "ank\\Module\\V1\342\002!Cosmos\\Bank\\Module\\V1\\GP" +
-      "BMetadata\352\002\030Cosmos::Bank::Module::V1b\006pr" +
-      "oto3"
+      "thority:+\272\300\226\332\001%\n#github.com/cosmos/cosmo" +
+      "s-sdk/x/bankB\235\001\n\031com.cosmos.bank.module." +
+      "v1B\013ModuleProto\242\002\003CBM\252\002\025Cosmos.Bank.Modu" +
+      "le.V1\312\002\025Cosmos\\Bank\\Module\\V1\342\002!Cosmos\\B" +
+      "ank\\Module\\V1\\GPBMetadata\352\002\030Cosmos::Bank" +
+      "::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

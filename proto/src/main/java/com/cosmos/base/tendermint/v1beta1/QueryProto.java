@@ -16608,14 +16608,14 @@ public final class QueryProto {
       "cosmos.base.tendermint.v1beta1.ABCIQuery" +
       "Request\0321.cosmos.base.tendermint.v1beta1" +
       ".ABCIQueryResponse\"2\202\323\344\223\002,\022*/cosmos/base" +
-      "/tendermint/v1beta1/abci_queryB\376\001\n\"com.c" +
+      "/tendermint/v1beta1/abci_queryB\375\001\n\"com.c" +
       "osmos.base.tendermint.v1beta1B\nQueryProt" +
-      "oZ3github.com/cosmos/cosmos-sdk/client/g" +
-      "rpc/cmtservice\242\002\003CBT\252\002\036Cosmos.Base.Tende" +
-      "rmint.V1beta1\312\002\036Cosmos\\Base\\Tendermint\\V" +
-      "1beta1\342\002*Cosmos\\Base\\Tendermint\\V1beta1\\" +
-      "GPBMetadata\352\002!Cosmos::Base::Tendermint::" +
-      "V1beta1b\006proto3"
+      "oZ2github.com/cosmos/cosmos-sdk/client/g" +
+      "rpc/tmservice\242\002\003CBT\252\002\036Cosmos.Base.Tender" +
+      "mint.V1beta1\312\002\036Cosmos\\Base\\Tendermint\\V1" +
+      "beta1\342\002*Cosmos\\Base\\Tendermint\\V1beta1\\G" +
+      "PBMetadata\352\002!Cosmos::Base::Tendermint::V" +
+      "1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

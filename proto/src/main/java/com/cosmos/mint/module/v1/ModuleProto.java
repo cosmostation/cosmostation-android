@@ -774,14 +774,14 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n\"cosmos/mint/module/v1/module.proto\022\025co" +
       "smos.mint.module.v1\032 cosmos/app/v1alpha1" +
-      "/module.proto\"q\n\006Module\022,\n\022fee_collector" +
-      "_name\030\001 \001(\tR\020feeCollectorName\022\034\n\tauthori" +
-      "ty\030\002 \001(\tR\tauthority:\033\272\300\226\332\001\025\n\023cosmossdk.i" +
-      "o/x/mintB\235\001\n\031com.cosmos.mint.module.v1B\013" +
-      "ModuleProto\242\002\003CMM\252\002\025Cosmos.Mint.Module.V" +
-      "1\312\002\025Cosmos\\Mint\\Module\\V1\342\002!Cosmos\\Mint\\" +
-      "Module\\V1\\GPBMetadata\352\002\030Cosmos::Mint::Mo" +
-      "dule::V1b\006proto3"
+      "/module.proto\"\201\001\n\006Module\022,\n\022fee_collecto" +
+      "r_name\030\001 \001(\tR\020feeCollectorName\022\034\n\tauthor" +
+      "ity\030\002 \001(\tR\tauthority:+\272\300\226\332\001%\n#github.com" +
+      "/cosmos/cosmos-sdk/x/mintB\235\001\n\031com.cosmos" +
+      ".mint.module.v1B\013ModuleProto\242\002\003CMM\252\002\025Cos" +
+      "mos.Mint.Module.V1\312\002\025Cosmos\\Mint\\Module\\" +
+      "V1\342\002!Cosmos\\Mint\\Module\\V1\\GPBMetadata\352\002" +
+      "\030Cosmos::Mint::Module::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

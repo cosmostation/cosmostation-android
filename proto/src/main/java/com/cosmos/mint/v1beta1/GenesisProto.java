@@ -958,12 +958,12 @@ public final class GenesisProto {
       "ino.proto\"\216\001\n\014GenesisState\022>\n\006minter\030\001 \001" +
       "(\0132\033.cosmos.mint.v1beta1.MinterB\t\310\336\037\000\250\347\260" +
       "*\001R\006minter\022>\n\006params\030\002 \001(\0132\033.cosmos.mint" +
-      ".v1beta1.ParamsB\t\310\336\037\000\250\347\260*\001R\006paramsB\256\001\n\027c" +
-      "om.cosmos.mint.v1beta1B\014GenesisProtoZ\031co" +
-      "smossdk.io/x/mint/types\242\002\003CMX\252\002\023Cosmos.M" +
-      "int.V1beta1\312\002\023Cosmos\\Mint\\V1beta1\342\002\037Cosm" +
-      "os\\Mint\\V1beta1\\GPBMetadata\352\002\025Cosmos::Mi" +
-      "nt::V1beta1b\006proto3"
+      ".v1beta1.ParamsB\t\310\336\037\000\250\347\260*\001R\006paramsB\276\001\n\027c" +
+      "om.cosmos.mint.v1beta1B\014GenesisProtoZ)gi" +
+      "thub.com/cosmos/cosmos-sdk/x/mint/types\242" +
+      "\002\003CMX\252\002\023Cosmos.Mint.V1beta1\312\002\023Cosmos\\Min" +
+      "t\\V1beta1\342\002\037Cosmos\\Mint\\V1beta1\\GPBMetad" +
+      "ata\352\002\025Cosmos::Mint::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

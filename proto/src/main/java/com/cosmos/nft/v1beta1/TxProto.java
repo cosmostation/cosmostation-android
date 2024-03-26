@@ -1595,11 +1595,12 @@ public final class TxProto {
       "ressStringR\010receiver:\013\202\347\260*\006sender\"\021\n\017Msg" +
       "SendResponse2V\n\003Msg\022H\n\004Send\022\033.cosmos.nft" +
       ".v1beta1.MsgSend\032#.cosmos.nft.v1beta1.Ms" +
-      "gSendResponse\032\005\200\347\260*\001B\235\001\n\026com.cosmos.nft." +
-      "v1beta1B\007TxProtoZ\022cosmossdk.io/x/nft\242\002\003C" +
-      "NX\252\002\022Cosmos.Nft.V1beta1\312\002\022Cosmos\\Nft\\V1b" +
-      "eta1\342\002\036Cosmos\\Nft\\V1beta1\\GPBMetadata\352\002\024" +
-      "Cosmos::Nft::V1beta1b\006proto3"
+      "gSendResponse\032\005\200\347\260*\001B\255\001\n\026com.cosmos.nft." +
+      "v1beta1B\007TxProtoZ\"github.com/cosmos/cosm" +
+      "os-sdk/x/nft\242\002\003CNX\252\002\022Cosmos.Nft.V1beta1\312" +
+      "\002\022Cosmos\\Nft\\V1beta1\342\002\036Cosmos\\Nft\\V1beta" +
+      "1\\GPBMetadata\352\002\024Cosmos::Nft::V1beta1b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

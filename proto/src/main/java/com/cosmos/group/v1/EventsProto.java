@@ -6234,11 +6234,11 @@ public final class EventsProto {
       "\0227\n\006status\030\002 \001(\0162\037.cosmos.group.v1.Propo" +
       "salStatusR\006status\022?\n\014tally_result\030\003 \001(\0132" +
       "\034.cosmos.group.v1.TallyResultR\013tallyResu" +
-      "ltB\224\001\n\023com.cosmos.group.v1B\013EventsProtoZ" +
-      "\024cosmossdk.io/x/group\242\002\003CGX\252\002\017Cosmos.Gro" +
-      "up.V1\312\002\017Cosmos\\Group\\V1\342\002\033Cosmos\\Group\\V" +
-      "1\\GPBMetadata\352\002\021Cosmos::Group::V1b\006proto" +
-      "3"
+      "ltB\244\001\n\023com.cosmos.group.v1B\013EventsProtoZ" +
+      "$github.com/cosmos/cosmos-sdk/x/group\242\002\003" +
+      "CGX\252\002\017Cosmos.Group.V1\312\002\017Cosmos\\Group\\V1\342" +
+      "\002\033Cosmos\\Group\\V1\\GPBMetadata\352\002\021Cosmos::" +
+      "Group::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

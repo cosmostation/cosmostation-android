@@ -1501,7 +1501,7 @@ public final class QueryProto {
      * inflation is the current minting inflation value.
      * </pre>
      *
-     * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The inflation.
      */
     com.google.protobuf.ByteString getInflation();
@@ -1554,7 +1554,7 @@ public final class QueryProto {
      * inflation is the current minting inflation value.
      * </pre>
      *
-     * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The inflation.
      */
     @java.lang.Override
@@ -1898,7 +1898,7 @@ public final class QueryProto {
        * inflation is the current minting inflation value.
        * </pre>
        *
-       * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
        * @return The inflation.
        */
       @java.lang.Override
@@ -1910,7 +1910,7 @@ public final class QueryProto {
        * inflation is the current minting inflation value.
        * </pre>
        *
-       * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
        * @param value The inflation to set.
        * @return This builder for chaining.
        */
@@ -1926,7 +1926,7 @@ public final class QueryProto {
        * inflation is the current minting inflation value.
        * </pre>
        *
-       * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes inflation = 1 [json_name = "inflation", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
        * @return This builder for chaining.
        */
       public Builder clearInflation() {
@@ -2415,7 +2415,7 @@ public final class QueryProto {
      * annual_provisions is the current minting annual provisions value.
      * </pre>
      *
-     * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The annualProvisions.
      */
     com.google.protobuf.ByteString getAnnualProvisions();
@@ -2468,7 +2468,7 @@ public final class QueryProto {
      * annual_provisions is the current minting annual provisions value.
      * </pre>
      *
-     * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
      * @return The annualProvisions.
      */
     @java.lang.Override
@@ -2812,7 +2812,7 @@ public final class QueryProto {
        * annual_provisions is the current minting annual provisions value.
        * </pre>
        *
-       * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
        * @return The annualProvisions.
        */
       @java.lang.Override
@@ -2824,7 +2824,7 @@ public final class QueryProto {
        * annual_provisions is the current minting annual provisions value.
        * </pre>
        *
-       * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
        * @param value The annualProvisions to set.
        * @return This builder for chaining.
        */
@@ -2840,7 +2840,7 @@ public final class QueryProto {
        * annual_provisions is the current minting annual provisions value.
        * </pre>
        *
-       * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>bytes annual_provisions = 1 [json_name = "annualProvisions", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.amino.dont_omitempty) = true];</code>
        * @return This builder for chaining.
        */
       public Builder clearAnnualProvisions() {
@@ -2955,34 +2955,34 @@ public final class QueryProto {
       "\n\037cosmos/mint/v1beta1/query.proto\022\023cosmo" +
       "s.mint.v1beta1\032\024gogoproto/gogo.proto\032\034go" +
       "ogle/api/annotations.proto\032\036cosmos/mint/" +
-      "v1beta1/mint.proto\032\021amino/amino.proto\032\031c" +
-      "osmos_proto/cosmos.proto\"\024\n\022QueryParamsR" +
-      "equest\"U\n\023QueryParamsResponse\022>\n\006params\030" +
-      "\001 \001(\0132\033.cosmos.mint.v1beta1.ParamsB\t\310\336\037\000" +
-      "\250\347\260*\001R\006params\"\027\n\025QueryInflationRequest\"n" +
-      "\n\026QueryInflationResponse\022T\n\tinflation\030\001 " +
-      "\001(\014B6\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec" +
-      "\322\264-\ncosmos.Dec\250\347\260*\001R\tinflation\"\036\n\034QueryA" +
-      "nnualProvisionsRequest\"\204\001\n\035QueryAnnualPr" +
-      "ovisionsResponse\022c\n\021annual_provisions\030\001 " +
-      "\001(\014B6\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec" +
-      "\322\264-\ncosmos.Dec\250\347\260*\001R\020annualProvisions2\305\003" +
-      "\n\005Query\022\200\001\n\006Params\022\'.cosmos.mint.v1beta1" +
-      ".QueryParamsRequest\032(.cosmos.mint.v1beta" +
-      "1.QueryParamsResponse\"#\202\323\344\223\002\035\022\033/cosmos/m" +
-      "int/v1beta1/params\022\214\001\n\tInflation\022*.cosmo" +
-      "s.mint.v1beta1.QueryInflationRequest\032+.c" +
-      "osmos.mint.v1beta1.QueryInflationRespons" +
-      "e\"&\202\323\344\223\002 \022\036/cosmos/mint/v1beta1/inflatio" +
-      "n\022\251\001\n\020AnnualProvisions\0221.cosmos.mint.v1b" +
-      "eta1.QueryAnnualProvisionsRequest\0322.cosm" +
-      "os.mint.v1beta1.QueryAnnualProvisionsRes" +
-      "ponse\".\202\323\344\223\002(\022&/cosmos/mint/v1beta1/annu" +
-      "al_provisionsB\254\001\n\027com.cosmos.mint.v1beta" +
-      "1B\nQueryProtoZ\031cosmossdk.io/x/mint/types" +
-      "\242\002\003CMX\252\002\023Cosmos.Mint.V1beta1\312\002\023Cosmos\\Mi" +
-      "nt\\V1beta1\342\002\037Cosmos\\Mint\\V1beta1\\GPBMeta" +
-      "data\352\002\025Cosmos::Mint::V1beta1b\006proto3"
+      "v1beta1/mint.proto\032\021amino/amino.proto\"\024\n" +
+      "\022QueryParamsRequest\"U\n\023QueryParamsRespon" +
+      "se\022>\n\006params\030\001 \001(\0132\033.cosmos.mint.v1beta1" +
+      ".ParamsB\t\310\336\037\000\250\347\260*\001R\006params\"\027\n\025QueryInfla" +
+      "tionRequest\"k\n\026QueryInflationResponse\022Q\n" +
+      "\tinflation\030\001 \001(\014B3\310\336\037\000\332\336\037&github.com/cos" +
+      "mos/cosmos-sdk/types.Dec\250\347\260*\001R\tinflation" +
+      "\"\036\n\034QueryAnnualProvisionsRequest\"\201\001\n\035Que" +
+      "ryAnnualProvisionsResponse\022`\n\021annual_pro" +
+      "visions\030\001 \001(\014B3\310\336\037\000\332\336\037&github.com/cosmos" +
+      "/cosmos-sdk/types.Dec\250\347\260*\001R\020annualProvis" +
+      "ions2\305\003\n\005Query\022\200\001\n\006Params\022\'.cosmos.mint." +
+      "v1beta1.QueryParamsRequest\032(.cosmos.mint" +
+      ".v1beta1.QueryParamsResponse\"#\202\323\344\223\002\035\022\033/c" +
+      "osmos/mint/v1beta1/params\022\214\001\n\tInflation\022" +
+      "*.cosmos.mint.v1beta1.QueryInflationRequ" +
+      "est\032+.cosmos.mint.v1beta1.QueryInflation" +
+      "Response\"&\202\323\344\223\002 \022\036/cosmos/mint/v1beta1/i" +
+      "nflation\022\251\001\n\020AnnualProvisions\0221.cosmos.m" +
+      "int.v1beta1.QueryAnnualProvisionsRequest" +
+      "\0322.cosmos.mint.v1beta1.QueryAnnualProvis" +
+      "ionsResponse\".\202\323\344\223\002(\022&/cosmos/mint/v1bet" +
+      "a1/annual_provisionsB\274\001\n\027com.cosmos.mint" +
+      ".v1beta1B\nQueryProtoZ)github.com/cosmos/" +
+      "cosmos-sdk/x/mint/types\242\002\003CMX\252\002\023Cosmos.M" +
+      "int.V1beta1\312\002\023Cosmos\\Mint\\V1beta1\342\002\037Cosm" +
+      "os\\Mint\\V1beta1\\GPBMetadata\352\002\025Cosmos::Mi" +
+      "nt::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2991,7 +2991,6 @@ public final class QueryProto {
           com.google.api.AnnotationsProto.getDescriptor(),
           com.cosmos.mint.v1beta1.MintProto.getDescriptor(),
           com.amino.AminoProto.getDescriptor(),
-          com.cosmos_proto.CosmosProto.getDescriptor(),
         });
     internal_static_cosmos_mint_v1beta1_QueryParamsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3032,7 +3031,6 @@ public final class QueryProto {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);
-    registry.add(com.cosmos_proto.CosmosProto.scalar);
     registry.add(com.gogoproto.GogoProto.customtype);
     registry.add(com.gogoproto.GogoProto.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
@@ -3042,7 +3040,6 @@ public final class QueryProto {
     com.google.api.AnnotationsProto.getDescriptor();
     com.cosmos.mint.v1beta1.MintProto.getDescriptor();
     com.amino.AminoProto.getDescriptor();
-    com.cosmos_proto.CosmosProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

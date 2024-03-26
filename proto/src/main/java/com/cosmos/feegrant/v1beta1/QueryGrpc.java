@@ -164,7 +164,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowance returns granted allwance to the grantee by the granter.
+     * Allowance returns fee granted to the grantee by the granter.
      * </pre>
      */
     default void allowance(com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowanceRequest request,
@@ -174,7 +174,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowances returns all the grants for the given grantee address.
+     * Allowances returns all the grants for address.
      * </pre>
      */
     default void allowances(com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowancesRequest request,
@@ -229,7 +229,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowance returns granted allwance to the grantee by the granter.
+     * Allowance returns fee granted to the grantee by the granter.
      * </pre>
      */
     public void allowance(com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowanceRequest request,
@@ -240,7 +240,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowances returns all the grants for the given grantee address.
+     * Allowances returns all the grants for address.
      * </pre>
      */
     public void allowances(com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowancesRequest request,
@@ -283,7 +283,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowance returns granted allwance to the grantee by the granter.
+     * Allowance returns fee granted to the grantee by the granter.
      * </pre>
      */
     public com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowanceResponse allowance(com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowanceRequest request) {
@@ -293,7 +293,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowances returns all the grants for the given grantee address.
+     * Allowances returns all the grants for address.
      * </pre>
      */
     public com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowancesResponse allowances(com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowancesRequest request) {
@@ -334,7 +334,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowance returns granted allwance to the grantee by the granter.
+     * Allowance returns fee granted to the grantee by the granter.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowanceResponse> allowance(
@@ -345,7 +345,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Allowances returns all the grants for the given grantee address.
+     * Allowances returns all the grants for address.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.feegrant.v1beta1.QueryProto.QueryAllowancesResponse> allowances(

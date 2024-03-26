@@ -132,6 +132,8 @@
     <string name="str_token_github">Check token info</string>
     <string name="str_node_down">Node down</string>
     <string name="str_vote_all">Vote all</string>
+    <string name="str_eth_style_address" translatable="false">Ethereum style address</string>
+    <string name="str_cosmos_style_address" translatable="false">Cosmos style address</string>
 
 
     //title

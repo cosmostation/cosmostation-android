@@ -5497,12 +5497,12 @@ public final class QueryProto {
       "AllowancesByGranterRequest\0329.cosmos.feeg" +
       "rant.v1beta1.QueryAllowancesByGranterRes" +
       "ponse\"1\202\323\344\223\002+\022)/cosmos/feegrant/v1beta1/" +
-      "issued/{granter}B\276\001\n\033com.cosmos.feegrant" +
-      ".v1beta1B\nQueryProtoZ\027cosmossdk.io/x/fee" +
-      "grant\242\002\003CFX\252\002\027Cosmos.Feegrant.V1beta1\312\002\027" +
-      "Cosmos\\Feegrant\\V1beta1\342\002#Cosmos\\Feegran" +
-      "t\\V1beta1\\GPBMetadata\352\002\031Cosmos::Feegrant" +
-      "::V1beta1b\006proto3"
+      "issued/{granter}B\316\001\n\033com.cosmos.feegrant" +
+      ".v1beta1B\nQueryProtoZ\'github.com/cosmos/" +
+      "cosmos-sdk/x/feegrant\242\002\003CFX\252\002\027Cosmos.Fee" +
+      "grant.V1beta1\312\002\027Cosmos\\Feegrant\\V1beta1\342" +
+      "\002#Cosmos\\Feegrant\\V1beta1\\GPBMetadata\352\002\031" +
+      "Cosmos::Feegrant::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -3121,12 +3121,12 @@ public final class EventProto {
       "\"L\n\tEventMint\022\031\n\010class_id\030\001 \001(\tR\007classId" +
       "\022\016\n\002id\030\002 \001(\tR\002id\022\024\n\005owner\030\003 \001(\tR\005owner\"L" +
       "\n\tEventBurn\022\031\n\010class_id\030\001 \001(\tR\007classId\022\016" +
-      "\n\002id\030\002 \001(\tR\002id\022\024\n\005owner\030\003 \001(\tR\005ownerB\240\001\n" +
-      "\026com.cosmos.nft.v1beta1B\nEventProtoZ\022cos" +
-      "mossdk.io/x/nft\242\002\003CNX\252\002\022Cosmos.Nft.V1bet" +
-      "a1\312\002\022Cosmos\\Nft\\V1beta1\342\002\036Cosmos\\Nft\\V1b" +
-      "eta1\\GPBMetadata\352\002\024Cosmos::Nft::V1beta1b" +
-      "\006proto3"
+      "\n\002id\030\002 \001(\tR\002id\022\024\n\005owner\030\003 \001(\tR\005ownerB\260\001\n" +
+      "\026com.cosmos.nft.v1beta1B\nEventProtoZ\"git" +
+      "hub.com/cosmos/cosmos-sdk/x/nft\242\002\003CNX\252\002\022" +
+      "Cosmos.Nft.V1beta1\312\002\022Cosmos\\Nft\\V1beta1\342" +
+      "\002\036Cosmos\\Nft\\V1beta1\\GPBMetadata\352\002\024Cosmo" +
+      "s::Nft::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

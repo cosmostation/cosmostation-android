@@ -21,8 +21,8 @@ public final class ModuleProto {
   /**
    * <pre>
    * Module defines the ORM module which adds providers to the app container for
-   * ORM ModuleDB's and in the future will automatically register query
-   * services for modules that use the ORM.
+   * module-scoped DB's. In the future it may provide gRPC services for interacting
+   * with ORM data.
    * </pre>
    *
    * Protobuf type {@code cosmos.orm.module.v1alpha1.Module}
@@ -208,8 +208,8 @@ public final class ModuleProto {
     /**
      * <pre>
      * Module defines the ORM module which adds providers to the app container for
-     * ORM ModuleDB's and in the future will automatically register query
-     * services for modules that use the ORM.
+     * module-scoped DB's. In the future it may provide gRPC services for interacting
+     * with ORM data.
      * </pre>
      *
      * Protobuf type {@code cosmos.orm.module.v1alpha1.Module}
@@ -439,13 +439,13 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n\'cosmos/orm/module/v1alpha1/module.prot" +
       "o\022\032cosmos.orm.module.v1alpha1\032 cosmos/ap" +
-      "p/v1alpha1/module.proto\"\"\n\006Module:\030\272\300\226\332\001" +
-      "\022\n\020cosmossdk.io/ormB\266\001\n\036com.cosmos.orm.m" +
-      "odule.v1alpha1B\013ModuleProto\242\002\003COM\252\002\032Cosm" +
-      "os.Orm.Module.V1alpha1\312\002\032Cosmos\\Orm\\Modu" +
-      "le\\V1alpha1\342\002&Cosmos\\Orm\\Module\\V1alpha1" +
-      "\\GPBMetadata\352\002\035Cosmos::Orm::Module::V1al" +
-      "pha1b\006proto3"
+      "p/v1alpha1/module.proto\"2\n\006Module:(\272\300\226\332\001" +
+      "\"\n github.com/cosmos/cosmos-sdk/ormB\266\001\n\036" +
+      "com.cosmos.orm.module.v1alpha1B\013ModulePr" +
+      "oto\242\002\003COM\252\002\032Cosmos.Orm.Module.V1alpha1\312\002" +
+      "\032Cosmos\\Orm\\Module\\V1alpha1\342\002&Cosmos\\Orm" +
+      "\\Module\\V1alpha1\\GPBMetadata\352\002\035Cosmos::O" +
+      "rm::Module::V1alpha1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

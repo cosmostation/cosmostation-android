@@ -19,12 +19,12 @@ public final class DistributionProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The communityTax.
      */
     java.lang.String getCommunityTax();
     /**
-     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for communityTax.
      */
     com.google.protobuf.ByteString
@@ -36,7 +36,7 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
      *     See cosmos/distribution/v1beta1/distribution.proto;l=24
      * @return The baseProposerReward.
@@ -48,7 +48,7 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
      *     See cosmos/distribution/v1beta1/distribution.proto;l=24
      * @return The bytes for baseProposerReward.
@@ -62,9 +62,9 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-     *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+     *     See cosmos/distribution/v1beta1/distribution.proto;l=33
      * @return The bonusProposerReward.
      */
     @java.lang.Deprecated java.lang.String getBonusProposerReward();
@@ -74,9 +74,9 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-     *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+     *     See cosmos/distribution/v1beta1/distribution.proto;l=33
      * @return The bytes for bonusProposerReward.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
@@ -134,7 +134,7 @@ public final class DistributionProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object communityTax_ = "";
     /**
-     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The communityTax.
      */
     @java.lang.Override
@@ -151,7 +151,7 @@ public final class DistributionProto {
       }
     }
     /**
-     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for communityTax.
      */
     @java.lang.Override
@@ -178,7 +178,7 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
      *     See cosmos/distribution/v1beta1/distribution.proto;l=24
      * @return The baseProposerReward.
@@ -202,7 +202,7 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
      *     See cosmos/distribution/v1beta1/distribution.proto;l=24
      * @return The bytes for baseProposerReward.
@@ -231,9 +231,9 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-     *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+     *     See cosmos/distribution/v1beta1/distribution.proto;l=33
      * @return The bonusProposerReward.
      */
     @java.lang.Override
@@ -255,9 +255,9 @@ public final class DistributionProto {
      * in the x/distribution module's reward mechanism.
      * </pre>
      *
-     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-     *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+     *     See cosmos/distribution/v1beta1/distribution.proto;l=33
      * @return The bytes for bonusProposerReward.
      */
     @java.lang.Override
@@ -690,7 +690,7 @@ public final class DistributionProto {
 
       private java.lang.Object communityTax_ = "";
       /**
-       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The communityTax.
        */
       public java.lang.String getCommunityTax() {
@@ -706,7 +706,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The bytes for communityTax.
        */
       public com.google.protobuf.ByteString
@@ -723,7 +723,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The communityTax to set.
        * @return This builder for chaining.
        */
@@ -736,7 +736,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return This builder for chaining.
        */
       public Builder clearCommunityTax() {
@@ -746,7 +746,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string community_tax = 1 [json_name = "communityTax", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The bytes for communityTax to set.
        * @return This builder for chaining.
        */
@@ -767,7 +767,7 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
        *     See cosmos/distribution/v1beta1/distribution.proto;l=24
        * @return The baseProposerReward.
@@ -790,7 +790,7 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
        *     See cosmos/distribution/v1beta1/distribution.proto;l=24
        * @return The bytes for baseProposerReward.
@@ -814,7 +814,7 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
        *     See cosmos/distribution/v1beta1/distribution.proto;l=24
        * @param value The baseProposerReward to set.
@@ -834,7 +834,7 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
        *     See cosmos/distribution/v1beta1/distribution.proto;l=24
        * @return This builder for chaining.
@@ -851,7 +851,7 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string base_proposer_reward = 2 [json_name = "baseProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.base_proposer_reward is deprecated.
        *     See cosmos/distribution/v1beta1/distribution.proto;l=24
        * @param value The bytes for baseProposerReward to set.
@@ -874,9 +874,9 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-       *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+       *     See cosmos/distribution/v1beta1/distribution.proto;l=33
        * @return The bonusProposerReward.
        */
       @java.lang.Deprecated public java.lang.String getBonusProposerReward() {
@@ -897,9 +897,9 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-       *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+       *     See cosmos/distribution/v1beta1/distribution.proto;l=33
        * @return The bytes for bonusProposerReward.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -921,9 +921,9 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-       *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+       *     See cosmos/distribution/v1beta1/distribution.proto;l=33
        * @param value The bonusProposerReward to set.
        * @return This builder for chaining.
        */
@@ -941,9 +941,9 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-       *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+       *     See cosmos/distribution/v1beta1/distribution.proto;l=33
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearBonusProposerReward() {
@@ -958,9 +958,9 @@ public final class DistributionProto {
        * in the x/distribution module's reward mechanism.
        * </pre>
        *
-       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string bonus_proposer_reward = 3 [json_name = "bonusProposerReward", deprecated = true, (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @deprecated cosmos.distribution.v1beta1.Params.bonus_proposer_reward is deprecated.
-       *     See cosmos/distribution/v1beta1/distribution.proto;l=34
+       *     See cosmos/distribution/v1beta1/distribution.proto;l=33
        * @param value The bytes for bonusProposerReward to set.
        * @return This builder for chaining.
        */
@@ -4415,12 +4415,12 @@ public final class DistributionProto {
     long getValidatorPeriod();
 
     /**
-     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The fraction.
      */
     java.lang.String getFraction();
     /**
-     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for fraction.
      */
     com.google.protobuf.ByteString
@@ -4484,7 +4484,7 @@ public final class DistributionProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object fraction_ = "";
     /**
-     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The fraction.
      */
     @java.lang.Override
@@ -4501,7 +4501,7 @@ public final class DistributionProto {
       }
     }
     /**
-     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+     * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for fraction.
      */
     @java.lang.Override
@@ -4910,7 +4910,7 @@ public final class DistributionProto {
 
       private java.lang.Object fraction_ = "";
       /**
-       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The fraction.
        */
       public java.lang.String getFraction() {
@@ -4926,7 +4926,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The bytes for fraction.
        */
       public com.google.protobuf.ByteString
@@ -4943,7 +4943,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The fraction to set.
        * @return This builder for chaining.
        */
@@ -4956,7 +4956,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return This builder for chaining.
        */
       public Builder clearFraction() {
@@ -4966,7 +4966,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
+       * <code>string fraction = 2 [json_name = "fraction", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The bytes for fraction to set.
        * @return This builder for chaining.
        */
@@ -6623,6 +6623,869 @@ public final class DistributionProto {
 
   }
 
+  public interface TokenizeShareRecordRewardOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.TokenizeShareRecordReward)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 record_id = 1 [json_name = "recordId"];</code>
+     * @return The recordId.
+     */
+    long getRecordId();
+
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> 
+        getRewardList();
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    com.cosmos.base.v1beta1.CoinProto.DecCoin getReward(int index);
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    int getRewardCount();
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+        getRewardOrBuilderList();
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder getRewardOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * TokenizeShareRecordReward represents the properties of tokenize share
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.distribution.v1beta1.TokenizeShareRecordReward}
+   */
+  public static final class TokenizeShareRecordReward extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.TokenizeShareRecordReward)
+      TokenizeShareRecordRewardOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TokenizeShareRecordReward.newBuilder() to construct.
+    private TokenizeShareRecordReward(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TokenizeShareRecordReward() {
+      reward_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new TokenizeShareRecordReward();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.cosmos.distribution.v1beta1.DistributionProto.internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.cosmos.distribution.v1beta1.DistributionProto.internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.class, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder.class);
+    }
+
+    public static final int RECORD_ID_FIELD_NUMBER = 1;
+    private long recordId_ = 0L;
+    /**
+     * <code>uint64 record_id = 1 [json_name = "recordId"];</code>
+     * @return The recordId.
+     */
+    @java.lang.Override
+    public long getRecordId() {
+      return recordId_;
+    }
+
+    public static final int REWARD_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> reward_;
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> getRewardList() {
+      return reward_;
+    }
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+        getRewardOrBuilderList() {
+      return reward_;
+    }
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public int getRewardCount() {
+      return reward_.size();
+    }
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.base.v1beta1.CoinProto.DecCoin getReward(int index) {
+      return reward_.get(index);
+    }
+    /**
+     * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder getRewardOrBuilder(
+        int index) {
+      return reward_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (recordId_ != 0L) {
+        output.writeUInt64(1, recordId_);
+      }
+      for (int i = 0; i < reward_.size(); i++) {
+        output.writeMessage(2, reward_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (recordId_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, recordId_);
+      }
+      for (int i = 0; i < reward_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, reward_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward)) {
+        return super.equals(obj);
+      }
+      com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward other = (com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward) obj;
+
+      if (getRecordId()
+          != other.getRecordId()) return false;
+      if (!getRewardList()
+          .equals(other.getRewardList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RECORD_ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getRecordId());
+      if (getRewardCount() > 0) {
+        hash = (37 * hash) + REWARD_FIELD_NUMBER;
+        hash = (53 * hash) + getRewardList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * TokenizeShareRecordReward represents the properties of tokenize share
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.distribution.v1beta1.TokenizeShareRecordReward}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.distribution.v1beta1.TokenizeShareRecordReward)
+        com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.cosmos.distribution.v1beta1.DistributionProto.internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.cosmos.distribution.v1beta1.DistributionProto.internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.class, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder.class);
+      }
+
+      // Construct using com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        recordId_ = 0L;
+        if (rewardBuilder_ == null) {
+          reward_ = java.util.Collections.emptyList();
+        } else {
+          reward_ = null;
+          rewardBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.cosmos.distribution.v1beta1.DistributionProto.internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_descriptor;
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward getDefaultInstanceForType() {
+        return com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward build() {
+        com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward buildPartial() {
+        com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward result = new com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward result) {
+        if (rewardBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            reward_ = java.util.Collections.unmodifiableList(reward_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.reward_ = reward_;
+        } else {
+          result.reward_ = rewardBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.recordId_ = recordId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward) {
+          return mergeFrom((com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward other) {
+        if (other == com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.getDefaultInstance()) return this;
+        if (other.getRecordId() != 0L) {
+          setRecordId(other.getRecordId());
+        }
+        if (rewardBuilder_ == null) {
+          if (!other.reward_.isEmpty()) {
+            if (reward_.isEmpty()) {
+              reward_ = other.reward_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureRewardIsMutable();
+              reward_.addAll(other.reward_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.reward_.isEmpty()) {
+            if (rewardBuilder_.isEmpty()) {
+              rewardBuilder_.dispose();
+              rewardBuilder_ = null;
+              reward_ = other.reward_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              rewardBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRewardFieldBuilder() : null;
+            } else {
+              rewardBuilder_.addAllMessages(other.reward_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                recordId_ = input.readUInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 18: {
+                com.cosmos.base.v1beta1.CoinProto.DecCoin m =
+                    input.readMessage(
+                        com.cosmos.base.v1beta1.CoinProto.DecCoin.parser(),
+                        extensionRegistry);
+                if (rewardBuilder_ == null) {
+                  ensureRewardIsMutable();
+                  reward_.add(m);
+                } else {
+                  rewardBuilder_.addMessage(m);
+                }
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long recordId_ ;
+      /**
+       * <code>uint64 record_id = 1 [json_name = "recordId"];</code>
+       * @return The recordId.
+       */
+      @java.lang.Override
+      public long getRecordId() {
+        return recordId_;
+      }
+      /**
+       * <code>uint64 record_id = 1 [json_name = "recordId"];</code>
+       * @param value The recordId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRecordId(long value) {
+
+        recordId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 record_id = 1 [json_name = "recordId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearRecordId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        recordId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> reward_ =
+        java.util.Collections.emptyList();
+      private void ensureRewardIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          reward_ = new java.util.ArrayList<com.cosmos.base.v1beta1.CoinProto.DecCoin>(reward_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.cosmos.base.v1beta1.CoinProto.DecCoin, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder, com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> rewardBuilder_;
+
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> getRewardList() {
+        if (rewardBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(reward_);
+        } else {
+          return rewardBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public int getRewardCount() {
+        if (rewardBuilder_ == null) {
+          return reward_.size();
+        } else {
+          return rewardBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin getReward(int index) {
+        if (rewardBuilder_ == null) {
+          return reward_.get(index);
+        } else {
+          return rewardBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder setReward(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin value) {
+        if (rewardBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardIsMutable();
+          reward_.set(index, value);
+          onChanged();
+        } else {
+          rewardBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder setReward(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder builderForValue) {
+        if (rewardBuilder_ == null) {
+          ensureRewardIsMutable();
+          reward_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addReward(com.cosmos.base.v1beta1.CoinProto.DecCoin value) {
+        if (rewardBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardIsMutable();
+          reward_.add(value);
+          onChanged();
+        } else {
+          rewardBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addReward(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin value) {
+        if (rewardBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardIsMutable();
+          reward_.add(index, value);
+          onChanged();
+        } else {
+          rewardBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addReward(
+          com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder builderForValue) {
+        if (rewardBuilder_ == null) {
+          ensureRewardIsMutable();
+          reward_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rewardBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addReward(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder builderForValue) {
+        if (rewardBuilder_ == null) {
+          ensureRewardIsMutable();
+          reward_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addAllReward(
+          java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.DecCoin> values) {
+        if (rewardBuilder_ == null) {
+          ensureRewardIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, reward_);
+          onChanged();
+        } else {
+          rewardBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder clearReward() {
+        if (rewardBuilder_ == null) {
+          reward_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          rewardBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder removeReward(int index) {
+        if (rewardBuilder_ == null) {
+          ensureRewardIsMutable();
+          reward_.remove(index);
+          onChanged();
+        } else {
+          rewardBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder getRewardBuilder(
+          int index) {
+        return getRewardFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder getRewardOrBuilder(
+          int index) {
+        if (rewardBuilder_ == null) {
+          return reward_.get(index);  } else {
+          return rewardBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+           getRewardOrBuilderList() {
+        if (rewardBuilder_ != null) {
+          return rewardBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(reward_);
+        }
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder addRewardBuilder() {
+        return getRewardFieldBuilder().addBuilder(
+            com.cosmos.base.v1beta1.CoinProto.DecCoin.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder addRewardBuilder(
+          int index) {
+        return getRewardFieldBuilder().addBuilder(
+            index, com.cosmos.base.v1beta1.CoinProto.DecCoin.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .cosmos.base.v1beta1.DecCoin reward = 2 [json_name = "reward", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder> 
+           getRewardBuilderList() {
+        return getRewardFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.cosmos.base.v1beta1.CoinProto.DecCoin, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder, com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+          getRewardFieldBuilder() {
+        if (rewardBuilder_ == null) {
+          rewardBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.cosmos.base.v1beta1.CoinProto.DecCoin, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder, com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder>(
+                  reward_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          reward_ = null;
+        }
+        return rewardBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.distribution.v1beta1.TokenizeShareRecordReward)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.distribution.v1beta1.TokenizeShareRecordReward)
+    private static final com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward();
+    }
+
+    public static com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TokenizeShareRecordReward>
+        PARSER = new com.google.protobuf.AbstractParser<TokenizeShareRecordReward>() {
+      @java.lang.Override
+      public TokenizeShareRecordReward parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<TokenizeShareRecordReward> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TokenizeShareRecordReward> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   @java.lang.Deprecated public interface CommunityPoolSpendProposalOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.CommunityPoolSpendProposal)
       com.google.protobuf.MessageOrBuilder {
@@ -6664,25 +7527,25 @@ public final class DistributionProto {
         getRecipientBytes();
 
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getAmountList();
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index);
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     int getAmountCount();
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getAmountOrBuilderList();
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
         int index);
@@ -6858,14 +7721,14 @@ public final class DistributionProto {
     @SuppressWarnings("serial")
     private java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> amount_;
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAmountList() {
       return amount_;
     }
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -6873,21 +7736,21 @@ public final class DistributionProto {
       return amount_;
     }
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
-     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
@@ -7581,7 +8444,7 @@ public final class DistributionProto {
           com.cosmos.base.v1beta1.CoinProto.Coin, com.cosmos.base.v1beta1.CoinProto.Coin.Builder, com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> amountBuilder_;
 
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAmountList() {
         if (amountBuilder_ == null) {
@@ -7591,7 +8454,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public int getAmountCount() {
         if (amountBuilder_ == null) {
@@ -7601,7 +8464,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getAmount(int index) {
         if (amountBuilder_ == null) {
@@ -7611,7 +8474,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder setAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -7628,7 +8491,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder setAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -7642,7 +8505,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (amountBuilder_ == null) {
@@ -7658,7 +8521,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -7675,7 +8538,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -7689,7 +8552,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAmount(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -7703,7 +8566,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder addAllAmount(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -7718,7 +8581,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearAmount() {
         if (amountBuilder_ == null) {
@@ -7731,7 +8594,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public Builder removeAmount(int index) {
         if (amountBuilder_ == null) {
@@ -7744,14 +8607,14 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getAmountBuilder(
           int index) {
         return getAmountFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAmountOrBuilder(
           int index) {
@@ -7761,7 +8624,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getAmountOrBuilderList() {
@@ -7772,14 +8635,14 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAmountBuilder() {
         return getAmountFieldBuilder().addBuilder(
             com.cosmos.base.v1beta1.CoinProto.Coin.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAmountBuilder(
           int index) {
@@ -7787,7 +8650,7 @@ public final class DistributionProto {
             index, com.cosmos.base.v1beta1.CoinProto.Coin.getDefaultInstance());
       }
       /**
-       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins", (.amino.dont_omitempty) = true];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [json_name = "amount", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.dont_omitempty) = true];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getAmountBuilderList() {
@@ -7882,12 +8745,12 @@ public final class DistributionProto {
     long getPreviousPeriod();
 
     /**
-     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The stake.
      */
     java.lang.String getStake();
     /**
-     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for stake.
      */
     com.google.protobuf.ByteString
@@ -7959,7 +8822,7 @@ public final class DistributionProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object stake_ = "";
     /**
-     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The stake.
      */
     @java.lang.Override
@@ -7976,7 +8839,7 @@ public final class DistributionProto {
       }
     }
     /**
-     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+     * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
      * @return The bytes for stake.
      */
     @java.lang.Override
@@ -8422,7 +9285,7 @@ public final class DistributionProto {
 
       private java.lang.Object stake_ = "";
       /**
-       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The stake.
        */
       public java.lang.String getStake() {
@@ -8438,7 +9301,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return The bytes for stake.
        */
       public com.google.protobuf.ByteString
@@ -8455,7 +9318,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The stake to set.
        * @return This builder for chaining.
        */
@@ -8468,7 +9331,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @return This builder for chaining.
        */
       public Builder clearStake() {
@@ -8478,7 +9341,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (.cosmos_proto.scalar) = "cosmos.Dec", (.amino.dont_omitempty) = true];</code>
+       * <code>string stake = 2 [json_name = "stake", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
        * @param value The bytes for stake to set.
        * @return This builder for chaining.
        */
@@ -8592,12 +9455,12 @@ public final class DistributionProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
     /**
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -8673,7 +9536,7 @@ public final class DistributionProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object validatorAddress_ = "";
     /**
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -8690,7 +9553,7 @@ public final class DistributionProto {
       }
     }
     /**
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -9154,7 +10017,7 @@ public final class DistributionProto {
 
       private java.lang.Object validatorAddress_ = "";
       /**
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -9170,7 +10033,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -9187,7 +10050,7 @@ public final class DistributionProto {
         }
       }
       /**
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -9200,7 +10063,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -9210,7 +10073,7 @@ public final class DistributionProto {
         return this;
       }
       /**
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -9527,7 +10390,7 @@ public final class DistributionProto {
 
   }
 
-  @java.lang.Deprecated public interface CommunityPoolSpendProposalWithDepositOrBuilder extends
+  public interface CommunityPoolSpendProposalWithDepositOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit)
       com.google.protobuf.MessageOrBuilder {
 
@@ -9595,13 +10458,11 @@ public final class DistributionProto {
    * <pre>
    * CommunityPoolSpendProposalWithDeposit defines a CommunityPoolSpendProposal
    * with a deposit
-   *
-   * Deprecated: Do not use.
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit}
    */
-  @java.lang.Deprecated public static final class CommunityPoolSpendProposalWithDeposit extends
+  public static final class CommunityPoolSpendProposalWithDeposit extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit)
       CommunityPoolSpendProposalWithDepositOrBuilder {
@@ -10033,8 +10894,6 @@ public final class DistributionProto {
      * <pre>
      * CommunityPoolSpendProposalWithDeposit defines a CommunityPoolSpendProposal
      * with a deposit
-     *
-     * Deprecated: Do not use.
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit}
@@ -10726,6 +11585,11 @@ public final class DistributionProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_distribution_v1beta1_FeePool_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposal_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -10758,75 +11622,80 @@ public final class DistributionProto {
       "on.proto\022\033cosmos.distribution.v1beta1\032\024g" +
       "ogoproto/gogo.proto\032\036cosmos/base/v1beta1" +
       "/coin.proto\032\031cosmos_proto/cosmos.proto\032\021" +
-      "amino/amino.proto\"\232\003\n\006Params\022[\n\rcommunit" +
-      "y_tax\030\001 \001(\tB6\310\336\037\000\332\336\037\033cosmossdk.io/math.L" +
-      "egacyDec\322\264-\ncosmos.Dec\250\347\260*\001R\014communityTa" +
-      "x\022j\n\024base_proposer_reward\030\002 \001(\tB8\030\001\310\336\037\000\332" +
-      "\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos" +
-      ".Dec\250\347\260*\001R\022baseProposerReward\022l\n\025bonus_p" +
-      "roposer_reward\030\003 \001(\tB8\030\001\310\336\037\000\332\336\037\033cosmossd" +
-      "k.io/math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001R\023" +
-      "bonusProposerReward\0222\n\025withdraw_addr_ena" +
-      "bled\030\004 \001(\010R\023withdrawAddrEnabled:%\212\347\260* co" +
-      "smos-sdk/x/distribution/Params\"\326\001\n\032Valid" +
-      "atorHistoricalRewards\022\216\001\n\027cumulative_rew" +
-      "ard_ratio\030\001 \003(\0132\034.cosmos.base.v1beta1.De" +
-      "cCoinB8\310\336\037\000\252\337\037+github.com/cosmos/cosmos-" +
-      "sdk/types.DecCoins\250\347\260*\001R\025cumulativeRewar" +
-      "dRatio\022\'\n\017reference_count\030\002 \001(\rR\016referen" +
-      "ceCount\"\243\001\n\027ValidatorCurrentRewards\022p\n\007r" +
-      "ewards\030\001 \003(\0132\034.cosmos.base.v1beta1.DecCo" +
-      "inB8\310\336\037\000\252\337\037+github.com/cosmos/cosmos-sdk" +
-      "/types.DecCoins\250\347\260*\001R\007rewards\022\026\n\006period\030" +
-      "\002 \001(\004R\006period\"\230\001\n\036ValidatorAccumulatedCo" +
-      "mmission\022v\n\ncommission\030\001 \003(\0132\034.cosmos.ba" +
-      "se.v1beta1.DecCoinB8\310\336\037\000\252\337\037+github.com/c" +
-      "osmos/cosmos-sdk/types.DecCoins\250\347\260*\001R\nco" +
-      "mmission\"\217\001\n\033ValidatorOutstandingRewards" +
-      "\022p\n\007rewards\030\001 \003(\0132\034.cosmos.base.v1beta1." +
-      "DecCoinB8\310\336\037\000\252\337\037+github.com/cosmos/cosmo" +
-      "s-sdk/types.DecCoins\250\347\260*\001R\007rewards\"\217\001\n\023V" +
-      "alidatorSlashEvent\022)\n\020validator_period\030\001" +
-      " \001(\004R\017validatorPeriod\022M\n\010fraction\030\002 \001(\tB" +
-      "1\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\n" +
-      "cosmos.DecR\010fraction\"\211\001\n\024ValidatorSlashE" +
-      "vents\022q\n\026validator_slash_events\030\001 \003(\01320." +
-      "cosmos.distribution.v1beta1.ValidatorSla" +
-      "shEventB\t\310\336\037\000\250\347\260*\001R\024validatorSlashEvents" +
-      "\"\210\001\n\007FeePool\022}\n\016community_pool\030\001 \003(\0132\034.c" +
-      "osmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+gith" +
-      "ub.com/cosmos/cosmos-sdk/types.DecCoins\250" +
-      "\347\260*\001R\rcommunityPool\"\227\002\n\032CommunityPoolSpe" +
-      "ndProposal\022\024\n\005title\030\001 \001(\tR\005title\022 \n\013desc" +
-      "ription\030\002 \001(\tR\013description\022\034\n\trecipient\030" +
-      "\003 \001(\tR\trecipient\022y\n\006amount\030\004 \003(\0132\031.cosmo" +
-      "s.base.v1beta1.CoinBF\310\336\037\000\252\337\037(github.com/" +
-      "cosmos/cosmos-sdk/types.Coins\232\347\260*\014legacy" +
-      "_coins\250\347\260*\001R\006amount:(\030\001\210\240\037\000\350\240\037\000\312\264-\032cosmo" +
-      "s.gov.v1beta1.Content\"\324\001\n\025DelegatorStart" +
-      "ingInfo\022\'\n\017previous_period\030\001 \001(\004R\016previo" +
-      "usPeriod\022L\n\005stake\030\002 \001(\tB6\310\336\037\000\332\336\037\033cosmoss" +
-      "dk.io/math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001R" +
-      "\005stake\022D\n\006height\030\003 \001(\004B,\352\336\037\017creation_hei" +
-      "ght\242\347\260*\017creation_height\250\347\260*\001R\006height\"\341\001\n" +
-      "\031DelegationDelegatorReward\022N\n\021validator_" +
-      "address\030\001 \001(\tB!\322\264-\035cosmos.ValidatorAddre" +
-      "ssStringR\020validatorAddress\022n\n\006reward\030\002 \003" +
-      "(\0132\034.cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337" +
-      "\037+github.com/cosmos/cosmos-sdk/types.Dec" +
-      "Coins\250\347\260*\001R\006reward:\004\210\240\037\000\"\325\001\n%CommunityPo" +
-      "olSpendProposalWithDeposit\022\024\n\005title\030\001 \001(" +
-      "\tR\005title\022 \n\013description\030\002 \001(\tR\013descripti" +
-      "on\022\034\n\trecipient\030\003 \001(\tR\trecipient\022\026\n\006amou" +
-      "nt\030\004 \001(\tR\006amount\022\030\n\007deposit\030\005 \001(\tR\007depos" +
-      "it:$\030\001\210\240\037\000\312\264-\032cosmos.gov.v1beta1.Content" +
-      "B\347\001\n\037com.cosmos.distribution.v1beta1B\021Di" +
-      "stributionProtoZ!cosmossdk.io/x/distribu" +
-      "tion/types\242\002\003CDX\252\002\033Cosmos.Distribution.V" +
-      "1beta1\312\002\033Cosmos\\Distribution\\V1beta1\342\002\'C" +
-      "osmos\\Distribution\\V1beta1\\GPBMetadata\352\002" +
-      "\035Cosmos::Distribution::V1beta1\250\342\036\001b\006prot" +
-      "o3"
+      "amino/amino.proto\"\260\003\n\006Params\022a\n\rcommunit" +
+      "y_tax\030\001 \001(\tB<\310\336\037\000\332\336\037&github.com/cosmos/c" +
+      "osmos-sdk/types.Dec\322\264-\ncosmos.DecR\014commu" +
+      "nityTax\022p\n\024base_proposer_reward\030\002 \001(\tB>\030" +
+      "\001\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/ty" +
+      "pes.Dec\322\264-\ncosmos.DecR\022baseProposerRewar" +
+      "d\022r\n\025bonus_proposer_reward\030\003 \001(\tB>\030\001\310\336\037\000" +
+      "\332\336\037&github.com/cosmos/cosmos-sdk/types.D" +
+      "ec\322\264-\ncosmos.DecR\023bonusProposerReward\0222\n" +
+      "\025withdraw_addr_enabled\030\004 \001(\010R\023withdrawAd" +
+      "drEnabled:)\230\240\037\000\212\347\260* cosmos-sdk/x/distrib" +
+      "ution/Params\"\326\001\n\032ValidatorHistoricalRewa" +
+      "rds\022\216\001\n\027cumulative_reward_ratio\030\001 \003(\0132\034." +
+      "cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+git" +
+      "hub.com/cosmos/cosmos-sdk/types.DecCoins" +
+      "\250\347\260*\001R\025cumulativeRewardRatio\022\'\n\017referenc" +
+      "e_count\030\002 \001(\rR\016referenceCount\"\243\001\n\027Valida" +
+      "torCurrentRewards\022p\n\007rewards\030\001 \003(\0132\034.cos" +
+      "mos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+github" +
+      ".com/cosmos/cosmos-sdk/types.DecCoins\250\347\260" +
+      "*\001R\007rewards\022\026\n\006period\030\002 \001(\004R\006period\"\230\001\n\036" +
+      "ValidatorAccumulatedCommission\022v\n\ncommis" +
+      "sion\030\001 \003(\0132\034.cosmos.base.v1beta1.DecCoin" +
+      "B8\310\336\037\000\252\337\037+github.com/cosmos/cosmos-sdk/t" +
+      "ypes.DecCoins\250\347\260*\001R\ncommission\"\217\001\n\033Valid" +
+      "atorOutstandingRewards\022p\n\007rewards\030\001 \003(\0132" +
+      "\034.cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+g" +
+      "ithub.com/cosmos/cosmos-sdk/types.DecCoi" +
+      "ns\250\347\260*\001R\007rewards\"\232\001\n\023ValidatorSlashEvent" +
+      "\022)\n\020validator_period\030\001 \001(\004R\017validatorPer" +
+      "iod\022X\n\010fraction\030\002 \001(\tB<\310\336\037\000\332\336\037&github.co" +
+      "m/cosmos/cosmos-sdk/types.Dec\322\264-\ncosmos." +
+      "DecR\010fraction\"\217\001\n\024ValidatorSlashEvents\022q" +
+      "\n\026validator_slash_events\030\001 \003(\01320.cosmos." +
+      "distribution.v1beta1.ValidatorSlashEvent" +
+      "B\t\310\336\037\000\250\347\260*\001R\024validatorSlashEvents:\004\230\240\037\000\"" +
+      "\210\001\n\007FeePool\022}\n\016community_pool\030\001 \003(\0132\034.co" +
+      "smos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+githu" +
+      "b.com/cosmos/cosmos-sdk/types.DecCoins\250\347" +
+      "\260*\001R\rcommunityPool\"\255\001\n\031TokenizeShareReco" +
+      "rdReward\022\033\n\trecord_id\030\001 \001(\004R\010recordId\022i\n" +
+      "\006reward\030\002 \003(\0132\034.cosmos.base.v1beta1.DecC" +
+      "oinB3\310\336\037\000\252\337\037+github.com/cosmos/cosmos-sd" +
+      "k/types.DecCoinsR\006reward:\010\210\240\037\000\230\240\037\001\"\212\002\n\032C" +
+      "ommunityPoolSpendProposal\022\024\n\005title\030\001 \001(\t" +
+      "R\005title\022 \n\013description\030\002 \001(\tR\013descriptio" +
+      "n\022\034\n\trecipient\030\003 \001(\tR\trecipient\022h\n\006amoun" +
+      "t\030\004 \003(\0132\031.cosmos.base.v1beta1.CoinB5\310\336\037\000" +
+      "\252\337\037(github.com/cosmos/cosmos-sdk/types.C" +
+      "oins\250\347\260*\001R\006amount:,\030\001\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\032cos" +
+      "mos.gov.v1beta1.Content\"\332\001\n\025DelegatorSta" +
+      "rtingInfo\022\'\n\017previous_period\030\001 \001(\004R\016prev" +
+      "iousPeriod\022R\n\005stake\030\002 \001(\tB<\310\336\037\000\332\336\037&githu" +
+      "b.com/cosmos/cosmos-sdk/types.Dec\322\264-\ncos" +
+      "mos.DecR\005stake\022D\n\006height\030\003 \001(\004B,\352\336\037\017crea" +
+      "tion_height\242\347\260*\017creation_height\250\347\260*\001R\006he" +
+      "ight\"\334\001\n\031DelegationDelegatorReward\022E\n\021va" +
+      "lidator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addres" +
+      "sStringR\020validatorAddress\022n\n\006reward\030\002 \003(" +
+      "\0132\034.cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037" +
+      "+github.com/cosmos/cosmos-sdk/types.DecC" +
+      "oins\250\347\260*\001R\006reward:\010\210\240\037\000\230\240\037\001\"\327\001\n%Communit" +
+      "yPoolSpendProposalWithDeposit\022\024\n\005title\030\001" +
+      " \001(\tR\005title\022 \n\013description\030\002 \001(\tR\013descri" +
+      "ption\022\034\n\trecipient\030\003 \001(\tR\trecipient\022\026\n\006a" +
+      "mount\030\004 \001(\tR\006amount\022\030\n\007deposit\030\005 \001(\tR\007de" +
+      "posit:&\210\240\037\000\230\240\037\001\312\264-\032cosmos.gov.v1beta1.Co" +
+      "ntentB\367\001\n\037com.cosmos.distribution.v1beta" +
+      "1B\021DistributionProtoZ1github.com/cosmos/" +
+      "cosmos-sdk/x/distribution/types\242\002\003CDX\252\002\033" +
+      "Cosmos.Distribution.V1beta1\312\002\033Cosmos\\Dis" +
+      "tribution\\V1beta1\342\002\'Cosmos\\Distribution\\" +
+      "V1beta1\\GPBMetadata\352\002\035Cosmos::Distributi" +
+      "on::V1beta1\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -10884,26 +11753,32 @@ public final class DistributionProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_distribution_v1beta1_FeePool_descriptor,
         new java.lang.String[] { "CommunityPool", });
-    internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposal_descriptor =
+    internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_descriptor =
       getDescriptor().getMessageTypes().get(8);
+    internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_distribution_v1beta1_TokenizeShareRecordReward_descriptor,
+        new java.lang.String[] { "RecordId", "Reward", });
+    internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposal_descriptor =
+      getDescriptor().getMessageTypes().get(9);
     internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposal_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposal_descriptor,
         new java.lang.String[] { "Title", "Description", "Recipient", "Amount", });
     internal_static_cosmos_distribution_v1beta1_DelegatorStartingInfo_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_cosmos_distribution_v1beta1_DelegatorStartingInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_distribution_v1beta1_DelegatorStartingInfo_descriptor,
         new java.lang.String[] { "PreviousPeriod", "Stake", "Height", });
     internal_static_cosmos_distribution_v1beta1_DelegationDelegatorReward_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_cosmos_distribution_v1beta1_DelegationDelegatorReward_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_distribution_v1beta1_DelegationDelegatorReward_descriptor,
         new java.lang.String[] { "ValidatorAddress", "Reward", });
     internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposalWithDeposit_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposalWithDeposit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_distribution_v1beta1_CommunityPoolSpendProposalWithDeposit_descriptor,
@@ -10911,7 +11786,6 @@ public final class DistributionProto {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);
-    registry.add(com.amino.AminoProto.encoding);
     registry.add(com.amino.AminoProto.fieldName);
     registry.add(com.amino.AminoProto.name);
     registry.add(com.cosmos_proto.CosmosProto.implementsInterface);
@@ -10921,6 +11795,7 @@ public final class DistributionProto {
     registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.equalAll);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
+    registry.add(com.gogoproto.GogoProto.goprotoStringer);
     registry.add(com.gogoproto.GogoProto.jsontag);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor

@@ -18,37 +18,6 @@ public final class QueryGrpc {
   public static final String SERVICE_NAME = "cosmos.gov.v1.Query";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest,
-      com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse> getConstitutionMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Constitution",
-      requestType = com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.class,
-      responseType = com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest,
-      com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse> getConstitutionMethod() {
-    io.grpc.MethodDescriptor<com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest, com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse> getConstitutionMethod;
-    if ((getConstitutionMethod = QueryGrpc.getConstitutionMethod) == null) {
-      synchronized (QueryGrpc.class) {
-        if ((getConstitutionMethod = QueryGrpc.getConstitutionMethod) == null) {
-          QueryGrpc.getConstitutionMethod = getConstitutionMethod =
-              io.grpc.MethodDescriptor.<com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest, com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Constitution"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("Constitution"))
-              .build();
-        }
-      }
-    }
-    return getConstitutionMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<com.cosmos.gov.v1.QueryProto.QueryProposalRequest,
       com.cosmos.gov.v1.QueryProto.QueryProposalResponse> getProposalMethod;
 
@@ -350,16 +319,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Constitution queries the chain's constitution.
-     * </pre>
-     */
-    default void constitution(com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest request,
-        io.grpc.stub.StreamObserver<com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getConstitutionMethod(), responseObserver);
-    }
-
-    /**
-     * <pre>
      * Proposal queries proposal details based on ProposalID.
      * </pre>
      */
@@ -410,7 +369,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based on proposalID, depositAddr.
+     * Deposit queries single deposit information based proposalID, depositAddr.
      * </pre>
      */
     default void deposit(com.cosmos.gov.v1.QueryProto.QueryDepositRequest request,
@@ -474,17 +433,6 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Constitution queries the chain's constitution.
-     * </pre>
-     */
-    public void constitution(com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest request,
-        io.grpc.stub.StreamObserver<com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getConstitutionMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     * <pre>
      * Proposal queries proposal details based on ProposalID.
      * </pre>
      */
@@ -540,7 +488,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based on proposalID, depositAddr.
+     * Deposit queries single deposit information based proposalID, depositAddr.
      * </pre>
      */
     public void deposit(com.cosmos.gov.v1.QueryProto.QueryDepositRequest request,
@@ -589,16 +537,6 @@ public final class QueryGrpc {
     protected QueryBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new QueryBlockingStub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Constitution queries the chain's constitution.
-     * </pre>
-     */
-    public com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse constitution(com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getConstitutionMethod(), getCallOptions(), request);
     }
 
     /**
@@ -653,7 +591,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based on proposalID, depositAddr.
+     * Deposit queries single deposit information based proposalID, depositAddr.
      * </pre>
      */
     public com.cosmos.gov.v1.QueryProto.QueryDepositResponse deposit(com.cosmos.gov.v1.QueryProto.QueryDepositRequest request) {
@@ -699,17 +637,6 @@ public final class QueryGrpc {
     protected QueryFutureStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new QueryFutureStub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Constitution queries the chain's constitution.
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse> constitution(
-        com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getConstitutionMethod(), getCallOptions()), request);
     }
 
     /**
@@ -769,7 +696,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Deposit queries single deposit information based on proposalID, depositAddr.
+     * Deposit queries single deposit information based proposalID, depositAddr.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.gov.v1.QueryProto.QueryDepositResponse> deposit(
@@ -801,15 +728,14 @@ public final class QueryGrpc {
     }
   }
 
-  private static final int METHODID_CONSTITUTION = 0;
-  private static final int METHODID_PROPOSAL = 1;
-  private static final int METHODID_PROPOSALS = 2;
-  private static final int METHODID_VOTE = 3;
-  private static final int METHODID_VOTES = 4;
-  private static final int METHODID_PARAMS = 5;
-  private static final int METHODID_DEPOSIT = 6;
-  private static final int METHODID_DEPOSITS = 7;
-  private static final int METHODID_TALLY_RESULT = 8;
+  private static final int METHODID_PROPOSAL = 0;
+  private static final int METHODID_PROPOSALS = 1;
+  private static final int METHODID_VOTE = 2;
+  private static final int METHODID_VOTES = 3;
+  private static final int METHODID_PARAMS = 4;
+  private static final int METHODID_DEPOSIT = 5;
+  private static final int METHODID_DEPOSITS = 6;
+  private static final int METHODID_TALLY_RESULT = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -828,10 +754,6 @@ public final class QueryGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_CONSTITUTION:
-          serviceImpl.constitution((com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest) request,
-              (io.grpc.stub.StreamObserver<com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse>) responseObserver);
-          break;
         case METHODID_PROPOSAL:
           serviceImpl.proposal((com.cosmos.gov.v1.QueryProto.QueryProposalRequest) request,
               (io.grpc.stub.StreamObserver<com.cosmos.gov.v1.QueryProto.QueryProposalResponse>) responseObserver);
@@ -882,13 +804,6 @@ public final class QueryGrpc {
 
   public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-        .addMethod(
-          getConstitutionMethod(),
-          io.grpc.stub.ServerCalls.asyncUnaryCall(
-            new MethodHandlers<
-              com.cosmos.gov.v1.QueryProto.QueryConstitutionRequest,
-              com.cosmos.gov.v1.QueryProto.QueryConstitutionResponse>(
-                service, METHODID_CONSTITUTION)))
         .addMethod(
           getProposalMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -993,7 +908,6 @@ public final class QueryGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new QueryFileDescriptorSupplier())
-              .addMethod(getConstitutionMethod())
               .addMethod(getProposalMethod())
               .addMethod(getProposalsMethod())
               .addMethod(getVoteMethod())

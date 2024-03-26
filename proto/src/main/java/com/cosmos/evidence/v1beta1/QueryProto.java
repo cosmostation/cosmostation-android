@@ -24,9 +24,9 @@ public final class QueryProto {
      * Deprecated: Use hash, a HEX encoded string, instead.
      * </pre>
      *
-     * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true];</code>
+     * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true, (.gogoproto.casttype) = "github.com/cometbft/cometbft/libs/bytes.HexBytes"];</code>
      * @deprecated cosmos.evidence.v1beta1.QueryEvidenceRequest.evidence_hash is deprecated.
-     *     See cosmos/evidence/v1beta1/query.proto;l=26
+     *     See cosmos/evidence/v1beta1/query.proto;l=27
      * @return The evidenceHash.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString getEvidenceHash();
@@ -104,9 +104,9 @@ public final class QueryProto {
      * Deprecated: Use hash, a HEX encoded string, instead.
      * </pre>
      *
-     * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true];</code>
+     * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true, (.gogoproto.casttype) = "github.com/cometbft/cometbft/libs/bytes.HexBytes"];</code>
      * @deprecated cosmos.evidence.v1beta1.QueryEvidenceRequest.evidence_hash is deprecated.
-     *     See cosmos/evidence/v1beta1/query.proto;l=26
+     *     See cosmos/evidence/v1beta1/query.proto;l=27
      * @return The evidenceHash.
      */
     @java.lang.Override
@@ -525,9 +525,9 @@ public final class QueryProto {
        * Deprecated: Use hash, a HEX encoded string, instead.
        * </pre>
        *
-       * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true];</code>
+       * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true, (.gogoproto.casttype) = "github.com/cometbft/cometbft/libs/bytes.HexBytes"];</code>
        * @deprecated cosmos.evidence.v1beta1.QueryEvidenceRequest.evidence_hash is deprecated.
-       *     See cosmos/evidence/v1beta1/query.proto;l=26
+       *     See cosmos/evidence/v1beta1/query.proto;l=27
        * @return The evidenceHash.
        */
       @java.lang.Override
@@ -540,9 +540,9 @@ public final class QueryProto {
        * Deprecated: Use hash, a HEX encoded string, instead.
        * </pre>
        *
-       * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true];</code>
+       * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true, (.gogoproto.casttype) = "github.com/cometbft/cometbft/libs/bytes.HexBytes"];</code>
        * @deprecated cosmos.evidence.v1beta1.QueryEvidenceRequest.evidence_hash is deprecated.
-       *     See cosmos/evidence/v1beta1/query.proto;l=26
+       *     See cosmos/evidence/v1beta1/query.proto;l=27
        * @param value The evidenceHash to set.
        * @return This builder for chaining.
        */
@@ -559,9 +559,9 @@ public final class QueryProto {
        * Deprecated: Use hash, a HEX encoded string, instead.
        * </pre>
        *
-       * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true];</code>
+       * <code>bytes evidence_hash = 1 [json_name = "evidenceHash", deprecated = true, (.gogoproto.casttype) = "github.com/cometbft/cometbft/libs/bytes.HexBytes"];</code>
        * @deprecated cosmos.evidence.v1beta1.QueryEvidenceRequest.evidence_hash is deprecated.
-       *     See cosmos/evidence/v1beta1/query.proto;l=26
+       *     See cosmos/evidence/v1beta1/query.proto;l=27
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearEvidenceHash() {
@@ -3265,37 +3265,40 @@ public final class QueryProto {
     java.lang.String[] descriptorData = {
       "\n#cosmos/evidence/v1beta1/query.proto\022\027c" +
       "osmos.evidence.v1beta1\032*cosmos/base/quer" +
-      "y/v1beta1/pagination.proto\032\031google/proto" +
-      "buf/any.proto\032\034google/api/annotations.pr" +
-      "oto\"S\n\024QueryEvidenceRequest\022\'\n\revidence_" +
-      "hash\030\001 \001(\014B\002\030\001R\014evidenceHash\022\022\n\004hash\030\002 \001" +
-      "(\tR\004hash\"I\n\025QueryEvidenceResponse\0220\n\010evi" +
-      "dence\030\001 \001(\0132\024.google.protobuf.AnyR\010evide" +
-      "nce\"a\n\027QueryAllEvidenceRequest\022F\n\npagina" +
-      "tion\030\001 \001(\0132&.cosmos.base.query.v1beta1.P" +
-      "ageRequestR\npagination\"\225\001\n\030QueryAllEvide" +
-      "nceResponse\0220\n\010evidence\030\001 \003(\0132\024.google.p" +
-      "rotobuf.AnyR\010evidence\022G\n\npagination\030\002 \001(" +
-      "\0132\'.cosmos.base.query.v1beta1.PageRespon" +
-      "seR\npagination2\305\002\n\005Query\022\233\001\n\010Evidence\022-." +
-      "cosmos.evidence.v1beta1.QueryEvidenceReq" +
-      "uest\032..cosmos.evidence.v1beta1.QueryEvid" +
-      "enceResponse\"0\202\323\344\223\002*\022(/cosmos/evidence/v" +
-      "1beta1/evidence/{hash}\022\235\001\n\013AllEvidence\0220" +
-      ".cosmos.evidence.v1beta1.QueryAllEvidenc" +
-      "eRequest\0321.cosmos.evidence.v1beta1.Query" +
-      "AllEvidenceResponse\")\202\323\344\223\002#\022!/cosmos/evi" +
-      "dence/v1beta1/evidenceB\304\001\n\033com.cosmos.ev" +
-      "idence.v1beta1B\nQueryProtoZ\035cosmossdk.io" +
-      "/x/evidence/types\242\002\003CEX\252\002\027Cosmos.Evidenc" +
-      "e.V1beta1\312\002\027Cosmos\\Evidence\\V1beta1\342\002#Co" +
-      "smos\\Evidence\\V1beta1\\GPBMetadata\352\002\031Cosm" +
-      "os::Evidence::V1beta1b\006proto3"
+      "y/v1beta1/pagination.proto\032\024gogoproto/go" +
+      "go.proto\032\031google/protobuf/any.proto\032\034goo" +
+      "gle/api/annotations.proto\"\207\001\n\024QueryEvide" +
+      "nceRequest\022[\n\revidence_hash\030\001 \001(\014B6\030\001\372\336\037" +
+      "0github.com/cometbft/cometbft/libs/bytes" +
+      ".HexBytesR\014evidenceHash\022\022\n\004hash\030\002 \001(\tR\004h" +
+      "ash\"I\n\025QueryEvidenceResponse\0220\n\010evidence" +
+      "\030\001 \001(\0132\024.google.protobuf.AnyR\010evidence\"a" +
+      "\n\027QueryAllEvidenceRequest\022F\n\npagination\030" +
+      "\001 \001(\0132&.cosmos.base.query.v1beta1.PageRe" +
+      "questR\npagination\"\225\001\n\030QueryAllEvidenceRe" +
+      "sponse\0220\n\010evidence\030\001 \003(\0132\024.google.protob" +
+      "uf.AnyR\010evidence\022G\n\npagination\030\002 \001(\0132\'.c" +
+      "osmos.base.query.v1beta1.PageResponseR\np" +
+      "agination2\305\002\n\005Query\022\233\001\n\010Evidence\022-.cosmo" +
+      "s.evidence.v1beta1.QueryEvidenceRequest\032" +
+      "..cosmos.evidence.v1beta1.QueryEvidenceR" +
+      "esponse\"0\202\323\344\223\002*\022(/cosmos/evidence/v1beta" +
+      "1/evidence/{hash}\022\235\001\n\013AllEvidence\0220.cosm" +
+      "os.evidence.v1beta1.QueryAllEvidenceRequ" +
+      "est\0321.cosmos.evidence.v1beta1.QueryAllEv" +
+      "idenceResponse\")\202\323\344\223\002#\022!/cosmos/evidence" +
+      "/v1beta1/evidenceB\324\001\n\033com.cosmos.evidenc" +
+      "e.v1beta1B\nQueryProtoZ-github.com/cosmos" +
+      "/cosmos-sdk/x/evidence/types\242\002\003CEX\252\002\027Cos" +
+      "mos.Evidence.V1beta1\312\002\027Cosmos\\Evidence\\V" +
+      "1beta1\342\002#Cosmos\\Evidence\\V1beta1\\GPBMeta" +
+      "data\352\002\031Cosmos::Evidence::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor(),
+          com.gogoproto.GogoProto.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
         });
@@ -3325,10 +3328,12 @@ public final class QueryProto {
         new java.lang.String[] { "Evidence", "Pagination", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.gogoproto.GogoProto.casttype);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor();
+    com.gogoproto.GogoProto.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
   }

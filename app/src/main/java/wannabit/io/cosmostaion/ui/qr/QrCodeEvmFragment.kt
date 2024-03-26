@@ -12,8 +12,6 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,11 +22,9 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
-import wannabit.io.cosmostaion.databinding.ItemSegmentChainBinding
 
 class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
@@ -37,7 +33,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedEvmChain: EthereumLine
 
-    private var selectedPosition: Int = 0
+    private var isShowEvmAddress = true
 
     companion object {
         @JvmStatic
@@ -89,59 +85,15 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         BaseData.baseAccount?.let { account ->
             binding.apply {
-                segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
                 chainBadge.visibility = View.GONE
                 chainTypeBadge.visibility = View.GONE
-                chainSegment.visibleOrGone(selectedEvmChain.supportCosmos)
+                btnFilter.visibleOrGone(selectedEvmChain.supportCosmos)
 
                 if (!selectedEvmChain.supportCosmos) {
                     setQrAddress(selectedEvmChain.address)
 
                 } else {
-                    segmentView.setBackgroundResource(R.drawable.cell_search_bg)
-                    chainSegment.apply {
-                        setSelectedBackground(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_accent_purple
-                            )
-                        )
-                        setRipple(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_accent_purple
-                            )
-                        )
-                    }
-
-                    for (i in 0 until 2) {
-                        val segmentView = ItemSegmentChainBinding.inflate(layoutInflater)
-                        chainSegment.addView(
-                            segmentView.root,
-                            i,
-                            LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                        )
-
-                        when (i) {
-                            0 -> {
-                                segmentView.btnChain.text = "ETHEREUM"
-                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                    requireContext(), R.drawable.icon_ethereum_address
-                                )
-                                setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
-                            }
-
-                            else -> {
-                                segmentView.btnChain.drawable = ContextCompat.getDrawable(
-                                    requireContext(), selectedEvmChain.addressLogo
-                                )
-                                segmentView.btnChain.text = selectedEvmChain.apiName.uppercase()
-                            }
-                        }
-                    }
-                    addressTitle.text = if (selectedPosition == 0) {
-                        getString(R.string.str_ethereum_address)
-                    } else {
-                        getString(R.string.str_address)
-                    }
+                    updateAddress()
                 }
 
                 addressView.setBackgroundResource(R.drawable.cell_bg)
@@ -153,6 +105,16 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                 qrView.radius = resources.getDimension(R.dimen.space_8)
                 qrImg.clipToOutline = true
             }
+        }
+    }
+
+    private fun updateAddress() {
+        if (isShowEvmAddress) {
+            setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
+            binding.addressTitle.text = getString(R.string.str_eth_style_address)
+        } else {
+            setQrAddress(selectedEvmChain.address)
+            binding.addressTitle.text = getString(R.string.str_cosmos_style_address)
         }
     }
 
@@ -172,23 +134,13 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private fun setupClickAction() {
         binding.apply {
-            chainSegment.setOnPositionChangedListener { position ->
-                selectedPosition = position
-                when (position) {
-                    0 -> {
-                        setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
-                        addressTitle.text = getString(R.string.str_ethereum_address)
-                    }
-
-                    else -> {
-                        setQrAddress(selectedEvmChain.address)
-                        addressTitle.text = getString(R.string.str_address)
-                    }
-                }
+            btnFilter.setOnClickListener {
+                isShowEvmAddress = !isShowEvmAddress
+                updateAddress()
             }
 
             addressView.setOnClickListener {
-                val copyAddress = if (selectedPosition == 0) {
+                val copyAddress = if (isShowEvmAddress) {
                     if (selectedEvmChain.supportCosmos) {
                         ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
                     } else {
@@ -205,9 +157,19 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             }
 
             btnShare.setOnClickListener {
+                val shareAddress = if (isShowEvmAddress) {
+                    if (selectedEvmChain.supportCosmos) {
+                        ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
+                    } else {
+                        selectedEvmChain.address
+                    }
+                } else {
+                    selectedEvmChain.address
+                }
+
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, selectedEvmChain.address)
+                intent.putExtra(Intent.EXTRA_TEXT, shareAddress)
                 intent.type = "text/plain"
 
                 startActivity(Intent.createChooser(intent, "share"))

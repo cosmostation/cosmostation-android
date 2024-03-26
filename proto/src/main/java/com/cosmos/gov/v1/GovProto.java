@@ -2582,8 +2582,6 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here:
-     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -2593,8 +2591,6 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here:
-     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -2653,7 +2649,7 @@ public final class GovProto {
 
     /**
      * <pre>
-     * proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal sumbitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -2664,7 +2660,7 @@ public final class GovProto {
     java.lang.String getProposer();
     /**
      * <pre>
-     * proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal sumbitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -2674,42 +2670,6 @@ public final class GovProto {
      */
     com.google.protobuf.ByteString
         getProposerBytes();
-
-    /**
-     * <pre>
-     * expedited defines if the proposal is expedited
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>bool expedited = 14 [json_name = "expedited"];</code>
-     * @return The expedited.
-     */
-    boolean getExpedited();
-
-    /**
-     * <pre>
-     * failed_reason defines the reason why the proposal failed
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-     * @return The failedReason.
-     */
-    java.lang.String getFailedReason();
-    /**
-     * <pre>
-     * failed_reason defines the reason why the proposal failed
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-     * @return The bytes for failedReason.
-     */
-    com.google.protobuf.ByteString
-        getFailedReasonBytes();
   }
   /**
    * <pre>
@@ -2735,7 +2695,6 @@ public final class GovProto {
       title_ = "";
       summary_ = "";
       proposer_ = "";
-      failedReason_ = "";
     }
 
     @java.lang.Override
@@ -3123,8 +3082,6 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here:
-     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -3146,8 +3103,6 @@ public final class GovProto {
     /**
      * <pre>
      * metadata is any arbitrary metadata attached to the proposal.
-     * the recommended format of the metadata is to be found here:
-     * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
      * </pre>
      *
      * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -3275,7 +3230,7 @@ public final class GovProto {
     private volatile java.lang.Object proposer_ = "";
     /**
      * <pre>
-     * proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal sumbitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -3298,7 +3253,7 @@ public final class GovProto {
     }
     /**
      * <pre>
-     * proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal sumbitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -3315,74 +3270,6 @@ public final class GovProto {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         proposer_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EXPEDITED_FIELD_NUMBER = 14;
-    private boolean expedited_ = false;
-    /**
-     * <pre>
-     * expedited defines if the proposal is expedited
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>bool expedited = 14 [json_name = "expedited"];</code>
-     * @return The expedited.
-     */
-    @java.lang.Override
-    public boolean getExpedited() {
-      return expedited_;
-    }
-
-    public static final int FAILED_REASON_FIELD_NUMBER = 15;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object failedReason_ = "";
-    /**
-     * <pre>
-     * failed_reason defines the reason why the proposal failed
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-     * @return The failedReason.
-     */
-    @java.lang.Override
-    public java.lang.String getFailedReason() {
-      java.lang.Object ref = failedReason_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        failedReason_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * failed_reason defines the reason why the proposal failed
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-     * @return The bytes for failedReason.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getFailedReasonBytes() {
-      java.lang.Object ref = failedReason_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        failedReason_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -3442,12 +3329,6 @@ public final class GovProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposer_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 13, proposer_);
       }
-      if (expedited_ != false) {
-        output.writeBool(14, expedited_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(failedReason_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 15, failedReason_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -3505,13 +3386,6 @@ public final class GovProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposer_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, proposer_);
       }
-      if (expedited_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(14, expedited_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(failedReason_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, failedReason_);
-      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3567,10 +3441,6 @@ public final class GovProto {
           .equals(other.getSummary())) return false;
       if (!getProposer()
           .equals(other.getProposer())) return false;
-      if (getExpedited()
-          != other.getExpedited()) return false;
-      if (!getFailedReason()
-          .equals(other.getFailedReason())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -3623,11 +3493,6 @@ public final class GovProto {
       hash = (53 * hash) + getSummary().hashCode();
       hash = (37 * hash) + PROPOSER_FIELD_NUMBER;
       hash = (53 * hash) + getProposer().hashCode();
-      hash = (37 * hash) + EXPEDITED_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getExpedited());
-      hash = (37 * hash) + FAILED_REASON_FIELD_NUMBER;
-      hash = (53 * hash) + getFailedReason().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3808,8 +3673,6 @@ public final class GovProto {
         title_ = "";
         summary_ = "";
         proposer_ = "";
-        expedited_ = false;
-        failedReason_ = "";
         return this;
       }
 
@@ -3907,12 +3770,6 @@ public final class GovProto {
         }
         if (((from_bitField0_ & 0x00001000) != 0)) {
           result.proposer_ = proposer_;
-        }
-        if (((from_bitField0_ & 0x00002000) != 0)) {
-          result.expedited_ = expedited_;
-        }
-        if (((from_bitField0_ & 0x00004000) != 0)) {
-          result.failedReason_ = failedReason_;
         }
       }
 
@@ -4053,14 +3910,6 @@ public final class GovProto {
           bitField0_ |= 0x00001000;
           onChanged();
         }
-        if (other.getExpedited() != false) {
-          setExpedited(other.getExpedited());
-        }
-        if (!other.getFailedReason().isEmpty()) {
-          failedReason_ = other.failedReason_;
-          bitField0_ |= 0x00004000;
-          onChanged();
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -4178,16 +4027,6 @@ public final class GovProto {
                 bitField0_ |= 0x00001000;
                 break;
               } // case 106
-              case 112: {
-                expedited_ = input.readBool();
-                bitField0_ |= 0x00002000;
-                break;
-              } // case 112
-              case 122: {
-                failedReason_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00004000;
-                break;
-              } // case 122
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -5743,8 +5582,6 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here:
-       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5765,8 +5602,6 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here:
-       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5788,8 +5623,6 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here:
-       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5807,8 +5640,6 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here:
-       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -5823,8 +5654,6 @@ public final class GovProto {
       /**
        * <pre>
        * metadata is any arbitrary metadata attached to the proposal.
-       * the recommended format of the metadata is to be found here:
-       * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
        * </pre>
        *
        * <code>string metadata = 10 [json_name = "metadata"];</code>
@@ -6048,7 +5877,7 @@ public final class GovProto {
       private java.lang.Object proposer_ = "";
       /**
        * <pre>
-       * proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal sumbitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -6070,7 +5899,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal sumbitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -6093,7 +5922,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal sumbitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -6112,7 +5941,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal sumbitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -6128,7 +5957,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal sumbitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -6143,158 +5972,6 @@ public final class GovProto {
         checkByteStringIsUtf8(value);
         proposer_ = value;
         bitField0_ |= 0x00001000;
-        onChanged();
-        return this;
-      }
-
-      private boolean expedited_ ;
-      /**
-       * <pre>
-       * expedited defines if the proposal is expedited
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>bool expedited = 14 [json_name = "expedited"];</code>
-       * @return The expedited.
-       */
-      @java.lang.Override
-      public boolean getExpedited() {
-        return expedited_;
-      }
-      /**
-       * <pre>
-       * expedited defines if the proposal is expedited
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>bool expedited = 14 [json_name = "expedited"];</code>
-       * @param value The expedited to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExpedited(boolean value) {
-
-        expedited_ = value;
-        bitField0_ |= 0x00002000;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * expedited defines if the proposal is expedited
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>bool expedited = 14 [json_name = "expedited"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearExpedited() {
-        bitField0_ = (bitField0_ & ~0x00002000);
-        expedited_ = false;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object failedReason_ = "";
-      /**
-       * <pre>
-       * failed_reason defines the reason why the proposal failed
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-       * @return The failedReason.
-       */
-      public java.lang.String getFailedReason() {
-        java.lang.Object ref = failedReason_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          failedReason_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * failed_reason defines the reason why the proposal failed
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-       * @return The bytes for failedReason.
-       */
-      public com.google.protobuf.ByteString
-          getFailedReasonBytes() {
-        java.lang.Object ref = failedReason_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          failedReason_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * failed_reason defines the reason why the proposal failed
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-       * @param value The failedReason to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFailedReason(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        failedReason_ = value;
-        bitField0_ |= 0x00004000;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * failed_reason defines the reason why the proposal failed
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearFailedReason() {
-        failedReason_ = getDefaultInstance().getFailedReason();
-        bitField0_ = (bitField0_ & ~0x00004000);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * failed_reason defines the reason why the proposal failed
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string failed_reason = 15 [json_name = "failedReason"];</code>
-       * @param value The bytes for failedReason to set.
-       * @return This builder for chaining.
-       */
-      public Builder setFailedReasonBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        failedReason_ = value;
-        bitField0_ |= 0x00004000;
         onChanged();
         return this;
       }
@@ -7590,8 +7267,7 @@ public final class GovProto {
 
     /**
      * <pre>
-     * metadata is any arbitrary metadata attached to the vote.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+     * metadata is any  arbitrary metadata to attached to the vote.
      * </pre>
      *
      * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -7600,8 +7276,7 @@ public final class GovProto {
     java.lang.String getMetadata();
     /**
      * <pre>
-     * metadata is any arbitrary metadata attached to the vote.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+     * metadata is any  arbitrary metadata to attached to the vote.
      * </pre>
      *
      * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -7781,8 +7456,7 @@ public final class GovProto {
     private volatile java.lang.Object metadata_ = "";
     /**
      * <pre>
-     * metadata is any arbitrary metadata attached to the vote.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+     * metadata is any  arbitrary metadata to attached to the vote.
      * </pre>
      *
      * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -7803,8 +7477,7 @@ public final class GovProto {
     }
     /**
      * <pre>
-     * metadata is any arbitrary metadata attached to the vote.
-     * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+     * metadata is any  arbitrary metadata to attached to the vote.
      * </pre>
      *
      * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -8727,8 +8400,7 @@ public final class GovProto {
       private java.lang.Object metadata_ = "";
       /**
        * <pre>
-       * metadata is any arbitrary metadata attached to the vote.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+       * metadata is any  arbitrary metadata to attached to the vote.
        * </pre>
        *
        * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -8748,8 +8420,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata attached to the vote.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+       * metadata is any  arbitrary metadata to attached to the vote.
        * </pre>
        *
        * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -8770,8 +8441,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata attached to the vote.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+       * metadata is any  arbitrary metadata to attached to the vote.
        * </pre>
        *
        * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -8788,8 +8458,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata attached to the vote.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+       * metadata is any  arbitrary metadata to attached to the vote.
        * </pre>
        *
        * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -8803,8 +8472,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * metadata is any arbitrary metadata attached to the vote.
-       * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
+       * metadata is any  arbitrary metadata to attached to the vote.
        * </pre>
        *
        * <code>string metadata = 5 [json_name = "metadata"];</code>
@@ -8884,7 +8552,7 @@ public final class GovProto {
 
   }
 
-  @java.lang.Deprecated public interface DepositParamsOrBuilder extends
+  public interface DepositParamsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.DepositParams)
       com.google.protobuf.MessageOrBuilder {
 
@@ -8969,7 +8637,7 @@ public final class GovProto {
    *
    * Protobuf type {@code cosmos.gov.v1.DepositParams}
    */
-  @java.lang.Deprecated public static final class DepositParams extends
+  public static final class DepositParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1.DepositParams)
       DepositParamsOrBuilder {
@@ -10057,7 +9725,7 @@ public final class GovProto {
 
   }
 
-  @java.lang.Deprecated public interface VotingParamsOrBuilder extends
+  public interface VotingParamsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.VotingParams)
       com.google.protobuf.MessageOrBuilder {
 
@@ -10095,7 +9763,7 @@ public final class GovProto {
    *
    * Protobuf type {@code cosmos.gov.v1.VotingParams}
    */
-  @java.lang.Deprecated public static final class VotingParams extends
+  public static final class VotingParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1.VotingParams)
       VotingParamsOrBuilder {
@@ -10725,7 +10393,7 @@ public final class GovProto {
 
   }
 
-  @java.lang.Deprecated public interface TallyParamsOrBuilder extends
+  public interface TallyParamsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.gov.v1.TallyParams)
       com.google.protobuf.MessageOrBuilder {
 
@@ -10800,7 +10468,7 @@ public final class GovProto {
    *
    * Protobuf type {@code cosmos.gov.v1.TallyParams}
    */
-  @java.lang.Deprecated public static final class TallyParams extends
+  public static final class TallyParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1.TallyParams)
       TallyParamsOrBuilder {
@@ -11898,157 +11566,6 @@ public final class GovProto {
 
     /**
      * <pre>
-     * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The proposalCancelRatio.
-     */
-    java.lang.String getProposalCancelRatio();
-    /**
-     * <pre>
-     * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The bytes for proposalCancelRatio.
-     */
-    com.google.protobuf.ByteString
-        getProposalCancelRatioBytes();
-
-    /**
-     * <pre>
-     * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-     * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The proposalCancelDest.
-     */
-    java.lang.String getProposalCancelDest();
-    /**
-     * <pre>
-     * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-     * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The bytes for proposalCancelDest.
-     */
-    com.google.protobuf.ByteString
-        getProposalCancelDestBytes();
-
-    /**
-     * <pre>
-     * Duration of the voting period of an expedited proposal.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-     * @return Whether the expeditedVotingPeriod field is set.
-     */
-    boolean hasExpeditedVotingPeriod();
-    /**
-     * <pre>
-     * Duration of the voting period of an expedited proposal.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-     * @return The expeditedVotingPeriod.
-     */
-    com.google.protobuf.Duration getExpeditedVotingPeriod();
-    /**
-     * <pre>
-     * Duration of the voting period of an expedited proposal.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-     */
-    com.google.protobuf.DurationOrBuilder getExpeditedVotingPeriodOrBuilder();
-
-    /**
-     * <pre>
-     * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The expeditedThreshold.
-     */
-    java.lang.String getExpeditedThreshold();
-    /**
-     * <pre>
-     * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The bytes for expeditedThreshold.
-     */
-    com.google.protobuf.ByteString
-        getExpeditedThresholdBytes();
-
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
-        getExpeditedMinDepositList();
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    com.cosmos.base.v1beta1.CoinProto.Coin getExpeditedMinDeposit(int index);
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    int getExpeditedMinDepositCount();
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
-        getExpeditedMinDepositOrBuilderList();
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getExpeditedMinDepositOrBuilder(
-        int index);
-
-    /**
-     * <pre>
      * burn deposits if a proposal does not meet quorum
      * </pre>
      *
@@ -12084,6 +11601,7 @@ public final class GovProto {
      * required.
      *
      * Since: cosmos-sdk 0.50
+     * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
      * </pre>
      *
      * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -12097,6 +11615,7 @@ public final class GovProto {
      * required.
      *
      * Since: cosmos-sdk 0.50
+     * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
      * </pre>
      *
      * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -12129,10 +11648,6 @@ public final class GovProto {
       threshold_ = "";
       vetoThreshold_ = "";
       minInitialDepositRatio_ = "";
-      proposalCancelRatio_ = "";
-      proposalCancelDest_ = "";
-      expeditedThreshold_ = "";
-      expeditedMinDeposit_ = java.util.Collections.emptyList();
       minDepositRatio_ = "";
     }
 
@@ -12488,266 +12003,6 @@ public final class GovProto {
       }
     }
 
-    public static final int PROPOSAL_CANCEL_RATIO_FIELD_NUMBER = 8;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object proposalCancelRatio_ = "";
-    /**
-     * <pre>
-     * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The proposalCancelRatio.
-     */
-    @java.lang.Override
-    public java.lang.String getProposalCancelRatio() {
-      java.lang.Object ref = proposalCancelRatio_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        proposalCancelRatio_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The bytes for proposalCancelRatio.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getProposalCancelRatioBytes() {
-      java.lang.Object ref = proposalCancelRatio_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        proposalCancelRatio_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PROPOSAL_CANCEL_DEST_FIELD_NUMBER = 9;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object proposalCancelDest_ = "";
-    /**
-     * <pre>
-     * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-     * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The proposalCancelDest.
-     */
-    @java.lang.Override
-    public java.lang.String getProposalCancelDest() {
-      java.lang.Object ref = proposalCancelDest_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        proposalCancelDest_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-     * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-     * @return The bytes for proposalCancelDest.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getProposalCancelDestBytes() {
-      java.lang.Object ref = proposalCancelDest_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        proposalCancelDest_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EXPEDITED_VOTING_PERIOD_FIELD_NUMBER = 10;
-    private com.google.protobuf.Duration expeditedVotingPeriod_;
-    /**
-     * <pre>
-     * Duration of the voting period of an expedited proposal.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-     * @return Whether the expeditedVotingPeriod field is set.
-     */
-    @java.lang.Override
-    public boolean hasExpeditedVotingPeriod() {
-      return expeditedVotingPeriod_ != null;
-    }
-    /**
-     * <pre>
-     * Duration of the voting period of an expedited proposal.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-     * @return The expeditedVotingPeriod.
-     */
-    @java.lang.Override
-    public com.google.protobuf.Duration getExpeditedVotingPeriod() {
-      return expeditedVotingPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : expeditedVotingPeriod_;
-    }
-    /**
-     * <pre>
-     * Duration of the voting period of an expedited proposal.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.DurationOrBuilder getExpeditedVotingPeriodOrBuilder() {
-      return expeditedVotingPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : expeditedVotingPeriod_;
-    }
-
-    public static final int EXPEDITED_THRESHOLD_FIELD_NUMBER = 11;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object expeditedThreshold_ = "";
-    /**
-     * <pre>
-     * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The expeditedThreshold.
-     */
-    @java.lang.Override
-    public java.lang.String getExpeditedThreshold() {
-      java.lang.Object ref = expeditedThreshold_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        expeditedThreshold_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-     *
-     * Since: cosmos-sdk 0.50
-     * </pre>
-     *
-     * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-     * @return The bytes for expeditedThreshold.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getExpeditedThresholdBytes() {
-      java.lang.Object ref = expeditedThreshold_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        expeditedThreshold_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EXPEDITED_MIN_DEPOSIT_FIELD_NUMBER = 12;
-    @SuppressWarnings("serial")
-    private java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> expeditedMinDeposit_;
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    @java.lang.Override
-    public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getExpeditedMinDepositList() {
-      return expeditedMinDeposit_;
-    }
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
-        getExpeditedMinDepositOrBuilderList() {
-      return expeditedMinDeposit_;
-    }
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    @java.lang.Override
-    public int getExpeditedMinDepositCount() {
-      return expeditedMinDeposit_.size();
-    }
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    @java.lang.Override
-    public com.cosmos.base.v1beta1.CoinProto.Coin getExpeditedMinDeposit(int index) {
-      return expeditedMinDeposit_.get(index);
-    }
-    /**
-     * <pre>
-     *  Minimum expedited deposit for a proposal to enter voting period.
-     * </pre>
-     *
-     * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-     */
-    @java.lang.Override
-    public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getExpeditedMinDepositOrBuilder(
-        int index) {
-      return expeditedMinDeposit_.get(index);
-    }
-
     public static final int BURN_VOTE_QUORUM_FIELD_NUMBER = 13;
     private boolean burnVoteQuorum_ = false;
     /**
@@ -12803,6 +12058,7 @@ public final class GovProto {
      * required.
      *
      * Since: cosmos-sdk 0.50
+     * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
      * </pre>
      *
      * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -12828,6 +12084,7 @@ public final class GovProto {
      * required.
      *
      * Since: cosmos-sdk 0.50
+     * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
      * </pre>
      *
      * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -12883,21 +12140,6 @@ public final class GovProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(minInitialDepositRatio_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, minInitialDepositRatio_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposalCancelRatio_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, proposalCancelRatio_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposalCancelDest_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, proposalCancelDest_);
-      }
-      if (expeditedVotingPeriod_ != null) {
-        output.writeMessage(10, getExpeditedVotingPeriod());
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(expeditedThreshold_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, expeditedThreshold_);
-      }
-      for (int i = 0; i < expeditedMinDeposit_.size(); i++) {
-        output.writeMessage(12, expeditedMinDeposit_.get(i));
-      }
       if (burnVoteQuorum_ != false) {
         output.writeBool(13, burnVoteQuorum_);
       }
@@ -12942,23 +12184,6 @@ public final class GovProto {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(minInitialDepositRatio_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, minInitialDepositRatio_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposalCancelRatio_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, proposalCancelRatio_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(proposalCancelDest_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, proposalCancelDest_);
-      }
-      if (expeditedVotingPeriod_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getExpeditedVotingPeriod());
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(expeditedThreshold_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, expeditedThreshold_);
-      }
-      for (int i = 0; i < expeditedMinDeposit_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(12, expeditedMinDeposit_.get(i));
       }
       if (burnVoteQuorum_ != false) {
         size += com.google.protobuf.CodedOutputStream
@@ -13010,19 +12235,6 @@ public final class GovProto {
           .equals(other.getVetoThreshold())) return false;
       if (!getMinInitialDepositRatio()
           .equals(other.getMinInitialDepositRatio())) return false;
-      if (!getProposalCancelRatio()
-          .equals(other.getProposalCancelRatio())) return false;
-      if (!getProposalCancelDest()
-          .equals(other.getProposalCancelDest())) return false;
-      if (hasExpeditedVotingPeriod() != other.hasExpeditedVotingPeriod()) return false;
-      if (hasExpeditedVotingPeriod()) {
-        if (!getExpeditedVotingPeriod()
-            .equals(other.getExpeditedVotingPeriod())) return false;
-      }
-      if (!getExpeditedThreshold()
-          .equals(other.getExpeditedThreshold())) return false;
-      if (!getExpeditedMinDepositList()
-          .equals(other.getExpeditedMinDepositList())) return false;
       if (getBurnVoteQuorum()
           != other.getBurnVoteQuorum()) return false;
       if (getBurnProposalDepositPrevote()
@@ -13062,20 +12274,6 @@ public final class GovProto {
       hash = (53 * hash) + getVetoThreshold().hashCode();
       hash = (37 * hash) + MIN_INITIAL_DEPOSIT_RATIO_FIELD_NUMBER;
       hash = (53 * hash) + getMinInitialDepositRatio().hashCode();
-      hash = (37 * hash) + PROPOSAL_CANCEL_RATIO_FIELD_NUMBER;
-      hash = (53 * hash) + getProposalCancelRatio().hashCode();
-      hash = (37 * hash) + PROPOSAL_CANCEL_DEST_FIELD_NUMBER;
-      hash = (53 * hash) + getProposalCancelDest().hashCode();
-      if (hasExpeditedVotingPeriod()) {
-        hash = (37 * hash) + EXPEDITED_VOTING_PERIOD_FIELD_NUMBER;
-        hash = (53 * hash) + getExpeditedVotingPeriod().hashCode();
-      }
-      hash = (37 * hash) + EXPEDITED_THRESHOLD_FIELD_NUMBER;
-      hash = (53 * hash) + getExpeditedThreshold().hashCode();
-      if (getExpeditedMinDepositCount() > 0) {
-        hash = (37 * hash) + EXPEDITED_MIN_DEPOSIT_FIELD_NUMBER;
-        hash = (53 * hash) + getExpeditedMinDepositList().hashCode();
-      }
       hash = (37 * hash) + BURN_VOTE_QUORUM_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getBurnVoteQuorum());
@@ -13245,21 +12443,6 @@ public final class GovProto {
         threshold_ = "";
         vetoThreshold_ = "";
         minInitialDepositRatio_ = "";
-        proposalCancelRatio_ = "";
-        proposalCancelDest_ = "";
-        expeditedVotingPeriod_ = null;
-        if (expeditedVotingPeriodBuilder_ != null) {
-          expeditedVotingPeriodBuilder_.dispose();
-          expeditedVotingPeriodBuilder_ = null;
-        }
-        expeditedThreshold_ = "";
-        if (expeditedMinDepositBuilder_ == null) {
-          expeditedMinDeposit_ = java.util.Collections.emptyList();
-        } else {
-          expeditedMinDeposit_ = null;
-          expeditedMinDepositBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000800);
         burnVoteQuorum_ = false;
         burnProposalDepositPrevote_ = false;
         burnVoteVeto_ = false;
@@ -13306,15 +12489,6 @@ public final class GovProto {
         } else {
           result.minDeposit_ = minDepositBuilder_.build();
         }
-        if (expeditedMinDepositBuilder_ == null) {
-          if (((bitField0_ & 0x00000800) != 0)) {
-            expeditedMinDeposit_ = java.util.Collections.unmodifiableList(expeditedMinDeposit_);
-            bitField0_ = (bitField0_ & ~0x00000800);
-          }
-          result.expeditedMinDeposit_ = expeditedMinDeposit_;
-        } else {
-          result.expeditedMinDeposit_ = expeditedMinDepositBuilder_.build();
-        }
       }
 
       private void buildPartial0(com.cosmos.gov.v1.GovProto.Params result) {
@@ -13342,29 +12516,15 @@ public final class GovProto {
           result.minInitialDepositRatio_ = minInitialDepositRatio_;
         }
         if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.proposalCancelRatio_ = proposalCancelRatio_;
-        }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.proposalCancelDest_ = proposalCancelDest_;
-        }
-        if (((from_bitField0_ & 0x00000200) != 0)) {
-          result.expeditedVotingPeriod_ = expeditedVotingPeriodBuilder_ == null
-              ? expeditedVotingPeriod_
-              : expeditedVotingPeriodBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000400) != 0)) {
-          result.expeditedThreshold_ = expeditedThreshold_;
-        }
-        if (((from_bitField0_ & 0x00001000) != 0)) {
           result.burnVoteQuorum_ = burnVoteQuorum_;
         }
-        if (((from_bitField0_ & 0x00002000) != 0)) {
+        if (((from_bitField0_ & 0x00000100) != 0)) {
           result.burnProposalDepositPrevote_ = burnProposalDepositPrevote_;
         }
-        if (((from_bitField0_ & 0x00004000) != 0)) {
+        if (((from_bitField0_ & 0x00000200) != 0)) {
           result.burnVoteVeto_ = burnVoteVeto_;
         }
-        if (((from_bitField0_ & 0x00008000) != 0)) {
+        if (((from_bitField0_ & 0x00000400) != 0)) {
           result.minDepositRatio_ = minDepositRatio_;
         }
       }
@@ -13465,50 +12625,6 @@ public final class GovProto {
           bitField0_ |= 0x00000040;
           onChanged();
         }
-        if (!other.getProposalCancelRatio().isEmpty()) {
-          proposalCancelRatio_ = other.proposalCancelRatio_;
-          bitField0_ |= 0x00000080;
-          onChanged();
-        }
-        if (!other.getProposalCancelDest().isEmpty()) {
-          proposalCancelDest_ = other.proposalCancelDest_;
-          bitField0_ |= 0x00000100;
-          onChanged();
-        }
-        if (other.hasExpeditedVotingPeriod()) {
-          mergeExpeditedVotingPeriod(other.getExpeditedVotingPeriod());
-        }
-        if (!other.getExpeditedThreshold().isEmpty()) {
-          expeditedThreshold_ = other.expeditedThreshold_;
-          bitField0_ |= 0x00000400;
-          onChanged();
-        }
-        if (expeditedMinDepositBuilder_ == null) {
-          if (!other.expeditedMinDeposit_.isEmpty()) {
-            if (expeditedMinDeposit_.isEmpty()) {
-              expeditedMinDeposit_ = other.expeditedMinDeposit_;
-              bitField0_ = (bitField0_ & ~0x00000800);
-            } else {
-              ensureExpeditedMinDepositIsMutable();
-              expeditedMinDeposit_.addAll(other.expeditedMinDeposit_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.expeditedMinDeposit_.isEmpty()) {
-            if (expeditedMinDepositBuilder_.isEmpty()) {
-              expeditedMinDepositBuilder_.dispose();
-              expeditedMinDepositBuilder_ = null;
-              expeditedMinDeposit_ = other.expeditedMinDeposit_;
-              bitField0_ = (bitField0_ & ~0x00000800);
-              expeditedMinDepositBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getExpeditedMinDepositFieldBuilder() : null;
-            } else {
-              expeditedMinDepositBuilder_.addAllMessages(other.expeditedMinDeposit_);
-            }
-          }
-        }
         if (other.getBurnVoteQuorum() != false) {
           setBurnVoteQuorum(other.getBurnVoteQuorum());
         }
@@ -13520,7 +12636,7 @@ public final class GovProto {
         }
         if (!other.getMinDepositRatio().isEmpty()) {
           minDepositRatio_ = other.minDepositRatio_;
-          bitField0_ |= 0x00008000;
+          bitField0_ |= 0x00000400;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -13596,59 +12712,24 @@ public final class GovProto {
                 bitField0_ |= 0x00000040;
                 break;
               } // case 58
-              case 66: {
-                proposalCancelRatio_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000080;
-                break;
-              } // case 66
-              case 74: {
-                proposalCancelDest_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000100;
-                break;
-              } // case 74
-              case 82: {
-                input.readMessage(
-                    getExpeditedVotingPeriodFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000200;
-                break;
-              } // case 82
-              case 90: {
-                expeditedThreshold_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000400;
-                break;
-              } // case 90
-              case 98: {
-                com.cosmos.base.v1beta1.CoinProto.Coin m =
-                    input.readMessage(
-                        com.cosmos.base.v1beta1.CoinProto.Coin.parser(),
-                        extensionRegistry);
-                if (expeditedMinDepositBuilder_ == null) {
-                  ensureExpeditedMinDepositIsMutable();
-                  expeditedMinDeposit_.add(m);
-                } else {
-                  expeditedMinDepositBuilder_.addMessage(m);
-                }
-                break;
-              } // case 98
               case 104: {
                 burnVoteQuorum_ = input.readBool();
-                bitField0_ |= 0x00001000;
+                bitField0_ |= 0x00000080;
                 break;
               } // case 104
               case 112: {
                 burnProposalDepositPrevote_ = input.readBool();
-                bitField0_ |= 0x00002000;
+                bitField0_ |= 0x00000100;
                 break;
               } // case 112
               case 120: {
                 burnVoteVeto_ = input.readBool();
-                bitField0_ |= 0x00004000;
+                bitField0_ |= 0x00000200;
                 break;
               } // case 120
               case 130: {
                 minDepositRatio_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00008000;
+                bitField0_ |= 0x00000400;
                 break;
               } // case 130
               default: {
@@ -14677,802 +13758,6 @@ public final class GovProto {
         return this;
       }
 
-      private java.lang.Object proposalCancelRatio_ = "";
-      /**
-       * <pre>
-       * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @return The proposalCancelRatio.
-       */
-      public java.lang.String getProposalCancelRatio() {
-        java.lang.Object ref = proposalCancelRatio_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          proposalCancelRatio_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @return The bytes for proposalCancelRatio.
-       */
-      public com.google.protobuf.ByteString
-          getProposalCancelRatioBytes() {
-        java.lang.Object ref = proposalCancelRatio_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          proposalCancelRatio_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @param value The proposalCancelRatio to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposalCancelRatio(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        proposalCancelRatio_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProposalCancelRatio() {
-        proposalCancelRatio_ = getDefaultInstance().getProposalCancelRatio();
-        bitField0_ = (bitField0_ & ~0x00000080);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_ratio = 8 [json_name = "proposalCancelRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @param value The bytes for proposalCancelRatio to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposalCancelRatioBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        proposalCancelRatio_ = value;
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object proposalCancelDest_ = "";
-      /**
-       * <pre>
-       * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-       * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @return The proposalCancelDest.
-       */
-      public java.lang.String getProposalCancelDest() {
-        java.lang.Object ref = proposalCancelDest_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          proposalCancelDest_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-       * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @return The bytes for proposalCancelDest.
-       */
-      public com.google.protobuf.ByteString
-          getProposalCancelDestBytes() {
-        java.lang.Object ref = proposalCancelDest_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          proposalCancelDest_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-       * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @param value The proposalCancelDest to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposalCancelDest(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        proposalCancelDest_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-       * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProposalCancelDest() {
-        proposalCancelDest_ = getDefaultInstance().getProposalCancelDest();
-        bitField0_ = (bitField0_ & ~0x00000100);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-       * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string proposal_cancel_dest = 9 [json_name = "proposalCancelDest", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
-       * @param value The bytes for proposalCancelDest to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProposalCancelDestBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        proposalCancelDest_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.Duration expeditedVotingPeriod_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> expeditedVotingPeriodBuilder_;
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       * @return Whether the expeditedVotingPeriod field is set.
-       */
-      public boolean hasExpeditedVotingPeriod() {
-        return ((bitField0_ & 0x00000200) != 0);
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       * @return The expeditedVotingPeriod.
-       */
-      public com.google.protobuf.Duration getExpeditedVotingPeriod() {
-        if (expeditedVotingPeriodBuilder_ == null) {
-          return expeditedVotingPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : expeditedVotingPeriod_;
-        } else {
-          return expeditedVotingPeriodBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      public Builder setExpeditedVotingPeriod(com.google.protobuf.Duration value) {
-        if (expeditedVotingPeriodBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          expeditedVotingPeriod_ = value;
-        } else {
-          expeditedVotingPeriodBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      public Builder setExpeditedVotingPeriod(
-          com.google.protobuf.Duration.Builder builderForValue) {
-        if (expeditedVotingPeriodBuilder_ == null) {
-          expeditedVotingPeriod_ = builderForValue.build();
-        } else {
-          expeditedVotingPeriodBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      public Builder mergeExpeditedVotingPeriod(com.google.protobuf.Duration value) {
-        if (expeditedVotingPeriodBuilder_ == null) {
-          if (((bitField0_ & 0x00000200) != 0) &&
-            expeditedVotingPeriod_ != null &&
-            expeditedVotingPeriod_ != com.google.protobuf.Duration.getDefaultInstance()) {
-            getExpeditedVotingPeriodBuilder().mergeFrom(value);
-          } else {
-            expeditedVotingPeriod_ = value;
-          }
-        } else {
-          expeditedVotingPeriodBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      public Builder clearExpeditedVotingPeriod() {
-        bitField0_ = (bitField0_ & ~0x00000200);
-        expeditedVotingPeriod_ = null;
-        if (expeditedVotingPeriodBuilder_ != null) {
-          expeditedVotingPeriodBuilder_.dispose();
-          expeditedVotingPeriodBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      public com.google.protobuf.Duration.Builder getExpeditedVotingPeriodBuilder() {
-        bitField0_ |= 0x00000200;
-        onChanged();
-        return getExpeditedVotingPeriodFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      public com.google.protobuf.DurationOrBuilder getExpeditedVotingPeriodOrBuilder() {
-        if (expeditedVotingPeriodBuilder_ != null) {
-          return expeditedVotingPeriodBuilder_.getMessageOrBuilder();
-        } else {
-          return expeditedVotingPeriod_ == null ?
-              com.google.protobuf.Duration.getDefaultInstance() : expeditedVotingPeriod_;
-        }
-      }
-      /**
-       * <pre>
-       * Duration of the voting period of an expedited proposal.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>.google.protobuf.Duration expedited_voting_period = 10 [json_name = "expeditedVotingPeriod", (.gogoproto.stdduration) = true];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
-          getExpeditedVotingPeriodFieldBuilder() {
-        if (expeditedVotingPeriodBuilder_ == null) {
-          expeditedVotingPeriodBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
-                  getExpeditedVotingPeriod(),
-                  getParentForChildren(),
-                  isClean());
-          expeditedVotingPeriod_ = null;
-        }
-        return expeditedVotingPeriodBuilder_;
-      }
-
-      private java.lang.Object expeditedThreshold_ = "";
-      /**
-       * <pre>
-       * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @return The expeditedThreshold.
-       */
-      public java.lang.String getExpeditedThreshold() {
-        java.lang.Object ref = expeditedThreshold_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          expeditedThreshold_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @return The bytes for expeditedThreshold.
-       */
-      public com.google.protobuf.ByteString
-          getExpeditedThresholdBytes() {
-        java.lang.Object ref = expeditedThreshold_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          expeditedThreshold_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @param value The expeditedThreshold to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExpeditedThreshold(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        expeditedThreshold_ = value;
-        bitField0_ |= 0x00000400;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearExpeditedThreshold() {
-        expeditedThreshold_ = getDefaultInstance().getExpeditedThreshold();
-        bitField0_ = (bitField0_ & ~0x00000400);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-       *
-       * Since: cosmos-sdk 0.50
-       * </pre>
-       *
-       * <code>string expedited_threshold = 11 [json_name = "expeditedThreshold", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
-       * @param value The bytes for expeditedThreshold to set.
-       * @return This builder for chaining.
-       */
-      public Builder setExpeditedThresholdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        expeditedThreshold_ = value;
-        bitField0_ |= 0x00000400;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> expeditedMinDeposit_ =
-        java.util.Collections.emptyList();
-      private void ensureExpeditedMinDepositIsMutable() {
-        if (!((bitField0_ & 0x00000800) != 0)) {
-          expeditedMinDeposit_ = new java.util.ArrayList<com.cosmos.base.v1beta1.CoinProto.Coin>(expeditedMinDeposit_);
-          bitField0_ |= 0x00000800;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.cosmos.base.v1beta1.CoinProto.Coin, com.cosmos.base.v1beta1.CoinProto.Coin.Builder, com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> expeditedMinDepositBuilder_;
-
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getExpeditedMinDepositList() {
-        if (expeditedMinDepositBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(expeditedMinDeposit_);
-        } else {
-          return expeditedMinDepositBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public int getExpeditedMinDepositCount() {
-        if (expeditedMinDepositBuilder_ == null) {
-          return expeditedMinDeposit_.size();
-        } else {
-          return expeditedMinDepositBuilder_.getCount();
-        }
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public com.cosmos.base.v1beta1.CoinProto.Coin getExpeditedMinDeposit(int index) {
-        if (expeditedMinDepositBuilder_ == null) {
-          return expeditedMinDeposit_.get(index);
-        } else {
-          return expeditedMinDepositBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder setExpeditedMinDeposit(
-          int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
-        if (expeditedMinDepositBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.set(index, value);
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder setExpeditedMinDeposit(
-          int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
-        if (expeditedMinDepositBuilder_ == null) {
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder addExpeditedMinDeposit(com.cosmos.base.v1beta1.CoinProto.Coin value) {
-        if (expeditedMinDepositBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.add(value);
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder addExpeditedMinDeposit(
-          int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
-        if (expeditedMinDepositBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.add(index, value);
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder addExpeditedMinDeposit(
-          com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
-        if (expeditedMinDepositBuilder_ == null) {
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.add(builderForValue.build());
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder addExpeditedMinDeposit(
-          int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
-        if (expeditedMinDepositBuilder_ == null) {
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder addAllExpeditedMinDeposit(
-          java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
-        if (expeditedMinDepositBuilder_ == null) {
-          ensureExpeditedMinDepositIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, expeditedMinDeposit_);
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder clearExpeditedMinDeposit() {
-        if (expeditedMinDepositBuilder_ == null) {
-          expeditedMinDeposit_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000800);
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public Builder removeExpeditedMinDeposit(int index) {
-        if (expeditedMinDepositBuilder_ == null) {
-          ensureExpeditedMinDepositIsMutable();
-          expeditedMinDeposit_.remove(index);
-          onChanged();
-        } else {
-          expeditedMinDepositBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getExpeditedMinDepositBuilder(
-          int index) {
-        return getExpeditedMinDepositFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getExpeditedMinDepositOrBuilder(
-          int index) {
-        if (expeditedMinDepositBuilder_ == null) {
-          return expeditedMinDeposit_.get(index);  } else {
-          return expeditedMinDepositBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
-           getExpeditedMinDepositOrBuilderList() {
-        if (expeditedMinDepositBuilder_ != null) {
-          return expeditedMinDepositBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(expeditedMinDeposit_);
-        }
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addExpeditedMinDepositBuilder() {
-        return getExpeditedMinDepositFieldBuilder().addBuilder(
-            com.cosmos.base.v1beta1.CoinProto.Coin.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addExpeditedMinDepositBuilder(
-          int index) {
-        return getExpeditedMinDepositFieldBuilder().addBuilder(
-            index, com.cosmos.base.v1beta1.CoinProto.Coin.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       *  Minimum expedited deposit for a proposal to enter voting period.
-       * </pre>
-       *
-       * <code>repeated .cosmos.base.v1beta1.Coin expedited_min_deposit = 12 [json_name = "expeditedMinDeposit", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
-       */
-      public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
-           getExpeditedMinDepositBuilderList() {
-        return getExpeditedMinDepositFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.cosmos.base.v1beta1.CoinProto.Coin, com.cosmos.base.v1beta1.CoinProto.Coin.Builder, com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
-          getExpeditedMinDepositFieldBuilder() {
-        if (expeditedMinDepositBuilder_ == null) {
-          expeditedMinDepositBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.cosmos.base.v1beta1.CoinProto.Coin, com.cosmos.base.v1beta1.CoinProto.Coin.Builder, com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder>(
-                  expeditedMinDeposit_,
-                  ((bitField0_ & 0x00000800) != 0),
-                  getParentForChildren(),
-                  isClean());
-          expeditedMinDeposit_ = null;
-        }
-        return expeditedMinDepositBuilder_;
-      }
-
       private boolean burnVoteQuorum_ ;
       /**
        * <pre>
@@ -15498,7 +13783,7 @@ public final class GovProto {
       public Builder setBurnVoteQuorum(boolean value) {
 
         burnVoteQuorum_ = value;
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -15511,7 +13796,7 @@ public final class GovProto {
        * @return This builder for chaining.
        */
       public Builder clearBurnVoteQuorum() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000080);
         burnVoteQuorum_ = false;
         onChanged();
         return this;
@@ -15542,7 +13827,7 @@ public final class GovProto {
       public Builder setBurnProposalDepositPrevote(boolean value) {
 
         burnProposalDepositPrevote_ = value;
-        bitField0_ |= 0x00002000;
+        bitField0_ |= 0x00000100;
         onChanged();
         return this;
       }
@@ -15555,7 +13840,7 @@ public final class GovProto {
        * @return This builder for chaining.
        */
       public Builder clearBurnProposalDepositPrevote() {
-        bitField0_ = (bitField0_ & ~0x00002000);
+        bitField0_ = (bitField0_ & ~0x00000100);
         burnProposalDepositPrevote_ = false;
         onChanged();
         return this;
@@ -15586,7 +13871,7 @@ public final class GovProto {
       public Builder setBurnVoteVeto(boolean value) {
 
         burnVoteVeto_ = value;
-        bitField0_ |= 0x00004000;
+        bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
@@ -15599,7 +13884,7 @@ public final class GovProto {
        * @return This builder for chaining.
        */
       public Builder clearBurnVoteVeto() {
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00000200);
         burnVoteVeto_ = false;
         onChanged();
         return this;
@@ -15613,6 +13898,7 @@ public final class GovProto {
        * required.
        *
        * Since: cosmos-sdk 0.50
+       * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
        * </pre>
        *
        * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -15637,6 +13923,7 @@ public final class GovProto {
        * required.
        *
        * Since: cosmos-sdk 0.50
+       * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
        * </pre>
        *
        * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -15662,6 +13949,7 @@ public final class GovProto {
        * required.
        *
        * Since: cosmos-sdk 0.50
+       * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
        * </pre>
        *
        * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -15672,7 +13960,7 @@ public final class GovProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         minDepositRatio_ = value;
-        bitField0_ |= 0x00008000;
+        bitField0_ |= 0x00000400;
         onChanged();
         return this;
       }
@@ -15683,6 +13971,7 @@ public final class GovProto {
        * required.
        *
        * Since: cosmos-sdk 0.50
+       * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
        * </pre>
        *
        * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -15690,7 +13979,7 @@ public final class GovProto {
        */
       public Builder clearMinDepositRatio() {
         minDepositRatio_ = getDefaultInstance().getMinDepositRatio();
-        bitField0_ = (bitField0_ & ~0x00008000);
+        bitField0_ = (bitField0_ & ~0x00000400);
         onChanged();
         return this;
       }
@@ -15701,6 +13990,7 @@ public final class GovProto {
        * required.
        *
        * Since: cosmos-sdk 0.50
+       * NOTE: backported from v50 (https://github.com/cosmos/cosmos-sdk/pull/18146)
        * </pre>
        *
        * <code>string min_deposit_ratio = 16 [json_name = "minDepositRatio", (.cosmos_proto.scalar) = "cosmos.Dec"];</code>
@@ -15712,7 +14002,7 @@ public final class GovProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         minDepositRatio_ = value;
-        bitField0_ |= 0x00008000;
+        bitField0_ |= 0x00000400;
         onChanged();
         return this;
       }
@@ -15846,7 +14136,7 @@ public final class GovProto {
       "\013proposal_id\030\001 \001(\004R\nproposalId\0226\n\tdeposi" +
       "tor\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\tdep" +
       "ositor\022<\n\006amount\030\003 \003(\0132\031.cosmos.base.v1b" +
-      "eta1.CoinB\t\310\336\037\000\250\347\260*\001R\006amount\"\204\006\n\010Proposa" +
+      "eta1.CoinB\t\310\336\037\000\250\347\260*\001R\006amount\"\301\005\n\010Proposa" +
       "l\022\016\n\002id\030\001 \001(\004R\002id\0220\n\010messages\030\002 \003(\0132\024.go" +
       "ogle.protobuf.AnyR\010messages\0225\n\006status\030\003 " +
       "\001(\0162\035.cosmos.gov.v1.ProposalStatusR\006stat" +
@@ -15864,69 +14154,58 @@ public final class GovProto {
       "ndTime\022\032\n\010metadata\030\n \001(\tR\010metadata\022\024\n\005ti" +
       "tle\030\013 \001(\tR\005title\022\030\n\007summary\030\014 \001(\tR\007summa" +
       "ry\0224\n\010proposer\030\r \001(\tB\030\322\264-\024cosmos.Address" +
-      "StringR\010proposer\022\034\n\texpedited\030\016 \001(\010R\texp" +
-      "edited\022#\n\rfailed_reason\030\017 \001(\tR\014failedRea" +
-      "son\"\327\001\n\013TallyResult\022+\n\tyes_count\030\001 \001(\tB\016" +
-      "\322\264-\ncosmos.IntR\010yesCount\0223\n\rabstain_coun" +
-      "t\030\002 \001(\tB\016\322\264-\ncosmos.IntR\014abstainCount\022)\n" +
-      "\010no_count\030\003 \001(\tB\016\322\264-\ncosmos.IntR\007noCount" +
-      "\022;\n\022no_with_veto_count\030\004 \001(\tB\016\322\264-\ncosmos" +
-      ".IntR\017noWithVetoCount\"\266\001\n\004Vote\022\037\n\013propos" +
-      "al_id\030\001 \001(\004R\nproposalId\022.\n\005voter\030\002 \001(\tB\030" +
-      "\322\264-\024cosmos.AddressStringR\005voter\022;\n\007optio" +
-      "ns\030\004 \003(\0132!.cosmos.gov.v1.WeightedVoteOpt" +
-      "ionR\007options\022\032\n\010metadata\030\005 \001(\tR\010metadata" +
-      "J\004\010\003\020\004\"\335\001\n\rDepositParams\022Y\n\013min_deposit\030" +
-      "\001 \003(\0132\031.cosmos.base.v1beta1.CoinB\035\310\336\037\000\352\336" +
-      "\037\025min_deposit,omitemptyR\nminDeposit\022m\n\022m" +
-      "ax_deposit_period\030\002 \001(\0132\031.google.protobu" +
-      "f.DurationB$\352\336\037\034max_deposit_period,omite" +
-      "mpty\230\337\037\001R\020maxDepositPeriod:\002\030\001\"X\n\014Voting" +
-      "Params\022D\n\rvoting_period\030\001 \001(\0132\031.google.p" +
-      "rotobuf.DurationB\004\230\337\037\001R\014votingPeriod:\002\030\001" +
-      "\"\236\001\n\013TallyParams\022&\n\006quorum\030\001 \001(\tB\016\322\264-\nco" +
-      "smos.DecR\006quorum\022,\n\tthreshold\030\002 \001(\tB\016\322\264-" +
-      "\ncosmos.DecR\tthreshold\0225\n\016veto_threshold" +
-      "\030\003 \001(\tB\016\322\264-\ncosmos.DecR\rvetoThreshold:\002\030" +
-      "\001\"\217\010\n\006Params\022E\n\013min_deposit\030\001 \003(\0132\031.cosm" +
-      "os.base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\nminDepo" +
-      "sit\022M\n\022max_deposit_period\030\002 \001(\0132\031.google" +
-      ".protobuf.DurationB\004\230\337\037\001R\020maxDepositPeri" +
-      "od\022D\n\rvoting_period\030\003 \001(\0132\031.google.proto" +
-      "buf.DurationB\004\230\337\037\001R\014votingPeriod\022&\n\006quor" +
-      "um\030\004 \001(\tB\016\322\264-\ncosmos.DecR\006quorum\022,\n\tthre" +
-      "shold\030\005 \001(\tB\016\322\264-\ncosmos.DecR\tthreshold\0225" +
-      "\n\016veto_threshold\030\006 \001(\tB\016\322\264-\ncosmos.DecR\r" +
-      "vetoThreshold\022I\n\031min_initial_deposit_rat" +
-      "io\030\007 \001(\tB\016\322\264-\ncosmos.DecR\026minInitialDepo" +
-      "sitRatio\022B\n\025proposal_cancel_ratio\030\010 \001(\tB" +
-      "\016\322\264-\ncosmos.DecR\023proposalCancelRatio\022J\n\024" +
-      "proposal_cancel_dest\030\t \001(\tB\030\322\264-\024cosmos.A" +
-      "ddressStringR\022proposalCancelDest\022W\n\027expe" +
-      "dited_voting_period\030\n \001(\0132\031.google.proto" +
-      "buf.DurationB\004\230\337\037\001R\025expeditedVotingPerio" +
-      "d\022?\n\023expedited_threshold\030\013 \001(\tB\016\322\264-\ncosm" +
-      "os.DecR\022expeditedThreshold\022X\n\025expedited_" +
-      "min_deposit\030\014 \003(\0132\031.cosmos.base.v1beta1." +
-      "CoinB\t\310\336\037\000\250\347\260*\001R\023expeditedMinDeposit\022(\n\020" +
-      "burn_vote_quorum\030\r \001(\010R\016burnVoteQuorum\022A" +
-      "\n\035burn_proposal_deposit_prevote\030\016 \001(\010R\032b" +
-      "urnProposalDepositPrevote\022$\n\016burn_vote_v" +
-      "eto\030\017 \001(\010R\014burnVoteVeto\022:\n\021min_deposit_r" +
-      "atio\030\020 \001(\tB\016\322\264-\ncosmos.DecR\017minDepositRa" +
-      "tio*\211\001\n\nVoteOption\022\033\n\027VOTE_OPTION_UNSPEC" +
-      "IFIED\020\000\022\023\n\017VOTE_OPTION_YES\020\001\022\027\n\023VOTE_OPT" +
-      "ION_ABSTAIN\020\002\022\022\n\016VOTE_OPTION_NO\020\003\022\034\n\030VOT" +
-      "E_OPTION_NO_WITH_VETO\020\004*\316\001\n\016ProposalStat" +
-      "us\022\037\n\033PROPOSAL_STATUS_UNSPECIFIED\020\000\022\"\n\036P" +
-      "ROPOSAL_STATUS_DEPOSIT_PERIOD\020\001\022!\n\035PROPO" +
-      "SAL_STATUS_VOTING_PERIOD\020\002\022\032\n\026PROPOSAL_S" +
-      "TATUS_PASSED\020\003\022\034\n\030PROPOSAL_STATUS_REJECT" +
-      "ED\020\004\022\032\n\026PROPOSAL_STATUS_FAILED\020\005B\216\001\n\021com" +
-      ".cosmos.gov.v1B\010GovProtoZ\033cosmossdk.io/x" +
-      "/gov/types/v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCo" +
-      "smos\\Gov\\V1\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352" +
-      "\002\017Cosmos::Gov::V1b\006proto3"
+      "StringR\010proposer\"\327\001\n\013TallyResult\022+\n\tyes_" +
+      "count\030\001 \001(\tB\016\322\264-\ncosmos.IntR\010yesCount\0223\n" +
+      "\rabstain_count\030\002 \001(\tB\016\322\264-\ncosmos.IntR\014ab" +
+      "stainCount\022)\n\010no_count\030\003 \001(\tB\016\322\264-\ncosmos" +
+      ".IntR\007noCount\022;\n\022no_with_veto_count\030\004 \001(" +
+      "\tB\016\322\264-\ncosmos.IntR\017noWithVetoCount\"\266\001\n\004V" +
+      "ote\022\037\n\013proposal_id\030\001 \001(\004R\nproposalId\022.\n\005" +
+      "voter\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\005v" +
+      "oter\022;\n\007options\030\004 \003(\0132!.cosmos.gov.v1.We" +
+      "ightedVoteOptionR\007options\022\032\n\010metadata\030\005 " +
+      "\001(\tR\010metadataJ\004\010\003\020\004\"\331\001\n\rDepositParams\022Y\n" +
+      "\013min_deposit\030\001 \003(\0132\031.cosmos.base.v1beta1" +
+      ".CoinB\035\310\336\037\000\352\336\037\025min_deposit,omitemptyR\nmi" +
+      "nDeposit\022m\n\022max_deposit_period\030\002 \001(\0132\031.g" +
+      "oogle.protobuf.DurationB$\352\336\037\034max_deposit" +
+      "_period,omitempty\230\337\037\001R\020maxDepositPeriod\"" +
+      "T\n\014VotingParams\022D\n\rvoting_period\030\001 \001(\0132\031" +
+      ".google.protobuf.DurationB\004\230\337\037\001R\014votingP" +
+      "eriod\"\232\001\n\013TallyParams\022&\n\006quorum\030\001 \001(\tB\016\322" +
+      "\264-\ncosmos.DecR\006quorum\022,\n\tthreshold\030\002 \001(\t" +
+      "B\016\322\264-\ncosmos.DecR\tthreshold\0225\n\016veto_thre" +
+      "shold\030\003 \001(\tB\016\322\264-\ncosmos.DecR\rvetoThresho" +
+      "ld\"\213\005\n\006Params\022E\n\013min_deposit\030\001 \003(\0132\031.cos" +
+      "mos.base.v1beta1.CoinB\t\310\336\037\000\250\347\260*\001R\nminDep" +
+      "osit\022M\n\022max_deposit_period\030\002 \001(\0132\031.googl" +
+      "e.protobuf.DurationB\004\230\337\037\001R\020maxDepositPer" +
+      "iod\022D\n\rvoting_period\030\003 \001(\0132\031.google.prot" +
+      "obuf.DurationB\004\230\337\037\001R\014votingPeriod\022&\n\006quo" +
+      "rum\030\004 \001(\tB\016\322\264-\ncosmos.DecR\006quorum\022,\n\tthr" +
+      "eshold\030\005 \001(\tB\016\322\264-\ncosmos.DecR\tthreshold\022" +
+      "5\n\016veto_threshold\030\006 \001(\tB\016\322\264-\ncosmos.DecR" +
+      "\rvetoThreshold\022I\n\031min_initial_deposit_ra" +
+      "tio\030\007 \001(\tB\016\322\264-\ncosmos.DecR\026minInitialDep" +
+      "ositRatio\022(\n\020burn_vote_quorum\030\r \001(\010R\016bur" +
+      "nVoteQuorum\022A\n\035burn_proposal_deposit_pre" +
+      "vote\030\016 \001(\010R\032burnProposalDepositPrevote\022$" +
+      "\n\016burn_vote_veto\030\017 \001(\010R\014burnVoteVeto\022:\n\021" +
+      "min_deposit_ratio\030\020 \001(\tB\016\322\264-\ncosmos.DecR" +
+      "\017minDepositRatio*\211\001\n\nVoteOption\022\033\n\027VOTE_" +
+      "OPTION_UNSPECIFIED\020\000\022\023\n\017VOTE_OPTION_YES\020" +
+      "\001\022\027\n\023VOTE_OPTION_ABSTAIN\020\002\022\022\n\016VOTE_OPTIO" +
+      "N_NO\020\003\022\034\n\030VOTE_OPTION_NO_WITH_VETO\020\004*\316\001\n" +
+      "\016ProposalStatus\022\037\n\033PROPOSAL_STATUS_UNSPE" +
+      "CIFIED\020\000\022\"\n\036PROPOSAL_STATUS_DEPOSIT_PERI" +
+      "OD\020\001\022!\n\035PROPOSAL_STATUS_VOTING_PERIOD\020\002\022" +
+      "\032\n\026PROPOSAL_STATUS_PASSED\020\003\022\034\n\030PROPOSAL_" +
+      "STATUS_REJECTED\020\004\022\032\n\026PROPOSAL_STATUS_FAI" +
+      "LED\020\005B\236\001\n\021com.cosmos.gov.v1B\010GovProtoZ+g" +
+      "ithub.com/cosmos/cosmos-sdk/x/gov/types/" +
+      "v1\242\002\003CGX\252\002\rCosmos.Gov.V1\312\002\rCosmos\\Gov\\V1" +
+      "\342\002\031Cosmos\\Gov\\V1\\GPBMetadata\352\002\017Cosmos::G" +
+      "ov::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15956,7 +14235,7 @@ public final class GovProto {
     internal_static_cosmos_gov_v1_Proposal_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_Proposal_descriptor,
-        new java.lang.String[] { "Id", "Messages", "Status", "FinalTallyResult", "SubmitTime", "DepositEndTime", "TotalDeposit", "VotingStartTime", "VotingEndTime", "Metadata", "Title", "Summary", "Proposer", "Expedited", "FailedReason", });
+        new java.lang.String[] { "Id", "Messages", "Status", "FinalTallyResult", "SubmitTime", "DepositEndTime", "TotalDeposit", "VotingStartTime", "VotingEndTime", "Metadata", "Title", "Summary", "Proposer", });
     internal_static_cosmos_gov_v1_TallyResult_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_cosmos_gov_v1_TallyResult_fieldAccessorTable = new
@@ -15992,7 +14271,7 @@ public final class GovProto {
     internal_static_cosmos_gov_v1_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_gov_v1_Params_descriptor,
-        new java.lang.String[] { "MinDeposit", "MaxDepositPeriod", "VotingPeriod", "Quorum", "Threshold", "VetoThreshold", "MinInitialDepositRatio", "ProposalCancelRatio", "ProposalCancelDest", "ExpeditedVotingPeriod", "ExpeditedThreshold", "ExpeditedMinDeposit", "BurnVoteQuorum", "BurnProposalDepositPrevote", "BurnVoteVeto", "MinDepositRatio", });
+        new java.lang.String[] { "MinDeposit", "MaxDepositPeriod", "VotingPeriod", "Quorum", "Threshold", "VetoThreshold", "MinInitialDepositRatio", "BurnVoteQuorum", "BurnProposalDepositPrevote", "BurnVoteVeto", "MinDepositRatio", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);

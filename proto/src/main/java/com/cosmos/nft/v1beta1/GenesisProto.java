@@ -2514,11 +2514,11 @@ public final class GenesisProto {
       "ries\030\002 \003(\0132\031.cosmos.nft.v1beta1.EntryR\007e" +
       "ntries\"J\n\005Entry\022\024\n\005owner\030\001 \001(\tR\005owner\022+\n" +
       "\004nfts\030\002 \003(\0132\027.cosmos.nft.v1beta1.NFTR\004nf" +
-      "tsB\242\001\n\026com.cosmos.nft.v1beta1B\014GenesisPr" +
-      "otoZ\022cosmossdk.io/x/nft\242\002\003CNX\252\002\022Cosmos.N" +
-      "ft.V1beta1\312\002\022Cosmos\\Nft\\V1beta1\342\002\036Cosmos" +
-      "\\Nft\\V1beta1\\GPBMetadata\352\002\024Cosmos::Nft::" +
-      "V1beta1b\006proto3"
+      "tsB\262\001\n\026com.cosmos.nft.v1beta1B\014GenesisPr" +
+      "otoZ\"github.com/cosmos/cosmos-sdk/x/nft\242" +
+      "\002\003CNX\252\002\022Cosmos.Nft.V1beta1\312\002\022Cosmos\\Nft\\" +
+      "V1beta1\342\002\036Cosmos\\Nft\\V1beta1\\GPBMetadata" +
+      "\352\002\024Cosmos::Nft::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

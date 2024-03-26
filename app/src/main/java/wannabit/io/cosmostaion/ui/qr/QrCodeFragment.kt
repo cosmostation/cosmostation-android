@@ -127,7 +127,6 @@ class QrCodeFragment : BottomSheetDialogFragment() {
 
     private fun setQrAddress(selectAddress: String?) {
         binding.apply {
-            chainSegment.visibility = View.GONE
             val hints = mutableMapOf<EncodeHintType, Int>()
             hints[EncodeHintType.MARGIN] = 0
 

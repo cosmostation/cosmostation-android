@@ -91,19 +91,19 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun chain(): NetworkResult<Response<ChainResponse>> {
+    override suspend fun chain(): NetworkResult<ChainResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.chain()
         }
     }
 
-    override suspend fun price(currency: String): NetworkResult<Response<List<Price>>> {
+    override suspend fun price(currency: String): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price(currency)
         }
     }
 
-    override suspend fun usdPrice(): NetworkResult<Response<List<Price>>> {
+    override suspend fun usdPrice(): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price("usd")
         }
@@ -115,13 +115,13 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun supportConfig(): NetworkResult<Response<SupportConfig>> {
+    override suspend fun supportConfig(): NetworkResult<SupportConfig> {
         return safeApiCall(Dispatchers.IO) {
             chainApi.supportConfig()
         }
     }
 
-    override suspend fun asset(): NetworkResult<Response<AssetResponse>> {
+    override suspend fun asset(): NetworkResult<AssetResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.asset()
         }
@@ -129,7 +129,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun param(): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.param().body()
+            mintscanJsonApi.param()
         }
     }
 
@@ -265,7 +265,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun erc20Balance(line: CosmosLine, token: Token) {
         val web3j = if (line is EthereumLine) {
-            Web3j.build(HttpService(line.getEvmRpc()))
+            line.web3j
         } else {
             Web3j.build(HttpService(line.rpcUrl))
         }
@@ -286,10 +286,10 @@ class WalletRepositoryImpl : WalletRepository {
             val function = Function("balanceOf", params, returnTypes)
 
             val txData = FunctionEncoder.encode(function)
-            val response = web3j.ethCall(
+            val response = web3j?.ethCall(
                 Transaction.createEthCallTransaction(ethAddress, token.address, txData), DefaultBlockParameterName.LATEST
-            ).sendAsync().get()
-            val results = FunctionReturnDecoder.decode(response.value, function.outputParameters)
+            )?.sendAsync()?.get()
+            val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
             if (results.isNotEmpty()) {
                 val balance = results[0].value as BigInteger
                 token.amount = balance.toString()

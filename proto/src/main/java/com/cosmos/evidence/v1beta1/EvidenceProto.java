@@ -1072,18 +1072,18 @@ public final class EvidenceProto {
       "\022\027cosmos.evidence.v1beta1\032\021amino/amino.p" +
       "roto\032\024gogoproto/gogo.proto\032\037google/proto" +
       "buf/timestamp.proto\032\031cosmos_proto/cosmos" +
-      ".proto\"\350\001\n\014Equivocation\022\026\n\006height\030\001 \001(\003R" +
+      ".proto\"\354\001\n\014Equivocation\022\026\n\006height\030\001 \001(\003R" +
       "\006height\022=\n\004time\030\002 \001(\0132\032.google.protobuf." +
       "TimestampB\r\310\336\037\000\220\337\037\001\250\347\260*\001R\004time\022\024\n\005power\030" +
       "\003 \001(\003R\005power\022E\n\021consensus_address\030\004 \001(\tB" +
       "\030\322\264-\024cosmos.AddressStringR\020consensusAddr" +
-      "ess:$\210\240\037\000\350\240\037\000\212\347\260*\027cosmos-sdk/Equivocatio" +
-      "nB\313\001\n\033com.cosmos.evidence.v1beta1B\rEvide" +
-      "nceProtoZ\035cosmossdk.io/x/evidence/types\242" +
-      "\002\003CEX\252\002\027Cosmos.Evidence.V1beta1\312\002\027Cosmos" +
-      "\\Evidence\\V1beta1\342\002#Cosmos\\Evidence\\V1be" +
-      "ta1\\GPBMetadata\352\002\031Cosmos::Evidence::V1be" +
-      "ta1\250\342\036\001b\006proto3"
+      "ess:(\210\240\037\000\230\240\037\000\350\240\037\000\212\347\260*\027cosmos-sdk/Equivoc" +
+      "ationB\333\001\n\033com.cosmos.evidence.v1beta1B\rE" +
+      "videnceProtoZ-github.com/cosmos/cosmos-s" +
+      "dk/x/evidence/types\242\002\003CEX\252\002\027Cosmos.Evide" +
+      "nce.V1beta1\312\002\027Cosmos\\Evidence\\V1beta1\342\002#" +
+      "Cosmos\\Evidence\\V1beta1\\GPBMetadata\352\002\031Co" +
+      "smos::Evidence::V1beta1\250\342\036\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1107,6 +1107,7 @@ public final class EvidenceProto {
     registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.equalAll);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
+    registry.add(com.gogoproto.GogoProto.goprotoStringer);
     registry.add(com.gogoproto.GogoProto.nullable);
     registry.add(com.gogoproto.GogoProto.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor

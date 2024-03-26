@@ -102,7 +102,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Params queries the parameters of x/consensus module.
+     * Params queries the parameters of x/consensus_param module.
      * </pre>
      */
     default void params(com.cosmos.consensus.v1.QueryProto.QueryParamsRequest request,
@@ -146,7 +146,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Params queries the parameters of x/consensus module.
+     * Params queries the parameters of x/consensus_param module.
      * </pre>
      */
     public void params(com.cosmos.consensus.v1.QueryProto.QueryParamsRequest request,
@@ -177,7 +177,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Params queries the parameters of x/consensus module.
+     * Params queries the parameters of x/consensus_param module.
      * </pre>
      */
     public com.cosmos.consensus.v1.QueryProto.QueryParamsResponse params(com.cosmos.consensus.v1.QueryProto.QueryParamsRequest request) {
@@ -207,7 +207,7 @@ public final class QueryGrpc {
 
     /**
      * <pre>
-     * Params queries the parameters of x/consensus module.
+     * Params queries the parameters of x/consensus_param module.
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<com.cosmos.consensus.v1.QueryProto.QueryParamsResponse> params(
