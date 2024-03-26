@@ -22377,59 +22377,60 @@ public final class TxProto {
       "eOptionR\006option\022\032\n\010metadata\030\004 \001(\tR\010metad" +
       "ata\022)\n\004exec\030\005 \001(\0162\025.cosmos.group.v1.Exec" +
       "R\004exec:\'\202\347\260*\005voter\212\347\260*\030cosmos-sdk/group/" +
-      "MsgVote\"\021\n\017MsgVoteResponse\"\214\001\n\007MsgExec\022\037" +
+      "MsgVote\"\021\n\017MsgVoteResponse\"\212\001\n\007MsgExec\022\037" +
       "\n\013proposal_id\030\001 \001(\004R\nproposalId\0224\n\010execu" +
       "tor\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\010exe" +
-      "cutor:*\202\347\260*\010executor\212\347\260*\030cosmos-sdk/grou" +
-      "p/MsgExec\"R\n\017MsgExecResponse\022?\n\006result\030\002" +
-      " \001(\0162\'.cosmos.group.v1.ProposalExecutorR" +
-      "esultR\006result\"\217\001\n\rMsgLeaveGroup\0222\n\007addre" +
-      "ss\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\007addr" +
-      "ess\022\031\n\010group_id\030\002 \001(\004R\007groupId:/\202\347\260*\007add" +
-      "ress\212\347\260*\036cosmos-sdk/group/MsgLeaveGroup\"" +
-      "\027\n\025MsgLeaveGroupResponse**\n\004Exec\022\024\n\020EXEC" +
-      "_UNSPECIFIED\020\000\022\014\n\010EXEC_TRY\020\0012\312\013\n\003Msg\022W\n\013" +
-      "CreateGroup\022\037.cosmos.group.v1.MsgCreateG" +
-      "roup\032\'.cosmos.group.v1.MsgCreateGroupRes" +
-      "ponse\022l\n\022UpdateGroupMembers\022&.cosmos.gro" +
-      "up.v1.MsgUpdateGroupMembers\032..cosmos.gro" +
-      "up.v1.MsgUpdateGroupMembersResponse\022f\n\020U" +
-      "pdateGroupAdmin\022$.cosmos.group.v1.MsgUpd" +
-      "ateGroupAdmin\032,.cosmos.group.v1.MsgUpdat" +
-      "eGroupAdminResponse\022o\n\023UpdateGroupMetada" +
-      "ta\022\'.cosmos.group.v1.MsgUpdateGroupMetad" +
-      "ata\032/.cosmos.group.v1.MsgUpdateGroupMeta" +
-      "dataResponse\022i\n\021CreateGroupPolicy\022%.cosm" +
-      "os.group.v1.MsgCreateGroupPolicy\032-.cosmo" +
-      "s.group.v1.MsgCreateGroupPolicyResponse\022" +
-      "u\n\025CreateGroupWithPolicy\022).cosmos.group." +
-      "v1.MsgCreateGroupWithPolicy\0321.cosmos.gro" +
-      "up.v1.MsgCreateGroupWithPolicyResponse\022x" +
-      "\n\026UpdateGroupPolicyAdmin\022*.cosmos.group." +
-      "v1.MsgUpdateGroupPolicyAdmin\0322.cosmos.gr" +
-      "oup.v1.MsgUpdateGroupPolicyAdminResponse" +
-      "\022\223\001\n\037UpdateGroupPolicyDecisionPolicy\0223.c" +
-      "osmos.group.v1.MsgUpdateGroupPolicyDecis" +
-      "ionPolicy\032;.cosmos.group.v1.MsgUpdateGro" +
-      "upPolicyDecisionPolicyResponse\022\201\001\n\031Updat" +
-      "eGroupPolicyMetadata\022-.cosmos.group.v1.M" +
-      "sgUpdateGroupPolicyMetadata\0325.cosmos.gro" +
-      "up.v1.MsgUpdateGroupPolicyMetadataRespon" +
-      "se\022`\n\016SubmitProposal\022\".cosmos.group.v1.M" +
-      "sgSubmitProposal\032*.cosmos.group.v1.MsgSu" +
-      "bmitProposalResponse\022f\n\020WithdrawProposal" +
-      "\022$.cosmos.group.v1.MsgWithdrawProposal\032," +
-      ".cosmos.group.v1.MsgWithdrawProposalResp" +
-      "onse\022B\n\004Vote\022\030.cosmos.group.v1.MsgVote\032 " +
-      ".cosmos.group.v1.MsgVoteResponse\022B\n\004Exec" +
-      "\022\030.cosmos.group.v1.MsgExec\032 .cosmos.grou" +
-      "p.v1.MsgExecResponse\022T\n\nLeaveGroup\022\036.cos" +
-      "mos.group.v1.MsgLeaveGroup\032&.cosmos.grou" +
-      "p.v1.MsgLeaveGroupResponse\032\005\200\347\260*\001B\220\001\n\023co" +
-      "m.cosmos.group.v1B\007TxProtoZ\024cosmossdk.io" +
-      "/x/group\242\002\003CGX\252\002\017Cosmos.Group.V1\312\002\017Cosmo" +
-      "s\\Group\\V1\342\002\033Cosmos\\Group\\V1\\GPBMetadata" +
-      "\352\002\021Cosmos::Group::V1b\006proto3"
+      "cutor:(\202\347\260*\006signer\212\347\260*\030cosmos-sdk/group/" +
+      "MsgExec\"R\n\017MsgExecResponse\022?\n\006result\030\002 \001" +
+      "(\0162\'.cosmos.group.v1.ProposalExecutorRes" +
+      "ultR\006result\"\217\001\n\rMsgLeaveGroup\0222\n\007address" +
+      "\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\007addres" +
+      "s\022\031\n\010group_id\030\002 \001(\004R\007groupId:/\202\347\260*\007addre" +
+      "ss\212\347\260*\036cosmos-sdk/group/MsgLeaveGroup\"\027\n" +
+      "\025MsgLeaveGroupResponse**\n\004Exec\022\024\n\020EXEC_U" +
+      "NSPECIFIED\020\000\022\014\n\010EXEC_TRY\020\0012\312\013\n\003Msg\022W\n\013Cr" +
+      "eateGroup\022\037.cosmos.group.v1.MsgCreateGro" +
+      "up\032\'.cosmos.group.v1.MsgCreateGroupRespo" +
+      "nse\022l\n\022UpdateGroupMembers\022&.cosmos.group" +
+      ".v1.MsgUpdateGroupMembers\032..cosmos.group" +
+      ".v1.MsgUpdateGroupMembersResponse\022f\n\020Upd" +
+      "ateGroupAdmin\022$.cosmos.group.v1.MsgUpdat" +
+      "eGroupAdmin\032,.cosmos.group.v1.MsgUpdateG" +
+      "roupAdminResponse\022o\n\023UpdateGroupMetadata" +
+      "\022\'.cosmos.group.v1.MsgUpdateGroupMetadat" +
+      "a\032/.cosmos.group.v1.MsgUpdateGroupMetada" +
+      "taResponse\022i\n\021CreateGroupPolicy\022%.cosmos" +
+      ".group.v1.MsgCreateGroupPolicy\032-.cosmos." +
+      "group.v1.MsgCreateGroupPolicyResponse\022u\n" +
+      "\025CreateGroupWithPolicy\022).cosmos.group.v1" +
+      ".MsgCreateGroupWithPolicy\0321.cosmos.group" +
+      ".v1.MsgCreateGroupWithPolicyResponse\022x\n\026" +
+      "UpdateGroupPolicyAdmin\022*.cosmos.group.v1" +
+      ".MsgUpdateGroupPolicyAdmin\0322.cosmos.grou" +
+      "p.v1.MsgUpdateGroupPolicyAdminResponse\022\223" +
+      "\001\n\037UpdateGroupPolicyDecisionPolicy\0223.cos" +
+      "mos.group.v1.MsgUpdateGroupPolicyDecisio" +
+      "nPolicy\032;.cosmos.group.v1.MsgUpdateGroup" +
+      "PolicyDecisionPolicyResponse\022\201\001\n\031UpdateG" +
+      "roupPolicyMetadata\022-.cosmos.group.v1.Msg" +
+      "UpdateGroupPolicyMetadata\0325.cosmos.group" +
+      ".v1.MsgUpdateGroupPolicyMetadataResponse" +
+      "\022`\n\016SubmitProposal\022\".cosmos.group.v1.Msg" +
+      "SubmitProposal\032*.cosmos.group.v1.MsgSubm" +
+      "itProposalResponse\022f\n\020WithdrawProposal\022$" +
+      ".cosmos.group.v1.MsgWithdrawProposal\032,.c" +
+      "osmos.group.v1.MsgWithdrawProposalRespon" +
+      "se\022B\n\004Vote\022\030.cosmos.group.v1.MsgVote\032 .c" +
+      "osmos.group.v1.MsgVoteResponse\022B\n\004Exec\022\030" +
+      ".cosmos.group.v1.MsgExec\032 .cosmos.group." +
+      "v1.MsgExecResponse\022T\n\nLeaveGroup\022\036.cosmo" +
+      "s.group.v1.MsgLeaveGroup\032&.cosmos.group." +
+      "v1.MsgLeaveGroupResponse\032\005\200\347\260*\001B\240\001\n\023com." +
+      "cosmos.group.v1B\007TxProtoZ$github.com/cos" +
+      "mos/cosmos-sdk/x/group\242\002\003CGX\252\002\017Cosmos.Gr" +
+      "oup.V1\312\002\017Cosmos\\Group\\V1\342\002\033Cosmos\\Group\\" +
+      "V1\\GPBMetadata\352\002\021Cosmos::Group::V1b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

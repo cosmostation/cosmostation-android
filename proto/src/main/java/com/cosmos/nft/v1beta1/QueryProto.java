@@ -10642,11 +10642,11 @@ public final class QueryProto {
       "}\022\201\001\n\007Classes\022\'.cosmos.nft.v1beta1.Query" +
       "ClassesRequest\032(.cosmos.nft.v1beta1.Quer" +
       "yClassesResponse\"#\202\323\344\223\002\035\022\033/cosmos/nft/v1" +
-      "beta1/classesB\240\001\n\026com.cosmos.nft.v1beta1" +
-      "B\nQueryProtoZ\022cosmossdk.io/x/nft\242\002\003CNX\252\002" +
-      "\022Cosmos.Nft.V1beta1\312\002\022Cosmos\\Nft\\V1beta1" +
-      "\342\002\036Cosmos\\Nft\\V1beta1\\GPBMetadata\352\002\024Cosm" +
-      "os::Nft::V1beta1b\006proto3"
+      "beta1/classesB\260\001\n\026com.cosmos.nft.v1beta1" +
+      "B\nQueryProtoZ\"github.com/cosmos/cosmos-s" +
+      "dk/x/nft\242\002\003CNX\252\002\022Cosmos.Nft.V1beta1\312\002\022Co" +
+      "smos\\Nft\\V1beta1\342\002\036Cosmos\\Nft\\V1beta1\\GP" +
+      "BMetadata\352\002\024Cosmos::Nft::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

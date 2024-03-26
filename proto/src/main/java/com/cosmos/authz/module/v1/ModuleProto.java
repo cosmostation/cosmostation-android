@@ -435,12 +435,13 @@ public final class ModuleProto {
     java.lang.String[] descriptorData = {
       "\n#cosmos/authz/module/v1/module.proto\022\026c" +
       "osmos.authz.module.v1\032 cosmos/app/v1alph" +
-      "a1/module.proto\"&\n\006Module:\034\272\300\226\332\001\026\n\024cosmo" +
-      "ssdk.io/x/authzB\242\001\n\032com.cosmos.authz.mod" +
-      "ule.v1B\013ModuleProto\242\002\003CAM\252\002\026Cosmos.Authz" +
-      ".Module.V1\312\002\026Cosmos\\Authz\\Module\\V1\342\002\"Co" +
-      "smos\\Authz\\Module\\V1\\GPBMetadata\352\002\031Cosmo" +
-      "s::Authz::Module::V1b\006proto3"
+      "a1/module.proto\"6\n\006Module:,\272\300\226\332\001&\n$githu" +
+      "b.com/cosmos/cosmos-sdk/x/authzB\242\001\n\032com." +
+      "cosmos.authz.module.v1B\013ModuleProto\242\002\003CA" +
+      "M\252\002\026Cosmos.Authz.Module.V1\312\002\026Cosmos\\Auth" +
+      "z\\Module\\V1\342\002\"Cosmos\\Authz\\Module\\V1\\GPB" +
+      "Metadata\352\002\031Cosmos::Authz::Module::V1b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -1342,12 +1342,12 @@ public final class TxProto {
       "dateParams\"\031\n\027MsgUpdateParamsResponse2p\n" +
       "\003Msg\022b\n\014UpdateParams\022$.cosmos.mint.v1bet" +
       "a1.MsgUpdateParams\032,.cosmos.mint.v1beta1" +
-      ".MsgUpdateParamsResponse\032\005\200\347\260*\001B\251\001\n\027com." +
-      "cosmos.mint.v1beta1B\007TxProtoZ\031cosmossdk." +
-      "io/x/mint/types\242\002\003CMX\252\002\023Cosmos.Mint.V1be" +
-      "ta1\312\002\023Cosmos\\Mint\\V1beta1\342\002\037Cosmos\\Mint\\" +
-      "V1beta1\\GPBMetadata\352\002\025Cosmos::Mint::V1be" +
-      "ta1b\006proto3"
+      ".MsgUpdateParamsResponse\032\005\200\347\260*\001B\271\001\n\027com." +
+      "cosmos.mint.v1beta1B\007TxProtoZ)github.com" +
+      "/cosmos/cosmos-sdk/x/mint/types\242\002\003CMX\252\002\023" +
+      "Cosmos.Mint.V1beta1\312\002\023Cosmos\\Mint\\V1beta" +
+      "1\342\002\037Cosmos\\Mint\\V1beta1\\GPBMetadata\352\002\025Co" +
+      "smos::Mint::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

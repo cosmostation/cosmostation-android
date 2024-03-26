@@ -1096,7 +1096,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -1105,7 +1105,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -1159,7 +1159,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -1180,7 +1180,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -1534,7 +1534,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -1554,7 +1554,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -1575,7 +1575,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -1592,7 +1592,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -1606,7 +1606,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -1692,7 +1692,7 @@ public final class QueryProto {
      * operator_address defines the validator operator address.
      * </pre>
      *
-     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The operatorAddress.
      */
     java.lang.String getOperatorAddress();
@@ -1701,7 +1701,7 @@ public final class QueryProto {
      * operator_address defines the validator operator address.
      * </pre>
      *
-     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for operatorAddress.
      */
     com.google.protobuf.ByteString
@@ -1845,7 +1845,7 @@ public final class QueryProto {
      * operator_address defines the validator operator address.
      * </pre>
      *
-     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The operatorAddress.
      */
     @java.lang.Override
@@ -1866,7 +1866,7 @@ public final class QueryProto {
      * operator_address defines the validator operator address.
      * </pre>
      *
-     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for operatorAddress.
      */
     @java.lang.Override
@@ -2482,7 +2482,7 @@ public final class QueryProto {
        * operator_address defines the validator operator address.
        * </pre>
        *
-       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The operatorAddress.
        */
       public java.lang.String getOperatorAddress() {
@@ -2502,7 +2502,7 @@ public final class QueryProto {
        * operator_address defines the validator operator address.
        * </pre>
        *
-       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for operatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -2523,7 +2523,7 @@ public final class QueryProto {
        * operator_address defines the validator operator address.
        * </pre>
        *
-       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The operatorAddress to set.
        * @return This builder for chaining.
        */
@@ -2540,7 +2540,7 @@ public final class QueryProto {
        * operator_address defines the validator operator address.
        * </pre>
        *
-       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearOperatorAddress() {
@@ -2554,7 +2554,7 @@ public final class QueryProto {
        * operator_address defines the validator operator address.
        * </pre>
        *
-       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string operator_address = 1 [json_name = "operatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for operatorAddress to set.
        * @return This builder for chaining.
        */
@@ -3264,7 +3264,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -3273,7 +3273,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -3328,7 +3328,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -3349,7 +3349,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -3704,7 +3704,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -3724,7 +3724,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -3745,7 +3745,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -3762,7 +3762,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -3776,7 +3776,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -4472,7 +4472,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -4481,7 +4481,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -4536,7 +4536,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -4557,7 +4557,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -4912,7 +4912,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -4932,7 +4932,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -4953,7 +4953,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -4970,7 +4970,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -4984,7 +4984,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -5740,7 +5740,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -5749,7 +5749,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -5851,7 +5851,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -5872,7 +5872,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -6379,7 +6379,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -6399,7 +6399,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -6420,7 +6420,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -6437,7 +6437,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -6451,7 +6451,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 1 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -7960,7 +7960,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     java.lang.String getValidatorAddress();
@@ -7969,7 +7969,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     com.google.protobuf.ByteString
@@ -8072,7 +8072,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The validatorAddress.
      */
     @java.lang.Override
@@ -8093,7 +8093,7 @@ public final class QueryProto {
      * validator_address defines the validator address to query for.
      * </pre>
      *
-     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+     * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
      * @return The bytes for validatorAddress.
      */
     @java.lang.Override
@@ -8564,7 +8564,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The validatorAddress.
        */
       public java.lang.String getValidatorAddress() {
@@ -8584,7 +8584,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return The bytes for validatorAddress.
        */
       public com.google.protobuf.ByteString
@@ -8605,7 +8605,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -8622,7 +8622,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @return This builder for chaining.
        */
       public Builder clearValidatorAddress() {
@@ -8636,7 +8636,7 @@ public final class QueryProto {
        * validator_address defines the validator address to query for.
        * </pre>
        *
-       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.ValidatorAddressString"];</code>
+       * <code>string validator_address = 2 [json_name = "validatorAddress", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
        * @param value The bytes for validatorAddress to set.
        * @return This builder for chaining.
        */
@@ -14095,7 +14095,7 @@ public final class QueryProto {
 
   }
 
-  @java.lang.Deprecated public interface QueryCommunityPoolRequestOrBuilder extends
+  public interface QueryCommunityPoolRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.QueryCommunityPoolRequest)
       com.google.protobuf.MessageOrBuilder {
   }
@@ -14103,14 +14103,11 @@ public final class QueryProto {
    * <pre>
    * QueryCommunityPoolRequest is the request type for the Query/CommunityPool RPC
    * method.
-   *
-   * Deprecated
-   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolRequest}
    */
-  @java.lang.Deprecated public static final class QueryCommunityPoolRequest extends
+  public static final class QueryCommunityPoolRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryCommunityPoolRequest)
       QueryCommunityPoolRequestOrBuilder {
@@ -14292,9 +14289,6 @@ public final class QueryProto {
      * <pre>
      * QueryCommunityPoolRequest is the request type for the Query/CommunityPool RPC
      * method.
-     *
-     * Deprecated
-     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolRequest}
@@ -14508,7 +14502,7 @@ public final class QueryProto {
 
   }
 
-  @java.lang.Deprecated public interface QueryCommunityPoolResponseOrBuilder extends
+  public interface QueryCommunityPoolResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.QueryCommunityPoolResponse)
       com.google.protobuf.MessageOrBuilder {
 
@@ -14560,14 +14554,11 @@ public final class QueryProto {
    * <pre>
    * QueryCommunityPoolResponse is the response type for the Query/CommunityPool
    * RPC method.
-   *
-   * Deprecated
-   * Since: cosmos-sdk 0.50
    * </pre>
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolResponse}
    */
-  @java.lang.Deprecated public static final class QueryCommunityPoolResponse extends
+  public static final class QueryCommunityPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryCommunityPoolResponse)
       QueryCommunityPoolResponseOrBuilder {
@@ -14824,9 +14815,6 @@ public final class QueryProto {
      * <pre>
      * QueryCommunityPoolResponse is the response type for the Query/CommunityPool
      * RPC method.
-     *
-     * Deprecated
-     * Since: cosmos-sdk 0.50
      * </pre>
      *
      * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolResponse}
@@ -15418,6 +15406,1958 @@ public final class QueryProto {
 
   }
 
+  public interface QueryTokenizeShareRecordRewardRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+     * @return The ownerAddress.
+     */
+    java.lang.String getOwnerAddress();
+    /**
+     * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+     * @return The bytes for ownerAddress.
+     */
+    com.google.protobuf.ByteString
+        getOwnerAddressBytes();
+  }
+  /**
+   * <pre>
+   * QueryTokenizeShareRecordRewardRequest is the request type for the Query/TokenizeShareRecordReward RPC
+   * method.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest}
+   */
+  public static final class QueryTokenizeShareRecordRewardRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest)
+      QueryTokenizeShareRecordRewardRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryTokenizeShareRecordRewardRequest.newBuilder() to construct.
+    private QueryTokenizeShareRecordRewardRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryTokenizeShareRecordRewardRequest() {
+      ownerAddress_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryTokenizeShareRecordRewardRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.class, com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.Builder.class);
+    }
+
+    public static final int OWNER_ADDRESS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object ownerAddress_ = "";
+    /**
+     * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+     * @return The ownerAddress.
+     */
+    @java.lang.Override
+    public java.lang.String getOwnerAddress() {
+      java.lang.Object ref = ownerAddress_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ownerAddress_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+     * @return The bytes for ownerAddress.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOwnerAddressBytes() {
+      java.lang.Object ref = ownerAddress_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ownerAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ownerAddress_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ownerAddress_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ownerAddress_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ownerAddress_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest)) {
+        return super.equals(obj);
+      }
+      com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest other = (com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest) obj;
+
+      if (!getOwnerAddress()
+          .equals(other.getOwnerAddress())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + OWNER_ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getOwnerAddress().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryTokenizeShareRecordRewardRequest is the request type for the Query/TokenizeShareRecordReward RPC
+     * method.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest)
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.class, com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.Builder.class);
+      }
+
+      // Construct using com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        ownerAddress_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest getDefaultInstanceForType() {
+        return com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest build() {
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest buildPartial() {
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest result = new com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.ownerAddress_ = ownerAddress_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest) {
+          return mergeFrom((com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest other) {
+        if (other == com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest.getDefaultInstance()) return this;
+        if (!other.getOwnerAddress().isEmpty()) {
+          ownerAddress_ = other.ownerAddress_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                ownerAddress_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object ownerAddress_ = "";
+      /**
+       * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+       * @return The ownerAddress.
+       */
+      public java.lang.String getOwnerAddress() {
+        java.lang.Object ref = ownerAddress_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ownerAddress_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+       * @return The bytes for ownerAddress.
+       */
+      public com.google.protobuf.ByteString
+          getOwnerAddressBytes() {
+        java.lang.Object ref = ownerAddress_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ownerAddress_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+       * @param value The ownerAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOwnerAddress(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ownerAddress_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOwnerAddress() {
+        ownerAddress_ = getDefaultInstance().getOwnerAddress();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string owner_address = 1 [json_name = "ownerAddress", (.gogoproto.moretags) = "yaml:&#92;"owner_address&#92;""];</code>
+       * @param value The bytes for ownerAddress to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOwnerAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ownerAddress_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardRequest)
+    private static final com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest();
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryTokenizeShareRecordRewardRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTokenizeShareRecordRewardRequest>() {
+      @java.lang.Override
+      public QueryTokenizeShareRecordRewardRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryTokenizeShareRecordRewardRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryTokenizeShareRecordRewardRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryTokenizeShareRecordRewardResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward> 
+        getRewardsList();
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward getRewards(int index);
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    int getRewardsCount();
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder> 
+        getRewardsOrBuilderList();
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder getRewardsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> 
+        getTotalList();
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    com.cosmos.base.v1beta1.CoinProto.DecCoin getTotal(int index);
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    int getTotalCount();
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+        getTotalOrBuilderList();
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder getTotalOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * QueryTokenizeShareRecordRewardResponse is the response type for the Query/TokenizeShareRecordReward
+   * RPC method.
+   * </pre>
+   *
+   * Protobuf type {@code cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse}
+   */
+  public static final class QueryTokenizeShareRecordRewardResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse)
+      QueryTokenizeShareRecordRewardResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryTokenizeShareRecordRewardResponse.newBuilder() to construct.
+    private QueryTokenizeShareRecordRewardResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryTokenizeShareRecordRewardResponse() {
+      rewards_ = java.util.Collections.emptyList();
+      total_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryTokenizeShareRecordRewardResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.class, com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.Builder.class);
+    }
+
+    public static final int REWARDS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward> rewards_;
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward> getRewardsList() {
+      return rewards_;
+    }
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder> 
+        getRewardsOrBuilderList() {
+      return rewards_;
+    }
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getRewardsCount() {
+      return rewards_.size();
+    }
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward getRewards(int index) {
+      return rewards_.get(index);
+    }
+    /**
+     * <pre>
+     * rewards defines all the rewards accrued by a delegator.
+     * </pre>
+     *
+     * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder getRewardsOrBuilder(
+        int index) {
+      return rewards_.get(index);
+    }
+
+    public static final int TOTAL_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> total_;
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> getTotalList() {
+      return total_;
+    }
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+        getTotalOrBuilderList() {
+      return total_;
+    }
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public int getTotalCount() {
+      return total_.size();
+    }
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.base.v1beta1.CoinProto.DecCoin getTotal(int index) {
+      return total_.get(index);
+    }
+    /**
+     * <pre>
+     * total defines the sum of all the rewards.
+     * </pre>
+     *
+     * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder getTotalOrBuilder(
+        int index) {
+      return total_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < rewards_.size(); i++) {
+        output.writeMessage(1, rewards_.get(i));
+      }
+      for (int i = 0; i < total_.size(); i++) {
+        output.writeMessage(2, total_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < rewards_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, rewards_.get(i));
+      }
+      for (int i = 0; i < total_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, total_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse)) {
+        return super.equals(obj);
+      }
+      com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse other = (com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse) obj;
+
+      if (!getRewardsList()
+          .equals(other.getRewardsList())) return false;
+      if (!getTotalList()
+          .equals(other.getTotalList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getRewardsCount() > 0) {
+        hash = (37 * hash) + REWARDS_FIELD_NUMBER;
+        hash = (53 * hash) + getRewardsList().hashCode();
+      }
+      if (getTotalCount() > 0) {
+        hash = (37 * hash) + TOTAL_FIELD_NUMBER;
+        hash = (53 * hash) + getTotalList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryTokenizeShareRecordRewardResponse is the response type for the Query/TokenizeShareRecordReward
+     * RPC method.
+     * </pre>
+     *
+     * Protobuf type {@code cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse)
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.class, com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.Builder.class);
+      }
+
+      // Construct using com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        if (rewardsBuilder_ == null) {
+          rewards_ = java.util.Collections.emptyList();
+        } else {
+          rewards_ = null;
+          rewardsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (totalBuilder_ == null) {
+          total_ = java.util.Collections.emptyList();
+        } else {
+          total_ = null;
+          totalBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.cosmos.distribution.v1beta1.QueryProto.internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse getDefaultInstanceForType() {
+        return com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse build() {
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse buildPartial() {
+        com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse result = new com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse result) {
+        if (rewardsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            rewards_ = java.util.Collections.unmodifiableList(rewards_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.rewards_ = rewards_;
+        } else {
+          result.rewards_ = rewardsBuilder_.build();
+        }
+        if (totalBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            total_ = java.util.Collections.unmodifiableList(total_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.total_ = total_;
+        } else {
+          result.total_ = totalBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse result) {
+        int from_bitField0_ = bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse) {
+          return mergeFrom((com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse other) {
+        if (other == com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse.getDefaultInstance()) return this;
+        if (rewardsBuilder_ == null) {
+          if (!other.rewards_.isEmpty()) {
+            if (rewards_.isEmpty()) {
+              rewards_ = other.rewards_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureRewardsIsMutable();
+              rewards_.addAll(other.rewards_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rewards_.isEmpty()) {
+            if (rewardsBuilder_.isEmpty()) {
+              rewardsBuilder_.dispose();
+              rewardsBuilder_ = null;
+              rewards_ = other.rewards_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              rewardsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRewardsFieldBuilder() : null;
+            } else {
+              rewardsBuilder_.addAllMessages(other.rewards_);
+            }
+          }
+        }
+        if (totalBuilder_ == null) {
+          if (!other.total_.isEmpty()) {
+            if (total_.isEmpty()) {
+              total_ = other.total_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureTotalIsMutable();
+              total_.addAll(other.total_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.total_.isEmpty()) {
+            if (totalBuilder_.isEmpty()) {
+              totalBuilder_.dispose();
+              totalBuilder_ = null;
+              total_ = other.total_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              totalBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTotalFieldBuilder() : null;
+            } else {
+              totalBuilder_.addAllMessages(other.total_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward m =
+                    input.readMessage(
+                        com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.parser(),
+                        extensionRegistry);
+                if (rewardsBuilder_ == null) {
+                  ensureRewardsIsMutable();
+                  rewards_.add(m);
+                } else {
+                  rewardsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              case 18: {
+                com.cosmos.base.v1beta1.CoinProto.DecCoin m =
+                    input.readMessage(
+                        com.cosmos.base.v1beta1.CoinProto.DecCoin.parser(),
+                        extensionRegistry);
+                if (totalBuilder_ == null) {
+                  ensureTotalIsMutable();
+                  total_.add(m);
+                } else {
+                  totalBuilder_.addMessage(m);
+                }
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward> rewards_ =
+        java.util.Collections.emptyList();
+      private void ensureRewardsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          rewards_ = new java.util.ArrayList<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward>(rewards_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder> rewardsBuilder_;
+
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward> getRewardsList() {
+        if (rewardsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rewards_);
+        } else {
+          return rewardsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public int getRewardsCount() {
+        if (rewardsBuilder_ == null) {
+          return rewards_.size();
+        } else {
+          return rewardsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward getRewards(int index) {
+        if (rewardsBuilder_ == null) {
+          return rewards_.get(index);
+        } else {
+          return rewardsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setRewards(
+          int index, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward value) {
+        if (rewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardsIsMutable();
+          rewards_.set(index, value);
+          onChanged();
+        } else {
+          rewardsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setRewards(
+          int index, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder builderForValue) {
+        if (rewardsBuilder_ == null) {
+          ensureRewardsIsMutable();
+          rewards_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRewards(com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward value) {
+        if (rewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardsIsMutable();
+          rewards_.add(value);
+          onChanged();
+        } else {
+          rewardsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRewards(
+          int index, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward value) {
+        if (rewardsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRewardsIsMutable();
+          rewards_.add(index, value);
+          onChanged();
+        } else {
+          rewardsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRewards(
+          com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder builderForValue) {
+        if (rewardsBuilder_ == null) {
+          ensureRewardsIsMutable();
+          rewards_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rewardsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRewards(
+          int index, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder builderForValue) {
+        if (rewardsBuilder_ == null) {
+          ensureRewardsIsMutable();
+          rewards_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rewardsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllRewards(
+          java.lang.Iterable<? extends com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward> values) {
+        if (rewardsBuilder_ == null) {
+          ensureRewardsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rewards_);
+          onChanged();
+        } else {
+          rewardsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearRewards() {
+        if (rewardsBuilder_ == null) {
+          rewards_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          rewardsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeRewards(int index) {
+        if (rewardsBuilder_ == null) {
+          ensureRewardsIsMutable();
+          rewards_.remove(index);
+          onChanged();
+        } else {
+          rewardsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder getRewardsBuilder(
+          int index) {
+        return getRewardsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder getRewardsOrBuilder(
+          int index) {
+        if (rewardsBuilder_ == null) {
+          return rewards_.get(index);  } else {
+          return rewardsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder> 
+           getRewardsOrBuilderList() {
+        if (rewardsBuilder_ != null) {
+          return rewardsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rewards_);
+        }
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder addRewardsBuilder() {
+        return getRewardsFieldBuilder().addBuilder(
+            com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder addRewardsBuilder(
+          int index) {
+        return getRewardsFieldBuilder().addBuilder(
+            index, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * rewards defines all the rewards accrued by a delegator.
+       * </pre>
+       *
+       * <code>repeated .cosmos.distribution.v1beta1.TokenizeShareRecordReward rewards = 1 [json_name = "rewards", (.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder> 
+           getRewardsBuilderList() {
+        return getRewardsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder> 
+          getRewardsFieldBuilder() {
+        if (rewardsBuilder_ == null) {
+          rewardsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordReward.Builder, com.cosmos.distribution.v1beta1.DistributionProto.TokenizeShareRecordRewardOrBuilder>(
+                  rewards_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          rewards_ = null;
+        }
+        return rewardsBuilder_;
+      }
+
+      private java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> total_ =
+        java.util.Collections.emptyList();
+      private void ensureTotalIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          total_ = new java.util.ArrayList<com.cosmos.base.v1beta1.CoinProto.DecCoin>(total_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.cosmos.base.v1beta1.CoinProto.DecCoin, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder, com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> totalBuilder_;
+
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin> getTotalList() {
+        if (totalBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(total_);
+        } else {
+          return totalBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public int getTotalCount() {
+        if (totalBuilder_ == null) {
+          return total_.size();
+        } else {
+          return totalBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin getTotal(int index) {
+        if (totalBuilder_ == null) {
+          return total_.get(index);
+        } else {
+          return totalBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder setTotal(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin value) {
+        if (totalBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTotalIsMutable();
+          total_.set(index, value);
+          onChanged();
+        } else {
+          totalBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder setTotal(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder builderForValue) {
+        if (totalBuilder_ == null) {
+          ensureTotalIsMutable();
+          total_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          totalBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addTotal(com.cosmos.base.v1beta1.CoinProto.DecCoin value) {
+        if (totalBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTotalIsMutable();
+          total_.add(value);
+          onChanged();
+        } else {
+          totalBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addTotal(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin value) {
+        if (totalBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTotalIsMutable();
+          total_.add(index, value);
+          onChanged();
+        } else {
+          totalBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addTotal(
+          com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder builderForValue) {
+        if (totalBuilder_ == null) {
+          ensureTotalIsMutable();
+          total_.add(builderForValue.build());
+          onChanged();
+        } else {
+          totalBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addTotal(
+          int index, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder builderForValue) {
+        if (totalBuilder_ == null) {
+          ensureTotalIsMutable();
+          total_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          totalBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder addAllTotal(
+          java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.DecCoin> values) {
+        if (totalBuilder_ == null) {
+          ensureTotalIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, total_);
+          onChanged();
+        } else {
+          totalBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder clearTotal() {
+        if (totalBuilder_ == null) {
+          total_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          totalBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public Builder removeTotal(int index) {
+        if (totalBuilder_ == null) {
+          ensureTotalIsMutable();
+          total_.remove(index);
+          onChanged();
+        } else {
+          totalBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder getTotalBuilder(
+          int index) {
+        return getTotalFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder getTotalOrBuilder(
+          int index) {
+        if (totalBuilder_ == null) {
+          return total_.get(index);  } else {
+          return totalBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+           getTotalOrBuilderList() {
+        if (totalBuilder_ != null) {
+          return totalBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(total_);
+        }
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder addTotalBuilder() {
+        return getTotalFieldBuilder().addBuilder(
+            com.cosmos.base.v1beta1.CoinProto.DecCoin.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder addTotalBuilder(
+          int index) {
+        return getTotalFieldBuilder().addBuilder(
+            index, com.cosmos.base.v1beta1.CoinProto.DecCoin.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * total defines the sum of all the rewards.
+       * </pre>
+       *
+       * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [json_name = "total", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
+       */
+      public java.util.List<com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder> 
+           getTotalBuilderList() {
+        return getTotalFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.cosmos.base.v1beta1.CoinProto.DecCoin, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder, com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder> 
+          getTotalFieldBuilder() {
+        if (totalBuilder_ == null) {
+          totalBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.cosmos.base.v1beta1.CoinProto.DecCoin, com.cosmos.base.v1beta1.CoinProto.DecCoin.Builder, com.cosmos.base.v1beta1.CoinProto.DecCoinOrBuilder>(
+                  total_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          total_ = null;
+        }
+        return totalBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:cosmos.distribution.v1beta1.QueryTokenizeShareRecordRewardResponse)
+    private static final com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse();
+    }
+
+    public static com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryTokenizeShareRecordRewardResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryTokenizeShareRecordRewardResponse>() {
+      @java.lang.Override
+      public QueryTokenizeShareRecordRewardResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryTokenizeShareRecordRewardResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryTokenizeShareRecordRewardResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.cosmos.distribution.v1beta1.QueryProto.QueryTokenizeShareRecordRewardResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_cosmos_distribution_v1beta1_QueryParamsRequest_descriptor;
   private static final 
@@ -15518,6 +17458,16 @@ public final class QueryProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmos_distribution_v1beta1_QueryCommunityPoolResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -15537,138 +17487,152 @@ public final class QueryProto {
       "/amino.proto\"\024\n\022QueryParamsRequest\"]\n\023Qu" +
       "eryParamsResponse\022F\n\006params\030\001 \001(\0132#.cosm" +
       "os.distribution.v1beta1.ParamsB\t\310\336\037\000\250\347\260*" +
-      "\001R\006params\"w\n%QueryValidatorDistributionI" +
-      "nfoRequest\022N\n\021validator_address\030\001 \001(\tB!\322" +
-      "\264-\035cosmos.ValidatorAddressStringR\020valida" +
-      "torAddress\"\356\002\n&QueryValidatorDistributio" +
-      "nInfoResponse\022L\n\020operator_address\030\001 \001(\tB" +
-      "!\322\264-\035cosmos.ValidatorAddressStringR\017oper" +
-      "atorAddress\022\202\001\n\021self_bond_rewards\030\002 \003(\0132" +
-      "\034.cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+g" +
-      "ithub.com/cosmos/cosmos-sdk/types.DecCoi" +
-      "ns\250\347\260*\001R\017selfBondRewards\022q\n\ncommission\030\003" +
-      " \003(\0132\034.cosmos.base.v1beta1.DecCoinB3\310\336\037\000" +
-      "\252\337\037+github.com/cosmos/cosmos-sdk/types.D" +
-      "ecCoinsR\ncommission\"y\n\'QueryValidatorOut" +
-      "standingRewardsRequest\022N\n\021validator_addr" +
-      "ess\030\001 \001(\tB!\322\264-\035cosmos.ValidatorAddressSt" +
-      "ringR\020validatorAddress\"\211\001\n(QueryValidato" +
-      "rOutstandingRewardsResponse\022]\n\007rewards\030\001" +
-      " \001(\01328.cosmos.distribution.v1beta1.Valid" +
-      "atorOutstandingRewardsB\t\310\336\037\000\250\347\260*\001R\007rewar" +
-      "ds\"q\n\037QueryValidatorCommissionRequest\022N\n" +
-      "\021validator_address\030\001 \001(\tB!\322\264-\035cosmos.Val" +
-      "idatorAddressStringR\020validatorAddress\"\212\001" +
-      "\n QueryValidatorCommissionResponse\022f\n\nco" +
-      "mmission\030\001 \001(\0132;.cosmos.distribution.v1b" +
-      "eta1.ValidatorAccumulatedCommissionB\t\310\336\037" +
-      "\000\250\347\260*\001R\ncommission\"\212\002\n\034QueryValidatorSla" +
-      "shesRequest\022N\n\021validator_address\030\001 \001(\tB!" +
-      "\322\264-\035cosmos.ValidatorAddressStringR\020valid" +
-      "atorAddress\022\'\n\017starting_height\030\002 \001(\004R\016st" +
-      "artingHeight\022#\n\rending_height\030\003 \001(\004R\014end" +
-      "ingHeight\022F\n\npagination\030\004 \001(\0132&.cosmos.b" +
-      "ase.query.v1beta1.PageRequestR\npaginatio" +
-      "n:\004\210\240\037\000\"\277\001\n\035QueryValidatorSlashesRespons" +
-      "e\022U\n\007slashes\030\001 \003(\01320.cosmos.distribution" +
-      ".v1beta1.ValidatorSlashEventB\t\310\336\037\000\250\347\260*\001R" +
-      "\007slashes\022G\n\npagination\030\002 \001(\0132\'.cosmos.ba" +
-      "se.query.v1beta1.PageResponseR\npaginatio" +
-      "n\"\300\001\n\035QueryDelegationRewardsRequest\022E\n\021d" +
-      "elegator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addre" +
-      "ssStringR\020delegatorAddress\022N\n\021validator_" +
-      "address\030\002 \001(\tB!\322\264-\035cosmos.ValidatorAddre" +
-      "ssStringR\020validatorAddress:\010\210\240\037\000\350\240\037\000\"\222\001\n" +
-      "\036QueryDelegationRewardsResponse\022p\n\007rewar" +
-      "ds\030\001 \003(\0132\034.cosmos.base.v1beta1.DecCoinB8" +
-      "\310\336\037\000\252\337\037+github.com/cosmos/cosmos-sdk/typ" +
-      "es.DecCoins\250\347\260*\001R\007rewards\"u\n\"QueryDelega" +
-      "tionTotalRewardsRequest\022E\n\021delegator_add" +
-      "ress\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\020de" +
-      "legatorAddress:\010\210\240\037\000\350\240\037\000\"\360\001\n#QueryDelega" +
-      "tionTotalRewardsResponse\022[\n\007rewards\030\001 \003(" +
-      "\01326.cosmos.distribution.v1beta1.Delegati" +
-      "onDelegatorRewardB\t\310\336\037\000\250\347\260*\001R\007rewards\022l\n" +
-      "\005total\030\002 \003(\0132\034.cosmos.base.v1beta1.DecCo" +
-      "inB8\310\336\037\000\252\337\037+github.com/cosmos/cosmos-sdk" +
-      "/types.DecCoins\250\347\260*\001R\005total\"r\n\037QueryDele" +
-      "gatorValidatorsRequest\022E\n\021delegator_addr" +
-      "ess\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\020del" +
-      "egatorAddress:\010\210\240\037\000\350\240\037\000\"L\n QueryDelegato" +
-      "rValidatorsResponse\022\036\n\nvalidators\030\001 \003(\tR" +
-      "\nvalidators:\010\210\240\037\000\350\240\037\000\"w\n$QueryDelegatorW" +
-      "ithdrawAddressRequest\022E\n\021delegator_addre" +
-      "ss\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\020dele" +
-      "gatorAddress:\010\210\240\037\000\350\240\037\000\"v\n%QueryDelegator" +
-      "WithdrawAddressResponse\022C\n\020withdraw_addr" +
-      "ess\030\001 \001(\tB\030\322\264-\024cosmos.AddressStringR\017wit" +
-      "hdrawAddress:\010\210\240\037\000\350\240\037\000\"\037\n\031QueryCommunity" +
-      "PoolRequest:\002\030\001\"\214\001\n\032QueryCommunityPoolRe" +
-      "sponse\022j\n\004pool\030\001 \003(\0132\034.cosmos.base.v1bet" +
-      "a1.DecCoinB8\310\336\037\000\252\337\037+github.com/cosmos/co" +
-      "smos-sdk/types.DecCoins\250\347\260*\001R\004pool:\002\030\0012\307" +
-      "\021\n\005Query\022\230\001\n\006Params\022/.cosmos.distributio" +
-      "n.v1beta1.QueryParamsRequest\0320.cosmos.di" +
-      "stribution.v1beta1.QueryParamsResponse\"+" +
-      "\202\323\344\223\002%\022#/cosmos/distribution/v1beta1/par" +
-      "ams\022\351\001\n\031ValidatorDistributionInfo\022B.cosm" +
+      "\001R\006params\"n\n%QueryValidatorDistributionI" +
+      "nfoRequest\022E\n\021validator_address\030\001 \001(\tB\030\322" +
+      "\264-\024cosmos.AddressStringR\020validatorAddres" +
+      "s\"\345\002\n&QueryValidatorDistributionInfoResp" +
+      "onse\022C\n\020operator_address\030\001 \001(\tB\030\322\264-\024cosm" +
+      "os.AddressStringR\017operatorAddress\022\202\001\n\021se" +
+      "lf_bond_rewards\030\002 \003(\0132\034.cosmos.base.v1be" +
+      "ta1.DecCoinB8\310\336\037\000\252\337\037+github.com/cosmos/c" +
+      "osmos-sdk/types.DecCoins\250\347\260*\001R\017selfBondR" +
+      "ewards\022q\n\ncommission\030\003 \003(\0132\034.cosmos.base" +
+      ".v1beta1.DecCoinB3\310\336\037\000\252\337\037+github.com/cos" +
+      "mos/cosmos-sdk/types.DecCoinsR\ncommissio" +
+      "n\"p\n\'QueryValidatorOutstandingRewardsReq" +
+      "uest\022E\n\021validator_address\030\001 \001(\tB\030\322\264-\024cos" +
+      "mos.AddressStringR\020validatorAddress\"\211\001\n(" +
+      "QueryValidatorOutstandingRewardsResponse" +
+      "\022]\n\007rewards\030\001 \001(\01328.cosmos.distribution." +
+      "v1beta1.ValidatorOutstandingRewardsB\t\310\336\037" +
+      "\000\250\347\260*\001R\007rewards\"h\n\037QueryValidatorCommiss" +
+      "ionRequest\022E\n\021validator_address\030\001 \001(\tB\030\322" +
+      "\264-\024cosmos.AddressStringR\020validatorAddres" +
+      "s\"\212\001\n QueryValidatorCommissionResponse\022f" +
+      "\n\ncommission\030\001 \001(\0132;.cosmos.distribution" +
+      ".v1beta1.ValidatorAccumulatedCommissionB" +
+      "\t\310\336\037\000\250\347\260*\001R\ncommission\"\205\002\n\034QueryValidato" +
+      "rSlashesRequest\022E\n\021validator_address\030\001 \001" +
+      "(\tB\030\322\264-\024cosmos.AddressStringR\020validatorA" +
+      "ddress\022\'\n\017starting_height\030\002 \001(\004R\016startin" +
+      "gHeight\022#\n\rending_height\030\003 \001(\004R\014endingHe" +
+      "ight\022F\n\npagination\030\004 \001(\0132&.cosmos.base.q" +
+      "uery.v1beta1.PageRequestR\npagination:\010\210\240" +
+      "\037\000\230\240\037\001\"\277\001\n\035QueryValidatorSlashesResponse" +
+      "\022U\n\007slashes\030\001 \003(\01320.cosmos.distribution." +
+      "v1beta1.ValidatorSlashEventB\t\310\336\037\000\250\347\260*\001R\007" +
+      "slashes\022G\n\npagination\030\002 \001(\0132\'.cosmos.bas" +
+      "e.query.v1beta1.PageResponseR\npagination" +
+      "\"\267\001\n\035QueryDelegationRewardsRequest\022E\n\021de" +
+      "legator_address\030\001 \001(\tB\030\322\264-\024cosmos.Addres" +
+      "sStringR\020delegatorAddress\022E\n\021validator_a" +
+      "ddress\030\002 \001(\tB\030\322\264-\024cosmos.AddressStringR\020" +
+      "validatorAddress:\010\210\240\037\000\350\240\037\000\"\222\001\n\036QueryDele" +
+      "gationRewardsResponse\022p\n\007rewards\030\001 \003(\0132\034" +
+      ".cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337\037+gi" +
+      "thub.com/cosmos/cosmos-sdk/types.DecCoin" +
+      "s\250\347\260*\001R\007rewards\"u\n\"QueryDelegationTotalR" +
+      "ewardsRequest\022E\n\021delegator_address\030\001 \001(\t" +
+      "B\030\322\264-\024cosmos.AddressStringR\020delegatorAdd" +
+      "ress:\010\210\240\037\000\350\240\037\000\"\360\001\n#QueryDelegationTotalR" +
+      "ewardsResponse\022[\n\007rewards\030\001 \003(\01326.cosmos" +
+      ".distribution.v1beta1.DelegationDelegato" +
+      "rRewardB\t\310\336\037\000\250\347\260*\001R\007rewards\022l\n\005total\030\002 \003" +
+      "(\0132\034.cosmos.base.v1beta1.DecCoinB8\310\336\037\000\252\337" +
+      "\037+github.com/cosmos/cosmos-sdk/types.Dec" +
+      "Coins\250\347\260*\001R\005total\"r\n\037QueryDelegatorValid" +
+      "atorsRequest\022E\n\021delegator_address\030\001 \001(\tB" +
+      "\030\322\264-\024cosmos.AddressStringR\020delegatorAddr" +
+      "ess:\010\210\240\037\000\350\240\037\000\"L\n QueryDelegatorValidator" +
+      "sResponse\022\036\n\nvalidators\030\001 \003(\tR\nvalidator" +
+      "s:\010\210\240\037\000\350\240\037\000\"w\n$QueryDelegatorWithdrawAdd" +
+      "ressRequest\022E\n\021delegator_address\030\001 \001(\tB\030" +
+      "\322\264-\024cosmos.AddressStringR\020delegatorAddre" +
+      "ss:\010\210\240\037\000\350\240\037\000\"v\n%QueryDelegatorWithdrawAd" +
+      "dressResponse\022C\n\020withdraw_address\030\001 \001(\tB" +
+      "\030\322\264-\024cosmos.AddressStringR\017withdrawAddre" +
+      "ss:\010\210\240\037\000\350\240\037\000\"\033\n\031QueryCommunityPoolReques" +
+      "t\"\210\001\n\032QueryCommunityPoolResponse\022j\n\004pool" +
+      "\030\001 \003(\0132\034.cosmos.base.v1beta1.DecCoinB8\310\336" +
+      "\037\000\252\337\037+github.com/cosmos/cosmos-sdk/types" +
+      ".DecCoins\250\347\260*\001R\004pool\"p\n%QueryTokenizeSha" +
+      "reRecordRewardRequest\022=\n\rowner_address\030\001" +
+      " \001(\tB\030\362\336\037\024yaml:\"owner_address\"R\014ownerAdd" +
+      "ress:\010\210\240\037\000\350\240\037\000\"\351\001\n&QueryTokenizeShareRec" +
+      "ordRewardResponse\022V\n\007rewards\030\001 \003(\01326.cos" +
+      "mos.distribution.v1beta1.TokenizeShareRe" +
+      "cordRewardB\004\310\336\037\000R\007rewards\022g\n\005total\030\002 \003(\013" +
+      "2\034.cosmos.base.v1beta1.DecCoinB3\310\336\037\000\252\337\037+" +
+      "github.com/cosmos/cosmos-sdk/types.DecCo" +
+      "insR\005total2\277\023\n\005Query\022\230\001\n\006Params\022/.cosmos" +
+      ".distribution.v1beta1.QueryParamsRequest" +
+      "\0320.cosmos.distribution.v1beta1.QueryPara" +
+      "msResponse\"+\202\323\344\223\002%\022#/cosmos/distribution" +
+      "/v1beta1/params\022\351\001\n\031ValidatorDistributio" +
+      "nInfo\022B.cosmos.distribution.v1beta1.Quer" +
+      "yValidatorDistributionInfoRequest\032C.cosm" +
       "os.distribution.v1beta1.QueryValidatorDi" +
-      "stributionInfoRequest\032C.cosmos.distribut" +
-      "ion.v1beta1.QueryValidatorDistributionIn" +
-      "foResponse\"C\202\323\344\223\002=\022;/cosmos/distribution" +
-      "/v1beta1/validators/{validator_address}\022" +
-      "\203\002\n\033ValidatorOutstandingRewards\022D.cosmos" +
-      ".distribution.v1beta1.QueryValidatorOuts" +
-      "tandingRewardsRequest\032E.cosmos.distribut" +
-      "ion.v1beta1.QueryValidatorOutstandingRew" +
-      "ardsResponse\"W\202\323\344\223\002Q\022O/cosmos/distributi" +
-      "on/v1beta1/validators/{validator_address" +
-      "}/outstanding_rewards\022\342\001\n\023ValidatorCommi" +
-      "ssion\022<.cosmos.distribution.v1beta1.Quer" +
-      "yValidatorCommissionRequest\032=.cosmos.dis" +
-      "tribution.v1beta1.QueryValidatorCommissi" +
-      "onResponse\"N\202\323\344\223\002H\022F/cosmos/distribution" +
-      "/v1beta1/validators/{validator_address}/" +
-      "commission\022\326\001\n\020ValidatorSlashes\0229.cosmos" +
-      ".distribution.v1beta1.QueryValidatorSlas" +
-      "hesRequest\032:.cosmos.distribution.v1beta1" +
-      ".QueryValidatorSlashesResponse\"K\202\323\344\223\002E\022C" +
-      "/cosmos/distribution/v1beta1/validators/" +
-      "{validator_address}/slashes\022\355\001\n\021Delegati" +
-      "onRewards\022:.cosmos.distribution.v1beta1." +
-      "QueryDelegationRewardsRequest\032;.cosmos.d" +
-      "istribution.v1beta1.QueryDelegationRewar" +
-      "dsResponse\"_\202\323\344\223\002Y\022W/cosmos/distribution" +
-      "/v1beta1/delegators/{delegator_address}/" +
-      "rewards/{validator_address}\022\350\001\n\026Delegati" +
-      "onTotalRewards\022?.cosmos.distribution.v1b" +
-      "eta1.QueryDelegationTotalRewardsRequest\032" +
-      "@.cosmos.distribution.v1beta1.QueryDeleg" +
-      "ationTotalRewardsResponse\"K\202\323\344\223\002E\022C/cosm" +
-      "os/distribution/v1beta1/delegators/{dele" +
-      "gator_address}/rewards\022\342\001\n\023DelegatorVali" +
-      "dators\022<.cosmos.distribution.v1beta1.Que" +
-      "ryDelegatorValidatorsRequest\032=.cosmos.di" +
-      "stribution.v1beta1.QueryDelegatorValidat" +
-      "orsResponse\"N\202\323\344\223\002H\022F/cosmos/distributio" +
-      "n/v1beta1/delegators/{delegator_address}" +
-      "/validators\022\367\001\n\030DelegatorWithdrawAddress" +
-      "\022A.cosmos.distribution.v1beta1.QueryDele" +
-      "gatorWithdrawAddressRequest\032B.cosmos.dis" +
-      "tribution.v1beta1.QueryDelegatorWithdraw" +
-      "AddressResponse\"T\202\323\344\223\002N\022L/cosmos/distrib" +
-      "ution/v1beta1/delegators/{delegator_addr" +
-      "ess}/withdraw_address\022\270\001\n\rCommunityPool\022" +
-      "6.cosmos.distribution.v1beta1.QueryCommu" +
-      "nityPoolRequest\0327.cosmos.distribution.v1" +
-      "beta1.QueryCommunityPoolResponse\"6\210\002\001\202\323\344" +
-      "\223\002-\022+/cosmos/distribution/v1beta1/commun" +
-      "ity_poolB\334\001\n\037com.cosmos.distribution.v1b" +
-      "eta1B\nQueryProtoZ!cosmossdk.io/x/distrib" +
-      "ution/types\242\002\003CDX\252\002\033Cosmos.Distribution." +
-      "V1beta1\312\002\033Cosmos\\Distribution\\V1beta1\342\002\'" +
-      "Cosmos\\Distribution\\V1beta1\\GPBMetadata\352" +
-      "\002\035Cosmos::Distribution::V1beta1b\006proto3"
+      "stributionInfoResponse\"C\202\323\344\223\002=\022;/cosmos/" +
+      "distribution/v1beta1/validators/{validat" +
+      "or_address}\022\203\002\n\033ValidatorOutstandingRewa" +
+      "rds\022D.cosmos.distribution.v1beta1.QueryV" +
+      "alidatorOutstandingRewardsRequest\032E.cosm" +
+      "os.distribution.v1beta1.QueryValidatorOu" +
+      "tstandingRewardsResponse\"W\202\323\344\223\002Q\022O/cosmo" +
+      "s/distribution/v1beta1/validators/{valid" +
+      "ator_address}/outstanding_rewards\022\342\001\n\023Va" +
+      "lidatorCommission\022<.cosmos.distribution." +
+      "v1beta1.QueryValidatorCommissionRequest\032" +
+      "=.cosmos.distribution.v1beta1.QueryValid" +
+      "atorCommissionResponse\"N\202\323\344\223\002H\022F/cosmos/" +
+      "distribution/v1beta1/validators/{validat" +
+      "or_address}/commission\022\326\001\n\020ValidatorSlas" +
+      "hes\0229.cosmos.distribution.v1beta1.QueryV" +
+      "alidatorSlashesRequest\032:.cosmos.distribu" +
+      "tion.v1beta1.QueryValidatorSlashesRespon" +
+      "se\"K\202\323\344\223\002E\022C/cosmos/distribution/v1beta1" +
+      "/validators/{validator_address}/slashes\022" +
+      "\355\001\n\021DelegationRewards\022:.cosmos.distribut" +
+      "ion.v1beta1.QueryDelegationRewardsReques" +
+      "t\032;.cosmos.distribution.v1beta1.QueryDel" +
+      "egationRewardsResponse\"_\202\323\344\223\002Y\022W/cosmos/" +
+      "distribution/v1beta1/delegators/{delegat" +
+      "or_address}/rewards/{validator_address}\022" +
+      "\350\001\n\026DelegationTotalRewards\022?.cosmos.dist" +
+      "ribution.v1beta1.QueryDelegationTotalRew" +
+      "ardsRequest\032@.cosmos.distribution.v1beta" +
+      "1.QueryDelegationTotalRewardsResponse\"K\202" +
+      "\323\344\223\002E\022C/cosmos/distribution/v1beta1/dele" +
+      "gators/{delegator_address}/rewards\022\342\001\n\023D" +
+      "elegatorValidators\022<.cosmos.distribution" +
+      ".v1beta1.QueryDelegatorValidatorsRequest" +
+      "\032=.cosmos.distribution.v1beta1.QueryDele" +
+      "gatorValidatorsResponse\"N\202\323\344\223\002H\022F/cosmos" +
+      "/distribution/v1beta1/delegators/{delega" +
+      "tor_address}/validators\022\367\001\n\030DelegatorWit" +
+      "hdrawAddress\022A.cosmos.distribution.v1bet" +
+      "a1.QueryDelegatorWithdrawAddressRequest\032" +
+      "B.cosmos.distribution.v1beta1.QueryDeleg" +
+      "atorWithdrawAddressResponse\"T\202\323\344\223\002N\022L/co" +
+      "smos/distribution/v1beta1/delegators/{de" +
+      "legator_address}/withdraw_address\022\265\001\n\rCo" +
+      "mmunityPool\0226.cosmos.distribution.v1beta" +
+      "1.QueryCommunityPoolRequest\0327.cosmos.dis" +
+      "tribution.v1beta1.QueryCommunityPoolResp" +
+      "onse\"3\202\323\344\223\002-\022+/cosmos/distribution/v1bet" +
+      "a1/community_pool\022\370\001\n\031TokenizeShareRecor" +
+      "dReward\022B.cosmos.distribution.v1beta1.Qu" +
+      "eryTokenizeShareRecordRewardRequest\032C.co" +
+      "smos.distribution.v1beta1.QueryTokenizeS" +
+      "hareRecordRewardResponse\"R\202\323\344\223\002L\022J/cosmo" +
+      "s/distribution/v1beta1/{owner_address}/t" +
+      "okenize_share_record_rewardsB\354\001\n\037com.cos" +
+      "mos.distribution.v1beta1B\nQueryProtoZ1gi" +
+      "thub.com/cosmos/cosmos-sdk/x/distributio" +
+      "n/types\242\002\003CDX\252\002\033Cosmos.Distribution.V1be" +
+      "ta1\312\002\033Cosmos\\Distribution\\V1beta1\342\002\'Cosm" +
+      "os\\Distribution\\V1beta1\\GPBMetadata\352\002\035Co" +
+      "smos::Distribution::V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15801,6 +17765,18 @@ public final class QueryProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmos_distribution_v1beta1_QueryCommunityPoolResponse_descriptor,
         new java.lang.String[] { "Pool", });
+    internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardRequest_descriptor,
+        new java.lang.String[] { "OwnerAddress", });
+    internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_cosmos_distribution_v1beta1_QueryTokenizeShareRecordRewardResponse_descriptor,
+        new java.lang.String[] { "Rewards", "Total", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.amino.AminoProto.dontOmitempty);
@@ -15808,6 +17784,8 @@ public final class QueryProto {
     registry.add(com.gogoproto.GogoProto.castrepeated);
     registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
+    registry.add(com.gogoproto.GogoProto.goprotoStringer);
+    registry.add(com.gogoproto.GogoProto.moretags);
     registry.add(com.gogoproto.GogoProto.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor

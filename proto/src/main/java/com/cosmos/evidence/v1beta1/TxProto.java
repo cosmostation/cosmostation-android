@@ -1406,12 +1406,13 @@ public final class TxProto {
       "\004 \001(\014R\004hash2~\n\003Msg\022p\n\016SubmitEvidence\022*.c" +
       "osmos.evidence.v1beta1.MsgSubmitEvidence" +
       "\0322.cosmos.evidence.v1beta1.MsgSubmitEvid" +
-      "enceResponse\032\005\200\347\260*\001B\305\001\n\033com.cosmos.evide" +
-      "nce.v1beta1B\007TxProtoZ\035cosmossdk.io/x/evi" +
-      "dence/types\242\002\003CEX\252\002\027Cosmos.Evidence.V1be" +
-      "ta1\312\002\027Cosmos\\Evidence\\V1beta1\342\002#Cosmos\\E" +
-      "vidence\\V1beta1\\GPBMetadata\352\002\031Cosmos::Ev" +
-      "idence::V1beta1\250\342\036\001b\006proto3"
+      "enceResponse\032\005\200\347\260*\001B\325\001\n\033com.cosmos.evide" +
+      "nce.v1beta1B\007TxProtoZ-github.com/cosmos/" +
+      "cosmos-sdk/x/evidence/types\242\002\003CEX\252\002\027Cosm" +
+      "os.Evidence.V1beta1\312\002\027Cosmos\\Evidence\\V1" +
+      "beta1\342\002#Cosmos\\Evidence\\V1beta1\\GPBMetad" +
+      "ata\352\002\031Cosmos::Evidence::V1beta1\250\342\036\001b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

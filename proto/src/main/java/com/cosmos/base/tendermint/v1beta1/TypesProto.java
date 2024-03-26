@@ -3546,14 +3546,14 @@ public final class TypesProto {
       "app_hash\030\013 \001(\014R\007appHash\022*\n\021last_results_" +
       "hash\030\014 \001(\014R\017lastResultsHash\022#\n\revidence_" +
       "hash\030\r \001(\014R\014evidenceHash\022)\n\020proposer_add" +
-      "ress\030\016 \001(\tR\017proposerAddressB\376\001\n\"com.cosm" +
-      "os.base.tendermint.v1beta1B\nTypesProtoZ3" +
+      "ress\030\016 \001(\tR\017proposerAddressB\375\001\n\"com.cosm" +
+      "os.base.tendermint.v1beta1B\nTypesProtoZ2" +
       "github.com/cosmos/cosmos-sdk/client/grpc" +
-      "/cmtservice\242\002\003CBT\252\002\036Cosmos.Base.Tendermi" +
-      "nt.V1beta1\312\002\036Cosmos\\Base\\Tendermint\\V1be" +
-      "ta1\342\002*Cosmos\\Base\\Tendermint\\V1beta1\\GPB" +
-      "Metadata\352\002!Cosmos::Base::Tendermint::V1b" +
-      "eta1b\006proto3"
+      "/tmservice\242\002\003CBT\252\002\036Cosmos.Base.Tendermin" +
+      "t.V1beta1\312\002\036Cosmos\\Base\\Tendermint\\V1bet" +
+      "a1\342\002*Cosmos\\Base\\Tendermint\\V1beta1\\GPBM" +
+      "etadata\352\002!Cosmos::Base::Tendermint::V1be" +
+      "ta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

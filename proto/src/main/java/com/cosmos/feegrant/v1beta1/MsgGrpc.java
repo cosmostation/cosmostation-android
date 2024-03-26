@@ -80,37 +80,6 @@ public final class MsgGrpc {
     return getRevokeAllowanceMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances,
-      com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse> getPruneAllowancesMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "PruneAllowances",
-      requestType = com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances.class,
-      responseType = com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances,
-      com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse> getPruneAllowancesMethod() {
-    io.grpc.MethodDescriptor<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances, com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse> getPruneAllowancesMethod;
-    if ((getPruneAllowancesMethod = MsgGrpc.getPruneAllowancesMethod) == null) {
-      synchronized (MsgGrpc.class) {
-        if ((getPruneAllowancesMethod = MsgGrpc.getPruneAllowancesMethod) == null) {
-          MsgGrpc.getPruneAllowancesMethod = getPruneAllowancesMethod =
-              io.grpc.MethodDescriptor.<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances, com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "PruneAllowances"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("PruneAllowances"))
-              .build();
-        }
-      }
-    }
-    return getPruneAllowancesMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -183,17 +152,6 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowanceResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRevokeAllowanceMethod(), responseObserver);
     }
-
-    /**
-     * <pre>
-     * PruneAllowances prunes expired fee allowances, currently up to 75 at a time.
-     * Since cosmos-sdk 0.50
-     * </pre>
-     */
-    default void pruneAllowances(com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances request,
-        io.grpc.stub.StreamObserver<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPruneAllowancesMethod(), responseObserver);
-    }
   }
 
   /**
@@ -252,18 +210,6 @@ public final class MsgGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getRevokeAllowanceMethod(), getCallOptions()), request, responseObserver);
     }
-
-    /**
-     * <pre>
-     * PruneAllowances prunes expired fee allowances, currently up to 75 at a time.
-     * Since cosmos-sdk 0.50
-     * </pre>
-     */
-    public void pruneAllowances(com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances request,
-        io.grpc.stub.StreamObserver<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getPruneAllowancesMethod(), getCallOptions()), request, responseObserver);
-    }
   }
 
   /**
@@ -305,17 +251,6 @@ public final class MsgGrpc {
     public com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowanceResponse revokeAllowance(com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowance request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getRevokeAllowanceMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * PruneAllowances prunes expired fee allowances, currently up to 75 at a time.
-     * Since cosmos-sdk 0.50
-     * </pre>
-     */
-    public com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse pruneAllowances(com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getPruneAllowancesMethod(), getCallOptions(), request);
     }
   }
 
@@ -361,23 +296,10 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getRevokeAllowanceMethod(), getCallOptions()), request);
     }
-
-    /**
-     * <pre>
-     * PruneAllowances prunes expired fee allowances, currently up to 75 at a time.
-     * Since cosmos-sdk 0.50
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse> pruneAllowances(
-        com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getPruneAllowancesMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_GRANT_ALLOWANCE = 0;
   private static final int METHODID_REVOKE_ALLOWANCE = 1;
-  private static final int METHODID_PRUNE_ALLOWANCES = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -403,10 +325,6 @@ public final class MsgGrpc {
         case METHODID_REVOKE_ALLOWANCE:
           serviceImpl.revokeAllowance((com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowance) request,
               (io.grpc.stub.StreamObserver<com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowanceResponse>) responseObserver);
-          break;
-        case METHODID_PRUNE_ALLOWANCES:
-          serviceImpl.pruneAllowances((com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances) request,
-              (io.grpc.stub.StreamObserver<com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -440,13 +358,6 @@ public final class MsgGrpc {
               com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowance,
               com.cosmos.feegrant.v1beta1.TxProto.MsgRevokeAllowanceResponse>(
                 service, METHODID_REVOKE_ALLOWANCE)))
-        .addMethod(
-          getPruneAllowancesMethod(),
-          io.grpc.stub.ServerCalls.asyncUnaryCall(
-            new MethodHandlers<
-              com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowances,
-              com.cosmos.feegrant.v1beta1.TxProto.MsgPruneAllowancesResponse>(
-                service, METHODID_PRUNE_ALLOWANCES)))
         .build();
   }
 
@@ -497,7 +408,6 @@ public final class MsgGrpc {
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getGrantAllowanceMethod())
               .addMethod(getRevokeAllowanceMethod())
-              .addMethod(getPruneAllowancesMethod())
               .build();
         }
       }

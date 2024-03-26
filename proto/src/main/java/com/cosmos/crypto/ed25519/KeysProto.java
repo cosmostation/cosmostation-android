@@ -519,7 +519,7 @@ public final class KeysProto {
   }
   /**
    * <pre>
-   * PrivKey defines a ed25519 private key.
+   * Deprecated: PrivKey defines a ed25519 private key.
    * NOTE: ed25519 keys must not be used in SDK apps except in a tendermint validator context.
    * </pre>
    *
@@ -728,7 +728,7 @@ public final class KeysProto {
     }
     /**
      * <pre>
-     * PrivKey defines a ed25519 private key.
+     * Deprecated: PrivKey defines a ed25519 private key.
      * NOTE: ed25519 keys must not be used in SDK apps except in a tendermint validator context.
      * </pre>
      *

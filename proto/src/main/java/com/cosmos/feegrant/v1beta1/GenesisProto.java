@@ -823,12 +823,13 @@ public final class GenesisProto {
       ".proto\032&cosmos/feegrant/v1beta1/feegrant" +
       ".proto\032\021amino/amino.proto\"Y\n\014GenesisStat" +
       "e\022I\n\nallowances\030\001 \003(\0132\036.cosmos.feegrant." +
-      "v1beta1.GrantB\t\310\336\037\000\250\347\260*\001R\nallowancesB\300\001\n" +
+      "v1beta1.GrantB\t\310\336\037\000\250\347\260*\001R\nallowancesB\320\001\n" +
       "\033com.cosmos.feegrant.v1beta1B\014GenesisPro" +
-      "toZ\027cosmossdk.io/x/feegrant\242\002\003CFX\252\002\027Cosm" +
-      "os.Feegrant.V1beta1\312\002\027Cosmos\\Feegrant\\V1" +
-      "beta1\342\002#Cosmos\\Feegrant\\V1beta1\\GPBMetad" +
-      "ata\352\002\031Cosmos::Feegrant::V1beta1b\006proto3"
+      "toZ\'github.com/cosmos/cosmos-sdk/x/feegr" +
+      "ant\242\002\003CFX\252\002\027Cosmos.Feegrant.V1beta1\312\002\027Co" +
+      "smos\\Feegrant\\V1beta1\342\002#Cosmos\\Feegrant\\" +
+      "V1beta1\\GPBMetadata\352\002\031Cosmos::Feegrant::" +
+      "V1beta1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
