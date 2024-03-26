@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -599,6 +600,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainMars())
     lines.add(ChainMedibloc())
     lines.add(ChainNeutron())
+    lines.add(ChainNibiru())
     lines.add(ChainNoble())
     lines.add(ChainNyx())
     lines.add(ChainOmniflix())
