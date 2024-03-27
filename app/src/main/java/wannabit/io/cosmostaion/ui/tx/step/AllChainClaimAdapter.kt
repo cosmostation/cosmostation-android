@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.databinding.ItemAllChainClaimBinding
 
 class AllChainClaimAdapter :
-    ListAdapter<ValueAbleReward, AllChainClaimViewHolder>(AllChainClaimDiffCallback()) {
+    ListAdapter<ClaimAllModel, AllChainClaimViewHolder>(AllChainClaimDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllChainClaimViewHolder {
         val binding =
@@ -20,16 +20,16 @@ class AllChainClaimAdapter :
         holder.bind(reward)
     }
 
-    private class AllChainClaimDiffCallback : DiffUtil.ItemCallback<ValueAbleReward>() {
+    private class AllChainClaimDiffCallback : DiffUtil.ItemCallback<ClaimAllModel>() {
 
         override fun areItemsTheSame(
-            oldItem: ValueAbleReward, newItem: ValueAbleReward
+            oldItem: ClaimAllModel, newItem: ClaimAllModel
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: ValueAbleReward, newItem: ValueAbleReward
+            oldItem: ClaimAllModel, newItem: ClaimAllModel
         ): Boolean {
             return oldItem == newItem
         }

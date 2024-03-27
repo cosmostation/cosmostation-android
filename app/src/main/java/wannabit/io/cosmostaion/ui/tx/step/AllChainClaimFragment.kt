@@ -17,6 +17,7 @@ import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
+import com.cosmos.gov.v1beta1.TxProto
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
@@ -28,11 +29,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -56,7 +60,7 @@ class AllChainClaimFragment : BaseTxFragment() {
 
     private lateinit var allChainClaimAdapter: AllChainClaimAdapter
 
-    private var valueAbleRewards: MutableList<ValueAbleReward> = mutableListOf()
+    private var valueAbleRewards: MutableList<ClaimAllModel> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -91,8 +95,8 @@ class AllChainClaimFragment : BaseTxFragment() {
                             val txFee = evmChain.getInitPayableFee(requireContext())
                             if (valueAbleReward.isNotEmpty() && txFee != null) {
                                 valueAbleRewards.add(
-                                    ValueAbleReward(
-                                        evmChain, valueAbleReward, null, false, null
+                                    ClaimAllModel(
+                                        evmChain, valueAbleReward
                                     )
                                 )
                             }
@@ -103,8 +107,8 @@ class AllChainClaimFragment : BaseTxFragment() {
                             val txFee = chain.getInitPayableFee(requireContext())
                             if (valueAbleReward.isNotEmpty() && txFee != null) {
                                 valueAbleRewards.add(
-                                    ValueAbleReward(
-                                        chain, valueAbleReward, null, false, null
+                                    ClaimAllModel(
+                                        chain, valueAbleReward
                                     )
                                 )
                             }
@@ -170,6 +174,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                                         txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong()).addAmount(feeCoin).build()
                                     }
                                     valueAbleRewards[i].fee = txFee
+                                    valueAbleRewards[i].isBusy = false
                                     lifecycleScope.launch(Dispatchers.Main) {
                                         allChainClaimAdapter.notifyItemChanged(i)
                                         if (valueAbleRewards.count { reward -> reward.fee == null } == 0) {
@@ -216,7 +221,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     private val claimAllResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK && isAdded) {
             for (i in 0 until valueAbleRewards.size) {
-                valueAbleRewards[i].isSuccess = true
+                valueAbleRewards[i].isBusy = true
             }
             allChainClaimAdapter.notifyDataSetChanged()
             binding?.btnClaimAll?.visibility = View.GONE
@@ -269,7 +274,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun broadCastClaimTx(
-        valueAbleReward: ValueAbleReward, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
+        valueAbleReward: ClaimAllModel, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             val channel = getChannel(valueAbleReward.cosmosLine)
@@ -381,10 +386,18 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 }
 
-data class ValueAbleReward(
+data class ClaimAllModel(
     val cosmosLine: CosmosLine,
     val rewards: MutableList<DelegationDelegatorReward?>,
-    var fee: Fee?,
-    var isSuccess: Boolean = false,
-    var txResponse: GetTxResponse?,
+    var fee: Fee? = null,
+    var isBusy: Boolean = true,
+    var txResponse: GetTxResponse? = null,
 )
+
+//data class ValueAbleReward(
+//    val cosmosLine: CosmosLine,
+//    val rewards: MutableList<DelegationDelegatorReward?>,
+//    var fee: Fee?,
+//    var isSuccess: Boolean = false,
+//    var txResponse: GetTxResponse?,
+//)

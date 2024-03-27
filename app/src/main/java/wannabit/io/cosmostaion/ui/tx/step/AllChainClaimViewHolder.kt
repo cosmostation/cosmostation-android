@@ -20,7 +20,7 @@ class AllChainClaimViewHolder(
     private val binding: ItemAllChainClaimBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(valueAbleReward: ValueAbleReward) {
+    fun bind(valueAbleReward: ClaimAllModel) {
         binding.apply {
             rewardView.setBackgroundResource(R.drawable.cell_bg)
 
@@ -112,12 +112,12 @@ class AllChainClaimViewHolder(
                     }
                 }
 
-                if (valueAbleReward.isSuccess && valueAbleReward.txResponse != null) {
+                if (valueAbleReward.isBusy && valueAbleReward.txResponse != null) {
                     progress.visibility = View.GONE
                     simulateImg.visibility = View.VISIBLE
                     simulateImg.setImageResource(R.drawable.icon_complete)
 
-                } else if (valueAbleReward.isSuccess && valueAbleReward.txResponse == null) {
+                } else if (valueAbleReward.isBusy && valueAbleReward.txResponse == null) {
                     progress.visibility = View.VISIBLE
                     simulateImg.visibility = View.GONE
 
