@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
@@ -44,6 +45,7 @@ import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAllChainVoteBinding
+import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountListTouchAdapter
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
@@ -240,6 +242,10 @@ class AllChainVoteFragment : BaseTxFragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = allChainVoteAdapter
+//            val itemTouchHelper = ItemTouchHelper(AllChainVoteTouchAdapter { position ->
+//                allChainVoteAdapter.deleteItem(position)
+//            })
+//            itemTouchHelper.attachToRecyclerView(binding?.recycler)
             allChainVoteAdapter.submitList(toDisplayInfos)
         }
     }
