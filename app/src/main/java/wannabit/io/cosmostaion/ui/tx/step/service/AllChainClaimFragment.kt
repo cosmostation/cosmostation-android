@@ -168,7 +168,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 deleteUpdateView(reward)
 
             }.apply {
-                setClamp(resources.displayMetrics.widthPixels.toFloat() / 5)
+                setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
             }
             val itemTouchHelper = ItemTouchHelper(allChainClaimTouchAdapter)
             itemTouchHelper.attachToRecyclerView(this)

@@ -27,6 +27,8 @@ class AllChainAllVoteViewHolder(
     ) {
         binding.apply {
             proposalView.setBackgroundResource(R.drawable.cell_bg)
+            deleteView.setBackgroundResource(R.drawable.cell_bg)
+
             voteId.text = "# " + proposal.id
             voteTitle.text = proposal.title
             val endTimeToLong = dateToLong(

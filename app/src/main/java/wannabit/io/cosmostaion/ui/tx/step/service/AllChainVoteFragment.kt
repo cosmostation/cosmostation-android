@@ -268,7 +268,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 AllChainNotVoteTouchAdapter(toDisplayInfos) { model, proposal ->
                     deleteUpdateView(model, proposal)
                 }.apply {
-                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 5)
+                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
                 }
 
             val itemTouchHelper = ItemTouchHelper(allChainNotVoteTouchAdapter)
@@ -300,7 +300,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 ) { model, proposal ->
                     deleteUpdateView(model, proposal)
                 }.apply {
-                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 5)
+                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
                 }
 
             val itemTouchHelper = ItemTouchHelper(allChainAllVoteTouchAdapter)

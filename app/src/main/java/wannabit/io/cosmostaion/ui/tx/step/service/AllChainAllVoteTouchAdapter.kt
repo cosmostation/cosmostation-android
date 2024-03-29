@@ -49,6 +49,8 @@ class AllChainAllVoteTouchAdapter(
         val model = allDisplayInfos[sectionPosition]
         val proposal = model.proposals[itemPositionInSection]
         onDelete(model, proposal)
+        getView(viewHolder).translationX = 0f
+        getHideView(viewHolder).visibility = View.GONE
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
@@ -131,7 +133,7 @@ class AllChainAllVoteTouchAdapter(
     }
 
     private fun getHideView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as AllChainAllVoteViewHolder).itemView.findViewById(R.id.delete_layout)
+        return (viewHolder as AllChainAllVoteViewHolder).itemView.findViewById(R.id.delete_view)
     }
 
     private fun clampViewPositionHorizontal(
@@ -176,6 +178,7 @@ class AllChainAllVoteTouchAdapter(
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(i) ?: return
             if (viewHolder is AllChainAllVoteViewHolder) {
                 getView(viewHolder).translationX = 0f
+                getHideView(viewHolder).visibility = View.GONE
                 setTag(viewHolder, false)
             }
         }

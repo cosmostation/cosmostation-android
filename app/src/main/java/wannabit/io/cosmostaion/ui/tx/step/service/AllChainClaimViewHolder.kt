@@ -23,6 +23,7 @@ class AllChainClaimViewHolder(
     fun bind(valueAbleReward: ClaimAllModel) {
         binding.apply {
             rewardView.setBackgroundResource(R.drawable.cell_bg)
+            deleteView.setBackgroundResource(R.drawable.cell_bg)
 
             valueAbleReward.apply {
                 chainImg.setImageResource(cosmosLine.logo)

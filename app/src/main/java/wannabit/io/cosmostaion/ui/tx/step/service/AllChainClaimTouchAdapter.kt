@@ -46,6 +46,8 @@ class AllChainClaimTouchAdapter(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val reward = rewards[viewHolder.adapterPosition]
         onDelete(reward)
+        getView(viewHolder).translationX = 0f
+        getHideView(viewHolder).visibility = View.GONE
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
@@ -114,7 +116,7 @@ class AllChainClaimTouchAdapter(
     }
 
     private fun getHideView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as AllChainClaimViewHolder).itemView.findViewById(R.id.delete_layout)
+        return (viewHolder as AllChainClaimViewHolder).itemView.findViewById(R.id.delete_view)
     }
 
     private fun clampViewPositionHorizontal(
@@ -162,6 +164,7 @@ class AllChainClaimTouchAdapter(
         for (i in 0 until rewards.size) {
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(i) ?: return
             getView(viewHolder).translationX = 0f
+            getHideView(viewHolder).visibility = View.GONE
             setTag(viewHolder, false)
         }
     }
