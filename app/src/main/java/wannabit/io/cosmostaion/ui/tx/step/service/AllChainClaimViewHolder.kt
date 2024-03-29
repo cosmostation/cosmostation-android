@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.step
+package wannabit.io.cosmostaion.ui.tx.step.service
 
 import android.content.Context
 import android.view.View

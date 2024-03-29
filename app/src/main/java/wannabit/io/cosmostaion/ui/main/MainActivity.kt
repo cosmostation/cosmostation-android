@@ -97,6 +97,7 @@ class MainActivity : BaseActivity() {
                 val tabBinding =
                     ViewTabItemBinding.inflate(LayoutInflater.from(this@MainActivity), null, false)
                 val tabView = tabBinding.root
+                tabBinding.tabText.visibility = View.GONE
 
                 when (position) {
                     0 -> {

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.step
+package wannabit.io.cosmostaion.ui.tx.step.service
 
 import android.app.Activity
 import android.content.Intent
@@ -45,8 +45,9 @@ import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAllChainVoteBinding
-import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountListTouchAdapter
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 import java.math.RoundingMode
@@ -64,10 +65,13 @@ class AllChainVoteFragment : BaseTxFragment() {
 
     private val stakedChains = mutableListOf<BaseChain>()
     private var isShowAll = false
+
     private var allLiveInfo = mutableListOf<VoteAllModel>()
+    private var allDisplayLiveInfo = mutableListOf<VoteAllModel>()
     private var toDisplayInfos = mutableListOf<VoteAllModel>()
 
-    private lateinit var allChainVoteAdapter: AllChainVoteAdapter
+    private lateinit var allChainNotVoteAdapter: AllChainNotVoteAdapter
+    private lateinit var allChainAllVoteAdapter: AllChainAllVoteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -122,6 +126,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                     }
                 }
                 allLiveInfo.clear()
+                allDisplayLiveInfo.clear()
                 toDisplayInfos.clear()
                 fetchProposalInfos(stakedChains)
             }
@@ -197,82 +202,201 @@ class AllChainVoteFragment : BaseTxFragment() {
             allLiveInfo.forEach { voteModel ->
                 voteModel.proposals.forEach { it.toVoteOption = null }
             }
+            allDisplayLiveInfo.clear()
             toDisplayInfos.clear()
 
-            if (isShowAll) {
-                btnFilter.setImageResource(R.drawable.icon_all_vote)
-                allVoteTitle.text = getString(R.string.title_all_vote_list)
-
-                toDisplayInfos = allLiveInfo.map { it }.toMutableList()
-
-            } else {
-                btnFilter.setImageResource(R.drawable.icon_not_vote)
-                allVoteTitle.text = getString(R.string.title_not_vote_list)
-
-                allLiveInfo.forEach { info ->
-                    val filteredProposal = mutableListOf<CosmosProposal>()
-                    val proposals = info.proposals
-                    val myVotes = info.myVotes
-                    proposals.forEach { proposal ->
-                        if (myVotes.none { it.proposal_id == proposal.id }) {
-                            filteredProposal.add(proposal)
-                        }
+            allDisplayLiveInfo.addAll(allLiveInfo.map { it.deepCopy() })
+            allLiveInfo.forEach { info ->
+                val filteredProposal = mutableListOf<CosmosProposal>()
+                val proposals = info.proposals
+                val myVotes = info.myVotes
+                proposals.forEach { proposal ->
+                    if (myVotes.none { it.proposal_id == proposal.id }) {
+                        filteredProposal.add(proposal)
                     }
-                    if (filteredProposal.isNotEmpty()) {
-                        toDisplayInfos.add(VoteAllModel(info.basechain, filteredProposal, myVotes))
-                    }
+                }
+                if (filteredProposal.isNotEmpty()) {
+                    toDisplayInfos.add(VoteAllModel(info.basechain, filteredProposal, myVotes))
                 }
             }
 
-            if (toDisplayInfos.isEmpty()) {
-                emptyLayout.visibility = View.VISIBLE
-                voteExplain.visibility = View.GONE
+            if (isShowAll) {
+                btnFilter.setImageResource(R.drawable.icon_all_vote)
+                allVoteTitle.text = getString(R.string.title_not_vote_list)
+                recycler.visibility = View.GONE
+
+                if (allDisplayLiveInfo.isEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                    allRecycler.visibility = View.GONE
+                    btnVoteAll.visibility = View.GONE
+                } else {
+                    allRecycler.visibility = View.VISIBLE
+                    btnVoteAll.visibility = View.VISIBLE
+                    btnVoteAll.updateButtonView(false)
+                }
+
             } else {
-                btnVoteAll.visibility = View.VISIBLE
-                voteExplain.visibility = View.VISIBLE
+                btnFilter.setImageResource(R.drawable.icon_not_vote)
+                allVoteTitle.text = getString(R.string.title_all_vote_list)
+                allRecycler.visibility = View.GONE
+
+                if (toDisplayInfos.isEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
+                    btnVoteAll.visibility = View.GONE
+                } else {
+                    recycler.visibility = View.VISIBLE
+                    btnVoteAll.visibility = View.VISIBLE
+                    btnVoteAll.updateButtonView(false)
+                }
             }
-            recycler.visibility = View.VISIBLE
+
             initRecyclerView()
+            allInitRecyclerView()
         }
     }
 
     private fun initRecyclerView() {
         binding?.recycler?.apply {
-            allChainVoteAdapter = AllChainVoteAdapter(checkProposal)
+            allChainNotVoteAdapter = AllChainNotVoteAdapter(checkProposal)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = allChainVoteAdapter
-//            val itemTouchHelper = ItemTouchHelper(AllChainVoteTouchAdapter { position ->
-//                allChainVoteAdapter.deleteItem(position)
-//            })
-//            itemTouchHelper.attachToRecyclerView(binding?.recycler)
-            allChainVoteAdapter.submitList(toDisplayInfos)
+            adapter = allChainNotVoteAdapter
+            allChainNotVoteAdapter.submitList(toDisplayInfos)
+
+            val allChainNotVoteTouchAdapter =
+                AllChainNotVoteTouchAdapter(toDisplayInfos) { model, proposal ->
+                    deleteUpdateView(model, proposal)
+                }.apply {
+                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 5)
+                }
+
+            val itemTouchHelper = ItemTouchHelper(allChainNotVoteTouchAdapter)
+            itemTouchHelper.attachToRecyclerView(this)
+
+            allChainNotVoteAdapter.setOnItemClickListener { model, proposal ->
+                allChainNotVoteTouchAdapter.initializeCurrentPosition(this)
+                deleteUpdateView(model, proposal)
+            }
+
+            setOnTouchListener { _, _ ->
+                allChainNotVoteTouchAdapter.removePreviousClamp(this)
+                false
+            }
         }
     }
 
-    private val checkProposal = object : AllChainVoteAdapter.CheckListener {
-        override fun proposalCheck(voteModel: VoteAllModel, proposal: CosmosProposal, tag: Int) {
+    private fun allInitRecyclerView() {
+        binding?.allRecycler?.apply {
+            allChainAllVoteAdapter = AllChainAllVoteAdapter(checkProposal)
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = allChainAllVoteAdapter
+            allChainAllVoteAdapter.submitList(allDisplayLiveInfo)
+
+            val allChainAllVoteTouchAdapter =
+                AllChainAllVoteTouchAdapter(
+                    allDisplayLiveInfo
+                ) { model, proposal ->
+                    deleteUpdateView(model, proposal)
+                }.apply {
+                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 5)
+                }
+
+            val itemTouchHelper = ItemTouchHelper(allChainAllVoteTouchAdapter)
+            itemTouchHelper.attachToRecyclerView(this)
+
+            allChainAllVoteAdapter.setOnItemClickListener { model, proposal ->
+                allChainAllVoteTouchAdapter.initializeCurrentPosition(this)
+                deleteUpdateView(model, proposal)
+            }
+
+            setOnTouchListener { _, _ ->
+                allChainAllVoteTouchAdapter.removePreviousClamp(this)
+                false
+            }
+        }
+    }
+
+    private val checkProposal = object : CheckListener {
+        override fun proposalNotVoteCheck(
+            voteModel: VoteAllModel, proposal: CosmosProposal, tag: Int
+        ) {
             val voteOption = GovProto.VoteOption.forNumber(tag)
-            if (voteOption == proposal.toVoteOption) {
-                return
-            }
-            if (voteModel.isBusy) {
-                return
-            }
-            if (voteModel.txResponse != null) {
-                return
-            }
+            if (voteOption == proposal.toVoteOption) return
+            if (voteModel.isBusy) return
+            if (voteModel.txResponse != null) return
             when (tag) {
-                1 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_YES }
-                2 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_ABSTAIN }
-                3 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO }
-                4 -> { proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO_WITH_VETO }
-                else -> { proposal.toVoteOption = null }
+                1 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_YES
+                2 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_ABSTAIN
+                3 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO
+                4 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO_WITH_VETO
+                else -> proposal.toVoteOption = null
             }
+
             Handler(Looper.getMainLooper()).postDelayed({
-                allChainVoteAdapter.notifyDataSetChanged()
+                allChainNotVoteAdapter.notifyDataSetChanged()
                 txSimulate(voteModel)
             }, 80)
+        }
+
+        override fun proposalAllVoteCheck(
+            voteModel: VoteAllModel, proposal: CosmosProposal, tag: Int
+        ) {
+            val voteOption = GovProto.VoteOption.forNumber(tag)
+            if (voteOption == proposal.toVoteOption) return
+            if (voteModel.isBusy) return
+            if (voteModel.txResponse != null) return
+            when (tag) {
+                1 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_YES
+                2 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_ABSTAIN
+                3 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO
+                4 -> proposal.toVoteOption = GovProto.VoteOption.VOTE_OPTION_NO_WITH_VETO
+                else -> proposal.toVoteOption = null
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                allChainAllVoteAdapter.notifyDataSetChanged()
+                txSimulate(voteModel)
+            }, 80)
+        }
+    }
+
+    private fun deleteUpdateView(model: VoteAllModel?, proposal: CosmosProposal?) {
+        if (isShowAll) {
+            val proposals = allDisplayLiveInfo.firstOrNull { it == model }?.proposals
+            proposals?.remove(proposal)
+            if (proposals?.isEmpty() == true) {
+                allDisplayLiveInfo.remove(model)
+            }
+            allChainAllVoteAdapter.submitList(allDisplayLiveInfo)
+            allChainAllVoteAdapter.notifyDataSetChanged()
+
+            binding?.apply {
+                if (allDisplayLiveInfo.isEmpty()) {
+                    allRecycler.visibility = View.GONE
+                    emptyLayout.visibility = View.VISIBLE
+                    btnVoteAll.updateButtonView(false)
+                }
+            }
+
+        } else {
+            val proposals = toDisplayInfos.firstOrNull { it == model }?.proposals
+            proposals?.remove(proposal)
+
+            if (proposals?.isEmpty() == true) {
+                toDisplayInfos.remove(model)
+            }
+            allChainNotVoteAdapter.submitList(toDisplayInfos)
+            allChainNotVoteAdapter.notifyDataSetChanged()
+
+            binding?.apply {
+                if (toDisplayInfos.isEmpty()) {
+                    recycler.visibility = View.GONE
+                    emptyLayout.visibility = View.VISIBLE
+                    btnVoteAll.updateButtonView(false)
+                }
+            }
         }
     }
 
@@ -296,9 +420,14 @@ class AllChainVoteFragment : BaseTxFragment() {
 
             voteAllModel.isBusy = true
             withContext(Dispatchers.Main) {
-                val index = toDisplayInfos.indexOf(voteAllModel)
-                if (::allChainVoteAdapter.isInitialized) {
-                    allChainVoteAdapter.notifyItemChanged(index)
+                if (isShowAll) {
+                    if (::allChainAllVoteAdapter.isInitialized) {
+                        allChainAllVoteAdapter.notifyDataSetChanged()
+                    }
+                } else {
+                    if (::allChainNotVoteAdapter.isInitialized) {
+                        allChainNotVoteAdapter.notifyDataSetChanged()
+                    }
                 }
             }
             simulateVoteTx(chain, toVotes)?.let { response ->
@@ -312,11 +441,12 @@ class AllChainVoteFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding?.apply {
             btnFilter.setOnClickListener {
-                if (toDisplayInfos.count { it.isBusy } > 0) {
-                    return@setOnClickListener
-                }
-                if (toDisplayInfos.count { it.txResponse != null } > 0) {
-                    return@setOnClickListener
+                if (isShowAll) {
+                    if (allDisplayLiveInfo.count { it.isBusy } > 0) return@setOnClickListener
+                    if (allDisplayLiveInfo.count { it.txResponse != null } > 0) return@setOnClickListener
+                } else {
+                    if (toDisplayInfos.count { it.isBusy } > 0) return@setOnClickListener
+                    if (toDisplayInfos.count { it.txResponse != null } > 0) return@setOnClickListener
                 }
 
                 isShowAll = !isShowAll
@@ -335,6 +465,28 @@ class AllChainVoteFragment : BaseTxFragment() {
                         R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                     )
                 }
+            }
+
+            btnConfirm.setOnClickListener {
+                BaseData.baseAccount?.let { account ->
+                    account.sortedDisplayEvmLines().forEach {
+                        it.fetched = false
+                    }
+                    account.sortedDisplayCosmosLines().forEach {
+                        it.fetched = false
+                    }
+                    account.sortedDisplayEvmLines().asSequence().concurrentForEach { chain ->
+                        ApplicationViewModel.shared.loadEvmChainData(
+                            chain, account.id, false
+                        )
+                    }
+                    account.sortedDisplayCosmosLines().asSequence().concurrentForEach { chain ->
+                        ApplicationViewModel.shared.loadChainData(
+                            chain, account.id, false
+                        )
+                    }
+                }
+                dismiss()
             }
         }
     }
@@ -368,13 +520,23 @@ class AllChainVoteFragment : BaseTxFragment() {
                 }
             }
             withContext(Dispatchers.Main) {
-                val index = toDisplayInfos.indexOf(voteAllModel)
-                if (::allChainVoteAdapter.isInitialized) {
-                    allChainVoteAdapter.notifyItemChanged(index)
-                }
+                if (isShowAll) {
+                    if (::allChainAllVoteAdapter.isInitialized) {
+                        allChainAllVoteAdapter.notifyDataSetChanged()
+                    }
 
-                if (toDisplayInfos.none { it.toVotes?.isEmpty() == true || it.txFee == null }) {
-                    binding?.btnVoteAll?.updateButtonView(true)
+                    if (allDisplayLiveInfo.none { it.toVotes?.isEmpty() == true || it.txFee == null }) {
+                        binding?.btnVoteAll?.updateButtonView(true)
+                    }
+
+                } else {
+                    if (::allChainNotVoteAdapter.isInitialized) {
+                        allChainNotVoteAdapter.notifyDataSetChanged()
+                    }
+
+                    if (toDisplayInfos.none { it.toVotes?.isEmpty() == true || it.txFee == null }) {
+                        binding?.btnVoteAll?.updateButtonView(true)
+                    }
                 }
             }
         }
@@ -387,16 +549,33 @@ class AllChainVoteFragment : BaseTxFragment() {
             binding?.apply {
                 btnVoteAll.visibility = View.GONE
                 btnConfirm.visibility = View.VISIBLE
-                for (i in toDisplayInfos.indices) {
-                    toDisplayInfos[i].isBusy = true
-                }
-                allChainVoteAdapter.notifyDataSetChanged()
 
-                for (i in 0 until toDisplayInfos.size) {
-                    val voteAllModel = toDisplayInfos[i]
-                    broadCastVoteTx(voteAllModel) {
-                        val channel = getChannel(voteAllModel.basechain as CosmosLine)
-                        checkTx(voteAllModel, channel, it?.txResponse)
+                if (isShowAll) {
+                    for (i in allDisplayLiveInfo.indices) {
+                        allDisplayLiveInfo[i].isBusy = true
+                    }
+                    allChainAllVoteAdapter.notifyDataSetChanged()
+
+                    for (i in 0 until allDisplayLiveInfo.size) {
+                        val voteAllModel = allDisplayLiveInfo[i]
+                        broadCastVoteTx(voteAllModel) {
+                            val channel = getChannel(voteAllModel.basechain as CosmosLine)
+                            checkTx(voteAllModel, channel, it?.txResponse)
+                        }
+                    }
+
+                } else {
+                    for (i in toDisplayInfos.indices) {
+                        toDisplayInfos[i].isBusy = true
+                    }
+                    allChainNotVoteAdapter.notifyDataSetChanged()
+
+                    for (i in 0 until toDisplayInfos.size) {
+                        val voteAllModel = toDisplayInfos[i]
+                        broadCastVoteTx(voteAllModel) {
+                            val channel = getChannel(voteAllModel.basechain as CosmosLine)
+                            checkTx(voteAllModel, channel, it?.txResponse)
+                        }
                     }
                 }
             }
@@ -452,10 +631,21 @@ class AllChainVoteFragment : BaseTxFragment() {
                 voteAllModel.isBusy = false
                 voteAllModel.txResponse = response
                 lifecycleScope.launch(Dispatchers.Main) {
-                    val index = toDisplayInfos.indexOf(voteAllModel)
-                    allChainVoteAdapter.notifyItemChanged(index)
-                    if (toDisplayInfos.none { it.txResponse == null }) {
-                        binding?.btnConfirm?.updateButtonView(true)
+                    if (isShowAll) {
+                        if (::allChainAllVoteAdapter.isInitialized) {
+                            allChainAllVoteAdapter.notifyDataSetChanged()
+                            if (allDisplayLiveInfo.none { it.txResponse == null }) {
+                                binding?.btnConfirm?.updateButtonView(true)
+                            }
+                        }
+
+                    } else {
+                        if (::allChainNotVoteAdapter.isInitialized) {
+                            allChainNotVoteAdapter.notifyDataSetChanged()
+                            if (toDisplayInfos.none { it.txResponse == null }) {
+                                binding?.btnConfirm?.updateButtonView(true)
+                            }
+                        }
                     }
                 }
             }
@@ -526,4 +716,12 @@ data class VoteAllModel(
         txResponse = null
         isBusy = true
     }
+}
+
+fun VoteAllModel.deepCopy(): VoteAllModel {
+    return this.copy(
+        proposals = this.proposals.map { proposal ->
+            proposal.copy()
+        }.toMutableList()
+    )
 }

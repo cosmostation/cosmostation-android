@@ -1,9 +1,8 @@
-package wannabit.io.cosmostaion.ui.tx.step
+package wannabit.io.cosmostaion.ui.tx.step.service
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +39,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAllChainClaimBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
@@ -449,11 +449,3 @@ data class ClaimAllModel(
     var isBusy: Boolean = true,
     var txResponse: GetTxResponse? = null,
 )
-
-//data class ValueAbleReward(
-//    val cosmosLine: CosmosLine,
-//    val rewards: MutableList<DelegationDelegatorReward?>,
-//    var fee: Fee?,
-//    var isSuccess: Boolean = false,
-//    var txResponse: GetTxResponse?,
-//)

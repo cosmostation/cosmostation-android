@@ -349,8 +349,8 @@
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
     <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
     <string name="str_node_down_msg">▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
-    <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on.</string>
-    <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to vote.\nPlease swipe and exclude proposals to vote later.</string>
+    <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on</string>
+    <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
 
 
     // header

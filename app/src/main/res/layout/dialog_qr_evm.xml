@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/space_8"
-    android:background="@drawable/bottomsheet_bg">
+    android:background="@drawable/dialogsheet_bg">
 
     <LinearLayout
         android:id="@+id/eth_name_layout"

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.step
+package wannabit.io.cosmostaion.ui.tx.step.service
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemAllChainClaimBinding
 
 class AllChainClaimAdapter :
