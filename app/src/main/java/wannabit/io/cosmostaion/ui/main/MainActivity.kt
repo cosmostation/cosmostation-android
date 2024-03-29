@@ -6,6 +6,7 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
+import wannabit.io.cosmostaion.databinding.ViewTabItemBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
 import wannabit.io.cosmostaion.ui.option.account.AccountSelectFragment
@@ -92,11 +94,26 @@ class MainActivity : BaseActivity() {
             mainViewPager.isUserInputEnabled = false
 
             val tabLayoutMediator = TabLayoutMediator(tabLayout, mainViewPager) { tab, position ->
+                val tabBinding =
+                    ViewTabItemBinding.inflate(LayoutInflater.from(this@MainActivity), null, false)
+                val tabView = tabBinding.root
+                tabBinding.tabText.visibility = View.GONE
+
                 when (position) {
-                    0 -> { tab.setIcon(R.drawable.icon_wallet) }
-                    1 -> { tab.setIcon(R.drawable.icon_service) }
-                    2 -> { tab.setIcon(R.drawable.icon_setting) }
+                    0 -> {
+                        tabBinding.tabIcon.setImageResource(R.drawable.icon_wallet)
+                        tabBinding.tabText.text = getString(R.string.str_chains)
+                    }
+                    1 -> {
+                        tabBinding.tabIcon.setImageResource(R.drawable.icon_service)
+                        tabBinding.tabText.text = getString(R.string.str_service)
+                    }
+                    2 -> {
+                        tabBinding.tabIcon.setImageResource(R.drawable.icon_setting)
+                        tabBinding.tabText.text = getString(R.string.str_setting)
+                    }
                 }
+                tab.customView = tabView
             }
             tabLayoutMediator.attach()
 
@@ -129,18 +146,24 @@ class MainActivity : BaseActivity() {
     }
 
     private fun tabIconSetColor(tab: TabLayout.Tab?, isSelected: Boolean) {
-        if (isSelected) {
-            tab?.icon?.colorFilter = PorterDuffColorFilter(
-                ContextCompat.getColor(
-                    this@MainActivity, R.color.color_base01
-                ), PorterDuff.Mode.SRC_IN
-            )
-        } else {
-            tab?.icon?.colorFilter = PorterDuffColorFilter(
-                ContextCompat.getColor(
-                    this@MainActivity, R.color.color_base03
-                ), PorterDuff.Mode.SRC_IN
-            )
+        tab?.let {
+            tab.customView?.let { ViewTabItemBinding.bind(it) }?.apply {
+                if (isSelected) {
+                    tabIcon.colorFilter = PorterDuffColorFilter(
+                        ContextCompat.getColor(
+                            this@MainActivity, R.color.color_base01
+                        ), PorterDuff.Mode.SRC_IN
+                    )
+                    tabText.setTextColor(ContextCompat.getColorStateList(this@MainActivity, R.color.color_base01))
+                } else {
+                    tabIcon.colorFilter = PorterDuffColorFilter(
+                        ContextCompat.getColor(
+                            this@MainActivity, R.color.color_base03
+                        ), PorterDuff.Mode.SRC_IN
+                    )
+                    tabText.setTextColor(ContextCompat.getColorStateList(this@MainActivity, R.color.color_base03))
+                }
+            }
         }
     }
 
@@ -202,7 +225,9 @@ class MainActivity : BaseActivity() {
     class MainViewPageAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
         private val mainFragments = mutableListOf(
-            DashboardFragment.newInstance(BaseData.baseAccount), ServiceFragment(), SettingFragment()
+            DashboardFragment.newInstance(BaseData.baseAccount),
+            ServiceFragment(),
+            SettingFragment()
         )
 
         override fun getItemCount(): Int {

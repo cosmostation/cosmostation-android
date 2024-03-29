@@ -97,6 +97,7 @@
     <string name="str_amount">수량</string>
     <string name="str_token_github">토큰 정보 확인</string>
     <string name="str_node_down">노드 다운</string>
+    <string name="str_vote_all">모두 투표</string>
 
 
     //title
@@ -212,6 +213,8 @@
     <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
     <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
     <string name="title_edit_token_list">토큰 편집</string>
+    <string name="title_not_vote_list">라이브 프로포절</string>
+    <string name="title_all_vote_list">내가 투표한 프로포절 제외</string>
 
 
     // msg
@@ -271,6 +274,8 @@
     <string name="str_addressbook_memo_changed_msg">기존 주소록과 비교해서 메모가 변경되었습니다.\n새로운 메모로 업데이트 하시겠습니까?</string>
     <string name="str_token_github_msg">현재 사용하고 계신 체인에서는 커뮤니티에 알려진 토큰(cw20, erc20)을 보유한 경우 자동으로 토큰 목록에 표시됩니다.\n\n원하는 토큰 정보가 보이지 않는 경우, 아래 GitHub 링크를 통해 PR을 제출해주세요.</string>
     <string name="str_node_down_msg">▪ 현재 사용 중인 노드에 문제가 있는 경우, [설정 > 체인 관리]를 통해 다른 노드로 손쉽게 전환하여 서비스를 계속 이용하실 수 있습니다.\n\n ▪ 모든 노드가 사용이 불가능한 경우 사용중인 체인 업그레이드가 진행 중인 경우로, 업그레이드가 완료될 때까지 기다려주시기 바랍니다.</string>
+    <string name="str_hide_voted_proposals_msg">이미 투표를 마친 프로포절은 제거합니다.</string>
+    <string name="str_live_proposals_msg">라이브 상태인 프로포절을 모두 선택하여야 투표가 가능합니다.\n추후에 투표할 프로포절은 스와이프하여 제외해주세요.</string>
 
 
     // error

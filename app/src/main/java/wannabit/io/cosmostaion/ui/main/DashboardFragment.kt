@@ -99,6 +99,11 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateView()
+    }
+
     private fun initView() {
         binding?.apply {
             baseAccount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -109,16 +114,7 @@ class DashboardFragment : Fragment() {
             initData(baseAccount)
             updateViewWithLoadedData(baseAccount)
 
-            if (Prefs.hideValue) {
-                totalValue.text = "✱✱✱✱✱"
-                totalValue.textSize = 18f
-                btnHide.setImageResource(R.drawable.icon_hide)
-
-            } else {
-                totalValue.text = formatAssetValue(totalChainValue)
-                totalValue.textSize = 24f
-                btnHide.setImageResource(R.drawable.icon_not_hide)
-            }
+            updateHideValue()
             btnHide.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.color_base03),
                 PorterDuff.Mode.SRC_IN
@@ -257,6 +253,12 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun updateView() {
+        dashAdapter.notifyDataSetChanged()
+        updateHideValue()
+        updateTotalValue()
+    }
+
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
             for (i in 0 until searchEvmChains.size) {
@@ -308,6 +310,21 @@ class DashboardFragment : Fragment() {
                         if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
                     totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
                 }
+            }
+        }
+    }
+
+    private fun updateHideValue() {
+        binding?.apply {
+            if (Prefs.hideValue) {
+                totalValue.text = "✱✱✱✱✱"
+                totalValue.textSize = 18f
+                btnHide.setImageResource(R.drawable.icon_hide)
+
+            } else {
+                totalValue.text = formatAssetValue(totalChainValue)
+                totalValue.textSize = 24f
+                btnHide.setImageResource(R.drawable.icon_not_hide)
             }
         }
     }
@@ -379,17 +396,7 @@ class DashboardFragment : Fragment() {
         }
 
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
-            binding?.apply {
-                if (Prefs.hideValue) {
-                    totalValue.text = "✱✱✱✱✱"
-                    totalValue.textSize = 18f
-                    btnHide.setImageResource(R.drawable.icon_hide)
-                } else {
-                    totalValue.text = formatAssetValue(totalChainValue)
-                    totalValue.textSize = 24f
-                    btnHide.setImageResource(R.drawable.icon_not_hide)
-                }
-            }
+            updateHideValue()
             dashAdapter.notifyDataSetChanged()
         }
 

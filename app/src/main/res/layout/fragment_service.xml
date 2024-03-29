@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.ServiceFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -17,13 +17,13 @@
 
             <TextView
                 android:id="@+id/service_title"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sb_12"
-                android:textColor="@color/color_base01"
-                android:text="Service list"
-                android:layout_marginTop="@dimen/space_20"
                 android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:text="Service list"
+                android:textColor="@color/color_base01"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/mintscan_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,9 +39,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/space_16"
-                    android:background="@drawable/icon_service_mintscan">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/icon_service_mintscan"
+                    android:paddingStart="@dimen/space_16">
 
                     <TextView
                         android:id="@+id/mintsacn"
@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6"
-                        android:layout_marginBottom="@dimen/space_61"
+                        android:layout_marginBottom="35dp"
                         android:text="@string/str_mintscan_msg"
                         android:textColor="@color/color_base02"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
                 android:id="@+id/claim_rewards_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,9 +83,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/space_16"
-                    android:background="@drawable/icon_service_claim_rewards">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/icon_service_claim_rewards"
+                    android:paddingStart="@dimen/space_16">
 
                     <TextView
                         android:id="@+id/claim_rewards"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_20"
-                        android:text="CLAIM REWARDS"
+                        android:text="ALL CHAIN REWARDS"
                         android:textColor="@color/color_base01"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -104,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6"
-                        android:layout_marginBottom="@dimen/space_61"
+                        android:layout_marginBottom="35dp"
                         android:text="@string/str_all_claim_rewards_msg"
                         android:textColor="@color/color_base02"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,10 +116,54 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/vote_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/claim_rewards_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/icon_service_governance"
+                    android:paddingStart="@dimen/space_16">
+
+                    <TextView
+                        android:id="@+id/vote"
+                        style="@style/font_sb_14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_20"
+                        android:text="ALL CHAIN VOTE"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/vote_msg"
+                        style="@style/font_sm_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_6"
+                        android:layout_marginBottom="35dp"
+                        android:text="@string/str_all_vote_msg"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vote" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/coin_swap_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,8 +172,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/space_16"
-                    android:background="@drawable/icon_coin_swap">
+                    android:background="@drawable/icon_coin_swap"
+                    android:paddingStart="@dimen/space_16">
 
                     <TextView
                         android:id="@+id/coin_swap"
@@ -144,56 +188,16 @@
 
                     <TextView
                         android:id="@+id/coin_swap_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="@style/font_sm_12"
-                        android:textColor="@color/color_base02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coin_swap"
-                        android:text="@string/str_swap_msg"/>
-
-                    <TextView
-                        android:id="@+id/support_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_21"
-                        style="@style/font_sm_10"
-                        android:textColor="@color/color_base01"
-                        android:text="Supported APIs"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/coin_swap_msg" />
-
-                    <ImageView
-                        android:id="@+id/skip_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:layout_marginBottom="@dimen/space_16"
-                        android:src="@drawable/icon_skip"
+                        android:layout_marginBottom="@dimen/space_50"
+                        android:text="@string/str_swap_msg"
+                        android:textColor="@color/color_base02"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/support_title" />
-
-                    <ImageView
-                        android:id="@+id/osmo_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_8"
-                        app:layout_constraintStart_toEndOf="@+id/skip_img"
-                        app:layout_constraintTop_toBottomOf="@+id/support_title"
-                        android:src="@drawable/icon_osmosis"/>
-
-                    <ImageView
-                        android:id="@+id/astro_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_8"
-                        app:layout_constraintStart_toEndOf="@+id/osmo_img"
-                        app:layout_constraintTop_toBottomOf="@+id/support_title"
-                        android:src="@drawable/icon_astroport"/>
+                        app:layout_constraintTop_toBottomOf="@+id/coin_swap" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -203,7 +207,7 @@
                 android:id="@+id/dapp_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -212,8 +216,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/space_16"
-                    android:background="@drawable/icon_dapp">
+                    android:background="@drawable/icon_dapp"
+                    android:paddingStart="@dimen/space_16">
 
                     <TextView
                         android:id="@+id/dapp"
@@ -228,46 +232,16 @@
 
                     <TextView
                         android:id="@+id/dapp_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="@style/font_sm_12"
-                        android:textColor="@color/color_base02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dapp"
-                        android:text="@string/str_dapp_msg"/>
-
-                    <TextView
-                        android:id="@+id/major_dapp_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_21"
-                        style="@style/font_sm_10"
-                        android:textColor="@color/color_base01"
-                        android:text="Major dapps"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dapp_msg" />
-
-                    <ImageView
-                        android:id="@+id/kava_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:layout_marginBottom="@dimen/space_16"
-                        android:src="@drawable/icon_kava_dapp"
+                        android:layout_marginBottom="35dp"
+                        android:text="@string/str_dapp_msg"
+                        android:textColor="@color/color_base02"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/major_dapp_title" />
-
-                    <ImageView
-                        android:id="@+id/netron_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_8"
-                        app:layout_constraintStart_toEndOf="@+id/kava_img"
-                        app:layout_constraintTop_toBottomOf="@+id/major_dapp_title"
-                        android:src="@drawable/icon_neutron_dapp"/>
+                        app:layout_constraintTop_toBottomOf="@+id/dapp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -277,7 +251,7 @@
                 android:id="@+id/buy_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_8"
                 android:layout_marginBottom="@dimen/space_16"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -287,8 +261,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/space_16"
-                    android:background="@drawable/icon_buy_coin">
+                    android:background="@drawable/icon_buy_coin"
+                    android:paddingStart="@dimen/space_16">
 
                     <TextView
                         android:id="@+id/buy_crypto"
@@ -303,46 +277,16 @@
 
                     <TextView
                         android:id="@+id/buy_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="@style/font_sm_12"
-                        android:textColor="@color/color_base02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_6"
+                        android:layout_marginBottom="35dp"
+                        android:text="@string/str_buy_msg"
+                        android:textColor="@color/color_base02"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/buy_crypto"
-                        android:text="@string/str_buy_msg"/>
-
-                    <TextView
-                        android:id="@+id/support_shop_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_21"
-                        style="@style/font_sm_10"
-                        android:textColor="@color/color_base01"
-                        android:text="Major dapps"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/buy_msg" />
-
-                    <ImageView
-                        android:id="@+id/moon_pay_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:layout_marginBottom="@dimen/space_16"
-                        android:src="@drawable/icon_moonpay"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/support_shop_title" />
-
-                    <ImageView
-                        android:id="@+id/kado_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_16"
-                        android:layout_marginTop="@dimen/space_8"
-                        app:layout_constraintStart_toEndOf="@+id/moon_pay_img"
-                        app:layout_constraintTop_toBottomOf="@+id/support_shop_title"
-                        android:src="@drawable/icon_kado"/>
+                        app:layout_constraintTop_toBottomOf="@+id/buy_crypto" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
