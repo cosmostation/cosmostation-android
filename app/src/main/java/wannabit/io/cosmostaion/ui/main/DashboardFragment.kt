@@ -265,27 +265,31 @@ class DashboardFragment : Fragment() {
 
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            for (i in 0 until searchEvmChains.size) {
-                if (searchEvmChains[i].tag == tag) {
+            val searchEvmResult = searchEvmChains.filter { it.tag == tag }
+            val evmIterator = searchEvmResult.iterator()
+            while (evmIterator.hasNext()) {
+                val chain = evmIterator.next()
+                val index = searchEvmChains.indexOf(chain)
+                if (::dashAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        if (::dashAdapter.isInitialized) {
-                            dashAdapter.notifyItemChanged(i + 1)
-                        }
+                        dashAdapter.notifyItemChanged(index + 1)
                     }
                 }
             }
 
-            for (i in 0 until searchCosmosChains.size) {
-                if (searchCosmosChains[i].tag == tag) {
+            val searchResult = searchCosmosChains.filter { it.tag == tag }
+            val iterator = searchResult.iterator()
+            while (iterator.hasNext()) {
+                val chain = iterator.next()
+                val index = searchCosmosChains.indexOf(chain)
+                val position = if (searchEvmChains.size > 0) {
+                    searchEvmChains.size + 2
+                } else {
+                    1
+                }
+                if (::dashAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        val position = if (searchEvmChains.size > 0) {
-                            searchEvmChains.size + 2
-                        } else {
-                            1
-                        }
-                        if (::dashAdapter.isInitialized) {
-                            dashAdapter.notifyItemChanged(position + i)
-                        }
+                        dashAdapter.notifyItemChanged(index + position)
                     }
                 }
             }
