@@ -5,9 +5,11 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -87,15 +90,16 @@ class DashboardFragment : Fragment() {
         initView()
         setupHideButton()
         refreshData()
+        initSearchView()
     }
 
     private fun initData(baseAccount: BaseAccount?) {
         baseAccount?.let { account ->
             toDisplayEvmChains = account.sortedDisplayEvmLines()
-            searchEvmChains = toDisplayEvmChains
+            searchEvmChains.addAll(toDisplayEvmChains)
 
             toDisplayCosmosChains = account.sortedDisplayCosmosLines()
-            searchCosmosChains = toDisplayCosmosChains
+            searchCosmosChains.addAll(toDisplayCosmosChains)
         }
     }
 
@@ -365,6 +369,52 @@ class DashboardFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun initSearchView() {
+        binding?.apply {
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    Log.e("Test1234 : ", newText.toString())
+                    searchEvmChains.clear()
+                    searchCosmosChains.clear()
+
+                    if (StringUtils.isEmpty(newText)) {
+                        searchEvmChains.addAll(toDisplayEvmChains)
+                        searchCosmosChains.addAll(toDisplayCosmosChains)
+
+                        Log.e("Test1234 : ", toDisplayEvmChains.toString())
+                        Log.e("Test12345 : ", searchEvmChains.toString())
+
+                    } else {
+                        newText?.let { searchTxt ->
+                            searchEvmChains.addAll(toDisplayEvmChains.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+
+                            searchCosmosChains.addAll(toDisplayCosmosChains.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+                        }
+                    }
+                    if (searchEvmChains.isEmpty() && searchCosmosChains.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        dashAdapter.notifyDataSetChanged()
+                    }
+                    return true
+                }
+            })
         }
     }
 
