@@ -143,23 +143,35 @@ data class BaseAccount(
             ?: BigDecimal.ZERO
     }
 
-    fun reSortEvmChains(): MutableList<CosmosLine> {
+    private fun preCalculateEvmAllValues(lines: List<EthereumLine>): Map<EthereumLine, BigDecimal> {
+        return lines.associateWith { it.allValue(true) }
+    }
+
+    fun reSortEvmChains(): MutableList<EthereumLine> {
+        val preCalculatedValues = preCalculateEvmAllValues(allEvmLineChains)
+
         val sortedList = allEvmLineChains.sortedWith { o1, o2 ->
             when {
                 o1.tag == "ethereum60" -> -1
                 o2.tag == "ethereum60" -> 1
-                else -> o2.allValue(true).compareTo(o1.allValue(true))
+                else -> preCalculatedValues[o2]!!.compareTo(preCalculatedValues[o1]!!)
             }
         }
         return sortedList.toMutableList()
     }
 
+    private fun preCalculateCosmosAllValues(lines: List<CosmosLine>): Map<CosmosLine, BigDecimal> {
+        return lines.associateWith { it.allValue(true) }
+    }
+
     fun reSortCosmosChains(): MutableList<CosmosLine> {
+        val preCalculatedValues = preCalculateCosmosAllValues(allCosmosLineChains)
+
         val sortedList = allCosmosLineChains.sortedWith { o1, o2 ->
             when {
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
-                else -> o2.allValue(true).compareTo(o1.allValue(true))
+                else -> preCalculatedValues[o2]!!.compareTo(preCalculatedValues[o1]!!)
             }
         }
         return sortedList.toMutableList()

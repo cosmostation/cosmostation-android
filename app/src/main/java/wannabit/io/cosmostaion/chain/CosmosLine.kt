@@ -345,7 +345,11 @@ open class CosmosLine : BaseChain(), Parcelable {
     fun delegationAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosDelegations.forEach { delegation ->
-            sum = sum.add(delegation.balance.amount.toBigDecimal())
+            delegation.balance?.let {
+                sum = sum.add(delegation.balance?.amount?.toBigDecimal())
+            } ?: run {
+                sum = sum.add(BigDecimal.ZERO)
+            }
         }
         return sum
     }

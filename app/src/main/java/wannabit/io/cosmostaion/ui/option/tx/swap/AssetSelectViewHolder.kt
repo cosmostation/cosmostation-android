@@ -32,7 +32,7 @@ class AssetSelectViewHolder(
 
                     val dpAmount =
                         amount.movePointLeft(asset.decimals ?: 6).setScale(6, RoundingMode.DOWN)
-                    tokenBalance.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+                    tokenBalance.text = formatAmount(dpAmount.toPlainString(), 6)
 
                     val price = BaseData.getPrice(asset.coinGeckoId)
                     val value = price.multiply(amount).movePointLeft(asset.decimals ?: 6)

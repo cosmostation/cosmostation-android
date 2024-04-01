@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.apache.commons.lang3.StringUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import java.math.BigDecimal
 
 interface AssetListener {
     fun select(denom: String)
@@ -105,18 +109,37 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                 selectTitle.text = getString(R.string.title_select_output_asset)
                 searchView.queryHint = getString(R.string.title_select_output_asset)
             }
+            sorting()
+        }
+    }
 
-            swapAssets?.sortWith { o1, o2 ->
-                when {
-                    o1.symbol == "ATOM" -> -1
-                    o2.symbol == "ATOM" -> 1
-                    o1.symbol.toString() < o2.symbol.toString() -> -1
-                    o1.symbol.toString() > o2.symbol.toString() -> 1
-                    else -> 0
+    private fun sorting() {
+        binding.apply {
+            loading.visibility = View.VISIBLE
+            lifecycleScope.launch(Dispatchers.Default) {
+                val assetValues = mutableMapOf<String, BigDecimal>()
+                val assetAmounts = mutableMapOf<String, BigDecimal>()
+
+                swapAssets?.forEach { asset ->
+                    asset.denom?.let { denom ->
+                        val value = selectedChain.balanceValue(denom)
+                        assetValues[denom] = value
+                        val amount = selectedChain.balanceAmount(denom)
+                        assetAmounts[denom] = amount
+                    }
+                }
+
+                val sortedAssets = swapAssets?.sortedWith(compareBy<Asset> { it.symbol != "ATOM" }
+                    .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
+                    .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
+                    .thenBy { it.symbol })
+                sortedAssets?.let { searchAssets.addAll(it) }
+
+                withContext(Dispatchers.Main) {
+                    loading.visibility = View.GONE
+                    initRecyclerView()
                 }
             }
-            swapAssets?.let { searchAssets.addAll(it) }
-            initRecyclerView()
         }
     }
 
@@ -145,18 +168,37 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    swapAssets?.let { assets ->
-                        searchAssets.clear()
-                        if (StringUtils.isEmpty(newText)) {
-                            searchAssets.addAll(assets)
-                        } else {
-                            newText?.let { searchTxt ->
-                                searchAssets.addAll(assets.filter { asset ->
-                                    asset.symbol?.contains(searchTxt, ignoreCase = true) ?: false
-                                })
+                    val filteredAssets = if (newText.isNullOrEmpty()) {
+                        swapAssets
+                    } else {
+                        swapAssets?.filter { asset ->
+                            asset.symbol?.contains(newText, ignoreCase = true) ?: false
+                        }
+                    }
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        val assetValues = mutableMapOf<String, BigDecimal>()
+                        val assetAmounts = mutableMapOf<String, BigDecimal>()
+
+                        filteredAssets?.forEach { asset ->
+                            asset.denom?.let { denom ->
+                                val value = selectedChain.balanceValue(denom)
+                                assetValues[denom] = value
+                                val amount = selectedChain.balanceAmount(denom)
+                                assetAmounts[denom] = amount
                             }
                         }
-                        assetSelectAdapter.notifyDataSetChanged()
+
+                        val sortedAssets = filteredAssets?.sortedWith(compareBy<Asset> { it.symbol != "ATOM" }
+                            .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
+                            .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
+                            .thenBy { it.symbol })
+
+                        searchAssets.clear()
+                        sortedAssets?.let { searchAssets.addAll(it) }
+
+                        withContext(Dispatchers.Main) {
+                            assetSelectAdapter.notifyDataSetChanged()
+                        }
                     }
                     return true
                 }
