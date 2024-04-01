@@ -9,7 +9,7 @@ open class BaseChain : Serializable {
 
     open var name: String = ""
     open var tag: String = ""
-    open var chainId: String = ""
+    open var chainIdCosmos: String = ""
     open var logo: Int = R.drawable.token_default
     open var swipeLogo: Int = -1
     open var isDefault: Boolean = true

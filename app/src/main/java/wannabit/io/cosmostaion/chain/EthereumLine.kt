@@ -23,6 +23,8 @@ import java.math.RoundingMode
 @Parcelize
 open class EthereumLine : CosmosLine(), Parcelable {
 
+    open var chainIdEvm: String = ""
+
     open var supportCosmos = false
 
     open var coinSymbol = ""
@@ -101,9 +103,16 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainXplaEvm())
 
     lines.forEach { line ->
-        if (line.chainId.isEmpty()) {
-            line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
+        if (line.chainIdCosmos.isEmpty()) {
+            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
+                line.chainIdCosmos = cosmosChainId
+            }
+        }
+
+        if (line.chainIdEvm.isEmpty()) {
+            line.getChainListParam()?.get("chain_id_evm")?.asString?.let { evmChainId ->
+                line.chainIdEvm = evmChainId
+            }
         }
     }
     return lines

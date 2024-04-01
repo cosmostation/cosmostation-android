@@ -636,9 +636,10 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainOkt996Secp())
 
     lines.forEach { line ->
-        if (line.chainId.isEmpty()) {
-            line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
+        if (line.chainIdCosmos.isEmpty()) {
+            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
+                line.chainIdCosmos = cosmosChainId
+            }
         }
     }
     if (!Prefs.displayLegacy) {

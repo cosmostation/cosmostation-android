@@ -635,8 +635,8 @@ class CommonTransferFragment : BaseTxFragment() {
                         ChainListType.SELECT_TRANSFER,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
-                                if (toChain.chainId != chainId) {
-                                    recipientAbleChains.firstOrNull { it.chainId == chainId }
+                                if (toChain.chainIdCosmos != chainId) {
+                                    recipientAbleChains.firstOrNull { it.chainIdCosmos == chainId }
                                         ?.let { chain ->
                                             updateToChain(chain)
                                             updateRecipientAddressView("")
@@ -798,14 +798,14 @@ class CommonTransferFragment : BaseTxFragment() {
             } else {
                 (fromChain as CosmosLine).apply {
                     if (!isGasSimulable()) {
-                        if (chainId != toChain.chainId) {
+                        if (chainIdCosmos != toChain.chainIdCosmos) {
                             assetPath = assetPath(
                                 (fromChain as CosmosLine), (toChain as CosmosLine), toSendDenom
                             )
                         }
                         return updateFeeViewWithSimulate(null)
                     }
-                    if (chainId == toChain.chainId) {
+                    if (chainIdCosmos == toChain.chainIdCosmos) {
                         if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                             txViewModel.simulateWasm(
                                 getChannel(this),
@@ -946,7 +946,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 } else {
                     (fromChain as CosmosLine).apply {
-                        if (chainId == toChain.chainId) {
+                        if (chainIdCosmos == toChain.chainIdCosmos) {
                             if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                                 txViewModel.broadcastWasm(
                                     getChannel(this), onBindWasmSend(), cosmosTxFee, txMemo, this

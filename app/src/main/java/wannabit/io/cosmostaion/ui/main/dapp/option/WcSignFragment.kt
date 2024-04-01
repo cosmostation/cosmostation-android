@@ -172,7 +172,7 @@ class WcSignFragment(
         if (!isEditFee && (amounts.size() <= 0 || gas == "0") || isEditFee) {
             val chainId = txJsonSignDoc.get("chain_id").asString
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId }
+                account.allCosmosLineChains.firstOrNull { it.chainIdCosmos == chainId }
                     ?.let { targetChain ->
                         targetChain.getFeeInfos(requireContext())
                             .first().feeDatas.firstOrNull { it.denom == targetChain.stakeDenom }
@@ -214,7 +214,7 @@ class WcSignFragment(
         if (!isEditFee && (fee.amountList.isEmpty() || fee.gasLimit.toString() == "0") || isEditFee) {
             val chainId = txJsonObject["chain_id"].asString
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId }
+                account.allCosmosLineChains.firstOrNull { it.chainIdCosmos == chainId }
                     ?.let { targetChain ->
                         targetChain.getFeeInfos(requireContext())
                             .first().feeDatas.firstOrNull { it.denom == targetChain.stakeDenom }

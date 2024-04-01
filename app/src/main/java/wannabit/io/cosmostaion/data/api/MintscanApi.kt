@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
-import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
@@ -21,9 +20,6 @@ interface MintscanApi {
 
     @GET("v10/assets")
     suspend fun asset(): AssetResponse
-
-    @GET("v10/meta/support/chains")
-    suspend fun chain(): ChainResponse
 
     @GET("v10/utils/params")
     suspend fun param(): JsonObject

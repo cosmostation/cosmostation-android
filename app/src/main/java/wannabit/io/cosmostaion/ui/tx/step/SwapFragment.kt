@@ -295,7 +295,7 @@ class SwapFragment : BaseTxFragment() {
         skipViewModel.skipDataResult.observe(viewLifecycleOwner) { response ->
             response?.let { skipData ->
                 skipData.skipChains?.chains?.forEach { sChain ->
-                    allSwapAbleChains?.firstOrNull { it.chainId == sChain.chain_id && it.isDefault }
+                    allSwapAbleChains?.firstOrNull { it.chainIdCosmos == sChain.chain_id && it.isDefault }
                         ?.let { skipChain ->
                             skipChains.add(skipChain)
                         }
@@ -303,14 +303,14 @@ class SwapFragment : BaseTxFragment() {
                 skipAssets = skipData.skipAssets
 
                 val chainIds = skipChains.map { chain ->
-                    chain.chainId
+                    chain.chainIdCosmos
                 }
                 chainIds.forEach { chainId ->
                     if ((skipAssets?.getAsJsonObject("chain_to_assets_map")
                             ?.getAsJsonObject(chainId)
                             ?.getAsJsonArray("assets")?.asJsonArray?.count() ?: 0) == 0
                     ) {
-                        skipChains.removeIf { it.chainId == chainId }
+                        skipChains.removeIf { it.chainIdCosmos == chainId }
                     }
                 }
 
@@ -320,7 +320,7 @@ class SwapFragment : BaseTxFragment() {
                     ?: skipChains.firstOrNull { it.tag == "cosmos118" }
                 inputCosmosLine?.let { line ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
-                        ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
+                        ?.getAsJsonObject(line.chainIdCosmos)?.getAsJsonArray("assets")?.forEach { json ->
                         BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)
                             ?.let { asset ->
                                 inputAssets.add(asset)
@@ -334,7 +334,7 @@ class SwapFragment : BaseTxFragment() {
                     ?: skipChains.firstOrNull { it.tag == "neutron118" }
                 outputCosmosLine?.let { line ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
-                        ?.getAsJsonObject(line.chainId)?.getAsJsonArray("assets")?.forEach { json ->
+                        ?.getAsJsonObject(line.chainIdCosmos)?.getAsJsonArray("assets")?.forEach { json ->
                         BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)
                             ?.let { asset ->
                                 outputAssets.add(asset)
@@ -683,17 +683,17 @@ class SwapFragment : BaseTxFragment() {
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
                                 try {
-                                    if (inputCosmosLine?.chainId != chainId) {
+                                    if (inputCosmosLine?.chainIdCosmos != chainId) {
                                         loading.visibility = View.VISIBLE
 
                                         skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                                             inputCosmosLine =
-                                                skipChains.firstOrNull { it.chainId == chainId }
+                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
                                             inputAssets.clear()
                                             inputCosmosLine?.let { line ->
                                                 try {
                                                     skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                                        ?.getAsJsonObject(line.chainId)
+                                                        ?.getAsJsonObject(line.chainIdCosmos)
                                                         ?.getAsJsonArray("assets")
                                                         ?.forEach { json ->
                                                             BaseData.getAsset(
@@ -778,17 +778,17 @@ class SwapFragment : BaseTxFragment() {
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
                                 try {
-                                    if (outputCosmosLine?.chainId != chainId) {
+                                    if (outputCosmosLine?.chainIdCosmos != chainId) {
                                         loading.visibility = View.VISIBLE
 
                                         skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                                             outputCosmosLine =
-                                                skipChains.firstOrNull { it.chainId == chainId }
+                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
                                             outputAssets.clear()
                                             outputCosmosLine?.let { line ->
                                                 try {
                                                     skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                                        ?.getAsJsonObject(line.chainId)
+                                                        ?.getAsJsonObject(line.chainIdCosmos)
                                                         ?.getAsJsonArray("assets")
                                                         ?.forEach { json ->
                                                             BaseData.getAsset(
@@ -931,16 +931,16 @@ class SwapFragment : BaseTxFragment() {
         return SkipRouteReq(
             amount,
             inputAsset?.denom,
-            inputCosmosLine?.chainId,
+            inputCosmosLine?.chainIdCosmos,
             outputAsset?.denom,
-            outputCosmosLine?.chainId
+            outputCosmosLine?.chainIdCosmos
         )
     }
 
     private fun bindSkipMsgReq(route: SkipRouteResponse): SkipMsgReq {
         val addressList = mutableListOf<String>()
         route.chain_ids?.forEach { chainId ->
-            allSwapAbleChains?.firstOrNull { it.chainId == chainId && it.isDefault }?.address?.let { address ->
+            allSwapAbleChains?.firstOrNull { it.chainIdCosmos == chainId && it.isDefault }?.address?.let { address ->
                 addressList.add(address)
             }
         }

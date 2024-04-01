@@ -54,7 +54,6 @@ import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
-import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -88,12 +87,6 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun version(): NetworkResult<Response<AppVersion>> {
         return safeApiCall(Dispatchers.IO) {
             walletApi.version()
-        }
-    }
-
-    override suspend fun chain(): NetworkResult<ChainResponse> {
-        return safeApiCall(Dispatchers.IO) {
-            mintscanApi.chain()
         }
     }
 

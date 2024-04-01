@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.common
 import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.data.model.res.Asset
-import wannabit.io.cosmostaion.data.model.res.Chain
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -18,7 +17,6 @@ import java.util.concurrent.TimeUnit
 object BaseData {
 
     var baseAccount: BaseAccount? = null
-    var chains: List<Chain>? = mutableListOf()
     var chainParam: JsonObject? = null
     var supportConfig: SupportConfig? = null
     var prices: List<Price>? = mutableListOf()

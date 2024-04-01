@@ -30,7 +30,7 @@ class ChainOktEvm : EthereumLine(), Parcelable {
 
     override var supportCosmos: Boolean = true
     override var name: String = "OKT"
-    override var chainId: String = "exchain-66"
+    override var chainIdCosmos: String = "exchain-66"
     override var tag: String = "okt60_Keccak"
     override var logo: Int = R.drawable.chain_evm_okt
     override var swipeLogo: Int = R.drawable.chain_evm_swipe_okt

@@ -346,7 +346,7 @@ class DappActivity : BaseActivity() {
                         val chainName = chain.split(":")[0]
 
                         BaseData.baseAccount?.let { account ->
-                            account.allCosmosLineChains.find { it.chainId == chainId }
+                            account.allCosmosLineChains.find { it.chainIdCosmos == chainId }
                                 ?.let { line ->
                                     selectedChain = line
                                     selectedChain?.fetchFilteredCosmosChain()
@@ -973,7 +973,7 @@ class DappActivity : BaseActivity() {
                     selectedChain = filteredChainsWithChainName
 
                 } ?: run {
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId.lowercase() && it.isDefault }
+                account.allCosmosLineChains.firstOrNull { it.chainIdCosmos == chainId.lowercase() && it.isDefault }
                     ?.let { filteredChainsWithChainId ->
                         selectedChain = filteredChainsWithChainId
                     }

@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
-import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
@@ -36,8 +35,6 @@ interface WalletRepository {
     suspend fun insertPassword(password: Password)
 
     suspend fun version(): NetworkResult<Response<AppVersion>>
-
-    suspend fun chain(): NetworkResult<ChainResponse>
 
     suspend fun price(currency: String): NetworkResult<List<Price>>
 

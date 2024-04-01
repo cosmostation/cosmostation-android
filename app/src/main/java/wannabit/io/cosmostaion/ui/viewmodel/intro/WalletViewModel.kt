@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
-import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
@@ -101,23 +100,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     fun defaultInfoData() = CoroutineScope(Dispatchers.IO).launch {
         price(BaseData.currencyName().lowercase())
-        val loadChainDeferred = async { walletRepository.chain() }
         val loadParamDeferred = async { walletRepository.param() }
         val loadSupportConfigDeferred = async { walletRepository.supportConfig() }
         val loadAssetDeferred = async { walletRepository.asset() }
 
         val responses = awaitAll(
-            loadChainDeferred, loadParamDeferred, loadSupportConfigDeferred, loadAssetDeferred
+            loadParamDeferred, loadSupportConfigDeferred, loadAssetDeferred
         )
 
         responses.forEach { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     when (response.data) {
-                        is ChainResponse -> {
-                            response.data.chains?.let { BaseData.chains = it }
-                        }
-
                         is JsonObject -> {
                             if (!response.data.isJsonNull) {
                                 BaseData.chainParam = response.data
@@ -212,45 +206,51 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel) }
             val loadUnBondingDeferred = async { walletRepository.unBondingValidator(channel) }
 
-            val responses = awaitAll(
-                loadRewardAddrDeferred,
-                loadBondedDeferred,
-                loadUnBondedDeferred,
-                loadUnBondingDeferred
-            )
+            val rewardAddrResult = loadRewardAddrDeferred.await()
+            if (rewardAddrResult is NetworkResult.Success && rewardAddrResult.data is String) {
+                line.rewardAddress = rewardAddrResult.data
+            }
 
-            responses.forEach { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-                        when (response.data) {
-                            is String -> {
-                                line.rewardAddress = response.data
-                            }
-
-                            else -> {
-                                line.cosmosValidators.addAll(response.data as Collection<StakingProto.Validator>)
-                            }
-                        }
-                        val tempValidators = line.cosmosValidators.toMutableList()
-                        tempValidators.sortWith { o1, o2 ->
-                            when {
-                                o1.description.moniker == "Cosmostation" -> -1
-                                o2.description.moniker == "Cosmostation" -> 1
-                                o1.jailed && !o2.jailed -> 1
-                                !o1.jailed && o2.jailed -> -1
-                                o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
-                                o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
-                                else -> 0
-                            }
-                        }
-                        line.cosmosValidators = tempValidators
-                    }
-
-                    is NetworkResult.Error -> {
-                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            val bondedValidatorsResult = loadBondedDeferred.await()
+            if (bondedValidatorsResult is NetworkResult.Success) {
+                bondedValidatorsResult.data.let { data ->
+                    if (data is Collection<*>) {
+                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
                     }
                 }
             }
+
+            val unBondedValidatorsResult = loadUnBondedDeferred.await()
+            if (unBondedValidatorsResult is NetworkResult.Success) {
+                unBondedValidatorsResult.data.let { data ->
+                    if (data is Collection<*>) {
+                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                    }
+                }
+            }
+
+            val unBondingValidatorsResult = loadUnBondingDeferred.await()
+            if (unBondingValidatorsResult is NetworkResult.Success) {
+                unBondingValidatorsResult.data.let { data ->
+                    if (data is Collection<*>) {
+                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                    }
+                }
+            }
+
+            val tempValidators = line.cosmosValidators.toMutableList()
+            tempValidators.sortWith { o1, o2 ->
+                when {
+                    o1.description.moniker == "Cosmostation" -> -1
+                    o2.description.moniker == "Cosmostation" -> 1
+                    o1.jailed && !o2.jailed -> 1
+                    !o1.jailed && o2.jailed -> -1
+                    o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
+                    o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
+                    else -> 0
+                }
+            }
+            line.cosmosValidators = tempValidators
 
         } finally {
             channel.shutdown()

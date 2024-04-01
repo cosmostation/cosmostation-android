@@ -23,7 +23,7 @@ class ChainAdapter : ListAdapter<CosmosLine, ChainViewHolder>(ChainDiffCallback(
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(line.chainId)
+                it(line.chainIdCosmos)
             }
         }
     }

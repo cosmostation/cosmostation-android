@@ -36,7 +36,7 @@ open class ChainOkt996Keccak : CosmosLine(), Parcelable {
 
     override var isDefault = false
     override var name: String = "OKT"
-    override var chainId: String = "exchain-66"
+    override var chainIdCosmos: String = "exchain-66"
     override var tag: String = "okt996_Keccak"
     override var logo: Int = R.drawable.chain_okt
     override var swipeLogo: Int = R.drawable.chain_swipe_okt
