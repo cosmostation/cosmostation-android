@@ -116,21 +116,23 @@ class CoinFragment : Fragment() {
                 }
 
                 if (line is ChainBinanceBeacon) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom, sendAssetType)
-                    } else {
-                        startLegacyTransfer(line, denom)
-                    }
+//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+//                        selectBridgeOption(line, denom, sendAssetType)
+//                    } else {
+//                        startLegacyTransfer(line, denom)
+//                    }
+                    startLegacyTransfer(line, denom)
 
                 } else if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
                     startLegacyTransfer(line, denom)
 
                 } else if (line.tag.startsWith("kava")) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom, sendAssetType)
-                    } else {
-                        startTransfer(line, denom, sendAssetType)
-                    }
+//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+//                        selectBridgeOption(line, denom, sendAssetType)
+//                    } else {
+//                        startTransfer(line, denom, sendAssetType)
+//                    }
+                    startTransfer(line, denom, sendAssetType)
 
                 } else {
                     startTransfer(line, denom, sendAssetType)
