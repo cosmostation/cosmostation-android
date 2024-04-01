@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.chain.cosmos
+package wannabit.io.cosmostaion.ui.main.chain.evm
 
 import android.content.Intent
 import android.net.Uri
@@ -9,28 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
-import java.math.RoundingMode
 import java.util.Locale
 
-class AboutFragment : Fragment() {
+class EvmAboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedEvmChain: EthereumLine
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): AboutFragment {
+        fun newInstance(selectedEvmChain: EthereumLine): EvmAboutFragment {
             val args = Bundle().apply {
-                putParcelable("selectedChain", selectedChain)
+                putParcelable("selectedEvmChain", selectedEvmChain)
             }
-            val fragment = AboutFragment()
+            val fragment = EvmAboutFragment()
             fragment.arguments = args
             return fragment
         }
@@ -53,19 +51,20 @@ class AboutFragment : Fragment() {
     private fun initView() {
         binding.apply {
             descriptionView.setBackgroundResource(R.drawable.item_bg)
-            informationView.setBackgroundResource(R.drawable.item_bg)
+            informationTitle.visibility = View.GONE
+            informationView.visibility = View.GONE
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
-                    ?.let { selectedChain = it }
+                arguments?.getParcelable("selectedEvmChain", EthereumLine::class.java)
+                    ?.let { selectedEvmChain = it }
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
-                    selectedChain = it
+                (arguments?.getParcelable("selectedEvmChain") as? EthereumLine)?.let {
+                    selectedEvmChain = it
                 }
             }
 
-            chainName.text = selectedChain.name.uppercase()
-            selectedChain.getChainListParam().let {
+            chainName.text = selectedEvmChain.name.uppercase()
+            selectedEvmChain.getChainListParam().let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
                     chainDescription.text = it?.getAsJsonObject("description")?.get("ko")?.asString
                 } else if (Prefs.language == BaseUtils.LANGUAGE_ENGLISH || Locale.getDefault().language == "en") {
@@ -74,47 +73,12 @@ class AboutFragment : Fragment() {
                     chainDescription.text = it?.getAsJsonObject("description")?.get("ja")?.asString
                 }
             }
-
-            val unBondingTime = unBondingTime(selectedChain)
-            val inflation = try {
-                selectedChain.getChainParam()?.getAsJsonObject("params")
-                    ?.getAsJsonObject("minting_inflation")?.get("inflation")?.asString ?: ""
-            } catch (e: Exception) {
-                ""
-            }
-            val apr = try {
-                selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
-                    ?: ""
-            } catch (e: NumberFormatException) {
-                ""
-            }
-
-            unbondingTime.text = if (unBondingTime.isNotEmpty()) {
-                "$unBondingTime Days"
-            } else {
-                "-"
-            }
-            chainInflation.text = if (inflation.isNotEmpty()) {
-                formatPercent(
-                    inflation.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
-                        .toString()
-                )
-            } else {
-                "-"
-            }
-            chainApr.text = if (apr.isNotEmpty()) {
-                formatPercent(
-                    apr.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN).toString()
-                )
-            } else {
-                "-"
-            }
         }
     }
 
     private fun setUpClickAction() {
         binding.apply {
-            selectedChain.getChainListParam()?.getAsJsonObject("about")?.let { about ->
+            selectedEvmChain.getChainListParam()?.getAsJsonObject("about")?.let { about ->
                 about.get("website")?.let {
                     if (about.get("website").asString?.isNotEmpty() == true) {
                         website.setOnClickListener {
@@ -175,21 +139,5 @@ class AboutFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun unBondingTime(selectedChain: CosmosLine?): String {
-        val unBondingTime = selectedChain?.getChainParam()?.getAsJsonObject("params")
-            ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
-            ?.get("unbonding_time")?.asString ?: ""
-        return if (unBondingTime.isNotEmpty()) {
-            unBondingTime.replace("s", "").toInt().div(60).div(60).div(24).toString()
-        } else {
-            ""
-        }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }

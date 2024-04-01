@@ -557,17 +557,12 @@ class CosmosDetailFragment : Fragment() {
                 fragments.add(TokenFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 
-                if (selectedChain.supportCosmos && !selectedChain.tag.contains("okt60_Keccak")) {
+                if (selectedChain.supportCosmos) {
                     fragments.add(AboutFragment.newInstance(selectedChain))
                 }
 
             } else if (selectedChain is ChainBinanceBeacon) {
                 fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(HistoryFragment.newInstance(selectedChain))
-
-            } else if (selectedChain is ChainOkt996Keccak) {
-                fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(TokenFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 
             } else {

@@ -94,6 +94,9 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initData(baseAccount: BaseAccount?) {
+        searchEvmChains.clear()
+        searchCosmosChains.clear()
+
         baseAccount?.let { account ->
             toDisplayEvmChains = account.sortedDisplayEvmLines()
             searchEvmChains.addAll(toDisplayEvmChains)
