@@ -5,7 +5,6 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -389,16 +388,12 @@ class DashboardFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    Log.e("Test1234 : ", newText.toString())
                     searchEvmChains.clear()
                     searchCosmosChains.clear()
 
                     if (StringUtils.isEmpty(newText)) {
                         searchEvmChains.addAll(toDisplayEvmChains)
                         searchCosmosChains.addAll(toDisplayCosmosChains)
-
-                        Log.e("Test1234 : ", toDisplayEvmChains.toString())
-                        Log.e("Test12345 : ", searchEvmChains.toString())
 
                     } else {
                         newText?.let { searchTxt ->

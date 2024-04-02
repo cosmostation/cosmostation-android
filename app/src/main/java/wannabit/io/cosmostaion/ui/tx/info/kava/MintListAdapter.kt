@@ -71,13 +71,12 @@ class MintListAdapter(
             }
 
             is MintOtherViewHolder -> {
-                val collateralParam: GenesisProto.CollateralParam? =
-                    if (myCollateralParams.isNotEmpty()) {
-                        otherCollateralParams.getOrNull(position - (myCollateralParams.size - 2))
-                    } else {
-                        otherCollateralParams.getOrNull(position - 1)
-                    }
-                holder.bind(collateralParam, listener)
+                val otherCollateralParam = if (myCollateralParams.isNotEmpty()) {
+                    otherCollateralParams[position - (myCollateralParams.size + 2)]
+                } else {
+                    otherCollateralParams[position - 1]
+                }
+                holder.bind(otherCollateralParam, listener)
             }
         }
     }
