@@ -67,7 +67,7 @@
             android:background="@drawable/round_box_deprecated"
             android:paddingHorizontal="@dimen/space_6"
             android:paddingVertical="@dimen/space_2"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="@color/color_base02" />
 
     </LinearLayout>

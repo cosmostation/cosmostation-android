@@ -345,6 +345,11 @@ class LegacyTransferFragment : BaseTxFragment() {
                                 if (memo.isNotEmpty()) {
                                     txMemo = memo
                                     tabMemoMsg.text = txMemo
+                                    tabMemoMsg.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            requireContext(), R.color.color_base01
+                                        )
+                                    )
                                 }
                             }
                         })

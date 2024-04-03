@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -19,11 +22,13 @@ import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBookBinding
+import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 
 interface AddressBookSelectListener {
@@ -41,6 +46,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private lateinit var sendAssetType: SendAssetType
 
     private lateinit var addressBookAdapter: AddressBookAdapter
+    private lateinit var evmAddressBookAdapter: EvmAddressBookAdapter
 
     companion object {
         @JvmStatic
@@ -143,7 +149,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                         }
                                     }
 
-                                } else if ((fromChain as EthereumLine).supportCosmos || fromChain is ChainOkt996Keccak) {
+                                } else if ((fromChain as EthereumLine).supportCosmos) {
                                     if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )
@@ -154,6 +160,28 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 } else {
                                     if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
                                         refEvmAddresses.add(refAddress)
+                                    }
+                                }
+                            }
+
+                        AppDatabase.getInstance().addressBookDao().selectAll()
+                            .forEach { addressBook ->
+                                if (fromChain is ChainOkt996Keccak) {
+                                    if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                        addressBooks.add(addressBook)
+                                    }
+
+                                } else if ((fromChain as EthereumLine).supportCosmos) {
+                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
+                                            senderAddress
+                                        )
+                                    ) {
+                                        evmAddressBooks.add(addressBook)
+                                    }
+
+                                } else {
+                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress) {
+                                        evmAddressBooks.add(addressBook)
                                     }
                                 }
                             }
@@ -183,6 +211,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     }
                                 }
                             }
+
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
                                 if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
@@ -200,11 +229,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                         refEvmAddresses.add(refAddress)
                                     }
                                 }
+
                             AppDatabase.getInstance().addressBookDao().selectAll()
                                 .forEach { addressBook ->
-                                    if (addressBook.chainName == toChain.name && addressBook.address.startsWith(
-                                            "0x"
-                                        ) && addressBook.address != ByteUtils.convertBech32ToEvm(
+                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )
                                     ) {
@@ -233,25 +261,190 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                 sortRefAddresses(refAddresses)
 
                 withContext(Dispatchers.Main) {
-                    if (refAddresses.size == 0 && refEvmAddresses.size == 0 && addressBooks.size == 0 && evmAddressBooks.size == 0) {
-                        recycler.visibility = View.GONE
-                        emptyLayout.visibility = View.VISIBLE
+                    when (sendAssetType) {
+                        SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
+                            if (fromChain is ChainOkt996Keccak) {
+                                if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
+                                    recycler.visibility = View.GONE
+                                    emptyLayout.visibility = View.VISIBLE
 
-                    } else {
-                        recycler.visibility = View.VISIBLE
-                        emptyLayout.visibility = View.GONE
+                                } else {
+                                    recycler.visibility = View.VISIBLE
+                                    emptyLayout.visibility = View.GONE
+                                    initCosmosRecyclerView(
+                                        refAddresses, addressBooks
+                                    )
+                                }
+                                segmentView.visibility = View.GONE
+                                evmRecycler.visibility = View.GONE
 
-                        addressBookAdapter = AddressBookAdapter(
-                            toChain, refEvmAddresses, refAddresses, evmAddressBooks, addressBooks
-                        )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = addressBookAdapter
+                            } else {
+                                if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
+                                    evmRecycler.visibility = View.GONE
+                                    emptyLayout.visibility = View.VISIBLE
 
-                        addressBookAdapter.setOnItemClickListener { address, memo ->
-                            addressBookSelectListener?.select(address, memo)
-                            dismiss()
+                                } else {
+                                    evmRecycler.visibility = View.VISIBLE
+                                    emptyLayout.visibility = View.GONE
+                                    initEvmRecyclerView(
+                                        refEvmAddresses, evmAddressBooks
+                                    )
+                                }
+                                segmentView.visibility = View.GONE
+                                recycler.visibility = View.GONE
+                            }
                         }
+
+                        SendAssetType.COSMOS_EVM_COIN -> {
+                            if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+
+                            } else {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                initCosmosRecyclerView(
+                                    refAddresses, addressBooks
+                                )
+                            }
+
+                            if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
+                                return@withContext
+                            } else {
+                                initEvmRecyclerView(refEvmAddresses, evmAddressBooks)
+                            }
+
+                            segmentView.visibility = View.VISIBLE
+                            evmRecycler.visibility = View.GONE
+                            initSegmentView()
+                            segmentAction(
+                                refEvmAddresses, refAddresses, evmAddressBooks, addressBooks
+                            )
+                        }
+
+                        SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
+                            if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+
+                            } else {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                initCosmosRecyclerView(
+                                    refAddresses, addressBooks
+                                )
+                            }
+                            segmentView.visibility = View.GONE
+                            evmRecycler.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initCosmosRecyclerView(
+        refAddresses: MutableList<RefAddress>, addressBooks: MutableList<AddressBook>
+    ) {
+        binding.apply {
+            addressBookAdapter = AddressBookAdapter(
+                refAddresses, addressBooks
+            )
+            recycler.setHasFixedSize(true)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            recycler.adapter = addressBookAdapter
+
+            addressBookAdapter.setOnItemClickListener { address, memo ->
+                addressBookSelectListener?.select(address, memo)
+                dismiss()
+            }
+        }
+    }
+
+    private fun initEvmRecyclerView(
+        refEvmAddresses: MutableList<RefAddress>, evmAddressBooks: MutableList<AddressBook>
+    ) {
+        binding.apply {
+            evmAddressBookAdapter = EvmAddressBookAdapter(refEvmAddresses, evmAddressBooks)
+            evmRecycler.setHasFixedSize(true)
+            evmRecycler.layoutManager = LinearLayoutManager(requireContext())
+            evmRecycler.adapter = evmAddressBookAdapter
+
+            evmAddressBookAdapter.setOnItemClickListener { address, memo ->
+                addressBookSelectListener?.select(address, memo)
+                dismiss()
+            }
+        }
+    }
+
+    private fun initSegmentView() {
+        binding.apply {
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            styleSegment.apply {
+                setSelectedBackground(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+                setRipple(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+            }
+
+            for (i in 0 until 2) {
+                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                styleSegment.addView(
+                    segmentView.root,
+                    i,
+                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                )
+
+                when (i) {
+                    0 -> {
+                        segmentView.btnTitle.text = "Cosmos Style"
+                    }
+
+                    else -> {
+                        segmentView.btnTitle.text = "EVM Style"
+                    }
+                }
+            }
+        }
+    }
+
+    private fun segmentAction(
+        refEvmAddresses: MutableList<RefAddress>,
+        refAddresses: MutableList<RefAddress>,
+        evmAddressBooks: MutableList<AddressBook>,
+        addressBooks: MutableList<AddressBook>
+    ) {
+        binding.apply {
+            styleSegment.setOnPositionChangedListener { position ->
+                when (position) {
+                    0 -> {
+                        if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
+                            recycler.visibility = View.GONE
+                            emptyLayout.visibility = View.VISIBLE
+
+                        } else {
+                            recycler.visibility = View.VISIBLE
+                            emptyLayout.visibility = View.GONE
+                        }
+                        evmRecycler.visibility = View.GONE
+                    }
+
+                    else -> {
+                        if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
+                            evmRecycler.visibility = View.GONE
+                            emptyLayout.visibility = View.VISIBLE
+
+                        } else {
+                            evmRecycler.visibility = View.VISIBLE
+                            emptyLayout.visibility = View.GONE
+                        }
+                        recycler.visibility = View.GONE
                     }
                 }
             }

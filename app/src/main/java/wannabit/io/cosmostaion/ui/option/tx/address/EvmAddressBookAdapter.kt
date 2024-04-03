@@ -7,16 +7,16 @@ import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.ItemAddressBookBinding
 
-class AddressBookAdapter(
-    private val refAddresses: MutableList<RefAddress>,
-    private val addressBooks: MutableList<AddressBook>
-) : RecyclerView.Adapter<AddressBookViewHolder>() {
+class EvmAddressBookAdapter(
+    private val refEvmAddresses: MutableList<RefAddress>,
+    private val evmAddressBooks: MutableList<AddressBook>
+    ) : RecyclerView.Adapter<AddressBookViewHolder>() {
 
     private var onItemClickListener: ((String, String) -> Unit)? = null
 
     companion object {
-        const val VIEW_TYPE_ADDRESS_BOOK_ITEM = 0
-        const val VIEW_TYPE_MY_ACCOUNT_ITEM = 1
+        const val VIEW_TYPE_ADDRESS_BOOK_EVM_ITEM = 0
+        const val VIEW_TYPE_MY_ACCOUNT_EVM_ITEM = 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressBookViewHolder {
@@ -28,25 +28,25 @@ class AddressBookAdapter(
 
     override fun onBindViewHolder(holder: AddressBookViewHolder, position: Int) {
         when (holder.itemViewType) {
-            VIEW_TYPE_ADDRESS_BOOK_ITEM -> {
-                val addressBook = addressBooks[position]
-                holder.bookBind(addressBook, addressBooks.size)
+            VIEW_TYPE_ADDRESS_BOOK_EVM_ITEM -> {
+                val evmAddressBook = evmAddressBooks[position]
+                holder.evmBookBind(evmAddressBook, evmAddressBooks.size)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(addressBook.address, addressBook.memo)
+                        it(evmAddressBook.address, evmAddressBook.memo)
                     }
                 }
             }
 
-            VIEW_TYPE_MY_ACCOUNT_ITEM -> {
-                val index = position - addressBooks.size
-                val refAddress = refAddresses[index]
-                holder.accountBind(refAddress, index, refAddresses.size)
+            VIEW_TYPE_MY_ACCOUNT_EVM_ITEM -> {
+                val index = position - evmAddressBooks.size
+                val refEvmAddress = refEvmAddresses[index]
+                holder.accountEvmBind(refEvmAddress, index, refEvmAddresses.size)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        refAddress.dpAddress?.let { address ->
+                        refEvmAddress.evmAddress?.let { address ->
                             it(address, "")
                         }
                     }
@@ -56,12 +56,12 @@ class AddressBookAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < addressBooks.size) VIEW_TYPE_ADDRESS_BOOK_ITEM
-        else VIEW_TYPE_MY_ACCOUNT_ITEM
+        return if (position < evmAddressBooks.size) VIEW_TYPE_ADDRESS_BOOK_EVM_ITEM
+        else VIEW_TYPE_MY_ACCOUNT_EVM_ITEM
     }
 
     override fun getItemCount(): Int {
-        return addressBooks.size + refAddresses.size
+        return evmAddressBooks.size + refEvmAddresses.size
     }
 
     fun setOnItemClickListener(listener: (String, String) -> Unit) {
