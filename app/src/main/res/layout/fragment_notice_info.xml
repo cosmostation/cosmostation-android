@@ -49,9 +49,10 @@
             style="@style/font_sb_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_3"
             android:text="@string/str_node_down"
             android:textColor="@color/color_base01"
-            android:layout_marginStart="@dimen/space_3"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/icon_caution"
             app:layout_constraintTop_toTopOf="parent" />
 

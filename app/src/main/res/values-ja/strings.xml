@@ -276,7 +276,7 @@
     <string name="str_broadcasting_msg">現在、トランザクションは実行中です。\n少々お待ちください</string>
     <string name="str_addressbook_memo_changed_msg">既存のアドレス帳と比べてメモが変わりました。\n新しいメモで更新しますか?</string>
     <string name="str_token_github_msg">現時点では、選択したチェーンにトークンを手動で追加する必要はありません。 Cosmostation Wallet には、既存の数量を持つすべてのトークン (CW20、ERC20) の情報が表示されます。\n\nトークンを保持しているのにそれが表示されない場合は、以下の Github リンクから PR を送信してみてください。</string>
-    <string name="str_node_down_msg">▪ 現在使用しているノードに問題がある場合は、[設定 > チェーン管理]から簡単に別のノードに切り替えてサービスを継続してご利用いただけます。\n\n ▪ すべてのノードが使用できない場合、使用されているチェーンはアップグレード中です。 アップグレードが完了するまでお待ちください。</string>
+    <string name="str_node_down_msg">▪ 現在のデバイスのネットワーク状態を確認してください。\n\n▪ 現在使用しているノードに問題がある場合は、[設定 > チェーン管理]から簡単に別のノードに切り替えてサービスを継続してご利用いただけます。\n\n ▪ すべてのノードが使用できない場合、使用されているチェーンはアップグレード中です。 アップグレードが完了するまでお待ちください。</string>
     <string name="str_hide_voted_proposals_msg">すでに投票された提案をフィルターします。</string>
     <string name="str_live_proposals_msg">ライブ状態のプロポーザルをすべて選択すると投票が可能です。\n後で投票するプロポーザルはスワイプして除外してください。</string>
 
