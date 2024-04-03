@@ -83,8 +83,7 @@ class AboutFragment : Fragment() {
                 ""
             }
             val apr = try {
-                selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
-                    ?: ""
+                selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString ?: ""
             } catch (e: NumberFormatException) {
                 ""
             }
@@ -171,7 +170,17 @@ class AboutFragment : Fragment() {
                     }
 
                 } ?: run {
-                    return
+                    about.get("medium")?.let {
+                        if (about.get("medium").asString?.isNotEmpty() == true) {
+                            blog.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("medium").asString)
+                                    )
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
