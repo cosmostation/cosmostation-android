@@ -29,8 +29,4 @@ class ChainBaseEvm : EthereumLine(), Parcelable {
     )
 
     override var rpcUrl: String = "https://mainnet.base.org"
-
-    override var explorerURL = "https://basescan.org/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

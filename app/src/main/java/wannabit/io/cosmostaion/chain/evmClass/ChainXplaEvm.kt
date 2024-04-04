@@ -34,8 +34,4 @@ class ChainXplaEvm : EthereumLine(), Parcelable {
 
     override var grpcHost: String = "grpc-xpla.cosmostation.io"
     override var rpcUrl: String = "https://rpc-xpla-evm.cosmostation.io"
-
-    override var explorerURL = "https://www.mintscan.io/xpla/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

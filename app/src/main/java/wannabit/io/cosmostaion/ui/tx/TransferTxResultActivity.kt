@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.ui.tx
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,7 +23,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -186,12 +183,7 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    val explorerUrl = if (fromChain is EthereumLine) {
-                        (fromChain as EthereumLine).txURL + txHash
-                    } else {
-                        OKT_EXPLORER + "tx/" + txHash
-                    }
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
+                    historyToMintscan(fromChain as EthereumLine, txHash)
                 } else {
                     historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
                 }
@@ -199,8 +191,7 @@ class TransferTxResultActivity : BaseActivity() {
 
             viewFailMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    val explorerUrl = (fromChain as EthereumLine).txURL + txHash
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
+                    historyToMintscan(fromChain as EthereumLine, txHash)
                 } else {
                     historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
                 }

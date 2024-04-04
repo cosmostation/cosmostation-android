@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.chain.evm
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmHistoryBinding
 
 class EvmHistoryFragment : Fragment() {
@@ -60,8 +60,13 @@ class EvmHistoryFragment : Fragment() {
 
     private fun setUpClickAction() {
         binding.btnCheckHistory.setOnClickListener {
-            val explorerUrl = selectedEvmChain.addressURL + selectedEvmChain.address
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(explorerUrl)))
+            selectedEvmChain.explorerAccount()?.let { url ->
+                startActivity(Intent(Intent.ACTION_VIEW, url))
+                Prefs.foreToBack = false
+
+            } ?: run {
+                return@setOnClickListener
+            }
         }
     }
 }

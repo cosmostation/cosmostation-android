@@ -32,10 +32,6 @@ open class EthereumLine : CosmosLine(), Parcelable {
     open var coinLogo = -1
     open var addressLogo = -1
 
-    open var explorerURL = ""
-    open var addressURL = ""
-    open var txURL = ""
-
     var evmBalance = BigDecimal.ZERO
 
     var evmTokens = mutableListOf<Token>()

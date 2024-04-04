@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
+import android.net.Uri
 import android.os.Parcelable
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -144,8 +145,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         return if (getDefaultFeeCoins(c).isNotEmpty()) {
             val fee = getDefaultFeeCoins(c).first()
             val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
-                .build()
+            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin).build()
         } else {
             null
         }
@@ -533,6 +533,43 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     override fun allValue(isUsd: Boolean?): BigDecimal {
         return allAssetValue(isUsd).add(allTokenValue(isUsd))
+    }
+
+    override fun explorerAccount(): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")
+            ?.get("account")?.asString?.let { urlString ->
+                address?.let {
+                    return Uri.parse(urlString.replace("\${address}", it))
+
+                } ?: run {
+                    return null
+                }
+            }
+        return null
+    }
+
+    override fun explorerTx(hash: String?): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")?.get("tx")?.asString?.let { urlString ->
+            hash?.let {
+                return Uri.parse(urlString.replace("\${hash}", it))
+
+            } ?: run {
+                return null
+            }
+        }
+        return null
+    }
+
+    override fun explorerProposal(id: String?): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")
+            ?.get("proposal")?.asString?.let { urlString ->
+                id?.let {
+                    return Uri.parse(urlString.replace("\${id}", it))
+                } ?: run {
+                    return null
+                }
+            }
+        return null
     }
 
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {

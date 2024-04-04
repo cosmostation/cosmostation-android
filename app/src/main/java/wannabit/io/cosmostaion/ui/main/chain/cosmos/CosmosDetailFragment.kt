@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,7 +13,6 @@ import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -28,11 +26,9 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
@@ -280,19 +276,13 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                val accountUrl = if (selectedChain is EthereumLine) {
-                    if (selectedChain is ChainKavaEvm) {
-                        (selectedChain as EthereumLine).addressURL + ByteUtils.convertBech32ToEvm(
-                            selectedChain.address
-                        )
-                    } else {
-                        (selectedChain as EthereumLine).addressURL + selectedChain.address
-                    }
-                } else {
-                    CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/address/" + selectedChain.address
+                selectedChain.explorerAccount()?.let { url ->
+                    startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
                 }
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
-                Prefs.foreToBack = false
             }
 
             accountAddress.setOnClickListener {

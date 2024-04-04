@@ -53,7 +53,7 @@ class HistoryAdapter(
                     val headerDate = dpTimeToYear(header.transactionTime.toLong())
                     val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
-                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
+                    holder.bindOktHistory(line, historyOktGroup, headerIndex, headerCnt, position)
                 }
             }
 
@@ -65,7 +65,7 @@ class HistoryAdapter(
                     val headerDate = dpTimeToYear(header.transactionTime.toLong())
                     val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
-                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
+                    holder.bindOktHistory(line, historyOktGroup, headerIndex, headerCnt, position)
                 }
             }
 

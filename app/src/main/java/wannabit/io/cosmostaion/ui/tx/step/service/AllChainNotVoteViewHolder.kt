@@ -2,16 +2,15 @@ package wannabit.io.cosmostaion.ui.tx.step.service
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.gov.v1beta1.GovProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemAllChainVoteBinding
 
 class AllChainNotVoteViewHolder(
@@ -87,10 +86,12 @@ class AllChainNotVoteViewHolder(
             }
 
             proposalView.setOnClickListener {
-                val url: String =
-                    CosmostationConstants.EXPLORER_BASE_URL + voteAllModel.basechain?.apiName + "/proposals/" + proposal.id
-                Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                    context.startActivity(this)
+                voteAllModel.basechain?.explorerProposal(proposal.id)?.let { url ->
+                    context.startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
                 }
             }
         }

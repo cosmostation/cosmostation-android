@@ -29,8 +29,4 @@ class ChainOptimism : EthereumLine(), Parcelable {
     )
 
     override var rpcUrl: String = "https://mainnet.optimism.io"
-
-    override var explorerURL = "https://optimistic.etherscan.io/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

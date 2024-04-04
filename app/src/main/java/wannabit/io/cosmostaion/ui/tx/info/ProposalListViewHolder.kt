@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.tx.info
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -12,13 +11,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.CosmostationConstants.EXPLORER_BASE_URL
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemProposalBinding
 
 class ProposalListViewHolder(
@@ -74,9 +73,11 @@ class ProposalListViewHolder(
                         myVote.option?.contains("OPTION_YES") == true -> statusImg.setImageResource(
                             R.drawable.icon_yes
                         )
+
                         myVote.option?.contains("OPTION_NO_WITH_VETO") == true -> statusImg.setImageResource(
                             R.drawable.icon_veto
                         )
+
                         myVote.option?.contains("OPTION_NO") == true -> statusImg.setImageResource(R.drawable.icon_no)
                         myVote.option?.contains("OPTION_ABSTAIN") == true -> statusImg.setImageResource(
                             R.drawable.icon_abstain
@@ -106,10 +107,12 @@ class ProposalListViewHolder(
             }
 
             proposalView.setOnClickListener {
-                val url: String =
-                    EXPLORER_BASE_URL + selectedChain.apiName + "/proposals/" + proposal.id
-                Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                    context.startActivity(this)
+                selectedChain.explorerProposal(proposal.id)?.let { url ->
+                    context.startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
                 }
             }
         }
