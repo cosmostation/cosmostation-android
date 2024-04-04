@@ -34,8 +34,4 @@ class ChainHumansEvm : EthereumLine(), Parcelable {
 
     override var grpcHost: String = "grpc-humans.cosmostation.io"
     override var rpcUrl: String = "https://rpc-humans-evm.cosmostation.io"
-
-    override var explorerURL = "https://www.mintscan.io/humans/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

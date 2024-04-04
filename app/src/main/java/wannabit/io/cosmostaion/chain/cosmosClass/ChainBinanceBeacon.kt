@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
 import android.content.Context
+import android.net.Uri
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
@@ -87,6 +88,20 @@ class ChainBinanceBeacon : CosmosLine(), Parcelable {
             sumValue = sumValue.add(lcdBalanceValue(balance.symbol, isUsd))
         }
         return sumValue
+    }
+
+    override fun explorerAccount(): Uri? {
+        address?.let {
+            return Uri.parse(EXPLORER_BINANCE_URL + "address/" + it)
+        }
+        return null
+    }
+
+    override fun explorerTx(hash: String?): Uri? {
+        hash?.let {
+            return Uri.parse(EXPLORER_BINANCE_URL + "tx/" + it)
+        }
+        return null
     }
 }
 

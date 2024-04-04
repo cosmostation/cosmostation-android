@@ -52,10 +52,6 @@ class ChainOktEvm : EthereumLine(), Parcelable {
     val lcdUrl = "https://exchainrpc.okex.org/okexchain/v1/"
     override var rpcUrl: String = "https://exchainrpc.okex.org"
 
-    override var explorerURL = "https://www.oklink.com/oktc/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
-
     fun assetImg(originSymbol: String): String {
         return CosmostationConstants.CHAIN_BASE_URL + "okc/asset/" + originSymbol.lowercase() + ".png"
     }

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain
 
+import android.net.Uri
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import java.io.Serializable
@@ -39,6 +40,12 @@ open class BaseChain : Serializable {
     open fun allAssetValue(isUsd: Boolean?): BigDecimal { return BigDecimal.ZERO }
 
     open fun allValue(isUsd: Boolean?): BigDecimal { return BigDecimal.ZERO }
+
+    open fun explorerAccount(): Uri? { return null }
+
+    open fun explorerTx(hash: String?): Uri? { return null }
+
+    open fun explorerProposal(id: String?): Uri? { return null }
 }
 
 data class AccountKeyType(

@@ -34,8 +34,4 @@ class ChainDymensionEvm : EthereumLine(), Parcelable {
 
     override var grpcHost: String = "grpc-dymension.cosmostation.io"
     override var rpcUrl: String = "https://rpc-dymension-evm.cosmostation.io"
-
-    override var explorerURL = "https://www.mintscan.io/dymension/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

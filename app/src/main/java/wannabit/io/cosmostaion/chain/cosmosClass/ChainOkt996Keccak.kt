@@ -137,6 +137,5 @@ open class ChainOkt996Keccak : CosmosLine(), Parcelable {
     }
 }
 
-const val OKT_EXPLORER = "https://www.oklink.com/oktc/"
 const val OKT_BASE_FEE = "0.008000000000000000"
 const val OKT_GECKO_ID = "oec-token"

@@ -29,8 +29,4 @@ class ChainPolygon : EthereumLine(), Parcelable {
     )
 
     override var rpcUrl: String = "https://polygon-rpc.com"
-
-    override var explorerURL = "https://polygonscan.com/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

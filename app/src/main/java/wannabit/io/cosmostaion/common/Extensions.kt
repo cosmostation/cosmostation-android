@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.Point
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.net.Uri
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -26,7 +25,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
@@ -48,10 +46,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
 import wannabit.io.cosmostaion.data.model.res.Asset
@@ -442,21 +436,28 @@ fun ImageButton.updateToggleButtonView(isBtnEnabled: Boolean) {
 }
 
 fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
-    var historyUrl = ""
-    historyUrl = when (selectedChain) {
-        is ChainBinanceBeacon -> {
-            EXPLORER_BINANCE_URL + "tx/" + txHash
-        }
+    selectedChain?.explorerTx(txHash)?.let {
+        startActivity(Intent(Intent.ACTION_VIEW, it))
 
-        is ChainOkt996Keccak -> {
-            OKT_EXPLORER + "tx/" + txHash
-        }
-
-        else -> {
-            CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName + "/transactions/" + txHash
-        }
+    } ?: run {
+        return
     }
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+
+//    var historyUrl = ""
+//    historyUrl = when (selectedChain) {
+//        is ChainBinanceBeacon -> {
+//            EXPLORER_BINANCE_URL + "tx/" + txHash
+//        }
+//
+//        is ChainOkt996Keccak -> {
+//            OKT_EXPLORER + "tx/" + txHash
+//        }
+//
+//        else -> {
+//            CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName + "/transactions/" + txHash
+//        }
+//    }
+//    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
 }
 
 fun BigDecimal.amountHandlerLeft(decimal: Int): BigDecimal {

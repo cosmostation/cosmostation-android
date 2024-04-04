@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main.chain.evm
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -177,9 +176,13 @@ class EvmDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                val accountUrl = selectedEvmChain.addressURL + selectedEvmChain.address
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
-                Prefs.foreToBack = false
+                selectedEvmChain.explorerAccount()?.let { url ->
+                    startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
+                }
             }
 
             accountAddress.setOnClickListener {

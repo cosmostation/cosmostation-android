@@ -4,8 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -36,8 +34,4 @@ class ChainCantoEvm : EthereumLine(), Parcelable {
 
     override var grpcHost: String = "grpc-canto.cosmostation.io"
     override var rpcUrl: String = "https://rpc-canto-evm.cosmostation.io"
-
-    override var explorerURL = "https://www.mintscan.io/canto/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }
