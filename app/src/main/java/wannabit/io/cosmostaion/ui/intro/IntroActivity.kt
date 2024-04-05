@@ -90,9 +90,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onPostResume() {
         super.onPostResume()
-        if (Prefs.version >= BaseConstant.DB_VERSION) {
-            walletViewModel.walletAppVersion()
-        }
+        walletViewModel.walletAppVersion()
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
