@@ -85,6 +85,18 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("selectedChain", selectedChain)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            initData(it)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -96,7 +108,7 @@ class CosmosDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
-        initData()
+        initData(savedInstanceState)
         initTab()
         setUpClickAction()
         setFabMenuClickAction()
@@ -110,17 +122,30 @@ class CosmosDetailFragment : Fragment() {
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
-    private fun initData() {
+    private fun initData(savedInstanceState: Bundle?) {
         binding.apply {
-            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
-                    ?.let { selectedChain = it }
-            } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
-                    selectedChain = it
+            savedInstanceState?.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.getParcelable("selectedChain", CosmosLine::class.java)
+                        ?.let { chain -> selectedChain = chain }
+                } else {
+                    (it.getParcelable("selectedChain") as? CosmosLine)?.let { chain ->
+                        selectedChain = chain
+                    }
+                }
+
+            } ?: run {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                        ?.let { selectedChain = it }
+                } else {
+                    (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
                 }
             }
+
+            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
