@@ -351,6 +351,7 @@
     <string name="str_node_down_msg">▪ Please check the current network status of the device.\n\n▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
     <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on</string>
     <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
+    <string name="str_all_claim_msg">Please check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
 
 
     // header

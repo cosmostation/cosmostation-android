@@ -686,5 +686,5 @@ fun allCosmosLines(): MutableList<CosmosLine> {
 }
 
 val DEFAULT_DISPLAY_COSMOS = mutableListOf(
-    "cosmos118", "neutron118", "kava459", "osmosis118", "dydx118", "crypto-org394", "celestia118"
+    "cosmos118", "neutron118", "osmosis118", "dydx118", "crypto-org394", "celestia118"
 )

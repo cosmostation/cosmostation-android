@@ -279,6 +279,7 @@
     <string name="str_node_down_msg">▪ 現在のデバイスのネットワーク状態を確認してください。\n\n▪ 現在使用しているノードに問題がある場合は、[設定 > チェーン管理]から簡単に別のノードに切り替えてサービスを継続してご利用いただけます。\n\n ▪ すべてのノードが使用できない場合、使用されているチェーンはアップグレード中です。 アップグレードが完了するまでお待ちください。</string>
     <string name="str_hide_voted_proposals_msg">すでに投票された提案をフィルターします。</string>
     <string name="str_live_proposals_msg">ライブ状態のプロポーザルをすべて選択すると投票が可能です。\n後で投票するプロポーザルはスワイプして除外してください。</string>
+    <string name="str_all_claim_msg">報酬額と送信手数料額を確認してください。\n今後受け取りたい報酬を除外するにはスワイプしてください。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

@@ -11,6 +11,9 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -45,6 +48,22 @@ class ChainEditViewHolder(
                         withContext(Dispatchers.Main) {
                             skeletonChainValue.visibility = View.GONE
                             skeletonAssetCnt.visibility = View.GONE
+
+                            if (line !is ChainOktEvm) {
+                                if (line.supportCosmos && line.cosmosBalances == null) {
+                                    respondLayout.visibility = View.VISIBLE
+                                    chainValue.visibility = View.GONE
+                                    assetCnt.visibility = View.GONE
+                                    return@withContext
+                                }
+                            }
+
+                            if (line.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return@withContext
+                            }
 
                             chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
                             val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
@@ -141,6 +160,19 @@ class ChainEditViewHolder(
                         withContext(Dispatchers.Main) {
                             skeletonChainValue.visibility = View.GONE
                             skeletonAssetCnt.visibility = View.GONE
+
+                            if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                                if (line.cosmosBalances == null) {
+                                    respondLayout.visibility = View.VISIBLE
+                                    chainValue.visibility = View.GONE
+                                    assetCnt.visibility = View.GONE
+
+                                } else {
+                                    respondLayout.visibility = View.GONE
+                                    chainValue.visibility = View.VISIBLE
+                                    assetCnt.visibility = View.VISIBLE
+                                }
+                            }
 
                             chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
                             val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
