@@ -120,7 +120,7 @@ class DashboardFragment : Fragment() {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
                 val isScrolledDown = firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
 
-                if (isScrolledDown) {
+                if (isScrolledDown || searchView.query.isNotEmpty()) {
                     searchBar.visibility = View.VISIBLE
                 } else {
                     searchBar.visibility = View.GONE
