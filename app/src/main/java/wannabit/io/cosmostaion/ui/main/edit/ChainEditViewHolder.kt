@@ -56,13 +56,7 @@ class ChainEditViewHolder(
                                 assetCnt.text = "$tokenCnt Tokens, $coinCntString"
                             }
                         }
-
-                    } ?: run {
-                    withContext(Dispatchers.Main) {
-                        skeletonChainValue.visibility = View.VISIBLE
-                        skeletonAssetCnt.visibility = View.VISIBLE
                     }
-                }
             }
 
             editView.setOnClickListener {
@@ -163,13 +157,7 @@ class ChainEditViewHolder(
                                 assetCnt.text = coinCntString
                             }
                         }
-
-                    } ?: run {
-                    withContext(Dispatchers.Main) {
-                        skeletonChainValue.visibility = View.VISIBLE
-                        skeletonAssetCnt.visibility = View.VISIBLE
                     }
-                }
             }
 
             editView.setOnClickListener {

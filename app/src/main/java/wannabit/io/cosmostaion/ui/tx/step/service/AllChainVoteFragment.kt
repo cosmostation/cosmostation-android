@@ -71,7 +71,10 @@ class AllChainVoteFragment : BaseTxFragment() {
     private var toDisplayInfos = mutableListOf<VoteAllModel>()
 
     private lateinit var allChainNotVoteAdapter: AllChainNotVoteAdapter
+    private var allChainNotVoteTouchAdapter: AllChainNotVoteTouchAdapter? = null
+
     private lateinit var allChainAllVoteAdapter: AllChainAllVoteAdapter
+    private var allChainAllVoteTouchAdapter: AllChainAllVoteTouchAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -264,23 +267,27 @@ class AllChainVoteFragment : BaseTxFragment() {
             adapter = allChainNotVoteAdapter
             allChainNotVoteAdapter.submitList(toDisplayInfos)
 
-            val allChainNotVoteTouchAdapter =
-                AllChainNotVoteTouchAdapter(toDisplayInfos) { model, proposal ->
-                    deleteUpdateView(model, proposal)
-                }.apply {
-                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
-                }
+            if (allChainNotVoteTouchAdapter == null) {
+                allChainNotVoteTouchAdapter =
+                    AllChainNotVoteTouchAdapter(toDisplayInfos) { model, proposal ->
+                        deleteUpdateView(model, proposal)
+                    }.apply {
+                        setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
+                    }
+            }
 
-            val itemTouchHelper = ItemTouchHelper(allChainNotVoteTouchAdapter)
-            itemTouchHelper.attachToRecyclerView(this)
+            allChainNotVoteTouchAdapter?.let { touchAdapter ->
+                val itemTouchHelper = ItemTouchHelper(touchAdapter)
+                itemTouchHelper.attachToRecyclerView(this)
+            }
 
             allChainNotVoteAdapter.setOnItemClickListener { model, proposal ->
-                allChainNotVoteTouchAdapter.initializeCurrentPosition(this)
+                allChainNotVoteTouchAdapter?.initializeCurrentPosition(this)
                 deleteUpdateView(model, proposal)
             }
 
             setOnTouchListener { _, _ ->
-                allChainNotVoteTouchAdapter.removePreviousClamp(this)
+                allChainNotVoteTouchAdapter?.removePreviousClamp(this)
                 false
             }
         }
@@ -294,25 +301,29 @@ class AllChainVoteFragment : BaseTxFragment() {
             adapter = allChainAllVoteAdapter
             allChainAllVoteAdapter.submitList(allDisplayLiveInfo)
 
-            val allChainAllVoteTouchAdapter =
-                AllChainAllVoteTouchAdapter(
-                    allDisplayLiveInfo
-                ) { model, proposal ->
-                    deleteUpdateView(model, proposal)
-                }.apply {
-                    setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
-                }
+            if (allChainAllVoteTouchAdapter == null) {
+                allChainAllVoteTouchAdapter =
+                    AllChainAllVoteTouchAdapter(
+                        allDisplayLiveInfo
+                    ) { model, proposal ->
+                        deleteUpdateView(model, proposal)
+                    }.apply {
+                        setClamp(resources.displayMetrics.widthPixels.toFloat() / 6)
+                    }
+            }
 
-            val itemTouchHelper = ItemTouchHelper(allChainAllVoteTouchAdapter)
-            itemTouchHelper.attachToRecyclerView(this)
+            allChainAllVoteTouchAdapter?.let { touchAdapter ->
+                val itemTouchHelper = ItemTouchHelper(touchAdapter)
+                itemTouchHelper.attachToRecyclerView(this)
+            }
 
             allChainAllVoteAdapter.setOnItemClickListener { model, proposal ->
-                allChainAllVoteTouchAdapter.initializeCurrentPosition(this)
+                allChainAllVoteTouchAdapter?.initializeCurrentPosition(this)
                 deleteUpdateView(model, proposal)
             }
 
             setOnTouchListener { _, _ ->
-                allChainAllVoteTouchAdapter.removePreviousClamp(this)
+                allChainAllVoteTouchAdapter?.removePreviousClamp(this)
                 false
             }
         }
@@ -364,37 +375,50 @@ class AllChainVoteFragment : BaseTxFragment() {
 
     private fun deleteUpdateView(model: VoteAllModel?, proposal: CosmosProposal?) {
         if (isShowAll) {
-            val proposals = allDisplayLiveInfo.firstOrNull { it == model }?.proposals
-            proposals?.remove(proposal)
-            if (proposals?.isEmpty() == true) {
-                allDisplayLiveInfo.remove(model)
-            }
-            allChainAllVoteAdapter.submitList(allDisplayLiveInfo)
-            allChainAllVoteAdapter.notifyDataSetChanged()
+            model?.let { voteAllModel ->
+                if (voteAllModel.isBusy) return
+                if (voteAllModel.txResponse != null) return
+                val proposals = allDisplayLiveInfo.firstOrNull { it == voteAllModel }?.proposals
+                proposals?.remove(proposal)
 
-            binding?.apply {
-                if (allDisplayLiveInfo.isEmpty()) {
-                    allRecycler.visibility = View.GONE
-                    emptyLayout.visibility = View.VISIBLE
-                    btnVoteAll.updateButtonView(false)
+                if (proposals?.isEmpty() == true) {
+                    allDisplayLiveInfo.remove(voteAllModel)
+                } else {
+                    txSimulate(voteAllModel)
+                }
+                allChainAllVoteAdapter.submitList(allDisplayLiveInfo)
+                allChainAllVoteAdapter.notifyDataSetChanged()
+
+                binding?.apply {
+                    if (allDisplayLiveInfo.isEmpty()) {
+                        allRecycler.visibility = View.GONE
+                        emptyLayout.visibility = View.VISIBLE
+                        btnVoteAll.updateButtonView(false)
+                    }
                 }
             }
 
         } else {
-            val proposals = toDisplayInfos.firstOrNull { it == model }?.proposals
-            proposals?.remove(proposal)
+            model?.let { voteModel ->
+                if (voteModel.isBusy) return
+                if (voteModel.txResponse != null) return
+                val proposals = toDisplayInfos.firstOrNull { it == voteModel }?.proposals
+                proposals?.remove(proposal)
 
-            if (proposals?.isEmpty() == true) {
-                toDisplayInfos.remove(model)
-            }
-            allChainNotVoteAdapter.submitList(toDisplayInfos)
-            allChainNotVoteAdapter.notifyDataSetChanged()
+                if (proposals?.isEmpty() == true) {
+                    toDisplayInfos.remove(voteModel)
+                } else {
+                    txSimulate(voteModel)
+                }
+                allChainNotVoteAdapter.submitList(toDisplayInfos)
+                allChainNotVoteAdapter.notifyDataSetChanged()
 
-            binding?.apply {
-                if (toDisplayInfos.isEmpty()) {
-                    recycler.visibility = View.GONE
-                    emptyLayout.visibility = View.VISIBLE
-                    btnVoteAll.updateButtonView(false)
+                binding?.apply {
+                    if (toDisplayInfos.isEmpty()) {
+                        recycler.visibility = View.GONE
+                        emptyLayout.visibility = View.VISIBLE
+                        btnVoteAll.updateButtonView(false)
+                    }
                 }
             }
         }

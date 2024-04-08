@@ -49,8 +49,8 @@ class AllChainNotVoteTouchAdapter(
         val model = toDisplayInfos[sectionPosition]
         val proposal = model.proposals[itemPositionInSection]
         onDelete(model, proposal)
-        getView(viewHolder).translationX = 0f
-        getHideView(viewHolder).visibility = View.GONE
+        getView(viewHolder)?.translationX = 0f
+        getHideView(viewHolder)?.visibility = View.GONE
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
@@ -96,25 +96,27 @@ class AllChainNotVoteTouchAdapter(
         isCurrentlyActive: Boolean
     ) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            val view = getView(viewHolder)
-            val isClamped = getTag(viewHolder)
-            val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
-            isLeftSwiped = isClamped
+            getView(viewHolder)?.let { view ->
+                val isClamped = getTag(viewHolder)
+                val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
+                isLeftSwiped = isClamped
 
-            if (dX < 0) {
-                getHideView(viewHolder).visibility = View.VISIBLE
-            } else {
-                if (isLeftSwiped) {
-                    getHideView(viewHolder).visibility = View.VISIBLE
+                if (dX < 0) {
+                    getHideView(viewHolder)?.visibility = View.VISIBLE
                 } else {
-                    getHideView(viewHolder).visibility = View.GONE
+                    if (isLeftSwiped) {
+                        getHideView(viewHolder)?.visibility = View.VISIBLE
+                    } else {
+                        getHideView(viewHolder)?.visibility = View.GONE
+                    }
                 }
-            }
 
-            currentDx = x
-            getDefaultUIUtil().onDraw(
-                c, recyclerView, view, x, dY, actionState, isCurrentlyActive
-            )
+                currentDx = x
+                getDefaultUIUtil().onDraw(
+                    c, recyclerView, view, x, dY, actionState, isCurrentlyActive
+                )
+            }
+            return
         }
     }
 
@@ -128,12 +130,18 @@ class AllChainNotVoteTouchAdapter(
         return .8f
     }
 
-    private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as AllChainNotVoteViewHolder).itemView.findViewById(R.id.proposal_view)
+    private fun getView(viewHolder: RecyclerView.ViewHolder): View? {
+        if (viewHolder is AllChainNotVoteViewHolder) {
+            return viewHolder.itemView.findViewById(R.id.proposal_view)
+        }
+        return null
     }
 
-    private fun getHideView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as AllChainNotVoteViewHolder).itemView.findViewById(R.id.delete_view)
+    private fun getHideView(viewHolder: RecyclerView.ViewHolder): View? {
+        if (viewHolder is AllChainNotVoteViewHolder) {
+            return viewHolder.itemView.findViewById(R.id.delete_view)
+        }
+        return null
     }
 
     private fun clampViewPositionHorizontal(
@@ -166,8 +174,8 @@ class AllChainNotVoteTouchAdapter(
         if (currentPosition == previousPosition) return
         previousPosition?.let {
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
-            getView(viewHolder).translationX = 0f
-            getHideView(viewHolder).visibility = View.GONE
+            getView(viewHolder)?.translationX = 0f
+            getHideView(viewHolder)?.visibility = View.GONE
             setTag(viewHolder, false)
             previousPosition = null
         }
@@ -177,8 +185,8 @@ class AllChainNotVoteTouchAdapter(
         for (i in 0 until (recyclerView.adapter?.itemCount ?: 0)) {
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(i) ?: return
             if (viewHolder is AllChainNotVoteViewHolder) {
-                getView(viewHolder).translationX = 0f
-                getHideView(viewHolder).visibility = View.GONE
+                getView(viewHolder)?.translationX = 0f
+                getHideView(viewHolder)?.visibility = View.GONE
                 setTag(viewHolder, false)
             }
         }

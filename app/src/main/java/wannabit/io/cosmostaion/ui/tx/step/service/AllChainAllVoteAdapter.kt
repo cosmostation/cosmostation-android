@@ -55,6 +55,7 @@ class AllChainAllVoteAdapter(
             }
 
             is AllChainAllVoteViewHolder -> {
+                holder.setIsRecyclable(false)
                 val sectionPosition = getSectionPosition(position)
                 val votePosition = getItemPosition(position, sectionPosition)
 
@@ -162,6 +163,9 @@ class AllChainAllVoteAdapter(
                                         feeDenom.text = asset.symbol
                                         feeDenom.setTextColor(asset.assetColor())
                                     }
+
+                                } ?: run {
+                                    feeLayout.visibility = View.GONE
                                 }
                             }
                         }
