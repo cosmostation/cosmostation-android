@@ -68,6 +68,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
@@ -655,6 +656,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainQuicksilver())
     lines.add(ChainRegen())
     lines.add(ChainRizon())
+    lines.add(ChainSaga())
     lines.add(ChainSecret529())
     lines.add(ChainSecret118())
     lines.add(ChainSei())
