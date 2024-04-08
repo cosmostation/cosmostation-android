@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -108,6 +109,24 @@ class DashboardFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateView()
+        isScrollView()
+    }
+
+    private fun isScrollView() {
+        binding?.apply {
+            recycler.post {
+                val layoutManager = recycler.layoutManager as LinearLayoutManager
+                val firstCompletelyVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition()
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val isScrolledDown = firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
+
+                if (isScrolledDown) {
+                    searchBar.visibility = View.VISIBLE
+                } else {
+                    searchBar.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun initView() {
@@ -125,6 +144,18 @@ class DashboardFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.color_base03),
                 PorterDuff.Mode.SRC_IN
             )
+
+            recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                    if (dy > 0 && firstVisibleItemPosition > 1) {
+                        searchBar.visibility = View.VISIBLE
+                    }
+                }
+            })
         }
     }
 
