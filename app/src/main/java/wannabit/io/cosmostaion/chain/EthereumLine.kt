@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.chain
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
+import wannabit.io.cosmostaion.chain.evmClass.ChainBaseEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -22,16 +23,14 @@ import java.math.RoundingMode
 @Parcelize
 open class EthereumLine : CosmosLine(), Parcelable {
 
+    open var chainIdEvm: String = ""
+
     open var supportCosmos = false
 
     open var coinSymbol = ""
     open var coinGeckoId = ""
     open var coinLogo = -1
     open var addressLogo = -1
-
-    open var explorerURL = ""
-    open var addressURL = ""
-    open var txURL = ""
 
     var evmBalance = BigDecimal.ZERO
 
@@ -87,6 +86,7 @@ open class EthereumLine : CosmosLine(), Parcelable {
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
     lines.add(ChainEthereum())
+    lines.add(ChainBaseEvm())
 //    lines.add(ChainAltheaEvm())
     lines.add(ChainCantoEvm())
     lines.add(ChainDymensionEvm())
@@ -99,9 +99,16 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainXplaEvm())
 
     lines.forEach { line ->
-        if (line.chainId.isEmpty()) {
-            line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
+        if (line.chainIdCosmos.isEmpty()) {
+            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
+                line.chainIdCosmos = cosmosChainId
+            }
+        }
+
+        if (line.chainIdEvm.isEmpty()) {
+            line.getChainListParam()?.get("chain_id_evm")?.asString?.let { evmChainId ->
+                line.chainIdEvm = evmChainId
+            }
         }
     }
     return lines

@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
-import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
@@ -26,7 +25,6 @@ import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
-import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
 
@@ -37,17 +35,13 @@ interface WalletRepository {
 
     suspend fun version(): NetworkResult<Response<AppVersion>>
 
-    suspend fun chain(): NetworkResult<Response<ChainResponse>>
+    suspend fun price(currency: String): NetworkResult<List<Price>>
 
-    suspend fun price(currency: String): NetworkResult<Response<List<Price>>>
-
-    suspend fun usdPrice(): NetworkResult<Response<List<Price>>>
+    suspend fun usdPrice(): NetworkResult<List<Price>>
 
     suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>>
 
-    suspend fun supportConfig(): NetworkResult<Response<SupportConfig>>
-
-    suspend fun asset(): NetworkResult<Response<AssetResponse>>
+    suspend fun asset(): NetworkResult<AssetResponse>
 
     suspend fun param(): NetworkResult<JsonObject?>
 

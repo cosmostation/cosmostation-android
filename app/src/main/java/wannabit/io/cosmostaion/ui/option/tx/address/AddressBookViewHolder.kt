@@ -25,7 +25,7 @@ class AddressBookViewHolder(
         binding.apply {
             addressTitleLayout.visibleOrGone(adapterPosition == 0)
             topView.visibleOrGone(adapterPosition == 0)
-            addressBookTitle.text = "Address book (Cosmos style)"
+            addressBookTitle.text = "Address book"
             addressBookCnt.text = cnt.toString()
 
             accountName.text = addressBook.bookName
@@ -34,24 +34,11 @@ class AddressBookViewHolder(
         }
     }
 
-    fun evmBookBind(evmAddressBook: AddressBook, position: Int, cnt: Int) {
+    fun accountBind(refAddress: RefAddress, position: Int, cnt: Int) {
         binding.apply {
             addressTitleLayout.visibleOrGone(position == 0)
             topView.visibleOrGone(position == 0)
-            addressBookTitle.text = "Address book (Evm style)"
-            addressBookCnt.text = cnt.toString()
-
-            accountName.text = evmAddressBook.bookName
-            accountAddress.text = evmAddressBook.address
-            accountMemo.text = ""
-        }
-    }
-
-    fun accountBind(toChain: BaseChain, refAddress: RefAddress, position: Int, cnt: Int) {
-        binding.apply {
-            addressTitleLayout.visibleOrGone(position == 0)
-            topView.visibleOrGone(position == 0)
-            addressBookTitle.text = "My account (Cosmos style)"
+            addressBookTitle.text = "My account"
             addressBookCnt.text = cnt.toString()
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -96,11 +83,24 @@ class AddressBookViewHolder(
         }
     }
 
+    fun evmBookBind(evmAddressBook: AddressBook, cnt: Int) {
+        binding.apply {
+            addressTitleLayout.visibleOrGone(adapterPosition == 0)
+            topView.visibleOrGone(adapterPosition == 0)
+            addressBookTitle.text = "Address book"
+            addressBookCnt.text = cnt.toString()
+
+            accountName.text = evmAddressBook.bookName
+            accountAddress.text = evmAddressBook.address
+            accountMemo.text = ""
+        }
+    }
+
     fun accountEvmBind(refEvmAddress: RefAddress, position: Int, cnt: Int) {
         binding.apply {
             addressTitleLayout.visibleOrGone(position == 0)
             topView.visibleOrGone(position == 0)
-            addressBookTitle.text = "My account (Evm style)"
+            addressBookTitle.text = "My account"
             addressBookCnt.text = cnt.toString()
 
             CoroutineScope(Dispatchers.IO).launch {

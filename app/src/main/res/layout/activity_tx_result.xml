@@ -189,7 +189,6 @@
             android:gravity="center"
             android:layout_marginHorizontal="@dimen/space_60"
             android:maxHeight="@dimen/space_100"
-            android:paddingHorizontal="@dimen/space_100"
             android:textColor="@color/color_accent_red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

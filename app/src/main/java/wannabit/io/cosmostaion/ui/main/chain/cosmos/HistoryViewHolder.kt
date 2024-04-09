@@ -3,15 +3,11 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.EXPLORER_BINANCE_URL
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_EXPLORER
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
@@ -72,9 +68,12 @@ class HistoryViewHolder(
             }
 
             historyView.setOnClickListener {
-                val historyUrl =
-                    CosmostationConstants.EXPLORER_BASE_URL + "/" + line.apiName + "/transactions/" + historyGroup.second.data?.txhash
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+                line.explorerTx(historyGroup.second.data?.txhash)?.let {
+                    context.startActivity(Intent(Intent.ACTION_VIEW, it))
+
+                } ?: run {
+                    return@setOnClickListener
+                }
             }
 
             historyGroup.second.getDpCoin(line).let { dpCoins ->
@@ -162,14 +161,22 @@ class HistoryViewHolder(
             txDenom.text = "-"
 
             historyView.setOnClickListener {
-                val historyUrl = EXPLORER_BINANCE_URL + "tx/" + historyBnbGroup.second.txHash
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+                line.explorerTx(historyBnbGroup.second.txHash)?.let {
+                    context.startActivity(Intent(Intent.ACTION_VIEW, it))
+
+                } ?: run {
+                    return@setOnClickListener
+                }
             }
         }
     }
 
     fun bindOktHistory(
-        historyOktGroup: Pair<String, TransactionList>, headerIndex: Int, cnt: Int, position: Int
+        line: CosmosLine,
+        historyOktGroup: Pair<String, TransactionList>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
     ) {
         binding.apply {
             historyView.setBackgroundResource(R.drawable.item_bg)
@@ -200,8 +207,12 @@ class HistoryViewHolder(
             txDenom.text = "-"
 
             historyView.setOnClickListener {
-                val historyUrl = OKT_EXPLORER + "tx/" + historyOktGroup.second.txId
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
+                line.explorerTx(historyOktGroup.second.txId)?.let {
+                    context.startActivity(Intent(Intent.ACTION_VIEW, it))
+
+                } ?: run {
+                    return@setOnClickListener
+                }
             }
         }
     }

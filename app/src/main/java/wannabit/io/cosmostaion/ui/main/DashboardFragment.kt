@@ -8,16 +8,19 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -36,6 +39,7 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
@@ -87,15 +91,42 @@ class DashboardFragment : Fragment() {
         initView()
         setupHideButton()
         refreshData()
+        initSearchView()
     }
 
     private fun initData(baseAccount: BaseAccount?) {
+        searchEvmChains.clear()
+        searchCosmosChains.clear()
+
         baseAccount?.let { account ->
             toDisplayEvmChains = account.sortedDisplayEvmLines()
-            searchEvmChains = toDisplayEvmChains
+            searchEvmChains.addAll(toDisplayEvmChains)
 
             toDisplayCosmosChains = account.sortedDisplayCosmosLines()
-            searchCosmosChains = toDisplayCosmosChains
+            searchCosmosChains.addAll(toDisplayCosmosChains)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateView()
+        isScrollView()
+    }
+
+    private fun isScrollView() {
+        binding?.apply {
+            recycler.post {
+                val layoutManager = recycler.layoutManager as LinearLayoutManager
+                val firstCompletelyVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition()
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val isScrolledDown = firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
+
+                if (isScrolledDown || searchView.query.isNotEmpty()) {
+                    searchBar.visibility = View.VISIBLE
+                } else {
+                    searchBar.visibility = View.GONE
+                }
+            }
         }
     }
 
@@ -109,20 +140,23 @@ class DashboardFragment : Fragment() {
             initData(baseAccount)
             updateViewWithLoadedData(baseAccount)
 
-            if (Prefs.hideValue) {
-                totalValue.text = "✱✱✱✱✱"
-                totalValue.textSize = 18f
-                btnHide.setImageResource(R.drawable.icon_hide)
-
-            } else {
-                totalValue.text = formatAssetValue(totalChainValue)
-                totalValue.textSize = 24f
-                btnHide.setImageResource(R.drawable.icon_not_hide)
-            }
+            updateHideValue()
             btnHide.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.color_base03),
                 PorterDuff.Mode.SRC_IN
             )
+
+            recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                    if (dy > 0 && firstVisibleItemPosition > 1) {
+                        searchBar.visibility = View.VISIBLE
+                    }
+                }
+            })
         }
     }
 
@@ -257,29 +291,39 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun updateView() {
+        dashAdapter.notifyDataSetChanged()
+        updateHideValue()
+        updateTotalValue()
+    }
+
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            for (i in 0 until searchEvmChains.size) {
-                if (searchEvmChains[i].tag == tag) {
+            val searchEvmResult = searchEvmChains.filter { it.tag == tag }
+            val evmIterator = searchEvmResult.iterator()
+            while (evmIterator.hasNext()) {
+                val chain = evmIterator.next()
+                val index = searchEvmChains.indexOf(chain)
+                if (::dashAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        if (::dashAdapter.isInitialized) {
-                            dashAdapter.notifyItemChanged(i + 1)
-                        }
+                        dashAdapter.notifyItemChanged(index + 1)
                     }
                 }
             }
 
-            for (i in 0 until searchCosmosChains.size) {
-                if (searchCosmosChains[i].tag == tag) {
+            val searchResult = searchCosmosChains.filter { it.tag == tag }
+            val iterator = searchResult.iterator()
+            while (iterator.hasNext()) {
+                val chain = iterator.next()
+                val index = searchCosmosChains.indexOf(chain)
+                val position = if (searchEvmChains.size > 0) {
+                    searchEvmChains.size + 2
+                } else {
+                    1
+                }
+                if (::dashAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        val position = if (searchEvmChains.size > 0) {
-                            searchEvmChains.size + 2
-                        } else {
-                            1
-                        }
-                        if (::dashAdapter.isInitialized) {
-                            dashAdapter.notifyItemChanged(position + i)
-                        }
+                        dashAdapter.notifyItemChanged(index + position)
                     }
                 }
             }
@@ -308,6 +352,21 @@ class DashboardFragment : Fragment() {
                         if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
                     totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
                 }
+            }
+        }
+    }
+
+    private fun updateHideValue() {
+        binding?.apply {
+            if (Prefs.hideValue) {
+                totalValue.text = "✱✱✱✱✱"
+                totalValue.textSize = 18f
+                btnHide.setImageResource(R.drawable.icon_hide)
+
+            } else {
+                totalValue.text = formatAssetValue(totalChainValue)
+                totalValue.textSize = 24f
+                btnHide.setImageResource(R.drawable.icon_not_hide)
             }
         }
     }
@@ -351,8 +410,50 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun initSearchView() {
+        binding?.apply {
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchEvmChains.clear()
+                    searchCosmosChains.clear()
+
+                    if (StringUtils.isEmpty(newText)) {
+                        searchEvmChains.addAll(toDisplayEvmChains)
+                        searchCosmosChains.addAll(toDisplayCosmosChains)
+
+                    } else {
+                        newText?.let { searchTxt ->
+                            searchEvmChains.addAll(toDisplayEvmChains.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+
+                            searchCosmosChains.addAll(toDisplayCosmosChains.filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+                        }
+                    }
+                    if (searchEvmChains.isEmpty() && searchCosmosChains.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        dashAdapter.notifyDataSetChanged()
+                    }
+                    return true
+                }
+            })
+        }
+    }
+
     private fun nodeDownPopup() {
-        NoticeInfoFragment.newInstance(null).show(
+        NoticeInfoFragment.newInstance(null, NoticeType.NODE_DOWN_GUIDE).show(
             requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
         )
     }
@@ -379,17 +480,7 @@ class DashboardFragment : Fragment() {
         }
 
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
-            binding?.apply {
-                if (Prefs.hideValue) {
-                    totalValue.text = "✱✱✱✱✱"
-                    totalValue.textSize = 18f
-                    btnHide.setImageResource(R.drawable.icon_hide)
-                } else {
-                    totalValue.text = formatAssetValue(totalChainValue)
-                    totalValue.textSize = 24f
-                    btnHide.setImageResource(R.drawable.icon_not_hide)
-                }
-            }
+            updateHideValue()
             dashAdapter.notifyDataSetChanged()
         }
 

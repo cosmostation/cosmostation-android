@@ -101,12 +101,10 @@ class StakeInfoFragment : Fragment() {
                 val stakingInfoList = delegations + unBondings
 
                 withContext(Dispatchers.Main) {
-                    recycler.visibility =
-                        if (stakingInfoList.isNotEmpty()) View.VISIBLE else View.GONE
-                    emptyStake.visibility =
-                        if (stakingInfoList.isEmpty()) View.VISIBLE else View.GONE
-
                     if (stakingInfoList.isNotEmpty()) {
+                        emptyStake.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+
                         stakingInfoAdapter = StakingInfoAdapter(
                             selectedChain,
                             rewardAddress,
@@ -118,6 +116,10 @@ class StakeInfoFragment : Fragment() {
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = stakingInfoAdapter
+
+                    } else {
+                        emptyStake.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
                     }
                 }
             }

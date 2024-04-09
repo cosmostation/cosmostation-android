@@ -63,9 +63,6 @@ class IntroActivity : AppCompatActivity() {
         initFirebase()
         migrateDatabaseIfNeed()
         checkAppVersion()
-
-        walletViewModel.walletAppVersion()
-        initPriceInfo()
     }
 
     private fun initFullScreen() {
@@ -93,9 +90,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onPostResume() {
         super.onPostResume()
-        if (Prefs.version >= BaseConstant.DB_VERSION) {
-            checkAppVersion()
-        }
+        walletViewModel.walletAppVersion()
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
@@ -106,7 +101,6 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
-        delay(1500)
         if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
             val account = BaseData.getLastAccount()
             account?.let {
@@ -244,22 +238,18 @@ class IntroActivity : AppCompatActivity() {
                 } else if (response.version > BuildConfig.VERSION_CODE) {
                     showUpdateDialog()
                 } else {
-                    postProcessAppVersion()
+                    walletViewModel.defaultInfoData()
                 }
             }
+        }
+
+        walletViewModel.defaultInfoDataResult.observe(this) {
+            postProcessAppVersion()
         }
 
         walletViewModel.networkErrorMessage.observe(this) {
             showNetworkErrorDialog()
         }
-    }
-
-    private fun initPriceInfo() {
-        walletViewModel.chain()
-        walletViewModel.param()
-        walletViewModel.price(BaseData.currencyName().lowercase())
-        walletViewModel.supportConfig()
-        walletViewModel.asset()
     }
 
     private fun initFirebase() {

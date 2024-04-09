@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,13 +9,14 @@
         android:id="@+id/loading"
         android:layout_width="@dimen/space_120"
         android:layout_height="@dimen/space_120"
-        app:layout_constraintBottom_toTopOf="@+id/btn_claim_all"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading" />
+        app:lottie_rawRes="@raw/loading"
+        tools:ignore="NotSibling" />
 
     <LinearLayout
         android:id="@+id/title_layout"
@@ -29,23 +31,33 @@
 
         <TextView
             style="@style/font_sb_16"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/title_claimable_chains"
             android:textColor="@color/color_base01" />
 
         <TextView
             android:id="@+id/reward_cnt"
-            style="@style/font_sb_16"
-            android:layout_width="0dp"
+            style="@style/font_sb_14"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="@color/color_base01"
-            android:layout_gravity="end"
-            android:gravity="end|center_vertical" />
+            android:layout_marginStart="@dimen/space_3"
+            android:gravity="center_vertical" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/claim_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        style="@style/font_sm_12"
+        android:text="@string/str_all_claim_msg"
+        android:textColor="@color/color_base02"
+        android:layout_marginTop="@dimen/space_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_layout"
@@ -88,7 +100,7 @@
         android:layout_marginBottom="@dimen/space_8"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_layout"
-        app:layout_constraintTop_toBottomOf="@+id/title_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/claim_explain" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_layout"

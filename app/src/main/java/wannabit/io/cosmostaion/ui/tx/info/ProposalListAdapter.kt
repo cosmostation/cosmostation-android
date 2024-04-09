@@ -21,7 +21,7 @@ class ProposalListAdapter(
     private val myVotes: MutableList<VoteData>,
     private val toVoteList: MutableList<String>?,
     var listener: CheckListener
-) :  RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
     companion object {
         const val VIEW_TYPE_VOTING_HEADER = 0

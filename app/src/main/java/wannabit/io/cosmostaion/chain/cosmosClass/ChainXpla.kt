@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainXpla : CosmosLine(), Parcelable {
 
+    override var isDefault = false
     override var name: String = "Xpla"
     override var tag: String = "xpla60"
     override var logo: Int = R.drawable.chain_xpla

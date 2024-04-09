@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Cosmostation</string>
 
+    <string name="str_chains" translatable="false">Chains</string>
+    <string name="str_service" translatable="false">Service</string>
+    <string name="str_setting" translatable="false">Settings</string>
+
     <string name="str_total_value" translatable="false">Total value</string>
     <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
@@ -131,6 +135,9 @@
     <string name="str_amount">Amount</string>
     <string name="str_token_github">Check token info</string>
     <string name="str_node_down">Node down</string>
+    <string name="str_vote_all">Vote all</string>
+    <string name="str_eth_style_address" translatable="false">Ethereum style address</string>
+    <string name="str_cosmos_style_address" translatable="false">Cosmos style address</string>
 
 
     //title
@@ -268,6 +275,9 @@
     <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
+    <string name="title_not_vote_list">Live proposals</string>
+    <string name="title_all_vote_list">Excluding the proposals I voted</string>
+    <string name="title_sunset">Chain sunset</string>
 
 
     // msg
@@ -309,11 +319,12 @@
     <string name="str_unstake_cancel_msg">Cancel unstake and immediately make staked state.</string>
     <string name="str_reward_address_msg">You can change reward recipient address.\nAfter change this, every claimed rewards are going to changed address. Please confirm you have full authority with to change address.</string>
     <string name="str_reward_address_msg2">Do not set as exchange address.</string>
-    <string name="str_swap_msg" translatable="false">Exchange the coins you have for a\nvariety of different coins</string>
-    <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade Everything\nDeFi, NFT and Gaming</string>
-    <string name="str_buy_msg" translatable="false">The coins purchased can be used for\nonline transactions and investments</string>
+    <string name="str_swap_msg" translatable="false">Exchange the coins you have\nfor a variety of different coins</string>
+    <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade\nEverything DeFi, NFT and\nGaming</string>
+    <string name="str_buy_msg" translatable="false">The coins purchased can be\nused for online transactions\nand investments</string>
     <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
-    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards exceeding\n$0.1 across Cosmos Chains\nwith a single click.</string>
+    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards\nexceeding $0.1 across Cosmos\nchains with a single click.</string>
+    <string name="str_all_vote_msg" translatable="false">Check the list of live proposals\nof the chains you staked and\nvote for</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV</string>
     <string name="str_pool_msg">Provide liquidity to AMM-style asset\nswap pools on the KAVA platform</string>
@@ -338,7 +349,11 @@
     <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
     <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
-    <string name="str_node_down_msg">▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
+    <string name="str_node_down_msg">▪ Please check the current network status of the device.\n\n▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
+    <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on</string>
+    <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
+    <string name="str_all_claim_msg">Please check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
+    <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
 
 
     // header

@@ -201,17 +201,16 @@ class ChainEditFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding?.apply {
             btnSelect.setOnClickListener {
-                backdropLayout.visibility = View.VISIBLE
                 toDisplayEvmChains.clear()
                 toDisplayChains.clear()
                 if (btnSelect.isEnabled) {
                     btnSelect.isEnabled = false
 
+                    backdropLayout.visibility = View.VISIBLE
                     lifecycleScope.launch(Dispatchers.IO) {
                         BaseData.baseAccount?.let { account ->
                             account.reSortEvmChains()
                             allEvmChains = account.allEvmLineChains
-
                             for (chain in allEvmChains) {
                                 if (chain.allAssetValue(true) > BigDecimal.ONE) {
                                     toDisplayEvmChains.add(chain.tag)
@@ -221,7 +220,6 @@ class ChainEditFragment : BaseTxFragment() {
                             account.reSortCosmosChains()
                             allCosmosChains = account.allCosmosLineChains
                             toDisplayChains.add("cosmos118")
-
                             for (chain in allCosmosChains) {
                                 if (chain.allAssetValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
                                     toDisplayChains.add(chain.tag)

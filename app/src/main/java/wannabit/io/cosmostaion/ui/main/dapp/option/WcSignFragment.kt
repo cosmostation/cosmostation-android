@@ -172,33 +172,37 @@ class WcSignFragment(
         if (!isEditFee && (amounts.size() <= 0 || gas == "0") || isEditFee) {
             val chainId = txJsonSignDoc.get("chain_id").asString
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId }
-                    ?.let { targetChain ->
-                        targetChain.getFeeInfos(requireContext())
-                            .first().feeDatas.firstOrNull { it.denom == targetChain.stakeDenom }
-                            ?.let { gasRate ->
-                                val gasLimit = (gas.toDouble() * targetChain.gasMultiply()).toLong()
-                                    .toBigDecimal()
-                                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
-                                    ?.setScale(0, RoundingMode.UP)
+                val targetChain =
+                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                        ?: run {
+                            account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                        }
+                targetChain?.let { chain ->
+                    chain.getFeeInfos(requireContext())
+                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+                        ?.let { gasRate ->
+                            val gasLimit =
+                                (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                            val feeCoinAmount =
+                                gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                                if (amounts.size() == 0) {
-                                    val jsonObject = JsonObject()
-                                    jsonObject.addProperty(
-                                        "amount", feeCoinAmount.toString()
-                                    )
-                                    jsonObject.addProperty("denom", targetChain.stakeDenom)
-                                    amounts.add(jsonObject)
+                            if (amounts.size() == 0) {
+                                val jsonObject = JsonObject()
+                                jsonObject.addProperty(
+                                    "amount", feeCoinAmount.toString()
+                                )
+                                jsonObject.addProperty("denom", chain.stakeDenom)
+                                amounts.add(jsonObject)
 
-                                } else {
-                                    val mainDenomFee =
-                                        amounts.firstOrNull { it.asJsonObject["denom"].asString == targetChain.stakeDenom && it.asJsonObject["amount"].asString == "0" }
-                                    mainDenomFee?.asJsonObject?.addProperty(
-                                        "amount", feeCoinAmount.toString()
-                                    )
-                                }
+                            } else {
+                                val mainDenomFee =
+                                    amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom && it.asJsonObject["amount"].asString == "0" }
+                                mainDenomFee?.asJsonObject?.addProperty(
+                                    "amount", feeCoinAmount.toString()
+                                )
                             }
-                    }
+                        }
+                }
             }
         }
         return txJsonSignDoc
@@ -214,25 +218,29 @@ class WcSignFragment(
         if (!isEditFee && (fee.amountList.isEmpty() || fee.gasLimit.toString() == "0") || isEditFee) {
             val chainId = txJsonObject["chain_id"].asString
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.chainId == chainId }
-                    ?.let { targetChain ->
-                        targetChain.getFeeInfos(requireContext())
-                            .first().feeDatas.firstOrNull { it.denom == targetChain.stakeDenom }
-                            ?.let { gasRate ->
-                                val gasLimit =
-                                    (fee.gasLimit.toDouble() * targetChain.gasMultiply()).toLong()
-                                        .toBigDecimal()
-                                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
-                                    ?.setScale(0, RoundingMode.UP)
-                                val updateFeeCoin =
-                                    CoinProto.Coin.newBuilder().setDenom(targetChain.stakeDenom)
-                                        .setAmount(feeCoinAmount.toString()).build()
-                                val updateFee = Fee.newBuilder().setGasLimit(fee.gasLimit)
-                                    .addAmount(updateFeeCoin).build()
+                val targetChain =
+                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                        ?: run {
+                            account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                        }
+                targetChain?.let { chain ->
+                    chain.getFeeInfos(requireContext())
+                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+                        ?.let { gasRate ->
+                            val gasLimit = (fee.gasLimit.toDouble() * chain.gasMultiply()).toLong()
+                                .toBigDecimal()
+                            val feeCoinAmount =
+                                gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                            val updateFeeCoin =
+                                CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                                    .setAmount(feeCoinAmount.toString()).build()
+                            val updateFee =
+                                Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
+                                    .build()
 
-                                authInfo = authInfo.toBuilder().setFee(updateFee).build()
-                            }
-                    }
+                            authInfo = authInfo.toBuilder().setFee(updateFee).build()
+                        }
+                }
             }
         }
         return txJsonObject.apply {

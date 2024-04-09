@@ -234,7 +234,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/github"
+                android:id="@+id/coingecko"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -244,7 +244,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/img_github"/>
+                    android:src="@drawable/img_coingecko"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -252,7 +252,7 @@
                     style="@style/font_sm_12"
                     android:layout_marginTop="@dimen/space_8"
                     android:textColor="@color/color_base03"
-                    android:text="Github"/>
+                    android:text="Coingecko"/>
 
             </LinearLayout>
 
@@ -276,29 +276,6 @@
                     android:layout_marginTop="@dimen/space_8"
                     android:textColor="@color/color_base03"
                     android:text="Blog"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/coingecko"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_coingecko"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/font_sm_12"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:textColor="@color/color_base03"
-                    android:text="Coingecko"/>
 
             </LinearLayout>
 

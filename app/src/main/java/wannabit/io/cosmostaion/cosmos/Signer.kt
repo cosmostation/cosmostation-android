@@ -1143,7 +1143,7 @@ object Signer {
         selectedChain: CosmosLine?
     ): TxRaw? {
         val signDoc = SignDoc.newBuilder().setBodyBytes(txBody?.toByteString())
-            .setAuthInfoBytes(authInfo?.toByteString()).setChainId(selectedChain?.chainId)
+            .setAuthInfoBytes(authInfo?.toByteString()).setChainId(selectedChain?.chainIdCosmos)
             .setAccountNumber(
                 parseAuthGrpc(auth).second
             ).build()
@@ -1164,7 +1164,7 @@ object Signer {
     ): BroadcastReq {
         (selectedChain as ChainOkt996Secp).apply {
             val toSign = genToSignMsg(
-                chainId,
+                chainIdCosmos,
                 oktLcdAccountInfo?.value?.accountNumber,
                 oktLcdAccountInfo?.value?.sequence,
                 msgs,
@@ -1200,7 +1200,7 @@ object Signer {
             when (selectedChain) {
                 is ChainOktEvm -> {
                     val toSign = genToSignMsg(
-                        selectedChain.chainId,
+                        selectedChain.chainIdCosmos,
                         selectedChain.oktLcdAccountInfo?.value?.accountNumber,
                         selectedChain.oktLcdAccountInfo?.value?.sequence,
                         msgs,
@@ -1228,7 +1228,7 @@ object Signer {
 
                 is ChainOkt996Keccak -> {
                     val toSign = genToSignMsg(
-                        selectedChain.chainId,
+                        selectedChain.chainIdCosmos,
                         selectedChain.oktLcdAccountInfo?.value?.accountNumber,
                         selectedChain.oktLcdAccountInfo?.value?.sequence,
                         msgs,

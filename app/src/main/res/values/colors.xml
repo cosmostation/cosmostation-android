@@ -10,6 +10,8 @@
     <color name="color_base08">#393A50</color>
     <color name="color_base09">#2C2D44</color>
 
+    <color name="color_search">#66505267</color>
+
     <color name="color_accent_purple">#7C4FFC</color>
     <color name="color_accent_purple_evm">#997C4FFC</color>
     <color name="color_accent_green">#5BFF89</color>

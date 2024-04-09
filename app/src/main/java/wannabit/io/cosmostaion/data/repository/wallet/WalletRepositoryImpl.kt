@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRES
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.beaconApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.chainApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
@@ -54,7 +53,6 @@ import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
-import wannabit.io.cosmostaion.data.model.res.ChainResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -64,7 +62,6 @@ import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
-import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
@@ -91,19 +88,13 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun chain(): NetworkResult<Response<ChainResponse>> {
-        return safeApiCall(Dispatchers.IO) {
-            mintscanApi.chain()
-        }
-    }
-
-    override suspend fun price(currency: String): NetworkResult<Response<List<Price>>> {
+    override suspend fun price(currency: String): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price(currency)
         }
     }
 
-    override suspend fun usdPrice(): NetworkResult<Response<List<Price>>> {
+    override suspend fun usdPrice(): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price("usd")
         }
@@ -115,13 +106,7 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun supportConfig(): NetworkResult<Response<SupportConfig>> {
-        return safeApiCall(Dispatchers.IO) {
-            chainApi.supportConfig()
-        }
-    }
-
-    override suspend fun asset(): NetworkResult<Response<AssetResponse>> {
+    override suspend fun asset(): NetworkResult<AssetResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.asset()
         }
@@ -129,7 +114,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun param(): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.param().body()
+            mintscanJsonApi.param()
         }
     }
 

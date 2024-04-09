@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.staking.v1beta1.StakingProto
+import com.google.gson.JsonObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -23,6 +24,7 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
+import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -92,40 +94,40 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
-    fun chain() = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.chain()) {
-            is NetworkResult.Success -> {
-                response.data.let { data ->
-                    if (data.isSuccessful) {
-                        BaseData.chains = data.body()?.chains
-                    } else {
-                        _errorMessage.postValue("Error")
+    private val _defaultInfoDataResult = MutableLiveData<Boolean>()
+    val defaultInfoDataResult: LiveData<Boolean> get() = _defaultInfoDataResult
+
+    fun defaultInfoData() = CoroutineScope(Dispatchers.IO).launch {
+        price(BaseData.currencyName().lowercase())
+        val loadParamDeferred = async { walletRepository.param() }
+        val loadAssetDeferred = async { walletRepository.asset() }
+
+        val responses = awaitAll(
+            loadParamDeferred, loadAssetDeferred
+        )
+
+        responses.forEach { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    when (response.data) {
+                        is JsonObject -> {
+                            if (!response.data.isJsonNull) {
+                                BaseData.chainParam = response.data
+                            }
+                        }
+
+                        is AssetResponse -> {
+                            response.data.assets?.let { BaseData.assets = it }
+                        }
                     }
                 }
-            }
 
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
+                is NetworkResult.Error -> {
 
-    fun param() = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.param()) {
-            is NetworkResult.Success -> {
-                response.data?.let { data ->
-                    if (!data.isJsonNull) {
-                        BaseData.chainParam = data
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
                 }
             }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
         }
+        _defaultInfoDataResult.postValue(true)
     }
 
     var updatePriceResult = SingleLiveEvent<String>()
@@ -137,15 +139,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         when (val response = walletRepository.price(currency)) {
             is NetworkResult.Success -> {
                 response.data.let { data ->
-                    if (data.isSuccessful) {
-                        BaseData.prices = data.body()
-                        BaseData.setLastPriceTime()
-                        BaseData.baseAccount?.updateAllValue()
-                        updatePriceResult.postValue(currency)
-
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
+                    BaseData.prices = data
+                    BaseData.setLastPriceTime()
+                    BaseData.baseAccount?.updateAllValue()
+                    updatePriceResult.postValue(currency)
                 }
             }
 
@@ -157,12 +154,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         when (val response = walletRepository.usdPrice()) {
             is NetworkResult.Success -> {
                 response.data.let { data ->
-                    if (data.isSuccessful) {
-                        BaseData.usdPrices = data.body()
-
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
+                    BaseData.usdPrices = data
                 }
             }
 
@@ -179,42 +171,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 response.data.let { data ->
                     if (data.isSuccessful) {
                         pushStatusResult.postValue(data.body()?.subscribe)
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
-    fun supportConfig() = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.supportConfig()) {
-            is NetworkResult.Success -> {
-                response.data.let { data ->
-                    if (data.isSuccessful) {
-                        BaseData.supportConfig = data.body()
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
-    fun asset() = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.asset()) {
-            is NetworkResult.Success -> {
-                response.data.let { data ->
-                    if (data.isSuccessful) {
-                        BaseData.assets = data.body()?.assets
                     } else {
                         _errorMessage.postValue("Error")
                     }
@@ -244,45 +200,51 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel) }
             val loadUnBondingDeferred = async { walletRepository.unBondingValidator(channel) }
 
-            val responses = awaitAll(
-                loadRewardAddrDeferred,
-                loadBondedDeferred,
-                loadUnBondedDeferred,
-                loadUnBondingDeferred
-            )
+            val rewardAddrResult = loadRewardAddrDeferred.await()
+            if (rewardAddrResult is NetworkResult.Success && rewardAddrResult.data is String) {
+                line.rewardAddress = rewardAddrResult.data
+            }
 
-            responses.forEach { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-                        when (response.data) {
-                            is String -> {
-                                line.rewardAddress = response.data
-                            }
-
-                            else -> {
-                                line.cosmosValidators.addAll(response.data as Collection<StakingProto.Validator>)
-                            }
-                        }
-                        val tempValidators = line.cosmosValidators.toMutableList()
-                        tempValidators.sortWith { o1, o2 ->
-                            when {
-                                o1.description.moniker == "Cosmostation" -> -1
-                                o2.description.moniker == "Cosmostation" -> 1
-                                o1.jailed && !o2.jailed -> 1
-                                !o1.jailed && o2.jailed -> -1
-                                o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
-                                o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
-                                else -> 0
-                            }
-                        }
-                        line.cosmosValidators = tempValidators
-                    }
-
-                    is NetworkResult.Error -> {
-                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            val bondedValidatorsResult = loadBondedDeferred.await()
+            if (bondedValidatorsResult is NetworkResult.Success) {
+                bondedValidatorsResult.data.let { data ->
+                    if (data is Collection<*>) {
+                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
                     }
                 }
             }
+
+            val unBondedValidatorsResult = loadUnBondedDeferred.await()
+            if (unBondedValidatorsResult is NetworkResult.Success) {
+                unBondedValidatorsResult.data.let { data ->
+                    if (data is Collection<*>) {
+                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                    }
+                }
+            }
+
+            val unBondingValidatorsResult = loadUnBondingDeferred.await()
+            if (unBondingValidatorsResult is NetworkResult.Success) {
+                unBondingValidatorsResult.data.let { data ->
+                    if (data is Collection<*>) {
+                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                    }
+                }
+            }
+
+            val tempValidators = line.cosmosValidators.toMutableList()
+            tempValidators.sortWith { o1, o2 ->
+                when {
+                    o1.description.moniker == "Cosmostation" -> -1
+                    o2.description.moniker == "Cosmostation" -> 1
+                    o1.jailed && !o2.jailed -> 1
+                    !o1.jailed && o2.jailed -> -1
+                    o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
+                    o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
+                    else -> 0
+                }
+            }
+            line.cosmosValidators = tempValidators
 
         } finally {
             channel.shutdown()

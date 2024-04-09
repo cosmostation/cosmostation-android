@@ -30,7 +30,7 @@ class ChainOktEvm : EthereumLine(), Parcelable {
 
     override var supportCosmos: Boolean = true
     override var name: String = "OKT"
-    override var chainId: String = "exchain-66"
+    override var chainIdCosmos: String = "exchain-66"
     override var tag: String = "okt60_Keccak"
     override var logo: Int = R.drawable.chain_evm_okt
     override var swipeLogo: Int = R.drawable.chain_evm_swipe_okt
@@ -51,10 +51,6 @@ class ChainOktEvm : EthereumLine(), Parcelable {
 
     val lcdUrl = "https://exchainrpc.okex.org/okexchain/v1/"
     override var rpcUrl: String = "https://exchainrpc.okex.org"
-
-    override var explorerURL = "https://www.oklink.com/oktc/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 
     fun assetImg(originSymbol: String): String {
         return CosmostationConstants.CHAIN_BASE_URL + "okc/asset/" + originSymbol.lowercase() + ".png"

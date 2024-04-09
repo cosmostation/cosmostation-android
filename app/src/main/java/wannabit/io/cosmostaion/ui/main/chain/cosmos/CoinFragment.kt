@@ -14,15 +14,17 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeClickListener
 import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
@@ -73,6 +75,7 @@ class CoinFragment : Fragment() {
         refreshData()
         initRecyclerView()
         initData()
+        sunsetPopup()
     }
 
     private fun initRecyclerView() {
@@ -116,21 +119,23 @@ class CoinFragment : Fragment() {
                 }
 
                 if (line is ChainBinanceBeacon) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom, sendAssetType)
-                    } else {
-                        startLegacyTransfer(line, denom)
-                    }
+//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+//                        selectBridgeOption(line, denom, sendAssetType)
+//                    } else {
+//                        startLegacyTransfer(line, denom)
+//                    }
+                    startLegacyTransfer(line, denom)
 
                 } else if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
                     startLegacyTransfer(line, denom)
 
                 } else if (line.tag.startsWith("kava")) {
-                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-                        selectBridgeOption(line, denom, sendAssetType)
-                    } else {
-                        startTransfer(line, denom, sendAssetType)
-                    }
+//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
+//                        selectBridgeOption(line, denom, sendAssetType)
+//                    } else {
+//                        startTransfer(line, denom, sendAssetType)
+//                    }
+                    startTransfer(line, denom, sendAssetType)
 
                 } else {
                     startTransfer(line, denom, sendAssetType)
@@ -255,6 +260,17 @@ class CoinFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun sunsetPopup() {
+        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainCrescent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isAdded && isVisible && isResumed) {
+                NoticeInfoFragment.newInstance(selectedChain, NoticeType.CHAIN_SUNSET).show(
+                    requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
+                )
+            }
+        }, 800)
     }
 
     private fun observeViewModels() {

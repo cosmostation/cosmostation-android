@@ -34,8 +34,4 @@ class ChainKavaEvm : EthereumLine(), Parcelable {
 
     override var grpcHost: String = "grpc-kava.cosmostation.io"
     override var rpcUrl: String = "https://rpc-kava-evm.cosmostation.io"
-
-    override var explorerURL = "https://kavascan.io/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

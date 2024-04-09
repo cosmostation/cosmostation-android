@@ -14,7 +14,6 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
-import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.Locale
 
@@ -48,7 +47,7 @@ class AboutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     private fun initView() {
@@ -78,19 +77,15 @@ class AboutFragment : Fragment() {
 
             val unBondingTime = unBondingTime(selectedChain)
             val inflation = try {
-                val inflation = selectedChain.getChainParam()?.getAsJsonObject("params")
-                    ?.getAsJsonObject("minting_inflation")?.get("inflation")?.asString ?: "0"
-                inflation.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN).toString()
+                selectedChain.getChainParam()?.getAsJsonObject("params")
+                    ?.getAsJsonObject("minting_inflation")?.get("inflation")?.asString ?: ""
             } catch (e: Exception) {
                 ""
             }
             val apr = try {
-                val apr =
-                    selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
-                        ?: "0"
-                apr.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
+                selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString ?: ""
             } catch (e: NumberFormatException) {
-                BigDecimal("0.00")
+                ""
             }
 
             unbondingTime.text = if (unBondingTime.isNotEmpty()) {
@@ -99,15 +94,24 @@ class AboutFragment : Fragment() {
                 "-"
             }
             chainInflation.text = if (inflation.isNotEmpty()) {
-                formatPercent(inflation)
+                formatPercent(
+                    inflation.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
+                        .toString()
+                )
             } else {
                 "-"
             }
-            chainApr.text = formatPercent(apr.toPlainString())
+            chainApr.text = if (apr.isNotEmpty()) {
+                formatPercent(
+                    apr.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN).toString()
+                )
+            } else {
+                "-"
+            }
         }
     }
 
-    private fun clickAction() {
+    private fun setUpClickAction() {
         binding.apply {
             selectedChain.getChainListParam()?.getAsJsonObject("about")?.let { about ->
                 about.get("website")?.let {
@@ -139,12 +143,12 @@ class AboutFragment : Fragment() {
                     return
                 }
 
-                about.get("github")?.let {
-                    if (about.get("github").asString?.isNotEmpty() == true) {
-                        github.setOnClickListener {
+                about.get("coingecko")?.let {
+                    if (about.get("coingecko").asString?.isNotEmpty() == true) {
+                        coingecko.setOnClickListener {
                             startActivity(
                                 Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("github").asString)
+                                    Intent.ACTION_VIEW, Uri.parse(about.get("coingecko").asString)
                                 )
                             )
                         }
@@ -166,22 +170,17 @@ class AboutFragment : Fragment() {
                     }
 
                 } ?: run {
-                    return
-                }
-
-                about.get("coingecko")?.let {
-                    if (about.get("coingecko").asString?.isNotEmpty() == true) {
-                        coingecko.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("coingecko").asString)
+                    about.get("medium")?.let {
+                        if (about.get("medium").asString?.isNotEmpty() == true) {
+                            blog.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("medium").asString)
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
-
-                } ?: run {
-                    return
                 }
             }
         }

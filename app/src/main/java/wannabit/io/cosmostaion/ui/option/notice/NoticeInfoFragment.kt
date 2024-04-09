@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.databinding.FragmentNoticeInfoBinding
 
 class NoticeInfoFragment : BottomSheetDialogFragment() {
@@ -19,12 +20,14 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private var selectedChain: CosmosLine? = null
+    private lateinit var noticeType: NoticeType
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine?): NoticeInfoFragment {
+        fun newInstance(selectedChain: CosmosLine?, noticeType: NoticeType): NoticeInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
+                putSerializable("noticeType", noticeType)
             }
             val fragment = NoticeInfoFragment()
             fragment.arguments = args
@@ -47,26 +50,47 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     }
 
     private fun initData() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
-                ?.let { selectedChain = it }
-        } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
-                selectedChain = it
+        arguments?.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getSerializable(
+                    "noticeType", NoticeType::class.java
+                )?.let { noticeType = it }
+
+            } else {
+                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    selectedChain = it
+                }
+                (getSerializable("noticeType") as? NoticeType)?.let {
+                    noticeType = it
+                }
             }
         }
 
         binding.apply {
-            selectedChain?.let {
-                nodeLayout.visibility = View.GONE
-                btnGithub.visibility = View.VISIBLE
-                binding.dialogMsg.text = getString(R.string.str_token_github_msg)
+            when (noticeType) {
+                NoticeType.NODE_DOWN_GUIDE -> {
+                    dialogTitle.text = ""
+                    nodeLayout.visibility = View.VISIBLE
+                    btnGithub.visibility = View.GONE
+                    binding.dialogMsg.text = getString(R.string.str_node_down_msg)
+                }
 
-            } ?: run {
-                dialogTitle.text = ""
-                nodeLayout.visibility = View.VISIBLE
-                btnGithub.visibility = View.GONE
-                binding.dialogMsg.text = getString(R.string.str_node_down_msg)
+                NoticeType.TOKEN_GITHUB -> {
+                    dialogTitle.text = getString(R.string.str_token_github)
+                    nodeLayout.visibility = View.GONE
+                    btnGithub.visibility = View.VISIBLE
+                    btnGithub.text = getString(R.string.title_github)
+                    binding.dialogMsg.text = getString(R.string.str_token_github_msg)
+                }
+
+                NoticeType.CHAIN_SUNSET -> {
+                    dialogTitle.text = getString(R.string.title_sunset)
+                    nodeLayout.visibility = View.GONE
+                    btnGithub.visibility = View.VISIBLE
+                    btnGithub.text = "Link"
+                    binding.dialogMsg.text = getString(R.string.str_sunset_msg)
+                }
             }
         }
     }
@@ -74,12 +98,29 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     private fun setUpClickAction() {
         binding.apply {
             btnGithub.setOnClickListener {
-                val githubUrl = if (selectedChain is EthereumLine) {
-                    "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/erc20.json"
-                } else {
-                    "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw20.json"
+                when (noticeType) {
+                    NoticeType.NODE_DOWN_GUIDE -> {
+                        return@setOnClickListener
+                    }
+
+                    NoticeType.TOKEN_GITHUB -> {
+                        val githubUrl = if (selectedChain is EthereumLine) {
+                            "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/erc20.json"
+                        } else {
+                            "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw20.json"
+                        }
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
+                    }
+
+                    NoticeType.CHAIN_SUNSET -> {
+                        val link = if (selectedChain is ChainBinanceBeacon) {
+                            "https://www.bnbchain.org/en/bnb-chain-fusion"
+                        } else {
+                            "https://crescentnetwork.medium.com/flip-announcement-af24c8ab7e7f"
+                        }
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+                    }
                 }
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
             }
 
             btnConfirm.setOnClickListener {
@@ -93,3 +134,5 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
         super.onDestroyView()
     }
 }
+
+enum class NoticeType { TOKEN_GITHUB, NODE_DOWN_GUIDE, CHAIN_SUNSET }

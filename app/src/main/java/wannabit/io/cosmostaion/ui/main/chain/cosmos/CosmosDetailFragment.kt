@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,7 +13,6 @@ import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -28,11 +26,9 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
@@ -42,6 +38,7 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
@@ -89,6 +86,18 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("selectedChain", selectedChain)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            initData(it)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -100,7 +109,7 @@ class CosmosDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
-        initData()
+        initData(savedInstanceState)
         initTab()
         setUpClickAction()
         setFabMenuClickAction()
@@ -114,17 +123,30 @@ class CosmosDetailFragment : Fragment() {
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
-    private fun initData() {
+    private fun initData(savedInstanceState: Bundle?) {
         binding.apply {
-            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
-                    ?.let { selectedChain = it }
-            } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
-                    selectedChain = it
+            savedInstanceState?.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.getParcelable("selectedChain", CosmosLine::class.java)
+                        ?.let { chain -> selectedChain = chain }
+                } else {
+                    (it.getParcelable("selectedChain") as? CosmosLine)?.let { chain ->
+                        selectedChain = chain
+                    }
+                }
+
+            } ?: run {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                        ?.let { selectedChain = it }
+                } else {
+                    (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                        selectedChain = it
+                    }
                 }
             }
+
+            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
@@ -274,25 +296,19 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAddToken.setOnClickListener {
-                NoticeInfoFragment.newInstance(selectedChain).show(
+                NoticeInfoFragment.newInstance(selectedChain, NoticeType.TOKEN_GITHUB).show(
                     requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
                 )
             }
 
             btnAccount.setOnClickListener {
-                val accountUrl = if (selectedChain is EthereumLine) {
-                    if (selectedChain is ChainKavaEvm) {
-                        (selectedChain as EthereumLine).addressURL + ByteUtils.convertBech32ToEvm(
-                            selectedChain.address
-                        )
-                    } else {
-                        (selectedChain as EthereumLine).addressURL + selectedChain.address
-                    }
-                } else {
-                    CosmostationConstants.EXPLORER_BASE_URL + "/" + selectedChain.apiName + "/address/" + selectedChain.address
+                selectedChain.explorerAccount()?.let { url ->
+                    startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
                 }
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
-                Prefs.foreToBack = false
             }
 
             accountAddress.setOnClickListener {
@@ -557,17 +573,12 @@ class CosmosDetailFragment : Fragment() {
                 fragments.add(TokenFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 
-                if (selectedChain.supportCosmos && !selectedChain.tag.contains("okt60_Keccak")) {
+                if (selectedChain.supportCosmos) {
                     fragments.add(AboutFragment.newInstance(selectedChain))
                 }
 
             } else if (selectedChain is ChainBinanceBeacon) {
                 fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(HistoryFragment.newInstance(selectedChain))
-
-            } else if (selectedChain is ChainOkt996Keccak) {
-                fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(TokenFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 
             } else {

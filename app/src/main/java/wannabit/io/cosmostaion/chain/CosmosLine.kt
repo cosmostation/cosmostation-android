@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain
 
 import android.content.Context
+import android.net.Uri
 import android.os.Parcelable
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -51,6 +52,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -66,6 +68,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
@@ -143,8 +146,7 @@ open class CosmosLine : BaseChain(), Parcelable {
         return if (getDefaultFeeCoins(c).isNotEmpty()) {
             val fee = getDefaultFeeCoins(c).first()
             val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
-                .build()
+            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin).build()
         } else {
             null
         }
@@ -167,12 +169,20 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getChainParam(): JsonObject? {
-        return BaseData.chainParam?.getAsJsonObject(apiName) ?: JsonObject()
+        return try {
+            return BaseData.chainParam?.getAsJsonObject(apiName)
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getChainListParam(): JsonObject? {
-        return getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
-            ?: JsonObject()
+        return try {
+            getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+                ?: JsonObject()
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
@@ -344,7 +354,11 @@ open class CosmosLine : BaseChain(), Parcelable {
     fun delegationAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosDelegations.forEach { delegation ->
-            sum = sum.add(delegation.balance.amount.toBigDecimal())
+            delegation.balance?.let {
+                sum = sum.add(delegation.balance?.amount?.toBigDecimal())
+            } ?: run {
+                sum = sum.add(BigDecimal.ZERO)
+            }
         }
         return sum
     }
@@ -530,6 +544,43 @@ open class CosmosLine : BaseChain(), Parcelable {
         return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
+    override fun explorerAccount(): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")
+            ?.get("account")?.asString?.let { urlString ->
+                address?.let {
+                    return Uri.parse(urlString.replace("\${address}", it))
+
+                } ?: run {
+                    return null
+                }
+            }
+        return null
+    }
+
+    override fun explorerTx(hash: String?): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")?.get("tx")?.asString?.let { urlString ->
+            hash?.let {
+                return Uri.parse(urlString.replace("\${hash}", it))
+
+            } ?: run {
+                return null
+            }
+        }
+        return null
+    }
+
+    override fun explorerProposal(id: String?): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")
+            ?.get("proposal")?.asString?.let { urlString ->
+                id?.let {
+                    return Uri.parse(urlString.replace("\${id}", it))
+                } ?: run {
+                    return null
+                }
+            }
+        return null
+    }
+
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         return if (denom == stakeDenom) {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
@@ -599,6 +650,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainMars())
     lines.add(ChainMedibloc())
     lines.add(ChainNeutron())
+    lines.add(ChainNibiru())
     lines.add(ChainNoble())
     lines.add(ChainNyx())
     lines.add(ChainOmniflix())
@@ -612,6 +664,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainQuicksilver())
     lines.add(ChainRegen())
     lines.add(ChainRizon())
+    lines.add(ChainSaga())
     lines.add(ChainSecret529())
     lines.add(ChainSecret118())
     lines.add(ChainSei())
@@ -630,9 +683,10 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainOkt996Secp())
 
     lines.forEach { line ->
-        if (line.chainId.isEmpty()) {
-            line.chainId =
-                BaseData.chains?.firstOrNull { it.chain == line.apiName }?.chain_id.toString()
+        if (line.chainIdCosmos.isEmpty()) {
+            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
+                line.chainIdCosmos = cosmosChainId
+            }
         }
     }
     if (!Prefs.displayLegacy) {
@@ -642,5 +696,5 @@ fun allCosmosLines(): MutableList<CosmosLine> {
 }
 
 val DEFAULT_DISPLAY_COSMOS = mutableListOf(
-    "cosmos118", "neutron118", "kava459", "osmosis118", "dydx118", "crypto-org394", "celestia118"
+    "cosmos118", "neutron118", "osmosis118", "dydx118", "crypto-org394", "celestia118"
 )

@@ -36,7 +36,7 @@ open class ChainOkt996Keccak : CosmosLine(), Parcelable {
 
     override var isDefault = false
     override var name: String = "OKT"
-    override var chainId: String = "exchain-66"
+    override var chainIdCosmos: String = "exchain-66"
     override var tag: String = "okt996_Keccak"
     override var logo: Int = R.drawable.chain_okt
     override var swipeLogo: Int = R.drawable.chain_swipe_okt
@@ -137,6 +137,5 @@ open class ChainOkt996Keccak : CosmosLine(), Parcelable {
     }
 }
 
-const val OKT_EXPLORER = "https://www.oklink.com/oktc/"
 const val OKT_BASE_FEE = "0.008000000000000000"
 const val OKT_GECKO_ID = "oec-token"

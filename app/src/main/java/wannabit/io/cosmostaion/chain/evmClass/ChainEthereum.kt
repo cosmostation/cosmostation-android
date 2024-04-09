@@ -29,8 +29,4 @@ class ChainEthereum : EthereumLine(), Parcelable {
     )
 
     override var rpcUrl: String = "https://rpc-ethereum-evm.cosmostation.io/rpc"
-
-    override var explorerURL = "https://etherscan.io/"
-    override var addressURL = explorerURL + "address/"
-    override var txURL = explorerURL + "tx/"
 }

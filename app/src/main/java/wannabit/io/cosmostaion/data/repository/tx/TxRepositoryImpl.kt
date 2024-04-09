@@ -300,17 +300,20 @@ class TxRepositoryImpl : TxRepository {
                         resultArray
                     }
 
-                    val tip = suggestTipValue[selectedFeeInfo]
-                    val totalPerGas =
-                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
-                                275000000L
-                            )
-                        ) {
-                            (suggestBaseFee[selectedFeeInfo]?.toLong()
-                                ?: 27500000000) + tip.toLong()
-                        } else {
-                            suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
-                        }
+                    val tip = if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                        BigInteger.valueOf(1000000000L)
+                    } else {
+                        suggestTipValue[selectedFeeInfo]
+                    }
+
+                    val totalPerGas = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                            500000000L
+                        )
+                    ) {
+                        500000000L + tip.toLong()
+                    } else {
+                        suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                    }
 
                     var rawTransaction: RawTransaction? = null
 

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main.chain.evm
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -138,7 +137,8 @@ class EvmDetailFragment : Fragment() {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
                     0 -> getString(R.string.title_asset)
-                    else -> getString(R.string.title_history)
+                    1 -> getString(R.string.title_history)
+                    else -> "About"
                 }
             }.attach()
 
@@ -176,9 +176,13 @@ class EvmDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                val accountUrl = selectedEvmChain.addressURL + selectedEvmChain.address
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(accountUrl)))
-                Prefs.foreToBack = false
+                selectedEvmChain.explorerAccount()?.let { url ->
+                    startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
+                }
             }
 
             accountAddress.setOnClickListener {
@@ -211,6 +215,7 @@ class EvmDetailFragment : Fragment() {
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
             fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
+            fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
         }
 
         override fun getItemCount(): Int {

@@ -98,7 +98,7 @@ class EndPointViewHolder(
                     val request = GetNodeInfoRequest.newBuilder().build()
                     val response = stub.getNodeInfo(request)
 
-                    if (response.defaultNodeInfo.network == fromChain?.chainId) {
+                    if (response.defaultNodeInfo.network == fromChain?.chainIdCosmos) {
                         gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                         withContext(Dispatchers.Main) {
                             speedImg.visibility = View.VISIBLE
