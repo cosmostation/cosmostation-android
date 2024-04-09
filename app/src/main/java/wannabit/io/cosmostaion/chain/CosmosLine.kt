@@ -68,6 +68,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
@@ -168,12 +169,20 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getChainParam(): JsonObject? {
-        return BaseData.chainParam?.getAsJsonObject(apiName) ?: JsonObject()
+        return try {
+            return BaseData.chainParam?.getAsJsonObject(apiName)
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getChainListParam(): JsonObject? {
-        return getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
-            ?: JsonObject()
+        return try {
+            getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+                ?: JsonObject()
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
@@ -655,6 +664,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainQuicksilver())
     lines.add(ChainRegen())
     lines.add(ChainRizon())
+    lines.add(ChainSaga())
     lines.add(ChainSecret529())
     lines.add(ChainSecret118())
     lines.add(ChainSei())
