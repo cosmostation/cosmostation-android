@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRES
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.beaconApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.chainApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
@@ -63,7 +62,6 @@ import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
 import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
-import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
@@ -105,12 +103,6 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>> {
         return safeApiCall(Dispatchers.IO) {
             walletApi.pushStatus(fcmToken)
-        }
-    }
-
-    override suspend fun supportConfig(): NetworkResult<SupportConfig> {
-        return safeApiCall(Dispatchers.IO) {
-            chainApi.supportConfig()
         }
     }
 

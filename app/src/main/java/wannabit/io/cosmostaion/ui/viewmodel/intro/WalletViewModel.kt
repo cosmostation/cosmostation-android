@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.SupportConfig
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
@@ -101,11 +100,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     fun defaultInfoData() = CoroutineScope(Dispatchers.IO).launch {
         price(BaseData.currencyName().lowercase())
         val loadParamDeferred = async { walletRepository.param() }
-        val loadSupportConfigDeferred = async { walletRepository.supportConfig() }
         val loadAssetDeferred = async { walletRepository.asset() }
 
         val responses = awaitAll(
-            loadParamDeferred, loadSupportConfigDeferred, loadAssetDeferred
+            loadParamDeferred, loadAssetDeferred
         )
 
         responses.forEach { response ->
@@ -116,10 +114,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             if (!response.data.isJsonNull) {
                                 BaseData.chainParam = response.data
                             }
-                        }
-
-                        is SupportConfig -> {
-                            response.data.let { BaseData.supportConfig = it }
                         }
 
                         is AssetResponse -> {

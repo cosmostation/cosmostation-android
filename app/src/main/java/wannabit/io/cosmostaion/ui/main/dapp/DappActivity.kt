@@ -48,6 +48,8 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -188,14 +190,10 @@ class DappActivity : BaseActivity() {
             makeToast(R.string.str_wc_connected)
 
             BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull {
-                    it.apiName.lowercase() == wcPeerMeta.name.lowercase() && it.tag.contains(
-                        "kava459"
-                    )
-                }
+                account.allCosmosLineChains.firstOrNull { it.name.lowercase() == wcPeerMeta.name.lowercase() && it.tag == "kava459" }
                     ?.let { chain ->
                         selectedChain = chain
-                        selectedChain?.fetchFilteredCosmosChain()
+                        selectedChain?.fetchFilteredChain()
 
                         chain.address?.let { address ->
                             wcV1Client?.approveSession(listOf(address), 1)
@@ -346,36 +344,41 @@ class DappActivity : BaseActivity() {
                         val chainName = chain.split(":")[0]
 
                         BaseData.baseAccount?.let { account ->
-                            account.allCosmosLineChains.find { it.chainIdCosmos == chainId }
+                            account.allEvmLineChains.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                                 ?.let { line ->
                                     selectedChain = line
-                                    selectedChain?.fetchFilteredCosmosChain()
-                                    sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
-                                        accounts = listOf("$chain:${line.address}"),
-                                        methods = methods,
-                                        events = events,
-                                        extensions = null
-                                    )
 
-                                    val approveProposal = Sign.Params.Approve(
-                                        proposerPublicKey = sessionProposal.proposerPublicKey,
-                                        namespaces = sessionNamespaces
-                                    )
+                                }
+                                ?: account.allCosmosLineChains.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                                    ?.let { line ->
+                                        selectedChain = line
 
-                                    binding.loadingLayer.apply {
-                                        postDelayed({
-                                            visibility = View.GONE
-                                        }, 2500)
-                                    }
+                                    } ?: run {
+                                    binding.loadingLayer.visibility = View.GONE
+                                    makeToast(getString(R.string.error_not_support, chainId))
+                                    return@let
+                                }
 
-                                    SignClient.approveSession(approveProposal) { error ->
-                                        Log.e("WCV2", error.throwable.stackTraceToString())
-                                    }
+                            selectedChain?.fetchFilteredChain()
+                            sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
+                                accounts = listOf("$chain:${selectedChain?.address}"),
+                                methods = methods,
+                                events = events,
+                                extensions = null
+                            )
+                            val approveProposal = Sign.Params.Approve(
+                                proposerPublicKey = sessionProposal.proposerPublicKey,
+                                namespaces = sessionNamespaces
+                            )
 
-                                } ?: run {
-                                binding.loadingLayer.visibility = View.GONE
-                                makeToast(getString(R.string.error_not_support, chainId))
-                                return@let
+                            binding.loadingLayer.apply {
+                                postDelayed({
+                                    visibility = View.GONE
+                                }, 2500)
+                            }
+
+                            SignClient.approveSession(approveProposal) { error ->
+                                Log.e("WCV2", error.throwable.stackTraceToString())
                             }
                         }
                     }
@@ -795,6 +798,17 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getLong("messageId")
             val messageJson = requestJson.getJSONObject("message")
+
+            val evmSupportIds =
+                allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }.distinct()
+            val cosmosSupportIds = allCosmosLines().map { it.chainIdCosmos }.distinct()
+            val supportChainIds = evmSupportIds.union(cosmosSupportIds)
+
+            val evmSupportNames =
+                allEvmLines().filter { it.supportCosmos }.map { it.name.lowercase() }.distinct()
+            val cosmosSupportNames = allCosmosLines().map { it.name.lowercase() }.distinct()
+            val supportChainNames = evmSupportNames.union(cosmosSupportNames)
+
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     val params = messageJson.getJSONObject("params")
@@ -804,27 +818,27 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainIds" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(BaseData.supportConfig?.supportChainIds))
+                    dataJson.put("official", JSONArray(supportChainIds))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
                 }
 
                 "cos_supportedChainNames", "ten_supportedChainNames" -> {
                     val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(BaseData.supportConfig?.supportChainNames))
+                    dataJson.put("official", JSONArray(supportChainNames))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
                 }
 
                 "cos_activatedChainIds" -> {
                     appToWebResult(
-                        messageJson, JSONArray(BaseData.supportConfig?.supportChainIds), messageId
+                        messageJson, JSONArray(supportChainIds), messageId
                     )
                 }
 
                 "cos_activatedChainNames" -> {
                     appToWebResult(
-                        messageJson, JSONArray(BaseData.supportConfig?.supportChainNames), messageId
+                        messageJson, JSONArray(supportChainNames), messageId
                     )
                 }
 
@@ -968,16 +982,30 @@ class DappActivity : BaseActivity() {
         accountJson.put("isEthermint", false)
         accountJson.put("isLedger", false)
         BaseData.baseAccount?.let { account ->
-            account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
+            account.allEvmLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
                 ?.let { filteredChainsWithChainName ->
                     selectedChain = filteredChainsWithChainName
 
                 } ?: run {
-                account.allCosmosLineChains.firstOrNull { it.chainIdCosmos == chainId.lowercase() && it.isDefault }
+                account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() && it.isDefault }
                     ?.let { filteredChainsWithChainId ->
                         selectedChain = filteredChainsWithChainId
                     }
-                selectedChain?.fetchFilteredCosmosChain()
+                selectedChain?.fetchFilteredChain()
+            }
+
+            if (selectedChain == null) {
+                account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
+                    ?.let { filteredChainsWithChainName ->
+                        selectedChain = filteredChainsWithChainName
+
+                    } ?: run {
+                    account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() && it.isDefault }
+                        ?.let { filteredChainsWithChainId ->
+                            selectedChain = filteredChainsWithChainId
+                        }
+                    selectedChain?.fetchFilteredChain()
+                }
             }
             accountJson.put("address", selectedChain?.address)
             accountJson.put("name", account.name)
@@ -1027,7 +1055,7 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun CosmosLine.fetchFilteredCosmosChain() {
+    private fun CosmosLine.fetchFilteredChain() {
         BaseData.baseAccount?.apply {
             if (type == BaseAccountType.MNEMONIC) {
                 if (address?.isEmpty() == true) {
