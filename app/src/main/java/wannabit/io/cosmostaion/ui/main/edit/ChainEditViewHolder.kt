@@ -46,33 +46,35 @@ class ChainEditViewHolder(
                 AppDatabase.getInstance().refAddressDao().selectRefAddress(baseAccount.id, line.tag)
                     ?.let { refAddress ->
                         withContext(Dispatchers.Main) {
-                            skeletonChainValue.visibility = View.GONE
-                            skeletonAssetCnt.visibility = View.GONE
+                            if (line.fetched) {
+                                skeletonChainValue.visibility = View.GONE
+                                skeletonAssetCnt.visibility = View.GONE
 
-                            if (line !is ChainOktEvm) {
-                                if (line.supportCosmos && line.cosmosBalances == null) {
+                                if (line !is ChainOktEvm) {
+                                    if (line.supportCosmos && line.cosmosBalances == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+                                        return@withContext
+                                    }
+                                }
+
+                                if (line.web3j == null) {
                                     respondLayout.visibility = View.VISIBLE
                                     chainValue.visibility = View.GONE
                                     assetCnt.visibility = View.GONE
                                     return@withContext
                                 }
-                            }
 
-                            if (line.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return@withContext
-                            }
-
-                            chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                            val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                            val tokenCnt =
-                                line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
-                            if (tokenCnt == 0) {
-                                assetCnt.text = coinCntString
-                            } else {
-                                assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
+                                val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
+                                val tokenCnt =
+                                    line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                                if (tokenCnt == 0) {
+                                    assetCnt.text = coinCntString
+                                } else {
+                                    assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                }
                             }
                         }
                     }
@@ -158,35 +160,37 @@ class ChainEditViewHolder(
                 AppDatabase.getInstance().refAddressDao().selectRefAddress(baseAccount.id, line.tag)
                     ?.let { refAddress ->
                         withContext(Dispatchers.Main) {
-                            skeletonChainValue.visibility = View.GONE
-                            skeletonAssetCnt.visibility = View.GONE
+                            if (line.fetched) {
+                                skeletonChainValue.visibility = View.GONE
+                                skeletonAssetCnt.visibility = View.GONE
 
-                            if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
-                                if (line.cosmosBalances == null) {
-                                    respondLayout.visibility = View.VISIBLE
-                                    chainValue.visibility = View.GONE
-                                    assetCnt.visibility = View.GONE
+                                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                                    if (line.cosmosBalances == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+
+                                    } else {
+                                        respondLayout.visibility = View.GONE
+                                        chainValue.visibility = View.VISIBLE
+                                        assetCnt.visibility = View.VISIBLE
+                                    }
+                                }
+
+                                chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
+                                val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
+                                if (line.supportCw20 || line.supportErc20) {
+                                    val tokenCnt =
+                                        line.tokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                                    if (tokenCnt == 0) {
+                                        assetCnt.text = coinCntString
+                                    } else {
+                                        assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                    }
 
                                 } else {
-                                    respondLayout.visibility = View.GONE
-                                    chainValue.visibility = View.VISIBLE
-                                    assetCnt.visibility = View.VISIBLE
-                                }
-                            }
-
-                            chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                            val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                            if (line.supportCw20 || line.supportErc20) {
-                                val tokenCnt =
-                                    line.tokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
-                                if (tokenCnt == 0) {
                                     assetCnt.text = coinCntString
-                                } else {
-                                    assetCnt.text = "$tokenCnt Tokens, $coinCntString"
                                 }
-
-                            } else {
-                                assetCnt.text = coinCntString
                             }
                         }
                     }

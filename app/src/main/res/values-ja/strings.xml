@@ -219,6 +219,7 @@
     <string name="title_edit_token_list">トークンの編集</string>
     <string name="title_not_vote_list">ライブプロポーザル</string>
     <string name="title_all_vote_list">私が投票したプロポーザルは除きます</string>
+    <string name="title_sunset">チェーン中断案内</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -280,6 +281,7 @@
     <string name="str_hide_voted_proposals_msg">すでに投票された提案をフィルターします。</string>
     <string name="str_live_proposals_msg">ライブ状態のプロポーザルをすべて選択すると投票が可能です。\n後で投票するプロポーザルはスワイプして除外してください。</string>
     <string name="str_all_claim_msg">報酬額と送信手数料額を確認してください。\n今後受け取りたい報酬を除外するにはスワイプしてください。</string>
+    <string name="str_sunset_msg">選択されたチェーンはサポート終了予定です。 詳しくは、財団の公式通知をご覧ください。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

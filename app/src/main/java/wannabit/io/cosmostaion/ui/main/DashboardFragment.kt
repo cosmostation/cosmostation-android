@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
@@ -452,7 +453,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup() {
-        NoticeInfoFragment.newInstance(null).show(
+        NoticeInfoFragment.newInstance(null, NoticeType.NODE_DOWN_GUIDE).show(
             requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
         )
     }

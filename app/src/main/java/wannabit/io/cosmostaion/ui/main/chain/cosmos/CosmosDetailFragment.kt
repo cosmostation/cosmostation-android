@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
@@ -295,7 +296,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAddToken.setOnClickListener {
-                NoticeInfoFragment.newInstance(selectedChain).show(
+                NoticeInfoFragment.newInstance(selectedChain, NoticeType.TOKEN_GITHUB).show(
                     requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
                 )
             }

@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
         android:layout_marginHorizontal="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
         android:background="@color/color_base07"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_40"
         android:gravity="start"
         android:text="@string/str_token_github_msg"

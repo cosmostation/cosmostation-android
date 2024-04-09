@@ -277,6 +277,7 @@
     <string name="title_edit_token_list">Edit token list</string>
     <string name="title_not_vote_list">Live proposals</string>
     <string name="title_all_vote_list">Excluding the proposals I voted</string>
+    <string name="title_sunset">Chain sunset</string>
 
 
     // msg
@@ -352,6 +353,7 @@
     <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on</string>
     <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
     <string name="str_all_claim_msg">Please check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
+    <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
 
 
     // header
