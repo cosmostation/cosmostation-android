@@ -110,7 +110,7 @@ class VaultFragment : BaseTxFragment() {
                     getParcelable("selectedChain", ChainNeutron::class.java)?.let {
                         selectedChain = it
                     }
-                    getSerializable("vaultType", VaultType::class.java)
+                    getSerializable("vaultType", VaultType::class.java)?.let { vaultType = it }
                 }
 
             } else {

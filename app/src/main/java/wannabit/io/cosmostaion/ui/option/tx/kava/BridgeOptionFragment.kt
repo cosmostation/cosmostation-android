@@ -67,7 +67,6 @@ class BridgeOptionFragment : BottomSheetDialogFragment() {
                 getParcelable("selectedChain", CosmosLine::class.java)?.let {
                     selectedChain = it
                 }
-                getSerializable("withdrawCoin", CoinProto.Coin::class.java)
                 getSerializable(
                     "sendAssetType", SendAssetType::class.java
                 )?.let { sendAssetType = it }
