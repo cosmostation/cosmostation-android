@@ -169,12 +169,20 @@ open class CosmosLine : BaseChain(), Parcelable {
     }
 
     fun getChainParam(): JsonObject? {
-        return BaseData.chainParam?.getAsJsonObject(apiName) ?: JsonObject()
+        return try {
+            return BaseData.chainParam?.getAsJsonObject(apiName)
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getChainListParam(): JsonObject? {
-        return getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
-            ?: JsonObject()
+        return try {
+            getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+                ?: JsonObject()
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
