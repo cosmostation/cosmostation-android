@@ -285,6 +285,7 @@
     <string name="str_title_no_history" translatable="false">NO HISTORY</string>
     <string name="str_title_no_token" translatable="false">NO TOKEN</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
+    <string name="str_msg_no_token">There are no tokens.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
     <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy</string>

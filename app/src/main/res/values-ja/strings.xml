@@ -224,6 +224,7 @@
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
     <string name="str_msg_no_history">取引履歴がありません。</string>
+    <string name="str_msg_no_token">トークンがありません。</string>
     <string name="str_msg_copy">カードをタップしてコピーします。</string>
     <string name="str_msg_mnemonic_copy">コピー用のニーモニックフレーズボックスをタップ</string>
     <string name="str_msg_private_copy">クリップボードにコピーしました</string>

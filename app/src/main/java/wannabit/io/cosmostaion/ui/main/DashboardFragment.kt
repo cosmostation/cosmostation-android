@@ -117,12 +117,18 @@ class DashboardFragment : Fragment() {
         binding?.apply {
             recycler.post {
                 val layoutManager = recycler.layoutManager as LinearLayoutManager
-                val firstCompletelyVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition()
+                val firstCompletelyVisibleItemPosition =
+                    layoutManager.findFirstCompletelyVisibleItemPosition()
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                val isScrolledDown = firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
+                val isScrolledDown =
+                    firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
 
-                if (isScrolledDown || searchView.query.isNotEmpty()) {
-                    searchBar.visibility = View.VISIBLE
+                if (recycler.adapter?.itemCount!! > 17) {
+                    if (isScrolledDown || searchView.query.isNotEmpty()) {
+                        searchBar.visibility = View.VISIBLE
+                    } else {
+                        searchBar.visibility = View.GONE
+                    }
                 } else {
                     searchBar.visibility = View.GONE
                 }
@@ -152,8 +158,12 @@ class DashboardFragment : Fragment() {
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
 
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                    if (dy > 0 && firstVisibleItemPosition > 1) {
-                        searchBar.visibility = View.VISIBLE
+                    baseAccount?.let {
+                        if (dy > 0 && firstVisibleItemPosition > 1 && it.sortedDisplayEvmLines().size + it.sortedDisplayCosmosLines().size > 15) {
+                            searchBar.visibility = View.VISIBLE
+                        } else {
+                            searchBar.visibility = View.GONE
+                        }
                     }
                 }
             })

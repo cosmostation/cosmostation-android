@@ -95,7 +95,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/color_base01"
                 android:drawablePadding="@dimen/space_4"
-                android:text="View in HISTORY"
+                android:text="View in EXPLORER"
                 android:drawableLeft="@drawable/icon_chrome"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"

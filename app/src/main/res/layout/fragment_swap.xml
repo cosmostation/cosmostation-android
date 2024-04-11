@@ -27,7 +27,7 @@
         android:id="@+id/swap_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/title_layout"
@@ -360,7 +360,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_view"
                     android:layout_marginHorizontal="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_16">
+                    android:layout_marginTop="@dimen/space_8">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

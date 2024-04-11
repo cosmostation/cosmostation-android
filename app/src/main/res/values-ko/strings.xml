@@ -221,6 +221,7 @@
     // msg
     <string name="str_update_msg">새로운 버전이 나왔습니다. \n\n플레이스토어에서 업데이트 해주세요.</string>
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>
+    <string name="str_msg_no_token">토큰이 없습니다.</string>
     <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_copy">복사하려면 카드를 탭하세요.</string>
