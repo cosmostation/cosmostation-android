@@ -209,6 +209,7 @@
     <string name="title_big_loss">자산 손실</string>
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
+    <string name="str_compounding_all">모두 컴파운딩</string>
     <string name="title_select_end_point">End-Point 선택</string>
     <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
     <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>

@@ -88,6 +88,8 @@ class DappActivity : BaseActivity() {
     private var wcV1Client: WCClient? = null
     private var wcV1Session: WCSession? = null
 
+    private var processingRequestID: Long? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDappBinding.inflate(layoutInflater)
@@ -388,6 +390,8 @@ class DappActivity : BaseActivity() {
             override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
                 if (isFinishing) return
 
+                if (sessionRequest.request.id == processingRequestID) return
+                processingRequestID = sessionRequest.request.id
                 processV2SessionRequest(sessionRequest)
             }
 
@@ -801,7 +805,7 @@ class DappActivity : BaseActivity() {
 
             val evmSupportIds =
                 allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }.distinct()
-            val cosmosSupportIds = allCosmosLines().map { it.chainIdCosmos }.distinct()
+             val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }.map { it.chainIdCosmos }.distinct()
             val supportChainIds = evmSupportIds.union(cosmosSupportIds)
 
             val evmSupportNames =
@@ -982,31 +986,10 @@ class DappActivity : BaseActivity() {
         accountJson.put("isEthermint", false)
         accountJson.put("isLedger", false)
         BaseData.baseAccount?.let { account ->
-            account.allEvmLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
-                ?.let { filteredChainsWithChainName ->
-                    selectedChain = filteredChainsWithChainName
+            selectedChain = selectChain(account.allEvmLineChains, chainId)
+                ?: selectChain(account.allCosmosLineChains, chainId)
 
-                } ?: run {
-                account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() && it.isDefault }
-                    ?.let { filteredChainsWithChainId ->
-                        selectedChain = filteredChainsWithChainId
-                    }
-                selectedChain?.fetchFilteredChain()
-            }
-
-            if (selectedChain == null) {
-                account.allCosmosLineChains.firstOrNull { it.name.lowercase() == chainId.lowercase() && it.isDefault }
-                    ?.let { filteredChainsWithChainName ->
-                        selectedChain = filteredChainsWithChainName
-
-                    } ?: run {
-                    account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() && it.isDefault }
-                        ?.let { filteredChainsWithChainId ->
-                            selectedChain = filteredChainsWithChainId
-                        }
-                    selectedChain?.fetchFilteredChain()
-                }
-            }
+            selectedChain?.fetchFilteredChain()
             accountJson.put("address", selectedChain?.address)
             accountJson.put("name", account.name)
             accountJson.put("publicKey", selectedChain?.publicKey?.bytesToHex())
@@ -1052,6 +1035,14 @@ class DappActivity : BaseActivity() {
             is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
             is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
             else -> COSMOS_KEY_TYPE_PUBLIC
+        }
+    }
+
+    fun selectChain(classChains: List<CosmosLine>, chainId: String?): CosmosLine? {
+        return classChains.firstOrNull { chain ->
+            (chain.chainIdCosmos.equals(chainId, ignoreCase = true)
+                    || chain.name.equals(chainId, ignoreCase = true))
+                    && chain.isDefault
         }
     }
 

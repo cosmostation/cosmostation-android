@@ -132,6 +132,7 @@
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">Claim all</string>
+    <string name="str_compounding_all">Compounding all</string>
     <string name="str_amount">Amount</string>
     <string name="str_token_github">Check token info</string>
     <string name="str_node_down">Node down</string>
@@ -276,7 +277,7 @@
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
     <string name="title_not_vote_list">Live proposals</string>
-    <string name="title_all_vote_list">Excluding the proposals I voted</string>
+    <string name="title_all_vote_list">Excluding voted proposals</string>
     <string name="title_sunset">Chain sunset</string>
 
 
@@ -353,7 +354,7 @@
     <string name="str_node_down_msg">▪ Please check the current network status of the device.\n\n▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
     <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on</string>
     <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
-    <string name="str_all_claim_msg">Please check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
+    <string name="str_all_claim_msg">Check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
     <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
 
 
