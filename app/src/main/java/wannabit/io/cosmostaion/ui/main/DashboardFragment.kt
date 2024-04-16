@@ -123,7 +123,7 @@ class DashboardFragment : Fragment() {
                 val isScrolledDown =
                     firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
 
-                if (recycler.adapter?.itemCount!! > 17) {
+                if ((recycler.adapter?.itemCount ?: 0) > 17) {
                     if (isScrolledDown || searchView.query.isNotEmpty()) {
                         searchBar.visibility = View.VISIBLE
                     } else {
@@ -161,8 +161,6 @@ class DashboardFragment : Fragment() {
                     baseAccount?.let {
                         if (dy > 0 && firstVisibleItemPosition > 1 && it.sortedDisplayEvmLines().size + it.sortedDisplayCosmosLines().size > 15) {
                             searchBar.visibility = View.VISIBLE
-                        } else {
-                            searchBar.visibility = View.GONE
                         }
                     }
                 }
