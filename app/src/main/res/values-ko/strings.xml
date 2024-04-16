@@ -217,6 +217,7 @@
     <string name="title_not_vote_list">라이브 프로포절</string>
     <string name="title_all_vote_list">내가 투표한 프로포절 제외</string>
     <string name="title_sunset">체인 중단 안내</string>
+    <string name="title_compoundingable_chains">컴파운딩 대상 체인</string>
 
 
     // msg
@@ -281,6 +282,7 @@
     <string name="str_live_proposals_msg">라이브 상태인 프로포절을 모두 선택하여야 투표가 가능합니다.\n추후에 투표할 프로포절은 스와이프하여 제외해주세요.</string>
     <string name="str_all_claim_msg">리워드 수량과 Tx 수수료 수량을 확인해주세요.\n추후에 받고 싶으신 리워드는 스와이프하여 제외해주세요.</string>
     <string name="str_sunset_msg">선택하신 체인은 지원종료 예정입니다. 자세한 내용은 재단의 공식 공지를 참조하세요.</string>
+    <string name="str_all_compoundingable_msg">컴파운딩 수량과 Tx 수수료 금액을 확인하세요.\n추후에 컴파운딩 하실 체인은 스와이프하여 제외해주세요.</string>
 
 
     // error

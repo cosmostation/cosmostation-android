@@ -139,6 +139,7 @@
     <string name="str_vote_all">Vote all</string>
     <string name="str_eth_style_address" translatable="false">Ethereum style address</string>
     <string name="str_cosmos_style_address" translatable="false">Cosmos style address</string>
+    <string name="str_to_compounding" translatable="false">To compounding</string>
 
 
     //title
@@ -279,6 +280,7 @@
     <string name="title_not_vote_list">Live proposals</string>
     <string name="title_all_vote_list">Excluding voted proposals</string>
     <string name="title_sunset">Chain sunset</string>
+    <string name="title_compoundingable_chains">CompoundingAble chains</string>
 
 
     // msg
@@ -324,8 +326,9 @@
     <string name="str_swap_msg" translatable="false">Exchange the coins you have\nfor a variety of different coins</string>
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade\nEverything DeFi, NFT and\nGaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be\nused for online transactions\nand investments</string>
-    <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
-    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards\nexceeding $0.1 across Cosmos\nchains with a single click.</string>
+    <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization</string>
+    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards\nexceeding $0.1 across Cosmos\nchains with a single click</string>
+    <string name="str_all_compounding_msg" translatable="false">Enjoy the eighth wonder of \nthe world with a single click</string>
     <string name="str_all_vote_msg" translatable="false">Check the list of live proposals\nof the chains you staked and\nvote for</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV</string>
@@ -356,6 +359,7 @@
     <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
     <string name="str_all_claim_msg">Check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
     <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
+    <string name="str_all_compoundingable_msg">Check the to compounding amount and Tx fee amount.\nPlease swipe to exclude you would like to compounding in the future.</string>
 
 
     // header
