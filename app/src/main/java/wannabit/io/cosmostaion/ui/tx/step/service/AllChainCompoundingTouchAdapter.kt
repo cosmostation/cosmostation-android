@@ -109,11 +109,11 @@ class AllChainCompoundingTouchAdapter(
     }
 
     private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as AllChainClaimViewHolder).itemView.findViewById(R.id.reward_view)
+        return (viewHolder as AllChainCompoundingViewHolder).itemView.findViewById(R.id.reward_view)
     }
 
     private fun getHideView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as AllChainClaimViewHolder).itemView.findViewById(R.id.delete_view)
+        return (viewHolder as AllChainCompoundingViewHolder).itemView.findViewById(R.id.delete_view)
     }
 
     private fun clampViewPositionHorizontal(

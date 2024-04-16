@@ -506,6 +506,27 @@ open class CosmosLine : BaseChain(), Parcelable {
         return result
     }
 
+    fun compoundAbleRewards(): MutableList<DelegationDelegatorReward?> {
+        val result: MutableList<DelegationDelegatorReward?> = mutableListOf()
+
+        stakeDenom?.let { denom ->
+            cosmosRewards.forEach { reward ->
+                reward.rewardList.firstOrNull { it.denom == denom }?.amount?.let { amount ->
+                    val rewardAmount = amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                    BaseData.getAsset(apiName, denom)?.let { asset ->
+                        val price = BaseData.getPrice(asset.coinGeckoId, true)
+                        val value = price.multiply(rewardAmount)
+                            .movePointLeft(asset.decimals ?: 6).setScale(6, RoundingMode.DOWN)
+                        if (value >= BigDecimal("0.1")) {
+                            result.add(reward)
+                        }
+                    }
+                }
+            }
+        }
+        return result
+    }
+
     open fun allStakingDenomAmount(): BigDecimal? {
         stakeDenom?.let {
             return balanceAmount(it).add(vestingAmount(it))?.add(delegationAmountSum())

@@ -96,9 +96,10 @@ class AllChainClaimViewHolder(
                     rewardCnt.text = ""
                 }
 
-                valueAbleReward.fee?.let { txFee ->
-                    BaseData.getAsset(cosmosLine.apiName, txFee.getAmount(0).denom)?.let { asset ->
-                        val amount = txFee.getAmount(0).amount.toBigDecimal()
+                val txFee = fee ?: cosmosLine.getInitPayableFee(context)
+                txFee?.let { fee ->
+                    BaseData.getAsset(cosmosLine.apiName, fee.getAmount(0).denom)?.let { asset ->
+                        val amount = fee.getAmount(0).amount.toBigDecimal()
                             .amountHandlerLeft(asset.decimals ?: 6)
                         val price = BaseData.getPrice(asset.coinGeckoId)
                         val value = price.multiply(amount)

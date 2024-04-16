@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.databinding.ItemAllChainClaimBinding
+import wannabit.io.cosmostaion.databinding.ItemAllChainCompoundingBinding
 
 class AllChainCompoundingAdapter :
     ListAdapter<ClaimAllModel, AllChainCompoundingViewHolder>(AllChainCompoundingDiffCallback()) {
@@ -17,7 +17,7 @@ class AllChainCompoundingAdapter :
         parent: ViewGroup, viewType: Int
     ): AllChainCompoundingViewHolder {
         val binding =
-            ItemAllChainClaimBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemAllChainCompoundingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AllChainCompoundingViewHolder(parent.context, binding)
     }
 

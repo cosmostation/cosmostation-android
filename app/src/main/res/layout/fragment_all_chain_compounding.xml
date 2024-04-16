@@ -32,15 +32,15 @@
         <TextView
             style="@style/font_sb_16"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_claimable_chains"
+            android:layout_height="match_parent"
+            android:text="@string/title_compoundingable_chains"
             android:textColor="@color/color_base01" />
 
         <TextView
             android:id="@+id/reward_cnt"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/color_base01"
             android:layout_marginStart="@dimen/space_3"
             android:gravity="center_vertical" />
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_20"
         style="@style/font_sm_12"
-        android:text="@string/str_all_claim_msg"
+        android:text="@string/str_all_compoundingable_msg"
         android:textColor="@color/color_base02"
         android:layout_marginTop="@dimen/space_12"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="NO REWARD TO CLAIM"
+            android:text="NO REWARD TO COMPOUNDING"
             android:textAllCaps="true"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +112,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_claim_all"
+            android:id="@+id/btn_compounding_all"
             style="@style/font_sb_16"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_54"
