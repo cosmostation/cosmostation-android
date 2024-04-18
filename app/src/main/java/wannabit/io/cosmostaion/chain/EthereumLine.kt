@@ -3,8 +3,12 @@ package wannabit.io.cosmostaion.chain
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
+import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
+import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBaseEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
@@ -86,9 +90,13 @@ open class EthereumLine : CosmosLine(), Parcelable {
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
     lines.add(ChainEthereum())
+    lines.add(ChainArbitrum())
+    lines.add(ChainAvalanche())
     lines.add(ChainBaseEvm())
+    lines.add(ChainBinanceSmart())
 //    lines.add(ChainAltheaEvm())
     lines.add(ChainCantoEvm())
+    lines.add(ChainCronos())
     lines.add(ChainDymensionEvm())
     lines.add(ChainEvmosEvm())
     lines.add(ChainHumansEvm())

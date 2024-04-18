@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
@@ -86,6 +87,7 @@ class ChainManageFragment : Fragment() {
             isClickable = false
 
             val settingType = if (chain is EthereumLine) {
+                if (chain is ChainOktEvm) { return }
                 if (chain.supportCosmos) {
                     SettingType.END_POINT_COSMOS
                 } else {
