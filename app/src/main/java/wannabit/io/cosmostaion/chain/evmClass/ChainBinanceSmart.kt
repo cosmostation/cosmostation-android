@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainBinanceSmart : EthereumLine(), Parcelable {
 
-    override var name: String = "Binance Smart"
+    override var name: String = "BSC"
     override var tag: String = "binance60"
     override var logo: Int = R.drawable.chain_binance
     override var swipeLogo: Int = R.drawable.chain_swipe_binance

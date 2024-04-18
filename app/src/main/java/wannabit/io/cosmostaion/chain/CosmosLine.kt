@@ -649,7 +649,6 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainCudos())
     lines.add(ChainDesmos())
     lines.add(ChainDydx())
-    lines.add(ChainEmoney())
     lines.add(ChainFetchAi())
     lines.add(ChainFetchAi60Secp())
     lines.add(ChainFetchAi60Old())
@@ -702,6 +701,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainOkt996Secp())
 
 //    lines.add(ChainCrescent())
+//    lines.add(ChainEmoney())
 //    lines.add(ChainBinanceBeacon())
 
     lines.forEach { line ->
