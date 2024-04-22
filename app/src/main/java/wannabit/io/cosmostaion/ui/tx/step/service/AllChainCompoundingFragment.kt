@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.tx.step.service
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,26 +89,27 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                             .none { !it.fetched } && account.sortedDisplayCosmosLines()
                             .none { !it.fetched }
                     ) {
-                        for (evmChain in account.sortedDisplayEvmLines()
-                            .filter { it.supportCosmos }) {
-                            val compoundAble = evmChain.compoundAbleRewards()
-                            val txFee = evmChain.getInitPayableFee(requireContext())
-                            if (compoundAble.isNotEmpty() && txFee != null) {
-                                compoundAbleRewards.add(
-                                    ClaimAllModel(
-                                        evmChain, compoundAble
-                                    )
-                                )
-                            }
-                        }
-
-                        for (chain in account.sortedDisplayCosmosLines()) {
+                        for (chain in account.sortedDisplayCosmosLines()
+                            .filter { it.rewardAddress == it.address }) {
                             val compoundAble = chain.compoundAbleRewards()
                             val txFee = chain.getInitPayableFee(requireContext())
                             if (compoundAble.isNotEmpty() && txFee != null) {
                                 compoundAbleRewards.add(
                                     ClaimAllModel(
                                         chain, compoundAble
+                                    )
+                                )
+                            }
+                        }
+
+                        for (evmChain in account.sortedDisplayEvmLines()
+                            .filter { it.rewardAddress == it.address && it.supportCosmos }) {
+                            val compoundAble = evmChain.compoundAbleRewards()
+                            val txFee = evmChain.getInitPayableFee(requireContext())
+                            if (compoundAble.isNotEmpty() && txFee != null) {
+                                compoundAbleRewards.add(
+                                    ClaimAllModel(
+                                        evmChain, compoundAble
                                     )
                                 )
                             }

@@ -195,15 +195,9 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
         val channel = getChannel(line)
         try {
-            val loadRewardAddrDeferred = async { walletRepository.rewardAddress(channel, line) }
             val loadBondedDeferred = async { walletRepository.bondedValidator(channel) }
             val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel) }
             val loadUnBondingDeferred = async { walletRepository.unBondingValidator(channel) }
-
-            val rewardAddrResult = loadRewardAddrDeferred.await()
-            if (rewardAddrResult is NetworkResult.Success && rewardAddrResult.data is String) {
-                line.rewardAddress = rewardAddrResult.data
-            }
 
             val bondedValidatorsResult = loadBondedDeferred.await()
             if (bondedValidatorsResult is NetworkResult.Success) {
