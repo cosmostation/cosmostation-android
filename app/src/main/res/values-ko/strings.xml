@@ -340,7 +340,7 @@
     <string name="tx_multi_transfer">멀티 전송</string>
     <string name="tx_delegate">위임</string>
     <string name="tx_undelegate">위임 철회</string>
-    <string name="tx_cancel_undelegate">위임 취소</string>
+    <string name="tx_cancel_undelegate">위임 철회 취소</string>
     <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
     <string name="tx_get_commission">수수료 청구</string>
