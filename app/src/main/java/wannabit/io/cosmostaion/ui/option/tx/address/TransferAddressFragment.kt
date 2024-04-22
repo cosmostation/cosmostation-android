@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
@@ -163,6 +164,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                     if (fromChain.address.equals(address, true)) {
                         requireContext().makeToast(R.string.error_self_sending)
                         return@setOnClickListener
+                    }
+
+                    if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
+                        if (address.equals(ByteUtils.convertBech32ToEvm(fromChain.address), true)) {
+                            requireContext().makeToast(R.string.error_self_sending)
+                            return@setOnClickListener
+                        }
                     }
 
                     if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {

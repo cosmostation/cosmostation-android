@@ -86,8 +86,8 @@
 
         <ImageView
             android:id="@+id/success_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/space_80"
+            android:layout_height="@dimen/space_80"
             android:layout_marginBottom="@dimen/space_10"
             android:src="@drawable/icon_success"
             app:layout_constraintBottom_toTopOf="@+id/success_txt"
@@ -158,8 +158,8 @@
 
         <ImageView
             android:id="@+id/fail_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/space_80"
+            android:layout_height="@dimen/space_80"
             android:layout_marginBottom="@dimen/space_10"
             android:src="@drawable/icon_fail"
             app:layout_constraintBottom_toTopOf="@+id/fail_txt"
