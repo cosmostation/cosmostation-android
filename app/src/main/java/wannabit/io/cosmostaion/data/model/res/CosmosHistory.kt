@@ -131,7 +131,19 @@ data class CosmosHistory(
                         c.getString(R.string.tx_transfer)
                     }
                 } else if (msgType.contains("MsgMultiSend")) {
-                    result = c.getString(R.string.tx_multisend)
+                    result = c.getString(R.string.tx_multi_transfer)
+                    for (input in msgValue.asJsonObject["inputs"].asJsonArray) {
+                        if (input.asJsonObject["address"].asString.equals(address, true)) {
+                            result = c.getString(R.string.tx_multi_send)
+                            break
+                        }
+                    }
+                    for (output in msgValue.asJsonObject["outputs"].asJsonArray) {
+                        if (output.asJsonObject["address"].asString.equals(address, true)) {
+                            result = c.getString(R.string.tx_multi_received)
+                            break
+                        }
+                    }
                 }
 
             } else if (msgType.contains("cosmos.") && msgType.contains("distribution")) {
@@ -670,6 +682,45 @@ data class CosmosHistory(
                     return sortedCoins(line, result)
                 }
 
+                var allSend = true
+                msgs.forEach { msg ->
+                    if (!msg.asJsonObject["@type"].asString.contains("MsgSend")) {
+                        allSend = false
+                    }
+                }
+
+                if (allSend) {
+                    var totalAmount: Long = 0
+                    var denom = ""
+                    for (msg in msgs) {
+                        val msgType = msg.asJsonObject["@type"].asString
+                        val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
+                        msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                            if (line.address == senderAddr) {
+                                val amount =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toLong()
+                                totalAmount += amount
+                                denom =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                            }
+                        }
+
+                        msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                            if (line.address == receiverAddr) {
+                                val amount =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toLong()
+                                totalAmount += amount
+                                denom =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                            }
+                        }
+                    }
+                    val value = CoinProto.Coin.newBuilder().setDenom(denom)
+                        .setAmount(totalAmount.toString()).build()
+                    result.add(value)
+                    return sortedCoins(line, result)
+                }
+
                 var ibcReceived = false
                 var msgType = ""
                 msgs.forEach { msg ->
@@ -713,74 +764,37 @@ data class CosmosHistory(
             }
         }
 
-        if (getMsgCnt() > 1) {
-            if (getMsgCnt() == 2) {
-                getMsgs()?.let { msgs ->
-                    var msgType0 = ""
-                    var msgType1 = ""
-                    try {
-                        msgType0 = msgs.get(0).asJsonObject["@type"].asString
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        msgType0 = msgs.get(0).asJsonObject["type"].asString
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        msgType1 = msgs.get(1).asJsonObject["@type"].asString
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        msgType1 = msgs.get(1).asJsonObject["type"].asString
-                    } catch (_: Exception) {
-                    }
-
-                    if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-                        msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
-                            val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
-                            CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
-                                .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
-                                    result.add(rawCoin)
-                                }
-                        }
-                        return sortedCoins(line, result)
-                    }
+        if (getMsgCnt() == 2) {
+            getMsgs()?.let { msgs ->
+                var msgType0 = ""
+                var msgType1 = ""
+                try {
+                    msgType0 = msgs.get(0).asJsonObject["@type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType0 = msgs.get(0).asJsonObject["type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msgs.get(1).asJsonObject["@type"].asString
+                } catch (_: Exception) {
+                }
+                try {
+                    msgType1 = msgs.get(1).asJsonObject["type"].asString
+                } catch (_: Exception) {
                 }
 
-            } else {
-                var msgType = ""
-                getMsgs()?.forEach { msg ->
-                    try {
-                        msgType = msg.asJsonObject["@type"].asString
-                    } catch (_: Exception) {
+                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                    msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
+                        val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
+                        CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
+                            .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
+                                result.add(rawCoin)
+                            }
                     }
-                    try {
-                        msgType = msg.asJsonObject["type"].asString
-                    } catch (_: Exception) {
-                    }
-
-                    if (msgType == "/cosmos.bank.v1beta1.MsgSend" && msg.asJsonObject["/cosmos-bank-v1beta1-MsgSend"].asJsonObject["to_address"].asString.equals(
-                            line.address,
-                            true
-                        )
-                    ) {
-                        val rawAmounts = try {
-                            msg.asJsonObject["/cosmos-bank-v1beta1-MsgSend"].asJsonObject["amount"].asJsonArray
-                        } catch (e: Exception) {
-                            null
-                        }
-                        if (rawAmounts?.isJsonNull == false) {
-                            val coin = CoinProto.Coin.newBuilder()
-                                .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
-                                .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString)
-                                .build()
-                            result.add(coin)
-                        } else {
-                            result.add(CoinProto.Coin.newBuilder().build())
-                        }
-                    }
+                    return sortedCoins(line, result)
                 }
-                return sortedCoins(line, result)
             }
         }
 
@@ -868,21 +882,25 @@ data class CosmosHistory(
                 }
 
             } else if (msgType.contains("bank") && msgType.contains("MsgMultiSend")) {
-                msgValue["outputs"].asJsonArray?.let { outputs ->
-                    if (!outputs.isJsonNull && outputs.count() > 0) {
-                        outputs.forEach { output ->
-                            if (line.address.equals(
-                                    output.asJsonObject["address"].asString,
-                                    true
-                                )
-                            ) {
-                                val coin = CoinProto.Coin.newBuilder()
-                                    .setDenom(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
-                                    .setAmount(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
-                                    .build()
-                                result.add(coin)
-                            }
-                        }
+                for (input in msgValue["inputs"].asJsonArray) {
+                    if (!input.isJsonNull && line.address.equals(input.asJsonObject["address"].asString)) {
+                        val coin = CoinProto.Coin.newBuilder()
+                            .setDenom(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
+                            .setAmount(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
+                            .build()
+                        result.add(coin)
+                        break
+                    }
+                }
+
+                for (output in msgValue["outputs"].asJsonArray) {
+                    if (!output.isJsonNull && line.address.equals(output.asJsonObject["address"].asString)) {
+                        val coin = CoinProto.Coin.newBuilder()
+                            .setDenom(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
+                            .setAmount(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
+                            .build()
+                        result.add(coin)
+                        break
                     }
                 }
 

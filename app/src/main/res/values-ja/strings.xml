@@ -328,6 +328,9 @@
     <string name="tx_send">送る</string>
     <string name="tx_receive">もらう</string>
     <string name="tx_transfer">転送する</string>
+    <string name="tx_multi_send">Multi Send</string>
+    <string name="tx_multi_received">Multi Received</string>
+    <string name="tx_multi_transfer">Multi Transfer</string>
     <string name="tx_delegate">委任</string>
     <string name="tx_undelegate">委任取り消し</string>
     <string name="tx_cancel_undelegate">委任の取り消し</string>

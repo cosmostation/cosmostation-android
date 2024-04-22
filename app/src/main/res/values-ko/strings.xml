@@ -335,6 +335,9 @@
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
     <string name="tx_transfer">전송하기</string>
+    <string name="tx_multi_send">멀티 보내기</string>
+    <string name="tx_multi_received">멀티 받기</string>
+    <string name="tx_multi_transfer">멀티 전송</string>
     <string name="tx_delegate">위임</string>
     <string name="tx_undelegate">위임 철회</string>
     <string name="tx_cancel_undelegate">위임 취소</string>
