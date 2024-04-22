@@ -50,7 +50,7 @@ data class CosmosHistory(
         return null
     }
 
-    private fun getMsgCnt(): Int {
+    fun getMsgCnt(): Int {
         return getMsgs()?.size() ?: 0
     }
 
@@ -131,7 +131,7 @@ data class CosmosHistory(
                         c.getString(R.string.tx_transfer)
                     }
                 } else if (msgType.contains("MsgMultiSend")) {
-                    result = c.getString(R.string.tx_transfer)
+                    result = c.getString(R.string.tx_multisend)
                 }
 
             } else if (msgType.contains("cosmos.") && msgType.contains("distribution")) {
@@ -713,37 +713,74 @@ data class CosmosHistory(
             }
         }
 
-        if (getMsgCnt() == 2) {
-            getMsgs()?.let { msgs ->
-                var msgType0 = ""
-                var msgType1 = ""
-                try {
-                    msgType0 = msgs.get(0).asJsonObject["@type"].asString
-                } catch (_: Exception) {
-                }
-                try {
-                    msgType0 = msgs.get(0).asJsonObject["type"].asString
-                } catch (_: Exception) {
-                }
-                try {
-                    msgType1 = msgs.get(1).asJsonObject["@type"].asString
-                } catch (_: Exception) {
-                }
-                try {
-                    msgType1 = msgs.get(1).asJsonObject["type"].asString
-                } catch (_: Exception) {
+        if (getMsgCnt() > 1) {
+            if (getMsgCnt() == 2) {
+                getMsgs()?.let { msgs ->
+                    var msgType0 = ""
+                    var msgType1 = ""
+                    try {
+                        msgType0 = msgs.get(0).asJsonObject["@type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgType0 = msgs.get(0).asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgType1 = msgs.get(1).asJsonObject["@type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgType1 = msgs.get(1).asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+
+                    if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                        msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
+                            val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
+                            CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
+                                .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
+                                    result.add(rawCoin)
+                                }
+                        }
+                        return sortedCoins(line, result)
+                    }
                 }
 
-                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-                    msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
-                        val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
-                        CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
-                            .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
-                                result.add(rawCoin)
-                            }
+            } else {
+                var msgType = ""
+                getMsgs()?.forEach { msg ->
+                    try {
+                        msgType = msg.asJsonObject["@type"].asString
+                    } catch (_: Exception) {
                     }
-                    return sortedCoins(line, result)
+                    try {
+                        msgType = msg.asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+
+                    if (msgType == "/cosmos.bank.v1beta1.MsgSend" && msg.asJsonObject["/cosmos-bank-v1beta1-MsgSend"].asJsonObject["to_address"].asString.equals(
+                            line.address,
+                            true
+                        )
+                    ) {
+                        val rawAmounts = try {
+                            msg.asJsonObject["/cosmos-bank-v1beta1-MsgSend"].asJsonObject["amount"].asJsonArray
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (rawAmounts?.isJsonNull == false) {
+                            val coin = CoinProto.Coin.newBuilder()
+                                .setDenom(rawAmounts.get(0).asJsonObject["denom"].asString)
+                                .setAmount(rawAmounts.get(0).asJsonObject["amount"].asString)
+                                .build()
+                            result.add(coin)
+                        } else {
+                            result.add(CoinProto.Coin.newBuilder().build())
+                        }
+                    }
                 }
+                return sortedCoins(line, result)
             }
         }
 
@@ -828,6 +865,25 @@ data class CosmosHistory(
                     result.add(coin)
                 } else {
                     result.add(CoinProto.Coin.newBuilder().build())
+                }
+
+            } else if (msgType.contains("bank") && msgType.contains("MsgMultiSend")) {
+                msgValue["outputs"].asJsonArray?.let { outputs ->
+                    if (!outputs.isJsonNull && outputs.count() > 0) {
+                        outputs.forEach { output ->
+                            if (line.address.equals(
+                                    output.asJsonObject["address"].asString,
+                                    true
+                                )
+                            ) {
+                                val coin = CoinProto.Coin.newBuilder()
+                                    .setDenom(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
+                                    .setAmount(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
+                                    .build()
+                                result.add(coin)
+                            }
+                        }
+                    }
                 }
 
             } else {

@@ -424,6 +424,7 @@
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
     <string name="tx_transfer">Transfer</string>
+    <string name="tx_multisend" translatable="false">Multi send</string>
     <string name="tx_delegate">Delegate</string>
     <string name="tx_cancel_undelegate">Cancel Undelegate</string>
     <string name="tx_undelegate">Undelegate</string>
