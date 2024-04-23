@@ -95,18 +95,30 @@ class HistoryViewHolder(
                     }
 
                 } else {
-                    if (historyGroup.second.getMsgType(
-                            context, line.address
-                        ) == context.getString(R.string.tx_vote)
-                    ) {
-                        txDenom.text = historyGroup.second.getVoteOption()
-                        txDenom.setTextColor(Color.parseColor("#ffffff"))
-                        txAmount.text = ""
-                    } else {
-                        txAmount.text = ""
-                        txDenom.text = "-"
-                        txDenom.setTextColor(Color.parseColor("#ffffff"))
-                        txCnt.visibility = View.GONE
+                    historyGroup.second.getDpToken(line)?.let { dpTokens ->
+                        dpTokens.second.movePointLeft(dpTokens.first.decimals)
+                            ?.setScale(dpTokens.first.decimals, RoundingMode.DOWN)
+                            ?.let { dpAmount ->
+                                txAmount.text =
+                                    formatAmount(dpAmount.toPlainString(), dpTokens.first.decimals)
+                                txDenom.text = dpTokens.first.symbol
+                                txDenom.setTextColor(Color.parseColor("#ffffff"))
+                            }
+
+                    } ?: run {
+                        if (historyGroup.second.getMsgType(
+                                context, line.address
+                            ) == context.getString(R.string.tx_vote)
+                        ) {
+                            txDenom.text = historyGroup.second.getVoteOption()
+                            txDenom.setTextColor(Color.parseColor("#ffffff"))
+                            txAmount.text = ""
+                        } else {
+                            txAmount.text = ""
+                            txDenom.text = "-"
+                            txDenom.setTextColor(Color.parseColor("#ffffff"))
+                            txCnt.visibility = View.GONE
+                        }
                     }
                 }
 

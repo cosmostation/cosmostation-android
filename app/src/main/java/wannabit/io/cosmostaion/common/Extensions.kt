@@ -214,6 +214,12 @@ fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
     toast.show()
 }
 
+fun String.hexToBigDecimal(): BigDecimal {
+    if (this.isEmpty()) { return BigDecimal.ZERO }
+    val hex = this.removePrefix("0x")
+    return BigDecimal(BigInteger(hex, 16))
+}
+
 fun formatCurrentTimeToYear(): String {
     val locale = Locale.getDefault()
     val date = Calendar.getInstance()
@@ -442,22 +448,6 @@ fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
     } ?: run {
         return
     }
-
-//    var historyUrl = ""
-//    historyUrl = when (selectedChain) {
-//        is ChainBinanceBeacon -> {
-//            EXPLORER_BINANCE_URL + "tx/" + txHash
-//        }
-//
-//        is ChainOkt996Keccak -> {
-//            OKT_EXPLORER + "tx/" + txHash
-//        }
-//
-//        else -> {
-//            CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName + "/transactions/" + txHash
-//        }
-//    }
-//    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
 }
 
 fun BigDecimal.amountHandlerLeft(decimal: Int): BigDecimal {
