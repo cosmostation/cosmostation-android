@@ -48,6 +48,8 @@ class DashboardViewHolder(
                     return
                 }
 
+                respondLayout.visibility = View.GONE
+                chainValue.visibility = View.VISIBLE
                 if (Prefs.hideValue) {
                     chainValue.text = "✱✱✱✱"
                     chainValue.textSize = 10f

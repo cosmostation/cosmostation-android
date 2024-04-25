@@ -50,30 +50,54 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (line !is ChainOktEvm) {
-                                    if (line.supportCosmos && line.cosmosBalances == null) {
+                                if (line is ChainOktEvm) {
+                                    if (line.web3j == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+
+                                    } else {
+                                        respondLayout.visibility = View.GONE
+                                        chainValue.visibility = View.VISIBLE
+                                        assetCnt.visibility = View.VISIBLE
+
+                                        chainValue.text =
+                                            formatAssetValue(refAddress.lastUsdValue(), true)
+                                        val coinCntString =
+                                            refAddress.lastCoinCnt.toString() + " Coins"
+                                        val tokenCnt =
+                                            line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                                        if (tokenCnt == 0) {
+                                            assetCnt.text = coinCntString
+                                        } else {
+                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                        }
+                                    }
+
+                                } else {
+                                    if (line.supportCosmos && line.cosmosBalances == null || line.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
                                         assetCnt.visibility = View.GONE
                                         return@withContext
+
+                                    } else {
+                                        respondLayout.visibility = View.GONE
+                                        chainValue.visibility = View.VISIBLE
+                                        assetCnt.visibility = View.VISIBLE
+
+                                        chainValue.text =
+                                            formatAssetValue(refAddress.lastUsdValue(), true)
+                                        val coinCntString =
+                                            refAddress.lastCoinCnt.toString() + " Coins"
+                                        val tokenCnt =
+                                            line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                                        if (tokenCnt == 0) {
+                                            assetCnt.text = coinCntString
+                                        } else {
+                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                        }
                                     }
-                                }
-
-                                if (line.web3j == null) {
-                                    respondLayout.visibility = View.VISIBLE
-                                    chainValue.visibility = View.GONE
-                                    assetCnt.visibility = View.GONE
-                                    return@withContext
-                                }
-
-                                chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                                val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                                val tokenCnt =
-                                    line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
-                                if (tokenCnt == 0) {
-                                    assetCnt.text = coinCntString
-                                } else {
-                                    assetCnt.text = "$tokenCnt Tokens, $coinCntString"
                                 }
                             }
                         }
