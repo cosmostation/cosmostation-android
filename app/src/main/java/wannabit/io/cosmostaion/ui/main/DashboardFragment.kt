@@ -172,6 +172,10 @@ class DashboardFragment : Fragment() {
         initDisplayData(baseAccount)
         initRecyclerView()
         setupLoadedData()
+
+        binding?.searchView?.setQuery("", false)
+        binding?.searchView?.clearFocus()
+        binding?.searchBar?.visibility = View.GONE
     }
 
     private fun initRecyclerView() {
