@@ -1,9 +1,10 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
@@ -67,14 +68,14 @@ class HistoryViewHolder(
                 txHeight.visibility = View.GONE
             }
 
-            historyView.setOnClickListener {
-                line.explorerTx(historyGroup.second.data?.txhash)?.let {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, it))
-
-                } ?: run {
-                    return@setOnClickListener
-                }
-            }
+            sendTxImage.visibleOrGone(historyGroup.second.getMsgCnt() == 1 && historyGroup.second.getMsgType(
+                context,
+                line.address
+            ).equals(context.getString(R.string.tx_send), true))
+            sendTxImage.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base02),
+                PorterDuff.Mode.SRC_IN
+            )
 
             historyGroup.second.getDpCoin(line).let { dpCoins ->
                 if (dpCoins.isNotEmpty()) {
@@ -171,15 +172,6 @@ class HistoryViewHolder(
                 txHeight.visibility = View.GONE
             }
             txDenom.text = "-"
-
-            historyView.setOnClickListener {
-                line.explorerTx(historyBnbGroup.second.txHash)?.let {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, it))
-
-                } ?: run {
-                    return@setOnClickListener
-                }
-            }
         }
     }
 
@@ -217,15 +209,6 @@ class HistoryViewHolder(
                 txTime.text = voteDpTime(timeStamp.toLong())
             }
             txDenom.text = "-"
-
-            historyView.setOnClickListener {
-                line.explorerTx(historyOktGroup.second.txId)?.let {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, it))
-
-                } ?: run {
-                    return@setOnClickListener
-                }
-            }
         }
     }
 }

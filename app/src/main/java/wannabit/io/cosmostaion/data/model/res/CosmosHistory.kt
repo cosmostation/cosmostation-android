@@ -43,7 +43,7 @@ data class CosmosHistory(
         return true
     }
 
-    private fun getMsgs(): JsonArray? {
+    fun getMsgs(): JsonArray? {
         val json = Gson().toJson(data?.tx)
         val jsonObject = Gson().fromJson(json, JsonObject::class.java)
         if (jsonObject["/cosmos-tx-v1beta1-Tx"] != null) {

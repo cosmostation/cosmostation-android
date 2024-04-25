@@ -289,6 +289,32 @@ fun formatTxTimeToYear(context: Context, timeString: String): String {
     return outputFormat.format(date)
 }
 
+fun txDpTime(context: Context, timeString: String): String {
+    val locale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = inputFormat.parse(timeString)
+
+    val outputFormat = SimpleDateFormat(
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd yyyy, HH:mm:ss"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd yyyy, HH:mm:ss"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        }, locale
+    )
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
+
 fun formatTxTimeStampToHour(context: Context, timeString: String): String {
     val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
     val outputFormat = SimpleDateFormat(context.getString(R.string.str_dp_time_format2))
@@ -376,6 +402,23 @@ fun voteDpTime(time: Long): String {
         }, locale
     )
     return outputFormat.format(calendar.timeInMillis)
+}
+
+fun gapPastTime(finishTime: Long): String {
+    var result = "??"
+    val now = Calendar.getInstance().timeInMillis
+    val left = now - finishTime
+
+    result = if (left >= CONSTANT_D) {
+        (left / CONSTANT_D).toString() + " days ago"
+    } else if (left >= BaseConstant.CONSTANT_H) {
+        (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+    } else if (left >= BaseConstant.CONSTANT_M) {
+        (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+    } else {
+        "0 days"
+    }
+    return result
 }
 
 fun gapTime(finishTime: Long): String {
