@@ -104,6 +104,8 @@
     <string name="str_token_github">Token 情報確認</string>
     <string name="str_node_down">ノードダウン</string>
     <string name="str_vote_all">全員に投票する</string>
+    <string name="str_from_address">送り先の住所</string>
+    <string name="str_to_address">受信アドレスです</string>
 
 
     //title
@@ -147,6 +149,9 @@
     <string name="title_coin_send">資産転送</string>
     <string name="title_asset_send">%1$s 電送</string>
     <string name="title_ibc_send">IBC 資産転送</string>
+    <string name="title_recipient_chain">受信チェーン</string>
+    <string name="title_to_send_asset">転送する資産</string>
+    <string name="title_memo">メモ （任意）</string>
     <string name="title_recipient_address">お受け取りの住所</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>
     <string name="title_insert_amount">投入量</string>
@@ -154,6 +159,7 @@
     <string name="title_address_confirm">住所録の確認です</string>
     <string name="title_name_service">Search result %1$s NameServices</string>
     <string name="title_tx_result">Txの結果です</string>
+    <string name="title_tx_detail">Transaction 詳細</string>
     <string name="title_more_wait">結果確認遅延</string>
     <string name="title_stake_info">Staking info</string>
     <string name="title_option">Select option</string>
@@ -490,6 +496,8 @@
     <string name="tx_cosmwasm_store_code_title">コントラクトコード保存</string>
     <string name="tx_cosmwasm_instantiate_title">コントラクトインスタント化</string>
     <string name="tx_cosmwasm_execontract_title">コントラクト実行</string>
+    <string name="tx_cosmwasm_token_send">Wasm Token Send</string>
+    <string name="tx_cosmwasm_token_receive">Wasm Token Received</string>
 
     <string name="tx_crescent_liquid_stake">流動性ステーク</string>
     <string name="tx_crescent_liquid_unstake">流動性アンステーク</string>

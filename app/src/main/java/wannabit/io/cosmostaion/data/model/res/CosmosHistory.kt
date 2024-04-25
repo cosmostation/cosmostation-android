@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.hexToBigDecimal
 import wannabit.io.cosmostaion.common.toHex
 import java.math.BigDecimal
-import java.util.Locale
 import java.util.regex.Pattern
 
 
@@ -92,6 +91,32 @@ data class CosmosHistory(
                     return if (getMsgCnt() == 2) c.getString(R.string.tx_reinvest) else c.getString(
                         R.string.tx_reinvest
                     ) + " + " + (getMsgCnt() - 1) / 2
+                }
+            }
+
+            if (getMsgCnt() > 1) {
+                var allsend = true
+                msg.forEach {
+                    if (!it.asJsonObject["@type"].asString.contains("MsgSend")) {
+                        allsend = false
+                    }
+                }
+                if (allsend) {
+                    msg.forEach {
+                        val msgType = it.asJsonObject["@type"].asString
+                        val msgValue = it.asJsonObject[msgType.replace(".", "-")]
+                        msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                            if (address == senderAddr) {
+                                return c.getString(R.string.tx_send) + " + " + (getMsgCnt() - 1)
+                            }
+                        }
+                        msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                            if (address == receiverAddr) {
+                                return c.getString(R.string.tx_receive) + " + " + (getMsgCnt() - 1)
+                            }
+                        }
+                    }
+                    return c.getString(R.string.tx_transfer) + " + " + (getMsgCnt() - 1)
                 }
             }
 
@@ -615,10 +640,26 @@ data class CosmosHistory(
                 } else if (msgType.contains("MsgExecuteContract")) {
                     msgValue["msg__@stringify"].asString?.let { wasmMsg ->
                         val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
-                        val description = wasmFunc.entrySet().first().key ?: ""
-                        result = c.getString(R.string.tx_cosmwasm) + " " + description
-                        result = result.replace("_", "")
-                            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                        val recipient = try {
+                            wasmFunc.asJsonObject["transfer"].asJsonObject["recipient"].asString
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (recipient != null) {
+                            result = if (recipient.equals(address, true)) {
+                                c.getString(R.string.tx_cosmwasm_token_receive)
+                            } else {
+                                c.getString(R.string.tx_cosmwasm_token_send)
+                            }
+
+                        } else {
+                            val description = wasmFunc.entrySet().first().key ?: ""
+                            result = c.getString(R.string.tx_wasm) + "_" + description
+                            result = result.split('_')
+                                .joinToString(" ") { des ->
+                                    des.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
+                        }
+
                     } ?: run {
                         result = c.getString(R.string.tx_cosmwasm_execontract)
                     }
@@ -983,10 +1024,17 @@ data class CosmosHistory(
                     msgValue.asJsonObject["contract"].asString?.let { contractAddress ->
                         val wasmMsg = msgValue.asJsonObject["msg__@stringify"].asString
                         val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
-                        val amount =
+                        val amount = try {
                             wasmFunc.asJsonObject["transfer"].asJsonObject["amount"].asString
-                        line.tokens.firstOrNull { it.address == contractAddress }?.let { cw20 ->
-                            return Pair(cw20, amount.toBigDecimal())
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (amount != null) {
+                            line.tokens.firstOrNull { it.address == contractAddress }?.let { cw20 ->
+                                return Pair(cw20, amount.toBigDecimal())
+                            }
+                        } else {
+                            return null
                         }
                     }
 
@@ -1000,10 +1048,12 @@ data class CosmosHistory(
                         if (data != null) {
                             val hexData = Base64.decode(data).toHex()
                             val contractAddress = dataValue.asJsonObject["to"].asString
-                            evmChain?.evmTokens?.firstOrNull { it.address == contractAddress }
-                                ?.let { erc20 ->
-                                    return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
-                                }
+                            if (hexData.startsWith("a9059cbb")) {
+                                evmChain?.evmTokens?.firstOrNull { it.address == contractAddress }
+                                    ?.let { erc20 ->
+                                        return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
+                                    }
+                            }
                         }
                     }
 

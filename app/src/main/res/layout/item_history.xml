@@ -73,6 +73,17 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/send_tx_image"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_18"
+                    android:src="@drawable/icon_tx_detail"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/space_4"
+                    app:layout_constraintStart_toEndOf="@+id/tx_message"
+                    app:layout_constraintTop_toTopOf="@+id/tx_message"
+                    android:visibility="gone"/>
+
+                <ImageView
                     android:id="@+id/tx_success_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

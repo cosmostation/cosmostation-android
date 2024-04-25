@@ -98,6 +98,8 @@
     <string name="str_token_github">토큰 정보 확인</string>
     <string name="str_node_down">노드 다운</string>
     <string name="str_vote_all">모두 투표</string>
+    <string name="str_from_address">보내는 주소</string>
+    <string name="str_to_address">수신 주소</string>
 
 
     //title
@@ -141,6 +143,9 @@
     <string name="title_coin_send">자산 전송</string>
     <string name="title_asset_send">%1$s 전송</string>
     <string name="title_ibc_send">IBC 자산 전송</string>
+    <string name="title_recipient_chain">수신 체인</string>
+    <string name="title_to_send_asset">전송할 자산</string>
+    <string name="title_memo">메모 (선택)</string>
     <string name="title_select_recipient_chain">수신 체인 선택</string>
     <string name="title_insert_amount">수량 입력</string>
     <string name="title_fee_select">Tx 수수료로 사용할 코인 선택</string>
@@ -148,6 +153,7 @@
     <string name="title_address_confirm">주소록 확인</string>
     <string name="title_name_service">%1$s 네임 서비스 검색 결과</string>
     <string name="title_tx_result">Tx 결과</string>
+    <string name="title_tx_detail">Transaction 상세</string>
     <string name="title_more_wait">결과 확인 지연</string>
     <string name="title_stake_info">스테이킹 정보</string>
     <string name="title_option">옵션 선택</string>
@@ -498,6 +504,8 @@
     <string name="tx_cosmwasm_store_code_title">컨트랙트 코드 저장</string>
     <string name="tx_cosmwasm_instantiate_title">컨트랙트 인스턴트화</string>
     <string name="tx_cosmwasm_execontract_title">컨트랙트 실행</string>
+    <string name="tx_cosmwasm_token_send">Wasm 토큰 보내기</string>
+    <string name="tx_cosmwasm_token_receive">Wasm 토큰 받기</string>
 
     <string name="tx_crescent_liquid_stake">유동성 스테이크</string>
     <string name="tx_crescent_liquid_unstake">유동성 언스테이크</string>

@@ -192,6 +192,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         if (line.cosmosValidators.size > 0) {
             return@launch
         }
+        val tempValidators = mutableListOf<StakingProto.Validator>()
 
         val channel = getChannel(line)
         try {
@@ -203,7 +204,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             if (bondedValidatorsResult is NetworkResult.Success) {
                 bondedValidatorsResult.data.let { data ->
                     if (data is Collection<*>) {
-                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                        tempValidators.addAll(data as Collection<StakingProto.Validator>)
                     }
                 }
             }
@@ -212,7 +213,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             if (unBondedValidatorsResult is NetworkResult.Success) {
                 unBondedValidatorsResult.data.let { data ->
                     if (data is Collection<*>) {
-                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                        tempValidators.addAll(data as Collection<StakingProto.Validator>)
                     }
                 }
             }
@@ -221,13 +222,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             if (unBondingValidatorsResult is NetworkResult.Success) {
                 unBondingValidatorsResult.data.let { data ->
                     if (data is Collection<*>) {
-                        line.cosmosValidators.addAll(data as Collection<StakingProto.Validator>)
+                        tempValidators.addAll(data as Collection<StakingProto.Validator>)
                     }
                 }
             }
 
-            val tempValidators = line.cosmosValidators.toMutableList()
-            tempValidators.sortWith { o1, o2 ->
+            tempValidators.toMutableList().sortWith { o1, o2 ->
                 when {
                     o1.description.moniker == "Cosmostation" -> -1
                     o2.description.moniker == "Cosmostation" -> 1
@@ -238,7 +238,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     else -> 0
                 }
             }
-            line.cosmosValidators = tempValidators
+            line.cosmosValidators = tempValidators.toMutableList()
 
         } finally {
             channel.shutdown()

@@ -140,6 +140,8 @@
     <string name="str_eth_style_address" translatable="false">Ethereum style address</string>
     <string name="str_cosmos_style_address" translatable="false">Cosmos style address</string>
     <string name="str_to_compounding" translatable="false">To compounding</string>
+    <string name="str_from_address">From address</string>
+    <string name="str_to_address">To address</string>
 
 
     //title
@@ -199,17 +201,18 @@
     <string name="title_coin_send">Asset send</string>
     <string name="title_asset_send">%1$s send</string>
     <string name="title_ibc_send">IBC Asset send</string>
-    <string name="title_recipient_chain" translatable="false">Recipient chain</string>
-    <string name="title_to_send_asset" translatable="false">To send asset</string>
+    <string name="title_recipient_chain">Recipient chain</string>
+    <string name="title_to_send_asset">Amount to transfer</string>
     <string name="title_recipient_address">Recipient address</string>
     <string name="title_tx_fee" translatable="false">Tx Fee</string>
-    <string name="title_memo" translatable="false">Memo (Optional)</string>
+    <string name="title_memo">Memo (Optional)</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>
     <string name="title_insert_amount">Insert amount</string>
     <string name="title_fee_select">Select coin to use as Tx fee</string>
     <string name="title_address_confirm">Address confirm</string>
     <string name="title_name_service">Search Result %1$s NameServices</string>
     <string name="title_tx_result">Tx result</string>
+    <string name="title_tx_detail">Transaction detail</string>
     <string name="title_more_wait">Result display delayed</string>
     <string name="title_stake_info">Staking info</string>
     <string name="title_option">Select option</string>
@@ -581,12 +584,15 @@
     <string name="tx_unblock_user">Unblock User</string>
 
     <string name="tx_cosmwasm">Contract</string>
+    <string name="tx_wasm" translatable="false">Wasm</string>
     <string name="tx_cosmwasm_store_code">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract">Execute Contract</string>
     <string name="tx_cosmwasm_store_code_title">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate_title">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract_title">Execute Contract</string>
+    <string name="tx_cosmwasm_token_send">Wasm Token Send</string>
+    <string name="tx_cosmwasm_token_receive">Wasm Token Received</string>
 
     <string name="tx_crescent_liquid_stake">Liquid Stake</string>
     <string name="tx_crescent_liquid_unstake">Liquid Unstake</string>
