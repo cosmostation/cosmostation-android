@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
@@ -19,10 +19,12 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 
 class CommonAddressFragment : BottomSheetDialogFragment() {
 
@@ -35,7 +37,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
 
     private var addressBookMemo = ""
 
-    private val txViewModel: TxViewModel by activityViewModels()
+    private lateinit var txViewModel: TxViewModel
 
     private var isClickable = true
 
@@ -71,9 +73,18 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initView()
         setUpClickAction()
         setUpNameServiceView()
+    }
+
+    private fun initViewModel() {
+        val txRepository = TxRepositoryImpl()
+        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
+        txViewModel = ViewModelProvider(
+            this, txViewModelProviderFactory
+        )[TxViewModel::class.java]
     }
 
     private fun initView() {

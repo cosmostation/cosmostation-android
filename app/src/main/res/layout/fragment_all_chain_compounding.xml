@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="@dimen/space_120"
+        android:layout_height="@dimen/space_120"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading"
+        tools:ignore="NotSibling" />
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/font_sb_16"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/title_compoundingable_chains"
+            android:textColor="@color/color_base01" />
+
+        <TextView
+            android:id="@+id/reward_cnt"
+            style="@style/font_sb_14"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/color_base01"
+            android:layout_marginStart="@dimen/space_3"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/claim_explain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        style="@style/font_sm_12"
+        android:text="@string/str_all_compoundingable_msg"
+        android:textColor="@color/color_base02"
+        android:layout_marginTop="@dimen/space_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_no_data"
+            app:layout_constraintBottom_toTopOf="@+id/empty_claim_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/empty_claim_title"
+            style="@style/font_sb_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="NO REWARD TO COMPOUNDING"
+            android:textAllCaps="true"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginBottom="@dimen/space_8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btn_layout"
+        app:layout_constraintTop_toBottomOf="@+id/claim_explain" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_compounding_all"
+            style="@style/font_sb_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
+            android:background="@drawable/button_disable_bg"
+            android:enabled="false"
+            android:text="@string/str_compounding_all"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/font_sb_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
+            android:background="@drawable/button_disable_bg"
+            android:enabled="false"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

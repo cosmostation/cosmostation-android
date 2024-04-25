@@ -132,12 +132,16 @@
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
     <string name="str_claim_all">Claim all</string>
+    <string name="str_compounding_all">Compounding all</string>
     <string name="str_amount">Amount</string>
     <string name="str_token_github">Check token info</string>
     <string name="str_node_down">Node down</string>
     <string name="str_vote_all">Vote all</string>
     <string name="str_eth_style_address" translatable="false">Ethereum style address</string>
     <string name="str_cosmos_style_address" translatable="false">Cosmos style address</string>
+    <string name="str_to_compounding" translatable="false">To compounding</string>
+    <string name="str_from_address">From address</string>
+    <string name="str_to_address">To address</string>
 
 
     //title
@@ -197,17 +201,18 @@
     <string name="title_coin_send">Asset send</string>
     <string name="title_asset_send">%1$s send</string>
     <string name="title_ibc_send">IBC Asset send</string>
-    <string name="title_recipient_chain" translatable="false">Recipient chain</string>
-    <string name="title_to_send_asset" translatable="false">To send asset</string>
+    <string name="title_recipient_chain">Recipient chain</string>
+    <string name="title_to_send_asset">Amount to transfer</string>
     <string name="title_recipient_address">Recipient address</string>
     <string name="title_tx_fee" translatable="false">Tx Fee</string>
-    <string name="title_memo" translatable="false">Memo (Optional)</string>
+    <string name="title_memo">Memo (Optional)</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>
     <string name="title_insert_amount">Insert amount</string>
     <string name="title_fee_select">Select coin to use as Tx fee</string>
     <string name="title_address_confirm">Address confirm</string>
     <string name="title_name_service">Search Result %1$s NameServices</string>
     <string name="title_tx_result">Tx result</string>
+    <string name="title_tx_detail">Transaction detail</string>
     <string name="title_more_wait">Result display delayed</string>
     <string name="title_stake_info">Staking info</string>
     <string name="title_option">Select option</string>
@@ -276,8 +281,10 @@
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
     <string name="title_not_vote_list">Live proposals</string>
-    <string name="title_all_vote_list">Excluding the proposals I voted</string>
+    <string name="title_all_vote_list">Excluding voted proposals</string>
     <string name="title_sunset">Chain sunset</string>
+    <string name="title_compoundingable_chains">CompoundingAble chains</string>
+    <string name="title_send_info">Send detail info</string>
 
 
     // msg
@@ -285,6 +292,7 @@
     <string name="str_title_no_history" translatable="false">NO HISTORY</string>
     <string name="str_title_no_token" translatable="false">NO TOKEN</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
+    <string name="str_msg_no_token">There are no tokens.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
     <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy</string>
@@ -322,8 +330,9 @@
     <string name="str_swap_msg" translatable="false">Exchange the coins you have\nfor a variety of different coins</string>
     <string name="str_dapp_msg" translatable="false">Discover, Track &amp; Trade\nEverything DeFi, NFT and\nGaming</string>
     <string name="str_buy_msg" translatable="false">The coins purchased can be\nused for online transactions\nand investments</string>
-    <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization.</string>
-    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards\nexceeding $0.1 across Cosmos\nchains with a single click.</string>
+    <string name="str_mintscan_msg" translatable="false">Second generation blockchain\nanalytics platform specialized in\non-chain data visualization</string>
+    <string name="str_all_claim_rewards_msg" translatable="false">Easily claim all rewards\nexceeding $0.1 across Cosmos\nchains with a single click</string>
+    <string name="str_all_compounding_msg" translatable="false">Enjoy the eighth wonder of \nthe world with a single click</string>
     <string name="str_all_vote_msg" translatable="false">Check the list of live proposals\nof the chains you staked and\nvote for</string>
     <string name="str_mint_msg">Use the collateralized USDX minting\nfunction using the CDP module</string>
     <string name="str_lend_msg">Use the HARD landing platform\nto deposit assets and borrow\nother assets based on LTV</string>
@@ -348,12 +357,13 @@
     <string name="str_broadcasting_msg">The transaction is currently running.\nPlease wait a moment.</string>
     <string name="str_addressbook_memo_changed_msg">The memo has changed compared to the existing address book.\nWould you like to update with new memo?</string>
     <string name="str_check_history_msg" translatable="false">You can check the flow of\nassets on the block explorer</string>
-    <string name="str_token_github_msg">Currently, the selected chain does not need to manually add tokens to the chain. Cosmostation Wallet displays information for all tokens (CW20, ERC20) with existing quantity.\n\nIf you hold the token but do not see it, try submitting the PR through the Github link below.</string>
+    <string name="str_token_github_msg">Information on all assets and tokens is being developed together with the community.\n\nIf you do not see your token, please provide the GitHub link below to the token issuer or community.\n\nOnce information about the token is registered, it is automatically displayed in your wallets and MintScan.\nNot only you but all users in the community can view and use it together.</string>
     <string name="str_node_down_msg">▪ Please check the current network status of the device.\n\n▪ If there is a problem with the node you are currently using, you can easily switch to another node through [Settings > Manage Chains] and continue using the service.\n\n ▪ If all nodes are unavailable, the chain being used is being upgraded. Please wait until the upgrade is complete.</string>
     <string name="str_hide_voted_proposals_msg">Filters proposals that have already been voted on</string>
     <string name="str_live_proposals_msg">All live proposals must be selected in order to be able to\nvote Swipe and exclude proposals to vote later</string>
-    <string name="str_all_claim_msg">Please check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
+    <string name="str_all_claim_msg">Check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
     <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
+    <string name="str_all_compoundingable_msg">Check the to compounding amount and Tx fee amount.\nPlease swipe to exclude you would like to compounding in the future.</string>
 
 
     // header
@@ -410,6 +420,7 @@
     <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
     <string name="error_useless_end_point">Can not use this</string>
     <string name="error_no_bonding_no_vote">You cannot vote because there is not enough delegation.</string>
+    <string name="error_not_support_vote">Vote is not support.</string>
 
 
 
@@ -418,6 +429,9 @@
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
     <string name="tx_transfer">Transfer</string>
+    <string name="tx_multi_send">Multi Send</string>
+    <string name="tx_multi_received">Multi Received</string>
+    <string name="tx_multi_transfer">Multi Transfer</string>
     <string name="tx_delegate">Delegate</string>
     <string name="tx_cancel_undelegate">Cancel Undelegate</string>
     <string name="tx_undelegate">Undelegate</string>
@@ -572,12 +586,15 @@
     <string name="tx_unblock_user">Unblock User</string>
 
     <string name="tx_cosmwasm">Contract</string>
+    <string name="tx_wasm" translatable="false">Wasm</string>
     <string name="tx_cosmwasm_store_code">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract">Execute Contract</string>
     <string name="tx_cosmwasm_store_code_title">Store Contract Code</string>
     <string name="tx_cosmwasm_instantiate_title">Instantiate Contract</string>
     <string name="tx_cosmwasm_execontract_title">Execute Contract</string>
+    <string name="tx_cosmwasm_token_send">Wasm Token Send</string>
+    <string name="tx_cosmwasm_token_receive">Wasm Token Received</string>
 
     <string name="tx_crescent_liquid_stake">Liquid Stake</string>
     <string name="tx_crescent_liquid_unstake">Liquid Unstake</string>
@@ -608,7 +625,13 @@
     <string name="tx_axelar_confirm_deposit_request">Confirm Deposit Request</string>
     <string name="tx_axelar_route_ibc_request">Route IBC Request</string>
 
-    <string name="tx_ethermint_evm">Ethereum Tx</string>
+    <string name="tx_ethermint_evm">Evm Tx</string>
+    <string name="tx_evm_coin_send">Evm Send</string>
+    <string name="tx_evm_coin_receive">Evm Received</string>
+    <string name="tx_evm_coin_transfer">Evm Transfer</string>
+    <string name="tx_evm_token_send">Evm Token Send</string>
+    <string name="tx_evm_token_receive">Evm Token Received</string>
+    <string name="tx_evm_token_transfer">Evm Token Transfer</string>
 
     <string name="tx_injective_batch_update_order">Update Order</string>
     <string name="tx_injective_create_limit_order">Create Derivative Order</string>

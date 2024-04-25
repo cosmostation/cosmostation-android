@@ -41,24 +41,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@drawable/icon_no_search"
+            android:src="@drawable/icon_no_data"
             android:layout_marginBottom="@dimen/space_10"
-            app:layout_constraintBottom_toTopOf="@+id/empty_token"
+            app:layout_constraintBottom_toTopOf="@+id/empty_token_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/empty_token"
+            android:id="@+id/empty_token_title"
+            style="@style/font_sb_14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/font_sb_14"
             android:textColor="@color/color_base01"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/empty_token_msg"
+            android:layout_marginBottom="@dimen/space_6"
+            android:text="@string/str_title_no_token"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/empty_token_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/font_sm_12"
+            android:textColor="@color/color_base02"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/str_title_no_token"/>
+            android:text="@string/str_msg_no_token"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

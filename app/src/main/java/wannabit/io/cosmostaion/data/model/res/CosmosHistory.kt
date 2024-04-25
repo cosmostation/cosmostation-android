@@ -7,9 +7,14 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import java.util.Locale
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.hexToBigDecimal
+import wannabit.io.cosmostaion.common.toHex
+import java.math.BigDecimal
 import java.util.regex.Pattern
 
 
@@ -38,7 +43,7 @@ data class CosmosHistory(
         return true
     }
 
-    private fun getMsgs(): JsonArray? {
+    fun getMsgs(): JsonArray? {
         val json = Gson().toJson(data?.tx)
         val jsonObject = Gson().fromJson(json, JsonObject::class.java)
         if (jsonObject["/cosmos-tx-v1beta1-Tx"] != null) {
@@ -50,7 +55,7 @@ data class CosmosHistory(
         return null
     }
 
-    private fun getMsgCnt(): Int {
+    fun getMsgCnt(): Int {
         return getMsgs()?.size() ?: 0
     }
 
@@ -86,6 +91,32 @@ data class CosmosHistory(
                     return if (getMsgCnt() == 2) c.getString(R.string.tx_reinvest) else c.getString(
                         R.string.tx_reinvest
                     ) + " + " + (getMsgCnt() - 1) / 2
+                }
+            }
+
+            if (getMsgCnt() > 1) {
+                var allsend = true
+                msg.forEach {
+                    if (!it.asJsonObject["@type"].asString.contains("MsgSend")) {
+                        allsend = false
+                    }
+                }
+                if (allsend) {
+                    msg.forEach {
+                        val msgType = it.asJsonObject["@type"].asString
+                        val msgValue = it.asJsonObject[msgType.replace(".", "-")]
+                        msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                            if (address == senderAddr) {
+                                return c.getString(R.string.tx_send) + " + " + (getMsgCnt() - 1)
+                            }
+                        }
+                        msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                            if (address == receiverAddr) {
+                                return c.getString(R.string.tx_receive) + " + " + (getMsgCnt() - 1)
+                            }
+                        }
+                    }
+                    return c.getString(R.string.tx_transfer) + " + " + (getMsgCnt() - 1)
                 }
             }
 
@@ -131,7 +162,19 @@ data class CosmosHistory(
                         c.getString(R.string.tx_transfer)
                     }
                 } else if (msgType.contains("MsgMultiSend")) {
-                    result = c.getString(R.string.tx_transfer)
+                    result = c.getString(R.string.tx_multi_transfer)
+                    for (input in msgValue.asJsonObject["inputs"].asJsonArray) {
+                        if (input.asJsonObject["address"].asString.equals(address, true)) {
+                            result = c.getString(R.string.tx_multi_send)
+                            break
+                        }
+                    }
+                    for (output in msgValue.asJsonObject["outputs"].asJsonArray) {
+                        if (output.asJsonObject["address"].asString.equals(address, true)) {
+                            result = c.getString(R.string.tx_multi_received)
+                            break
+                        }
+                    }
                 }
 
             } else if (msgType.contains("cosmos.") && msgType.contains("distribution")) {
@@ -546,10 +589,6 @@ data class CosmosHistory(
                 } else if (msgType.contains("MsgRevokeCertificate")) {
                     result = c.getString(R.string.tx_revoke_certificate)
                 }
-            } else if (msgType.contains("ethermint.evm")) {
-                if (msgType.contains("MsgEthereumTx")) {
-                    result = c.getString(R.string.tx_ethermint_evm)
-                }
 
             } else if (msgType.contains("shentu.") && msgType.contains("oracle")) {
                 if (msgType.contains("MsgTaskResponse")) {
@@ -601,12 +640,65 @@ data class CosmosHistory(
                 } else if (msgType.contains("MsgExecuteContract")) {
                     msgValue["msg__@stringify"].asString?.let { wasmMsg ->
                         val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
-                        val description = wasmFunc.entrySet().first().key ?: ""
-                        result = c.getString(R.string.tx_cosmwasm) + " " + description
-                        result = result.replace("_", "")
-                            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                        val recipient = try {
+                            wasmFunc.asJsonObject["transfer"].asJsonObject["recipient"].asString
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (recipient != null) {
+                            result = if (recipient.equals(address, true)) {
+                                c.getString(R.string.tx_cosmwasm_token_receive)
+                            } else {
+                                c.getString(R.string.tx_cosmwasm_token_send)
+                            }
+
+                        } else {
+                            val description = wasmFunc.entrySet().first().key ?: ""
+                            result = c.getString(R.string.tx_wasm) + "_" + description
+                            result = result.split('_')
+                                .joinToString(" ") { des ->
+                                    des.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
+                        }
+
                     } ?: run {
                         result = c.getString(R.string.tx_cosmwasm_execontract)
+                    }
+                }
+
+            } else if (msgType.contains("ethermint.evm") && msgType.contains("MsgEthereumTx")) {
+                result = c.getString(R.string.tx_ethermint_evm)
+                msgValue.evmDataValue()?.let { dataValue ->
+                    val amount = dataValue.asJsonObject["value"].asString
+                    val data = try {
+                        dataValue.asJsonObject["data"].asString
+                    } catch (e: Exception) {
+                        null
+                    }
+                    if (data == null && amount.isNotEmpty() && amount != "0") {
+                        result =
+                            if (dataValue.asJsonObject["to"].asString.lowercase() == ByteUtils.convertBech32ToEvm(
+                                    address
+                                ).lowercase()
+                            ) {
+                                c.getString(R.string.tx_evm_coin_receive)
+                            } else {
+                                c.getString(R.string.tx_evm_coin_send)
+                            }
+
+                    } else if (data?.isNotEmpty() == true) {
+                        Base64.decode(data).toHex().let { hexData ->
+                            if (hexData.startsWith("a9059cbb")) {
+                                result = if (hexData.lowercase().contains(
+                                        ByteUtils.convertBech32ToEvm(address).replace("0x", "")
+                                            .lowercase()
+                                    )
+                                ) {
+                                    c.getString(R.string.tx_evm_token_receive)
+                                } else {
+                                    c.getString(R.string.tx_evm_token_send)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -623,6 +715,8 @@ data class CosmosHistory(
     }
 
     fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin> {
+        val evmChain = line as? EthereumLine
+
         val result = mutableListOf<CoinProto.Coin>()
         val json = Gson().toJson(data?.logs)
         val jsonArray = Gson().fromJson(json, JsonArray::class.java)
@@ -667,6 +761,45 @@ data class CosmosHistory(
                                     }
                             }
                     }
+                    return sortedCoins(line, result)
+                }
+
+                var allSend = true
+                msgs.forEach { msg ->
+                    if (!msg.asJsonObject["@type"].asString.contains("MsgSend")) {
+                        allSend = false
+                    }
+                }
+
+                if (allSend) {
+                    var totalAmount: Long = 0
+                    var denom = ""
+                    for (msg in msgs) {
+                        val msgType = msg.asJsonObject["@type"].asString
+                        val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
+                        msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                            if (line.address == senderAddr) {
+                                val amount =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toLong()
+                                totalAmount += amount
+                                denom =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                            }
+                        }
+
+                        msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                            if (line.address == receiverAddr) {
+                                val amount =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toLong()
+                                totalAmount += amount
+                                denom =
+                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                            }
+                        }
+                    }
+                    val value = CoinProto.Coin.newBuilder().setDenom(denom)
+                        .setAmount(totalAmount.toString()).build()
+                    result.add(value)
                     return sortedCoins(line, result)
                 }
 
@@ -830,11 +963,106 @@ data class CosmosHistory(
                     result.add(CoinProto.Coin.newBuilder().build())
                 }
 
+            } else if (msgType.contains("bank") && msgType.contains("MsgMultiSend")) {
+                for (input in msgValue["inputs"].asJsonArray) {
+                    if (!input.isJsonNull && line.address.equals(input.asJsonObject["address"].asString)) {
+                        val coin = CoinProto.Coin.newBuilder()
+                            .setDenom(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
+                            .setAmount(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
+                            .build()
+                        result.add(coin)
+                        break
+                    }
+                }
+
+                for (output in msgValue["outputs"].asJsonArray) {
+                    if (!output.isJsonNull && line.address.equals(output.asJsonObject["address"].asString)) {
+                        val coin = CoinProto.Coin.newBuilder()
+                            .setDenom(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
+                            .setAmount(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
+                            .build()
+                        result.add(coin)
+                        break
+                    }
+                }
+
+            } else if (msgType.contains("ethermint.evm") && msgType.contains("MsgEthereumTx")) {
+                msgValue.asJsonObject.evmDataValue()?.let { dataValue ->
+                    val amount = dataValue.asJsonObject["value"].asString
+                    val data = try {
+                        dataValue.asJsonObject["data"].asString
+                    } catch (e: Exception) {
+                        null
+                    }
+                    if (data == null && amount.isNotEmpty() && amount != "0") {
+                        val denom = if (evmChain?.tag == "kava60") {
+                            "akava"
+                        } else {
+                            evmChain?.stakeDenom ?: ""
+                        }
+                        val value =
+                            CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
+                        result.add(value)
+                    }
+                }
+
             } else {
                 return sortedCoins(line, result)
             }
         }
         return sortedCoins(line, result)
+    }
+
+    fun getDpToken(line: CosmosLine): Pair<Token, BigDecimal>? {
+        val evmChain = line as? EthereumLine
+
+        getMsgs()?.get(0)?.let { firstMsg ->
+            firstMsg.asJsonObject["@type"].asString?.let { msgType ->
+                val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")]
+
+                if (msgType.contains("cosmwasm.") && msgType.contains("MsgExecuteContract")) {
+                    msgValue.asJsonObject["contract"].asString?.let { contractAddress ->
+                        val wasmMsg = msgValue.asJsonObject["msg__@stringify"].asString
+                        val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
+                        val amount = try {
+                            wasmFunc.asJsonObject["transfer"].asJsonObject["amount"].asString
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (amount != null) {
+                            line.tokens.firstOrNull { it.address == contractAddress }?.let { cw20 ->
+                                return Pair(cw20, amount.toBigDecimal())
+                            }
+                        } else {
+                            return null
+                        }
+                    }
+
+                } else if (msgType.contains("ethermint.evm") && msgType.contains("MsgEthereumTx")) {
+                    msgValue.asJsonObject.evmDataValue()?.let { dataValue ->
+                        val data = try {
+                            dataValue.asJsonObject["data"].asString
+                        } catch (e: Exception) {
+                            null
+                        }
+                        if (data != null) {
+                            val hexData = Base64.decode(data).toHex()
+                            val contractAddress = dataValue.asJsonObject["to"].asString
+                            if (hexData.startsWith("a9059cbb")) {
+                                evmChain?.evmTokens?.firstOrNull { it.address == contractAddress }
+                                    ?.let { erc20 ->
+                                        return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
+                                    }
+                            }
+                        }
+                    }
+
+                } else {
+                    return null
+                }
+            }
+        }
+        return null
     }
 
     fun getVoteOption(): String {
@@ -895,6 +1123,11 @@ data class CosmosHistory(
         }
         return sorted
     }
+}
+
+fun JsonObject.evmDataValue(): JsonObject? {
+    val dataType = this.asJsonObject["data"].asJsonObject["@type"].asString
+    return this.asJsonObject["data"].asJsonObject[dataType.replace(".", "-")].asJsonObject
 }
 
 

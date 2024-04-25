@@ -196,7 +196,7 @@ class WcSignFragment(
 
                             } else {
                                 val mainDenomFee =
-                                    amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom && it.asJsonObject["amount"].asString == "0" }
+                                    amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
                                 mainDenomFee?.asJsonObject?.addProperty(
                                     "amount", feeCoinAmount.toString()
                                 )
@@ -235,7 +235,7 @@ class WcSignFragment(
                                 CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
                                     .setAmount(feeCoinAmount.toString()).build()
                             val updateFee =
-                                Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
+                                Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin).setPayer(fee.payer)
                                     .build()
 
                             authInfo = authInfo.toBuilder().setFee(updateFee).build()

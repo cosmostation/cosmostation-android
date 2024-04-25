@@ -14,6 +14,7 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
@@ -506,6 +507,27 @@ open class CosmosLine : BaseChain(), Parcelable {
         return result
     }
 
+    fun compoundAbleRewards(): MutableList<DelegationDelegatorReward?> {
+        val result: MutableList<DelegationDelegatorReward?> = mutableListOf()
+
+        stakeDenom?.let { denom ->
+            cosmosRewards.forEach { reward ->
+                reward.rewardList.firstOrNull { it.denom == denom }?.amount?.let { amount ->
+                    val rewardAmount = amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                    BaseData.getAsset(apiName, denom)?.let { asset ->
+                        val price = BaseData.getPrice(asset.coinGeckoId, true)
+                        val value = price.multiply(rewardAmount)
+                            .movePointLeft(asset.decimals ?: 6).setScale(6, RoundingMode.DOWN)
+                        if (value >= BigDecimal("0.1")) {
+                            result.add(reward)
+                        }
+                    }
+                }
+            }
+        }
+        return result
+    }
+
     open fun allStakingDenomAmount(): BigDecimal? {
         stakeDenom?.let {
             return balanceAmount(it).add(vestingAmount(it))?.add(delegationAmountSum())
@@ -613,7 +635,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
-//    lines.add(ChainAlthea118())
+    lines.add(ChainAlthea118())
     lines.add(ChainArchway())
     lines.add(ChainAssetMantle())
     lines.add(ChainAxelar())
@@ -624,12 +646,10 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainChihuahua())
     lines.add(ChainComdex())
     lines.add(ChainCoreum())
-    lines.add(ChainCrescent())
     lines.add(ChainCryptoorg())
     lines.add(ChainCudos())
     lines.add(ChainDesmos())
     lines.add(ChainDydx())
-    lines.add(ChainEmoney())
     lines.add(ChainFetchAi())
     lines.add(ChainFetchAi60Secp())
     lines.add(ChainFetchAi60Old())
@@ -678,9 +698,12 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainTerra())
     lines.add(ChainUx())
     lines.add(ChainXpla())
-    lines.add(ChainBinanceBeacon())
     lines.add(ChainOkt996Keccak())
     lines.add(ChainOkt996Secp())
+
+//    lines.add(ChainCrescent())
+//    lines.add(ChainEmoney())
+//    lines.add(ChainBinanceBeacon())
 
     lines.forEach { line ->
         if (line.chainIdCosmos.isEmpty()) {

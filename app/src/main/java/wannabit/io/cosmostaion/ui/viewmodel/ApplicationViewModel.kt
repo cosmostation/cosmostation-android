@@ -184,12 +184,14 @@ class ApplicationViewModel(
                         async { walletRepository.delegation(channel, line) }
                     val loadUnBondingDeferred = async { walletRepository.unBonding(channel, line) }
                     val loadRewardDeferred = async { walletRepository.reward(channel, line) }
+                    val loadRewardAddressDeferred = async { walletRepository.rewardAddress(channel, line) }
 
                     val responses = awaitAll(
                         loadBalanceDeferred,
                         loadDelegationDeferred,
                         loadUnBondingDeferred,
-                        loadRewardDeferred
+                        loadRewardDeferred,
+                        loadRewardAddressDeferred
                     )
 
                     responses.forEach { response ->
@@ -217,6 +219,10 @@ class ApplicationViewModel(
 
                                     is com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse -> {
                                         response.data.rewardsList?.let { cosmosRewards = it }
+                                    }
+
+                                    is String -> {
+                                        rewardAddress = response.data
                                     }
                                 }
                             }

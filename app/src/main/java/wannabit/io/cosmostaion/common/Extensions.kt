@@ -214,6 +214,12 @@ fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
     toast.show()
 }
 
+fun String.hexToBigDecimal(): BigDecimal {
+    if (this.isEmpty()) { return BigDecimal.ZERO }
+    val hex = this.removePrefix("0x")
+    return BigDecimal(BigInteger(hex, 16))
+}
+
 fun formatCurrentTimeToYear(): String {
     val locale = Locale.getDefault()
     val date = Calendar.getInstance()
@@ -282,6 +288,32 @@ fun formatTxTimeToYear(context: Context, timeString: String): String {
     outputFormat.timeZone = TimeZone.getDefault()
     return outputFormat.format(date)
 }
+
+fun txDpTime(context: Context, timeString: String): String {
+    val locale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = inputFormat.parse(timeString)
+
+    val outputFormat = SimpleDateFormat(
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd yyyy, HH:mm:ss"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd yyyy, HH:mm:ss"
+            } else {
+                "yyyy-MM-dd HH:mm:ss"
+            }
+        }, locale
+    )
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
 
 fun formatTxTimeStampToHour(context: Context, timeString: String): String {
     val inputFormat = SimpleDateFormat(context.getString(R.string.str_tx_time_grpc_format))
@@ -372,6 +404,23 @@ fun voteDpTime(time: Long): String {
     return outputFormat.format(calendar.timeInMillis)
 }
 
+fun gapPastTime(finishTime: Long): String {
+    var result = "??"
+    val now = Calendar.getInstance().timeInMillis
+    val left = now - finishTime
+
+    result = if (left >= CONSTANT_D) {
+        (left / CONSTANT_D).toString() + " days ago"
+    } else if (left >= BaseConstant.CONSTANT_H) {
+        (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+    } else if (left >= BaseConstant.CONSTANT_M) {
+        (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+    } else {
+        "0 days"
+    }
+    return result
+}
+
 fun gapTime(finishTime: Long): String {
     var result = "??"
     val now = Calendar.getInstance().timeInMillis
@@ -442,22 +491,6 @@ fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
     } ?: run {
         return
     }
-
-//    var historyUrl = ""
-//    historyUrl = when (selectedChain) {
-//        is ChainBinanceBeacon -> {
-//            EXPLORER_BINANCE_URL + "tx/" + txHash
-//        }
-//
-//        is ChainOkt996Keccak -> {
-//            OKT_EXPLORER + "tx/" + txHash
-//        }
-//
-//        else -> {
-//            CosmostationConstants.EXPLORER_BASE_URL + selectedChain?.apiName + "/transactions/" + txHash
-//        }
-//    }
-//    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(historyUrl)))
 }
 
 fun BigDecimal.amountHandlerLeft(decimal: Int): BigDecimal {

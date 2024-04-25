@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -20,6 +24,7 @@ import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
+import wannabit.io.cosmostaion.ui.tx.info.SendResultFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModelProviderFactory
 import java.util.Calendar
@@ -103,6 +108,50 @@ class HistoryFragment : Fragment() {
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = historyAdapter
+
+            var isClickable = true
+            if (::historyAdapter.isInitialized) {
+                historyAdapter.setOnItemClickListener { line, history, hash ->
+                    when (line) {
+                        is ChainOkt996Keccak, is ChainOktEvm -> {
+                            line.explorerTx(hash)?.let {
+                                startActivity(Intent(Intent.ACTION_VIEW, it))
+                            } ?: run {
+                                return@setOnItemClickListener
+                            }
+                        }
+
+                        else -> {
+                            history?.let {
+                                if (it.getMsgCnt() == 1 && it.getMsgType(
+                                        requireContext(), line.address
+                                    ).equals(getString(R.string.tx_send), true)
+                                ) {
+                                    if (isClickable) {
+                                        isClickable = false
+
+                                        SendResultFragment(line, history).show(
+                                            requireActivity().supportFragmentManager,
+                                            SendResultFragment::class.java.name
+                                        )
+
+                                        Handler(Looper.getMainLooper()).postDelayed({
+                                            isClickable = true
+                                        }, 300)
+                                    }
+
+                                } else {
+                                    line.explorerTx(hash)?.let {
+                                        startActivity(Intent(Intent.ACTION_VIEW, it))
+                                    } ?: run {
+                                        return@setOnItemClickListener
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             initData()
         }

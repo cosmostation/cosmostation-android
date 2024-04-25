@@ -22,6 +22,8 @@ class HistoryAdapter(
     val context: Context, val line: CosmosLine
 ) : ListAdapter<Any, HistoryViewHolder>(HistoryDiffCallback()) {
 
+    private var onItemClickListener: ((CosmosLine, CosmosHistory?, String?) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val binding = ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HistoryViewHolder(parent.context, binding)
@@ -42,6 +44,12 @@ class HistoryAdapter(
                             line, historyBnbGroup, headerIndex, headerCnt, position
                         )
                     }
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(line, null, historyBnbGroup.second.txHash)
+                        }
+                    }
                 }
             }
 
@@ -54,6 +62,12 @@ class HistoryAdapter(
                     val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
                     holder.bindOktHistory(line, historyOktGroup, headerIndex, headerCnt, position)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(line, null, historyOktGroup.second.txId)
+                        }
+                    }
                 }
             }
 
@@ -66,6 +80,12 @@ class HistoryAdapter(
                     val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
                     holder.bindOktHistory(line, historyOktGroup, headerIndex, headerCnt, position)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(line, null, historyOktGroup.second.txId)
+                        }
+                    }
                 }
             }
 
@@ -78,6 +98,12 @@ class HistoryAdapter(
                     val headerIndex = cosmosHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = cosmosHistoryList.filter { it.first == headerDate }.size
                     holder.bindHistory(line, historyGroup, headerIndex, headerCnt, position)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(line, historyGroup.second, historyGroup.second.data?.txhash)
+                        }
+                    }
                 }
             }
         }
@@ -97,5 +123,9 @@ class HistoryAdapter(
         ): Boolean {
             return oldItem == newItem
         }
+    }
+
+    fun setOnItemClickListener(listener: (CosmosLine, CosmosHistory?, String?) -> Unit) {
+        onItemClickListener = listener
     }
 }

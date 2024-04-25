@@ -1346,12 +1346,11 @@ object Signer {
             return ethermintSignature(selectedChain, toSignByte)
         } else {
             val sha256Hash = Sha256Hash.hash(toSignByte)
+            val sigData = ByteArray(64)
             ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
-                val sigData = ByteArray(64)
                 System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
                 System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
-                return String(Base64.encode(sigData), Charset.forName("UTF-8")).replace("\n", "")
-
+                return Base64.toBase64String(sigData)
             } ?: run {
                 return ""
             }

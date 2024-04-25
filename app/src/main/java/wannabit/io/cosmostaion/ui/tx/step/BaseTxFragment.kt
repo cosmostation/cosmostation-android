@@ -7,20 +7,35 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 
 open class BaseTxFragment : BottomSheetDialogFragment() {
 
     private lateinit var currentActivity: AppCompatActivity
 
-    val txViewModel: TxViewModel by activityViewModels()
+    lateinit var txViewModel: TxViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        initViewModel()
+    }
+
+    private fun initViewModel() {
+        val txRepository = TxRepositoryImpl()
+        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
+        txViewModel = ViewModelProvider(
+            this, txViewModelProviderFactory
+        )[TxViewModel::class.java]
     }
 
     override fun onAttach(context: Context) {

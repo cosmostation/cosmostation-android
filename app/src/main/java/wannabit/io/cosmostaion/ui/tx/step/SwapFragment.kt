@@ -969,13 +969,25 @@ class SwapFragment : BaseTxFragment() {
         return TxProto.Fee.newBuilder().build()
     }
 
-    private fun affiliate(venue: SwapVenue?): MutableList<Affiliate>? {
+    private fun affiliate(venue: SwapVenue?): MutableList<Affiliate> {
         val result: MutableList<Affiliate> = mutableListOf()
         if (venue?.chain_id?.contains("osmosis") == true) {
             result.add(Affiliate("osmo1clpqr4nrk4khgkxj78fcwwh6dl3uw4epasmvnj", "100"))
             return result
         } else if (venue?.chain_id?.contains("neutron") == true) {
             result.add(Affiliate("neutron1clpqr4nrk4khgkxj78fcwwh6dl3uw4ep35p7l8", "100"))
+            return result
+        } else if (venue?.chain_id?.contains("phoenix") == true) {
+            result.add(Affiliate("terra1564j3fq8p8np4yhh4lytnftz33japc03wuejxm", "100"))
+            return result
+        } else if (venue?.chain_id?.contains("injective") == true) {
+            result.add(Affiliate("inj1rvqzf9u2uxttmshn302anlknfgsatrh5mcu6la", "100"))
+            return result
+        } else if (venue?.chain_id?.contains("pacific") == true) {
+            result.add(Affiliate("sei1hnkkqnzwmyw652muh6wfea7xlfgplnyj3edm09", "100"))
+            return result
+        } else if (venue?.chain_id?.contains("chihuahua") == true) {
+            result.add(Affiliate("chihuahua1tgcypttehx3afugys6eq28h0kpmswfkgcuewfw", "100"))
             return result
         }
         return result

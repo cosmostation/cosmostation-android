@@ -263,14 +263,16 @@ class CoinFragment : Fragment() {
     }
 
     private fun sunsetPopup() {
-        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainCrescent)
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (isAdded && isVisible && isResumed) {
-                NoticeInfoFragment.newInstance(selectedChain, NoticeType.CHAIN_SUNSET).show(
-                    requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
-                )
-            }
-        }, 800)
+        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainCrescent) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (isAdded && isVisible && isResumed) {
+                    NoticeInfoFragment.newInstance(selectedChain, NoticeType.CHAIN_SUNSET).show(
+                        requireActivity().supportFragmentManager,
+                        NoticeInfoFragment::class.java.name
+                    )
+                }
+            }, 800)
+        }
     }
 
     private fun observeViewModels() {

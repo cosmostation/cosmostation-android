@@ -34,6 +34,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.getChannel
@@ -117,7 +118,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                                 }
                             }
 
-                        account.sortedDisplayCosmosLines().filter { it.isDefault }
+                        account.sortedDisplayCosmosLines().filter { it.isDefault && it !is ChainFinschia }
                             .forEach { chain ->
                                 val delegated = chain.delegationAmountSum()
                                 val voteThreshold = chain.voteThreshold()

@@ -360,7 +360,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/input_view"
                     android:layout_marginHorizontal="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_16">
+                    android:layout_marginTop="@dimen/space_8">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

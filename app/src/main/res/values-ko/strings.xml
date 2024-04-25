@@ -98,6 +98,8 @@
     <string name="str_token_github">토큰 정보 확인</string>
     <string name="str_node_down">노드 다운</string>
     <string name="str_vote_all">모두 투표</string>
+    <string name="str_from_address">보내는 주소</string>
+    <string name="str_to_address">수신 주소</string>
 
 
     //title
@@ -141,6 +143,9 @@
     <string name="title_coin_send">자산 전송</string>
     <string name="title_asset_send">%1$s 전송</string>
     <string name="title_ibc_send">IBC 자산 전송</string>
+    <string name="title_recipient_chain">수신 체인</string>
+    <string name="title_to_send_asset">전송할 자산</string>
+    <string name="title_memo">메모 (선택)</string>
     <string name="title_select_recipient_chain">수신 체인 선택</string>
     <string name="title_insert_amount">수량 입력</string>
     <string name="title_fee_select">Tx 수수료로 사용할 코인 선택</string>
@@ -148,6 +153,7 @@
     <string name="title_address_confirm">주소록 확인</string>
     <string name="title_name_service">%1$s 네임 서비스 검색 결과</string>
     <string name="title_tx_result">Tx 결과</string>
+    <string name="title_tx_detail">Transaction 상세</string>
     <string name="title_more_wait">결과 확인 지연</string>
     <string name="title_stake_info">스테이킹 정보</string>
     <string name="title_option">옵션 선택</string>
@@ -209,6 +215,7 @@
     <string name="title_big_loss">자산 손실</string>
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
+    <string name="str_compounding_all">모두 컴파운딩</string>
     <string name="title_select_end_point">End-Point 선택</string>
     <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
     <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
@@ -216,11 +223,14 @@
     <string name="title_not_vote_list">라이브 프로포절</string>
     <string name="title_all_vote_list">내가 투표한 프로포절 제외</string>
     <string name="title_sunset">체인 중단 안내</string>
+    <string name="title_compoundingable_chains">컴파운딩 대상 체인</string>
+    <string name="title_send_info">전송 상세 정보</string>
 
 
     // msg
     <string name="str_update_msg">새로운 버전이 나왔습니다. \n\n플레이스토어에서 업데이트 해주세요.</string>
     <string name="str_msg_no_history">거래 내역이 없습니다.</string>
+    <string name="str_msg_no_token">토큰이 없습니다.</string>
     <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_copy">복사하려면 카드를 탭하세요.</string>
@@ -273,12 +283,13 @@
     <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encription Key를 입력하세요.</string>
     <string name="str_broadcasting_msg">현재 트랜잭션이 실행 중입니다.\n잠시만 기다려 주세요.</string>
     <string name="str_addressbook_memo_changed_msg">기존 주소록과 비교해서 메모가 변경되었습니다.\n새로운 메모로 업데이트 하시겠습니까?</string>
-    <string name="str_token_github_msg">현재 사용하고 계신 체인에서는 커뮤니티에 알려진 토큰(cw20, erc20)을 보유한 경우 자동으로 토큰 목록에 표시됩니다.\n\n원하는 토큰 정보가 보이지 않는 경우, 아래 GitHub 링크를 통해 PR을 제출해주세요.</string>
+    <string name="str_token_github_msg">모든 자산 및 토큰에 대한 정보는 커뮤니티와 함께 발전시키고 있습니다.\n\n본인의 토큰이 보이지 않는다면 아래 깃헙링크를 토큰 발행자나 커뮤니티에 알려주세요.\n\n토큰에 대한 정보가 등록되면 자동으로 지갑 및 민트스캔에 표시되며,\n고객님 뿐만 아니라 커뮤니티의 모든 사용자가 같이 확인하고 사용할 수 있습니다. </string>
     <string name="str_node_down_msg">▪ 현재 디바이스의 네트워크 상태를 확인해주세요.\n\n▪ 현재 사용 중인 노드에 문제가 있는 경우, [설정 > 체인 관리]를 통해 다른 노드로 손쉽게 전환하여 서비스를 계속 이용하실 수 있습니다.\n\n ▪ 모든 노드가 사용이 불가능한 경우 사용중인 체인 업그레이드가 진행 중인 경우로, 업그레이드가 완료될 때까지 기다려주시기 바랍니다.</string>
     <string name="str_hide_voted_proposals_msg">이미 투표를 마친 프로포절은 제거합니다.</string>
     <string name="str_live_proposals_msg">라이브 상태인 프로포절을 모두 선택하여야 투표가 가능합니다.\n추후에 투표할 프로포절은 스와이프하여 제외해주세요.</string>
     <string name="str_all_claim_msg">리워드 수량과 Tx 수수료 수량을 확인해주세요.\n추후에 받고 싶으신 리워드는 스와이프하여 제외해주세요.</string>
     <string name="str_sunset_msg">선택하신 체인은 지원종료 예정입니다. 자세한 내용은 재단의 공식 공지를 참조하세요.</string>
+    <string name="str_all_compoundingable_msg">컴파운딩 수량과 Tx 수수료 금액을 확인하세요.\n추후에 컴파운딩 하실 체인은 스와이프하여 제외해주세요.</string>
 
 
     // error
@@ -316,6 +327,7 @@
     <string name="error_tranfer_disabled">전송 기능을 지원하지 않는 체인입니다.</string>
     <string name="error_useless_end_point">사용할 수 없습니다.</string>
     <string name="error_no_bonding_no_vote">위임량이 충분하지 않아 투표를 하실 수 없습니다.</string>
+    <string name="error_not_support_vote">투표 기능을 지원하지 않습니다.</string>
 
 
     //header
@@ -331,9 +343,12 @@
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
     <string name="tx_transfer">전송하기</string>
+    <string name="tx_multi_send">멀티 보내기</string>
+    <string name="tx_multi_received">멀티 받기</string>
+    <string name="tx_multi_transfer">멀티 전송</string>
     <string name="tx_delegate">위임</string>
     <string name="tx_undelegate">위임 철회</string>
-    <string name="tx_cancel_undelegate">위임 취소</string>
+    <string name="tx_cancel_undelegate">위임 철회 취소</string>
     <string name="tx_redelegate">재위임</string>
     <string name="tx_get_reward">이자 청구</string>
     <string name="tx_get_commission">수수료 청구</string>
@@ -491,6 +506,8 @@
     <string name="tx_cosmwasm_store_code_title">컨트랙트 코드 저장</string>
     <string name="tx_cosmwasm_instantiate_title">컨트랙트 인스턴트화</string>
     <string name="tx_cosmwasm_execontract_title">컨트랙트 실행</string>
+    <string name="tx_cosmwasm_token_send">Wasm 토큰 보내기</string>
+    <string name="tx_cosmwasm_token_receive">Wasm 토큰 받기</string>
 
     <string name="tx_crescent_liquid_stake">유동성 스테이크</string>
     <string name="tx_crescent_liquid_unstake">유동성 언스테이크</string>
@@ -521,7 +538,13 @@
     <string name="tx_axelar_confirm_deposit_request">Deposit 확인 요청</string>
     <string name="tx_axelar_route_ibc_request">IBC 경로 요청</string>
 
-    <string name="tx_ethermint_evm">이더리움 Tx</string>
+    <string name="tx_ethermint_evm">Evm Tx</string>
+    <string name="tx_evm_coin_send">Evm 보내기</string>
+    <string name="tx_evm_coin_receive">Evm 받기</string>
+    <string name="tx_evm_coin_transfer">Evm 전송</string>
+    <string name="tx_evm_token_send">Evm 토큰 보내기</string>
+    <string name="tx_evm_token_receive">Evm 토큰 받기</string>
+    <string name="tx_evm_token_transfer">Evm 토큰 전송</string>
 
     <string name="tx_injective_batch_update_order">주문 업데이트</string>
     <string name="tx_injective_create_limit_order">주문 생성 (Derivative Limit)</string>

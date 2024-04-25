@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
@@ -20,11 +20,14 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
 
 interface AddressListener {
     fun selectAddress(address: String, memo: String)
@@ -35,7 +38,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!
 
-    private val txViewModel: TxViewModel by activityViewModels()
+    private lateinit var txViewModel: TxViewModel
 
     private lateinit var fromChain: BaseChain
     private lateinit var toChain: BaseChain
@@ -80,9 +83,18 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initView()
         setUpClickAction()
         setUpNameServiceView()
+    }
+
+    private fun initViewModel() {
+        val txRepository = TxRepositoryImpl()
+        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
+        txViewModel = ViewModelProvider(
+            this, txViewModelProviderFactory
+        )[TxViewModel::class.java]
     }
 
     private fun initView() {
@@ -163,6 +175,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                     if (fromChain.address.equals(address, true)) {
                         requireContext().makeToast(R.string.error_self_sending)
                         return@setOnClickListener
+                    }
+
+                    if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
+                        if (address.equals(ByteUtils.convertBech32ToEvm(fromChain.address), true)) {
+                            requireContext().makeToast(R.string.error_self_sending)
+                            return@setOnClickListener
+                        }
                     }
 
                     if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
