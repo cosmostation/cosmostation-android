@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.chain
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
+import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
 import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBaseEvm
@@ -94,7 +95,7 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainAvalanche())
     lines.add(ChainBaseEvm())
     lines.add(ChainBinanceSmart())
-//    lines.add(ChainAltheaEvm())
+    lines.add(ChainAltheaEvm())
     lines.add(ChainCantoEvm())
     lines.add(ChainCronos())
     lines.add(ChainDymensionEvm())

@@ -14,6 +14,7 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
@@ -634,7 +635,7 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()
     lines.add(ChainCosmos())
     lines.add(ChainAkash())
-//    lines.add(ChainAlthea118())
+    lines.add(ChainAlthea118())
     lines.add(ChainArchway())
     lines.add(ChainAssetMantle())
     lines.add(ChainAxelar())
