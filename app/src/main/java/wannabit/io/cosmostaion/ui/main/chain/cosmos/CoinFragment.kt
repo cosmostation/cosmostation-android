@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
@@ -113,7 +112,7 @@ class CoinFragment : Fragment() {
                     SendAssetType.ONLY_COSMOS_COIN
                 }
 
-                if (line is ChainGovgen) {
+                if (selectedChain.isBankLocked()) {
                     requireActivity().makeToast(R.string.error_tranfer_disabled)
                     return@setOnItemClickListener
                 }

@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentTokenBinding
@@ -95,6 +97,12 @@ class TokenFragment : Fragment() {
                         } else {
                             SendAssetType.ONLY_EVM_ERC20
                         }
+
+                        if (selectedChain.isBankLocked()) {
+                            requireActivity().makeToast(R.string.error_tranfer_disabled)
+                            return@setOnItemClickListener
+                        }
+
                         CommonTransferFragment.newInstance(line, denom, sendAssetType).show(
                             requireActivity().supportFragmentManager,
                             CommonTransferFragment::class.java.name
