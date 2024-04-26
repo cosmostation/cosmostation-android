@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -383,7 +382,7 @@ class CosmosDetailFragment : Fragment() {
                         SendAssetType.ONLY_COSMOS_COIN
                     }
 
-                    if (selectedChain is ChainGovgen) {
+                    if (selectedChain.isBankLocked()) {
                         requireActivity().makeToast(R.string.error_tranfer_disabled)
                         return@setOnClickListener
                     }
