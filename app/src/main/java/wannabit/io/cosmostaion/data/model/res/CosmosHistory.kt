@@ -95,28 +95,41 @@ data class CosmosHistory(
             }
 
             if (getMsgCnt() > 1) {
-                var allsend = true
-                msg.forEach {
-                    if (!it.asJsonObject["@type"].asString.contains("MsgSend")) {
-                        allsend = false
+                var allSend = true
+                msg.forEach { _ ->
+                    val msgType = try {
+                        msg.asJsonObject["@type"].asString
+                    } catch (e: Exception) {
+                        null
+                    }
+                    if (msgType != null && !msgType.contains("MsgSend")) {
+                        allSend = false
                     }
                 }
-                if (allsend) {
+
+                if (allSend) {
                     msg.forEach {
-                        val msgType = it.asJsonObject["@type"].asString
-                        val msgValue = it.asJsonObject[msgType.replace(".", "-")]
-                        msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
-                            if (address == senderAddr) {
-                                return c.getString(R.string.tx_send) + " + " + (getMsgCnt() - 1)
-                            }
+                        val msgType = try {
+                            it.asJsonObject["@type"].asString
+                        } catch (e: Exception) {
+                            null
                         }
-                        msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
-                            if (address == receiverAddr) {
-                                return c.getString(R.string.tx_receive) + " + " + (getMsgCnt() - 1)
+                        if (msgType != null) {
+                            val msgValue = it.asJsonObject[msgType.replace(".", "-")]
+                            msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                                if (address == senderAddr) {
+                                    return c.getString(R.string.tx_send) + " + " + (getMsgCnt() - 1)
+                                }
                             }
+                            msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                                if (address == receiverAddr) {
+                                    return c.getString(R.string.tx_receive) + " + " + (getMsgCnt() - 1)
+                                }
+                            }
+                        } else {
+                            return c.getString(R.string.tx_transfer) + " + " + (getMsgCnt() - 1)
                         }
                     }
-                    return c.getString(R.string.tx_transfer) + " + " + (getMsgCnt() - 1)
                 }
             }
 
@@ -655,9 +668,9 @@ data class CosmosHistory(
                         } else {
                             val description = wasmFunc.entrySet().first().key ?: ""
                             result = c.getString(R.string.tx_wasm) + "_" + description
-                            result = result.split('_')
-                                .joinToString(" ") { des ->
-                                    des.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
+                            result = result.split('_').joinToString(" ") { des ->
+                                des.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                            }
                         }
 
                     } ?: run {
@@ -766,34 +779,45 @@ data class CosmosHistory(
 
                 var allSend = true
                 msgs.forEach { msg ->
-                    if (!msg.asJsonObject["@type"].asString.contains("MsgSend")) {
+                    val msgType = try {
+                        msg.asJsonObject["@type"].asString
+                    } catch (e: Exception) {
+                        null
+                    }
+                    if (msgType != null && !msgType.contains("MsgSend")) {
                         allSend = false
                     }
                 }
 
                 if (allSend) {
-                    var totalAmount: Long = 0
+                    var totalAmount: BigDecimal = BigDecimal.ZERO
                     var denom = ""
                     for (msg in msgs) {
-                        val msgType = msg.asJsonObject["@type"].asString
-                        val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
-                        msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
-                            if (line.address == senderAddr) {
-                                val amount =
-                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toLong()
-                                totalAmount += amount
-                                denom =
-                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
-                            }
+                        val msgType = try {
+                            msg.asJsonObject["@type"].asString
+                        } catch (e: Exception) {
+                            null
                         }
+                        if (msgType != null) {
+                            val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
+                            msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                                if (line.address == senderAddr) {
+                                    val amount =
+                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
+                                    totalAmount = totalAmount.add(amount)
+                                    denom =
+                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                                }
+                            }
 
-                        msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
-                            if (line.address == receiverAddr) {
-                                val amount =
-                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toLong()
-                                totalAmount += amount
-                                denom =
-                                    msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                            msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                                if (line.address == receiverAddr) {
+                                    val amount =
+                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
+                                    totalAmount = totalAmount.add(amount)
+                                    denom =
+                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                                }
                             }
                         }
                     }

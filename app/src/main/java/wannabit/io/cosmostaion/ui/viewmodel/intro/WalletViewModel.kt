@@ -227,7 +227,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
 
-            tempValidators.toMutableList().sortWith { o1, o2 ->
+            val dataTempValidators = tempValidators.toMutableList()
+            dataTempValidators.sortWith { o1, o2 ->
                 when {
                     o1.description.moniker == "Cosmostation" -> -1
                     o2.description.moniker == "Cosmostation" -> 1
@@ -238,7 +239,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     else -> 0
                 }
             }
-            line.cosmosValidators = tempValidators.toMutableList()
+            line.cosmosValidators = dataTempValidators
 
         } finally {
             channel.shutdown()

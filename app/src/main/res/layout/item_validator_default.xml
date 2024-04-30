@@ -41,7 +41,7 @@
         android:id="@+id/moniker_name"
         style="@style/font_sb_14"
         android:layout_width="@dimen/space_110"
-        android:ellipsize="middle"
+        android:ellipsize="end"
         android:maxLines="1"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_8"
