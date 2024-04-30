@@ -291,6 +291,7 @@
     <string name="str_update_msg">New version available. \n\nPlease update to the latest version from the PlayStore.</string>
     <string name="str_title_no_history" translatable="false">NO HISTORY</string>
     <string name="str_title_no_token" translatable="false">NO TOKEN</string>
+    <string name="str_title_no_nft" translatable="false">NO NFT</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_no_token">There are no tokens.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>

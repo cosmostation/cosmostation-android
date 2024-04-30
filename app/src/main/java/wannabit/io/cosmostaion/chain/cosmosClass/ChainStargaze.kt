@@ -18,6 +18,7 @@ class ChainStargaze : CosmosLine(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_swipe_stargaze
     override var apiName: String = "stargaze"
     override var stakeDenom: String? = "ustars"
+    override var supportNft: Boolean = true
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

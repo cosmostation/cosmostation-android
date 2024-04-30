@@ -127,4 +127,18 @@ interface WalletRepository {
     suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
 
     suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String>
+
+    suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun cw721TokenIds(
+        channel: ManagedChannel, line: CosmosLine, list: JsonObject
+    ): NetworkResult<JsonObject?>
+
+    suspend fun cw721TokenInfo(
+        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
+    ): NetworkResult<JsonObject?>
+
+    suspend fun cw721TokenDetail(
+        line: CosmosLine, contractAddress: String, tokenId: String
+    ): NetworkResult<JsonObject>
 }

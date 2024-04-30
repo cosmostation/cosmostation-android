@@ -87,6 +87,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
+import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
@@ -124,6 +125,10 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     var lcdAccountInfo: AccountResponse? = null
     var lcdBeaconTokens = mutableListOf<BnbToken>()
+
+    var cw721s = mutableListOf<JsonObject>()
+    var cw721Fetched = false
+    var cw721Models = mutableListOf<Cw721Model>()
 
     override fun setInfoWithSeed(
         seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String

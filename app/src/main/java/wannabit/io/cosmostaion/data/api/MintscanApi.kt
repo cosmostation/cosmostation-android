@@ -30,6 +30,12 @@ interface MintscanApi {
     @GET("v10/assets/{chain}/erc20/info")
     suspend fun erc20token(@Path("chain") chain: String): MutableList<Token>
 
+    @GET("{chain}/cw721.json")
+    suspend fun cw721Info(@Path("chain") chain: String): MutableList<JsonObject>
+
+    @GET("v10/{chain}/contracts/{contractAddress}/nft-url/{tokenId}")
+    suspend fun cw721Detail(@Path("chain") chain: String, @Path("contractAddress") contractAddress: String, @Path("tokenId") tokenId: String): JsonObject
+
     @GET("v10/{chain}/account/{address}/txs")
     suspend fun cosmosHistory(
         @Path("chain") chain: String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String

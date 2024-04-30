@@ -105,6 +105,17 @@ class ApplicationViewModel(
                         _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                     }
                 }
+
+            } else if (supportNft) {
+                when (val response = walletRepository.cw721Info(apiName)) {
+                    is NetworkResult.Success -> {
+                        line.cw721s = response.data
+                    }
+
+                    is NetworkResult.Error -> {
+                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                    }
+                }
             }
 
             if (this is ChainBinanceBeacon || this is ChainOkt996Keccak) {

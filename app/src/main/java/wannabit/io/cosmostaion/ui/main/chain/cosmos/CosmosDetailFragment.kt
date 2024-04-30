@@ -245,12 +245,14 @@ class CosmosDetailFragment : Fragment() {
 
             val supportToken =
                 selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
+            val supportNft = selectedChain.supportNft
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when {
                     position == 0 -> getString(R.string.title_coin)
                     supportToken && position == 1 -> getString(R.string.title_token)
-                    !supportToken && position == 1 || supportToken && position == 2 -> getString(R.string.title_history)
+                    supportNft && position == 1 -> getString(R.string.title_nft)
+                    !supportToken && position == 1 || supportToken && position == 2 || supportNft && position == 2-> getString(R.string.title_history)
                     else -> "About"
                 }
             }.attach()
@@ -576,10 +578,6 @@ class CosmosDetailFragment : Fragment() {
                     fragments.add(AboutFragment.newInstance(selectedChain))
                 }
 
-            } else if (selectedChain is ChainBinanceBeacon) {
-                fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(HistoryFragment.newInstance(selectedChain))
-
             } else {
                 fragments.add(CoinFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
@@ -587,6 +585,8 @@ class CosmosDetailFragment : Fragment() {
 
                 if (selectedChain.supportCw20 || selectedChain.supportErc20) {
                     fragments.add(1, TokenFragment.newInstance(selectedChain))
+                } else if (selectedChain.supportNft) {
+                    fragments.add(1, NftFragment.newInstance(selectedChain))
                 }
             }
         }

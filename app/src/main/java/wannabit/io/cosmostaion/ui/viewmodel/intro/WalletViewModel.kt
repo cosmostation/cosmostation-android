@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
+import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -22,6 +23,8 @@ import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.data.model.Cw721Model
+import wannabit.io.cosmostaion.data.model.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
@@ -390,6 +393,108 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             is NetworkResult.Error -> {
                 _moonPayDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    var cw721ModelResult = SingleLiveEvent<String>()
+    fun cw721TokenIds(line: CosmosLine, list: JsonObject) =
+        viewModelScope.launch(Dispatchers.IO) {
+            line.cw721Fetched = false
+            line.cw721Models.clear()
+            val channel = getChannel(line)
+
+            when (val response = walletRepository.cw721TokenIds(channel, line, list)) {
+                is NetworkResult.Success -> {
+                    response.data?.let { tokenIds ->
+                        if (tokenIds.size() > 0) {
+                            val jobs =
+                                tokenIds.asJsonObject["tokens"].asJsonArray.map { tokenIdElement ->
+                                    async {
+                                        val tokenId = tokenIdElement.asString
+                                        when (val tokenInfo = walletRepository.cw721TokenInfo(
+                                            channel, line, list, tokenId
+                                        )) {
+                                            is NetworkResult.Success -> {
+                                                when (val tokenDetail =
+                                                    walletRepository.cw721TokenDetail(
+                                                        line,
+                                                        list.asJsonObject["contractAddress"].asString,
+                                                        tokenId
+                                                    )) {
+                                                    is NetworkResult.Success -> {
+                                                        Cw721TokenModel(
+                                                            tokenId,
+                                                            tokenInfo.data,
+                                                            tokenDetail.data
+                                                        )
+                                                    }
+
+                                                    is NetworkResult.Error -> {
+                                                        null
+                                                    }
+                                                }
+                                            }
+
+                                            is NetworkResult.Error -> {
+                                                null
+                                            }
+                                        }
+                                    }
+                                }
+                            val tokens = jobs.awaitAll().filterNotNull()
+                            if (tokens.isNotEmpty()) {
+                                line.cw721Models.add(Cw721Model(list, tokens.toMutableList()))
+                            }
+                            cw721ModelResult.postValue(line.tag)
+                        } else {
+                            cw721ModelResult.postValue(line.tag)
+                        }
+                    }
+                }
+
+                is NetworkResult.Error -> {
+                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                }
+            }
+        }
+
+    private fun cw721TokenInfo(
+        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.cw721TokenInfo(channel, line, list, tokenId)) {
+            is NetworkResult.Success -> {
+                response.data?.let { tokenInfo ->
+                    cw721TokenDetail(line, tokenInfo, tokenId, list)
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private fun cw721TokenDetail(
+        line: CosmosLine, tokenInfo: JsonObject, tokenId: String, list: JsonObject
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        line.cw721Fetched = false
+        line.cw721Models.clear()
+        when (val response = walletRepository.cw721TokenDetail(
+            line, list.asJsonObject["contractAddress"].asString, tokenId
+        )) {
+            is NetworkResult.Success -> {
+                val tokens = mutableListOf<Cw721TokenModel>()
+                response.data.let { tokenDetail ->
+                    tokens.add(Cw721TokenModel(tokenId, tokenInfo, tokenDetail))
+                    if (tokens.isNotEmpty()) {
+                        line.cw721Models.add(Cw721Model(list, tokens))
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }
