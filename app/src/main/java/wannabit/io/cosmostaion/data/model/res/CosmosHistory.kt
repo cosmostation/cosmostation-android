@@ -96,9 +96,9 @@ data class CosmosHistory(
 
             if (getMsgCnt() > 1) {
                 var allSend = true
-                msg.forEach { _ ->
+                msg.forEach {
                     val msgType = try {
-                        msg.asJsonObject["@type"].asString
+                        it.asJsonObject["@type"].asString
                     } catch (e: Exception) {
                         null
                     }
