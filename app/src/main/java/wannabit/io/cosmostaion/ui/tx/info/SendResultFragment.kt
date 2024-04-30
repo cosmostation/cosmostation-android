@@ -57,7 +57,7 @@ class SendResultFragment(val selectedChain: CosmosLine, private val history: Cos
             history.getDpCoin(selectedChain)[0].let { coin ->
                 BaseData.getAsset(selectedChain.apiName, coin.denom)?.let { asset ->
                     tokenImg.setTokenImg(asset)
-                    tokenName.text = asset.symbol?.uppercase()
+                    tokenName.text = asset.symbol
                     val dpAmount = coin.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                         .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                     total.text = formatAmount(
