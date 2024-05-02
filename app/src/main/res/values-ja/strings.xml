@@ -106,6 +106,7 @@
     <string name="str_vote_all">全員に投票する</string>
     <string name="str_from_address">送り先の住所</string>
     <string name="str_to_address">受信アドレスです</string>
+    <string name="str_nft_github">NFT 情報確認</string>
 
 
     //title
@@ -230,6 +231,7 @@
     <string name="title_compoundingable_chains">コンパウンディング対象チェーン</string>
     <string name="title_send_info">詳細情報の送信</string>
     <string name="title_nft_transfer">NFT送信</string>
+    <string name="title_select_style">Select style</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -294,6 +296,7 @@
     <string name="str_all_claim_msg">報酬額と送信手数料額を確認してください。\n今後受け取りたい報酬を除外するにはスワイプしてください。</string>
     <string name="str_sunset_msg">選択されたチェーンはサポート終了予定です。 詳しくは、財団の公式通知をご覧ください。</string>
     <string name="str_all_compoundingable_msg">コンパウンディング数量とTx手数料の金額を確認してください。\n今後コンパウンディングするチェーンをスワイプして除外してください。</string>
+    <string name="str_nft_github_msg">すべての NFT コレクションに関する情報はコミュニティと協力して開発されます。\n\nコレクションまたは NFT が表示されない場合は、以下の GitHub リンクを発行者またはコミュニティに提供してください。\n\nコレクションに関する情報が登録されると、自動的に表示されます。\n顧客だけでなく、 コミュニティ内のすべてのユーザーが対象です。 確認してご利用いただけます。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

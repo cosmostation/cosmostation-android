@@ -91,6 +91,14 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                     btnGithub.text = "Link"
                     binding.dialogMsg.text = getString(R.string.str_sunset_msg)
                 }
+
+                NoticeType.TOKEN_NFT_GITHUB -> {
+                    dialogTitle.text = getString(R.string.str_nft_github)
+                    nodeLayout.visibility = View.GONE
+                    btnGithub.visibility = View.VISIBLE
+                    btnGithub.text = getString(R.string.title_github)
+                    binding.dialogMsg.text = getString(R.string.str_nft_github_msg)
+                }
             }
         }
     }
@@ -120,6 +128,11 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                         }
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
                     }
+
+                    NoticeType.TOKEN_NFT_GITHUB -> {
+                        val githubUrl = "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw721.json"
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
+                    }
                 }
             }
 
@@ -135,4 +148,4 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     }
 }
 
-enum class NoticeType { TOKEN_GITHUB, NODE_DOWN_GUIDE, CHAIN_SUNSET }
+enum class NoticeType { TOKEN_GITHUB, NODE_DOWN_GUIDE, CHAIN_SUNSET, TOKEN_NFT_GITHUB }

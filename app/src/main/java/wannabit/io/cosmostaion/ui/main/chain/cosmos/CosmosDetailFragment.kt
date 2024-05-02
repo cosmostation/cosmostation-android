@@ -262,7 +262,15 @@ class CosmosDetailFragment : Fragment() {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
 
-                    btnAddToken.visibleOrGone(supportToken && position == 1)
+                    if (supportNft && position == 1) {
+                        btnAddToken.setImageResource(R.drawable.icon_nft_request)
+                        btnAddToken.visibility = View.VISIBLE
+                    } else if (supportToken && position == 1) {
+                        btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
+                        btnAddToken.visibility = View.VISIBLE
+                    } else {
+                        btnAddToken.visibility = View.GONE
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -290,6 +298,12 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
+    private fun showNotice(noticeType: NoticeType) {
+        NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+            requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
+        )
+    }
+
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -297,9 +311,11 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAddToken.setOnClickListener {
-                NoticeInfoFragment.newInstance(selectedChain, NoticeType.TOKEN_GITHUB).show(
-                    requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
-                )
+                if (selectedChain.supportNft) {
+                    showNotice(NoticeType.TOKEN_NFT_GITHUB)
+                } else {
+                    showNotice(NoticeType.TOKEN_GITHUB)
+                }
             }
 
             btnAccount.setOnClickListener {
