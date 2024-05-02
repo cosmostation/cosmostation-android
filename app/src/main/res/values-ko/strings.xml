@@ -225,6 +225,7 @@
     <string name="title_sunset">체인 중단 안내</string>
     <string name="title_compoundingable_chains">컴파운딩 대상 체인</string>
     <string name="title_send_info">전송 상세 정보</string>
+    <string name="title_nft_transfer">NFT 전송</string>
 
 
     // msg

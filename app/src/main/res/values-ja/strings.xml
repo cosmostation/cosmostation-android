@@ -229,6 +229,7 @@
     <string name="title_sunset">チェーン中断案内</string>
     <string name="title_compoundingable_chains">コンパウンディング対象チェーン</string>
     <string name="title_send_info">詳細情報の送信</string>
+    <string name="title_nft_transfer">NFT送信</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>

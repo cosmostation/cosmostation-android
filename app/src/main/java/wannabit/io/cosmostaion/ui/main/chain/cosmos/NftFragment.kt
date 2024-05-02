@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentNftBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftAdapter.Companion.VIEW_TYPE_NFT_HEADER
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftAdapter.Companion.VIEW_TYPE_NFT_ITEM
+import wannabit.io.cosmostaion.ui.tx.step.NftTransferFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 
@@ -30,7 +33,6 @@ class NftFragment : Fragment() {
     private lateinit var selectedChain: CosmosLine
 
     private var isBusy = false
-    private var nftGroup: MutableList<Cw721Model> = mutableListOf()
     private var isClickable = true
 
     companion object {
@@ -57,6 +59,7 @@ class NftFragment : Fragment() {
 
         initViewModel()
         fetchData()
+        refreshData()
         setUpObserve()
     }
 
@@ -76,10 +79,20 @@ class NftFragment : Fragment() {
         }
     }
 
-    private fun updateView() {
+    override fun onResume() {
+        super.onResume()
+        if (!selectedChain.cw721Fetched) {
+            fetchData()
+        } else {
+            updateView(selectedChain.cw721Models)
+        }
+    }
+
+    private fun updateView(nftGroup: MutableList<Cw721Model>) {
         binding.apply {
             refresher.isRefreshing = false
             loading.visibility = View.GONE
+
             if (nftGroup.isEmpty()) {
                 emptyLayout.visibility = View.VISIBLE
                 recycler.visibility = View.GONE
@@ -104,13 +117,29 @@ class NftFragment : Fragment() {
                 recycler.adapter = nftAdapter
                 nftAdapter.submitList(nftGroup)
 
-                var isClickable = true
                 if (::nftAdapter.isInitialized) {
                     nftAdapter.setOnItemClickListener { line, info, token ->
-                        
+                        if (isClickable) {
+                            isClickable = false
+
+                            NftTransferFragment(line, info, token).show(
+                                requireActivity().supportFragmentManager,
+                                NftTransferFragment::class.java.name
+                            )
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                isClickable = true
+                            }, 300)
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun refreshData() {
+        binding.refresher.setOnRefreshListener {
+            fetchData()
         }
     }
 
@@ -119,8 +148,10 @@ class NftFragment : Fragment() {
             return
         }
         isBusy = true
+        selectedChain.cw721Fetched = false
+        selectedChain.cw721Models.clear()
         selectedChain.cw721s.asSequence().concurrentForEach { list ->
-            walletViewModel.cw721TokenIds(selectedChain, list)
+            walletViewModel.cw721AllTokens(selectedChain, list)
         }
     }
 
@@ -132,10 +163,8 @@ class NftFragment : Fragment() {
                 selectedChain.cw721Models.forEach { cw721Model ->
                     cw721Model.sortId()
                 }
-
-                nftGroup = selectedChain.cw721Models
                 isBusy = false
-                updateView()
+                updateView(selectedChain.cw721Models)
             }
         }
     }

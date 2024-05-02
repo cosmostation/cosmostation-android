@@ -165,6 +165,11 @@ class TxResultActivity : BaseActivity() {
                         startMainActivity()
                     }
 
+                    TxResultType.NFT -> {
+                        selectedChain?.cw721Fetched = false
+                        finish()
+                    }
+
                     else -> {
                         finish()
                         BaseData.baseAccount?.let { account ->
@@ -278,4 +283,4 @@ class TxResultActivity : BaseActivity() {
     }
 }
 
-enum class TxResultType { COSMOS, SKIP }
+enum class TxResultType { COSMOS, SKIP, NFT }

@@ -61,7 +61,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
@@ -1079,11 +1078,7 @@ object Signer {
         val signerInfo = grpcSimulInfo(auth)
         val authInfo = grpcAuthInfo(signerInfo, fee)
         val simulateTx = grpcSimulTx(txBody, authInfo)
-        return if (selectedChain is ChainEmoney) {
-            SimulateRequest.newBuilder().setTx(simulateTx).build()
-        } else {
-            SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
-        }
+        return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
     }
 
     private fun grpcTxBody(msgsAny: List<Any>?, memo: String): TxBody? {

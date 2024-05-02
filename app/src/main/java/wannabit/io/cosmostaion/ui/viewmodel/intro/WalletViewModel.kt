@@ -398,10 +398,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     var cw721ModelResult = SingleLiveEvent<String>()
-    fun cw721TokenIds(line: CosmosLine, list: JsonObject) =
+    fun cw721AllTokens(line: CosmosLine, list: JsonObject) =
         viewModelScope.launch(Dispatchers.IO) {
-            line.cw721Fetched = false
-            line.cw721Models.clear()
             val channel = getChannel(line)
 
             when (val response = walletRepository.cw721TokenIds(channel, line, list)) {

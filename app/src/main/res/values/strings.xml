@@ -285,6 +285,7 @@
     <string name="title_sunset">Chain sunset</string>
     <string name="title_compoundingable_chains">CompoundingAble chains</string>
     <string name="title_send_info">Send detail info</string>
+    <string name="title_nft_transfer">Send NFT</string>
 
 
     // msg
