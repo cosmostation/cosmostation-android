@@ -369,8 +369,8 @@
     <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
     <string name="str_all_compoundingable_msg">Check the to compounding amount and Tx fee amount.\nPlease swipe to exclude you would like to compounding in the future.</string>
     <string name="str_nft_github_msg">Information on all NFT collections is developed together with the community.\n\nIf you do not see your collection or NFT, please provide the GitHub link below to the publisher or community.\n\nOnce information about the collection is registered, it will be automatically displayed,\nNot only for the customer but also for all users in the community. You can check and use it.</string>
-    <string name="str_simple_style_msg">Chain names and total asset values are displayed.</string>
-    <string name="str_pro_style_msg">native token prices and price changes are displayed.</string>
+    <string name="str_simple_style_msg">Display total value of on-chain assets.</string>
+    <string name="str_pro_style_msg">Additionally, main asset\'s price and price change are displayed.</string>
 
 
     // header
