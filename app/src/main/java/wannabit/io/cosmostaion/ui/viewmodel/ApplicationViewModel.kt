@@ -87,6 +87,11 @@ class ApplicationViewModel(
         displayLegacyResult.postValue(isDisplay)
     }
 
+    var styleOptionResult = SingleLiveEvent<Boolean>()
+    fun styleOption(isChanged: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        styleOptionResult.postValue(isChanged)
+    }
+
 
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage

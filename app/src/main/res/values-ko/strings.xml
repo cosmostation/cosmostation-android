@@ -294,6 +294,8 @@
     <string name="str_sunset_msg">선택하신 체인은 지원종료 예정입니다. 자세한 내용은 재단의 공식 공지를 참조하세요.</string>
     <string name="str_all_compoundingable_msg">컴파운딩 수량과 Tx 수수료 금액을 확인하세요.\n추후에 컴파운딩 하실 체인은 스와이프하여 제외해주세요.</string>
     <string name="str_nft_github_msg">모든 NFT 콜랙션에 관한 정보는 커뮤니티와 함께 발전시키고 있습니다.\n\n본인의 콜랙션 및 NFT가 보이지 않는다면 아래 깃헙링크를 발행자나 커뮤니티에 알려주세요.\n\n콜랙션에 대한 정보가 등록되면 자동으로 표시되며,\n고객님 뿐만 아니라 커뮤니티의 모든 사용자가 같이 확인하고 사용할 수 있습니다.</string>
+    <string name="str_simple_style_msg">체인 이름과 체인 내 보유한 코인들의 총 가격이 표기됩니다.</string>
+    <string name="str_pro_style_msg">네이티브 토큰의 가격과 변동수치가 표기됩니다.</string>
 
 
     // error

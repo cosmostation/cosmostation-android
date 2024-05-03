@@ -12,8 +12,8 @@
         android:id="@+id/dash_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_68"
-        app:cardPreventCornerOverlap="true"
         android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -42,10 +42,10 @@
                 android:layout_marginVertical="@dimen/space_10"
                 android:layout_marginStart="@dimen/space_12"
                 android:src="@drawable/chain_swipe_cosmos"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="gone"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -60,64 +60,155 @@
                     style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_6"
                     android:textColor="@color/color_base01" />
+
+                <TextView
+                    android:id="@+id/chain_side_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_toRightOf="@id/chain_name"
+                    android:background="@drawable/round_box_deprecated"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base02"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_side_type_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_toRightOf="@+id/chain_side_badge"
+                    android:background="@drawable/round_box_deprecated"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:textColor="@color/color_base02"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_side_cw20_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_toRightOf="@+id/chain_side_type_badge"
+                    android:background="@drawable/round_box_cw20"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="CW20"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_side_nft_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/chain_side_cw20_badge"
+                    android:background="@drawable/round_box_nft"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="NFT"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_price"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:text="$ 10.000"
+                    android:textColor="@color/color_base02"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_price_status"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_toRightOf="@+id/chain_price"
+                    android:text="$ 10.000"
+                    android:textColor="@color/color_base02"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/chain_badge"
                     style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_marginEnd="@dimen/space_2"
                     android:background="@drawable/round_box_deprecated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/space_2"
                     android:paddingHorizontal="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_3"
+                    android:paddingVertical="@dimen/space_2"
+                    android:textAllCaps="true"
                     android:textColor="@color/color_base02"
-                    android:layout_below="@+id/chain_name"
-                    android:textAllCaps="true"/>
-
-                <TextView
-                    android:id="@+id/chain_cw20_badge"
-                    style="@style/font_sm_8"
-                    android:background="@drawable/round_box_cw20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/space_2"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:textColor="@color/color_base01"
-                    android:layout_below="@+id/chain_name"
-                    android:textAllCaps="true"
-                    android:visibility="gone"
-                    android:text="CW20"/>
-
-                <TextView
-                    android:id="@+id/chain_nft_badge"
-                    style="@style/font_sm_8"
-                    android:background="@drawable/round_box_nft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/space_2"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:textColor="@color/color_base01"
-                    android:layout_below="@+id/chain_name"
-                    android:visibility="gone"
-                    android:textAllCaps="true"
-                    android:text="NFT"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/chain_type_badge"
                     style="@style/font_sm_8"
-                    android:background="@drawable/round_box_deprecated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/space_2"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginStart="@dimen/space_2"
-                    android:textColor="@color/color_base02"
                     android:layout_below="@+id/chain_name"
-                    android:layout_toRightOf="@+id/chain_badge" />
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_toRightOf="@+id/chain_badge"
+                    android:background="@drawable/round_box_deprecated"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:textColor="@color/color_base02"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_cw20_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:layout_toRightOf="@+id/chain_type_badge"
+                    android:background="@drawable/round_box_cw20"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="CW20"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_nft_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_toRightOf="@id/chain_cw20_badge"
+                    android:background="@drawable/round_box_nft"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="NFT"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -161,10 +252,10 @@
 
                 <TextView
                     android:id="@+id/respond_txt"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Node not responding"
-                    style="@style/font_sb_12"
                     android:textColor="@color/color_red01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

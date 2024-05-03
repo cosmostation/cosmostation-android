@@ -491,6 +491,10 @@ class DashboardFragment : Fragment() {
             }
         }
 
+        ApplicationViewModel.shared.styleOptionResult.observe(viewLifecycleOwner) { isChanged ->
+            if (isChanged) dashAdapter.notifyDataSetChanged()
+        }
+
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
             updateHideValue()
             dashAdapter.notifyDataSetChanged()
