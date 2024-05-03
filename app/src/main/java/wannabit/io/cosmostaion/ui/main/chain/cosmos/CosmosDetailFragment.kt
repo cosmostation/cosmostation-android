@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
+import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
@@ -72,6 +73,8 @@ class CosmosDetailFragment : Fragment() {
     private var isClickable = true
 
     private val handler = Handler(Looper.getMainLooper())
+
+    private var noticeType = NoticeType.TOKEN_GITHUB
 
     companion object {
         @JvmStatic
@@ -113,6 +116,17 @@ class CosmosDetailFragment : Fragment() {
         setUpClickAction()
         setFabMenuClickAction()
         setUpObserve()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!::selectedChain.isInitialized) {
+            Intent(requireContext(), IntroActivity::class.java).apply {
+                flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(this)
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -251,8 +265,14 @@ class CosmosDetailFragment : Fragment() {
                 tab.text = when {
                     position == 0 -> getString(R.string.title_coin)
                     supportToken && position == 1 -> getString(R.string.title_token)
-                    supportNft && position == 1 -> getString(R.string.title_nft)
-                    !supportToken && position == 1 || supportToken && position == 2 || supportNft && position == 2-> getString(R.string.title_history)
+                    supportNft && position == 1 || supportToken && supportNft && position == 2 -> getString(
+                        R.string.title_nft
+                    )
+
+                    !supportToken && position == 1 || supportToken && position == 2 || supportNft && position == 2 || supportToken && supportNft && position == 3 -> getString(
+                        R.string.title_history
+                    )
+
                     else -> "About"
                 }
             }.attach()
@@ -261,15 +281,22 @@ class CosmosDetailFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
+                    when (tab?.text.toString()) {
+                        getString(R.string.title_token) -> {
+                            btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
+                            btnAddToken.visibility = View.VISIBLE
+                            noticeType = NoticeType.TOKEN_GITHUB
+                        }
 
-                    if (supportNft && position == 1) {
-                        btnAddToken.setImageResource(R.drawable.icon_nft_request)
-                        btnAddToken.visibility = View.VISIBLE
-                    } else if (supportToken && position == 1) {
-                        btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
-                        btnAddToken.visibility = View.VISIBLE
-                    } else {
-                        btnAddToken.visibility = View.GONE
+                        getString(R.string.title_nft) -> {
+                            btnAddToken.setImageResource(R.drawable.icon_nft_request)
+                            btnAddToken.visibility = View.VISIBLE
+                            noticeType = NoticeType.TOKEN_NFT_GITHUB
+                        }
+
+                        else -> {
+                            btnAddToken.visibility = View.GONE
+                        }
                     }
                 }
 
@@ -311,11 +338,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAddToken.setOnClickListener {
-                if (selectedChain.supportNft) {
-                    showNotice(NoticeType.TOKEN_NFT_GITHUB)
-                } else {
-                    showNotice(NoticeType.TOKEN_GITHUB)
-                }
+                showNotice(noticeType)
             }
 
             btnAccount.setOnClickListener {
@@ -599,8 +622,13 @@ class CosmosDetailFragment : Fragment() {
                 fragments.add(HistoryFragment.newInstance(selectedChain))
                 fragments.add(AboutFragment.newInstance(selectedChain))
 
-                if (selectedChain.supportCw20 || selectedChain.supportErc20) {
+                if ((selectedChain.supportCw20 || selectedChain.supportErc20) && selectedChain.supportNft) {
                     fragments.add(1, TokenFragment.newInstance(selectedChain))
+                    fragments.add(2, NftFragment.newInstance(selectedChain))
+
+                } else if (selectedChain.supportCw20 || selectedChain.supportErc20) {
+                    fragments.add(1, TokenFragment.newInstance(selectedChain))
+
                 } else if (selectedChain.supportNft) {
                     fragments.add(1, NftFragment.newInstance(selectedChain))
                 }

@@ -1,12 +1,12 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
-import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -429,7 +429,11 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                                     }
 
                                                     is NetworkResult.Error -> {
-                                                        null
+                                                        Cw721TokenModel(
+                                                            tokenId,
+                                                            tokenInfo.data,
+                                                            null
+                                                        )
                                                     }
                                                 }
                                             }
@@ -456,44 +460,4 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
         }
-
-    private fun cw721TokenInfo(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.cw721TokenInfo(channel, line, list, tokenId)) {
-            is NetworkResult.Success -> {
-                response.data?.let { tokenInfo ->
-                    cw721TokenDetail(line, tokenInfo, tokenId, list)
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
-    private fun cw721TokenDetail(
-        line: CosmosLine, tokenInfo: JsonObject, tokenId: String, list: JsonObject
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        line.cw721Fetched = false
-        line.cw721Models.clear()
-        when (val response = walletRepository.cw721TokenDetail(
-            line, list.asJsonObject["contractAddress"].asString, tokenId
-        )) {
-            is NetworkResult.Success -> {
-                val tokens = mutableListOf<Cw721TokenModel>()
-                response.data.let { tokenDetail ->
-                    tokens.add(Cw721TokenModel(tokenId, tokenInfo, tokenDetail))
-                    if (tokens.isNotEmpty()) {
-                        line.cw721Models.add(Cw721Model(list, tokens))
-                    }
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
 }

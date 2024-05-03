@@ -116,13 +116,16 @@ class NftTransferFragment(
     private fun initNft() {
         binding.apply {
             token?.tokenDetail?.let {
+                nftImg.clipToOutline = true
                 it.asJsonObject["url"].asString?.let { url ->
-                    nftImg.clipToOutline = true
                     Glide.with(requireActivity()).load(url)
                         .diskCacheStrategy(
                             DiskCacheStrategy.ALL
                         ).placeholder(R.drawable.icon_nft_default)
                         .error(R.drawable.icon_nft_default).into(nftImg)
+
+                } ?: run {
+                    nftImg.setImageResource(R.drawable.icon_nft_default_alpha)
                 }
             }
             nftId.text = "#" + token?.tokenId

@@ -157,7 +157,7 @@
                 android:layout_marginVertical="@dimen/space_8"
                 android:layout_marginStart="@dimen/space_8"
                 android:background="@drawable/item_nft_bg"
-                android:src="@drawable/icon_nft_default"
+                android:src="@drawable/icon_nft_default_alpha"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -181,7 +181,7 @@
                 android:layout_marginStart="@dimen/space_10"
                 android:layout_marginTop="@dimen/space_3"
                 android:layout_marginBottom="@dimen/space_15"
-                android:textColor="@color/color_base03"
+                android:textColor="@color/color_base02"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nft_img"
                 app:layout_constraintTop_toBottomOf="@+id/nft_id" />

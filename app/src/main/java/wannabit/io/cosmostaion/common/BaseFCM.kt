@@ -27,12 +27,10 @@ class BaseFCM : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        remoteMessage.notification?.let {
-            remoteMessage.notification?.let { notification ->
-                val messageTitle = notification.title
-                val messageBody = notification.body
-                makeNotification(messageBody, messageTitle, makeAlertIntent(remoteMessage)!!)
-            }
+        remoteMessage.notification?.let { notification ->
+            val messageTitle = notification.title
+            val messageBody = notification.body
+            makeNotification(messageBody, messageTitle, makeAlertIntent(remoteMessage)!!)
         }
     }
 

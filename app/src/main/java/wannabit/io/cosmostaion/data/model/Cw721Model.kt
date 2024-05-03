@@ -7,7 +7,7 @@ data class Cw721Model(
     var tokens: MutableList<Cw721TokenModel>
 ) {
     fun sortId() {
-        tokens.sortBy { it.tokenId }
+        tokens.sortBy { it.tokenId.toDouble() }
     }
 }
 

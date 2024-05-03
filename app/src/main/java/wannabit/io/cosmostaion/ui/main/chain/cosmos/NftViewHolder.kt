@@ -15,13 +15,16 @@ class NftViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(info: JsonObject, nft: Cw721TokenModel) {
         binding.apply {
+            nftImg.clipToOutline = true
             nft.tokenDetail?.let {
-                nftImg.clipToOutline = true
                 Glide.with(context).load(it.asJsonObject["url"].asString)
                     .diskCacheStrategy(
                         DiskCacheStrategy.ALL
                     ).placeholder(R.drawable.icon_nft_default)
                     .error(R.drawable.icon_nft_default).into(nftImg)
+
+            } ?: run {
+                nftImg.setImageResource(R.drawable.icon_nft_default_alpha)
             }
             nftTitle.text = info["name"].asString + " #" + nft.tokenId
         }

@@ -104,6 +104,17 @@ class ApplicationViewModel(
                 when (val response = walletRepository.token(this)) {
                     is NetworkResult.Success -> {
                         line.tokens = response.data
+                        if (supportNft) {
+                            when (val infoResponse = walletRepository.cw721Info(apiName)) {
+                                is NetworkResult.Success -> {
+                                    line.cw721s = infoResponse.data
+                                }
+
+                                is NetworkResult.Error -> {
+                                    _chainDataErrorMessage.postValue("error type : ${infoResponse.errorType}  error message : ${infoResponse.errorMessage}")
+                                }
+                            }
+                        }
                     }
 
                     is NetworkResult.Error -> {

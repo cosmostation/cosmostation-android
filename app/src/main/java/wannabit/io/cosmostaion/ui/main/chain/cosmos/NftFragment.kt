@@ -58,9 +58,14 @@ class NftFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
-        fetchData()
         refreshData()
         setUpObserve()
+
+        if (!selectedChain.cw721Fetched) {
+            fetchData()
+        } else {
+            updateView(selectedChain.cw721Models)
+        }
     }
 
     private fun initViewModel() {
