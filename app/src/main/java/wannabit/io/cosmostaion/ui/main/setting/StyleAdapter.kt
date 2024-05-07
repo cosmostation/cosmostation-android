@@ -43,10 +43,4 @@ class StyleAdapter(
     fun setOnItemClickListener(listener: (Int) -> Unit) {
         onItemClickListener = listener
     }
-
-    interface EndpointListener {
-        fun select(endpoint: String, gapTime: Double?)
-
-        fun rpcSelect(endpoint: String, gapTime: Double?)
-    }
 }

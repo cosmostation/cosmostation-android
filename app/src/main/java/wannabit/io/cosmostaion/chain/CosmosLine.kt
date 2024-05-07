@@ -130,6 +130,8 @@ open class CosmosLine : BaseChain(), Parcelable {
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()
 
+    var historyFetched = false
+
     override fun setInfoWithSeed(
         seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String
     ) {

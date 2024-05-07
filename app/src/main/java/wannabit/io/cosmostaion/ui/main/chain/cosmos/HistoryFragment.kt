@@ -92,6 +92,17 @@ class HistoryFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!selectedChain.historyFetched) {
+            allHistoryGroup.clear()
+            allBnbHistoryGroup.clear()
+            allOktHistoryGroup.clear()
+            searchAfter = ""
+            initData()
+        }
+    }
+
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             allHistoryGroup.clear()
@@ -213,6 +224,7 @@ class HistoryFragment : Fragment() {
 
     private fun checkHistory() {
         historyViewModel.historyResult.observe(viewLifecycleOwner) { response ->
+            selectedChain.historyFetched = true
             allHistoryGroup.addAll(response)
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
@@ -233,6 +245,7 @@ class HistoryFragment : Fragment() {
         }
 
         historyViewModel.bnbHistoryResult.observe(viewLifecycleOwner) { response ->
+            selectedChain.historyFetched = true
             allBnbHistoryGroup.addAll(response)
             response?.let {
                 historyAdapter.submitList(allBnbHistoryGroup as List<Any>?)
@@ -245,6 +258,7 @@ class HistoryFragment : Fragment() {
         }
 
         historyViewModel.oktHistoryResult.observe(viewLifecycleOwner) { response ->
+            selectedChain.historyFetched = true
             allOktHistoryGroup.addAll(response)
             response?.let {
                 historyAdapter.submitList(allOktHistoryGroup as List<Any>?)

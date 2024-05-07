@@ -175,9 +175,9 @@ class SettingFragment : Fragment() {
             }
             currency.text = BaseData.currencyName()
             style.text = if (Prefs.style == 0) {
-                "Simple"
+                getString(R.string.str_simple)
             } else {
-                "Pro"
+                getString(R.string.str_pro)
             }
 
             when (Prefs.priceStyle) {

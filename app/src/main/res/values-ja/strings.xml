@@ -107,6 +107,9 @@
     <string name="str_from_address">送り先の住所</string>
     <string name="str_to_address">受信アドレスです</string>
     <string name="str_nft_github">NFT 情報確認</string>
+    <string name="str_style">スタイル</string>
+    <string name="str_simple">シンプル</string>
+    <string name="str_pro">プロ</string>
 
 
     //title

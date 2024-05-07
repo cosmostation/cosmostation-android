@@ -38,7 +38,7 @@ class StyleFragment : BaseTxFragment() {
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = styleAdapter
-            styleAdapter.submitList(listOf("1. Simple style", "2. Pro style"))
+            styleAdapter.submitList(listOf("1. " + getString(R.string.str_simple), "2. " + getString(R.string.str_pro)))
 
             styleAdapter.setOnItemClickListener {
                 val bundle = Bundle()

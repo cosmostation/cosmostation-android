@@ -143,6 +143,9 @@
     <string name="str_from_address">From address</string>
     <string name="str_to_address">To address</string>
     <string name="str_nft_github">Check NFT info</string>
+    <string name="str_style">Style</string>
+    <string name="str_simple">Simple</string>
+    <string name="str_pro">Pro</string>
 
 
     //title

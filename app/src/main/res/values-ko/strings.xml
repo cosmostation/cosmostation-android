@@ -101,6 +101,9 @@
     <string name="str_from_address">보내는 주소</string>
     <string name="str_to_address">수신 주소</string>
     <string name="str_nft_github">NFT 정보 확인</string>
+    <string name="str_style">스타일</string>
+    <string name="str_simple">심플</string>
+    <string name="str_pro">프로</string>
 
 
     //title
