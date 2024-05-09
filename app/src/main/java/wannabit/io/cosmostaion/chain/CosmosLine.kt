@@ -193,6 +193,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
+    fun chainDappName(): String? {
+        return getChainListParam()?.getAsJsonObject("name_for_dapp")?.asString?.lowercase()
+    }
+
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
         val gasAmount = getFeeBaseGasDpAmount()
         val feeDatas = getFeeInfos(c)[position].feeDatas

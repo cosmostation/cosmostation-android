@@ -17,6 +17,7 @@ import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
 import com.cosmos.tx.v1beta1.TxProto
@@ -38,6 +39,8 @@ import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import com.walletconnect.sign.client.SignInterface
 import com.walletconnect.util.bytesToHex
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import net.i2p.crypto.eddsa.Utils
 import okhttp3.OkHttpClient
 import org.apache.commons.lang3.StringUtils
@@ -78,7 +81,9 @@ class DappActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDappBinding
 
-    private var selectedChain: CosmosLine? = null
+    private var allChains: MutableList<CosmosLine>? = mutableListOf()
+
+    private var selectChain: CosmosLine? = null
     private var wcUrl: String? = ""
 
     private var wcVersion = 1
@@ -95,7 +100,36 @@ class DappActivity : BaseActivity() {
         binding = ActivityDappBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        allChains = initAllKeyData()
         setUpDappView()
+    }
+
+    private fun initAllKeyData(): MutableList<CosmosLine> {
+        val result = mutableListOf<CosmosLine>()
+        lifecycleScope.launch(Dispatchers.IO) {
+            result.addAll(allCosmosLines())
+            result.addAll(allEvmLines())
+
+            BaseData.baseAccount?.let { account ->
+                account.apply {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        result.forEach { chain ->
+                            if (chain.address?.isEmpty() == true) {
+                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            }
+                        }
+
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        result.forEach { chain ->
+                            if (chain.address?.isEmpty() == true) {
+                                chain.setInfoWithPrivateKey(privateKey)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result
     }
 
     private fun setUpDappView() {
@@ -191,24 +225,20 @@ class DappActivity : BaseActivity() {
             }
             makeToast(R.string.str_wc_connected)
 
-            BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.name.lowercase() == wcPeerMeta.name.lowercase() && it.tag == "kava459" }
-                    ?.let { chain ->
-                        selectedChain = chain
-                        selectedChain?.fetchFilteredChain()
-
-                        chain.address?.let { address ->
-                            wcV1Client?.approveSession(listOf(address), 1)
-                        } ?: run {
-                            wcV1Client?.approveSession(listOf(), 1)
-                        }
+            allChains?.firstOrNull { it.name.lowercase() == wcPeerMeta.name.lowercase() && it.tag == "kava459" }
+                ?.let { chain ->
+                    selectChain = chain
+                    chain.address?.let { address ->
+                        wcV1Client?.approveSession(listOf(address), 1)
+                    } ?: run {
+                        wcV1Client?.approveSession(listOf(), 1)
                     }
-            }
+                }
         }
     }
 
     private val processGetAccounts: (Long) -> Unit = { id: Long ->
-        selectedChain?.address?.let { address ->
+        selectChain?.address?.let { address ->
             wcV1Client?.approveRequest(id, listOf(WCAccount(459, address)))
         }
     }
@@ -294,10 +324,10 @@ class DappActivity : BaseActivity() {
             mapper.readValue(tx.toString(), TreeMap::class.java)
         )
         val signatureTx =
-            Signer.signature(selectedChain, sortedTx.toByteArray(StandardCharsets.UTF_8))
+            Signer.signature(selectChain, sortedTx.toByteArray(StandardCharsets.UTF_8))
         val pubKey = PubKey(
             pubKeyType(),
-            Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
+            Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
                 .replace("\n", "")
         )
         val signatures = mutableListOf(
@@ -345,43 +375,34 @@ class DappActivity : BaseActivity() {
                         val chainId = chain.split(":")[1]
                         val chainName = chain.split(":")[0]
 
-                        BaseData.baseAccount?.let { account ->
-                            account.allEvmLineChains.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                                ?.let { line ->
-                                    selectedChain = line
+                        allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                            ?.let { line ->
+                                selectChain = line
+                                sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
+                                    accounts = listOf("$chain:${line.address}"),
+                                    methods = methods,
+                                    events = events,
+                                    extensions = null
+                                )
+                                val approveProposal = Sign.Params.Approve(
+                                    proposerPublicKey = sessionProposal.proposerPublicKey,
+                                    namespaces = sessionNamespaces
+                                )
 
+                                binding.loadingLayer.apply {
+                                    postDelayed({
+                                        visibility = View.GONE
+                                    }, 2500)
                                 }
-                                ?: account.allCosmosLineChains.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                                    ?.let { line ->
-                                        selectedChain = line
 
-                                    } ?: run {
-                                    binding.loadingLayer.visibility = View.GONE
-                                    makeToast(getString(R.string.error_not_support, chainId))
-                                    return@let
+                                SignClient.approveSession(approveProposal) { error ->
+                                    Log.e("WCV2", error.throwable.stackTraceToString())
                                 }
 
-                            selectedChain?.fetchFilteredChain()
-                            sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
-                                accounts = listOf("$chain:${selectedChain?.address}"),
-                                methods = methods,
-                                events = events,
-                                extensions = null
-                            )
-                            val approveProposal = Sign.Params.Approve(
-                                proposerPublicKey = sessionProposal.proposerPublicKey,
-                                namespaces = sessionNamespaces
-                            )
-
-                            binding.loadingLayer.apply {
-                                postDelayed({
-                                    visibility = View.GONE
-                                }, 2500)
-                            }
-
-                            SignClient.approveSession(approveProposal) { error ->
-                                Log.e("WCV2", error.throwable.stackTraceToString())
-                            }
+                            } ?: run {
+                            binding.loadingLayer.visibility = View.GONE
+                            makeToast(getString(R.string.error_not_support, chainId))
+                            return@runOnUiThread
                         }
                     }
                 }
@@ -407,10 +428,10 @@ class DappActivity : BaseActivity() {
             sessionRequest.request.apply {
                 when (method) {
                     "cosmos_getAccounts" -> {
-                        val v2Accounts = selectedChain?.address?.let { address ->
+                        val v2Accounts = selectChain?.address?.let { address ->
                             val toV2Account = V2Account(
                                 "secp256k1",
-                                Base64.encodeToString(selectedChain?.publicKey, Base64.NO_WRAP),
+                                Base64.encodeToString(selectChain?.publicKey, Base64.NO_WRAP),
                                 address
                             )
                             listOf(toV2Account)
@@ -487,10 +508,10 @@ class DappActivity : BaseActivity() {
                 )
             ).setChainId(chainId).setAccountNumber(accountNumber).build()
 
-            val signatureTx = Signer.signature(selectedChain, signDoc.toByteArray())
+            val signatureTx = Signer.signature(selectChain, signDoc.toByteArray())
             val pubKey = PubKey(
                 pubKeyType(),
-                Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
+                Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
                     .replace("\n", "")
             )
             val signature = Signature(
@@ -535,10 +556,10 @@ class DappActivity : BaseActivity() {
                 mapper.readValue(signDocJson.toString(), TreeMap::class.java)
             )
             val signatureTx =
-                Signer.signature(selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8))
+                Signer.signature(selectChain, signDoc.toByteArray(StandardCharsets.UTF_8))
             val pubKey = PubKey(
                 pubKeyType(),
-                Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
+                Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
                     .replace("\n", "")
             )
             val signature = Signature(
@@ -636,7 +657,7 @@ class DappActivity : BaseActivity() {
     private fun showSignDialog(bundle: Bundle, signListener: WcSignFragment.WcSignRawDataListener) {
         bundle.getString("data")?.let { data ->
             WcSignFragment(
-                selectedChain, bundle.getLong("id"), data, bundle.getString("url"), signListener
+                selectChain, bundle.getLong("id"), data, bundle.getString("url"), signListener
             ).show(
                 supportFragmentManager, WcSignFragment::class.java.name
             )
@@ -793,6 +814,7 @@ class DappActivity : BaseActivity() {
     }
 
     fun processRequest(message: String) {
+        Log.e("Test1234 : ", message)
         var isCosmostation = false
         try {
             val requestJson = JSONObject(message)
@@ -800,27 +822,37 @@ class DappActivity : BaseActivity() {
                 return
             }
             isCosmostation = true
-            val messageId = requestJson.getLong("messageId")
+            val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-
-            val evmSupportIds =
-                allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }.distinct()
-             val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }.map { it.chainIdCosmos }.distinct()
-            val supportChainIds = evmSupportIds.union(cosmosSupportIds)
-
-            val evmSupportNames =
-                allEvmLines().filter { it.supportCosmos }.map { it.name.lowercase() }.distinct()
-            val cosmosSupportNames = allCosmosLines().map { it.name.lowercase() }.distinct()
-            val supportChainNames = evmSupportNames.union(cosmosSupportNames)
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     val params = messageJson.getJSONObject("params")
                     val chainId = params.getString("chainName")
-                    appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
+
+                    val accountJson = JSONObject()
+                    accountJson.put("isKeystone", false)
+                    accountJson.put("isEthermint", false)
+                    accountJson.put("isLedger", false)
+                    BaseData.baseAccount?.let { account ->
+                        selectChain = selectedChain(allChains, chainId)
+                        accountJson.put("address", selectChain?.address)
+                        accountJson.put("name", account.name)
+                        accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+                    }
+                    appToWebResult(messageJson, accountJson, messageId)
                 }
 
                 "cos_supportedChainIds" -> {
+                    val evmSupportIds =
+                        allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
+                            .distinct()
+                    val cosmosSupportIds =
+                        allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
+                            .map { it.chainIdCosmos }
+                            .distinct()
+                    val supportChainIds = evmSupportIds.union(cosmosSupportIds)
+
                     val dataJson = JSONObject()
                     dataJson.put("official", JSONArray(supportChainIds))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
@@ -828,22 +860,18 @@ class DappActivity : BaseActivity() {
                 }
 
                 "cos_supportedChainNames", "ten_supportedChainNames" -> {
+                    allChains
+
+                    val evmSupportNames =
+                        allEvmLines().filter { it.supportCosmos && it.chainDappName() != null }
+                            .map { it.chainDappName() }.distinct()
+                    val cosmosSupportNames = allCosmosLines().map { it.name.lowercase() }.distinct()
+                    val supportChainNames = evmSupportNames.union(cosmosSupportNames)
+
                     val dataJson = JSONObject()
                     dataJson.put("official", JSONArray(supportChainNames))
                     dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
                     appToWebResult(messageJson, dataJson, messageId)
-                }
-
-                "cos_activatedChainIds" -> {
-                    appToWebResult(
-                        messageJson, JSONArray(supportChainIds), messageId
-                    )
-                }
-
-                "cos_activatedChainNames" -> {
-                    appToWebResult(
-                        messageJson, JSONArray(supportChainNames), messageId
-                    )
                 }
 
                 "cos_addChain", "cos_disconnect" -> {
@@ -883,7 +911,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_sendTransaction" -> {
                     try {
-                        selectedChain?.let { line ->
+                        selectChain?.let { chain ->
                             val params = messageJson.getJSONObject("params")
                             val txBytes = params.getString("txBytes")
                             val mode = params.getInt("mode")
@@ -891,7 +919,7 @@ class DappActivity : BaseActivity() {
                                 BroadcastTxRequest.newBuilder().setModeValue(mode).setTxBytes(
                                     ByteString.copyFrom(Base64.decode(txBytes, Base64.DEFAULT))
                                 ).build()
-                            val txStub = ServiceGrpc.newBlockingStub(getChannel(line))
+                            val txStub = ServiceGrpc.newBlockingStub(getChannel(chain))
                                 .withDeadlineAfter(8L, TimeUnit.SECONDS)
                             val response = txStub.broadcastTx(request)
                             appToWebResult(
@@ -907,19 +935,31 @@ class DappActivity : BaseActivity() {
                     }
                 }
 
+//                "eth_requestAccounts", "wallet_requestPermissions" -> {
+//                    appToWebResult(
+//                        messageJson, listOf("0xa76c7f20740300505ff26280e4b10873556cf4d0"), messageId
+//                    )
+//                }
+//
+//                "wallet_switchEthereumChain" -> {
+//                    appToWebResult(
+//                        messageJson, listOf("0xa76c7f20740300505ff26280e4b10873556cf4d0"), messageId
+//                    )
+//                }
+
                 else -> {
                     appToWebError("Not implemented", messageId)
                 }
             }
         } catch (e: Exception) {
             if (isCosmostation) {
-                appToWebError(e.message, 0L)
+                appToWebError(e.message, "0")
             }
         }
     }
 
     private fun approveSignAminoInjectRequest(
-        messageJson: JSONObject, messageId: Long, transactionData: String
+        messageJson: JSONObject, messageId: String, transactionData: String
     ) {
         val signDocJson = Gson().fromJson(transactionData, JsonObject::class.java)
 
@@ -929,12 +969,12 @@ class DappActivity : BaseActivity() {
             mapper.readValue(signDocJson.toString(), TreeMap::class.java)
         )
         val signatureTx = Signer.signature(
-            selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8)
+            selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
         )
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectedChain?.publicKey, Base64.DEFAULT
+                    selectChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
@@ -948,7 +988,7 @@ class DappActivity : BaseActivity() {
     }
 
     private fun approveSignDirectInjectRequest(
-        messageJson: JSONObject, messageId: Long, transactionData: String
+        messageJson: JSONObject, messageId: String, transactionData: String
     ) {
         val transactionJson = Gson().fromJson(transactionData, JsonObject::class.java)
         val chainId = transactionJson["chain_id"].asString
@@ -965,11 +1005,11 @@ class DappActivity : BaseActivity() {
             )
         ).setChainId(chainId).setAccountNumber(accountNumber).build()
 
-        val signatureTx = Signer.signature(selectedChain, signDoc.toByteArray())
+        val signatureTx = Signer.signature(selectChain, signDoc.toByteArray())
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectedChain?.publicKey, Base64.DEFAULT
+                    selectChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
@@ -980,24 +1020,7 @@ class DappActivity : BaseActivity() {
         appToWebResult(messageJson, signed, messageId)
     }
 
-    private fun makeAppToWebAccount(chainId: String): JSONObject {
-        val accountJson = JSONObject()
-        accountJson.put("isKeystone", false)
-        accountJson.put("isEthermint", false)
-        accountJson.put("isLedger", false)
-        BaseData.baseAccount?.let { account ->
-            selectedChain = selectChain(account.allEvmLineChains, chainId)
-                ?: selectChain(account.allCosmosLineChains, chainId)
-
-            selectedChain?.fetchFilteredChain()
-            accountJson.put("address", selectedChain?.address)
-            accountJson.put("name", account.name)
-            accountJson.put("publicKey", selectedChain?.publicKey?.bytesToHex())
-        }
-        return accountJson
-    }
-
-    private fun appToWebResult(messageJson: JSONObject, resultJson: Any, messageId: Long) {
+    private fun appToWebResult(messageJson: JSONObject, resultJson: Any, messageId: String) {
         val responseJson = JSONObject().apply {
             put("result", resultJson)
         }
@@ -1014,7 +1037,7 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun appToWebError(error: String?, messageId: Long) {
+    private fun appToWebError(error: String?, messageId: String) {
         val responseJson = JSONObject()
         responseJson.put("error", error)
         val postMessageJson = JSONObject()
@@ -1031,33 +1054,21 @@ class DappActivity : BaseActivity() {
     }
 
     private fun pubKeyType(): String {
-        return when (selectedChain) {
+        return when (selectChain) {
             is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
             is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
             else -> COSMOS_KEY_TYPE_PUBLIC
         }
     }
 
-    fun selectChain(classChains: List<CosmosLine>, chainId: String?): CosmosLine? {
-        return classChains.firstOrNull { chain ->
-            (chain.chainIdCosmos.equals(chainId, ignoreCase = true)
-                    || chain.name.equals(chainId, ignoreCase = true))
-                    && chain.isDefault
-        }
-    }
-
-    private fun CosmosLine.fetchFilteredChain() {
-        BaseData.baseAccount?.apply {
-            if (type == BaseAccountType.MNEMONIC) {
-                if (address?.isEmpty() == true) {
-                    setInfoWithSeed(seed, setParentPath, lastHDPath)
-                }
-
-            } else if (type == BaseAccountType.PRIVATE_KEY) {
-                if (address?.isEmpty() == true) {
-                    setInfoWithPrivateKey(privateKey)
-                }
-            }
+    private fun selectedChain(
+        classChains: MutableList<CosmosLine>?,
+        chainId: String?
+    ): CosmosLine? {
+        return classChains?.firstOrNull { chain ->
+            (chain.chainIdCosmos.equals(chainId, ignoreCase = true) || chain.name.equals(
+                chainId, ignoreCase = true
+            )) && chain.isDefault
         }
     }
 
