@@ -46,11 +46,9 @@ import okhttp3.OkHttpClient
 import org.apache.commons.lang3.StringUtils
 import org.bouncycastle.util.Strings
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
-import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
@@ -65,9 +63,14 @@ import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
+import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
+import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
+import wannabit.io.cosmostaion.data.model.req.EthCall
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.PubKey
 import wannabit.io.cosmostaion.data.model.req.Signature
@@ -77,7 +80,6 @@ import wannabit.io.cosmostaion.databinding.ActivityDappBinding
 import wannabit.io.cosmostaion.ui.main.dapp.option.DappUrlDialog
 import wannabit.io.cosmostaion.ui.main.dapp.option.WcSignFragment
 import java.io.BufferedReader
-import java.math.BigInteger
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 import java.util.TreeMap
@@ -90,6 +92,8 @@ class DappActivity : BaseActivity() {
     private var allChains: MutableList<CosmosLine>? = mutableListOf()
 
     private var selectChain: CosmosLine? = null
+    private var rpcUrl: String? = null
+    private var web3j: Web3j? = null
     private var wcUrl: String? = ""
 
     private var wcVersion = 1
@@ -174,8 +178,8 @@ class DappActivity : BaseActivity() {
                 data.query?.let { query ->
                     wcUrl = query
                     dappWebView.visibility = View.VISIBLE
-//                    dappWebView.loadUrl("https://app.uniswap.org/")
-                    dappWebView.loadUrl(query)
+                    dappWebView.loadUrl("https://app.1inch.io/")
+//                    dappWebView.loadUrl(query)
                     dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
                     WebStorage.getInstance().deleteAllData()
                 }
@@ -823,7 +827,6 @@ class DappActivity : BaseActivity() {
     }
 
     fun processRequest(message: String) {
-        Log.e("Test1234 : ", message)
         var isCosmostation = false
         try {
             val requestJson = JSONObject(message)
@@ -856,10 +859,8 @@ class DappActivity : BaseActivity() {
                     val evmSupportIds =
                         allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
                             .distinct()
-                    val cosmosSupportIds =
-                        allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
-                            .map { it.chainIdCosmos }
-                            .distinct()
+                    val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
+                        .map { it.chainIdCosmos }.distinct()
                     val supportChainIds = evmSupportIds.union(cosmosSupportIds)
 
                     val dataJson = JSONObject()
@@ -868,7 +869,7 @@ class DappActivity : BaseActivity() {
                     appToWebResult(messageJson, dataJson, messageId)
                 }
 
-                "cos_supportedChainNames", "ten_supportedChainNames" -> {
+                "cos_supportedChainNames" -> {
                     val evmSupportNames =
                         allEvmLines().filter { it.supportCosmos && it.chainDappName() != null }
                             .map { it.chainDappName() }.distinct()
@@ -952,17 +953,20 @@ class DappActivity : BaseActivity() {
                 }
 
                 "wallet_switchEthereumChain" -> {
-                    val evmChainIds = allEvmLines().map { it.chainIdEvm }.distinct()
-                    val chainId = (messageJson.getJSONArray("params")
-                        .get(0) as JSONObject).getString("chainId")
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val evmChainIds = allEvmLines().map { it.chainIdEvm }.distinct()
+                        val chainId = (messageJson.getJSONArray("params")
+                            .get(0) as JSONObject).getString("chainId")
 
-                    if (evmChainIds.contains(chainId)) {
-                        currentEvmChainId = chainId
-                        appToWebResult(messageJson, null, messageId)
+                        if (evmChainIds.contains(chainId)) {
+                            currentEvmChainId = chainId
+                            appToWebResult(messageJson, JSONObject.NULL, messageId)
+                            emitToWeb(chainId)
 
-                    } else {
-                        // not support
-                        appToWebError(messageId)
+                        } else {
+                            // not support
+                            appToWebError(messageJson, messageId)
+                        }
                     }
                 }
 
@@ -972,14 +976,18 @@ class DappActivity : BaseActivity() {
                     }
                     selectChain =
                         allChains?.firstOrNull { chain -> chain is EthereumLine && chain.chainIdEvm == currentEvmChainId }
+                    rpcUrl = if (selectChain is EthereumLine) {
+                        (selectChain as EthereumLine).getEvmRpc()
+                    } else {
+                        selectChain?.rpcUrl
+                    }
+                    web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {
                     appToWebResult(
-                        messageJson,
-                        JSONArray(listOf(selectChain?.address)),
-                        messageId
+                        messageJson, JSONArray(listOf(selectChain?.address)), messageId
                     )
                 }
 
@@ -989,165 +997,175 @@ class DappActivity : BaseActivity() {
                     showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
                         override fun sign(id: Long, data: String) {
                             lifecycleScope.launch(Dispatchers.IO) {
-                                val rpcUrl = if (selectChain is EthereumLine) {
-                                    (selectChain as EthereumLine).getEvmRpc()
-                                } else {
-                                    selectChain?.rpcUrl
-                                }
-                                val web3j = Web3j.build(HttpService(rpcUrl))
-                                val ethSendTransaction = web3j.ethSendRawTransaction(data).send()
+                                val ethSendTransaction = web3j?.ethSendRawTransaction(data)?.send()
                                 appToWebResult(
-                                    messageJson,
-                                    ethSendTransaction.transactionHash,
-                                    messageId
+                                    messageJson, ethSendTransaction?.transactionHash, messageId
                                 )
                             }
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebError(messageId)
+                            appToWebError(messageJson, messageId)
                         }
                     })
                 }
 
                 "eth_estimateGas" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val rpcUrl = if (selectChain is EthereumLine) {
-                            (selectChain as EthereumLine).getEvmRpc()
-                        } else {
-                            selectChain?.rpcUrl
-                        }
-                        val web3j = Web3j.build(HttpService(rpcUrl))
                         val params = messageJson.getJSONArray("params")
                         val param = params.getJSONObject(0)
 
-                        val response = try {
-                            web3j?.ethEstimateGas(
-                                Transaction.createEthCallTransaction(
-                                    param.getString("from"),
-                                    param.getString("to"),
-                                    param.getString("data")
+                        rpcUrl?.let {
+                            val ethGasRequest = try {
+                                JsonRpcRequest(
+                                    method = "eth_estimateGas", params = listOf(
+                                        EstimateGasParamsWithValue(
+                                            param.getString("from") ?: null,
+                                            param.getString("to"),
+                                            param.getString("data"),
+                                            param.getString("value")
+                                        )
+                                    )
                                 )
-                            )?.sendAsync()?.get()
 
-                        } catch (e: JSONException) {
-                            web3j?.ethEstimateGas(
-                                createEthCallTransaction(
-                                    param.getString("from"),
-                                    param.getString("to"),
-                                    param.getString("data"),
-                                    BigInteger(param.getString("value").removePrefix("0x"), 16)
+                            } catch (e: Exception) {
+                                JsonRpcRequest(
+                                    method = "eth_estimateGas", params = listOf(
+                                        EstimateGasParams(
+                                            param.getString("from") ?: null,
+                                            param.getString("to"),
+                                            param.getString("data")
+                                        )
+                                    )
                                 )
-                            )?.sendAsync()?.get()
-                        }
+                            }
 
-                        try {
-                            appToWebResult(
-                                messageJson,
-                                response?.result,
-                                messageId
+                            val ethGasResponse = jsonRpcResponse(it, ethGasRequest)
+                            val gasJsonObject = Gson().fromJson(
+                                ethGasResponse.body?.string(), JsonObject::class.java
                             )
-                        } catch (e: Exception) {
-                            appToWebError(messageId)
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    gasJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId)
+                            }
                         }
                     }
                 }
 
                 "eth_blockNumber" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val rpcUrl = if (selectChain is EthereumLine) {
-                            (selectChain as EthereumLine).getEvmRpc()
-                        } else {
-                            selectChain?.rpcUrl
-                        }
-                        val web3j = Web3j.build(HttpService(rpcUrl))
-                        val response = web3j?.ethBlockNumber()?.sendAsync()?.get()
-
-                        try {
-                            appToWebResult(
-                                messageJson,
-                                response?.result,
-                                messageId
+                        rpcUrl?.let {
+                            val ethBlockNumberRequest = JsonRpcRequest(
+                                method = "eth_blockNumber", params = listOf()
                             )
-                        } catch (e: Exception) {
-                            appToWebError(messageId)
+
+                            val ethBlockNumberResponse = jsonRpcResponse(it, ethBlockNumberRequest)
+                            val ethBlockNumberJsonObject = Gson().fromJson(
+                                ethBlockNumberResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    ethBlockNumberJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId)
+                            }
                         }
                     }
                 }
 
                 "eth_call" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val rpcUrl = if (selectChain is EthereumLine) {
-                            (selectChain as EthereumLine).getEvmRpc()
-                        } else {
-                            selectChain?.rpcUrl
-                        }
-                        val web3j = Web3j.build(HttpService(rpcUrl))
                         val params = messageJson.getJSONArray("params")
                         val param = params.getJSONObject(0)
 
-                        val response = web3j?.ethCall(
-                            Transaction.createEthCallTransaction(
-                                (selectChain as EthereumLine).address,
-                                param.getString("to"),
-                                param.getString("data")
-                            ),
-                            DefaultBlockParameterName.LATEST
-                        )?.sendAsync()?.get()
-
-                        try {
-                            appToWebResult(
-                                messageJson,
-                                response?.result,
-                                messageId
+                        rpcUrl?.let {
+                            val ethCallRequest = JsonRpcRequest(
+                                method = "eth_call", params = listOf(
+                                    EthCall(
+                                        null,
+                                        param.getString("to"),
+                                        param.getString("data")
+                                    ),
+                                    DefaultBlockParameterName.LATEST
+                                )
                             )
-                        } catch (e: Exception) {
-                            appToWebError(messageId)
+
+                            val ethCallResponse = jsonRpcResponse(it, ethCallRequest)
+                            val callJsonObject = Gson().fromJson(
+                                ethCallResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    callJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId)
+                            }
                         }
                     }
                 }
 
-//                "eth_getTransactionReceipt" -> {
-//                    lifecycleScope.launch(Dispatchers.IO) {
-//                        val params = messageJson.getJSONArray("params")
-//
-//                        val rpcUrl = if (selectChain is EthereumLine) {
-//                            (selectChain as EthereumLine).getEvmRpc()
-//                        } else {
-//                            selectChain?.rpcUrl
-//                        }
-//                        val web3j = Web3j.build(HttpService(rpcUrl))
-//                        val response =
-//                            web3j.ethGetTransactionReceipt(params.getString(0)).sendAsync()?.get()
-//                        Log.e("Test1234 : ", response?.rawResponse.toString())
-//
-////                        val estimateGasRequest = JsonRpcRequest(
-////                            method = "eth_getTransactionReceipt", params = listOf(
-////                                params.getString(0)
-////                            )
-////                        )
-////                        val estimateGasJsonRequest = ObjectMapper().writeValueAsString(estimateGasRequest)
-////                        val estimateGasRpcRequest = Request.Builder().url(rpcUrl!!)
-////                            .post(estimateGasJsonRequest.toRequestBody("application/json".toMediaTypeOrNull()))
-////                            .build()
-////
-////                        val estimateGasResponse = OkHttpClient().newCall(estimateGasRpcRequest).execute()
-////                        if (estimateGasResponse.isSuccessful) {
-////                            val jsonResponse = estimateGasResponse.body?.string()
-////                            Log.e("Test12345 : ", jsonResponse.toString())
-////                        }
-//
-//                        try {
-//                            appToWebResult(
-//                                messageJson,
-//                                response?.rawResponse,
-//                                messageId
-//                            )
-//                        } catch (e: Exception) {
-//                            appToWebError(messageId)
-//                        }
-//                    }
-//                }
+                "eth_getTransactionReceipt" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+
+                        val ethReceiptRequest = JsonRpcRequest(
+                            method = "eth_getTransactionReceipt",
+                            params = listOf(params.getString(0))
+                        )
+                        rpcUrl?.let {
+                            val ethReceiptResponse = jsonRpcResponse(it, ethReceiptRequest)
+                            val receiptJsonObject = Gson().fromJson(
+                                ethReceiptResponse.body?.string(),
+                                JsonObject::class.java
+                            )
+                            try {
+                                appToWebObjectResult(
+                                    messageJson, receiptJsonObject, messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId)
+                            }
+                        }
+                    }
+                }
+
+                "eth_getTransactionByHash" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+
+                        val ethByHashRequest = JsonRpcRequest(
+                            method = "eth_getTransactionByHash",
+                            params = listOf(params.getString(0))
+                        )
+                        rpcUrl?.let {
+                            val ethByHashResponse = jsonRpcResponse(it, ethByHashRequest)
+                            val byHashJsonObject = Gson().fromJson(
+                                ethByHashResponse.body?.string(), JsonObject::class.java
+                            )
+                            try {
+                                appToWebObjectResult(
+                                    messageJson, byHashJsonObject, messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId)
+                            }
+                        }
+                    }
+                }
 
                 "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
                     val params = messageJson.getJSONArray("params")
@@ -1155,14 +1173,12 @@ class DappActivity : BaseActivity() {
                     showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
                         override fun sign(id: Long, data: String) {
                             appToWebResult(
-                                messageJson,
-                                data,
-                                messageId
+                                messageJson, data, messageId
                             )
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebError(messageId)
+                            appToWebError(messageJson, messageId)
                         }
                     })
                 }
@@ -1241,6 +1257,22 @@ class DappActivity : BaseActivity() {
         appToWebResult(messageJson, signed, messageId)
     }
 
+    private fun emitToWeb(chainId: String) {
+        val responseJson = JSONObject().apply {
+            put("result", chainId)
+        }
+        val postMessageJson = JSONObject().apply {
+            put("message", responseJson)
+            put("type", "chainChanged")
+            put("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
+    }
+
     private fun appToWebResult(messageJson: JSONObject, resultJson: Any?, messageId: String) {
         val responseJson = JSONObject().apply {
             put("result", resultJson)
@@ -1250,6 +1282,26 @@ class DappActivity : BaseActivity() {
             put("response", responseJson)
             put("messageId", messageId)
             put("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
+    }
+
+    private fun appToWebObjectResult(
+        messageJson: JSONObject, resultJson: JsonObject, messageId: String
+    ) {
+        val responseJson = JsonObject().apply {
+            addProperty("jsonrpc", "2.0")
+            add("result", resultJson.asJsonObject["result"])
+        }
+        val postMessageJson = JsonObject().apply {
+            add("message", Gson().fromJson(messageJson.toString(), JsonObject::class.java))
+            add("response", responseJson)
+            addProperty("messageId", messageId)
+            addProperty("isCosmostation", true)
         }
         runOnUiThread {
             binding.dappWebView.evaluateJavascript(
@@ -1274,7 +1326,7 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun appToWebError(messageId: String) {
+    private fun appToWebError(messageJson: JSONObject, messageId: String) {
         val responseJson = JSONObject().apply {
             val errorJson = JSONObject().apply {
                 put("code", 4001)
@@ -1283,6 +1335,7 @@ class DappActivity : BaseActivity() {
             put("error", errorJson)
         }
         val postMessageJson = JSONObject().apply {
+            put("message", messageJson)
             put("response", responseJson)
             put("isCosmostation", true)
             put("messageId", messageId)
@@ -1305,20 +1358,13 @@ class DappActivity : BaseActivity() {
     }
 
     private fun selectedChain(
-        classChains: MutableList<CosmosLine>?,
-        chainId: String?
+        classChains: MutableList<CosmosLine>?, chainId: String?
     ): CosmosLine? {
         return classChains?.firstOrNull { chain ->
             (chain.chainIdCosmos.equals(chainId, ignoreCase = true) || chain.name.equals(
                 chainId, ignoreCase = true
             )) && chain.isDefault
         }
-    }
-
-    private fun createEthCallTransaction(
-        from: String?, to: String?, data: String?, weiValue: BigInteger?
-    ): Transaction {
-        return Transaction(from, null, null, null, to, weiValue, data)
     }
 
     inner class DappJavascriptInterface {
@@ -1369,6 +1415,5 @@ class DappActivity : BaseActivity() {
 }
 
 enum class EvmMethod(val type: Long) {
-    SIGN(-1),
-    PERMIT(-2)
+    SIGN(-1), PERMIT(-2)
 }

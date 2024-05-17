@@ -13,3 +13,16 @@ data class EstimateGasParams(
     val to: String?,
     val data: String?
 )
+
+data class EstimateGasParamsWithValue(
+    val from: String?,
+    val to: String?,
+    val data: String?,
+    val value: String?
+)
+
+data class EthCall(
+    val from: String?,
+    val to: String?,
+    val data: String?
+)

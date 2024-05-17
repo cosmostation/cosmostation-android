@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.dapp.option
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +35,12 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.jsonRpcResponse
+import wannabit.io.cosmostaion.common.percentile
+import wannabit.io.cosmostaion.common.soft
+import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
+import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.FragmentWcSignBinding
 import wannabit.io.cosmostaion.ui.main.dapp.EvmMethod
 import java.math.BigDecimal
@@ -177,9 +182,9 @@ class WcSignFragment(
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
             selectedChain?.let { line ->
-                Log.e("Test1234556 : ", data)
+                loading.visibility = View.VISIBLE
                 lifecycleScope.launch(Dispatchers.IO) {
-                    var feeAmount: BigDecimal?
+                    val feeAmount: BigDecimal?
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
                     val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
                     val rpcUrl = if (selectedChain is EthereumLine) {
@@ -198,73 +203,218 @@ class WcSignFragment(
                             .sendAsync().get()
                     val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
                     val nonce = ethGetTransactionCount.transactionCount
-
                     val to = txJsonObject["to"].asString
                     val dataString = txJsonObject["data"].asString
-                    val gas = BigInteger(txJsonObject["gas"].asString.removePrefix("0x"), 16)
-                    val value = BigInteger(txJsonObject["value"].asString.removePrefix("0x"), 16)
+                    val maxPriorityFeePerGas = txJsonObject["maxPriorityFeePerGas"] ?: null
+                    val maxFeePerGas = txJsonObject["maxFeePerGas"] ?: null
 
-                    val rawTransaction = try {
-                        val maxPriorityFeePerGas = BigInteger(
-                            txJsonObject["maxPriorityFeePerGas"].asString.removePrefix("0x"),
-                            16
-                        )
-                        val maxFeePerGas =
-                            BigInteger(txJsonObject["maxFeePerGas"].asString.removePrefix("0x"), 16)
-
-                        feeAmount = gas.toBigDecimal().multiply(maxFeePerGas.toBigDecimal())
-
-                        RawTransaction.createTransaction(
-                            chainID,
-                            nonce,
-                            gas,
-                            to,
-                            value,
-                            dataString,
-                            maxPriorityFeePerGas,
-                            maxFeePerGas
+                    val ethGasRequest = try {
+                        JsonRpcRequest(
+                            method = "eth_estimateGas", params = listOf(
+                                EstimateGasParamsWithValue(
+                                    selectedChain.address,
+                                    to,
+                                    dataString,
+                                    txJsonObject["value"].asString
+                                )
+                            )
                         )
 
                     } catch (e: Exception) {
-                        Log.e("Test1234555 : ", txJsonObject.toString())
-                        val gasPrice = if (txJsonObject["gasPrice"].isJsonNull) {
-                            BigInteger.ZERO
-                        } else {
-                            BigInteger(
-                                txJsonObject["gasPrice"].asString.removePrefix("0x"),
-                                16
+                        JsonRpcRequest(
+                            method = "eth_estimateGas", params = listOf(
+                                EstimateGasParams(selectedChain.address, to, dataString)
                             )
-                        }
-                        feeAmount = gas.toBigDecimal().multiply(gasPrice.toBigDecimal())
-
-                        RawTransaction.createTransaction(
-                            nonce,
-                            gasPrice,
-                            gas,
-                            to,
-                            value,
-                            dataString,
                         )
                     }
-
-                    val signedMessage = TransactionEncoder.signMessage(
-                        rawTransaction, chainID, credentials
+                    val ethGasResponse = jsonRpcResponse(rpcUrl, ethGasRequest)
+                    val gasJsonObject =
+                        Gson().fromJson(ethGasResponse.body?.string(), JsonObject::class.java)
+                    val gasLimit = BigInteger(
+                        gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"),
+                        16
                     )
-                    val hexValue = Numeric.toHexString(signedMessage)
-                    updateData = hexValue
 
-                    withContext(Dispatchers.Main) {
-                        signData.text =
-                            GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
-                        dappUrl.text = url
-                        dappAddress.text = line.address
-                        feeAmount?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
-                            ?.let { dpAmount ->
-                                dappFeeAmount.text = formatAmount(
-                                    dpAmount.toPlainString(), 18
+                    val ethFeeHistoryRequest = JsonRpcRequest(
+                        method = "eth_feeHistory", params = listOf(
+                            20, "pending", listOf(25, 50, 75)
+                        )
+                    )
+                    val ethFeeHistoryResponse = jsonRpcResponse(rpcUrl, ethFeeHistoryRequest)
+                    if (ethFeeHistoryResponse.isSuccessful) {
+                        val historyJsonObject = Gson().fromJson(
+                            ethFeeHistoryResponse.body?.string(),
+                            JsonObject::class.java
+                        )
+
+                        val feeHistoryFeePerGas = try {
+                            historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                        } catch (e: Exception) {
+                            mutableListOf()
+                        }
+
+                        val suggestGasValues = try {
+                            feeHistoryFeePerGas.map {
+                                BigInteger(
+                                    it.asString.removePrefix("0x"), 16
                                 )
-                                dappFeeDenom.text = (selectedChain as EthereumLine).coinSymbol
+                            }.toMutableList()
+                        } catch (e: Exception) {
+                            mutableListOf()
+                        }
+
+                        if (suggestGasValues.isNotEmpty()) {
+                            val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                                suggestGasValues.percentile(it)
                             }
+
+                            val reward =
+                                historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                            val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                            reward.forEach {
+                                val percentiles = it.asJsonArray.map { percentile ->
+                                    BigInteger(
+                                        percentile.asString.removePrefix("0x"), 16
+                                    )
+                                }.toMutableList()
+
+                                percentiles.forEachIndexed { index, percentile ->
+                                    if (rearrangedArray.size <= index) {
+                                        rearrangedArray.add(mutableListOf(percentile))
+                                    } else {
+                                        rearrangedArray[index].add(percentile)
+                                    }
+                                }
+                            }
+                            val suggestTipValue = soft(rearrangedArray)
+                            val tip = if (suggestTipValue[1] < BigInteger.valueOf(1000000000L)) {
+                                BigInteger.valueOf(1000000000L)
+                            } else {
+                                suggestTipValue[1]
+                            }
+
+                            val totalPerGas =
+                                if (suggestBaseFee[1] == null || suggestBaseFee[1]!! < BigInteger.valueOf(
+                                        500000000L
+                                    )
+                                ) {
+                                    500000000L + tip.toLong()
+                                } else {
+                                    suggestBaseFee[1]!!.toLong() + tip.toLong()
+                                }
+
+                            val rawTransaction = try {
+                                val value = BigInteger(
+                                    txJsonObject["value"].asString.removePrefix("0x"),
+                                    16
+                                )
+
+                                if (maxFeePerGas != null && maxPriorityFeePerGas != null) {
+                                    RawTransaction.createTransaction(
+                                        chainID,
+                                        nonce,
+                                        gasLimit,
+                                        to,
+                                        value,
+                                        dataString,
+                                        BigInteger(
+                                            maxPriorityFeePerGas.asString.removePrefix("0x"),
+                                            16
+                                        ),
+                                        BigInteger(maxFeePerGas.asString.removePrefix("0x"), 16)
+                                    )
+
+                                } else {
+                                    RawTransaction.createTransaction(
+                                        chainID,
+                                        nonce,
+                                        gasLimit,
+                                        to,
+                                        value,
+                                        dataString,
+                                        tip,
+                                        totalPerGas.toBigInteger()
+                                    )
+                                }
+
+                            } catch (e: Exception) {
+                                RawTransaction.createTransaction(
+                                    chainID,
+                                    nonce,
+                                    gasLimit,
+                                    to,
+                                    BigInteger.ZERO,
+                                    dataString,
+                                    tip,
+                                    totalPerGas.toBigInteger()
+                                )
+                            }
+
+                            val signedMessage = TransactionEncoder.signMessage(
+                                rawTransaction, chainID, credentials
+                            )
+                            val hexValue = Numeric.toHexString(signedMessage)
+
+                            feeAmount = try {
+                                gasLimit.toBigDecimal().multiply(
+                                    BigInteger(
+                                        txJsonObject["maxFeePerGas"].asString.removePrefix("0x"), 16
+                                    ).toBigDecimal()
+                                )
+                            } catch (e: Exception) {
+                                gasLimit.multiply(totalPerGas.toBigInteger()).toBigDecimal()
+                            }
+                            updateData = hexValue
+
+                        } else {
+                            val rawTransaction = try {
+                                val value = BigInteger(
+                                    txJsonObject["value"].asString.removePrefix("0x"),
+                                    16
+                                )
+                                RawTransaction.createTransaction(
+                                    nonce,
+                                    web3j.ethGasPrice().send().gasPrice,
+                                    gasLimit,
+                                    to,
+                                    value,
+                                    dataString
+                                )
+
+                            } catch (e: Exception) {
+                                RawTransaction.createTransaction(
+                                    nonce,
+                                    web3j.ethGasPrice().send().gasPrice,
+                                    gasLimit,
+                                    to,
+                                    BigInteger.ZERO,
+                                    dataString
+                                )
+                            }
+                            val signedMessage = TransactionEncoder.signMessage(
+                                rawTransaction, chainID, credentials
+                            )
+                            val hexValue = Numeric.toHexString(signedMessage)
+                            feeAmount =
+                                gasLimit.multiply(web3j.ethGasPrice().sendAsync().get().gasPrice)
+                                    .toBigDecimal()
+                            updateData = hexValue
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            loading.visibility = View.GONE
+                            signData.text =
+                                GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
+                            dappUrl.text = url
+                            dappAddress.text = line.address
+                            feeAmount?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+                                ?.let { dpAmount ->
+                                    dappFeeAmount.text = formatAmount(
+                                        dpAmount.toPlainString(), 18
+                                    )
+                                    dappFeeDenom.text = (selectedChain as EthereumLine).coinSymbol
+                                }
+                        }
                     }
                 }
             }
