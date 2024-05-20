@@ -850,17 +850,26 @@ data class CosmosHistory(
                     jsonArray.forEach { log ->
                         log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "transfer" }
                             ?.let { event ->
-                                val value =
-                                    event.asJsonObject["attributes"].asJsonArray.get(2).asJsonObject["value"].asString
-                                value.split(",").forEach { rawCoin ->
-                                    val p = Pattern.compile("([0-9])+")
-                                    val m = p.matcher(rawCoin)
-                                    if (m.find()) {
-                                        val amount = m.group()
-                                        val denom: String = rawCoin.substring(m.end())
-                                        val coin = CoinProto.Coin.newBuilder().setDenom(denom)
-                                            .setAmount(amount).build()
-                                        result.add(coin)
+                                event.asJsonObject["attributes"].asJsonArray.forEach { attribute ->
+                                    if (attribute.asJsonObject["value"].asString == line.address) {
+                                        event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "amount" }
+                                            ?.let { attributeFiltered ->
+                                                attributeFiltered.asJsonObject["value"].asString?.let { rawAmount ->
+                                                    rawAmount.split(",").forEach { rawCoin ->
+                                                        val p = Pattern.compile("([0-9])+")
+                                                        val m = p.matcher(rawCoin)
+                                                        if (m.find()) {
+                                                            val amount = m.group()
+                                                            val denom: String =
+                                                                rawCoin.substring(m.end())
+                                                            val coin = CoinProto.Coin.newBuilder()
+                                                                .setDenom(denom)
+                                                                .setAmount(amount).build()
+                                                            result.add(coin)
+                                                        }
+                                                    }
+                                                }
+                                            }
                                     }
                                 }
                             }
