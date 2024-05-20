@@ -427,7 +427,7 @@
     <string name="error_decrytion">Decryption error</string>
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
-    <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
+    <string name="error_tranfer_disabled">Send functionality of the selected chain is currently disabled.\nIt can be activated later through the onchain governance procedure.</string>
     <string name="error_useless_end_point">Can not use this</string>
     <string name="error_no_bonding_no_vote">You cannot vote because there is not enough delegation.</string>
     <string name="error_not_support_vote">Vote is not support.</string>

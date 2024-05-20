@@ -333,7 +333,7 @@
     <string name="error_decrytion">복호화 에러</string>
     <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
     <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
-    <string name="error_tranfer_disabled">전송 기능을 지원하지 않는 체인입니다.</string>
+    <string name="error_tranfer_disabled">현재 선택하신 체인은 전송기능이 비 활성화된 상태입니다.\n차후 거버넌스 등을 통해서 활성화될 수 있습니다.</string>
     <string name="error_useless_end_point">사용할 수 없습니다.</string>
     <string name="error_no_bonding_no_vote">위임량이 충분하지 않아 투표를 하실 수 없습니다.</string>
     <string name="error_not_support_vote">투표 기능을 지원하지 않습니다.</string>

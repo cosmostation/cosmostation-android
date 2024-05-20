@@ -424,7 +424,7 @@ class CosmosDetailFragment : Fragment() {
                     }
 
                     if (selectedChain.isBankLocked()) {
-                        requireActivity().makeToast(R.string.error_tranfer_disabled)
+                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
                         return@setOnClickListener
                     }
 
