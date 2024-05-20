@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -58,7 +57,12 @@ class DashboardViewHolder(
                 }
             }
 
-            listOf(chainBadge, chainTypeBadge, chainSideBadge, chainSideTypeBadge).forEach { it.visibility = View.GONE }
+            listOf(
+                chainBadge,
+                chainTypeBadge,
+                chainSideBadge,
+                chainSideTypeBadge
+            ).forEach { it.visibility = View.GONE }
             if (Prefs.style == 0) {
                 chainCw20Badge.visibleOrGone(line.supportCw20)
                 chainNftBadge.visibleOrGone(line.supportNft)
@@ -162,7 +166,12 @@ class DashboardViewHolder(
                     }
 
                 } else {
-                    listOf(chainBadge, chainTypeBadge, chainSideBadge, chainSideTypeBadge).forEach { it.visibility = View.GONE }
+                    listOf(
+                        chainBadge,
+                        chainTypeBadge,
+                        chainSideBadge,
+                        chainSideTypeBadge
+                    ).forEach { it.visibility = View.GONE }
                 }
                 chainCw20Badge.visibleOrGone(line.supportCw20)
                 chainNftBadge.visibleOrGone(line.supportNft)
@@ -203,7 +212,12 @@ class DashboardViewHolder(
                     }
 
                 } else {
-                    listOf(chainBadge, chainTypeBadge, chainSideBadge, chainSideTypeBadge).forEach { it.visibility = View.GONE }
+                    listOf(
+                        chainBadge,
+                        chainTypeBadge,
+                        chainSideBadge,
+                        chainSideTypeBadge
+                    ).forEach { it.visibility = View.GONE }
                 }
                 chainSideCw20Badge.visibleOrGone(line.supportCw20)
                 chainSideNftBadge.visibleOrGone(line.supportNft)
@@ -213,7 +227,7 @@ class DashboardViewHolder(
 
             if (line.fetched) {
                 skeletonChainValue.visibility = View.GONE
-                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                if (line !is ChainOkt996Keccak) {
                     if (line.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE

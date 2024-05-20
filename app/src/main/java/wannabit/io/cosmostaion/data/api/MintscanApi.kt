@@ -54,7 +54,7 @@ interface MintscanApi {
         @Path("chain") chain: String?, @Path("address") address: String?
     ): Response<MutableList<ResDaoVoteStatus>>
 
-    @GET("v1/utils/proxy/okc-transaction-list")
+    @GET("v10/utils/proxy/okc-transaction-list")
     suspend fun oktHistory(
         @Query("device") device: String?, @Query("address") address: String?, @Query("limit") limit: String?
     ): Response<OktHistoryResponse>

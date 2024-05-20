@@ -24,7 +24,6 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
@@ -224,7 +223,7 @@ class DashboardFragment : Fragment() {
                 }
 
             } else {
-                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                if (line !is ChainOkt996Keccak) {
                     if (line.cosmosBalances == null) {
                         nodeDownPopup()
                         return

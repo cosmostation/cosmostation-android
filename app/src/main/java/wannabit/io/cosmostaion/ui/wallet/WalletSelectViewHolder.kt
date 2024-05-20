@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -23,7 +22,10 @@ class WalletSelectViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun evmBind(
-        account: BaseAccount, line: EthereumLine, selectedEvmTags: MutableList<String>, evmSelectListener: WalletSelectAdapter.SelectListener
+        account: BaseAccount,
+        line: EthereumLine,
+        selectedEvmTags: MutableList<String>,
+        evmSelectListener: WalletSelectAdapter.SelectListener
     ) {
         binding.apply {
             chainImg.setImageResource(line.logo)
@@ -49,7 +51,8 @@ class WalletSelectViewHolder(
                     return
                 }
 
-                val availableAmount = line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+                val availableAmount =
+                    line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
                 chainBalance.text = formatAmount(availableAmount.toString(), 18)
                 chainDenom.text = line.coinSymbol
                 line.stakeDenom?.let { denom ->
@@ -80,7 +83,10 @@ class WalletSelectViewHolder(
     }
 
     fun bind(
-        account: BaseAccount, line: CosmosLine, selectedCosmosTags: MutableList<String>, listener: WalletSelectAdapter.SelectListener
+        account: BaseAccount,
+        line: CosmosLine,
+        selectedCosmosTags: MutableList<String>,
+        listener: WalletSelectAdapter.SelectListener
     ) {
         binding.apply {
             chainImg.setImageResource(line.logo)
@@ -139,18 +145,7 @@ class WalletSelectViewHolder(
             if (line.fetched) {
                 var cnt = 0
                 line.stakeDenom?.let { denom ->
-                    if (line is ChainBinanceBeacon) {
-                        val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
-                        chainBalance.text = formatAmount(availableAmount.toString(), 8)
-                        chainDenom.text = line.stakeDenom?.uppercase()
-                        chainDenom.setTextColor(Color.parseColor("#ffffff"))
-                        cnt = line.lcdAccountInfo?.balances?.size ?: 0
-
-                        chainBalance.visibility = View.VISIBLE
-                        chainDenom.visibility = View.VISIBLE
-                        chainAssetCnt.visibility = View.VISIBLE
-
-                    } else if (line is ChainOkt996Keccak) {
+                    if (line is ChainOkt996Keccak) {
                         val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
                         chainBalance.text = formatAmount(availableAmount.toString(), 18)
                         chainDenom.text = line.stakeDenom?.uppercase()
@@ -175,8 +170,10 @@ class WalletSelectViewHolder(
                             chainAssetCnt.visibility = View.VISIBLE
 
                             BaseData.getAsset(line.apiName, denom)?.let { asset ->
-                                val availableAmount = line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)
-                                chainBalance.text = formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                                val availableAmount =
+                                    line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)
+                                chainBalance.text =
+                                    formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                                 chainDenom.text = asset.symbol
                                 chainDenom.setTextColor(asset.assetColor())
                             }

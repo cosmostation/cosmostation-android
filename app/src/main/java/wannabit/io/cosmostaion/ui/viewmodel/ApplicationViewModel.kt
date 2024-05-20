@@ -18,7 +18,6 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -26,8 +25,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.data.model.res.AccountResponse
-import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
 import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
@@ -134,7 +131,7 @@ class ApplicationViewModel(
                 }
             }
 
-            if (this is ChainBinanceBeacon || this is ChainOkt996Keccak) {
+            if (this is ChainOkt996Keccak) {
                 loadLcdData(this, baseAccountId, isEdit)
             } else {
                 loadGrpcAuthData(this, baseAccountId, isEdit)
@@ -211,7 +208,8 @@ class ApplicationViewModel(
                         async { walletRepository.delegation(channel, line) }
                     val loadUnBondingDeferred = async { walletRepository.unBonding(channel, line) }
                     val loadRewardDeferred = async { walletRepository.reward(channel, line) }
-                    val loadRewardAddressDeferred = async { walletRepository.rewardAddress(channel, line) }
+                    val loadRewardAddressDeferred =
+                        async { walletRepository.rewardAddress(channel, line) }
 
                     val responses = awaitAll(
                         loadBalanceDeferred,
@@ -624,83 +622,7 @@ class ApplicationViewModel(
         line: CosmosLine, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         line.apply {
-            if (this is ChainBinanceBeacon) {
-                val loadAccountInfoDeferred = async { walletRepository.binanceAccountInfo(line) }
-                val loadBeaconTokenInfoDeferred = async { walletRepository.beaconTokenInfo() }
-
-                val responses = awaitAll(
-                    loadAccountInfoDeferred, loadBeaconTokenInfoDeferred
-                )
-
-                responses.forEach { response ->
-                    when (response) {
-                        is NetworkResult.Success -> {
-                            when (response.data) {
-                                is AccountResponse -> {
-                                    lcdAccountInfo = response.data
-                                }
-
-                                is MutableList<*> -> {
-                                    if (response.data.all { it is BnbToken }) {
-                                        lcdBeaconTokens = response.data as MutableList<BnbToken>
-                                    }
-                                }
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                        }
-                    }
-                }
-
-                fetched = true
-                if (fetched) {
-                    if (lcdAccountInfo?.address != null) {
-                        val refAddress = RefAddress(
-                            baseAccountId,
-                            tag,
-                            address,
-                            ByteUtils.convertBech32ToEvm(address),
-                            allAssetValue(true).toString(),
-                            lcdBalanceAmount(stakeDenom).toString(),
-                            "0",
-                            lcdAccountInfo?.balances?.size?.toLong() ?: 0
-                        )
-                        BaseData.updateRefAddressesMain(refAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedResult.postValue(tag)
-                            } else {
-                                fetchedResult.value = tag
-                            }
-
-                            fetchedTotalResult.postValue(tag)
-                        }
-
-                    } else {
-                        val refAddress = RefAddress(
-                            baseAccountId,
-                            tag,
-                            address,
-                            ByteUtils.convertBech32ToEvm(address),
-                            "0",
-                            "0",
-                            "0",
-                            0
-                        )
-                        BaseData.updateRefAddressesMain(refAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedResult.postValue(tag)
-                            } else {
-                                fetchedResult.value = tag
-                            }
-                        }
-                    }
-                }
-
-            } else if (this is ChainOkt996Keccak) {
+            if (this is ChainOkt996Keccak) {
                 val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(line) }
                 val loadDepositDeferred = async { walletRepository.oktDeposit(line) }
                 val loadWithdrawDeferred = async { walletRepository.oktWithdraw(line) }

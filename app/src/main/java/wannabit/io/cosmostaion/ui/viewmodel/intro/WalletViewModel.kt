@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.viewmodel.intro
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,6 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -287,30 +285,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     fun balance(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
         when (line) {
-            is ChainBinanceBeacon -> {
-                when (val response = walletRepository.binanceAccountInfo(line)) {
-                    is NetworkResult.Success -> {
-                        line.lcdAccountInfo = response.data
-                        line.fetched = true
-                        if (line.fetched) {
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = line.tag
-                            }
-                        }
-                    }
-
-                    is NetworkResult.Error -> {
-                        line.lcdAccountInfo = null
-                        line.fetched = true
-                        if (line.fetched) {
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = line.tag
-                            }
-                        }
-                    }
-                }
-            }
-
             is ChainOkt996Keccak -> {
                 when (val response = walletRepository.oktAccountInfo(line)) {
                     is NetworkResult.Success -> {

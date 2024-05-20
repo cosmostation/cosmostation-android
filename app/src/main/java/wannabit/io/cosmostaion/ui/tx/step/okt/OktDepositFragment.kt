@@ -186,7 +186,6 @@ class OktDepositFragment : BaseTxFragment() {
             oktDepositView.setOnClickListener {
                 handleOneClickWithDelay(
                     LegacyInsertAmountFragment.newInstance(selectedChain,
-                        null,
                         oktTokenInfo,
                         availableAmount.toString(),
                         toDepositAmount,

@@ -97,11 +97,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.tx.step.kava.Bep3ResultActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
             android:name=".ui.main.setting.wallet.book.AddressBookListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
@@ -27,12 +26,10 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCudos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
@@ -89,7 +86,6 @@ import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
-import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
@@ -124,7 +120,6 @@ open class CosmosLine : BaseChain(), Parcelable {
     var tokens = mutableListOf<Token>()
 
     var lcdAccountInfo: AccountResponse? = null
-    var lcdBeaconTokens = mutableListOf<BnbToken>()
 
     var cw721s = mutableListOf<JsonObject>()
     var cw721Fetched = false
@@ -713,6 +708,8 @@ fun allCosmosLines(): MutableList<CosmosLine> {
     lines.add(ChainTerra())
     lines.add(ChainUx())
     lines.add(ChainXpla())
+
+
     lines.add(ChainOkt996Keccak())
     lines.add(ChainOkt996Secp())
 

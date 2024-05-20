@@ -11,7 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.databinding.FragmentNoticeInfoBinding
 
 class NoticeInfoFragment : BottomSheetDialogFragment() {
@@ -99,6 +98,20 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                     btnGithub.text = getString(R.string.title_github)
                     binding.dialogMsg.text = getString(R.string.str_nft_github_msg)
                 }
+
+                NoticeType.CHAIN_DELIST -> {
+                    dialogTitle.text = getString(R.string.title_delist)
+                    nodeLayout.visibility = View.GONE
+                    btnGithub.visibility = View.GONE
+                    binding.dialogMsg.text = getString(R.string.str_delist_msg)
+                }
+
+                NoticeType.LEGACY_PATH -> {
+                    dialogTitle.text = getString(R.string.title_legacy_path)
+                    nodeLayout.visibility = View.GONE
+                    btnGithub.visibility = View.GONE
+                    binding.dialogMsg.text = getString(R.string.str_legacy_path_msg)
+                }
             }
         }
     }
@@ -120,19 +133,13 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
                     }
 
-                    NoticeType.CHAIN_SUNSET -> {
-                        val link = if (selectedChain is ChainBinanceBeacon) {
-                            "https://www.bnbchain.org/en/bnb-chain-fusion"
-                        } else {
-                            "https://crescentnetwork.medium.com/flip-announcement-af24c8ab7e7f"
-                        }
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
-                    }
-
                     NoticeType.TOKEN_NFT_GITHUB -> {
-                        val githubUrl = "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw721.json"
+                        val githubUrl =
+                            "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw721.json"
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
                     }
+
+                    else -> {}
                 }
             }
 
@@ -148,4 +155,4 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     }
 }
 
-enum class NoticeType { TOKEN_GITHUB, NODE_DOWN_GUIDE, CHAIN_SUNSET, TOKEN_NFT_GITHUB }
+enum class NoticeType { TOKEN_GITHUB, NODE_DOWN_GUIDE, CHAIN_SUNSET, TOKEN_NFT_GITHUB, CHAIN_DELIST, LEGACY_PATH }

@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.BNB_GECKO_ID
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
@@ -32,10 +30,6 @@ class CoinCosmosLineViewHolder(
 
     fun bind(context: Context, line: CosmosLine) {
         when (line) {
-            is ChainBinanceBeacon -> {
-                bindBeaconAsset(context, line)
-            }
-
             is ChainOkt996Keccak, is ChainOktEvm -> {
                 bindOkt(line)
             }
@@ -206,50 +200,6 @@ class CoinCosmosLineViewHolder(
         }
     }
 
-    private fun bindBeaconAsset(context: Context, line: ChainBinanceBeacon) {
-        binding.apply {
-            vestingTitle.text = context.getString(R.string.str_frozen)
-            stakedTitle.text = context.getString(R.string.str_locked)
-            stakeCoinView.setBackgroundResource(R.drawable.item_bg)
-
-            line.stakeDenom?.let { stakeDenom ->
-                tokenImg.setTokenImg(ChainBinanceBeacon().assetImg(stakeDenom))
-                tokenName.text = stakeDenom.uppercase()
-
-                tokenPrice.text = formatAssetValue(BaseData.getPrice(BNB_GECKO_ID))
-                BaseData.lastUpDown(BNB_GECKO_ID).let { lastUpDown ->
-                    tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                    tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                }
-
-                unstakingLayout.visibility = View.GONE
-                rewardLayout.visibility = View.GONE
-
-                val availableAmount = line.lcdBalanceAmount(stakeDenom).movePointLeft(0)
-                    .setScale(8, RoundingMode.DOWN)
-                val frozenAmount = line.lcdBnbFrozenAmount(stakeDenom).movePointLeft(0)
-                    .setScale(8, RoundingMode.DOWN)
-                val lockedAmount = line.lcdBnbLockedAmount(stakeDenom).movePointLeft(0)
-                    .setScale(8, RoundingMode.DOWN)
-
-                with(Prefs) {
-                    total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                    totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
-                    hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
-
-                    available.hiddenStatus(formatAmount(availableAmount.toPlainString(), 8))
-                    vesting.hiddenStatus(formatAmount(frozenAmount.toPlainString(), 8))
-                    staked.hiddenStatus(formatAmount(lockedAmount.toPlainString(), 8))
-
-                    total.text = if (hideValue) "" else formatAmount(
-                        (availableAmount + frozenAmount + lockedAmount).toPlainString(), 8
-                    )
-                    totalValue.text = if (hideValue) "" else formatAssetValue(line.allValue(false))
-                }
-            }
-        }
-    }
-
     private fun bindOkt(line: BaseChain) {
         binding.apply {
             vestingTitle.text = "Deposited"
@@ -290,7 +240,8 @@ class CoinCosmosLineViewHolder(
                         total.text = if (hideValue) "" else formatAmount(
                             (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                         )
-                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
+                        totalValue.text =
+                            if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
                     }
                 }
 
@@ -326,7 +277,8 @@ class CoinCosmosLineViewHolder(
                         total.text = if (hideValue) "" else formatAmount(
                             (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                         )
-                        totalValue.text = if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
+                        totalValue.text =
+                            if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
                     }
                 }
             }
