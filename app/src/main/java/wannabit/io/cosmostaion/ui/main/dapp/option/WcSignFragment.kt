@@ -197,18 +197,19 @@ class WcSignFragment(
 
                     val ethGetTransactionCount: EthGetTransactionCount =
                         web3j.ethGetTransactionCount(
-                            credentials.address,
-                            DefaultBlockParameterName.LATEST
-                        )
-                            .sendAsync().get()
+                            credentials.address, DefaultBlockParameterName.LATEST
+                        ).sendAsync().get()
+
                     val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
                     val nonce = ethGetTransactionCount.transactionCount
                     val to = txJsonObject["to"].asString
                     val dataString = txJsonObject["data"].asString
-                    val maxPriorityFeePerGas = txJsonObject["maxPriorityFeePerGas"] ?: null
-                    val maxFeePerGas = txJsonObject["maxFeePerGas"] ?: null
+                    val maxPriorityFeePerGas =
+                        txJsonObject["maxPriorityFeePerGas"] ?: null // be or not be
+                    val maxFeePerGas = txJsonObject["maxFeePerGas"] ?: null // be or not be
 
                     val ethGasRequest = try {
+                        // with value
                         JsonRpcRequest(
                             method = "eth_estimateGas", params = listOf(
                                 EstimateGasParamsWithValue(
@@ -221,6 +222,7 @@ class WcSignFragment(
                         )
 
                     } catch (e: Exception) {
+                        // not value
                         JsonRpcRequest(
                             method = "eth_estimateGas", params = listOf(
                                 EstimateGasParams(selectedChain.address, to, dataString)
@@ -231,8 +233,7 @@ class WcSignFragment(
                     val gasJsonObject =
                         Gson().fromJson(ethGasResponse.body?.string(), JsonObject::class.java)
                     val gasLimit = BigInteger(
-                        gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"),
-                        16
+                        gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
                     )
 
                     val ethFeeHistoryRequest = JsonRpcRequest(
@@ -243,8 +244,7 @@ class WcSignFragment(
                     val ethFeeHistoryResponse = jsonRpcResponse(rpcUrl, ethFeeHistoryRequest)
                     if (ethFeeHistoryResponse.isSuccessful) {
                         val historyJsonObject = Gson().fromJson(
-                            ethFeeHistoryResponse.body?.string(),
-                            JsonObject::class.java
+                            ethFeeHistoryResponse.body?.string(), JsonObject::class.java
                         )
 
                         val feeHistoryFeePerGas = try {
@@ -304,12 +304,18 @@ class WcSignFragment(
                                 }
 
                             val rawTransaction = try {
+                                // with value
                                 val value = BigInteger(
-                                    txJsonObject["value"].asString.removePrefix("0x"),
-                                    16
+                                    txJsonObject["value"].asString.removePrefix("0x"), 16
                                 )
 
+                                // maxFeePerGas & maxPriorityFeePerGas be
                                 if (maxFeePerGas != null && maxPriorityFeePerGas != null) {
+                                    val maxPriorityFeePerGasBigInteger = BigInteger(
+                                        maxPriorityFeePerGas.asString.removePrefix("0x"), 16
+                                    )
+                                    val maxFeePerGasBigInteger =
+                                        BigInteger(maxFeePerGas.asString.removePrefix("0x"), 16)
                                     RawTransaction.createTransaction(
                                         chainID,
                                         nonce,
@@ -317,11 +323,8 @@ class WcSignFragment(
                                         to,
                                         value,
                                         dataString,
-                                        BigInteger(
-                                            maxPriorityFeePerGas.asString.removePrefix("0x"),
-                                            16
-                                        ),
-                                        BigInteger(maxFeePerGas.asString.removePrefix("0x"), 16)
+                                        maxPriorityFeePerGasBigInteger,
+                                        maxFeePerGasBigInteger
                                     )
 
                                 } else {
@@ -338,6 +341,7 @@ class WcSignFragment(
                                 }
 
                             } catch (e: Exception) {
+                                // not value
                                 RawTransaction.createTransaction(
                                     chainID,
                                     nonce,
@@ -355,22 +359,24 @@ class WcSignFragment(
                             )
                             val hexValue = Numeric.toHexString(signedMessage)
 
-                            feeAmount = try {
-                                gasLimit.toBigDecimal().multiply(
+                            feeAmount = if (maxFeePerGas != null) {
+                                gasLimit.multiply(
                                     BigInteger(
-                                        txJsonObject["maxFeePerGas"].asString.removePrefix("0x"), 16
-                                    ).toBigDecimal()
-                                )
-                            } catch (e: Exception) {
+                                        maxFeePerGas.asString.removePrefix("0x"),
+                                        16
+                                    )
+                                ).toBigDecimal()
+                            } else {
                                 gasLimit.multiply(totalPerGas.toBigInteger()).toBigDecimal()
                             }
                             updateData = hexValue
 
                         } else {
+                            // legacy
                             val rawTransaction = try {
+                                // with value
                                 val value = BigInteger(
-                                    txJsonObject["value"].asString.removePrefix("0x"),
-                                    16
+                                    txJsonObject["value"].asString.removePrefix("0x"), 16
                                 )
                                 RawTransaction.createTransaction(
                                     nonce,
@@ -407,7 +413,7 @@ class WcSignFragment(
                                 GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
                             dappUrl.text = url
                             dappAddress.text = line.address
-                            feeAmount?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+                            feeAmount.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
                                 ?.let { dpAmount ->
                                     dappFeeAmount.text = formatAmount(
                                         dpAmount.toPlainString(), 18
@@ -421,6 +427,7 @@ class WcSignFragment(
         }
     }
 
+    // token permit view
     private fun initEvmPermitData(data: String) {
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
@@ -442,9 +449,8 @@ class WcSignFragment(
                 updateData = r + s.substring(2) + v.substring(2)
 
                 withContext(Dispatchers.Main) {
-                    signData.text =
-                        GsonBuilder().setPrettyPrinting().create()
-                            .toJson(txJsonObject.asJsonObject["message"])
+                    signData.text = GsonBuilder().setPrettyPrinting().create()
+                        .toJson(txJsonObject.asJsonObject["message"])
                 }
             }
         }
@@ -540,8 +546,7 @@ class WcSignFragment(
                                     .setAmount(feeCoinAmount.toString()).build()
                             val updateFee =
                                 Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
-                                    .setPayer(fee.payer)
-                                    .build()
+                                    .setPayer(fee.payer).build()
 
                             authInfo = authInfo.toBuilder().setFee(updateFee).build()
                         }

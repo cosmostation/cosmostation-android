@@ -343,6 +343,7 @@
     <string name="error_useless_end_point">使用できません。</string>
     <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
     <string name="error_not_support_vote">投票機能をサポートしていません。</string>
+    <string name="error_not_support_chain">モバイルでサポートされていないチェーン。</string>
 
 
     <string name="tx_unknown">不明</string>

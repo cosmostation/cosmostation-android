@@ -964,8 +964,11 @@ class DappActivity : BaseActivity() {
                             emitToWeb(chainId)
 
                         } else {
-                            // not support
-                            appToWebError(messageJson, messageId)
+                            appToWebEthError(
+                                messageJson,
+                                messageId,
+                                getString(R.string.error_not_support_chain)
+                            )
                         }
                     }
                 }
@@ -986,28 +989,15 @@ class DappActivity : BaseActivity() {
                 }
 
                 "eth_accounts" -> {
-                    appToWebResult(
-                        messageJson, JSONArray(listOf(selectChain?.address)), messageId
-                    )
-                }
-
-                "eth_signTransaction", "eth_sendTransaction" -> {
-                    val params = messageJson.getJSONArray("params")
-                    val signBundle = signBundle(EvmMethod.SIGN.type, wcUrl, params[0].toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            lifecycleScope.launch(Dispatchers.IO) {
-                                val ethSendTransaction = web3j?.ethSendRawTransaction(data)?.send()
-                                appToWebResult(
-                                    messageJson, ethSendTransaction?.transactionHash, messageId
-                                )
-                            }
-                        }
-
-                        override fun cancel(id: Long) {
-                            appToWebError(messageJson, messageId)
-                        }
-                    })
+                    if (selectChain?.address?.isNotEmpty() == true) {
+                        appToWebResult(
+                            messageJson, JSONArray(listOf(selectChain?.address)), messageId
+                        )
+                    } else {
+                        appToWebResult(
+                            messageJson, JSONArray(listOf("")), messageId
+                        )
+                    }
                 }
 
                 "eth_estimateGas" -> {
@@ -1052,7 +1042,7 @@ class DappActivity : BaseActivity() {
                                     messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebError(messageJson, messageId)
+                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1077,7 +1067,7 @@ class DappActivity : BaseActivity() {
                                     messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebError(messageJson, messageId)
+                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1112,12 +1102,49 @@ class DappActivity : BaseActivity() {
                                     messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebError(messageJson, messageId)
+                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
                 }
 
+                // sign method
+                "eth_signTransaction", "eth_sendTransaction" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val signBundle = signBundle(EvmMethod.SIGN.type, wcUrl, params[0].toString())
+                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
+                        override fun sign(id: Long, data: String) {
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                val ethSendTransaction = web3j?.ethSendRawTransaction(data)?.send()
+                                appToWebResult(
+                                    messageJson, ethSendTransaction?.transactionHash, messageId
+                                )
+                            }
+                        }
+
+                        override fun cancel(id: Long) {
+                            appToWebEthError(messageJson, messageId, "Transaction rejected.")
+                        }
+                    })
+                }
+
+                "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val signBundle = signBundle(EvmMethod.PERMIT.type, wcUrl, params.toString())
+                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
+                        override fun sign(id: Long, data: String) {
+                            appToWebResult(
+                                messageJson, data, messageId
+                            )
+                        }
+
+                        override fun cancel(id: Long) {
+                            appToWebEthError(messageJson, messageId, "Transaction rejected.")
+                        }
+                    })
+                }
+
+                // result method
                 "eth_getTransactionReceipt" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val params = messageJson.getJSONArray("params")
@@ -1137,7 +1164,7 @@ class DappActivity : BaseActivity() {
                                     messageJson, receiptJsonObject, messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebError(messageJson, messageId)
+                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1161,26 +1188,10 @@ class DappActivity : BaseActivity() {
                                     messageJson, byHashJsonObject, messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebError(messageJson, messageId)
+                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
-                }
-
-                "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
-                    val params = messageJson.getJSONArray("params")
-                    val signBundle = signBundle(EvmMethod.PERMIT.type, wcUrl, params.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            appToWebResult(
-                                messageJson, data, messageId
-                            )
-                        }
-
-                        override fun cancel(id: Long) {
-                            appToWebError(messageJson, messageId)
-                        }
-                    })
                 }
 
                 else -> {
@@ -1257,6 +1268,7 @@ class DappActivity : BaseActivity() {
         appToWebResult(messageJson, signed, messageId)
     }
 
+    // chain changed
     private fun emitToWeb(chainId: String) {
         val responseJson = JSONObject().apply {
             put("result", chainId)
@@ -1326,11 +1338,11 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun appToWebError(messageJson: JSONObject, messageId: String) {
+    private fun appToWebEthError(messageJson: JSONObject, messageId: String, message: String) {
         val responseJson = JSONObject().apply {
             val errorJson = JSONObject().apply {
                 put("code", 4001)
-                put("message", getString(R.string.error_not_support))
+                put("message", message)
             }
             put("error", errorJson)
         }
