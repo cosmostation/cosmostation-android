@@ -13,8 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
+import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
@@ -224,16 +225,27 @@ class CoinFragment : Fragment() {
     }
 
     private fun sunsetPopup() {
-        if (selectedChain is ChainCrescent) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (isAdded && isVisible && isResumed) {
-                    NoticeInfoFragment.newInstance(selectedChain, NoticeType.CHAIN_SUNSET).show(
-                        requireActivity().supportFragmentManager,
-                        NoticeInfoFragment::class.java.name
-                    )
-                }
-            }, 800)
+        val noticeType = when (selectedChain) {
+            is ChainCantoEvm, is ChainRegen -> {
+                NoticeType.CHAIN_DELIST
+            }
+
+            is ChainOkt996Keccak -> {
+                NoticeType.LEGACY_PATH
+            }
+
+            else -> {
+                return
+            }
         }
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isAdded && isVisible && isResumed) {
+                NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+                    requireActivity().supportFragmentManager,
+                    NoticeInfoFragment::class.java.name
+                )
+            }
+        }, 800)
     }
 
     private fun observeViewModels() {

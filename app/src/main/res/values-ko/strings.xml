@@ -231,6 +231,8 @@
     <string name="title_send_info">전송 상세 정보</string>
     <string name="title_nft_transfer">NFT 전송</string>
     <string name="title_select_style">Style 선택</string>
+    <string name="title_delist">지원 중단 안내</string>
+    <string name="title_legacy_path">레거시 경로 지원 중단 안내</string>
 
 
     // msg
@@ -299,6 +301,8 @@
     <string name="str_nft_github_msg">모든 NFT 콜랙션에 관한 정보는 커뮤니티와 함께 발전시키고 있습니다.\n\n본인의 콜랙션 및 NFT가 보이지 않는다면 아래 깃헙링크를 발행자나 커뮤니티에 알려주세요.\n\n콜랙션에 대한 정보가 등록되면 자동으로 표시되며,\n고객님 뿐만 아니라 커뮤니티의 모든 사용자가 같이 확인하고 사용할 수 있습니다.</string>
     <string name="str_simple_style_msg">온 체인상 자산의 가치를 표시합니다.</string>
     <string name="str_pro_style_msg">메인 자산의 가격과 변동수치가 추가로 표시됩니다.</string>
+    <string name="str_delist_msg">선택하신 체인은 모바일 지갑에서 지원종료 예정입니다. 다른 지갑 또는 차후 커스텀체인 서비스로 지원할 수 있습니다.</string>
+    <string name="str_legacy_path_msg">선택하신 레거시 경로의 계정은 지원종료 예정입니다. 퍼블릭 경로로 자산을 옮기 시길 강력히 권장합니다.</string>
 
 
     // error

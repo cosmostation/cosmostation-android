@@ -291,6 +291,8 @@
     <string name="title_send_info">Send detail info</string>
     <string name="title_nft_transfer">Send NFT</string>
     <string name="title_select_style">Select style</string>
+    <string name="title_delist">Discontinuation of support</string>
+    <string name="title_legacy_path">Legacy path will not support</string>
 
 
     // msg
@@ -374,6 +376,8 @@
     <string name="str_nft_github_msg">Information on all NFT collections is developed together with the community.\n\nIf you do not see your collection or NFT, please provide the GitHub link below to the publisher or community.\n\nOnce information about the collection is registered, it will be automatically displayed,\nNot only for the customer but also for all users in the community. You can check and use it.</string>
     <string name="str_simple_style_msg">Display total value of on-chain assets.</string>
     <string name="str_pro_style_msg">Additionally, main asset\'s price and price change are displayed.</string>
+    <string name="str_delist_msg">The chain you selected will be discontinued from mobile wallets. It can be supported by other wallets or future custom chain services.</string>
+    <string name="str_legacy_path_msg">Accounts on the legacy path you selected will be terminated. We strongly recommend that you move your assets to the public path.</string>
 
 
     // header
