@@ -96,7 +96,6 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainBaseEvm())
     lines.add(ChainBinanceSmart())
     lines.add(ChainAltheaEvm())
-    lines.add(ChainCantoEvm())
     lines.add(ChainCronos())
     lines.add(ChainDymensionEvm())
     lines.add(ChainEvmosEvm())
@@ -106,6 +105,8 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainOptimism())
     lines.add(ChainPolygon())
     lines.add(ChainXplaEvm())
+
+//    lines.add(ChainCantoEvm())
 
     lines.forEach { line ->
         if (line.chainIdCosmos.isEmpty()) {
