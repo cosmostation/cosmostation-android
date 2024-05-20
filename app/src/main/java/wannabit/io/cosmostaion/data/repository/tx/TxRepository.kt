@@ -1,10 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import com.binance.dex.api.client.Wallet
-import com.binance.dex.api.client.domain.TransactionMetadata
-import com.binance.dex.api.client.domain.broadcast.HtltReq
-import com.binance.dex.api.client.domain.broadcast.TransactionOption
-import com.binance.dex.api.client.domain.broadcast.Transfer
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -18,8 +13,6 @@ import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
-import com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap
-import com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
@@ -31,7 +24,6 @@ import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
@@ -84,10 +76,6 @@ interface TxRepository {
         memo: String,
         selectedChain: CosmosLine?
     ): Any?
-
-    suspend fun broadcastBnbSendTx(
-        transfer: Transfer, wallet: Wallet, options: TransactionOption
-    ): MutableList<TransactionMetadata>?
 
     suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
@@ -526,26 +514,4 @@ interface TxRepository {
         memo: String,
         selectedChain: CosmosLine?
     ): Any?
-
-    suspend fun broadcastCreateSwapTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateAtomicSwap: MsgCreateAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): BroadcastTxResponse?
-
-    suspend fun broadcastClaimSwapTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgClaimAtomicSwap: MsgClaimAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): BroadcastTxResponse?
-
-    suspend fun broadcastBnbCreateSwapTx(
-        htltReq: HtltReq, wallet: Wallet, options: TransactionOption
-    ): MutableList<TransactionMetadata>?
 }

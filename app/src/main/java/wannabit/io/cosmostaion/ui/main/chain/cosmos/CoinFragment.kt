@@ -13,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -24,12 +23,9 @@ import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
-import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeClickListener
-import wannabit.io.cosmostaion.ui.option.tx.kava.BridgeOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.tx.step.kava.Bep3Fragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class CoinFragment : Fragment() {
@@ -117,23 +113,10 @@ class CoinFragment : Fragment() {
                     return@setOnItemClickListener
                 }
 
-                if (line is ChainBinanceBeacon) {
-//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-//                        selectBridgeOption(line, denom, sendAssetType)
-//                    } else {
-//                        startLegacyTransfer(line, denom)
-//                    }
-                    startLegacyTransfer(line, denom)
-
-                } else if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
+                if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
                     startLegacyTransfer(line, denom)
 
                 } else if (line.tag.startsWith("kava")) {
-//                    if (BaseUtils.isHtlcSwappableCoin(line, denom)) {
-//                        selectBridgeOption(line, denom, sendAssetType)
-//                    } else {
-//                        startTransfer(line, denom, sendAssetType)
-//                    }
                     startTransfer(line, denom, sendAssetType)
 
                 } else {
@@ -151,27 +134,6 @@ class CoinFragment : Fragment() {
 
         selectedChain.stakeDenom?.let { stakeDenom ->
             when (selectedChain) {
-                is ChainBinanceBeacon -> {
-                    selectedChain.lcdAccountInfo?.balances?.forEach { balance ->
-                        if (balance.symbol == stakeDenom) {
-                            stakeCoins.add(Coin(balance.symbol, balance.free, CoinType.STAKE))
-                        } else {
-                            val totalBalance =
-                                balance.free.toBigDecimal().add(balance.frozen.toBigDecimal())
-                                    .add(balance.locked.toBigDecimal())
-                            nativeCoins.add(
-                                Coin(
-                                    balance.symbol, totalBalance.toPlainString(), CoinType.ETC
-                                )
-                            )
-                        }
-                    }
-                    if (stakeCoins.none { it.denom == stakeDenom }) {
-                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-                    }
-                    nativeCoins.sortBy { it.denom }
-                }
-
                 is ChainOkt996Keccak -> {
                     (selectedChain as ChainOkt996Keccak).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
                         if (balance.denom == stakeDenom) {
@@ -262,7 +224,7 @@ class CoinFragment : Fragment() {
     }
 
     private fun sunsetPopup() {
-        if (selectedChain is ChainBinanceBeacon || selectedChain is ChainCrescent) {
+        if (selectedChain is ChainCrescent) {
             Handler(Looper.getMainLooper()).postDelayed({
                 if (isAdded && isVisible && isResumed) {
                     NoticeInfoFragment.newInstance(selectedChain, NoticeType.CHAIN_SUNSET).show(
@@ -294,18 +256,8 @@ class CoinFragment : Fragment() {
         )
     }
 
-    private fun startBep3Transfer(line: CosmosLine, denom: String) {
-        handleOneClickWithDelay(Bep3Fragment.newInstance(line, denom))
-    }
-
     private fun startLegacyTransfer(line: CosmosLine, denom: String) {
         handleOneClickWithDelay(LegacyTransferFragment.newInstance(line, denom))
-    }
-
-    private fun selectBridgeOption(line: CosmosLine, denom: String, sendAssetType: SendAssetType) {
-        handleOneClickWithDelay(
-            BridgeOptionFragment.newInstance(line, denom, sendAssetType, bridgeClickAction)
-        )
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
@@ -319,20 +271,6 @@ class CoinFragment : Fragment() {
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
             }, 300)
-        }
-    }
-
-    private val bridgeClickAction = object : BridgeClickListener {
-        override fun bep3Transfer(line: CosmosLine, denom: String) {
-            startBep3Transfer(line, denom)
-        }
-
-        override fun simpleTransfer(line: CosmosLine, denom: String, sendAssetType: SendAssetType) {
-            if (line is ChainBinanceBeacon) {
-                startLegacyTransfer(line, denom)
-            } else {
-                startTransfer(line, denom, sendAssetType)
-            }
         }
     }
 

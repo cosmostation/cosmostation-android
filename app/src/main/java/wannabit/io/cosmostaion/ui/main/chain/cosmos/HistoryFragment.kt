@@ -14,12 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
@@ -27,7 +25,6 @@ import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
 import wannabit.io.cosmostaion.ui.tx.info.SendResultFragment
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModelProviderFactory
-import java.util.Calendar
 
 class HistoryFragment : Fragment() {
 
@@ -44,7 +41,6 @@ class HistoryFragment : Fragment() {
     private val BATCH_CNT = 30
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
-    private val allBnbHistoryGroup: MutableList<Pair<String, BnbHistory>> = mutableListOf()
     private val allOktHistoryGroup: MutableList<Pair<String, TransactionList>> = mutableListOf()
 
     companion object {
@@ -96,7 +92,6 @@ class HistoryFragment : Fragment() {
         super.onResume()
         if (!selectedChain.historyFetched) {
             allHistoryGroup.clear()
-            allBnbHistoryGroup.clear()
             allOktHistoryGroup.clear()
             searchAfter = ""
             initData()
@@ -106,7 +101,6 @@ class HistoryFragment : Fragment() {
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             allHistoryGroup.clear()
-            allBnbHistoryGroup.clear()
             allOktHistoryGroup.clear()
             searchAfter = ""
             initData()
@@ -170,12 +164,6 @@ class HistoryFragment : Fragment() {
 
     private fun initData() {
         when (selectedChain) {
-            is ChainBinanceBeacon -> {
-                historyViewModel.bnbHistory(
-                    requireContext(), selectedChain.address, threeMonthAgoTime(), currentTime()
-                )
-            }
-
             is ChainOkt996Keccak, is ChainOktEvm -> {
                 historyViewModel.oktHistory(
                     "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
@@ -244,19 +232,6 @@ class HistoryFragment : Fragment() {
             }
         }
 
-        historyViewModel.bnbHistoryResult.observe(viewLifecycleOwner) { response ->
-            selectedChain.historyFetched = true
-            allBnbHistoryGroup.addAll(response)
-            response?.let {
-                historyAdapter.submitList(allBnbHistoryGroup as List<Any>?)
-            }
-
-            binding.loading.visibility = View.GONE
-            binding.refresher.visibleOrGone(allBnbHistoryGroup.isNotEmpty())
-            binding.emptyLayout.visibleOrGone(allBnbHistoryGroup.isEmpty())
-            historyAdapter.notifyDataSetChanged()
-        }
-
         historyViewModel.oktHistoryResult.observe(viewLifecycleOwner) { response ->
             selectedChain.historyFetched = true
             allOktHistoryGroup.addAll(response)
@@ -283,15 +258,4 @@ class HistoryFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-}
-
-fun currentTime(): String {
-    val cTime = Calendar.getInstance()
-    return cTime.timeInMillis.toString()
-}
-
-fun threeMonthAgoTime(): String {
-    val cTime = Calendar.getInstance()
-    cTime.add(Calendar.MONTH, -3)
-    return cTime.timeInMillis.toString()
 }

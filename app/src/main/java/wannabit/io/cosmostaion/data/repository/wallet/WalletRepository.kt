@@ -13,10 +13,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
-import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
-import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
@@ -101,13 +99,6 @@ interface WalletRepository {
     ): NetworkResult<String?>
 
     //lcd
-    suspend fun binanceAccountInfo(
-        line: CosmosLine
-    ): NetworkResult<AccountResponse?>
-
-    suspend fun beaconTokenInfo(
-    ): NetworkResult<MutableList<BnbToken>>
-
     suspend fun oktAccountInfo(
         line: CosmosLine
     ): NetworkResult<OktAccountResponse?>

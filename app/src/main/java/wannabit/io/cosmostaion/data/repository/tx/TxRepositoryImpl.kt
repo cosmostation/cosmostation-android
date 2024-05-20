@@ -1,12 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import com.binance.dex.api.client.BinanceDexApiClientFactory
-import com.binance.dex.api.client.BinanceDexEnvironment
-import com.binance.dex.api.client.Wallet
-import com.binance.dex.api.client.domain.TransactionMetadata
-import com.binance.dex.api.client.domain.broadcast.HtltReq
-import com.binance.dex.api.client.domain.broadcast.TransactionOption
-import com.binance.dex.api.client.domain.broadcast.Transfer
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto
@@ -300,20 +293,22 @@ class TxRepositoryImpl : TxRepository {
                         resultArray
                     }
 
-                    val tip = if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
-                        BigInteger.valueOf(1000000000L)
-                    } else {
-                        suggestTipValue[selectedFeeInfo]
-                    }
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
 
-                    val totalPerGas = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
-                            500000000L
-                        )
-                    ) {
-                        500000000L + tip.toLong()
-                    } else {
-                        suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
-                    }
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                        }
 
                     var rawTransaction: RawTransaction? = null
 
@@ -426,19 +421,6 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastBnbSendTx(
-        transfer: Transfer, wallet: Wallet, options: TransactionOption
-    ): MutableList<TransactionMetadata>? {
-        return try {
-            val client = BinanceDexApiClientFactory.newInstance()
-                .newRestClient(BinanceDexEnvironment.PROD.baseUrl)
-            client.transfer(transfer, wallet, options, true)
-
-        } catch (_: Exception) {
-            mutableListOf()
         }
     }
 
@@ -1415,60 +1397,6 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastCreateSwapTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateAtomicSwap: com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genCreateSwapBroadcast(
-                account, msgCreateAtomicSwap, fee, memo, selectedChain
-            )
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun broadcastClaimSwapTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgClaimAtomicSwap: com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genClaimSwapBroadcast(account, msgClaimAtomicSwap, fee, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun broadcastBnbCreateSwapTx(
-        htltReq: HtltReq, wallet: Wallet, options: TransactionOption
-    ): MutableList<TransactionMetadata>? {
-        return try {
-            val client = BinanceDexApiClientFactory.newInstance()
-                .newRestClient(BinanceDexEnvironment.PROD.baseUrl)
-            client.htlt(htltReq, wallet, options, true)
-
-        } catch (e: Exception) {
-            mutableListOf()
         }
     }
 }

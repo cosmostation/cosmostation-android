@@ -11,7 +11,6 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -188,7 +187,7 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                                if (line !is ChainOkt996Keccak) {
                                     if (line.cosmosBalances == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE

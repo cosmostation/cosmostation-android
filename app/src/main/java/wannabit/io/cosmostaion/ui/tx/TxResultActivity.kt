@@ -19,7 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -92,7 +91,7 @@ class TxResultActivity : BaseActivity() {
             )
 
             btnConfirm.updateButtonView(true)
-            if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
+            if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -144,7 +143,7 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
+                if (selectedChain is ChainOkt996Keccak) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -152,7 +151,7 @@ class TxResultActivity : BaseActivity() {
             }
 
             viewFailMintscan.setOnClickListener {
-                if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
+                if (selectedChain is ChainOkt996Keccak) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)

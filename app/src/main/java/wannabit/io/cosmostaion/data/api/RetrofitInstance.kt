@@ -9,7 +9,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
@@ -58,15 +57,6 @@ object RetrofitInstance {
             .build()
     }
 
-    private val beaconRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(ChainBinanceBeacon().lcdUrl)
-            .build()
-    }
-
     private val oktRetrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -104,10 +94,6 @@ object RetrofitInstance {
 
     val mintscanJsonApi: MintscanApi by lazy {
         mintScanJsonRetrofit.create(MintscanApi::class.java)
-    }
-
-    val beaconApi: LcdApi by lazy {
-        beaconRetrofit.create(LcdApi::class.java)
     }
 
     val oktApi: LcdApi by lazy {

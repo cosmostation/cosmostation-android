@@ -11,13 +11,9 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
 import java.math.BigDecimal
@@ -29,7 +25,6 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var fromChain: CosmosLine
-    private var bnbTokenInfo: BnbToken? = null
     private var oktTokenInfo: OktToken? = null
     private var availableAmount = ""
     private var existAmount = ""
@@ -40,7 +35,6 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
         @JvmStatic
         fun newInstance(
             fromChain: CosmosLine,
-            bnbTokenInfo: BnbToken?,
             oktTokenInfo: OktToken?,
             availableAmount: String,
             existAmount: String,
@@ -48,7 +42,6 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
         ): LegacyInsertAmountFragment {
             val args = Bundle().apply {
                 putSerializable("fromChain", fromChain)
-                putParcelable("bnbTokenInfo", bnbTokenInfo)
                 putParcelable("oktTokenInfo", oktTokenInfo)
                 putString("availableAmount", availableAmount)
                 putString("existAmount", existAmount)
@@ -95,15 +88,11 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
                     getSerializable(
                         "fromChain", CosmosLine::class.java
                     )?.let { fromChain = it }
-                    getParcelable("bnbTokenInfo", BnbToken::class.java)?.let { bnbTokenInfo = it }
                     getParcelable("oktTokenInfo", OktToken::class.java)?.let { oktTokenInfo = it }
 
                 } else {
                     (getSerializable("fromChain") as? CosmosLine)?.let {
                         fromChain = it
-                    }
-                    (getParcelable("bnbTokenInfo") as? BnbToken)?.let {
-                        bnbTokenInfo = it
                     }
                     (getParcelable("oktTokenInfo") as? OktToken)?.let {
                         oktTokenInfo = it
@@ -113,14 +102,8 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
                 getString("existAmount")?.let { existAmount = it }
             }
 
-            if (fromChain is ChainBinanceBeacon) {
-                assetDecimal = 8
-                availableDenom.text = bnbTokenInfo?.original_symbol?.uppercase()
-            } else if (fromChain is ChainOkt996Keccak || fromChain is ChainOktEvm) {
-                assetDecimal = 18
-                availableDenom.text = oktTokenInfo?.original_symbol?.uppercase()
-            }
-
+            assetDecimal = 18
+            availableDenom.text = oktTokenInfo?.original_symbol?.uppercase()
             availableAmount.toBigDecimal().setScale(assetDecimal, RoundingMode.DOWN)
                 ?.let { amount ->
                     available.text = formatAmount(amount.toPlainString(), assetDecimal)
@@ -143,7 +126,8 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
             amountTxt.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?, start: Int, count: Int, after: Int
-                ) {}
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 

@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRES
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.beaconApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
@@ -53,10 +52,8 @@ import wannabit.io.cosmostaion.data.model.req.StarCw721TokenIdReq
 import wannabit.io.cosmostaion.data.model.req.StarCw721TokenInfoReq
 import wannabit.io.cosmostaion.data.model.req.VotingPower
 import wannabit.io.cosmostaion.data.model.req.VotingPowerReq
-import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
-import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -345,18 +342,6 @@ class WalletRepositoryImpl : WalletRepository {
                 val json = JSONObject(response.data.toStringUtf8())
                 json.getString("power")
             }
-        }
-    }
-
-    override suspend fun binanceAccountInfo(line: CosmosLine): NetworkResult<AccountResponse?> {
-        return safeApiCall(Dispatchers.IO) {
-            beaconApi.accountInfo(line.address)
-        }
-    }
-
-    override suspend fun beaconTokenInfo(): NetworkResult<MutableList<BnbToken>> {
-        return safeApiCall(Dispatchers.IO) {
-            beaconApi.beaconTokens("1000")
         }
     }
 

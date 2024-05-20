@@ -182,7 +182,6 @@ class OktWithdrawFragment : BaseTxFragment() {
             oktWithdrawView.setOnClickListener {
                 handleOneClickWithDelay(
                     LegacyInsertAmountFragment.newInstance(selectedChain,
-                        null,
                         oktTokenInfo,
                         availableAmount.toString(),
                         toWithdrawAmount,

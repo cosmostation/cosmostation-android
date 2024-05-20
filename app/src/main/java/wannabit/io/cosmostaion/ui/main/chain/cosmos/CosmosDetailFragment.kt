@@ -21,7 +21,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -428,7 +427,7 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
 
-                    if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
+                    if (selectedChain is ChainOkt996Keccak) {
                         handleOneClickWithDelay(
                             null, LegacyTransferFragment.newInstance(selectedChain, denom)
                         )

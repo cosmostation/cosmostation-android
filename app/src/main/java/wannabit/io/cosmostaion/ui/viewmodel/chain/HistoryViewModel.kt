@@ -9,8 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
-import wannabit.io.cosmostaion.common.formatTxTimeToYear
-import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.TransactionList
@@ -24,9 +22,16 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _historyResult = MutableLiveData<MutableList<Pair<String, CosmosHistory>>>()
     val historyResult: LiveData<MutableList<Pair<String, CosmosHistory>>> get() = _historyResult
 
-    fun history(context: Context, chain: String, address: String?, limit: String, searchAfter: String) =
+    fun history(
+        context: Context,
+        chain: String,
+        address: String?,
+        limit: String,
+        searchAfter: String
+    ) =
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = historyRepository.cosmosHistory(chain, address, limit, searchAfter)) {
+            when (val response =
+                historyRepository.cosmosHistory(chain, address, limit, searchAfter)) {
                 is NetworkResult.Success -> {
                     response.data.let { data ->
                         if (data.isSuccessful) {
@@ -39,35 +44,6 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                             }
                             _historyResult.postValue(result)
 
-                        } else {
-                            _errorMessage.postValue("Error")
-                        }
-                    }
-                }
-
-                is NetworkResult.Error -> {
-                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                }
-            }
-        }
-
-    private var _bnbHistoryResult = MutableLiveData<MutableList<Pair<String, BnbHistory>>>()
-    val bnbHistoryResult: LiveData<MutableList<Pair<String, BnbHistory>>> get() = _bnbHistoryResult
-
-    fun bnbHistory(context: Context, address: String?, startTime: String, endTime: String) =
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val response = historyRepository.bnbHistory(address, startTime, endTime)) {
-                is NetworkResult.Success -> {
-                    response.data.let { data ->
-                        if (data.isSuccessful) {
-                            val result: MutableList<Pair<String, BnbHistory>> = mutableListOf()
-                            data.body()?.tx?.forEach { history ->
-                                history.timeStamp?.let {
-                                    val headerDate = formatTxTimeToYear(context, it)
-                                    result.add(Pair(headerDate, history))
-                                }
-                            }
-                            _bnbHistoryResult.postValue(result)
                         } else {
                             _errorMessage.postValue("Error")
                         }
