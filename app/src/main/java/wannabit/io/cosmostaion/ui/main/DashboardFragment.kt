@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -109,30 +108,6 @@ class DashboardFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateView()
-        isScrollView()
-    }
-
-    private fun isScrollView() {
-        binding?.apply {
-            recycler.post {
-                val layoutManager = recycler.layoutManager as LinearLayoutManager
-                val firstCompletelyVisibleItemPosition =
-                    layoutManager.findFirstCompletelyVisibleItemPosition()
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                val isScrolledDown =
-                    firstCompletelyVisibleItemPosition > 0 || firstVisibleItemPosition > 0
-
-                if ((recycler.adapter?.itemCount ?: 0) > 17) {
-                    if (isScrolledDown || searchView.query.isNotEmpty()) {
-                        searchBar.visibility = View.VISIBLE
-                    } else {
-                        searchBar.visibility = View.GONE
-                    }
-                } else {
-                    searchBar.visibility = View.GONE
-                }
-            }
-        }
     }
 
     private fun initView() {
@@ -150,20 +125,6 @@ class DashboardFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.color_base03),
                 PorterDuff.Mode.SRC_IN
             )
-
-            recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-
-                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                    baseAccount?.let {
-                        if (dy > 0 && firstVisibleItemPosition > 1 && it.sortedDisplayEvmLines().size + it.sortedDisplayCosmosLines().size > 15) {
-                            searchBar.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            })
         }
     }
 
@@ -302,10 +263,21 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun updateSearchView() {
+        binding?.apply {
+            if (toDisplayEvmChains.size + toDisplayCosmosChains.size > 15) {
+                searchBar.visibility = View.VISIBLE
+            } else {
+                searchBar.visibility = View.GONE
+            }
+        }
+    }
+
     private fun updateView() {
         dashAdapter.notifyDataSetChanged()
         updateHideValue()
         updateTotalValue()
+        updateSearchView()
     }
 
     private fun updateRowData(tag: String) {
@@ -511,6 +483,7 @@ class DashboardFragment : Fragment() {
                     totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
 
                     updateViewWithLoadedData(baseAccount)
+                    updateSearchView()
                     isNew = response.first
                 }
             }
@@ -535,6 +508,7 @@ class DashboardFragment : Fragment() {
                         initData(baseAccount)
                         initRecyclerView()
                         updateTotalValue()
+                        updateSearchView()
                         PushManager.syncAddresses(Prefs.fcmToken)
                     }
                 }
