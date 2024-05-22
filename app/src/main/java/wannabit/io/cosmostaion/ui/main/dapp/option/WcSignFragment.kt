@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -99,27 +100,33 @@ class WcSignFragment(
     private fun initAminoDataView(data: String) {
         binding.apply {
             selectedChain?.let { line ->
-                val txJsonObject = JsonParser.parseString(data).asJsonObject
-                val updateJsonData = updateFeeInfoInAminoMessage(txJsonObject)
-                signData.text = GsonBuilder().setPrettyPrinting().create().toJson(updateJsonData)
-                dappUrl.text = url
-                dappAddress.text = line.address
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val txJsonObject = JsonParser.parseString(data).asJsonObject
+                    val updateJsonData = updateFeeInfoInAminoMessage(txJsonObject)
+                    val fee = updateJsonData.get("fee").asJsonObject
+                    val feeAmount =
+                        fee.get("amount").asJsonArray.get(0).asJsonObject.get("amount").asString
+                    val feeDenom =
+                        fee.get("amount").asJsonArray.get(0).asJsonObject.get("denom").asString
 
-                val fee = updateJsonData.get("fee").asJsonObject
-                val feeAmount =
-                    fee.get("amount").asJsonArray.get(0).asJsonObject.get("amount").asString
-                val feeDenom =
-                    fee.get("amount").asJsonArray.get(0).asJsonObject.get("denom").asString
+                    BaseData.getAsset(line.apiName, feeDenom ?: "")?.let { asset ->
+                        val dpFeeAmount =
+                            feeAmount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
+                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
 
-                BaseData.getAsset(line.apiName, feeDenom ?: "")?.let { asset ->
-                    val dpFeeAmount = feeAmount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
-                        .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                    dappFeeAmount.text = formatAmount(
-                        dpFeeAmount.toPlainString(), asset.decimals ?: 6
-                    )
-                    dappFeeDenom.text = asset.symbol
+                        withContext(Dispatchers.Main) {
+                            signData.text =
+                                GsonBuilder().setPrettyPrinting().create().toJson(updateJsonData)
+                            dappUrl.text = url
+                            dappAddress.text = line.address
+                            dappFeeAmount.text = formatAmount(
+                                dpFeeAmount.toPlainString(), asset.decimals ?: 6
+                            )
+                            dappFeeDenom.text = asset.symbol
+                        }
+                    }
+                    updateData = updateJsonData.toString()
                 }
-                updateData = updateJsonData.toString()
             }
         }
     }
@@ -153,27 +160,35 @@ class WcSignFragment(
     private fun initInjectionDataView(data: String) {
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
+            loading.visibility = View.VISIBLE
             selectedChain?.let { line ->
-                val txJsonObject = JsonParser.parseString(data).asJsonObject
-                val updateJsonData = updateFeeInfoInDirectMessage(txJsonObject)
-                signData.text = GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
-                dappUrl.text = url
-                dappAddress.text = line.address
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val txJsonObject = JsonParser.parseString(data).asJsonObject
+                    val updateJsonData = updateFeeInfoInDirectMessage(txJsonObject)
+                    val authInfo =
+                        TxProto.AuthInfo.parseFrom(Utils.hexToBytes(updateJsonData["auth_info_bytes"].asString))
 
-                val authInfo =
-                    TxProto.AuthInfo.parseFrom(Utils.hexToBytes(updateJsonData["auth_info_bytes"].asString))
+                    BaseData.getAsset(line.apiName, authInfo.fee.getAmount(0).denom ?: "")
+                        ?.let { asset ->
+                            val dpFeeAmount = authInfo.fee.getAmount(0).amount.toBigDecimal()
+                                .movePointLeft(asset.decimals ?: 6)
+                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
 
-                BaseData.getAsset(line.apiName, authInfo.fee.getAmount(0).denom ?: "")
-                    ?.let { asset ->
-                        val dpFeeAmount = authInfo.fee.getAmount(0).amount.toBigDecimal()
-                            .movePointLeft(asset.decimals ?: 6)
-                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        dappFeeAmount.text = formatAmount(
-                            dpFeeAmount.toPlainString(), asset.decimals ?: 6
-                        )
-                        dappFeeDenom.text = asset.symbol
-                    }
-                updateData = updateJsonData.toString()
+                            withContext(Dispatchers.Main) {
+                                loading.visibility = View.GONE
+                                signData.text =
+                                    GsonBuilder().setPrettyPrinting().create()
+                                        .toJson(updateJsonData)
+                                dappUrl.text = url
+                                dappAddress.text = line.address
+                                dappFeeAmount.text = formatAmount(
+                                    dpFeeAmount.toPlainString(), asset.decimals ?: 6
+                                )
+                                dappFeeDenom.text = asset.symbol
+                            }
+                        }
+                    updateData = updateJsonData.toString()
+                }
             }
         }
     }
@@ -202,6 +217,8 @@ class WcSignFragment(
 
                     val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
                     val nonce = ethGetTransactionCount.transactionCount
+
+                    // json data
                     val to = txJsonObject["to"].asString
                     val dataString = txJsonObject["data"].asString
                     val maxPriorityFeePerGas =
@@ -388,6 +405,7 @@ class WcSignFragment(
                                 )
 
                             } catch (e: Exception) {
+                                // no value
                                 RawTransaction.createTransaction(
                                     nonce,
                                     web3j.ethGasPrice().send().gasPrice,
@@ -428,6 +446,7 @@ class WcSignFragment(
     }
 
     // token permit view
+    // signTypedData
     private fun initEvmPermitData(data: String) {
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
@@ -473,89 +492,111 @@ class WcSignFragment(
     private fun updateFeeInfoInAminoMessage(txJsonObject: JsonObject): JsonObject {
         val txJsonSignDoc =
             txJsonObject.getAsJsonObject("signDoc") ?: txJsonObject.getAsJsonObject("doc")
-        val isEditFee: Boolean = txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean
-            ?: txJsonObject.get("params")?.asJsonObject?.get("isEditFee")?.asBoolean ?: true
+        val isEditFee: Boolean = txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean ?: true
         val fee = txJsonSignDoc.get("fee").asJsonObject
         val gas = fee.get("gas").asString
         val amounts = fee.get("amount").asJsonArray
 
-        if (!isEditFee && (amounts.size() <= 0 || gas == "0") || isEditFee) {
+        if (isEditFee || amounts.size() <= 0) {
             val chainId = txJsonSignDoc.get("chain_id").asString
             BaseData.baseAccount?.let { account ->
-                val targetChain =
-                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        ?: run {
-                            account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        }
-                targetChain?.let { chain ->
-                    chain.getFeeInfos(requireContext())
-                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
-                        ?.let { gasRate ->
-                            val gasLimit =
-                                (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
-                            val feeCoinAmount =
-                                gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                    ?: run {
+                        account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                    }?.let { chain ->
+                        chain.getFeeInfos(requireContext())
+                            .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+                            ?.let { gasRate ->
+                                val gasLimit =
+                                    (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                                val feeCoinAmount =
+                                    gasRate.gasRate?.multiply(gasLimit)
+                                        ?.setScale(0, RoundingMode.UP)
 
-                            if (amounts.size() == 0) {
-                                val jsonObject = JsonObject()
-                                jsonObject.addProperty(
-                                    "amount", feeCoinAmount.toString()
-                                )
-                                jsonObject.addProperty("denom", chain.stakeDenom)
-                                amounts.add(jsonObject)
+                                if (amounts.size() == 0) {
+                                    val jsonObject = JsonObject()
+                                    jsonObject.addProperty(
+                                        "amount", feeCoinAmount.toString()
+                                    )
+                                    jsonObject.addProperty("denom", chain.stakeDenom)
+                                    amounts.add(jsonObject)
 
-                            } else {
-                                val mainDenomFee =
-                                    amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
-                                mainDenomFee?.asJsonObject?.addProperty(
-                                    "amount", feeCoinAmount.toString()
-                                )
+                                } else {
+                                    val mainDenomFee =
+                                        amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
+                                    mainDenomFee?.asJsonObject?.addProperty(
+                                        "amount", feeCoinAmount.toString()
+                                    )
+                                }
                             }
-                        }
-                }
+                    }
             }
         }
         return txJsonSignDoc
     }
 
     private fun updateFeeInfoInDirectMessage(txJsonObject: JsonObject): JsonObject {
+        val doc = txJsonObject["doc"].asJsonObject
         var authInfo =
-            TxProto.AuthInfo.parseFrom(Utils.hexToBytes(txJsonObject["auth_info_bytes"].asString))
-        val isEditFee: Boolean = txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean
-            ?: txJsonObject.get("params")?.asJsonObject?.get("isEditFee")?.asBoolean ?: true
+            TxProto.AuthInfo.parseFrom(Utils.hexToBytes(doc["auth_info_bytes"].asString))
+        val txBody = TxProto.TxBody.parseFrom(Utils.hexToBytes(doc["body_bytes"].asString))
+        val isEditFee: Boolean = txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean ?: true
         val fee = authInfo.fee
 
-        if (!isEditFee && (fee.amountList.isEmpty() || fee.gasLimit.toString() == "0") || isEditFee) {
-            val chainId = txJsonObject["chain_id"].asString
+        if (isEditFee || fee.amountList.isEmpty()) {
+            val chainId = doc["chain_id"].asString
             BaseData.baseAccount?.let { account ->
-                val targetChain =
-                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        ?: run {
-                            account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        }
-                targetChain?.let { chain ->
-                    chain.getFeeInfos(requireContext())
-                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
-                        ?.let { gasRate ->
-                            val gasLimit = (fee.gasLimit.toDouble() * chain.gasMultiply()).toLong()
-                                .toBigDecimal()
-                            val feeCoinAmount =
-                                gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-                            val updateFeeCoin =
-                                CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
-                                    .setAmount(feeCoinAmount.toString()).build()
-                            val updateFee =
-                                Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
-                                    .setPayer(fee.payer).build()
-
-                            authInfo = authInfo.toBuilder().setFee(updateFee).build()
-                        }
-                }
+                account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                    ?: run {
+                        account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                    }?.let { chain ->
+                        val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
+                        val simulateGasLimit =
+                            (simulateGas.gasUsed.toDouble() * chain.gasMultiply()).toLong()
+                        val updateFee = updateFeeWithSimulate(
+                            chain,
+                            simulateGasLimit.toBigDecimal(),
+                            fee.gasLimit.toBigDecimal(),
+                            fee
+                        )
+                        authInfo = authInfo.toBuilder().setFee(updateFee).build()
+                    }
             }
         }
-        return txJsonObject.apply {
+        return txJsonObject["doc"].asJsonObject.apply {
             addProperty("auth_info_bytes", Utils.bytesToHex(authInfo.toByteArray()))
         }
+    }
+
+    private fun updateFeeWithSimulate(
+        chain: CosmosLine,
+        simulateGasLimit: BigDecimal,
+        originalGasLimit: BigDecimal,
+        fee: Fee
+    ): Fee? {
+        chain.getFeeInfos(requireContext())[chain.getFeeBasePosition()].feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+            ?.let { gasRate ->
+                if (simulateGasLimit > originalGasLimit) {
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(simulateGasLimit)?.setScale(0, RoundingMode.UP)
+                    val updateFeeCoin =
+                        CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                            .setAmount(feeCoinAmount.toString()).build()
+                    return Fee.newBuilder().setGasLimit(simulateGasLimit.toLong())
+                        .addAmount(updateFeeCoin)
+                        .setPayer(fee.payer).build()
+
+                } else {
+                    val feeCoinAmount =
+                        gasRate.gasRate?.multiply(originalGasLimit)?.setScale(0, RoundingMode.UP)
+                    val updateFeeCoin =
+                        CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                            .setAmount(feeCoinAmount.toString()).build()
+                    return Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
+                        .setPayer(fee.payer).build()
+                }
+            }
+        return null
     }
 
     interface WcSignRawDataListener {

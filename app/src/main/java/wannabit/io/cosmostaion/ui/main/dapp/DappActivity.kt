@@ -41,6 +41,7 @@ import com.walletconnect.sign.client.SignInterface
 import com.walletconnect.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import okhttp3.OkHttpClient
 import org.apache.commons.lang3.StringUtils
@@ -178,8 +179,7 @@ class DappActivity : BaseActivity() {
                 data.query?.let { query ->
                     wcUrl = query
                     dappWebView.visibility = View.VISIBLE
-                    dappWebView.loadUrl("https://app.1inch.io/")
-//                    dappWebView.loadUrl(query)
+                    dappWebView.loadUrl(query)
                     dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
                     WebStorage.getInstance().deleteAllData()
                 }
@@ -882,10 +882,29 @@ class DappActivity : BaseActivity() {
                     appToWebResult(messageJson, dataJson, messageId)
                 }
 
-                "cos_addChain", "cos_disconnect" -> {
+                "cos_disconnect" -> {
                     appToWebResult(
-                        messageJson, true, messageId
+                        messageJson, null, messageId
                     )
+                }
+
+                "cos_addChain" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val evmSupportIds =
+                        allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
+                            .distinct()
+                    val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
+                        .map { it.chainIdCosmos }.distinct()
+                    val supportChainIds = evmSupportIds.union(cosmosSupportIds)
+                    if (supportChainIds.contains(params.getString("chainId"))) {
+                        appToWebResult(
+                            messageJson, true, messageId
+                        )
+                    } else {
+                        appToWebError(
+                            messageJson, getString(R.string.error_not_support_chain), messageId
+                        )
+                    }
                 }
 
                 "cos_signAmino" -> {
@@ -897,22 +916,29 @@ class DappActivity : BaseActivity() {
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebError("Canceled", messageId)
+                            appToWebError(
+                                messageJson,
+                                messageId,
+                                "Reject"
+                            )
                         }
                     })
                 }
 
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
-                    val doc = params.getJSONObject("doc")
-                    val signBundle = signBundle(0, wcUrl, doc.toString())
+                    val signBundle = signBundle(0, wcUrl, params.toString())
                     showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
                         override fun sign(id: Long, data: String) {
                             approveSignDirectInjectRequest(messageJson, messageId, data)
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebError("Canceled", messageId)
+                            appToWebError(
+                                messageJson,
+                                messageId,
+                                "Reject"
+                            )
                         }
                     })
                 }
@@ -939,7 +965,11 @@ class DappActivity : BaseActivity() {
                         }
 
                     } catch (e: Exception) {
-                        appToWebError("Unknown", messageId)
+                        appToWebError(
+                            messageJson,
+                            messageId,
+                            "Not implemented"
+                        )
                     }
                 }
 
@@ -963,12 +993,22 @@ class DappActivity : BaseActivity() {
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
+                            val chainNetwork =
+                                allEvmLines().firstOrNull { it.chainIdEvm == chainId }?.name
+                            withContext(Dispatchers.Main) {
+                                makeToast("Connected to $chainNetwork network")
+                            }
+
                         } else {
-                            appToWebEthError(
+                            appToWebError(
                                 messageJson,
                                 messageId,
                                 getString(R.string.error_not_support_chain)
                             )
+
+                            withContext(Dispatchers.Main) {
+                                makeToast(getString(R.string.error_not_support_chain))
+                            }
                         }
                     }
                 }
@@ -1042,7 +1082,7 @@ class DappActivity : BaseActivity() {
                                     messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1067,7 +1107,7 @@ class DappActivity : BaseActivity() {
                                     messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1102,7 +1142,7 @@ class DappActivity : BaseActivity() {
                                     messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1123,7 +1163,7 @@ class DappActivity : BaseActivity() {
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebEthError(messageJson, messageId, "Transaction rejected.")
+                            appToWebError(messageJson, messageId, "Transaction rejected.")
                         }
                     })
                 }
@@ -1139,7 +1179,7 @@ class DappActivity : BaseActivity() {
                         }
 
                         override fun cancel(id: Long) {
-                            appToWebEthError(messageJson, messageId, "Transaction rejected.")
+                            appToWebError(messageJson, messageId, "Transaction rejected.")
                         }
                     })
                 }
@@ -1164,7 +1204,7 @@ class DappActivity : BaseActivity() {
                                     messageJson, receiptJsonObject, messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
@@ -1188,20 +1228,20 @@ class DappActivity : BaseActivity() {
                                     messageJson, byHashJsonObject, messageId
                                 )
                             } catch (e: Exception) {
-                                appToWebEthError(messageJson, messageId, "JSON-RPC error")
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
                             }
                         }
                     }
                 }
 
                 else -> {
-                    appToWebError("Not implemented", messageId)
+                    appToWebError(messageJson, messageId, "Not implemented")
                 }
             }
 
         } catch (e: Exception) {
             if (isCosmostation) {
-                appToWebError(e.message, "0")
+                appToWebError(e.message)
             }
         }
     }
@@ -1322,13 +1362,13 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun appToWebError(error: String?, messageId: String) {
+    private fun appToWebError(error: String?) {
         val responseJson = JSONObject()
         responseJson.put("error", error)
         val postMessageJson = JSONObject()
         postMessageJson.put("response", responseJson)
         postMessageJson.put("isCosmostation", true)
-        postMessageJson.put("messageId", messageId)
+        postMessageJson.put("messageId", "0")
         runOnUiThread {
             binding.dappWebView.evaluateJavascript(
                 String.format(
@@ -1338,7 +1378,7 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun appToWebEthError(messageJson: JSONObject, messageId: String, message: String) {
+    private fun appToWebError(messageJson: JSONObject, messageId: String, message: String) {
         val responseJson = JSONObject().apply {
             val errorJson = JSONObject().apply {
                 put("code", 4001)
