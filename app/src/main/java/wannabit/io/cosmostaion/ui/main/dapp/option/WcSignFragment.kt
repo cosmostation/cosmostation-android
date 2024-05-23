@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
@@ -477,14 +478,18 @@ class WcSignFragment(
 
     private fun setUpClickAction() {
         binding.apply {
-            binding.btnCancel.setOnClickListener {
-                listener.cancel(id)
-                dismiss()
+            btnCancel.setOnClickListener {
+                if (!loading.isVisible) {
+                    listener.cancel(id)
+                    dismiss()
+                }
             }
 
-            binding.btnConfirm.setOnClickListener {
-                listener.sign(id, updateData.toString())
-                dismiss()
+            btnConfirm.setOnClickListener {
+                if (!loading.isVisible) {
+                    listener.sign(id, updateData.toString())
+                    dismiss()
+                }
             }
         }
     }
