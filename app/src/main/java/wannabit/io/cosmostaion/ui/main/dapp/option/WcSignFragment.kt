@@ -12,6 +12,7 @@ import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,7 @@ import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.Sign
 import org.web3j.crypto.StructuredDataEncoder
 import org.web3j.crypto.TransactionEncoder
+import org.web3j.crypto.WalletUtils
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount
@@ -35,6 +37,7 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
@@ -83,6 +86,8 @@ class WcSignFragment(
                 initEvmDataView(data)
             } else if (id == EvmMethod.PERMIT.type) {
                 initEvmPermitData(data)
+            } else if (id == EvmMethod.PERSONAL.type) {
+                initEvmPersonalData(data)
             } else {
                 if (selectedChain is ChainKavaEvm || selectedChain is ChainKava459) {
                     initWc1DataView(data)
@@ -100,7 +105,7 @@ class WcSignFragment(
 
     private fun initAminoDataView(data: String) {
         binding.apply {
-            selectedChain?.let { line ->
+            selectedChain?.let { chain ->
                 lifecycleScope.launch(Dispatchers.IO) {
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
                     val updateJsonData = updateFeeInfoInAminoMessage(txJsonObject)
@@ -110,7 +115,7 @@ class WcSignFragment(
                     val feeDenom =
                         fee.get("amount").asJsonArray.get(0).asJsonObject.get("denom").asString
 
-                    BaseData.getAsset(line.apiName, feeDenom ?: "")?.let { asset ->
+                    BaseData.getAsset(chain.apiName, feeDenom ?: "")?.let { asset ->
                         val dpFeeAmount =
                             feeAmount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                                 .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -119,7 +124,7 @@ class WcSignFragment(
                             signData.text =
                                 GsonBuilder().setPrettyPrinting().create().toJson(updateJsonData)
                             dappUrl.text = url
-                            dappAddress.text = line.address
+                            dappAddress.text = chain.address
                             dappFeeAmount.text = formatAmount(
                                 dpFeeAmount.toPlainString(), asset.decimals ?: 6
                             )
@@ -134,18 +139,18 @@ class WcSignFragment(
 
     private fun initWc1DataView(data: String) {
         binding.apply {
-            selectedChain?.let { line ->
+            selectedChain?.let { chain ->
                 val txJsonObject = JsonParser.parseString(data).asJsonObject
                 signData.text = GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
                 dappUrl.text = url
-                dappAddress.text = line.address
+                dappAddress.text = chain.address
 
                 val fee = txJsonObject.get("fee").asJsonObject
                 val amounts = fee.get("amounts").asJsonArray
                 val feeAmount = amounts.get(0).asJsonObject.get("amount").asString
                 val feeDenom = amounts.get(0).asJsonObject.get("denom").asString
 
-                BaseData.getAsset(line.apiName, feeDenom ?: "")?.let { asset ->
+                BaseData.getAsset(chain.apiName, feeDenom ?: "")?.let { asset ->
                     val dpFeeAmount = feeAmount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                         .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                     dappFeeAmount.text = formatAmount(
@@ -162,14 +167,14 @@ class WcSignFragment(
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
             loading.visibility = View.VISIBLE
-            selectedChain?.let { line ->
+            selectedChain?.let { chain ->
                 lifecycleScope.launch(Dispatchers.IO) {
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
                     val updateJsonData = updateFeeInfoInDirectMessage(txJsonObject)
                     val authInfo =
                         TxProto.AuthInfo.parseFrom(Utils.hexToBytes(updateJsonData["auth_info_bytes"].asString))
 
-                    BaseData.getAsset(line.apiName, authInfo.fee.getAmount(0).denom ?: "")
+                    BaseData.getAsset(chain.apiName, authInfo.fee.getAmount(0).denom ?: "")
                         ?.let { asset ->
                             val dpFeeAmount = authInfo.fee.getAmount(0).amount.toBigDecimal()
                                 .movePointLeft(asset.decimals ?: 6)
@@ -181,7 +186,7 @@ class WcSignFragment(
                                     GsonBuilder().setPrettyPrinting().create()
                                         .toJson(updateJsonData)
                                 dappUrl.text = url
-                                dappAddress.text = line.address
+                                dappAddress.text = chain.address
                                 dappFeeAmount.text = formatAmount(
                                     dpFeeAmount.toPlainString(), asset.decimals ?: 6
                                 )
@@ -197,7 +202,7 @@ class WcSignFragment(
     private fun initEvmDataView(data: String) {
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
-            selectedChain?.let { line ->
+            selectedChain?.let { chain ->
                 loading.visibility = View.VISIBLE
                 lifecycleScope.launch(Dispatchers.IO) {
                     val feeAmount: BigDecimal?
@@ -431,7 +436,11 @@ class WcSignFragment(
                             signData.text =
                                 GsonBuilder().setPrettyPrinting().create().toJson(txJsonObject)
                             dappUrl.text = url
-                            dappAddress.text = line.address
+                            dappAddress.text = if (chain.address?.startsWith("0x") == true) {
+                                chain.address
+                            } else {
+                                ByteUtils.convertBech32ToEvm(chain.address)
+                            }
                             feeAmount.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
                                 ?.let { dpAmount ->
                                     dappFeeAmount.text = formatAmount(
@@ -455,7 +464,19 @@ class WcSignFragment(
             lifecycleScope.launch(Dispatchers.IO) {
                 val txJsonArray = JsonParser.parseString(data).asJsonArray
                 val txJsonObject = Gson().fromJson(txJsonArray[1].asString, JsonObject::class.java)
-                val encoder = StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
+                val salt = txJsonObject["domain"].asJsonObject["salt"] ?: null
+                val encoder = if (salt != null) {
+                    val saltJson = JsonObject().apply {
+                        addProperty("type", "Buffer")
+                        val dataArray = JsonArray()
+                        dataArray.add(48)
+                        add("data", dataArray)
+                    }
+                    txJsonObject["domain"].asJsonObject.add("salt", saltJson)
+                    StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
+                } else {
+                    StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
+                }
                 val encodedMessage = encoder.hashStructuredData()
 
                 val ecKey = ECKey.fromPrivate(selectedChain?.privateKey)
@@ -471,6 +492,51 @@ class WcSignFragment(
                 withContext(Dispatchers.Main) {
                     signData.text = GsonBuilder().setPrettyPrinting().create()
                         .toJson(txJsonObject.asJsonObject["message"])
+                }
+            }
+        }
+    }
+
+    private fun initEvmPersonalData(data: String) {
+        binding.apply {
+            signView.setBackgroundResource(R.drawable.cell_bg)
+            feeView.visibility = View.GONE
+            selectedChain?.let { chain ->
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val txJsonObject = JsonParser.parseString(data).asJsonArray
+                    val firstParameter = txJsonObject[0].asString
+                    val secondParameter = txJsonObject[1].asString
+                    val currentAddress = if (chain.address?.startsWith("0x") == true) {
+                        chain.address
+                    } else {
+                        ByteUtils.convertBech32ToEvm(chain.address)
+                    }
+                    val messageBytes = if (WalletUtils.isValidAddress(firstParameter) && firstParameter == currentAddress) {
+                        secondParameter.toByteArray()
+                    } else {
+                        firstParameter.toByteArray()
+                    }
+                    val messageHash = Sign.getEthereumMessageHash(messageBytes)
+
+                    val ecKey = ECKey.fromPrivate(chain.privateKey)
+                    val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+                    val signature = Sign.signMessage(messageHash, credentials.ecKeyPair, false)
+
+                    val r = Numeric.toHexString(signature.r)
+                    val s = Numeric.toHexString(signature.s)
+                    val v = Numeric.toHexString(signature.v)
+
+                    updateData = r + s.substring(2) + v.substring(2)
+
+                    withContext(Dispatchers.Main) {
+                        signData.text = "Message : " + txJsonObject[1].asString
+                        dappUrl.text = url
+                        dappAddress.text = if (chain.address?.startsWith("0x") == true) {
+                            chain.address
+                        } else {
+                            ByteUtils.convertBech32ToEvm(chain.address)
+                        }
+                    }
                 }
             }
         }

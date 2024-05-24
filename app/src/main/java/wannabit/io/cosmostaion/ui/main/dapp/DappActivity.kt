@@ -63,6 +63,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
@@ -827,6 +828,7 @@ class DappActivity : BaseActivity() {
     }
 
     fun processRequest(message: String) {
+        Log.e("Test1234 : ", message)
         var isCosmostation = false
         try {
             val requestJson = JSONObject(message)
@@ -975,9 +977,15 @@ class DappActivity : BaseActivity() {
 
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
+                    val address = allChains?.firstOrNull { chain -> chain is EthereumLine }?.address
+                    val ethAddress = if (address?.startsWith("0x") == true) {
+                        address
+                    } else {
+                        ByteUtils.convertBech32ToEvm(address)
+                    }
                     appToWebResult(
                         messageJson,
-                        JSONArray(listOf(allChains?.firstOrNull { chain -> chain is EthereumLine }?.address)),
+                        JSONArray(listOf(ethAddress)),
                         messageId
                     )
                 }
@@ -1030,8 +1038,13 @@ class DappActivity : BaseActivity() {
 
                 "eth_accounts" -> {
                     if (selectChain?.address?.isNotEmpty() == true) {
+                        val ethAddress = if (selectChain?.address?.startsWith("0x") == true) {
+                            selectChain?.address
+                        } else {
+                            ByteUtils.convertBech32ToEvm(selectChain?.address)
+                        }
                         appToWebResult(
-                            messageJson, JSONArray(listOf(selectChain?.address)), messageId
+                            messageJson, JSONArray(listOf(ethAddress)), messageId
                         )
                     } else {
                         appToWebResult(
@@ -1232,6 +1245,22 @@ class DappActivity : BaseActivity() {
                             }
                         }
                     }
+                }
+
+                "personal_sign" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val signBundle = signBundle(EvmMethod.PERSONAL.type, wcUrl, params.toString())
+                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
+                        override fun sign(id: Long, data: String) {
+                            appToWebResult(
+                                messageJson, data, messageId
+                            )
+                        }
+
+                        override fun cancel(id: Long) {
+                            appToWebError(messageJson, messageId, "Transaction rejected.")
+                        }
+                    })
                 }
 
                 else -> {
@@ -1467,5 +1496,5 @@ class DappActivity : BaseActivity() {
 }
 
 enum class EvmMethod(val type: Long) {
-    SIGN(-1), PERMIT(-2)
+    SIGN(-1), PERMIT(-2), PERSONAL(-3)
 }
