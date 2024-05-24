@@ -246,7 +246,24 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
                                 if (refAddress.dpAddress?.startsWith((toChain as CosmosLine).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
-                                    refAddresses.add(refAddress)
+                                    if (Prefs.displayLegacy) {
+                                        refAddresses.add(refAddress)
+                                    } else {
+                                        allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                            ?.let { chain ->
+                                                if (chain.isDefault) {
+                                                    refAddresses.add(refAddress)
+                                                }
+
+                                            } ?: run {
+                                            allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
+                                                ?.let { evmChain ->
+                                                    if (evmChain.isDefault) {
+                                                        refAddresses.add(refAddress)
+                                                    }
+                                                }
+                                        }
+                                    }
                                 }
                             }
                         AppDatabase.getInstance().addressBookDao().selectAll()
