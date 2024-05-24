@@ -520,7 +520,7 @@ class SettingFragment : Fragment() {
 
     private fun syncPushStatus() {
         if (!Prefs.alarmEnable) {
-            PushManager.syncAddresses(Prefs.fcmToken)
+//            PushManager.syncAddresses(Prefs.fcmToken)
         }
         PushManager.updateStatus(binding.alarmSwitch.isChecked, Prefs.fcmToken)
     }

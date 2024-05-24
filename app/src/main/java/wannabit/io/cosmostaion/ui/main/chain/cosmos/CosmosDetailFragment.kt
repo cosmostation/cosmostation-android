@@ -9,7 +9,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -27,6 +26,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.fadeInAnimation
+import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
@@ -172,6 +173,7 @@ class CosmosDetailFragment : Fragment() {
                     accountEvmAddress.visibility = View.VISIBLE
 
                     handler.postDelayed(starEvmAddressAnimation, 5000)
+
                 } else {
                     accountEvmAddress.visibility = View.INVISIBLE
                     accountAddress.text = selectedChain.address
@@ -206,20 +208,6 @@ class CosmosDetailFragment : Fragment() {
             }
             handler.postDelayed(this, 5000)
         }
-    }
-
-    private fun fadeInAnimation(view: View) {
-        val fadeIn = AlphaAnimation(0f, 1f)
-        fadeIn.duration = 1000
-        view.startAnimation(fadeIn)
-        view.visibility = View.VISIBLE
-    }
-
-    private fun fadeOutAnimation(view: View) {
-        val fadeOut = AlphaAnimation(1f, 0f)
-        fadeOut.duration = 800
-        view.startAnimation(fadeOut)
-        view.visibility = View.INVISIBLE
     }
 
     private fun initTab() {
@@ -350,7 +338,7 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            accountAddress.setOnClickListener {
+            accountLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
                         requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
@@ -363,9 +351,14 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            accountEvmAddress.setOnClickListener {
+            accountValueLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+
+                } else {
+                    QrCodeFragment.newInstance(selectedChain).show(
                         requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
                     )
                 }

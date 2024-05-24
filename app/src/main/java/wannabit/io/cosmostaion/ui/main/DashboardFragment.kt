@@ -135,7 +135,6 @@ class DashboardFragment : Fragment() {
 
         binding?.searchView?.setQuery("", false)
         binding?.searchView?.clearFocus()
-        binding?.searchBar?.visibility = View.GONE
     }
 
     private fun initRecyclerView() {

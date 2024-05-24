@@ -185,7 +185,13 @@ class EvmDetailFragment : Fragment() {
                 }
             }
 
-            accountAddress.setOnClickListener {
+            accountLayout.setOnClickListener {
+                QrCodeEvmFragment.newInstance(selectedEvmChain).show(
+                    requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                )
+            }
+
+            accountValueLayout.setOnClickListener {
                 QrCodeEvmFragment.newInstance(selectedEvmChain).show(
                     requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                 )
