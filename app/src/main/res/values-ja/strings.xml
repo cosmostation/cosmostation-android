@@ -306,6 +306,7 @@
     <string name="str_pro_style_msg">さらに、主要資産の価格と価格変動が表示されます。</string>
     <string name="str_delist_msg">選択したチェーンはモバイルウォレットから廃止されます。 他のウォレットや将来のカスタム チェーン サービスによってサポートされる可能性があります。</string>
     <string name="str_legacy_path_msg">選択したレガシー パス上のアカウントは終了されます。 アセットをパブリック パスに移動することを強くお勧めします。</string>
+    <string name="str_deposit_caution_msg">%1$s ネットワーク資産のみ転送可能</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

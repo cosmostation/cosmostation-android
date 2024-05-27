@@ -155,6 +155,7 @@
     <string name="title_nft" translatable="false">NFTs</string>
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
+    <string name="title_receive" translatable="false">Receive</string>
     <string name="title_history" translatable="false">History</string>
     <string name="title_about">About</string>
     <string name="title_select_account" translatable="false">Select account</string>
@@ -378,6 +379,7 @@
     <string name="str_pro_style_msg">Additionally, main asset\'s price and price change are displayed.</string>
     <string name="str_delist_msg">The chain you selected will be discontinued from mobile wallets. It can be supported by other wallets or future custom chain services.</string>
     <string name="str_legacy_path_msg">Accounts on the legacy path you selected will be terminated. We strongly recommend that you move your assets to the public path.</string>
+    <string name="str_deposit_caution_msg">Send %1$s Network asset ONLY</string>
 
 
     // header

@@ -257,6 +257,10 @@ class CosmosDetailFragment : Fragment() {
                     )
 
                     !supportToken && position == 1 || supportToken && position == 2 || supportNft && position == 2 || supportToken && supportNft && position == 3 -> getString(
+                        R.string.title_receive
+                    )
+
+                    !supportToken && position == 2 || supportToken && position == 3 || supportNft && position == 3 || supportToken && supportNft && position == 4 -> getString(
                         R.string.title_history
                     )
 
@@ -603,6 +607,7 @@ class CosmosDetailFragment : Fragment() {
             if (selectedChain is EthereumLine) {
                 fragments.add(CoinFragment.newInstance(selectedChain))
                 fragments.add(TokenFragment.newInstance(selectedChain))
+                fragments.add(ReceiveFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 
                 if (selectedChain.supportCosmos) {
@@ -611,6 +616,7 @@ class CosmosDetailFragment : Fragment() {
 
             } else {
                 fragments.add(CoinFragment.newInstance(selectedChain))
+                fragments.add(ReceiveFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
                 fragments.add(AboutFragment.newInstance(selectedChain))
 
