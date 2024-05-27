@@ -12,7 +12,6 @@ import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +20,7 @@ import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import org.bitcoinj.core.ECKey
 import org.web3j.crypto.Credentials
+import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.Sign
 import org.web3j.crypto.StructuredDataEncoder
@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
@@ -464,24 +465,24 @@ class WcSignFragment(
             lifecycleScope.launch(Dispatchers.IO) {
                 val txJsonArray = JsonParser.parseString(data).asJsonArray
                 val txJsonObject = Gson().fromJson(txJsonArray[1].asString, JsonObject::class.java)
-                val salt = txJsonObject["domain"].asJsonObject["salt"] ?: null
-                val encoder = if (salt != null) {
-                    val saltJson = JsonObject().apply {
-                        addProperty("type", "Buffer")
-                        val dataArray = JsonArray()
-                        dataArray.add(48)
-                        add("data", dataArray)
-                    }
-                    txJsonObject["domain"].asJsonObject.add("salt", saltJson)
-                    StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
-                } else {
-                    StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
-                }
-                val encodedMessage = encoder.hashStructuredData()
+                val verifyingContract =
+                    txJsonObject["domain"].asJsonObject["verifyingContract"].asString
 
-                val ecKey = ECKey.fromPrivate(selectedChain?.privateKey)
-                val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
-                val signature = Sign.signMessage(encodedMessage, credentials.ecKeyPair, false)
+                if (!verifyingContract.startsWith("0x")) {
+                    val hexContract = "0x" + verifyingContract.toByteArray().toHex()
+                    txJsonObject["domain"].asJsonObject.addProperty(
+                        "verifyingContract",
+                        hexContract
+                    )
+                }
+
+                val encoder = StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
+                val encodedMessage = encoder.hashStructuredData()
+                val signature = Sign.signMessage(
+                    encodedMessage,
+                    ECKeyPair.create(selectedChain?.privateKey),
+                    false
+                )
 
                 val r = Numeric.toHexString(signature.r)
                 val s = Numeric.toHexString(signature.s)
@@ -511,16 +512,15 @@ class WcSignFragment(
                     } else {
                         ByteUtils.convertBech32ToEvm(chain.address)
                     }
-                    val messageBytes = if (WalletUtils.isValidAddress(firstParameter) && firstParameter == currentAddress) {
-                        secondParameter.toByteArray()
-                    } else {
-                        firstParameter.toByteArray()
-                    }
+                    val messageBytes =
+                        if (WalletUtils.isValidAddress(firstParameter) && firstParameter == currentAddress) {
+                            secondParameter.toByteArray()
+                        } else {
+                            firstParameter.toByteArray()
+                        }
                     val messageHash = Sign.getEthereumMessageHash(messageBytes)
-
-                    val ecKey = ECKey.fromPrivate(chain.privateKey)
-                    val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
-                    val signature = Sign.signMessage(messageHash, credentials.ecKeyPair, false)
+                    val signature =
+                        Sign.signMessage(messageHash, ECKeyPair.create(chain.privateKey), false)
 
                     val r = Numeric.toHexString(signature.r)
                     val s = Numeric.toHexString(signature.s)
