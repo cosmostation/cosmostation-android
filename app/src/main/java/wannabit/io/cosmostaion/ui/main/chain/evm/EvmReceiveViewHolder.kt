@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
 
 class EvmReceiveViewHolder(
@@ -21,6 +22,12 @@ class EvmReceiveViewHolder(
     fun evmBind(account: BaseAccount, selectChain: EthereumLine) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
+            if (account.type == BaseAccountType.MNEMONIC) {
+                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+            } else {
+                accountPathLayout.visibility = View.GONE
+            }
+
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
             chainImg.setImageResource(selectChain.logo)

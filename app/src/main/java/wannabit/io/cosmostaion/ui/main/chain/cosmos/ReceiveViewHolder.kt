@@ -10,11 +10,13 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
 
 class ReceiveViewHolder(
@@ -24,11 +26,17 @@ class ReceiveViewHolder(
     fun evmBind(account: BaseAccount, selectChain: EthereumLine) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
+            if (account.type == BaseAccountType.MNEMONIC) {
+                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+            } else {
+                accountPathLayout.visibility = View.GONE
+            }
+
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
             chainImg.setImageResource(selectChain.logo)
             setQrAddress(context, ByteUtils.convertBech32ToEvm(selectChain.address))
-            accountPath.text = selectChain.getHDPath(account.lastHDPath)
+
             chainBadge.visibility = View.GONE
             chainTypeBadge.visibility = View.GONE
 
@@ -48,11 +56,16 @@ class ReceiveViewHolder(
     fun bind(account: BaseAccount, selectChain: CosmosLine) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
+            if (account.type == BaseAccountType.MNEMONIC) {
+                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+            } else {
+                accountPathLayout.visibility = View.GONE
+            }
+
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name)
             chainImg.setImageResource(selectChain.logo)
             setQrAddress(context, selectChain.address)
-            accountPath.text = selectChain.getHDPath(account.lastHDPath)
 
             if (!selectChain.isDefault) {
                 chainBadge.visibility = View.VISIBLE
