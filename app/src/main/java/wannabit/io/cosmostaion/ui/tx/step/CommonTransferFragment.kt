@@ -99,9 +99,9 @@ class CommonTransferFragment : BaseTxFragment() {
     private var cosmosTxFee: TxProto.Fee? = null
 
     private val evmGasPrices: List<BigInteger> = listOf(
-        BigInteger.valueOf(28000000000),
-        BigInteger.valueOf(28000000000),
-        BigInteger.valueOf(28000000000)
+        BigInteger.valueOf(1500000000),
+        BigInteger.valueOf(1500000000),
+        BigInteger.valueOf(1500000000)
     )
     private var evmFeeAmount: BigInteger? = null
     private val evmGasLimit = BigInteger.valueOf(21000)

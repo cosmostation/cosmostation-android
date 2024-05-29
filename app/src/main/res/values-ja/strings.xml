@@ -341,6 +341,7 @@
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
     <string name="error_tranfer_disabled">現在選択されているチェーンは送信機能が無効になっています。\n今後のガバナンスなどを通じて活性化することができます。</string>
+    <string name="error_tranfer_disabled_bgt">BGT コインはステーキング専用の資産です。\n送信できません。</string>
     <string name="error_useless_end_point">使用できません。</string>
     <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
     <string name="error_not_support_vote">投票機能をサポートしていません。</string>

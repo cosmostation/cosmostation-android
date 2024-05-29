@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -212,12 +213,21 @@ class CosmosDetailFragment : Fragment() {
 
     private fun initTab() {
         binding.apply {
-            fabStake.visibleOrGone(selectedChain.supportStaking)
-            fabClaimReward.visibleOrGone(selectedChain.supportStaking)
-            fabCompounding.visibleOrGone(selectedChain.supportStaking)
-            fabVote.visibleOrGone(selectedChain.supportStaking)
+            if (selectedChain is ChainBeraEvm) {
+                fabClaimReward.visibility = View.GONE
+                fabCompounding.visibility = View.GONE
+                fabReceive.visibility = View.VISIBLE
+                fabStake.visibility = View.VISIBLE
+                fabVote.visibility = View.VISIBLE
 
-            fabReceive.visibleOrGone(!selectedChain.supportStaking)
+            } else {
+                fabStake.visibleOrGone(selectedChain.supportStaking)
+                fabClaimReward.visibleOrGone(selectedChain.supportStaking)
+                fabCompounding.visibleOrGone(selectedChain.supportStaking)
+                fabVote.visibleOrGone(selectedChain.supportStaking)
+
+                fabReceive.visibleOrGone(!selectedChain.supportStaking)
+            }
 
             when (selectedChain) {
                 is ChainNeutron -> {

@@ -53,7 +53,7 @@ data class AccountKeyType(
     var hdPath: String
 )
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, SUI_ED25519, NONE }
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, NONE }
 
 fun allIbcChains(): MutableList<CosmosLine> {
     val lines = mutableListOf<CosmosLine>()

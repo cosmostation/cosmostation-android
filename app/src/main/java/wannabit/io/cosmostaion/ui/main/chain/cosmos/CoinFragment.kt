@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
@@ -93,7 +94,10 @@ class CoinFragment : Fragment() {
             coinAdapter.setOnItemClickListener { line, denom, position ->
                 val sendAssetType = if (position == 0) {
                     if (line is EthereumLine) {
-                        if (line is ChainOktEvm) {
+                        if (line is ChainBeraEvm) {
+                            requireActivity().makeToast(R.string.error_tranfer_disabled_bgt)
+                            return@setOnItemClickListener
+                        } else if (line is ChainOktEvm) {
                             SendAssetType.ONLY_EVM_COIN
                         } else if (line.supportCosmos) {
                             SendAssetType.COSMOS_EVM_COIN
@@ -106,7 +110,11 @@ class CoinFragment : Fragment() {
                     }
 
                 } else {
-                    SendAssetType.ONLY_COSMOS_COIN
+                    if (line is ChainBeraEvm) {
+                        SendAssetType.ONLY_EVM_COIN
+                    } else {
+                        SendAssetType.ONLY_COSMOS_COIN
+                    }
                 }
 
                 if (selectedChain.isBankLocked()) {
@@ -174,11 +182,13 @@ class CoinFragment : Fragment() {
                                     )
                                 )
 
-                                "native" -> nativeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.NATIVE
+                                "native" -> {
+                                    nativeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.NATIVE
+                                        )
                                     )
-                                )
+                                }
 
                                 "bep", "bridge" -> bridgeCoins.add(
                                     Coin(
@@ -193,6 +203,15 @@ class CoinFragment : Fragment() {
 
                     if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
                         stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+                    }
+                    if (selectedChain is ChainBeraEvm) {
+                        nativeCoins.add(
+                            Coin(
+                                "abera",
+                                (selectedChain as ChainBeraEvm).evmBalance.toString(),
+                                CoinType.NATIVE
+                            )
+                        )
                     }
 
                     nativeCoins.sortWith(compareByDescending { selectedChain.balanceValue(it.denom) })

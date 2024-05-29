@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
 import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBaseEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraTestEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
@@ -106,6 +107,8 @@ fun allEvmLines(): MutableList<EthereumLine> {
     lines.add(ChainOptimism())
     lines.add(ChainPolygon())
     lines.add(ChainXplaEvm())
+
+    lines.add(ChainBeraTestEvm())
 
     lines.forEach { line ->
         if (line.chainIdCosmos.isEmpty()) {
