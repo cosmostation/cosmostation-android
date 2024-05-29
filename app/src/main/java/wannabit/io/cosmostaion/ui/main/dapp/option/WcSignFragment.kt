@@ -23,7 +23,6 @@ import org.web3j.crypto.Credentials
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.Sign
-import org.web3j.crypto.StructuredDataEncoder
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.crypto.WalletUtils
 import org.web3j.protocol.Web3j
@@ -42,12 +41,12 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.FragmentWcSignBinding
+import wannabit.io.cosmostaion.evm.StructuredDataEncode
 import wannabit.io.cosmostaion.ui.main.dapp.EvmMethod
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -183,9 +182,8 @@ class WcSignFragment(
 
                             withContext(Dispatchers.Main) {
                                 loading.visibility = View.GONE
-                                signData.text =
-                                    GsonBuilder().setPrettyPrinting().create()
-                                        .toJson(updateJsonData)
+                                signData.text = GsonBuilder().setPrettyPrinting().create()
+                                    .toJson(updateJsonData)
                                 dappUrl.text = url
                                 dappAddress.text = chain.address
                                 dappFeeAmount.text = formatAmount(
@@ -386,8 +384,7 @@ class WcSignFragment(
                             feeAmount = if (maxFeePerGas != null) {
                                 gasLimit.multiply(
                                     BigInteger(
-                                        maxFeePerGas.asString.removePrefix("0x"),
-                                        16
+                                        maxFeePerGas.asString.removePrefix("0x"), 16
                                     )
                                 ).toBigDecimal()
                             } else {
@@ -465,23 +462,12 @@ class WcSignFragment(
             lifecycleScope.launch(Dispatchers.IO) {
                 val txJsonArray = JsonParser.parseString(data).asJsonArray
                 val txJsonObject = Gson().fromJson(txJsonArray[1].asString, JsonObject::class.java)
-                val verifyingContract =
-                    txJsonObject["domain"].asJsonObject["verifyingContract"].asString
 
-                if (!verifyingContract.startsWith("0x")) {
-                    val hexContract = "0x" + verifyingContract.toByteArray().toHex()
-                    txJsonObject["domain"].asJsonObject.addProperty(
-                        "verifyingContract",
-                        hexContract
-                    )
-                }
+                val encoder = StructuredDataEncode(Gson().toJson(txJsonObject).trimIndent())
+                val hashStructuredData = encoder.hashStructuredData()
 
-                val encoder = StructuredDataEncoder(Gson().toJson(txJsonObject).trimIndent())
-                val encodedMessage = encoder.hashStructuredData()
                 val signature = Sign.signMessage(
-                    encodedMessage,
-                    ECKeyPair.create(selectedChain?.privateKey),
-                    false
+                    hashStructuredData, ECKeyPair.create(selectedChain?.privateKey), false
                 )
 
                 val r = Numeric.toHexString(signature.r)
@@ -580,9 +566,8 @@ class WcSignFragment(
                             ?.let { gasRate ->
                                 val gasLimit =
                                     (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
-                                val feeCoinAmount =
-                                    gasRate.gasRate?.multiply(gasLimit)
-                                        ?.setScale(0, RoundingMode.UP)
+                                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
+                                    ?.setScale(0, RoundingMode.UP)
 
                                 if (amounts.size() == 0) {
                                     val jsonObject = JsonObject()
@@ -608,8 +593,7 @@ class WcSignFragment(
 
     private fun updateFeeInfoInDirectMessage(txJsonObject: JsonObject): JsonObject {
         val doc = txJsonObject["doc"].asJsonObject
-        var authInfo =
-            TxProto.AuthInfo.parseFrom(Utils.hexToBytes(doc["auth_info_bytes"].asString))
+        var authInfo = TxProto.AuthInfo.parseFrom(Utils.hexToBytes(doc["auth_info_bytes"].asString))
         val txBody = TxProto.TxBody.parseFrom(Utils.hexToBytes(doc["body_bytes"].asString))
         val isEditFee: Boolean = txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean ?: true
         val fee = authInfo.fee
@@ -625,10 +609,7 @@ class WcSignFragment(
                         val simulateGasLimit =
                             (simulateGas.gasUsed.toDouble() * chain.gasMultiply()).toLong()
                         val updateFee = updateFeeWithSimulate(
-                            chain,
-                            simulateGasLimit.toBigDecimal(),
-                            fee.gasLimit.toBigDecimal(),
-                            fee
+                            chain, simulateGasLimit.toBigDecimal(), fee.gasLimit.toBigDecimal(), fee
                         )
                         authInfo = authInfo.toBuilder().setFee(updateFee).build()
                     }
@@ -640,29 +621,23 @@ class WcSignFragment(
     }
 
     private fun updateFeeWithSimulate(
-        chain: CosmosLine,
-        simulateGasLimit: BigDecimal,
-        originalGasLimit: BigDecimal,
-        fee: Fee
+        chain: CosmosLine, simulateGasLimit: BigDecimal, originalGasLimit: BigDecimal, fee: Fee
     ): Fee? {
         chain.getFeeInfos(requireContext())[chain.getFeeBasePosition()].feeDatas.firstOrNull { it.denom == chain.stakeDenom }
             ?.let { gasRate ->
                 if (simulateGasLimit > originalGasLimit) {
                     val feeCoinAmount =
                         gasRate.gasRate?.multiply(simulateGasLimit)?.setScale(0, RoundingMode.UP)
-                    val updateFeeCoin =
-                        CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
-                            .setAmount(feeCoinAmount.toString()).build()
+                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                        .setAmount(feeCoinAmount.toString()).build()
                     return Fee.newBuilder().setGasLimit(simulateGasLimit.toLong())
-                        .addAmount(updateFeeCoin)
-                        .setPayer(fee.payer).build()
+                        .addAmount(updateFeeCoin).setPayer(fee.payer).build()
 
                 } else {
                     val feeCoinAmount =
                         gasRate.gasRate?.multiply(originalGasLimit)?.setScale(0, RoundingMode.UP)
-                    val updateFeeCoin =
-                        CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
-                            .setAmount(feeCoinAmount.toString()).build()
+                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                        .setAmount(feeCoinAmount.toString()).build()
                     return Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
                         .setPayer(fee.payer).build()
                 }
