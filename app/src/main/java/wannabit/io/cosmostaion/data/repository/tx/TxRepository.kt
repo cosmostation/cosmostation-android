@@ -71,6 +71,29 @@ interface TxRepository {
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
+    suspend fun broadcastEvmUnDelegateTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmUnDelegateTx(
+        validatorAddress: String?,
+        toUnDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmReDelegateTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmReDelegateTx(
+        fromValidatorAddress: String?,
+        toValidatorAddress: String?,
+        toReDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
     suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,

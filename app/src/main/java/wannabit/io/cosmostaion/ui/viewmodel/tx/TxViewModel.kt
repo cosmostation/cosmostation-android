@@ -200,6 +200,59 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    val broadcastEvmUnDelegateTx = SingleLiveEvent<String?>()
+    fun broadcastEvmUnDelegate(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmUnDelegateTx(web3j, hexValue)
+        broadcastEvmUnDelegateTx.postValue(response)
+    }
+
+    val simulateEvmUnDelegate = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmUnDelegate(
+        validatorEthAddress: String?,
+        toUnDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmUnDelegateTx(
+            validatorEthAddress, toUnDelegateAmount, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmUnDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmReDelegateTx = SingleLiveEvent<String?>()
+    fun broadcastEvmReDelegate(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmReDelegateTx(web3j, hexValue)
+        broadcastEvmReDelegateTx.postValue(response)
+    }
+
+    val simulateEvmReDelegate = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmReDelegate(
+        fromValidatorEthAddress: String?,
+        toValidatorEthAddress: String?,
+        toReDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmReDelegateTx(
+            fromValidatorEthAddress, toValidatorEthAddress, toReDelegateAmount, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmReDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
     val errorMessage = SingleLiveEvent<String>()
 
     val broadcastTx = SingleLiveEvent<AbciProto.TxResponse>()

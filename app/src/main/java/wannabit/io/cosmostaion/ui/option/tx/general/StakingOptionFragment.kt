@@ -27,7 +27,9 @@ import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.step.evm.EvmStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmUnStakingFragment
 
 class StakingOptionFragment : BottomSheetDialogFragment() {
 
@@ -133,11 +135,19 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             unstakeLayout.setOnClickListener {
-                handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(EvmUnStakingFragment.newInstance(selectedChain as EthereumLine, validator))
+                } else {
+                    handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
+                }
             }
 
             switchValidatorLayout.setOnClickListener {
-                handleOneClickWithDelay(ReDelegateFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(EvmReDelegateFragment.newInstance(selectedChain as EthereumLine, validator))
+                } else {
+                    handleOneClickWithDelay(ReDelegateFragment.newInstance(selectedChain, validator))
+                }
             }
 
             claimRewardsLayout.setOnClickListener {
