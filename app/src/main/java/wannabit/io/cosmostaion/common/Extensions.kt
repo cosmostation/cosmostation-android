@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.hard.v1beta1.HardProto.MoneyMarket
@@ -46,10 +47,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
@@ -921,5 +928,12 @@ fun fadeOutAnimation(view: View) {
     fadeOut.duration = 800
     view.startAnimation(fadeOut)
     view.visibility = View.INVISIBLE
+}
+
+fun jsonRpcResponse(rpcUrl: String, request: JsonRpcRequest): Response {
+    val jsonRequest = ObjectMapper().writeValueAsString(request)
+    val rpcRequest = Request.Builder().url(rpcUrl)
+        .post(jsonRequest.toRequestBody("application/json".toMediaTypeOrNull())).build()
+    return OkHttpClient().newCall(rpcRequest).execute()
 }
 

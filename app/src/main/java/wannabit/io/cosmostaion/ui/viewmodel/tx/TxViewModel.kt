@@ -39,6 +39,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
@@ -173,6 +174,32 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    val broadcastEvmDelegateTx = SingleLiveEvent<String?>()
+    fun broadcastEvmDelegate(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmDelegateTx(web3j, hexValue)
+        broadcastEvmDelegateTx.postValue(response)
+    }
+
+    val simulateEvmDelegate = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmDelegate(
+        toValidatorEthAddress: String?,
+        toDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmDelegateTx(
+            toValidatorEthAddress, toDelegateAmount, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
     val errorMessage = SingleLiveEvent<String>()
 
     val broadcastTx = SingleLiveEvent<AbciProto.TxResponse>()
@@ -252,11 +279,10 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val sendCoin =
                     Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
 
-                val msgTransfer =
-                    MsgTransfer.newBuilder().setSender(selectedChain?.address)
-                        .setReceiver(toAddress).setSourceChannel(assetPath?.channel)
-                        .setSourcePort(assetPath?.port).setTimeoutHeight(height)
-                        .setTimeoutTimestamp(0).setToken(sendCoin).build()
+                val msgTransfer = MsgTransfer.newBuilder().setSender(selectedChain?.address)
+                    .setReceiver(toAddress).setSourceChannel(assetPath?.channel)
+                    .setSourcePort(assetPath?.port).setTimeoutHeight(height).setTimeoutTimestamp(0)
+                    .setToken(sendCoin).build()
 
                 val response = txRepository.broadcastIbcSendTx(
                     managedChannel, it, msgTransfer, fee, memo, selectedChain
@@ -304,8 +330,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val msgTransfer =
                     MsgTransfer.newBuilder().setSender(fromAddress).setReceiver(toAddress)
                         .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
-                        .setTimeoutHeight(height)
-                        .setTimeoutTimestamp(0).setToken(sendCoin).build()
+                        .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
 
                 val response = txRepository.simulateIbcSendTx(
                     managedChannel, it, msgTransfer, fee, memo, selectedChain

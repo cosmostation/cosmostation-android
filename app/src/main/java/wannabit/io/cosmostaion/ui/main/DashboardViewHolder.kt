@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -153,6 +154,22 @@ class DashboardViewHolder(
                 if (line.supportCosmos) {
                     val coinCntString = if (line is ChainOktEvm) {
                         line.oktLcdAccountInfo?.value?.coins?.size.toString() + " Coins"
+                    } else if (line is ChainBeraEvm) {
+                        if (line.evmBalance > BigDecimal.ZERO) {
+                            (line.cosmosBalances?.count {
+                                BaseData.getAsset(
+                                    line.apiName,
+                                    it.denom
+                                ) != null
+                            }?.plus(1) ?: 0).toString() + " Coins"
+                        } else {
+                            (line.cosmosBalances?.count {
+                                BaseData.getAsset(
+                                    line.apiName,
+                                    it.denom
+                                ) != null
+                            } ?: 0).toString() + " Coins"
+                        }
                     } else {
                         (line.cosmosBalances?.count {
                             BaseData.getAsset(
@@ -161,6 +178,7 @@ class DashboardViewHolder(
                             ) != null
                         } ?: 0).toString() + " Coins"
                     }
+
                     val tokenCnt =
                         line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
                     if (tokenCnt == 0) {

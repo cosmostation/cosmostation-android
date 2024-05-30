@@ -448,9 +448,9 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabReceive.setOnClickListener {
-                if (selectedChain is ChainOktEvm) {
+                if (selectedChain is EthereumLine) {
                     handleOneClickWithDelay(
-                        null, QrCodeEvmFragment.newInstance(selectedChain as ChainOktEvm)
+                        null, QrCodeEvmFragment.newInstance(selectedChain as EthereumLine)
                     )
                 } else {
                     handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))

@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -24,6 +27,7 @@ import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmStakingFragment
 
 class StakingOptionFragment : BottomSheetDialogFragment() {
 
@@ -116,7 +120,16 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
     private fun setUpClickAction() {
         binding.apply {
             stakeLayout.setOnClickListener {
-                handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(
+                        EvmStakingFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            validator
+                        )
+                    )
+                } else {
+                    handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
+                }
             }
 
             unstakeLayout.setOnClickListener {
@@ -131,7 +144,13 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
                 selectedChain.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
-                        claimableRewards.add(claimableReward)
+                        if (claimableReward.rewardCount > 0) {
+                            claimableRewards.add(claimableReward)
+                        } else {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
+
                     } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
@@ -153,7 +172,12 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 selectedChain.claimableRewards()
                     .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
-                        claimableRewards.add(claimableReward)
+                        if (claimableReward.rewardCount > 0) {
+                            claimableRewards.add(claimableReward)
+                        } else {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
                     } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
