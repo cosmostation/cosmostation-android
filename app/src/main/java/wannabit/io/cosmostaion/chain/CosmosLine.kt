@@ -125,8 +125,6 @@ open class CosmosLine : BaseChain(), Parcelable {
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()
 
-    var historyFetched = false
-
     override fun setInfoWithSeed(
         seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String
     ) {
@@ -519,7 +517,8 @@ open class CosmosLine : BaseChain(), Parcelable {
         stakeDenom?.let { denom ->
             cosmosRewards.forEach { reward ->
                 reward.rewardList.firstOrNull { it.denom == denom }?.amount?.let { amount ->
-                    val rewardAmount = amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                    val rewardAmount =
+                        amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
                     BaseData.getAsset(apiName, denom)?.let { asset ->
                         val price = BaseData.getPrice(asset.coinGeckoId, true)
                         val value = price.multiply(rewardAmount)

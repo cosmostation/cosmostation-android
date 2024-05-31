@@ -343,6 +343,7 @@
     <string name="error_useless_end_point">사용할 수 없습니다.</string>
     <string name="error_no_bonding_no_vote">위임량이 충분하지 않아 투표를 하실 수 없습니다.</string>
     <string name="error_not_support_vote">투표 기능을 지원하지 않습니다.</string>
+    <string name="error_bera_vote_one_proposal">베라체인은 한개씩만 투표 가능합니다.</string>
 
 
     //header

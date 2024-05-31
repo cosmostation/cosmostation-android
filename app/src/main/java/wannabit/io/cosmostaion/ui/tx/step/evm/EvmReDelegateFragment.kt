@@ -254,6 +254,9 @@ class EvmReDelegateFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
+            if (evmFeeAmount == null) {
+                evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+            }
             val dpAmount =
                 evmFeeAmount?.toBigDecimal()?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
             val value = feePrice.multiply(dpAmount)
@@ -318,6 +321,12 @@ class EvmReDelegateFragment : BaseTxFragment() {
                             }
                         })
                 )
+            }
+
+            feeSegment.setOnPositionChangedListener { position ->
+                selectedFeePosition = position
+                updateFeeView()
+                txSimulate()
             }
 
             btnRedelegate.setOnClickListener {
@@ -417,6 +426,6 @@ class EvmReDelegateFragment : BaseTxFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-        txViewModel.broadcastEvmUnDelegateTx.removeObservers(viewLifecycleOwner)
+        txViewModel.broadcastEvmReDelegateTx.removeObservers(viewLifecycleOwner)
     }
 }

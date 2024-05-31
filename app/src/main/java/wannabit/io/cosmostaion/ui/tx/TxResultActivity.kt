@@ -173,7 +173,6 @@ class TxResultActivity : BaseActivity() {
                         finish()
                         BaseData.baseAccount?.let { account ->
                             selectedChain?.let { chain ->
-                                chain.historyFetched = false
                                 if (chain is ChainOktEvm) {
                                     ApplicationViewModel.shared.loadEvmChainData(
                                         chain, account.id, false

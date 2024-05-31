@@ -234,6 +234,9 @@ class EvmStakingFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
+            if (evmFeeAmount == null) {
+                evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+            }
             val dpAmount =
                 evmFeeAmount?.toBigDecimal()?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
             val value = feePrice.multiply(dpAmount)

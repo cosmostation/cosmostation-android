@@ -244,10 +244,64 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmReDelegateTx(
-            fromValidatorEthAddress, toValidatorEthAddress, toReDelegateAmount, selectedChain, selectedFeeInfo
+            fromValidatorEthAddress,
+            toValidatorEthAddress,
+            toReDelegateAmount,
+            selectedChain,
+            selectedFeeInfo
         )
         if (response.second?.isNotEmpty() == true) {
             simulateEvmReDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmCancelUnStakingTx = SingleLiveEvent<String?>()
+    fun broadcastEvmCancelUnStaking(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmCancelUnStakingTx(web3j, hexValue)
+        broadcastEvmCancelUnStakingTx.postValue(response)
+    }
+
+    val simulateEvmCancelUnStaking = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmCancelUnStaking(
+        validatorEthAddress: String?,
+        unDelegateAmount: String?,
+        height: Long,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmCancelUnStakingTx(
+            validatorEthAddress, unDelegateAmount, height, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmCancelUnStaking.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmVoteTx = SingleLiveEvent<String?>()
+    fun broadcastEvmVote(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmRVoteTx(web3j, hexValue)
+        broadcastEvmVoteTx.postValue(response)
+    }
+
+    val simulateEvmVote = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmVote(
+        proposalId: Long, proposalOption: Long, selectedChain: EthereumLine, selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmVoteTx(
+            proposalId, proposalOption, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmVote.postValue(response)
         } else {
             erc20ErrorMessage.postValue(response)
         }

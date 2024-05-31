@@ -438,6 +438,7 @@
     <string name="error_useless_end_point">Can not use this</string>
     <string name="error_no_bonding_no_vote">You cannot vote because there is not enough delegation.</string>
     <string name="error_not_support_vote">Vote is not support.</string>
+    <string name="error_bera_vote_one_proposal">You can only vote for one BeraChain.</string>
 
 
 

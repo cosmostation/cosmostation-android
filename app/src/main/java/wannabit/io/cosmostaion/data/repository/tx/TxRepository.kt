@@ -94,6 +94,29 @@ interface TxRepository {
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
+    suspend fun broadcastEvmCancelUnStakingTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmCancelUnStakingTx(
+        validatorAddress: String?,
+        unDelegateAmount: String?,
+        height: Long,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmRVoteTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmVoteTx(
+        proposalId: Long,
+        proposalOption: Long,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
     suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,

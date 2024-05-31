@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +26,7 @@ import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmCancelUnStakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.evm.EvmReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.step.evm.EvmStakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.evm.EvmUnStakingFragment
@@ -136,7 +136,12 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             unstakeLayout.setOnClickListener {
                 if (selectedChain is ChainBeraEvm) {
-                    handleOneClickWithDelay(EvmUnStakingFragment.newInstance(selectedChain as EthereumLine, validator))
+                    handleOneClickWithDelay(
+                        EvmUnStakingFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            validator
+                        )
+                    )
                 } else {
                     handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
                 }
@@ -144,9 +149,19 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             switchValidatorLayout.setOnClickListener {
                 if (selectedChain is ChainBeraEvm) {
-                    handleOneClickWithDelay(EvmReDelegateFragment.newInstance(selectedChain as EthereumLine, validator))
+                    handleOneClickWithDelay(
+                        EvmReDelegateFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            validator
+                        )
+                    )
                 } else {
-                    handleOneClickWithDelay(ReDelegateFragment.newInstance(selectedChain, validator))
+                    handleOneClickWithDelay(
+                        ReDelegateFragment.newInstance(
+                            selectedChain,
+                            validator
+                        )
+                    )
                 }
             }
 
@@ -200,11 +215,20 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             unstakeCancelLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    CancelUnBondingFragment.newInstance(
-                        selectedChain, unBondingEntry
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(
+                        EvmCancelUnStakingFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            unBondingEntry
+                        )
                     )
-                )
+                } else {
+                    handleOneClickWithDelay(
+                        CancelUnBondingFragment.newInstance(
+                            selectedChain, unBondingEntry
+                        )
+                    )
+                }
             }
         }
     }
