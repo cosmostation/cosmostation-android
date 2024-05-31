@@ -78,7 +78,6 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.hardRewardDenoms
 import wannabit.io.cosmostaion.common.hasUsdxMinting
 import wannabit.io.cosmostaion.common.swapRewardDenoms
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -1331,8 +1330,7 @@ object Signer {
     }
 
     private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
-        val privateKey = selectedChain?.privateKey?.toHex()?.let { BigInteger(it, 16) }
-        val sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey))
+        val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain?.privateKey))
         val sigData = ByteArray(64) // 32 bytes for R + 32 bytes for S
         System.arraycopy(sig.r, 0, sigData, 0, 32)
         System.arraycopy(sig.s, 0, sigData, 32, 32)

@@ -34,7 +34,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.formatAmount
@@ -89,7 +88,7 @@ class WcSignFragment(
             } else if (id == EvmMethod.PERSONAL.type) {
                 initEvmPersonalData(data)
             } else {
-                if (selectedChain is ChainKavaEvm || selectedChain is ChainKava459) {
+                if (selectedChain is ChainKava459) {
                     initWc1DataView(data)
                 } else {
                     try {
@@ -224,6 +223,7 @@ class WcSignFragment(
                     val nonce = ethGetTransactionCount.transactionCount
 
                     // json data
+                    val from = txJsonObject["from"].asString
                     val to = txJsonObject["to"].asString
                     val dataString = txJsonObject["data"].asString
                     val maxPriorityFeePerGas =
@@ -235,7 +235,7 @@ class WcSignFragment(
                         JsonRpcRequest(
                             method = "eth_estimateGas", params = listOf(
                                 EstimateGasParamsWithValue(
-                                    selectedChain.address,
+                                    from,
                                     to,
                                     dataString,
                                     txJsonObject["value"].asString
@@ -247,7 +247,7 @@ class WcSignFragment(
                         // not value
                         JsonRpcRequest(
                             method = "eth_estimateGas", params = listOf(
-                                EstimateGasParams(selectedChain.address, to, dataString)
+                                EstimateGasParams(from, to, dataString)
                             )
                         )
                     }
@@ -555,37 +555,38 @@ class WcSignFragment(
         val amounts = fee.get("amount").asJsonArray
 
         if (isEditFee || amounts.size() <= 0) {
-            val chainId = txJsonSignDoc.get("chain_id").asString
+            val chainId =
+                txJsonSignDoc.get("chain_id").asString ?: txJsonObject.get("chainName").asString
             BaseData.baseAccount?.let { account ->
-                account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                    ?: run {
-                        account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                    }?.let { chain ->
-                        chain.getFeeInfos(requireContext())
-                            .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
-                            ?.let { gasRate ->
-                                val gasLimit =
-                                    (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
-                                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
-                                    ?.setScale(0, RoundingMode.UP)
+                val selectChain =
+                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                        ?: account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                selectChain?.let { chain ->
+                    chain.getFeeInfos(requireContext())
+                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+                        ?.let { gasRate ->
+                            val gasLimit =
+                                (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                            val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
+                                ?.setScale(0, RoundingMode.UP)
 
-                                if (amounts.size() == 0) {
-                                    val jsonObject = JsonObject()
-                                    jsonObject.addProperty(
-                                        "amount", feeCoinAmount.toString()
-                                    )
-                                    jsonObject.addProperty("denom", chain.stakeDenom)
-                                    amounts.add(jsonObject)
+                            if (amounts.size() == 0) {
+                                val jsonObject = JsonObject()
+                                jsonObject.addProperty(
+                                    "amount", feeCoinAmount.toString()
+                                )
+                                jsonObject.addProperty("denom", chain.stakeDenom)
+                                amounts.add(jsonObject)
 
-                                } else {
-                                    val mainDenomFee =
-                                        amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
-                                    mainDenomFee?.asJsonObject?.addProperty(
-                                        "amount", feeCoinAmount.toString()
-                                    )
-                                }
+                            } else {
+                                val mainDenomFee =
+                                    amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
+                                mainDenomFee?.asJsonObject?.addProperty(
+                                    "amount", feeCoinAmount.toString()
+                                )
                             }
-                    }
+                        }
+                }
             }
         }
         return txJsonSignDoc

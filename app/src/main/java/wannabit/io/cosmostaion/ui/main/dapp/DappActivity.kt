@@ -94,6 +94,7 @@ class DappActivity : BaseActivity() {
     private var allChains: MutableList<CosmosLine>? = mutableListOf()
 
     private var selectChain: CosmosLine? = null
+    private var selectEvmChain: EthereumLine? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
@@ -1025,20 +1026,16 @@ class DappActivity : BaseActivity() {
                     if (currentEvmChainId == null) {
                         currentEvmChainId = "0x1"
                     }
-                    selectChain =
-                        allChains?.firstOrNull { chain -> chain is EthereumLine && chain.chainIdEvm == currentEvmChainId }
-                    rpcUrl = if (selectChain is EthereumLine) {
-                        (selectChain as EthereumLine).getEvmRpc()
-                    } else {
-                        selectChain?.rpcUrl
-                    }
+                    selectEvmChain =
+                        allChains?.firstOrNull { chain -> chain is EthereumLine && chain.chainIdEvm == currentEvmChainId } as EthereumLine
+                    rpcUrl = selectEvmChain?.getEvmRpc()
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {
-                    if (selectChain?.address?.isNotEmpty() == true) {
-                        val ethAddress = if (selectChain?.address?.startsWith("0x") == true) {
+                    if (selectEvmChain?.address?.isNotEmpty() == true) {
+                        val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
                             selectChain?.address
                         } else {
                             ByteUtils.convertBech32ToEvm(selectChain?.address)
@@ -1285,6 +1282,7 @@ class DappActivity : BaseActivity() {
         val signDoc = mapper.writeValueAsString(
             mapper.readValue(signDocJson.toString(), TreeMap::class.java)
         )
+
         val signatureTx = Signer.signature(
             selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
         )
@@ -1295,6 +1293,7 @@ class DappActivity : BaseActivity() {
                 )
             ).replace("\n", "")
         )
+
         val signed = JSONObject()
         signed.put("signature", signatureTx)
         signed.put(
