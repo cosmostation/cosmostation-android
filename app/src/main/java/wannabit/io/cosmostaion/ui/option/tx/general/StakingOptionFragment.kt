@@ -12,6 +12,8 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -24,6 +26,10 @@ import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmCancelUnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmReDelegateFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmUnStakingFragment
 
 class StakingOptionFragment : BottomSheetDialogFragment() {
 
@@ -116,22 +122,60 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
     private fun setUpClickAction() {
         binding.apply {
             stakeLayout.setOnClickListener {
-                handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(
+                        EvmStakingFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            validator
+                        )
+                    )
+                } else {
+                    handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
+                }
             }
 
             unstakeLayout.setOnClickListener {
-                handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(
+                        EvmUnStakingFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            validator
+                        )
+                    )
+                } else {
+                    handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
+                }
             }
 
             switchValidatorLayout.setOnClickListener {
-                handleOneClickWithDelay(ReDelegateFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(
+                        EvmReDelegateFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            validator
+                        )
+                    )
+                } else {
+                    handleOneClickWithDelay(
+                        ReDelegateFragment.newInstance(
+                            selectedChain,
+                            validator
+                        )
+                    )
+                }
             }
 
             claimRewardsLayout.setOnClickListener {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
                 selectedChain.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
-                        claimableRewards.add(claimableReward)
+                        if (claimableReward.rewardCount > 0) {
+                            claimableRewards.add(claimableReward)
+                        } else {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
+
                     } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
@@ -153,7 +197,12 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 selectedChain.claimableRewards()
                     .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
-                        claimableRewards.add(claimableReward)
+                        if (claimableReward.rewardCount > 0) {
+                            claimableRewards.add(claimableReward)
+                        } else {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
                     } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
@@ -166,11 +215,20 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             unstakeCancelLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    CancelUnBondingFragment.newInstance(
-                        selectedChain, unBondingEntry
+                if (selectedChain is ChainBeraEvm) {
+                    handleOneClickWithDelay(
+                        EvmCancelUnStakingFragment.newInstance(
+                            selectedChain as EthereumLine,
+                            unBondingEntry
+                        )
                     )
-                )
+                } else {
+                    handleOneClickWithDelay(
+                        CancelUnBondingFragment.newInstance(
+                            selectedChain, unBondingEntry
+                        )
+                    )
+                }
             }
         }
     }

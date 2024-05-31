@@ -303,6 +303,7 @@
     <string name="str_pro_style_msg">메인 자산의 가격과 변동수치가 추가로 표시됩니다.</string>
     <string name="str_delist_msg">선택하신 체인은 모바일 지갑에서 지원종료 예정입니다. 다른 지갑 또는 차후 커스텀체인 서비스로 지원할 수 있습니다.</string>
     <string name="str_legacy_path_msg">선택하신 레거시 경로의 계정은 지원종료 예정입니다. 퍼블릭 경로로 자산을 옮기 시길 강력히 권장합니다.</string>
+    <string name="str_deposit_caution_msg">%1$s 네트워크 자산만 전송가능 합니다</string>
 
 
     // error
@@ -338,10 +339,12 @@
     <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
     <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
     <string name="error_tranfer_disabled">현재 선택하신 체인은 전송기능이 비 활성화된 상태입니다.\n차후 거버넌스 등을 통해서 활성화될 수 있습니다.</string>
+    <string name="error_tranfer_disabled_bgt">BGT는 스테이킹 전용 자산입니다.\n전송이 불가능합니다.</string>
     <string name="error_useless_end_point">사용할 수 없습니다.</string>
     <string name="error_no_bonding_no_vote">위임량이 충분하지 않아 투표를 하실 수 없습니다.</string>
     <string name="error_not_support_vote">투표 기능을 지원하지 않습니다.</string>
     <string name="error_not_support_chain">모바일에서 지원하지 않는 체인 입니다.</string>
+    <string name="error_bera_vote_one_proposal">베라체인은 한개씩만 투표 가능합니다.</string>
 
 
     //header

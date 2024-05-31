@@ -306,6 +306,7 @@
     <string name="str_pro_style_msg">さらに、主要資産の価格と価格変動が表示されます。</string>
     <string name="str_delist_msg">選択したチェーンはモバイルウォレットから廃止されます。 他のウォレットや将来のカスタム チェーン サービスによってサポートされる可能性があります。</string>
     <string name="str_legacy_path_msg">選択したレガシー パス上のアカウントは終了されます。 アセットをパブリック パスに移動することを強くお勧めします。</string>
+    <string name="str_deposit_caution_msg">%1$s ネットワーク資産のみ転送可能</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -340,10 +341,12 @@
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
     <string name="error_tranfer_disabled">現在選択されているチェーンは送信機能が無効になっています。\n今後のガバナンスなどを通じて活性化することができます。</string>
+    <string name="error_tranfer_disabled_bgt">BGT コインはステーキング専用の資産です。\n送信できません。</string>
     <string name="error_useless_end_point">使用できません。</string>
     <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
     <string name="error_not_support_vote">投票機能をサポートしていません。</string>
     <string name="error_not_support_chain">モバイルでサポートされていないチェーン。</string>
+    <string name="error_bera_vote_one_proposal">投票できるのは 1 つの BeraChain のみです。</string>
 
 
     <string name="tx_unknown">不明</string>

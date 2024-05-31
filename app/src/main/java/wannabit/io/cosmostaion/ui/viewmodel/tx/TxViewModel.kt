@@ -39,6 +39,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
@@ -173,6 +174,139 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    val broadcastEvmDelegateTx = SingleLiveEvent<String?>()
+    fun broadcastEvmDelegate(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmDelegateTx(web3j, hexValue)
+        broadcastEvmDelegateTx.postValue(response)
+    }
+
+    val simulateEvmDelegate = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmDelegate(
+        toValidatorEthAddress: String?,
+        toDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmDelegateTx(
+            toValidatorEthAddress, toDelegateAmount, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmUnDelegateTx = SingleLiveEvent<String?>()
+    fun broadcastEvmUnDelegate(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmUnDelegateTx(web3j, hexValue)
+        broadcastEvmUnDelegateTx.postValue(response)
+    }
+
+    val simulateEvmUnDelegate = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmUnDelegate(
+        validatorEthAddress: String?,
+        toUnDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmUnDelegateTx(
+            validatorEthAddress, toUnDelegateAmount, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmUnDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmReDelegateTx = SingleLiveEvent<String?>()
+    fun broadcastEvmReDelegate(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmReDelegateTx(web3j, hexValue)
+        broadcastEvmReDelegateTx.postValue(response)
+    }
+
+    val simulateEvmReDelegate = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmReDelegate(
+        fromValidatorEthAddress: String?,
+        toValidatorEthAddress: String?,
+        toReDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmReDelegateTx(
+            fromValidatorEthAddress,
+            toValidatorEthAddress,
+            toReDelegateAmount,
+            selectedChain,
+            selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmReDelegate.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmCancelUnStakingTx = SingleLiveEvent<String?>()
+    fun broadcastEvmCancelUnStaking(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmCancelUnStakingTx(web3j, hexValue)
+        broadcastEvmCancelUnStakingTx.postValue(response)
+    }
+
+    val simulateEvmCancelUnStaking = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmCancelUnStaking(
+        validatorEthAddress: String?,
+        unDelegateAmount: String?,
+        height: Long,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmCancelUnStakingTx(
+            validatorEthAddress, unDelegateAmount, height, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmCancelUnStaking.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
+    val broadcastEvmVoteTx = SingleLiveEvent<String?>()
+    fun broadcastEvmVote(
+        web3j: Web3j, hexValue: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.broadcastEvmRVoteTx(web3j, hexValue)
+        broadcastEvmVoteTx.postValue(response)
+    }
+
+    val simulateEvmVote = SingleLiveEvent<Pair<String?, String?>>()
+
+    fun simulateEvmVote(
+        proposalId: Long, proposalOption: Long, selectedChain: EthereumLine, selectedFeeInfo: Int
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val response = txRepository.simulateEvmVoteTx(
+            proposalId, proposalOption, selectedChain, selectedFeeInfo
+        )
+        if (response.second?.isNotEmpty() == true) {
+            simulateEvmVote.postValue(response)
+        } else {
+            erc20ErrorMessage.postValue(response)
+        }
+    }
+
     val errorMessage = SingleLiveEvent<String>()
 
     val broadcastTx = SingleLiveEvent<AbciProto.TxResponse>()
@@ -252,11 +386,10 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val sendCoin =
                     Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
 
-                val msgTransfer =
-                    MsgTransfer.newBuilder().setSender(selectedChain?.address)
-                        .setReceiver(toAddress).setSourceChannel(assetPath?.channel)
-                        .setSourcePort(assetPath?.port).setTimeoutHeight(height)
-                        .setTimeoutTimestamp(0).setToken(sendCoin).build()
+                val msgTransfer = MsgTransfer.newBuilder().setSender(selectedChain?.address)
+                    .setReceiver(toAddress).setSourceChannel(assetPath?.channel)
+                    .setSourcePort(assetPath?.port).setTimeoutHeight(height).setTimeoutTimestamp(0)
+                    .setToken(sendCoin).build()
 
                 val response = txRepository.broadcastIbcSendTx(
                     managedChannel, it, msgTransfer, fee, memo, selectedChain
@@ -304,8 +437,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 val msgTransfer =
                     MsgTransfer.newBuilder().setSender(fromAddress).setReceiver(toAddress)
                         .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
-                        .setTimeoutHeight(height)
-                        .setTimeoutTimestamp(0).setToken(sendCoin).build()
+                        .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
 
                 val response = txRepository.simulateIbcSendTx(
                     managedChannel, it, msgTransfer, fee, memo, selectedChain

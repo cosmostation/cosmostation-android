@@ -106,9 +106,12 @@ class StakingViewHolder(
                                 rewardAmount.text =
                                     formatAmount(mainDenomRewardAmount.toPlainString(), decimal)
                             } ?: run {
+                                rewardTitle.text = "Reward"
                                 rewardAmount.text = formatAmount(
                                     BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
                                 )
+                                estimateReward.text = formatAmount(BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal)
+                                return
                             }
 
                             var anotherCnt = 0

@@ -137,7 +137,8 @@ class EvmDetailFragment : Fragment() {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
                     0 -> getString(R.string.title_asset)
-                    1 -> getString(R.string.title_history)
+                    1 -> getString(R.string.title_receive)
+                    2 -> getString(R.string.title_history)
                     else -> "About"
                 }
             }.attach()
@@ -185,7 +186,13 @@ class EvmDetailFragment : Fragment() {
                 }
             }
 
-            accountAddress.setOnClickListener {
+            accountLayout.setOnClickListener {
+                QrCodeEvmFragment.newInstance(selectedEvmChain).show(
+                    requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                )
+            }
+
+            accountValueLayout.setOnClickListener {
                 QrCodeEvmFragment.newInstance(selectedEvmChain).show(
                     requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                 )
@@ -214,6 +221,7 @@ class EvmDetailFragment : Fragment() {
 
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
+            fragments.add(EvmReceiveFragment.newInstance(selectedEvmChain))
             fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
         }

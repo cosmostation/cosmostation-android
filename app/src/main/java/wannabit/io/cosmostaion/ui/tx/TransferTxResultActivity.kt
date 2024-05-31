@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookType
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
@@ -49,7 +48,6 @@ class TransferTxResultActivity : BaseActivity() {
     private lateinit var binding: ActivityTxResultBinding
 
     private var transferStyle: TransferStyle? = TransferStyle.COSMOS_STYLE
-    private var sendAssetType: SendAssetType? = SendAssetType.ONLY_COSMOS_COIN
     private lateinit var fromChain: BaseChain
     private lateinit var toChain: BaseChain
     private var toAddress: String = ""
@@ -127,7 +125,6 @@ class TransferTxResultActivity : BaseActivity() {
             toMemo = intent.getStringExtra("memo") ?: ""
 
             transferStyle = enumValues<TransferStyle>()[intent.getIntExtra("transferStyle", -1)]
-            sendAssetType = enumValues<SendAssetType>()[intent.getIntExtra("sendAssetType", -1)]
 
             if (transferStyle == TransferStyle.WEB3_STYLE) {
                 if (txHash.isNotEmpty()) {

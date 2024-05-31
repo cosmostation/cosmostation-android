@@ -24,6 +24,7 @@ import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
@@ -56,6 +57,63 @@ interface TxRepository {
         selectedToken: Token?,
         sendAssetType: SendAssetType,
         selectedChain: CosmosLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmDelegateTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmDelegateTx(
+        toValidatorAddress: String?,
+        toDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmUnDelegateTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmUnDelegateTx(
+        validatorAddress: String?,
+        toUnDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmReDelegateTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmReDelegateTx(
+        fromValidatorAddress: String?,
+        toValidatorAddress: String?,
+        toReDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmCancelUnStakingTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmCancelUnStakingTx(
+        validatorAddress: String?,
+        unDelegateAmount: String?,
+        height: Long,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?>
+
+    suspend fun broadcastEvmRVoteTx(
+        web3j: Web3j, hexValue: String
+    ): String?
+
+    suspend fun simulateEvmVoteTx(
+        proposalId: Long,
+        proposalOption: Long,
+        selectedChain: EthereumLine,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
