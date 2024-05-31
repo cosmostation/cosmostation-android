@@ -35,8 +35,6 @@ import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
-import com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap
-import com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.cdp.v1beta1.TxProto.MsgDeposit
 import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
@@ -61,7 +59,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmoney
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
@@ -931,44 +928,6 @@ object Signer {
         return msgAnys
     }
 
-    fun genCreateSwapBroadcast(
-        auth: QueryAccountResponse?,
-        msgCreateAtomicSwap: MsgCreateAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, createSwapMsg(msgCreateAtomicSwap), fee, memo, selectedChain)
-    }
-
-    private fun createSwapMsg(msgCreateAtomicSwap: MsgCreateAtomicSwap?): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        msgAnys.add(
-            Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgCreateAtomicSwap")
-                .setValue(msgCreateAtomicSwap?.toByteString()).build()
-        )
-        return msgAnys
-    }
-
-    fun genClaimSwapBroadcast(
-        auth: QueryAccountResponse?,
-        msgClaimAtomicSwap: MsgClaimAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, claimSwapMsg(msgClaimAtomicSwap), fee, memo, selectedChain)
-    }
-
-    private fun claimSwapMsg(msgClaimAtomicSwap: MsgClaimAtomicSwap?): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        msgAnys.add(
-            Any.newBuilder().setTypeUrl("/kava.bep3.v1beta1.MsgClaimAtomicSwap")
-                .setValue(msgClaimAtomicSwap?.toByteString()).build()
-        )
-        return msgAnys
-    }
-
     private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
         return if (line is ChainInjective) {
@@ -1079,11 +1038,7 @@ object Signer {
         val signerInfo = grpcSimulInfo(auth)
         val authInfo = grpcAuthInfo(signerInfo, fee)
         val simulateTx = grpcSimulTx(txBody, authInfo)
-        return if (selectedChain is ChainEmoney) {
-            SimulateRequest.newBuilder().setTx(simulateTx).build()
-        } else {
-            SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
-        }
+        return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
     }
 
     private fun grpcTxBody(msgsAny: List<Any>?, memo: String): TxBody? {

@@ -99,9 +99,9 @@ class CommonTransferFragment : BaseTxFragment() {
     private var cosmosTxFee: TxProto.Fee? = null
 
     private val evmGasPrices: List<BigInteger> = listOf(
-        BigInteger.valueOf(28000000000),
-        BigInteger.valueOf(28000000000),
-        BigInteger.valueOf(28000000000)
+        BigInteger.valueOf(1500000000),
+        BigInteger.valueOf(1500000000),
+        BigInteger.valueOf(1500000000)
     )
     private var evmFeeAmount: BigInteger? = null
     private val evmGasLimit = BigInteger.valueOf(21000)
@@ -1030,7 +1030,6 @@ class CommonTransferFragment : BaseTxFragment() {
                 putExtra("recipientAddress", toAddress)
                 putExtra("memo", txMemo)
                 putExtra("transferStyle", transferStyle.ordinal)
-                putExtra("sendAssetType", sendAssetType.ordinal)
                 val hash = txResponse.txhash
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)
@@ -1050,7 +1049,6 @@ class CommonTransferFragment : BaseTxFragment() {
                 putExtra("fromChainTag", fromChain.tag)
                 putExtra("toChainTag", toChain.tag)
                 putExtra("transferStyle", transferStyle.ordinal)
-                putExtra("sendAssetType", sendAssetType.ordinal)
                 startActivity(this)
             }
             dismiss()
@@ -1081,7 +1079,8 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun getRecipientChannel(): ManagedChannel? {
         return (toChain as CosmosLine).run {
-            ManagedChannelBuilder.forAddress(getGrpc().first, getGrpc().second).useTransportSecurity().build()
+            ManagedChannelBuilder.forAddress(getGrpc().first, getGrpc().second)
+                .useTransportSecurity().build()
         }
     }
 

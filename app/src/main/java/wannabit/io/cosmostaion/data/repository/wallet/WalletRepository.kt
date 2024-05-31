@@ -13,10 +13,8 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
-import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
-import wannabit.io.cosmostaion.data.model.res.BnbToken
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
@@ -101,13 +99,6 @@ interface WalletRepository {
     ): NetworkResult<String?>
 
     //lcd
-    suspend fun binanceAccountInfo(
-        line: CosmosLine
-    ): NetworkResult<AccountResponse?>
-
-    suspend fun beaconTokenInfo(
-    ): NetworkResult<MutableList<BnbToken>>
-
     suspend fun oktAccountInfo(
         line: CosmosLine
     ): NetworkResult<OktAccountResponse?>
@@ -127,4 +118,18 @@ interface WalletRepository {
     suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
 
     suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String>
+
+    suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun cw721TokenIds(
+        channel: ManagedChannel, line: CosmosLine, list: JsonObject
+    ): NetworkResult<JsonObject?>
+
+    suspend fun cw721TokenInfo(
+        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
+    ): NetworkResult<JsonObject?>
+
+    suspend fun cw721TokenDetail(
+        line: CosmosLine, contractAddress: String, tokenId: String
+    ): NetworkResult<JsonObject>
 }

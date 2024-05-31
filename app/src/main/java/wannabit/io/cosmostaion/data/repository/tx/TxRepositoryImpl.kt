@@ -1,12 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import com.binance.dex.api.client.BinanceDexApiClientFactory
-import com.binance.dex.api.client.BinanceDexEnvironment
-import com.binance.dex.api.client.Wallet
-import com.binance.dex.api.client.domain.TransactionMetadata
-import com.binance.dex.api.client.domain.broadcast.HtltReq
-import com.binance.dex.api.client.domain.broadcast.TransactionOption
-import com.binance.dex.api.client.domain.broadcast.Transfer
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto
@@ -37,7 +30,11 @@ import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.Address
 import org.web3j.abi.datatypes.Function
 import org.web3j.abi.datatypes.Type
+import org.web3j.abi.datatypes.Utf8String
+import org.web3j.abi.datatypes.generated.Int32
+import org.web3j.abi.datatypes.generated.Int64
 import org.web3j.abi.datatypes.generated.Uint256
+import org.web3j.abi.datatypes.generated.Uint64
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
@@ -50,10 +47,13 @@ import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.BERA_CONT_GOVERNANCE
+import wannabit.io.cosmostaion.chain.evmClass.BERA_CONT_STAKING
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.cosmos.Signer
@@ -300,20 +300,22 @@ class TxRepositoryImpl : TxRepository {
                         resultArray
                     }
 
-                    val tip = if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
-                        BigInteger.valueOf(1000000000L)
-                    } else {
-                        suggestTipValue[selectedFeeInfo]
-                    }
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
 
-                    val totalPerGas = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
-                            500000000L
-                        )
-                    ) {
-                        500000000L + tip.toLong()
-                    } else {
-                        suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
-                    }
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                        }
 
                     var rawTransaction: RawTransaction? = null
 
@@ -391,6 +393,778 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun broadcastEvmDelegateTx(web3j: Web3j, hexValue: String): String? {
+        return try {
+            val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send()
+            ethSendTransaction.transactionHash
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateEvmDelegateTx(
+        toValidatorAddress: String?,
+        toDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?> {
+        try {
+            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
+            val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+            val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+
+            val ethGetTransactionCount: EthGetTransactionCount =
+                web3j.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
+                    .sendAsync().get()
+            val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
+            val nonce = ethGetTransactionCount.transactionCount
+
+            val params: MutableList<Type<*>> = java.util.ArrayList()
+            params.add(Address(toValidatorAddress))
+            params.add(Uint256(toDelegateAmount?.toBigInteger()))
+
+            val function = Function(
+                "delegate", params, emptyList<TypeReference<*>>()
+            )
+            val txData = FunctionEncoder.encode(function)
+
+            val ethGasRequest = JsonRpcRequest(
+                method = "eth_estimateGas", params = listOf(
+                    EstimateGasParams(
+                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+                        BERA_CONT_STAKING,
+                        txData
+                    )
+                )
+            )
+            val ethGasResponse = jsonRpcResponse(selectedChain.getEvmRpc(), ethGasRequest)
+            val gasLimit = if (ethGasResponse.isSuccessful) {
+                val gasJsonObject = Gson().fromJson(
+                    ethGasResponse.body?.string(), JsonObject::class.java
+                )
+                BigInteger(gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16)
+            } else {
+                BigInteger.valueOf(21000L)
+            }
+
+            val ethFeeHistoryRequest = JsonRpcRequest(
+                method = "eth_feeHistory", params = listOf(
+                    20, "pending", listOf(25, 50, 75)
+                )
+            )
+            val ethFeeHistoryResponse =
+                jsonRpcResponse(selectedChain.getEvmRpc(), ethFeeHistoryRequest)
+            if (ethFeeHistoryResponse.isSuccessful) {
+                val historyJsonObject = Gson().fromJson(
+                    ethFeeHistoryResponse.body?.string(), JsonObject::class.java
+                )
+
+                val feeHistoryFeePerGas = try {
+                    historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                val suggestGasValues = try {
+                    feeHistoryFeePerGas.map {
+                        BigInteger(
+                            it.asString.removePrefix("0x"), 16
+                        )
+                    }.toMutableList()
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                if (suggestGasValues.isNotEmpty()) {
+                    val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                        suggestGasValues.percentile(it)
+                    }
+
+                    val reward =
+                        historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                    val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                    reward.forEach {
+                        val percentiles = it.asJsonArray.map { percentile ->
+                            BigInteger(
+                                percentile.asString.removePrefix("0x"), 16
+                            )
+                        }.toMutableList()
+
+                        percentiles.forEachIndexed { index, percentile ->
+                            if (rearrangedArray.size <= index) {
+                                rearrangedArray.add(mutableListOf(percentile))
+                            } else {
+                                rearrangedArray[index].add(percentile)
+                            }
+                        }
+                    }
+                    val suggestTipValue = soft(rearrangedArray)
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
+
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[1]!!.toLong() + tip.toLong()
+                        }
+
+                    val rawTransaction = RawTransaction.createTransaction(
+                        chainID,
+                        nonce,
+                        gasLimit,
+                        BERA_CONT_STAKING,
+                        BigInteger.ZERO,
+                        txData,
+                        tip,
+                        totalPerGas.toBigInteger()
+                    )
+
+                    val signedMessage = TransactionEncoder.signMessage(
+                        rawTransaction, chainID, credentials
+                    )
+                    val hexValue = Numeric.toHexString(signedMessage)
+                    val feeAmount = gasLimit.multiply(totalPerGas.toBigInteger())
+                    return Pair(hexValue, feeAmount.toString())
+
+                } else {
+                    return Pair("", "")
+                }
+
+            } else {
+                return Pair("", "")
+            }
+
+        } catch (e: Exception) {
+            return Pair("", "")
+        }
+    }
+
+    override suspend fun broadcastEvmUnDelegateTx(web3j: Web3j, hexValue: String): String? {
+        return try {
+            val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send()
+            ethSendTransaction.transactionHash
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateEvmUnDelegateTx(
+        validatorAddress: String?,
+        toUnDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?> {
+        try {
+            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
+            val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+            val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+
+            val ethGetTransactionCount: EthGetTransactionCount =
+                web3j.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
+                    .sendAsync().get()
+            val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
+            val nonce = ethGetTransactionCount.transactionCount
+
+            val params: MutableList<Type<*>> = java.util.ArrayList()
+            params.add(Address(validatorAddress))
+            params.add(Uint256(toUnDelegateAmount?.toBigInteger()))
+
+            val function = Function(
+                "undelegate", params, emptyList<TypeReference<*>>()
+            )
+            val txData = FunctionEncoder.encode(function)
+
+            val ethGasRequest = JsonRpcRequest(
+                method = "eth_estimateGas", params = listOf(
+                    EstimateGasParams(
+                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+                        BERA_CONT_STAKING,
+                        txData
+                    )
+                )
+            )
+            val ethGasResponse = jsonRpcResponse(selectedChain.getEvmRpc(), ethGasRequest)
+            val gasLimit = if (ethGasResponse.isSuccessful) {
+                val gasJsonObject = Gson().fromJson(
+                    ethGasResponse.body?.string(), JsonObject::class.java
+                )
+                BigInteger(gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16)
+            } else {
+                BigInteger.valueOf(21000L)
+            }
+
+            val ethFeeHistoryRequest = JsonRpcRequest(
+                method = "eth_feeHistory", params = listOf(
+                    20, "pending", listOf(25, 50, 75)
+                )
+            )
+            val ethFeeHistoryResponse =
+                jsonRpcResponse(selectedChain.getEvmRpc(), ethFeeHistoryRequest)
+            if (ethFeeHistoryResponse.isSuccessful) {
+                val historyJsonObject = Gson().fromJson(
+                    ethFeeHistoryResponse.body?.string(), JsonObject::class.java
+                )
+
+                val feeHistoryFeePerGas = try {
+                    historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                val suggestGasValues = try {
+                    feeHistoryFeePerGas.map {
+                        BigInteger(
+                            it.asString.removePrefix("0x"), 16
+                        )
+                    }.toMutableList()
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                if (suggestGasValues.isNotEmpty()) {
+                    val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                        suggestGasValues.percentile(it)
+                    }
+
+                    val reward =
+                        historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                    val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                    reward.forEach {
+                        val percentiles = it.asJsonArray.map { percentile ->
+                            BigInteger(
+                                percentile.asString.removePrefix("0x"), 16
+                            )
+                        }.toMutableList()
+
+                        percentiles.forEachIndexed { index, percentile ->
+                            if (rearrangedArray.size <= index) {
+                                rearrangedArray.add(mutableListOf(percentile))
+                            } else {
+                                rearrangedArray[index].add(percentile)
+                            }
+                        }
+                    }
+                    val suggestTipValue = soft(rearrangedArray)
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
+
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[1]!!.toLong() + tip.toLong()
+                        }
+
+                    val rawTransaction = RawTransaction.createTransaction(
+                        chainID,
+                        nonce,
+                        gasLimit,
+                        BERA_CONT_STAKING,
+                        BigInteger.ZERO,
+                        txData,
+                        tip,
+                        totalPerGas.toBigInteger()
+                    )
+
+                    val signedMessage = TransactionEncoder.signMessage(
+                        rawTransaction, chainID, credentials
+                    )
+                    val hexValue = Numeric.toHexString(signedMessage)
+                    val feeAmount = gasLimit.multiply(totalPerGas.toBigInteger())
+                    return Pair(hexValue, feeAmount.toString())
+
+                } else {
+                    return Pair("", "")
+                }
+
+            } else {
+                return Pair("", "")
+            }
+
+        } catch (e: Exception) {
+            return Pair("", "")
+        }
+    }
+
+    override suspend fun broadcastEvmReDelegateTx(web3j: Web3j, hexValue: String): String? {
+        return try {
+            val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send()
+            ethSendTransaction.transactionHash
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateEvmReDelegateTx(
+        fromValidatorAddress: String?,
+        toValidatorAddress: String?,
+        toReDelegateAmount: String?,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?> {
+        try {
+            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
+            val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+            val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+
+            val ethGetTransactionCount: EthGetTransactionCount =
+                web3j.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
+                    .sendAsync().get()
+            val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
+            val nonce = ethGetTransactionCount.transactionCount
+
+            val params: MutableList<Type<*>> = java.util.ArrayList()
+            params.add(Address(fromValidatorAddress))
+            params.add(Address(toValidatorAddress))
+            params.add(Uint256(toReDelegateAmount?.toBigInteger()))
+
+            val function = Function(
+                "beginRedelegate", params, emptyList<TypeReference<*>>()
+            )
+            val txData = FunctionEncoder.encode(function)
+
+            val ethGasRequest = JsonRpcRequest(
+                method = "eth_estimateGas", params = listOf(
+                    EstimateGasParams(
+                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+                        BERA_CONT_STAKING,
+                        txData
+                    )
+                )
+            )
+            val ethGasResponse = jsonRpcResponse(selectedChain.getEvmRpc(), ethGasRequest)
+            val gasLimit = if (ethGasResponse.isSuccessful) {
+                val gasJsonObject = Gson().fromJson(
+                    ethGasResponse.body?.string(), JsonObject::class.java
+                )
+                BigInteger(gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16)
+            } else {
+                BigInteger.valueOf(21000L)
+            }
+
+            val ethFeeHistoryRequest = JsonRpcRequest(
+                method = "eth_feeHistory", params = listOf(
+                    20, "pending", listOf(25, 50, 75)
+                )
+            )
+            val ethFeeHistoryResponse =
+                jsonRpcResponse(selectedChain.getEvmRpc(), ethFeeHistoryRequest)
+            if (ethFeeHistoryResponse.isSuccessful) {
+                val historyJsonObject = Gson().fromJson(
+                    ethFeeHistoryResponse.body?.string(), JsonObject::class.java
+                )
+
+                val feeHistoryFeePerGas = try {
+                    historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                val suggestGasValues = try {
+                    feeHistoryFeePerGas.map {
+                        BigInteger(
+                            it.asString.removePrefix("0x"), 16
+                        )
+                    }.toMutableList()
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                if (suggestGasValues.isNotEmpty()) {
+                    val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                        suggestGasValues.percentile(it)
+                    }
+
+                    val reward =
+                        historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                    val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                    reward.forEach {
+                        val percentiles = it.asJsonArray.map { percentile ->
+                            BigInteger(
+                                percentile.asString.removePrefix("0x"), 16
+                            )
+                        }.toMutableList()
+
+                        percentiles.forEachIndexed { index, percentile ->
+                            if (rearrangedArray.size <= index) {
+                                rearrangedArray.add(mutableListOf(percentile))
+                            } else {
+                                rearrangedArray[index].add(percentile)
+                            }
+                        }
+                    }
+                    val suggestTipValue = soft(rearrangedArray)
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
+
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[1]!!.toLong() + tip.toLong()
+                        }
+
+                    val rawTransaction = RawTransaction.createTransaction(
+                        chainID,
+                        nonce,
+                        gasLimit,
+                        BERA_CONT_STAKING,
+                        BigInteger.ZERO,
+                        txData,
+                        tip,
+                        totalPerGas.toBigInteger()
+                    )
+
+                    val signedMessage = TransactionEncoder.signMessage(
+                        rawTransaction, chainID, credentials
+                    )
+                    val hexValue = Numeric.toHexString(signedMessage)
+                    val feeAmount = gasLimit.multiply(totalPerGas.toBigInteger())
+                    return Pair(hexValue, feeAmount.toString())
+
+                } else {
+                    return Pair("", "")
+                }
+
+            } else {
+                return Pair("", "")
+            }
+
+        } catch (e: Exception) {
+            return Pair("", "")
+        }
+    }
+
+    override suspend fun broadcastEvmCancelUnStakingTx(web3j: Web3j, hexValue: String): String? {
+        return try {
+            val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send()
+            ethSendTransaction.transactionHash
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateEvmCancelUnStakingTx(
+        validatorAddress: String?,
+        unDelegateAmount: String?,
+        height: Long,
+        selectedChain: EthereumLine,
+        selectedFeeInfo: Int
+    ): Pair<String?, String?> {
+        try {
+            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
+            val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+            val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+
+            val ethGetTransactionCount: EthGetTransactionCount =
+                web3j.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
+                    .sendAsync().get()
+            val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
+            val nonce = ethGetTransactionCount.transactionCount
+
+            val params: MutableList<Type<*>> = java.util.ArrayList()
+            params.add(Address(validatorAddress))
+            params.add(Uint256(unDelegateAmount?.toBigInteger()))
+            params.add(Int64(height))
+
+            val function = Function(
+                "cancelUnbondingDelegation", params, emptyList<TypeReference<*>>()
+            )
+            val txData = FunctionEncoder.encode(function)
+
+            val ethGasRequest = JsonRpcRequest(
+                method = "eth_estimateGas", params = listOf(
+                    EstimateGasParams(
+                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+                        BERA_CONT_STAKING,
+                        txData
+                    )
+                )
+            )
+            val ethGasResponse = jsonRpcResponse(selectedChain.getEvmRpc(), ethGasRequest)
+            val gasLimit = if (ethGasResponse.isSuccessful) {
+                val gasJsonObject = Gson().fromJson(
+                    ethGasResponse.body?.string(), JsonObject::class.java
+                )
+                BigInteger(gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16)
+            } else {
+                BigInteger.valueOf(21000L)
+            }
+
+            val ethFeeHistoryRequest = JsonRpcRequest(
+                method = "eth_feeHistory", params = listOf(
+                    20, "pending", listOf(25, 50, 75)
+                )
+            )
+            val ethFeeHistoryResponse =
+                jsonRpcResponse(selectedChain.getEvmRpc(), ethFeeHistoryRequest)
+            if (ethFeeHistoryResponse.isSuccessful) {
+                val historyJsonObject = Gson().fromJson(
+                    ethFeeHistoryResponse.body?.string(), JsonObject::class.java
+                )
+
+                val feeHistoryFeePerGas = try {
+                    historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                val suggestGasValues = try {
+                    feeHistoryFeePerGas.map {
+                        BigInteger(
+                            it.asString.removePrefix("0x"), 16
+                        )
+                    }.toMutableList()
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                if (suggestGasValues.isNotEmpty()) {
+                    val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                        suggestGasValues.percentile(it)
+                    }
+
+                    val reward =
+                        historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                    val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                    reward.forEach {
+                        val percentiles = it.asJsonArray.map { percentile ->
+                            BigInteger(
+                                percentile.asString.removePrefix("0x"), 16
+                            )
+                        }.toMutableList()
+
+                        percentiles.forEachIndexed { index, percentile ->
+                            if (rearrangedArray.size <= index) {
+                                rearrangedArray.add(mutableListOf(percentile))
+                            } else {
+                                rearrangedArray[index].add(percentile)
+                            }
+                        }
+                    }
+                    val suggestTipValue = soft(rearrangedArray)
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
+
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[1]!!.toLong() + tip.toLong()
+                        }
+
+                    val rawTransaction = RawTransaction.createTransaction(
+                        chainID,
+                        nonce,
+                        gasLimit,
+                        BERA_CONT_STAKING,
+                        BigInteger.ZERO,
+                        txData,
+                        tip,
+                        totalPerGas.toBigInteger()
+                    )
+
+                    val signedMessage = TransactionEncoder.signMessage(
+                        rawTransaction, chainID, credentials
+                    )
+                    val hexValue = Numeric.toHexString(signedMessage)
+                    val feeAmount = gasLimit.multiply(totalPerGas.toBigInteger())
+                    return Pair(hexValue, feeAmount.toString())
+
+                } else {
+                    return Pair("", "")
+                }
+
+            } else {
+                return Pair("", "")
+            }
+
+        } catch (e: Exception) {
+            return Pair("", "")
+        }
+    }
+
+    override suspend fun broadcastEvmRVoteTx(web3j: Web3j, hexValue: String): String? {
+        return try {
+            val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send()
+            ethSendTransaction.transactionHash
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateEvmVoteTx(
+        proposalId: Long, proposalOption: Long, selectedChain: EthereumLine, selectedFeeInfo: Int
+    ): Pair<String?, String?> {
+        try {
+            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)
+            val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+            val credentials: Credentials = Credentials.create(ecKey.privateKeyAsHex)
+
+            val ethGetTransactionCount: EthGetTransactionCount =
+                web3j.ethGetTransactionCount(credentials.address, DefaultBlockParameterName.LATEST)
+                    .sendAsync().get()
+            val chainID = web3j.ethChainId().sendAsync().get().chainId.toLong()
+            val nonce = ethGetTransactionCount.transactionCount
+
+            val params: MutableList<Type<*>> = java.util.ArrayList()
+            params.add(Uint64(proposalId))
+            params.add(Int32(proposalOption))
+            params.add(Utf8String(""))
+
+            val function = Function(
+                "vote", params, emptyList<TypeReference<*>>()
+            )
+            val txData = FunctionEncoder.encode(function)
+
+            val ethGasRequest = JsonRpcRequest(
+                method = "eth_estimateGas", params = listOf(
+                    EstimateGasParams(
+                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+                        BERA_CONT_GOVERNANCE,
+                        txData
+                    )
+                )
+            )
+            val ethGasResponse = jsonRpcResponse(selectedChain.getEvmRpc(), ethGasRequest)
+            val gasLimit = if (ethGasResponse.isSuccessful) {
+                val gasJsonObject = Gson().fromJson(
+                    ethGasResponse.body?.string(), JsonObject::class.java
+                )
+                BigInteger(gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16)
+            } else {
+                BigInteger.valueOf(21000L)
+            }
+
+            val ethFeeHistoryRequest = JsonRpcRequest(
+                method = "eth_feeHistory", params = listOf(
+                    20, "pending", listOf(25, 50, 75)
+                )
+            )
+            val ethFeeHistoryResponse =
+                jsonRpcResponse(selectedChain.getEvmRpc(), ethFeeHistoryRequest)
+            if (ethFeeHistoryResponse.isSuccessful) {
+                val historyJsonObject = Gson().fromJson(
+                    ethFeeHistoryResponse.body?.string(), JsonObject::class.java
+                )
+
+                val feeHistoryFeePerGas = try {
+                    historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                val suggestGasValues = try {
+                    feeHistoryFeePerGas.map {
+                        BigInteger(
+                            it.asString.removePrefix("0x"), 16
+                        )
+                    }.toMutableList()
+                } catch (e: Exception) {
+                    mutableListOf()
+                }
+
+                if (suggestGasValues.isNotEmpty()) {
+                    val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+                        suggestGasValues.percentile(it)
+                    }
+
+                    val reward =
+                        historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+                    val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+                    reward.forEach {
+                        val percentiles = it.asJsonArray.map { percentile ->
+                            BigInteger(
+                                percentile.asString.removePrefix("0x"), 16
+                            )
+                        }.toMutableList()
+
+                        percentiles.forEachIndexed { index, percentile ->
+                            if (rearrangedArray.size <= index) {
+                                rearrangedArray.add(mutableListOf(percentile))
+                            } else {
+                                rearrangedArray[index].add(percentile)
+                            }
+                        }
+                    }
+                    val suggestTipValue = soft(rearrangedArray)
+                    val tip =
+                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                            BigInteger.valueOf(1000000000L)
+                        } else {
+                            suggestTipValue[selectedFeeInfo]
+                        }
+
+                    val totalPerGas =
+                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L
+                            )
+                        ) {
+                            500000000L + tip.toLong()
+                        } else {
+                            suggestBaseFee[1]!!.toLong() + tip.toLong()
+                        }
+
+                    val rawTransaction = RawTransaction.createTransaction(
+                        chainID,
+                        nonce,
+                        gasLimit,
+                        BERA_CONT_GOVERNANCE,
+                        BigInteger.ZERO,
+                        txData,
+                        tip,
+                        totalPerGas.toBigInteger()
+                    )
+
+                    val signedMessage = TransactionEncoder.signMessage(
+                        rawTransaction, chainID, credentials
+                    )
+                    val hexValue = Numeric.toHexString(signedMessage)
+                    val feeAmount = gasLimit.multiply(totalPerGas.toBigInteger())
+                    return Pair(hexValue, feeAmount.toString())
+
+                } else {
+                    return Pair("", "")
+                }
+
+            } else {
+                return Pair("", "")
+            }
+
+        } catch (e: Exception) {
+            return Pair("", "")
+        }
+    }
+
     override suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,
         account: QueryAccountResponse?,
@@ -426,19 +1200,6 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastBnbSendTx(
-        transfer: Transfer, wallet: Wallet, options: TransactionOption
-    ): MutableList<TransactionMetadata>? {
-        return try {
-            val client = BinanceDexApiClientFactory.newInstance()
-                .newRestClient(BinanceDexEnvironment.PROD.baseUrl)
-            client.transfer(transfer, wallet, options, true)
-
-        } catch (_: Exception) {
-            mutableListOf()
         }
     }
 
@@ -1415,60 +2176,6 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastCreateSwapTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateAtomicSwap: com.kava.bep3.v1beta1.TxProto.MsgCreateAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genCreateSwapBroadcast(
-                account, msgCreateAtomicSwap, fee, memo, selectedChain
-            )
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun broadcastClaimSwapTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgClaimAtomicSwap: com.kava.bep3.v1beta1.TxProto.MsgClaimAtomicSwap?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: CosmosLine?
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genClaimSwapBroadcast(account, msgClaimAtomicSwap, fee, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun broadcastBnbCreateSwapTx(
-        htltReq: HtltReq, wallet: Wallet, options: TransactionOption
-    ): MutableList<TransactionMetadata>? {
-        return try {
-            val client = BinanceDexApiClientFactory.newInstance()
-                .newRestClient(BinanceDexEnvironment.PROD.baseUrl)
-            client.htlt(htltReq, wallet, options, true)
-
-        } catch (e: Exception) {
-            mutableListOf()
         }
     }
 }

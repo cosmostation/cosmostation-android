@@ -125,7 +125,7 @@ class AllChainClaimFragment : BaseTxFragment() {
 
                             } else {
                                 recycler.visibility = View.VISIBLE
-                                rewardCnt.text = "(" + valueAbleRewards.size.toString() + ")"
+                                rewardCnt.text = valueAbleRewards.size.toString()
                                 initRecyclerView()
 
                                 txSimulate()
@@ -147,7 +147,7 @@ class AllChainClaimFragment : BaseTxFragment() {
         allChainClaimAdapter.notifyDataSetChanged()
 
         binding?.apply {
-            rewardCnt.text = "(" + valueAbleRewards.size.toString() + ")"
+            rewardCnt.text = valueAbleRewards.size.toString()
             if (valueAbleRewards.isEmpty()) {
                 recycler.visibility = View.GONE
                 btnClaimAll.visibility = View.GONE

@@ -142,6 +142,10 @@
     <string name="str_to_compounding" translatable="false">To compounding</string>
     <string name="str_from_address">From address</string>
     <string name="str_to_address">To address</string>
+    <string name="str_nft_github">Check NFT info</string>
+    <string name="str_style">Style</string>
+    <string name="str_simple">Simple</string>
+    <string name="str_pro">Pro</string>
 
 
     //title
@@ -151,6 +155,7 @@
     <string name="title_nft" translatable="false">NFTs</string>
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
+    <string name="title_receive" translatable="false">Receive</string>
     <string name="title_history" translatable="false">History</string>
     <string name="title_about">About</string>
     <string name="title_select_account" translatable="false">Select account</string>
@@ -285,12 +290,17 @@
     <string name="title_sunset">Chain sunset</string>
     <string name="title_compoundingable_chains">CompoundingAble chains</string>
     <string name="title_send_info">Send detail info</string>
+    <string name="title_nft_transfer">Send NFT</string>
+    <string name="title_select_style">Select style</string>
+    <string name="title_delist">Discontinuation of support</string>
+    <string name="title_legacy_path">Legacy path will not support</string>
 
 
     // msg
     <string name="str_update_msg">New version available. \n\nPlease update to the latest version from the PlayStore.</string>
     <string name="str_title_no_history" translatable="false">NO HISTORY</string>
     <string name="str_title_no_token" translatable="false">NO TOKEN</string>
+    <string name="str_title_no_nft" translatable="false">NO NFT</string>
     <string name="str_msg_no_history">There are no coin transactions.</string>
     <string name="str_msg_no_token">There are no tokens.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>
@@ -364,6 +374,12 @@
     <string name="str_all_claim_msg">Check the reward amount and Tx fee amount.\nPlease swipe to exclude rewards you would like to receive in the future.</string>
     <string name="str_sunset_msg">The chain you selected is scheduled to end support. For more information, please refer to the foundation\'s official announcement.</string>
     <string name="str_all_compoundingable_msg">Check the to compounding amount and Tx fee amount.\nPlease swipe to exclude you would like to compounding in the future.</string>
+    <string name="str_nft_github_msg">Information on all NFT collections is developed together with the community.\n\nIf you do not see your collection or NFT, please provide the GitHub link below to the publisher or community.\n\nOnce information about the collection is registered, it will be automatically displayed,\nNot only for the customer but also for all users in the community. You can check and use it.</string>
+    <string name="str_simple_style_msg">Display total value of on-chain assets.</string>
+    <string name="str_pro_style_msg">Additionally, main asset\'s price and price change are displayed.</string>
+    <string name="str_delist_msg">The chain you selected will be discontinued from mobile wallets. It can be supported by other wallets or future custom chain services.</string>
+    <string name="str_legacy_path_msg">Accounts on the legacy path you selected will be terminated. We strongly recommend that you move your assets to the public path.</string>
+    <string name="str_deposit_caution_msg">Send %1$s Network asset ONLY</string>
 
 
     // header
@@ -417,10 +433,12 @@
     <string name="error_decrytion">Decryption error</string>
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
-    <string name="error_tranfer_disabled">This chain does not support the transfer function.</string>
+    <string name="error_tranfer_disabled">Send functionality of the selected chain is currently disabled.\nIt can be activated later through the onchain governance procedure.</string>
+    <string name="error_tranfer_disabled_bgt">BGT is a staking-only asset.\nTransmission is not possible.</string>
     <string name="error_useless_end_point">Can not use this</string>
     <string name="error_no_bonding_no_vote">You cannot vote because there is not enough delegation.</string>
     <string name="error_not_support_vote">Vote is not support.</string>
+    <string name="error_bera_vote_one_proposal">You can only vote for one BeraChain.</string>
 
 
 

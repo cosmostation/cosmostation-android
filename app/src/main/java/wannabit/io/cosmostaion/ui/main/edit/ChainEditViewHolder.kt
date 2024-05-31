@@ -11,8 +11,8 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -88,8 +88,16 @@ class ChainEditViewHolder(
 
                                         chainValue.text =
                                             formatAssetValue(refAddress.lastUsdValue(), true)
-                                        val coinCntString =
+                                        val coinCntString = if (line is ChainBeraEvm) {
+                                            if (line.evmBalance > BigDecimal.ZERO) {
+                                                refAddress.lastCoinCnt?.plus(1)
+                                                    .toString() + " Coins"
+                                            } else {
+                                                refAddress.lastCoinCnt.toString() + " Coins"
+                                            }
+                                        } else {
                                             refAddress.lastCoinCnt.toString() + " Coins"
+                                        }
                                         val tokenCnt =
                                             line.evmTokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
                                         if (tokenCnt == 0) {
@@ -188,7 +196,7 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (line !is ChainOkt996Keccak && line !is ChainBinanceBeacon) {
+                                if (line !is ChainOkt996Keccak) {
                                     if (line.cosmosBalances == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE

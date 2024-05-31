@@ -22,3 +22,9 @@ class NSStargazeInfoReq(name: String?) {
 
 data class NSArchwayReq(val resolve_record: ResolveRecord?)
 data class ResolveRecord(val name: String?)
+
+data class StarCw721TokenIdReq(val tokens: Token)
+data class Token(val owner: String?, val limit: Int = 50, val start_after: String = "0")
+
+data class StarCw721TokenInfoReq(val nft_info: NftInfo)
+data class NftInfo(val token_id: String)

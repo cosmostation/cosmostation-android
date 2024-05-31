@@ -9,7 +9,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -21,13 +20,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.fadeInAnimation
+import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
@@ -36,6 +37,7 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
+import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
@@ -72,6 +74,8 @@ class CosmosDetailFragment : Fragment() {
     private var isClickable = true
 
     private val handler = Handler(Looper.getMainLooper())
+
+    private var noticeType = NoticeType.TOKEN_GITHUB
 
     companion object {
         @JvmStatic
@@ -113,6 +117,17 @@ class CosmosDetailFragment : Fragment() {
         setUpClickAction()
         setFabMenuClickAction()
         setUpObserve()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!::selectedChain.isInitialized) {
+            Intent(requireContext(), IntroActivity::class.java).apply {
+                flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(this)
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -159,6 +174,7 @@ class CosmosDetailFragment : Fragment() {
                     accountEvmAddress.visibility = View.VISIBLE
 
                     handler.postDelayed(starEvmAddressAnimation, 5000)
+
                 } else {
                     accountEvmAddress.visibility = View.INVISIBLE
                     accountAddress.text = selectedChain.address
@@ -195,28 +211,23 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    private fun fadeInAnimation(view: View) {
-        val fadeIn = AlphaAnimation(0f, 1f)
-        fadeIn.duration = 1000
-        view.startAnimation(fadeIn)
-        view.visibility = View.VISIBLE
-    }
-
-    private fun fadeOutAnimation(view: View) {
-        val fadeOut = AlphaAnimation(1f, 0f)
-        fadeOut.duration = 800
-        view.startAnimation(fadeOut)
-        view.visibility = View.INVISIBLE
-    }
-
     private fun initTab() {
         binding.apply {
-            fabStake.visibleOrGone(selectedChain.supportStaking)
-            fabClaimReward.visibleOrGone(selectedChain.supportStaking)
-            fabCompounding.visibleOrGone(selectedChain.supportStaking)
-            fabVote.visibleOrGone(selectedChain.supportStaking)
+            if (selectedChain is ChainBeraEvm) {
+                fabClaimReward.visibility = View.GONE
+                fabCompounding.visibility = View.GONE
+                fabReceive.visibility = View.VISIBLE
+                fabStake.visibility = View.VISIBLE
+                fabVote.visibility = View.VISIBLE
 
-            fabReceive.visibleOrGone(!selectedChain.supportStaking)
+            } else {
+                fabStake.visibleOrGone(selectedChain.supportStaking)
+                fabClaimReward.visibleOrGone(selectedChain.supportStaking)
+                fabCompounding.visibleOrGone(selectedChain.supportStaking)
+                fabVote.visibleOrGone(selectedChain.supportStaking)
+
+                fabReceive.visibleOrGone(!selectedChain.supportStaking)
+            }
 
             when (selectedChain) {
                 is ChainNeutron -> {
@@ -245,12 +256,24 @@ class CosmosDetailFragment : Fragment() {
 
             val supportToken =
                 selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
+            val supportNft = selectedChain.supportNft
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when {
                     position == 0 -> getString(R.string.title_coin)
                     supportToken && position == 1 -> getString(R.string.title_token)
-                    !supportToken && position == 1 || supportToken && position == 2 -> getString(R.string.title_history)
+                    supportNft && position == 1 || supportToken && supportNft && position == 2 -> getString(
+                        R.string.title_nft
+                    )
+
+                    !supportToken && position == 1 || supportToken && position == 2 || supportNft && position == 2 || supportToken && supportNft && position == 3 -> getString(
+                        R.string.title_receive
+                    )
+
+                    !supportToken && position == 2 || supportToken && position == 3 || supportNft && position == 3 || supportToken && supportNft && position == 4 -> getString(
+                        R.string.title_history
+                    )
+
                     else -> "About"
                 }
             }.attach()
@@ -259,8 +282,23 @@ class CosmosDetailFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
+                    when (tab?.text.toString()) {
+                        getString(R.string.title_token) -> {
+                            btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
+                            btnAddToken.visibility = View.VISIBLE
+                            noticeType = NoticeType.TOKEN_GITHUB
+                        }
 
-                    btnAddToken.visibleOrGone(supportToken && position == 1)
+                        getString(R.string.title_nft) -> {
+                            btnAddToken.setImageResource(R.drawable.icon_nft_request)
+                            btnAddToken.visibility = View.VISIBLE
+                            noticeType = NoticeType.TOKEN_NFT_GITHUB
+                        }
+
+                        else -> {
+                            btnAddToken.visibility = View.GONE
+                        }
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -288,6 +326,12 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
+    private fun showNotice(noticeType: NoticeType) {
+        NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+            requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
+        )
+    }
+
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -295,9 +339,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAddToken.setOnClickListener {
-                NoticeInfoFragment.newInstance(selectedChain, NoticeType.TOKEN_GITHUB).show(
-                    requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
-                )
+                showNotice(noticeType)
             }
 
             btnAccount.setOnClickListener {
@@ -310,7 +352,7 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            accountAddress.setOnClickListener {
+            accountLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
                         requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
@@ -323,9 +365,14 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            accountEvmAddress.setOnClickListener {
+            accountValueLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+
+                } else {
+                    QrCodeFragment.newInstance(selectedChain).show(
                         requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
                     )
                 }
@@ -383,11 +430,11 @@ class CosmosDetailFragment : Fragment() {
                     }
 
                     if (selectedChain.isBankLocked()) {
-                        requireActivity().makeToast(R.string.error_tranfer_disabled)
+                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
                         return@setOnClickListener
                     }
 
-                    if (selectedChain is ChainBinanceBeacon || selectedChain is ChainOkt996Keccak) {
+                    if (selectedChain is ChainOkt996Keccak) {
                         handleOneClickWithDelay(
                             null, LegacyTransferFragment.newInstance(selectedChain, denom)
                         )
@@ -401,9 +448,9 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabReceive.setOnClickListener {
-                if (selectedChain is ChainOktEvm) {
+                if (selectedChain is EthereumLine) {
                     handleOneClickWithDelay(
-                        null, QrCodeEvmFragment.newInstance(selectedChain as ChainOktEvm)
+                        null, QrCodeEvmFragment.newInstance(selectedChain as EthereumLine)
                     )
                 } else {
                     handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
@@ -570,23 +617,28 @@ class CosmosDetailFragment : Fragment() {
             if (selectedChain is EthereumLine) {
                 fragments.add(CoinFragment.newInstance(selectedChain))
                 fragments.add(TokenFragment.newInstance(selectedChain))
+                fragments.add(ReceiveFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
 
                 if (selectedChain.supportCosmos) {
                     fragments.add(AboutFragment.newInstance(selectedChain))
                 }
 
-            } else if (selectedChain is ChainBinanceBeacon) {
-                fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(HistoryFragment.newInstance(selectedChain))
-
             } else {
                 fragments.add(CoinFragment.newInstance(selectedChain))
+                fragments.add(ReceiveFragment.newInstance(selectedChain))
                 fragments.add(HistoryFragment.newInstance(selectedChain))
                 fragments.add(AboutFragment.newInstance(selectedChain))
 
-                if (selectedChain.supportCw20 || selectedChain.supportErc20) {
+                if ((selectedChain.supportCw20 || selectedChain.supportErc20) && selectedChain.supportNft) {
                     fragments.add(1, TokenFragment.newInstance(selectedChain))
+                    fragments.add(2, NftFragment.newInstance(selectedChain))
+
+                } else if (selectedChain.supportCw20 || selectedChain.supportErc20) {
+                    fragments.add(1, TokenFragment.newInstance(selectedChain))
+
+                } else if (selectedChain.supportNft) {
+                    fragments.add(1, NftFragment.newInstance(selectedChain))
                 }
             }
         }

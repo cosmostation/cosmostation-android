@@ -124,7 +124,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
 
                             } else {
                                 recycler.visibility = View.VISIBLE
-                                rewardCnt.text = "(" + compoundAbleRewards.size.toString() + ")"
+                                rewardCnt.text = compoundAbleRewards.size.toString()
                                 initRecyclerView()
 
                                 txSimulate()
@@ -176,7 +176,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         allChainCompoundingAdapter.notifyDataSetChanged()
 
         binding?.apply {
-            rewardCnt.text = "(" + compoundAbleRewards.size.toString() + ")"
+            rewardCnt.text = compoundAbleRewards.size.toString()
             if (compoundAbleRewards.isEmpty()) {
                 recycler.visibility = View.GONE
                 btnCompoundingAll.visibility = View.GONE

@@ -14,11 +14,8 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.formatTxTimeStampToHour
-import wannabit.io.cosmostaion.common.formatTxTimeToHour
-import wannabit.io.cosmostaion.common.formatTxTimeToYear
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.common.voteDpTime
-import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
@@ -68,10 +65,12 @@ class HistoryViewHolder(
                 txHeight.visibility = View.GONE
             }
 
-            sendTxImage.visibleOrGone(historyGroup.second.getMsgCnt() == 1 && historyGroup.second.getMsgType(
-                context,
-                line.address
-            ).equals(context.getString(R.string.tx_send), true))
+            sendTxImage.visibleOrGone(
+                historyGroup.second.getMsgCnt() == 1 && historyGroup.second.getMsgType(
+                    context,
+                    line.address
+                ).equals(context.getString(R.string.tx_send), true)
+            )
             sendTxImage.setColorFilter(
                 ContextCompat.getColor(context, R.color.color_base02),
                 PorterDuff.Mode.SRC_IN
@@ -132,51 +131,7 @@ class HistoryViewHolder(
         }
     }
 
-    fun bindBnbHistory(
-        line: CosmosLine,
-        historyBnbGroup: Pair<String, BnbHistory>,
-        headerIndex: Int,
-        cnt: Int,
-        position: Int
-    ) {
-        binding.apply {
-            historyView.setBackgroundResource(R.drawable.item_bg)
-            headerLayout.visibleOrGone(headerIndex == position)
-            historyBnbGroup.second.timeStamp?.let { timeStamp ->
-                val headerDate = formatTxTimeToYear(context, timeStamp)
-                val currentDate = formatCurrentTimeToYear()
-
-                if (headerDate == currentDate) {
-                    headerTitle.text = context.getString(R.string.str_today)
-                } else {
-                    headerTitle.text = headerDate
-                }
-                headerCnt.text = "(" + cnt.toString() + ")"
-            }
-
-            if (historyBnbGroup.second.isSuccess()) {
-                txSuccessImg.setImageResource(R.drawable.icon_history_success)
-            } else {
-                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
-            }
-
-            txMessage.text = historyBnbGroup.second.bnbTxType(context, line.address)
-            txHash.text = historyBnbGroup.second.txHash
-            historyBnbGroup.second.timeStamp?.let { timeStamp ->
-                txTime.text = formatTxTimeToHour(context, timeStamp)
-            }
-            historyBnbGroup.second.blockHeight?.let { height ->
-                txHeight.text = "(" + height + ")"
-                txHeight.visibility = View.VISIBLE
-            } ?: run {
-                txHeight.visibility = View.GONE
-            }
-            txDenom.text = "-"
-        }
-    }
-
     fun bindOktHistory(
-        line: CosmosLine,
         historyOktGroup: Pair<String, TransactionList>,
         headerIndex: Int,
         cnt: Int,

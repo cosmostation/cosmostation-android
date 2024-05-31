@@ -24,6 +24,7 @@ object Prefs {
     private const val LAST_PRICE_TIME = "PRE_LAST_PRICE_TIME"
     private const val LAST_CURRENCY = "PRE_CURRENCY"
     private const val LANGUAGE = "PRE_LANGUAGE"
+    private const val STYLE = "PRE_STYLE"
     private const val PRICE_STYLE = "PRE_PRICE_STYLE"
     private const val LAST_TIME = "PRE_LAST_TIME"
     private const val APP_LOCK = "PRE_APP_LOCK"
@@ -145,6 +146,10 @@ object Prefs {
     var language: Int
         get() = preference.getInt(LANGUAGE, 0)
         set(value) = preference.edit().putInt(LANGUAGE, value).apply()
+
+    var style: Int
+        get() = preference.getInt(STYLE, 0)
+        set(value) = preference.edit().putInt(STYLE, value).apply()
 
     var priceStyle: Int
         get() = preference.getInt(PRICE_STYLE, 0)

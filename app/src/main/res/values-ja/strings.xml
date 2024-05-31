@@ -106,6 +106,10 @@
     <string name="str_vote_all">全員に投票する</string>
     <string name="str_from_address">送り先の住所</string>
     <string name="str_to_address">受信アドレスです</string>
+    <string name="str_nft_github">NFT 情報確認</string>
+    <string name="str_style">スタイル</string>
+    <string name="str_simple">シンプル</string>
+    <string name="str_pro">プロ</string>
 
 
     //title
@@ -229,6 +233,10 @@
     <string name="title_sunset">チェーン中断案内</string>
     <string name="title_compoundingable_chains">コンパウンディング対象チェーン</string>
     <string name="title_send_info">詳細情報の送信</string>
+    <string name="title_nft_transfer">NFT送信</string>
+    <string name="title_select_style">Select style</string>
+    <string name="title_delist">サポートの終了</string>
+    <string name="title_legacy_path">レガシーパスはサポートされません</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -293,6 +301,12 @@
     <string name="str_all_claim_msg">報酬額と送信手数料額を確認してください。\n今後受け取りたい報酬を除外するにはスワイプしてください。</string>
     <string name="str_sunset_msg">選択されたチェーンはサポート終了予定です。 詳しくは、財団の公式通知をご覧ください。</string>
     <string name="str_all_compoundingable_msg">コンパウンディング数量とTx手数料の金額を確認してください。\n今後コンパウンディングするチェーンをスワイプして除外してください。</string>
+    <string name="str_nft_github_msg">すべての NFT コレクションに関する情報はコミュニティと協力して開発されます。\n\nコレクションまたは NFT が表示されない場合は、以下の GitHub リンクを発行者またはコミュニティに提供してください。\n\nコレクションに関する情報が登録されると、自動的に表示されます。\n顧客だけでなく、 コミュニティ内のすべてのユーザーが対象です。 確認してご利用いただけます。</string>
+    <string name="str_simple_style_msg">オンチェーン資産の合計価値を表示します。</string>
+    <string name="str_pro_style_msg">さらに、主要資産の価格と価格変動が表示されます。</string>
+    <string name="str_delist_msg">選択したチェーンはモバイルウォレットから廃止されます。 他のウォレットや将来のカスタム チェーン サービスによってサポートされる可能性があります。</string>
+    <string name="str_legacy_path_msg">選択したレガシー パス上のアカウントは終了されます。 アセットをパブリック パスに移動することを強くお勧めします。</string>
+    <string name="str_deposit_caution_msg">%1$s ネットワーク資産のみ転送可能</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -326,10 +340,12 @@
     <string name="error_decrytion">復号化エラー</string>
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
-    <string name="error_tranfer_disabled">このチェーンは伝達関数をサポートしていません。</string>
+    <string name="error_tranfer_disabled">現在選択されているチェーンは送信機能が無効になっています。\n今後のガバナンスなどを通じて活性化することができます。</string>
+    <string name="error_tranfer_disabled_bgt">BGT コインはステーキング専用の資産です。\n送信できません。</string>
     <string name="error_useless_end_point">使用できません。</string>
     <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
     <string name="error_not_support_vote">投票機能をサポートしていません。</string>
+    <string name="error_bera_vote_one_proposal">投票できるのは 1 つの BeraChain のみです。</string>
 
 
     <string name="tx_unknown">不明</string>

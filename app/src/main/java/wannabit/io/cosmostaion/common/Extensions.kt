@@ -17,6 +17,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AlphaAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageButton
@@ -24,10 +25,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.hard.v1beta1.HardProto.MoneyMarket
@@ -44,10 +47,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
@@ -215,7 +224,9 @@ fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
 }
 
 fun String.hexToBigDecimal(): BigDecimal {
-    if (this.isEmpty()) { return BigDecimal.ZERO }
+    if (this.isEmpty()) {
+        return BigDecimal.ZERO
+    }
     val hex = this.removePrefix("0x")
     return BigDecimal(BigInteger(hex, 16))
 }
@@ -573,7 +584,10 @@ fun dpToPx(context: Context, dp: Int): Int {
 }
 
 fun getChannel(selectedChain: CosmosLine): ManagedChannel {
-    return ManagedChannelBuilder.forAddress(selectedChain.getGrpc().first, selectedChain.getGrpc().second)
+    return ManagedChannelBuilder.forAddress(
+        selectedChain.getGrpc().first,
+        selectedChain.getGrpc().second
+    )
         .useTransportSecurity().build()
 }
 
@@ -892,5 +906,34 @@ fun <T> Sequence<T>.concurrentForEach(operation: suspend (T) -> Unit): Job {
 fun Activity.hideKeyboard(button: Button) {
     val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(button.windowToken, 0)
+}
+
+fun CardView.heightInDp(dp: Int) {
+    val heightInPx = (dp * resources.displayMetrics.density).toInt()
+
+    val layout = layoutParams
+    layout.height = heightInPx
+    layoutParams = layout
+}
+
+fun fadeInAnimation(view: View) {
+    val fadeIn = AlphaAnimation(0f, 1f)
+    fadeIn.duration = 1000
+    view.startAnimation(fadeIn)
+    view.visibility = View.VISIBLE
+}
+
+fun fadeOutAnimation(view: View) {
+    val fadeOut = AlphaAnimation(1f, 0f)
+    fadeOut.duration = 800
+    view.startAnimation(fadeOut)
+    view.visibility = View.INVISIBLE
+}
+
+fun jsonRpcResponse(rpcUrl: String, request: JsonRpcRequest): Response {
+    val jsonRequest = ObjectMapper().writeValueAsString(request)
+    val rpcRequest = Request.Builder().url(rpcUrl)
+        .post(jsonRequest.toRequestBody("application/json".toMediaTypeOrNull())).build()
+    return OkHttpClient().newCall(rpcRequest).execute()
 }
 

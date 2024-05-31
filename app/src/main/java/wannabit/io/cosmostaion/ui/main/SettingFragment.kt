@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.main.setting.StyleFragment
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
@@ -87,7 +88,7 @@ class SettingFragment : Fragment() {
         binding.apply {
             listOf(
                 accountView, importView, legacyView, chainView, addressBookView,
-                languageView, currencyView, priceView, alarmView, appLockView, bioView,
+                languageView, currencyView, styleView, priceView, alarmView, appLockView, bioView,
                 mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
                 termView, privacyView, githubView, versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
@@ -173,6 +174,12 @@ class SettingFragment : Fragment() {
                 }
             }
             currency.text = BaseData.currencyName()
+            style.text = if (Prefs.style == 0) {
+                getString(R.string.str_simple)
+            } else {
+                getString(R.string.str_pro)
+            }
+
             when (Prefs.priceStyle) {
                 0 -> {
                     priceUpImg.setImageResource(R.drawable.icon_price_up)
@@ -237,6 +244,22 @@ class SettingFragment : Fragment() {
                 ) { _, _ ->
                     currency.text = BaseData.currencyName()
                     walletViewModel.price(BaseData.currencyName(), true)
+                }
+            }
+
+            styleView.setOnClickListener {
+                handleOneClickWithDelay(
+                    StyleFragment()
+                )
+                parentFragmentManager.setFragmentResultListener(
+                    "style", this@SettingFragment
+                ) { _, bundle ->
+                    val style = bundle.getInt("style")
+                    if (Prefs.style != style) {
+                        Prefs.style = style
+                        ApplicationViewModel.shared.styleOption(true)
+                    }
+                    updateDefaultView()
                 }
             }
 
@@ -497,7 +520,7 @@ class SettingFragment : Fragment() {
 
     private fun syncPushStatus() {
         if (!Prefs.alarmEnable) {
-            PushManager.syncAddresses(Prefs.fcmToken)
+//            PushManager.syncAddresses(Prefs.fcmToken)
         }
         PushManager.updateStatus(binding.alarmSwitch.isChecked, Prefs.fcmToken)
     }

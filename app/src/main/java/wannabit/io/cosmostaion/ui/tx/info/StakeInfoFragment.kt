@@ -18,10 +18,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.evm.EvmStakingFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class StakeInfoFragment : Fragment() {
@@ -137,9 +140,16 @@ class StakeInfoFragment : Fragment() {
             }
 
             btnStake.setOnClickListener {
-                StakingFragment.newInstance(selectedChain, null).show(
-                    requireActivity().supportFragmentManager, StakingFragment::class.java.name
-                )
+                if (selectedChain is ChainBeraEvm) {
+                    EvmStakingFragment.newInstance(selectedChain as EthereumLine, null).show(
+                        requireActivity().supportFragmentManager,
+                        EvmStakingFragment::class.java.name
+                    )
+                } else {
+                    StakingFragment.newInstance(selectedChain, null).show(
+                        requireActivity().supportFragmentManager, StakingFragment::class.java.name
+                    )
+                }
             }
         }
     }

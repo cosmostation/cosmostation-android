@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBinanceBeacon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
-import wannabit.io.cosmostaion.common.formatTxTimeToYear
-import wannabit.io.cosmostaion.data.model.res.BnbHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
@@ -31,28 +28,6 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         when (line) {
-            is ChainBinanceBeacon -> {
-                val bnbHistoryList = currentList as MutableList<Pair<String, BnbHistory>>
-                val historyBnbGroup = bnbHistoryList[position]
-
-                historyBnbGroup.second.let { header ->
-                    header.timeStamp?.let { timeStamp ->
-                        val headerDate = formatTxTimeToYear(context, timeStamp)
-                        val headerIndex = bnbHistoryList.indexOfFirst { it.first == headerDate }
-                        val headerCnt = bnbHistoryList.filter { it.first == headerDate }.size
-                        holder.bindBnbHistory(
-                            line, historyBnbGroup, headerIndex, headerCnt, position
-                        )
-                    }
-
-                    holder.itemView.setOnClickListener {
-                        onItemClickListener?.let {
-                            it(line, null, historyBnbGroup.second.txHash)
-                        }
-                    }
-                }
-            }
-
             is ChainOkt996Keccak -> {
                 val oktHistoryList = currentList as MutableList<Pair<String, TransactionList>>
                 val historyOktGroup = oktHistoryList[position]
@@ -61,7 +36,7 @@ class HistoryAdapter(
                     val headerDate = dpTimeToYear(header.transactionTime.toLong())
                     val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
-                    holder.bindOktHistory(line, historyOktGroup, headerIndex, headerCnt, position)
+                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
@@ -79,7 +54,7 @@ class HistoryAdapter(
                     val headerDate = dpTimeToYear(header.transactionTime.toLong())
                     val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
-                    holder.bindOktHistory(line, historyOktGroup, headerIndex, headerCnt, position)
+                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
