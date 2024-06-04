@@ -289,6 +289,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         return getChainListParam()?.get("isBankLocked")?.asBoolean ?: false
     }
 
+    fun isEcosystem(): Boolean {
+        return getChainListParam()?.get("moblie_dapp")?.asBoolean ?: false
+    }
+
     fun voteThreshold(): String {
         return getChainListParam()?.get("voting_threshold")?.asString ?: run {
             "0"

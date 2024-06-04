@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRES
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
@@ -449,6 +450,12 @@ class WalletRepositoryImpl : WalletRepository {
     ): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             mintscanJsonApi.cw721Detail(line.apiName, contractAddress, tokenId)
+        }
+    }
+
+    override suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            ecoApi.ecoSystemInfo(chain)
         }
     }
 }

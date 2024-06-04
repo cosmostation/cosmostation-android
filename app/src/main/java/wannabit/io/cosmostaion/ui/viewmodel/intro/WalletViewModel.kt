@@ -434,4 +434,21 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
         }
+
+    private val _ecoSystemErrorMessage = MutableLiveData<String>()
+    val ecoSystemErrorMessage: LiveData<String> get() = _ecoSystemErrorMessage
+
+    private var _ecoSystemListResult = MutableLiveData<MutableList<JsonObject>?>()
+    val ecoSystemListResult: LiveData<MutableList<JsonObject>?> get() = _ecoSystemListResult
+    fun ecoSystemList(chain: String) = CoroutineScope(Dispatchers.IO).launch {
+        when (val response = walletRepository.ecoSystem(chain)) {
+            is NetworkResult.Success -> {
+                _ecoSystemListResult.postValue(response.data)
+            }
+
+            is NetworkResult.Error -> {
+                _ecoSystemErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
 }

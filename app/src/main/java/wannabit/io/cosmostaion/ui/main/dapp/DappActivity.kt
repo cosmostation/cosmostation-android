@@ -153,7 +153,8 @@ class DappActivity : BaseActivity() {
             dappClose.setOnClickListener { finish() }
             dappRefresh.setOnClickListener { dappWebView.reload() }
             wcPeer.setOnClickListener {
-                DappUrlDialog.newInstance(binding.dappWebView.url ?: "",
+                DappUrlDialog.newInstance(
+                    binding.dappWebView.url ?: "",
                     object : DappUrlDialog.UrlListener {
                         override fun input(url: String) {
                             if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
@@ -177,14 +178,21 @@ class DappActivity : BaseActivity() {
                 }
             }
 
-            intent.data?.let { data ->
-                data.query?.let { query ->
-                    wcUrl = query
-                    dappWebView.visibility = View.VISIBLE
-                    dappWebView.loadUrl(query)
-                    dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
-                    WebStorage.getInstance().deleteAllData()
-                }
+            intent.data?.query?.let { query ->
+                Log.e("TEst12345 : ", query)
+                wcUrl = query
+                dappWebView.visibility = View.VISIBLE
+                dappWebView.loadUrl(query)
+                dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
+                WebStorage.getInstance().deleteAllData()
+
+            } ?: run {
+                wcUrl = intent.getStringExtra("dappUrl") ?: ""
+                Log.e("TEst123456 : ", wcUrl.toString())
+                dappWebView.visibility = View.VISIBLE
+                dappWebView.loadUrl(intent.getStringExtra("dappUrl") ?: "")
+                dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
+                WebStorage.getInstance().deleteAllData()
             }
 
             setSupportActionBar(toolBar)
@@ -192,14 +200,13 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun isSessionConnected(): Boolean {
-        if (wcV1Session != null && wcV1Client != null && wcV1Client?.session != null && wcV1Client?.isConnected == true) {
-            return true
-        }
-        if (walletConnectURI != null && currentV2PairingUri == walletConnectURI) {
-            return true
-        }
-        return false
+    private fun initInjectScript(view: WebView?) {
+        try {
+            val inputStream = assets.open("injectScript.js")
+            inputStream.bufferedReader().use(BufferedReader::readText)
+        } catch (e: Exception) {
+            null
+        }?.let { view?.loadUrl("javascript:(function(){$it})()") }
     }
 
     private fun connectWalletConnect(url: String?) {
@@ -232,6 +239,95 @@ class DappActivity : BaseActivity() {
             wcV1Session?.let { session -> connect(session, meta) }
         }
     }
+
+    private fun connectWalletConnectV2(url: String) {
+        wcVersion = 2
+        currentV2PairingUri = walletConnectURI
+        val pairingParams = Core.Params.Pair(url)
+        CoreClient.Pairing.pair(pairingParams) {
+            currentV2PairingUri = null
+        }
+
+        SignClient.setWalletDelegate(object : SignInterface.WalletDelegate {
+            override fun onConnectionStateChange(state: Sign.Model.ConnectionState) {}
+
+            override fun onError(error: Sign.Model.Error) {}
+
+            override fun onSessionDelete(deletedSession: Sign.Model.DeletedSession) {
+                currentV2PairingUri = null
+            }
+
+            override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
+                if (isFinishing) return
+
+                val sessionNamespaces = mutableMapOf<String, Sign.Model.Namespace.Session>()
+
+                runOnUiThread {
+                    val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
+                    val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
+
+                    sessionProposal.requiredNamespaces.values.flatMap { it.chains }.map { chain ->
+                        val chainId = chain.split(":")[1]
+                        val chainName = chain.split(":")[0]
+
+                        allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                            ?.let { line ->
+                                selectChain = line
+                                sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
+                                    accounts = listOf("$chain:${line.address}"),
+                                    methods = methods,
+                                    events = events,
+                                    extensions = null
+                                )
+                                val approveProposal = Sign.Params.Approve(
+                                    proposerPublicKey = sessionProposal.proposerPublicKey,
+                                    namespaces = sessionNamespaces
+                                )
+
+                                binding.loadingLayer.apply {
+                                    postDelayed({
+                                        visibility = View.GONE
+                                    }, 2500)
+                                }
+
+                                SignClient.approveSession(approveProposal) { error ->
+                                    Log.e("WCV2", error.throwable.stackTraceToString())
+                                }
+
+                            } ?: run {
+                            binding.loadingLayer.visibility = View.GONE
+                            makeToast(getString(R.string.error_not_support, chainId))
+                            return@runOnUiThread
+                        }
+                    }
+                }
+            }
+
+            override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
+                if (isFinishing) return
+
+                if (sessionRequest.request.id == processingRequestID) return
+                processingRequestID = sessionRequest.request.id
+                processV2SessionRequest(sessionRequest)
+            }
+
+            override fun onSessionSettleResponse(settleSessionResponse: Sign.Model.SettledSessionResponse) {}
+
+            override fun onSessionUpdateResponse(sessionUpdateResponse: Sign.Model.SessionUpdateResponse) {}
+        })
+        return
+    }
+
+    private fun isSessionConnected(): Boolean {
+        if (wcV1Session != null && wcV1Client != null && wcV1Client?.session != null && wcV1Client?.isConnected == true) {
+            return true
+        }
+        if (walletConnectURI != null && currentV2PairingUri == walletConnectURI) {
+            return true
+        }
+        return false
+    }
+
 
     private val processSessionRequest = { _: Long, wcPeerMeta: WCPeerMeta ->
         runOnUiThread {
@@ -358,84 +454,6 @@ class DappActivity : BaseActivity() {
         return BroadcastReq(
             "block", value
         )
-    }
-
-    private fun connectWalletConnectV2(url: String) {
-        wcVersion = 2
-        currentV2PairingUri = walletConnectURI
-        val pairingParams = Core.Params.Pair(url)
-        CoreClient.Pairing.pair(pairingParams) {
-            currentV2PairingUri = null
-        }
-
-        SignClient.setWalletDelegate(object : SignInterface.WalletDelegate {
-            override fun onConnectionStateChange(state: Sign.Model.ConnectionState) {}
-
-            override fun onError(error: Sign.Model.Error) {}
-
-            override fun onSessionDelete(deletedSession: Sign.Model.DeletedSession) {
-                currentV2PairingUri = null
-            }
-
-            override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
-                if (isFinishing) return
-
-                val sessionNamespaces = mutableMapOf<String, Sign.Model.Namespace.Session>()
-
-                runOnUiThread {
-                    val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
-                    val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
-
-                    sessionProposal.requiredNamespaces.values.flatMap { it.chains }.map { chain ->
-                        val chainId = chain.split(":")[1]
-                        val chainName = chain.split(":")[0]
-
-                        allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                            ?.let { line ->
-                                selectChain = line
-                                sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
-                                    accounts = listOf("$chain:${line.address}"),
-                                    methods = methods,
-                                    events = events,
-                                    extensions = null
-                                )
-                                val approveProposal = Sign.Params.Approve(
-                                    proposerPublicKey = sessionProposal.proposerPublicKey,
-                                    namespaces = sessionNamespaces
-                                )
-
-                                binding.loadingLayer.apply {
-                                    postDelayed({
-                                        visibility = View.GONE
-                                    }, 2500)
-                                }
-
-                                SignClient.approveSession(approveProposal) { error ->
-                                    Log.e("WCV2", error.throwable.stackTraceToString())
-                                }
-
-                            } ?: run {
-                            binding.loadingLayer.visibility = View.GONE
-                            makeToast(getString(R.string.error_not_support, chainId))
-                            return@runOnUiThread
-                        }
-                    }
-                }
-            }
-
-            override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
-                if (isFinishing) return
-
-                if (sessionRequest.request.id == processingRequestID) return
-                processingRequestID = sessionRequest.request.id
-                processV2SessionRequest(sessionRequest)
-            }
-
-            override fun onSessionSettleResponse(settleSessionResponse: Sign.Model.SettledSessionResponse) {}
-
-            override fun onSessionUpdateResponse(sessionUpdateResponse: Sign.Model.SessionUpdateResponse) {}
-        })
-        return
     }
 
     private fun processV2SessionRequest(sessionRequest: Sign.Model.SessionRequest) {
@@ -625,6 +643,7 @@ class DappActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         intent.data?.let { data ->
+            Log.e("TEst1234 : ", data.query.toString())
             if (data.scheme != WC_URL_SCHEME_COSMOSTATION) {
                 return
             }
@@ -684,7 +703,7 @@ class DappActivity : BaseActivity() {
             super.onPageStarted(view, url, favicon)
 
             binding.wcPeer.text = Uri.parse(url).host
-            loadInjectScript(view)
+            initInjectScript(view)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
@@ -819,15 +838,6 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun loadInjectScript(view: WebView?) {
-        try {
-            val inputStream = assets.open("injectScript.js")
-            inputStream.bufferedReader().use(BufferedReader::readText)
-        } catch (e: Exception) {
-            null
-        }?.let { view?.loadUrl("javascript:(function(){$it})()") }
-    }
-
     fun processRequest(message: String) {
         Log.e("Test1234 : ", message)
         var isCosmostation = false
@@ -920,9 +930,7 @@ class DappActivity : BaseActivity() {
 
                         override fun cancel(id: Long) {
                             appToWebError(
-                                messageJson,
-                                messageId,
-                                "Reject"
+                                messageJson, messageId, "Reject"
                             )
                         }
                     })
@@ -938,9 +946,7 @@ class DappActivity : BaseActivity() {
 
                         override fun cancel(id: Long) {
                             appToWebError(
-                                messageJson,
-                                messageId,
-                                "Reject"
+                                messageJson, messageId, "Reject"
                             )
                         }
                     })
@@ -969,9 +975,7 @@ class DappActivity : BaseActivity() {
 
                     } catch (e: Exception) {
                         appToWebError(
-                            messageJson,
-                            messageId,
-                            "Not implemented"
+                            messageJson, messageId, "Not implemented"
                         )
                     }
                 }
@@ -985,9 +989,7 @@ class DappActivity : BaseActivity() {
                         ByteUtils.convertBech32ToEvm(address)
                     }
                     appToWebResult(
-                        messageJson,
-                        JSONArray(listOf(ethAddress)),
-                        messageId
+                        messageJson, JSONArray(listOf(ethAddress)), messageId
                     )
                 }
 
@@ -1010,9 +1012,7 @@ class DappActivity : BaseActivity() {
 
                         } else {
                             appToWebError(
-                                messageJson,
-                                messageId,
-                                getString(R.string.error_not_support_chain)
+                                messageJson, messageId, getString(R.string.error_not_support_chain)
                             )
 
                             withContext(Dispatchers.Main) {
@@ -1132,11 +1132,8 @@ class DappActivity : BaseActivity() {
                             val ethCallRequest = JsonRpcRequest(
                                 method = "eth_call", params = listOf(
                                     EthCall(
-                                        null,
-                                        param.getString("to"),
-                                        param.getString("data")
-                                    ),
-                                    DefaultBlockParameterName.LATEST
+                                        null, param.getString("to"), param.getString("data")
+                                    ), DefaultBlockParameterName.LATEST
                                 )
                             )
 
@@ -1206,8 +1203,7 @@ class DappActivity : BaseActivity() {
                         rpcUrl?.let {
                             val ethReceiptResponse = jsonRpcResponse(it, ethReceiptRequest)
                             val receiptJsonObject = Gson().fromJson(
-                                ethReceiptResponse.body?.string(),
-                                JsonObject::class.java
+                                ethReceiptResponse.body?.string(), JsonObject::class.java
                             )
                             try {
                                 appToWebObjectResult(

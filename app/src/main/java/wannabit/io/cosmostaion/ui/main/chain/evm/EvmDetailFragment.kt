@@ -135,10 +135,12 @@ class EvmDetailFragment : Fragment() {
             tabLayout.bringToFront()
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = when (position) {
-                    0 -> getString(R.string.title_asset)
-                    1 -> getString(R.string.title_receive)
-                    2 -> getString(R.string.title_history)
+                tab.text = when {
+                    position == 0 -> "Assets"
+                    position == 1 -> "Receive"
+                    position == 2 -> "History"
+//                    (!selectedEvmChain.isEcosystem() && position == 2) || (selectedEvmChain.isEcosystem() && position == 3) -> "History"
+                    (selectedEvmChain.isEcosystem() && position == 3) -> "Ecosystem"
                     else -> "About"
                 }
             }.attach()
@@ -224,6 +226,10 @@ class EvmDetailFragment : Fragment() {
             fragments.add(EvmReceiveFragment.newInstance(selectedEvmChain))
             fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
+
+            if (selectedEvmChain.isEcosystem()) {
+                fragments.add(3, EvmEcoSystemFragment.newInstance(selectedEvmChain))
+            }
         }
 
         override fun getItemCount(): Int {

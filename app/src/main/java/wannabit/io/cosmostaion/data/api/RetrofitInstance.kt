@@ -84,6 +84,15 @@ object RetrofitInstance {
             .build()
     }
 
+    private val ecoSystemRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(okHttpClient)
+            .baseUrl(CosmostationConstants.ECO_SYSTEM_URL)
+            .build()
+    }
+
     val walletApi: WalletApi by lazy {
         walletRetrofit.create(WalletApi::class.java)
     }
@@ -106,5 +115,9 @@ object RetrofitInstance {
 
     val baseApi: MintscanApi by lazy {
         baseRetrofit.create(MintscanApi::class.java)
+    }
+
+    val ecoApi: MintscanApi by lazy {
+        ecoSystemRetrofit.create(MintscanApi::class.java)
     }
 }

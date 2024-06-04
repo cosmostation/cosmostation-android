@@ -111,13 +111,11 @@ class BaseFCM : FirebaseMessagingService() {
             intent.putExtra("body", remoteMessage.notification!!.body)
             val url = remoteMessage.data["url"]
             intent.putExtra("link", url)
-            intent
 
         } catch (e: Exception) {
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.putExtra("page", 0)
-            intent
         }
     }
 }

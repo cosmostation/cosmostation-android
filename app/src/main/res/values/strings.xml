@@ -156,6 +156,7 @@
     <string name="title_coin" translatable="false">Coins</string>
     <string name="title_token" translatable="false">Tokens</string>
     <string name="title_receive" translatable="false">Receive</string>
+    <string name="title_ecosystem" translatable="false">Ecosystem</string>
     <string name="title_history" translatable="false">History</string>
     <string name="title_about">About</string>
     <string name="title_select_account" translatable="false">Select account</string>

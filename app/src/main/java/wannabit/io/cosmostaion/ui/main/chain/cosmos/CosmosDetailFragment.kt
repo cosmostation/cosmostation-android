@@ -246,36 +246,33 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            detailPagerAdapter = DetailPageAdapter(
-                requireActivity(), selectedChain
-            )
-            viewPager.adapter = detailPagerAdapter
-            viewPager.offscreenPageLimit = 2
-            viewPager.isUserInputEnabled = false
-            tabLayout.bringToFront()
-
             val supportToken =
                 selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
             val supportNft = selectedChain.supportNft
 
+            val tableTitles = mutableListOf<String>()
+            tableTitles.add("Coins")
+
+            if (supportToken) tableTitles.add("Tokens")
+            if (supportNft) tableTitles.add("NFTs")
+
+            tableTitles.add("Receive")
+            tableTitles.add("History")
+
+            if (selectedChain.isEcosystem()) tableTitles.add("Ecosystem")
+
+            tableTitles.add("About")
+
+            detailPagerAdapter = DetailPageAdapter(
+                requireActivity(), tableTitles, selectedChain
+            )
+            viewPager.adapter = detailPagerAdapter
+            viewPager.offscreenPageLimit = 4
+            viewPager.isUserInputEnabled = false
+            tabLayout.bringToFront()
+
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = when {
-                    position == 0 -> getString(R.string.title_coin)
-                    supportToken && position == 1 -> getString(R.string.title_token)
-                    supportNft && position == 1 || supportToken && supportNft && position == 2 -> getString(
-                        R.string.title_nft
-                    )
-
-                    !supportToken && position == 1 || supportToken && position == 2 || supportNft && position == 2 || supportToken && supportNft && position == 3 -> getString(
-                        R.string.title_receive
-                    )
-
-                    !supportToken && position == 2 || supportToken && position == 3 || supportNft && position == 3 || supportToken && supportNft && position == 4 -> getString(
-                        R.string.title_history
-                    )
-
-                    else -> "About"
-                }
+                tab.text = tableTitles[position]
             }.attach()
 
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -283,13 +280,13 @@ class CosmosDetailFragment : Fragment() {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
                     when (tab?.text.toString()) {
-                        getString(R.string.title_token) -> {
+                        "Tokens" -> {
                             btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
                             btnAddToken.visibility = View.VISIBLE
                             noticeType = NoticeType.TOKEN_GITHUB
                         }
 
-                        getString(R.string.title_nft) -> {
+                        "NFTs" -> {
                             btnAddToken.setImageResource(R.drawable.icon_nft_request)
                             btnAddToken.visibility = View.VISIBLE
                             noticeType = NoticeType.TOKEN_NFT_GITHUB
@@ -609,46 +606,26 @@ class CosmosDetailFragment : Fragment() {
     }
 
     class DetailPageAdapter(
-        fragmentActivity: FragmentActivity, selectedChain: CosmosLine
+        fragmentActivity: FragmentActivity,
+        private val tabTitles: List<String>,
+        private val selectedChain: CosmosLine
     ) : FragmentStateAdapter(fragmentActivity) {
-        private val fragments = mutableListOf<Fragment>()
-
-        init {
-            if (selectedChain is EthereumLine) {
-                fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(TokenFragment.newInstance(selectedChain))
-                fragments.add(ReceiveFragment.newInstance(selectedChain))
-                fragments.add(HistoryFragment.newInstance(selectedChain))
-
-                if (selectedChain.supportCosmos) {
-                    fragments.add(AboutFragment.newInstance(selectedChain))
-                }
-
-            } else {
-                fragments.add(CoinFragment.newInstance(selectedChain))
-                fragments.add(ReceiveFragment.newInstance(selectedChain))
-                fragments.add(HistoryFragment.newInstance(selectedChain))
-                fragments.add(AboutFragment.newInstance(selectedChain))
-
-                if ((selectedChain.supportCw20 || selectedChain.supportErc20) && selectedChain.supportNft) {
-                    fragments.add(1, TokenFragment.newInstance(selectedChain))
-                    fragments.add(2, NftFragment.newInstance(selectedChain))
-
-                } else if (selectedChain.supportCw20 || selectedChain.supportErc20) {
-                    fragments.add(1, TokenFragment.newInstance(selectedChain))
-
-                } else if (selectedChain.supportNft) {
-                    fragments.add(1, NftFragment.newInstance(selectedChain))
-                }
-            }
-        }
 
         override fun getItemCount(): Int {
-            return fragments.size
+            return tabTitles.size
         }
 
         override fun createFragment(position: Int): Fragment {
-            return fragments[position]
+            return when (tabTitles[position]) {
+                "Coins" -> CoinFragment.newInstance(selectedChain)
+                "Tokens" -> TokenFragment.newInstance(selectedChain)
+                "NFTs" -> NftFragment.newInstance(selectedChain)
+                "Receive" -> ReceiveFragment.newInstance(selectedChain)
+                "History" -> HistoryFragment.newInstance(selectedChain)
+                "Ecosystem" -> EcoSystemFragment.newInstance(selectedChain)
+                "About" -> AboutFragment.newInstance(selectedChain)
+                else -> throw IllegalArgumentException("Invalid tab position")
+            }
         }
     }
 
