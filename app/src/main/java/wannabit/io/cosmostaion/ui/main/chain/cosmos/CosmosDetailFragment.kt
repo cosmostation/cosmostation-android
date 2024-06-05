@@ -356,7 +356,7 @@ class CosmosDetailFragment : Fragment() {
             accountLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )
 
                 } else {
@@ -369,7 +369,7 @@ class CosmosDetailFragment : Fragment() {
             accountValueLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )
 
                 } else {
