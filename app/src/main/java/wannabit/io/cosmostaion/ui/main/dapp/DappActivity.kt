@@ -1036,9 +1036,9 @@ class DappActivity : BaseActivity() {
                 "eth_accounts" -> {
                     if (selectEvmChain?.address?.isNotEmpty() == true) {
                         val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
-                            selectChain?.address
+                            selectEvmChain?.address
                         } else {
-                            ByteUtils.convertBech32ToEvm(selectChain?.address)
+                            ByteUtils.convertBech32ToEvm(selectEvmChain?.address)
                         }
                         appToWebResult(
                             messageJson, JSONArray(listOf(ethAddress)), messageId
