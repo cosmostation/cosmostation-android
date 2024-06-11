@@ -3,11 +3,14 @@ package wannabit.io.cosmostaion.ui.main.dapp
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import android.webkit.JavascriptInterface
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
@@ -17,6 +20,8 @@ import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
@@ -44,7 +49,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import okhttp3.OkHttpClient
-import org.apache.commons.lang3.StringUtils
 import org.bouncycastle.util.Strings
 import org.json.JSONArray
 import org.json.JSONObject
@@ -79,7 +83,6 @@ import wannabit.io.cosmostaion.data.model.req.Signature
 import wannabit.io.cosmostaion.data.model.req.StdTxValue
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
-import wannabit.io.cosmostaion.ui.main.dapp.option.DappUrlDialog
 import wannabit.io.cosmostaion.ui.main.dapp.option.WcSignFragment
 import java.io.BufferedReader
 import java.net.URLDecoder
@@ -109,6 +112,10 @@ class DappActivity : BaseActivity() {
     private var processingRequestID: Long? = null
 
     private var currentEvmChainId: String? = null
+
+    private var isAnimationInProgress = false
+    private var previousScrollY = 0
+    private lateinit var bottomViewHeightConstraint: ConstraintLayout.LayoutParams
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,23 +156,7 @@ class DappActivity : BaseActivity() {
 
     private fun setUpDappView() {
         binding.apply {
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            dappClose.setOnClickListener { finish() }
-            dappRefresh.setOnClickListener { dappWebView.reload() }
-            wcPeer.setOnClickListener {
-                DappUrlDialog.newInstance(
-                    binding.dappWebView.url ?: "",
-                    object : DappUrlDialog.UrlListener {
-                        override fun input(url: String) {
-                            if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
-                                wcUrl = url
-                                binding.dappWebView.loadUrl(url)
-                            }
-                        }
-
-                    }).show(supportFragmentManager, "dialog")
-            }
-
+            setUpBarFunction()
             dappWebView.apply {
                 settings.apply {
                     javaScriptEnabled = true
@@ -177,6 +168,9 @@ class DappActivity : BaseActivity() {
                     webChromeClient = dappWebChromeClient
                 }
             }
+
+            bottomViewHeightConstraint = navView.layoutParams as ConstraintLayout.LayoutParams
+            dappWebView.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener())
 
             intent.data?.query?.let { query ->
                 Log.e("TEst12345 : ", query)
@@ -194,9 +188,23 @@ class DappActivity : BaseActivity() {
                 dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
                 WebStorage.getInstance().deleteAllData()
             }
+        }
+    }
 
-            setSupportActionBar(toolBar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
+    private fun setUpBarFunction() {
+        binding.apply {
+            accountName.text = BaseData.baseAccount?.name
+            btnBack.setOnClickListener {
+                if (dappWebView.canGoBack()) {
+                    dappWebView.goBack()
+                } else {
+                    finish()
+                }
+            }
+            btnNext.setOnClickListener {
+                dappWebView.goForward()
+            }
+            btnClose.setOnClickListener { finish() }
         }
     }
 
@@ -643,7 +651,6 @@ class DappActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         intent.data?.let { data ->
-            Log.e("TEst1234 : ", data.query.toString())
             if (data.scheme != WC_URL_SCHEME_COSMOSTATION) {
                 return
             }
@@ -678,6 +685,7 @@ class DappActivity : BaseActivity() {
             pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         }
         super.onDestroy()
+        binding.dappWebView.viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener())
     }
 
     private fun signBundle(id: Long, url: String?, data: String): Bundle {
@@ -702,12 +710,29 @@ class DappActivity : BaseActivity() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
 
-            binding.wcPeer.text = Uri.parse(url).host
+            binding.dappUrl.text = Uri.parse(url).host
             initInjectScript(view)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+
+            if (view?.canGoForward() == true) {
+                binding.btnNext.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        this@DappActivity, R.color.color_base01
+                    ), PorterDuff.Mode.SRC_IN
+                )
+                binding.btnNext.isClickable = true
+
+            } else {
+                binding.btnNext.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        this@DappActivity, R.color.color_base03
+                    ), PorterDuff.Mode.SRC_IN
+                )
+                binding.btnNext.isClickable = false
+            }
         }
 
         override fun shouldOverrideUrlLoading(
@@ -1422,6 +1447,38 @@ class DappActivity : BaseActivity() {
                     "window.postMessage(%s);", postMessageJson.toString()
                 ), null
             )
+        }
+    }
+
+    private fun scrollChangedListener() = ViewTreeObserver.OnScrollChangedListener {
+        binding.apply {
+            if (!isAnimationInProgress) {
+                val currentScrollY = dappWebView.scrollY
+                if (currentScrollY < previousScrollY) {
+                    bottomViewHeightConstraint.height = 120
+                    animateTopViewHeight()
+                } else if (currentScrollY > previousScrollY) {
+                    bottomViewHeightConstraint.height = 1
+                    animateTopViewHeight()
+                }
+
+                if (currentScrollY == 0) {
+                    bottomViewHeightConstraint.height = 120
+                    animateTopViewHeight()
+                }
+                previousScrollY = currentScrollY
+            }
+        }
+    }
+
+    private fun animateTopViewHeight() {
+        binding.apply {
+            isAnimationInProgress = true
+            navView.layoutParams = bottomViewHeightConstraint
+            navView.requestLayout()
+            navView.animate().setDuration(200).withEndAction {
+                isAnimationInProgress = false
+            }.start()
         }
     }
 
