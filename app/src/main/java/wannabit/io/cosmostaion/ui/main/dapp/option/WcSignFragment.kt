@@ -91,9 +91,9 @@ class WcSignFragment(
                 if (selectedChain is ChainKava459) {
                     initWc1DataView(data)
                 } else {
-                    try {
+                    runCatching {
                         initAminoDataView(data)
-                    } catch (e: Exception) {
+                    }.getOrElse {
                         initInjectionDataView(data)
                     }
                 }

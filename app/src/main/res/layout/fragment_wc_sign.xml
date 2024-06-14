@@ -126,7 +126,7 @@
             <TextView
                 android:id="@+id/dapp_address"
                 style="@style/font_sb_12"
-                android:layout_width="@dimen/space_120"
+                android:layout_width="@dimen/space_150"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:maxLines="1"

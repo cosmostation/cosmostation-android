@@ -17,6 +17,7 @@ class EvmEcoSystemViewHolder(
             val url = info["thumbnail"].asString
             Picasso.get().load(url).into(resourceImg)
 
+            dappTypeBadge.text = info["type"].asString
             dappTitle.text = info["name"].asString
             dappDescription.text = info["description"].asString
         }
