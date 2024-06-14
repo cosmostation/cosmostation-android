@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -160,7 +161,7 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            fabMenu.menuIconView.setImageResource(R.drawable.icon_fab)
+            fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
@@ -352,7 +353,7 @@ class CosmosDetailFragment : Fragment() {
             accountLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )
 
                 } else {
@@ -365,7 +366,7 @@ class CosmosDetailFragment : Fragment() {
             accountValueLayout.setOnClickListener {
                 if (selectedChain is EthereumLine) {
                     QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )
 
                 } else {
@@ -396,6 +397,8 @@ class CosmosDetailFragment : Fragment() {
                     )
                 }
             }
+
+            fabMenu.isIconAnimated = false
 
             backdropLayout.setOnClickListener {
                 fabMenu.close(true)

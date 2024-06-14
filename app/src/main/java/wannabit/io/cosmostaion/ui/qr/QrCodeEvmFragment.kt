@@ -2,9 +2,6 @@ package wannabit.io.cosmostaion.ui.qr
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,18 +9,14 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.EncodeHintType
-import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
 
 class QrCodeEvmFragment : BottomSheetDialogFragment() {
@@ -33,7 +26,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private lateinit var selectedEvmChain: EthereumLine
 
-    private var isShowEvmAddress = true
+    private lateinit var qrCodAdapter: QrCodAdapter
 
     companion object {
         @JvmStatic
@@ -83,95 +76,51 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
-        BaseData.baseAccount?.let { account ->
-            binding.apply {
-                chainBadge.visibility = View.GONE
-                chainTypeBadge.visibility = View.GONE
-                btnFilter.visibleOrGone(selectedEvmChain.supportCosmos)
-
-                if (!selectedEvmChain.supportCosmos) {
-                    setQrAddress(selectedEvmChain.address)
-
-                } else {
-                    updateAddress()
-                }
-
-                addressView.setBackgroundResource(R.drawable.cell_bg)
-                chainName.text = selectedEvmChain.name
-                accountPath.text = selectedEvmChain.getHDPath(account.lastHDPath)
-                chainImg.setImageResource(selectedEvmChain.logo)
-                chainBadge.visibility = View.GONE
-
-                qrView.radius = resources.getDimension(R.dimen.space_8)
-                qrImg.clipToOutline = true
-            }
-        }
-    }
-
-    private fun updateAddress() {
-        if (isShowEvmAddress) {
-            setQrAddress(ByteUtils.convertBech32ToEvm(selectedEvmChain.address))
-            binding.addressTitle.text = getString(R.string.str_eth_style_address)
-        } else {
-            setQrAddress(selectedEvmChain.address)
-            binding.addressTitle.text = getString(R.string.str_cosmos_style_address)
-        }
-    }
-
-    private fun setQrAddress(selectAddress: String?) {
         binding.apply {
-            val hints = mutableMapOf<EncodeHintType, Int>()
-            hints[EncodeHintType.MARGIN] = 0
-
-            val barcodeEncoder = BarcodeEncoder()
-            val bitmap = barcodeEncoder.encodeBitmap(
-                selectAddress, BarcodeFormat.QR_CODE, 540, 540, hints
-            )
-            address.text = selectAddress
-            qrImg.setImageBitmap(bitmap)
+            BaseData.baseAccount?.let { account ->
+                if (selectedEvmChain.supportCosmos) {
+                    btnEthShare.visibility = View.VISIBLE
+                    btnCosmosShare.visibility = View.VISIBLE
+                    btnShare.visibility = View.GONE
+                } else {
+                    btnEthShare.visibility = View.GONE
+                    btnCosmosShare.visibility = View.GONE
+                    btnShare.visibility = View.VISIBLE
+                }
+                accountName.text = account.name
+                qrCodAdapter = QrCodAdapter(account, selectedEvmChain)
+                recycler.setHasFixedSize(true)
+                recycler.layoutManager = LinearLayoutManager(requireContext())
+                recycler.adapter = qrCodAdapter
+            }
         }
     }
 
     private fun setupClickAction() {
         binding.apply {
-            btnFilter.setOnClickListener {
-                isShowEvmAddress = !isShowEvmAddress
-                updateAddress()
-            }
-
-            addressView.setOnClickListener {
-                val copyAddress = if (isShowEvmAddress) {
-                    if (selectedEvmChain.supportCosmos) {
-                        ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
-                    } else {
-                        selectedEvmChain.address
-                    }
-                } else {
-                    selectedEvmChain.address
-                }
-                val clipboard =
-                    requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("address", copyAddress)
-                clipboard.setPrimaryClip(clip)
-                requireActivity().makeToast(R.string.str_msg_address_copied)
-            }
-
             btnShare.setOnClickListener {
-                val shareAddress = if (isShowEvmAddress) {
-                    if (selectedEvmChain.supportCosmos) {
-                        ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
-                    } else {
-                        selectedEvmChain.address
-                    }
-                } else {
-                    selectedEvmChain.address
-                }
-
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, shareAddress)
+                intent.putExtra(Intent.EXTRA_TEXT, selectedEvmChain.address)
                 intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, "share"))
+            }
 
+            btnEthShare.setOnClickListener {
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(
+                    Intent.EXTRA_TEXT, ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
+                )
+                intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, "share"))
+            }
+
+            btnCosmosShare.setOnClickListener {
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(Intent.EXTRA_TEXT, selectedEvmChain.address)
+                intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))
             }
         }

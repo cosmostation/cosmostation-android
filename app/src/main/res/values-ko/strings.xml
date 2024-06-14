@@ -7,6 +7,8 @@
     <string name="str_share_address">주소 공유</string>
     <string name="str_share_evm_address">Evm형식 주소공유</string>
     <string name="str_share_cosmos_address">Cosmos형식 주소공유</string>
+    <string name="str_share_evm_address2">Evm형식 주소공유</string>
+    <string name="str_share_cosmos_address2">Cosmos형식 주소공유</string>
     <string name="str_address">주소</string>
     <string name="str_ethereum_address">이더리움 주소</string>
     <string name="str_confirm">확인</string>

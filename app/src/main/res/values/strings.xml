@@ -25,6 +25,8 @@
     <string name="str_share_address">Share address</string>
     <string name="str_share_evm_address">Share evm style\naddress</string>
     <string name="str_share_cosmos_address">Share cosmos style\naddress</string>
+    <string name="str_share_evm_address2">Share evm style address</string>
+    <string name="str_share_cosmos_address2">Share cosmos style address</string>
     <string name="str_address">Address</string>
     <string name="str_ethereum_address">Ethereum address</string>
     <string name="str_confirm">Confirm</string>
