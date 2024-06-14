@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
+import org.web3j.crypto.ECKeyPair
+import org.web3j.crypto.Sign
+import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
@@ -29,11 +33,13 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
+import wannabit.io.cosmostaion.evm.StructuredDataEncode
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
@@ -286,6 +292,87 @@ class DashboardFragment : Fragment() {
                         if (isNew) {
                             PushManager.syncAddresses(Prefs.fcmToken)
                         }
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        val test = "{\n" +
+                                "                   \"types\":{\n" +
+                                "                       \"EIP712Domain\":[\n" +
+                                "                         {\n" +
+                                "                             \"name\":\"name\",\n" +
+                                "                             \"type\":\"string\"\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"version\",\n" +
+                                "                             \"type\":\"string\"\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"chainId\",\n" +
+                                "                             \"type\":\"uint256\"\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"verifyingContract\",\n" +
+                                "                             \"type\":\"address\"\n" +
+                                "                          }\n" +
+                                "                       ],\n" +
+                                "                       \"Person\":[\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"name\",\n" +
+                                "                             \"type\":\"string\"\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"wallet\",\n" +
+                                "                             \"type\":\"address\"\n" +
+                                "                          }\n" +
+                                "                       ],\n" +
+                                "                       \"Mail\":[\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"from\",\n" +
+                                "                             \"type\":\"Person\"\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"to\",\n" +
+                                "                             \"type\":\"Person\"\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                             \"name\":\"contents\",\n" +
+                                "                             \"type\":\"string\"\n" +
+                                "                          }\n" +
+                                "                       ]\n" +
+                                "                   },\n" +
+                                "                    \"primaryType\":\"Mail\",\n" +
+                                "                    \"domain\":{\n" +
+                                "                       \"name\":\"Ether Mail\",\n" +
+                                "                       \"version\":\"1\",\n" +
+                                "                       \"chainId\":1,\n" +
+                                "                       \"verifyingContract\":\"0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC\"\n" +
+                                "                    },\n" +
+                                "                   \"message\":{\n" +
+                                "                       \"from\":{\n" +
+                                "                          \"name\":\"Cow\",\n" +
+                                "                          \"wallet\":\"0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826\"\n" +
+                                "                       },\n" +
+                                "                       \"to\":{\n" +
+                                "                          \"name\":\"Bob\",\n" +
+                                "                          \"wallet\":\"0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB\"\n" +
+                                "                       },\n" +
+                                "                      \"contents\":\"Hello, Bob!\"\n" +
+                                "                    }\n" +
+                                "                 }"
+                        val encoder = StructuredDataEncode(test)
+                        val hashStructuredData = encoder.hashStructuredData()
+                        Log.e("Test hash : ", hashStructuredData.toHex())
+
+                        val signature = Sign.signMessage(
+                            hashStructuredData, ECKeyPair.create(toDisplayEvmChains.first().privateKey), false
+                        )
+                        val r = Numeric.toHexString(signature.r)
+                        val s = Numeric.toHexString(signature.s)
+                        val v = Numeric.toHexString(signature.v)
+
+                        val sig = r + s.substring(2) + v.substring(2)
+
+                        Log.e("Test signature : ", sig)
                     }
                 }
             }
