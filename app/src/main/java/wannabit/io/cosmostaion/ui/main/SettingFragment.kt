@@ -89,7 +89,7 @@ class SettingFragment : Fragment() {
             listOf(
                 accountView, importView, legacyView, chainView, addressBookView,
                 languageView, currencyView, styleView, priceView, alarmView, appLockView, bioView,
-                mintscanView, homepageView, blogView, twitterView, telegramView, youtubeView,
+                helpView, homepageView,
                 termView, privacyView, githubView, versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
@@ -278,10 +278,23 @@ class SettingFragment : Fragment() {
                 }
             }
 
-            mintscanView.setOnClickListener {
+            helpView.setOnClickListener {
+                val url = when (Prefs.language) {
+                    BaseUtils.LANGUAGE_KOREAN -> {
+                        Uri.parse("https://www.cosmostation.io/kr/support/mobile")
+                    }
+
+                    BaseUtils.LANGUAGE_JAPANESE -> {
+                        Uri.parse("https://www.cosmostation.io/jp/support/mobile")
+                    }
+
+                    else -> {
+                        Uri.parse("https://www.cosmostation.io/en/support/mobile")
+                    }
+                }
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.EXPLORER_BASE_URL)
+                        Intent.ACTION_VIEW, url
                     )
                 )
             }
@@ -290,38 +303,6 @@ class SettingFragment : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
-                    )
-                )
-            }
-
-            twitterView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_TWITTER)
-                    )
-                )
-            }
-
-            blogView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_BLOG)
-                    )
-                )
-            }
-
-            telegramView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_TELEGRAM)
-                    )
-                )
-            }
-
-            youtubeView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_YOUTUBE)
                     )
                 )
             }

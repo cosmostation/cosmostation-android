@@ -13,6 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
 import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
@@ -245,7 +247,7 @@ class CoinFragment : Fragment() {
 
     private fun sunsetPopup() {
         val noticeType = when (selectedChain) {
-            is ChainCantoEvm, is ChainRegen -> {
+            is ChainCantoEvm, is ChainRegen, is ChainLikeCoin, is ChainIxo -> {
                 NoticeType.CHAIN_DELIST
             }
 
