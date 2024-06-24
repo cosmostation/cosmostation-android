@@ -40,7 +40,7 @@
             android:name=".ui.main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.main.chain.cosmos.CosmosActivity"
             android:launchMode="singleTask"
@@ -109,14 +109,12 @@
         <activity
             android:name=".ui.main.setting.general.PushDialogActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".ui.main.dapp.DappActivity"
+            android:name=".ui.main.dapp.DeepLinkHandlerActivity"
             android:exported="true"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -137,6 +135,32 @@
                     android:host="internaldapp"
                     android:scheme="cosmostation" />
             </intent-filter>
+            <intent-filter>
+                <data android:scheme="wc" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dapp"
+                    android:scheme="cosmostation" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.main.dapp.DappActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
         </activity>
 
         <service

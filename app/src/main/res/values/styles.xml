@@ -135,6 +135,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/anim_slide_out_bottom</item>

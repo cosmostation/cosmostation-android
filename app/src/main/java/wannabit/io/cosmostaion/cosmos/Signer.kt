@@ -5,6 +5,7 @@ import android.util.Base64.encode
 import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
+import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -16,6 +17,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.signing.v1beta1.SigningProto
+import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
 import com.cosmos.tx.v1beta1.ServiceProto.SimulateRequest
@@ -24,7 +26,6 @@ import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.cosmos.tx.v1beta1.TxProto.ModeInfo
 import com.cosmos.tx.v1beta1.TxProto.SignDoc
 import com.cosmos.tx.v1beta1.TxProto.SignerInfo
-import com.cosmos.tx.v1beta1.TxProto.Tx
 import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmos.vesting.v1beta1.VestingProto
@@ -73,10 +74,10 @@ import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
 import wannabit.io.cosmostaion.common.delegatorRewardDenoms
 import wannabit.io.cosmostaion.common.earnRewardDenoms
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.hardRewardDenoms
 import wannabit.io.cosmostaion.common.hasUsdxMinting
 import wannabit.io.cosmostaion.common.swapRewardDenoms
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -89,6 +90,7 @@ import wannabit.io.cosmostaion.data.model.req.Value
 import java.math.BigInteger
 import java.math.RoundingMode
 import java.nio.charset.Charset
+import java.util.concurrent.TimeUnit
 
 object Signer {
 
@@ -1108,9 +1110,10 @@ object Signer {
             .build()
     }
 
-    private fun grpcSimulTx(txBody: TxBody?, authInfo: AuthInfo?): Tx? {
+    private fun grpcSimulTx(txBody: TxBody?, authInfo: AuthInfo?): TxRaw? {
         val sigByte = ByteArray(64)
-        return Tx.newBuilder().setAuthInfo(authInfo).setBody(txBody)
+        return TxRaw.newBuilder().setAuthInfoBytes(authInfo?.toByteString())
+            .setBodyBytes(txBody?.toByteString())
             .addSignatures(ByteString.copyFrom(sigByte)).build()
     }
 
@@ -1296,6 +1299,20 @@ object Signer {
         return StdTx(COSMOS_AUTH_TYPE_STDTX, StdTxValue(msgs, fee, signatures, memo))
     }
 
+    fun dAppSimulateGas(
+        selectedChain: CosmosLine,
+        txBody: TxBody,
+        authInfo: AuthInfo?
+    ): AbciProto.GasInfo {
+        val channel = getChannel(selectedChain)
+        val simulateStub =
+            ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+        val simulateTx = grpcSimulTx(txBody, authInfo)
+        val simulateRequest =
+            SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
+        return simulateStub.simulate(simulateRequest).gasInfo
+    }
+
     fun signature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
         if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             return ethermintSignature(selectedChain, toSignByte)
@@ -1313,8 +1330,7 @@ object Signer {
     }
 
     private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
-        val privateKey = selectedChain?.privateKey?.toHex()?.let { BigInteger(it, 16) }
-        val sig = Sign.signMessage(toSignByte, ECKeyPair.create(privateKey))
+        val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain?.privateKey))
         val sigData = ByteArray(64) // 32 bytes for R + 32 bytes for S
         System.arraycopy(sig.r, 0, sigData, 0, 32)
         System.arraycopy(sig.s, 0, sigData, 32, 32)

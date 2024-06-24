@@ -40,6 +40,9 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
     lateinit var applicationViewModel: ApplicationViewModel
     private var appStatus: AppStatus? = null
 
+    var isInBackground: Boolean = true
+        private set
+
     override fun getViewModelStore(): ViewModelStore {
         return mViewModelStore
     }

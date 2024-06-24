@@ -58,4 +58,7 @@ interface MintscanApi {
     suspend fun oktHistory(
         @Query("device") device: String?, @Query("address") address: String?, @Query("limit") limit: String?
     ): Response<OktHistoryResponse>
+
+    @GET("{chain}/eco_list.json")
+    suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
 }

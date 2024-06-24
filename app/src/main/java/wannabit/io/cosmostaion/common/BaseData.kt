@@ -21,6 +21,9 @@ object BaseData {
     var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
 
+    var isBackGround = false
+    var appSchemeUrl = ""
+
     fun getPrice(coinGeckoId: String?, isUsd: Boolean? = false): BigDecimal {
         val price = if (isUsd == true) {
             usdPrices?.firstOrNull { it.coinGeckoId == coinGeckoId }

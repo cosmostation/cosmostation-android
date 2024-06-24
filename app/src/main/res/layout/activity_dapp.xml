@@ -1,76 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/color_base09">
+    android:background="@color/color_base09"
+    android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tool_bar"
+    <TextView
+        android:id="@+id/dapp_url"
+        style="@style/font_sb_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:contentInsetStartWithNavigation="0dp">
-
-        <RelativeLayout
-            android:id="@+id/dapp_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginRight="@dimen/space_16"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/dapp_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:src="@drawable/icon_clear" />
-
-            <TextView
-                android:id="@+id/wc_peer"
-                style="@style/font_sb_14"
-                android:textColor="@color/color_base01"
-                android:paddingVertical="7dp"
-                android:paddingHorizontal="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:layout_toRightOf="@+id/dapp_close"
-                android:layout_toLeftOf="@+id/dapp_refresh"
-                android:maxWidth="220dp"
-                android:lines="1"
-                android:layout_centerVertical="true" />
-
-            <ImageView
-                android:id="@+id/dapp_refresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/icon_refresh" />
-        </RelativeLayout>
-
-    </androidx.appcompat.widget.Toolbar>
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:textColor="@color/color_base01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <WebView
         android:id="@+id/dapp_web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tool_bar"
+        android:layout_height="0dp"
         android:background="@color/color_base09"
         android:fillViewport="true"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintTop_toBottomOf="@+id/dapp_url" />
+
+    <RelativeLayout
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/color_base07"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:padding="@dimen/space_8"
+            android:layout_marginStart="@dimen/space_8"
+            android:src="@drawable/icon_back" />
+
+        <ImageView
+            android:id="@+id/btn_next"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_toRightOf="@+id/btn_back"
+            android:padding="@dimen/space_8"
+            android:layout_marginStart="@dimen/space_8"
+            android:src="@drawable/icon_front" />
+
+        <TextView
+            android:id="@+id/account_name"
+            style="@style/font_sb_12"
+            android:layout_width="@dimen/space_200"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="-"
+            android:textColor="@color/color_base01" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_marginEnd="@dimen/space_8"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/space_8"
+            android:src="@drawable/icon_clear" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/loading_layer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tool_bar"
         android:background="@color/color_background_dialog"
         android:focusable="true"
         android:visibility="gone">
@@ -85,4 +96,4 @@
             app:lottie_rawRes="@raw/loading" />
     </RelativeLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -186,6 +186,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         }
     }
 
+    fun chainDappName(): String? {
+        return getChainListParam()?.get("name_for_dapp")?.asString?.lowercase()
+    }
+
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
         val gasAmount = getFeeBaseGasDpAmount()
         val feeDatas = getFeeInfos(c)[position].feeDatas
@@ -283,6 +287,10 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     fun isBankLocked(): Boolean {
         return getChainListParam()?.get("isBankLocked")?.asBoolean ?: false
+    }
+
+    fun isEcosystem(): Boolean {
+        return getChainListParam()?.get("moblie_dapp")?.asBoolean ?: false
     }
 
     fun voteThreshold(): String {

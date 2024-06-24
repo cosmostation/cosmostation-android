@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dapp_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_9"
+        android:layout_marginEnd="@dimen/space_9"
+        android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/resource_img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_150"
+                android:background="@drawable/item_nft_bg"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dapp_type_badge"
+                style="@style/font_sm_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_box_ecosystem"
+                android:layout_marginEnd="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                android:paddingHorizontal="@dimen/space_6"
+                android:paddingVertical="@dimen/space_2"
+                android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dapp_title"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/resource_img" />
+
+            <TextView
+                android:id="@+id/dapp_description"
+                style="@style/font_sm_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginBottom="@dimen/space_12"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:minLines="3"
+                android:lines="3"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dapp_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

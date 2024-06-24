@@ -6,6 +6,7 @@ import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRes
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
@@ -132,4 +133,6 @@ interface WalletRepository {
     suspend fun cw721TokenDetail(
         line: CosmosLine, contractAddress: String, tokenId: String
     ): NetworkResult<JsonObject>
+
+    suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>>
 }
