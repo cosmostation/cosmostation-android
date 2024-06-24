@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.databinding.ActivityIntroBinding
 import wannabit.io.cosmostaion.databinding.DialogUpdateAppBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.syncAddresses
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.updateStatus
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitListener
@@ -106,6 +107,7 @@ class IntroActivity : AppCompatActivity() {
             account?.let {
                 BaseData.baseAccount = account
                 account.initAccount()
+
                 if (CosmostationApp.instance.needShowLockScreen()) {
                     val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
                     startActivity(intent)
@@ -113,9 +115,24 @@ class IntroActivity : AppCompatActivity() {
 
                 } else {
                     withContext(Dispatchers.Main) {
-                        Intent(this@IntroActivity, MainActivity::class.java).apply {
-                            startActivity(this)
-                            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        if (BaseData.appSchemeUrl.isNotEmpty()) {
+                            Intent(this@IntroActivity, DappActivity::class.java).apply {
+                                BaseData.isBackGround = false
+                                putExtra("dappUrl", BaseData.appSchemeUrl)
+                                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                startActivity(this)
+                                overridePendingTransition(
+                                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                                )
+                            }
+
+                        } else {
+                            Intent(this@IntroActivity, MainActivity::class.java).apply {
+                                BaseData.isBackGround = true
+                                startActivity(this)
+                                flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
                         }
                     }
                 }

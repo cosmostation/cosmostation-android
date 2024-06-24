@@ -44,6 +44,7 @@
     <string name="str_low">低</string>
     <string name="str_average">平</string>
     <string name="str_high">高</string>
+    <string name="str_origin">起源</string>
     <string name="str_send">申請者</string>
     <string name="str_insert_memo">メモをにゅうりょくしてください。(オプション)</string>
     <string name="str_address_book">連絡先の管理</string>
@@ -112,6 +113,8 @@
     <string name="str_style">スタイル</string>
     <string name="str_simple">シンプル</string>
     <string name="str_pro">プロ</string>
+    <string name="str_permit_request">Permit 要求</string>
+    <string name="str_tx_request">Tx 要求</string>
 
 
     //title

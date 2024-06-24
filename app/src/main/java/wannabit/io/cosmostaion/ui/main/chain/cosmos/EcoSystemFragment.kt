@@ -85,7 +85,7 @@ class EcoSystemFragment : Fragment() {
 
             ecoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
-                    putExtra("dappUrl", it)
+                    putExtra("dapp", it)
                     startActivity(this)
                 }
             }

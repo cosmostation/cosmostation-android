@@ -86,7 +86,8 @@ import wannabit.io.cosmostaion.data.model.req.StdTxValue
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
-import wannabit.io.cosmostaion.ui.main.dapp.option.WcSignFragment
+import wannabit.io.cosmostaion.ui.main.dapp.option.PopUpCosmosSignFragment
+import wannabit.io.cosmostaion.ui.main.dapp.option.PopUpEvmSignFragment
 import java.io.BufferedReader
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
@@ -195,19 +196,25 @@ class DappActivity : BaseActivity() {
             dappWebView.visibility = View.VISIBLE
             dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
             WebStorage.getInstance().deleteAllData()
+            setDAppUrl()
+        }
+    }
 
-            intent.data?.let { uri ->
-                if (uri.host == WC_URL_SCHEME_HOST_DAPP_INTERNAL || uri.host == WC_URL_SCHEME_HOST_DAPP_EXTERNAL) {
-                    wcUrl = uri.query
-                    dappWebView.loadUrl(uri.query.toString())
+    private fun setDAppUrl() {
+        binding.apply {
+            val filterIntentUri = Uri.parse(intent.getStringExtra("dappUrl").toString()) ?: null
+            if (filterIntentUri.toString() != "null") {
+                if (filterIntentUri?.host == WC_URL_SCHEME_HOST_DAPP_INTERNAL || filterIntentUri?.host == WC_URL_SCHEME_HOST_DAPP_EXTERNAL) {
+                    wcUrl = filterIntentUri.query
+                    dappWebView.loadUrl(filterIntentUri.query.toString())
                 } else {
                     dAppType = DAppType.DEEPLINK_WC2
-                    connectWalletConnect(uri.query)
+                    connectWalletConnect(filterIntentUri?.query)
                 }
 
-            } ?: run {
-                wcUrl = intent.getStringExtra("dappUrl") ?: ""
-                dappWebView.loadUrl(intent.getStringExtra("dappUrl") ?: "")
+            } else {
+                wcUrl = intent.getStringExtra("dapp") ?: ""
+                dappWebView.loadUrl(intent.getStringExtra("dapp") ?: "")
             }
         }
     }
@@ -218,14 +225,51 @@ class DappActivity : BaseActivity() {
                 if (dappWebView.canGoBack()) {
                     dappWebView.goBack()
                 } else {
+                    if (!BaseData.isBackGround) {
+                        BaseData.appSchemeUrl = ""
+                    }
                     finish()
                 }
             }
+            btnNext.colorFilter = PorterDuffColorFilter(
+                ContextCompat.getColor(
+                    this@DappActivity, R.color.color_base03
+                ), PorterDuff.Mode.SRC_IN
+            )
+            btnNext.isClickable = false
             btnNext.setOnClickListener {
                 dappWebView.goForward()
             }
+
             btnClose.setOnClickListener {
+                if (!BaseData.isBackGround) {
+                    BaseData.appSchemeUrl = ""
+                }
                 finish()
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.getStringExtra("dappUrl")?.let {
+            Uri.parse(it)?.let { data ->
+                if (data.scheme != WC_URL_SCHEME_COSMOSTATION) {
+                    return
+                }
+
+                if (WC_URL_SCHEME_HOST_WC == data.host) {
+                    walletConnectURI = if (data.query?.startsWith("uri=") == true) {
+                        data.query?.replace("uri=", "")
+                    } else {
+                        data.query
+                    }
+                    if (walletConnectURI == null || walletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
+                    connectWalletConnect(walletConnectURI)
+
+                } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
+                    data.query?.let { url -> binding.dappWebView.loadUrl(url) }
+                }
             }
         }
     }
@@ -314,9 +358,9 @@ class DappActivity : BaseActivity() {
     private val processSignTrust = { id: Long, (_, transaction): WCSignTransaction ->
         runOnUiThread {
             val signBundle = signBundle(
-                id, wcUrl, transaction
+                id, wcUrl, transaction, "trust_sign"
             )
-            showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
+            showSignDialog(signBundle, object : PopUpCosmosSignFragment.WcSignRawDataListener {
                 override fun sign(id: Long, data: String) {
                     approveTrustRequest(
                         id, transaction
@@ -536,29 +580,33 @@ class DappActivity : BaseActivity() {
                     }
 
                     "cosmos_signDirect" -> {
-                        val signBundle = signBundle(id, wcUrl, params)
-                        showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                            override fun sign(id: Long, data: String) {
-                                approveSignDirectV2Request(id, data, sessionRequest)
-                            }
+                        val signBundle = signBundle(id, wcUrl, params, "sign_direct")
+                        showSignDialog(
+                            signBundle,
+                            object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    approveSignDirectV2Request(id, data, sessionRequest)
+                                }
 
-                            override fun cancel(id: Long) {
-                                cancelV2SignRequest(id, sessionRequest)
-                            }
-                        })
+                                override fun cancel(id: Long) {
+                                    cancelV2SignRequest(id, sessionRequest)
+                                }
+                            })
                     }
 
                     "cosmos_signAmino" -> {
-                        val signBundle = signBundle(id, wcUrl, params)
-                        showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                            override fun sign(id: Long, data: String) {
-                                approveSignAminoV2Request(id, data, sessionRequest)
-                            }
+                        val signBundle = signBundle(id, wcUrl, params, "sign_amino")
+                        showSignDialog(
+                            signBundle,
+                            object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    approveSignAminoV2Request(id, data, sessionRequest)
+                                }
 
-                            override fun cancel(id: Long) {
-                                cancelV2SignRequest(id, sessionRequest)
-                            }
-                        })
+                                override fun cancel(id: Long) {
+                                    cancelV2SignRequest(id, sessionRequest)
+                                }
+                            })
                     }
                 }
             }
@@ -684,29 +732,6 @@ class DappActivity : BaseActivity() {
         makeToast(R.string.str_cancel)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        intent.data?.let { data ->
-            Log.e("Test1234555 : ", data.toString())
-            if (data.scheme != WC_URL_SCHEME_COSMOSTATION) {
-                return
-            }
-
-            if (WC_URL_SCHEME_HOST_WC == data.host) {
-                walletConnectURI = if (data.query?.startsWith("uri=") == true) {
-                    data.query?.replace("uri=", "")
-                } else {
-                    data.query
-                }
-                if (walletConnectURI == null || walletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
-                connectWalletConnect(walletConnectURI)
-
-            } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
-                data.query?.let { url -> binding.dappWebView.loadUrl(url) }
-            }
-        }
-    }
-
     override fun onDestroy() {
         if (wcVersion == 1) {
             wcV1Client?.let {
@@ -721,23 +746,46 @@ class DappActivity : BaseActivity() {
             pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         }
         super.onDestroy()
-        binding.dappWebView.viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener())
+        binding.apply {
+            dappWebView.viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener())
+            dappWebView.removeJavascriptInterface("station")
+        }
     }
 
-    private fun signBundle(id: Long, url: String?, data: String): Bundle {
+    private fun signBundle(id: Long, url: String?, data: String, method: String? = ""): Bundle {
         val bundle = Bundle()
         bundle.putString("data", data)
         bundle.putString("url", url)
         bundle.putLong("id", id)
+        bundle.putString("method", method)
         return bundle
     }
 
-    private fun showSignDialog(bundle: Bundle, signListener: WcSignFragment.WcSignRawDataListener) {
+    private fun showSignDialog(
+        bundle: Bundle, signListener: PopUpCosmosSignFragment.WcSignRawDataListener
+    ) {
         bundle.getString("data")?.let { data ->
-            WcSignFragment(
-                selectChain, bundle.getLong("id"), data, bundle.getString("url"), signListener
+            PopUpCosmosSignFragment(
+                selectChain,
+                bundle.getLong("id"),
+                data,
+                bundle.getString("url"),
+                bundle.getString("method"),
+                signListener
             ).show(
-                supportFragmentManager, WcSignFragment::class.java.name
+                supportFragmentManager, PopUpCosmosSignFragment::class.java.name
+            )
+        }
+    }
+
+    private fun showEvmSignDialog(
+        bundle: Bundle, signListener: PopUpEvmSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpEvmSignFragment(
+                selectEvmChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
+            ).show(
+                supportFragmentManager, PopUpEvmSignFragment::class.java.name
             )
         }
     }
@@ -983,34 +1031,38 @@ class DappActivity : BaseActivity() {
 
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
-                    val signBundle = signBundle(0, wcUrl, params.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            approveSignAminoInjectRequest(messageJson, messageId, data)
-                        }
+                    val signBundle = signBundle(0, wcUrl, params.toString(), "sign_amino")
+                    showSignDialog(
+                        signBundle,
+                        object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveSignAminoInjectRequest(messageJson, messageId, data)
+                            }
 
-                        override fun cancel(id: Long) {
-                            appToWebError(
-                                messageJson, messageId, "Reject"
-                            )
-                        }
-                    })
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson, messageId, "Reject"
+                                )
+                            }
+                        })
                 }
 
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
-                    val signBundle = signBundle(0, wcUrl, params.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            approveSignDirectInjectRequest(messageJson, messageId, data)
-                        }
+                    val signBundle = signBundle(0, wcUrl, params.toString(), "sign_direct")
+                    showSignDialog(
+                        signBundle,
+                        object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveSignDirectInjectRequest(messageJson, messageId, data)
+                            }
 
-                        override fun cancel(id: Long) {
-                            appToWebError(
-                                messageJson, messageId, "Reject"
-                            )
-                        }
-                    })
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson, messageId, "Reject"
+                                )
+                            }
+                        })
                 }
 
                 "cos_sendTransaction" -> {
@@ -1184,6 +1236,81 @@ class DappActivity : BaseActivity() {
                     }
                 }
 
+                "eth_getBlockByNumber" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+
+                        val ethGetBlockNumberRequest = JsonRpcRequest(
+                            method = "eth_getBlockByNumber", params = listOf(params[0], params[1])
+                        )
+                        rpcUrl?.let {
+                            val ethGetBlockNumberResponse =
+                                jsonRpcResponse(it, ethGetBlockNumberRequest)
+                            val getBlockNumberJsonObject = Gson().fromJson(
+                                ethGetBlockNumberResponse.body?.string(), JsonObject::class.java
+                            )
+                            try {
+                                appToWebObjectResult(
+                                    messageJson, getBlockNumberJsonObject, messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_gasPrice" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        rpcUrl?.let {
+                            val ethGasPriceRequest = JsonRpcRequest(
+                                method = "eth_gasPrice", params = listOf()
+                            )
+
+                            val ethGasPriceResponse = jsonRpcResponse(it, ethGasPriceRequest)
+                            val ethGasPriceJsonObject = Gson().fromJson(
+                                ethGasPriceResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    ethGasPriceJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_maxPriorityFeePerGas" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        rpcUrl?.let {
+                            val ethMaxFeePerGasRequest = JsonRpcRequest(
+                                method = "eth_maxPriorityFeePerGas", params = listOf()
+                            )
+
+                            val ethMaxFeePerGasResponse =
+                                jsonRpcResponse(it, ethMaxFeePerGasRequest)
+                            val ethMaxFeePerGasJsonObject = Gson().fromJson(
+                                ethMaxFeePerGasResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    ethMaxFeePerGasJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
                 "eth_call" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val params = messageJson.getJSONArray("params")
@@ -1216,40 +1343,72 @@ class DappActivity : BaseActivity() {
                     }
                 }
 
-                // sign method
-                "eth_signTransaction", "eth_sendTransaction" -> {
+                "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
-                    val signBundle = signBundle(EvmMethod.SIGN.type, wcUrl, params[0].toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            lifecycleScope.launch(Dispatchers.IO) {
-                                val ethSendTransaction = web3j?.ethSendRawTransaction(data)?.send()
+                    val signBundle = signBundle(0, "", params.toString(), "personal_sign")
+                    showEvmSignDialog(signBundle,
+                        object : PopUpEvmSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
                                 appToWebResult(
-                                    messageJson, ethSendTransaction?.transactionHash, messageId
+                                    messageJson, data, messageId
                                 )
                             }
-                        }
 
-                        override fun cancel(id: Long) {
-                            appToWebError(messageJson, messageId, "Transaction rejected.")
-                        }
-                    })
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Permit rejected.")
+                            }
+                        })
                 }
 
                 "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
+                    val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
+                        selectEvmChain?.address
+                    } else {
+                        ByteUtils.convertBech32ToEvm(selectEvmChain?.address)
+                    }
                     val params = messageJson.getJSONArray("params")
-                    val signBundle = signBundle(EvmMethod.PERMIT.type, wcUrl, params.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            appToWebResult(
-                                messageJson, data, messageId
-                            )
-                        }
+                    if (params.get(0).toString().lowercase() != ethAddress?.lowercase()) {
+                        appToWebError(messageJson, messageId, "Wrong address")
+                        return
+                    }
+                    val signBundle = signBundle(0, wcUrl, params.toString(), "eth_signTypedData")
+                    showEvmSignDialog(
+                        signBundle,
+                        object : PopUpEvmSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                appToWebResult(
+                                    messageJson, data, messageId
+                                )
+                            }
 
-                        override fun cancel(id: Long) {
-                            appToWebError(messageJson, messageId, "Transaction rejected.")
-                        }
-                    })
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Transaction rejected.")
+                            }
+                        })
+                }
+
+                // sign method
+                "eth_sendTransaction" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val signBundle =
+                        signBundle(0, wcUrl, params[0].toString(), "eth_sendTransaction")
+                    showEvmSignDialog(
+                        signBundle,
+                        object : PopUpEvmSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    val ethSendTransaction =
+                                        web3j?.ethSendRawTransaction(data)?.send()
+                                    appToWebResult(
+                                        messageJson, ethSendTransaction?.transactionHash, messageId
+                                    )
+                                }
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Transaction rejected.")
+                            }
+                        })
                 }
 
                 // result method
@@ -1299,22 +1458,6 @@ class DappActivity : BaseActivity() {
                             }
                         }
                     }
-                }
-
-                "personal_sign" -> {
-                    val params = messageJson.getJSONArray("params")
-                    val signBundle = signBundle(EvmMethod.PERSONAL.type, wcUrl, params.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            appToWebResult(
-                                messageJson, data, messageId
-                            )
-                        }
-
-                        override fun cancel(id: Long) {
-                            appToWebError(messageJson, messageId, "Transaction rejected.")
-                        }
-                    })
                 }
 
                 else -> {
@@ -1587,6 +1730,7 @@ class DappActivity : BaseActivity() {
             is NetworkResult.Success -> {
                 BaseData.chainParam = response.data
             }
+
             is NetworkResult.Error -> {}
         }
     }
@@ -1596,13 +1740,10 @@ class DappActivity : BaseActivity() {
             is NetworkResult.Success -> {
                 BaseData.assets = response.data.assets
             }
+
             is NetworkResult.Error -> {}
         }
     }
-}
-
-enum class EvmMethod(val type: Long) {
-    SIGN(-1), PERMIT(-2), PERSONAL(-3)
 }
 
 enum class DAppType {

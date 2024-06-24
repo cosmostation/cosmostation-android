@@ -40,6 +40,7 @@
     <string name="str_low">낮음</string>
     <string name="str_average">평균</string>
     <string name="str_high">높음</string>
+    <string name="str_origin">원본</string>
     <string name="str_send">전송</string>
     <string name="str_insert_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_address_book">주소록</string>
@@ -104,8 +105,10 @@
     <string name="str_to_address">수신 주소</string>
     <string name="str_nft_github">NFT 정보 확인</string>
     <string name="str_style">스타일</string>
-    <string name="str_simple">심플</string>
-    <string name="str_pro">프로</string>
+    <string name="str_simple">Simple</string>
+    <string name="str_pro">Pro</string>
+    <string name="str_permit_request">Permit 요청</string>
+    <string name="str_tx_request">Tx 요청</string>
 
 
     //title
