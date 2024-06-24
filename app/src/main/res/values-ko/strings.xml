@@ -130,9 +130,6 @@
     <string name="title_notification">알람</string>
     <string name="title_using_bio">지문 사용</string>
     <string name="title_support">지원</string>
-    <string name="title_twitter">X(트위터)</string>
-    <string name="title_telegram">텔레그렘</string>
-    <string name="title_youtube">유튜브</string>
     <string name="title_about">앱 정보</string>
     <string name="title_term">약관</string>
     <string name="title_privacy">개인정보 보호</string>

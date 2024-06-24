@@ -188,12 +188,8 @@
     <string name="title_app_lock" translatable="false">App lock</string>
     <string name="title_using_bio">Biometrics</string>
     <string name="title_support">Support</string>
-    <string name="title_mintscan" translatable="false">Mintscan</string>
+    <string name="title_help" translatable="false">Help <![CDATA[ & ]]> Guide</string>
     <string name="title_homepage" translatable="false">Homepage</string>
-    <string name="title_blog" translatable="false">Blog</string>
-    <string name="title_twitter">X(Twitter)</string>
-    <string name="title_telegram">Telegram</string>
-    <string name="title_youtube">Youtube</string>
     <string name="title_term">Term</string>
     <string name="title_privacy">Privacy</string>
     <string name="title_github" translatable="false">Github</string>
