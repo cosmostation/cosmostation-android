@@ -6,6 +6,8 @@ import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
+import com.cosmos.base.tendermint.v1beta1.QueryProto
+import com.cosmos.base.tendermint.v1beta1.ServiceGrpc
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -17,7 +19,6 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.signing.v1beta1.SigningProto
-import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
 import com.cosmos.tx.v1beta1.ServiceProto.SimulateRequest
@@ -1020,7 +1021,8 @@ object Signer {
         memo: String,
         selectedChain: CosmosLine?
     ): BroadcastTxRequest? {
-        val txBody = grpcTxBody(msgAnys, memo)
+        val height = grpcLatestHeight(selectedChain)
+        val txBody = grpcTxBody(msgAnys, memo, height)
         val signerInfo = grpcSignerInfo(auth, selectedChain)
         val authInfo = grpcAuthInfo(signerInfo, fee)
         val broadcastTx = grpcBroadcastTx(auth, txBody, authInfo, selectedChain)
@@ -1036,19 +1038,32 @@ object Signer {
         memo: String,
         selectedChain: CosmosLine?
     ): SimulateRequest? {
-        val txBody = grpcTxBody(msgAnys, memo)
+        val height = grpcLatestHeight(selectedChain)
+        val txBody = grpcTxBody(msgAnys, memo, height)
         val signerInfo = grpcSimulInfo(auth)
         val authInfo = grpcAuthInfo(signerInfo, fee)
         val simulateTx = grpcSimulTx(txBody, authInfo)
         return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
     }
 
-    private fun grpcTxBody(msgsAny: List<Any>?, memo: String): TxBody? {
+    private fun grpcLatestHeight(selectedChain: CosmosLine?): Long {
+        selectedChain?.let { line ->
+            val channel = getChannel(line)
+            val blockStub =
+                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
+            val lastBlock = blockStub.getLatestBlock(blockRequest)
+            return lastBlock.block.header.height
+        }
+        return 0
+    }
+
+    private fun grpcTxBody(msgsAny: List<Any>?, memo: String, height: Long): TxBody? {
         val builder = TxBody.newBuilder()
         msgsAny?.forEach { msg ->
             builder.addMessages(msg)
         }
-        return builder.setMemo(memo).build()
+        return builder.setMemo(memo).setTimeoutHeight(height + 30).build()
     }
 
     private fun grpcSignerInfo(
@@ -1113,8 +1128,8 @@ object Signer {
     private fun grpcSimulTx(txBody: TxBody?, authInfo: AuthInfo?): TxRaw? {
         val sigByte = ByteArray(64)
         return TxRaw.newBuilder().setAuthInfoBytes(authInfo?.toByteString())
-            .setBodyBytes(txBody?.toByteString())
-            .addSignatures(ByteString.copyFrom(sigByte)).build()
+            .setBodyBytes(txBody?.toByteString()).addSignatures(ByteString.copyFrom(sigByte))
+            .build()
     }
 
     private fun broadcast(
@@ -1300,13 +1315,11 @@ object Signer {
     }
 
     fun dAppSimulateGas(
-        selectedChain: CosmosLine,
-        txBody: TxBody,
-        authInfo: AuthInfo?
+        selectedChain: CosmosLine, txBody: TxBody, authInfo: AuthInfo?
     ): AbciProto.GasInfo {
         val channel = getChannel(selectedChain)
-        val simulateStub =
-            ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+        val simulateStub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(8L, TimeUnit.SECONDS)
         val simulateTx = grpcSimulTx(txBody, authInfo)
         val simulateRequest =
             SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
