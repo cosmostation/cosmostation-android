@@ -23,10 +23,6 @@ object CosmostationConstants {
 
     //cosmostation
     const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"
-    const val COSMOSTATION_BLOG = "https://medium.com/cosmostation"
-    const val COSMOSTATION_TWITTER = "https://twitter.com/CosmostationVD"
-    const val COSMOSTATION_TELEGRAM = "https://t.me/cosmostation"
-    const val COSMOSTATION_YOUTUBE = "https://www.youtube.com/@cosmostationio"
     const val COSMOSTATION_TERM_EN = "https://cosmostation.io/service_en"
     const val COSMOSTATION_TERM_KR = "https://cosmostation.io/service_kr"
     const val COSMOSTATION_PRIVACY_POLICY = "https://cosmostation.io/privacy-policy"

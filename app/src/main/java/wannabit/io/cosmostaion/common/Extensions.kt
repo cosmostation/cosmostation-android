@@ -461,6 +461,16 @@ fun View.visibleOrInvisible(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
+fun Button.updateButtonViewEnabled(isBtnEnabled: Boolean) {
+    if (isBtnEnabled) {
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+        setBackgroundResource(R.drawable.button_common_bg)
+    } else {
+        setTextColor(ContextCompat.getColorStateList(context, R.color.color_base03))
+        setBackgroundResource(R.drawable.button_disable_bg)
+    }
+}
+
 fun Button.updateButtonView(isBtnEnabled: Boolean) {
     if (isBtnEnabled) {
         isEnabled = true

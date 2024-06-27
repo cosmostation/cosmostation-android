@@ -33,11 +33,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import com.google.protobuf.util.JsonFormat
-import com.trustwallet.walletconnect.WCClient
-import com.trustwallet.walletconnect.models.WCAccount
-import com.trustwallet.walletconnect.models.WCPeerMeta
-import com.trustwallet.walletconnect.models.WCSignTransaction
-import com.trustwallet.walletconnect.models.session.WCSession
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
@@ -48,7 +43,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
-import okhttp3.OkHttpClient
 import org.bouncycastle.util.Strings
 import org.json.JSONArray
 import org.json.JSONObject
@@ -74,15 +68,12 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
-import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.EthCall
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
-import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.PubKey
 import wannabit.io.cosmostaion.data.model.req.Signature
-import wannabit.io.cosmostaion.data.model.req.StdTxValue
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
@@ -106,12 +97,9 @@ class DappActivity : BaseActivity() {
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
 
-    private var wcVersion = 1
     private var walletConnectURI: String? = null
     private var currentV2PairingUri: String? = null
 
-    private var wcV1Client: WCClient? = null
-    private var wcV1Session: WCSession? = null
     private var dAppType: DAppType? = null
 
     private var processingRequestID: Long? = null
@@ -275,9 +263,6 @@ class DappActivity : BaseActivity() {
     }
 
     private fun isSessionConnected(): Boolean {
-        if (wcV1Session != null && wcV1Client != null && wcV1Client?.session != null && wcV1Client?.isConnected == true) {
-            return true
-        }
         if (walletConnectURI != null && currentV2PairingUri == walletConnectURI) {
             return true
         }
@@ -299,161 +284,11 @@ class DappActivity : BaseActivity() {
             walletConnectURI = url
             if (url.contains("@2")) {
                 connectWalletConnectV2(url)
-            } else {
-                connectWalletConnectV1(url)
             }
         }
     }
 
-    private fun connectWalletConnectV1(url: String) {
-        val meta = WCPeerMeta(
-            getString(R.string.str_wc_peer_name),
-            getString(R.string.str_wc_peer_url),
-            getString(R.string.str_wc_peer_desc),
-            listOf()
-        )
-        wcV1Session = WCSession.from(url)
-        val client = OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build()
-        wcV1Client = WCClient(GsonBuilder(), client).apply {
-            onSessionRequest = processSessionRequest
-            onGetAccounts = processGetAccounts
-            onDisconnect = processDisconnect
-            onSignTransaction = processSignTrust
-            wcV1Session?.let { session -> connect(session, meta) }
-        }
-    }
-
-    private val processSessionRequest = { _: Long, wcPeerMeta: WCPeerMeta ->
-        runOnUiThread {
-            binding.loadingLayer.apply {
-                postDelayed({ visibility = View.GONE }, 2500)
-            }
-            makeToast(R.string.str_wc_connected)
-
-            allChains?.firstOrNull { it.name.lowercase() == wcPeerMeta.name.lowercase() && it.tag == "kava459" }
-                ?.let { chain ->
-                    selectChain = chain
-                    chain.address?.let { address ->
-                        wcV1Client?.approveSession(listOf(address), 1)
-                    } ?: run {
-                        wcV1Client?.approveSession(listOf(), 1)
-                    }
-                }
-        }
-    }
-
-    private val processGetAccounts: (Long) -> Unit = { id: Long ->
-        selectChain?.address?.let { address ->
-            wcV1Client?.approveRequest(id, listOf(WCAccount(459, address)))
-        }
-    }
-
-    private val processDisconnect = { _: Int, _: String? ->
-        runOnUiThread {
-            makeToast(R.string.str_wc_not_connected)
-            wcV1Client = null
-        }
-    }
-
-    private val processSignTrust = { id: Long, (_, transaction): WCSignTransaction ->
-        runOnUiThread {
-            val signBundle = signBundle(
-                id, wcUrl, transaction, "trust_sign"
-            )
-            showSignDialog(signBundle, object : PopUpCosmosSignFragment.WcSignRawDataListener {
-                override fun sign(id: Long, data: String) {
-                    approveTrustRequest(
-                        id, transaction
-                    )
-                }
-
-                override fun cancel(id: Long) {
-                    wcV1Client?.rejectRequest(id, getString(R.string.str_cancel))
-                }
-            })
-        }
-    }
-
-    private fun convertKavaTx(txString: String): JSONObject {
-        val jsonTx = JSONObject(txString)
-
-        return JSONObject().apply {
-            put("chain_id", jsonTx.get("chainId"))
-            put("account_number", jsonTx.get("accountNumber"))
-
-            val msgs = JSONArray().apply {
-                val messageArray = jsonTx.getJSONArray("messages")
-                for (i in 0 until messageArray.length()) {
-                    val rawMessage = messageArray.getJSONObject(i).getJSONObject("rawJsonMessage")
-                    put(JSONObject().apply {
-                        put("type", rawMessage.getString("type"))
-                        put("value", JSONObject(rawMessage.getString("value")))
-                    })
-                }
-            }
-            put("msgs", msgs)
-
-            val fee = jsonTx.getJSONObject("fee")
-            val amounts = fee.getJSONArray("amounts")
-            val kavaFee = JSONObject().apply {
-                put("gas", fee.getString("gas"))
-                put("amount", amounts)
-            }
-            put("fee", kavaFee)
-
-            put("sequence", jsonTx.get("sequence"))
-            put("memo", jsonTx.get("memo"))
-        }
-    }
-
-    private fun approveTrustRequest(id: Long, wcSignTransaction: String) {
-        try {
-            val kavaTx = convertKavaTx(wcSignTransaction)
-            val broadcastReq = getTrustSignDoc(kavaTx)
-            val result = GsonBuilder().disableHtmlEscaping().create().toJson(broadcastReq)
-            wcV1Client?.approveRequest(id, result)
-            makeToast(R.string.str_wc_request_responsed)
-
-        } catch (e: Exception) {
-            wcV1Client?.rejectRequest(id, "Signing error.")
-            makeToast(R.string.str_unknown_error)
-        }
-    }
-
-    private fun getTrustSignDoc(tx: JSONObject): BroadcastReq {
-        val mapper = ObjectMapper().apply {
-            configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
-        }
-
-        val sortedTx = mapper.writeValueAsString(
-            mapper.readValue(tx.toString(), TreeMap::class.java)
-        )
-        val signatureTx =
-            Signer.signature(selectChain, sortedTx.toByteArray(StandardCharsets.UTF_8))
-        val pubKey = PubKey(
-            pubKeyType(),
-            Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
-                .replace("\n", "")
-        )
-        val signatures = mutableListOf(
-            Signature(
-                pubKey, signatureTx, null, null
-            )
-        )
-        val fee = Gson().fromJson(tx.getJSONObject("fee").toString(), LFee::class.java)
-
-        val value = StdTxValue(
-            null, fee, signatures, tx.getString("memo")
-        )
-        return BroadcastReq(
-            "block", value
-        )
-    }
-
-
-    // wc v2
     private fun connectWalletConnectV2(url: String) {
-        wcVersion = 2
         currentV2PairingUri = walletConnectURI
         val pairingParams = Core.Params.Pair(url)
         CoreClient.Pairing.pair(pairingParams) {
@@ -580,9 +415,8 @@ class DappActivity : BaseActivity() {
                     }
 
                     "cosmos_signDirect" -> {
-                        val signBundle = signBundle(id, wcUrl, params, "sign_direct")
-                        showSignDialog(
-                            signBundle,
+                        val signBundle = signBundle(id, params, "sign_direct")
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -595,9 +429,8 @@ class DappActivity : BaseActivity() {
                     }
 
                     "cosmos_signAmino" -> {
-                        val signBundle = signBundle(id, wcUrl, params, "sign_amino")
-                        showSignDialog(
-                            signBundle,
+                        val signBundle = signBundle(id, params, "sign_amino")
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -733,18 +566,8 @@ class DappActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        if (wcVersion == 1) {
-            wcV1Client?.let {
-                if (it.isConnected) {
-                    it.killSession()
-                } else {
-                    it.disconnect()
-                }
-            }
-        } else {
-            val pairingList = CoreClient.Pairing.getPairings()
-            pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
-        }
+        val pairingList = CoreClient.Pairing.getPairings()
+        pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         super.onDestroy()
         binding.apply {
             dappWebView.viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener())
@@ -752,10 +575,9 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun signBundle(id: Long, url: String?, data: String, method: String? = ""): Bundle {
+    private fun signBundle(id: Long, data: String, method: String? = ""): Bundle {
         val bundle = Bundle()
         bundle.putString("data", data)
-        bundle.putString("url", url)
         bundle.putLong("id", id)
         bundle.putString("method", method)
         return bundle
@@ -766,12 +588,7 @@ class DappActivity : BaseActivity() {
     ) {
         bundle.getString("data")?.let { data ->
             PopUpCosmosSignFragment(
-                selectChain,
-                bundle.getLong("id"),
-                data,
-                bundle.getString("url"),
-                bundle.getString("method"),
-                signListener
+                selectChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
                 supportFragmentManager, PopUpCosmosSignFragment::class.java.name
             )
@@ -948,7 +765,6 @@ class DappActivity : BaseActivity() {
     }
 
     fun processRequest(message: String) {
-        Log.e("Test1234 : ", message)
         var isCosmostation = false
         try {
             val requestJson = JSONObject(message)
@@ -1029,11 +845,27 @@ class DappActivity : BaseActivity() {
                     }
                 }
 
+                "cos_signMessage" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle = signBundle(0, params.toString(), "sign_message")
+                    showSignDialog(signBundle,
+                        object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveSignMessageRequest(messageJson, messageId, data)
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson, messageId, "Reject"
+                                )
+                            }
+                        })
+                }
+
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
-                    val signBundle = signBundle(0, wcUrl, params.toString(), "sign_amino")
-                    showSignDialog(
-                        signBundle,
+                    val signBundle = signBundle(0, params.toString(), "sign_amino")
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -1049,9 +881,8 @@ class DappActivity : BaseActivity() {
 
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
-                    val signBundle = signBundle(0, wcUrl, params.toString(), "sign_direct")
-                    showSignDialog(
-                        signBundle,
+                    val signBundle = signBundle(0, params.toString(), "sign_direct")
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -1345,8 +1176,9 @@ class DappActivity : BaseActivity() {
 
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
-                    val signBundle = signBundle(0, "", params.toString(), "personal_sign")
-                    showEvmSignDialog(signBundle,
+                    val signBundle = signBundle(0, params.toString(), "personal_sign")
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1371,9 +1203,8 @@ class DappActivity : BaseActivity() {
                         appToWebError(messageJson, messageId, "Wrong address")
                         return
                     }
-                    val signBundle = signBundle(0, wcUrl, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(
-                        signBundle,
+                    val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1390,10 +1221,8 @@ class DappActivity : BaseActivity() {
                 // sign method
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
-                    val signBundle =
-                        signBundle(0, wcUrl, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(
-                        signBundle,
+                    val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1470,6 +1299,37 @@ class DappActivity : BaseActivity() {
                 appToWebError(e.message)
             }
         }
+    }
+
+    private fun approveSignMessageRequest(
+        messageJson: JSONObject, messageId: String, signatureData: String
+    ) {
+        val request = Request(msgs = emptyList())
+        request.updateMsgData(signatureData, selectChain?.address)
+
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+        val signDoc = mapper.writeValueAsString(
+            mapper.readValue(request.toJson(), TreeMap::class.java)
+        )
+
+        val signatureTx = Signer.signature(
+            selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
+        )
+        val pubKey = PubKey(
+            pubKeyType(), Strings.fromByteArray(
+                Base64.encode(
+                    selectChain?.publicKey, Base64.DEFAULT
+                )
+            ).replace("\n", "")
+        )
+
+        val signed = JSONObject()
+        signed.put("signature", signatureTx)
+        signed.put(
+            "pub_key", JSONObject(Gson().toJson(pubKey))
+        )
+        appToWebResult(messageJson, signed, messageId)
     }
 
     private fun approveSignAminoInjectRequest(
@@ -1748,4 +1608,50 @@ class DappActivity : BaseActivity() {
 
 enum class DAppType {
     INTERNAL_URL, DEEPLINK_WC2
+}
+
+class Fee(
+    val amount: List<Any> = emptyList(), val gas: String = "0"
+)
+
+class MsgSignDataValue(
+    var data: String, var signer: String?
+)
+
+class Msg(
+    val type: String = "sign/MsgSignData", var value: MsgSignDataValue
+)
+
+class Request(
+    val account_number: String = "0",
+    val chain_id: String = "",
+    val fee: Fee = Fee(),
+    val memo: String = "",
+    var msgs: List<Msg>,
+    val sequence: String = "0"
+) {
+    init {
+        msgs = listOf(
+            Msg(
+                value = MsgSignDataValue(
+                    data = "defaultData", signer = "defaultSigner"
+                )
+            )
+        )
+    }
+
+    fun updateMsgData(data: String, signer: String?) {
+        msgs = listOf(
+            Msg(
+                value = MsgSignDataValue(
+                    data = data, signer = signer
+                )
+            )
+        )
+    }
+
+    fun toJson(): String {
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        return gson.toJson(this)
+    }
 }

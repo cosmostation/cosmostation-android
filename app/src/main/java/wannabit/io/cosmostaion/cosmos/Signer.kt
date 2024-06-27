@@ -1127,9 +1127,12 @@ object Signer {
 
     private fun grpcSimulTx(txBody: TxBody?, authInfo: AuthInfo?): TxRaw? {
         val sigByte = ByteArray(64)
-        return TxRaw.newBuilder().setAuthInfoBytes(authInfo?.toByteString())
-            .setBodyBytes(txBody?.toByteString()).addSignatures(ByteString.copyFrom(sigByte))
-            .build()
+        val txRawBuilder = TxRaw.newBuilder().setAuthInfoBytes(authInfo?.toByteString())
+            .setBodyBytes(txBody?.toByteString())
+        authInfo?.signerInfosList?.forEach { _ ->
+            txRawBuilder.addSignatures(ByteString.copyFrom(sigByte))
+        }
+        return txRawBuilder.build()
     }
 
     private fun broadcast(
