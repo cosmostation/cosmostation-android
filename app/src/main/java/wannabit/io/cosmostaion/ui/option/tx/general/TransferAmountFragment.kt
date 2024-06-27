@@ -51,7 +51,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
             listener: AmountSelectListener
         ): TransferAmountFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
+                putParcelable("fromChain", fromChain)
                 putParcelable("toSendAsset", toSendAsset)
                 putParcelable("toSendToken", toSendToken)
                 putString("availableAmount", availableAmount)
@@ -98,7 +98,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
+                    getParcelable(
                         "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
                     getParcelable("toSendAsset", Asset::class.java)?.let { toSendAsset = it }
@@ -111,7 +111,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     )?.let { transferType = it }
 
                 } else {
-                    (getSerializable("fromChain") as? BaseChain)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getParcelable("toSendAsset") as? Asset)?.let {

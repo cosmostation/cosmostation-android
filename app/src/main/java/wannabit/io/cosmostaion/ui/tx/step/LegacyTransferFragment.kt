@@ -17,16 +17,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
-import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
-import wannabit.io.cosmostaion.ui.option.tx.address.CommonAddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.LegacyInsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
@@ -42,7 +38,7 @@ class LegacyTransferFragment : BaseTxFragment() {
     private var _binding: FragmentLegacyTransferBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: CosmosLine
+    private lateinit var fromChain: BaseChain
     private lateinit var toSendDenom: String
 
     private var oktToken: OktToken? = null
@@ -58,10 +54,10 @@ class LegacyTransferFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: CosmosLine, toSendDenom: String
+            fromChain: BaseChain, toSendDenom: String
         ): LegacyTransferFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
+                putParcelable("fromChain", fromChain)
                 putString("toSendDenom", toSendDenom)
             }
             val fragment = LegacyTransferFragment()
@@ -90,12 +86,12 @@ class LegacyTransferFragment : BaseTxFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
-                        "fromChain", CosmosLine::class.java
+                    getParcelable(
+                        "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
 
                 } else {
-                    (getSerializable("fromChain") as? CosmosLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                 }
@@ -263,25 +259,25 @@ class LegacyTransferFragment : BaseTxFragment() {
             }
 
             addressView.setOnClickListener {
-                handleOneClickWithDelay(
-                    CommonAddressFragment.newInstance(fromChain,
-                        existedAddress,
-                        AddressType.DEFAULT_TRANSFER,
-                        object : AddressListener {
-                            override fun selectAddress(address: String, memo: String) {
-                                updateAddressView(address)
-                                if (memo.isNotEmpty()) {
-                                    txMemo = memo
-                                    tabMemoMsg.text = txMemo
-                                    tabMemoMsg.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            requireContext(), R.color.color_base01
-                                        )
-                                    )
-                                }
-                            }
-                        })
-                )
+//                handleOneClickWithDelay(
+//                    CommonAddressFragment.newInstance(fromChain,
+//                        existedAddress,
+//                        AddressType.DEFAULT_TRANSFER,
+//                        object : AddressListener {
+//                            override fun selectAddress(address: String, memo: String) {
+//                                updateAddressView(address)
+//                                if (memo.isNotEmpty()) {
+//                                    txMemo = memo
+//                                    tabMemoMsg.text = txMemo
+//                                    tabMemoMsg.setTextColor(
+//                                        ContextCompat.getColorStateList(
+//                                            requireContext(), R.color.color_base01
+//                                        )
+//                                    )
+//                                }
+//                            }
+//                        })
+//                )
             }
 
             memoView.setOnClickListener {
@@ -354,16 +350,16 @@ class LegacyTransferFragment : BaseTxFragment() {
                         return@let
                     }
 
-                    if (BaseUtils.isValidChainAddress(fromChain, addressScan)) {
-                        updateAddressView(addressScan.trim())
-                        if (scanString.size > 1) {
-                            updateMemoView(memoScan.trim())
-                        }
-
-                    } else {
-                        requireContext().makeToast(R.string.error_invalid_address)
-                        return@let
-                    }
+//                    if (BaseUtils.isValidChainAddress(fromChain, addressScan)) {
+//                        updateAddressView(addressScan.trim())
+//                        if (scanString.size > 1) {
+//                            updateMemoView(memoScan.trim())
+//                        }
+//
+//                    } else {
+//                        requireContext().makeToast(R.string.error_invalid_address)
+//                        return@let
+//                    }
                 }
             }
         }

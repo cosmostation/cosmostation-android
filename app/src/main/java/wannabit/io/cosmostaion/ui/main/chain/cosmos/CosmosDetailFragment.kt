@@ -18,10 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -35,13 +34,7 @@ import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
-import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
-import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
-import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
-import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
-import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
-import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -53,7 +46,7 @@ class CosmosDetailFragment : Fragment() {
 
     private lateinit var detailPagerAdapter: DetailPageAdapter
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var walletViewModel: WalletViewModel
 
@@ -65,7 +58,7 @@ class CosmosDetailFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): CosmosDetailFragment {
+        fun newInstance(selectedChain: BaseChain): CosmosDetailFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -109,8 +102,7 @@ class CosmosDetailFragment : Fragment() {
         super.onResume()
         if (!::selectedChain.isInitialized) {
             Intent(requireContext(), IntroActivity::class.java).apply {
-                flags =
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(this)
             }
         }
@@ -127,20 +119,20 @@ class CosmosDetailFragment : Fragment() {
         binding.apply {
             savedInstanceState?.let {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    it.getParcelable("selectedChain", CosmosLine::class.java)
+                    it.getParcelable("selectedChain", BaseChain::class.java)
                         ?.let { chain -> selectedChain = chain }
                 } else {
-                    (it.getParcelable("selectedChain") as? CosmosLine)?.let { chain ->
+                    (it.getParcelable("selectedChain") as? BaseChain)?.let { chain ->
                         selectedChain = chain
                     }
                 }
 
             } ?: run {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                    arguments?.getParcelable("selectedChain", BaseChain::class.java)
                         ?.let { selectedChain = it }
                 } else {
-                    (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                    (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                 }
@@ -151,20 +143,23 @@ class CosmosDetailFragment : Fragment() {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
 
-                if (selectedChain is EthereumLine && (selectedChain as EthereumLine).supportCosmos) {
-                    accountAddress.text = selectedChain.address
-                    selectedChain.address?.let {
-                        accountEvmAddress.text = ByteUtils.convertBech32ToEvm(it)
-                    }
-                    accountAddress.visibility = View.INVISIBLE
-                    accountEvmAddress.visibility = View.VISIBLE
+                accountEvmAddress.visibility = View.INVISIBLE
+                accountAddress.text = selectedChain.address
 
-                    handler.postDelayed(starEvmAddressAnimation, 5000)
-
-                } else {
-                    accountEvmAddress.visibility = View.INVISIBLE
-                    accountAddress.text = selectedChain.address
-                }
+//                if (selectedChain is EthereumLine && (selectedChain as EthereumLine).supportCosmos) {
+//                    accountAddress.text = selectedChain.address
+//                    selectedChain.address?.let {
+//                        accountEvmAddress.text = ByteUtils.convertBech32ToEvm(it)
+//                    }
+//                    accountAddress.visibility = View.INVISIBLE
+//                    accountEvmAddress.visibility = View.VISIBLE
+//
+//                    handler.postDelayed(starEvmAddressAnimation, 5000)
+//
+//                } else {
+//                    accountEvmAddress.visibility = View.INVISIBLE
+//                    accountAddress.text = selectedChain.address
+//                }
 
                 updateAccountValue()
                 btnHide.setColorFilter(
@@ -207,12 +202,12 @@ class CosmosDetailFragment : Fragment() {
 //                fabVote.visibility = View.VISIBLE
 //
 //            } else {
-//                fabStake.visibleOrGone(selectedChain.supportStaking)
-//                fabClaimReward.visibleOrGone(selectedChain.supportStaking)
-//                fabCompounding.visibleOrGone(selectedChain.supportStaking)
-//                fabVote.visibleOrGone(selectedChain.supportStaking)
-//
-//                fabReceive.visibleOrGone(!selectedChain.supportStaking)
+            fabStake.visibleOrGone(selectedChain.supportStaking)
+            fabClaimReward.visibleOrGone(selectedChain.supportStaking)
+            fabCompounding.visibleOrGone(selectedChain.supportStaking)
+            fabVote.visibleOrGone(selectedChain.supportStaking)
+
+            fabReceive.visibleOrGone(!selectedChain.supportStaking)
 //            }
 
             when (selectedChain) {
@@ -336,29 +331,29 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountLayout.setOnClickListener {
-                if (selectedChain is EthereumLine) {
-                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
-                    )
-
-                } else {
-                    QrCodeFragment.newInstance(selectedChain).show(
-                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-                    )
-                }
+//                if (selectedChain is EthereumLine) {
+//                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
+//                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+//                    )
+//
+//                } else {
+//                    QrCodeFragment.newInstance(selectedChain).show(
+//                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+//                    )
+//                }
             }
 
             accountValueLayout.setOnClickListener {
-                if (selectedChain is EthereumLine) {
-                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
-                    )
-
-                } else {
-                    QrCodeFragment.newInstance(selectedChain).show(
-                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-                    )
-                }
+//                if (selectedChain is EthereumLine) {
+//                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
+//                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+//                    )
+//
+//                } else {
+//                    QrCodeFragment.newInstance(selectedChain).show(
+//                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+//                    )
+//                }
             }
 
             btnHide.setOnClickListener {
@@ -433,17 +428,17 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabReceive.setOnClickListener {
-                if (selectedChain is EthereumLine) {
-                    handleOneClickWithDelay(
-                        null, QrCodeEvmFragment.newInstance(selectedChain as EthereumLine)
-                    )
-                } else {
-                    handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
-                }
+//                if (selectedChain is EthereumLine) {
+//                    handleOneClickWithDelay(
+//                        null, QrCodeEvmFragment.newInstance(selectedChain as EthereumLine)
+//                    )
+//                } else {
+//                    handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
+//                }
             }
 
             fabStake.setOnClickListener {
-                if (selectedChain.cosmosValidators.size > 0) {
+                if (selectedChain.grpcFetcher.cosmosValidators.size > 0) {
                     handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
 
                 } else {
@@ -454,12 +449,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabClaimReward.setOnClickListener {
-                if (selectedChain.cosmosValidators.size > 0) {
-                    if (selectedChain.rewardAllCoins().isEmpty()) {
+                if (selectedChain.grpcFetcher.cosmosValidators.size > 0) {
+                    if (selectedChain.grpcFetcher.rewardAllCoins().isEmpty()) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-                    if (selectedChain.claimableRewards().isEmpty()) {
+                    if (selectedChain.grpcFetcher.claimableRewards().isEmpty()) {
                         requireContext().showToast(view, R.string.error_wasting_fee, false)
                         return@setOnClickListener
                     }
@@ -467,11 +462,11 @@ class CosmosDetailFragment : Fragment() {
                         requireContext().showToast(view, R.string.error_not_enough_fee, false)
                         return@setOnClickListener
                     }
-                    handleOneClickWithDelay(
-                        null, ClaimRewardFragment.newInstance(
-                            selectedChain, selectedChain.claimableRewards()
-                        )
-                    )
+//                    handleOneClickWithDelay(
+//                        null, ClaimRewardFragment.newInstance(
+//                            selectedChain, selectedChain.claimableRewards()
+//                        )
+//                    )
 
                 } else {
                     requireContext().makeToast(R.string.error_wait_moment)
@@ -481,36 +476,36 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabCompounding.setOnClickListener {
-                if (selectedChain.cosmosValidators.size > 0) {
-                    if (selectedChain.claimableRewards().size == 0) {
-                        requireContext().makeToast(R.string.error_not_reward)
-                        return@setOnClickListener
-                    }
-                    if (selectedChain.rewardAddress != selectedChain.address) {
-                        requireContext().showToast(
-                            view, R.string.error_reward_address_changed_msg, false
-                        )
-                        return@setOnClickListener
-                    }
-                    if (!selectedChain.isTxFeePayable(requireContext())) {
-                        requireContext().showToast(view, R.string.error_not_enough_fee, false)
-                        return@setOnClickListener
-                    }
-                    handleOneClickWithDelay(
-                        null, CompoundingFragment.newInstance(
-                            selectedChain, selectedChain.claimableRewards()
-                        )
-                    )
-
-                } else {
-                    requireContext().makeToast(R.string.error_wait_moment)
-                    fabMenu.close(true)
-                    return@setOnClickListener
-                }
+//                if (selectedChain.cosmosValidators.size > 0) {
+//                    if (selectedChain.claimableRewards().size == 0) {
+//                        requireContext().makeToast(R.string.error_not_reward)
+//                        return@setOnClickListener
+//                    }
+//                    if (selectedChain.rewardAddress != selectedChain.address) {
+//                        requireContext().showToast(
+//                            view, R.string.error_reward_address_changed_msg, false
+//                        )
+//                        return@setOnClickListener
+//                    }
+//                    if (!selectedChain.isTxFeePayable(requireContext())) {
+//                        requireContext().showToast(view, R.string.error_not_enough_fee, false)
+//                        return@setOnClickListener
+//                    }
+//                    handleOneClickWithDelay(
+//                        null, CompoundingFragment.newInstance(
+//                            selectedChain, selectedChain.claimableRewards()
+//                        )
+//                    )
+//
+//                } else {
+//                    requireContext().makeToast(R.string.error_wait_moment)
+//                    fabMenu.close(true)
+//                    return@setOnClickListener
+//                }
             }
 
             fabVote.setOnClickListener {
-                handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
+//                handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
             }
 
             fabDefi.setOnClickListener {
@@ -526,7 +521,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabVault.setOnClickListener {
-                handleOneClickWithDelay(null, VaultSelectFragment.newInstance(selectedChain))
+//                handleOneClickWithDelay(null, VaultSelectFragment.newInstance(selectedChain))
             }
 
             fabDeposit.setOnClickListener {
@@ -596,7 +591,7 @@ class CosmosDetailFragment : Fragment() {
     class DetailPageAdapter(
         fragmentActivity: FragmentActivity,
         private val tabTitles: List<String>,
-        private val selectedChain: CosmosLine
+        private val selectedChain: BaseChain
     ) : FragmentStateAdapter(fragmentActivity) {
 
         override fun getItemCount(): Int {

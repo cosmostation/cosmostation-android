@@ -28,40 +28,40 @@ open class EthereumLine : CosmosLine(), Parcelable {
 
     var web3j: Web3j? = null
 
-    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return if (supportCosmos) {
-            super.allAssetValue(isUsd)
-        } else {
-            val price = BaseData.getPrice(coinGeckoId, isUsd)
-            evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
-        }
-    }
-
-    override fun allValue(isUsd: Boolean?): BigDecimal {
-        return allAssetValue(isUsd).add(allTokenValue(isUsd))
-    }
-
-    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
-        evmTokens.firstOrNull { it.address == address }?.let { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-            return price.multiply(tokenInfo.amount?.toBigDecimal())
-                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
-        } ?: run {
-            return BigDecimal.ZERO
-        }
-    }
-
-    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
-        var result = BigDecimal.ZERO
-        evmTokens.forEach { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-            val value =
-                price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
-                    .setScale(6, RoundingMode.DOWN)
-            result = result.add(value)
-        }
-        return result
-    }
+//    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+//        return if (supportCosmos) {
+//            super.allAssetValue(isUsd)
+//        } else {
+//            val price = BaseData.getPrice(coinGeckoId, isUsd)
+//            evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
+//        }
+//    }
+//
+//    override fun allValue(isUsd: Boolean?): BigDecimal {
+//        return allAssetValue(isUsd).add(allTokenValue(isUsd))
+//    }
+//
+//    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
+//        evmTokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+//            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
+//            return price.multiply(tokenInfo.amount?.toBigDecimal())
+//                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
+//        } ?: run {
+//            return BigDecimal.ZERO
+//        }
+//    }
+//
+//    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
+//        var result = BigDecimal.ZERO
+//        evmTokens.forEach { tokenInfo ->
+//            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
+//            val value =
+//                price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
+//                    .setScale(6, RoundingMode.DOWN)
+//            result = result.add(value)
+//        }
+//        return result
+//    }
 
     fun getEvmRpc(): String {
         val endpoint = Prefs.getEvmRpcEndpoint(this)

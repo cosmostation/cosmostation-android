@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 
@@ -54,9 +53,9 @@ class DashboardAdapter(
                     val chain = displayMainnetChains[position - 1]
                     holder.bind(chain)
 
-//                    holder.itemView.setOnClickListener {
-//                        listener.nodeDown(line)
-//                    }
+                    holder.itemView.setOnClickListener {
+                        listener.nodeDown(chain)
+                    }
 //
 //                    holder.itemView.setOnLongClickListener { view ->
 //                        if (line.fetched) {
@@ -152,11 +151,11 @@ class DashboardAdapter(
         fun bind(position: Int) {
             binding.apply {
                 if (getItemViewType(position) == VIEW_TYPE_MAINNET_HEADER) {
-                    headerTitle.text = context.getString(R.string.str_ethereum_class)
+                    headerTitle.text = context.getString(R.string.str_mainnet)
                     headerCnt.text = displayMainnetChains.size.toString()
 
                 } else {
-                    headerTitle.text = context.getString(R.string.str_cosmos_class)
+                    headerTitle.text = context.getString(R.string.str_testnet)
                     headerCnt.text = displayTestnetChains.size.toString()
                 }
             }
@@ -164,6 +163,6 @@ class DashboardAdapter(
     }
 
     interface NodeDownListener {
-        fun nodeDown(line: CosmosLine)
+        fun nodeDown(chain: BaseChain)
     }
 }

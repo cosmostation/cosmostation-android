@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Coin
@@ -27,7 +28,7 @@ class CoinFragment : Fragment() {
 
     private lateinit var coinAdapter: CoinAdapter
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private val stakeCoins = mutableListOf<Coin>()
     private val nativeCoins = mutableListOf<Coin>()
@@ -38,7 +39,7 @@ class CoinFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): CoinFragment {
+        fun newInstance(selectedChain: BaseChain): CoinFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -67,10 +68,10 @@ class CoinFragment : Fragment() {
 
     private fun initRecyclerView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }
@@ -162,7 +163,7 @@ class CoinFragment : Fragment() {
 //                }
 
                 else -> {
-                    selectedChain.cosmosBalances?.forEach { coin ->
+                    selectedChain.grpcFetcher.cosmosBalances?.forEach { coin ->
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
                             when (it) {
@@ -204,9 +205,21 @@ class CoinFragment : Fragment() {
 //                        )
 //                    }
 
-                    nativeCoins.sortWith(compareByDescending { selectedChain.balanceValue(it.denom) })
-                    ibcCoins.sortWith(compareByDescending { selectedChain.balanceValue(it.denom) })
-                    bridgeCoins.sortWith(compareByDescending { selectedChain.balanceValue(it.denom) })
+                    nativeCoins.sortWith(compareByDescending {
+                        selectedChain.grpcFetcher.balanceValue(
+                            it.denom
+                        )
+                    })
+                    ibcCoins.sortWith(compareByDescending {
+                        selectedChain.grpcFetcher.balanceValue(
+                            it.denom
+                        )
+                    })
+                    bridgeCoins.sortWith(compareByDescending {
+                        selectedChain.grpcFetcher.balanceValue(
+                            it.denom
+                        )
+                    })
                 }
             }
             coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
@@ -221,6 +234,7 @@ class CoinFragment : Fragment() {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
+                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
 //                    if (selectedChain is EthereumLine) {
 //                        ApplicationViewModel.shared.loadEvmChainData(
 //                            selectedChain as EthereumLine, account.id, false

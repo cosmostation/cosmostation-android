@@ -6,6 +6,8 @@
     <string name="str_setting" translatable="false">Settings</string>
 
     <string name="str_total_value" translatable="false">Total value</string>
+    <string name="str_mainnet" translatable="false">Mainnet</string>
+    <string name="str_testnet" translatable="false">Testnet</string>
     <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>

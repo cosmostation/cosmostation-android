@@ -24,8 +24,8 @@ class CoinCosmosLineViewHolder(
     private val binding: ItemCosmosLineCoinBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(context: Context, line: CosmosLine) {
-        when (line) {
+    fun bind(context: Context, chain: BaseChain) {
+        when (chain) {
 //            is ChainOkt996Keccak, is ChainOktEvm -> {
 //                bindOkt(line)
 //            }
@@ -38,8 +38,8 @@ class CoinCosmosLineViewHolder(
                 binding.apply {
                     stakeCoinView.setBackgroundResource(R.drawable.item_bg)
 
-                    line.stakeDenom?.let { stakeDenom ->
-                        BaseData.getAsset(line.apiName, stakeDenom)?.let { asset ->
+                    chain.stakeDenom?.let { stakeDenom ->
+                        BaseData.getAsset(chain.apiName, stakeDenom)?.let { asset ->
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol?.uppercase()
 
@@ -50,28 +50,28 @@ class CoinCosmosLineViewHolder(
                             }
 
                             asset.decimals?.let { decimal ->
-                                val availableAmount =
-                                    line.balanceAmount(stakeDenom).movePointLeft(decimal)
+                                val availableAmount = chain.grpcFetcher.balanceAmount(stakeDenom)
+                                    .movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                val vestingAmount = chain.grpcFetcher.vestingAmount(stakeDenom)
+                                    .movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+                                val stakedAmount =
+                                    chain.grpcFetcher.delegationAmountSum().movePointLeft(decimal)
                                         .setScale(6, RoundingMode.DOWN)
-                                val vestingAmount =
-                                    line.vestingAmount(stakeDenom).movePointLeft(decimal)
-                                        .setScale(6, RoundingMode.DOWN)
-                                val stakedAmount = line.delegationAmountSum().movePointLeft(decimal)
-                                    .setScale(6, RoundingMode.DOWN)
                                 val unStakingAmount =
-                                    line.unbondingAmountSum().movePointLeft(decimal)
+                                    chain.grpcFetcher.unbondingAmountSum().movePointLeft(decimal)
                                         .setScale(6, RoundingMode.DOWN)
-                                val rewardAmount =
-                                    line.rewardAmountSum(stakeDenom).movePointLeft(decimal)
-                                        .setScale(6, RoundingMode.DOWN)
+                                val rewardAmount = chain.grpcFetcher.rewardAmountSum(stakeDenom)
+                                    .movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
 
                                 vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
                                 unstakingLayout.goneOrVisible(unStakingAmount.compareTo(BigDecimal.ZERO) == 0)
-                                rewardLayout.visibleOrGone(line.rewardAllCoins().isNotEmpty())
+                                rewardLayout.visibleOrGone(
+                                    chain.grpcFetcher.rewardAllCoins().isNotEmpty()
+                                )
 
-                                if (line.rewardAllCoins().isNotEmpty()) {
+                                if (chain.grpcFetcher.rewardAllCoins().isNotEmpty()) {
                                     rewardTitle.text =
-                                        context.getString(R.string.str_reward) + if (line.rewardOtherDenoms() > 0) " +${line.rewardOtherDenoms()}" else ""
+                                        context.getString(R.string.str_reward) + if (chain.grpcFetcher.rewardOtherDenoms() > 0) " +${chain.grpcFetcher.rewardOtherDenoms()}" else ""
                                 }
 
                                 with(Prefs) {
@@ -112,7 +112,7 @@ class CoinCosmosLineViewHolder(
                                         6
                                     )
                                     totalValue.text = if (hideValue) "" else formatAssetValue(
-                                        line.denomValue(stakeDenom)
+                                        chain.grpcFetcher.denomValue(stakeDenom)
                                     )
                                 }
                             }

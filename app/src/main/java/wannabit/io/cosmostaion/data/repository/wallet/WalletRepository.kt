@@ -53,18 +53,18 @@ interface WalletRepository {
     ): NetworkResult<QueryAllBalancesResponse?>
 
     suspend fun delegation(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse>
 
     suspend fun unBonding(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegatorUnbondingDelegationsResponse>
 
     suspend fun reward(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegationTotalRewardsResponse>
 
-    suspend fun rewardAddress(channel: ManagedChannel, line: CosmosLine): NetworkResult<String>
+    suspend fun rewardAddress(channel: ManagedChannel, chain: BaseChain): NetworkResult<String>
 
     suspend fun bondedValidator(
         channel: ManagedChannel

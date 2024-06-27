@@ -16,6 +16,7 @@ class FetcherGrpc(chain: BaseChain) {
 
     var chain: BaseChain
 
+    var rewardAddress: String? = ""
     var cosmosAuth: com.google.protobuf.Any? = null
     var cosmosValidators = mutableListOf<StakingProto.Validator>()
     var cosmosBalances: MutableList<CoinProto.Coin>? = null
@@ -34,6 +35,18 @@ class FetcherGrpc(chain: BaseChain) {
 
     init {
         this.chain = chain
+    }
+
+    fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+        return if (denom == chain.stakeDenom) {
+            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
+                .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
+                .add(unbondingValueSum(isUsd))
+
+        } else {
+            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
+                .add(rewardValue(denom, isUsd))
+        }
     }
 
     fun balanceAmount(denom: String): BigDecimal {
@@ -86,7 +99,7 @@ class FetcherGrpc(chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosVestings.forEach { vesting ->
             sum = sum.add(vestingValue(vesting.denom, isUsd))
@@ -106,7 +119,7 @@ class FetcherGrpc(chain: BaseChain) {
         return sum
     }
 
-    private fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
         chain.stakeDenom?.let {
             BaseData.getAsset(chain.apiName, it)?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
@@ -131,7 +144,7 @@ class FetcherGrpc(chain: BaseChain) {
         return sum
     }
 
-    private fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
         chain.stakeDenom?.let {
             BaseData.getAsset(chain.apiName, it)?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
@@ -156,7 +169,7 @@ class FetcherGrpc(chain: BaseChain) {
         return sum.movePointLeft(18).setScale(0, RoundingMode.DOWN)
     }
 
-    private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)
@@ -165,6 +178,21 @@ class FetcherGrpc(chain: BaseChain) {
             }
         }
         return BigDecimal.ZERO
+    }
+
+    fun rewardValueSum(isUsd: Boolean? = false): BigDecimal {
+        var sum = BigDecimal.ZERO
+        rewardAllCoins().forEach { rewardCoin ->
+            BaseData.getAsset(chain.apiName, rewardCoin.denom)?.let { asset ->
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+                val amount = rewardCoin.amount.toBigDecimal()
+                val value = asset.decimals?.let {
+                    price.multiply(amount)?.movePointLeft(it)?.setScale(6, RoundingMode.DOWN)
+                }
+                sum = sum.add(value)
+            }
+        }
+        return sum
     }
 
     fun rewardAllCoins(): List<CoinProto.Coin> {
@@ -178,6 +206,32 @@ class FetcherGrpc(chain: BaseChain) {
                         CoinProto.Coin.newBuilder().setDenom(coin.denom)
                             .setAmount(calAmount.toPlainString()).build()
                     )
+                }
+            }
+        }
+        return result
+    }
+
+    fun rewardOtherDenoms(): Int {
+        return rewardAllCoins().map { it.denom }.distinct().count { it != chain.stakeDenom }
+    }
+
+    fun claimableRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
+        val result = mutableListOf<DistributionProto.DelegationDelegatorReward?>()
+
+        cosmosRewards.forEach { reward ->
+            run loop@{
+                for (i in 0 until reward.rewardCount) {
+                    val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18)
+                        .setScale(0, RoundingMode.DOWN)
+                    BaseData.getAsset(chain.apiName, reward.rewardList[i].denom)?.let { asset ->
+                        val calAmount = rewardAmount.movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        if (calAmount > BigDecimal("0.1")) {
+                            result.add(reward)
+                            return@loop
+                        }
+                    }
                 }
             }
         }

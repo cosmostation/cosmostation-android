@@ -111,7 +111,7 @@ class CommonTransferFragment : BaseTxFragment() {
             fromChain: BaseChain, toSendDenom: String, sendAssetType: SendAssetType
         ): CommonTransferFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
+                putParcelable("fromChain", fromChain)
                 putString("toSendDenom", toSendDenom)
                 putSerializable("sendAssetType", sendAssetType)
             }
@@ -142,7 +142,7 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
+                    getParcelable(
                         "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
                     getSerializable(
@@ -150,7 +150,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     )?.let { sendAssetType = it }
 
                 } else {
-                    (getSerializable("fromChain") as? BaseChain)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getSerializable("sendAssetType") as? SendAssetType)?.let {

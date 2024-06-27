@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
@@ -29,7 +29,7 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var historyViewModel: HistoryViewModel
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var historyAdapter: HistoryAdapter
 
@@ -42,7 +42,7 @@ class HistoryFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): HistoryFragment {
+        fun newInstance(selectedChain: BaseChain): HistoryFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -76,10 +76,10 @@ class HistoryFragment : Fragment() {
             ViewModelProvider(this, historyViewModelProviderFactory)[HistoryViewModel::class.java]
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }

@@ -6,6 +6,7 @@ import android.content.res.Resources
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.stride.vesting.VestingProto.StridePeriodicVestingAccount
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -15,8 +16,8 @@ import java.util.Locale
 import java.util.regex.Pattern
 
 object BaseUtils {
-    fun onParseVestingAccount(line: CosmosLine) {
-        val authInfo = line.cosmosAuth
+    fun onParseVestingAccount(chain: BaseChain) {
+        val authInfo = chain.grpcFetcher.cosmosAuth
         var denom = ""
         var dpBalance = BigDecimal.ZERO
         var dpVesting = BigDecimal.ZERO
@@ -25,7 +26,7 @@ object BaseUtils {
         var delegatedVesting = BigDecimal.ZERO
 
         authInfo?.let { auth ->
-            line.cosmosBalances?.let { cosmosBalances ->
+            chain.grpcFetcher.cosmosBalances?.let { cosmosBalances ->
                 if (auth.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
                     val vestingAccount = VestingProto.PeriodicVestingAccount.parseFrom(auth.value)
 
@@ -60,7 +61,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            line.cosmosVestings.add(vestingCoin)
+                            chain.grpcFetcher.cosmosVestings.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -71,7 +72,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                line.cosmosBalances = tempBalances
+                                chain.grpcFetcher.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -120,7 +121,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            line.cosmosVestings.add(vestingCoin)
+                            chain.grpcFetcher.cosmosVestings.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -131,7 +132,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                line.cosmosBalances = tempBalances
+                                chain.grpcFetcher.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -172,7 +173,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            line.cosmosVestings.add(vestingCoin)
+                            chain.grpcFetcher.cosmosVestings.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -183,7 +184,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                line.cosmosBalances = tempBalances
+                                chain.grpcFetcher.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -227,7 +228,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            line.cosmosVestings.add(vestingCoin)
+                            chain.grpcFetcher.cosmosVestings.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -238,7 +239,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                line.cosmosBalances = tempBalances
+                                chain.grpcFetcher.cosmosBalances = tempBalances
                             }
                         }
                     }

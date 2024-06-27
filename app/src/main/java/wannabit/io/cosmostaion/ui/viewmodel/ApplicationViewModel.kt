@@ -5,12 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.cosmos.bank.v1beta1.QueryProto
+import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -19,6 +24,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
+import java.util.concurrent.TimeUnit
 
 class ApplicationViewModel(
     application: Application, private val walletRepository: WalletRepository
@@ -140,7 +146,7 @@ class ApplicationViewModel(
                 when (val response = walletRepository.auth(channel, this)) {
                     is NetworkResult.Success -> {
                         grpcFetcher.cosmosAuth = response.data?.account
-//                        loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
+                        loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
                     }
 
                     is NetworkResult.Error -> {
@@ -183,68 +189,72 @@ class ApplicationViewModel(
         }
     }
 
-//    private fun loadGrpcMoreData(
-//        channel: ManagedChannel, id: Long, line: CosmosLine, isEdit: Boolean
-//    ) = CoroutineScope(Dispatchers.IO).launch {
-//        line.apply {
-//            try {
-//                val loadBalanceDeferred = async { walletRepository.balance(channel, line) }
-//                if (line.supportStaking) {
-//                    val loadDelegationDeferred =
-//                        async { walletRepository.delegation(channel, line) }
-//                    val loadUnBondingDeferred = async { walletRepository.unBonding(channel, line) }
-//                    val loadRewardDeferred = async { walletRepository.reward(channel, line) }
-//                    val loadRewardAddressDeferred =
-//                        async { walletRepository.rewardAddress(channel, line) }
-//
-//                    val responses = awaitAll(
-//                        loadBalanceDeferred,
-//                        loadDelegationDeferred,
-//                        loadUnBondingDeferred,
-//                        loadRewardDeferred,
-//                        loadRewardAddressDeferred
-//                    )
-//
-//                    responses.forEach { response ->
-//                        when (response) {
-//                            is NetworkResult.Success -> {
-//                                when (response.data) {
-//                                    is QueryProto.QueryAllBalancesResponse -> {
-//                                        response.data.balancesList?.let { cosmosBalances = it }
-//                                    }
-//
-//                                    is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse -> {
-//                                        cosmosDelegations.clear()
-//                                        response.data.delegationResponsesList.forEach { delegation ->
-//                                            if (delegation.balance.amount != "0") {
-//                                                cosmosDelegations.add(delegation)
-//                                            }
-//                                        }
-//                                    }
-//
-//                                    is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse -> {
-//                                        response.data.unbondingResponsesList?.let {
-//                                            cosmosUnbondings = it
-//                                        }
-//                                    }
-//
-//                                    is com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse -> {
-//                                        response.data.rewardsList?.let { cosmosRewards = it }
-//                                    }
-//
-//                                    is String -> {
-//                                        rewardAddress = response.data
-//                                    }
-//                                }
-//                            }
-//
-//                            is NetworkResult.Error -> {
-//                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-//                            }
-//                        }
-//                    }
-//
-//                } else {
+    private fun loadGrpcMoreData(
+        channel: ManagedChannel, id: Long, chain: BaseChain, isEdit: Boolean
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        chain.apply {
+            try {
+                val loadBalanceDeferred = async { walletRepository.balance(channel, chain) }
+                if (chain.supportStaking) {
+                    val loadDelegationDeferred =
+                        async { walletRepository.delegation(channel, chain) }
+                    val loadUnBondingDeferred = async { walletRepository.unBonding(channel, chain) }
+                    val loadRewardDeferred = async { walletRepository.reward(channel, chain) }
+                    val loadRewardAddressDeferred =
+                        async { walletRepository.rewardAddress(channel, chain) }
+
+                    val responses = awaitAll(
+                        loadBalanceDeferred,
+                        loadDelegationDeferred,
+                        loadUnBondingDeferred,
+                        loadRewardDeferred,
+                        loadRewardAddressDeferred
+                    )
+
+                    responses.forEach { response ->
+                        when (response) {
+                            is NetworkResult.Success -> {
+                                when (response.data) {
+                                    is QueryProto.QueryAllBalancesResponse -> {
+                                        response.data.balancesList?.let {
+                                            grpcFetcher.cosmosBalances = it
+                                        }
+                                    }
+
+                                    is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse -> {
+                                        grpcFetcher.cosmosDelegations.clear()
+                                        response.data.delegationResponsesList.forEach { delegation ->
+                                            if (delegation.balance.amount != "0") {
+                                                grpcFetcher.cosmosDelegations.add(delegation)
+                                            }
+                                        }
+                                    }
+
+                                    is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse -> {
+                                        response.data.unbondingResponsesList?.let {
+                                            grpcFetcher.cosmosUnbondings = it
+                                        }
+                                    }
+
+                                    is com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse -> {
+                                        response.data.rewardsList?.let {
+                                            grpcFetcher.cosmosRewards = it
+                                        }
+                                    }
+
+                                    is String -> {
+                                        grpcFetcher.rewardAddress = response.data
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                            }
+                        }
+                    }
+
+                } else {
 //                    if (line is ChainNeutron) {
 //                        val loadVaultDepositDeferred =
 //                            async { walletRepository.vaultDeposit(channel, line) }
@@ -283,33 +293,38 @@ class ApplicationViewModel(
 //                            }
 //                        }
 //                    }
-//                }
-//
-//                BaseUtils.onParseVestingAccount(this)
-//                fetched = true
-//                if (fetched) {
-//                    val refAddress = RefAddress(id,
-//                        tag,
-//                        address,
-//                        ByteUtils.convertBech32ToEvm(address),
-//                        allAssetValue(true).toPlainString(),
-//                        allStakingDenomAmount().toString(),
-//                        "0",
-//                        cosmosBalances?.count { BaseData.getAsset(apiName, it.denom) != null }
-//                            ?.toLong())
-//                    BaseData.updateRefAddressesMain(refAddress)
-//                    withContext(Dispatchers.Main) {
-//                        if (isEdit) {
-//                            editFetchedResult.value = tag
-//                        } else {
-//                            fetchedResult.value = tag
-//                            txFetchedResult.value = tag
-//                        }
-//                    }
-//
+                }
+
+                BaseUtils.onParseVestingAccount(this)
+                fetched = true
+                if (fetched) {
+                    val refAddress = RefAddress(
+                        id,
+                        tag,
+                        address,
+                        ByteUtils.convertBech32ToEvm(address),
+                        allAssetValue(true).toPlainString(),
+                        grpcFetcher.allStakingDenomAmount().toString(),
+                        "0",
+                        grpcFetcher.cosmosBalances?.count {
+                            BaseData.getAsset(
+                                apiName, it.denom
+                            ) != null
+                        }?.toLong()
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                            txFetchedResult.value = tag
+                        }
+                    }
+
 //                    if (supportCw20) {
-//                        val tokenBalanceDeferredList = tokens.map { token ->
-//                            async { walletRepository.cw20Balance(channel, line, token) }
+//                        val tokenBalanceDeferredList = grpcFetcher.tokens.map { token ->
+//                            async { walletRepository.cw20Balance(channel, chain, token) }
 //                        }
 //
 //                        tokenBalanceDeferredList.awaitAll()
@@ -332,22 +347,22 @@ class ApplicationViewModel(
 //                            }
 //                        }
 //                    }
-//
-//                    fetchedTotalResult.postValue(tag)
-//                }
-//
-//            } finally {
-//                channel.shutdown()
-//                try {
-//                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
-//                        channel.shutdownNow()
-//                    }
-//                } catch (e: InterruptedException) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        }
-//    }
+
+                    fetchedTotalResult.postValue(tag)
+                }
+
+            } finally {
+                channel.shutdown()
+                try {
+                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                        channel.shutdownNow()
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 
 //    fun loadEvmChainData(line: EthereumLine, baseAccountId: Long, isEdit: Boolean) =
 //        CoroutineScope(Dispatchers.IO).launch {

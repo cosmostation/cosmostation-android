@@ -44,7 +44,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         ): SetAddressFragment {
             val args = Bundle().apply {
                 putParcelable("addressBook", addressBook)
-                putSerializable("toChain", toChain)
+                putParcelable("toChain", toChain)
                 putString("recipientAddress", recipientAddress)
                 putString("memo", memo)
                 putSerializable("addressBookType", addressBookType)
@@ -75,7 +75,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     getParcelable("addressBook", AddressBook::class.java)?.let { addressBook = it }
-                    getSerializable("toChain", BaseChain::class.java)?.let { toChain = it }
+                    getParcelable("toChain", BaseChain::class.java)?.let { toChain = it }
                     getSerializable(
                         "addressBookType", AddressBookType::class.java
                     )?.let { addressBookType = it }
@@ -84,7 +84,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     (getParcelable("addressBook") as? AddressBook)?.let {
                         addressBook = it
                     }
-                    (getSerializable("toChain") as? BaseChain)?.let {
+                    (getParcelable("toChain") as? BaseChain)?.let {
                         toChain = it
                     }
                     (getSerializable("addressBookType") as? AddressBookType)?.let {

@@ -56,8 +56,8 @@ class AddressBookFragment : BottomSheetDialogFragment() {
             listener: AddressBookSelectListener
         ): AddressBookFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
-                putSerializable("toChain", toChain)
+                putParcelable("fromChain", fromChain)
+                putParcelable("toChain", toChain)
                 putString("senderAddress", senderAddress)
                 putSerializable("sendAssetType", sendAssetType)
             }
@@ -86,10 +86,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private fun initData() {
         arguments?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                getSerializable(
+                getParcelable(
                     "fromChain", BaseChain::class.java
                 )?.let { fromChain = it }
-                getSerializable(
+                getParcelable(
                     "toChain", BaseChain::class.java
                 )?.let { toChain = it }
                 getSerializable(
@@ -97,10 +97,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                 )?.let { sendAssetType = it }
 
             } else {
-                (getSerializable("fromChain") as? BaseChain)?.let {
+                (getParcelable("fromChain") as? BaseChain)?.let {
                     fromChain = it
                 }
-                (getSerializable("toChain") as? BaseChain)?.let {
+                (getParcelable("toChain") as? BaseChain)?.let {
                     toChain = it
                 }
                 (getSerializable("sendAssetType") as? SendAssetType)?.let {

@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,20 +16,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
@@ -149,10 +151,32 @@ class DashboardFragment : Fragment() {
     }
 
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
-        override fun nodeDown(line: CosmosLine) {
-            if (!line.fetched) {
+        override fun nodeDown(chain: BaseChain) {
+            if (!chain.fetched) {
                 return
             }
+
+//            if (line !is ChainOkt996Keccak) {
+//                if (line.cosmosBalances == null) {
+//                    nodeDownPopup()
+//                    return
+//                }
+//            }
+//            Intent(requireContext(), CosmosActivity::class.java).apply {
+//                putExtra("selectedChain", line as Parcelable)
+//                startActivity(this)
+//            }
+//            requireActivity().toMoveAnimation()
+            if (chain.grpcFetcher.cosmosBalances == null) {
+                nodeDownPopup()
+                return
+            }
+            Intent(requireContext(), CosmosActivity::class.java).apply {
+                putExtra("selectedChain", chain as Parcelable)
+                startActivity(this)
+            }
+            requireActivity().toMoveAnimation()
+
 //            if (line is EthereumLine) {
 //                if (line !is ChainOktEvm) {
 //                    if (line.supportCosmos && line.cosmosBalances == null) {
@@ -343,9 +367,7 @@ class DashboardFragment : Fragment() {
         binding?.apply {
             refresher.setOnRefreshListener {
                 baseAccount?.let { account ->
-                    if (account.sortedDisplayChains()
-                            .any { !it.fetched }
-                    ) {
+                    if (account.sortedDisplayChains().any { !it.fetched }) {
                         refresher.isRefreshing = false
 
                     } else {

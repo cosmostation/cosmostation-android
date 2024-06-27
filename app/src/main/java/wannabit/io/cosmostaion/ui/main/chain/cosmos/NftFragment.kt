@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.data.model.Cw721Model
@@ -30,14 +31,14 @@ class NftFragment : Fragment() {
 
     private lateinit var walletViewModel: WalletViewModel
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private var isBusy = false
     private var isClickable = true
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): NftFragment {
+        fun newInstance(selectedChain: BaseChain): NftFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -75,10 +76,10 @@ class NftFragment : Fragment() {
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }
@@ -106,7 +107,7 @@ class NftFragment : Fragment() {
                 emptyLayout.visibility = View.GONE
                 recycler.visibility = View.VISIBLE
 
-                nftAdapter = NftAdapter(selectedChain)
+//                nftAdapter = NftAdapter(selectedChain)
                 recycler.setHasFixedSize(true)
                 val gridLayoutManager = GridLayoutManager(requireContext(), 2)
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
@@ -32,11 +33,11 @@ class TokenFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var tokenAdapter: TokenAdapter
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): TokenFragment {
+        fun newInstance(selectedChain: BaseChain): TokenFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -66,10 +67,10 @@ class TokenFragment : Fragment() {
     private fun initData() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
@@ -80,40 +81,40 @@ class TokenFragment : Fragment() {
 
     private fun initRecyclerView(tokens: MutableList<Token>) {
         binding.recycler.apply {
-            tokenAdapter = TokenAdapter(selectedChain)
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = tokenAdapter
-            tokenAdapter.submitList(tokens)
-
-            var isClickable = true
-            if (::tokenAdapter.isInitialized) {
-                tokenAdapter.setOnItemClickListener { line, denom ->
-                    if (isClickable) {
-                        isClickable = false
-
-                        val sendAssetType = if (selectedChain.supportCw20) {
-                            SendAssetType.ONLY_COSMOS_CW20
-                        } else {
-                            SendAssetType.ONLY_EVM_ERC20
-                        }
-
-                        if (selectedChain.isBankLocked()) {
-                            requireActivity().makeToast(R.string.error_tranfer_disabled)
-                            return@setOnItemClickListener
-                        }
-
-                        CommonTransferFragment.newInstance(line, denom, sendAssetType).show(
-                            requireActivity().supportFragmentManager,
-                            CommonTransferFragment::class.java.name
-                        )
-
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            isClickable = true
-                        }, 300)
-                    }
-                }
-            }
+//            tokenAdapter = TokenAdapter(selectedChain)
+//            setHasFixedSize(true)
+//            layoutManager = LinearLayoutManager(requireContext())
+//            adapter = tokenAdapter
+//            tokenAdapter.submitList(tokens)
+//
+//            var isClickable = true
+//            if (::tokenAdapter.isInitialized) {
+//                tokenAdapter.setOnItemClickListener { line, denom ->
+//                    if (isClickable) {
+//                        isClickable = false
+//
+//                        val sendAssetType = if (selectedChain.supportCw20) {
+//                            SendAssetType.ONLY_COSMOS_CW20
+//                        } else {
+//                            SendAssetType.ONLY_EVM_ERC20
+//                        }
+//
+//                        if (selectedChain.isBankLocked()) {
+//                            requireActivity().makeToast(R.string.error_tranfer_disabled)
+//                            return@setOnItemClickListener
+//                        }
+//
+//                        CommonTransferFragment.newInstance(line, denom, sendAssetType).show(
+//                            requireActivity().supportFragmentManager,
+//                            CommonTransferFragment::class.java.name
+//                        )
+//
+//                        Handler(Looper.getMainLooper()).postDelayed({
+//                            isClickable = true
+//                        }, 300)
+//                    }
+//                }
+//            }
         }
     }
 
@@ -130,11 +131,11 @@ class TokenFragment : Fragment() {
                         }
 
                     } else {
-                        selectedChain.tokens.forEach { token ->
-                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                                tokens.add(token)
-                            }
-                        }
+//                        selectedChain.tokens.forEach { token ->
+//                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+//                                tokens.add(token)
+//                            }
+//                        }
                     }
                     tokens.sortWith { o1, o2 ->
                         val value0 = selectedChain.tokenValue(o1.address)

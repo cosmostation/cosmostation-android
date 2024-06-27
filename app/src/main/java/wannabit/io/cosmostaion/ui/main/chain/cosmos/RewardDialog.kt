@@ -4,11 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.databinding.DialogRewardBinding
@@ -17,7 +16,7 @@ import java.math.RoundingMode
 
 class RewardDialog(
     context: Context,
-    val selectedChain: CosmosLine,
+    val selectedChain: BaseChain,
     val rewards: MutableList<DistributionProto.DelegationDelegatorReward>
 ) : Dialog(context, R.style.CustomDialogTheme) {
 
@@ -107,15 +106,15 @@ class RewardDialog(
     }
 
     private fun initRecyclerView(rewardCoins: MutableList<Coin>) {
-        binding.rewardDetail.text =
-            context.getString(R.string.title_reward_detail, rewardCoins.count().toString())
-        binding.recycler.apply {
-            rewardAdapter = RewardAdapter(selectedChain)
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
-            adapter = rewardAdapter
-            rewardAdapter.submitList(rewardCoins)
-        }
+//        binding.rewardDetail.text =
+//            context.getString(R.string.title_reward_detail, rewardCoins.count().toString())
+//        binding.recycler.apply {
+//            rewardAdapter = RewardAdapter(selectedChain)
+//            setHasFixedSize(true)
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = rewardAdapter
+//            rewardAdapter.submitList(rewardCoins)
+//        }
     }
 
     private fun setUpClickAction() {

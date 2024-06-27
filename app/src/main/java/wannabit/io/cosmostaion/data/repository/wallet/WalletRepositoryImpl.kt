@@ -143,22 +143,22 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun delegation(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegatorDelegationsResponse> {
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
-            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(line.address).build()
+            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorDelegations(request)
         }
     }
 
     override suspend fun unBonding(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegatorUnbondingDelegationsResponse> {
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
-            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(line.address)
+            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(chain.address)
                 .build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorUnbondingDelegations(request)
@@ -166,12 +166,12 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun reward(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegationTotalRewardsResponse> {
         val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
-            QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(line.address)
+            QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(chain.address)
                 .build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegationTotalRewards(request)
@@ -179,13 +179,13 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun rewardAddress(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<String> {
         val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
             com.cosmos.distribution.v1beta1.QueryProto.QueryDelegatorWithdrawAddressRequest.newBuilder()
-                .setDelegatorAddress(line.address).build()
+                .setDelegatorAddress(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorWithdrawAddress(request).withdrawAddress
         }

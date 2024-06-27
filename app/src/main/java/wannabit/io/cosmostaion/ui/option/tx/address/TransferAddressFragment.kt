@@ -59,8 +59,8 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             listener: AddressListener
         ): TransferAddressFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
-                putSerializable("toChain", toChain)
+                putParcelable("fromChain", fromChain)
+                putParcelable("toChain", toChain)
                 putString("existAddress", existAddress)
                 putSerializable("sendAssetType", sendAssetType)
             }
@@ -101,10 +101,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
+                    getParcelable(
                         "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
-                    getSerializable(
+                    getParcelable(
                         "toChain", BaseChain::class.java
                     )?.let { toChain = it }
                     getSerializable(
@@ -112,10 +112,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                     )?.let { sendAssetType = it }
 
                 } else {
-                    (getSerializable("fromChain") as? BaseChain)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
-                    (getSerializable("toChain") as? BaseChain)?.let {
+                    (getParcelable("toChain") as? BaseChain)?.let {
                         toChain = it
                     }
                     (getSerializable("sendAssetType") as? SendAssetType)?.let {

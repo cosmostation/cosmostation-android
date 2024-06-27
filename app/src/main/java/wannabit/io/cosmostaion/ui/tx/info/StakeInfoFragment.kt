@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
@@ -28,7 +29,7 @@ class StakeInfoFragment : Fragment() {
     private var _binding: FragmentStakeInfoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var stakingInfoAdapter: StakingInfoAdapter
 
@@ -36,7 +37,7 @@ class StakeInfoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): StakeInfoFragment {
+        fun newInstance(selectedChain: BaseChain): StakeInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -64,63 +65,63 @@ class StakeInfoFragment : Fragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val rewardAddress = selectedChain.rewardAddress
-                var delegations = selectedChain.cosmosDelegations
-                val validators = selectedChain.cosmosValidators
-                val unBondings = selectedChain.cosmosUnbondings.flatMap { unbonding ->
-                    unbonding.entriesList.map { entry ->
-                        UnBondingEntry(unbonding.validatorAddress, entry)
-                    }
-                }.sortedBy { it.entry?.creationHeight }.toMutableList()
-
-                val cosmostationValAddress =
-                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-
-                val tempDelegations = delegations.toMutableList()
-                tempDelegations.sortWith { o1, o2 ->
-                    when {
-                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
-                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
-                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
-                        else -> 1
-                    }
-                }
-                delegations = tempDelegations
-
-                val stakingInfoList = delegations + unBondings
-
-                withContext(Dispatchers.Main) {
-                    if (stakingInfoList.isNotEmpty()) {
-                        emptyStake.visibility = View.GONE
-                        recycler.visibility = View.VISIBLE
-
-                        stakingInfoAdapter = StakingInfoAdapter(
-                            selectedChain,
-                            rewardAddress,
-                            validators,
-                            delegations,
-                            unBondings,
-                            selectClickAction
-                        )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = stakingInfoAdapter
-
-                    } else {
-                        emptyStake.visibility = View.VISIBLE
-                        recycler.visibility = View.GONE
-                    }
-                }
+//                val rewardAddress = selectedChain.rewardAddress
+//                var delegations = selectedChain.cosmosDelegations
+//                val validators = selectedChain.cosmosValidators
+//                val unBondings = selectedChain.cosmosUnbondings.flatMap { unbonding ->
+//                    unbonding.entriesList.map { entry ->
+//                        UnBondingEntry(unbonding.validatorAddress, entry)
+//                    }
+//                }.sortedBy { it.entry?.creationHeight }.toMutableList()
+//
+//                val cosmostationValAddress =
+//                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+//
+//                val tempDelegations = delegations.toMutableList()
+//                tempDelegations.sortWith { o1, o2 ->
+//                    when {
+//                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
+//                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
+//                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
+//                        else -> 1
+//                    }
+//                }
+//                delegations = tempDelegations
+//
+//                val stakingInfoList = delegations + unBondings
+//
+//                withContext(Dispatchers.Main) {
+//                    if (stakingInfoList.isNotEmpty()) {
+//                        emptyStake.visibility = View.GONE
+//                        recycler.visibility = View.VISIBLE
+//
+//                        stakingInfoAdapter = StakingInfoAdapter(
+//                            selectedChain,
+//                            rewardAddress,
+//                            validators,
+//                            delegations,
+//                            unBondings,
+//                            selectClickAction
+//                        )
+//                        recycler.setHasFixedSize(true)
+//                        recycler.layoutManager = LinearLayoutManager(requireContext())
+//                        recycler.adapter = stakingInfoAdapter
+//
+//                    } else {
+//                        emptyStake.visibility = View.VISIBLE
+//                        recycler.visibility = View.GONE
+//                    }
+//                }
             }
         }
     }
@@ -132,7 +133,7 @@ class StakeInfoFragment : Fragment() {
             }
 
             btnChangeRewardAddress.setOnClickListener {
-                handleOneClickWithDelay(ChangeRewardAddressWarnFragment.newInstance(selectedChain))
+//                handleOneClickWithDelay(ChangeRewardAddressWarnFragment.newInstance(selectedChain))
             }
 
             btnStake.setOnClickListener {
@@ -152,19 +153,19 @@ class StakeInfoFragment : Fragment() {
 
     private val selectClickAction = object : StakingInfoAdapter.ClickListener {
         override fun selectStakingAction(validator: StakingProto.Validator?) {
-            handleOneClickWithDelay(
-                StakingOptionFragment.newInstance(
-                    selectedChain, validator, null, OptionType.STAKE
-                )
-            )
+//            handleOneClickWithDelay(
+//                StakingOptionFragment.newInstance(
+//                    selectedChain, validator, null, OptionType.STAKE
+//                )
+//            )
         }
 
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
-            handleOneClickWithDelay(
-                StakingOptionFragment.newInstance(
-                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
-                )
-            )
+//            handleOneClickWithDelay(
+//                StakingOptionFragment.newInstance(
+//                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
+//                )
+//            )
         }
     }
 

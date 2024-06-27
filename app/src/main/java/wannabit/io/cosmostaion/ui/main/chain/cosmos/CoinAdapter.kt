@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
@@ -15,10 +15,10 @@ import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 
 class CoinAdapter(
-    val context: Context, val selectedChain: CosmosLine
+    val context: Context, val selectedChain: BaseChain
 ) : ListAdapter<Coin, RecyclerView.ViewHolder>(CoinDiffCallback()) {
 
-    private var onItemClickListener: ((CosmosLine, String, Int) -> Unit)? = null
+    private var onItemClickListener: ((BaseChain, String, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -63,11 +63,12 @@ class CoinAdapter(
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
-                        if (selectedChain.supportStaking && selectedChain.cosmosRewards.isNotEmpty()) {
+                        if (selectedChain.supportStaking && selectedChain.grpcFetcher.cosmosRewards.isNotEmpty()) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog =
-                                RewardDialog(context, selectedChain, selectedChain.cosmosRewards)
+                            val customDialog = RewardDialog(
+                                context, selectedChain, selectedChain.grpcFetcher.cosmosRewards
+                            )
 
                             if (scaleX == 1.0f && scaleY == 1.0f) {
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
@@ -143,7 +144,7 @@ class CoinAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (CosmosLine, String, Int) -> Unit) {
+    fun setOnItemClickListener(listener: (BaseChain, String, Int) -> Unit) {
         onItemClickListener = listener
     }
 }

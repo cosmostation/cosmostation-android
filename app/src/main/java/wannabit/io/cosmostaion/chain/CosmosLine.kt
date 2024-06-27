@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.chain
 
-import android.content.Context
 import android.net.Uri
 import android.os.Parcelable
 import com.cosmos.base.v1beta1.CoinProto.Coin
@@ -8,19 +7,11 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
-import com.cosmos.tx.v1beta1.TxProto
-import com.google.gson.JsonObject
 import kotlinx.parcelize.Parcelize
-import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
-import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
-import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -52,154 +43,12 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun getInitFee(c: Context): TxProto.Fee? {
-        return if (getDefaultFeeCoins(c).isNotEmpty()) {
-            val fee = getDefaultFeeCoins(c).first()
-            val feeCoin = Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin).build()
-        } else {
-            null
-        }
-    }
-
-    fun getInitPayableFee(c: Context): TxProto.Fee? {
-        var feeCoin: Coin? = null
-        for (i in 0 until getDefaultFeeCoins(c).size) {
-            val minFee = getDefaultFeeCoins(c)[i]
-            if (balanceAmount(minFee.denom) >= minFee.amount.toBigDecimal()) {
-                feeCoin = minFee
-                break
-            }
-        }
-        if (feeCoin != null) {
-            return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
-                .build()
-        }
-        return null
-    }
-
-    fun getChainParam(): JsonObject? {
-        return try {
-            return BaseData.chainParam?.getAsJsonObject(apiName)
-        } catch (e: Exception) {
-            JsonObject()
-        }
-    }
-
-    fun getChainListParam(): JsonObject? {
-        return try {
-            getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
-                ?: JsonObject()
-        } catch (e: Exception) {
-            JsonObject()
-        }
-    }
-
-    fun chainDappName(): String? {
-        return getChainListParam()?.get("name_for_dapp")?.asString?.lowercase()
-    }
-
-    fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
-        val gasAmount = getFeeBaseGasDpAmount()
-        val feeDatas = getFeeInfos(c)[position].feeDatas
-        val rate = feeDatas.firstOrNull { it.denom == denom }?.gasRate ?: BigDecimal.ZERO
-        val coinAmount = rate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-        return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(
-            Coin.newBuilder().setDenom(denom).setAmount(coinAmount.toString()).build()
-        ).build()
-    }
-
-    fun getBaseFeeInfo(c: Context): FeeInfo {
-        return getFeeInfos(c)[getFeeBasePosition()]
-    }
-
-    fun getFeeBasePosition(): Int {
-        return getChainListParam()?.getAsJsonObject("fee")?.get("base")?.asInt ?: 0
-    }
-
-    private fun getFeeBaseGasAmount(): Long {
-        return getChainListParam()?.getAsJsonObject("fee")?.let {
-            it.get("init_gas_limit")?.asLong
-        } ?: run {
-            BASE_GAS_AMOUNT.toLong()
-        }
-    }
-
-    private fun getFeeBaseGasDpAmount(): BigDecimal {
-        return BigDecimal(getFeeBaseGasAmount().toString())
-    }
-
-    open fun isTxFeePayable(c: Context): Boolean {
-        getDefaultFeeCoins(c).forEach { fee ->
-            if (balanceAmount(fee.denom) >= BigDecimal(fee.amount)) {
-                return true
-            }
-        }
-        return false
-    }
-
-    fun getDefaultFeeCoins(c: Context): MutableList<Coin> {
-        val result: MutableList<Coin> = mutableListOf()
-        val gasAmount = getFeeBaseGasDpAmount()
-        if (getFeeInfos(c).size > 0) {
-            val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
-            feeDatas.forEach { feeData ->
-                val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-                result.add(
-                    Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString()).build()
-                )
-            }
-        }
-        return result
-    }
-
-    fun getFeeInfos(c: Context): MutableList<FeeInfo> {
-        val result: MutableList<FeeInfo> = mutableListOf()
-        getChainListParam()?.getAsJsonObject("fee")?.let {
-            it.getAsJsonArray("rate").forEach { rate ->
-                result.add(FeeInfo(rate.asString))
-            }
-        }
-
-        if (result.size == 1) {
-            result[0].title = c.getString(R.string.str_fixed)
-            result[0].msg = c.getString(R.string.str_fee_speed_title_fixed)
-        } else if (result.size == 2) {
-            result[1].title = c.getString(R.string.str_average)
-            result[1].msg = c.getString(R.string.str_fee_speed_title_average)
-            if (result[0].feeDatas[0].gasRate == BigDecimal("0.0")) {
-                result[0].title = c.getString(R.string.str_free)
-                result[0].msg = c.getString(R.string.str_fee_speed_title_zero)
-            } else {
-                result[0].title = c.getString(R.string.str_tiny)
-                result[0].msg = c.getString(R.string.str_fee_speed_title_tiny)
-            }
-        } else if (result.size == 3) {
-            result[2].title = c.getString(R.string.str_average)
-            result[2].msg = c.getString(R.string.str_fee_speed_title_average)
-            result[1].title = c.getString(R.string.str_low)
-            result[1].msg = c.getString(R.string.str_fee_speed_title_low)
-            if (result[0].feeDatas[0].gasRate == BigDecimal("0.0")) {
-                result[0].title = c.getString(R.string.str_free)
-                result[0].msg = c.getString(R.string.str_fee_speed_title_zero)
-            } else {
-                result[0].title = c.getString(R.string.str_tiny)
-                result[0].msg = c.getString(R.string.str_fee_speed_title_tiny)
-            }
-        }
-        return result
-    }
-
     fun isGasSimulable(): Boolean {
         return getChainListParam()?.getAsJsonObject("fee")?.get("isSimulable")?.asBoolean ?: true
     }
 
     fun isBankLocked(): Boolean {
         return getChainListParam()?.get("isBankLocked")?.asBoolean ?: false
-    }
-
-    fun isEcosystem(): Boolean {
-        return getChainListParam()?.get("moblie_dapp")?.asBoolean ?: false
     }
 
     fun voteThreshold(): String {
@@ -363,10 +212,6 @@ open class CosmosLine : BaseChain(), Parcelable {
         return result
     }
 
-    fun rewardOtherDenoms(): Int {
-        return rewardAllCoins().map { it.denom }.distinct().count { it != stakeDenom }
-    }
-
     private fun rewardValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         rewardAllCoins().forEach { rewardCoin ->
@@ -380,28 +225,6 @@ open class CosmosLine : BaseChain(), Parcelable {
             }
         }
         return sum
-    }
-
-    fun claimableRewards(): MutableList<DelegationDelegatorReward?> {
-        val result = mutableListOf<DelegationDelegatorReward?>()
-
-        cosmosRewards.forEach { reward ->
-            run loop@{
-                for (i in 0 until reward.rewardCount) {
-                    val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18)
-                        .setScale(0, RoundingMode.DOWN)
-                    BaseData.getAsset(apiName, reward.rewardList[i].denom)?.let { asset ->
-                        val calAmount = rewardAmount.movePointLeft(asset.decimals ?: 6)
-                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        if (calAmount > BigDecimal("0.1")) {
-                            result.add(reward)
-                            return@loop
-                        }
-                    }
-                }
-            }
-        }
-        return result
     }
 
     fun valueAbleRewards(): MutableList<DelegationDelegatorReward?> {
@@ -458,36 +281,6 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
-        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-            return price.multiply(tokenInfo.amount?.toBigDecimal())
-                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
-        } ?: run {
-            return BigDecimal.ZERO
-        }
-    }
-
-    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
-        var result = BigDecimal.ZERO
-        tokens.forEach { token ->
-            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
-            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                .setScale(6, RoundingMode.DOWN)
-            result = result.add(value)
-        }
-        return result
-    }
-
-    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
-            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
-    }
-
-    override fun allValue(isUsd: Boolean?): BigDecimal {
-        return allAssetValue(isUsd).add(allTokenValue(isUsd))
-    }
-
     override fun explorerAccount(): Uri? {
         getChainListParam()?.getAsJsonObject("explorer")
             ?.get("account")?.asString?.let { urlString ->
@@ -523,18 +316,6 @@ open class CosmosLine : BaseChain(), Parcelable {
                 }
             }
         return null
-    }
-
-    open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
-        return if (denom == stakeDenom) {
-            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
-                .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
-                .add(unbondingValueSum(isUsd))
-
-        } else {
-            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
-                .add(rewardValue(denom, isUsd))
-        }
     }
 
     fun monikerImg(opAddress: String?): String {

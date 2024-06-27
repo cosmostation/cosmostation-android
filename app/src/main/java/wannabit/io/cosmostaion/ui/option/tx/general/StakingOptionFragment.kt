@@ -11,6 +11,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
@@ -26,7 +27,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentStakingOptionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private var validator: Validator? = null
     private var unBondingEntry: UnBondingEntry? = null
     private var optionType: OptionType? = OptionType.STAKE
@@ -36,7 +37,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine,
+            selectedChain: BaseChain,
             validator: Validator?,
             unBondingEntry: UnBondingEntry?,
             optionType: OptionType?
@@ -71,7 +72,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     validator = getSerializable("validator", Validator::class.java)
@@ -79,7 +80,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                     optionType = getSerializable("optionType", OptionType::class.java)
                 }
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 arguments?.apply {
@@ -156,52 +157,52 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             claimRewardsLayout.setOnClickListener {
-                val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }
-                    ?.let { claimableReward ->
-                        if (claimableReward.rewardCount > 0) {
-                            claimableRewards.add(claimableReward)
-                        } else {
-                            requireContext().makeToast(R.string.error_not_reward)
-                            return@setOnClickListener
-                        }
-
-                    } ?: run {
-                    requireContext().makeToast(R.string.error_not_reward)
-                    return@setOnClickListener
-                }
-
-                handleOneClickWithDelay(
-                    ClaimRewardFragment.newInstance(
-                        selectedChain, claimableRewards
-                    )
-                )
+//                val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
+//                selectedChain.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }
+//                    ?.let { claimableReward ->
+//                        if (claimableReward.rewardCount > 0) {
+//                            claimableRewards.add(claimableReward)
+//                        } else {
+//                            requireContext().makeToast(R.string.error_not_reward)
+//                            return@setOnClickListener
+//                        }
+//
+//                    } ?: run {
+//                    requireContext().makeToast(R.string.error_not_reward)
+//                    return@setOnClickListener
+//                }
+//
+//                handleOneClickWithDelay(
+//                    ClaimRewardFragment.newInstance(
+//                        selectedChain, claimableRewards
+//                    )
+//                )
             }
 
             compoundingLayout.setOnClickListener {
-                if (selectedChain.rewardAddress != selectedChain.address) {
-                    requireContext().makeToast(R.string.error_reward_address_changed_msg)
-                    return@setOnClickListener
-                }
+//                if (selectedChain.rewardAddress != selectedChain.address) {
+//                    requireContext().makeToast(R.string.error_reward_address_changed_msg)
+//                    return@setOnClickListener
+//                }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.claimableRewards()
-                    .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
-                    ?.let { claimableReward ->
-                        if (claimableReward.rewardCount > 0) {
-                            claimableRewards.add(claimableReward)
-                        } else {
-                            requireContext().makeToast(R.string.error_not_reward)
-                            return@setOnClickListener
-                        }
-                    } ?: run {
-                    requireContext().makeToast(R.string.error_not_reward)
-                    return@setOnClickListener
-                }
-                handleOneClickWithDelay(
-                    CompoundingFragment.newInstance(
-                        selectedChain, claimableRewards
-                    )
-                )
+//                selectedChain.claimableRewards()
+//                    .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
+//                    ?.let { claimableReward ->
+//                        if (claimableReward.rewardCount > 0) {
+//                            claimableRewards.add(claimableReward)
+//                        } else {
+//                            requireContext().makeToast(R.string.error_not_reward)
+//                            return@setOnClickListener
+//                        }
+//                    } ?: run {
+//                    requireContext().makeToast(R.string.error_not_reward)
+//                    return@setOnClickListener
+//                }
+//                handleOneClickWithDelay(
+//                    CompoundingFragment.newInstance(
+//                        selectedChain, claimableRewards
+//                    )
+//                )
             }
 
             unstakeCancelLayout.setOnClickListener {
