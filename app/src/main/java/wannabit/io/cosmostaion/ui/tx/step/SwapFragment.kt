@@ -161,36 +161,36 @@ class SwapFragment : BaseTxFragment() {
         val result = mutableListOf<CosmosLine>()
         BaseData.baseAccount?.let { account ->
             account.apply {
-                if (type == BaseAccountType.MNEMONIC) {
-                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
-                        result.add(chain)
-                    }
-
-                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
-                        result.add(chain)
-                    }
-
-                    result.forEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                        }
-                    }
-
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
-                        result.add(chain)
-                    }
-
-                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
-                        result.add(chain)
-                    }
-
-                    result.forEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                    }
-                }
+//                if (type == BaseAccountType.MNEMONIC) {
+//                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
+//                        result.add(chain)
+//                    }
+//
+//                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
+//                        result.add(chain)
+//                    }
+//
+//                    result.forEach { chain ->
+//                        if (chain.address?.isEmpty() == true) {
+//                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+//                        }
+//                    }
+//
+//                } else if (type == BaseAccountType.PRIVATE_KEY) {
+//                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
+//                        result.add(chain)
+//                    }
+//
+//                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
+//                        result.add(chain)
+//                    }
+//
+//                    result.forEach { chain ->
+//                        if (chain.address?.isEmpty() == true) {
+//                            chain.setInfoWithPrivateKey(privateKey)
+//                        }
+//                    }
+//                }
             }
         }
         return result
@@ -347,35 +347,35 @@ class SwapFragment : BaseTxFragment() {
 
             skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                 inputCosmosLine?.let { line ->
-                    try {
-                        val channel = getChannel(line)
-                        val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
-                        val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
-
-                        line.cosmosAuth = loadInputAuthDeferred.await()?.account
-                        line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
-                        BaseUtils.onParseVestingAccount(line)
-                    } catch (e: Exception) {
-                        if (isAdded) {
-                            activity?.makeToast(R.string.str_unknown_error)
-                        }
-                    }
+//                    try {
+//                        val channel = getChannel(line)
+//                        val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
+//                        val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
+//
+//                        line.cosmosAuth = loadInputAuthDeferred.await()?.account
+//                        line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
+//                        BaseUtils.onParseVestingAccount(line)
+//                    } catch (e: Exception) {
+//                        if (isAdded) {
+//                            activity?.makeToast(R.string.str_unknown_error)
+//                        }
+//                    }
                 }
 
                 outputCosmosLine?.let { line ->
-                    try {
-                        val channel = getChannel(line)
-                        val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
-                        val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
-
-                        line.cosmosAuth = loadOutputAuthDeferred.await()?.account
-                        line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
-                        BaseUtils.onParseVestingAccount(line)
-                    } catch (e: Exception) {
-                        if (isAdded) {
-                            activity?.makeToast(R.string.str_unknown_error)
-                        }
-                    }
+//                    try {
+//                        val channel = getChannel(line)
+//                        val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
+//                        val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
+//
+//                        line.cosmosAuth = loadOutputAuthDeferred.await()?.account
+//                        line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
+//                        BaseUtils.onParseVestingAccount(line)
+//                    } catch (e: Exception) {
+//                        if (isAdded) {
+//                            activity?.makeToast(R.string.str_unknown_error)
+//                        }
+//                    }
                 }
 
                 withContext(Dispatchers.Main) {
@@ -706,16 +706,16 @@ class SwapFragment : BaseTxFragment() {
                                                     inputAssetSelected =
                                                         inputAssets.firstOrNull { it.denom == line.stakeDenom }
 
-                                                    val channel = getChannel(line)
-                                                    val loadInputAuthDeferred =
-                                                        async { loadAuth(channel, line.address) }
-                                                    val loadInputBalanceDeferred =
-                                                        async { loadBalance(channel, line.address) }
-
-                                                    line.cosmosAuth =
-                                                        loadInputAuthDeferred.await()?.account
-                                                    line.cosmosBalances =
-                                                        loadInputBalanceDeferred.await().balancesList
+//                                                    val channel = getChannel(line)
+//                                                    val loadInputAuthDeferred =
+//                                                        async { loadAuth(channel, line.address) }
+//                                                    val loadInputBalanceDeferred =
+//                                                        async { loadBalance(channel, line.address) }
+//
+//                                                    line.cosmosAuth =
+//                                                        loadInputAuthDeferred.await()?.account
+//                                                    line.cosmosBalances =
+//                                                        loadInputBalanceDeferred.await().balancesList
                                                     BaseUtils.onParseVestingAccount(line)
                                                 } catch (e: Exception) {
                                                     activity?.makeToast(R.string.str_unknown_error)
@@ -801,16 +801,16 @@ class SwapFragment : BaseTxFragment() {
                                                     outputAssetSelected =
                                                         outputAssets.firstOrNull { it.denom == line.stakeDenom }
 
-                                                    val channel = getChannel(line)
-                                                    val loadOutputAuthDeferred =
-                                                        async { loadAuth(channel, line.address) }
-                                                    val loadOutputBalanceDeferred =
-                                                        async { loadBalance(channel, line.address) }
-
-                                                    line.cosmosAuth =
-                                                        loadOutputAuthDeferred.await()?.account
-                                                    line.cosmosBalances =
-                                                        loadOutputBalanceDeferred.await().balancesList
+//                                                    val channel = getChannel(line)
+//                                                    val loadOutputAuthDeferred =
+//                                                        async { loadAuth(channel, line.address) }
+//                                                    val loadOutputBalanceDeferred =
+//                                                        async { loadBalance(channel, line.address) }
+//
+//                                                    line.cosmosAuth =
+//                                                        loadOutputAuthDeferred.await()?.account
+//                                                    line.cosmosBalances =
+//                                                        loadOutputBalanceDeferred.await().balancesList
                                                     BaseUtils.onParseVestingAccount(line)
                                                 } catch (e: Exception) {
                                                     activity?.makeToast(R.string.str_unknown_error)

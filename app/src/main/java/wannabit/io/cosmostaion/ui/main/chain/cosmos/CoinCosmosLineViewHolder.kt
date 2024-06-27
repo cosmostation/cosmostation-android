@@ -6,10 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -30,13 +26,13 @@ class CoinCosmosLineViewHolder(
 
     fun bind(context: Context, line: CosmosLine) {
         when (line) {
-            is ChainOkt996Keccak, is ChainOktEvm -> {
-                bindOkt(line)
-            }
-
-            is ChainNeutron -> {
-                bindNeutron(line)
-            }
+//            is ChainOkt996Keccak, is ChainOktEvm -> {
+//                bindOkt(line)
+//            }
+//
+//            is ChainNeutron -> {
+//                bindNeutron(line)
+//            }
 
             else -> {
                 binding.apply {
@@ -133,70 +129,70 @@ class CoinCosmosLineViewHolder(
             unstakingLayout.visibility = View.GONE
             rewardLayout.visibility = View.GONE
 
-            val neutronChain = line as? ChainNeutron
-            neutronChain?.let { chain ->
-                stakedTitle.text = "Vault deposited"
-                chain.stakeDenom?.let { denom ->
-                    BaseData.getAsset(chain.apiName, denom)?.let { asset ->
-                        tokenImg.setTokenImg(asset)
-                        tokenName.text = asset.symbol?.uppercase()
-
-                        tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                            tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                            tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                        }
-
-                        asset.decimals?.let { decimal ->
-                            val availableAmount = line.balanceAmount(denom).movePointLeft(decimal)
-                                .setScale(6, RoundingMode.DOWN)
-
-                            chain.neutronVestingAmount()?.let { neutronVestingAmount ->
-                                val vestingAmount = neutronVestingAmount.movePointLeft(decimal)
-                                    .setScale(6, RoundingMode.DOWN)
-                                vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
-
-                                val depositedAmount =
-                                    chain.neutronDeposited.movePointLeft(decimal)
-                                        .setScale(6, RoundingMode.DOWN)
-
-                                val totalAmount =
-                                    availableAmount.add(vestingAmount).add(depositedAmount)
-                                val value = line.denomValue(denom)
-
-                                with(Prefs) {
-                                    total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                                    totalValue.visibility =
-                                        if (hideValue) View.GONE else View.VISIBLE
-                                    hidingValue.visibility =
-                                        if (hideValue) View.VISIBLE else View.GONE
-
-                                    available.hiddenStatus(
-                                        formatAmount(
-                                            availableAmount.toPlainString(), 6
-                                        )
-                                    )
-                                    vesting.hiddenStatus(
-                                        formatAmount(
-                                            vestingAmount.toPlainString(), 6
-                                        )
-                                    )
-                                    staked.hiddenStatus(
-                                        formatAmount(
-                                            depositedAmount.toPlainString(), 6
-                                        )
-                                    )
-
-                                    total.text = if (hideValue) "" else formatAmount(
-                                        totalAmount.toPlainString(), 6
-                                    )
-                                    totalValue.text = if (hideValue) "" else formatAssetValue(value)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+//            val neutronChain = line as? ChainNeutron
+//            neutronChain?.let { chain ->
+//                stakedTitle.text = "Vault deposited"
+//                chain.stakeDenom?.let { denom ->
+//                    BaseData.getAsset(chain.apiName, denom)?.let { asset ->
+//                        tokenImg.setTokenImg(asset)
+//                        tokenName.text = asset.symbol?.uppercase()
+//
+//                        tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+//                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+//                            tokenPriceChange.priceChangeStatusColor(lastUpDown)
+//                            tokenPriceChange.text = priceChangeStatus(lastUpDown)
+//                        }
+//
+//                        asset.decimals?.let { decimal ->
+//                            val availableAmount = line.balanceAmount(denom).movePointLeft(decimal)
+//                                .setScale(6, RoundingMode.DOWN)
+//
+//                            chain.neutronVestingAmount()?.let { neutronVestingAmount ->
+//                                val vestingAmount = neutronVestingAmount.movePointLeft(decimal)
+//                                    .setScale(6, RoundingMode.DOWN)
+//                                vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
+//
+//                                val depositedAmount =
+//                                    chain.neutronDeposited.movePointLeft(decimal)
+//                                        .setScale(6, RoundingMode.DOWN)
+//
+//                                val totalAmount =
+//                                    availableAmount.add(vestingAmount).add(depositedAmount)
+//                                val value = line.denomValue(denom)
+//
+//                                with(Prefs) {
+//                                    total.visibility = if (hideValue) View.GONE else View.VISIBLE
+//                                    totalValue.visibility =
+//                                        if (hideValue) View.GONE else View.VISIBLE
+//                                    hidingValue.visibility =
+//                                        if (hideValue) View.VISIBLE else View.GONE
+//
+//                                    available.hiddenStatus(
+//                                        formatAmount(
+//                                            availableAmount.toPlainString(), 6
+//                                        )
+//                                    )
+//                                    vesting.hiddenStatus(
+//                                        formatAmount(
+//                                            vestingAmount.toPlainString(), 6
+//                                        )
+//                                    )
+//                                    staked.hiddenStatus(
+//                                        formatAmount(
+//                                            depositedAmount.toPlainString(), 6
+//                                        )
+//                                    )
+//
+//                                    total.text = if (hideValue) "" else formatAmount(
+//                                        totalAmount.toPlainString(), 6
+//                                    )
+//                                    totalValue.text = if (hideValue) "" else formatAssetValue(value)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 
@@ -208,80 +204,80 @@ class CoinCosmosLineViewHolder(
             unstakingLayout.visibility = View.GONE
             rewardLayout.visibility = View.GONE
 
-            if (line is ChainOkt996Keccak) {
-                line.stakeDenom?.let { stakeDenom ->
-                    tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(stakeDenom))
-                    tokenName.text = stakeDenom.uppercase()
-
-                    tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
-                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
-                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                    }
-
-                    val availableAmount = line.lcdBalanceAmount(stakeDenom)
-                    val depositAmount = line.lcdOktDepositAmount()
-                    val withdrawAmount = line.lcdOktWithdrawAmount()
-                    if (withdrawAmount > BigDecimal.ZERO) {
-                        stakedLayout.visibility = View.VISIBLE
-                    } else {
-                        stakedLayout.visibility = View.GONE
-                    }
-
-                    with(Prefs) {
-                        total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                        totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
-                        hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
-
-                        available.hiddenStatus(formatAmount(availableAmount.toPlainString(), 18))
-                        vesting.hiddenStatus(formatAmount(depositAmount.toPlainString(), 18))
-                        staked.hiddenStatus(formatAmount(withdrawAmount.toPlainString(), 18))
-
-                        total.text = if (hideValue) "" else formatAmount(
-                            (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
-                        )
-                        totalValue.text =
-                            if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
-                    }
-                }
-
-            } else if (line is ChainOktEvm) {
-                line.stakeDenom?.let { stakeDenom ->
-                    tokenImg.setTokenImg(ChainOktEvm().assetImg(stakeDenom))
-                    tokenName.text = stakeDenom.uppercase()
-
-                    tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
-                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
-                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                    }
-
-                    val availableAmount = line.lcdBalanceAmount(stakeDenom)
-                    val depositAmount = line.lcdOktDepositAmount()
-                    val withdrawAmount = line.lcdOktWithdrawAmount()
-                    if (withdrawAmount > BigDecimal.ZERO) {
-                        stakedLayout.visibility = View.VISIBLE
-                    } else {
-                        stakedLayout.visibility = View.GONE
-                    }
-
-                    with(Prefs) {
-                        total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                        totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
-                        hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
-
-                        available.hiddenStatus(formatAmount(availableAmount.toPlainString(), 18))
-                        vesting.hiddenStatus(formatAmount(depositAmount.toPlainString(), 18))
-                        staked.hiddenStatus(formatAmount(withdrawAmount.toPlainString(), 18))
-
-                        total.text = if (hideValue) "" else formatAmount(
-                            (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
-                        )
-                        totalValue.text =
-                            if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
-                    }
-                }
-            }
+//            if (line is ChainOkt996Keccak) {
+//                line.stakeDenom?.let { stakeDenom ->
+//                    tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(stakeDenom))
+//                    tokenName.text = stakeDenom.uppercase()
+//
+//                    tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
+//                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
+//                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
+//                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
+//                    }
+//
+//                    val availableAmount = line.lcdBalanceAmount(stakeDenom)
+//                    val depositAmount = line.lcdOktDepositAmount()
+//                    val withdrawAmount = line.lcdOktWithdrawAmount()
+//                    if (withdrawAmount > BigDecimal.ZERO) {
+//                        stakedLayout.visibility = View.VISIBLE
+//                    } else {
+//                        stakedLayout.visibility = View.GONE
+//                    }
+//
+//                    with(Prefs) {
+//                        total.visibility = if (hideValue) View.GONE else View.VISIBLE
+//                        totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
+//                        hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
+//
+//                        available.hiddenStatus(formatAmount(availableAmount.toPlainString(), 18))
+//                        vesting.hiddenStatus(formatAmount(depositAmount.toPlainString(), 18))
+//                        staked.hiddenStatus(formatAmount(withdrawAmount.toPlainString(), 18))
+//
+//                        total.text = if (hideValue) "" else formatAmount(
+//                            (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
+//                        )
+//                        totalValue.text =
+//                            if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
+//                    }
+//                }
+//
+//            } else if (line is ChainOktEvm) {
+//                line.stakeDenom?.let { stakeDenom ->
+//                    tokenImg.setTokenImg(ChainOktEvm().assetImg(stakeDenom))
+//                    tokenName.text = stakeDenom.uppercase()
+//
+//                    tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
+//                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
+//                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
+//                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
+//                    }
+//
+//                    val availableAmount = line.lcdBalanceAmount(stakeDenom)
+//                    val depositAmount = line.lcdOktDepositAmount()
+//                    val withdrawAmount = line.lcdOktWithdrawAmount()
+//                    if (withdrawAmount > BigDecimal.ZERO) {
+//                        stakedLayout.visibility = View.VISIBLE
+//                    } else {
+//                        stakedLayout.visibility = View.GONE
+//                    }
+//
+//                    with(Prefs) {
+//                        total.visibility = if (hideValue) View.GONE else View.VISIBLE
+//                        totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
+//                        hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
+//
+//                        available.hiddenStatus(formatAmount(availableAmount.toPlainString(), 18))
+//                        vesting.hiddenStatus(formatAmount(depositAmount.toPlainString(), 18))
+//                        staked.hiddenStatus(formatAmount(withdrawAmount.toPlainString(), 18))
+//
+//                        total.text = if (hideValue) "" else formatAmount(
+//                            (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
+//                        )
+//                        totalValue.text =
+//                            if (hideValue) "" else formatAssetValue(line.allAssetValue(false))
+//                    }
+//                }
+//            }
         }
     }
 }

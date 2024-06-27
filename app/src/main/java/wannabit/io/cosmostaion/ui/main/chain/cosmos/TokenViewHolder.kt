@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -30,7 +29,7 @@ class TokenViewHolder(
             headerLayout.visibleOrGone(position == 0)
             headerTitle.text = when (line) {
                 is EthereumLine -> { context.getString(R.string.str_erc20_tokens) }
-                is ChainOkt996Keccak -> { context.getString(R.string.str_kip20_tokens) }
+//                is ChainOkt996Keccak -> { context.getString(R.string.str_kip20_tokens) }
                 else -> { context.getString(R.string.str_contract_tokens) }
             }
             headerCnt.text = cnt.toString()

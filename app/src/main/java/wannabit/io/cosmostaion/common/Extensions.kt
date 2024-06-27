@@ -53,6 +53,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
@@ -593,12 +594,14 @@ fun dpToPx(context: Context, dp: Int): Int {
     ).toInt()
 }
 
-fun getChannel(selectedChain: CosmosLine): ManagedChannel {
-    return ManagedChannelBuilder.forAddress(
-        selectedChain.getGrpc().first,
-        selectedChain.getGrpc().second
-    )
-        .useTransportSecurity().build()
+fun getChannel(selectedChain: BaseChain): ManagedChannel? {
+    return selectedChain.grpcFetcher?.let {
+        ManagedChannelBuilder.forAddress(
+            it.getGrpc().first, it.getGrpc().second
+        ).useTransportSecurity().build()
+    } ?: run {
+        null
+    }
 }
 
 // kava

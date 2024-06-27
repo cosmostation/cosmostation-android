@@ -85,56 +85,56 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-                            .none { !it.fetched }
-                    ) {
-                        for (chain in account.sortedDisplayCosmosLines()
-                            .filter { it.rewardAddress == it.address }) {
-                            val compoundAble = chain.compoundAbleRewards()
-                            val txFee = chain.getInitPayableFee(requireContext())
-                            if (compoundAble.isNotEmpty() && txFee != null) {
-                                compoundAbleRewards.add(
-                                    ClaimAllModel(
-                                        chain, compoundAble
-                                    )
-                                )
-                            }
-                        }
-
-                        for (evmChain in account.sortedDisplayEvmLines()
-                            .filter { it.rewardAddress == it.address && it.supportCosmos }) {
-                            val compoundAble = evmChain.compoundAbleRewards()
-                            val txFee = evmChain.getInitPayableFee(requireContext())
-                            if (compoundAble.isNotEmpty() && txFee != null) {
-                                compoundAbleRewards.add(
-                                    ClaimAllModel(
-                                        evmChain, compoundAble
-                                    )
-                                )
-                            }
-                        }
-
-                        withContext(Dispatchers.Main) {
-                            loading.visibility = View.GONE
-
-                            if (compoundAbleRewards.isEmpty()) {
-                                emptyLayout.visibility = View.VISIBLE
-                                btnCompoundingAll.visibility = View.GONE
-
-                            } else {
-                                recycler.visibility = View.VISIBLE
-                                rewardCnt.text = compoundAbleRewards.size.toString()
-                                initRecyclerView()
-
-                                txSimulate()
-                            }
-                        }
-
-                    } else {
-                        emptyLayout.visibility = View.VISIBLE
-                        btnCompoundingAll.visibility = View.GONE
-                    }
+//                    if (account.sortedDisplayEvmLines()
+//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+//                            .none { !it.fetched }
+//                    ) {
+//                        for (chain in account.sortedDisplayCosmosLines()
+//                            .filter { it.rewardAddress == it.address }) {
+//                            val compoundAble = chain.compoundAbleRewards()
+//                            val txFee = chain.getInitPayableFee(requireContext())
+//                            if (compoundAble.isNotEmpty() && txFee != null) {
+//                                compoundAbleRewards.add(
+//                                    ClaimAllModel(
+//                                        chain, compoundAble
+//                                    )
+//                                )
+//                            }
+//                        }
+//
+//                        for (evmChain in account.sortedDisplayEvmLines()
+//                            .filter { it.rewardAddress == it.address && it.supportCosmos }) {
+//                            val compoundAble = evmChain.compoundAbleRewards()
+//                            val txFee = evmChain.getInitPayableFee(requireContext())
+//                            if (compoundAble.isNotEmpty() && txFee != null) {
+//                                compoundAbleRewards.add(
+//                                    ClaimAllModel(
+//                                        evmChain, compoundAble
+//                                    )
+//                                )
+//                            }
+//                        }
+//
+//                        withContext(Dispatchers.Main) {
+//                            loading.visibility = View.GONE
+//
+//                            if (compoundAbleRewards.isEmpty()) {
+//                                emptyLayout.visibility = View.VISIBLE
+//                                btnCompoundingAll.visibility = View.GONE
+//
+//                            } else {
+//                                recycler.visibility = View.VISIBLE
+//                                rewardCnt.text = compoundAbleRewards.size.toString()
+//                                initRecyclerView()
+//
+//                                txSimulate()
+//                            }
+//                        }
+//
+//                    } else {
+//                        emptyLayout.visibility = View.VISIBLE
+//                        btnCompoundingAll.visibility = View.GONE
+//                    }
                 }
             }
         }
@@ -249,15 +249,15 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             btnConfirm.setOnClickListener {
                 dismiss()
                 BaseData.baseAccount?.let { account ->
-                    for (evmChain in account.sortedDisplayEvmLines()) {
-                        evmChain.fetched = false
-                        initDisplayData(account)
-                    }
-
-                    for (chain in account.sortedDisplayCosmosLines()) {
-                        chain.fetched = false
-                        initDisplayData(account)
-                    }
+//                    for (evmChain in account.sortedDisplayEvmLines()) {
+//                        evmChain.fetched = false
+//                        initDisplayData(account)
+//                    }
+//
+//                    for (chain in account.sortedDisplayCosmosLines()) {
+//                        chain.fetched = false
+//                        initDisplayData(account)
+//                    }
                 }
             }
         }
@@ -275,10 +275,10 @@ class AllChainCompoundingFragment : BaseTxFragment() {
 
                 for (i in 0 until compoundAbleRewards.size) {
                     val compoundingAbleReward = compoundAbleRewards[i]
-                    broadCastCompoundingTx(compoundingAbleReward) {
-                        val channel = getChannel(compoundingAbleReward.cosmosLine)
-                        checkTx(i, channel, it?.txResponse)
-                    }
+//                    broadCastCompoundingTx(compoundingAbleReward) {
+//                        val channel = getChannel(compoundingAbleReward.cosmosLine)
+//                        checkTx(i, channel, it?.txResponse)
+//                    }
                 }
             }
         }
@@ -287,45 +287,45 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         baseAccount.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (type == BaseAccountType.MNEMONIC) {
-                    for (line in sortedDisplayEvmLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
-                        }
-                    }
-
-                    for (line in sortedDisplayCosmosLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(line, id, false)
-                        }
-                    }
+//                    for (line in sortedDisplayEvmLines()) {
+//                        if (line.address?.isEmpty() == true) {
+//                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+//                        }
+//                        if (!line.fetched) {
+//                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+//                        }
+//                    }
+//
+//                    for (line in sortedDisplayCosmosLines()) {
+//                        if (line.address?.isEmpty() == true) {
+//                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+//
+//                        }
+//                        if (!line.fetched) {
+//                            ApplicationViewModel.shared.loadChainData(line, id, false)
+//                        }
+//                    }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    for (line in sortedDisplayEvmLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
-
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
-                        }
-                    }
-
-                    for (line in sortedDisplayCosmosLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
-
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(line, id, false)
-                        }
-                    }
+//                    for (line in sortedDisplayEvmLines()) {
+//                        if (line.address?.isEmpty() == true) {
+//                            line.setInfoWithPrivateKey(privateKey)
+//
+//                        }
+//                        if (!line.fetched) {
+//                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+//                        }
+//                    }
+//
+//                    for (line in sortedDisplayCosmosLines()) {
+//                        if (line.address?.isEmpty() == true) {
+//                            line.setInfoWithPrivateKey(privateKey)
+//
+//                        }
+//                        if (!line.fetched) {
+//                            ApplicationViewModel.shared.loadChainData(line, id, false)
+//                        }
+//                    }
                 }
             }
         }
@@ -360,21 +360,21 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                     val channel = getChannel(chain)
                     val simulateStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-                    val simulateTx = Signer.genCompoundingSimulate(
-                        loadAuth(channel, chain.address),
-                        claimableRewards,
-                        chain.stakeDenom,
-                        chain.getInitPayableFee(it),
-                        "",
-                        chain
-                    )
-
-                    try {
-                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
-                        onComplete(gasUsed.toString())
-                    } catch (e: Exception) {
-
-                    }
+//                    val simulateTx = Signer.genCompoundingSimulate(
+//                        loadAuth(channel, chain.address),
+//                        claimableRewards,
+//                        chain.stakeDenom,
+//                        chain.getInitPayableFee(it),
+//                        "",
+//                        chain
+//                    )
+//
+//                    try {
+//                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
+//                        onComplete(gasUsed.toString())
+//                    } catch (e: Exception) {
+//
+//                    }
                 }
             }
         }
@@ -387,19 +387,19 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             val channel = getChannel(valueAbleReward.cosmosLine)
             val txStub =
                 ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genCompoundingBroadcast(
-                loadAuth(channel, valueAbleReward.cosmosLine.address),
-                valueAbleReward.rewards,
-                valueAbleReward.cosmosLine.stakeDenom,
-                valueAbleReward.fee,
-                "",
-                valueAbleReward.cosmosLine
-            )
-            try {
-                onComplete(txStub.broadcastTx(broadcastTx))
-            } catch (e: Exception) {
-
-            }
+//            val broadcastTx = Signer.genCompoundingBroadcast(
+//                loadAuth(channel, valueAbleReward.cosmosLine.address),
+//                valueAbleReward.rewards,
+//                valueAbleReward.cosmosLine.stakeDenom,
+//                valueAbleReward.fee,
+//                "",
+//                valueAbleReward.cosmosLine
+//            )
+//            try {
+//                onComplete(txStub.broadcastTx(broadcastTx))
+//            } catch (e: Exception) {
+//
+//            }
         }
     }
 

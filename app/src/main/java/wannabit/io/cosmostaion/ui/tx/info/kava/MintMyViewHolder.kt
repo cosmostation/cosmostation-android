@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kava.cdp.v1beta1.GenesisProto
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.pricefeed.v1beta1.QueryProto
-import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_MINT_IMG_URL
 import wannabit.io.cosmostaion.common.UsdxLTV
 import wannabit.io.cosmostaion.common.collateralUSDXAmount
 import wannabit.io.cosmostaion.common.debtUsdxValue
@@ -37,8 +35,8 @@ class MintMyViewHolder(
                     listener.myMintClick(collateralParam.type)
                 }
 
-                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit()
-                    .into(marketImg)
+//                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit()
+//                    .into(marketImg)
                 marketType.text = collateralParam.type.uppercase()
                 mintType.text = collateralParam.spotMarketId.uppercase()
 

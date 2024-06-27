@@ -177,15 +177,15 @@ class MainActivity : BaseActivity() {
 
             accountLayout.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
-                        handleOneClickWithDelay(
-                            AccountSelectFragment()
-                        )
-
-                    } else {
-                        makeToast(R.string.str_data_synchronizing)
-                        return@setOnClickListener
-                    }
+//                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
+//                        handleOneClickWithDelay(
+//                            AccountSelectFragment()
+//                        )
+//
+//                    } else {
+//                        makeToast(R.string.str_data_synchronizing)
+//                        return@setOnClickListener
+//                    }
                 }
             }
         }
@@ -207,9 +207,9 @@ class MainActivity : BaseActivity() {
 
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) {
-            BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
-                it.fetched = false
-            }
+//            BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
+//                it.fetched = false
+//            }
 
             val mainViewPagerAdapter = MainViewPageAdapter(this)
             binding.apply {

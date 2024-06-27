@@ -95,38 +95,38 @@ class PrivateCheckFragment : Fragment() {
     private fun initAllKeyData() {
         account.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                if (type == BaseAccountType.MNEMONIC) {
-                    allEvmLines.addAll(allEvmLines())
-                    allCosmosLines.addAll(allCosmosLines())
-
-                    allEvmLines.forEach { evmLine ->
-                        if (evmLine.address?.isEmpty() == true) {
-                            evmLine.setInfoWithSeed(seed, evmLine.setParentPath, lastHDPath)
-                        }
-                    }
-                    allCosmosLines.forEach { line ->
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-                        }
-                    }
-
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allEvmLines.addAll(allEvmLines())
-                    allCosmosLines().filter { it.isDefault }.forEach { line ->
-                        allCosmosLines.add(line)
-                    }
-
-                    for (evmLine in allEvmLines) {
-                        if (evmLine.address?.isEmpty() == true) {
-                            evmLine.setInfoWithPrivateKey(privateKey)
-                        }
-                    }
-                    for (line in allCosmosLines) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
-                        }
-                    }
-                }
+//                if (type == BaseAccountType.MNEMONIC) {
+//                    allEvmLines.addAll(allEvmLines())
+//                    allCosmosLines.addAll(allCosmosLines())
+//
+//                    allEvmLines.forEach { evmLine ->
+//                        if (evmLine.address?.isEmpty() == true) {
+//                            evmLine.setInfoWithSeed(seed, evmLine.setParentPath, lastHDPath)
+//                        }
+//                    }
+//                    allCosmosLines.forEach { line ->
+//                        if (line.address?.isEmpty() == true) {
+//                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+//                        }
+//                    }
+//
+//                } else if (type == BaseAccountType.PRIVATE_KEY) {
+//                    allEvmLines.addAll(allEvmLines())
+//                    allCosmosLines().filter { it.isDefault }.forEach { line ->
+//                        allCosmosLines.add(line)
+//                    }
+//
+//                    for (evmLine in allEvmLines) {
+//                        if (evmLine.address?.isEmpty() == true) {
+//                            evmLine.setInfoWithPrivateKey(privateKey)
+//                        }
+//                    }
+//                    for (line in allCosmosLines) {
+//                        if (line.address?.isEmpty() == true) {
+//                            line.setInfoWithPrivateKey(privateKey)
+//                        }
+//                    }
+//                }
 
                 withContext(Dispatchers.Main) {
                     updateView()

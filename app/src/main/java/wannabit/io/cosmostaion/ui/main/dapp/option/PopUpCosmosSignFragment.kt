@@ -141,11 +141,11 @@ class PopUpCosmosSignFragment(
                 if (method == "sign_direct") {
                     try {
                         val channel = getChannel(chain)
-                        val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
-                        val loadInputBalanceDeferred = async { loadBalance(channel, chain.address) }
+//                        val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
+//                        val loadInputBalanceDeferred = async { loadBalance(channel, chain.address) }
 
-                        chain.cosmosAuth = loadInputAuthDeferred.await()?.account
-                        chain.cosmosBalances = loadInputBalanceDeferred.await().balancesList
+//                        chain.cosmosAuth = loadInputAuthDeferred.await()?.account
+//                        chain.cosmosBalances = loadInputBalanceDeferred.await().balancesList
                         BaseUtils.onParseVestingAccount(chain)
                     } catch (e: Exception) {
                         if (isAdded) {

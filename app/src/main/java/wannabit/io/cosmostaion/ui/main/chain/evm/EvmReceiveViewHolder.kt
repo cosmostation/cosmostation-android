@@ -23,7 +23,7 @@ class EvmReceiveViewHolder(
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
-                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+//                accountPath.text = selectChain.getHDPath(account.lastHDPath)
             } else {
                 accountPathLayout.visibility = View.GONE
             }
@@ -32,7 +32,7 @@ class EvmReceiveViewHolder(
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
             chainImg.setImageResource(selectChain.logo)
             setQrAddress(context, selectChain.address)
-            accountPath.text = selectChain.getHDPath(account.lastHDPath)
+//            accountPath.text = selectChain.getHDPath(account.lastHDPath)
             chainBadge.visibility = View.GONE
             chainTypeBadge.visibility = View.GONE
 

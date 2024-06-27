@@ -9,7 +9,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -21,11 +20,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.fadeInAnimation
@@ -46,20 +40,11 @@ import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
-import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
-import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
-import java.math.BigDecimal
 
 class CosmosDetailFragment : Fragment() {
 
@@ -191,9 +176,9 @@ class CosmosDetailFragment : Fragment() {
             if (selectedChain.supportStaking) {
                 walletViewModel.loadGrpcStakeData(selectedChain)
             }
-            if (selectedChain is ChainOkt996Keccak) {
-                (selectedChain as ChainOkt996Keccak).loadValidators()
-            }
+//            if (selectedChain is ChainOkt996Keccak) {
+//                (selectedChain as ChainOkt996Keccak).loadValidators()
+//            }
         }
     }
 
@@ -214,37 +199,37 @@ class CosmosDetailFragment : Fragment() {
 
     private fun initTab() {
         binding.apply {
-            if (selectedChain is ChainBeraEvm) {
-                fabClaimReward.visibility = View.GONE
-                fabCompounding.visibility = View.GONE
-                fabReceive.visibility = View.VISIBLE
-                fabStake.visibility = View.VISIBLE
-                fabVote.visibility = View.VISIBLE
-
-            } else {
-                fabStake.visibleOrGone(selectedChain.supportStaking)
-                fabClaimReward.visibleOrGone(selectedChain.supportStaking)
-                fabCompounding.visibleOrGone(selectedChain.supportStaking)
-                fabVote.visibleOrGone(selectedChain.supportStaking)
-
-                fabReceive.visibleOrGone(!selectedChain.supportStaking)
-            }
+//            if (selectedChain is ChainBeraEvm) {
+//                fabClaimReward.visibility = View.GONE
+//                fabCompounding.visibility = View.GONE
+//                fabReceive.visibility = View.VISIBLE
+//                fabStake.visibility = View.VISIBLE
+//                fabVote.visibility = View.VISIBLE
+//
+//            } else {
+//                fabStake.visibleOrGone(selectedChain.supportStaking)
+//                fabClaimReward.visibleOrGone(selectedChain.supportStaking)
+//                fabCompounding.visibleOrGone(selectedChain.supportStaking)
+//                fabVote.visibleOrGone(selectedChain.supportStaking)
+//
+//                fabReceive.visibleOrGone(!selectedChain.supportStaking)
+//            }
 
             when (selectedChain) {
-                is ChainNeutron -> {
-                    fabDao.visibility = View.VISIBLE
-                    fabVault.visibility = View.VISIBLE
-                }
-
-                is ChainKava459 -> {
-                    fabDefi.visibility = View.VISIBLE
-                }
-
-                is ChainOkt996Keccak -> {
-                    fabDeposit.visibility = View.VISIBLE
-                    fabWithdraw.visibility = View.VISIBLE
-                    fabSelectValidator.visibility = View.VISIBLE
-                }
+//                is ChainNeutron -> {
+//                    fabDao.visibility = View.VISIBLE
+//                    fabVault.visibility = View.VISIBLE
+//                }
+//
+//                is ChainKava459 -> {
+//                    fabDefi.visibility = View.VISIBLE
+//                }
+//
+//                is ChainOkt996Keccak -> {
+//                    fabDeposit.visibility = View.VISIBLE
+//                    fabWithdraw.visibility = View.VISIBLE
+//                    fabSelectValidator.visibility = View.VISIBLE
+//                }
             }
 
             val supportToken =
@@ -416,34 +401,34 @@ class CosmosDetailFragment : Fragment() {
         binding.apply {
             fabSend.setOnClickListener {
                 selectedChain.stakeDenom?.let { denom ->
-                    val sendAssetType = if (selectedChain is EthereumLine) {
-                        if (selectedChain is ChainOktEvm) {
-                            SendAssetType.ONLY_EVM_COIN
-                        } else if ((selectedChain as EthereumLine).supportCosmos) {
-                            SendAssetType.COSMOS_EVM_COIN
-                        } else {
-                            SendAssetType.ONLY_EVM_COIN
-                        }
+//                    val sendAssetType = if (selectedChain is EthereumLine) {
+//                        if (selectedChain is ChainOktEvm) {
+//                            SendAssetType.ONLY_EVM_COIN
+//                        } else if ((selectedChain as EthereumLine).supportCosmos) {
+//                            SendAssetType.COSMOS_EVM_COIN
+//                        } else {
+//                            SendAssetType.ONLY_EVM_COIN
+//                        }
+//
+//                    } else {
+//                        SendAssetType.ONLY_COSMOS_COIN
+//                    }
+//
+//                    if (selectedChain.isBankLocked()) {
+//                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
+//                        return@setOnClickListener
+//                    }
 
-                    } else {
-                        SendAssetType.ONLY_COSMOS_COIN
-                    }
-
-                    if (selectedChain.isBankLocked()) {
-                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
-                        return@setOnClickListener
-                    }
-
-                    if (selectedChain is ChainOkt996Keccak) {
-                        handleOneClickWithDelay(
-                            null, LegacyTransferFragment.newInstance(selectedChain, denom)
-                        )
-                    } else {
-                        handleOneClickWithDelay(
-                            null,
-                            CommonTransferFragment.newInstance(selectedChain, denom, sendAssetType)
-                        )
-                    }
+//                    if (selectedChain is ChainOkt996Keccak) {
+//                        handleOneClickWithDelay(
+//                            null, LegacyTransferFragment.newInstance(selectedChain, denom)
+//                        )
+//                    } else {
+//                        handleOneClickWithDelay(
+//                            null,
+//                            CommonTransferFragment.newInstance(selectedChain, denom, sendAssetType)
+//                        )
+//                    }
                 }
             }
 
@@ -529,15 +514,15 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabDefi.setOnClickListener {
-                handleOneClickWithDelay(
-                    KavaDefiFragment.newInstance(selectedChain as ChainKava459), null
-                )
+//                handleOneClickWithDelay(
+//                    KavaDefiFragment.newInstance(selectedChain as ChainKava459), null
+//                )
             }
 
             fabDao.setOnClickListener {
-                handleOneClickWithDelay(
-                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null
-                )
+//                handleOneClickWithDelay(
+//                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null
+//                )
             }
 
             fabVault.setOnClickListener {
@@ -545,29 +530,29 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabDeposit.setOnClickListener {
-                handleOneClickWithDelay(
-                    null, OktDepositFragment.newInstance(selectedChain as ChainOkt996Keccak)
-                )
+//                handleOneClickWithDelay(
+//                    null, OktDepositFragment.newInstance(selectedChain as ChainOkt996Keccak)
+//                )
             }
 
             fabWithdraw.setOnClickListener {
-                if ((selectedChain as ChainOkt996Keccak).lcdOktDepositAmount() <= BigDecimal.ZERO) {
-                    requireContext().makeToast(R.string.error_no_deposited_asset)
-                    return@setOnClickListener
-                }
-                handleOneClickWithDelay(
-                    null, OktWithdrawFragment.newInstance(selectedChain as ChainOkt996Keccak)
-                )
+//                if ((selectedChain as ChainOkt996Keccak).lcdOktDepositAmount() <= BigDecimal.ZERO) {
+//                    requireContext().makeToast(R.string.error_no_deposited_asset)
+//                    return@setOnClickListener
+//                }
+//                handleOneClickWithDelay(
+//                    null, OktWithdrawFragment.newInstance(selectedChain as ChainOkt996Keccak)
+//                )
             }
 
             fabSelectValidator.setOnClickListener {
-                if ((selectedChain as ChainOkt996Keccak).lcdOktDepositAmount() <= BigDecimal.ZERO) {
-                    requireContext().makeToast(R.string.error_no_deposited_asset)
-                    return@setOnClickListener
-                }
-                handleOneClickWithDelay(
-                    null, OktSelectValidatorFragment.newInstance(selectedChain as ChainOkt996Keccak)
-                )
+//                if ((selectedChain as ChainOkt996Keccak).lcdOktDepositAmount() <= BigDecimal.ZERO) {
+//                    requireContext().makeToast(R.string.error_no_deposited_asset)
+//                    return@setOnClickListener
+//                }
+//                handleOneClickWithDelay(
+//                    null, OktSelectValidatorFragment.newInstance(selectedChain as ChainOkt996Keccak)
+//                )
             }
         }
     }

@@ -104,14 +104,14 @@ class MintListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        kavaViewModel.mintParam(getChannel(selectedChain))
+//        kavaViewModel.mintParam(getChannel(selectedChain))
     }
 
     private fun setUpMintParamObserve() {
         kavaViewModel.mintParamResult.observe(viewLifecycleOwner) { response ->
             response?.let { params ->
                 mintParam = params.params
-                kavaViewModel.myCdp(getChannel(selectedChain), selectedChain.address)
+//                kavaViewModel.myCdp(getChannel(selectedChain), selectedChain.address)
             }
         }
     }

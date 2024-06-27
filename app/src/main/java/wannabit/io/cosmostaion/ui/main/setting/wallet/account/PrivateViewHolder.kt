@@ -24,7 +24,7 @@ class PrivateViewHolder(
 
             chainImg.setImageResource(evmLine.logo)
             chainName.text = evmLine.name.uppercase()
-            chainPath.text = evmLine.getHDPath(account.lastHDPath)
+//            chainPath.text = evmLine.getHDPath(account.lastHDPath)
             chainPrivateKey.text = "0x" + evmLine.privateKey?.toHex()
 
             privateView.setOnLongClickListener { view ->
@@ -55,7 +55,7 @@ class PrivateViewHolder(
 
             chainImg.setImageResource(line.logo)
             chainName.text = line.name.uppercase()
-            chainPath.text = line.getHDPath(account.lastHDPath)
+//            chainPath.text = line.getHDPath(account.lastHDPath)
             chainPrivateKey.text = "0x" + line.privateKey?.toHex()
 
             if (!line.isDefault) {

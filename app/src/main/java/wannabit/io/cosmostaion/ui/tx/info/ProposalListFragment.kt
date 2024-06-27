@@ -10,16 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
-import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
-import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
-import wannabit.io.cosmostaion.ui.tx.step.evm.EvmVoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 
@@ -226,10 +221,10 @@ class ProposalListFragment : Fragment() {
             }
 
             btnVote.setOnClickListener {
-                if (selectedChain is ChainFinschia) {
-                    requireActivity().makeToast(R.string.error_not_support_vote)
-                    return@setOnClickListener
-                }
+//                if (selectedChain is ChainFinschia) {
+//                    requireActivity().makeToast(R.string.error_not_support_vote)
+//                    return@setOnClickListener
+//                }
 
                 val delegated = selectedChain.delegationAmountSum()
                 val voteThreshold = selectedChain.voteThreshold()
@@ -248,21 +243,21 @@ class ProposalListFragment : Fragment() {
                     }
                 }
 
-                if (selectedChain is ChainBeraEvm) {
-                    if (toVoteProposals.size > 1) {
-                        requireActivity().makeToast(R.string.error_bera_vote_one_proposal)
-                        return@setOnClickListener
-                    } else {
-                        EvmVoteFragment.newInstance(selectedChain as EthereumLine, toVoteProposals).show(
-                            requireActivity().supportFragmentManager, VoteFragment::class.java.name
-                        )
-                    }
-
-                } else {
-                    VoteFragment.newInstance(selectedChain, toVoteProposals).show(
-                        requireActivity().supportFragmentManager, VoteFragment::class.java.name
-                    )
-                }
+//                if (selectedChain is ChainBeraEvm) {
+//                    if (toVoteProposals.size > 1) {
+//                        requireActivity().makeToast(R.string.error_bera_vote_one_proposal)
+//                        return@setOnClickListener
+//                    } else {
+//                        EvmVoteFragment.newInstance(selectedChain as EthereumLine, toVoteProposals).show(
+//                            requireActivity().supportFragmentManager, VoteFragment::class.java.name
+//                        )
+//                    }
+//
+//                } else {
+//                    VoteFragment.newInstance(selectedChain, toVoteProposals).show(
+//                        requireActivity().supportFragmentManager, VoteFragment::class.java.name
+//                    )
+//                }
             }
         }
     }

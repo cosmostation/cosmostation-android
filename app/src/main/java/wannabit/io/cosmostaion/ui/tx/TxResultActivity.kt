@@ -19,12 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -34,7 +31,6 @@ import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
-import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class TxResultActivity : BaseActivity() {
@@ -91,20 +87,20 @@ class TxResultActivity : BaseActivity() {
             )
 
             btnConfirm.updateButtonView(true)
-            if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
-                if (txHash.isNotEmpty()) {
-                    updateView()
-                } else {
-                    showError()
-                }
-
-            } else {
-                if (isSuccess) {
-                    loadHistoryTx()
-                } else {
-                    showError()
-                }
-            }
+//            if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
+//                if (txHash.isNotEmpty()) {
+//                    updateView()
+//                } else {
+//                    showError()
+//                }
+//
+//            } else {
+//                if (isSuccess) {
+//                    loadHistoryTx()
+//                } else {
+//                    showError()
+//                }
+//            }
             initQuotes()
         }
     }
@@ -121,18 +117,18 @@ class TxResultActivity : BaseActivity() {
     private fun updateView() {
         binding.apply {
             if (isSuccess) {
-                if (selectedChain is ChainOktEvm) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        loading.visibility = View.GONE
-                        successLayout.visibility = View.VISIBLE
-                        successHash.text = txHash
-                    }, 3000)
-
-                } else {
-                    loading.visibility = View.GONE
-                    successLayout.visibility = View.VISIBLE
-                    successHash.text = txHash
-                }
+//                if (selectedChain is ChainOktEvm) {
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        loading.visibility = View.GONE
+//                        successLayout.visibility = View.VISIBLE
+//                        successHash.text = txHash
+//                    }, 3000)
+//
+//                } else {
+//                    loading.visibility = View.GONE
+//                    successLayout.visibility = View.VISIBLE
+//                    successHash.text = txHash
+//                }
 
             } else {
                 showError()
@@ -143,19 +139,19 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (selectedChain is ChainOkt996Keccak) {
-                    historyToMintscan(selectedChain, txHash)
-                } else {
-                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
-                }
+//                if (selectedChain is ChainOkt996Keccak) {
+//                    historyToMintscan(selectedChain, txHash)
+//                } else {
+//                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+//                }
             }
 
             viewFailMintscan.setOnClickListener {
-                if (selectedChain is ChainOkt996Keccak) {
-                    historyToMintscan(selectedChain, txHash)
-                } else {
-                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
-                }
+//                if (selectedChain is ChainOkt996Keccak) {
+//                    historyToMintscan(selectedChain, txHash)
+//                } else {
+//                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+//                }
             }
 
             btnConfirm.setOnClickListener {
@@ -164,25 +160,25 @@ class TxResultActivity : BaseActivity() {
                         startMainActivity()
                     }
 
-                    TxResultType.NFT -> {
-                        selectedChain?.cw721Fetched = false
-                        finish()
-                    }
+//                    TxResultType.NFT -> {
+//                        selectedChain?.cw721Fetched = false
+//                        finish()
+//                    }
 
                     else -> {
                         finish()
                         BaseData.baseAccount?.let { account ->
-                            selectedChain?.let { chain ->
-                                if (chain is ChainOktEvm) {
-                                    ApplicationViewModel.shared.loadEvmChainData(
-                                        chain, account.id, false
-                                    )
-                                } else {
-                                    ApplicationViewModel.shared.loadChainData(
-                                        chain, account.id, false
-                                    )
-                                }
-                            }
+//                            selectedChain?.let { chain ->
+//                                if (chain is ChainOktEvm) {
+//                                    ApplicationViewModel.shared.loadEvmChainData(
+//                                        chain, account.id, false
+//                                    )
+//                                } else {
+//                                    ApplicationViewModel.shared.loadChainData(
+//                                        chain, account.id, false
+//                                    )
+//                                }
+//                            }
                         }
                     }
                 }
@@ -206,18 +202,18 @@ class TxResultActivity : BaseActivity() {
 
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
-                        if (isSuccess && fetchCnt > 0) {
-                            getChannel(line).shutdown()
-                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                loadHistoryTx()
-                            }, 6000)
-
-                        } else {
-                            runOnUiThread {
-                                showMoreWait()
-                            }
-                        }
+//                        if (isSuccess && fetchCnt > 0) {
+//                            getChannel(line).shutdown()
+//                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
+//                            Handler(Looper.getMainLooper()).postDelayed({
+//                                loadHistoryTx()
+//                            }, 6000)
+//
+//                        } else {
+//                            runOnUiThread {
+//                                showMoreWait()
+//                            }
+//                        }
                     }
 
                     override fun onCompleted() {}

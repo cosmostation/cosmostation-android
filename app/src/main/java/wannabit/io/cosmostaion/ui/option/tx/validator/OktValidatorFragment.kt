@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.FragmentOktValidatorBinding
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 
 class OktValidatorFragment(
-    private val selectedChain: ChainOkt996Keccak,
+    private val selectedChain: BaseChain,
     private val myValidators: MutableList<OktValidatorResponse>,
     val listener: OkValidatorListener
 ) : BaseTxFragment() {
@@ -53,7 +53,7 @@ class OktValidatorFragment(
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = oktValidatorAdapter
-            oktValidatorAdapter.submitList(selectedChain.oktValidatorInfo)
+//            oktValidatorAdapter.submitList(selectedChain.oktValidatorInfo)
 
             updateView()
         }
@@ -65,22 +65,22 @@ class OktValidatorFragment(
 
     private fun clickAction() {
         oktValidatorAdapter.setOnItemClickListener { position ->
-            val selectValidator = selectedChain.oktValidatorInfo[position]
-            if (tempValidators.map { it.operatorAddress }
-                    .contains(selectValidator.operatorAddress)) {
-                if (tempValidators.size <= 1) {
-                    requireContext().makeToast(R.string.error_min_1_validator_msg)
-                    return@setOnItemClickListener
-                }
-                tempValidators.removeIf { it.operatorAddress == selectValidator.operatorAddress }
-
-            } else {
-                if (tempValidators.size >= 30) {
-                    requireContext().makeToast(R.string.error_max_30_validator_msg)
-                    return@setOnItemClickListener
-                }
-                tempValidators.add(selectValidator)
-            }
+//            val selectValidator = selectedChain.oktValidatorInfo[position]
+//            if (tempValidators.map { it.operatorAddress }
+//                    .contains(selectValidator.operatorAddress)) {
+//                if (tempValidators.size <= 1) {
+//                    requireContext().makeToast(R.string.error_min_1_validator_msg)
+//                    return@setOnItemClickListener
+//                }
+//                tempValidators.removeIf { it.operatorAddress == selectValidator.operatorAddress }
+//
+//            } else {
+//                if (tempValidators.size >= 30) {
+//                    requireContext().makeToast(R.string.error_max_30_validator_msg)
+//                    return@setOnItemClickListener
+//                }
+//                tempValidators.add(selectValidator)
+//            }
             updateView()
             oktValidatorAdapter.notifyItemChanged(position)
         }

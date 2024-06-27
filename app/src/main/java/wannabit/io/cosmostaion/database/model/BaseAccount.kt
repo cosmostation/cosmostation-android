@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import net.i2p.crypto.eddsa.Utils
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -57,6 +57,10 @@ data class BaseAccount(
 
     @IgnoredOnParcel
     @Ignore
+    var allChains: MutableList<BaseChain> = mutableListOf()
+
+    @IgnoredOnParcel
+    @Ignore
     var allEvmLineChains: MutableList<EthereumLine> = mutableListOf()
 
     @IgnoredOnParcel
@@ -64,47 +68,27 @@ data class BaseAccount(
     var allCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
     fun initAccount() {
-        allEvmLineChains = allEvmLines()
-        allCosmosLineChains = allCosmosLines()
-        if (type == BaseAccountType.PRIVATE_KEY) {
-            allCosmosLineChains =
-                allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }.toMutableList()
-        }
+        allChains = allCosmosLines()
+
+//        allEvmLineChains = allEvmLines()
+//        allCosmosLineChains = allCosmosLines()
+//        if (type == BaseAccountType.PRIVATE_KEY) {
+//            allCosmosLineChains =
+//                allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }.toMutableList()
+//        }
         sortLine()
     }
 
-    fun sortedDisplayEvmLines(): MutableList<EthereumLine> {
-        val displayNames = Prefs.getDisplayEvmChains(this)
-        return allEvmLineChains.associateBy { line ->
-            displayNames.firstOrNull { it == line.tag }
-        }.filterKeys { it != null }.map { it.value }.toMutableList()
-    }
+//    fun sortedDisplayEvmLines(): MutableList<EthereumLine> {
+//        val displayNames = Prefs.getDisplayEvmChains(this)
+//        return allEvmLineChains.associateBy { line ->
+//            displayNames.firstOrNull { it == line.tag }
+//        }.filterKeys { it != null }.map { it.value }.toMutableList()
+//    }
 
     fun sortLine() {
-        val displayEvmChains = Prefs.getDisplayEvmChains(this)
-        val displayCosmosChains = Prefs.getDisplayChains(this)
-
-        allEvmLineChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "ethereum60" -> -1
-                o2.tag == "ethereum60" -> 1
-                lastValue(o1.tag) > lastValue(o2.tag) -> -1
-                lastValue(o1.tag) < lastValue(o2.tag) -> 1
-                else -> 0
-            }
-        }
-
-        allEvmLineChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "ethereum60" -> -1
-                o2.tag == "ethereum60" -> 1
-                displayEvmChains.contains(o1.tag) && !displayEvmChains.contains(o2.tag) -> -1
-                displayEvmChains.contains(o2.tag) && !displayEvmChains.contains(o1.tag) -> 1
-                else -> 0
-            }
-        }
-
-        allCosmosLineChains.sortWith { o1, o2 ->
+        val displayChains = Prefs.getDisplayChains(this)
+        allChains.sortWith { o1, o2 ->
             when {
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
@@ -114,26 +98,26 @@ data class BaseAccount(
             }
         }
 
-        allCosmosLineChains.sortWith { o1, o2 ->
+        allChains.sortWith { o1, o2 ->
             when {
                 o1.tag == "cosmos118" -> -1
                 o2.tag == "cosmos118" -> 1
-                displayCosmosChains.contains(o1.tag) && !displayCosmosChains.contains(o2.tag) -> -1
-                displayCosmosChains.contains(o2.tag) && !displayCosmosChains.contains(o1.tag) -> 1
+                displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
+                displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
                 else -> 0
             }
         }
     }
 
-    fun sortedDisplayCosmosLines(): MutableList<CosmosLine> {
+    fun sortedDisplayChains(): MutableList<BaseChain> {
         val displayNames = Prefs.getDisplayChains(this)
-        return allCosmosLineChains.associateBy { line ->
+        return allChains.associateBy { line ->
             displayNames.firstOrNull { it == line.tag }
         }.filterKeys { it != null }.map { it.value }.toMutableList()
     }
 
     fun updateAllValue() {
-        sortedDisplayCosmosLines().forEach { line ->
+        sortedDisplayChains().forEach { line ->
             line.allValue(false)
         }
     }
@@ -143,14 +127,14 @@ data class BaseAccount(
             ?: BigDecimal.ZERO
     }
 
-    fun reSortEvmChains() {
-        val allValue = allEvmLineChains.associateWith { it.allValue(true) }
-        allEvmLineChains.sortWith(compareBy<EthereumLine> { it.tag != "ethereum60" }.thenByDescending { allValue[it] })
-    }
+//    fun reSortEvmChains() {
+//        val allValue = allEvmLineChains.associateWith { it.allValue(true) }
+//        allEvmLineChains.sortWith(compareBy<EthereumLine> { it.tag != "ethereum60" }.thenByDescending { allValue[it] })
+//    }
 
     fun reSortCosmosChains() {
-        val allValue = allCosmosLineChains.associateWith { it.allValue(true) }
-        allCosmosLineChains.sortWith(compareBy<CosmosLine> { it.tag != "cosmos118" }.thenByDescending { allValue[it] })
+        val allValue = allChains.associateWith { it.allValue(true) }
+        allChains.sortWith(compareBy<BaseChain> { it.tag != "cosmos118" }.thenByDescending { allValue[it] })
     }
 
     companion object {

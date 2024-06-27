@@ -87,7 +87,7 @@ class KavaDefiFragment : Fragment() {
                 }
             }
 
-            kavaViewModel.priceFeed(getChannel(selectedChain))
+//            kavaViewModel.priceFeed(getChannel(selectedChain))
 
             loading.visibility = View.VISIBLE
             defiLayout.visibility = View.GONE
@@ -103,7 +103,7 @@ class KavaDefiFragment : Fragment() {
     private fun setUpPriceFeedObserve() {
         kavaViewModel.priceFeedResult.observe(viewLifecycleOwner) { response ->
             priceFeed = response
-            kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
+//            kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
         }
     }
 

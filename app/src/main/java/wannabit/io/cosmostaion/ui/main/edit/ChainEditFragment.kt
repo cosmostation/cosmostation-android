@@ -63,13 +63,13 @@ class ChainEditFragment : BaseTxFragment() {
                 account.apply {
                     lifecycleScope.launch(Dispatchers.IO) {
                         sortLine()
-                        allEvmChains.addAll(allEvmLineChains)
-                        searchEvmChains.addAll(allEvmChains)
-                        toDisplayEvmChains.addAll(Prefs.getDisplayEvmChains(account))
-
-                        allCosmosChains.addAll(allCosmosLineChains)
-                        searchChains.addAll(allCosmosChains)
-                        toDisplayChains.addAll(Prefs.getDisplayChains(account))
+//                        allEvmChains.addAll(allEvmLineChains)
+//                        searchEvmChains.addAll(allEvmChains)
+//                        toDisplayEvmChains.addAll(Prefs.getDisplayEvmChains(account))
+//
+//                        allCosmosChains.addAll(allCosmosLineChains)
+//                        searchChains.addAll(allCosmosChains)
+//                        toDisplayChains.addAll(Prefs.getDisplayChains(account))
 
                         initAllData(account)
 
@@ -98,44 +98,44 @@ class ChainEditFragment : BaseTxFragment() {
     private fun initAllData(account: BaseAccount) {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
-                if (type == BaseAccountType.MNEMONIC) {
-                    allEvmChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                        }
-                        if (!chain.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
-                        }
-                    }
-
-                    allCosmosChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                        }
-                        if (!chain.fetched) {
-                            ApplicationViewModel.shared.loadChainData(chain, id, true)
-                        }
-                    }
-
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allEvmChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                        if (!chain.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
-                        }
-                    }
-
-                    allCosmosChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                        if (!chain.fetched) {
-                            ApplicationViewModel.shared.loadChainData(chain, id, true)
-                        }
-                    }
-                }
+//                if (type == BaseAccountType.MNEMONIC) {
+//                    allEvmChains.asSequence().concurrentForEach { chain ->
+//                        if (chain.address?.isEmpty() == true) {
+//                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+//                        }
+//                        if (!chain.fetched) {
+//                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
+//                        }
+//                    }
+//
+//                    allCosmosChains.asSequence().concurrentForEach { chain ->
+//                        if (chain.address?.isEmpty() == true) {
+//                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+//                        }
+//                        if (!chain.fetched) {
+//                            ApplicationViewModel.shared.loadChainData(chain, id, true)
+//                        }
+//                    }
+//
+//                } else if (type == BaseAccountType.PRIVATE_KEY) {
+//                    allEvmChains.asSequence().concurrentForEach { chain ->
+//                        if (chain.address?.isEmpty() == true) {
+//                            chain.setInfoWithPrivateKey(privateKey)
+//                        }
+//                        if (!chain.fetched) {
+//                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
+//                        }
+//                    }
+//
+//                    allCosmosChains.asSequence().concurrentForEach { chain ->
+//                        if (chain.address?.isEmpty() == true) {
+//                            chain.setInfoWithPrivateKey(privateKey)
+//                        }
+//                        if (!chain.fetched) {
+//                            ApplicationViewModel.shared.loadChainData(chain, id, true)
+//                        }
+//                    }
+//                }
             }
         }
     }
@@ -208,24 +208,24 @@ class ChainEditFragment : BaseTxFragment() {
 
                     backdropLayout.visibility = View.VISIBLE
                     lifecycleScope.launch(Dispatchers.IO) {
-                        BaseData.baseAccount?.let { account ->
-                            account.reSortEvmChains()
-                            allEvmChains = account.allEvmLineChains
-                            for (chain in allEvmChains) {
-                                if (chain.allAssetValue(true) > BigDecimal.ONE) {
-                                    toDisplayEvmChains.add(chain.tag)
-                                }
-                            }
-
-                            account.reSortCosmosChains()
-                            allCosmosChains = account.allCosmosLineChains
-                            toDisplayChains.add("cosmos118")
-                            for (chain in allCosmosChains) {
-                                if (chain.allAssetValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
-                                    toDisplayChains.add(chain.tag)
-                                }
-                            }
-                        }
+//                        BaseData.baseAccount?.let { account ->
+//                            account.reSortEvmChains()
+//                            allEvmChains = account.allEvmLineChains
+//                            for (chain in allEvmChains) {
+//                                if (chain.allAssetValue(true) > BigDecimal.ONE) {
+//                                    toDisplayEvmChains.add(chain.tag)
+//                                }
+//                            }
+//
+//                            account.reSortCosmosChains()
+//                            allCosmosChains = account.allCosmosLineChains
+//                            toDisplayChains.add("cosmos118")
+//                            for (chain in allCosmosChains) {
+//                                if (chain.allAssetValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
+//                                    toDisplayChains.add(chain.tag)
+//                                }
+//                            }
+//                        }
 
                         withContext(Dispatchers.Main) {
                             btnSelect.isEnabled = true

@@ -2,21 +2,17 @@ package wannabit.io.cosmostaion.ui.tx.step.neutron
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.base.abci.v1beta1.AbciProto
-import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,15 +20,6 @@ import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.common.BaseConstant
-import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.amountHandlerLeft
-import wannabit.io.cosmostaion.common.dpToPx
-import wannabit.io.cosmostaion.common.formatAmount
-import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.req.MultiVote
@@ -43,22 +30,17 @@ import wannabit.io.cosmostaion.data.model.req.WeightVote
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.databinding.FragmentVoteBinding
-import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
-import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
-import java.math.RoundingMode
 
 class DaoVoteFragment : BaseTxFragment() {
 
     private var _binding: FragmentVoteBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainNeutron
+//    private lateinit var selectedChain: ChainNeutron
     private var toSingleProposals: MutableList<ProposalData>? = mutableListOf()
     private var toMultipleProposals: MutableList<ProposalData>? = mutableListOf()
     private var toOverruleProposals: MutableList<ProposalData>? = mutableListOf()
@@ -117,20 +99,20 @@ class DaoVoteFragment : BaseTxFragment() {
 
     private fun initView() {
         binding.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.apply {
-                    getParcelable("selectedChain", ChainNeutron::class.java)?.let {
-                        selectedChain = it
-                    }
-                }
-
-            } else {
-                arguments?.apply {
-                    (getParcelable("selectedChain") as? ChainNeutron)?.let {
-                        selectedChain = it
-                    }
-                }
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                arguments?.apply {
+//                    getParcelable("selectedChain", ChainNeutron::class.java)?.let {
+//                        selectedChain = it
+//                    }
+//                }
+//
+//            } else {
+//                arguments?.apply {
+//                    (getParcelable("selectedChain") as? ChainNeutron)?.let {
+//                        selectedChain = it
+//                    }
+//                }
+//            }
             toSingleProposals = arguments?.getParcelableArrayList("toSingleProposals")
             toMultipleProposals = arguments?.getParcelableArrayList("toMultipleProposals")
             toOverruleProposals = arguments?.getParcelableArrayList("toOverruleProposals")
@@ -191,30 +173,30 @@ class DaoVoteFragment : BaseTxFragment() {
 
     private fun initFee() {
         binding.apply {
-            feeInfos = selectedChain.getFeeInfos(requireContext())
-            feeSegment.setSelectedBackground(
-                ContextCompat.getColor(
-                    requireContext(), R.color.color_accent_purple
-                )
-            )
-            feeSegment.setRipple(
-                ContextCompat.getColor(
-                    requireContext(), R.color.color_accent_purple
-                )
-            )
+//            feeInfos = selectedChain.getFeeInfos(requireContext())
+//            feeSegment.setSelectedBackground(
+//                ContextCompat.getColor(
+//                    requireContext(), R.color.color_accent_purple
+//                )
+//            )
+//            feeSegment.setRipple(
+//                ContextCompat.getColor(
+//                    requireContext(), R.color.color_accent_purple
+//                )
+//            )
 
-            for (i in feeInfos.indices) {
-                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                feeSegment.addView(
-                    segmentView.root,
-                    i,
-                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                )
-                segmentView.btnTitle.text = feeInfos[i].title
-            }
-            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
-            selectedFeeInfo = selectedChain.getFeeBasePosition()
-            txFee = selectedChain.getInitFee(requireContext())
+//            for (i in feeInfos.indices) {
+//                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+//                feeSegment.addView(
+//                    segmentView.root,
+//                    i,
+//                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+//                )
+//                segmentView.btnTitle.text = feeInfos[i].title
+//            }
+//            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
+//            selectedFeeInfo = selectedChain.getFeeBasePosition()
+//            txFee = selectedChain.getInitFee(requireContext())
         }
     }
 
@@ -243,17 +225,17 @@ class DaoVoteFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             txFee?.getAmount(0)?.let { fee ->
-                BaseData.getAsset(selectedChain.apiName, fee.denom)?.let { asset ->
-                    feeTokenImg.setTokenImg(asset)
-                    feeToken.text = asset.symbol
-
-                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val value = price.multiply(amount)
-
-                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                    feeValue.text = formatAssetValue(value)
-                }
+//                BaseData.getAsset(selectedChain.apiName, fee.denom)?.let { asset ->
+//                    feeTokenImg.setTokenImg(asset)
+//                    feeToken.text = asset.symbol
+//
+//                    val amount = fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
+//                    val price = BaseData.getPrice(asset.coinGeckoId)
+//                    val value = price.multiply(amount)
+//
+//                    feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+//                    feeValue.text = formatAssetValue(value)
+//                }
             }
         }
     }
@@ -271,35 +253,35 @@ class DaoVoteFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    AssetFragment.newInstance(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
-                        object : AssetSelectListener {
-                            override fun select(denom: String) {
-                                selectedChain.getDefaultFeeCoins(requireContext())
-                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                        val updateFeeCoin =
-                                            CoinProto.Coin.newBuilder().setDenom(denom)
-                                                .setAmount(feeCoin.amount).build()
-
-                                        val updateTxFee = TxProto.Fee.newBuilder()
-                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                            .addAmount(updateFeeCoin).build()
-
-                                        txFee = updateTxFee
-                                        updateFeeView()
-                                        txSimulate()
-                                    }
-                            }
-                        })
-                )
+//                handleOneClickWithDelay(
+//                    AssetFragment.newInstance(selectedChain,
+//                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
+//                        object : AssetSelectListener {
+//                            override fun select(denom: String) {
+//                                selectedChain.getDefaultFeeCoins(requireContext())
+//                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
+//                                        val updateFeeCoin =
+//                                            CoinProto.Coin.newBuilder().setDenom(denom)
+//                                                .setAmount(feeCoin.amount).build()
+//
+//                                        val updateTxFee = TxProto.Fee.newBuilder()
+//                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
+//                                            .addAmount(updateFeeCoin).build()
+//
+//                                        txFee = updateTxFee
+//                                        updateFeeView()
+//                                        txSimulate()
+//                                    }
+//                            }
+//                        })
+//                )
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(
-                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
-                )
+//                txFee = selectedChain.getBaseFee(
+//                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+//                )
                 updateFeeView()
                 txSimulate()
             }
@@ -333,13 +315,13 @@ class DaoVoteFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadcastWasm(
-                    wannabit.io.cosmostaion.common.getChannel(selectedChain),
-                    onBindWasmVoteMsg(),
-                    txFee,
-                    txMemo,
-                    selectedChain
-                )
+//                txViewModel.broadcastWasm(
+//                    getChannel(selectedChain),
+//                    onBindWasmVoteMsg(),
+//                    txFee,
+//                    txMemo,
+//                    selectedChain
+//                )
             }
         }
 
@@ -348,18 +330,18 @@ class DaoVoteFragment : BaseTxFragment() {
             if (toSingleProposals?.any { it.myVote == null } == true || toMultipleProposals?.any { it.myVote == null } == true || toOverruleProposals?.any { it.myVote == null } == true) {
                 return
             }
-            if (!selectedChain.isGasSimulable()) {
-                return updateFeeViewWithSimulate(null)
-            }
-            backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateWasm(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindWasmVoteMsg(),
-                txFee,
-                txMemo,
-                selectedChain
-            )
+//            if (!selectedChain.isGasSimulable()) {
+//                return updateFeeViewWithSimulate(null)
+//            }
+//            backdropLayout.visibility = View.VISIBLE
+//            txViewModel.simulateWasm(
+//                getChannel(selectedChain),
+//                selectedChain.address,
+//                onBindWasmVoteMsg(),
+//                txFee,
+//                txMemo,
+//                selectedChain
+//            )
         }
     }
 
@@ -382,15 +364,15 @@ class DaoVoteFragment : BaseTxFragment() {
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-                val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-
-                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                    .setAmount(feeCoinAmount.toString()).build()
-
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                    .build()
+//                val gasLimit =
+//                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+//
+//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+//                    .setAmount(feeCoinAmount.toString()).build()
+//
+//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+//                    .build()
             }
         }
         updateFeeView()
@@ -404,18 +386,18 @@ class DaoVoteFragment : BaseTxFragment() {
 
     private fun setUpBroadcast() {
         txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
-            Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
-                }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
-            }
+//            Intent(requireContext(), TxResultActivity::class.java).apply {
+//                if (txResponse.code > 0) {
+//                    putExtra("isSuccess", false)
+//                } else {
+//                    putExtra("isSuccess", true)
+//                }
+//                putExtra("errorMsg", txResponse.rawLog)
+//                putExtra("selectedChain", selectedChain.tag)
+//                val hash = txResponse.txhash
+//                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+//                startActivity(this)
+//            }
             dismiss()
         }
     }
@@ -426,13 +408,13 @@ class DaoVoteFragment : BaseTxFragment() {
             val req = VoteReq(Vote(single.id?.toInt(), single.myVote))
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
-            result.add(
-                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
-                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
-                        ?.get(0)?.asJsonObject?.get("address")?.asString
-                ).setMsg(msg).build()
-            )
+//            result.add(
+//                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
+//                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
+//                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+//                        ?.get(0)?.asJsonObject?.get("address")?.asString
+//                ).setMsg(msg).build()
+//            )
         }
 
         toMultipleProposals?.forEach { multi ->
@@ -441,26 +423,26 @@ class DaoVoteFragment : BaseTxFragment() {
             )
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
-            result.add(
-                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
-                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
-                        ?.get(1)?.asJsonObject?.get("address")?.asString
-                ).setMsg(msg).build()
-            )
+//            result.add(
+//                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
+//                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
+//                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+//                        ?.get(1)?.asJsonObject?.get("address")?.asString
+//                ).setMsg(msg).build()
+//            )
         }
 
         toOverruleProposals?.forEach { overrule ->
             val req = VoteReq(Vote(overrule.id?.toInt(), overrule.myVote))
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
-            result.add(
-                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
-                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
-                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
-                        ?.get(2)?.asJsonObject?.get("address")?.asString
-                ).setMsg(msg).build()
-            )
+//            result.add(
+//                MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
+//                    selectedChain.getChainListParam()?.getAsJsonArray("daos")
+//                        ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
+//                        ?.get(2)?.asJsonObject?.get("address")?.asString
+//                ).setMsg(msg).build()
+//            )
         }
         return result
     }

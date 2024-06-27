@@ -3,23 +3,7 @@ package wannabit.io.cosmostaion.chain
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import org.web3j.protocol.Web3j
-import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
-import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
-import wannabit.io.cosmostaion.chain.evmClass.ChainBaseEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainBeraTestEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
-import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
-import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
-import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
-import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
-import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
@@ -29,7 +13,7 @@ import java.math.RoundingMode
 @Parcelize
 open class EthereumLine : CosmosLine(), Parcelable {
 
-    open var chainIdEvm: String = ""
+//    open var chainIdEvm: String = ""
 
     open var supportCosmos = false
 
@@ -92,37 +76,37 @@ open class EthereumLine : CosmosLine(), Parcelable {
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
     lines.add(ChainEthereum())
-    lines.add(ChainArbitrum())
-    lines.add(ChainAvalanche())
-    lines.add(ChainBaseEvm())
-    lines.add(ChainBinanceSmart())
-    lines.add(ChainAltheaEvm())
-    lines.add(ChainCantoEvm())
-    lines.add(ChainCronos())
-    lines.add(ChainDymensionEvm())
-    lines.add(ChainEvmosEvm())
-    lines.add(ChainHumansEvm())
-    lines.add(ChainKavaEvm())
-    lines.add(ChainOktEvm())
-    lines.add(ChainOptimism())
-    lines.add(ChainPolygon())
-    lines.add(ChainXplaEvm())
+//    lines.add(ChainArbitrum())
+//    lines.add(ChainAvalanche())
+//    lines.add(ChainBaseEvm())
+//    lines.add(ChainBinanceSmart())
+//    lines.add(ChainAltheaEvm())
+//    lines.add(ChainCantoEvm())
+//    lines.add(ChainCronos())
+//    lines.add(ChainDymensionEvm())
+//    lines.add(ChainEvmosEvm())
+//    lines.add(ChainHumansEvm())
+//    lines.add(ChainKavaEvm())
+//    lines.add(ChainOktEvm())
+//    lines.add(ChainOptimism())
+//    lines.add(ChainPolygon())
+//    lines.add(ChainXplaEvm())
+//
+//    lines.add(ChainBeraTestEvm())
 
-    lines.add(ChainBeraTestEvm())
-
-    lines.forEach { line ->
-        if (line.chainIdCosmos.isEmpty()) {
-            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
-                line.chainIdCosmos = cosmosChainId
-            }
-        }
-
-        if (line.chainIdEvm.isEmpty()) {
-            line.getChainListParam()?.get("chain_id_evm")?.asString?.let { evmChainId ->
-                line.chainIdEvm = evmChainId
-            }
-        }
-    }
+//    lines.forEach { line ->
+//        if (line.chainIdCosmos.isEmpty()) {
+//            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
+//                line.chainIdCosmos = cosmosChainId
+//            }
+//        }
+//
+//        if (line.chainIdEvm.isEmpty()) {
+//            line.getChainListParam()?.get("chain_id_evm")?.asString?.let { evmChainId ->
+//                line.chainIdEvm = evmChainId
+//            }
+//        }
+//    }
     return lines
 }
 

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.formatAmount
@@ -31,7 +30,7 @@ class WalletSelectViewHolder(
             chainImg.setImageResource(line.logo)
             chainName.text = line.name.uppercase()
             if (account.type == BaseAccountType.MNEMONIC) {
-                chainPath.text = line.getHDPath(account.lastHDPath)
+//                chainPath.text = line.getHDPath(account.lastHDPath)
             } else if (line.accountPrefix?.isNotEmpty() == true) {
                 line.address?.let {
                     chainPath.text = ByteUtils.convertBech32ToEvm(it)
@@ -93,7 +92,7 @@ class WalletSelectViewHolder(
             chainName.text = line.name.uppercase()
 
             if (account.type == BaseAccountType.MNEMONIC) {
-                chainPath.text = line.getHDPath(account.lastHDPath)
+//                chainPath.text = line.getHDPath(account.lastHDPath)
                 if (!line.isDefault) {
                     chainLegacy.visibility = View.VISIBLE
                     chainTypeBadge.visibility = View.VISIBLE
@@ -145,41 +144,41 @@ class WalletSelectViewHolder(
             if (line.fetched) {
                 var cnt = 0
                 line.stakeDenom?.let { denom ->
-                    if (line is ChainOkt996Keccak) {
-                        val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
-                        chainBalance.text = formatAmount(availableAmount.toString(), 18)
-                        chainDenom.text = line.stakeDenom?.uppercase()
-                        chainDenom.setTextColor(Color.parseColor("#ffffff"))
-                        cnt = line.oktLcdAccountInfo?.value?.coins?.size ?: 0
-
-                        chainBalance.visibility = View.VISIBLE
-                        chainDenom.visibility = View.VISIBLE
-                        chainAssetCnt.visibility = View.VISIBLE
-
-                    } else {
-                        if (line.cosmosBalances == null) {
-                            chainBalance.visibility = View.GONE
-                            chainDenom.visibility = View.GONE
-                            respondLayout.visibility = View.VISIBLE
-                            chainAssetCnt.visibility = View.GONE
-
-                        } else {
-                            chainBalance.visibility = View.VISIBLE
-                            chainDenom.visibility = View.VISIBLE
-                            respondLayout.visibility = View.GONE
-                            chainAssetCnt.visibility = View.VISIBLE
-
-                            BaseData.getAsset(line.apiName, denom)?.let { asset ->
-                                val availableAmount =
-                                    line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)
-                                chainBalance.text =
-                                    formatAmount(availableAmount.toString(), asset.decimals ?: 6)
-                                chainDenom.text = asset.symbol
-                                chainDenom.setTextColor(asset.assetColor())
-                            }
-                            cnt = line.cosmosBalances?.count() ?: 0
-                        }
-                    }
+//                    if (line is ChainOkt996Keccak) {
+//                        val availableAmount = line.lcdBalanceAmount(line.stakeDenom)
+//                        chainBalance.text = formatAmount(availableAmount.toString(), 18)
+//                        chainDenom.text = line.stakeDenom?.uppercase()
+//                        chainDenom.setTextColor(Color.parseColor("#ffffff"))
+//                        cnt = line.oktLcdAccountInfo?.value?.coins?.size ?: 0
+//
+//                        chainBalance.visibility = View.VISIBLE
+//                        chainDenom.visibility = View.VISIBLE
+//                        chainAssetCnt.visibility = View.VISIBLE
+//
+//                    } else {
+//                        if (line.cosmosBalances == null) {
+//                            chainBalance.visibility = View.GONE
+//                            chainDenom.visibility = View.GONE
+//                            respondLayout.visibility = View.VISIBLE
+//                            chainAssetCnt.visibility = View.GONE
+//
+//                        } else {
+//                            chainBalance.visibility = View.VISIBLE
+//                            chainDenom.visibility = View.VISIBLE
+//                            respondLayout.visibility = View.GONE
+//                            chainAssetCnt.visibility = View.VISIBLE
+//
+//                            BaseData.getAsset(line.apiName, denom)?.let { asset ->
+//                                val availableAmount =
+//                                    line.balanceAmount(denom).movePointLeft(asset.decimals ?: 6)
+//                                chainBalance.text =
+//                                    formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+//                                chainDenom.text = asset.symbol
+//                                chainDenom.setTextColor(asset.assetColor())
+//                            }
+//                            cnt = line.cosmosBalances?.count() ?: 0
+//                        }
+//                    }
                     chainAssetCnt.text = "$cnt Coins"
                     skeletonChainValue.visibility = View.GONE
                 }

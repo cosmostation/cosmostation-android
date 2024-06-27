@@ -27,7 +27,7 @@ class QrCodeViewHolder(
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
-                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+//                accountPath.text = selectChain.getHDPath(account.lastHDPath)
             } else {
                 accountPathLayout.visibility = View.GONE
             }
@@ -62,7 +62,7 @@ class QrCodeViewHolder(
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
-                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+//                accountPath.text = selectChain.getHDPath(account.lastHDPath)
             } else {
                 accountPathLayout.visibility = View.GONE
             }

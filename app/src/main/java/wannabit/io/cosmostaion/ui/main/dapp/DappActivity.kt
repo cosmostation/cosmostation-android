@@ -55,11 +55,9 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
-import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
@@ -135,8 +133,8 @@ class DappActivity : BaseActivity() {
         val result = mutableListOf<CosmosLine>()
         lifecycleScope.launch(Dispatchers.IO) {
             initData()
-            result.addAll(allCosmosLines())
-            result.addAll(allEvmLines())
+//            result.addAll(allCosmosLines())
+//            result.addAll(allEvmLines())
 
             BaseData.baseAccount?.let { account ->
                 account.apply {
@@ -1523,7 +1521,7 @@ class DappActivity : BaseActivity() {
 
     private fun pubKeyType(): String {
         return when (selectChain) {
-            is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
+//            is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
             is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
             else -> COSMOS_KEY_TYPE_PUBLIC
         }

@@ -111,7 +111,7 @@ class LendListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        kavaViewModel.lendingData(getChannel(selectedChain), selectedChain.address)
+//        kavaViewModel.lendingData(getChannel(selectedChain), selectedChain.address)
     }
 
     private fun setUpLendingDataObserve() {

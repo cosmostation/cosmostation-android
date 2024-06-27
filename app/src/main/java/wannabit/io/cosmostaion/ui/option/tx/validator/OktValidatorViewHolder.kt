@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.common.setMonikerImg
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.ItemOktValidatorBinding
@@ -16,12 +15,12 @@ class OktValidatorViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        line: ChainOkt996Keccak,
+        line: BaseChain,
         allValidator: OktValidatorResponse,
         myValidators: MutableList<OktValidatorResponse>
     ) {
         binding.apply {
-            monikerImg.setMonikerImg(line, allValidator.operatorAddress)
+//            monikerImg.setMonikerImg(line, allValidator.operatorAddress)
             monikerName.text = allValidator.description?.moniker
             if (allValidator.jailed == true) {
                 jailedImg.visibility = View.VISIBLE

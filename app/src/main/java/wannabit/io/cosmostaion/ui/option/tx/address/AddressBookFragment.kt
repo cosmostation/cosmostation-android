@@ -16,10 +16,8 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -127,63 +125,63 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if (fromChain is ChainOkt996Keccak) {
-                                    if (refAddress.dpAddress?.startsWith((toChain as ChainOkt996Keccak).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
-                                        if (Prefs.displayLegacy) {
-                                            refAddresses.add(refAddress)
-                                        } else {
-                                            allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                ?.let { chain ->
-                                                    if (chain.isDefault) {
-                                                        refAddresses.add(refAddress)
-                                                    }
-
-                                                } ?: run {
-                                                allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                    ?.let { evmChain ->
-                                                        if (evmChain.isDefault) {
-                                                            refAddresses.add(refAddress)
-                                                        }
-                                                    }
-                                            }
-                                        }
-                                    }
-
-                                } else if ((fromChain as EthereumLine).supportCosmos) {
-                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        )
-                                    ) {
-                                        refEvmAddresses.add(refAddress)
-                                    }
-
-                                } else {
-                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
-                                        refEvmAddresses.add(refAddress)
-                                    }
-                                }
+//                                if (fromChain is ChainOkt996Keccak) {
+//                                    if (refAddress.dpAddress?.startsWith((toChain as ChainOkt996Keccak).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+//                                        if (Prefs.displayLegacy) {
+//                                            refAddresses.add(refAddress)
+//                                        } else {
+//                                            allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+//                                                ?.let { chain ->
+//                                                    if (chain.isDefault) {
+//                                                        refAddresses.add(refAddress)
+//                                                    }
+//
+//                                                } ?: run {
+//                                                allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
+//                                                    ?.let { evmChain ->
+//                                                        if (evmChain.isDefault) {
+//                                                            refAddresses.add(refAddress)
+//                                                        }
+//                                                    }
+//                                            }
+//                                        }
+//                                    }
+//
+//                                } else if ((fromChain as EthereumLine).supportCosmos) {
+//                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
+//                                            senderAddress
+//                                        )
+//                                    ) {
+//                                        refEvmAddresses.add(refAddress)
+//                                    }
+//
+//                                } else {
+//                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
+//                                        refEvmAddresses.add(refAddress)
+//                                    }
+//                                }
                             }
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (fromChain is ChainOkt996Keccak) {
-                                    if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                        addressBooks.add(addressBook)
-                                    }
-
-                                } else if ((fromChain as EthereumLine).supportCosmos) {
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        )
-                                    ) {
-                                        evmAddressBooks.add(addressBook)
-                                    }
-
-                                } else {
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress) {
-                                        evmAddressBooks.add(addressBook)
-                                    }
-                                }
+//                                if (fromChain is ChainOkt996Keccak) {
+//                                    if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
+//                                        addressBooks.add(addressBook)
+//                                    }
+//
+//                                } else if ((fromChain as EthereumLine).supportCosmos) {
+//                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
+//                                            senderAddress
+//                                        )
+//                                    ) {
+//                                        evmAddressBooks.add(addressBook)
+//                                    }
+//
+//                                } else {
+//                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress) {
+//                                        evmAddressBooks.add(addressBook)
+//                                    }
+//                                }
                             }
                     }
 
@@ -280,36 +278,36 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     when (sendAssetType) {
                         SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
-                            if (fromChain is ChainOkt996Keccak) {
-                                if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
-                                    recycler.visibility = View.GONE
-                                    emptyLayout.visibility = View.VISIBLE
-
-                                } else {
-                                    recycler.visibility = View.VISIBLE
-                                    emptyLayout.visibility = View.GONE
-                                    initCosmosRecyclerView(
-                                        refAddresses, addressBooks
-                                    )
-                                }
-                                segmentView.visibility = View.GONE
-                                evmRecycler.visibility = View.GONE
-
-                            } else {
-                                if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-                                    evmRecycler.visibility = View.GONE
-                                    emptyLayout.visibility = View.VISIBLE
-
-                                } else {
-                                    evmRecycler.visibility = View.VISIBLE
-                                    emptyLayout.visibility = View.GONE
-                                    initEvmRecyclerView(
-                                        refEvmAddresses, evmAddressBooks
-                                    )
-                                }
-                                segmentView.visibility = View.GONE
-                                recycler.visibility = View.GONE
-                            }
+//                            if (fromChain is ChainOkt996Keccak) {
+//                                if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
+//                                    recycler.visibility = View.GONE
+//                                    emptyLayout.visibility = View.VISIBLE
+//
+//                                } else {
+//                                    recycler.visibility = View.VISIBLE
+//                                    emptyLayout.visibility = View.GONE
+//                                    initCosmosRecyclerView(
+//                                        refAddresses, addressBooks
+//                                    )
+//                                }
+//                                segmentView.visibility = View.GONE
+//                                evmRecycler.visibility = View.GONE
+//
+//                            } else {
+//                                if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
+//                                    evmRecycler.visibility = View.GONE
+//                                    emptyLayout.visibility = View.VISIBLE
+//
+//                                } else {
+//                                    evmRecycler.visibility = View.VISIBLE
+//                                    emptyLayout.visibility = View.GONE
+//                                    initEvmRecyclerView(
+//                                        refEvmAddresses, evmAddressBooks
+//                                    )
+//                                }
+//                                segmentView.visibility = View.GONE
+//                                recycler.visibility = View.GONE
+//                            }
                         }
 
                         SendAssetType.COSMOS_EVM_COIN -> {

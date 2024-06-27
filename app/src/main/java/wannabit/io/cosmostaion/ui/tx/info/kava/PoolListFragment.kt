@@ -91,7 +91,7 @@ class PoolListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        kavaViewModel.swapData(getChannel(selectedChain), selectedChain.address)
+//        kavaViewModel.swapData(getChannel(selectedChain), selectedChain.address)
     }
 
     private fun setUpSwapDataObserve() {

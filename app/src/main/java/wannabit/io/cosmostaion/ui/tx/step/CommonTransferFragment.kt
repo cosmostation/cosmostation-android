@@ -25,19 +25,13 @@ import com.google.gson.Gson
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allIbcChains
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -588,24 +582,24 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
 
                 } else {
-                    (fromChain as ChainOkt996Keccak).apply {
-                        stakeDenom?.let { denom ->
-                            feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(denom))
-                            feeToken.text = denom.uppercase()
-                        }
-                    }
-                    if (evmFeeAmount == null) {
-                        evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
-                    }
-                    val price = BaseData.getPrice(OKT_GECKO_ID)
-                    val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
-                        ?.setScale(18, RoundingMode.DOWN)
-                    val value = price.multiply(dpAmount)
-
-                    dpAmount?.let { amount ->
-                        feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                        feeValue.text = formatAssetValue(value)
-                    }
+//                    (fromChain as ChainOkt996Keccak).apply {
+//                        stakeDenom?.let { denom ->
+//                            feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(denom))
+//                            feeToken.text = denom.uppercase()
+//                        }
+//                    }
+//                    if (evmFeeAmount == null) {
+//                        evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+//                    }
+//                    val price = BaseData.getPrice(OKT_GECKO_ID)
+//                    val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
+//                        ?.setScale(18, RoundingMode.DOWN)
+//                    val value = price.multiply(dpAmount)
+//
+//                    dpAmount?.let { amount ->
+//                        feeAmount.text = formatAmount(amount.toPlainString(), 18)
+//                        feeValue.text = formatAssetValue(value)
+//                    }
                 }
 
             } else {
@@ -774,26 +768,26 @@ class CommonTransferFragment : BaseTxFragment() {
             }
 
             if (transferStyle == TransferStyle.WEB3_STYLE) {
-                if (fromChain is ChainOkt996Keccak) {
-                    txViewModel.simulateEvmSend(
-                        ByteUtils.convertBech32ToEvm(toAddress),
-                        toSendAmount,
-                        toSendToken,
-                        sendAssetType,
-                        fromChain as ChainOkt996Keccak,
-                        selectedFeePosition
-                    )
-
-                } else {
-                    txViewModel.simulateEvmSend(
-                        toAddress,
-                        toSendAmount,
-                        toSendToken,
-                        sendAssetType,
-                        fromChain as EthereumLine,
-                        selectedFeePosition
-                    )
-                }
+//                if (fromChain is ChainOkt996Keccak) {
+//                    txViewModel.simulateEvmSend(
+//                        ByteUtils.convertBech32ToEvm(toAddress),
+//                        toSendAmount,
+//                        toSendToken,
+//                        sendAssetType,
+//                        fromChain as ChainOkt996Keccak,
+//                        selectedFeePosition
+//                    )
+//
+//                } else {
+//                    txViewModel.simulateEvmSend(
+//                        toAddress,
+//                        toSendAmount,
+//                        toSendToken,
+//                        sendAssetType,
+//                        fromChain as EthereumLine,
+//                        selectedFeePosition
+//                    )
+//                }
 
             } else {
                 (fromChain as CosmosLine).apply {
@@ -936,55 +930,55 @@ class CommonTransferFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    val web3j = if (fromChain is ChainOkt996Keccak) {
-                        Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
-                    } else {
-                        Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
-                    }
-                    txViewModel.broadcastEvmSend(web3j, evmHexValue)
-
-                } else {
-                    (fromChain as CosmosLine).apply {
-                        if (chainIdCosmos == toChain.chainIdCosmos) {
-                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
-                                txViewModel.broadcastWasm(
-                                    getChannel(this), onBindWasmSend(), cosmosTxFee, txMemo, this
-                                )
-
-                            } else {
-                                txViewModel.broadcastSend(
-                                    getChannel(this),
-                                    this.address,
-                                    onBindSend(),
-                                    cosmosTxFee,
-                                    txMemo,
-                                    this
-                                )
-                            }
-
-                        } else {
-                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
-                                txViewModel.broadcastWasm(
-                                    getChannel(this), onBindWasmIbcSend(), cosmosTxFee, txMemo, this
-                                )
-
-                            } else {
-                                txViewModel.broadcastIbcSend(
-                                    getChannel(this),
-                                    getRecipientChannel(),
-                                    toAddress,
-                                    assetPath,
-                                    toSendDenom,
-                                    toSendAmount,
-                                    cosmosTxFee,
-                                    txMemo,
-                                    this
-                                )
-                            }
-                        }
-                    }
-                }
+//                if (transferStyle == TransferStyle.WEB3_STYLE) {
+//                    val web3j = if (fromChain is ChainOkt996Keccak) {
+//                        Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
+//                    } else {
+//                        Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
+//                    }
+//                    txViewModel.broadcastEvmSend(web3j, evmHexValue)
+//
+//                } else {
+//                    (fromChain as CosmosLine).apply {
+//                        if (chainIdCosmos == toChain.chainIdCosmos) {
+//                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+//                                txViewModel.broadcastWasm(
+//                                    getChannel(this), onBindWasmSend(), cosmosTxFee, txMemo, this
+//                                )
+//
+//                            } else {
+//                                txViewModel.broadcastSend(
+//                                    getChannel(this),
+//                                    this.address,
+//                                    onBindSend(),
+//                                    cosmosTxFee,
+//                                    txMemo,
+//                                    this
+//                                )
+//                            }
+//
+//                        } else {
+//                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+//                                txViewModel.broadcastWasm(
+//                                    getChannel(this), onBindWasmIbcSend(), cosmosTxFee, txMemo, this
+//                                )
+//
+//                            } else {
+//                                txViewModel.broadcastIbcSend(
+//                                    getChannel(this),
+//                                    getRecipientChannel(),
+//                                    toAddress,
+//                                    assetPath,
+//                                    toSendDenom,
+//                                    toSendAmount,
+//                                    cosmosTxFee,
+//                                    txMemo,
+//                                    this
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
 
@@ -1056,11 +1050,11 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun addRecipientChainIfNotExists(apiName: String?) {
-        allIbcChains().firstOrNull { it.apiName == apiName }?.let { sendAble ->
-            if (recipientAbleChains.none { it.apiName == sendAble.apiName }) {
-                recipientAbleChains.add(sendAble)
-            }
-        }
+//        allIbcChains().firstOrNull { it.apiName == apiName }?.let { sendAble ->
+//            if (recipientAbleChains.none { it.apiName == sendAble.apiName }) {
+//                recipientAbleChains.add(sendAble)
+//            }
+//        }
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {

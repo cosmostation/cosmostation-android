@@ -9,7 +9,6 @@ import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.distribution.v1beta1.DistributionProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.DYDX_USDC_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.databinding.DialogRewardBinding
@@ -73,8 +72,8 @@ class RewardDialog(
             when {
                 o1.denom == selectedChain.stakeDenom -> -1
                 o2.denom == selectedChain.stakeDenom -> 1
-                o1.denom == DYDX_USDC_DENOM -> -1
-                o2.denom == DYDX_USDC_DENOM -> 1
+//                o1.denom == DYDX_USDC_DENOM -> -1
+//                o2.denom == DYDX_USDC_DENOM -> 1
 
                 BaseData.getAsset(selectedChain.apiName, o1.denom) == null -> 1
                 BaseData.getAsset(selectedChain.apiName, o2.denom) == null -> -1

@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
 class ChainManageViewHolder(
@@ -23,13 +22,13 @@ class ChainManageViewHolder(
                 grpcLayout.visibility = View.VISIBLE
                 rpcEndpointType.text = "EVM RPC"
                 rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
-                if (line is ChainOktEvm) {
-                    grpcEndpointType.text = "LCD"
-                    grpcEndpoint.text = line.lcdUrl
-                } else {
-                    grpcEndpointType.text = "GRPC"
-                    grpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
-                }
+//                if (line is ChainOktEvm) {
+//                    grpcEndpointType.text = "LCD"
+//                    grpcEndpoint.text = line.lcdUrl
+//                } else {
+//                    grpcEndpointType.text = "GRPC"
+//                    grpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
+//                }
 
             } else {
                 grpcLayout.visibility = View.GONE

@@ -18,21 +18,10 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatAmount
-import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
-import wannabit.io.cosmostaion.data.model.req.LCoin
-import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
 import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
@@ -118,79 +107,79 @@ class LegacyTransferFragment : BaseTxFragment() {
                 )
             }
 
-            if (fromChain is ChainOkt996Keccak) {
-                (fromChain as ChainOkt996Keccak).apply {
-                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-                        oktToken = tokenInfo
-                        val originalSymbol = tokenInfo.original_symbol
-                        tokenImg.setTokenImg(assetImg(originalSymbol))
-                        tokenName.text = originalSymbol.uppercase()
-
-                        val available = lcdBalanceAmount(toSendDenom)
-                        availableAmount = if (toSendDenom == stakeDenom) {
-                            if (available > BigDecimal(OKT_BASE_FEE)) {
-                                available.subtract(BigDecimal(OKT_BASE_FEE))
-                            } else {
-                                BigDecimal.ZERO
-                            }
-                        } else {
-                            available
-                        }
-                    }
-                }
-
-            } else if (fromChain is ChainOktEvm) {
-                (fromChain as ChainOktEvm).apply {
-                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-                        oktToken = tokenInfo
-                        val originalSymbol = tokenInfo.original_symbol
-                        tokenImg.setTokenImg(assetImg(originalSymbol))
-                        tokenName.text = originalSymbol.uppercase()
-
-                        val available = lcdBalanceAmount(toSendDenom)
-                        availableAmount = if (toSendDenom == stakeDenom) {
-                            if (available > BigDecimal(OKT_BASE_FEE)) {
-                                available.subtract(BigDecimal(OKT_BASE_FEE))
-                            } else {
-                                BigDecimal.ZERO
-                            }
-                        } else {
-                            available
-                        }
-                    }
-                }
-            }
+//            if (fromChain is ChainOkt996Keccak) {
+//                (fromChain as ChainOkt996Keccak).apply {
+//                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
+//                        oktToken = tokenInfo
+//                        val originalSymbol = tokenInfo.original_symbol
+//                        tokenImg.setTokenImg(assetImg(originalSymbol))
+//                        tokenName.text = originalSymbol.uppercase()
+//
+//                        val available = lcdBalanceAmount(toSendDenom)
+//                        availableAmount = if (toSendDenom == stakeDenom) {
+//                            if (available > BigDecimal(OKT_BASE_FEE)) {
+//                                available.subtract(BigDecimal(OKT_BASE_FEE))
+//                            } else {
+//                                BigDecimal.ZERO
+//                            }
+//                        } else {
+//                            available
+//                        }
+//                    }
+//                }
+//
+//            } else if (fromChain is ChainOktEvm) {
+//                (fromChain as ChainOktEvm).apply {
+//                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
+//                        oktToken = tokenInfo
+//                        val originalSymbol = tokenInfo.original_symbol
+//                        tokenImg.setTokenImg(assetImg(originalSymbol))
+//                        tokenName.text = originalSymbol.uppercase()
+//
+//                        val available = lcdBalanceAmount(toSendDenom)
+//                        availableAmount = if (toSendDenom == stakeDenom) {
+//                            if (available > BigDecimal(OKT_BASE_FEE)) {
+//                                available.subtract(BigDecimal(OKT_BASE_FEE))
+//                            } else {
+//                                BigDecimal.ZERO
+//                            }
+//                        } else {
+//                            available
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 
     private fun initFee() {
         binding.apply {
-            if (fromChain is ChainOkt996Keccak) {
-                fromChain.stakeDenom?.let { stakeDenom ->
-                    feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(stakeDenom))
-                    feeToken.text = stakeDenom.uppercase()
-
-                    val price = BaseData.getPrice(OKT_GECKO_ID)
-                    val amount = BigDecimal(OKT_BASE_FEE)
-                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
-
-                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                    feeValue.text = formatAssetValue(value)
-                }
-
-            } else if (fromChain is ChainOktEvm) {
-                fromChain.stakeDenom?.let { stakeDenom ->
-                    feeTokenImg.setTokenImg((fromChain as ChainOktEvm).assetImg(stakeDenom))
-                    feeToken.text = stakeDenom.uppercase()
-
-                    val price = BaseData.getPrice(OKT_GECKO_ID)
-                    val amount = BigDecimal(OKT_BASE_FEE)
-                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
-
-                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                    feeValue.text = formatAssetValue(value)
-                }
-            }
+//            if (fromChain is ChainOkt996Keccak) {
+//                fromChain.stakeDenom?.let { stakeDenom ->
+//                    feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(stakeDenom))
+//                    feeToken.text = stakeDenom.uppercase()
+//
+//                    val price = BaseData.getPrice(OKT_GECKO_ID)
+//                    val amount = BigDecimal(OKT_BASE_FEE)
+//                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
+//
+//                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
+//                    feeValue.text = formatAssetValue(value)
+//                }
+//
+//            } else if (fromChain is ChainOktEvm) {
+//                fromChain.stakeDenom?.let { stakeDenom ->
+//                    feeTokenImg.setTokenImg((fromChain as ChainOktEvm).assetImg(stakeDenom))
+//                    feeToken.text = stakeDenom.uppercase()
+//
+//                    val price = BaseData.getPrice(OKT_GECKO_ID)
+//                    val amount = BigDecimal(OKT_BASE_FEE)
+//                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
+//
+//                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
+//                    feeValue.text = formatAssetValue(value)
+//                }
+//            }
         }
     }
 
@@ -202,14 +191,14 @@ class LegacyTransferFragment : BaseTxFragment() {
 
             val dpAmount = BigDecimal(toAmount).setScale(18, RoundingMode.DOWN)
             sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
-            if (toSendDenom == fromChain.stakeDenom) {
-                sendValue.visibility = View.VISIBLE
-                val price = BaseData.getPrice(OKT_GECKO_ID)
-                val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
-                sendValue.text = formatAssetValue(toSendValue)
-            } else {
-                sendValue.visibility = View.GONE
-            }
+//            if (toSendDenom == fromChain.stakeDenom) {
+//                sendValue.visibility = View.VISIBLE
+//                val price = BaseData.getPrice(OKT_GECKO_ID)
+//                val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
+//                sendValue.text = formatAssetValue(toSendValue)
+//            } else {
+//                sendValue.visibility = View.GONE
+//            }
         }
         txValidate()
     }
@@ -384,22 +373,22 @@ class LegacyTransferFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-                fromChain.stakeDenom?.let { LCoin(it, OKT_BASE_FEE) }?.let { gasCoin ->
-                    val fee = LFee(BASE_GAS_AMOUNT, mutableListOf(gasCoin))
-                    val sendCoin = LCoin(toSendDenom, toSendAmount)
-                    val recipientAddress =
-                        binding.recipientAddress.text.toString().trim().replace("(", "")
-                            .replace(")", "")
-
-                    fromChain.address?.let { address ->
-                        val oktSendMsg = Signer.oktSendMsg(
-                            address, recipientAddress, mutableListOf(sendCoin)
-                        )
-                        txViewModel.broadcastOktTx(
-                            oktSendMsg, fee, txMemo, fromChain
-                        )
-                    }
-                }
+//                fromChain.stakeDenom?.let { LCoin(it, OKT_BASE_FEE) }?.let { gasCoin ->
+//                    val fee = LFee(BASE_GAS_AMOUNT, mutableListOf(gasCoin))
+//                    val sendCoin = LCoin(toSendDenom, toSendAmount)
+//                    val recipientAddress =
+//                        binding.recipientAddress.text.toString().trim().replace("(", "")
+//                            .replace(")", "")
+//
+//                    fromChain.address?.let { address ->
+//                        val oktSendMsg = Signer.oktSendMsg(
+//                            address, recipientAddress, mutableListOf(sendCoin)
+//                        )
+//                        txViewModel.broadcastOktTx(
+//                            oktSendMsg, fee, txMemo, fromChain
+//                        )
+//                    }
+//                }
             }
         }
 

@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allCosmosLines
 import wannabit.io.cosmostaion.chain.allEvmLines
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
@@ -61,9 +60,9 @@ class ChainManageFragment : Fragment() {
                     }
                 }
                 for (chain in allCosmosLines().filter { it.isDefault }) {
-                    if (!allCosmosLines.any { it.name == chain.name } && !allEvmLines.any { it.name == chain.name }) {
-                        allCosmosLines.add(chain)
-                    }
+//                    if (!allCosmosLines.any { it.name == chain.name } && !allEvmLines.any { it.name == chain.name }) {
+//                        allCosmosLines.add(chain)
+//                    }
                 }
                 searchEvmLines.addAll(allEvmLines)
                 searchCosmosLines.addAll(allCosmosLines)
@@ -87,7 +86,7 @@ class ChainManageFragment : Fragment() {
             isClickable = false
 
             val settingType = if (chain is EthereumLine) {
-                if (chain is ChainOktEvm) { return }
+//                if (chain is ChainOktEvm) { return }
                 if (chain.supportCosmos) {
                     SettingType.END_POINT_COSMOS
                 } else {

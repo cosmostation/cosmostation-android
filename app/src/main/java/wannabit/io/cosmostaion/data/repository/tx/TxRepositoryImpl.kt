@@ -46,9 +46,6 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.BERA_CONT_GOVERNANCE
-import wannabit.io.cosmostaion.chain.evmClass.BERA_CONT_STAKING
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -57,7 +54,6 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.cosmos.Signer
-import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -184,11 +180,12 @@ class TxRepositoryImpl : TxRepository {
             val nonce = ethGetTransactionCount.transactionCount
 
             val fromAddress =
-                if (selectedChain is ChainOkt996Keccak || selectedChain is EthereumLine && selectedChain.supportCosmos) {
-                    ByteUtils.convertBech32ToEvm(selectedChain.address)
-                } else {
-                    selectedChain.address
-                }
+//                if (selectedChain is ChainOkt996Keccak || selectedChain is EthereumLine && selectedChain.supportCosmos) {
+//                    ByteUtils.convertBech32ToEvm(selectedChain.address)
+//                } else {
+//                    selectedChain.address
+//                }
+                ""
 
             val txData = selectedToken?.let {
                 val params: MutableList<Type<*>> = java.util.ArrayList()
@@ -430,9 +427,14 @@ class TxRepositoryImpl : TxRepository {
 
             val ethGasRequest = JsonRpcRequest(
                 method = "eth_estimateGas", params = listOf(
+//                    EstimateGasParams(
+//                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+//                        BERA_CONT_STAKING,
+//                        txData
+//                    )
                     EstimateGasParams(
                         ByteUtils.convertBech32ToEvm(selectedChain.address),
-                        BERA_CONT_STAKING,
+                        "",
                         txData
                     )
                 )
@@ -516,11 +518,21 @@ class TxRepositoryImpl : TxRepository {
                             suggestBaseFee[1]!!.toLong() + tip.toLong()
                         }
 
+//                    val rawTransaction = RawTransaction.createTransaction(
+//                        chainID,
+//                        nonce,
+//                        gasLimit,
+//                        BERA_CONT_STAKING,
+//                        BigInteger.ZERO,
+//                        txData,
+//                        tip,
+//                        totalPerGas.toBigInteger()
+//                    )
                     val rawTransaction = RawTransaction.createTransaction(
                         chainID,
                         nonce,
                         gasLimit,
-                        BERA_CONT_STAKING,
+                        "",
                         BigInteger.ZERO,
                         txData,
                         tip,
@@ -584,9 +596,14 @@ class TxRepositoryImpl : TxRepository {
 
             val ethGasRequest = JsonRpcRequest(
                 method = "eth_estimateGas", params = listOf(
+//                    EstimateGasParams(
+//                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+//                        BERA_CONT_STAKING,
+//                        txData
+//                    )
                     EstimateGasParams(
                         ByteUtils.convertBech32ToEvm(selectedChain.address),
-                        BERA_CONT_STAKING,
+                        "",
                         txData
                     )
                 )
@@ -670,11 +687,22 @@ class TxRepositoryImpl : TxRepository {
                             suggestBaseFee[1]!!.toLong() + tip.toLong()
                         }
 
+//                    val rawTransaction = RawTransaction.createTransaction(
+//                        chainID,
+//                        nonce,
+//                        gasLimit,
+//                        BERA_CONT_STAKING,
+//                        BigInteger.ZERO,
+//                        txData,
+//                        tip,
+//                        totalPerGas.toBigInteger()
+//                    )
+
                     val rawTransaction = RawTransaction.createTransaction(
                         chainID,
                         nonce,
                         gasLimit,
-                        BERA_CONT_STAKING,
+                        "",
                         BigInteger.ZERO,
                         txData,
                         tip,
@@ -740,9 +768,14 @@ class TxRepositoryImpl : TxRepository {
 
             val ethGasRequest = JsonRpcRequest(
                 method = "eth_estimateGas", params = listOf(
+//                    EstimateGasParams(
+//                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+//                        BERA_CONT_STAKING,
+//                        txData
+//                    )
                     EstimateGasParams(
                         ByteUtils.convertBech32ToEvm(selectedChain.address),
-                        BERA_CONT_STAKING,
+                        "",
                         txData
                     )
                 )
@@ -826,11 +859,22 @@ class TxRepositoryImpl : TxRepository {
                             suggestBaseFee[1]!!.toLong() + tip.toLong()
                         }
 
+//                    val rawTransaction = RawTransaction.createTransaction(
+//                        chainID,
+//                        nonce,
+//                        gasLimit,
+//                        BERA_CONT_STAKING,
+//                        BigInteger.ZERO,
+//                        txData,
+//                        tip,
+//                        totalPerGas.toBigInteger()
+//                    )
+
                     val rawTransaction = RawTransaction.createTransaction(
                         chainID,
                         nonce,
                         gasLimit,
-                        BERA_CONT_STAKING,
+                        "",
                         BigInteger.ZERO,
                         txData,
                         tip,
@@ -896,9 +940,14 @@ class TxRepositoryImpl : TxRepository {
 
             val ethGasRequest = JsonRpcRequest(
                 method = "eth_estimateGas", params = listOf(
+//                    EstimateGasParams(
+//                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+//                        BERA_CONT_STAKING,
+//                        txData
+//                    )
                     EstimateGasParams(
                         ByteUtils.convertBech32ToEvm(selectedChain.address),
-                        BERA_CONT_STAKING,
+                        "",
                         txData
                     )
                 )
@@ -982,16 +1031,28 @@ class TxRepositoryImpl : TxRepository {
                             suggestBaseFee[1]!!.toLong() + tip.toLong()
                         }
 
+//                    val rawTransaction = RawTransaction.createTransaction(
+//                        chainID,
+//                        nonce,
+//                        gasLimit,
+//                        BERA_CONT_STAKING,
+//                        BigInteger.ZERO,
+//                        txData,
+//                        tip,
+//                        totalPerGas.toBigInteger()
+//                    )
+
                     val rawTransaction = RawTransaction.createTransaction(
                         chainID,
                         nonce,
                         gasLimit,
-                        BERA_CONT_STAKING,
+                        "",
                         BigInteger.ZERO,
                         txData,
                         tip,
                         totalPerGas.toBigInteger()
                     )
+
 
                     val signedMessage = TransactionEncoder.signMessage(
                         rawTransaction, chainID, credentials
@@ -1048,9 +1109,14 @@ class TxRepositoryImpl : TxRepository {
 
             val ethGasRequest = JsonRpcRequest(
                 method = "eth_estimateGas", params = listOf(
+//                    EstimateGasParams(
+//                        ByteUtils.convertBech32ToEvm(selectedChain.address),
+//                        BERA_CONT_GOVERNANCE,
+//                        txData
+//                    )
                     EstimateGasParams(
                         ByteUtils.convertBech32ToEvm(selectedChain.address),
-                        BERA_CONT_GOVERNANCE,
+                        "",
                         txData
                     )
                 )
@@ -1134,11 +1200,22 @@ class TxRepositoryImpl : TxRepository {
                             suggestBaseFee[1]!!.toLong() + tip.toLong()
                         }
 
+//                    val rawTransaction = RawTransaction.createTransaction(
+//                        chainID,
+//                        nonce,
+//                        gasLimit,
+//                        BERA_CONT_GOVERNANCE,
+//                        BigInteger.ZERO,
+//                        txData,
+//                        tip,
+//                        totalPerGas.toBigInteger()
+//                    )
+
                     val rawTransaction = RawTransaction.createTransaction(
                         chainID,
                         nonce,
                         gasLimit,
-                        BERA_CONT_GOVERNANCE,
+                        "",
                         BigInteger.ZERO,
                         txData,
                         tip,
@@ -1207,8 +1284,9 @@ class TxRepositoryImpl : TxRepository {
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
     ): LegacyRes? {
         return try {
-            val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
-            RetrofitInstance.oktApi.broadTx(reqBroadCast)
+//            val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
+//            RetrofitInstance.oktApi.broadTx(reqBroadCast)
+            null
 
         } catch (_: Exception) {
             null

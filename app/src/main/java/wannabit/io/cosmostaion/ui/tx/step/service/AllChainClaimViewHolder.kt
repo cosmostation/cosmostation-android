@@ -5,8 +5,6 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
-import wannabit.io.cosmostaion.chain.cosmosClass.DYDX_USDC_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
@@ -44,31 +42,31 @@ class AllChainClaimViewHolder(
                 }
 
                 var mainRewardAmount = BigDecimal.ZERO
-                val mainRewardDenom = if (cosmosLine is ChainDydx) {
-                    DYDX_USDC_DENOM
-                } else {
-                    cosmosLine.stakeDenom
-                }
+//                val mainRewardDenom = if (cosmosLine is ChainDydx) {
+//                    DYDX_USDC_DENOM
+//                } else {
+//                    cosmosLine.stakeDenom
+//                }
+//
+//                rewards.forEach { reward ->
+//                    reward?.rewardList?.firstOrNull { it.denom == mainRewardDenom }
+//                        ?.let { rewardCoin ->
+//                            val amount = rewardCoin.amount.toBigDecimal().movePointLeft(18)
+//                                .setScale(0, RoundingMode.DOWN)
+//                            mainRewardAmount = mainRewardAmount.add(amount)
+//                        }
+//                }
 
-                rewards.forEach { reward ->
-                    reward?.rewardList?.firstOrNull { it.denom == mainRewardDenom }
-                        ?.let { rewardCoin ->
-                            val amount = rewardCoin.amount.toBigDecimal().movePointLeft(18)
-                                .setScale(0, RoundingMode.DOWN)
-                            mainRewardAmount = mainRewardAmount.add(amount)
-                        }
-                }
-
-                mainRewardDenom?.let { denom ->
-                    BaseData.getAsset(cosmosLine.apiName, denom)?.let { asset ->
-                        rewardAmount.text = formatAmount(
-                            mainRewardAmount.movePointLeft(asset.decimals ?: 6).toString(),
-                            asset.decimals ?: 6
-                        )
-                        rewardDenom.text = asset.symbol
-                        rewardDenom.setTextColor(asset.assetColor())
-                    }
-                }
+//                mainRewardDenom?.let { denom ->
+//                    BaseData.getAsset(cosmosLine.apiName, denom)?.let { asset ->
+//                        rewardAmount.text = formatAmount(
+//                            mainRewardAmount.movePointLeft(asset.decimals ?: 6).toString(),
+//                            asset.decimals ?: 6
+//                        )
+//                        rewardDenom.text = asset.symbol
+//                        rewardDenom.setTextColor(asset.assetColor())
+//                    }
+//                }
 
                 val rewardDenoms: MutableList<String> = mutableListOf()
                 val rewardsValue =

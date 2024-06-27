@@ -10,23 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
-import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
@@ -94,45 +82,45 @@ class CoinFragment : Fragment() {
             adapter = coinAdapter
 
             coinAdapter.setOnItemClickListener { line, denom, position ->
-                val sendAssetType = if (position == 0) {
-                    if (line is EthereumLine) {
-                        if (line is ChainBeraEvm) {
-                            requireActivity().makeToast(R.string.error_tranfer_disabled_bgt)
-                            return@setOnItemClickListener
-                        } else if (line is ChainOktEvm) {
-                            SendAssetType.ONLY_EVM_COIN
-                        } else if (line.supportCosmos) {
-                            SendAssetType.COSMOS_EVM_COIN
-                        } else {
-                            SendAssetType.ONLY_EVM_COIN
-                        }
-
-                    } else {
-                        SendAssetType.ONLY_COSMOS_COIN
-                    }
-
-                } else {
-                    if (line is ChainBeraEvm) {
-                        SendAssetType.ONLY_EVM_COIN
-                    } else {
-                        SendAssetType.ONLY_COSMOS_COIN
-                    }
-                }
-
-                if (selectedChain.isBankLocked()) {
-                    requireActivity().makeToast(R.string.error_tranfer_disabled)
-                    return@setOnItemClickListener
-                }
-
-                if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
-                    startLegacyTransfer(line, denom)
-
-                } else if (line.tag.startsWith("kava")) {
-                    startTransfer(line, denom, sendAssetType)
-
-                } else {
-                    startTransfer(line, denom, sendAssetType)
-                }
+//                val sendAssetType = if (position == 0) {
+//                    if (line is EthereumLine) {
+//                        if (line is ChainBeraEvm) {
+//                            requireActivity().makeToast(R.string.error_tranfer_disabled_bgt)
+//                            return@setOnItemClickListener
+//                        } else if (line is ChainOktEvm) {
+//                            SendAssetType.ONLY_EVM_COIN
+//                        } else if (line.supportCosmos) {
+//                            SendAssetType.COSMOS_EVM_COIN
+//                        } else {
+//                            SendAssetType.ONLY_EVM_COIN
+//                        }
+//
+//                    } else {
+//                        SendAssetType.ONLY_COSMOS_COIN
+//                    }
+//
+//                } else {
+//                    if (line is ChainBeraEvm) {
+//                        SendAssetType.ONLY_EVM_COIN
+//                    } else {
+//                        SendAssetType.ONLY_COSMOS_COIN
+//                    }
+//                }
+//
+//                if (selectedChain.isBankLocked()) {
+//                    requireActivity().makeToast(R.string.error_tranfer_disabled)
+//                    return@setOnItemClickListener
+//                }
+//
+//                if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
+//                    startLegacyTransfer(line, denom)
+//
+//                } else if (line.tag.startsWith("kava")) {
+//                    startTransfer(line, denom, sendAssetType)
+//
+//                } else {
+//                    startTransfer(line, denom, sendAssetType)
+//                }
             }
         }
     }
@@ -145,33 +133,33 @@ class CoinFragment : Fragment() {
 
         selectedChain.stakeDenom?.let { stakeDenom ->
             when (selectedChain) {
-                is ChainOkt996Keccak -> {
-                    (selectedChain as ChainOkt996Keccak).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
-                        if (balance.denom == stakeDenom) {
-                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
-                        } else {
-                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
-                        }
-                    }
-                    if (stakeCoins.none { it.denom == stakeDenom }) {
-                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-                    }
-                    nativeCoins.sortBy { it.denom }
-                }
-
-                is ChainOktEvm -> {
-                    (selectedChain as ChainOktEvm).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
-                        if (balance.denom == stakeDenom) {
-                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
-                        } else {
-                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
-                        }
-                    }
-                    if (stakeCoins.none { it.denom == stakeDenom }) {
-                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-                    }
-                    nativeCoins.sortBy { it.denom }
-                }
+//                is ChainOkt996Keccak -> {
+//                    (selectedChain as ChainOkt996Keccak).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
+//                        if (balance.denom == stakeDenom) {
+//                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
+//                        } else {
+//                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
+//                        }
+//                    }
+//                    if (stakeCoins.none { it.denom == stakeDenom }) {
+//                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+//                    }
+//                    nativeCoins.sortBy { it.denom }
+//                }
+//
+//                is ChainOktEvm -> {
+//                    (selectedChain as ChainOktEvm).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
+//                        if (balance.denom == stakeDenom) {
+//                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
+//                        } else {
+//                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
+//                        }
+//                    }
+//                    if (stakeCoins.none { it.denom == stakeDenom }) {
+//                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
+//                    }
+//                    nativeCoins.sortBy { it.denom }
+//                }
 
                 else -> {
                     selectedChain.cosmosBalances?.forEach { coin ->
@@ -206,15 +194,15 @@ class CoinFragment : Fragment() {
                     if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
                         stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
                     }
-                    if (selectedChain is ChainBeraEvm) {
-                        nativeCoins.add(
-                            Coin(
-                                "abera",
-                                (selectedChain as ChainBeraEvm).evmBalance.toString(),
-                                CoinType.NATIVE
-                            )
-                        )
-                    }
+//                    if (selectedChain is ChainBeraEvm) {
+//                        nativeCoins.add(
+//                            Coin(
+//                                "abera",
+//                                (selectedChain as ChainBeraEvm).evmBalance.toString(),
+//                                CoinType.NATIVE
+//                            )
+//                        )
+//                    }
 
                     nativeCoins.sortWith(compareByDescending { selectedChain.balanceValue(it.denom) })
                     ibcCoins.sortWith(compareByDescending { selectedChain.balanceValue(it.denom) })
@@ -233,40 +221,40 @@ class CoinFragment : Fragment() {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    if (selectedChain is EthereumLine) {
-                        ApplicationViewModel.shared.loadEvmChainData(
-                            selectedChain as EthereumLine, account.id, false
-                        )
-                    } else {
-                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
-                    }
+//                    if (selectedChain is EthereumLine) {
+//                        ApplicationViewModel.shared.loadEvmChainData(
+//                            selectedChain as EthereumLine, account.id, false
+//                        )
+//                    } else {
+//                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+//                    }
                 }
             }
         }
     }
 
     private fun sunsetPopup() {
-        val noticeType = when (selectedChain) {
-            is ChainCantoEvm, is ChainRegen, is ChainLikeCoin, is ChainIxo -> {
-                NoticeType.CHAIN_DELIST
-            }
-
-            is ChainOkt996Keccak -> {
-                NoticeType.LEGACY_PATH
-            }
-
-            else -> {
-                return
-            }
-        }
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (isAdded && isVisible && isResumed) {
-                NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
-                    requireActivity().supportFragmentManager,
-                    NoticeInfoFragment::class.java.name
-                )
-            }
-        }, 800)
+//        val noticeType = when (selectedChain) {
+//            is ChainCantoEvm, is ChainRegen, is ChainLikeCoin, is ChainIxo -> {
+//                NoticeType.CHAIN_DELIST
+//            }
+//
+//            is ChainOkt996Keccak -> {
+//                NoticeType.LEGACY_PATH
+//            }
+//
+//            else -> {
+//                return
+//            }
+//        }
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            if (isAdded && isVisible && isResumed) {
+//                NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+//                    requireActivity().supportFragmentManager,
+//                    NoticeInfoFragment::class.java.name
+//                )
+//            }
+//        }, 800)
     }
 
     private fun observeViewModels() {

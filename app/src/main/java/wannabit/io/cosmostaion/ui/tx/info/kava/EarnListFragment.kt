@@ -79,7 +79,7 @@ class EarnListFragment : Fragment() {
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
         selectedChain?.let { chain ->
-            kavaViewModel.myDeposits(getChannel(chain), chain.address)
+//            kavaViewModel.myDeposits(getChannel(chain), chain.address)
         }
     }
 

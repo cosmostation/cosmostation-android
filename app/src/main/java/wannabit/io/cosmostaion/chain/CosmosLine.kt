@@ -13,73 +13,7 @@ import com.google.gson.JsonObject
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCudos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -95,17 +29,6 @@ import java.math.RoundingMode
 @Parcelize
 open class CosmosLine : BaseChain(), Parcelable {
 
-    open var stakeDenom: String? = ""
-    open var supportCw20 = false
-    open var supportErc20 = false
-    open var supportStaking = true
-    open var supportNft = false
-
-    open var evmCompatible = false
-
-    open var grpcHost: String = ""
-    open var grpcPort = 443
-    open var rpcUrl = ""
     private var duration = 20L
 
     var rewardAddress: String? = ""
@@ -121,23 +44,9 @@ open class CosmosLine : BaseChain(), Parcelable {
 
     var lcdAccountInfo: AccountResponse? = null
 
-    var cw721s = mutableListOf<JsonObject>()
-    var cw721Fetched = false
-    var cw721Models = mutableListOf<Cw721Model>()
-
-    override fun setInfoWithSeed(
-        seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String
-    ) {
-        privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
-        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
-        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-    }
-
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
-        this.privateKey = privateKey
-        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
-        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-    }
+//    var cw721s = mutableListOf<JsonObject>()
+//    var cw721Fetched = false
+//    var cw721Models = mutableListOf<Cw721Model>()
 
     open fun lcdBalanceValue(denom: String?, isUsd: Boolean? = false): BigDecimal {
         return BigDecimal.ZERO
@@ -644,89 +553,89 @@ open class CosmosLine : BaseChain(), Parcelable {
 }
 
 
-fun allCosmosLines(): MutableList<CosmosLine> {
-    val lines = mutableListOf<CosmosLine>()
+fun allCosmosLines(): MutableList<BaseChain> {
+    val lines = mutableListOf<BaseChain>()
     lines.add(ChainCosmos())
-    lines.add(ChainAkash())
-    lines.add(ChainAlthea118())
-    lines.add(ChainArchway())
-    lines.add(ChainAssetMantle())
-    lines.add(ChainAxelar())
-    lines.add(ChainBand())
-    lines.add(ChainBitcanna())
-    lines.add(ChainBitsong())
-    lines.add(ChainCelestia())
-    lines.add(ChainChihuahua())
-    lines.add(ChainComdex())
-    lines.add(ChainCoreum())
-    lines.add(ChainCryptoorg())
-    lines.add(ChainCudos())
-    lines.add(ChainDesmos())
-    lines.add(ChainDydx())
-    lines.add(ChainFetchAi())
-    lines.add(ChainFetchAi60Secp())
-    lines.add(ChainFetchAi60Old())
-    lines.add(ChainFinschia())
-    lines.add(ChainGovgen())
-    lines.add(ChainGravityBridge())
-    lines.add(ChainInjective())
-    lines.add(ChainIris())
-    lines.add(ChainIxo())
-    lines.add(ChainJuno())
-    lines.add(ChainKava459())
-    lines.add(ChainKava118())
-    lines.add(ChainKi())
-    lines.add(ChainKyve())
-    lines.add(ChainLikeCoin())
-    lines.add(ChainLum880())
-    lines.add(ChainLum118())
-    lines.add(ChainMars())
-    lines.add(ChainMedibloc())
-    lines.add(ChainNeutron())
-    lines.add(ChainNibiru())
-    lines.add(ChainNoble())
-    lines.add(ChainNyx())
-    lines.add(ChainOmniflix())
-    lines.add(ChainOnomy())
-    lines.add(ChainOsmosis())
-    lines.add(ChainPassage())
-    lines.add(ChainPersistence118())
-    lines.add(ChainPersistence750())
-    lines.add(ChainProvenance())
-    lines.add(ChainQuasar())
-    lines.add(ChainQuicksilver())
-    lines.add(ChainRegen())
-    lines.add(ChainRizon())
-    lines.add(ChainSaga())
-    lines.add(ChainSecret529())
-    lines.add(ChainSecret118())
-    lines.add(ChainSei())
-    lines.add(ChainSentinel())
-    lines.add(ChainShentu())
-    lines.add(ChainSommelier())
-    lines.add(ChainStafi())
-    lines.add(ChainStargaze())
-    lines.add(ChainStride())
-    lines.add(ChainTeritori())
-    lines.add(ChainTerra())
-    lines.add(ChainUx())
-    lines.add(ChainXpla())
-
-
-    lines.add(ChainOkt996Keccak())
-    lines.add(ChainOkt996Secp())
+//    lines.add(ChainAkash())
+//    lines.add(ChainAlthea118())
+//    lines.add(ChainArchway())
+//    lines.add(ChainAssetMantle())
+//    lines.add(ChainAxelar())
+//    lines.add(ChainBand())
+//    lines.add(ChainBitcanna())
+//    lines.add(ChainBitsong())
+//    lines.add(ChainCelestia())
+//    lines.add(ChainChihuahua())
+//    lines.add(ChainComdex())
+//    lines.add(ChainCoreum())
+//    lines.add(ChainCryptoorg())
+//    lines.add(ChainCudos())
+//    lines.add(ChainDesmos())
+//    lines.add(ChainDydx())
+//    lines.add(ChainFetchAi())
+//    lines.add(ChainFetchAi60Secp())
+//    lines.add(ChainFetchAi60Old())
+//    lines.add(ChainFinschia())
+//    lines.add(ChainGovgen())
+//    lines.add(ChainGravityBridge())
+//    lines.add(ChainInjective())
+//    lines.add(ChainIris())
+//    lines.add(ChainIxo())
+//    lines.add(ChainJuno())
+//    lines.add(ChainKava459())
+//    lines.add(ChainKava118())
+//    lines.add(ChainKi())
+//    lines.add(ChainKyve())
+//    lines.add(ChainLikeCoin())
+//    lines.add(ChainLum880())
+//    lines.add(ChainLum118())
+//    lines.add(ChainMars())
+//    lines.add(ChainMedibloc())
+//    lines.add(ChainNeutron())
+//    lines.add(ChainNibiru())
+//    lines.add(ChainNoble())
+//    lines.add(ChainNyx())
+//    lines.add(ChainOmniflix())
+//    lines.add(ChainOnomy())
+//    lines.add(ChainOsmosis())
+//    lines.add(ChainPassage())
+//    lines.add(ChainPersistence118())
+//    lines.add(ChainPersistence750())
+//    lines.add(ChainProvenance())
+//    lines.add(ChainQuasar())
+//    lines.add(ChainQuicksilver())
+//    lines.add(ChainRegen())
+//    lines.add(ChainRizon())
+//    lines.add(ChainSaga())
+//    lines.add(ChainSecret529())
+//    lines.add(ChainSecret118())
+//    lines.add(ChainSei())
+//    lines.add(ChainSentinel())
+//    lines.add(ChainShentu())
+//    lines.add(ChainSommelier())
+//    lines.add(ChainStafi())
+//    lines.add(ChainStargaze())
+//    lines.add(ChainStride())
+//    lines.add(ChainTeritori())
+//    lines.add(ChainTerra())
+//    lines.add(ChainUx())
+//    lines.add(ChainXpla())
+//
+//
+//    lines.add(ChainOkt996Keccak())
+//    lines.add(ChainOkt996Secp())
 
 //    lines.add(ChainCrescent())
 //    lines.add(ChainEmoney())
 //    lines.add(ChainBinanceBeacon())
 
-    lines.forEach { line ->
-        if (line.chainIdCosmos.isEmpty()) {
-            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
-                line.chainIdCosmos = cosmosChainId
-            }
-        }
-    }
+//    lines.forEach { line ->
+//        if (line.chainIdCosmos.isEmpty()) {
+//            line.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
+//                line.chainIdCosmos = cosmosChainId
+//            }
+//        }
+//    }
     if (!Prefs.displayLegacy) {
         return lines.filter { it.isDefault }.toMutableList()
     }

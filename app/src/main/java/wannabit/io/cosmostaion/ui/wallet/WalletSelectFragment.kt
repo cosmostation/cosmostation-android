@@ -109,30 +109,30 @@ class WalletSelectFragment : Fragment() {
 
     private fun initMnemonicView() {
         lifecycleScope.launch(Dispatchers.IO) {
-            toAddAccount?.let { account ->
-                account.apply {
-                    allEvmLineChains = allEvmLines()
-                    allCosmosLineChains = allCosmosLines()
-                }
-                withContext(Dispatchers.Main) {
-                    updateView()
-                }
-            }
+//            toAddAccount?.let { account ->
+//                account.apply {
+//                    allEvmLineChains = allEvmLines()
+//                    allCosmosLineChains = allCosmosLines()
+//                }
+//                withContext(Dispatchers.Main) {
+//                    updateView()
+//                }
+//            }
         }
     }
 
     private fun initPKeyAllData() {
         lifecycleScope.launch(Dispatchers.IO) {
             toAddAccount?.let { account ->
-                account.apply {
-                    allEvmLineChains = allEvmLines()
-                    allCosmosLineChains =
-                        allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }
-                            .toMutableList()
-                    withContext(Dispatchers.Main) {
-                        updateView()
-                    }
-                }
+//                account.apply {
+//                    allEvmLineChains = allEvmLines()
+//                    allCosmosLineChains =
+//                        allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }
+//                            .toMutableList()
+//                    withContext(Dispatchers.Main) {
+//                        updateView()
+//                    }
+//                }
             }
         }
     }

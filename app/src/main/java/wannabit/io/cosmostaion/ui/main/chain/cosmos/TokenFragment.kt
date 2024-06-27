@@ -162,9 +162,9 @@ class TokenFragment : Fragment() {
         binding.refresher.setOnRefreshListener {
             BaseData.baseAccount?.let { account ->
                 if (selectedChain is EthereumLine) {
-                    ApplicationViewModel.shared.loadEvmChainData(
-                        selectedChain as EthereumLine, account.id, false
-                    )
+//                    ApplicationViewModel.shared.loadEvmChainData(
+//                        selectedChain as EthereumLine, account.id, false
+//                    )
 
                 } else {
                     if (selectedChain.supportCw20) {

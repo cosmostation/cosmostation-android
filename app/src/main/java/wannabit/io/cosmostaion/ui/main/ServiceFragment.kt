@@ -107,52 +107,52 @@ class ServiceFragment : Fragment() {
 
             claimRewardsView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-                            .none { !it.fetched }
-                    ) {
-                        handleOneClickWithDelay(
-                            AllChainClaimFragment()
-                        )
-
-                    } else {
-                        requireActivity().makeToast(R.string.str_data_synchronizing)
-                        return@setOnClickListener
-                    }
+//                    if (account.sortedDisplayEvmLines()
+//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+//                            .none { !it.fetched }
+//                    ) {
+//                        handleOneClickWithDelay(
+//                            AllChainClaimFragment()
+//                        )
+//
+//                    } else {
+//                        requireActivity().makeToast(R.string.str_data_synchronizing)
+//                        return@setOnClickListener
+//                    }
                 }
             }
 
             compoundingView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-                            .none { !it.fetched }
-                    ) {
-                        handleOneClickWithDelay(
-                            AllChainCompoundingFragment()
-                        )
-
-                    } else {
-                        requireActivity().makeToast(R.string.str_data_synchronizing)
-                        return@setOnClickListener
-                    }
+//                    if (account.sortedDisplayEvmLines()
+//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+//                            .none { !it.fetched }
+//                    ) {
+//                        handleOneClickWithDelay(
+//                            AllChainCompoundingFragment()
+//                        )
+//
+//                    } else {
+//                        requireActivity().makeToast(R.string.str_data_synchronizing)
+//                        return@setOnClickListener
+//                    }
                 }
             }
 
             voteView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-                            .none { !it.fetched }
-                    ) {
-                        handleOneClickWithDelay(
-                            AllChainVoteFragment()
-                        )
-
-                    } else {
-                        requireActivity().makeToast(R.string.str_data_synchronizing)
-                        return@setOnClickListener
-                    }
+//                    if (account.sortedDisplayEvmLines()
+//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+//                            .none { !it.fetched }
+//                    ) {
+//                        handleOneClickWithDelay(
+//                            AllChainVoteFragment()
+//                        )
+//
+//                    } else {
+//                        requireActivity().makeToast(R.string.str_data_synchronizing)
+//                        return@setOnClickListener
+//                    }
                 }
             }
 

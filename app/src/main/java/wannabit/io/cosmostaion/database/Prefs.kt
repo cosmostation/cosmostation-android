@@ -8,6 +8,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_EVM
@@ -83,24 +84,24 @@ object Prefs {
         }
     }
 
-    fun getDisplayEvmChains(baseAccount: BaseAccount): MutableList<String> {
-        val key = "${baseAccount.id} $DISPLAY_EVM_CHAINS"
-        val savedDataString = preference.getString(key, null)
-
-        if (!savedDataString.isNullOrEmpty()) {
-            try {
-                val jsonArray = JSONArray(savedDataString)
-                val result = ArrayList<String>()
-                for (i in 0 until jsonArray.length()) {
-                    result.add(jsonArray.getString(i))
-                }
-                return result
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }
-        return DEFAULT_DISPLAY_EVM
-    }
+//    fun getDisplayEvmChains(baseAccount: BaseAccount): MutableList<String> {
+//        val key = "${baseAccount.id} $DISPLAY_EVM_CHAINS"
+//        val savedDataString = preference.getString(key, null)
+//
+//        if (!savedDataString.isNullOrEmpty()) {
+//            try {
+//                val jsonArray = JSONArray(savedDataString)
+//                val result = ArrayList<String>()
+//                for (i in 0 until jsonArray.length()) {
+//                    result.add(jsonArray.getString(i))
+//                }
+//                return result
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//        }
+//        return DEFAULT_DISPLAY_EVM
+//    }
 
     fun setDisplayChains(baseAccount: BaseAccount, chainNames: List<String>) {
         val encoded = try {
@@ -273,7 +274,7 @@ object Prefs {
         preference.edit().putString(key, endpoint).apply()
     }
 
-    fun getGrpcEndpoint(chain: CosmosLine): String {
+    fun getGrpcEndpoint(chain: BaseChain): String {
         return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
     }
 

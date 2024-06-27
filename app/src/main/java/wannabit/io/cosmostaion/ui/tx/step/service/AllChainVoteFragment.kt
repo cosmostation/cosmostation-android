@@ -34,13 +34,10 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
@@ -48,7 +45,6 @@ import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAllChainVoteBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 import java.math.RoundingMode
@@ -104,30 +100,30 @@ class AllChainVoteFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-                            .none { !it.fetched }
-                    ) {
-                        account.sortedDisplayEvmLines().filter { it.supportCosmos }
-                            .forEach { chain ->
-                                val delegated = chain.delegationAmountSum()
-                                val voteThreshold = chain.voteThreshold()
-                                val txFee = chain.getInitPayableFee(requireContext())
-                                if (delegated >= voteThreshold.toBigDecimal() && txFee != null) {
-                                    stakedChains.add(chain)
-                                }
-                            }
-
-                        account.sortedDisplayCosmosLines().filter { it.isDefault && it !is ChainFinschia }
-                            .forEach { chain ->
-                                val delegated = chain.delegationAmountSum()
-                                val voteThreshold = chain.voteThreshold()
-                                val txFee = chain.getInitPayableFee(requireContext())
-                                if (delegated >= voteThreshold.toBigDecimal() && txFee != null) {
-                                    stakedChains.add(chain)
-                                }
-                            }
-                    }
+//                    if (account.sortedDisplayEvmLines()
+//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
+//                            .none { !it.fetched }
+//                    ) {
+//                        account.sortedDisplayEvmLines().filter { it.supportCosmos }
+//                            .forEach { chain ->
+//                                val delegated = chain.delegationAmountSum()
+//                                val voteThreshold = chain.voteThreshold()
+//                                val txFee = chain.getInitPayableFee(requireContext())
+//                                if (delegated >= voteThreshold.toBigDecimal() && txFee != null) {
+//                                    stakedChains.add(chain)
+//                                }
+//                            }
+//
+//                        account.sortedDisplayCosmosLines().filter { it.isDefault && it !is ChainFinschia }
+//                            .forEach { chain ->
+//                                val delegated = chain.delegationAmountSum()
+//                                val voteThreshold = chain.voteThreshold()
+//                                val txFee = chain.getInitPayableFee(requireContext())
+//                                if (delegated >= voteThreshold.toBigDecimal() && txFee != null) {
+//                                    stakedChains.add(chain)
+//                                }
+//                            }
+//                    }
                 }
                 allLiveInfo.clear()
                 allDisplayLiveInfo.clear()
@@ -493,24 +489,24 @@ class AllChainVoteFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                BaseData.baseAccount?.let { account ->
-                    account.sortedDisplayEvmLines().forEach {
-                        it.fetched = false
-                    }
-                    account.sortedDisplayCosmosLines().forEach {
-                        it.fetched = false
-                    }
-                    account.sortedDisplayEvmLines().asSequence().concurrentForEach { chain ->
-                        ApplicationViewModel.shared.loadEvmChainData(
-                            chain, account.id, false
-                        )
-                    }
-                    account.sortedDisplayCosmosLines().asSequence().concurrentForEach { chain ->
-                        ApplicationViewModel.shared.loadChainData(
-                            chain, account.id, false
-                        )
-                    }
-                }
+//                BaseData.baseAccount?.let { account ->
+//                    account.sortedDisplayEvmLines().forEach {
+//                        it.fetched = false
+//                    }
+//                    account.sortedDisplayCosmosLines().forEach {
+//                        it.fetched = false
+//                    }
+//                    account.sortedDisplayEvmLines().asSequence().concurrentForEach { chain ->
+//                        ApplicationViewModel.shared.loadEvmChainData(
+//                            chain, account.id, false
+//                        )
+//                    }
+//                    account.sortedDisplayCosmosLines().asSequence().concurrentForEach { chain ->
+//                        ApplicationViewModel.shared.loadChainData(
+//                            chain, account.id, false
+//                        )
+//                    }
+//                }
                 dismiss()
             }
         }
@@ -581,13 +577,13 @@ class AllChainVoteFragment : BaseTxFragment() {
                     }
                     allChainAllVoteAdapter.notifyDataSetChanged()
 
-                    for (i in 0 until allDisplayLiveInfo.size) {
-                        val voteAllModel = allDisplayLiveInfo[i]
-                        broadCastVoteTx(voteAllModel) {
-                            val channel = getChannel(voteAllModel.basechain as CosmosLine)
-                            checkTx(voteAllModel, channel, it?.txResponse)
-                        }
-                    }
+//                    for (i in 0 until allDisplayLiveInfo.size) {
+//                        val voteAllModel = allDisplayLiveInfo[i]
+//                        broadCastVoteTx(voteAllModel) {
+//                            val channel = getChannel(voteAllModel.basechain as CosmosLine)
+//                            checkTx(voteAllModel, channel, it?.txResponse)
+//                        }
+//                    }
 
                 } else {
                     for (i in toDisplayInfos.indices) {
@@ -595,13 +591,13 @@ class AllChainVoteFragment : BaseTxFragment() {
                     }
                     allChainNotVoteAdapter.notifyDataSetChanged()
 
-                    for (i in 0 until toDisplayInfos.size) {
-                        val voteAllModel = toDisplayInfos[i]
-                        broadCastVoteTx(voteAllModel) {
-                            val channel = getChannel(voteAllModel.basechain as CosmosLine)
-                            checkTx(voteAllModel, channel, it?.txResponse)
-                        }
-                    }
+//                    for (i in 0 until toDisplayInfos.size) {
+//                        val voteAllModel = toDisplayInfos[i]
+//                        broadCastVoteTx(voteAllModel) {
+//                            val channel = getChannel(voteAllModel.basechain as CosmosLine)
+//                            checkTx(voteAllModel, channel, it?.txResponse)
+//                        }
+//                    }
                 }
             }
         }
@@ -610,39 +606,40 @@ class AllChainVoteFragment : BaseTxFragment() {
     private fun simulateVoteTx(
         chain: CosmosLine, toVotes: MutableList<MsgVote?>?
     ): SimulateResponse? {
-        val channel = getChannel(chain)
-        return try {
-            loadAuth(channel, chain.address)?.let {
-                val simulStub =
-                    ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-                val simulateTx = Signer.genVoteSimulate(
-                    it, toVotes, chain.getInitPayableFee(requireContext()), "", chain
-                )
-                simulStub.simulate(simulateTx)
-            }
-        } catch (e: Exception) {
-            null
-        }
+//        val channel = getChannel(chain)
+//        return try {
+//            loadAuth(channel, chain.address)?.let {
+//                val simulStub =
+//                    ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+//                val simulateTx = Signer.genVoteSimulate(
+//                    it, toVotes, chain.getInitPayableFee(requireContext()), "", chain
+//                )
+//                simulStub.simulate(simulateTx)
+//            }
+//        } catch (e: Exception) {
+//            null
+//        }
+        return null
     }
 
     private fun broadCastVoteTx(
         voteAllModel: VoteAllModel, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val chain = voteAllModel.basechain as CosmosLine
-            val toVotes = voteAllModel.toVotes
-            val txFee = voteAllModel.txFee
-            val channel = getChannel(chain)
-
-            val txStub =
-                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genVoteBroadcast(
-                loadAuth(channel, chain.address), toVotes, txFee, "", chain
-            )
-            try {
-                onComplete(txStub.broadcastTx(broadcastTx))
-            } catch (e: Exception) {
-            }
+//            val chain = voteAllModel.basechain as CosmosLine
+//            val toVotes = voteAllModel.toVotes
+//            val txFee = voteAllModel.txFee
+//            val channel = getChannel(chain)
+//
+//            val txStub =
+//                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+//            val broadcastTx = Signer.genVoteBroadcast(
+//                loadAuth(channel, chain.address), toVotes, txFee, "", chain
+//            )
+//            try {
+//                onComplete(txStub.broadcastTx(broadcastTx))
+//            } catch (e: Exception) {
+//            }
         }
     }
 

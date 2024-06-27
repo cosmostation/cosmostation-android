@@ -15,14 +15,11 @@ import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.methods.response.TransactionReceipt
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -36,11 +33,8 @@ import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookType
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
 import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
-import java.io.IOException
-import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class TransferTxResultActivity : BaseActivity() {
@@ -85,20 +79,20 @@ class TransferTxResultActivity : BaseActivity() {
     private fun initView() {
         binding.apply {
             btnConfirm.updateButtonView(true)
-            BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
-                it.tag == intent.getStringExtra(
-                    "fromChainTag"
-                ).toString()
-            }?.let { fromChainWithTag ->
-                fromChain = fromChainWithTag
-
-            } ?: run {
-                BaseData.baseAccount?.sortedDisplayEvmLines()?.firstOrNull {
-                    it.tag == intent.getStringExtra("fromChainTag").toString()
-                }
-            }?.let { fromChainWithTag ->
-                fromChain = fromChainWithTag
-            }
+//            BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
+//                it.tag == intent.getStringExtra(
+//                    "fromChainTag"
+//                ).toString()
+//            }?.let { fromChainWithTag ->
+//                fromChain = fromChainWithTag
+//
+//            } ?: run {
+//                BaseData.baseAccount?.sortedDisplayEvmLines()?.firstOrNull {
+//                    it.tag == intent.getStringExtra("fromChainTag").toString()
+//                }
+//            }?.let { fromChainWithTag ->
+//                fromChain = fromChainWithTag
+//            }
 
             BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {
                 it.tag == intent.getStringExtra(
@@ -195,30 +189,30 @@ class TransferTxResultActivity : BaseActivity() {
             }
 
             btnConfirm.setOnClickListener {
-                BaseData.baseAccount?.let { account ->
-                    if (transferStyle == TransferStyle.WEB3_STYLE) {
-                        if (fromChain is ChainOkt996Keccak) {
-                            ApplicationViewModel.shared.loadChainData(
-                                fromChain as CosmosLine, account.id, false
-                            )
-                        } else {
-                            ApplicationViewModel.shared.loadEvmChainData(
-                                fromChain as EthereumLine, account.id, false
-                            )
-                        }
-
-                    } else {
-                        if (fromChain is EthereumLine) {
-                            ApplicationViewModel.shared.loadEvmChainData(
-                                fromChain as EthereumLine, account.id, false
-                            )
-                        } else {
-                            ApplicationViewModel.shared.loadChainData(
-                                fromChain as CosmosLine, account.id, false
-                            )
-                        }
-                    }
-                }
+//                BaseData.baseAccount?.let { account ->
+//                    if (transferStyle == TransferStyle.WEB3_STYLE) {
+//                        if (fromChain is ChainOkt996Keccak) {
+//                            ApplicationViewModel.shared.loadChainData(
+//                                fromChain as CosmosLine, account.id, false
+//                            )
+//                        } else {
+//                            ApplicationViewModel.shared.loadEvmChainData(
+//                                fromChain as EthereumLine, account.id, false
+//                            )
+//                        }
+//
+//                    } else {
+//                        if (fromChain is EthereumLine) {
+//                            ApplicationViewModel.shared.loadEvmChainData(
+//                                fromChain as EthereumLine, account.id, false
+//                            )
+//                        } else {
+//                            ApplicationViewModel.shared.loadChainData(
+//                                fromChain as CosmosLine, account.id, false
+//                            )
+//                        }
+//                    }
+//                }
                 finish()
             }
         }
@@ -240,18 +234,18 @@ class TransferTxResultActivity : BaseActivity() {
 
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
-                        if (isSuccess && fetchCnt > 0) {
-                            getChannel(this@apply).shutdown()
-                            getChannel(this@apply).awaitTermination(6L, TimeUnit.SECONDS)
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                loadHistoryTx()
-                            }, 6000)
-
-                        } else {
-                            runOnUiThread {
-                                showMoreWait()
-                            }
-                        }
+//                        if (isSuccess && fetchCnt > 0) {
+//                            getChannel(this@apply).shutdown()
+//                            getChannel(this@apply).awaitTermination(6L, TimeUnit.SECONDS)
+//                            Handler(Looper.getMainLooper()).postDelayed({
+//                                loadHistoryTx()
+//                            }, 6000)
+//
+//                        } else {
+//                            runOnUiThread {
+//                                showMoreWait()
+//                            }
+//                        }
                     }
 
                     override fun onCompleted() {}
@@ -262,41 +256,41 @@ class TransferTxResultActivity : BaseActivity() {
 
     private fun loadEvmTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val web3j = if (fromChain is ChainOkt996Keccak) {
-                Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
-            } else {
-                Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
-            }
-
-            try {
-                val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
-                if (receiptTx.transactionReceipt.isPresent) {
-                    evmRecipient = receiptTx.transactionReceipt.get()
-                }
-                if (evmRecipient == null) {
-                    fetchCnt -= 1
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        loadEvmTx()
-                    }, 6000)
-                } else {
-                    runOnUiThread {
-                        updateView()
-                    }
-                }
-
-            } catch (e: IOException) {
-                fetchCnt -= 1
-                if (isSuccess && fetchCnt > 0) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        loadEvmTx()
-                    }, 6000)
-
-                } else {
-                    runOnUiThread {
-                        showMoreWait()
-                    }
-                }
-            }
+//            val web3j = if (fromChain is ChainOkt996Keccak) {
+//                Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
+//            } else {
+//                Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
+//            }
+//
+//            try {
+//                val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
+//                if (receiptTx.transactionReceipt.isPresent) {
+//                    evmRecipient = receiptTx.transactionReceipt.get()
+//                }
+//                if (evmRecipient == null) {
+//                    fetchCnt -= 1
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        loadEvmTx()
+//                    }, 6000)
+//                } else {
+//                    runOnUiThread {
+//                        updateView()
+//                    }
+//                }
+//
+//            } catch (e: IOException) {
+//                fetchCnt -= 1
+//                if (isSuccess && fetchCnt > 0) {
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        loadEvmTx()
+//                    }, 6000)
+//
+//                } else {
+//                    runOnUiThread {
+//                        showMoreWait()
+//                    }
+//                }
+//            }
         }
     }
 

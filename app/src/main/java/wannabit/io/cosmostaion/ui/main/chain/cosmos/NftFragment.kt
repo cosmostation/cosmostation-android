@@ -61,11 +61,11 @@ class NftFragment : Fragment() {
         refreshData()
         setUpObserve()
 
-        if (!selectedChain.cw721Fetched) {
-            fetchData()
-        } else {
-            updateView(selectedChain.cw721Models)
-        }
+//        if (!selectedChain.cw721Fetched) {
+//            fetchData()
+//        } else {
+//            updateView(selectedChain.cw721Models)
+//        }
     }
 
     private fun initViewModel() {
@@ -86,11 +86,11 @@ class NftFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (!selectedChain.cw721Fetched) {
-            fetchData()
-        } else {
-            updateView(selectedChain.cw721Models)
-        }
+//        if (!selectedChain.cw721Fetched) {
+//            fetchData()
+//        } else {
+//            updateView(selectedChain.cw721Models)
+//        }
     }
 
     private fun updateView(nftGroup: MutableList<Cw721Model>) {
@@ -153,24 +153,24 @@ class NftFragment : Fragment() {
             return
         }
         isBusy = true
-        selectedChain.cw721Fetched = false
-        selectedChain.cw721Models.clear()
-        selectedChain.cw721s.asSequence().concurrentForEach { list ->
-            walletViewModel.cw721AllTokens(selectedChain, list)
-        }
+//        selectedChain.cw721Fetched = false
+//        selectedChain.cw721Models.clear()
+//        selectedChain.cw721s.asSequence().concurrentForEach { list ->
+//            walletViewModel.cw721AllTokens(selectedChain, list)
+//        }
     }
 
     private fun setUpObserve() {
         walletViewModel.cw721ModelResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag) {
-                selectedChain.cw721Fetched = true
-                selectedChain.cw721Models.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
-                selectedChain.cw721Models.forEach { cw721Model ->
-                    cw721Model.sortId()
-                }
-                isBusy = false
-                updateView(selectedChain.cw721Models)
-            }
+//            if (selectedChain.tag == tag) {
+//                selectedChain.cw721Fetched = true
+//                selectedChain.cw721Models.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
+//                selectedChain.cw721Models.forEach { cw721Model ->
+//                    cw721Model.sortId()
+//                }
+//                isBusy = false
+//                updateView(selectedChain.cw721Models)
+//            }
         }
     }
 

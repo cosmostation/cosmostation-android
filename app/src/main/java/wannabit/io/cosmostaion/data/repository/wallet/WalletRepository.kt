@@ -5,14 +5,12 @@ import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
-import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
@@ -44,14 +42,14 @@ interface WalletRepository {
 
     suspend fun param(): NetworkResult<JsonObject?>
 
-    suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>>
+    suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>>
 
     suspend fun auth(
-        managedChannel: ManagedChannel, line: CosmosLine
+        managedChannel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryProto.QueryAccountResponse?>
 
     suspend fun balance(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryAllBalancesResponse?>
 
     suspend fun delegation(
@@ -91,30 +89,30 @@ interface WalletRepository {
     )
 
     //neutron
-    suspend fun vestingData(
-        channel: ManagedChannel, line: CosmosLine
-    ): NetworkResult<QuerySmartContractStateResponse>
+//    suspend fun vestingData(
+//        channel: ManagedChannel, line: CosmosLine
+//    ): NetworkResult<QuerySmartContractStateResponse>
 
-    suspend fun vaultDeposit(
-        channel: ManagedChannel, line: ChainNeutron
-    ): NetworkResult<String?>
+//    suspend fun vaultDeposit(
+//        channel: ManagedChannel, line: ChainNeutron
+//    ): NetworkResult<String?>
 
     //lcd
-    suspend fun oktAccountInfo(
-        line: CosmosLine
-    ): NetworkResult<OktAccountResponse?>
+//    suspend fun oktAccountInfo(
+//        line: CosmosLine
+//    ): NetworkResult<OktAccountResponse?>
 
-    suspend fun oktDeposit(
-        line: CosmosLine
-    ): NetworkResult<OktDepositedResponse?>
-
-    suspend fun oktWithdraw(
-        line: CosmosLine
-    ): NetworkResult<OktWithdrawResponse?>
-
-    suspend fun oktToken(
-        line: CosmosLine
-    ): NetworkResult<OktTokenResponse?>
+//    suspend fun oktDeposit(
+//        line: CosmosLine
+//    ): NetworkResult<OktDepositedResponse?>
+//
+//    suspend fun oktWithdraw(
+//        line: CosmosLine
+//    ): NetworkResult<OktWithdrawResponse?>
+//
+//    suspend fun oktToken(
+//        line: CosmosLine
+//    ): NetworkResult<OktTokenResponse?>
 
     suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
 
