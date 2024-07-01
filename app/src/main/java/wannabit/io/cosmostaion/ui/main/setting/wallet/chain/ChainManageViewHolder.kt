@@ -18,23 +18,23 @@ class ChainManageViewHolder(
             chainImg.setImageResource(line.logo)
             chainName.text = line.name.uppercase()
 
-            if (line.supportCosmos) {
-                grpcLayout.visibility = View.VISIBLE
-                rpcEndpointType.text = "EVM RPC"
-                rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
-//                if (line is ChainOktEvm) {
-//                    grpcEndpointType.text = "LCD"
-//                    grpcEndpoint.text = line.lcdUrl
-//                } else {
-//                    grpcEndpointType.text = "GRPC"
-//                    grpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
-//                }
-
-            } else {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "EVM RPC"
-                rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
-            }
+//            if (line.supportCosmos) {
+//                grpcLayout.visibility = View.VISIBLE
+//                rpcEndpointType.text = "EVM RPC"
+//                rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
+////                if (line is ChainOktEvm) {
+////                    grpcEndpointType.text = "LCD"
+////                    grpcEndpoint.text = line.lcdUrl
+////                } else {
+////                    grpcEndpointType.text = "GRPC"
+////                    grpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
+////                }
+//
+//            } else {
+//                grpcLayout.visibility = View.GONE
+//                rpcEndpointType.text = "EVM RPC"
+//                rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
+//            }
         }
     }
 

@@ -40,44 +40,44 @@ class WalletSelectViewHolder(
             }
             updateView(line, selectedEvmTags)
 
-            if (line.fetched) {
-                skeletonChainValue.visibility = View.GONE
-                if (line.web3j == null) {
-                    chainBalance.visibility = View.GONE
-                    chainDenom.visibility = View.GONE
-                    respondLayout.visibility = View.VISIBLE
-                    chainAssetCnt.visibility = View.GONE
-                    return
-                }
-
-                val availableAmount =
-                    line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
-                chainBalance.text = formatAmount(availableAmount.toString(), 18)
-                chainDenom.text = line.coinSymbol
-                line.stakeDenom?.let { denom ->
-                    BaseData.getAsset(line.apiName, denom)?.let { asset ->
-                        chainDenom.setTextColor(asset.assetColor())
-                    }
-                } ?: run {
-                    chainDenom.setTextColor(Color.parseColor("#ffffff"))
-                }
-
-                if (line.evmBalance > BigDecimal.ZERO) {
-                    chainAssetCnt.text = "1 Coins"
-                } else {
-                    chainAssetCnt.text = "0 Coins"
-                }
-            }
-
-            selectView.setOnClickListener {
-                if (selectedEvmTags.contains(line.tag)) {
-                    selectedEvmTags.removeIf { it == line.tag }
-                } else {
-                    selectedEvmTags.add(line.tag)
-                }
-                updateView(line, selectedEvmTags)
-                evmSelectListener.evmSelect(selectedEvmTags)
-            }
+//            if (line.fetched) {
+//                skeletonChainValue.visibility = View.GONE
+//                if (line.web3j == null) {
+//                    chainBalance.visibility = View.GONE
+//                    chainDenom.visibility = View.GONE
+//                    respondLayout.visibility = View.VISIBLE
+//                    chainAssetCnt.visibility = View.GONE
+//                    return
+//                }
+//
+//                val availableAmount =
+//                    line.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+//                chainBalance.text = formatAmount(availableAmount.toString(), 18)
+//                chainDenom.text = line.coinSymbol
+//                line.stakeDenom?.let { denom ->
+//                    BaseData.getAsset(line.apiName, denom)?.let { asset ->
+//                        chainDenom.setTextColor(asset.assetColor())
+//                    }
+//                } ?: run {
+//                    chainDenom.setTextColor(Color.parseColor("#ffffff"))
+//                }
+//
+//                if (line.evmBalance > BigDecimal.ZERO) {
+//                    chainAssetCnt.text = "1 Coins"
+//                } else {
+//                    chainAssetCnt.text = "0 Coins"
+//                }
+//            }
+//
+//            selectView.setOnClickListener {
+//                if (selectedEvmTags.contains(line.tag)) {
+//                    selectedEvmTags.removeIf { it == line.tag }
+//                } else {
+//                    selectedEvmTags.add(line.tag)
+//                }
+//                updateView(line, selectedEvmTags)
+//                evmSelectListener.evmSelect(selectedEvmTags)
+//            }
         }
     }
 

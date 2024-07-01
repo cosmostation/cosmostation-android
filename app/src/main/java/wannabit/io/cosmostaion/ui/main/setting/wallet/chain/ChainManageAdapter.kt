@@ -7,7 +7,6 @@ import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
-import wannabit.io.cosmostaion.ui.main.edit.ChainEditAdapter
 
 class ChainManageAdapter(
     private val allEvmLines: MutableList<EthereumLine>,
@@ -74,7 +73,7 @@ class ChainManageAdapter(
         return if (position == 0) VIEW_TYPE_EVM_HEADER
         else if (position < allEvmLines.size + 1) VIEW_TYPE_EVM_ITEM
         else if (position < allEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
-        else ChainEditAdapter.VIEW_TYPE_COSMOS_ITEM
+        else VIEW_TYPE_COSMOS_ITEM
     }
 
     override fun getItemCount(): Int {

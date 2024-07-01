@@ -10,7 +10,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
@@ -49,8 +49,7 @@ class QrCodeViewHolder(
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    "address",
-                    address
+                    "address", address
                 )
                 clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
@@ -58,11 +57,11 @@ class QrCodeViewHolder(
         }
     }
 
-    fun bind(account: BaseAccount, selectChain: CosmosLine) {
+    fun bind(account: BaseAccount, selectChain: BaseChain) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
-//                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+                accountPath.text = selectChain.getHDPath(account.lastHDPath)
             } else {
                 accountPathLayout.visibility = View.GONE
             }

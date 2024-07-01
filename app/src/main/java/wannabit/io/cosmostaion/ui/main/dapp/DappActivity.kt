@@ -970,9 +970,9 @@ class DappActivity : BaseActivity() {
                     }
                     selectEvmChain =
                         allChains?.firstOrNull { chain -> chain is EthereumLine && chain.chainIdEvm == currentEvmChainId } as EthereumLine
-                    rpcUrl = selectEvmChain?.getEvmRpc()
-                    web3j = Web3j.build(HttpService(rpcUrl))
-                    appToWebResult(messageJson, currentEvmChainId, messageId)
+//                    rpcUrl = selectEvmChain?.getEvmRpc()
+//                    web3j = Web3j.build(HttpService(rpcUrl))
+//                    appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {

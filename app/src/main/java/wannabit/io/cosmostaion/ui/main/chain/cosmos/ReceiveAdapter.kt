@@ -51,8 +51,7 @@ class ReceiveAdapter(
 
             is ReceiveViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_EVM_ITEM) {
-                    holder.evmBind(account, selectedChain as EthereumLine)
-
+                    holder.evmBind(account, selectedChain)
                 } else {
                     holder.bind(account, selectedChain)
                 }
@@ -61,7 +60,7 @@ class ReceiveAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (selectedChain is EthereumLine) {
+        return if (selectedChain.supportEvm) {
             when (position) {
                 0 -> VIEW_TYPE_EVM_HEADER
                 1 -> VIEW_TYPE_EVM_ITEM
@@ -77,7 +76,7 @@ class ReceiveAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (selectedChain is EthereumLine) {
+        return if (selectedChain.supportEvm) {
             4
         } else {
             2

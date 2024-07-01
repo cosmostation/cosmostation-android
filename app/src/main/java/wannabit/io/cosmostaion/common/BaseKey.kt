@@ -86,14 +86,16 @@ object BaseKey {
                 val uncompressedPubKey = ECKey.CURVE.curve.decodePoint(pubKey).getEncoded(false)
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)
+                result = "0x" + Keys.getAddress(pub).toHex()
 
-                val address = Keys.getAddress(pub)
-                val bytes = ByteUtils.convertBits(address, 8, 5, true)
-                result = if (prefix?.isEmpty() == true) {
-                    "0x" + address.toHex()
-                } else {
-                    Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
-                }
+//                val address = Keys.getAddress(pub)
+//                val bytes = ByteUtils.convertBits(address, 8, 5, true)
+//                result = "0x" + address.toHex()
+//                result = if (prefix?.isEmpty() == true) {
+//                    "0x" + address.toHex()
+//                } else {
+//                    Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
+//                }
             }
 
             else -> return result

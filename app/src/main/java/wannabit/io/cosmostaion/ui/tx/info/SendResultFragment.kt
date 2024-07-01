@@ -9,12 +9,11 @@ import android.widget.FrameLayout
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.gapPastTime
-import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.txDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -22,7 +21,7 @@ import wannabit.io.cosmostaion.databinding.FragmentSendResultBinding
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 import java.math.RoundingMode
 
-class SendResultFragment(val selectedChain: CosmosLine, private val history: CosmosHistory) :
+class SendResultFragment(val selectedChain: BaseChain, private val history: CosmosHistory) :
     BaseTxFragment() {
 
     private var _binding: FragmentSendResultBinding? = null
@@ -92,9 +91,9 @@ class SendResultFragment(val selectedChain: CosmosLine, private val history: Cos
 
     private fun setUpClickAction() {
         binding?.apply {
-            btnChrome.setOnClickListener {
-                requireActivity().historyToMintscan(selectedChain, history.data?.txhash)
-            }
+//            btnChrome.setOnClickListener {
+//                requireActivity().historyToMintscan(selectedChain, history.data?.txhash)
+//            }
 
             btnConfirm.setOnClickListener {
                 dismiss()
@@ -102,7 +101,7 @@ class SendResultFragment(val selectedChain: CosmosLine, private val history: Cos
         }
     }
 
-    private fun initChainImage(chain: CosmosLine) {
+    private fun initChainImage(chain: BaseChain) {
         try {
             binding?.chainLogo?.apply {
                 val width = resources.displayMetrics.widthPixels

@@ -89,7 +89,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
         displayErc20Tokens.clear()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            evmTokens.addAll(selectedEvmChain.evmTokens)
+//            evmTokens.addAll(selectedEvmChain.evmTokens)
             evmTokens.sortBy { it.symbol.lowercase() }
 
             BaseData.baseAccount?.let { account ->

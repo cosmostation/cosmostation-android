@@ -256,29 +256,29 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     val balanceResult: LiveData<String> get() = _balanceResult
 
     fun evmBalance(line: EthereumLine) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.evmBalance(line)) {
-            is NetworkResult.Success -> {
-                line.evmBalance = response.data.toBigDecimal()
-                line.web3j = Web3j.build(HttpService(line.getEvmRpc()))
-                line.fetched = true
-                if (line.fetched) {
-                    withContext(Dispatchers.Main) {
-                        _balanceResult.value = line.tag
-                    }
-                }
-            }
-
-            is NetworkResult.Error -> {
-                line.evmBalance = BigDecimal.ZERO
-                line.web3j = null
-                line.fetched = true
-                if (line.fetched) {
-                    withContext(Dispatchers.Main) {
-                        _balanceResult.value = line.tag
-                    }
-                }
-            }
-        }
+//        when (val response = walletRepository.evmBalance(line)) {
+//            is NetworkResult.Success -> {
+//                line.evmBalance = response.data.toBigDecimal()
+//                line.web3j = Web3j.build(HttpService(line.getEvmRpc()))
+//                line.fetched = true
+//                if (line.fetched) {
+//                    withContext(Dispatchers.Main) {
+//                        _balanceResult.value = line.tag
+//                    }
+//                }
+//            }
+//
+//            is NetworkResult.Error -> {
+//                line.evmBalance = BigDecimal.ZERO
+//                line.web3j = null
+//                line.fetched = true
+//                if (line.fetched) {
+//                    withContext(Dispatchers.Main) {
+//                        _balanceResult.value = line.tag
+//                    }
+//                }
+//            }
+//        }
     }
 
     fun balance(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {

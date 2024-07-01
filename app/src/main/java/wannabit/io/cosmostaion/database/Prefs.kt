@@ -10,8 +10,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
-import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_EVM
+import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
@@ -133,7 +132,7 @@ object Prefs {
                 e.printStackTrace()
             }
         }
-        return DEFAULT_DISPLAY_COSMOS
+        return DEFAULT_DISPLAY_CHAIN
     }
 
     var lastPriceTime: String
@@ -283,7 +282,7 @@ object Prefs {
         preference.edit().putString(key, endpoint).apply()
     }
 
-    fun getEvmRpcEndpoint(chain: CosmosLine): String? {
+    fun getEvmRpcEndpoint(chain: BaseChain): String? {
         return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
     }
 }

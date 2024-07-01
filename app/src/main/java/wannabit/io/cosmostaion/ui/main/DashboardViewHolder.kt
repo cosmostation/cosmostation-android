@@ -177,6 +177,8 @@ class DashboardViewHolder(
                     skeletonChainValue.visibility = View.GONE
                     skeletonAssetCnt.visibility = View.GONE
 
+                    Log.e("Test1234 : ", chain.grpcFetcher.cosmosBalances.toString())
+
                     if (chain.grpcFetcher.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE

@@ -85,7 +85,7 @@ interface WalletRepository {
     )
 
     suspend fun erc20Balance(
-        line: CosmosLine, token: Token
+        chain: BaseChain, token: Token
     )
 
     //neutron
@@ -114,9 +114,9 @@ interface WalletRepository {
 //        line: CosmosLine
 //    ): NetworkResult<OktTokenResponse?>
 
-    suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
+    suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>>
 
-    suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String>
+    suspend fun evmBalance(chain: BaseChain): NetworkResult<String>
 
     suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
 

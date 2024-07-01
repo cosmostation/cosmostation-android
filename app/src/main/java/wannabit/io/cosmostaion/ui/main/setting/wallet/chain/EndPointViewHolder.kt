@@ -38,7 +38,7 @@ class EndPointViewHolder(
 
             val checkTime = System.currentTimeMillis() / 1000.0
             val url = endpoint.get("url").asString
-            checkImg.goneOrVisible(fromChain?.getEvmRpc() != url)
+//            checkImg.goneOrVisible(fromChain?.getEvmRpc() != url)
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {

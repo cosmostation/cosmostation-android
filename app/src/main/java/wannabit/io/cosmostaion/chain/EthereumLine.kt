@@ -16,17 +16,17 @@ open class EthereumLine : CosmosLine(), Parcelable {
 //    open var chainIdEvm: String = ""
 
     open var supportCosmos = false
-
-    open var coinSymbol = ""
-    open var coinGeckoId = ""
-    open var coinLogo = -1
+//
+//    open var coinSymbol = ""
+//    open var coinGeckoId = ""
+//    open var coinLogo = -1
     open var addressLogo = -1
 
-    var evmBalance = BigDecimal.ZERO
-
-    var evmTokens = mutableListOf<Token>()
-
-    var web3j: Web3j? = null
+//    var evmBalance = BigDecimal.ZERO
+//
+//    var evmTokens = mutableListOf<Token>()
+//
+//    var web3j: Web3j? = null
 
 //    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
 //        return if (supportCosmos) {
@@ -63,14 +63,14 @@ open class EthereumLine : CosmosLine(), Parcelable {
 //        return result
 //    }
 
-    fun getEvmRpc(): String {
-        val endpoint = Prefs.getEvmRpcEndpoint(this)
-        return if (endpoint?.isNotEmpty() == true) {
-            endpoint
-        } else {
-            rpcUrl
-        }
-    }
+//    fun getEvmRpc(): String {
+//        val endpoint = Prefs.getEvmRpcEndpoint(this)
+//        return if (endpoint?.isNotEmpty() == true) {
+//            endpoint
+//        } else {
+//            rpcUrl
+//        }
+//    }
 }
 
 fun allEvmLines(): MutableList<EthereumLine> {

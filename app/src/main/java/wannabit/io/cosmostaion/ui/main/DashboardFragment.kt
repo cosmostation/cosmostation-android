@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
@@ -226,7 +227,7 @@ class DashboardFragment : Fragment() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
-                            if (chain.address?.isEmpty() == true) {
+                            if (chain.address.isEmpty()) {
                                 chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
                             if (!chain.fetched) {
@@ -239,7 +240,7 @@ class DashboardFragment : Fragment() {
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
-                            if (chain.address?.isEmpty() == true) {
+                            if (chain.address.isEmpty()) {
                                 chain.setInfoWithPrivateKey(privateKey)
                             }
                             if (!chain.fetched) {
@@ -488,25 +489,21 @@ class DashboardFragment : Fragment() {
         ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) { response ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
-//                    if (Prefs.getDisplayEvmChains(account) == response.first && Prefs.getDisplayChains(
-//                            account
-//                        ) == response.second
-//                    ) {
-//                        return@launch
-//                    }
-//                    Prefs.setDisplayEvmChains(account, response.first)
-//                    Prefs.setDisplayChains(account, response.second)
-//                    account.sortLine()
-//                    initDisplayData(account)
-//
-//                    delay(100)
-//                    withContext(Dispatchers.Main) {
-//                        initData(baseAccount)
-//                        initRecyclerView()
-//                        updateTotalValue()
-//                        updateSearchView()
+                    if (Prefs.getDisplayChains(account) == response) {
+                        return@launch
+                    }
+                    Prefs.setDisplayChains(account, response)
+                    account.sortLine()
+                    initDisplayData(account)
+
+                    delay(100)
+                    withContext(Dispatchers.Main) {
+                        initData(baseAccount)
+                        initRecyclerView()
+                        updateTotalValue()
+                        updateSearchView()
 //                        PushManager.syncAddresses(Prefs.fcmToken)
-//                    }
+                    }
                 }
             }
         }

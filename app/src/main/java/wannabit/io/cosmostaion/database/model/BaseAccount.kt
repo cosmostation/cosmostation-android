@@ -132,7 +132,7 @@ data class BaseAccount(
 //        allEvmLineChains.sortWith(compareBy<EthereumLine> { it.tag != "ethereum60" }.thenByDescending { allValue[it] })
 //    }
 
-    fun reSortCosmosChains() {
+    fun reSortChains() {
         val allValue = allChains.associateWith { it.allValue(true) }
         allChains.sortWith(compareBy<BaseChain> { it.tag != "cosmos118" }.thenByDescending { allValue[it] })
     }

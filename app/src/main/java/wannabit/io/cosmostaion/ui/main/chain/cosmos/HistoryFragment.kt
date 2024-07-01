@@ -103,8 +103,8 @@ class HistoryFragment : Fragment() {
 
             var isClickable = true
             if (::historyAdapter.isInitialized) {
-                historyAdapter.setOnItemClickListener { line, history, hash ->
-                    when (line) {
+                historyAdapter.setOnItemClickListener { chain, history, hash ->
+                    when (chain) {
 //                        is ChainOkt996Keccak, is ChainOktEvm -> {
 //                            line.explorerTx(hash)?.let {
 //                                startActivity(Intent(Intent.ACTION_VIEW, it))
@@ -116,13 +116,13 @@ class HistoryFragment : Fragment() {
                         else -> {
                             history?.let {
                                 if (it.getMsgCnt() == 1 && it.getMsgType(
-                                        requireContext(), line.address
+                                        requireContext(), chain.address
                                     ).equals(getString(R.string.tx_send), true)
                                 ) {
                                     if (isClickable) {
                                         isClickable = false
 
-                                        SendResultFragment(line, history).show(
+                                        SendResultFragment(chain, history).show(
                                             requireActivity().supportFragmentManager,
                                             SendResultFragment::class.java.name
                                         )
@@ -133,7 +133,7 @@ class HistoryFragment : Fragment() {
                                     }
 
                                 } else {
-                                    line.explorerTx(hash)?.let {
+                                    chain.explorerTx(hash)?.let {
                                         startActivity(Intent(Intent.ACTION_VIEW, it))
                                     } ?: run {
                                         return@setOnItemClickListener

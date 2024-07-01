@@ -104,10 +104,12 @@ class MainActivity : BaseActivity() {
                         tabBinding.tabIcon.setImageResource(R.drawable.icon_wallet)
                         tabBinding.tabText.text = getString(R.string.str_chains)
                     }
+
                     1 -> {
                         tabBinding.tabIcon.setImageResource(R.drawable.icon_service)
                         tabBinding.tabText.text = getString(R.string.str_service)
                     }
+
                     2 -> {
                         tabBinding.tabIcon.setImageResource(R.drawable.icon_setting)
                         tabBinding.tabText.text = getString(R.string.str_setting)
@@ -154,14 +156,22 @@ class MainActivity : BaseActivity() {
                             this@MainActivity, R.color.color_base01
                         ), PorterDuff.Mode.SRC_IN
                     )
-                    tabText.setTextColor(ContextCompat.getColorStateList(this@MainActivity, R.color.color_base01))
+                    tabText.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this@MainActivity, R.color.color_base01
+                        )
+                    )
                 } else {
                     tabIcon.colorFilter = PorterDuffColorFilter(
                         ContextCompat.getColor(
                             this@MainActivity, R.color.color_base03
                         ), PorterDuff.Mode.SRC_IN
                     )
-                    tabText.setTextColor(ContextCompat.getColorStateList(this@MainActivity, R.color.color_base03))
+                    tabText.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this@MainActivity, R.color.color_base03
+                        )
+                    )
                 }
             }
         }
@@ -177,15 +187,14 @@ class MainActivity : BaseActivity() {
 
             accountLayout.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-//                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
-//                        handleOneClickWithDelay(
-//                            AccountSelectFragment()
-//                        )
-//
-//                    } else {
-//                        makeToast(R.string.str_data_synchronizing)
-//                        return@setOnClickListener
-//                    }
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AccountSelectFragment()
+                        )
+                    } else {
+                        makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
                 }
             }
         }

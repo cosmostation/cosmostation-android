@@ -24,6 +24,7 @@
 
     <color name="color_box">#4C4B5E</color>
     <color name="color_background_dialog">#99000000</color>
+    <color name="color_fab_background_dialog">#CC000000</color>
     <color name="color_transparent">@android:color/transparent</color>
 
 

@@ -33,8 +33,6 @@ import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
@@ -134,9 +132,8 @@ class WalletRepositoryImpl : WalletRepository {
     ): NetworkResult<QueryAllBalancesResponse?> {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(chain.address)
-                .build()
+        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest)
+            .setAddress(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.allBalances(request)
         }
@@ -255,31 +252,31 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun erc20Balance(line: CosmosLine, token: Token) {
-        val web3j = if (line is EthereumLine) {
-            line.web3j
-        } else {
-            Web3j.build(HttpService(line.rpcUrl))
-        }
-        val ethAddress = if (line is EthereumLine) {
-            if (line.supportCosmos) {
-                ByteUtils.convertBech32ToEvm(line.address)
-            } else {
-                line.address.toString()
-            }
-        } else {
-            ByteUtils.convertBech32ToEvm(line.address)
-        }
+    override suspend fun erc20Balance(chain: BaseChain, token: Token) {
+//        val web3j = if (line is EthereumLine) {
+//            line.web3j
+//        } else {
+//            Web3j.build(HttpService(line.rpcUrl))
+//        }
+//        val ethAddress = if (line is EthereumLine) {
+//            if (line.supportCosmos) {
+//                ByteUtils.convertBech32ToEvm(line.address)
+//            } else {
+//                line.address
+//            }
+//        } else {
+//            ByteUtils.convertBech32ToEvm(line.address)
+//        }
         val params: MutableList<Type<*>> = ArrayList()
-        params.add(Address(ethAddress))
+        params.add(Address(chain.evmAddress))
 
         try {
             val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
             val function = Function("balanceOf", params, returnTypes)
 
             val txData = FunctionEncoder.encode(function)
-            val response = web3j?.ethCall(
-                Transaction.createEthCallTransaction(ethAddress, token.address, txData),
+            val response = chain.web3j?.ethCall(
+                Transaction.createEthCallTransaction(chain.evmAddress, token.address, txData),
                 DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()
             val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
@@ -358,21 +355,17 @@ class WalletRepositoryImpl : WalletRepository {
 //        }
 //    }
 
-    override suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>> {
+    override suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanApi.erc20token(evmLine.apiName)
+            mintscanApi.erc20token(chain.apiName)
         }
     }
 
-    override suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String> {
+    override suspend fun evmBalance(chain: BaseChain): NetworkResult<String> {
         return safeApiCall(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService(evmLine.getEvmRpc()))
-            val evmAddress = if (evmLine.supportCosmos) {
-                ByteUtils.convertBech32ToEvm(evmLine.address)
-            } else {
-                evmLine.address
-            }
-            val balance = web3j.ethGetBalance(evmAddress, DefaultBlockParameterName.LATEST).send()
+            val web3j = Web3j.build(HttpService(chain.evmRpcFetcher.getEvmRpc()))
+            val balance =
+                web3j.ethGetBalance(chain.evmAddress, DefaultBlockParameterName.LATEST).send()
             balance.balance.toString()
         }
     }

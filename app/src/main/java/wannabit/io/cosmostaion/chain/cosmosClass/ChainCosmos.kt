@@ -24,7 +24,7 @@ class ChainCosmos : BaseChain(), Parcelable {
     )
 
     override var supportCosmosGrpc: Boolean = true
-    override var stakeDenom: String? = "uatom"
+    override var stakeDenom: String = "uatom"
     override var accountPrefix: String? = "cosmos"
     override var grpcHost: String = "grpc-cosmos.cosmostation.io"
 

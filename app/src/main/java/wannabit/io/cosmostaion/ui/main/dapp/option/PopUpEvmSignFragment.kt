@@ -137,8 +137,8 @@ class PopUpEvmSignFragment(
                 getString(R.string.str_average),
                 getString(R.string.str_high)
             )
-            val rpcUrl = selectedEvmChain?.getEvmRpc()
-            web3j = Web3j.build(HttpService(rpcUrl))
+//            val rpcUrl = selectedEvmChain?.getEvmRpc()
+//            web3j = Web3j.build(HttpService(rpcUrl))
             chainId = web3j?.ethChainId()?.sendAsync()?.get()?.chainId?.toLong()
 
             if (method == "eth_sendTransaction") {
@@ -315,109 +315,109 @@ class PopUpEvmSignFragment(
                 )
             )
         }
-        val ethGasResponse =
-            jsonRpcResponse(selectedEvmChain?.getEvmRpc().toString(), ethGasRequest)
-        checkedGas = if (ethGasResponse.isSuccessful) {
-            val gasJsonObject =
-                Gson().fromJson(ethGasResponse.body?.string(), JsonObject::class.java)
-            BigInteger(
-                gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
-            )
-
-        } else {
-            BigInteger.valueOf(21000L)
-        }
-
-        val ethFeeHistoryRequest = JsonRpcRequest(
-            method = "eth_feeHistory", params = listOf(
-                20, "pending", listOf(25, 50, 75)
-            )
-        )
-        val ethFeeHistoryResponse =
-            jsonRpcResponse(selectedEvmChain?.getEvmRpc().toString(), ethFeeHistoryRequest)
-        val historyJsonObject = Gson().fromJson(
-            ethFeeHistoryResponse.body?.string(), JsonObject::class.java
-        )
-
-        val feeHistoryFeePerGas = try {
-            historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
-        } catch (e: Exception) {
-            mutableListOf()
-        }
-
-        val suggestGasValues = try {
-            feeHistoryFeePerGas.map {
-                BigInteger(
-                    it.asString.removePrefix("0x"), 16
-                )
-            }.toMutableList()
-        } catch (e: Exception) {
-            mutableListOf()
-        }
-
-        if (suggestGasValues.isNotEmpty()) {
-            val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
-                suggestGasValues.percentile(it)
-            }
-
-            val reward = historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
-            val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
-            reward.forEach {
-                val percentiles = it.asJsonArray.map { percentile ->
-                    BigInteger(
-                        percentile.asString.removePrefix("0x"), 16
-                    )
-                }.toMutableList()
-
-                percentiles.forEachIndexed { index, percentile ->
-                    if (rearrangedArray.size <= index) {
-                        rearrangedArray.add(mutableListOf(percentile))
-                    } else {
-                        rearrangedArray[index].add(percentile)
-                    }
-                }
-            }
-
-            val suggestTipValue = soft(rearrangedArray)
-            for (i in 0 until 3) {
-                val baseFee =
-                    if (suggestBaseFee[i]!! > BigInteger.valueOf(500000000L)) suggestBaseFee[i] else BigInteger.valueOf(
-                        500000000L
-                    )
-                val tip =
-                    if (suggestTipValue[i] > BigInteger.valueOf(1000000000L)) suggestTipValue[i] else BigInteger.valueOf(
-                        1000000000L
-                    )
-                evmGas[i] = Triple(baseFee, tip, checkedGas)
-            }
-
-            if (paramMaxFeePerGas != null && paramMaxPriorityFeePerGas != null) {
-                evmGas.add(Triple(BigInteger(
-                    paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16
-                ),
-                    BigInteger(paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16),
-                    paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
-                evmGasTitle.add(getString(R.string.str_origin))
-                addedFeePosition = 3
-            }
-            evmTxType = TransactionType.EIP1559
-
-        } else {
-            web3j?.ethGasPrice()?.send()?.gasPrice?.let { gasPrice ->
-                evmGas[0] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
-                evmGas[1] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
-                evmGas[2] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
-            }
-
-            if (paramGas != null) {
-                evmGas.add(Triple(BigInteger(paramGasPrice!!.removePrefix("0x"), 16),
-                    BigInteger.ZERO,
-                    paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
-                evmGasTitle.add(getString(R.string.str_origin))
-                addedFeePosition = 3
-            }
-            evmTxType = TransactionType.LEGACY
-        }
+//        val ethGasResponse =
+//            jsonRpcResponse(selectedEvmChain?.getEvmRpc().toString(), ethGasRequest)
+//        checkedGas = if (ethGasResponse.isSuccessful) {
+//            val gasJsonObject =
+//                Gson().fromJson(ethGasResponse.body?.string(), JsonObject::class.java)
+//            BigInteger(
+//                gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
+//            )
+//
+//        } else {
+//            BigInteger.valueOf(21000L)
+//        }
+//
+//        val ethFeeHistoryRequest = JsonRpcRequest(
+//            method = "eth_feeHistory", params = listOf(
+//                20, "pending", listOf(25, 50, 75)
+//            )
+//        )
+//        val ethFeeHistoryResponse =
+//            jsonRpcResponse(selectedEvmChain?.getEvmRpc().toString(), ethFeeHistoryRequest)
+//        val historyJsonObject = Gson().fromJson(
+//            ethFeeHistoryResponse.body?.string(), JsonObject::class.java
+//        )
+//
+//        val feeHistoryFeePerGas = try {
+//            historyJsonObject.asJsonObject["result"].asJsonObject["baseFeePerGas"].asJsonArray
+//        } catch (e: Exception) {
+//            mutableListOf()
+//        }
+//
+//        val suggestGasValues = try {
+//            feeHistoryFeePerGas.map {
+//                BigInteger(
+//                    it.asString.removePrefix("0x"), 16
+//                )
+//            }.toMutableList()
+//        } catch (e: Exception) {
+//            mutableListOf()
+//        }
+//
+//        if (suggestGasValues.isNotEmpty()) {
+//            val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
+//                suggestGasValues.percentile(it)
+//            }
+//
+//            val reward = historyJsonObject.asJsonObject["result"].asJsonObject["reward"].asJsonArray
+//            val rearrangedArray: MutableList<MutableList<BigInteger>> = ArrayList()
+//            reward.forEach {
+//                val percentiles = it.asJsonArray.map { percentile ->
+//                    BigInteger(
+//                        percentile.asString.removePrefix("0x"), 16
+//                    )
+//                }.toMutableList()
+//
+//                percentiles.forEachIndexed { index, percentile ->
+//                    if (rearrangedArray.size <= index) {
+//                        rearrangedArray.add(mutableListOf(percentile))
+//                    } else {
+//                        rearrangedArray[index].add(percentile)
+//                    }
+//                }
+//            }
+//
+//            val suggestTipValue = soft(rearrangedArray)
+//            for (i in 0 until 3) {
+//                val baseFee =
+//                    if (suggestBaseFee[i]!! > BigInteger.valueOf(500000000L)) suggestBaseFee[i] else BigInteger.valueOf(
+//                        500000000L
+//                    )
+//                val tip =
+//                    if (suggestTipValue[i] > BigInteger.valueOf(1000000000L)) suggestTipValue[i] else BigInteger.valueOf(
+//                        1000000000L
+//                    )
+//                evmGas[i] = Triple(baseFee, tip, checkedGas)
+//            }
+//
+//            if (paramMaxFeePerGas != null && paramMaxPriorityFeePerGas != null) {
+//                evmGas.add(Triple(BigInteger(
+//                    paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16
+//                ),
+//                    BigInteger(paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16),
+//                    paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
+//                evmGasTitle.add(getString(R.string.str_origin))
+//                addedFeePosition = 3
+//            }
+//            evmTxType = TransactionType.EIP1559
+//
+//        } else {
+//            web3j?.ethGasPrice()?.send()?.gasPrice?.let { gasPrice ->
+//                evmGas[0] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
+//                evmGas[1] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
+//                evmGas[2] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
+//            }
+//
+//            if (paramGas != null) {
+//                evmGas.add(Triple(BigInteger(paramGasPrice!!.removePrefix("0x"), 16),
+//                    BigInteger.ZERO,
+//                    paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
+//                evmGasTitle.add(getString(R.string.str_origin))
+//                addedFeePosition = 3
+//            }
+//            evmTxType = TransactionType.LEGACY
+//        }
     }
 
     private fun initTxData() {

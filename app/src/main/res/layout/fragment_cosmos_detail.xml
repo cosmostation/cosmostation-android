@@ -165,7 +165,7 @@
         android:id="@+id/backdropLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_background_dialog"
+        android:background="@color/color_fab_background_dialog"
         android:elevation="@dimen/space_1"
         android:visibility="gone" />
 

@@ -13,13 +13,17 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
@@ -52,11 +56,11 @@ class ApplicationViewModel(
         txRecreateResult.postValue(page)
     }
 
-    var walletEditResult = SingleLiveEvent<Pair<MutableList<String>, MutableList<String>>>()
+    var walletEditResult = SingleLiveEvent<MutableList<String>>()
     fun walletEdit(
-        displayMainnetChains: MutableList<String>, displayTestnetChains: MutableList<String>
+        displayChains: MutableList<String>
     ) = viewModelScope.launch(Dispatchers.IO) {
-        walletEditResult.postValue(Pair(displayMainnetChains, displayTestnetChains))
+        walletEditResult.postValue(displayChains)
     }
 
     private var _hideValueResult = MutableLiveData<Boolean>()
@@ -118,7 +122,12 @@ class ApplicationViewModel(
                 }
             }
 
-            loadGrpcAuthData(this, baseAccountId, isEdit)
+            if (supportEvm) {
+                loadEvmChainData(this, baseAccountId, isEdit)
+            }
+            if (supportCosmosGrpc) {
+                loadGrpcAuthData(this, baseAccountId, isEdit)
+            }
 
 //            if (this is ChainOkt996Keccak) {
 //                loadLcdData(this, baseAccountId, isEdit)
@@ -363,6 +372,86 @@ class ApplicationViewModel(
             }
         }
     }
+
+    private fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
+        CoroutineScope(Dispatchers.IO).launch {
+            chain.apply {
+                val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, tag)
+                if (supportCosmosGrpc) {
+                    val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
+                    val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+
+                    val tokenResult = loadEvmTokenDeferred.await()
+                    val balanceResult = loadEvmBalanceDeferred.await()
+
+                    if (tokenResult is NetworkResult.Success && tokenResult.data is MutableList<*> && tokenResult.data.all { it is Token }) {
+                        evmRpcFetcher.evmTokens = tokenResult.data
+                    }
+
+                    if (balanceResult is NetworkResult.Success && balanceResult.data is String) {
+                        web3j = Web3j.build(HttpService(evmRpcFetcher.getEvmRpc()))
+                        evmRpcFetcher.evmBalance = balanceResult.data.toBigDecimal()
+                    } else if (balanceResult is NetworkResult.Error) {
+                        web3j = null
+                    }
+
+                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                        evmRpcFetcher.evmTokens.filter { it.default }.map { token ->
+                            async { walletRepository.erc20Balance(chain, token) }
+                        }
+
+                    } else {
+                        evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
+                            .map { token ->
+                                async { walletRepository.erc20Balance(chain, token) }
+                            }
+                    }
+
+                    tokenBalanceDeferredList.awaitAll()
+                    val evmRefAddress = RefAddress(
+                        baseAccountId,
+                        tag,
+                        "",
+                        address,
+                        "0",
+                        "0",
+                        allTokenValue(true).toPlainString(),
+                        0
+                    )
+                    BaseData.updateRefAddressesToken(evmRefAddress)
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedTokenResult.value = tag
+                        } else {
+                            fetchedTokenResult.value = tag
+                        }
+                    }
+                    fetchedTotalResult.postValue(tag)
+                }
+
+//                fetched = true
+//                if (fetched) {
+//                    val refAddress = RefAddress(
+//                        baseAccountId,
+//                        tag,
+//                        "",
+//                        address,
+//                        allAssetValue(true).toString(),
+//                        evmRpcFetcher.evmBalance.toString(),
+//                        "0",
+//                        if (evmRpcFetcher.evmBalance <= BigDecimal.ZERO) 0 else 1
+//                    )
+//                    BaseData.updateRefAddressesMain(refAddress)
+//                    withContext(Dispatchers.Main) {
+//                        if (isEdit) {
+//                            editFetchedResult.value = tag
+//                        } else {
+//                            fetchedResult.value = tag
+//                        }
+//                    }
+//                }
+            }
+        }
 
 //    fun loadEvmChainData(line: EthereumLine, baseAccountId: Long, isEdit: Boolean) =
 //        CoroutineScope(Dispatchers.IO).launch {

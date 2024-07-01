@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatAmount
@@ -26,7 +26,7 @@ class HistoryViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bindHistory(
-        line: CosmosLine,
+        chain: BaseChain,
         historyGroup: Pair<String, CosmosHistory>,
         headerIndex: Int,
         cnt: Int,
@@ -53,7 +53,7 @@ class HistoryViewHolder(
                 txSuccessImg.setImageResource(R.drawable.icon_history_fail)
             }
 
-            txMessage.text = historyGroup.second.getMsgType(context, line.address)
+            txMessage.text = historyGroup.second.getMsgType(context, chain.address)
             txHash.text = historyGroup.second.data?.txhash
             historyGroup.second.header?.let { header ->
                 txTime.text = formatTxTimeStampToHour(context, header.timestamp)
@@ -68,7 +68,7 @@ class HistoryViewHolder(
             sendTxImage.visibleOrGone(
                 historyGroup.second.getMsgCnt() == 1 && historyGroup.second.getMsgType(
                     context,
-                    line.address
+                    chain.address
                 ).equals(context.getString(R.string.tx_send), true)
             )
             sendTxImage.setColorFilter(
@@ -76,7 +76,7 @@ class HistoryViewHolder(
                 PorterDuff.Mode.SRC_IN
             )
 
-            historyGroup.second.getDpCoin(line).let { dpCoins ->
+            historyGroup.second.getDpCoin(chain).let { dpCoins ->
                 if (dpCoins.isNotEmpty()) {
                     if (dpCoins.size > 1) {
                         txCnt.visibility = View.VISIBLE
@@ -84,7 +84,7 @@ class HistoryViewHolder(
                     } else {
                         txCnt.visibility = View.GONE
                     }
-                    BaseData.getAsset(line.apiName, dpCoins[0].denom)?.let { asset ->
+                    BaseData.getAsset(chain.apiName, dpCoins[0].denom)?.let { asset ->
                         asset.decimals?.let { decimal ->
                             val amount = dpCoins[0].amount.toBigDecimal().movePointLeft(decimal)
                                 .setScale(decimal, RoundingMode.DOWN)
@@ -95,7 +95,7 @@ class HistoryViewHolder(
                     }
 
                 } else {
-                    historyGroup.second.getDpToken(line)?.let { dpTokens ->
+                    historyGroup.second.getDpToken(chain)?.let { dpTokens ->
                         dpTokens.second.movePointLeft(dpTokens.first.decimals)
                             ?.setScale(dpTokens.first.decimals, RoundingMode.DOWN)
                             ?.let { dpAmount ->
@@ -107,7 +107,7 @@ class HistoryViewHolder(
 
                     } ?: run {
                         if (historyGroup.second.getMsgType(
-                                context, line.address
+                                context, chain.address
                             ) == context.getString(R.string.tx_vote)
                         ) {
                             txDenom.text = historyGroup.second.getVoteOption()

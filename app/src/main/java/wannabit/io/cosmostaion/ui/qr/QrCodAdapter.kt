@@ -3,13 +3,14 @@ package wannabit.io.cosmostaion.ui.qr
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemQrBinding
 
 class QrCodAdapter(
-    private val account: BaseAccount, private val selectedChain: CosmosLine
+    private val account: BaseAccount, private val selectedChain: BaseChain
 ) : RecyclerView.Adapter<QrCodeViewHolder>() {
 
     companion object {

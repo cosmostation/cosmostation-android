@@ -306,8 +306,8 @@ class EvmUnStakingFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
-                txViewModel.broadcastEvmUnDelegate(web3j, evmHexValue)
+//                val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+//                txViewModel.broadcastEvmUnDelegate(web3j, evmHexValue)
             }
         }
 

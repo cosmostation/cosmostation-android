@@ -175,85 +175,85 @@ class CommonTransferFragment : BaseTxFragment() {
             initToChain()
             initTransferStyle()
 
-            when (sendAssetType) {
-                SendAssetType.ONLY_EVM_COIN -> {
-                    availableAmount = if (EVM_BASE_FEE >= (fromChain as EthereumLine).evmBalance) {
-                        BigDecimal.ZERO
-                    } else {
-                        (fromChain as EthereumLine).evmBalance.subtract(
-                            EVM_BASE_FEE
-                        )
-                    }
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, (fromChain as EthereumLine).coinSymbol
-                    )
-                }
-
-                SendAssetType.COSMOS_EVM_COIN -> {
-                    if (transferStyle == TransferStyle.WEB3_STYLE) {
-                        availableAmount =
-                            if (EVM_BASE_FEE >= (fromChain as EthereumLine).evmBalance) {
-                                BigDecimal.ZERO
-                            } else {
-                                (fromChain as EthereumLine).evmBalance.subtract(
-                                    EVM_BASE_FEE
-                                )
-                            }
-                        sendTitle.text = getString(
-                            R.string.title_asset_send, (fromChain as EthereumLine).coinSymbol
-                        )
-
-                    } else {
-                        toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                        availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
-                        if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                            cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
-                                availableAmount = if (feeAmount >= availableAmount) {
-                                    BigDecimal.ZERO
-                                } else {
-                                    availableAmount.subtract(feeAmount)
-                                }
-                            }
-                        }
-                        sendTitle.text = getString(
-                            R.string.title_asset_send, toSendAsset?.symbol
-                        )
-                    }
-                }
-
-                SendAssetType.ONLY_COSMOS_COIN -> {
-                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
-                    if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                        cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
-                            availableAmount = if (feeAmount >= availableAmount) {
-                                BigDecimal.ZERO
-                            } else {
-                                availableAmount.subtract(feeAmount)
-                            }
-                        }
-                    }
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendAsset?.symbol
-                    )
-                }
-
-                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
-                    (fromChain as CosmosLine).tokens.firstOrNull { it.address == toSendDenom }
-                        ?.let { token ->
-                            toSendToken = token
-                        } ?: run {
-                        (fromChain as EthereumLine).evmTokens.firstOrNull { it.address == toSendDenom }
-                            ?.let { token ->
-                                toSendToken = token
-                            }
-                    }
-                    availableAmount = toSendToken?.amount?.toBigDecimal()
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendToken?.symbol
-                    )
-                }
-            }
+//            when (sendAssetType) {
+//                SendAssetType.ONLY_EVM_COIN -> {
+//                    availableAmount = if (EVM_BASE_FEE >= (fromChain as EthereumLine).evmBalance) {
+//                        BigDecimal.ZERO
+//                    } else {
+//                        (fromChain as EthereumLine).evmBalance.subtract(
+//                            EVM_BASE_FEE
+//                        )
+//                    }
+//                    sendTitle.text = getString(
+//                        R.string.title_asset_send, (fromChain as EthereumLine).coinSymbol
+//                    )
+//                }
+//
+//                SendAssetType.COSMOS_EVM_COIN -> {
+//                    if (transferStyle == TransferStyle.WEB3_STYLE) {
+//                        availableAmount =
+//                            if (EVM_BASE_FEE >= (fromChain as EthereumLine).evmBalance) {
+//                                BigDecimal.ZERO
+//                            } else {
+//                                (fromChain as EthereumLine).evmBalance.subtract(
+//                                    EVM_BASE_FEE
+//                                )
+//                            }
+//                        sendTitle.text = getString(
+//                            R.string.title_asset_send, (fromChain as EthereumLine).coinSymbol
+//                        )
+//
+//                    } else {
+//                        toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+//                        availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
+//                        if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
+//                            cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
+//                                availableAmount = if (feeAmount >= availableAmount) {
+//                                    BigDecimal.ZERO
+//                                } else {
+//                                    availableAmount.subtract(feeAmount)
+//                                }
+//                            }
+//                        }
+//                        sendTitle.text = getString(
+//                            R.string.title_asset_send, toSendAsset?.symbol
+//                        )
+//                    }
+//                }
+//
+//                SendAssetType.ONLY_COSMOS_COIN -> {
+//                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+//                    availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
+//                    if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
+//                        cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
+//                            availableAmount = if (feeAmount >= availableAmount) {
+//                                BigDecimal.ZERO
+//                            } else {
+//                                availableAmount.subtract(feeAmount)
+//                            }
+//                        }
+//                    }
+//                    sendTitle.text = getString(
+//                        R.string.title_asset_send, toSendAsset?.symbol
+//                    )
+//                }
+//
+//                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
+//                    (fromChain as CosmosLine).tokens.firstOrNull { it.address == toSendDenom }
+//                        ?.let { token ->
+//                            toSendToken = token
+//                        } ?: run {
+//                        (fromChain as EthereumLine).evmTokens.firstOrNull { it.address == toSendDenom }
+//                            ?.let { token ->
+//                                toSendToken = token
+//                            }
+//                    }
+//                    availableAmount = toSendToken?.amount?.toBigDecimal()
+//                    sendTitle.text = getString(
+//                        R.string.title_asset_send, toSendToken?.symbol
+//                    )
+//                }
+//            }
         }
     }
 
@@ -408,36 +408,36 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun updateTransferStyle(transferStyle: TransferStyle) {
         binding.apply {
-            if (sendAssetType == SendAssetType.COSMOS_EVM_COIN && transferStyle != this@CommonTransferFragment.transferStyle) {
-                updateAmountView("")
-                this@CommonTransferFragment.transferStyle = transferStyle
-
-                if (this@CommonTransferFragment.transferStyle == TransferStyle.WEB3_STYLE) {
-                    availableAmount = (fromChain as EthereumLine).evmBalance.subtract(
-                        EVM_BASE_FEE
-                    )
-                    memoView.visibility = View.GONE
-                    feeSegment.visibility = View.GONE
-                    evmFeeSegment.visibility = View.VISIBLE
-                    selectedFeePosition = 1
-                    evmFeeSegment.setPosition(selectedFeePosition, false)
-
-                } else {
-                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
-                    if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                        val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
-                        availableAmount = availableAmount.subtract(feeAmount)
-                    }
-                    memoView.visibility = View.VISIBLE
-                    feeSegment.visibility = View.VISIBLE
-                    evmFeeSegment.visibility = View.GONE
-                    selectedFeePosition = (fromChain as CosmosLine).getFeeBasePosition()
-                    feeSegment.setPosition(selectedFeePosition, false)
-                    cosmosTxFee = (fromChain as CosmosLine).getInitFee(requireContext())
-                }
-                updateFeeView()
-            }
+//            if (sendAssetType == SendAssetType.COSMOS_EVM_COIN && transferStyle != this@CommonTransferFragment.transferStyle) {
+//                updateAmountView("")
+//                this@CommonTransferFragment.transferStyle = transferStyle
+//
+//                if (this@CommonTransferFragment.transferStyle == TransferStyle.WEB3_STYLE) {
+//                    availableAmount = (fromChain as EthereumLine).evmBalance.subtract(
+//                        EVM_BASE_FEE
+//                    )
+//                    memoView.visibility = View.GONE
+//                    feeSegment.visibility = View.GONE
+//                    evmFeeSegment.visibility = View.VISIBLE
+//                    selectedFeePosition = 1
+//                    evmFeeSegment.setPosition(selectedFeePosition, false)
+//
+//                } else {
+//                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+//                    availableAmount = (fromChain as CosmosLine).balanceAmount(toSendDenom)
+//                    if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
+//                        val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
+//                        availableAmount = availableAmount.subtract(feeAmount)
+//                    }
+//                    memoView.visibility = View.VISIBLE
+//                    feeSegment.visibility = View.VISIBLE
+//                    evmFeeSegment.visibility = View.GONE
+//                    selectedFeePosition = (fromChain as CosmosLine).getFeeBasePosition()
+//                    feeSegment.setPosition(selectedFeePosition, false)
+//                    cosmosTxFee = (fromChain as CosmosLine).getInitFee(requireContext())
+//                }
+//                updateFeeView()
+//            }
         }
     }
 

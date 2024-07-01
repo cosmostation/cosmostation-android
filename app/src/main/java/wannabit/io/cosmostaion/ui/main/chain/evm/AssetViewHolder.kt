@@ -25,28 +25,28 @@ class AssetViewHolder(
             assetImg.setImageResource(evmLine.coinLogo)
             assetName.text = evmLine.coinSymbol
 
-            val dpAmount = evmLine.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
-            val value = evmLine.allAssetValue(false)
+//            val dpAmount = evmLine.evmBalance.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+//            val value = evmLine.allAssetValue(false)
+//
+//            assetPrice.text = formatAssetValue(BaseData.getPrice(evmLine.coinGeckoId))
+//            BaseData.lastUpDown(evmLine.coinGeckoId).let { lastUpDown ->
+//                assetPriceChange.priceChangeStatusColor(lastUpDown)
+//                assetPriceChange.text = priceChangeStatus(lastUpDown)
+//            }
 
-            assetPrice.text = formatAssetValue(BaseData.getPrice(evmLine.coinGeckoId))
-            BaseData.lastUpDown(evmLine.coinGeckoId).let { lastUpDown ->
-                assetPriceChange.priceChangeStatusColor(lastUpDown)
-                assetPriceChange.text = priceChangeStatus(lastUpDown)
-            }
-
-            val amount = dpAmount.setScale(6, RoundingMode.DOWN)
-            if (Prefs.hideValue) {
-                assetAmount.visibility = View.GONE
-                assetAmountValue.visibility = View.GONE
-                hideValue.visibility = View.VISIBLE
-            } else {
-                assetAmount.visibility = View.VISIBLE
-                assetAmountValue.visibility = View.VISIBLE
-                hideValue.visibility = View.GONE
-
-                assetAmount.text = formatAmount(amount.toPlainString(), 6)
-                assetAmountValue.text = formatAssetValue(value)
-            }
+//            val amount = dpAmount.setScale(6, RoundingMode.DOWN)
+//            if (Prefs.hideValue) {
+//                assetAmount.visibility = View.GONE
+//                assetAmountValue.visibility = View.GONE
+//                hideValue.visibility = View.VISIBLE
+//            } else {
+//                assetAmount.visibility = View.VISIBLE
+//                assetAmountValue.visibility = View.VISIBLE
+//                hideValue.visibility = View.GONE
+//
+//                assetAmount.text = formatAmount(amount.toPlainString(), 6)
+//                assetAmountValue.text = formatAssetValue(value)
+//            }
         }
     }
 

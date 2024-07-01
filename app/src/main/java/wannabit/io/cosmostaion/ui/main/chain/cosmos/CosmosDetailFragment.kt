@@ -34,7 +34,10 @@ import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
+import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -146,20 +149,22 @@ class CosmosDetailFragment : Fragment() {
                 accountEvmAddress.visibility = View.INVISIBLE
                 accountAddress.text = selectedChain.address
 
-//                if (selectedChain is EthereumLine && (selectedChain as EthereumLine).supportCosmos) {
-//                    accountAddress.text = selectedChain.address
-//                    selectedChain.address?.let {
-//                        accountEvmAddress.text = ByteUtils.convertBech32ToEvm(it)
-//                    }
-//                    accountAddress.visibility = View.INVISIBLE
-//                    accountEvmAddress.visibility = View.VISIBLE
-//
-//                    handler.postDelayed(starEvmAddressAnimation, 5000)
-//
-//                } else {
-//                    accountEvmAddress.visibility = View.INVISIBLE
-//                    accountAddress.text = selectedChain.address
-//                }
+                if (selectedChain.supportCosmosGrpc && selectedChain.supportEvm) {
+                    accountAddress.text = selectedChain.address
+                    accountEvmAddress.text = selectedChain.evmAddress
+                    accountAddress.visibility = View.INVISIBLE
+                    accountEvmAddress.visibility = View.VISIBLE
+
+                    handler.postDelayed(starEvmAddressAnimation, 5000)
+
+                } else {
+                    if (selectedChain.supportEvm) {
+                        accountAddress.text = selectedChain.evmAddress
+                    } else {
+                        accountAddress.text = selectedChain.address
+                    }
+                    accountEvmAddress.visibility = View.INVISIBLE
+                }
 
                 updateAccountValue()
                 btnHide.setColorFilter(
@@ -324,13 +329,16 @@ class CosmosDetailFragment : Fragment() {
                 selectedChain.explorerAccount()?.let { url ->
                     startActivity(Intent(Intent.ACTION_VIEW, url))
                     Prefs.foreToBack = false
-
                 } ?: run {
                     return@setOnClickListener
                 }
             }
 
             accountLayout.setOnClickListener {
+                QrCodeFragment.newInstance(selectedChain).show(
+                    requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                )
+
 //                if (selectedChain is EthereumLine) {
 //                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
 //                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
@@ -344,6 +352,9 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountValueLayout.setOnClickListener {
+                QrCodeFragment.newInstance(selectedChain).show(
+                    requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                )
 //                if (selectedChain is EthereumLine) {
 //                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
 //                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
@@ -368,7 +379,7 @@ class CosmosDetailFragment : Fragment() {
                 if (opened) {
                     tabLayout.elevation = 0.1f
                     requireActivity().window.statusBarColor = ContextCompat.getColor(
-                        requireContext(), R.color.color_background_dialog
+                        requireContext(), R.color.color_fab_background_dialog
                     )
                 } else {
                     tabLayout.elevation = 0f
@@ -396,6 +407,7 @@ class CosmosDetailFragment : Fragment() {
         binding.apply {
             fabSend.setOnClickListener {
                 selectedChain.stakeDenom?.let { denom ->
+                    val sendAssetType = SendAssetType.ONLY_COSMOS_COIN
 //                    val sendAssetType = if (selectedChain is EthereumLine) {
 //                        if (selectedChain is ChainOktEvm) {
 //                            SendAssetType.ONLY_EVM_COIN
@@ -409,20 +421,20 @@ class CosmosDetailFragment : Fragment() {
 //                        SendAssetType.ONLY_COSMOS_COIN
 //                    }
 //
-//                    if (selectedChain.isBankLocked()) {
-//                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
-//                        return@setOnClickListener
-//                    }
+                    if (selectedChain.isBankLocked()) {
+                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
+                        return@setOnClickListener
+                    }
 
 //                    if (selectedChain is ChainOkt996Keccak) {
 //                        handleOneClickWithDelay(
 //                            null, LegacyTransferFragment.newInstance(selectedChain, denom)
 //                        )
 //                    } else {
-//                        handleOneClickWithDelay(
-//                            null,
-//                            CommonTransferFragment.newInstance(selectedChain, denom, sendAssetType)
-//                        )
+                    handleOneClickWithDelay(
+                        null,
+                        CommonTransferFragment.newInstance(selectedChain, denom, sendAssetType)
+                    )
 //                    }
                 }
             }

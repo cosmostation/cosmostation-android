@@ -10,7 +10,6 @@ import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
-import wannabit.io.cosmostaion.ui.main.edit.ChainEditAdapter
 
 class PrivateAdapter(
     val account: BaseAccount,
@@ -65,10 +64,10 @@ class PrivateAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) ChainEditAdapter.VIEW_TYPE_EVM_HEADER
-        else if (position < allEvmLines.size + 1) ChainEditAdapter.VIEW_TYPE_EVM_ITEM
-        else if (position < allEvmLines.size + 2) ChainEditAdapter.VIEW_TYPE_COSMOS_HEADER
-        else ChainEditAdapter.VIEW_TYPE_COSMOS_ITEM
+        return if (position == 0) VIEW_TYPE_ETHEREUM_HEADER
+        else if (position < allEvmLines.size + 1) VIEW_TYPE_ETHEREUM_ITEM
+        else if (position < allEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
+        else VIEW_TYPE_COSMOS_ITEM
     }
 
     override fun getItemCount(): Int {
