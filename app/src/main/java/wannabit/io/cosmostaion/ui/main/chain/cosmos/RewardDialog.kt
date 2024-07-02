@@ -17,7 +17,7 @@ import java.math.RoundingMode
 class RewardDialog(
     context: Context,
     val selectedChain: BaseChain,
-    val rewards: MutableList<DistributionProto.DelegationDelegatorReward>
+    val rewards: MutableList<DistributionProto.DelegationDelegatorReward>?
 ) : Dialog(context, R.style.CustomDialogTheme) {
 
     private lateinit var binding: DialogRewardBinding
@@ -38,7 +38,7 @@ class RewardDialog(
 
     private fun initData() {
         var rewardCoins: MutableList<Coin> = mutableListOf()
-        rewards.forEach { delegatorRewards ->
+        rewards?.forEach { delegatorRewards ->
             delegatorRewards.rewardList.forEach { deCoin ->
                 val amount =
                     deCoin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)

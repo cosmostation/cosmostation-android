@@ -6,8 +6,6 @@
     <string name="str_setting" translatable="false">Settings</string>
 
     <string name="str_total_value" translatable="false">Total value</string>
-    <string name="str_mainnet" translatable="false">Mainnet</string>
-    <string name="str_testnet" translatable="false">Testnet</string>
     <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
@@ -153,6 +151,19 @@
     <string name="str_pro">Pro</string>
     <string name="str_permit_request">Permit request</string>
     <string name="str_tx_request">Tx request</string>
+    <string name="str_introduction">Introduction</string>
+    <string name="str_chain_information">Information</string>
+    <string name="str_initial_time">Initial issue</string>
+    <string name="str_chain_id">Chain ID</string>
+    <string name="str_chain_id_cosmos">Chain ID (cosmos style)</string>
+    <string name="str_chain_id_evm">Chain ID (evm style)</string>
+    <string name="str_network">Network</string>
+    <string name="str_staking_asset">Staking asset</string>
+    <string name="str_unstake_period">Unstake period</string>
+    <string name="str_inflation">Inflation</string>
+    <string name="str_est_apr">Staking APR(est)</string>
+    <string name="str_mainnet">Mainnet</string>
+    <string name="str_testnet">Testnet</string>
 
 
     //title
@@ -309,6 +320,7 @@
     <string name="str_msg_no_token">There are no tokens.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
+    <string name="str_msg_copy2">Tap the box for copy</string>
     <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy</string>
     <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_address_copied">Address copied</string>
@@ -384,6 +396,8 @@
     <string name="str_delist_msg">The chain you selected will be discontinued from mobile wallets. It can be supported by other wallets or future custom chain services.</string>
     <string name="str_legacy_path_msg">Accounts on the legacy path you selected will be terminated. We strongly recommend that you move your assets to the public path.</string>
     <string name="str_deposit_caution_msg">Send %1$s Network asset ONLY</string>
+    <string name="str_reward_address_change_msg">This address is where you receive reward assets.\n<u>Tap here for change reward address.</u> (not recommend)</string>
+    <string name="str_already_reward_address_changed_msg">You changed a reward address</string>
 
 
     // header

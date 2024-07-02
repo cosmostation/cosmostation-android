@@ -1,13 +1,15 @@
 package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import wannabit.io.cosmostaion.ui.qr.QrDialog
+import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 
 class DashboardAdapter(
     val context: Context,
@@ -35,7 +37,7 @@ class DashboardAdapter(
             VIEW_TYPE_MAINNET_ITEM, VIEW_TYPE_TESTNET_ITEM -> {
                 val binding =
                     ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                DashboardViewHolder(context, binding)
+                DashboardViewHolder(parent.context, binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -51,39 +53,43 @@ class DashboardAdapter(
             is DashboardViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
                     val chain = displayMainnetChains[position - 1]
-                    holder.bind(chain)
+                    if (chain.supportEvm) {
+                        holder.evmBind(chain)
+                    } else {
+                        holder.bind(chain)
+                    }
 
                     holder.itemView.setOnClickListener {
                         listener.nodeDown(chain)
                     }
-//
-//                    holder.itemView.setOnLongClickListener { view ->
-//                        if (line.fetched) {
-//                            val scaleX = view.scaleX
-//                            val scaleY = view.scaleY
-//                            val customDialog = if (line.supportCosmos) {
-//                                QrEvmDialog(context, line)
-//                            } else {
-//                                QrDialog(context, line, null)
-//                            }
-//
-//                            if (scaleX == 1.0f && scaleY == 1.0f) {
-//                                view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
-//                                val handler = Handler()
-//                                handler.postDelayed({
-//                                    customDialog.show()
-//                                }, 200)
-//                            }
-//
-//                            customDialog.setOnDismissListener {
-//                                view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-//                            }
-//                            true
-//
-//                        } else {
-//                            false
-//                        }
-//                    }
+
+                    holder.itemView.setOnLongClickListener { view ->
+                        if (chain.fetched) {
+                            val scaleX = view.scaleX
+                            val scaleY = view.scaleY
+                            val customDialog = if (chain.supportCosmosGrpc && chain.supportEvm) {
+                                QrEvmDialog(context, chain)
+                            } else {
+                                QrDialog(context, chain)
+                            }
+
+                            if (scaleX == 1.0f && scaleY == 1.0f) {
+                                view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                                val handler = Handler()
+                                handler.postDelayed({
+                                    customDialog.show()
+                                }, 200)
+                            }
+
+                            customDialog.setOnDismissListener {
+                                view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                            }
+                            true
+
+                        } else {
+                            false
+                        }
+                    }
 
                 } else {
 //                    val line = if (displayEvmLines.isNotEmpty()) {
@@ -151,11 +157,11 @@ class DashboardAdapter(
         fun bind(position: Int) {
             binding.apply {
                 if (getItemViewType(position) == VIEW_TYPE_MAINNET_HEADER) {
-                    headerTitle.text = context.getString(R.string.str_mainnet)
+                    headerTitle.text = "Mainnet"
                     headerCnt.text = displayMainnetChains.size.toString()
 
                 } else {
-                    headerTitle.text = context.getString(R.string.str_testnet)
+                    headerTitle.text = "Testnet"
                     headerCnt.text = displayTestnetChains.size.toString()
                 }
             }

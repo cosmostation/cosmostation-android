@@ -506,7 +506,7 @@ fun ImageButton.updateToggleButtonView(isBtnEnabled: Boolean) {
     }
 }
 
-fun Activity.historyToMintscan(selectedChain: CosmosLine?, txHash: String?) {
+fun Activity.historyToMintscan(selectedChain: BaseChain?, txHash: String?) {
     selectedChain?.explorerTx(txHash)?.let {
         startActivity(Intent(Intent.ACTION_VIEW, it))
 

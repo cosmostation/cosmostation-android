@@ -357,17 +357,17 @@ class WithdrawEarningFragment : BaseTxFragment() {
         txFee?.let { fee ->
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
                 ?.let { gasRate ->
-                    val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-
-                    val feeCoin = Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
+//                    val gasLimit =
+//                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
+//                            .toBigDecimal()
+//                    val feeCoinAmount =
+//                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+//
+//                    val feeCoin = Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+//                        .setAmount(feeCoinAmount.toString()).build()
+//                    txFee =
+//                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+//                            .build()
                 }
         }
         updateFeeView()

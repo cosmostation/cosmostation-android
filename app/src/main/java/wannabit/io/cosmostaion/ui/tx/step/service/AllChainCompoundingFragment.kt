@@ -202,30 +202,30 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                                 compoundAbleReward.rewards
                             ) { gasUsed ->
                                 gasUsed?.let { toGas ->
-                                    val txGasLimit =
-                                        (toGas.toDouble() * compoundAbleReward.cosmosLine.gasMultiply()).toLong()
-                                            .toBigDecimal()
-                                    compoundAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
-                                        feeData.denom == txFee?.getAmount(0)?.denom
-                                    }?.let { gasRate ->
-                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
-                                            ?.setScale(0, RoundingMode.UP)
-                                        val feeCoin = CoinProto.Coin.newBuilder()
-                                            .setDenom(txFee?.getAmount(0)?.denom)
-                                            .setAmount(feeCoinAmount.toString()).build()
-
-                                        txFee = TxProto.Fee.newBuilder()
-                                            .setGasLimit(txGasLimit.toLong())
-                                            .addAmount(feeCoin).build()
-                                    }
-                                    compoundAbleRewards[i].fee = txFee
-                                    compoundAbleRewards[i].isBusy = false
-                                    lifecycleScope.launch(Dispatchers.Main) {
-                                        allChainCompoundingAdapter.notifyItemChanged(i)
-                                        if (compoundAbleRewards.count { reward -> reward.fee == null } == 0) {
-                                            binding?.btnCompoundingAll?.updateButtonView(true)
-                                        }
-                                    }
+//                                    val txGasLimit =
+//                                        (toGas.toDouble() * compoundAbleReward.cosmosLine.gasMultiply()).toLong()
+//                                            .toBigDecimal()
+//                                    compoundAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
+//                                        feeData.denom == txFee?.getAmount(0)?.denom
+//                                    }?.let { gasRate ->
+//                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
+//                                            ?.setScale(0, RoundingMode.UP)
+//                                        val feeCoin = CoinProto.Coin.newBuilder()
+//                                            .setDenom(txFee?.getAmount(0)?.denom)
+//                                            .setAmount(feeCoinAmount.toString()).build()
+//
+//                                        txFee = TxProto.Fee.newBuilder()
+//                                            .setGasLimit(txGasLimit.toLong())
+//                                            .addAmount(feeCoin).build()
+//                                    }
+//                                    compoundAbleRewards[i].fee = txFee
+//                                    compoundAbleRewards[i].isBusy = false
+//                                    lifecycleScope.launch(Dispatchers.Main) {
+//                                        allChainCompoundingAdapter.notifyItemChanged(i)
+//                                        if (compoundAbleRewards.count { reward -> reward.fee == null } == 0) {
+//                                            binding?.btnCompoundingAll?.updateButtonView(true)
+//                                        }
+//                                    }
                                 }
                             }
                         }

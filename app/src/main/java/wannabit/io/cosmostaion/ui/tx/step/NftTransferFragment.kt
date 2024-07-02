@@ -368,16 +368,16 @@ class NftTransferFragment(
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-                val gasLimit =
-                    (info.gasUsed.toDouble() * (fromChain as CosmosLine).gasMultiply()).toLong()
-                        .toBigDecimal()
-                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-
-                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                    .setAmount(feeCoinAmount.toString()).build()
-
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                    .build()
+//                val gasLimit =
+//                    (info.gasUsed.toDouble() * (fromChain as CosmosLine).gasMultiply()).toLong()
+//                        .toBigDecimal()
+//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+//
+//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+//                    .setAmount(feeCoinAmount.toString()).build()
+//
+//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+//                    .build()
             }
         }
         updateFeeView()

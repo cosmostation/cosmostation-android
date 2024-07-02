@@ -198,29 +198,29 @@ class AllChainClaimFragment : BaseTxFragment() {
                                 valueAbleReward.cosmosLine, valueAbleReward.rewards
                             ) { gasUsed ->
                                 gasUsed?.let { toGas ->
-                                    val txGasLimit =
-                                        (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
-                                            .toBigDecimal()
-                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
-                                        feeData.denom == txFee?.getAmount(0)?.denom
-                                    }?.let { gasRate ->
-                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
-                                            ?.setScale(0, RoundingMode.UP)
-                                        val feeCoin = CoinProto.Coin.newBuilder()
-                                            .setDenom(txFee?.getAmount(0)?.denom)
-                                            .setAmount(feeCoinAmount.toString()).build()
-
-                                        txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
-                                            .addAmount(feeCoin).build()
-                                    }
-                                    valueAbleRewards[i].fee = txFee
-                                    valueAbleRewards[i].isBusy = false
-                                    lifecycleScope.launch(Dispatchers.Main) {
-                                        allChainClaimAdapter.notifyItemChanged(i)
-                                        if (valueAbleRewards.count { reward -> reward.fee == null } == 0) {
-                                            binding?.btnClaimAll?.updateButtonView(true)
-                                        }
-                                    }
+//                                    val txGasLimit =
+//                                        (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
+//                                            .toBigDecimal()
+//                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
+//                                        feeData.denom == txFee?.getAmount(0)?.denom
+//                                    }?.let { gasRate ->
+//                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
+//                                            ?.setScale(0, RoundingMode.UP)
+//                                        val feeCoin = CoinProto.Coin.newBuilder()
+//                                            .setDenom(txFee?.getAmount(0)?.denom)
+//                                            .setAmount(feeCoinAmount.toString()).build()
+//
+//                                        txFee = Fee.newBuilder().setGasLimit(txGasLimit.toLong())
+//                                            .addAmount(feeCoin).build()
+//                                    }
+//                                    valueAbleRewards[i].fee = txFee
+//                                    valueAbleRewards[i].isBusy = false
+//                                    lifecycleScope.launch(Dispatchers.Main) {
+//                                        allChainClaimAdapter.notifyItemChanged(i)
+//                                        if (valueAbleRewards.count { reward -> reward.fee == null } == 0) {
+//                                            binding?.btnClaimAll?.updateButtonView(true)
+//                                        }
+//                                    }
                                 }
                             }
                         }

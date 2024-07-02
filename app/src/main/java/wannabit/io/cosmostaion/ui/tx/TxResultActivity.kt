@@ -18,7 +18,7 @@ import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -31,13 +31,14 @@ import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class TxResultActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTxResultBinding
 
-    private var selectedChain: CosmosLine? = null
+    private var selectedChain: BaseChain? = null
     private var isSuccess: Boolean = false
     private var txHash: String = ""
     private var errorMsg: String = ""
@@ -67,17 +68,11 @@ class TxResultActivity : BaseActivity() {
 
     private fun initView() {
         binding.apply {
-            BaseData.baseAccount?.allCosmosLineChains?.firstOrNull { line ->
-                line.tag == intent.getStringExtra(
+            BaseData.baseAccount?.allChains?.firstOrNull { chain ->
+                chain.tag == intent.getStringExtra(
                     "selectedChain"
                 ).toString()
-            }?.let { selectedChain = it } ?: run {
-                BaseData.baseAccount?.allEvmLineChains?.firstOrNull { evmLine ->
-                    evmLine.tag == intent.getStringExtra(
-                        "selectedChain"
-                    ).toString()
-                }?.let { selectedChain = it }
-            }
+            }?.let { selectedChain = it }
 
             isSuccess = intent.getBooleanExtra("isSuccess", false)
             errorMsg = intent.getStringExtra("errorMsg") ?: ""
@@ -95,11 +90,11 @@ class TxResultActivity : BaseActivity() {
 //                }
 //
 //            } else {
-//                if (isSuccess) {
-//                    loadHistoryTx()
-//                } else {
-//                    showError()
-//                }
+            if (isSuccess) {
+                loadHistoryTx()
+            } else {
+                showError()
+            }
 //            }
             initQuotes()
         }
@@ -125,9 +120,9 @@ class TxResultActivity : BaseActivity() {
 //                    }, 3000)
 //
 //                } else {
-//                    loading.visibility = View.GONE
-//                    successLayout.visibility = View.VISIBLE
-//                    successHash.text = txHash
+                loading.visibility = View.GONE
+                successLayout.visibility = View.VISIBLE
+                successHash.text = txHash
 //                }
 
             } else {
@@ -168,7 +163,10 @@ class TxResultActivity : BaseActivity() {
                     else -> {
                         finish()
                         BaseData.baseAccount?.let { account ->
-//                            selectedChain?.let { chain ->
+                            selectedChain?.let { chain ->
+                                ApplicationViewModel.shared.loadChainData(
+                                    chain, account.id, false
+                                )
 //                                if (chain is ChainOktEvm) {
 //                                    ApplicationViewModel.shared.loadEvmChainData(
 //                                        chain, account.id, false
@@ -178,7 +176,7 @@ class TxResultActivity : BaseActivity() {
 //                                        chain, account.id, false
 //                                    )
 //                                }
-//                            }
+                            }
                         }
                     }
                 }
@@ -202,18 +200,18 @@ class TxResultActivity : BaseActivity() {
 
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
-//                        if (isSuccess && fetchCnt > 0) {
-//                            getChannel(line).shutdown()
-//                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
-//                            Handler(Looper.getMainLooper()).postDelayed({
-//                                loadHistoryTx()
-//                            }, 6000)
-//
-//                        } else {
-//                            runOnUiThread {
-//                                showMoreWait()
-//                            }
-//                        }
+                        if (isSuccess && fetchCnt > 0) {
+                            getChannel(line)?.shutdown()
+                            getChannel(line)?.awaitTermination(6L, TimeUnit.SECONDS)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                loadHistoryTx()
+                            }, 6000)
+
+                        } else {
+                            runOnUiThread {
+                                showMoreWait()
+                            }
+                        }
                     }
 
                     override fun onCompleted() {}

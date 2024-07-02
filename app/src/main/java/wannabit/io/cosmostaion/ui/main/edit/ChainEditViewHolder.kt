@@ -55,7 +55,7 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (chain.grpcFetcher.cosmosBalances == null) {
+                                if (chain.grpcFetcher?.cosmosBalances == null) {
                                     respondLayout.visibility = View.VISIBLE
                                     chainValue.visibility = View.GONE
                                     assetCnt.visibility = View.GONE
@@ -83,7 +83,7 @@ class ChainEditViewHolder(
                                 val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
                                 if (chain.supportCw20 || chain.supportErc20) {
                                     val tokenCnt =
-                                        chain.grpcFetcher.tokens.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
+                                        chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                                     if (tokenCnt == 0) {
                                         assetCnt.text = coinCntString
                                     } else {

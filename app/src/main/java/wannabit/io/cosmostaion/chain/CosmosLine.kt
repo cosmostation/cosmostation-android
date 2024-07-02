@@ -8,7 +8,6 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
 import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
@@ -43,21 +42,10 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun isGasSimulable(): Boolean {
-        return getChainListParam()?.getAsJsonObject("fee")?.get("isSimulable")?.asBoolean ?: true
-    }
-
     fun voteThreshold(): String {
         return getChainListParam()?.get("voting_threshold")?.asString ?: run {
             "0"
         }
-    }
-
-    fun gasMultiply(): Double {
-        return getChainListParam()?.getAsJsonObject("fee")?.get("simul_gas_multiply")?.asDouble
-            ?: run {
-                1.2
-            }
     }
 
     fun balanceAmount(denom: String): BigDecimal {
@@ -261,18 +249,6 @@ open class CosmosLine : BaseChain(), Parcelable {
     open fun allStakingDenomAmount(): BigDecimal? {
         return balanceAmount(stakeDenom).add(vestingAmount(stakeDenom))?.add(delegationAmountSum())
             ?.add(unbondingAmountSum())?.add(rewardAmountSum(stakeDenom))
-    }
-
-    override fun explorerTx(hash: String?): Uri? {
-        getChainListParam()?.getAsJsonObject("explorer")?.get("tx")?.asString?.let { urlString ->
-            hash?.let {
-                return Uri.parse(urlString.replace("\${hash}", it))
-
-            } ?: run {
-                return null
-            }
-        }
-        return null
     }
 
     override fun explorerProposal(id: String?): Uri? {

@@ -20,7 +20,7 @@ open class EthereumLine : CosmosLine(), Parcelable {
 //    open var coinSymbol = ""
 //    open var coinGeckoId = ""
 //    open var coinLogo = -1
-    open var addressLogo = -1
+//    open var addressLogo = -1
 
 //    var evmBalance = BigDecimal.ZERO
 //
@@ -75,7 +75,7 @@ open class EthereumLine : CosmosLine(), Parcelable {
 
 fun allEvmLines(): MutableList<EthereumLine> {
     val lines = mutableListOf<EthereumLine>()
-    lines.add(ChainEthereum())
+//    lines.add(ChainEthereum())
 //    lines.add(ChainArbitrum())
 //    lines.add(ChainAvalanche())
 //    lines.add(ChainBaseEvm())

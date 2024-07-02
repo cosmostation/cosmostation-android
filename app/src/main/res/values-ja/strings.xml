@@ -115,6 +115,19 @@
     <string name="str_pro">プロ</string>
     <string name="str_permit_request">Permit 要求</string>
     <string name="str_tx_request">Tx 要求</string>
+    <string name="str_introduction">チェーンの説明</string>
+    <string name="str_chain_information">チェーン情報</string>
+    <string name="str_initial_time">最初の稼働日</string>
+    <string name="str_chain_id">チェーン ID</string>
+    <string name="str_chain_id_cosmos">チェーン ID (cosmos形式)</string>
+    <string name="str_chain_id_evm">チェーン ID (evm形式)</string>
+    <string name="str_network">通信網</string>
+    <string name="str_staking_asset">ステーキングコイン</string>
+    <string name="str_unstake_period">ステーキ解除期間</string>
+    <string name="str_inflation">インフレーション</string>
+    <string name="str_est_apr">予想収益率</string>
+    <string name="str_mainnet">メインネット</string>
+    <string name="str_testnet">テストネット</string>
 
 
     //title
@@ -245,6 +258,7 @@
     <string name="str_msg_no_history">取引履歴がありません。</string>
     <string name="str_msg_no_token">トークンがありません。</string>
     <string name="str_msg_copy">カードをタップしてコピーします。</string>
+    <string name="str_msg_copy2">コピーするにはボックスをタップしてください</string>
     <string name="str_msg_mnemonic_copy">コピー用のニーモニックフレーズボックスをタップ</string>
     <string name="str_msg_private_copy">クリップボードにコピーしました</string>
     <string name="str_msg_address_copied">クリップボードにコピーしました</string>
@@ -309,6 +323,8 @@
     <string name="str_delist_msg">選択したチェーンはモバイルウォレットから廃止されます。 他のウォレットや将来のカスタム チェーン サービスによってサポートされる可能性があります。</string>
     <string name="str_legacy_path_msg">選択したレガシー パス上のアカウントは終了されます。 アセットをパブリック パスに移動することを強くお勧めします。</string>
     <string name="str_deposit_caution_msg">%1$s ネットワーク資産のみ転送可能</string>
+    <string name="str_reward_address_change_msg">このアドレスはリワード資産を受け取るためのアドレスです。\n<u>報酬の住所を変更するにはここをタップしてください。</u> (お勧めしません)</string>
+    <string name="str_already_reward_address_changed_msg">すでにリワードアドレスを変更しました。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

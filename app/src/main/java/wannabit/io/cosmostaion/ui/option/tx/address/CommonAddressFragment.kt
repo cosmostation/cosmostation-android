@@ -18,6 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
@@ -44,7 +45,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: CosmosLine,
+            fromChain: BaseChain,
             existAddress: String,
             addressType: AddressType,
             listener: AddressListener
@@ -99,7 +100,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                     )?.let { addressType = it }
 
                 } else {
-                    (getParcelable("fromChain") as? CosmosLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getSerializable("addressType") as? AddressType)?.let {
@@ -167,31 +168,31 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                         return@setOnClickListener
                     }
 
-//                    if (addressType == AddressType.REWARD_ADDRESS) {
-//                        if (fromChain.rewardAddress.equals(address, true)) {
-//                            requireContext().makeToast(R.string.error_same_reward_address)
-//                            return@setOnClickListener
-//                        }
-//
-//                    } else {
-//                        if (fromChain.address.equals(address, true)) {
-//                            requireContext().makeToast(R.string.error_self_sending)
-//                            return@setOnClickListener
-//                        }
-//                    }
-//
-//                    if (BaseUtils.isValidBechAddress(
-//                            fromChain,
-//                            addressTxt.text.toString().trim()
-//                        )
-//                    ) {
-//                        addressListener?.selectAddress(addressTxt.text.toString().trim(), "")
-//                        dismiss()
-//
-//                    } else {
-//                        requireContext().makeToast(R.string.error_invalid_address)
-//                        return@setOnClickListener
-//                    }
+                    if (addressType == AddressType.REWARD_ADDRESS) {
+                        if (fromChain.grpcFetcher?.rewardAddress.equals(address, true)) {
+                            requireContext().makeToast(R.string.error_same_reward_address)
+                            return@setOnClickListener
+                        }
+
+                    } else {
+                        if (fromChain.address.equals(address, true)) {
+                            requireContext().makeToast(R.string.error_self_sending)
+                            return@setOnClickListener
+                        }
+                    }
+
+                    if (BaseUtils.isValidBechAddress(
+                            fromChain,
+                            addressTxt.text.toString().trim()
+                        )
+                    ) {
+                        addressListener?.selectAddress(addressTxt.text.toString().trim(), "")
+                        dismiss()
+
+                    } else {
+                        requireContext().makeToast(R.string.error_invalid_address)
+                        return@setOnClickListener
+                    }
                 }
             }
         }

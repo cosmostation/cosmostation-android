@@ -23,6 +23,7 @@ import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -291,7 +292,7 @@ interface TxRepository {
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateChangeRewardAddressTx(
@@ -300,7 +301,7 @@ interface TxRepository {
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastVoteTx(

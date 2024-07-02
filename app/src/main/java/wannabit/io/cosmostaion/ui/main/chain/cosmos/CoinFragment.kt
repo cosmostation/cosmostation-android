@@ -163,7 +163,7 @@ class CoinFragment : Fragment() {
 //                }
 
                 else -> {
-                    selectedChain.grpcFetcher.cosmosBalances?.forEach { coin ->
+                    selectedChain.grpcFetcher?.cosmosBalances?.forEach { coin ->
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
                             when (it) {
@@ -206,17 +206,17 @@ class CoinFragment : Fragment() {
 //                    }
 
                     nativeCoins.sortWith(compareByDescending {
-                        selectedChain.grpcFetcher.balanceValue(
+                        selectedChain.grpcFetcher?.balanceValue(
                             it.denom
                         )
                     })
                     ibcCoins.sortWith(compareByDescending {
-                        selectedChain.grpcFetcher.balanceValue(
+                        selectedChain.grpcFetcher?.balanceValue(
                             it.denom
                         )
                     })
                     bridgeCoins.sortWith(compareByDescending {
-                        selectedChain.grpcFetcher.balanceValue(
+                        selectedChain.grpcFetcher?.balanceValue(
                             it.denom
                         )
                     })

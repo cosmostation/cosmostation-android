@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.gapPastTime
+import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.txDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -91,9 +92,9 @@ class SendResultFragment(val selectedChain: BaseChain, private val history: Cosm
 
     private fun setUpClickAction() {
         binding?.apply {
-//            btnChrome.setOnClickListener {
-//                requireActivity().historyToMintscan(selectedChain, history.data?.txhash)
-//            }
+            btnChrome.setOnClickListener {
+                requireActivity().historyToMintscan(selectedChain, history.data?.txhash)
+            }
 
             btnConfirm.setOnClickListener {
                 dismiss()

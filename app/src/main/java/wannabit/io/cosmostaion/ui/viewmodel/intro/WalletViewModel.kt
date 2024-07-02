@@ -188,7 +188,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     fun loadGrpcStakeData(
         chain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (chain.grpcFetcher.cosmosValidators.size > 0) {
+        if (chain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
             return@launch
         }
         val tempValidators = mutableListOf<StakingProto.Validator>()
@@ -237,7 +237,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         else -> 0
                     }
                 }
-                chain.grpcFetcher.cosmosValidators = dataTempValidators
+                chain.grpcFetcher?.cosmosValidators = dataTempValidators
 
             } finally {
                 channel.shutdown()

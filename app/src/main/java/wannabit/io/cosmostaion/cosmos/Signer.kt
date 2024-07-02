@@ -389,7 +389,7 @@ object Signer {
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(
             auth, changeRewardAddress(msgSetWithdrawAddress), fee, memo, selectedChain
@@ -401,7 +401,7 @@ object Signer {
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(
             auth, changeRewardAddress(msgSetWithdrawAddress), fee, memo, selectedChain
@@ -919,7 +919,7 @@ object Signer {
         return msgAnys
     }
 
-    private fun generateGrpcPubKeyFromPriv(line: CosmosLine?, privateKey: String): Any {
+    private fun generateGrpcPubKeyFromPriv(chain: BaseChain?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
 //        return if (line is ChainInjective) {
 //            val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
@@ -942,6 +942,11 @@ object Signer {
 
     private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
+        val sha256Hash = Sha256Hash.hash(toSignByte)
+        ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
+            System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
+            System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+        }
 //        if (selectedChain is EthereumLine || selectedChain is ChainInjective) {
 //            val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
 //            System.arraycopy(sig.r, 0, sigData, 0, 32)
@@ -1009,7 +1014,7 @@ object Signer {
         msgAnys: List<Any>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         val height = grpcLatestHeight(selectedChain)
         val txBody = grpcTxBody(msgAnys, memo, height)
@@ -1026,7 +1031,7 @@ object Signer {
         msgAnys: List<Any>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         val height = grpcLatestHeight(selectedChain)
         val txBody = grpcTxBody(msgAnys, memo, height)
@@ -1036,7 +1041,7 @@ object Signer {
         return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
     }
 
-    private fun grpcLatestHeight(selectedChain: CosmosLine?): Long {
+    private fun grpcLatestHeight(selectedChain: BaseChain?): Long {
         selectedChain?.let { line ->
             val channel = getChannel(line)
             val blockStub =
@@ -1057,7 +1062,7 @@ object Signer {
     }
 
     private fun grpcSignerInfo(
-        auth: QueryAccountResponse?, selectedChain: CosmosLine?
+        auth: QueryAccountResponse?, selectedChain: BaseChain?
     ): SignerInfo? {
         ECKey.fromPrivate(selectedChain?.privateKey)?.let {
             val pubKey = generateGrpcPubKeyFromPriv(selectedChain, it.privateKeyAsHex)
@@ -1102,7 +1107,7 @@ object Signer {
         auth: QueryAccountResponse?,
         txBody: TxBody?,
         authInfo: AuthInfo?,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): TxRaw? {
         val signDoc = SignDoc.newBuilder().setBodyBytes(txBody?.toByteString())
             .setAuthInfoBytes(authInfo?.toByteString()).setChainId(selectedChain?.chainIdCosmos)
@@ -1319,7 +1324,7 @@ object Signer {
         return simulateStub.simulate(simulateRequest).gasInfo
     }
 
-    fun signature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
+    fun signature(selectedChain: BaseChain?, toSignByte: ByteArray?): String {
         if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             return ethermintSignature(selectedChain, toSignByte)
         } else {
@@ -1335,7 +1340,7 @@ object Signer {
         }
     }
 
-    private fun ethermintSignature(selectedChain: CosmosLine?, toSignByte: ByteArray?): String {
+    private fun ethermintSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): String {
         val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain?.privateKey))
         val sigData = ByteArray(64) // 32 bytes for R + 32 bytes for S
         System.arraycopy(sig.r, 0, sigData, 0, 32)

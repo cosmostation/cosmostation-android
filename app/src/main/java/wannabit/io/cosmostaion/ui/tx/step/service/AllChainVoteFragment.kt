@@ -520,25 +520,25 @@ class AllChainVoteFragment : BaseTxFragment() {
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             gasInfo?.let { info ->
-                val gasLimit =
-                    (info.gasUsed.toDouble() * (voteAllModel.basechain as CosmosLine).gasMultiply()).toLong()
-                        .toBigDecimal()
-                (voteAllModel.basechain as CosmosLine).getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
-                    it.denom == txFee?.getAmount(
-                        0
-                    )?.denom
-                }?.let { gasRate ->
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-
-                    voteAllModel.isBusy = false
-                    voteAllModel.txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                    voteAllModel.toVotes = toVotes
-                }
+//                val gasLimit =
+//                    (info.gasUsed.toDouble() * (voteAllModel.basechain as CosmosLine).gasMultiply()).toLong()
+//                        .toBigDecimal()
+//                (voteAllModel.basechain as CosmosLine).getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
+//                    it.denom == txFee?.getAmount(
+//                        0
+//                    )?.denom
+//                }?.let { gasRate ->
+//                    val feeCoinAmount =
+//                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+//                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
+//                        .setAmount(feeCoinAmount.toString()).build()
+//
+//                    voteAllModel.isBusy = false
+//                    voteAllModel.txFee =
+//                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+//                            .build()
+//                    voteAllModel.toVotes = toVotes
+//                }
             }
             withContext(Dispatchers.Main) {
                 if (isShowAll) {

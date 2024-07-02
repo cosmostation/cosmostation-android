@@ -12,6 +12,7 @@ import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -58,11 +59,12 @@ open class BaseChain : Parcelable {
     open var coinSymbol: String = ""
     open var coinGeckoId: String = ""
     open var coinLogo = -1
+    open var addressLogo = -1
     open var evmRpcURL: String = ""
     var web3j: Web3j? = null
 
-    lateinit var grpcFetcher: FetcherGrpc
-    lateinit var evmRpcFetcher: FetcherEvmRpc
+    var grpcFetcher: FetcherGrpc? = null
+    var evmRpcFetcher: FetcherEvmRpc? = null
 
     open var fetched = false
 
@@ -92,17 +94,28 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun initFetcher() {
-        if (supportEvm) {
-            evmRpcFetcher = FetcherEvmRpc(this)
+    fun grpcFetcher(): FetcherGrpc? {
+        if (!supportCosmosGrpc) {
+            return null
         }
-        if (supportCosmosGrpc) {
+        if (grpcFetcher == null) {
             grpcFetcher = FetcherGrpc(this)
         }
+        return grpcFetcher
+    }
+
+    fun evmRpcFetcher(): FetcherEvmRpc? {
+        if (!supportEvm) {
+            return null
+        }
+        if (evmRpcFetcher == null) {
+            evmRpcFetcher = FetcherEvmRpc(this)
+        }
+        return evmRpcFetcher
     }
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        grpcFetcher.tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+        grpcFetcher?.tokens?.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
@@ -113,20 +126,44 @@ open class BaseChain : Parcelable {
 
     fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
-        grpcFetcher.tokens.forEach { token ->
-            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
-            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                .setScale(6, RoundingMode.DOWN)
-            result = result.add(value)
+        grpcFetcher?.let { grpc ->
+            grpc.tokens.forEach { token ->
+                val price = BaseData.getPrice(token.coinGeckoId, isUsd)
+                val value =
+                    price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                        .setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
+        }
+
+        evmRpcFetcher?.let { evmGrpc ->
+            evmGrpc.evmTokens.forEach { tokenInfo ->
+                val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
+                val value = price.multiply(tokenInfo.amount?.toBigDecimal())
+                    .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
+            return result
         }
         return result
     }
 
     fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        grpcFetcher.apply {
-            return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
-                .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
+        grpcFetcher?.let { grpc ->
+            grpc.apply {
+                return balanceValueSum(isUsd).add(vestingValueSum(isUsd))
+                    .add(delegationValueSum(isUsd)).add(unbondingValueSum(isUsd))
+                    .add(rewardValueSum(isUsd))
+            }
         }
+
+        evmRpcFetcher?.let { evmGrpc ->
+            evmGrpc.apply {
+                val price = BaseData.getPrice(coinGeckoId, isUsd)
+                return evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
+            }
+        }
+        return BigDecimal.ZERO
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
@@ -152,7 +189,7 @@ open class BaseChain : Parcelable {
         var feeCoin: CoinProto.Coin? = null
         for (i in 0 until getDefaultFeeCoins(c).size) {
             val minFee = getDefaultFeeCoins(c)[i]
-            if (grpcFetcher.balanceAmount(minFee.denom) >= minFee.amount.toBigDecimal()) {
+            if (minFee.amount.toBigDecimal() <= grpcFetcher?.balanceAmount(minFee.denom)) {
                 feeCoin = minFee
                 break
             }
@@ -247,9 +284,16 @@ open class BaseChain : Parcelable {
         return result
     }
 
+    fun gasMultiply(): Double {
+        return getChainListParam()?.getAsJsonObject("fee")?.get("simul_gas_multiply")?.asDouble
+            ?: run {
+                1.2
+            }
+    }
+
     fun isTxFeePayable(c: Context): Boolean {
         getDefaultFeeCoins(c).forEach { fee ->
-            if (grpcFetcher.balanceAmount(fee.denom) >= BigDecimal(fee.amount)) {
+            if (fee.amount.toBigDecimal() <= grpcFetcher?.balanceAmount(fee.denom)) {
                 return true
             }
         }
@@ -277,6 +321,10 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("name_for_dapp")?.asString?.lowercase()
     }
 
+    fun isGasSimulable(): Boolean {
+        return getChainListParam()?.getAsJsonObject("fee")?.get("isSimulable")?.asBoolean ?: true
+    }
+
     fun isBankLocked(): Boolean {
         return getChainListParam()?.get("isBankLocked")?.asBoolean ?: false
     }
@@ -295,7 +343,15 @@ open class BaseChain : Parcelable {
         return null
     }
 
-    open fun explorerTx(hash: String?): Uri? {
+    fun explorerTx(hash: String?): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")?.get("tx")?.asString?.let { urlString ->
+            hash?.let {
+                return Uri.parse(urlString.replace("\${hash}", it))
+
+            } ?: run {
+                return null
+            }
+        }
         return null
     }
 
@@ -308,6 +364,7 @@ fun allCosmosLines(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
     chains.add(ChainDymensionEvm())
+    chains.add(ChainEthereum())
 //    lines.add(ChainAkash())
 //    lines.add(ChainAlthea118())
 //    lines.add(ChainArchway())

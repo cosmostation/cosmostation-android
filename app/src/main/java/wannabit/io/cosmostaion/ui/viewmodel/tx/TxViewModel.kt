@@ -36,6 +36,7 @@ import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -703,7 +704,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             val response = txRepository.broadcastChangeRewardAddressTx(
@@ -719,7 +720,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, address)?.let {
             try {

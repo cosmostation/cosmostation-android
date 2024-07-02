@@ -239,11 +239,9 @@ class FetcherGrpc(chain: BaseChain) {
     }
 
     fun allStakingDenomAmount(): BigDecimal? {
-        chain.stakeDenom?.let {
-            return balanceAmount(it).add(vestingAmount(it))?.add(delegationAmountSum())
-                ?.add(unbondingAmountSum())?.add(rewardAmountSum(it))
-        }
-        return BigDecimal.ZERO
+        return balanceAmount(chain.stakeDenom).add(vestingAmount(chain.stakeDenom))
+            ?.add(delegationAmountSum())?.add(unbondingAmountSum())
+            ?.add(rewardAmountSum(chain.stakeDenom))
     }
 
     fun getGrpc(): Pair<String, Int> {

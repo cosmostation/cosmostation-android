@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
+import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
@@ -153,10 +154,7 @@ class DashboardFragment : Fragment() {
 
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
-            if (!chain.fetched) {
-                return
-            }
-
+            if (!chain.fetched) return
 //            if (line !is ChainOkt996Keccak) {
 //                if (line.cosmosBalances == null) {
 //                    nodeDownPopup()
@@ -168,56 +166,47 @@ class DashboardFragment : Fragment() {
 //                startActivity(this)
 //            }
 //            requireActivity().toMoveAnimation()
-            if (chain.grpcFetcher.cosmosBalances == null) {
-                nodeDownPopup()
-                return
-            }
-            Intent(requireContext(), CosmosActivity::class.java).apply {
-                putExtra("selectedChain", chain as Parcelable)
-                startActivity(this)
-            }
-            requireActivity().toMoveAnimation()
+            if (chain.supportCosmosGrpc && chain.supportEvm) {
+                if (chain.grpcFetcher?.cosmosBalances == null) {
+                    nodeDownPopup()
+                    return
+                }
 
-//            if (line is EthereumLine) {
-//                if (line !is ChainOktEvm) {
-//                    if (line.supportCosmos && line.cosmosBalances == null) {
-//                        nodeDownPopup()
-//                        return
-//                    }
-//                }
-//
-//                if (line.web3j == null) {
-//                    nodeDownPopup()
-//                    return
-//                }
-//
-//                if (line.supportCosmos) {
-//                    Intent(requireContext(), CosmosActivity::class.java).apply {
-//                        putExtra("selectedChain", line as Parcelable)
-//                        startActivity(this)
-//                    }
-//                    requireActivity().toMoveAnimation()
-//                } else {
-//                    Intent(requireContext(), EvmActivity::class.java).apply {
-//                        putExtra("selectedChain", line as Parcelable)
-//                        startActivity(this)
-//                    }
-//                    requireActivity().toMoveAnimation()
-//                }
-//
-//            } else {
-//                if (line !is ChainOkt996Keccak) {
-//                    if (line.cosmosBalances == null) {
-//                        nodeDownPopup()
-//                        return
-//                    }
-//                }
-//                Intent(requireContext(), CosmosActivity::class.java).apply {
-//                    putExtra("selectedChain", line as Parcelable)
-//                    startActivity(this)
-//                }
-//                requireActivity().toMoveAnimation()
-//            }
+                if (chain.web3j == null) {
+                    nodeDownPopup()
+                    return
+                }
+                Intent(requireContext(), CosmosActivity::class.java).apply {
+                    putExtra("selectedChain", chain as Parcelable)
+                    startActivity(this)
+                }
+                requireActivity().toMoveAnimation()
+
+            } else {
+                chain.grpcFetcher?.let {
+                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                        nodeDownPopup()
+                        return
+                    }
+                    Intent(requireContext(), CosmosActivity::class.java).apply {
+                        putExtra("selectedChain", chain as Parcelable)
+                        startActivity(this)
+                    }
+                    requireActivity().toMoveAnimation()
+                }
+
+                chain.evmRpcFetcher?.let {
+                    if (chain.web3j == null) {
+                        nodeDownPopup()
+                        return
+                    }
+                    Intent(requireContext(), EvmActivity::class.java).apply {
+                        putExtra("selectedChain", chain as Parcelable)
+                        startActivity(this)
+                    }
+                    requireActivity().toMoveAnimation()
+                }
+            }
         }
     }
 

@@ -32,9 +32,6 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
     override var coinSymbol: String = "DYM"
     override var coinGeckoId: String = "dymension"
     override var coinLogo: Int = R.drawable.token_eth
+    override var addressLogo: Int = R.drawable.icon_dymension_address
     override var evmRpcURL: String = "https://rpc-dymension-evm.cosmostation.io"
-
-    init {
-        initFetcher()
-    }
 }

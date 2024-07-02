@@ -109,6 +109,19 @@
     <string name="str_pro">Pro</string>
     <string name="str_permit_request">Permit 요청</string>
     <string name="str_tx_request">Tx 요청</string>
+    <string name="str_introduction">체인 설명</string>
+    <string name="str_chain_information">체인 정보</string>
+    <string name="str_initial_time">최초 가동일</string>
+    <string name="str_chain_id">체인 아이디</string>
+    <string name="str_chain_id_cosmos">체인 아이디 (cosmos 형식)</string>
+    <string name="str_chain_id_evm">체인 아이디 (evm 형식)</string>
+    <string name="str_network">네트워크</string>
+    <string name="str_staking_asset">스테이킹 코인</string>
+    <string name="str_unstake_period">스테이크 해제 기간</string>
+    <string name="str_inflation">인플레이션</string>
+    <string name="str_est_apr">예상 수익률</string>
+    <string name="str_mainnet">메인넷</string>
+    <string name="str_testnet">테스트넷</string>
 
 
     //title
@@ -244,6 +257,7 @@
     <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_copy">복사하려면 카드를 탭하세요.</string>
+    <string name="str_msg_copy2">박스영역을 눌러서 복사하실 수 있습니다</string>
     <string name="str_msg_mnemonic_copy">복사하려면 니모닉 문구 상자를 탭하세요</string>
     <string name="str_msg_private_copy">클립보드에 복사하였습니다.</string>
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
@@ -306,6 +320,8 @@
     <string name="str_delist_msg">선택하신 체인은 모바일 지갑에서 지원종료 예정입니다. 다른 지갑 또는 차후 커스텀체인 서비스로 지원할 수 있습니다.</string>
     <string name="str_legacy_path_msg">선택하신 레거시 경로의 계정은 지원종료 예정입니다. 퍼블릭 경로로 자산을 옮기 시길 강력히 권장합니다.</string>
     <string name="str_deposit_caution_msg">%1$s 네트워크 자산만 전송가능 합니다</string>
+    <string name="str_reward_address_change_msg">이 주소는 리워드 자산을 받는 주소입니다.\n<u>여기를 눌러 리워드 주소를 변경하실 수 있습니다.</u> (권장하지 않음)</string>
+    <string name="str_already_reward_address_changed_msg">이미 리워드 주소를 변경하였습니다.</string>
 
 
     // error

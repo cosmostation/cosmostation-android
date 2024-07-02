@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.data.model.res.FeeData
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
@@ -21,7 +22,7 @@ class AssetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: CosmosLine
+    private lateinit var fromChain: BaseChain
     private var feeDatas: MutableList<FeeData>? = mutableListOf()
 
     private lateinit var assetAdapter: AssetAdapter
@@ -29,7 +30,7 @@ class AssetFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: CosmosLine,
+            fromChain: BaseChain,
             feeDatas: MutableList<FeeData>,
             listener: AssetSelectListener,
         ): AssetFragment {
@@ -63,12 +64,12 @@ class AssetFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getParcelable("fromChain", CosmosLine::class.java)?.let {
+                    getParcelable("fromChain", BaseChain::class.java)?.let {
                         fromChain = it
                     }
 
                 } else {
-                    (getParcelable("fromChain") as? CosmosLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                 }

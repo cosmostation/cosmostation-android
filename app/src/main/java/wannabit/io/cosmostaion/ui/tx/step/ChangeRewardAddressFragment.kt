@@ -20,7 +20,7 @@ import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -52,7 +52,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     private var _binding: FragmentChangeRewardAddressBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -67,7 +67,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): ChangeRewardAddressFragment {
+        fun newInstance(selectedChain: BaseChain): ChangeRewardAddressFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -98,10 +98,10 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
@@ -112,7 +112,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
                 )
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
-            currentRewardAddress.text = selectedChain.rewardAddress
+            currentRewardAddress.text = selectedChain.grpcFetcher?.rewardAddress
         }
     }
 
@@ -198,21 +198,21 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                selectedChain.stakeDenom?.let { denom ->
-                    val balanceAmount = selectedChain.balanceAmount(denom)
-                    val vestingAmount = selectedChain.vestingAmount(denom)
+                val balanceAmount =
+                    selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
+                val vestingAmount =
+                    selectedChain.grpcFetcher?.vestingAmount(selectedChain.stakeDenom)
 
-                    txFee?.let {
-                        availableAmount = if (it.getAmount(0).denom == denom) {
-                            val feeAmount = it.getAmount(0).amount.toBigDecimal()
-                            if (feeAmount > balanceAmount) {
-                                BigDecimal.ZERO
-                            } else {
-                                balanceAmount.add(vestingAmount).subtract(feeAmount)
-                            }
+                txFee?.let {
+                    availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
+                        val feeAmount = it.getAmount(0).amount.toBigDecimal()
+                        if (feeAmount > balanceAmount) {
+                            BigDecimal.ZERO
                         } else {
-                            balanceAmount.add(vestingAmount)
+                            balanceAmount?.add(vestingAmount)?.subtract(feeAmount)
                         }
+                    } else {
+                        balanceAmount?.add(vestingAmount)
                     }
                 }
             }

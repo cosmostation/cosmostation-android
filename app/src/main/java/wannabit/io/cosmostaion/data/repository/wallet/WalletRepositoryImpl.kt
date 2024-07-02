@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
@@ -362,8 +363,9 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun evmBalance(chain: BaseChain): NetworkResult<String> {
+        Log.e("test1234 : ", chain.evmRpcFetcher?.getEvmRpc().toString())
         return safeApiCall(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService(chain.evmRpcFetcher.getEvmRpc()))
+            val web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
             val balance =
                 web3j.ethGetBalance(chain.evmAddress, DefaultBlockParameterName.LATEST).send()
             balance.balance.toString()

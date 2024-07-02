@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class ApplicationViewModel(
@@ -90,11 +91,11 @@ class ApplicationViewModel(
             if (supportCw20 || supportErc20) {
                 when (val response = walletRepository.token(this)) {
                     is NetworkResult.Success -> {
-                        grpcFetcher.tokens = response.data
+                        grpcFetcher?.tokens = response.data
                         if (supportNft) {
                             when (val infoResponse = walletRepository.cw721Info(apiName)) {
                                 is NetworkResult.Success -> {
-                                    grpcFetcher.cw721s = infoResponse.data
+                                    grpcFetcher?.cw721s = infoResponse.data
                                 }
 
                                 is NetworkResult.Error -> {
@@ -112,8 +113,7 @@ class ApplicationViewModel(
             } else if (supportNft) {
                 when (val response = walletRepository.cw721Info(apiName)) {
                     is NetworkResult.Success -> {
-                        grpcFetcher
-                        grpcFetcher.cw721s = response.data
+                        grpcFetcher?.cw721s = response.data
                     }
 
                     is NetworkResult.Error -> {
@@ -151,44 +151,46 @@ class ApplicationViewModel(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
-            getChannel(this)?.let { channel ->
-                when (val response = walletRepository.auth(channel, this)) {
-                    is NetworkResult.Success -> {
-                        grpcFetcher.cosmosAuth = response.data?.account
-                        loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
-                    }
+            grpcFetcher()?.let { grpcFetcher ->
+                getChannel(this)?.let { channel ->
+                    when (val response = walletRepository.auth(channel, this)) {
+                        is NetworkResult.Success -> {
+                            grpcFetcher.cosmosAuth = response.data?.account
+                            loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
+                        }
 
-                    is NetworkResult.Error -> {
-                        when (val balanceResponse = walletRepository.balance(channel, this)) {
-                            is NetworkResult.Success -> {
-                                balanceResponse.data?.balancesList?.let {
-                                    grpcFetcher.cosmosBalances = it
+                        is NetworkResult.Error -> {
+                            when (val balanceResponse = walletRepository.balance(channel, this)) {
+                                is NetworkResult.Success -> {
+                                    balanceResponse.data?.balancesList?.let {
+                                        grpcFetcher.cosmosBalances = it
+                                    }
+                                }
+
+                                is NetworkResult.Error -> {
+                                    grpcFetcher.cosmosBalances = null
                                 }
                             }
 
-                            is NetworkResult.Error -> {
-                                grpcFetcher.cosmosBalances = null
-                            }
-                        }
-
-                        fetched = true
-                        if (fetched) {
-                            val refAddress = RefAddress(
-                                baseAccountId,
-                                tag,
-                                address,
-                                ByteUtils.convertBech32ToEvm(address),
-                                "0",
-                                "0",
-                                "0",
-                                0
-                            )
-                            BaseData.updateRefAddressesMain(refAddress)
-                            withContext(Dispatchers.Main) {
-                                if (isEdit) {
-                                    editFetchedResult.value = tag
-                                } else {
-                                    fetchedResult.value = tag
+                            fetched = true
+                            if (fetched) {
+                                val refAddress = RefAddress(
+                                    baseAccountId,
+                                    tag,
+                                    address,
+                                    ByteUtils.convertBech32ToEvm(address),
+                                    "0",
+                                    "0",
+                                    "0",
+                                    0
+                                )
+                                BaseData.updateRefAddressesMain(refAddress)
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit) {
+                                        editFetchedResult.value = tag
+                                    } else {
+                                        fetchedResult.value = tag
+                                    }
                                 }
                             }
                         }
@@ -226,33 +228,33 @@ class ApplicationViewModel(
                                 when (response.data) {
                                     is QueryProto.QueryAllBalancesResponse -> {
                                         response.data.balancesList?.let {
-                                            grpcFetcher.cosmosBalances = it
+                                            grpcFetcher?.cosmosBalances = it
                                         }
                                     }
 
                                     is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse -> {
-                                        grpcFetcher.cosmosDelegations.clear()
+                                        grpcFetcher?.cosmosDelegations?.clear()
                                         response.data.delegationResponsesList.forEach { delegation ->
                                             if (delegation.balance.amount != "0") {
-                                                grpcFetcher.cosmosDelegations.add(delegation)
+                                                grpcFetcher?.cosmosDelegations?.add(delegation)
                                             }
                                         }
                                     }
 
                                     is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse -> {
                                         response.data.unbondingResponsesList?.let {
-                                            grpcFetcher.cosmosUnbondings = it
+                                            grpcFetcher?.cosmosUnbondings = it
                                         }
                                     }
 
                                     is com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse -> {
                                         response.data.rewardsList?.let {
-                                            grpcFetcher.cosmosRewards = it
+                                            grpcFetcher?.cosmosRewards = it
                                         }
                                     }
 
                                     is String -> {
-                                        grpcFetcher.rewardAddress = response.data
+                                        grpcFetcher?.rewardAddress = response.data
                                     }
                                 }
                             }
@@ -313,9 +315,9 @@ class ApplicationViewModel(
                         address,
                         ByteUtils.convertBech32ToEvm(address),
                         allAssetValue(true).toPlainString(),
-                        grpcFetcher.allStakingDenomAmount().toString(),
+                        grpcFetcher?.allStakingDenomAmount().toString(),
                         "0",
-                        grpcFetcher.cosmosBalances?.count {
+                        grpcFetcher?.cosmosBalances?.count {
                             BaseData.getAsset(
                                 apiName, it.denom
                             ) != null
@@ -376,8 +378,8 @@ class ApplicationViewModel(
     private fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
         CoroutineScope(Dispatchers.IO).launch {
             chain.apply {
-                val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, tag)
-                if (supportCosmosGrpc) {
+                evmRpcFetcher()?.let { evmRpcFetcher ->
+                    val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, tag)
                     val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
                     val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
 
@@ -395,61 +397,92 @@ class ApplicationViewModel(
                         web3j = null
                     }
 
-                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                        evmRpcFetcher.evmTokens.filter { it.default }.map { token ->
-                            async { walletRepository.erc20Balance(chain, token) }
+                    if (supportCosmosGrpc) {
+                        val tokenBalanceDeferredList = evmRpcFetcher.evmTokens.map { token ->
+                            async { walletRepository.erc20Balance(this@apply, token) }
                         }
+
+                        tokenBalanceDeferredList.awaitAll()
+                        val evmRefAddress = RefAddress(baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            allTokenValue(true).toPlainString(),
+                            grpcFetcher?.cosmosBalances?.count {
+                                BaseData.getAsset(
+                                    apiName, it.denom
+                                ) != null
+                            }?.toLong() ?: 0L
+                        )
+                        BaseData.updateRefAddressesToken(evmRefAddress)
+                        withContext(Dispatchers.Main) {
+                            if (isEdit) {
+                                editFetchedTokenResult.value = tag
+                            } else {
+                                fetchedTokenResult.value = tag
+                            }
+                        }
+                        fetchedTotalResult.postValue(tag)
 
                     } else {
-                        evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
-                            .map { token ->
-                                async { walletRepository.erc20Balance(chain, token) }
+                        fetched = true
+                        if (fetched) {
+                            val refAddress = RefAddress(
+                                baseAccountId,
+                                tag,
+                                "",
+                                address,
+                                allAssetValue(true).toString(),
+                                evmRpcFetcher.evmBalance.toString(),
+                                "0",
+                                if (BigDecimal.ZERO >= evmRpcFetcher.evmBalance) 0 else 1
+                            )
+                            BaseData.updateRefAddressesMain(refAddress)
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
+                                }
                             }
-                    }
 
-                    tokenBalanceDeferredList.awaitAll()
-                    val evmRefAddress = RefAddress(
-                        baseAccountId,
-                        tag,
-                        "",
-                        address,
-                        "0",
-                        "0",
-                        allTokenValue(true).toPlainString(),
-                        0
-                    )
-                    BaseData.updateRefAddressesToken(evmRefAddress)
-                    withContext(Dispatchers.Main) {
-                        if (isEdit) {
-                            editFetchedTokenResult.value = tag
-                        } else {
-                            fetchedTokenResult.value = tag
+                            val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                evmRpcFetcher.evmTokens.filter { it.default }.map { token ->
+                                    async { walletRepository.erc20Balance(this@apply, token) }
+                                }
+
+                            } else {
+                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
+                                    .map { token ->
+                                        async { walletRepository.erc20Balance(this@apply, token) }
+                                    }
+                            }
+
+                            tokenBalanceDeferredList.awaitAll()
+                            val evmRefAddress = RefAddress(
+                                baseAccountId,
+                                tag,
+                                "",
+                                address,
+                                "0",
+                                "0",
+                                allTokenValue(true).toPlainString(),
+                                0
+                            )
+                            BaseData.updateRefAddressesToken(evmRefAddress)
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedTokenResult.value = tag
+                                } else {
+                                    fetchedTokenResult.value = tag
+                                }
+                            }
+                            fetchedTotalResult.postValue(tag)
                         }
                     }
-                    fetchedTotalResult.postValue(tag)
                 }
-
-//                fetched = true
-//                if (fetched) {
-//                    val refAddress = RefAddress(
-//                        baseAccountId,
-//                        tag,
-//                        "",
-//                        address,
-//                        allAssetValue(true).toString(),
-//                        evmRpcFetcher.evmBalance.toString(),
-//                        "0",
-//                        if (evmRpcFetcher.evmBalance <= BigDecimal.ZERO) 0 else 1
-//                    )
-//                    BaseData.updateRefAddressesMain(refAddress)
-//                    withContext(Dispatchers.Main) {
-//                        if (isEdit) {
-//                            editFetchedResult.value = tag
-//                        } else {
-//                            fetchedResult.value = tag
-//                        }
-//                    }
-//                }
             }
         }
 

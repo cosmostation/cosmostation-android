@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentChangeRewardAddressWarnBinding
 import wannabit.io.cosmostaion.ui.tx.step.ChangeRewardAddressFragment
 
@@ -17,14 +17,14 @@ class ChangeRewardAddressWarnFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentChangeRewardAddressWarnBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private var isClickable = true
 
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine
+            selectedChain: BaseChain
         ): ChangeRewardAddressWarnFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -51,10 +51,10 @@ class ChangeRewardAddressWarnFragment : BottomSheetDialogFragment() {
 
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }

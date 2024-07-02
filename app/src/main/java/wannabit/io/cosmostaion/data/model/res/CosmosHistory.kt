@@ -10,8 +10,6 @@ import com.squareup.moshi.JsonClass
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.toHex
 import java.math.BigDecimal
@@ -1063,7 +1061,7 @@ data class CosmosHistory(
                             null
                         }
                         if (amount != null) {
-                            chain.grpcFetcher.tokens.firstOrNull { it.address == contractAddress }?.let { cw20 ->
+                            chain.grpcFetcher?.tokens?.firstOrNull { it.address == contractAddress }?.let { cw20 ->
                                 return Pair(cw20, amount.toBigDecimal())
                             }
                         } else {

@@ -30,9 +30,11 @@ class CoinViewHolder(
                 when (coin.type) {
                     CoinType.NATIVE -> headerTitle.text =
                         context.getString(R.string.str_native_coins)
+
                     CoinType.IBC -> headerTitle.text = context.getString(R.string.str_ibc_coins)
                     CoinType.BRIDGE -> headerTitle.text =
                         context.getString(R.string.str_bridge_coins)
+
                     else -> headerTitle.text = context.getString(R.string.str_unknown_coins)
                 }
             }
@@ -62,7 +64,7 @@ class CoinViewHolder(
 
                         coinAmount.text = formatAmount(amount.toPlainString(), 6)
                         coinAmountValue.text =
-                            formatAssetValue(chain.grpcFetcher.denomValue(coin.denom))
+                            chain.grpcFetcher?.denomValue(coin.denom)?.let { formatAssetValue(it) }
                     }
                 }
             }

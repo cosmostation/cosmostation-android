@@ -450,7 +450,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabStake.setOnClickListener {
-                if (selectedChain.grpcFetcher.cosmosValidators.size > 0) {
+                if (selectedChain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
                     handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
 
                 } else {
@@ -461,12 +461,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabClaimReward.setOnClickListener {
-                if (selectedChain.grpcFetcher.cosmosValidators.size > 0) {
-                    if (selectedChain.grpcFetcher.rewardAllCoins().isEmpty()) {
+                if (selectedChain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
+                    if (selectedChain.grpcFetcher?.rewardAllCoins()?.isEmpty() == true) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-                    if (selectedChain.grpcFetcher.claimableRewards().isEmpty()) {
+                    if (selectedChain.grpcFetcher?.claimableRewards()?.isEmpty() == true) {
                         requireContext().showToast(view, R.string.error_wasting_fee, false)
                         return@setOnClickListener
                     }
