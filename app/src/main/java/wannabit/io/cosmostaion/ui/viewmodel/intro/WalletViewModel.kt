@@ -255,7 +255,37 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     private var _balanceResult = MutableLiveData<String>()
     val balanceResult: LiveData<String> get() = _balanceResult
 
-    fun evmBalance(line: EthereumLine) = viewModelScope.launch(Dispatchers.IO) {
+    fun evmBalance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        if (chain.supportEvm) {
+            when (val response = walletRepository.evmBalance(chain)) {
+                is NetworkResult.Success -> {
+                    chain.evmRpcFetcher?.evmBalance = response.data.toBigDecimal()
+                    chain.web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
+                    chain.fetched = true
+                    if (chain.fetched) {
+                        withContext(Dispatchers.Main) {
+                            _balanceResult.value = chain.tag
+                        }
+                    }
+                }
+
+                is NetworkResult.Error -> {
+                    chain.evmRpcFetcher?.evmBalance = BigDecimal.ZERO
+                    chain.web3j = null
+                    chain.fetched = true
+                    if (chain.fetched) {
+                        withContext(Dispatchers.Main) {
+                            _balanceResult.value = chain.tag
+                        }
+                    }
+                }
+            }
+
+        } else {
+
+        }
+
+
 //        when (val response = walletRepository.evmBalance(line)) {
 //            is NetworkResult.Success -> {
 //                line.evmBalance = response.data.toBigDecimal()
@@ -281,8 +311,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 //        }
     }
 
-    fun balance(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
-        when (line) {
+    fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        when (chain) {
 //            is ChainOkt996Keccak -> {
 //                when (val response = walletRepository.oktAccountInfo(line)) {
 //                    is NetworkResult.Success -> {

@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
@@ -82,7 +84,18 @@ class CoinFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = coinAdapter
 
-            coinAdapter.setOnItemClickListener { line, denom, position ->
+            coinAdapter.setOnItemClickListener { chain, denom, position ->
+                val sendAssetType = if (position == 0) {
+                    if (chain.supportEvm && chain.isCosmos()) {
+                        SendAssetType.COSMOS_EVM_COIN
+                    } else {
+                        SendAssetType.ONLY_COSMOS_COIN
+                    }
+                } else {
+                    SendAssetType.ONLY_COSMOS_COIN
+                }
+
+
 //                val sendAssetType = if (position == 0) {
 //                    if (line is EthereumLine) {
 //                        if (line is ChainBeraEvm) {
@@ -108,10 +121,10 @@ class CoinFragment : Fragment() {
 //                    }
 //                }
 //
-//                if (selectedChain.isBankLocked()) {
-//                    requireActivity().makeToast(R.string.error_tranfer_disabled)
-//                    return@setOnItemClickListener
-//                }
+                if (selectedChain.isBankLocked()) {
+                    requireActivity().makeToast(R.string.error_tranfer_disabled)
+                    return@setOnItemClickListener
+                }
 //
 //                if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
 //                    startLegacyTransfer(line, denom)
@@ -120,7 +133,7 @@ class CoinFragment : Fragment() {
 //                    startTransfer(line, denom, sendAssetType)
 //
 //                } else {
-//                    startTransfer(line, denom, sendAssetType)
+                    startTransfer(chain, denom, sendAssetType)
 //                }
             }
         }
@@ -283,10 +296,10 @@ class CoinFragment : Fragment() {
         }
     }
 
-    private fun startTransfer(line: CosmosLine, denom: String, sendAssetType: SendAssetType) {
+    private fun startTransfer(chain: BaseChain, denom: String, sendAssetType: SendAssetType) {
         handleOneClickWithDelay(
             CommonTransferFragment.newInstance(
-                line, denom, sendAssetType
+                chain, denom, sendAssetType
             )
         )
     }

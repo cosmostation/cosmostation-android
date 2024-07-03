@@ -32,22 +32,17 @@ import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.handlerRight
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -62,12 +57,8 @@ import wannabit.io.cosmostaion.data.model.res.SwapVenue
 import wannabit.io.cosmostaion.data.repository.skip.SkipRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.DialogBigLossWarnBinding
 import wannabit.io.cosmostaion.databinding.FragmentSwapBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.ChainFragment
-import wannabit.io.cosmostaion.ui.option.tx.general.ChainListType
-import wannabit.io.cosmostaion.ui.option.tx.general.ChainSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetListener
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectFragment
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectType
@@ -676,63 +667,63 @@ class SwapFragment : BaseTxFragment() {
             }
 
             inputChainLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    ChainFragment.newInstance(
-                        skipChains,
-                        ChainListType.SELECT_INPUT_SWAP,
-                        object : ChainSelectListener {
-                            override fun select(chainId: String) {
-                                try {
-                                    if (inputCosmosLine?.chainIdCosmos != chainId) {
-                                        loading.visibility = View.VISIBLE
-
-                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-                                            inputCosmosLine =
-                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
-                                            inputAssets.clear()
-                                            inputCosmosLine?.let { line ->
-                                                try {
-                                                    skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                                        ?.getAsJsonObject(line.chainIdCosmos)
-                                                        ?.getAsJsonArray("assets")
-                                                        ?.forEach { json ->
-                                                            BaseData.getAsset(
-                                                                line.apiName,
-                                                                json.asJsonObject.get("denom").asString
-                                                            )?.let { asset ->
-                                                                inputAssets.add(asset)
-                                                            }
-                                                        }
-                                                    inputAssetSelected =
-                                                        inputAssets.firstOrNull { it.denom == line.stakeDenom }
-
-//                                                    val channel = getChannel(line)
-//                                                    val loadInputAuthDeferred =
-//                                                        async { loadAuth(channel, line.address) }
-//                                                    val loadInputBalanceDeferred =
-//                                                        async { loadBalance(channel, line.address) }
+//                handleOneClickWithDelay(
+//                    ChainFragment.newInstance(
+//                        skipChains,
+//                        ChainListType.SELECT_INPUT_SWAP,
+//                        object : ChainSelectListener {
+//                            override fun select(chainId: String) {
+//                                try {
+//                                    if (inputCosmosLine?.chainIdCosmos != chainId) {
+//                                        loading.visibility = View.VISIBLE
 //
-//                                                    line.cosmosAuth =
-//                                                        loadInputAuthDeferred.await()?.account
-//                                                    line.cosmosBalances =
-//                                                        loadInputBalanceDeferred.await().balancesList
-                                                    BaseUtils.onParseVestingAccount(line)
-                                                } catch (e: Exception) {
-                                                    activity?.makeToast(R.string.str_unknown_error)
-                                                }
-                                            }
-
-                                            withContext(Dispatchers.Main) {
-                                                initView()
-                                            }
-                                        }
-                                    }
-                                } catch (e: Exception) {
-                                    activity?.makeToast(R.string.str_unknown_error)
-                                }
-                            }
-                        })
-                )
+//                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
+//                                            inputCosmosLine =
+//                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
+//                                            inputAssets.clear()
+//                                            inputCosmosLine?.let { line ->
+//                                                try {
+//                                                    skipAssets?.getAsJsonObject("chain_to_assets_map")
+//                                                        ?.getAsJsonObject(line.chainIdCosmos)
+//                                                        ?.getAsJsonArray("assets")
+//                                                        ?.forEach { json ->
+//                                                            BaseData.getAsset(
+//                                                                line.apiName,
+//                                                                json.asJsonObject.get("denom").asString
+//                                                            )?.let { asset ->
+//                                                                inputAssets.add(asset)
+//                                                            }
+//                                                        }
+//                                                    inputAssetSelected =
+//                                                        inputAssets.firstOrNull { it.denom == line.stakeDenom }
+//
+////                                                    val channel = getChannel(line)
+////                                                    val loadInputAuthDeferred =
+////                                                        async { loadAuth(channel, line.address) }
+////                                                    val loadInputBalanceDeferred =
+////                                                        async { loadBalance(channel, line.address) }
+////
+////                                                    line.cosmosAuth =
+////                                                        loadInputAuthDeferred.await()?.account
+////                                                    line.cosmosBalances =
+////                                                        loadInputBalanceDeferred.await().balancesList
+//                                                    BaseUtils.onParseVestingAccount(line)
+//                                                } catch (e: Exception) {
+//                                                    activity?.makeToast(R.string.str_unknown_error)
+//                                                }
+//                                            }
+//
+//                                            withContext(Dispatchers.Main) {
+//                                                initView()
+//                                            }
+//                                        }
+//                                    }
+//                                } catch (e: Exception) {
+//                                    activity?.makeToast(R.string.str_unknown_error)
+//                                }
+//                            }
+//                        })
+//                )
             }
 
             inputTokenLayout.setOnClickListener {
@@ -771,63 +762,63 @@ class SwapFragment : BaseTxFragment() {
             }
 
             outputChainLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    ChainFragment.newInstance(
-                        skipChains,
-                        ChainListType.SELECT_OUTPUT_SWAP,
-                        object : ChainSelectListener {
-                            override fun select(chainId: String) {
-                                try {
-                                    if (outputCosmosLine?.chainIdCosmos != chainId) {
-                                        loading.visibility = View.VISIBLE
-
-                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-                                            outputCosmosLine =
-                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
-                                            outputAssets.clear()
-                                            outputCosmosLine?.let { line ->
-                                                try {
-                                                    skipAssets?.getAsJsonObject("chain_to_assets_map")
-                                                        ?.getAsJsonObject(line.chainIdCosmos)
-                                                        ?.getAsJsonArray("assets")
-                                                        ?.forEach { json ->
-                                                            BaseData.getAsset(
-                                                                line.apiName,
-                                                                json.asJsonObject.get("denom").asString
-                                                            )?.let { asset ->
-                                                                outputAssets.add(asset)
-                                                            }
-                                                        }
-                                                    outputAssetSelected =
-                                                        outputAssets.firstOrNull { it.denom == line.stakeDenom }
-
-//                                                    val channel = getChannel(line)
-//                                                    val loadOutputAuthDeferred =
-//                                                        async { loadAuth(channel, line.address) }
-//                                                    val loadOutputBalanceDeferred =
-//                                                        async { loadBalance(channel, line.address) }
+//                handleOneClickWithDelay(
+//                    ChainFragment.newInstance(
+//                        skipChains,
+//                        ChainListType.SELECT_OUTPUT_SWAP,
+//                        object : ChainSelectListener {
+//                            override fun select(chainId: String) {
+//                                try {
+//                                    if (outputCosmosLine?.chainIdCosmos != chainId) {
+//                                        loading.visibility = View.VISIBLE
 //
-//                                                    line.cosmosAuth =
-//                                                        loadOutputAuthDeferred.await()?.account
-//                                                    line.cosmosBalances =
-//                                                        loadOutputBalanceDeferred.await().balancesList
-                                                    BaseUtils.onParseVestingAccount(line)
-                                                } catch (e: Exception) {
-                                                    activity?.makeToast(R.string.str_unknown_error)
-                                                }
-                                            }
-
-                                            withContext(Dispatchers.Main) {
-                                                initView()
-                                            }
-                                        }
-                                    }
-                                } catch (e: Exception) {
-
-                                }
-                            }
-                        })
-                )
+//                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
+//                                            outputCosmosLine =
+//                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
+//                                            outputAssets.clear()
+//                                            outputCosmosLine?.let { line ->
+//                                                try {
+//                                                    skipAssets?.getAsJsonObject("chain_to_assets_map")
+//                                                        ?.getAsJsonObject(line.chainIdCosmos)
+//                                                        ?.getAsJsonArray("assets")
+//                                                        ?.forEach { json ->
+//                                                            BaseData.getAsset(
+//                                                                line.apiName,
+//                                                                json.asJsonObject.get("denom").asString
+//                                                            )?.let { asset ->
+//                                                                outputAssets.add(asset)
+//                                                            }
+//                                                        }
+//                                                    outputAssetSelected =
+//                                                        outputAssets.firstOrNull { it.denom == line.stakeDenom }
+//
+////                                                    val channel = getChannel(line)
+////                                                    val loadOutputAuthDeferred =
+////                                                        async { loadAuth(channel, line.address) }
+////                                                    val loadOutputBalanceDeferred =
+////                                                        async { loadBalance(channel, line.address) }
+////
+////                                                    line.cosmosAuth =
+////                                                        loadOutputAuthDeferred.await()?.account
+////                                                    line.cosmosBalances =
+////                                                        loadOutputBalanceDeferred.await().balancesList
+//                                                    BaseUtils.onParseVestingAccount(line)
+//                                                } catch (e: Exception) {
+//                                                    activity?.makeToast(R.string.str_unknown_error)
+//                                                }
+//                                            }
+//
+//                                            withContext(Dispatchers.Main) {
+//                                                initView()
+//                                            }
+//                                        }
+//                                    }
+//                                } catch (e: Exception) {
+//
+//                                }
+//                            }
+//                        })
+//                )
             }
 
             outputTokenLayout.setOnClickListener {

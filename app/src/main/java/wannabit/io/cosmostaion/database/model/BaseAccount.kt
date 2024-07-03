@@ -11,7 +11,7 @@ import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -68,7 +68,7 @@ data class BaseAccount(
     var allCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
     fun initAccount() {
-        allChains = allCosmosLines()
+        allChains = allChains()
 
 //        allEvmLineChains = allEvmLines()
 //        allCosmosLineChains = allCosmosLines()

@@ -263,17 +263,17 @@ open class CosmosLine : BaseChain(), Parcelable {
         return null
     }
 
-    fun monikerImg(opAddress: String?): String {
-        return "$CHAIN_BASE_URL$apiName/moniker/$opAddress.png"
-    }
+//    fun monikerImg(opAddress: String?): String {
+//        return "$CHAIN_BASE_URL$apiName/moniker/$opAddress.png"
+//    }
 
-    fun getGrpc(): Pair<String, Int> {
-        val endPoint = Prefs.getGrpcEndpoint(this)
-        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
-            val host = endPoint.split(":")[0].trim()
-            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            return Pair(host, port)
-        }
-        return Pair(grpcHost, grpcPort)
-    }
+//    fun getGrpc(): Pair<String, Int> {
+//        val endPoint = Prefs.getGrpcEndpoint(this)
+//        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
+//            val host = endPoint.split(":")[0].trim()
+//            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+//            return Pair(host, port)
+//        }
+//        return Pair(grpcHost, grpcPort)
+//    }
 }

@@ -47,7 +47,7 @@ class ChainManageViewHolder(
 
             grpcLayout.visibility = View.GONE
             rpcEndpointType.text = "GRPC"
-            rpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
+//            rpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
         }
     }
 }

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
@@ -232,11 +231,11 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw20Balance(
-        channel: ManagedChannel, line: CosmosLine, token: Token
+        channel: ManagedChannel, chain: BaseChain, token: Token
     ) {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val req = Cw20Balance(line.address)
+        val req = Cw20Balance(chain.address)
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
@@ -363,7 +362,6 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun evmBalance(chain: BaseChain): NetworkResult<String> {
-        Log.e("test1234 : ", chain.evmRpcFetcher?.getEvmRpc().toString())
         return safeApiCall(Dispatchers.IO) {
             val web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
             val balance =

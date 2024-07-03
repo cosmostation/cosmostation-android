@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemChainBinding
 
-class ChainAdapter : ListAdapter<CosmosLine, ChainViewHolder>(ChainDiffCallback()) {
+class ChainAdapter : ListAdapter<BaseChain, ChainViewHolder>(ChainDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
@@ -28,14 +29,14 @@ class ChainAdapter : ListAdapter<CosmosLine, ChainViewHolder>(ChainDiffCallback(
         }
     }
 
-    private class ChainDiffCallback : DiffUtil.ItemCallback<CosmosLine>() {
+    private class ChainDiffCallback : DiffUtil.ItemCallback<BaseChain>() {
 
-        override fun areItemsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
+        override fun areItemsTheSame(oldItem: BaseChain, newItem: BaseChain): Boolean {
             return oldItem == newItem
         }
 
         @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: CosmosLine, newItem: CosmosLine): Boolean {
+        override fun areContentsTheSame(oldItem: BaseChain, newItem: BaseChain): Boolean {
             return oldItem == newItem
         }
     }

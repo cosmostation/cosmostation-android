@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
@@ -25,15 +26,15 @@ class ChainFragment : BottomSheetDialogFragment() {
 
     private lateinit var chainAdapter: ChainAdapter
 
-    private var recipientAbleChains: MutableList<CosmosLine>? = mutableListOf()
+    private var recipientAbleChains: MutableList<BaseChain>? = mutableListOf()
     private lateinit var chainListType: ChainListType
 
-    private var searchRecipientAbleChains: MutableList<CosmosLine> = mutableListOf()
+    private var searchRecipientAbleChains: MutableList<BaseChain> = mutableListOf()
 
     companion object {
         @JvmStatic
         fun newInstance(
-            recipientAbleChains: MutableList<CosmosLine>,
+            recipientAbleChains: MutableList<BaseChain>,
             chainListType: ChainListType,
             listener: ChainSelectListener
         ): ChainFragment {

@@ -19,8 +19,12 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentStakingOptionBinding
 import wannabit.io.cosmostaion.ui.tx.info.OptionType
 import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
+import wannabit.io.cosmostaion.ui.tx.step.CancelUnBondingFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.step.ReDelegateFragment
+import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.UnStakingFragment
 
 class StakingOptionFragment : BottomSheetDialogFragment() {
 
@@ -121,7 +125,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 //                        )
 //                    )
 //                } else {
-//                    handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
+                handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
 //                }
             }
 
@@ -134,7 +138,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 //                        )
 //                    )
 //                } else {
-//                    handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
+                handleOneClickWithDelay(UnStakingFragment.newInstance(selectedChain, validator))
 //                }
             }
 
@@ -147,62 +151,61 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 //                        )
 //                    )
 //                } else {
-//                    handleOneClickWithDelay(
-//                        ReDelegateFragment.newInstance(
-//                            selectedChain,
-//                            validator
-//                        )
-//                    )
+                handleOneClickWithDelay(
+                    ReDelegateFragment.newInstance(
+                        selectedChain, validator
+                    )
+                )
 //                }
             }
 
             claimRewardsLayout.setOnClickListener {
-//                val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-//                selectedChain.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }
-//                    ?.let { claimableReward ->
-//                        if (claimableReward.rewardCount > 0) {
-//                            claimableRewards.add(claimableReward)
-//                        } else {
-//                            requireContext().makeToast(R.string.error_not_reward)
-//                            return@setOnClickListener
-//                        }
-//
-//                    } ?: run {
-//                    requireContext().makeToast(R.string.error_not_reward)
-//                    return@setOnClickListener
-//                }
-//
-//                handleOneClickWithDelay(
-//                    ClaimRewardFragment.newInstance(
-//                        selectedChain, claimableRewards
-//                    )
-//                )
+                val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
+                selectedChain.grpcFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator?.operatorAddress }
+                    ?.let { claimableReward ->
+                        if (claimableReward.rewardCount > 0) {
+                            claimableRewards.add(claimableReward)
+                        } else {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
+
+                    } ?: run {
+                    requireContext().makeToast(R.string.error_not_reward)
+                    return@setOnClickListener
+                }
+
+                handleOneClickWithDelay(
+                    ClaimRewardFragment.newInstance(
+                        selectedChain, claimableRewards
+                    )
+                )
             }
 
             compoundingLayout.setOnClickListener {
-//                if (selectedChain.rewardAddress != selectedChain.address) {
-//                    requireContext().makeToast(R.string.error_reward_address_changed_msg)
-//                    return@setOnClickListener
-//                }
+                if (selectedChain.grpcFetcher?.rewardAddress != selectedChain.address) {
+                    requireContext().makeToast(R.string.error_reward_address_changed_msg)
+                    return@setOnClickListener
+                }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-//                selectedChain.claimableRewards()
-//                    .firstOrNull { it?.validatorAddress == validator?.operatorAddress }
-//                    ?.let { claimableReward ->
-//                        if (claimableReward.rewardCount > 0) {
-//                            claimableRewards.add(claimableReward)
-//                        } else {
-//                            requireContext().makeToast(R.string.error_not_reward)
-//                            return@setOnClickListener
-//                        }
-//                    } ?: run {
-//                    requireContext().makeToast(R.string.error_not_reward)
-//                    return@setOnClickListener
-//                }
-//                handleOneClickWithDelay(
-//                    CompoundingFragment.newInstance(
-//                        selectedChain, claimableRewards
-//                    )
-//                )
+                selectedChain.grpcFetcher?.claimableRewards()
+                    ?.firstOrNull { it?.validatorAddress == validator?.operatorAddress }
+                    ?.let { claimableReward ->
+                        if (claimableReward.rewardCount > 0) {
+                            claimableRewards.add(claimableReward)
+                        } else {
+                            requireContext().makeToast(R.string.error_not_reward)
+                            return@setOnClickListener
+                        }
+                    } ?: run {
+                    requireContext().makeToast(R.string.error_not_reward)
+                    return@setOnClickListener
+                }
+                handleOneClickWithDelay(
+                    CompoundingFragment.newInstance(
+                        selectedChain, claimableRewards
+                    )
+                )
             }
 
             unstakeCancelLayout.setOnClickListener {
@@ -214,11 +217,11 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 //                        )
 //                    )
 //                } else {
-//                    handleOneClickWithDelay(
-//                        CancelUnBondingFragment.newInstance(
-//                            selectedChain, unBondingEntry
-//                        )
-//                    )
+                handleOneClickWithDelay(
+                    CancelUnBondingFragment.newInstance(
+                        selectedChain, unBondingEntry
+                    )
+                )
 //                }
             }
         }

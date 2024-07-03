@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
+import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
@@ -149,7 +150,7 @@ class CosmosDetailFragment : Fragment() {
                 accountEvmAddress.visibility = View.INVISIBLE
                 accountAddress.text = selectedChain.address
 
-                if (selectedChain.supportCosmosGrpc && selectedChain.supportEvm) {
+                if (selectedChain.isCosmos() && selectedChain.supportEvm) {
                     accountAddress.text = selectedChain.address
                     accountEvmAddress.text = selectedChain.evmAddress
                     accountAddress.visibility = View.INVISIBLE
@@ -211,8 +212,6 @@ class CosmosDetailFragment : Fragment() {
             fabClaimReward.visibleOrGone(selectedChain.supportStaking)
             fabCompounding.visibleOrGone(selectedChain.supportStaking)
             fabVote.visibleOrGone(selectedChain.supportStaking)
-
-            fabReceive.visibleOrGone(!selectedChain.supportStaking)
 //            }
 
             when (selectedChain) {
@@ -233,7 +232,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             val supportToken =
-                selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportErc20
+                selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportEvm
             val supportNft = selectedChain.supportNft
 
             val tableTitles = mutableListOf<String>()
@@ -335,36 +334,29 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountLayout.setOnClickListener {
-                QrCodeFragment.newInstance(selectedChain).show(
-                    requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-                )
+                if (selectedChain.supportEvm) {
+                    QrCodeEvmFragment.newInstance(selectedChain).show(
+                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                    )
 
-//                if (selectedChain is EthereumLine) {
-//                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-//                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
-//                    )
-//
-//                } else {
-//                    QrCodeFragment.newInstance(selectedChain).show(
-//                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-//                    )
-//                }
+                } else {
+                    QrCodeFragment.newInstance(selectedChain).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+                }
             }
 
             accountValueLayout.setOnClickListener {
-                QrCodeFragment.newInstance(selectedChain).show(
-                    requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-                )
-//                if (selectedChain is EthereumLine) {
-//                    QrCodeEvmFragment.newInstance(selectedChain as EthereumLine).show(
-//                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
-//                    )
-//
-//                } else {
-//                    QrCodeFragment.newInstance(selectedChain).show(
-//                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
-//                    )
-//                }
+                if (selectedChain.supportEvm) {
+                    QrCodeEvmFragment.newInstance(selectedChain).show(
+                        requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                    )
+
+                } else {
+                    QrCodeFragment.newInstance(selectedChain).show(
+                        requireActivity().supportFragmentManager, QrCodeFragment::class.java.name
+                    )
+                }
             }
 
             btnHide.setOnClickListener {
@@ -406,8 +398,7 @@ class CosmosDetailFragment : Fragment() {
     private fun setFabMenuClickAction() {
         binding.apply {
             fabSend.setOnClickListener {
-                selectedChain.stakeDenom?.let { denom ->
-                    val sendAssetType = SendAssetType.ONLY_COSMOS_COIN
+                val sendAssetType = SendAssetType.ONLY_COSMOS_COIN
 //                    val sendAssetType = if (selectedChain is EthereumLine) {
 //                        if (selectedChain is ChainOktEvm) {
 //                            SendAssetType.ONLY_EVM_COIN
@@ -421,32 +412,35 @@ class CosmosDetailFragment : Fragment() {
 //                        SendAssetType.ONLY_COSMOS_COIN
 //                    }
 //
-                    if (selectedChain.isBankLocked()) {
-                        requireContext().showToast(view, R.string.error_tranfer_disabled, false)
-                        return@setOnClickListener
-                    }
+                if (selectedChain.isBankLocked()) {
+                    requireContext().showToast(view, R.string.error_tranfer_disabled, false)
+                    return@setOnClickListener
+                }
 
 //                    if (selectedChain is ChainOkt996Keccak) {
 //                        handleOneClickWithDelay(
 //                            null, LegacyTransferFragment.newInstance(selectedChain, denom)
 //                        )
 //                    } else {
-                    handleOneClickWithDelay(
-                        null,
-                        CommonTransferFragment.newInstance(selectedChain, denom, sendAssetType)
+                handleOneClickWithDelay(
+                    null, CommonTransferFragment.newInstance(
+                        selectedChain, selectedChain.stakeDenom, sendAssetType
                     )
+                )
 //                    }
-                }
             }
 
             fabReceive.setOnClickListener {
-//                if (selectedChain is EthereumLine) {
-//                    handleOneClickWithDelay(
-//                        null, QrCodeEvmFragment.newInstance(selectedChain as EthereumLine)
-//                    )
-//                } else {
-//                    handleOneClickWithDelay(null, QrCodeFragment.newInstance(selectedChain))
-//                }
+                if (selectedChain.supportEvm) {
+                    handleOneClickWithDelay(
+                        null, QrCodeEvmFragment.newInstance(selectedChain)
+                    )
+
+                } else {
+                    handleOneClickWithDelay(
+                        null, QrCodeFragment.newInstance(selectedChain)
+                    )
+                }
             }
 
             fabStake.setOnClickListener {

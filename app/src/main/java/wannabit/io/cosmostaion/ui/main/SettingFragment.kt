@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -129,7 +129,7 @@ class SettingFragment : Fragment() {
                 }
             }
 
-            allCosmosLines().forEach { chain ->
+            allChains().forEach { chain ->
                 if (!chainNames.contains(chain.name)) {
                     chainNames.add(chain.name)
                 }

@@ -183,8 +183,8 @@ fun ImageView.setImg(resourceId: Int) {
     Picasso.get().load(resourceId).into(this)
 }
 
-fun ImageView.setMonikerImg(line: CosmosLine, opAddress: String?) {
-    Picasso.get().load(line.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
+fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
+    Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
         .into(this)
 }
 
@@ -595,13 +595,9 @@ fun dpToPx(context: Context, dp: Int): Int {
 }
 
 fun getChannel(selectedChain: BaseChain): ManagedChannel? {
-    return selectedChain.grpcFetcher?.let {
-        ManagedChannelBuilder.forAddress(
-            it.getGrpc().first, it.getGrpc().second
-        ).useTransportSecurity().build()
-    } ?: run {
-        null
-    }
+    return ManagedChannelBuilder.forAddress(
+        selectedChain.getGrpc().first, selectedChain.getGrpc().second
+    ).useTransportSecurity().build()
 }
 
 // kava

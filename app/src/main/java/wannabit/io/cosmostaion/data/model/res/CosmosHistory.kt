@@ -11,6 +11,7 @@ import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.hexToBigDecimal
 import wannabit.io.cosmostaion.common.toHex
 import java.math.BigDecimal
 import java.util.regex.Pattern
@@ -726,8 +727,6 @@ data class CosmosHistory(
     }
 
     fun getDpCoin(chain: BaseChain): MutableList<CoinProto.Coin> {
-//        val evmChain = line as? EthereumLine
-
         val result = mutableListOf<CoinProto.Coin>()
         val json = Gson().toJson(data?.logs)
         val jsonArray = Gson().fromJson(json, JsonArray::class.java)
@@ -861,8 +860,8 @@ data class CosmosHistory(
                                                             val denom: String =
                                                                 rawCoin.substring(m.end())
                                                             val coin = CoinProto.Coin.newBuilder()
-                                                                .setDenom(denom)
-                                                                .setAmount(amount).build()
+                                                                .setDenom(denom).setAmount(amount)
+                                                                .build()
                                                             result.add(coin)
                                                         }
                                                     }
@@ -996,7 +995,7 @@ data class CosmosHistory(
 
             } else if (msgType.contains("bank") && msgType.contains("MsgMultiSend")) {
                 for (input in msgValue["inputs"].asJsonArray) {
-                    if (!input.isJsonNull && chain.address.equals(input.asJsonObject["address"].asString)) {
+                    if (!input.isJsonNull && chain.address == input.asJsonObject["address"].asString) {
                         val coin = CoinProto.Coin.newBuilder()
                             .setDenom(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
                             .setAmount(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
@@ -1007,7 +1006,7 @@ data class CosmosHistory(
                 }
 
                 for (output in msgValue["outputs"].asJsonArray) {
-                    if (!output.isJsonNull && chain.address.equals(output.asJsonObject["address"].asString)) {
+                    if (!output.isJsonNull && chain.address == output.asJsonObject["address"].asString) {
                         val coin = CoinProto.Coin.newBuilder()
                             .setDenom(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
                             .setAmount(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
@@ -1025,16 +1024,16 @@ data class CosmosHistory(
                     } catch (e: Exception) {
                         null
                     }
-//                    if (data == null && amount.isNotEmpty() && amount != "0") {
-//                        val denom = if (evmChain?.tag == "kava60") {
-//                            "akava"
-//                        } else {
-//                            evmChain?.stakeDenom ?: ""
-//                        }
-//                        val value =
-//                            CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
-//                        result.add(value)
-//                    }
+                    if (data == null && amount.isNotEmpty() && amount != "0") {
+                        val denom = if (chain.tag == "kava60") {
+                            "akava"
+                        } else {
+                            chain.stakeDenom
+                        }
+                        val value =
+                            CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
+                        result.add(value)
+                    }
                 }
 
             } else {
@@ -1045,8 +1044,6 @@ data class CosmosHistory(
     }
 
     fun getDpToken(chain: BaseChain): Pair<Token, BigDecimal>? {
-//        val evmChain = line as? EthereumLine
-
         getMsgs()?.get(0)?.let { firstMsg ->
             firstMsg.asJsonObject["@type"].asString?.let { msgType ->
                 val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")]
@@ -1061,9 +1058,10 @@ data class CosmosHistory(
                             null
                         }
                         if (amount != null) {
-                            chain.grpcFetcher?.tokens?.firstOrNull { it.address == contractAddress }?.let { cw20 ->
-                                return Pair(cw20, amount.toBigDecimal())
-                            }
+                            chain.grpcFetcher?.tokens?.firstOrNull { it.address == contractAddress }
+                                ?.let { cw20 ->
+                                    return Pair(cw20, amount.toBigDecimal())
+                                }
                         } else {
                             return null
                         }
@@ -1079,12 +1077,12 @@ data class CosmosHistory(
                         if (data != null) {
                             val hexData = Base64.decode(data).toHex()
                             val contractAddress = dataValue.asJsonObject["to"].asString
-//                            if (hexData.startsWith("a9059cbb")) {
-//                                evmChain?.evmTokens?.firstOrNull { it.address == contractAddress }
-//                                    ?.let { erc20 ->
-//                                        return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
-//                                    }
-//                            }
+                            if (hexData.startsWith("a9059cbb")) {
+                                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address == contractAddress }
+                                    ?.let { erc20 ->
+                                        return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
+                                    }
+                            }
                         }
                     }
 

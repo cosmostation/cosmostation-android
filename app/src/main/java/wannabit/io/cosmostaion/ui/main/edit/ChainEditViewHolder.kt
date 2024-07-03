@@ -81,7 +81,7 @@ class ChainEditViewHolder(
 
                                 chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
                                 val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                                if (chain.supportCw20 || chain.supportErc20) {
+                                if (chain.supportCw20 || chain.supportEvm) {
                                     val tokenCnt =
                                         chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                                     if (tokenCnt == 0) {

@@ -20,7 +20,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -50,7 +50,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
     private var _binding: FragmentCancelUnBondingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var unBondingEntry: UnBondingEntry
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -63,7 +63,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, unBondingEntry: UnBondingEntry?
+            selectedChain: BaseChain, unBondingEntry: UnBondingEntry?
         ): CancelUnBondingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -98,7 +98,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getParcelable("unBondingEntry", UnBondingEntry::class.java)?.let {
@@ -108,7 +108,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getParcelable("unBondingEntry") as? UnBondingEntry)?.let {
@@ -122,20 +122,18 @@ class CancelUnBondingFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
+            selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
                 ?.let { validator ->
                     validatorName.text = validator.description.moniker
                 }
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
-                        ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
-                    cancelAmount.text =
-                        formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
-                    cancelDenom.text = asset.symbol
-                    cancelDenom.setTextColor(asset.assetColor())
-                }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
+                    ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                cancelAmount.text =
+                    formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
+                cancelDenom.text = asset.symbol
+                cancelDenom.setTextColor(asset.assetColor())
             }
         }
     }
@@ -285,7 +283,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadCancelUnbonding(
+                txViewModel.broadCancelUnBonding(
                     getChannel(selectedChain),
                     selectedChain.address,
                     onBindCancelUnBonding(),
@@ -303,7 +301,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
             }
             btnCancelUnstake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateCancelUnbonding(
+            txViewModel.simulateCancelUnBonding(
                 getChannel(selectedChain),
                 selectedChain.address,
                 onBindCancelUnBonding(),
@@ -337,15 +335,15 @@ class CancelUnBondingFragment : BaseTxFragment() {
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-//                val gasLimit =
-//                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-//                    .setAmount(feeCoinAmount.toString()).build()
-//
-//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-//                    .build()
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
             }
         }
         updateFeeView()

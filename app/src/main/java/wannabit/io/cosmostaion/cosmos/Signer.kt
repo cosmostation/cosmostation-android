@@ -30,6 +30,7 @@ import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.desmos.profiles.v3.ModelsProfileProto.Profile
+import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
@@ -88,7 +89,7 @@ object Signer {
         msgSend: MsgSend?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, sendMsg(msgSend), fee, memo, selectedChain)
     }
@@ -98,7 +99,7 @@ object Signer {
         msgSend: MsgSend?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, sendMsg(msgSend), fee, memo, selectedChain)
     }
@@ -117,7 +118,7 @@ object Signer {
         msgTransfer: MsgTransfer?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
@@ -127,7 +128,7 @@ object Signer {
         msgTransfer: MsgTransfer?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
@@ -146,7 +147,7 @@ object Signer {
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, wasmMsg(msgWasms), fee, memo, selectedChain)
     }
@@ -156,7 +157,7 @@ object Signer {
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, wasmMsg(msgWasms), fee, memo, selectedChain)
     }
@@ -177,7 +178,7 @@ object Signer {
         msgDelegate: MsgDelegate?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, delegateMsg(msgDelegate), fee, memo, selectedChain)
     }
@@ -187,7 +188,7 @@ object Signer {
         msgDelegate: MsgDelegate?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, delegateMsg(msgDelegate), fee, memo, selectedChain)
     }
@@ -206,7 +207,7 @@ object Signer {
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, unDelegateMsg(msgUnDelegate), fee, memo, selectedChain)
     }
@@ -216,7 +217,7 @@ object Signer {
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, unDelegateMsg(msgUnDelegate), fee, memo, selectedChain)
     }
@@ -235,7 +236,7 @@ object Signer {
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, reDelegateMsg(msgReDelegate), fee, memo, selectedChain)
     }
@@ -245,7 +246,7 @@ object Signer {
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, reDelegateMsg(msgReDelegate), fee, memo, selectedChain)
     }
@@ -264,7 +265,7 @@ object Signer {
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(
             auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, memo, selectedChain
@@ -276,7 +277,7 @@ object Signer {
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(
             auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, memo, selectedChain
@@ -297,7 +298,7 @@ object Signer {
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, claimStakingRewardMsg(auth, rewards), fee, memo, selectedChain)
     }
@@ -307,7 +308,7 @@ object Signer {
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, claimStakingRewardMsg(auth, rewards), fee, memo, selectedChain)
     }
@@ -334,7 +335,7 @@ object Signer {
         stakingDenom: String?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(
             auth, compoundingMsg(auth, rewards, stakingDenom), fee, memo, selectedChain
@@ -347,7 +348,7 @@ object Signer {
         stakingDenom: String?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(
             auth, compoundingMsg(auth, rewards, stakingDenom), fee, memo, selectedChain
@@ -921,6 +922,16 @@ object Signer {
 
     private fun generateGrpcPubKeyFromPriv(chain: BaseChain?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
+        return if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+            val pubKey =
+                KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+        } else {
+            val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+        }
 //        return if (line is ChainInjective) {
 //            val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
 //                .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
@@ -936,28 +947,21 @@ object Signer {
 //            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
 //                .setValue(pubKey.toByteString()).build()
 //        }
-        val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
-        return Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").setValue(pubKey.toByteString()).build()
     }
 
     private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        val sha256Hash = Sha256Hash.hash(toSignByte)
-        ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
-            System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
-            System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+        if (selectedChain?.supportEvm == true) {
+            val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
+            System.arraycopy(sig.r, 0, sigData, 0, 32)
+            System.arraycopy(sig.s, 0, sigData, 32, 32)
+        } else {
+            val sha256Hash = Sha256Hash.hash(toSignByte)
+            ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
+                System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
+                System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
+            }
         }
-//        if (selectedChain is EthereumLine || selectedChain is ChainInjective) {
-//            val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
-//            System.arraycopy(sig.r, 0, sigData, 0, 32)
-//            System.arraycopy(sig.s, 0, sigData, 32, 32)
-//        } else {
-//            val sha256Hash = Sha256Hash.hash(toSignByte)
-//            ECKey.fromPrivate(selectedChain?.privateKey)?.sign(Sha256Hash.wrap(sha256Hash))?.let {
-//                System.arraycopy(integerToBytes(it.r, 32), 0, sigData, 0, 32)
-//                System.arraycopy(integerToBytes(it.s, 32), 0, sigData, 32, 32)
-//            }
-//        }
         return sigData
     }
 
@@ -1104,10 +1108,7 @@ object Signer {
     }
 
     private fun grpcBroadcastTx(
-        auth: QueryAccountResponse?,
-        txBody: TxBody?,
-        authInfo: AuthInfo?,
-        selectedChain: BaseChain?
+        auth: QueryAccountResponse?, txBody: TxBody?, authInfo: AuthInfo?, selectedChain: BaseChain?
     ): TxRaw? {
         val signDoc = SignDoc.newBuilder().setBodyBytes(txBody?.toByteString())
             .setAuthInfoBytes(authInfo?.toByteString()).setChainId(selectedChain?.chainIdCosmos)

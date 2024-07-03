@@ -18,10 +18,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
+import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class StakeInfoFragment : Fragment() {
@@ -75,53 +74,51 @@ class StakeInfoFragment : Fragment() {
             }
 
             lifecycleScope.launch(Dispatchers.IO) {
-//                val rewardAddress = selectedChain.rewardAddress
-//                var delegations = selectedChain.cosmosDelegations
-//                val validators = selectedChain.cosmosValidators
-//                val unBondings = selectedChain.cosmosUnbondings.flatMap { unbonding ->
-//                    unbonding.entriesList.map { entry ->
-//                        UnBondingEntry(unbonding.validatorAddress, entry)
-//                    }
-//                }.sortedBy { it.entry?.creationHeight }.toMutableList()
-//
-//                val cosmostationValAddress =
-//                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-//
-//                val tempDelegations = delegations.toMutableList()
-//                tempDelegations.sortWith { o1, o2 ->
-//                    when {
-//                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
-//                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
-//                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
-//                        else -> 1
-//                    }
-//                }
-//                delegations = tempDelegations
-//
-//                val stakingInfoList = delegations + unBondings
-//
-//                withContext(Dispatchers.Main) {
-//                    if (stakingInfoList.isNotEmpty()) {
-//                        emptyStake.visibility = View.GONE
-//                        recycler.visibility = View.VISIBLE
-//
-//                        stakingInfoAdapter = StakingInfoAdapter(
-//                            selectedChain,
-//                            rewardAddress,
-//                            validators,
-//                            delegations,
-//                            unBondings,
-//                            selectClickAction
-//                        )
-//                        recycler.setHasFixedSize(true)
-//                        recycler.layoutManager = LinearLayoutManager(requireContext())
-//                        recycler.adapter = stakingInfoAdapter
-//
-//                    } else {
-//                        emptyStake.visibility = View.VISIBLE
-//                        recycler.visibility = View.GONE
-//                    }
-//                }
+                val rewardAddress = selectedChain.grpcFetcher?.rewardAddress ?: ""
+                var delegations = selectedChain.grpcFetcher?.cosmosDelegations ?: mutableListOf()
+                val validators = selectedChain.grpcFetcher?.cosmosValidators ?: mutableListOf()
+                val unBondings = selectedChain.grpcFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                    unBonding.entriesList.map { entry ->
+                        UnBondingEntry(unBonding.validatorAddress, entry)
+                    }
+                }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+
+                val cosmostationValAddress =
+                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+
+                val tempDelegations = delegations.toMutableList()
+                tempDelegations.sortWith { o1, o2 ->
+                    when {
+                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
+                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
+                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
+                        else -> 1
+                    }
+                }
+                delegations = tempDelegations
+
+                withContext(Dispatchers.Main) {
+                    if (delegations.isNotEmpty() || unBondings.isNotEmpty()) {
+                        emptyStake.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+
+                        stakingInfoAdapter = StakingInfoAdapter(
+                            selectedChain,
+                            rewardAddress,
+                            validators,
+                            delegations,
+                            unBondings,
+                            selectClickAction
+                        )
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = stakingInfoAdapter
+
+                    } else {
+                        emptyStake.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    }
+                }
             }
         }
     }
@@ -132,10 +129,6 @@ class StakeInfoFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
             }
 
-            btnChangeRewardAddress.setOnClickListener {
-//                handleOneClickWithDelay(ChangeRewardAddressWarnFragment.newInstance(selectedChain))
-            }
-
             btnStake.setOnClickListener {
 //                if (selectedChain is ChainBeraEvm) {
 //                    EvmStakingFragment.newInstance(selectedChain as EthereumLine, null).show(
@@ -143,9 +136,9 @@ class StakeInfoFragment : Fragment() {
 //                        EvmStakingFragment::class.java.name
 //                    )
 //                } else {
-//                    StakingFragment.newInstance(selectedChain, null).show(
-//                        requireActivity().supportFragmentManager, StakingFragment::class.java.name
-//                    )
+                StakingFragment.newInstance(selectedChain, null).show(
+                    requireActivity().supportFragmentManager, StakingFragment::class.java.name
+                )
 //                }
             }
         }
@@ -153,19 +146,19 @@ class StakeInfoFragment : Fragment() {
 
     private val selectClickAction = object : StakingInfoAdapter.ClickListener {
         override fun selectStakingAction(validator: StakingProto.Validator?) {
-//            handleOneClickWithDelay(
-//                StakingOptionFragment.newInstance(
-//                    selectedChain, validator, null, OptionType.STAKE
-//                )
-//            )
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain, validator, null, OptionType.STAKE
+                )
+            )
         }
 
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
-//            handleOneClickWithDelay(
-//                StakingOptionFragment.newInstance(
-//                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
-//                )
-//            )
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
+                )
+            )
         }
     }
 

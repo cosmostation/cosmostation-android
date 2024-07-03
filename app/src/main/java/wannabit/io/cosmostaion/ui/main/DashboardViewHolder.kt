@@ -49,7 +49,7 @@ class DashboardViewHolder(
             chainSwipeImg.setImageResource(chain.swipeLogo)
             chainName.text = chain.name.uppercase()
 
-            if (chain.supportCosmosGrpc) {
+            if (chain.isCosmos()) {
                 BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                     chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                     BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
@@ -80,6 +80,7 @@ class DashboardViewHolder(
 
                 chainCw20Badge.visibleOrGone(chain.supportCw20)
                 chainNftBadge.visibleOrGone(chain.supportNft)
+                chainDappBadge.visibleOrGone(chain.isEcosystem())
                 chainPrice.visibility = View.GONE
                 chainPriceStatus.visibility = View.GONE
 
@@ -93,10 +94,11 @@ class DashboardViewHolder(
 
                 chainCw20Badge.visibleOrGone(chain.supportCw20)
                 chainNftBadge.visibleOrGone(chain.supportNft)
+                chainDappBadge.visibleOrGone(chain.isEcosystem())
                 chainPrice.visibility = View.VISIBLE
                 chainPriceStatus.visibility = View.VISIBLE
 
-                if (chain.supportCosmosGrpc) {
+                if (chain.isCosmos()) {
                     chainAddress.text = chain.address
                     chainEvmAddress.text = chain.evmAddress
                     chainAddress.visibility = View.INVISIBLE
@@ -116,7 +118,7 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
 
-                if (chain.supportCosmosGrpc && chain.grpcFetcher?.cosmosBalances == null) {
+                if (chain.isCosmos() && chain.grpcFetcher?.cosmosBalances == null) {
                     respondLayout.visibility = View.VISIBLE
                     chainValue.visibility = View.GONE
                     assetCnt.visibility = View.GONE
@@ -151,7 +153,7 @@ class DashboardViewHolder(
 //                respondLayout.visibility = View.GONE
 //                chainValue.visibility = View.VISIBLE
 
-                if (chain.supportCosmosGrpc) {
+                if (chain.isCosmos()) {
                     val coinCntString = (chain.grpcFetcher?.cosmosBalances?.count {
                         BaseData.getAsset(
                             chain.apiName, it.denom
@@ -192,7 +194,6 @@ class DashboardViewHolder(
     fun bind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-
             chainImg.setImageResource(chain.logo)
             chainSwipeImg.setImageResource(chain.swipeLogo)
             chainName.text = chain.name.uppercase()
@@ -267,8 +268,10 @@ class DashboardViewHolder(
                 }
                 chainCw20Badge.visibleOrGone(chain.supportCw20)
                 chainNftBadge.visibleOrGone(chain.supportNft)
+                chainDappBadge.visibleOrGone(chain.isEcosystem())
                 chainSideCw20Badge.visibility = View.GONE
                 chainSideNftBadge.visibility = View.GONE
+                chainSideDappBadge.visibility = View.GONE
 
             } else {
                 dashView.heightInDp(114)
@@ -315,8 +318,10 @@ class DashboardViewHolder(
                 }
                 chainSideCw20Badge.visibleOrGone(chain.supportCw20)
                 chainSideNftBadge.visibleOrGone(chain.supportNft)
+                chainSideDappBadge.visibleOrGone(chain.isEcosystem())
                 chainCw20Badge.visibility = View.GONE
                 chainNftBadge.visibility = View.GONE
+                chainDappBadge.visibility = View.GONE
             }
 
             if (chain.fetched) {
@@ -335,7 +340,7 @@ class DashboardViewHolder(
                         chain.apiName, it.denom
                     ) != null
                 } ?: 0).toString() + " Coins"
-                if (chain.supportCw20 || chain.supportErc20) {
+                if (chain.supportCw20 || chain.supportEvm) {
                     val tokenCnt =
                         chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                     if (tokenCnt == 0) {

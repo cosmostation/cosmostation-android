@@ -81,7 +81,7 @@ interface WalletRepository {
     suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>>
 
     suspend fun cw20Balance(
-        channel: ManagedChannel, line: CosmosLine, token: Token
+        channel: ManagedChannel, chain: BaseChain, token: Token
     )
 
     suspend fun erc20Balance(

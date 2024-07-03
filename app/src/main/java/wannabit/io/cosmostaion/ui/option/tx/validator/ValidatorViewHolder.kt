@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
@@ -15,10 +16,10 @@ class ValidatorViewHolder(
     private val binding: ItemValidatorBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: CosmosLine, validator: Validator) {
+    fun bind(chain: BaseChain, validator: Validator) {
         binding.apply {
             validator.let { validator ->
-                monikerImg.setMonikerImg(line, validator.operatorAddress)
+                monikerImg.setMonikerImg(chain, validator.operatorAddress)
                 monikerName.text = validator.description?.moniker
                 if (validator.jailed) {
                     jailedImg.visibility = View.VISIBLE
@@ -30,13 +31,11 @@ class ValidatorViewHolder(
                     jailedImg.visibility = View.GONE
                 }
 
-                line.stakeDenom?.let { denom ->
-                    BaseData.getAsset(line.apiName, denom)?.let { asset ->
-                        asset.decimals?.let { decimal ->
-                            line.cosmosDelegations.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.let { delegation ->
-                                val stakingAmount = delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
-                                stakedAmount.text = formatAmount(stakingAmount.toPlainString(), decimal)
-                            }
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                    asset.decimals?.let { decimal ->
+                        chain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.let { delegation ->
+                            val stakingAmount = delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
+                            stakedAmount.text = formatAmount(stakingAmount.toPlainString(), decimal)
                         }
                     }
                 }

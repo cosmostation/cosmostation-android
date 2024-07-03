@@ -166,7 +166,7 @@ class DashboardFragment : Fragment() {
 //                startActivity(this)
 //            }
 //            requireActivity().toMoveAnimation()
-            if (chain.supportCosmosGrpc && chain.supportEvm) {
+            if (chain.isCosmos() && chain.supportEvm) {
                 if (chain.grpcFetcher?.cosmosBalances == null) {
                     nodeDownPopup()
                     return

@@ -243,14 +243,4 @@ class FetcherGrpc(chain: BaseChain) {
             ?.add(delegationAmountSum())?.add(unbondingAmountSum())
             ?.add(rewardAmountSum(chain.stakeDenom))
     }
-
-    fun getGrpc(): Pair<String, Int> {
-        val endPoint = Prefs.getGrpcEndpoint(chain)
-        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
-            val host = endPoint.split(":")[0].trim()
-            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            return Pair(host, port)
-        }
-        return Pair(chain.grpcHost, chain.grpcPort)
-    }
 }

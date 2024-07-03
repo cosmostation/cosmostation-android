@@ -21,7 +21,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -59,7 +59,7 @@ class ReDelegateFragment : BaseTxFragment() {
     private var _binding: FragmentRedelegateBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private var fromValidator: Validator? = null
     private var toValidator: Validator? = null
 
@@ -76,7 +76,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine, fromValidator: Validator?): ReDelegateFragment {
+        fun newInstance(selectedChain: BaseChain, fromValidator: Validator?): ReDelegateFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("fromValidator", fromValidator)
@@ -108,11 +108,11 @@ class ReDelegateFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 fromValidator = arguments?.getSerializable("fromValidator", Validator::class.java)
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 fromValidator = arguments?.getSerializable("fromValidator") as? Validator?
@@ -126,15 +126,19 @@ class ReDelegateFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (fromValidator != null) {
-                selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == selectedChain.cosmosDelegations[0].delegation.validatorAddress }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull {
+                    it.operatorAddress == selectedChain.grpcFetcher?.cosmosDelegations?.get(
+                        0
+                    )?.delegation?.validatorAddress
+                }
             }
 
             val cosmostation =
-                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
             toValidator = if (fromValidator?.operatorAddress == cosmostation?.operatorAddress) {
-                selectedChain.cosmosValidators.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
             } else {
-                selectedChain.cosmosValidators.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
             }
             updateFromValidatorView()
             updateToValidatorView()
@@ -177,14 +181,12 @@ class ReDelegateFragment : BaseTxFragment() {
                 fromMonikerName.text = fromValidator.description?.moniker
                 fromJailedImg.visibleOrGone(fromValidator.jailed)
             }
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        val staked =
-                            selectedChain.cosmosDelegations.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
-                        staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
-                            stakedAmount.text = formatAmount(it.toPlainString(), decimal)
-                        }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val staked =
+                        selectedChain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
+                    staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
+                        stakedAmount.text = formatAmount(it.toPlainString(), decimal)
                     }
                 }
             }
@@ -215,22 +217,20 @@ class ReDelegateFragment : BaseTxFragment() {
                 CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
                     .build()
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        redelegateAmountMsg.visibility = View.GONE
-                        redelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        redelegateAmount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_base01
-                            )
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    redelegateAmountMsg.visibility = View.GONE
+                    redelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                    redelegateAmount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_base01
                         )
-                        redelegateDenom.visibility = View.VISIBLE
-                        redelegateDenom.text = asset.symbol
-                        redelegateDenom.setTextColor(asset.assetColor())
-                    }
+                    )
+                    redelegateDenom.visibility = View.VISIBLE
+                    redelegateDenom.text = asset.symbol
+                    redelegateDenom.setTextColor(asset.assetColor())
                 }
             }
             txSimulate()
@@ -274,7 +274,7 @@ class ReDelegateFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                selectedChain.cosmosDelegations.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }
+                selectedChain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }
                     ?.let {
                         availableAmount = it.balance.amount.toBigDecimal()
                     }
@@ -290,14 +290,14 @@ class ReDelegateFragment : BaseTxFragment() {
                         override fun select(validatorAddress: String) {
                             if (fromValidator?.operatorAddress != validatorAddress) {
                                 fromValidator =
-                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateFeeView()
                                 updateFromValidatorView()
                             }
 
                             if (fromValidator?.operatorAddress == toValidator?.operatorAddress) {
                                 toValidator =
-                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
+                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
                                 updateToValidatorView()
                             }
                         }
@@ -313,7 +313,7 @@ class ReDelegateFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateToValidatorView()
                             }
                         })
@@ -325,11 +325,9 @@ class ReDelegateFragment : BaseTxFragment() {
                     InsertAmountFragment.newInstance(TxType.RE_DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
-                        selectedChain.stakeDenom?.let {
-                            BaseData.getAsset(
-                                selectedChain.apiName, it
-                            )
-                        },
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.stakeDenom
+                        ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
@@ -434,7 +432,12 @@ class ReDelegateFragment : BaseTxFragment() {
             btnRedelegate.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateReDelegate(
-                getChannel(selectedChain), selectedChain.address, onBindReDelegate(), txFee, txMemo, selectedChain
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindReDelegate(),
+                txFee,
+                txMemo,
+                selectedChain
             )
         }
     }
@@ -458,15 +461,15 @@ class ReDelegateFragment : BaseTxFragment() {
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-//                val gasLimit =
-//                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-//                    .setAmount(feeCoinAmount.toString()).build()
-//
-//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-//                    .build()
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
             }
         }
         updateFeeView()

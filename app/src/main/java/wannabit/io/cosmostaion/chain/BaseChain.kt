@@ -11,12 +11,16 @@ import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
+import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -46,12 +50,10 @@ open class BaseChain : Parcelable {
     open var address: String = ""
     open var stakeDenom: String = ""
     open var supportCw20 = false
-    open var supportErc20 = false
     open var supportStaking = true
     open var supportNft = false
     open var grpcHost: String = ""
     open var grpcPort = 443
-    open var rpcUrl = ""
 
     open var supportEvm = false
     open var chainIdEvm: String = ""
@@ -287,7 +289,7 @@ open class BaseChain : Parcelable {
     fun gasMultiply(): Double {
         return getChainListParam()?.getAsJsonObject("fee")?.get("simul_gas_multiply")?.asDouble
             ?: run {
-                1.2
+                1.3
             }
     }
 
@@ -358,13 +360,30 @@ open class BaseChain : Parcelable {
     open fun explorerProposal(id: String?): Uri? {
         return null
     }
+
+    fun monikerImg(opAddress: String?): String {
+        return "${CosmostationConstants.CHAIN_BASE_URL}$apiName/moniker/$opAddress.png"
+    }
+
+    fun getGrpc(): Pair<String, Int> {
+        val endPoint = Prefs.getGrpcEndpoint(this)
+        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
+            val host = endPoint.split(":")[0].trim()
+            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+            return Pair(host, port)
+        }
+        return Pair(this.grpcHost, this.grpcPort)
+    }
 }
 
-fun allCosmosLines(): MutableList<BaseChain> {
+fun allChains(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
+    chains.add(ChainEvmosEvm())
+    chains.add(ChainJuno())
+    chains.add(ChainOsmosis())
 //    lines.add(ChainAkash())
 //    lines.add(ChainAlthea118())
 //    lines.add(ChainArchway())
@@ -440,8 +459,14 @@ fun allCosmosLines(): MutableList<BaseChain> {
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
-            chain.getChainListParam()?.get("chain_id_cosmos")?.asString?.let { cosmosChainId ->
-                chain.chainIdCosmos = cosmosChainId
+            chain.getChainListParam()?.get("chain_id_cosmos")?.let { cosmosChainId ->
+                chain.chainIdCosmos = cosmosChainId.asString
+            }
+        }
+
+        if (chain.chainIdEvm.isEmpty()) {
+            chain.getChainListParam()?.get("chain_id_evm")?.let { evmChainId ->
+                chain.chainIdEvm = evmChainId.asString
             }
         }
     }
@@ -461,10 +486,3 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 )
 
 enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, NONE }
-
-//fun allIbcChains(): MutableList<CosmosLine> {
-//    val lines = mutableListOf<CosmosLine>()
-//    lines.addAll(allCosmosLines())
-//    lines.addAll(allEvmLines().filter { it.supportCosmos })
-//    return lines
-//}

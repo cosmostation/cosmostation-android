@@ -20,6 +20,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -48,7 +49,7 @@ class CompoundingFragment : BaseTxFragment() {
     private var _binding: FragmentCompoundingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var claimableRewards: MutableList<DelegationDelegatorReward?>
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -61,7 +62,7 @@ class CompoundingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, claimableRewards: MutableList<DelegationDelegatorReward?>
+            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>
         ): CompoundingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -95,10 +96,10 @@ class CompoundingFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
@@ -113,12 +114,12 @@ class CompoundingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             val cosmostationValAddress =
-                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
             if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
                 validatorName.text = "Cosmostation"
             } else {
                 validatorName.text =
-                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
             }
             if (claimableRewards.size > 1) {
                 validatorCnt.text = "+ " + (claimableRewards.size - 1)
@@ -126,23 +127,21 @@ class CompoundingFragment : BaseTxFragment() {
                 validatorCnt.visibility = View.GONE
             }
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    var rewardAmount = BigDecimal.ZERO
-                    claimableRewards.forEach { reward ->
-                        val rawAmount = BigDecimal(
-                            reward?.rewardList?.firstOrNull { it.denom == denom }?.amount ?: "0"
-                        )
-                        rewardAmount = rewardAmount.add(
-                            rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
-                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        )
-                    }
-                    compoundingAmount.text =
-                        formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
-                    compoundingDenom.text = asset.symbol
-                    compoundingDenom.setTextColor(asset.assetColor())
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                var rewardAmount = BigDecimal.ZERO
+                claimableRewards.forEach { reward ->
+                    val rawAmount = BigDecimal(
+                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount ?: "0"
+                    )
+                    rewardAmount = rewardAmount.add(
+                        rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                    )
                 }
+                compoundingAmount.text =
+                    formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                compoundingDenom.text = asset.symbol
+                compoundingDenom.setTextColor(asset.assetColor())
             }
         }
     }
@@ -341,15 +340,15 @@ class CompoundingFragment : BaseTxFragment() {
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-//                val gasLimit =
-//                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-//                    .setAmount(feeCoinAmount.toString()).build()
-//
-//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-//                    .build()
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
             }
         }
         updateFeeView()

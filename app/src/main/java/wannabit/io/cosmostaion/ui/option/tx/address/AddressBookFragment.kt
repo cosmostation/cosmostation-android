@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -188,11 +188,11 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.COSMOS_EVM_COIN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if (refAddress.dpAddress?.startsWith((toChain as CosmosLine).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                if (refAddress.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
                                     if (Prefs.displayLegacy) {
                                         refAddresses.add(refAddress)
                                     } else {
-                                        allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                        allChains().firstOrNull { it.tag == refAddress.chainTag }
                                             ?.let { chain ->
                                                 if (chain.isDefault) {
                                                     refAddresses.add(refAddress)
@@ -243,24 +243,16 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if (refAddress.dpAddress?.startsWith((toChain as CosmosLine).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                if (refAddress.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
                                     if (Prefs.displayLegacy) {
                                         refAddresses.add(refAddress)
                                     } else {
-                                        allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                        allChains().firstOrNull { it.tag == refAddress.chainTag }
                                             ?.let { chain ->
                                                 if (chain.isDefault) {
                                                     refAddresses.add(refAddress)
                                                 }
-
-                                            } ?: run {
-                                            allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                ?.let { evmChain ->
-                                                    if (evmChain.isDefault) {
-                                                        refAddresses.add(refAddress)
-                                                    }
-                                                }
-                                        }
+                                            }
                                     }
                                 }
                             }
@@ -272,7 +264,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                     }
                 }
-                sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
 
                 withContext(Dispatchers.Main) {
@@ -469,11 +460,9 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private fun sortRefAddresses(refAddresses: MutableList<RefAddress>) {
         val accountMap =
             AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
-        val cosmosLineMap = allCosmosLines().associateBy { it.tag }
-        val evmLineMap = allEvmLines().associateBy { it.tag }
+        val chainLineMap = allChains().associateBy { it.tag }
         refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId }
-            .thenByDescending { evmLineMap[it.chainTag]?.isDefault == true }
-            .thenByDescending { cosmosLineMap[it.chainTag]?.isDefault == true })
+            .thenByDescending { chainLineMap[it.chainTag]?.isDefault == true })
     }
 
     private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {

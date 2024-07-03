@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
@@ -24,15 +24,15 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentQrCodeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedEvmChain: EthereumLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var qrCodAdapter: QrCodAdapter
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedEvmChain: EthereumLine): QrCodeEvmFragment {
+        fun newInstance(selectedChain: BaseChain): QrCodeEvmFragment {
             val args = Bundle().apply {
-                putParcelable("selectedEvmChain", selectedEvmChain)
+                putParcelable("selectedChain", selectedChain)
             }
             val fragment = QrCodeEvmFragment()
             fragment.arguments = args
@@ -66,11 +66,11 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
 
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedEvmChain", EthereumLine::class.java)
-                ?.let { selectedEvmChain = it }
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
+                ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedEvmChain") as? EthereumLine)?.let {
-                selectedEvmChain = it
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
+                selectedChain = it
             }
         }
     }
@@ -78,7 +78,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
-                if (selectedEvmChain.supportCosmos) {
+                if (selectedChain.isCosmos()) {
                     btnEthShare.visibility = View.VISIBLE
                     btnCosmosShare.visibility = View.VISIBLE
                     btnShare.visibility = View.GONE
@@ -88,7 +88,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                     btnShare.visibility = View.VISIBLE
                 }
                 accountName.text = account.name
-                qrCodAdapter = QrCodAdapter(account, selectedEvmChain)
+                qrCodAdapter = QrCodAdapter(account, selectedChain)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = qrCodAdapter
@@ -101,7 +101,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, selectedEvmChain.address)
+                intent.putExtra(Intent.EXTRA_TEXT, selectedChain.address)
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))
             }
@@ -110,7 +110,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
                 intent.putExtra(
-                    Intent.EXTRA_TEXT, ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
+                    Intent.EXTRA_TEXT, ByteUtils.convertBech32ToEvm(selectedChain.address)
                 )
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))
@@ -119,7 +119,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             btnCosmosShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, selectedEvmChain.address)
+                intent.putExtra(Intent.EXTRA_TEXT, selectedChain.address)
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))
             }

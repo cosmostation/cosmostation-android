@@ -48,12 +48,11 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -795,7 +794,7 @@ class DappActivity : BaseActivity() {
                     val evmSupportIds =
                         allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
                             .distinct()
-                    val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
+                    val cosmosSupportIds = allChains().filter { it.chainIdCosmos.isNotEmpty() }
                         .map { it.chainIdCosmos }.distinct()
                     val supportChainIds = evmSupportIds.union(cosmosSupportIds)
 
@@ -809,7 +808,7 @@ class DappActivity : BaseActivity() {
                     val evmSupportNames =
                         allEvmLines().filter { it.supportCosmos && it.chainDappName() != null }
                             .map { it.chainDappName() }.distinct()
-                    val cosmosSupportNames = allCosmosLines().map { it.name.lowercase() }.distinct()
+                    val cosmosSupportNames = allChains().map { it.name.lowercase() }.distinct()
                     val supportChainNames = evmSupportNames.union(cosmosSupportNames)
 
                     val dataJson = JSONObject()
@@ -829,7 +828,7 @@ class DappActivity : BaseActivity() {
                     val evmSupportIds =
                         allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
                             .distinct()
-                    val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
+                    val cosmosSupportIds = allChains().filter { it.chainIdCosmos.isNotEmpty() }
                         .map { it.chainIdCosmos }.distinct()
                     val supportChainIds = evmSupportIds.union(cosmosSupportIds)
                     if (supportChainIds.contains(params.getString("chainId"))) {

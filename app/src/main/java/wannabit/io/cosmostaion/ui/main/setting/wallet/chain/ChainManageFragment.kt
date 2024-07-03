@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
@@ -59,7 +59,7 @@ class ChainManageFragment : Fragment() {
                         allEvmLines.add(evmChain)
                     }
                 }
-                for (chain in allCosmosLines().filter { it.isDefault }) {
+                for (chain in allChains().filter { it.isDefault }) {
 //                    if (!allCosmosLines.any { it.name == chain.name } && !allEvmLines.any { it.name == chain.name }) {
 //                        allCosmosLines.add(chain)
 //                    }

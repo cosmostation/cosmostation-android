@@ -1,24 +1,40 @@
 package wannabit.io.cosmostaion.ui.wallet
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectBinding
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class WalletSelectViewHolder(
     val context: Context, private val binding: ItemWalletSelectBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    fun mainnetBind(
+        account: BaseAccount,
+        chain: BaseChain,
+        selectedTags: MutableList<String>,
+        selectListener: WalletSelectAdapter.SelectListener
+    ) {
+        binding.apply {
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
+//            if (account.type == BaseAccountType.MNEMONIC) {
+//                chainPath.text = chain.getHDPath(account.lastHDPath)
+//            } else if (chain.accountPrefix?.isNotEmpty() == true) {
+//                chainPath.text = ByteUtils.convertBech32ToEvm(it)
+//            } else {
+//                chainPath.text = line.address
+//            }
+//            updateView(line, selectedEvmTags)
+        }
+    }
 
     fun evmBind(
         account: BaseAccount,
@@ -32,7 +48,7 @@ class WalletSelectViewHolder(
             if (account.type == BaseAccountType.MNEMONIC) {
 //                chainPath.text = line.getHDPath(account.lastHDPath)
             } else if (line.accountPrefix?.isNotEmpty() == true) {
-                line.address?.let {
+                line.address.let {
                     chainPath.text = ByteUtils.convertBech32ToEvm(it)
                 }
             } else {

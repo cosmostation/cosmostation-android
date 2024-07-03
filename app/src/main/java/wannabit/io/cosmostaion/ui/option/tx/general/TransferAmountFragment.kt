@@ -143,7 +143,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                         .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
                             available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                            availableDenom.text = (fromChain as EthereumLine).coinSymbol
+                            availableDenom.text = fromChain.coinSymbol
                         }
                 }
 
@@ -153,7 +153,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                             .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
                                 available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                                availableDenom.text = (fromChain as EthereumLine).coinSymbol
+                                availableDenom.text = fromChain.coinSymbol
                             }
 
                     } else {

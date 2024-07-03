@@ -123,6 +123,21 @@
                     android:visibility="gone" />
 
                 <TextView
+                    android:id="@+id/chain_side_dapp_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_toRightOf="@+id/chain_side_nft_badge"
+                    android:background="@drawable/round_box_dapp"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="DAPP"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone" />
+
+                <TextView
                     android:id="@+id/chain_address"
                     style="@style/font_sm_12"
                     android:layout_width="@dimen/space_130"
@@ -205,6 +220,22 @@
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
                     android:text="NFT"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/chain_dapp_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_toRightOf="@id/chain_nft_badge"
+                    android:background="@drawable/round_box_dapp"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="DAPP"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base01"
                     android:visibility="gone" />
