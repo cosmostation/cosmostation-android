@@ -22,12 +22,12 @@ import com.kava.cdp.v1beta1.GenesisProto
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.expectUSDXLTV
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
-import wannabit.io.cosmostaion.common.expectUSDXLTV
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
@@ -56,7 +56,7 @@ class CreateMintFragment : BaseTxFragment() {
     private var _binding: FragmentCreateMintBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var collateralParam: GenesisProto.CollateralParam
     private lateinit var priceFeed: QueryPricesResponse
 
@@ -76,7 +76,7 @@ class CreateMintFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine,
+            selectedChain: BaseChain,
             collateralParam: GenesisProto.CollateralParam?,
             priceFeed: QueryPricesResponse?
         ): CreateMintFragment {
@@ -113,7 +113,7 @@ class CreateMintFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 arguments?.getSerializable(
                     "collateralParam", GenesisProto.CollateralParam::class.java
@@ -123,7 +123,7 @@ class CreateMintFragment : BaseTxFragment() {
                 )?.let { priceFeed = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (arguments?.getSerializable("collateralParam") as? GenesisProto.CollateralParam)?.let {
@@ -139,26 +139,24 @@ class CreateMintFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            collateralParam?.let { collateralParam ->
-                collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
-                collateralAsset?.let { asset ->
-                    tokenImg.setTokenImg(asset)
-                    tokenName.text = asset.symbol?.uppercase()
-                }
-
-                principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
-                principalAsset?.let { asset ->
-                    principalTokenImg.setTokenImg(asset)
-                    principalTokenName.text = asset.symbol?.uppercase()
-                }
-
-                val balanceAmount = selectedChain.balanceAmount(collateralParam.denom)
-                if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
-                    val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                    collateralAvailableAmount = balanceAmount.subtract(feeAmount)
-                }
-                collateralAvailableAmount = balanceAmount
+            collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
+            collateralAsset?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol?.uppercase()
             }
+
+            principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
+            principalAsset?.let { asset ->
+                principalTokenImg.setTokenImg(asset)
+                principalTokenName.text = asset.symbol?.uppercase()
+            }
+
+            val balanceAmount = selectedChain.grpcFetcher?.balanceAmount(collateralParam.denom)
+            if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
+                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
+                collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
+            }
+            collateralAvailableAmount = balanceAmount
         }
     }
 
@@ -425,15 +423,15 @@ class CreateMintFragment : BaseTxFragment() {
             val gasRate = selectedFeeData?.gasRate
 
             gasInfo?.let { info ->
-//                val gasLimit =
-//                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-//                    .setAmount(feeCoinAmount.toString()).build()
-//
-//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-//                    .build()
+                val gasLimit =
+                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                    .setAmount(feeCoinAmount.toString()).build()
+
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
             }
         }
         updateFeeView()
@@ -464,13 +462,13 @@ class CreateMintFragment : BaseTxFragment() {
     }
 
     private fun onBindCreateMint(): MsgCreateCDP? {
-        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam?.denom)
+        val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam.denom)
             .setAmount(toCollateralAmount).build()
         val principalCoin =
             CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
         return MsgCreateCDP.newBuilder().setSender(selectedChain.address)
             .setCollateral(collateralCoin).setPrincipal(principalCoin)
-            .setCollateralType(collateralParam?.type).build()
+            .setCollateralType(collateralParam.type).build()
     }
 
     override fun onDestroyView() {

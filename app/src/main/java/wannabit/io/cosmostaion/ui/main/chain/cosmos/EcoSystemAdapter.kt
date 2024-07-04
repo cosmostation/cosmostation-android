@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.google.gson.JsonObject
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemEcoSystemBinding
 
 class EcoSystemAdapter(
-    val line: CosmosLine
+    val line: BaseChain
 ) : ListAdapter<JsonObject, EcoSystemViewHolder>(EcoSystemDiffCallback()) {
 
     private var onItemClickListener: ((String?) -> Unit)? = null

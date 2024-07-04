@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.staking.v1beta1.StakingProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.databinding.ItemEarnBinding
@@ -15,11 +15,11 @@ class EarnViewHolder(
     private val binding: ItemEarnBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(selectedChain: CosmosLine?, deposit: Coin) {
+    fun bind(selectedChain: BaseChain?, deposit: Coin) {
         binding.apply {
             earningView.setBackgroundResource(R.drawable.item_bg)
             val valOpAddress = deposit.denom.replace("bkava-", "")
-            selectedChain?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
+            selectedChain?.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
                 ?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
                     moniker.text = validator.description.moniker

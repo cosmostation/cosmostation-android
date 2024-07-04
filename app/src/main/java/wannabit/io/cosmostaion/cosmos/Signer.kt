@@ -57,18 +57,18 @@ import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.delegatorRewardDenoms
+import wannabit.io.cosmostaion.chain.earnRewardDenoms
+import wannabit.io.cosmostaion.chain.hardRewardDenoms
+import wannabit.io.cosmostaion.chain.hasUsdxMinting
+import wannabit.io.cosmostaion.chain.swapRewardDenoms
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_ADD_SHARES
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_DEPOSIT
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
-import wannabit.io.cosmostaion.common.delegatorRewardDenoms
-import wannabit.io.cosmostaion.common.earnRewardDenoms
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.hardRewardDenoms
-import wannabit.io.cosmostaion.common.hasUsdxMinting
-import wannabit.io.cosmostaion.common.swapRewardDenoms
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -423,7 +423,7 @@ object Signer {
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, voteMsg(msgVotes), fee, memo, selectedChain)
     }
@@ -433,7 +433,7 @@ object Signer {
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, voteMsg(msgVotes), fee, memo, selectedChain)
     }
@@ -453,7 +453,7 @@ object Signer {
         incentive: QueryRewardsResponse,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, claimIncentiveMsg(auth, incentive), fee, memo, selectedChain)
     }
@@ -463,7 +463,7 @@ object Signer {
         incentive: QueryRewardsResponse,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, claimIncentiveMsg(auth, incentive), fee, memo, selectedChain)
     }
@@ -548,7 +548,7 @@ object Signer {
         msgCreateMint: MsgCreateCDP?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, mintCreateMsg(msgCreateMint), fee, memo, selectedChain)
     }
@@ -558,7 +558,7 @@ object Signer {
         msgCreateMint: MsgCreateCDP?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, mintCreateMsg(msgCreateMint), fee, memo, selectedChain)
     }
@@ -577,7 +577,7 @@ object Signer {
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, mintDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -587,7 +587,7 @@ object Signer {
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, mintDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -606,7 +606,7 @@ object Signer {
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, mintWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -616,7 +616,7 @@ object Signer {
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, mintWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -635,7 +635,7 @@ object Signer {
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, mintBorrowMsg(msgDrawDebt), fee, memo, selectedChain)
     }
@@ -645,7 +645,7 @@ object Signer {
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, mintBorrowMsg(msgDrawDebt), fee, memo, selectedChain)
     }
@@ -664,7 +664,7 @@ object Signer {
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, mintRepayMsg(msgRepayDebt), fee, memo, selectedChain)
     }
@@ -674,7 +674,7 @@ object Signer {
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, mintRepayMsg(msgRepayDebt), fee, memo, selectedChain)
     }
@@ -693,7 +693,7 @@ object Signer {
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, lendDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -703,7 +703,7 @@ object Signer {
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, lendDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -722,7 +722,7 @@ object Signer {
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, lendWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -732,7 +732,7 @@ object Signer {
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, lendWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -751,7 +751,7 @@ object Signer {
         msgBorrow: MsgBorrow?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, lendBorrowMsg(msgBorrow), fee, memo, selectedChain)
     }
@@ -761,7 +761,7 @@ object Signer {
         msgBorrow: MsgBorrow?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, lendBorrowMsg(msgBorrow), fee, memo, selectedChain)
     }
@@ -780,7 +780,7 @@ object Signer {
         msgRepay: MsgRepay?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, lendRepayMsg(msgRepay), fee, memo, selectedChain)
     }
@@ -790,7 +790,7 @@ object Signer {
         msgRepay: MsgRepay?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, lendRepayMsg(msgRepay), fee, memo, selectedChain)
     }
@@ -809,7 +809,7 @@ object Signer {
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, poolDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -819,7 +819,7 @@ object Signer {
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, poolDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -838,7 +838,7 @@ object Signer {
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, poolWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -848,7 +848,7 @@ object Signer {
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, poolWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -867,7 +867,7 @@ object Signer {
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, earnDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -877,7 +877,7 @@ object Signer {
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, earnDepositMsg(msgDeposit), fee, memo, selectedChain)
     }
@@ -896,7 +896,7 @@ object Signer {
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         return signBroadcastTx(auth, earnWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }
@@ -906,7 +906,7 @@ object Signer {
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): SimulateRequest? {
         return signSimulTx(auth, earnWithdrawMsg(msgWithdraw), fee, memo, selectedChain)
     }

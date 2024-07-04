@@ -20,6 +20,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -36,8 +38,12 @@ import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
+import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
+import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
@@ -220,9 +226,9 @@ class CosmosDetailFragment : Fragment() {
 //                    fabVault.visibility = View.VISIBLE
 //                }
 //
-//                is ChainKava459 -> {
-//                    fabDefi.visibility = View.VISIBLE
-//                }
+                is ChainKavaEvm, is ChainKava459 -> {
+                    fabDefi.visibility = View.VISIBLE
+                }
 //
 //                is ChainOkt996Keccak -> {
 //                    fabDeposit.visibility = View.VISIBLE
@@ -468,11 +474,11 @@ class CosmosDetailFragment : Fragment() {
                         requireContext().showToast(view, R.string.error_not_enough_fee, false)
                         return@setOnClickListener
                     }
-//                    handleOneClickWithDelay(
-//                        null, ClaimRewardFragment.newInstance(
-//                            selectedChain, selectedChain.claimableRewards()
-//                        )
-//                    )
+                    handleOneClickWithDelay(
+                        null, ClaimRewardFragment.newInstance(
+                            selectedChain, selectedChain.grpcFetcher?.claimableRewards()
+                        )
+                    )
 
                 } else {
                     requireContext().makeToast(R.string.error_wait_moment)
@@ -482,42 +488,42 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabCompounding.setOnClickListener {
-//                if (selectedChain.cosmosValidators.size > 0) {
-//                    if (selectedChain.claimableRewards().size == 0) {
-//                        requireContext().makeToast(R.string.error_not_reward)
-//                        return@setOnClickListener
-//                    }
-//                    if (selectedChain.rewardAddress != selectedChain.address) {
-//                        requireContext().showToast(
-//                            view, R.string.error_reward_address_changed_msg, false
-//                        )
-//                        return@setOnClickListener
-//                    }
-//                    if (!selectedChain.isTxFeePayable(requireContext())) {
-//                        requireContext().showToast(view, R.string.error_not_enough_fee, false)
-//                        return@setOnClickListener
-//                    }
-//                    handleOneClickWithDelay(
-//                        null, CompoundingFragment.newInstance(
-//                            selectedChain, selectedChain.claimableRewards()
-//                        )
-//                    )
-//
-//                } else {
-//                    requireContext().makeToast(R.string.error_wait_moment)
-//                    fabMenu.close(true)
-//                    return@setOnClickListener
-//                }
+                if ((selectedChain.grpcFetcher?.cosmosValidators?.size ?: 0) > 0) {
+                    if (selectedChain.grpcFetcher?.claimableRewards()?.size == 0) {
+                        requireContext().makeToast(R.string.error_not_reward)
+                        return@setOnClickListener
+                    }
+                    if (selectedChain.grpcFetcher?.rewardAddress != selectedChain.address) {
+                        requireContext().showToast(
+                            view, R.string.error_reward_address_changed_msg, false
+                        )
+                        return@setOnClickListener
+                    }
+                    if (!selectedChain.isTxFeePayable(requireContext())) {
+                        requireContext().showToast(view, R.string.error_not_enough_fee, false)
+                        return@setOnClickListener
+                    }
+                    handleOneClickWithDelay(
+                        null, CompoundingFragment.newInstance(
+                            selectedChain, selectedChain.grpcFetcher?.claimableRewards()
+                        )
+                    )
+
+                } else {
+                    requireContext().makeToast(R.string.error_wait_moment)
+                    fabMenu.close(true)
+                    return@setOnClickListener
+                }
             }
 
             fabVote.setOnClickListener {
-//                handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
+                handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
             }
 
             fabDefi.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    KavaDefiFragment.newInstance(selectedChain as ChainKava459), null
-//                )
+                handleOneClickWithDelay(
+                    KavaDefiFragment.newInstance(selectedChain), null
+                )
             }
 
             fabDao.setOnClickListener {

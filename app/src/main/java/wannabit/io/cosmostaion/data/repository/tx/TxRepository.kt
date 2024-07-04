@@ -307,7 +307,7 @@ interface TxRepository {
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateVoteTx(
@@ -316,7 +316,7 @@ interface TxRepository {
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastClaimIncentiveTx(
@@ -325,7 +325,7 @@ interface TxRepository {
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateClaimIncentiveTx(
@@ -334,7 +334,7 @@ interface TxRepository {
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintCreateTx(
@@ -343,7 +343,7 @@ interface TxRepository {
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintCreateTx(
@@ -352,7 +352,7 @@ interface TxRepository {
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintDepositTx(
@@ -361,7 +361,7 @@ interface TxRepository {
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintDepositTx(
@@ -370,7 +370,7 @@ interface TxRepository {
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintWithdrawTx(
@@ -379,7 +379,7 @@ interface TxRepository {
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintWithdrawTx(
@@ -388,7 +388,7 @@ interface TxRepository {
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintBorrowTx(
@@ -397,7 +397,7 @@ interface TxRepository {
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintBorrowTx(
@@ -406,7 +406,7 @@ interface TxRepository {
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintRepayTx(
@@ -415,7 +415,7 @@ interface TxRepository {
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintRepayTx(
@@ -424,7 +424,7 @@ interface TxRepository {
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendDepositTx(
@@ -433,7 +433,7 @@ interface TxRepository {
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendDepositTx(
@@ -442,7 +442,7 @@ interface TxRepository {
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendWithdrawTx(
@@ -451,7 +451,7 @@ interface TxRepository {
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendWithdrawTx(
@@ -460,7 +460,7 @@ interface TxRepository {
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendBorrowTx(
@@ -469,7 +469,7 @@ interface TxRepository {
         msgBorrow: MsgBorrow?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendBorrowTx(
@@ -478,7 +478,7 @@ interface TxRepository {
         msgBorrow: MsgBorrow?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendRepayTx(
@@ -487,7 +487,7 @@ interface TxRepository {
         msgRepay: MsgRepay?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendRepayTx(
@@ -496,7 +496,7 @@ interface TxRepository {
         msgRepay: MsgRepay?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastPoolDepositTx(
@@ -505,7 +505,7 @@ interface TxRepository {
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulatePoolDepositTx(
@@ -514,7 +514,7 @@ interface TxRepository {
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastPoolWithdrawTx(
@@ -523,7 +523,7 @@ interface TxRepository {
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulatePoolWithdrawTx(
@@ -532,7 +532,7 @@ interface TxRepository {
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastEarnDepositTx(
@@ -541,7 +541,7 @@ interface TxRepository {
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateEarnDepositTx(
@@ -550,7 +550,7 @@ interface TxRepository {
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastEarnWithdrawTx(
@@ -559,7 +559,7 @@ interface TxRepository {
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateEarnWithdrawTx(
@@ -568,6 +568,6 @@ interface TxRepository {
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 }

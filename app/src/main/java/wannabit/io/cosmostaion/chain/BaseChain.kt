@@ -10,12 +10,15 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -96,7 +99,7 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun grpcFetcher(): FetcherGrpc? {
+    open fun grpcFetcher(): FetcherGrpc? {
         if (!supportCosmosGrpc) {
             return null
         }
@@ -174,6 +177,10 @@ open class BaseChain : Parcelable {
 
     fun isCosmos(): Boolean {
         return supportCosmosGrpc || supportCosmosLcd
+    }
+
+    fun isEvmCosmos(): Boolean {
+        return supportCosmosGrpc && supportEvm
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
@@ -357,8 +364,22 @@ open class BaseChain : Parcelable {
         return null
     }
 
-    open fun explorerProposal(id: String?): Uri? {
+    fun explorerProposal(id: String?): Uri? {
+        getChainListParam()?.getAsJsonObject("explorer")
+            ?.get("proposal")?.asString?.let { urlString ->
+                id?.let {
+                    return Uri.parse(urlString.replace("\${id}", it))
+                } ?: run {
+                    return null
+                }
+            }
         return null
+    }
+
+    fun voteThreshold(): String {
+        return getChainListParam()?.get("voting_threshold")?.asString ?: run {
+            "0"
+        }
     }
 
     fun monikerImg(opAddress: String?): String {
@@ -379,10 +400,13 @@ open class BaseChain : Parcelable {
 fun allChains(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
+    chains.add(ChainAxelar())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
     chains.add(ChainJuno())
+    chains.add(ChainKavaEvm())
+    chains.add(ChainKava459())
     chains.add(ChainOsmosis())
 //    lines.add(ChainAkash())
 //    lines.add(ChainAlthea118())

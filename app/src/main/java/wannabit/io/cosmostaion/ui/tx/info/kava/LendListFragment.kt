@@ -15,14 +15,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.hard.v1beta1.HardProto
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.KavaFetcher
+import wannabit.io.cosmostaion.chain.getLTV
+import wannabit.io.cosmostaion.chain.hardMoneyMarket
+import wannabit.io.cosmostaion.chain.kavaOraclePrice
+import wannabit.io.cosmostaion.chain.spotMarketId
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.getLTV
-import wannabit.io.cosmostaion.common.hardMoneyMarket
-import wannabit.io.cosmostaion.common.kavaOraclePrice
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.common.spotMarketId
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentLendListBinding
 import wannabit.io.cosmostaion.ui.option.tx.kava.MintOptionFragment
@@ -30,7 +31,6 @@ import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionFragment
 import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionType
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.chain.LendingData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -39,7 +39,7 @@ class LendListFragment : Fragment() {
     private var _binding: FragmentLendListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var priceFeed: QueryProto.QueryPricesResponse
 
     private lateinit var kavaViewModel: KavaViewModel
@@ -56,7 +56,7 @@ class LendListFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, priceFeed: QueryProto.QueryPricesResponse?
+            selectedChain: BaseChain, priceFeed: QueryProto.QueryPricesResponse?
         ): LendListFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -87,7 +87,7 @@ class LendListFragment : Fragment() {
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.apply {
-                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getParcelable("selectedChain", BaseChain::class.java)?.let { selectedChain = it }
                 getSerializable(
                     "priceFeed", QueryProto.QueryPricesResponse::class.java
                 )?.let { priceFeed = it }
@@ -95,7 +95,7 @@ class LendListFragment : Fragment() {
 
         } else {
             arguments?.apply {
-                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                (getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (getSerializable("priceFeed") as? QueryProto.QueryPricesResponse)?.let {
@@ -111,7 +111,7 @@ class LendListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-//        kavaViewModel.lendingData(getChannel(selectedChain), selectedChain.address)
+        kavaViewModel.lendingData(getChannel(selectedChain), selectedChain.address)
     }
 
     private fun setUpLendingDataObserve() {
@@ -147,7 +147,7 @@ class LendListFragment : Fragment() {
         }
     }
 
-    private fun initRecyclerView(lendingData: LendingData) {
+    private fun initRecyclerView(lendingData: KavaFetcher.LendingData) {
         binding.recycler.apply {
             lendListAdapter = LendListAdapter(
                 requireContext(),
@@ -247,8 +247,7 @@ class LendListFragment : Fragment() {
         lendMyDeposits.forEach { coin ->
             val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
             val LTV = lendMoneyMarkets.getLTV(coin.denom)
-            val marketIdPrice =
-                priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+            val marketIdPrice = priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
             val depositValue =
                 coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice)
                     .setScale(12, RoundingMode.DOWN)
@@ -257,8 +256,7 @@ class LendListFragment : Fragment() {
         }
         lendMyBorrows.forEach { coin ->
             val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
-            val marketIdPrice =
-                priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+            val marketIdPrice = priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
             val borrowValue =
                 coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketIdPrice)
                     .setScale(12, RoundingMode.DOWN)
@@ -273,14 +271,14 @@ class LendListFragment : Fragment() {
 
         denom?.let {
             var reserveAmount = BigDecimal.ZERO
-            val moduleAmount = selectedChain.balanceAmount(denom)
+            val moduleAmount = selectedChain.grpcFetcher?.balanceAmount(denom)
             lendReserve?.forEach { reserve ->
                 if (reserve.denom == denom) {
                     reserveAmount = reserve.amount.toBigDecimal()
                 }
             }
             val systemBorrowableAmount: BigDecimal?
-            val moduleBorrowable = moduleAmount.subtract(reserveAmount)
+            val moduleBorrowable = moduleAmount?.subtract(reserveAmount)
             systemBorrowableAmount =
                 if (lendMoneyMarkets.hardMoneyMarket(denom)?.borrowLimit?.hasMaxLimit == true) {
                     lendMoneyMarkets.hardMoneyMarket(denom)?.borrowLimit?.maximumLimit?.toBigDecimal()

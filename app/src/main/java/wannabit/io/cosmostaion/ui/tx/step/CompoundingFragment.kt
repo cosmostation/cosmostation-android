@@ -21,7 +21,6 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -62,11 +61,11 @@ class CompoundingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>
+            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?
         ): CompoundingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
-                putSerializable("claimableRewards", claimableRewards.toHashSet())
+                putSerializable("claimableRewards", claimableRewards?.toHashSet())
             }
             val fragment = CompoundingFragment()
             fragment.arguments = args
@@ -131,7 +130,8 @@ class CompoundingFragment : BaseTxFragment() {
                 var rewardAmount = BigDecimal.ZERO
                 claimableRewards.forEach { reward ->
                     val rawAmount = BigDecimal(
-                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount ?: "0"
+                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                            ?: "0"
                     )
                     rewardAmount = rewardAmount.add(
                         rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)

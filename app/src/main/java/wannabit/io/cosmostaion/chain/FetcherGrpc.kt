@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class FetcherGrpc(chain: BaseChain) {
+open class FetcherGrpc(chain: BaseChain) {
 
     var chain: BaseChain
 

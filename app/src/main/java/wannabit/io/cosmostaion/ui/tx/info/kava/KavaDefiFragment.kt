@@ -16,9 +16,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.allIncentiveCoins
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.toMoveFragment
@@ -33,7 +33,7 @@ class KavaDefiFragment : Fragment() {
     private var _binding: FragmentKavaDefiBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var kavaViewModel: KavaViewModel
 
@@ -44,7 +44,7 @@ class KavaDefiFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): KavaDefiFragment {
+        fun newInstance(selectedChain: BaseChain): KavaDefiFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -79,15 +79,15 @@ class KavaDefiFragment : Fragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
 
-//            kavaViewModel.priceFeed(getChannel(selectedChain))
+            kavaViewModel.priceFeed(getChannel(selectedChain))
 
             loading.visibility = View.VISIBLE
             defiLayout.visibility = View.GONE
@@ -103,7 +103,7 @@ class KavaDefiFragment : Fragment() {
     private fun setUpPriceFeedObserve() {
         kavaViewModel.priceFeedResult.observe(viewLifecycleOwner) { response ->
             priceFeed = response
-//            kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
+            kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
         }
     }
 

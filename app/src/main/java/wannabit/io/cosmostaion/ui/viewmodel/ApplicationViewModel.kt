@@ -123,18 +123,18 @@ class ApplicationViewModel(
                     }
                 }
 
-                if (supportEvm) {
-                    loadEvmChainData(this, baseAccountId, isEdit)
-                }
-                if (supportCosmosGrpc) {
-                    loadGrpcAuthData(this, baseAccountId, isEdit)
-                }
-
 //            if (this is ChainOkt996Keccak) {
 //                loadLcdData(this, baseAccountId, isEdit)
 //            } else {
 //                loadGrpcAuthData(this, baseAccountId, isEdit)
 //            }
+            }
+
+            if (supportEvm) {
+                loadEvmChainData(this, baseAccountId, isEdit)
+            }
+            if (supportCosmosGrpc) {
+                loadGrpcAuthData(this, baseAccountId, isEdit)
             }
         }
     }
@@ -153,45 +153,44 @@ class ApplicationViewModel(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
-            getChannel(this)?.let { channel ->
-                when (val response = walletRepository.auth(channel, this)) {
-                    is NetworkResult.Success -> {
-                        grpcFetcher?.cosmosAuth = response.data?.account
-                        loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
-                    }
+            val channel = getChannel(this)
+            when (val response = walletRepository.auth(channel, this)) {
+                is NetworkResult.Success -> {
+                    grpcFetcher?.cosmosAuth = response.data?.account
+                    loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
+                }
 
-                    is NetworkResult.Error -> {
-                        when (val balanceResponse = walletRepository.balance(channel, this)) {
-                            is NetworkResult.Success -> {
-                                balanceResponse.data?.balancesList?.let {
-                                    grpcFetcher?.cosmosBalances = it
-                                }
-                            }
-
-                            is NetworkResult.Error -> {
-                                grpcFetcher?.cosmosBalances = null
+                is NetworkResult.Error -> {
+                    when (val balanceResponse = walletRepository.balance(channel, this)) {
+                        is NetworkResult.Success -> {
+                            balanceResponse.data?.balancesList?.let {
+                                grpcFetcher?.cosmosBalances = it
                             }
                         }
 
-                        fetched = true
-                        if (fetched) {
-                            val refAddress = RefAddress(
-                                baseAccountId,
-                                tag,
-                                address,
-                                ByteUtils.convertBech32ToEvm(address),
-                                "0",
-                                "0",
-                                "0",
-                                0
-                            )
-                            BaseData.updateRefAddressesMain(refAddress)
-                            withContext(Dispatchers.Main) {
-                                if (isEdit) {
-                                    editFetchedResult.value = tag
-                                } else {
-                                    fetchedResult.value = tag
-                                }
+                        is NetworkResult.Error -> {
+                            grpcFetcher?.cosmosBalances = null
+                        }
+                    }
+
+                    fetched = true
+                    if (fetched) {
+                        val refAddress = RefAddress(
+                            baseAccountId,
+                            tag,
+                            address,
+                            ByteUtils.convertBech32ToEvm(address),
+                            "0",
+                            "0",
+                            "0",
+                            0
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        withContext(Dispatchers.Main) {
+                            if (isEdit) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
                             }
                         }
                     }
@@ -375,7 +374,7 @@ class ApplicationViewModel(
         }
     }
 
-    fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
+    private fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
         CoroutineScope(Dispatchers.IO).launch {
             chain.apply {
                 evmRpcFetcher()?.let { evmRpcFetcher ->

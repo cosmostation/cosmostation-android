@@ -1655,7 +1655,7 @@ class TxRepositoryImpl : TxRepository {
         msgVotes: MutableList<MsgVote?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1674,7 +1674,7 @@ class TxRepositoryImpl : TxRepository {
         msgVotes: MutableList<MsgVote?>?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1693,7 +1693,7 @@ class TxRepositoryImpl : TxRepository {
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1713,7 +1713,7 @@ class TxRepositoryImpl : TxRepository {
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1733,7 +1733,7 @@ class TxRepositoryImpl : TxRepository {
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1753,7 +1753,7 @@ class TxRepositoryImpl : TxRepository {
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1773,7 +1773,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1793,7 +1793,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1813,7 +1813,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1833,7 +1833,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1853,7 +1853,7 @@ class TxRepositoryImpl : TxRepository {
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1873,7 +1873,7 @@ class TxRepositoryImpl : TxRepository {
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1893,7 +1893,7 @@ class TxRepositoryImpl : TxRepository {
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1913,7 +1913,7 @@ class TxRepositoryImpl : TxRepository {
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1933,7 +1933,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1953,7 +1953,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -1973,7 +1973,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1993,7 +1993,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -2013,7 +2013,7 @@ class TxRepositoryImpl : TxRepository {
         msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2033,7 +2033,7 @@ class TxRepositoryImpl : TxRepository {
         msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -2053,7 +2053,7 @@ class TxRepositoryImpl : TxRepository {
         msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2073,7 +2073,7 @@ class TxRepositoryImpl : TxRepository {
         msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -2093,7 +2093,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2113,7 +2113,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -2133,7 +2133,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2153,7 +2153,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -2173,7 +2173,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2193,7 +2193,7 @@ class TxRepositoryImpl : TxRepository {
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
@@ -2213,7 +2213,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2233,7 +2233,7 @@ class TxRepositoryImpl : TxRepository {
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =

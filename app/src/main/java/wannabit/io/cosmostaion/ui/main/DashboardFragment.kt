@@ -216,8 +216,13 @@ class DashboardFragment : Fragment() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
-                            if (chain.address.isEmpty()) {
+                            if (chain.publicKey == null) {
                                 chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            }
+                            if (chain.address.isNotEmpty()) {
+                                withContext(Dispatchers.Main) {
+                                    updateRowData(chain.tag)
+                                }
                             }
                             if (!chain.fetched) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
@@ -229,8 +234,13 @@ class DashboardFragment : Fragment() {
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
-                            if (chain.address.isEmpty()) {
+                            if (chain.publicKey == null) {
                                 chain.setInfoWithPrivateKey(privateKey)
+                            }
+                            if (chain.address.isNotEmpty()) {
+                                withContext(Dispatchers.Main) {
+                                    updateRowData(chain.tag)
+                                }
                             }
                             if (!chain.fetched) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)

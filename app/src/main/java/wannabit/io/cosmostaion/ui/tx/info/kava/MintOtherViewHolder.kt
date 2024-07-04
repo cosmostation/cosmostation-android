@@ -3,7 +3,9 @@ package wannabit.io.cosmostaion.ui.tx.info.kava
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.kava.cdp.v1beta1.GenesisProto
+import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.evmClass.KAVA_MINT_IMG_URL
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.databinding.ItemOtherMintBinding
 import java.math.BigDecimal
@@ -24,8 +26,8 @@ class MintOtherViewHolder(
                     listener.otherMintClick(collateralParam.type)
                 }
 
-//                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit()
-//                    .into(marketImg)
+                Picasso.get().load(KAVA_MINT_IMG_URL + collateralParam.type + ".png").fit()
+                    .into(marketImg)
                 marketType.text = collateralParam.type.uppercase()
                 mintType.text = collateralParam.spotMarketId.uppercase()
 

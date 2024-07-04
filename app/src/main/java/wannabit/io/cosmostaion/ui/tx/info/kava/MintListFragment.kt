@@ -15,7 +15,7 @@ import com.kava.cdp.v1beta1.GenesisProto
 import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.pricefeed.v1beta1.QueryProto
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentMintListBinding
@@ -31,7 +31,7 @@ class MintListFragment : Fragment() {
     private var _binding: FragmentMintListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var priceFeed: QueryProto.QueryPricesResponse
 
     private lateinit var kavaViewModel: KavaViewModel
@@ -48,7 +48,7 @@ class MintListFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, priceFeed: QueryProto.QueryPricesResponse?
+            selectedChain: BaseChain, priceFeed: QueryProto.QueryPricesResponse?
         ): MintListFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -80,7 +80,7 @@ class MintListFragment : Fragment() {
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.apply {
-                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getParcelable("selectedChain", BaseChain::class.java)?.let { selectedChain = it }
                 getSerializable(
                     "priceFeed", QueryProto.QueryPricesResponse::class.java
                 )?.let { priceFeed = it }
@@ -88,7 +88,7 @@ class MintListFragment : Fragment() {
 
         } else {
             arguments?.apply {
-                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                (getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (getSerializable("priceFeed") as? QueryProto.QueryPricesResponse)?.let {
@@ -104,14 +104,14 @@ class MintListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-//        kavaViewModel.mintParam(getChannel(selectedChain))
+        kavaViewModel.mintParam(getChannel(selectedChain))
     }
 
     private fun setUpMintParamObserve() {
         kavaViewModel.mintParamResult.observe(viewLifecycleOwner) { response ->
             response?.let { params ->
                 mintParam = params.params
-//                kavaViewModel.myCdp(getChannel(selectedChain), selectedChain.address)
+                kavaViewModel.myCdp(getChannel(selectedChain), selectedChain.address)
             }
         }
     }

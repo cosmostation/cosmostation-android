@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
+import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 
@@ -23,7 +24,7 @@ class ProposalListFragment : Fragment() {
     private var _binding: FragmentProposalListBinding? = null
     private val binding: FragmentProposalListBinding? get() = _binding
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private val proposalViewModel: ProposalViewModel by activityViewModels()
     private lateinit var proposalListAdapter: ProposalListAdapter
@@ -40,7 +41,7 @@ class ProposalListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): ProposalListFragment {
+        fun newInstance(selectedChain: BaseChain): ProposalListFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -68,11 +69,11 @@ class ProposalListFragment : Fragment() {
 
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
 
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }
@@ -226,10 +227,10 @@ class ProposalListFragment : Fragment() {
 //                    return@setOnClickListener
 //                }
 
-                val delegated = selectedChain.delegationAmountSum()
+                val delegated = selectedChain.grpcFetcher?.delegationAmountSum()
                 val voteThreshold = selectedChain.voteThreshold()
                 if (voteThreshold.isNotEmpty()) {
-                    if (delegated <= voteThreshold.toBigDecimal()) {
+                    if (voteThreshold.toBigDecimal() >= delegated) {
                         requireActivity().makeToast(R.string.error_no_bonding_no_vote)
                         return@setOnClickListener
                     }
@@ -254,9 +255,9 @@ class ProposalListFragment : Fragment() {
 //                    }
 //
 //                } else {
-//                    VoteFragment.newInstance(selectedChain, toVoteProposals).show(
-//                        requireActivity().supportFragmentManager, VoteFragment::class.java.name
-//                    )
+                VoteFragment.newInstance(selectedChain, toVoteProposals).show(
+                    requireActivity().supportFragmentManager, VoteFragment::class.java.name
+                )
 //                }
             }
         }

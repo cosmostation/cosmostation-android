@@ -42,11 +42,11 @@ open class CosmosLine : BaseChain(), Parcelable {
         return BigDecimal.ZERO
     }
 
-    fun voteThreshold(): String {
-        return getChainListParam()?.get("voting_threshold")?.asString ?: run {
-            "0"
-        }
-    }
+//    fun voteThreshold(): String {
+//        return getChainListParam()?.get("voting_threshold")?.asString ?: run {
+//            "0"
+//        }
+//    }
 
     fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances?.isNotEmpty() == true) {
@@ -251,17 +251,17 @@ open class CosmosLine : BaseChain(), Parcelable {
             ?.add(unbondingAmountSum())?.add(rewardAmountSum(stakeDenom))
     }
 
-    override fun explorerProposal(id: String?): Uri? {
-        getChainListParam()?.getAsJsonObject("explorer")
-            ?.get("proposal")?.asString?.let { urlString ->
-                id?.let {
-                    return Uri.parse(urlString.replace("\${id}", it))
-                } ?: run {
-                    return null
-                }
-            }
-        return null
-    }
+//    override fun explorerProposal(id: String?): Uri? {
+//        getChainListParam()?.getAsJsonObject("explorer")
+//            ?.get("proposal")?.asString?.let { urlString ->
+//                id?.let {
+//                    return Uri.parse(urlString.replace("\${id}", it))
+//                } ?: run {
+//                    return null
+//                }
+//            }
+//        return null
+//    }
 
 //    fun monikerImg(opAddress: String?): String {
 //        return "$CHAIN_BASE_URL$apiName/moniker/$opAddress.png"

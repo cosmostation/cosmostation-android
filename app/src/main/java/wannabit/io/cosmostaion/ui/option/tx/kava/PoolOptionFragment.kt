@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentPoolOptionBinding
 import wannabit.io.cosmostaion.ui.tx.info.kava.PoolClickListener
 
 class PoolOptionFragment(
-    val selectedChain: CosmosLine,
+    val selectedChain: BaseChain,
     private val swapPool: QueryProto.PoolResponse,
     private val deposit: QueryProto.DepositResponse,
     val listener: PoolClickListener,

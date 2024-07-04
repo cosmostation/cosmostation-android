@@ -63,11 +63,11 @@ class ClaimRewardFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>
+            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?
         ): ClaimRewardFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
-                putSerializable("claimableRewards", claimableRewards.toHashSet())
+                putSerializable("claimableRewards", claimableRewards?.toHashSet())
             }
             val fragment = ClaimRewardFragment()
             fragment.arguments = args
@@ -128,42 +128,40 @@ class ClaimRewardFragment : BaseTxFragment() {
                 validatorCnt.visibility = View.GONE
             }
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    var rewardAmount = BigDecimal.ZERO
-                    claimableRewards.forEach { reward ->
-                        val rawAmount = BigDecimal(
-                            reward?.rewardList?.firstOrNull { it.denom == denom }?.amount ?: "0"
-                        )
-                        rewardAmount = rewardAmount.add(
-                            rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
-                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        )
-                    }
-                    rewardsAmount.text =
-                        formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
-                    rewardsDenom.text = asset.symbol
-                    rewardsDenom.setTextColor(asset.assetColor())
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                var rewardAmount = BigDecimal.ZERO
+                claimableRewards.forEach { reward ->
+                    val rawAmount = BigDecimal(
+                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount ?: "0"
+                    )
+                    rewardAmount = rewardAmount.add(
+                        rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                    )
+                }
+                rewardsAmount.text =
+                    formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                rewardsDenom.text = asset.symbol
+                rewardsDenom.setTextColor(asset.assetColor())
 
-                    val anotherRewardDenoms = mutableListOf<String>()
-                    claimableRewards.forEach { reward ->
-                        reward?.rewardList?.filter { it.denom != denom }
-                            ?.forEach { anotherRewards ->
-                                val anotherAmount =
-                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                        .setScale(0, RoundingMode.DOWN)
-                                if (anotherAmount != BigDecimal.ZERO) {
-                                    if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
-                                        anotherRewardDenoms.add(anotherRewards.denom)
-                                    }
+                val anotherRewardDenoms = mutableListOf<String>()
+                claimableRewards.forEach { reward ->
+                    reward?.rewardList?.filter { it.denom != selectedChain.stakeDenom }
+                        ?.forEach { anotherRewards ->
+                            val anotherAmount =
+                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                    .setScale(0, RoundingMode.DOWN)
+                            if (anotherAmount != BigDecimal.ZERO) {
+                                if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
+                                    anotherRewardDenoms.add(anotherRewards.denom)
                                 }
                             }
-                    }
-                    if (anotherRewardDenoms.size > 0) {
-                        rewardCnt.text = "+ " + anotherRewardDenoms.size
-                    } else {
-                        rewardCnt.visibility = View.GONE
-                    }
+                        }
+                }
+                if (anotherRewardDenoms.size > 0) {
+                    rewardCnt.text = "+ " + anotherRewardDenoms.size
+                } else {
+                    rewardCnt.visibility = View.GONE
                 }
             }
         }

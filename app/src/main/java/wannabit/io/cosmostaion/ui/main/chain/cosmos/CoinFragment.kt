@@ -133,7 +133,7 @@ class CoinFragment : Fragment() {
 //                    startTransfer(line, denom, sendAssetType)
 //
 //                } else {
-                    startTransfer(chain, denom, sendAssetType)
+                startTransfer(chain, denom, sendAssetType)
 //                }
             }
         }
@@ -145,8 +145,7 @@ class CoinFragment : Fragment() {
         ibcCoins.clear()
         bridgeCoins.clear()
 
-        selectedChain.stakeDenom?.let { stakeDenom ->
-            when (selectedChain) {
+        when (selectedChain) {
 //                is ChainOkt996Keccak -> {
 //                    (selectedChain as ChainOkt996Keccak).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
 //                        if (balance.denom == stakeDenom) {
@@ -175,39 +174,39 @@ class CoinFragment : Fragment() {
 //                    nativeCoins.sortBy { it.denom }
 //                }
 
-                else -> {
-                    selectedChain.grpcFetcher?.cosmosBalances?.forEach { coin ->
-                        val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
-                        coinType?.let {
-                            when (it) {
-                                "staking" -> stakeCoins.add(
+            else -> {
+                selectedChain.grpcFetcher?.cosmosBalances?.forEach { coin ->
+                    val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
+                    coinType?.let {
+                        when (it) {
+                            "staking" -> stakeCoins.add(
+                                Coin(
+                                    coin.denom, coin.amount, CoinType.STAKE
+                                )
+                            )
+
+                            "native" -> {
+                                nativeCoins.add(
                                     Coin(
-                                        coin.denom, coin.amount, CoinType.STAKE
+                                        coin.denom, coin.amount, CoinType.NATIVE
                                     )
                                 )
-
-                                "native" -> {
-                                    nativeCoins.add(
-                                        Coin(
-                                            coin.denom, coin.amount, CoinType.NATIVE
-                                        )
-                                    )
-                                }
-
-                                "bep", "bridge" -> bridgeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.BRIDGE
-                                    )
-                                )
-
-                                "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                             }
+
+                            "bep", "bridge" -> bridgeCoins.add(
+                                Coin(
+                                    coin.denom, coin.amount, CoinType.BRIDGE
+                                )
+                            )
+
+                            "ibc" -> ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                         }
                     }
+                }
 
-                    if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
-                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-                    }
+                if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
+                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
+                }
 //                    if (selectedChain is ChainBeraEvm) {
 //                        nativeCoins.add(
 //                            Coin(
@@ -218,26 +217,25 @@ class CoinFragment : Fragment() {
 //                        )
 //                    }
 
-                    nativeCoins.sortWith(compareByDescending {
-                        selectedChain.grpcFetcher?.balanceValue(
-                            it.denom
-                        )
-                    })
-                    ibcCoins.sortWith(compareByDescending {
-                        selectedChain.grpcFetcher?.balanceValue(
-                            it.denom
-                        )
-                    })
-                    bridgeCoins.sortWith(compareByDescending {
-                        selectedChain.grpcFetcher?.balanceValue(
-                            it.denom
-                        )
-                    })
-                }
+                nativeCoins.sortWith(compareByDescending {
+                    selectedChain.grpcFetcher?.balanceValue(
+                        it.denom
+                    )
+                })
+                ibcCoins.sortWith(compareByDescending {
+                    selectedChain.grpcFetcher?.balanceValue(
+                        it.denom
+                    )
+                })
+                bridgeCoins.sortWith(compareByDescending {
+                    selectedChain.grpcFetcher?.balanceValue(
+                        it.denom
+                    )
+                })
             }
-            coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
-            coinAdapter.notifyDataSetChanged()
         }
+        coinAdapter.submitList(stakeCoins + nativeCoins + ibcCoins + bridgeCoins)
+        coinAdapter.notifyDataSetChanged()
         binding.refresher.isRefreshing = false
     }
 
@@ -248,13 +246,6 @@ class CoinFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
-//                    if (selectedChain is EthereumLine) {
-//                        ApplicationViewModel.shared.loadEvmChainData(
-//                            selectedChain as EthereumLine, account.id, false
-//                        )
-//                    } else {
-//                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
-//                    }
                 }
             }
         }

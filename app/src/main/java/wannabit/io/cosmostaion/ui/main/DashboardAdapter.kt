@@ -2,10 +2,12 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
@@ -53,11 +55,19 @@ class DashboardAdapter(
             is DashboardViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
                     val chain = displayMainnetChains[position - 1]
-                    if (chain.supportEvm) {
-                        holder.evmBind(chain)
-                    } else {
+                    if (Prefs.style == 0) {
                         holder.bind(chain)
+                    } else {
+                        holder.proBind(chain)
                     }
+
+
+
+//                    if (chain.supportEvm) {
+//                        holder.evmBind(chain)
+//                    } else {
+//                        holder.bind(chain)
+//                    }
 
                     holder.itemView.setOnClickListener {
                         listener.nodeDown(chain)
