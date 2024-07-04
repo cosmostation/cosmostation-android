@@ -201,8 +201,8 @@ class TxResultActivity : BaseActivity() {
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
                         if (isSuccess && fetchCnt > 0) {
-                            getChannel(line)?.shutdown()
-                            getChannel(line)?.awaitTermination(6L, TimeUnit.SECONDS)
+                            getChannel(line).shutdown()
+                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
                             Handler(Looper.getMainLooper()).postDelayed({
                                 loadHistoryTx()
                             }, 6000)

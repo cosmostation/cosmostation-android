@@ -412,7 +412,7 @@
     <string name="str_reward_address">Reward address</string>
     <string name="str_my_staking">My staking</string>
     <string name="str_my_unstaking">My unstaking</string>
-    <string name="str_voting_period">Voting period proposals</string>
+    <string name="str_voting_period">Live proposals</string>
     <string name="str_vote_proposals">Finished proposals</string>
     <string name="str_my_market_list" translatable="false">My market list</string>
     <string name="str_market_list" translatable="false">Market list</string>

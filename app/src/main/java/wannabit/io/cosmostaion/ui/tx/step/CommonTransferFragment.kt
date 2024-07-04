@@ -183,6 +183,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     } else {
                         fromChain.evmRpcFetcher?.evmBalance?.subtract(EVM_BASE_FEE)
                     }
+                    transferImg.setImageResource(fromChain.coinLogo)
                     sendTitle.text = getString(
                         R.string.title_asset_send, fromChain.coinSymbol
                     )
@@ -195,6 +196,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         } else {
                             fromChain.evmRpcFetcher?.evmBalance?.subtract(EVM_BASE_FEE)
                         }
+                        transferImg.setImageResource(fromChain.coinLogo)
                         sendTitle.text = getString(
                             R.string.title_asset_send, fromChain.coinSymbol
                         )
@@ -211,6 +213,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 }
                             }
                         }
+                        transferImg.setTokenImg(toSendAsset?.assetImg() ?: "")
                         sendTitle.text = getString(
                             R.string.title_asset_send, toSendAsset?.symbol
                         )
@@ -229,6 +232,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             }
                         }
                     }
+                    transferImg.setTokenImg(toSendAsset?.assetImg() ?: "")
                     sendTitle.text = getString(
                         R.string.title_asset_send, toSendAsset?.symbol
                     )
@@ -247,6 +251,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
                     availableAmount = toSendToken?.amount?.toBigDecimal()
+                    transferImg.setTokenImg(toSendToken?.assetImg() ?: "")
                     sendTitle.text = getString(
                         R.string.title_asset_send, toSendToken?.symbol
                     )

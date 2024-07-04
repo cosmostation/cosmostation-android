@@ -10,7 +10,7 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 
 class TokenAdapter(
-    val line: BaseChain
+    val chain: BaseChain
 ) : ListAdapter<Token, TokenViewHolder>(TokenDiffCallback()) {
 
     private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
@@ -23,11 +23,11 @@ class TokenAdapter(
 
     override fun onBindViewHolder(holder: TokenViewHolder, position: Int) {
         val token = currentList[position]
-        holder.bind(line, token, currentList.size, position)
+        holder.bind(chain, token, currentList.size, position)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(line, token.address)
+                it(chain, token.address)
             }
         }
     }

@@ -126,8 +126,11 @@ class AboutFragment : Fragment() {
                     getString(R.string.str_mainnet)
                 }
 
-                stakingDenom.text =
+                stakingDenom.text = if (!selectedChain.supportStaking) {
+                    "-"
+                } else {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
+                }
                 val unBondingTime = unBondingTime(selectedChain)
                 unbondingTime.text = if (unBondingTime.isNotEmpty()) {
                     "$unBondingTime Days"
@@ -165,23 +168,30 @@ class AboutFragment : Fragment() {
                     "-"
                 }
 
-                if (selectedChain.address == selectedChain.grpcFetcher?.rewardAddress) {
-                    cautionImg.visibility = View.GONE
-                    rewardAddressWarnMsg.visibility = View.GONE
-                } else {
-                    cautionImg.visibility = View.VISIBLE
-                    rewardAddressWarnMsg.visibility = View.VISIBLE
-                    cautionImg.setColorFilter(
-                        ContextCompat.getColor(requireContext(), R.color.color_accent_red),
-                        PorterDuff.Mode.SRC_IN
-                    )
-                    rewardAddress.setTextColor(
-                        ContextCompat.getColorStateList(
-                            requireContext(), R.color.color_accent_red
+                if (selectedChain.supportStaking) {
+                    if (selectedChain.address == selectedChain.grpcFetcher?.rewardAddress) {
+                        cautionImg.visibility = View.GONE
+                        rewardAddressWarnMsg.visibility = View.GONE
+                    } else {
+                        cautionImg.visibility = View.VISIBLE
+                        rewardAddressWarnMsg.visibility = View.VISIBLE
+                        cautionImg.setColorFilter(
+                            ContextCompat.getColor(requireContext(), R.color.color_accent_red),
+                            PorterDuff.Mode.SRC_IN
                         )
-                    )
+                        rewardAddress.setTextColor(
+                            ContextCompat.getColorStateList(
+                                requireContext(), R.color.color_accent_red
+                            )
+                        )
+                    }
+                    rewardAddress.text = selectedChain.grpcFetcher?.rewardAddress
+
+                } else {
+                    rewardView.visibility = View.GONE
+                    rewardTitle.visibility = View.GONE
+                    rewardCopyMsg.visibility = View.GONE
                 }
-                rewardAddress.text = selectedChain.grpcFetcher?.rewardAddress
             }
         }
     }

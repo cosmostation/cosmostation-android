@@ -32,7 +32,7 @@ class TokenViewHolder(
             }
 //            headerTitle.text = when (chain) {
 //                is EthereumLine -> { context.getString(R.string.str_erc20_tokens) }
-////                is ChainOkt996Keccak -> { context.getString(R.string.str_kip20_tokens) }
+//                is ChainOkt996Keccak -> { context.getString(R.string.str_kip20_tokens) }
 //                else -> { context.getString(R.string.str_contract_tokens) }
 //            }
             headerCnt.text = cnt.toString()
@@ -58,7 +58,17 @@ class TokenViewHolder(
                         hideValue.visibility = View.GONE
 
                         coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                        coinAmountValue.text = formatAssetValue(chain.tokenValue(token.address))
+                        if (chain.supportCw20) {
+                            chain.grpcFetcher?.let {
+                                coinAmountValue.text =
+                                    formatAssetValue(it.tokenValue(token.address))
+                            }
+                        } else {
+                            chain.evmRpcFetcher?.let {
+                                coinAmountValue.text =
+                                    formatAssetValue(it.tokenValue(token.address))
+                            }
+                        }
                     }
                 }
         }

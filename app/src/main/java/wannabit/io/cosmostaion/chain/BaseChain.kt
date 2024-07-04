@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -117,62 +118,6 @@ open class BaseChain : Parcelable {
             evmRpcFetcher = FetcherEvmRpc(this)
         }
         return evmRpcFetcher
-    }
-
-    fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        grpcFetcher?.tokens?.firstOrNull { it.address == address }?.let { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-            return price.multiply(tokenInfo.amount?.toBigDecimal())
-                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
-        } ?: run {
-            return BigDecimal.ZERO
-        }
-    }
-
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
-        var result = BigDecimal.ZERO
-        grpcFetcher?.let { grpc ->
-            grpc.tokens.forEach { token ->
-                val price = BaseData.getPrice(token.coinGeckoId, isUsd)
-                val value =
-                    price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                        .setScale(6, RoundingMode.DOWN)
-                result = result.add(value)
-            }
-        }
-
-        evmRpcFetcher?.let { evmGrpc ->
-            evmGrpc.evmTokens.forEach { tokenInfo ->
-                val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-                val value = price.multiply(tokenInfo.amount?.toBigDecimal())
-                    .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
-                result = result.add(value)
-            }
-            return result
-        }
-        return result
-    }
-
-    fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        grpcFetcher?.let { grpc ->
-            grpc.apply {
-                return balanceValueSum(isUsd).add(vestingValueSum(isUsd))
-                    .add(delegationValueSum(isUsd)).add(unbondingValueSum(isUsd))
-                    .add(rewardValueSum(isUsd))
-            }
-        }
-
-        evmRpcFetcher?.let { evmGrpc ->
-            evmGrpc.apply {
-                val price = BaseData.getPrice(coinGeckoId, isUsd)
-                return evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
-            }
-        }
-        return BigDecimal.ZERO
-    }
-
-    fun allValue(isUsd: Boolean?): BigDecimal {
-        return allAssetValue(isUsd).add(allTokenValue(isUsd))
     }
 
     fun isCosmos(): Boolean {
@@ -395,11 +340,28 @@ open class BaseChain : Parcelable {
         }
         return Pair(this.grpcHost, this.grpcPort)
     }
+
+    fun allValue(isUsd: Boolean?): BigDecimal {
+        if (isEvmCosmos()) {
+            val allValue = grpcFetcher?.allAssetValue(isUsd)?.add(grpcFetcher?.allTokenValue(isUsd))
+                ?: BigDecimal.ZERO
+            evmRpcFetcher?.let { evmRpc ->
+                return allValue.add(evmRpc.allTokenValue(isUsd))
+            }
+            return allValue
+        } else if (isCosmos()) {
+            return grpcFetcher?.allAssetValue(isUsd)?.add(grpcFetcher?.allTokenValue(isUsd))
+                ?: BigDecimal.ZERO
+        } else {
+            return evmRpcFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
+                ?: BigDecimal.ZERO
+        }
+    }
 }
 
 fun allChains(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
-    chains.add(ChainCosmos())
+//    chains.add(ChainCosmos())
     chains.add(ChainAxelar())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
@@ -408,6 +370,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainKavaEvm())
     chains.add(ChainKava459())
     chains.add(ChainOsmosis())
+    chains.add(ChainNeutron())
 //    lines.add(ChainAkash())
 //    lines.add(ChainAlthea118())
 //    lines.add(ChainArchway())

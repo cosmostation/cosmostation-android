@@ -183,7 +183,7 @@ class ChainEditFragment : BaseTxFragment() {
                         account.reSortChains()
                         mainnetChains = account.allChains.filter { !it.isTestnet }.toMutableList()
                         for (chain in mainnetChains) {
-                            if (chain.allAssetValue(true) > BigDecimal.ONE) {
+                            if (chain.allValue(true) > BigDecimal.ONE) {
                                 toDisplayChains.add(chain.tag)
                             }
                         }

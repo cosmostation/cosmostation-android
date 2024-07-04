@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -30,9 +30,9 @@ class CoinCosmosLineViewHolder(
 //                bindOkt(line)
 //            }
 //
-//            is ChainNeutron -> {
-//                bindNeutron(line)
-//            }
+            is ChainNeutron -> {
+                bindNeutron(chain)
+            }
 
             else -> {
                 binding.apply {
@@ -51,9 +51,11 @@ class CoinCosmosLineViewHolder(
 
                             asset.decimals?.let { decimal ->
                                 val availableAmount = chain.grpcFetcher?.balanceAmount(stakeDenom)
-                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
+                                    ?: BigDecimal.ZERO
                                 val vestingAmount = chain.grpcFetcher?.vestingAmount(stakeDenom)
-                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
+                                    ?: BigDecimal.ZERO
                                 val stakedAmount =
                                     chain.grpcFetcher?.delegationAmountSum()?.movePointLeft(decimal)
                                         ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
@@ -61,7 +63,8 @@ class CoinCosmosLineViewHolder(
                                     chain.grpcFetcher?.unbondingAmountSum()?.movePointLeft(decimal)
                                         ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
                                 val rewardAmount = chain.grpcFetcher?.rewardAmountSum(stakeDenom)
-                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
+                                    ?: BigDecimal.ZERO
 
                                 vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
                                 unstakingLayout.goneOrVisible(unStakingAmount?.compareTo(BigDecimal.ZERO) == 0)
@@ -123,76 +126,69 @@ class CoinCosmosLineViewHolder(
         }
     }
 
-    private fun bindNeutron(line: CosmosLine) {
+    private fun bindNeutron(chain: ChainNeutron) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             unstakingLayout.visibility = View.GONE
             rewardLayout.visibility = View.GONE
 
-//            val neutronChain = line as? ChainNeutron
-//            neutronChain?.let { chain ->
-//                stakedTitle.text = "Vault deposited"
-//                chain.stakeDenom?.let { denom ->
-//                    BaseData.getAsset(chain.apiName, denom)?.let { asset ->
-//                        tokenImg.setTokenImg(asset)
-//                        tokenName.text = asset.symbol?.uppercase()
-//
-//                        tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-//                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-//                            tokenPriceChange.priceChangeStatusColor(lastUpDown)
-//                            tokenPriceChange.text = priceChangeStatus(lastUpDown)
-//                        }
-//
-//                        asset.decimals?.let { decimal ->
-//                            val availableAmount = line.balanceAmount(denom).movePointLeft(decimal)
-//                                .setScale(6, RoundingMode.DOWN)
-//
-//                            chain.neutronVestingAmount()?.let { neutronVestingAmount ->
-//                                val vestingAmount = neutronVestingAmount.movePointLeft(decimal)
-//                                    .setScale(6, RoundingMode.DOWN)
-//                                vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
-//
-//                                val depositedAmount =
-//                                    chain.neutronDeposited.movePointLeft(decimal)
-//                                        .setScale(6, RoundingMode.DOWN)
-//
-//                                val totalAmount =
-//                                    availableAmount.add(vestingAmount).add(depositedAmount)
-//                                val value = line.denomValue(denom)
-//
-//                                with(Prefs) {
-//                                    total.visibility = if (hideValue) View.GONE else View.VISIBLE
-//                                    totalValue.visibility =
-//                                        if (hideValue) View.GONE else View.VISIBLE
-//                                    hidingValue.visibility =
-//                                        if (hideValue) View.VISIBLE else View.GONE
-//
-//                                    available.hiddenStatus(
-//                                        formatAmount(
-//                                            availableAmount.toPlainString(), 6
-//                                        )
-//                                    )
-//                                    vesting.hiddenStatus(
-//                                        formatAmount(
-//                                            vestingAmount.toPlainString(), 6
-//                                        )
-//                                    )
-//                                    staked.hiddenStatus(
-//                                        formatAmount(
-//                                            depositedAmount.toPlainString(), 6
-//                                        )
-//                                    )
-//
-//                                    total.text = if (hideValue) "" else formatAmount(
-//                                        totalAmount.toPlainString(), 6
-//                                    )
-//                                    totalValue.text = if (hideValue) "" else formatAssetValue(value)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            stakedTitle.text = "Vault deposited"
+            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol?.uppercase()
+
+                tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                    tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                }
+
+                asset.decimals?.let { decimal ->
+                    val availableAmount = chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
+                        ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
+                    chain.neutronFetcher?.neutronVestingAmount()?.let { neutronVestingAmount ->
+                        val vestingAmount = neutronVestingAmount.movePointLeft(decimal)
+                            .setScale(6, RoundingMode.DOWN)
+                        vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
+
+                        val depositedAmount =
+                            chain.neutronFetcher?.neutronDeposited?.movePointLeft(decimal)
+                                ?.setScale(6, RoundingMode.DOWN)
+
+                        val totalAmount = availableAmount?.add(vestingAmount)?.add(depositedAmount)
+                        val value = chain.neutronFetcher?.denomValue(chain.stakeDenom)
+
+                        with(Prefs) {
+                            total.visibility = if (hideValue) View.GONE else View.VISIBLE
+                            totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
+                            hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
+
+                            available.hiddenStatus(
+                                formatAmount(
+                                    availableAmount.toString(), 6
+                                )
+                            )
+                            vesting.hiddenStatus(
+                                formatAmount(
+                                    vestingAmount.toString(), 6
+                                )
+                            )
+                            staked.hiddenStatus(
+                                formatAmount(
+                                    depositedAmount.toString(), 6
+                                )
+                            )
+
+                            total.text = if (hideValue) "" else formatAmount(
+                                totalAmount.toString(), 6
+                            )
+                            totalValue.text = if (hideValue) "" else value?.let {
+                                formatAssetValue(it)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

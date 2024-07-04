@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -176,8 +175,8 @@ class LendActionFragment : BaseTxFragment() {
                             lendActionTitle.text = getString(R.string.title_lend_deposit)
                             lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
                             btnLend.text = getString(R.string.str_deposit)
-                            val balanceAmount = selectedChain.grpcFetcher?.balanceAmount(market.denom)
-                            Log.e("Test1234 : ", balanceAmount.toString())
+                            val balanceAmount =
+                                selectedChain.grpcFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 availableAmount = balanceAmount?.subtract(feeAmount)
@@ -211,7 +210,8 @@ class LendActionFragment : BaseTxFragment() {
                             borrowedAmount = borrowedAmount.multiply(BigDecimal("1.1"))
                                 .setScale(0, RoundingMode.DOWN)
 
-                            var balanceAmount = selectedChain.grpcFetcher?.balanceAmount(market.denom)
+                            var balanceAmount =
+                                selectedChain.grpcFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 balanceAmount = balanceAmount?.subtract(feeAmount)

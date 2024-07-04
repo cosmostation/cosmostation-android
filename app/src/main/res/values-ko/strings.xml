@@ -369,8 +369,8 @@
     <string name="str_reward_address">이자 받는 주소</string>
     <string name="str_my_staking">내 스테이킹</string>
     <string name="str_my_unstaking">내 언스테이킹</string>
-    <string name="str_voting_period">투표 진행 목록</string>
-    <string name="str_vote_proposals">투표 완료 목록</string>
+    <string name="str_voting_period">진행중 목록</string>
+    <string name="str_vote_proposals">종료된 목록</string>
 
 
     // tx

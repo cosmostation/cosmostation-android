@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
@@ -36,11 +37,13 @@ import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
+import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
+import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
@@ -221,11 +224,11 @@ class CosmosDetailFragment : Fragment() {
 //            }
 
             when (selectedChain) {
-//                is ChainNeutron -> {
-//                    fabDao.visibility = View.VISIBLE
-//                    fabVault.visibility = View.VISIBLE
-//                }
-//
+                is ChainNeutron -> {
+                    fabDao.visibility = View.VISIBLE
+                    fabVault.visibility = View.VISIBLE
+                }
+
                 is ChainKavaEvm, is ChainKava459 -> {
                     fabDefi.visibility = View.VISIBLE
                 }
@@ -404,7 +407,11 @@ class CosmosDetailFragment : Fragment() {
     private fun setFabMenuClickAction() {
         binding.apply {
             fabSend.setOnClickListener {
-                val sendAssetType = SendAssetType.ONLY_COSMOS_COIN
+                val sendAssetType = if (selectedChain.isEvmCosmos()) {
+                    SendAssetType.COSMOS_EVM_COIN
+                } else {
+                    SendAssetType.ONLY_COSMOS_COIN
+                }
 //                    val sendAssetType = if (selectedChain is EthereumLine) {
 //                        if (selectedChain is ChainOktEvm) {
 //                            SendAssetType.ONLY_EVM_COIN
@@ -527,13 +534,16 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabDao.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null
-//                )
+                handleOneClickWithDelay(
+                    DaoProposalListFragment.newInstance(selectedChain as ChainNeutron), null
+                )
             }
 
             fabVault.setOnClickListener {
-//                handleOneClickWithDelay(null, VaultSelectFragment.newInstance(selectedChain))
+                handleOneClickWithDelay(
+                    null,
+                    VaultSelectFragment.newInstance(selectedChain as ChainNeutron)
+                )
             }
 
             fabDeposit.setOnClickListener {

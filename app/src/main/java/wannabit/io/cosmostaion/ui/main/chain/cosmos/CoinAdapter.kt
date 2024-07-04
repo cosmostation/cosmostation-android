@@ -56,9 +56,7 @@ class CoinAdapter(
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            selectedChain.stakeDenom?.let { stakeDenom ->
-                                it(selectedChain, stakeDenom, position)
-                            }
+                            it(selectedChain, selectedChain.stakeDenom, position)
                         }
                     }
 

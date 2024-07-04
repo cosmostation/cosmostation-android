@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -129,6 +128,19 @@ class TokenFragment : Fragment() {
                                     tokens.add(token)
                                 }
                             }
+
+                            tokens.sortWith { o1, o2 ->
+                                val value0 = selectedChain.evmRpcFetcher?.tokenValue(o1.address)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.evmRpcFetcher?.tokenValue(o2.address)
+                                    ?: BigDecimal.ZERO
+
+                                when {
+                                    value0 > value1 -> -1
+                                    value0 < value1 -> 1
+                                    else -> 0
+                                }
+                            }
                         }
 
                     } else {
@@ -137,15 +149,17 @@ class TokenFragment : Fragment() {
                                 tokens.add(token)
                             }
                         }
-                    }
 
-                    tokens.sortWith { o1, o2 ->
-                        val value0 = selectedChain.tokenValue(o1.address)
-                        val value1 = selectedChain.tokenValue(o2.address)
-                        when {
-                            value0 > value1 -> -1
-                            value0 < value1 -> 1
-                            else -> 0
+                        tokens.sortWith { o1, o2 ->
+                            val value0 =
+                                selectedChain.grpcFetcher?.tokenValue(o1.address) ?: BigDecimal.ZERO
+                            val value1 =
+                                selectedChain.grpcFetcher?.tokenValue(o2.address) ?: BigDecimal.ZERO
+                            when {
+                                value0 > value1 -> -1
+                                value0 < value1 -> 1
+                                else -> 0
+                            }
                         }
                     }
 
@@ -164,18 +178,11 @@ class TokenFragment : Fragment() {
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain is EthereumLine) {
-//                    ApplicationViewModel.shared.loadEvmChainData(
-//                        selectedChain as EthereumLine, account.id, false
-//                    )
-
+                if (selectedChain.supportCw20) {
+                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
                 } else {
-                    if (selectedChain.supportCw20) {
-                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
-                    } else {
-                        binding.refresher.isRefreshing = false
-                        return@setOnRefreshListener
-                    }
+                    binding.refresher.isRefreshing = false
+                    return@setOnRefreshListener
                 }
             }
         }

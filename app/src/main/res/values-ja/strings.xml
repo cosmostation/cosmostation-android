@@ -32,7 +32,7 @@
     <string name="str_reward_address">利息を受ける住所</string>
     <string name="str_my_staking">私のステーキング</string>
     <string name="str_my_unstaking">私のステーキング解除</string>
-    <string name="str_voting_period">完成した提案書</string>
+    <string name="str_voting_period">投票期間の提案</string>
     <string name="str_vote_proposals">提案</string>
     <string name="str_add_custom_chain">カスタムチェーンの追加</string>
     <string name="str_max_available">最大委任可能量 : </string>

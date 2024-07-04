@@ -74,8 +74,8 @@ class AssetViewHolder(
                         hideValue.visibility = View.GONE
 
                         assetAmount.text = formatAmount(amount.toPlainString(), 6)
-                        assetAmountValue.text =
-                            formatAssetValue(evmLine.tokenValue(token.address))
+//                        assetAmountValue.text =
+//                            formatAssetValue(evmLine.tokenValue(token.address))
                     }
                 }
         }

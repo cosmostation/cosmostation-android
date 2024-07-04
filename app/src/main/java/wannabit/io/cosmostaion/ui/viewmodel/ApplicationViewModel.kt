@@ -1,11 +1,13 @@
 package wannabit.io.cosmostaion.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cosmos.bank.v1beta1.QueryProto
+import com.google.gson.Gson
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +18,15 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.NeutronFetcher
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -265,44 +270,53 @@ class ApplicationViewModel(
                     }
 
                 } else {
-//                    if (line is ChainNeutron) {
-//                        val loadVaultDepositDeferred =
-//                            async { walletRepository.vaultDeposit(channel, line) }
-//                        val loadVestingDeferred =
-//                            async { walletRepository.vestingData(channel, line) }
-//
-//                        val responses = awaitAll(
-//                            loadBalanceDeferred, loadVestingDeferred, loadVaultDepositDeferred
-//                        )
-//
-//                        responses.forEach { response ->
-//                            when (response) {
-//                                is NetworkResult.Success -> {
-//                                    when (response.data) {
-//                                        is QueryProto.QueryAllBalancesResponse -> {
-//                                            response.data.balancesList?.let { cosmosBalances = it }
-//                                        }
-//
-//                                        is com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse -> {
-//                                            line.neutronVesting = Gson().fromJson(
-//                                                response.data.data.toStringUtf8(),
-//                                                VestingData::class.java
-//                                            )
-//                                        }
-//
-//                                        else -> {
-//                                            line.neutronDeposited =
-//                                                response.data.toString().toBigDecimal()
-//                                        }
-//                                    }
-//                                }
-//
-//                                is NetworkResult.Error -> {
-//                                    _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-//                                }
-//                            }
-//                        }
-//                    }
+                    if (this is ChainNeutron) {
+                        val loadTokenInfoDeferred = async { walletRepository.token(this@apply) }
+                        val loadVaultDepositDeferred =
+                            async { walletRepository.vaultDeposit(channel, this@apply) }
+                        val loadVestingDeferred =
+                            async { walletRepository.vestingData(channel, this@apply) }
+
+                        val responses = awaitAll(
+                            loadBalanceDeferred, loadTokenInfoDeferred, loadVestingDeferred, loadVaultDepositDeferred
+                        )
+
+                        responses.forEach { response ->
+                            when (response) {
+                                is NetworkResult.Success -> {
+                                    when (response.data) {
+                                        is QueryProto.QueryAllBalancesResponse -> {
+                                            response.data.balancesList?.let {
+                                                grpcFetcher?.cosmosBalances = it
+                                            }
+                                        }
+
+                                        is MutableList<*> -> {
+                                            if (response.data.all { it is Token }) {
+                                                grpcFetcher?.tokens = response.data as MutableList<Token>
+                                            }
+                                        }
+
+                                        is com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse -> {
+                                            neutronFetcher?.neutronVesting = Gson().fromJson(
+                                                response.data.data.toStringUtf8(),
+                                                VestingData::class.java
+                                            )
+                                        }
+
+                                        else -> {
+                                            neutronFetcher?.neutronDeposited =
+                                                response.data.toString().toBigDecimal()
+                                        }
+                                    }
+                                }
+
+                                is NetworkResult.Error -> {
+                                    _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                                }
+                            }
+                        }
+                    }
                 }
 
                 BaseUtils.onParseVestingAccount(this)
@@ -313,7 +327,7 @@ class ApplicationViewModel(
                         tag,
                         address,
                         ByteUtils.convertBech32ToEvm(address),
-                        allAssetValue(true).toPlainString(),
+                        grpcFetcher?.allAssetValue(true)?.toPlainString(),
                         grpcFetcher?.allStakingDenomAmount().toString(),
                         "0",
                         grpcFetcher?.cosmosBalances?.count {
@@ -345,7 +359,7 @@ class ApplicationViewModel(
                             ByteUtils.convertBech32ToEvm(address),
                             "0",
                             "0",
-                            allTokenValue(true).toPlainString(),
+                            grpcFetcher?.allTokenValue(true)?.toPlainString(),
                             0
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
@@ -406,10 +420,10 @@ class ApplicationViewModel(
                             baseAccountId,
                             tag,
                             address,
-                            ByteUtils.convertBech32ToEvm(address),
+                            evmAddress,
                             "0",
                             "0",
-                            allTokenValue(true).toPlainString(),
+                            evmRpcFetcher.allTokenValue(true).toPlainString(),
                             grpcFetcher?.cosmosBalances?.count {
                                 BaseData.getAsset(
                                     apiName, it.denom
@@ -434,7 +448,7 @@ class ApplicationViewModel(
                                 tag,
                                 "",
                                 address,
-                                allAssetValue(true).toString(),
+                                evmRpcFetcher.allAssetValue(true).toString(),
                                 evmRpcFetcher.evmBalance.toString(),
                                 "0",
                                 if (BigDecimal.ZERO >= evmRpcFetcher.evmBalance) 0 else 1
@@ -468,7 +482,7 @@ class ApplicationViewModel(
                                 address,
                                 "0",
                                 "0",
-                                allTokenValue(true).toPlainString(),
+                                evmRpcFetcher.allTokenValue(true).toPlainString(),
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)

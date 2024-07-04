@@ -4,13 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_MULTI_MODULE
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_OVERRULE_MODULE
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
+import wannabit.io.cosmostaion.data.model.res.ResProposalData
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepository
 import wannabit.io.cosmostaion.ui.viewmodel.event.SingleLiveEvent
@@ -76,31 +81,31 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
             when (val response = proposalRepository.daoProposals(managedChannel, contAddress)) {
                 is NetworkResult.Success -> {
                     when (type) {
-//                        NEUTRON_SINGLE_MODULE -> {
-//                            _daoSingleProposalsResult.postValue(
-//                                Gson().fromJson(
-//                                    response.data, ResProposalData::class.java
-//                                )?.proposals
-//                            )
-//
-//                        }
-//
-//                        NEUTRON_MULTI_MODULE -> {
-//                            _daoMultipleProposalsResult.postValue(
-//                                Gson().fromJson(
-//                                    response.data, ResProposalData::class.java
-//                                )?.proposals
-//                            )
-//
-//                        }
-//
-//                        NEUTRON_OVERRULE_MODULE -> {
-//                            _daoOverruleProposalsResult.postValue(
-//                                Gson().fromJson(
-//                                    response.data, ResProposalData::class.java
-//                                )?.proposals
-//                            )
-//                        }
+                        NEUTRON_SINGLE_MODULE -> {
+                            _daoSingleProposalsResult.postValue(
+                                Gson().fromJson(
+                                    response.data, ResProposalData::class.java
+                                )?.proposals
+                            )
+
+                        }
+
+                        NEUTRON_MULTI_MODULE -> {
+                            _daoMultipleProposalsResult.postValue(
+                                Gson().fromJson(
+                                    response.data, ResProposalData::class.java
+                                )?.proposals
+                            )
+
+                        }
+
+                        NEUTRON_OVERRULE_MODULE -> {
+                            _daoOverruleProposalsResult.postValue(
+                                Gson().fromJson(
+                                    response.data, ResProposalData::class.java
+                                )?.proposals
+                            )
+                        }
                     }
                 }
 

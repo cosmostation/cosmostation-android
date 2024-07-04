@@ -34,11 +34,14 @@ import com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit
 import com.kava.router.v1beta1.TxProto.MsgWithdrawBurn
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.AssetPath
@@ -122,19 +125,19 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 //                }
 
                 else -> {
-//                    val osIcnsDeferred = async {
-//                        txRepository.osIcnsAddress(
-//                            getChannel(ChainOsmosis()), userInput, prefix
-//                        )
-//                    }
-//                    val response = osIcnsDeferred.await()
-//                    if (response?.isNotEmpty() == true) {
-//                        nameServiceList.add(
-//                            NameService(
-//                                NameService.NameServiceType.ICNS, userInput, response.toString()
-//                            )
-//                        )
-//                    }
+                    val osIcnsDeferred = async {
+                        txRepository.osIcnsAddress(
+                            getChannel(ChainOsmosis()), userInput, prefix
+                        )
+                    }
+                    val response = osIcnsDeferred.await()
+                    if (response?.isNotEmpty() == true) {
+                        nameServiceList.add(
+                            NameService(
+                                NameService.NameServiceType.ICNS, userInput, response.toString()
+                            )
+                        )
+                    }
                     nameServices.postValue(nameServiceList)
                 }
             }

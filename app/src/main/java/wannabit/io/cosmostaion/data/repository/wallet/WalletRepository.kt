@@ -5,12 +5,14 @@ import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
+import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
@@ -89,13 +91,13 @@ interface WalletRepository {
     )
 
     //neutron
-//    suspend fun vestingData(
-//        channel: ManagedChannel, line: CosmosLine
-//    ): NetworkResult<QuerySmartContractStateResponse>
+    suspend fun vestingData(
+        channel: ManagedChannel, chain: ChainNeutron
+    ): NetworkResult<QuerySmartContractStateResponse>
 
-//    suspend fun vaultDeposit(
-//        channel: ManagedChannel, line: ChainNeutron
-//    ): NetworkResult<String?>
+    suspend fun vaultDeposit(
+        channel: ManagedChannel, chain: ChainNeutron
+    ): NetworkResult<String?>
 
     //lcd
 //    suspend fun oktAccountInfo(

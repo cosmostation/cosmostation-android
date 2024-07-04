@@ -166,7 +166,7 @@ class DashboardFragment : Fragment() {
 //                startActivity(this)
 //            }
 //            requireActivity().toMoveAnimation()
-            if (chain.isCosmos() && chain.supportEvm) {
+            if (chain.isEvmCosmos()) {
                 if (chain.grpcFetcher?.cosmosBalances == null) {
                     nodeDownPopup()
                     return
@@ -182,7 +182,7 @@ class DashboardFragment : Fragment() {
                 }
                 requireActivity().toMoveAnimation()
 
-            } else {
+            } else if (chain.isCosmos()) {
                 chain.grpcFetcher?.let {
                     if (chain.grpcFetcher?.cosmosBalances == null) {
                         nodeDownPopup()
@@ -195,6 +195,7 @@ class DashboardFragment : Fragment() {
                     requireActivity().toMoveAnimation()
                 }
 
+            } else {
                 chain.evmRpcFetcher?.let {
                     if (chain.web3j == null) {
                         nodeDownPopup()

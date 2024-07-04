@@ -94,23 +94,23 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
             BaseData.baseAccount?.let { account ->
                 Prefs.getDisplayErc20s(account.id, selectedEvmChain.tag)?.let { userCustomTokens ->
-                    evmTokens.sortWith { token0, token1 ->
-                        val address0 = token0.address
-                        val address1 = token1.address
-
-                        val containsToken0 = userCustomTokens.contains(address0)
-                        val containsToken1 = userCustomTokens.contains(address1)
-
-                        when {
-                            containsToken0 && !containsToken1 -> -1
-                            !containsToken0 && containsToken1 -> 1
-                            else -> {
-                                val value0 = selectedEvmChain.tokenValue(address0)
-                                val value1 = selectedEvmChain.tokenValue(address1)
-                                value1.compareTo(value0)
-                            }
-                        }
-                    }
+//                    evmTokens.sortWith { token0, token1 ->
+//                        val address0 = token0.address
+//                        val address1 = token1.address
+//
+//                        val containsToken0 = userCustomTokens.contains(address0)
+//                        val containsToken1 = userCustomTokens.contains(address1)
+//
+//                        when {
+//                            containsToken0 && !containsToken1 -> -1
+//                            !containsToken0 && containsToken1 -> 1
+//                            else -> {
+//                                val value0 = selectedEvmChain.tokenValue(address0)
+//                                val value1 = selectedEvmChain.tokenValue(address1)
+//                                value1.compareTo(value0)
+//                            }
+//                        }
+//                    }
                     evmTokens.forEach { token ->
                         if (userCustomTokens.contains(token.address) && !displayErc20Tokens.contains(
                                 token
@@ -121,15 +121,15 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                     }
 
                 } ?: run {
-                    evmTokens.sortWith { o1, o2 ->
-                        val value0 = selectedEvmChain.tokenValue(o1.address)
-                        val value1 = selectedEvmChain.tokenValue(o2.address)
-                        when {
-                            value0 > value1 -> -1
-                            value0 < value1 -> 1
-                            else -> 0
-                        }
-                    }
+//                    evmTokens.sortWith { o1, o2 ->
+//                        val value0 = selectedEvmChain.tokenValue(o1.address)
+//                        val value1 = selectedEvmChain.tokenValue(o2.address)
+//                        when {
+//                            value0 > value1 -> -1
+//                            value0 < value1 -> 1
+//                            else -> 0
+//                        }
+//                    }
 
                     evmTokens.forEach { token ->
                         if (token.amount?.toBigDecimal()!! > BigDecimal.ZERO && !displayErc20Tokens.contains(

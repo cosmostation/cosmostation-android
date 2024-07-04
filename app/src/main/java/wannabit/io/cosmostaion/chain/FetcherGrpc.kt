@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -37,7 +36,7 @@ open class FetcherGrpc(chain: BaseChain) {
         this.chain = chain
     }
 
-    fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         return if (denom == chain.stakeDenom) {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
                 .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
@@ -47,6 +46,32 @@ open class FetcherGrpc(chain: BaseChain) {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
                 .add(rewardValue(denom, isUsd))
         }
+    }
+
+    fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
+        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
+            return price.multiply(tokenInfo.amount?.toBigDecimal())
+                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
+        } ?: run {
+            return BigDecimal.ZERO
+        }
+    }
+
+    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+        var result = BigDecimal.ZERO
+        tokens.forEach { token ->
+            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
+            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                .setScale(6, RoundingMode.DOWN)
+            result = result.add(value)
+        }
+        return result
+    }
+
+    open fun allAssetValue(isUsd: Boolean?): BigDecimal {
+        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
+            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
     }
 
     fun balanceAmount(denom: String): BigDecimal {
@@ -70,7 +95,7 @@ open class FetcherGrpc(chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
+    open fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (cosmosBalances?.isNotEmpty() == true) {
             cosmosBalances?.forEach { balance ->
@@ -99,7 +124,7 @@ open class FetcherGrpc(chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
+    private fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosVestings.forEach { vesting ->
             sum = sum.add(vestingValue(vesting.denom, isUsd))
@@ -119,17 +144,13 @@ open class FetcherGrpc(chain: BaseChain) {
         return sum
     }
 
-    fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
-        chain.stakeDenom?.let {
-            BaseData.getAsset(chain.apiName, it)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
-                val amount = delegationAmountSum()
-                asset.decimals?.let { decimal ->
-                    return price.multiply(amount).movePointLeft(decimal)
-                        .setScale(6, RoundingMode.DOWN)
-                }
+    private fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = delegationAmountSum()
+            asset.decimals?.let { decimal ->
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             }
-            return BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -144,17 +165,13 @@ open class FetcherGrpc(chain: BaseChain) {
         return sum
     }
 
-    fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
-        chain.stakeDenom?.let {
-            BaseData.getAsset(chain.apiName, it)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
-                val amount = unbondingAmountSum()
-                asset.decimals?.let { decimal ->
-                    return price.multiply(amount).movePointLeft(decimal)
-                        .setScale(6, RoundingMode.DOWN)
-                }
+    private fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = unbondingAmountSum()
+            asset.decimals?.let { decimal ->
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             }
-            return BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -169,7 +186,7 @@ open class FetcherGrpc(chain: BaseChain) {
         return sum.movePointLeft(18).setScale(0, RoundingMode.DOWN)
     }
 
-    fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)
@@ -238,7 +255,7 @@ open class FetcherGrpc(chain: BaseChain) {
         return result
     }
 
-    fun allStakingDenomAmount(): BigDecimal? {
+    open fun allStakingDenomAmount(): BigDecimal? {
         return balanceAmount(chain.stakeDenom).add(vestingAmount(chain.stakeDenom))
             ?.add(delegationAmountSum())?.add(unbondingAmountSum())
             ?.add(rewardAmountSum(chain.stakeDenom))
