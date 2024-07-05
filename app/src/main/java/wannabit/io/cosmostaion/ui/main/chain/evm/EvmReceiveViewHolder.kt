@@ -9,7 +9,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -19,11 +19,11 @@ class EvmReceiveViewHolder(
     val context: Context,
     private val binding: ItemReceiveBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun evmBind(account: BaseAccount, selectChain: EthereumLine) {
+    fun evmBind(account: BaseAccount, selectChain: BaseChain) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
-//                accountPath.text = selectChain.getHDPath(account.lastHDPath)
+                accountPath.text = selectChain.getHDPath(account.lastHDPath)
             } else {
                 accountPathLayout.visibility = View.GONE
             }
@@ -31,8 +31,8 @@ class EvmReceiveViewHolder(
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
             chainImg.setImageResource(selectChain.logo)
-            setQrAddress(context, selectChain.address)
-//            accountPath.text = selectChain.getHDPath(account.lastHDPath)
+            setQrAddress(context, selectChain.evmAddress)
+            accountPath.text = selectChain.getHDPath(account.lastHDPath)
             chainBadge.visibility = View.GONE
             chainTypeBadge.visibility = View.GONE
 

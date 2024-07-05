@@ -4,13 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
 
 class EvmReceiveAdapter(
-    val context: Context, private val account: BaseAccount, private val selectedChain: EthereumLine
+    val context: Context, private val account: BaseAccount, private val selectedChain: BaseChain
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

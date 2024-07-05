@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -62,11 +61,11 @@ class NftFragment : Fragment() {
         refreshData()
         setUpObserve()
 
-//        if (!selectedChain.cw721Fetched) {
-//            fetchData()
-//        } else {
-//            updateView(selectedChain.cw721Models)
-//        }
+        if (selectedChain.grpcFetcher?.cw721Fetched == false) {
+            fetchData()
+        } else {
+            updateView(selectedChain.grpcFetcher?.cw721Models)
+        }
     }
 
     private fun initViewModel() {
@@ -87,19 +86,19 @@ class NftFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        if (!selectedChain.cw721Fetched) {
-//            fetchData()
-//        } else {
-//            updateView(selectedChain.cw721Models)
-//        }
+        if (selectedChain.grpcFetcher?.cw721Fetched == false) {
+            fetchData()
+        } else {
+            updateView(selectedChain.grpcFetcher?.cw721Models)
+        }
     }
 
-    private fun updateView(nftGroup: MutableList<Cw721Model>) {
+    private fun updateView(nftGroup: MutableList<Cw721Model>?) {
         binding.apply {
             refresher.isRefreshing = false
             loading.visibility = View.GONE
 
-            if (nftGroup.isEmpty()) {
+            if (nftGroup?.isEmpty() == true) {
                 emptyLayout.visibility = View.VISIBLE
                 recycler.visibility = View.GONE
 
@@ -107,7 +106,7 @@ class NftFragment : Fragment() {
                 emptyLayout.visibility = View.GONE
                 recycler.visibility = View.VISIBLE
 
-//                nftAdapter = NftAdapter(selectedChain)
+                nftAdapter = NftAdapter(selectedChain)
                 recycler.setHasFixedSize(true)
                 val gridLayoutManager = GridLayoutManager(requireContext(), 2)
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -154,24 +153,24 @@ class NftFragment : Fragment() {
             return
         }
         isBusy = true
-//        selectedChain.cw721Fetched = false
-//        selectedChain.cw721Models.clear()
-//        selectedChain.cw721s.asSequence().concurrentForEach { list ->
-//            walletViewModel.cw721AllTokens(selectedChain, list)
-//        }
+        selectedChain.grpcFetcher?.cw721Fetched = false
+        selectedChain.grpcFetcher?.cw721Models?.clear()
+        selectedChain.grpcFetcher?.cw721s?.asSequence()?.concurrentForEach { list ->
+            walletViewModel.cw721AllTokens(selectedChain, list)
+        }
     }
 
     private fun setUpObserve() {
         walletViewModel.cw721ModelResult.observe(viewLifecycleOwner) { tag ->
-//            if (selectedChain.tag == tag) {
-//                selectedChain.cw721Fetched = true
-//                selectedChain.cw721Models.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
-//                selectedChain.cw721Models.forEach { cw721Model ->
-//                    cw721Model.sortId()
-//                }
-//                isBusy = false
-//                updateView(selectedChain.cw721Models)
-//            }
+            if (selectedChain.tag == tag) {
+                selectedChain.grpcFetcher?.cw721Fetched = true
+                selectedChain.grpcFetcher?.cw721Models?.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
+                selectedChain.grpcFetcher?.cw721Models?.forEach { cw721Model ->
+                    cw721Model.sortId()
+                }
+                isBusy = false
+                updateView(selectedChain.grpcFetcher?.cw721Models)
+            }
         }
     }
 

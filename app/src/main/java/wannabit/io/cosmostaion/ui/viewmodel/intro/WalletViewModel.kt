@@ -15,11 +15,12 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.data.model.Cw721Model
+import wannabit.io.cosmostaion.data.model.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
@@ -398,66 +399,66 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     var cw721ModelResult = SingleLiveEvent<String>()
-    fun cw721AllTokens(line: CosmosLine, list: JsonObject) = viewModelScope.launch(Dispatchers.IO) {
-        val channel = getChannel(line)
+    fun cw721AllTokens(chain: BaseChain, list: JsonObject) = viewModelScope.launch(Dispatchers.IO) {
+        val channel = getChannel(chain)
+        when (val response = walletRepository.cw721TokenIds(channel, chain, list)) {
+            is NetworkResult.Success -> {
+                response.data?.let { tokenIds ->
+                    if (tokenIds.size() > 0) {
+                        val jobs =
+                            tokenIds.asJsonObject["tokens"].asJsonArray.map { tokenIdElement ->
+                                async {
+                                    val tokenId = tokenIdElement.asString
+                                    when (val tokenInfo = walletRepository.cw721TokenInfo(
+                                        channel, chain, list, tokenId
+                                    )) {
+                                        is NetworkResult.Success -> {
+                                            when (val tokenDetail =
+                                                walletRepository.cw721TokenDetail(
+                                                    chain,
+                                                    list.asJsonObject["contractAddress"].asString,
+                                                    tokenId
+                                                )) {
+                                                is NetworkResult.Success -> {
+                                                    Cw721TokenModel(
+                                                        tokenId, tokenInfo.data, tokenDetail.data
+                                                    )
+                                                }
 
-//            when (val response = walletRepository.cw721TokenIds(channel, line, list)) {
-//                is NetworkResult.Success -> {
-//                    response.data?.let { tokenIds ->
-//                        if (tokenIds.size() > 0) {
-//                            val jobs =
-//                                tokenIds.asJsonObject["tokens"].asJsonArray.map { tokenIdElement ->
-//                                    async {
-//                                        val tokenId = tokenIdElement.asString
-//                                        when (val tokenInfo = walletRepository.cw721TokenInfo(
-//                                            channel, line, list, tokenId
-//                                        )) {
-//                                            is NetworkResult.Success -> {
-//                                                when (val tokenDetail =
-//                                                    walletRepository.cw721TokenDetail(
-//                                                        line,
-//                                                        list.asJsonObject["contractAddress"].asString,
-//                                                        tokenId
-//                                                    )) {
-//                                                    is NetworkResult.Success -> {
-//                                                        Cw721TokenModel(
-//                                                            tokenId,
-//                                                            tokenInfo.data,
-//                                                            tokenDetail.data
-//                                                        )
-//                                                    }
-//
-//                                                    is NetworkResult.Error -> {
-//                                                        Cw721TokenModel(
-//                                                            tokenId,
-//                                                            tokenInfo.data,
-//                                                            null
-//                                                        )
-//                                                    }
-//                                                }
-//                                            }
-//
-//                                            is NetworkResult.Error -> {
-//                                                null
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            val tokens = jobs.awaitAll().filterNotNull()
-//                            if (tokens.isNotEmpty()) {
-//                                line.cw721Models.add(Cw721Model(list, tokens.toMutableList()))
-//                            }
-//                            cw721ModelResult.postValue(line.tag)
-//                        } else {
-//                            cw721ModelResult.postValue(line.tag)
-//                        }
-//                    }
-//                }
-//
-//                is NetworkResult.Error -> {
-//                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-//                }
-//            }
+                                                is NetworkResult.Error -> {
+                                                    Cw721TokenModel(
+                                                        tokenId, tokenInfo.data, null
+                                                    )
+                                                }
+                                            }
+                                        }
+
+                                        is NetworkResult.Error -> {
+                                            null
+                                        }
+                                    }
+                                }
+                            }
+                        val tokens = jobs.awaitAll().filterNotNull()
+                        if (tokens.isNotEmpty()) {
+                            chain.grpcFetcher?.cw721Models?.add(
+                                Cw721Model(
+                                    list,
+                                    tokens.toMutableList()
+                                )
+                            )
+                        }
+                        cw721ModelResult.postValue(chain.tag)
+                    } else {
+                        cw721ModelResult.postValue(chain.tag)
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
     }
 
     private val _ecoSystemErrorMessage = MutableLiveData<String>()

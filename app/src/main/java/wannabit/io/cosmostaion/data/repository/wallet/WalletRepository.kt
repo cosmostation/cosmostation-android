@@ -123,15 +123,15 @@ interface WalletRepository {
     suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
 
     suspend fun cw721TokenIds(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenInfo(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject, tokenId: String
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenDetail(
-        line: CosmosLine, contractAddress: String, tokenId: String
+        chain: BaseChain, contractAddress: String, tokenId: String
     ): NetworkResult<JsonObject>
 
     suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>>

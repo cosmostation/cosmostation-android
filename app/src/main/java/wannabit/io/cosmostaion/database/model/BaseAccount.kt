@@ -69,22 +69,8 @@ data class BaseAccount(
 
     fun initAccount() {
         allChains = allChains()
-
-//        allEvmLineChains = allEvmLines()
-//        allCosmosLineChains = allCosmosLines()
-//        if (type == BaseAccountType.PRIVATE_KEY) {
-//            allCosmosLineChains =
-//                allCosmosLines().filter { it.isDefault || it.tag == "okt996_Secp" }.toMutableList()
-//        }
         sortLine()
     }
-
-//    fun sortedDisplayEvmLines(): MutableList<EthereumLine> {
-//        val displayNames = Prefs.getDisplayEvmChains(this)
-//        return allEvmLineChains.associateBy { line ->
-//            displayNames.firstOrNull { it == line.tag }
-//        }.filterKeys { it != null }.map { it.value }.toMutableList()
-//    }
 
     fun sortLine() {
         val displayChains = Prefs.getDisplayChains(this)
@@ -126,11 +112,6 @@ data class BaseAccount(
         return AppDatabase.getInstance().refAddressDao().selectRefAddress(id, tag)?.lastUsdValue()
             ?: BigDecimal.ZERO
     }
-
-//    fun reSortEvmChains() {
-//        val allValue = allEvmLineChains.associateWith { it.allValue(true) }
-//        allEvmLineChains.sortWith(compareBy<EthereumLine> { it.tag != "ethereum60" }.thenByDescending { allValue[it] })
-//    }
 
     fun reSortChains() {
         val allValue = allChains.associateWith { it.allValue(true) }

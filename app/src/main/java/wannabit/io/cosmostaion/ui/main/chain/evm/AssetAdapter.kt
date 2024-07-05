@@ -3,13 +3,13 @@ package wannabit.io.cosmostaion.ui.main.chain.evm
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.ItemEvmAssetBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 
 class AssetAdapter(
-    private val evmLine: EthereumLine, private val evmTokens: MutableList<Token>
+    private val evmChain: BaseChain, private val evmTokens: MutableList<Token>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -19,7 +19,7 @@ class AssetAdapter(
         const val VIEW_TYPE_TOKEN_ITEM = 3
     }
 
-    private var onItemClickListener: ((EthereumLine, String) -> Unit)? = null
+    private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -48,21 +48,21 @@ class AssetAdapter(
 
             is AssetViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                    holder.bind(evmLine)
+                    holder.bind(evmChain)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it (evmLine, "")
+                            it(evmChain, "")
                         }
                     }
 
                 } else {
                     val token = evmTokens[position - 3]
-                    holder.tokenBind(evmLine, token)
+                    holder.tokenBind(evmChain, token)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it (evmLine, token.address)
+                            it(evmChain, token.address)
                         }
                     }
                 }
@@ -105,7 +105,7 @@ class AssetAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (EthereumLine, String) -> Unit) {
+    fun setOnItemClickListener(listener: (BaseChain, String) -> Unit) {
         onItemClickListener = listener
     }
 }

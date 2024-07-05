@@ -17,7 +17,6 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -143,10 +142,15 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             }
 
             btnAddressBook.setOnClickListener {
+                val address = if (fromChain.address.isEmpty()) {
+                    fromChain.evmAddress
+                } else {
+                    fromChain.address
+                }
                 handleOneClickWithDelay(
                     AddressBookFragment.newInstance(fromChain,
                         toChain,
-                        fromChain.address,
+                        address,
                         sendAssetType,
                         object : AddressBookSelectListener {
                             override fun select(address: String, memo: String) {
@@ -199,7 +203,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                         if (BaseUtils.isValidBechAddress(
-                                toChain as CosmosLine, address
+                                toChain, address
                             )
                         ) {
                             addressListener?.selectAddress(
@@ -211,7 +215,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                         toChain.accountPrefix?.let { prefix ->
                             txViewModel.icnsAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim(), prefix
+                                toChain, addressTxt.text.toString().trim(), prefix
                             )
                         }
 
@@ -224,7 +228,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                        if (BaseUtils.isValidBechAddress((toChain as CosmosLine), address)) {
+                        if (BaseUtils.isValidBechAddress(toChain, address)) {
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )
@@ -234,7 +238,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                         toChain.accountPrefix?.let { prefix ->
                             txViewModel.icnsAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim(), prefix
+                                toChain, addressTxt.text.toString().trim(), prefix
                             )
                         }
                     }

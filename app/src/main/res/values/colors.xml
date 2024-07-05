@@ -19,6 +19,7 @@
     <color name="color_accent_violet">#5761A6</color>
     <color name="color_accent_dark_pink">#996C7C</color>
     <color name="color_accent_mint">#09B8C1</color>
+    <color name="color_accent_dark_red">#99B6405C</color>
 
     <color name="color_black">#000000</color>
     <color name="color_red">#FF0000</color>

@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
@@ -125,6 +124,19 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
+                                if (fromChain.supportCosmosGrpc) {
+                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
+                                            senderAddress
+                                        )
+                                    ) {
+                                        refEvmAddresses.add(refAddress)
+                                    }
+
+                                } else {
+                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
+                                        refEvmAddresses.add(refAddress)
+                                    }
+                                }
 //                                if (fromChain is ChainOkt996Keccak) {
 //                                    if (refAddress.dpAddress?.startsWith((toChain as ChainOkt996Keccak).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
 //                                        if (Prefs.displayLegacy) {
@@ -164,6 +176,20 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
+                                if (fromChain.supportCosmosGrpc) {
+                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
+                                            senderAddress
+                                        )
+                                    ) {
+                                        evmAddressBooks.add(addressBook)
+                                    }
+
+                                } else {
+                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress) {
+                                        evmAddressBooks.add(addressBook)
+                                    }
+                                }
+
 //                                if (fromChain is ChainOkt996Keccak) {
 //                                    if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
 //                                        addressBooks.add(addressBook)
@@ -285,19 +311,19 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 //                                evmRecycler.visibility = View.GONE
 //
 //                            } else {
-//                                if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-//                                    evmRecycler.visibility = View.GONE
-//                                    emptyLayout.visibility = View.VISIBLE
-//
-//                                } else {
-//                                    evmRecycler.visibility = View.VISIBLE
-//                                    emptyLayout.visibility = View.GONE
-//                                    initEvmRecyclerView(
-//                                        refEvmAddresses, evmAddressBooks
-//                                    )
-//                                }
-//                                segmentView.visibility = View.GONE
-//                                recycler.visibility = View.GONE
+                            if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
+                                evmRecycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+
+                            } else {
+                                evmRecycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                initEvmRecyclerView(
+                                    refEvmAddresses, evmAddressBooks
+                                )
+                            }
+                            segmentView.visibility = View.GONE
+                            recycler.visibility = View.GONE
 //                            }
                         }
 
@@ -463,12 +489,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         val chainLineMap = allChains().associateBy { it.tag }
         refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId }
             .thenByDescending { chainLineMap[it.chainTag]?.isDefault == true })
-    }
-
-    private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {
-        val accountMap =
-            AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
-        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })
     }
 
     override fun onDestroyView() {

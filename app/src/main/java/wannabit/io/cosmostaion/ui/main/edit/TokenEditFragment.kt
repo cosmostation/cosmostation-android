@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
@@ -30,7 +30,7 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentTokenEditBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: EthereumLine
+    private lateinit var fromChain: BaseChain
     private var allErc20Tokens: MutableList<Token>? = mutableListOf()
     private var displayErc20Tokens: MutableList<String>? = mutableListOf()
 
@@ -41,7 +41,7 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: EthereumLine,
+            fromChain: BaseChain,
             allErc20Tokens: MutableList<Token>,
             displayErc20Tokens: MutableList<String>,
             listener: TokenEditListener
@@ -120,12 +120,12 @@ class TokenEditFragment : BottomSheetDialogFragment() {
             selectTitle.text = getString(R.string.title_edit_token_list)
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getParcelable("fromChain", EthereumLine::class.java)?.let {
+                    getParcelable("fromChain", BaseChain::class.java)?.let {
                         fromChain = it
                     }
 
                 } else {
-                    (getParcelable("fromChain") as? EthereumLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                 }

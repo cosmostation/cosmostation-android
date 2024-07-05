@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentReceiveBinding
 
@@ -16,13 +16,13 @@ class EvmReceiveFragment : Fragment() {
     private var _binding: FragmentReceiveBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: EthereumLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var evmReceiveAdapter: EvmReceiveAdapter
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: EthereumLine): EvmReceiveFragment {
+        fun newInstance(selectedChain: BaseChain): EvmReceiveFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -47,10 +47,10 @@ class EvmReceiveFragment : Fragment() {
 
     private fun initView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", EthereumLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? EthereumLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }

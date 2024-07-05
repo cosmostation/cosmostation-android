@@ -581,26 +581,6 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
                 }
 
-
-//                if (fromChain is EthereumLine) {
-//                    (fromChain as EthereumLine).apply {
-//                        feeTokenImg.setImageResource(coinLogo)
-//                        feeToken.text = coinSymbol
-//
-//                        if (evmFeeAmount == null) {
-//                            evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
-//                        }
-//                        val price = BaseData.getPrice((fromChain as EthereumLine).coinGeckoId)
-//                        val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
-//                            ?.setScale(18, RoundingMode.DOWN)
-//                        val value = price.multiply(dpAmount)
-//
-//                        dpAmount?.let { amount ->
-//                            feeAmount.text = formatAmount(amount.toPlainString(), 18)
-//                            feeValue.text = formatAssetValue(value)
-//                        }
-//                    }
-//
 //                } else {
 //                    (fromChain as ChainOkt996Keccak).apply {
 //                        stakeDenom?.let { denom ->

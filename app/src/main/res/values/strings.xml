@@ -152,11 +152,12 @@
     <string name="str_permit_request">Permit request</string>
     <string name="str_tx_request">Tx request</string>
     <string name="str_introduction">Introduction</string>
-    <string name="str_chain_information">Information</string>
+    <string name="str_chain_information">Chain information</string>
     <string name="str_initial_time">Initial issue</string>
     <string name="str_chain_id">Chain ID</string>
     <string name="str_chain_id_cosmos">Chain ID (cosmos style)</string>
     <string name="str_chain_id_evm">Chain ID (evm style)</string>
+    <string name="str_coin_for_gas">Coin for gas</string>
     <string name="str_network">Network</string>
     <string name="str_staking_asset">Staking asset</string>
     <string name="str_unstake_period">Unstake period</string>

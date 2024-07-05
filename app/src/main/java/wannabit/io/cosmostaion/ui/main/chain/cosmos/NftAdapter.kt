@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.Cw721TokenModel
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemNftBinding
 
-class NftAdapter(val line: CosmosLine) :
+class NftAdapter(val line: BaseChain) :
     ListAdapter<Cw721Model, RecyclerView.ViewHolder>(Cw72lDiffCallback()) {
 
-    private var onItemClickListener: ((CosmosLine, JsonObject?, Cw721TokenModel?) -> Unit)? = null
+    private var onItemClickListener: ((BaseChain, JsonObject?, Cw721TokenModel?) -> Unit)? = null
 
     companion object {
         const val VIEW_TYPE_NFT_HEADER = 0
@@ -144,7 +145,7 @@ class NftAdapter(val line: CosmosLine) :
         }
     }
 
-    fun setOnItemClickListener(listener: (CosmosLine, JsonObject?, Cw721TokenModel?) -> Unit) {
+    fun setOnItemClickListener(listener: (BaseChain, JsonObject?, Cw721TokenModel?) -> Unit) {
         onItemClickListener = listener
     }
 }

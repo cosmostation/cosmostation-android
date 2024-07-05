@@ -10,12 +10,14 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
@@ -361,7 +363,8 @@ open class BaseChain : Parcelable {
 
 fun allChains(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
-//    chains.add(ChainCosmos())
+    chains.add(ChainCosmos())
+    chains.add(ChainArchway())
     chains.add(ChainAxelar())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
@@ -371,6 +374,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainKava459())
     chains.add(ChainOsmosis())
     chains.add(ChainNeutron())
+    chains.add(ChainStargaze())
 //    lines.add(ChainAkash())
 //    lines.add(ChainAlthea118())
 //    lines.add(ChainArchway())

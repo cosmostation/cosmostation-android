@@ -34,7 +34,6 @@ import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VAULT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
@@ -388,11 +387,11 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenIds(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject
     ): NetworkResult<JsonObject?> {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(line.address))
+        val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
@@ -412,7 +411,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenInfo(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject, tokenId: String
     ): NetworkResult<JsonObject?> {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -431,10 +430,10 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenDetail(
-        line: CosmosLine, contractAddress: String, tokenId: String
+        chain: BaseChain, contractAddress: String, tokenId: String
     ): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.cw721Detail(line.apiName, contractAddress, tokenId)
+            mintscanJsonApi.cw721Detail(chain.apiName, contractAddress, tokenId)
         }
     }
 

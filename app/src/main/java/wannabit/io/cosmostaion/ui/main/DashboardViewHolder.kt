@@ -53,10 +53,11 @@ class DashboardViewHolder(
             assetCnt.visibility = View.VISIBLE
 
             listOf(
-                chainBadge, chainCw20Badge, chainNftBadge, chainDappBadge
+                chainBadge, chainCw20Badge, chainErc20Badge, chainNftBadge, chainDappBadge
             ).forEach { it.visibility = View.GONE }
 
             chainSideCw20Badge.visibleOrGone(chain.supportCw20)
+            chainSideErc20Badge.visibleOrGone(chain.supportEvm)
             chainSideNftBadge.visibleOrGone(chain.supportNft)
             chainSideDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
             chainPrice.visibility = View.VISIBLE
@@ -203,11 +204,12 @@ class DashboardViewHolder(
 
             chainBadge.visibleOrGone(!chain.isDefault)
             chainCw20Badge.visibleOrGone(chain.supportCw20)
+            chainErc20Badge.visibleOrGone(chain.supportEvm)
             chainNftBadge.visibleOrGone(chain.supportNft)
             chainDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
 
             listOf(
-                chainSideBadge, chainSideCw20Badge, chainSideNftBadge, chainSideDappBadge
+                chainSideBadge, chainSideCw20Badge, chainSideErc20Badge, chainSideNftBadge, chainSideDappBadge
             ).forEach { it.visibility = View.GONE }
 
             if (chain.fetched) {

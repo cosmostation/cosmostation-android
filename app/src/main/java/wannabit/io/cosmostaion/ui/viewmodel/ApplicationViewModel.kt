@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +18,6 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.NeutronFetcher
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -278,7 +276,10 @@ class ApplicationViewModel(
                             async { walletRepository.vestingData(channel, this@apply) }
 
                         val responses = awaitAll(
-                            loadBalanceDeferred, loadTokenInfoDeferred, loadVestingDeferred, loadVaultDepositDeferred
+                            loadBalanceDeferred,
+                            loadTokenInfoDeferred,
+                            loadVestingDeferred,
+                            loadVaultDepositDeferred
                         )
 
                         responses.forEach { response ->
@@ -293,7 +294,8 @@ class ApplicationViewModel(
 
                                         is MutableList<*> -> {
                                             if (response.data.all { it is Token }) {
-                                                grpcFetcher?.tokens = response.data as MutableList<Token>
+                                                grpcFetcher?.tokens =
+                                                    response.data as MutableList<Token>
                                             }
                                         }
 
@@ -388,7 +390,7 @@ class ApplicationViewModel(
         }
     }
 
-    private fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
+    fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
         CoroutineScope(Dispatchers.IO).launch {
             chain.apply {
                 evmRpcFetcher()?.let { evmRpcFetcher ->
@@ -447,7 +449,7 @@ class ApplicationViewModel(
                                 baseAccountId,
                                 tag,
                                 "",
-                                address,
+                                evmAddress,
                                 evmRpcFetcher.allAssetValue(true).toString(),
                                 evmRpcFetcher.evmBalance.toString(),
                                 "0",
@@ -479,7 +481,7 @@ class ApplicationViewModel(
                                 baseAccountId,
                                 tag,
                                 "",
-                                address,
+                                evmAddress,
                                 "0",
                                 "0",
                                 evmRpcFetcher.allTokenValue(true).toPlainString(),

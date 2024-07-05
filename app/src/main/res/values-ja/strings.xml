@@ -121,6 +121,7 @@
     <string name="str_chain_id">チェーン ID</string>
     <string name="str_chain_id_cosmos">チェーン ID (cosmos形式)</string>
     <string name="str_chain_id_evm">チェーン ID (evm形式)</string>
+    <string name="str_coin_for_gas">ガス用コイン</string>
     <string name="str_network">通信網</string>
     <string name="str_staking_asset">ステーキングコイン</string>
     <string name="str_unstake_period">ステーキ解除期間</string>

@@ -24,7 +24,6 @@ import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -53,9 +52,7 @@ import wannabit.io.cosmostaion.ui.tx.TxResultType
 import java.math.RoundingMode
 
 class NftTransferFragment(
-    val fromChain: BaseChain,
-    val info: JsonObject?,
-    val token: Cw721TokenModel?
+    val fromChain: BaseChain, val info: JsonObject?, val token: Cw721TokenModel?
 ) : BaseTxFragment() {
 
     private var _binding: FragmentNftTransferBinding? = null
@@ -118,11 +115,10 @@ class NftTransferFragment(
             token?.tokenDetail?.let {
                 nftImg.clipToOutline = true
                 it.asJsonObject["url"].asString?.let { url ->
-                    Glide.with(requireActivity()).load(url)
-                        .diskCacheStrategy(
-                            DiskCacheStrategy.ALL
-                        ).placeholder(R.drawable.icon_nft_default)
-                        .error(R.drawable.icon_nft_default).into(nftImg)
+                    Glide.with(requireActivity()).load(url).diskCacheStrategy(
+                        DiskCacheStrategy.ALL
+                    ).placeholder(R.drawable.icon_nft_default).error(R.drawable.icon_nft_default)
+                        .into(nftImg)
 
                 } ?: run {
                     nftImg.setImageResource(R.drawable.icon_nft_default_alpha)
@@ -137,7 +133,7 @@ class NftTransferFragment(
 
     private fun initFee() {
         binding.apply {
-            feeInfos = (fromChain as CosmosLine).getFeeInfos(requireContext())
+            feeInfos = fromChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
                     requireContext(), R.color.color_accent_purple
@@ -234,8 +230,7 @@ class NftTransferFragment(
                                     tabMemoMsg.text = txMemo
                                     tabMemoMsg.setTextColor(
                                         ContextCompat.getColorStateList(
-                                            requireContext(),
-                                            R.color.color_base01
+                                            requireContext(), R.color.color_base01
                                         )
                                     )
                                 }
@@ -257,7 +252,7 @@ class NftTransferFragment(
 
             feeTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetFragment.newInstance((fromChain as CosmosLine),
+                    AssetFragment.newInstance(fromChain,
                         feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                         object : AssetSelectListener {
                             override fun select(denom: String) {
@@ -282,7 +277,7 @@ class NftTransferFragment(
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = (fromChain as CosmosLine).getBaseFee(
+                txFee = fromChain.getBaseFee(
                     requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
                 )
                 updateFeeView()
@@ -319,7 +314,7 @@ class NftTransferFragment(
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcastWasm(
-                    getChannel(fromChain as CosmosLine),
+                    getChannel(fromChain),
                     onBindWasmNftSend(),
                     txFee,
                     txMemo,
@@ -333,7 +328,7 @@ class NftTransferFragment(
             if (toAddress.isEmpty()) {
                 return
             }
-            if (!(fromChain as CosmosLine).isGasSimulable()) {
+            if (!fromChain.isGasSimulable()) {
                 return updateFeeViewWithSimulate(null)
             }
             btnNftSend.updateButtonView(false)
@@ -363,21 +358,23 @@ class NftTransferFragment(
 
     private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            val selectedFeeData =
-                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-            val gasRate = selectedFeeData?.gasRate
+            fromChain.apply {
+                val selectedFeeData =
+                    feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                val gasRate = selectedFeeData?.gasRate
 
-            gasInfo?.let { info ->
-//                val gasLimit =
-//                    (info.gasUsed.toDouble() * (fromChain as CosmosLine).gasMultiply()).toLong()
-//                        .toBigDecimal()
-//                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-//                    .setAmount(feeCoinAmount.toString()).build()
-//
-//                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-//                    .build()
+                gasInfo?.let { info ->
+                    val gasLimit =
+                        (info.gasUsed.toDouble() * gasMultiply()).toLong()
+                            .toBigDecimal()
+                    val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+
+                    txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                        .build()
+                }
             }
         }
         updateFeeView()
