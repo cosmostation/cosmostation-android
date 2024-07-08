@@ -9,7 +9,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -20,8 +19,6 @@ class OktFetcher(chain: BaseChain) : FetcherLcd(chain) {
     var lcdOktWithdaws: JsonObject? = JsonObject()
     var lcdOktTokens: JsonObject? = JsonObject()
     var lcdValidatorInfo: MutableList<JsonObject> = mutableListOf()
-
-    var tokens = mutableListOf<Token>()
 
     override fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
         if (lcdValidatorInfo.size > 0) {
@@ -53,27 +50,6 @@ class OktFetcher(chain: BaseChain) : FetcherLcd(chain) {
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return lcdBalanceValue(chain.stakeDenom, isUsd).add(lcdOktDepositValue(isUsd))
             .add(lcdOktWithdrawValue(isUsd))
-    }
-
-    override fun tokenValue(address: String, isUsd: Boolean?): BigDecimal {
-        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-            return price.multiply(tokenInfo.amount?.toBigDecimal())
-                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
-        } ?: run {
-            return BigDecimal.ZERO
-        }
-    }
-
-    override fun allTokenValue(isUsd: Boolean?): BigDecimal {
-        var result = BigDecimal.ZERO
-        tokens.forEach { token ->
-            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
-            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                .setScale(6, RoundingMode.DOWN)
-            result = result.add(value)
-        }
-        return result
     }
 
 //    override fun isTxFeePayable(c: Context): Boolean {

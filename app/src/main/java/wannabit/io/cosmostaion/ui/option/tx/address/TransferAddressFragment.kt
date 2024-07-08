@@ -142,10 +142,8 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             }
 
             btnAddressBook.setOnClickListener {
-                val address = if (fromChain.address.isEmpty()) {
+                val address = fromChain.address.ifEmpty {
                     fromChain.evmAddress
-                } else {
-                    fromChain.address
                 }
                 handleOneClickWithDelay(
                     AddressBookFragment.newInstance(fromChain,

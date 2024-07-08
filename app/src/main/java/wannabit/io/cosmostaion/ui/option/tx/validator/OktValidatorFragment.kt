@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.OktFetcher
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
 import wannabit.io.cosmostaion.databinding.FragmentOktValidatorBinding
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
 
 class OktValidatorFragment(
     private val selectedChain: BaseChain,
-    private val myValidators: MutableList<OktValidatorResponse>,
+    private val myValidators: MutableList<JsonObject>,
     val listener: OkValidatorListener
 ) : BaseTxFragment() {
 
@@ -23,7 +26,7 @@ class OktValidatorFragment(
 
     private lateinit var oktValidatorAdapter: OktValidatorAdapter
 
-    private var tempValidators: MutableList<OktValidatorResponse> = mutableListOf()
+    private var tempValidators: MutableList<JsonObject> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,7 +39,7 @@ class OktValidatorFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        clickAction()
+        setUpClickAction()
     }
 
     override fun bottomSheetDialogDefaultHeight(windowHeight: Int): Int {
@@ -53,8 +56,10 @@ class OktValidatorFragment(
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = oktValidatorAdapter
-//            oktValidatorAdapter.submitList(selectedChain.oktValidatorInfo)
-
+            when (selectedChain) {
+                is ChainOkt996Keccak -> oktValidatorAdapter.submitList(selectedChain.oktFetcher?.lcdValidatorInfo)
+                is ChainOktEvm -> oktValidatorAdapter.submitList(selectedChain.oktFetcher?.lcdValidatorInfo)
+            }
             updateView()
         }
     }
@@ -63,26 +68,36 @@ class OktValidatorFragment(
         binding.selectCnt.text = "(" + tempValidators.size + "/" + 30 + ")"
     }
 
-    private fun clickAction() {
-        oktValidatorAdapter.setOnItemClickListener { position ->
-//            val selectValidator = selectedChain.oktValidatorInfo[position]
-//            if (tempValidators.map { it.operatorAddress }
-//                    .contains(selectValidator.operatorAddress)) {
-//                if (tempValidators.size <= 1) {
-//                    requireContext().makeToast(R.string.error_min_1_validator_msg)
-//                    return@setOnItemClickListener
-//                }
-//                tempValidators.removeIf { it.operatorAddress == selectValidator.operatorAddress }
-//
-//            } else {
-//                if (tempValidators.size >= 30) {
-//                    requireContext().makeToast(R.string.error_max_30_validator_msg)
-//                    return@setOnItemClickListener
-//                }
-//                tempValidators.add(selectValidator)
-//            }
-            updateView()
-            oktValidatorAdapter.notifyItemChanged(position)
+    private fun setClickData(oktFetcher: OktFetcher?) {
+        binding.apply {
+            oktValidatorAdapter.setOnItemClickListener { position ->
+                oktFetcher?.lcdValidatorInfo?.get(position)?.let { selectValidator ->
+                    if (tempValidators.map { it["operator_address"].asString }
+                            .contains(selectValidator["operator_address"].asString)) {
+                        if (tempValidators.size <= 1) {
+                            requireContext().makeToast(R.string.error_min_1_validator_msg)
+                            return@setOnItemClickListener
+                        }
+                        tempValidators.removeIf { it["operator_address"].asString == selectValidator["operator_address"].asString }
+
+                    } else {
+                        if (tempValidators.size >= 30) {
+                            requireContext().makeToast(R.string.error_max_30_validator_msg)
+                            return@setOnItemClickListener
+                        }
+                        tempValidators.add(selectValidator)
+                    }
+                    updateView()
+                    oktValidatorAdapter.notifyItemChanged(position)
+                }
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
+        when (selectedChain) {
+            is ChainOkt996Keccak -> setClickData(selectedChain.oktFetcher)
+            is ChainOktEvm -> setClickData(selectedChain.oktFetcher)
         }
 
         binding.btnConfirm.setOnClickListener {
@@ -98,5 +113,5 @@ class OktValidatorFragment(
 }
 
 interface OkValidatorListener {
-    fun select(selectValidators: MutableList<OktValidatorResponse>)
+    fun select(selectValidators: MutableList<JsonObject>)
 }

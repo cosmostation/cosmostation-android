@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
@@ -152,7 +153,7 @@ class HistoryFragment : Fragment() {
 
     private fun initData() {
         when (selectedChain) {
-            is ChainOkt996Keccak -> {
+            is ChainOkt996Keccak, is ChainOktEvm -> {
                 historyViewModel.oktHistory(
                     "ANDROID", selectedChain.evmAddress, "50"
                 )

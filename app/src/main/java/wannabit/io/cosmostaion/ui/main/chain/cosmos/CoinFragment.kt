@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
@@ -88,7 +89,9 @@ class CoinFragment : Fragment() {
 
             coinAdapter.setOnItemClickListener { chain, denom, position ->
                 val sendAssetType = if (position == 0) {
-                    if (chain.supportEvm && chain.isCosmos()) {
+                    if (chain is ChainOktEvm) {
+                        SendAssetType.ONLY_EVM_COIN
+                    } else if (chain.supportEvm && chain.isCosmos()) {
                         SendAssetType.COSMOS_EVM_COIN
                     } else {
                         SendAssetType.ONLY_COSMOS_COIN
@@ -97,52 +100,16 @@ class CoinFragment : Fragment() {
                     SendAssetType.ONLY_COSMOS_COIN
                 }
 
-
-//                val sendAssetType = if (position == 0) {
-//                    if (line is EthereumLine) {
-//                        if (line is ChainBeraEvm) {
-//                            requireActivity().makeToast(R.string.error_tranfer_disabled_bgt)
-//                            return@setOnItemClickListener
-//                        } else if (line is ChainOktEvm) {
-//                            SendAssetType.ONLY_EVM_COIN
-//                        } else if (line.supportCosmos) {
-//                            SendAssetType.COSMOS_EVM_COIN
-//                        } else {
-//                            SendAssetType.ONLY_EVM_COIN
-//                        }
-//
-//                    } else {
-//                        SendAssetType.ONLY_COSMOS_COIN
-//                    }
-//
-//                } else {
-//                    if (line is ChainBeraEvm) {
-//                        SendAssetType.ONLY_EVM_COIN
-//                    } else {
-//                        SendAssetType.ONLY_COSMOS_COIN
-//                    }
-//                }
-//
                 if (selectedChain.isBankLocked()) {
                     requireActivity().makeToast(R.string.error_tranfer_disabled)
                     return@setOnItemClickListener
                 }
 
-                if (chain is ChainOkt996Keccak) {
+                if (chain is ChainOkt996Keccak || chain is ChainOktEvm && position != 0) {
                     startLegacyTransfer(chain, denom)
                 } else {
                     startTransfer(chain, denom, sendAssetType)
                 }
-
-//                if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
-//                    startLegacyTransfer(line, denom)
-//
-//                } else if (line.tag.startsWith("kava")) {
-//                    startTransfer(line, denom, sendAssetType)
-//
-//                } else {
-//                    startTransfer(chain, denom, sendAssetType)
-//                }
             }
         }
     }
@@ -181,20 +148,34 @@ class CoinFragment : Fragment() {
                 }
                 nativeCoins.sortBy { it.denom }
             }
-//
-//                is ChainOktEvm -> {
-//                    (selectedChain as ChainOktEvm).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
-//                        if (balance.denom == stakeDenom) {
-//                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
-//                        } else {
-//                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
-//                        }
-//                    }
-//                    if (stakeCoins.none { it.denom == stakeDenom }) {
-//                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-//                    }
-//                    nativeCoins.sortBy { it.denom }
-//                }
+
+            is ChainOktEvm -> {
+                (selectedChain as ChainOktEvm).oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get(
+                    "coins"
+                )?.asJsonArray?.forEach { balance ->
+                    if (balance.asJsonObject["denom"].asString == selectedChain.stakeDenom) {
+                        stakeCoins.add(
+                            Coin(
+                                balance.asJsonObject["denom"].asString,
+                                balance.asJsonObject["amount"].asString,
+                                CoinType.STAKE
+                            )
+                        )
+                    } else {
+                        nativeCoins.add(
+                            Coin(
+                                balance.asJsonObject["denom"].asString,
+                                balance.asJsonObject["amount"].asString,
+                                CoinType.ETC
+                            )
+                        )
+                    }
+                }
+                if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
+                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
+                }
+                nativeCoins.sortBy { it.denom }
+            }
 
             else -> {
                 selectedChain.grpcFetcher?.cosmosBalances?.forEach { coin ->
@@ -290,8 +271,7 @@ class CoinFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (isAdded && isVisible && isResumed) {
                 NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
-                    requireActivity().supportFragmentManager,
-                    NoticeInfoFragment::class.java.name
+                    requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
                 )
             }
         }, 800)

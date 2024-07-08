@@ -73,6 +73,7 @@
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
                     android:textAllCaps="true"
+                    android:text="@string/str_legacy"
                     android:textColor="@color/color_base02"
                     android:visibility="gone" />
 

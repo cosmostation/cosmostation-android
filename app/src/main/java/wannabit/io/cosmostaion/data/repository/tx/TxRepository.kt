@@ -134,7 +134,7 @@ interface TxRepository {
     ): Any?
 
     suspend fun broadcastOktTx(
-        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
+        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
     ): LegacyRes?
 
     suspend fun broadcastIbcSendTx(

@@ -373,6 +373,24 @@ class CommonTransferFragment : BaseTxFragment() {
                     else -> 0
                 }
             }
+
+            binding.recipientChainView.setOnClickListener {
+                handleOneClickWithDelay(
+                    ChainFragment.newInstance(recipientAbleChains,
+                        ChainListType.SELECT_TRANSFER,
+                        object : ChainSelectListener {
+                            override fun select(chainId: String) {
+                                if (toChain.chainIdCosmos != chainId) {
+                                    recipientAbleChains.firstOrNull { it.chainIdCosmos == chainId }
+                                        ?.let { chain ->
+                                            updateToChain(chain)
+                                            updateRecipientAddressView("")
+                                        }
+                                }
+                            }
+                        })
+                )
+            }
         }
         updateToChain(recipientAbleChains[0])
     }
@@ -581,27 +599,6 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
                 }
 
-//                } else {
-//                    (fromChain as ChainOkt996Keccak).apply {
-//                        stakeDenom?.let { denom ->
-//                            feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(denom))
-//                            feeToken.text = denom.uppercase()
-//                        }
-//                    }
-//                    if (evmFeeAmount == null) {
-//                        evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
-//                    }
-//                    val price = BaseData.getPrice(OKT_GECKO_ID)
-//                    val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
-//                        ?.setScale(18, RoundingMode.DOWN)
-//                    val value = price.multiply(dpAmount)
-//
-//                    dpAmount?.let { amount ->
-//                        feeAmount.text = formatAmount(amount.toPlainString(), 18)
-//                        feeValue.text = formatAssetValue(value)
-//                    }
-//                }
-
             } else {
                 cosmosTxFee?.getAmount(0)?.let { fee ->
                     BaseData.getAsset(fromChain.apiName, fee.denom)?.let { asset ->
@@ -623,28 +620,9 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun setUpClickAction() {
         binding.apply {
-            recipientChainView.setOnClickListener {
-                handleOneClickWithDelay(
-                    ChainFragment.newInstance(recipientAbleChains,
-                        ChainListType.SELECT_TRANSFER,
-                        object : ChainSelectListener {
-                            override fun select(chainId: String) {
-                                if (toChain.chainIdCosmos != chainId) {
-                                    recipientAbleChains.firstOrNull { it.chainIdCosmos == chainId }
-                                        ?.let { chain ->
-                                            updateToChain(chain)
-                                            updateRecipientAddressView("")
-                                        }
-                                }
-                            }
-                        })
-                )
-            }
-
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(
-                        fromChain,
+                    TransferAddressFragment.newInstance(fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -767,17 +745,6 @@ class CommonTransferFragment : BaseTxFragment() {
             }
 
             if (transferStyle == TransferStyle.WEB3_STYLE) {
-//                if (fromChain is ChainOkt996Keccak) {
-//                    txViewModel.simulateEvmSend(
-//                        ByteUtils.convertBech32ToEvm(toAddress),
-//                        toSendAmount,
-//                        toSendToken,
-//                        sendAssetType,
-//                        fromChain as ChainOkt996Keccak,
-//                        selectedFeePosition
-//                    )
-//
-//                } else {
                 txViewModel.simulateEvmSend(
                     toAddress,
                     toSendAmount,
@@ -786,7 +753,6 @@ class CommonTransferFragment : BaseTxFragment() {
                     fromChain,
                     selectedFeePosition
                 )
-//                }
 
             } else {
                 fromChain.apply {
@@ -933,11 +899,6 @@ class CommonTransferFragment : BaseTxFragment() {
                             fromChain.evmRpcFetcher?.getEvmRpc() ?: fromChain.evmRpcURL
                         )
                     )
-//                    val web3j = if (fromChain is ChainOkt996Keccak) {
-//                        Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
-//                    } else {
-//                        Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
-//                    }
                     txViewModel.broadcastEvmSend(web3j, evmHexValue)
 
                 } else {

@@ -162,7 +162,7 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    historyToMintscan(fromChain as EthereumLine, txHash)
+                    historyToMintscan(fromChain, txHash)
                 } else {
                     historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
                 }
@@ -170,7 +170,7 @@ class TransferTxResultActivity : BaseActivity() {
 
             viewFailMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    historyToMintscan(fromChain as EthereumLine, txHash)
+                    historyToMintscan(fromChain, txHash)
                 } else {
                     historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
                 }
@@ -228,8 +228,8 @@ class TransferTxResultActivity : BaseActivity() {
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
                         if (isSuccess && fetchCnt > 0) {
-                            getChannel(this@apply)?.shutdown()
-                            getChannel(this@apply)?.awaitTermination(6L, TimeUnit.SECONDS)
+                            getChannel(this@apply).shutdown()
+                            getChannel(this@apply).awaitTermination(6L, TimeUnit.SECONDS)
                             Handler(Looper.getMainLooper()).postDelayed({
                                 loadHistoryTx()
                             }, 6000)

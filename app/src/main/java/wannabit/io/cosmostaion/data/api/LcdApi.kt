@@ -7,11 +7,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
-import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
-import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
-import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
-import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
-import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 
 interface LcdApi {
     @GET("auth/accounts/{address}")

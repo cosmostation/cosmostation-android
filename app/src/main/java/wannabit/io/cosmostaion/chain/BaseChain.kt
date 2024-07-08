@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.chain
 import android.content.Context
 import android.net.Uri
 import android.os.Parcelable
-import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.gson.JsonObject
@@ -18,12 +17,14 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -347,6 +348,11 @@ open class BaseChain : Parcelable {
         return "${CosmostationConstants.CHAIN_BASE_URL}$apiName/moniker/$opAddress.png"
     }
 
+    open fun assetImg(originSymbol: String): String {
+        return ""
+        return CosmostationConstants.CHAIN_BASE_URL + "okc/asset/" + originSymbol.lowercase() + ".png"
+    }
+
     fun getGrpc(): Pair<String, Int> {
         val endPoint = Prefs.getGrpcEndpoint(this)
         if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
@@ -365,17 +371,28 @@ open class BaseChain : Parcelable {
                 return allValue.add(evmRpc.allTokenValue(isUsd))
             }
             return allValue
+
         } else if (isCosmos()) {
-            if (this is ChainOkt996Keccak) {
-                oktFetcher?.let { lcd ->
-                    return lcd.allAssetValue(isUsd).add(lcd.allTokenValue(isUsd))
+            when (this) {
+                is ChainOkt996Keccak -> {
+                    oktFetcher?.let { lcd ->
+                        return lcd.allAssetValue(isUsd)
+                    }
+                    return BigDecimal.ZERO
+                }
+
+                is ChainOktEvm -> {
+                    return evmRpcFetcher?.allAssetValue(isUsd)
+                        ?.add(evmRpcFetcher?.allTokenValue(isUsd))
                         ?: BigDecimal.ZERO
                 }
-                return BigDecimal.ZERO
-            } else {
-                return grpcFetcher?.allAssetValue(isUsd)?.add(grpcFetcher?.allTokenValue(isUsd))
-                    ?: BigDecimal.ZERO
+
+                else -> {
+                    return grpcFetcher?.allAssetValue(isUsd)?.add(grpcFetcher?.allTokenValue(isUsd))
+                        ?: BigDecimal.ZERO
+                }
             }
+
         } else {
             return evmRpcFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
                 ?: BigDecimal.ZERO
@@ -394,7 +411,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainJuno())
     chains.add(ChainKavaEvm())
     chains.add(ChainKava459())
+    chains.add(ChainOktEvm())
     chains.add(ChainOkt996Keccak())
+    chains.add(ChainOkt996Secp())
     chains.add(ChainOsmosis())
     chains.add(ChainNeutron())
     chains.add(ChainStargaze())

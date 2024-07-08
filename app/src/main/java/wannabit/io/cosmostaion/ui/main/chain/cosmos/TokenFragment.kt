@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -123,24 +122,6 @@ class TokenFragment : Fragment() {
             if (isAdded) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (selectedChain.supportEvm) {
-                        (selectedChain as ChainOkt996Keccak).oktFetcher?.let { lcdRpc ->
-                            lcdRpc.tokens.forEach { token ->
-                                if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                                    tokens.add(token)
-                                }
-                            }
-
-                            tokens.sortWith { o1, o2 ->
-                                val value0 = lcdRpc.tokenValue(o1.address)
-                                val value1 = lcdRpc.tokenValue(o2.address)
-                                when {
-                                    value0 > value1 -> -1
-                                    value0 < value1 -> 1
-                                    else -> 0
-                                }
-                            }
-                        }
-
                         selectedChain.evmRpcFetcher?.let { evmRpc ->
                             evmRpc.evmTokens.forEach { token ->
                                 if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {

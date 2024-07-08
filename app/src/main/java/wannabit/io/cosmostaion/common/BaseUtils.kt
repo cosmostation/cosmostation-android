@@ -373,7 +373,7 @@ object BaseUtils {
         return context?.createConfigurationContext(config)
     }
 
-    fun isValidChainAddress(line: CosmosLine?, address: String?): Boolean {
+    fun isValidChainAddress(chain: BaseChain?, address: String?): Boolean {
         if (address?.isEmpty() == true) {
             return false
         }
@@ -387,7 +387,7 @@ object BaseUtils {
         if (!BaseKey.isValidBech32(address)) {
             return false
         }
-        if (address?.startsWith(line?.accountPrefix + 1) == false) {
+        if (address?.startsWith(chain?.accountPrefix + 1) == false) {
             return false
         }
         return true

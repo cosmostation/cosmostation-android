@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
@@ -120,12 +121,9 @@ class CoinAdapter(
                             it(selectedChain, coin.denom, position)
                         }
                     }
-                    if (selectedChain is ChainOkt996Keccak) {
+                    if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
                         holder.bindOktCoin(selectedChain, coin, coinPosition, coinCount)
                     }
-//                    if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
-//                        holder.bindOktCoin(selectedChain, coin, coinPosition, coinCount)
-//                    }
                 }
             }
         }

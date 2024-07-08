@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -27,7 +28,7 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         when (chain) {
-            is ChainOkt996Keccak -> {
+            is ChainOkt996Keccak, is ChainOktEvm -> {
                 val oktHistoryList = currentList as MutableList<Pair<String, TransactionList>>
                 val historyOktGroup = oktHistoryList[position]
 
@@ -44,24 +45,6 @@ class HistoryAdapter(
                     }
                 }
             }
-//
-//            is ChainOktEvm -> {
-//                val oktHistoryList = currentList as MutableList<Pair<String, TransactionList>>
-//                val historyOktGroup = oktHistoryList[position]
-//
-//                historyOktGroup.second.let { header ->
-//                    val headerDate = dpTimeToYear(header.transactionTime.toLong())
-//                    val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
-//                    val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
-//                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
-//
-//                    holder.itemView.setOnClickListener {
-//                        onItemClickListener?.let {
-//                            it(line, null, historyOktGroup.second.txId)
-//                        }
-//                    }
-//                }
-//            }
 
             else -> {
                 val cosmosHistoryList = currentList as MutableList<Pair<String, CosmosHistory>>

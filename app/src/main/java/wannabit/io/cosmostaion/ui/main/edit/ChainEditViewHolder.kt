@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -53,7 +55,23 @@ class ChainEditViewHolder(
                                     }
 
                                 } else if (chain.isCosmos()) {
-                                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                                    if (chain is ChainOktEvm) {
+                                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                                            respondLayout.visibility = View.VISIBLE
+                                            chainValue.visibility = View.GONE
+                                            assetCnt.visibility = View.GONE
+                                            return@withContext
+                                        }
+
+                                    } else if (chain is ChainOkt996Keccak) {
+                                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                                            respondLayout.visibility = View.VISIBLE
+                                            chainValue.visibility = View.GONE
+                                            assetCnt.visibility = View.GONE
+                                            return@withContext
+                                        }
+
+                                    } else if (chain.grpcFetcher?.cosmosBalances == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
                                         assetCnt.visibility = View.GONE
@@ -69,26 +87,8 @@ class ChainEditViewHolder(
                                     }
                                 }
 
-//                                if (line !is ChainOkt996Keccak) {
-//                                    if (line.cosmosBalances == null) {
-//                                        respondLayout.visibility = View.VISIBLE
-//                                        chainValue.visibility = View.GONE
-//                                        assetCnt.visibility = View.GONE
-//
-//                                    } else {
-//                                        respondLayout.visibility = View.GONE
-//                                        chainValue.visibility = View.VISIBLE
-//                                        assetCnt.visibility = View.VISIBLE
-//                                    }
-//                                }
-
                                 if (chain.isCosmos()) {
-                                    val coinCntString = (chain.grpcFetcher?.cosmosBalances?.count {
-                                        BaseData.getAsset(
-                                            chain.apiName, it.denom
-                                        ) != null
-                                    } ?: 0).toString() + " Coins"
-
+                                    val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
                                     if (chain.supportCw20) {
                                         val tokenCnt =
                                             chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }

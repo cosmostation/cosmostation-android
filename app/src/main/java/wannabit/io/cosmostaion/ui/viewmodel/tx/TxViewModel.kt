@@ -1402,7 +1402,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     val broadcastOktTx = SingleLiveEvent<LegacyRes?>()
-    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine) =
+    fun broadcastOktTx(msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain) =
         viewModelScope.launch(Dispatchers.IO) {
             val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
             broadcastOktTx.postValue(response)

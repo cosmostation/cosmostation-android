@@ -3,12 +3,13 @@ package wannabit.io.cosmostaion.ui.main
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -58,6 +59,7 @@ class DashboardViewHolder(
                 chainBadge, chainCw20Badge, chainErc20Badge, chainNftBadge, chainDappBadge
             ).forEach { it.visibility = View.GONE }
 
+            chainSideBadge.visibleOrGone(!chain.isDefault)
             chainSideCw20Badge.visibleOrGone(chain.supportCw20)
             chainSideErc20Badge.visibleOrGone(chain.supportEvm)
             chainSideNftBadge.visibleOrGone(chain.supportNft)
@@ -65,7 +67,7 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos()) {
+            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -90,11 +92,20 @@ class DashboardViewHolder(
             }
 
             if (chain.isCosmos()) {
-                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                    chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                    BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                if (chain is ChainOkt996Keccak || chain is ChainOktEvm) {
+                    chainPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
+                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
                         chainPriceStatus.priceChangeStatusColor(lastUpDown)
                         chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                    }
+
+                } else {
+                    BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                        chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                            chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                            chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                        }
                     }
                 }
 
@@ -119,7 +130,23 @@ class DashboardViewHolder(
                     }
 
                 } else if (chain.isCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain is ChainOktEvm) {
+                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain is ChainOkt996Keccak) {
+                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.grpcFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE
@@ -137,12 +164,22 @@ class DashboardViewHolder(
                 respondLayout.visibility = View.GONE
                 chainValue.visibility = View.VISIBLE
 
-                if (chain.isCosmos()) {
-                    val coinCntString = (chain.grpcFetcher?.cosmosBalances?.count {
-                        BaseData.getAsset(
-                            chain.apiName, it.denom
-                        ) != null
-                    } ?: 0).toString() + " Coins"
+                if (chain is ChainOkt996Keccak) {
+                    assetCnt.text =
+                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                            .toString() + " Coins"
+
+                } else if (chain.isCosmos()) {
+                    val coinCntString = if (chain is ChainOktEvm) {
+                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                            .toString() + " Coins"
+                    } else {
+                        (chain.grpcFetcher?.cosmosBalances?.count {
+                            BaseData.getAsset(
+                                chain.apiName, it.denom
+                            ) != null
+                        } ?: 0).toString() + " Coins"
+                    }
 
                     if (chain.supportCw20) {
                         val tokenCnt =
@@ -211,7 +248,11 @@ class DashboardViewHolder(
             chainDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
 
             listOf(
-                chainSideBadge, chainSideCw20Badge, chainSideErc20Badge, chainSideNftBadge, chainSideDappBadge
+                chainSideBadge,
+                chainSideCw20Badge,
+                chainSideErc20Badge,
+                chainSideNftBadge,
+                chainSideDappBadge
             ).forEach { it.visibility = View.GONE }
 
             if (chain.fetched) {

@@ -41,7 +41,6 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
@@ -49,6 +48,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -1271,12 +1271,11 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastOktTx(
-        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
+        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
     ): LegacyRes? {
         return try {
-//            val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
-//            RetrofitInstance.oktApi.broadTx(reqBroadCast)
-            null
+            val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
+            RetrofitInstance.oktTxApi.broadTx(reqBroadCast)
 
         } catch (_: Exception) {
             null

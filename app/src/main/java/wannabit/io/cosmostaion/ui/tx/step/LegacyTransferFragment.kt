@@ -14,16 +14,32 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.Gson
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
+import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
+import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.model.req.LCoin
+import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressListener
+import wannabit.io.cosmostaion.ui.option.tx.address.AddressType
+import wannabit.io.cosmostaion.ui.option.tx.address.CommonAddressFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.LegacyInsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
@@ -104,80 +120,51 @@ class LegacyTransferFragment : BaseTxFragment() {
                 )
             }
 
-            if (fromChain is ChainOkt996Keccak) {
-                (fromChain as ChainOkt996Keccak).apply {
-//                    oktFetcher?.lcdOktTokens?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-//                        oktToken = tokenInfo
-//                        val originalSymbol = tokenInfo.original_symbol
-//                        tokenImg.setTokenImg(assetImg(originalSymbol))
-//                        tokenName.text = originalSymbol.uppercase()
-//
-//                        val available = lcdBalanceAmount(toSendDenom)
-//                        availableAmount = if (toSendDenom == stakeDenom) {
-//                            if (available > BigDecimal(OKT_BASE_FEE)) {
-//                                available.subtract(BigDecimal(OKT_BASE_FEE))
-//                            } else {
-//                                BigDecimal.ZERO
-//                            }
-//                        } else {
-//                            available
-//                        }
-//                    }
-                }
+            when (fromChain) {
+                is ChainOkt996Keccak -> initData(
+                    fromChain, (fromChain as ChainOkt996Keccak).oktFetcher
+                )
+
+                is ChainOktEvm -> initData(fromChain, (fromChain as ChainOktEvm).oktFetcher)
             }
-//
-//            } else if (fromChain is ChainOktEvm) {
-//                (fromChain as ChainOktEvm).apply {
-//                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
-//                        oktToken = tokenInfo
-//                        val originalSymbol = tokenInfo.original_symbol
-//                        tokenImg.setTokenImg(assetImg(originalSymbol))
-//                        tokenName.text = originalSymbol.uppercase()
-//
-//                        val available = lcdBalanceAmount(toSendDenom)
-//                        availableAmount = if (toSendDenom == stakeDenom) {
-//                            if (available > BigDecimal(OKT_BASE_FEE)) {
-//                                available.subtract(BigDecimal(OKT_BASE_FEE))
-//                            } else {
-//                                BigDecimal.ZERO
-//                            }
-//                        } else {
-//                            available
-//                        }
-//                    }
-//                }
-//            }
+        }
+    }
+
+    private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
+        binding.apply {
+            oktFetcher?.lcdOktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == toSendDenom }
+                ?.let { tokenInfo ->
+                    oktToken = Gson().fromJson(tokenInfo, OktToken::class.java)
+                    oktToken?.let {
+                        tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
+                        tokenName.text = it.original_symbol.uppercase()
+
+                        val available = oktFetcher.lcdBalanceAmount(toSendDenom)
+                        availableAmount = if (toSendDenom == chain.stakeDenom) {
+                            if (BigDecimal(OKT_BASE_FEE) < available) {
+                                available.subtract(BigDecimal(OKT_BASE_FEE))
+                            } else {
+                                BigDecimal.ZERO
+                            }
+                        } else {
+                            available
+                        }
+                    }
+                }
         }
     }
 
     private fun initFee() {
         binding.apply {
-//            if (fromChain is ChainOkt996Keccak) {
-//                fromChain.stakeDenom?.let { stakeDenom ->
-//                    feeTokenImg.setTokenImg((fromChain as ChainOkt996Keccak).assetImg(stakeDenom))
-//                    feeToken.text = stakeDenom.uppercase()
-//
-//                    val price = BaseData.getPrice(OKT_GECKO_ID)
-//                    val amount = BigDecimal(OKT_BASE_FEE)
-//                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
-//
-//                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
-//                    feeValue.text = formatAssetValue(value)
-//                }
-//
-//            } else if (fromChain is ChainOktEvm) {
-//                fromChain.stakeDenom?.let { stakeDenom ->
-//                    feeTokenImg.setTokenImg((fromChain as ChainOktEvm).assetImg(stakeDenom))
-//                    feeToken.text = stakeDenom.uppercase()
-//
-//                    val price = BaseData.getPrice(OKT_GECKO_ID)
-//                    val amount = BigDecimal(OKT_BASE_FEE)
-//                    val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
-//
-//                    feeAmount.text = formatAmount(amount.toPlainString(), 18)
-//                    feeValue.text = formatAssetValue(value)
-//                }
-//            }
+            feeTokenImg.setTokenImg(fromChain.assetImg(fromChain.stakeDenom))
+            feeToken.text = fromChain.stakeDenom.uppercase()
+
+            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val amount = BigDecimal(OKT_BASE_FEE)
+            val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
+
+            feeAmount.text = formatAmount(amount.toPlainString(), 18)
+            feeValue.text = formatAssetValue(value)
         }
     }
 
@@ -189,14 +176,14 @@ class LegacyTransferFragment : BaseTxFragment() {
 
             val dpAmount = BigDecimal(toAmount).setScale(18, RoundingMode.DOWN)
             sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
-//            if (toSendDenom == fromChain.stakeDenom) {
-//                sendValue.visibility = View.VISIBLE
-//                val price = BaseData.getPrice(OKT_GECKO_ID)
-//                val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
-//                sendValue.text = formatAssetValue(toSendValue)
-//            } else {
-//                sendValue.visibility = View.GONE
-//            }
+            if (toSendDenom == fromChain.stakeDenom) {
+                sendValue.visibility = View.VISIBLE
+                val price = BaseData.getPrice(OKT_GECKO_ID)
+                val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
+                sendValue.text = formatAssetValue(toSendValue)
+            } else {
+                sendValue.visibility = View.GONE
+            }
         }
         txValidate()
     }
@@ -261,25 +248,25 @@ class LegacyTransferFragment : BaseTxFragment() {
             }
 
             addressView.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    CommonAddressFragment.newInstance(fromChain,
-//                        existedAddress,
-//                        AddressType.DEFAULT_TRANSFER,
-//                        object : AddressListener {
-//                            override fun selectAddress(address: String, memo: String) {
-//                                updateAddressView(address)
-//                                if (memo.isNotEmpty()) {
-//                                    txMemo = memo
-//                                    tabMemoMsg.text = txMemo
-//                                    tabMemoMsg.setTextColor(
-//                                        ContextCompat.getColorStateList(
-//                                            requireContext(), R.color.color_base01
-//                                        )
-//                                    )
-//                                }
-//                            }
-//                        })
-//                )
+                handleOneClickWithDelay(
+                    CommonAddressFragment.newInstance(fromChain,
+                        existedAddress,
+                        AddressType.DEFAULT_TRANSFER,
+                        object : AddressListener {
+                            override fun selectAddress(address: String, memo: String) {
+                                updateAddressView(address)
+                                if (memo.isNotEmpty()) {
+                                    txMemo = memo
+                                    tabMemoMsg.text = txMemo
+                                    tabMemoMsg.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            requireContext(), R.color.color_base01
+                                        )
+                                    )
+                                }
+                            }
+                        })
+                )
             }
 
             memoView.setOnClickListener {
@@ -334,7 +321,7 @@ class LegacyTransferFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.getStringExtra(Intents.Scan.RESULT)?.trim()?.let { qrData ->
                     val scanString = qrData.split(" (MEMO) ")
-                    var addressScan = ""
+                    val addressScan: String
                     var memoScan = ""
 
                     if (scanString.size == 2) {
@@ -352,16 +339,16 @@ class LegacyTransferFragment : BaseTxFragment() {
                         return@let
                     }
 
-//                    if (BaseUtils.isValidChainAddress(fromChain, addressScan)) {
-//                        updateAddressView(addressScan.trim())
-//                        if (scanString.size > 1) {
-//                            updateMemoView(memoScan.trim())
-//                        }
-//
-//                    } else {
-//                        requireContext().makeToast(R.string.error_invalid_address)
-//                        return@let
-//                    }
+                    if (BaseUtils.isValidChainAddress(fromChain, addressScan)) {
+                        updateAddressView(addressScan.trim())
+                        if (scanString.size > 1) {
+                            updateMemoView(memoScan.trim())
+                        }
+
+                    } else {
+                        requireContext().makeToast(R.string.error_invalid_address)
+                        return@let
+                    }
                 }
             }
         }
@@ -371,22 +358,19 @@ class LegacyTransferFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-//                fromChain.stakeDenom?.let { LCoin(it, OKT_BASE_FEE) }?.let { gasCoin ->
-//                    val fee = LFee(BASE_GAS_AMOUNT, mutableListOf(gasCoin))
-//                    val sendCoin = LCoin(toSendDenom, toSendAmount)
-//                    val recipientAddress =
-//                        binding.recipientAddress.text.toString().trim().replace("(", "")
-//                            .replace(")", "")
-//
-//                    fromChain.address?.let { address ->
-//                        val oktSendMsg = Signer.oktSendMsg(
-//                            address, recipientAddress, mutableListOf(sendCoin)
-//                        )
-//                        txViewModel.broadcastOktTx(
-//                            oktSendMsg, fee, txMemo, fromChain
-//                        )
-//                    }
-//                }
+                val fee =
+                    LFee(BASE_GAS_AMOUNT, mutableListOf(LCoin(fromChain.stakeDenom, OKT_BASE_FEE)))
+                val sendCoin = LCoin(toSendDenom, toSendAmount)
+                val recipientAddress =
+                    binding.recipientAddress.text.toString().trim().replace("(", "")
+                        .replace(")", "")
+
+                val oktSendMsg = Signer.oktSendMsg(
+                    fromChain.address, recipientAddress, mutableListOf(sendCoin)
+                )
+                txViewModel.broadcastOktTx(
+                    oktSendMsg, fee, txMemo, fromChain
+                )
             }
         }
 

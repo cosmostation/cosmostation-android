@@ -19,9 +19,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -82,20 +85,20 @@ class TxResultActivity : BaseActivity() {
             )
 
             btnConfirm.updateButtonView(true)
-//            if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
-//                if (txHash.isNotEmpty()) {
-//                    updateView()
-//                } else {
-//                    showError()
-//                }
-//
-//            } else {
-            if (isSuccess) {
-                loadHistoryTx()
+            if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
+                if (txHash.isNotEmpty()) {
+                    updateView()
+                } else {
+                    showError()
+                }
+
             } else {
-                showError()
+                if (isSuccess) {
+                    loadHistoryTx()
+                } else {
+                    showError()
+                }
             }
-//            }
             initQuotes()
         }
     }
@@ -134,19 +137,19 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-//                if (selectedChain is ChainOkt996Keccak) {
-//                    historyToMintscan(selectedChain, txHash)
-//                } else {
-//                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
-//                }
+                if (selectedChain is ChainOkt996Keccak) {
+                    historyToMintscan(selectedChain, txHash)
+                } else {
+                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+                }
             }
 
             viewFailMintscan.setOnClickListener {
-//                if (selectedChain is ChainOkt996Keccak) {
-//                    historyToMintscan(selectedChain, txHash)
-//                } else {
-//                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
-//                }
+                if (selectedChain is ChainOkt996Keccak) {
+                    historyToMintscan(selectedChain, txHash)
+                } else {
+                    historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
+                }
             }
 
             btnConfirm.setOnClickListener {

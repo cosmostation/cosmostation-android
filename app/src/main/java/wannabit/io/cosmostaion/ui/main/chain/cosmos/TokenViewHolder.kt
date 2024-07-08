@@ -65,11 +65,6 @@ class TokenViewHolder(
                                     formatAssetValue(it.tokenValue(token.address))
                             }
                         } else {
-                            (chain as ChainOkt996Keccak).oktFetcher?.let {
-                                coinAmountValue.text =
-                                    formatAssetValue(it.tokenValue(token.address))
-                            }
-
                             chain.evmRpcFetcher?.let {
                                 coinAmountValue.text =
                                     formatAssetValue(it.tokenValue(token.address))
