@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.chain
 import android.content.Context
 import android.net.Uri
 import android.os.Parcelable
+import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.gson.JsonObject
@@ -16,6 +17,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
@@ -42,7 +44,7 @@ open class BaseChain : Parcelable {
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
     open var apiName: String = ""
-    open var accountPrefix: String? = ""
+    open var accountPrefix: String = ""
 
     open lateinit var accountKeyType: AccountKeyType
     open var publicKey: ByteArray? = null
@@ -60,6 +62,7 @@ open class BaseChain : Parcelable {
     open var supportNft = false
     open var grpcHost: String = ""
     open var grpcPort = 443
+    open var lcdUrl: String = ""
 
     open var supportEvm = false
     open var chainIdEvm: String = ""
@@ -73,6 +76,7 @@ open class BaseChain : Parcelable {
 
     var grpcFetcher: FetcherGrpc? = null
     var evmRpcFetcher: FetcherEvmRpc? = null
+    var lcdFetcher: FetcherLcd? = null
 
     open var fetched = false
 
@@ -85,7 +89,7 @@ open class BaseChain : Parcelable {
         setInfoWithPrivateKey(privateKey)
     }
 
-    fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    open fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
@@ -110,6 +114,16 @@ open class BaseChain : Parcelable {
             grpcFetcher = FetcherGrpc(this)
         }
         return grpcFetcher
+    }
+
+    open fun lcdFetcher(): FetcherLcd? {
+        if (!supportCosmosLcd) {
+            return null
+        }
+        if (lcdFetcher == null) {
+            lcdFetcher = FetcherLcd(this)
+        }
+        return lcdFetcher
     }
 
     fun evmRpcFetcher(): FetcherEvmRpc? {
@@ -352,8 +366,16 @@ open class BaseChain : Parcelable {
             }
             return allValue
         } else if (isCosmos()) {
-            return grpcFetcher?.allAssetValue(isUsd)?.add(grpcFetcher?.allTokenValue(isUsd))
-                ?: BigDecimal.ZERO
+            if (this is ChainOkt996Keccak) {
+                oktFetcher?.let { lcd ->
+                    return lcd.allAssetValue(isUsd).add(lcd.allTokenValue(isUsd))
+                        ?: BigDecimal.ZERO
+                }
+                return BigDecimal.ZERO
+            } else {
+                return grpcFetcher?.allAssetValue(isUsd)?.add(grpcFetcher?.allTokenValue(isUsd))
+                    ?: BigDecimal.ZERO
+            }
         } else {
             return evmRpcFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
                 ?: BigDecimal.ZERO
@@ -372,6 +394,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainJuno())
     chains.add(ChainKavaEvm())
     chains.add(ChainKava459())
+    chains.add(ChainOkt996Keccak())
     chains.add(ChainOsmosis())
     chains.add(ChainNeutron())
     chains.add(ChainStargaze())

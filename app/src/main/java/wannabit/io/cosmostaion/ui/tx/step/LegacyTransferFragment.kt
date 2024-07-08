@@ -18,6 +18,7 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -103,9 +104,9 @@ class LegacyTransferFragment : BaseTxFragment() {
                 )
             }
 
-//            if (fromChain is ChainOkt996Keccak) {
-//                (fromChain as ChainOkt996Keccak).apply {
-//                    oktTokenInfo?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
+            if (fromChain is ChainOkt996Keccak) {
+                (fromChain as ChainOkt996Keccak).apply {
+//                    oktFetcher?.lcdOktTokens?.data?.firstOrNull { it.symbol == toSendDenom }?.let { tokenInfo ->
 //                        oktToken = tokenInfo
 //                        val originalSymbol = tokenInfo.original_symbol
 //                        tokenImg.setTokenImg(assetImg(originalSymbol))
@@ -122,7 +123,8 @@ class LegacyTransferFragment : BaseTxFragment() {
 //                            available
 //                        }
 //                    }
-//                }
+                }
+            }
 //
 //            } else if (fromChain is ChainOktEvm) {
 //                (fromChain as ChainOktEvm).apply {

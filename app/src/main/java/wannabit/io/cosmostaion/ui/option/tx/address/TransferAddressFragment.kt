@@ -213,11 +213,9 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                        toChain.accountPrefix?.let { prefix ->
-                            txViewModel.icnsAddress(
-                                toChain, addressTxt.text.toString().trim(), prefix
-                            )
-                        }
+                        txViewModel.icnsAddress(
+                            toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
+                        )
 
                     } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                         if (BaseKey.isValidEthAddress(address)) {
@@ -236,11 +234,9 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                        toChain.accountPrefix?.let { prefix ->
-                            txViewModel.icnsAddress(
-                                toChain, addressTxt.text.toString().trim(), prefix
-                            )
-                        }
+                        txViewModel.icnsAddress(
+                            toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
+                        )
                     }
                 }
             }

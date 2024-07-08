@@ -13,7 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -32,7 +34,7 @@ class OktDepositFragment : BaseTxFragment() {
     private var _binding: FragmentOktDepositBinding? = null
     private val binding get() = _binding!!
 
-//    private lateinit var selectedChain: ChainOkt996Keccak
+    private lateinit var selectedChain: BaseChain
 
     private var oktTokenInfo: OktToken? = null
 
@@ -47,7 +49,7 @@ class OktDepositFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): OktDepositFragment {
+        fun newInstance(selectedChain: BaseChain): OktDepositFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }

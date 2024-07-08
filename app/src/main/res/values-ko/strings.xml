@@ -117,6 +117,7 @@
     <string name="str_chain_id_evm">체인 아이디 (evm 형식)</string>
     <string name="str_coin_for_gas">가스용 코인</string>
     <string name="str_network">네트워크</string>
+    <string name="str_staking_information">스테이킹 정보</string>
     <string name="str_staking_asset">스테이킹 코인</string>
     <string name="str_unstake_period">스테이크 해제 기간</string>
     <string name="str_inflation">인플레이션</string>

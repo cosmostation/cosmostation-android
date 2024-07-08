@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -155,17 +157,12 @@ class DashboardFragment : Fragment() {
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
-//            if (line !is ChainOkt996Keccak) {
-//                if (line.cosmosBalances == null) {
+//            if (chain !is ChainOkt996Keccak) {
+//                if (chain.lcdFetcher?.cosmosBalances == null) {
 //                    nodeDownPopup()
 //                    return
 //                }
 //            }
-//            Intent(requireContext(), CosmosActivity::class.java).apply {
-//                putExtra("selectedChain", line as Parcelable)
-//                startActivity(this)
-//            }
-//            requireActivity().toMoveAnimation()
             if (chain.isEvmCosmos()) {
                 if (chain.grpcFetcher?.cosmosBalances == null) {
                     nodeDownPopup()
@@ -183,16 +180,31 @@ class DashboardFragment : Fragment() {
                 requireActivity().toMoveAnimation()
 
             } else if (chain.isCosmos()) {
-                chain.grpcFetcher?.let {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
-                        nodeDownPopup()
-                        return
+                if (chain is ChainOkt996Keccak) {
+                    chain.oktFetcher?.let {
+                        if (it.lcdAccountInfo?.isJsonNull == true) {
+                            nodeDownPopup()
+                            return
+                        }
+                        Intent(requireContext(), CosmosActivity::class.java).apply {
+                            putExtra("selectedChain", chain as Parcelable)
+                            startActivity(this)
+                        }
+                        requireActivity().toMoveAnimation()
                     }
-                    Intent(requireContext(), CosmosActivity::class.java).apply {
-                        putExtra("selectedChain", chain as Parcelable)
-                        startActivity(this)
+
+                } else {
+                    chain.grpcFetcher?.let {
+                        if (chain.grpcFetcher?.cosmosBalances == null) {
+                            nodeDownPopup()
+                            return
+                        }
+                        Intent(requireContext(), CosmosActivity::class.java).apply {
+                            putExtra("selectedChain", chain as Parcelable)
+                            startActivity(this)
+                        }
+                        requireActivity().toMoveAnimation()
                     }
-                    requireActivity().toMoveAnimation()
                 }
 
             } else {

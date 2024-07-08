@@ -25,6 +25,6 @@ class ChainAxelar : BaseChain(), Parcelable {
 
     override var supportCosmosGrpc: Boolean = true
     override var stakeDenom: String = "uaxl"
-    override var accountPrefix: String? = "axelar"
+    override var accountPrefix: String = "axelar"
     override var grpcHost: String = "grpc-axelar.cosmostation.io"
 }

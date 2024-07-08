@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
@@ -125,7 +127,13 @@ class CoinFragment : Fragment() {
                     requireActivity().makeToast(R.string.error_tranfer_disabled)
                     return@setOnItemClickListener
                 }
-//
+
+                if (chain is ChainOkt996Keccak) {
+                    startLegacyTransfer(chain, denom)
+                } else {
+                    startTransfer(chain, denom, sendAssetType)
+                }
+
 //                if (line is ChainOkt996Keccak || line is ChainOktEvm && position != 0) {
 //                    startLegacyTransfer(line, denom)
 //
@@ -133,7 +141,7 @@ class CoinFragment : Fragment() {
 //                    startTransfer(line, denom, sendAssetType)
 //
 //                } else {
-                startTransfer(chain, denom, sendAssetType)
+//                    startTransfer(chain, denom, sendAssetType)
 //                }
             }
         }
@@ -146,19 +154,33 @@ class CoinFragment : Fragment() {
         bridgeCoins.clear()
 
         when (selectedChain) {
-//                is ChainOkt996Keccak -> {
-//                    (selectedChain as ChainOkt996Keccak).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
-//                        if (balance.denom == stakeDenom) {
-//                            stakeCoins.add(Coin(balance.denom, balance.amount, CoinType.STAKE))
-//                        } else {
-//                            nativeCoins.add(Coin(balance.denom, balance.amount, CoinType.ETC))
-//                        }
-//                    }
-//                    if (stakeCoins.none { it.denom == stakeDenom }) {
-//                        stakeCoins.add(Coin(stakeDenom, "0", CoinType.STAKE))
-//                    }
-//                    nativeCoins.sortBy { it.denom }
-//                }
+            is ChainOkt996Keccak -> {
+                (selectedChain as ChainOkt996Keccak).oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get(
+                    "coins"
+                )?.asJsonArray?.forEach { balance ->
+                    if (balance.asJsonObject["denom"].asString == selectedChain.stakeDenom) {
+                        stakeCoins.add(
+                            Coin(
+                                balance.asJsonObject["denom"].asString,
+                                balance.asJsonObject["amount"].asString,
+                                CoinType.STAKE
+                            )
+                        )
+                    } else {
+                        nativeCoins.add(
+                            Coin(
+                                balance.asJsonObject["denom"].asString,
+                                balance.asJsonObject["amount"].asString,
+                                CoinType.ETC
+                            )
+                        )
+                    }
+                }
+                if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
+                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
+                }
+                nativeCoins.sortBy { it.denom }
+            }
 //
 //                is ChainOktEvm -> {
 //                    (selectedChain as ChainOktEvm).oktLcdAccountInfo?.value?.coins?.forEach { balance ->
@@ -252,27 +274,27 @@ class CoinFragment : Fragment() {
     }
 
     private fun sunsetPopup() {
-//        val noticeType = when (selectedChain) {
+        val noticeType = when (selectedChain) {
 //            is ChainCantoEvm, is ChainRegen, is ChainLikeCoin, is ChainIxo -> {
 //                NoticeType.CHAIN_DELIST
 //            }
 //
-//            is ChainOkt996Keccak -> {
-//                NoticeType.LEGACY_PATH
-//            }
-//
-//            else -> {
-//                return
-//            }
-//        }
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            if (isAdded && isVisible && isResumed) {
-//                NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
-//                    requireActivity().supportFragmentManager,
-//                    NoticeInfoFragment::class.java.name
-//                )
-//            }
-//        }, 800)
+            is ChainOkt996Keccak -> {
+                NoticeType.LEGACY_PATH
+            }
+
+            else -> {
+                return
+            }
+        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isAdded && isVisible && isResumed) {
+                NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+                    requireActivity().supportFragmentManager,
+                    NoticeInfoFragment::class.java.name
+                )
+            }
+        }, 800)
     }
 
     private fun observeViewModels() {
@@ -295,8 +317,8 @@ class CoinFragment : Fragment() {
         )
     }
 
-    private fun startLegacyTransfer(line: CosmosLine, denom: String) {
-        handleOneClickWithDelay(LegacyTransferFragment.newInstance(line, denom))
+    private fun startLegacyTransfer(chain: BaseChain, denom: String) {
+        handleOneClickWithDelay(LegacyTransferFragment.newInstance(chain, denom))
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {

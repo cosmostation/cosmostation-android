@@ -26,6 +26,6 @@ class ChainKava459 : BaseChain(), Parcelable {
 
     override var supportCosmosGrpc: Boolean = true
     override var stakeDenom: String = "ukava"
-    override var accountPrefix: String? = "kava"
+    override var accountPrefix: String = "kava"
     override var grpcHost: String = "grpc-kava.cosmostation.io"
 }

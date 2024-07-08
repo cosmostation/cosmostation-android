@@ -159,6 +159,7 @@
     <string name="str_chain_id_evm">Chain ID (evm style)</string>
     <string name="str_coin_for_gas">Coin for gas</string>
     <string name="str_network">Network</string>
+    <string name="str_staking_information">Staking information</string>
     <string name="str_staking_asset">Staking asset</string>
     <string name="str_unstake_period">Unstake period</string>
     <string name="str_inflation">Inflation</string>

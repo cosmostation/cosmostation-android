@@ -6,7 +6,6 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.Cw721Model
-import wannabit.io.cosmostaion.data.model.res.AccountResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -25,9 +24,6 @@ open class FetcherGrpc(chain: BaseChain) {
     var cosmosRewards = mutableListOf<DistributionProto.DelegationDelegatorReward>()
 
     var tokens = mutableListOf<Token>()
-
-    var lcdAccountInfo: AccountResponse? = null
-
     var cw721s = mutableListOf<JsonObject>()
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()

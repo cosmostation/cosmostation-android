@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectBinding
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectHeaderBinding
 
 class WalletSelectAdapter(
-    private val account: BaseAccount,
     private val mainnetChains: MutableList<BaseChain>,
     private val testnetChains: MutableList<BaseChain>,
     private val selectedTags: MutableList<String>,
@@ -54,8 +52,8 @@ class WalletSelectAdapter(
 
             is WalletSelectViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
-                    val mainnet = mainnetChains[position - 1]
-                    holder.mainnetBind(account, mainnet, selectedTags, listener)
+                    val chain = mainnetChains[position - 1]
+                    holder.mainnetBind(chain, selectedTags, listener)
                 }
 
 //                } else {

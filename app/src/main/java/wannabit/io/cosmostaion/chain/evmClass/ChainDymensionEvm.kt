@@ -25,7 +25,7 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
 
     override var supportCosmosGrpc: Boolean = true
     override var stakeDenom: String = "adym"
-    override var accountPrefix: String? = "dym"
+    override var accountPrefix: String = "dym"
     override var grpcHost: String = "grpc-dymension.cosmostation.io"
 
     override var supportEvm: Boolean = true

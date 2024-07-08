@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -148,11 +147,7 @@ class WalletSelectFragment : Fragment() {
         binding.apply {
             recycler.itemAnimator = null
             walletSelectAdapter = WalletSelectAdapter(
-                account,
-                mainnetChains,
-                testnetChains,
-                selectedTags,
-                selectClickAction
+                mainnetChains, testnetChains, selectedTags, selectClickAction
             )
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -170,8 +165,13 @@ class WalletSelectFragment : Fragment() {
                     val wordList = mnemonic.split(" ")
                     val seed = BaseKey.getHDSeed(BaseKey.toEntropy(wordList))
                     mainnetChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address.isEmpty()) {
+                        if (chain.publicKey == null) {
                             chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                        }
+                        if (chain.address.isNotEmpty()) {
+                            withContext(Dispatchers.Main) {
+                                updateRowData(chain.tag)
+                            }
                         }
 
                         if (!chain.fetched) {
@@ -185,9 +185,15 @@ class WalletSelectFragment : Fragment() {
 
                 } else {
                     mainnetChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address.isEmpty()) {
-                            chain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithPrivateKey(privateKey)
                         }
+                        if (chain.address.isNotEmpty()) {
+                            withContext(Dispatchers.Main) {
+                                updateRowData(chain.tag)
+                            }
+                        }
+
                         if (!chain.fetched) {
                             if (chain.supportEvm) {
                                 walletViewModel.evmBalance(chain)
@@ -195,6 +201,22 @@ class WalletSelectFragment : Fragment() {
                                 walletViewModel.balance(chain)
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateRowData(tag: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val mainnetResult = mainnetChains.filter { it.tag == tag }
+            val mainIterator = mainnetResult.iterator()
+            while (mainIterator.hasNext()) {
+                val chain = mainIterator.next()
+                val index = mainnetChains.indexOf(chain)
+                if (::walletSelectAdapter.isInitialized) {
+                    withContext(Dispatchers.Main) {
+                        walletSelectAdapter.notifyItemChanged(index + 1)
                     }
                 }
             }

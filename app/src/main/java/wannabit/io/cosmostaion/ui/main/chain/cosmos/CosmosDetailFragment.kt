@@ -19,9 +19,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
+import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -186,9 +187,9 @@ class CosmosDetailFragment : Fragment() {
             if (selectedChain.supportStaking) {
                 walletViewModel.loadGrpcStakeData(selectedChain)
             }
-//            if (selectedChain is ChainOkt996Keccak) {
-//                (selectedChain as ChainOkt996Keccak).loadValidators()
-//            }
+            if (selectedChain is ChainOkt996Keccak) {
+                (selectedChain as ChainOkt996Keccak).oktFetcher?.loadValidators()
+            }
         }
     }
 
@@ -232,16 +233,15 @@ class CosmosDetailFragment : Fragment() {
                 is ChainKavaEvm, is ChainKava459 -> {
                     fabDefi.visibility = View.VISIBLE
                 }
-//
-//                is ChainOkt996Keccak -> {
-//                    fabDeposit.visibility = View.VISIBLE
-//                    fabWithdraw.visibility = View.VISIBLE
-//                    fabSelectValidator.visibility = View.VISIBLE
-//                }
+
+                is ChainOkt996Keccak -> {
+                    fabDeposit.visibility = View.VISIBLE
+                    fabWithdraw.visibility = View.VISIBLE
+                    fabSelectValidator.visibility = View.VISIBLE
+                }
             }
 
-            val supportToken =
-                selectedChain is EthereumLine || selectedChain.supportCw20 || selectedChain.supportEvm
+            val supportToken = selectedChain.supportCw20 || selectedChain.supportEvm
             val supportNft = selectedChain.supportNft
 
             val tableTitles = mutableListOf<String>()
@@ -541,15 +541,14 @@ class CosmosDetailFragment : Fragment() {
 
             fabVault.setOnClickListener {
                 handleOneClickWithDelay(
-                    null,
-                    VaultSelectFragment.newInstance(selectedChain as ChainNeutron)
+                    null, VaultSelectFragment.newInstance(selectedChain as ChainNeutron)
                 )
             }
 
             fabDeposit.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    null, OktDepositFragment.newInstance(selectedChain as ChainOkt996Keccak)
-//                )
+                handleOneClickWithDelay(
+                    null, OktDepositFragment.newInstance(selectedChain)
+                )
             }
 
             fabWithdraw.setOnClickListener {

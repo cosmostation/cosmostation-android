@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
@@ -105,13 +106,13 @@ class HistoryFragment : Fragment() {
             if (::historyAdapter.isInitialized) {
                 historyAdapter.setOnItemClickListener { chain, history, hash ->
                     when (chain) {
-//                        is ChainOkt996Keccak, is ChainOktEvm -> {
-//                            line.explorerTx(hash)?.let {
-//                                startActivity(Intent(Intent.ACTION_VIEW, it))
-//                            } ?: run {
-//                                return@setOnItemClickListener
-//                            }
-//                        }
+                        is ChainOkt996Keccak -> {
+                            chain.explorerTx(hash)?.let {
+                                startActivity(Intent(Intent.ACTION_VIEW, it))
+                            } ?: run {
+                                return@setOnItemClickListener
+                            }
+                        }
 
                         else -> {
                             history?.let {
@@ -151,11 +152,11 @@ class HistoryFragment : Fragment() {
 
     private fun initData() {
         when (selectedChain) {
-//            is ChainOkt996Keccak, is ChainOktEvm -> {
-//                historyViewModel.oktHistory(
-//                    "ANDROID", ByteUtils.convertBech32ToEvm(selectedChain.address), "50"
-//                )
-//            }
+            is ChainOkt996Keccak -> {
+                historyViewModel.oktHistory(
+                    "ANDROID", selectedChain.evmAddress, "50"
+                )
+            }
 
             else -> {
                 historyViewModel.history(

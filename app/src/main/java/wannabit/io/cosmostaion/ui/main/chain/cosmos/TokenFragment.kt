@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -122,6 +123,24 @@ class TokenFragment : Fragment() {
             if (isAdded) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (selectedChain.supportEvm) {
+                        (selectedChain as ChainOkt996Keccak).oktFetcher?.let { lcdRpc ->
+                            lcdRpc.tokens.forEach { token ->
+                                if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+                                    tokens.add(token)
+                                }
+                            }
+
+                            tokens.sortWith { o1, o2 ->
+                                val value0 = lcdRpc.tokenValue(o1.address)
+                                val value1 = lcdRpc.tokenValue(o2.address)
+                                when {
+                                    value0 > value1 -> -1
+                                    value0 < value1 -> 1
+                                    else -> 0
+                                }
+                            }
+                        }
+
                         selectedChain.evmRpcFetcher?.let { evmRpc ->
                             evmRpc.evmTokens.forEach { token ->
                                 if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
@@ -130,11 +149,8 @@ class TokenFragment : Fragment() {
                             }
 
                             tokens.sortWith { o1, o2 ->
-                                val value0 = selectedChain.evmRpcFetcher?.tokenValue(o1.address)
-                                    ?: BigDecimal.ZERO
-                                val value1 = selectedChain.evmRpcFetcher?.tokenValue(o2.address)
-                                    ?: BigDecimal.ZERO
-
+                                val value0 = evmRpc.tokenValue(o1.address)
+                                val value1 = evmRpc.tokenValue(o2.address)
                                 when {
                                     value0 > value1 -> -1
                                     value0 < value1 -> 1
@@ -144,21 +160,21 @@ class TokenFragment : Fragment() {
                         }
 
                     } else {
-                        selectedChain.grpcFetcher?.tokens?.forEach { token ->
-                            if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                                tokens.add(token)
+                        selectedChain.grpcFetcher?.let { grpc ->
+                            grpc.tokens.forEach { token ->
+                                if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
+                                    tokens.add(token)
+                                }
                             }
-                        }
 
-                        tokens.sortWith { o1, o2 ->
-                            val value0 =
-                                selectedChain.grpcFetcher?.tokenValue(o1.address) ?: BigDecimal.ZERO
-                            val value1 =
-                                selectedChain.grpcFetcher?.tokenValue(o2.address) ?: BigDecimal.ZERO
-                            when {
-                                value0 > value1 -> -1
-                                value0 < value1 -> 1
-                                else -> 0
+                            tokens.sortWith { o1, o2 ->
+                                val value0 = grpc.tokenValue(o1.address)
+                                val value1 = grpc.tokenValue(o2.address)
+                                when {
+                                    value0 > value1 -> -1
+                                    value0 < value1 -> 1
+                                    else -> 0
+                                }
                             }
                         }
                     }

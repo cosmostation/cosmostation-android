@@ -3,10 +3,12 @@ package wannabit.io.cosmostaion.ui.main
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -225,7 +227,15 @@ class DashboardViewHolder(
                     }
 
                 } else if (chain.isCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain is ChainOkt996Keccak) {
+                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.grpcFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE

@@ -255,7 +255,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     val balanceResult: LiveData<String> get() = _balanceResult
 
     fun evmBalance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
-        if (chain.supportEvm) {
+        chain.evmRpcFetcher()?.let {
             when (val response = walletRepository.evmBalance(chain)) {
                 is NetworkResult.Success -> {
                     chain.evmRpcFetcher?.evmBalance = response.data.toBigDecimal()
@@ -279,39 +279,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     }
                 }
             }
-
-        } else {
-
         }
-
-
-//        when (val response = walletRepository.evmBalance(line)) {
-//            is NetworkResult.Success -> {
-//                line.evmBalance = response.data.toBigDecimal()
-//                line.web3j = Web3j.build(HttpService(line.getEvmRpc()))
-//                line.fetched = true
-//                if (line.fetched) {
-//                    withContext(Dispatchers.Main) {
-//                        _balanceResult.value = line.tag
-//                    }
-//                }
-//            }
-//
-//            is NetworkResult.Error -> {
-//                line.evmBalance = BigDecimal.ZERO
-//                line.web3j = null
-//                line.fetched = true
-//                if (line.fetched) {
-//                    withContext(Dispatchers.Main) {
-//                        _balanceResult.value = line.tag
-//                    }
-//                }
-//            }
-//        }
     }
 
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
-        when (chain) {
+        chain.grpcFetcher()?.let {
+            when (chain) {
 //            is ChainOkt996Keccak -> {
 //                when (val response = walletRepository.oktAccountInfo(line)) {
 //                    is NetworkResult.Success -> {
@@ -336,31 +309,32 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 //                }
 //            }
 
-            else -> {
-//                val channel = getChannel(line)
-//                when (val response = walletRepository.balance(channel, line)) {
-//                    is NetworkResult.Success -> {
-//                        response.data?.balancesList?.let {
-//                            line.cosmosBalances = it
-//                            line.fetched = true
-//                            if (line.fetched) {
-//                                withContext(Dispatchers.Main) {
-//                                    _balanceResult.value = line.tag
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                    is NetworkResult.Error -> {
-//                        line.cosmosBalances = null
-//                        line.fetched = true
-//                        if (line.fetched) {
-//                            withContext(Dispatchers.Main) {
-//                                _balanceResult.value = line.tag
-//                            }
-//                        }
-//                    }
-//                }
+                else -> {
+                    val channel = getChannel(chain)
+                    when (val response = walletRepository.balance(channel, chain)) {
+                        is NetworkResult.Success -> {
+                            response.data?.balancesList?.let {
+                                chain.grpcFetcher?.cosmosBalances = it
+                                chain.fetched = true
+                                if (chain.fetched) {
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+                                }
+                            }
+                        }
+
+                        is NetworkResult.Error -> {
+                            chain.grpcFetcher?.cosmosBalances = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -443,8 +417,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         if (tokens.isNotEmpty()) {
                             chain.grpcFetcher?.cw721Models?.add(
                                 Cw721Model(
-                                    list,
-                                    tokens.toMutableList()
+                                    list, tokens.toMutableList()
                                 )
                             )
                         }

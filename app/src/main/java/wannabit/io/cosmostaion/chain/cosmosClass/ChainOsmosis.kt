@@ -25,6 +25,6 @@ class ChainOsmosis : BaseChain(), Parcelable {
 
     override var supportCosmosGrpc: Boolean = true
     override var stakeDenom: String = "uosmo"
-    override var accountPrefix: String? = "osmo"
+    override var accountPrefix: String = "osmo"
     override var grpcHost: String = "grpc-osmosis.cosmostation.io"
 }

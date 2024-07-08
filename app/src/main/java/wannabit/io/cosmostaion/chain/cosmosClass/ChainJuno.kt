@@ -26,6 +26,6 @@ class ChainJuno : BaseChain(), Parcelable {
     override var supportCosmosGrpc: Boolean = true
     override var supportCw20: Boolean = true
     override var stakeDenom: String = "ujuno"
-    override var accountPrefix: String? = "juno"
+    override var accountPrefix: String = "juno"
     override var grpcHost: String = "grpc-juno.cosmostation.io"
 }

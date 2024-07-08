@@ -30,7 +30,7 @@ class ChainNeutron : BaseChain(), Parcelable {
     override var supportCw20: Boolean = true
     override var stakeDenom: String = "untrn"
     override var supportStaking = false
-    override var accountPrefix: String? = "neutron"
+    override var accountPrefix: String = "neutron"
     override var grpcHost: String = "grpc-neutron.cosmostation.io"
 
     override fun grpcFetcher(): NeutronFetcher? {

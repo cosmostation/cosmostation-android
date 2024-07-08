@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
@@ -268,15 +269,6 @@ class WalletRepositoryImpl : WalletRepository {
 //        } else {
 //            Web3j.build(HttpService(line.rpcUrl))
 //        }
-//        val ethAddress = if (line is EthereumLine) {
-//            if (line.supportCosmos) {
-//                ByteUtils.convertBech32ToEvm(line.address)
-//            } else {
-//                line.address
-//            }
-//        } else {
-//            ByteUtils.convertBech32ToEvm(line.address)
-//        }
         val params: MutableList<Type<*>> = ArrayList()
         params.add(Address(chain.evmAddress))
 
@@ -341,29 +333,29 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-//    override suspend fun oktAccountInfo(line: CosmosLine): NetworkResult<OktAccountResponse?> {
-//        return safeApiCall(Dispatchers.IO) {
-//            oktApi.oktAccountInfo(line.address)
-//        }
-//    }
-//
-//    override suspend fun oktDeposit(line: CosmosLine): NetworkResult<OktDepositedResponse?> {
-//        return safeApiCall(Dispatchers.IO) {
-//            oktApi.oktDepositInfo(line.address)
-//        }
-//    }
-//
-//    override suspend fun oktWithdraw(line: CosmosLine): NetworkResult<OktWithdrawResponse?> {
-//        return safeApiCall(Dispatchers.IO) {
-//            oktApi.oktWithdrawInfo(line.address)
-//        }
-//    }
-//
-//    override suspend fun oktToken(line: CosmosLine): NetworkResult<OktTokenResponse?> {
-//        return safeApiCall(Dispatchers.IO) {
-//            oktApi.oktTokens()
-//        }
-//    }
+    override suspend fun oktAccountInfo(chain: BaseChain): NetworkResult<JsonObject?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktAccountInfo(chain.address)
+        }
+    }
+
+    override suspend fun oktDeposit(chain: BaseChain): NetworkResult<JsonObject?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktDepositInfo(chain.address)
+        }
+    }
+
+    override suspend fun oktWithdraw(chain: BaseChain): NetworkResult<JsonObject?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktWithdrawInfo(chain.address)
+        }
+    }
+
+    override suspend fun oktToken(chain: BaseChain): NetworkResult<JsonObject?> {
+        return safeApiCall(Dispatchers.IO) {
+            oktApi.oktTokens()
+        }
+    }
 
     override suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {

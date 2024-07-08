@@ -11,17 +11,12 @@ import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
-import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
-import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
-import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -100,21 +95,21 @@ interface WalletRepository {
     ): NetworkResult<String?>
 
     //lcd
-//    suspend fun oktAccountInfo(
-//        line: CosmosLine
-//    ): NetworkResult<OktAccountResponse?>
+    suspend fun oktAccountInfo(
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
 
-//    suspend fun oktDeposit(
-//        line: CosmosLine
-//    ): NetworkResult<OktDepositedResponse?>
-//
-//    suspend fun oktWithdraw(
-//        line: CosmosLine
-//    ): NetworkResult<OktWithdrawResponse?>
-//
-//    suspend fun oktToken(
-//        line: CosmosLine
-//    ): NetworkResult<OktTokenResponse?>
+    suspend fun oktDeposit(
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
+
+    suspend fun oktWithdraw(
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
+
+    suspend fun oktToken(
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
 
     suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>>
 
