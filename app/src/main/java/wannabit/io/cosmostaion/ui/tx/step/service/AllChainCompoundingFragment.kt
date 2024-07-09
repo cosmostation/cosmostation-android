@@ -27,7 +27,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -85,56 +85,40 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-//                    if (account.sortedDisplayEvmLines()
-//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-//                            .none { !it.fetched }
-//                    ) {
-//                        for (chain in account.sortedDisplayCosmosLines()
-//                            .filter { it.rewardAddress == it.address }) {
-//                            val compoundAble = chain.compoundAbleRewards()
-//                            val txFee = chain.getInitPayableFee(requireContext())
-//                            if (compoundAble.isNotEmpty() && txFee != null) {
-//                                compoundAbleRewards.add(
-//                                    ClaimAllModel(
-//                                        chain, compoundAble
-//                                    )
-//                                )
-//                            }
-//                        }
-//
-//                        for (evmChain in account.sortedDisplayEvmLines()
-//                            .filter { it.rewardAddress == it.address && it.supportCosmos }) {
-//                            val compoundAble = evmChain.compoundAbleRewards()
-//                            val txFee = evmChain.getInitPayableFee(requireContext())
-//                            if (compoundAble.isNotEmpty() && txFee != null) {
-//                                compoundAbleRewards.add(
-//                                    ClaimAllModel(
-//                                        evmChain, compoundAble
-//                                    )
-//                                )
-//                            }
-//                        }
-//
-//                        withContext(Dispatchers.Main) {
-//                            loading.visibility = View.GONE
-//
-//                            if (compoundAbleRewards.isEmpty()) {
-//                                emptyLayout.visibility = View.VISIBLE
-//                                btnCompoundingAll.visibility = View.GONE
-//
-//                            } else {
-//                                recycler.visibility = View.VISIBLE
-//                                rewardCnt.text = compoundAbleRewards.size.toString()
-//                                initRecyclerView()
-//
-//                                txSimulate()
-//                            }
-//                        }
-//
-//                    } else {
-//                        emptyLayout.visibility = View.VISIBLE
-//                        btnCompoundingAll.visibility = View.GONE
-//                    }
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        account.sortedDisplayChains()
+                            .filter { !it.isTestnet && it.supportCosmosGrpc }.forEach { chain ->
+                                val compoundAble = chain.grpcFetcher?.compoundAbleRewards()
+                                val txFee = chain.getInitPayableFee(requireContext())
+                                if (compoundAble?.isNotEmpty() == true && txFee != null) {
+                                    compoundAbleRewards.add(
+                                        ClaimAllModel(
+                                            chain, compoundAble
+                                        )
+                                    )
+                                }
+                            }
+
+                        withContext(Dispatchers.Main) {
+                            loading.visibility = View.GONE
+
+                            if (compoundAbleRewards.isEmpty()) {
+                                emptyLayout.visibility = View.VISIBLE
+                                btnCompoundingAll.visibility = View.GONE
+
+                            } else {
+                                recycler.visibility = View.VISIBLE
+                                rewardCnt.text = compoundAbleRewards.size.toString()
+                                initRecyclerView()
+
+                                txSimulate()
+                            }
+                        }
+
+                    } else {
+                        emptyLayout.visibility = View.VISIBLE
+                        btnCompoundingAll.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -190,42 +174,41 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             for (i in 0 until compoundAbleRewards.size) {
                 if (isAdded) {
                     activity?.let {
-                        if (!compoundAbleRewards[i].cosmosLine.isGasSimulable()) {
+                        if (!compoundAbleRewards[i].baseChain.isGasSimulable()) {
                             compoundAbleRewards[i].fee =
-                                compoundAbleRewards[i].cosmosLine.getInitPayableFee(it)
+                                compoundAbleRewards[i].baseChain.getInitPayableFee(it)
 
                         } else {
                             val compoundAbleReward = compoundAbleRewards[i]
-                            var txFee = compoundAbleReward.cosmosLine.getInitPayableFee(it)
+                            var txFee = compoundAbleReward.baseChain.getInitPayableFee(it)
                             simulateCompoundingTx(
-                                compoundAbleReward.cosmosLine,
-                                compoundAbleReward.rewards
+                                compoundAbleReward.baseChain, compoundAbleReward.rewards
                             ) { gasUsed ->
                                 gasUsed?.let { toGas ->
-//                                    val txGasLimit =
-//                                        (toGas.toDouble() * compoundAbleReward.cosmosLine.gasMultiply()).toLong()
-//                                            .toBigDecimal()
-//                                    compoundAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
-//                                        feeData.denom == txFee?.getAmount(0)?.denom
-//                                    }?.let { gasRate ->
-//                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
-//                                            ?.setScale(0, RoundingMode.UP)
-//                                        val feeCoin = CoinProto.Coin.newBuilder()
-//                                            .setDenom(txFee?.getAmount(0)?.denom)
-//                                            .setAmount(feeCoinAmount.toString()).build()
-//
-//                                        txFee = TxProto.Fee.newBuilder()
-//                                            .setGasLimit(txGasLimit.toLong())
-//                                            .addAmount(feeCoin).build()
-//                                    }
-//                                    compoundAbleRewards[i].fee = txFee
-//                                    compoundAbleRewards[i].isBusy = false
-//                                    lifecycleScope.launch(Dispatchers.Main) {
-//                                        allChainCompoundingAdapter.notifyItemChanged(i)
-//                                        if (compoundAbleRewards.count { reward -> reward.fee == null } == 0) {
-//                                            binding?.btnCompoundingAll?.updateButtonView(true)
-//                                        }
-//                                    }
+                                    val txGasLimit =
+                                        (toGas.toDouble() * compoundAbleReward.baseChain.gasMultiply()).toLong()
+                                            .toBigDecimal()
+                                    compoundAbleReward.baseChain.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
+                                        feeData.denom == txFee?.getAmount(0)?.denom
+                                    }?.let { gasRate ->
+                                        val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
+                                            ?.setScale(0, RoundingMode.UP)
+                                        val feeCoin = CoinProto.Coin.newBuilder()
+                                            .setDenom(txFee?.getAmount(0)?.denom)
+                                            .setAmount(feeCoinAmount.toString()).build()
+
+                                        txFee = TxProto.Fee.newBuilder()
+                                            .setGasLimit(txGasLimit.toLong()).addAmount(feeCoin)
+                                            .build()
+                                    }
+                                    compoundAbleRewards[i].fee = txFee
+                                    compoundAbleRewards[i].isBusy = false
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        allChainCompoundingAdapter.notifyItemChanged(i)
+                                        if (compoundAbleRewards.count { reward -> reward.fee == null } == 0) {
+                                            binding?.btnCompoundingAll?.updateButtonView(true)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -249,15 +232,10 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             btnConfirm.setOnClickListener {
                 dismiss()
                 BaseData.baseAccount?.let { account ->
-//                    for (evmChain in account.sortedDisplayEvmLines()) {
-//                        evmChain.fetched = false
-//                        initDisplayData(account)
-//                    }
-//
-//                    for (chain in account.sortedDisplayCosmosLines()) {
-//                        chain.fetched = false
-//                        initDisplayData(account)
-//                    }
+                    for (chain in account.sortedDisplayChains()) {
+                        chain.fetched = false
+                        initDisplayData(account)
+                    }
                 }
             }
         }
@@ -275,10 +253,10 @@ class AllChainCompoundingFragment : BaseTxFragment() {
 
                 for (i in 0 until compoundAbleRewards.size) {
                     val compoundingAbleReward = compoundAbleRewards[i]
-//                    broadCastCompoundingTx(compoundingAbleReward) {
-//                        val channel = getChannel(compoundingAbleReward.cosmosLine)
-//                        checkTx(i, channel, it?.txResponse)
-//                    }
+                    broadCastCompoundingTx(compoundingAbleReward) {
+                        val channel = getChannel(compoundingAbleReward.baseChain)
+                        checkTx(i, channel, it?.txResponse)
+                    }
                 }
             }
         }
@@ -286,55 +264,27 @@ class AllChainCompoundingFragment : BaseTxFragment() {
     private fun initDisplayData(baseAccount: BaseAccount) {
         baseAccount.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                if (type == BaseAccountType.MNEMONIC) {
-//                    for (line in sortedDisplayEvmLines()) {
-//                        if (line.address?.isEmpty() == true) {
-//                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-//                        }
-//                        if (!line.fetched) {
-//                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
-//                        }
-//                    }
-//
-//                    for (line in sortedDisplayCosmosLines()) {
-//                        if (line.address?.isEmpty() == true) {
-//                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-//
-//                        }
-//                        if (!line.fetched) {
-//                            ApplicationViewModel.shared.loadChainData(line, id, false)
-//                        }
-//                    }
+                for (chain in sortedDisplayChains()) {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                        }
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithPrivateKey(privateKey)
+                        }
+                    }
 
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-//                    for (line in sortedDisplayEvmLines()) {
-//                        if (line.address?.isEmpty() == true) {
-//                            line.setInfoWithPrivateKey(privateKey)
-//
-//                        }
-//                        if (!line.fetched) {
-//                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
-//                        }
-//                    }
-//
-//                    for (line in sortedDisplayCosmosLines()) {
-//                        if (line.address?.isEmpty() == true) {
-//                            line.setInfoWithPrivateKey(privateKey)
-//
-//                        }
-//                        if (!line.fetched) {
-//                            ApplicationViewModel.shared.loadChainData(line, id, false)
-//                        }
-//                    }
+                    if (!chain.fetched) {
+                        ApplicationViewModel.shared.loadChainData(chain, id, false)
+                    }
                 }
             }
         }
     }
 
     private fun checkTx(
-        index: Int,
-        managedChannel: ManagedChannel,
-        txResponse: AbciProto.TxResponse?
+        index: Int, managedChannel: ManagedChannel, txResponse: AbciProto.TxResponse?
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             loadTx(managedChannel, txResponse?.txhash) { response ->
@@ -350,7 +300,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
     }
 
     private fun simulateCompoundingTx(
-        chain: CosmosLine,
+        chain: BaseChain,
         claimableRewards: MutableList<DelegationDelegatorReward?>,
         onComplete: (String?) -> Unit
     ) {
@@ -360,21 +310,21 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                     val channel = getChannel(chain)
                     val simulateStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-//                    val simulateTx = Signer.genCompoundingSimulate(
-//                        loadAuth(channel, chain.address),
-//                        claimableRewards,
-//                        chain.stakeDenom,
-//                        chain.getInitPayableFee(it),
-//                        "",
-//                        chain
-//                    )
-//
-//                    try {
-//                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
-//                        onComplete(gasUsed.toString())
-//                    } catch (e: Exception) {
-//
-//                    }
+                    val simulateTx = Signer.genCompoundingSimulate(
+                        loadAuth(channel, chain.address),
+                        claimableRewards,
+                        chain.stakeDenom,
+                        chain.getInitPayableFee(it),
+                        "",
+                        chain
+                    )
+
+                    try {
+                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
+                        onComplete(gasUsed.toString())
+                    } catch (e: Exception) {
+
+                    }
                 }
             }
         }
@@ -384,22 +334,22 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         valueAbleReward: ClaimAllModel, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val channel = getChannel(valueAbleReward.cosmosLine)
+            val channel = getChannel(valueAbleReward.baseChain)
             val txStub =
                 ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-//            val broadcastTx = Signer.genCompoundingBroadcast(
-//                loadAuth(channel, valueAbleReward.cosmosLine.address),
-//                valueAbleReward.rewards,
-//                valueAbleReward.cosmosLine.stakeDenom,
-//                valueAbleReward.fee,
-//                "",
-//                valueAbleReward.cosmosLine
-//            )
-//            try {
-//                onComplete(txStub.broadcastTx(broadcastTx))
-//            } catch (e: Exception) {
-//
-//            }
+            val broadcastTx = Signer.genCompoundingBroadcast(
+                loadAuth(channel, valueAbleReward.baseChain.address),
+                valueAbleReward.rewards,
+                valueAbleReward.baseChain.stakeDenom,
+                valueAbleReward.fee,
+                "",
+                valueAbleReward.baseChain
+            )
+            try {
+                onComplete(txStub.broadcastTx(broadcastTx))
+            } catch (e: Exception) {
+
+            }
         }
     }
 

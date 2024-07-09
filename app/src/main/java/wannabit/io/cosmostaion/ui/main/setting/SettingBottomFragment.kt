@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.Prefs
@@ -246,7 +245,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
 
         override fun rpcSelect(endpoint: String, gapTime: Double?) {
             if (gapTime != null) {
-                Prefs.setEvmRpcEndpoint(fromChain as EthereumLine, endpoint)
+                Prefs.setEvmRpcEndpoint(fromChain, endpoint)
                 dismiss()
 
                 val bundle = Bundle()

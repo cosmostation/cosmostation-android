@@ -50,13 +50,13 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
+import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
@@ -86,10 +86,10 @@ class DappActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDappBinding
 
-    private var allChains: MutableList<CosmosLine>? = mutableListOf()
+    private var allChains: MutableList<BaseChain>? = mutableListOf()
 
-    private var selectChain: CosmosLine? = null
-    private var selectEvmChain: EthereumLine? = null
+    private var selectChain: BaseChain? = null
+    private var selectEvmChain: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
@@ -128,25 +128,23 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun initAllKeyData(): MutableList<CosmosLine> {
-        val result = mutableListOf<CosmosLine>()
+    private fun initAllKeyData(): MutableList<BaseChain> {
+        val result = mutableListOf<BaseChain>()
         lifecycleScope.launch(Dispatchers.IO) {
             initData()
-//            result.addAll(allCosmosLines())
-//            result.addAll(allEvmLines())
 
             BaseData.baseAccount?.let { account ->
                 account.apply {
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
-                            if (chain.address?.isEmpty() == true) {
+                            if (chain.publicKey == null) {
                                 chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         result.forEach { chain ->
-                            if (chain.address?.isEmpty() == true) {
+                            if (chain.publicKey == null) {
                                 chain.setInfoWithPrivateKey(privateKey)
                             }
                         }
@@ -413,7 +411,8 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(signBundle,
+                        showSignDialog(
+                            signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -427,7 +426,8 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(signBundle,
+                        showSignDialog(
+                            signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -791,12 +791,9 @@ class DappActivity : BaseActivity() {
                 }
 
                 "cos_supportedChainIds" -> {
-                    val evmSupportIds =
-                        allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
-                            .distinct()
-                    val cosmosSupportIds = allChains().filter { it.chainIdCosmos.isNotEmpty() }
-                        .map { it.chainIdCosmos }.distinct()
-                    val supportChainIds = evmSupportIds.union(cosmosSupportIds)
+                    val supportChainIds =
+                        allChains().filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            .map { it.chainIdCosmos }.distinct()
 
                     val dataJson = JSONObject()
                     dataJson.put("official", JSONArray(supportChainIds))
@@ -805,11 +802,9 @@ class DappActivity : BaseActivity() {
                 }
 
                 "cos_supportedChainNames" -> {
-                    val evmSupportNames =
-                        allEvmLines().filter { it.supportCosmos && it.chainDappName() != null }
-                            .map { it.chainDappName() }.distinct()
-                    val cosmosSupportNames = allChains().map { it.name.lowercase() }.distinct()
-                    val supportChainNames = evmSupportNames.union(cosmosSupportNames)
+                    val supportChainNames =
+                        allChains().filter { it.supportCosmosGrpc }.map { it.name.lowercase() }
+                            .distinct()
 
                     val dataJson = JSONObject()
                     dataJson.put("official", JSONArray(supportChainNames))
@@ -825,12 +820,9 @@ class DappActivity : BaseActivity() {
 
                 "cos_addChain" -> {
                     val params = messageJson.getJSONObject("params")
-                    val evmSupportIds =
-                        allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
-                            .distinct()
-                    val cosmosSupportIds = allChains().filter { it.chainIdCosmos.isNotEmpty() }
-                        .map { it.chainIdCosmos }.distinct()
-                    val supportChainIds = evmSupportIds.union(cosmosSupportIds)
+                    val supportChainIds =
+                        allChains().filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            .map { it.chainIdCosmos }.distinct()
                     if (supportChainIds.contains(params.getString("chainId"))) {
                         appToWebResult(
                             messageJson, true, messageId
@@ -845,7 +837,8 @@ class DappActivity : BaseActivity() {
                 "cos_signMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_message")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignMessageRequest(messageJson, messageId, data)
@@ -862,7 +855,8 @@ class DappActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_amino")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -879,7 +873,8 @@ class DappActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_direct")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -923,20 +918,15 @@ class DappActivity : BaseActivity() {
 
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
-                    val address = allChains?.firstOrNull { chain -> chain is EthereumLine }?.address
-                    val ethAddress = if (address?.startsWith("0x") == true) {
-                        address
-                    } else {
-                        ByteUtils.convertBech32ToEvm(address)
-                    }
+                    val address = allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
                     appToWebResult(
-                        messageJson, JSONArray(listOf(ethAddress)), messageId
+                        messageJson, JSONArray(listOf(address)), messageId
                     )
                 }
 
                 "wallet_switchEthereumChain" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val evmChainIds = allEvmLines().map { it.chainIdEvm }.distinct()
+                        val evmChainIds = allChains().map { it.chainIdEvm }.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
 
@@ -946,7 +936,7 @@ class DappActivity : BaseActivity() {
                             emitToWeb(chainId)
 
                             val chainNetwork =
-                                allEvmLines().firstOrNull { it.chainIdEvm == chainId }?.name
+                                allChains().firstOrNull { it.chainIdEvm == chainId }?.name
                             withContext(Dispatchers.Main) {
                                 makeToast("Connected to $chainNetwork network")
                             }
@@ -968,7 +958,7 @@ class DappActivity : BaseActivity() {
                         currentEvmChainId = "0x1"
                     }
                     selectEvmChain =
-                        allChains?.firstOrNull { chain -> chain is EthereumLine && chain.chainIdEvm == currentEvmChainId } as EthereumLine
+                        allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
 //                    rpcUrl = selectEvmChain?.getEvmRpc()
 //                    web3j = Web3j.build(HttpService(rpcUrl))
 //                    appToWebResult(messageJson, currentEvmChainId, messageId)
@@ -1174,8 +1164,7 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1201,7 +1190,8 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1219,7 +1209,8 @@ class DappActivity : BaseActivity() {
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1519,16 +1510,18 @@ class DappActivity : BaseActivity() {
     }
 
     private fun pubKeyType(): String {
-        return when (selectChain) {
-//            is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
-            is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
-            else -> COSMOS_KEY_TYPE_PUBLIC
+        return if (selectChain is ChainInjective) {
+            INJECTIVE_KEY_TYPE_PUBLIC
+        } else if (selectChain?.supportEvm == true) {
+            ETHERMINT_KEY_TYPE_PUBLIC
+        } else {
+            COSMOS_KEY_TYPE_PUBLIC
         }
     }
 
     private fun selectedChain(
-        classChains: MutableList<CosmosLine>?, chainId: String?
-    ): CosmosLine? {
+        classChains: MutableList<BaseChain>?, chainId: String?
+    ): BaseChain? {
         return classChains?.firstOrNull { chain ->
             (chain.chainIdCosmos.equals(chainId, ignoreCase = true) || chain.name.equals(
                 chainId, ignoreCase = true

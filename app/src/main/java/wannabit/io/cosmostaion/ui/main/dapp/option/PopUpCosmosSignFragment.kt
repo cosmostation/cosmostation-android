@@ -22,13 +22,12 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import org.bouncycastle.util.encoders.Base64.toBase64String
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -40,7 +39,6 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.updateButtonViewEnabled
-import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentWcSignBinding
 import wannabit.io.cosmostaion.databinding.ItemDappSegmentedFeeBinding
@@ -52,7 +50,7 @@ import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class PopUpCosmosSignFragment(
-    private val selectedChain: CosmosLine?,
+    private val selectedChain: BaseChain?,
     private val id: Long,
     private val data: String,
     private val method: String?,
@@ -457,13 +455,13 @@ class PopUpCosmosSignFragment(
             val chainId =
                 txJsonSignDoc.get("chain_id").asString ?: txJsonObject.get("chainName").asString
             BaseData.baseAccount?.let { account ->
-                val selectChain =
-                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        ?: account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                selectChain?.let { chain ->
-                    chain.getFeeInfos(requireContext())
-                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
-                        ?.let { gasRate ->
+//                val selectChain =
+//                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+//                        ?: account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+//                selectChain?.let { chain ->
+//                    chain.getFeeInfos(requireContext())
+//                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+//                        ?.let { gasRate ->
 //                            val gasLimit =
 //                                (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
 //                            val feeCoinAmount =
@@ -484,8 +482,8 @@ class PopUpCosmosSignFragment(
 //                                    "amount", feeCoinAmount.toString()
 //                                )
 //                            }
-                        }
-                }
+//                        }
+//                }
             }
         }
         return txJsonSignDoc
@@ -500,10 +498,10 @@ class PopUpCosmosSignFragment(
 
         val chainId = doc["chain_id"].asString
         BaseData.baseAccount?.let { account ->
-            account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                ?: run {
-                    account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                }?.let { chain ->
+//            account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+//                ?: run {
+//                    account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+//                }?.let { chain ->
 //                    val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
 //                    val simulateGasLimit =
 //                        (simulateGas.gasUsed.toDouble() * chain.gasMultiply()).toLong()
@@ -511,7 +509,7 @@ class PopUpCosmosSignFragment(
 //                        simulateGasLimit.toBigDecimal(), fee.gasLimit.toBigDecimal(), fee
 //                    )
 //                    authInfo = authInfo.toBuilder().setFee(updateFee).build()
-                }
+//                }
         }
         return txJsonObject["doc"].asJsonObject.apply {
             addProperty("auth_info_bytes", Utils.bytesToHex(authInfo.toByteArray()))

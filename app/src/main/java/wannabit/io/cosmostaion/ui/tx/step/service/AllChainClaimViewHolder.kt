@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.DYDX_USDC_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
@@ -24,10 +26,10 @@ class AllChainClaimViewHolder(
             deleteView.setBackgroundResource(R.drawable.cell_bg)
 
             valueAbleReward.apply {
-                chainImg.setImageResource(cosmosLine.logo)
-                chainName.text = cosmosLine.name.uppercase()
+                chainImg.setImageResource(baseChain.logo)
+                chainName.text = baseChain.name.uppercase()
 
-                if (!cosmosLine.isDefault) {
+                if (!baseChain.isDefault) {
                     chainBadge.visibility = View.VISIBLE
                     chainBadge.text = context.getString(R.string.str_legacy)
                     chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
@@ -42,37 +44,35 @@ class AllChainClaimViewHolder(
                 }
 
                 var mainRewardAmount = BigDecimal.ZERO
-//                val mainRewardDenom = if (cosmosLine is ChainDydx) {
-//                    DYDX_USDC_DENOM
-//                } else {
-//                    cosmosLine.stakeDenom
-//                }
-//
-//                rewards.forEach { reward ->
-//                    reward?.rewardList?.firstOrNull { it.denom == mainRewardDenom }
-//                        ?.let { rewardCoin ->
-//                            val amount = rewardCoin.amount.toBigDecimal().movePointLeft(18)
-//                                .setScale(0, RoundingMode.DOWN)
-//                            mainRewardAmount = mainRewardAmount.add(amount)
-//                        }
-//                }
+                val mainRewardDenom = if (baseChain is ChainDydx) {
+                    DYDX_USDC_DENOM
+                } else {
+                    baseChain.stakeDenom
+                }
 
-//                mainRewardDenom?.let { denom ->
-//                    BaseData.getAsset(cosmosLine.apiName, denom)?.let { asset ->
-//                        rewardAmount.text = formatAmount(
-//                            mainRewardAmount.movePointLeft(asset.decimals ?: 6).toString(),
-//                            asset.decimals ?: 6
-//                        )
-//                        rewardDenom.text = asset.symbol
-//                        rewardDenom.setTextColor(asset.assetColor())
-//                    }
-//                }
+                rewards.forEach { reward ->
+                    reward?.rewardList?.firstOrNull { it.denom == mainRewardDenom }
+                        ?.let { rewardCoin ->
+                            val amount = rewardCoin.amount.toBigDecimal().movePointLeft(18)
+                                .setScale(0, RoundingMode.DOWN)
+                            mainRewardAmount = mainRewardAmount.add(amount)
+                        }
+                }
+
+                BaseData.getAsset(baseChain.apiName, mainRewardDenom)?.let { asset ->
+                    rewardAmount.text = formatAmount(
+                        mainRewardAmount.movePointLeft(asset.decimals ?: 6).toString(),
+                        asset.decimals ?: 6
+                    )
+                    rewardDenom.text = asset.symbol
+                    rewardDenom.setTextColor(asset.assetColor())
+                }
 
                 val rewardDenoms: MutableList<String> = mutableListOf()
                 val rewardsValue =
                     rewards.asSequence().flatMap { it?.rewardList.orEmpty().asSequence() }
                         .mapNotNull { decCoin ->
-                            BaseData.getAsset(cosmosLine.apiName, decCoin.denom)?.let { asset ->
+                            BaseData.getAsset(baseChain.apiName, decCoin.denom)?.let { asset ->
                                 val price = BaseData.getPrice(asset.coinGeckoId, false)
                                 val amount = decCoin.amount.toBigDecimal().movePointLeft(18)
                                     .setScale(0, RoundingMode.DOWN)
@@ -94,9 +94,9 @@ class AllChainClaimViewHolder(
                     rewardCnt.text = ""
                 }
 
-                val txFee = fee ?: cosmosLine.getInitPayableFee(context)
+                val txFee = fee ?: baseChain.getInitPayableFee(context)
                 txFee?.let { fee ->
-                    BaseData.getAsset(cosmosLine.apiName, fee.getAmount(0).denom)?.let { asset ->
+                    BaseData.getAsset(baseChain.apiName, fee.getAmount(0).denom)?.let { asset ->
                         val amount = fee.getAmount(0).amount.toBigDecimal()
                             .amountHandlerLeft(asset.decimals ?: 6)
                         val price = BaseData.getPrice(asset.coinGeckoId)

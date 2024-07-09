@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -281,7 +280,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             return null
         }
         if (BaseKey.isValidEthAddress(address)) {
-            return EthereumLine()
+            return BaseChain()
         } else {
             allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
                 ?.let { chain ->

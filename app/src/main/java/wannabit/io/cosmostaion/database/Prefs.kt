@@ -9,7 +9,6 @@ import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -243,7 +242,7 @@ object Prefs {
         return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
     }
 
-    fun setEvmRpcEndpoint(chain: CosmosLine?, endpoint: String) {
+    fun setEvmRpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = EVM_RPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
     }

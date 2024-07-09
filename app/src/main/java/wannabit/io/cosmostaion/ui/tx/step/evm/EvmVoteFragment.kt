@@ -13,10 +13,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.gov.v1beta1.GovProto
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -38,7 +36,7 @@ class EvmVoteFragment : BaseTxFragment() {
     private var _binding: FragmentVoteBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: EthereumLine
+    private lateinit var selectedChain: BaseChain
     private var proposals: MutableList<CosmosProposal>? = mutableListOf()
 
     private lateinit var evmVoteAdapter: EvmVoteAdapter
@@ -57,7 +55,7 @@ class EvmVoteFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: EthereumLine, proposals: MutableList<CosmosProposal>?
+            selectedChain: BaseChain, proposals: MutableList<CosmosProposal>?
         ): EvmVoteFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -89,11 +87,11 @@ class EvmVoteFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", EthereumLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? EthereumLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }

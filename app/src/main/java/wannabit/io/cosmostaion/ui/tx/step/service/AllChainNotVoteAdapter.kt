@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
@@ -138,9 +137,9 @@ class AllChainNotVoteAdapter(
         fun bind(voteAllModel: VoteAllModel) {
             binding.apply {
                 binding.apply {
-                    voteAllModel.basechain?.let {
-                        chainImg.setImageResource(it.logo)
-                        chainName.text = it.name.uppercase()
+                    voteAllModel.basechain?.let { chain ->
+                        chainImg.setImageResource(chain.logo)
+                        chainName.text = chain.name.uppercase()
                         voteCnt.text = voteAllModel.proposals.size.toString()
 
                         if (voteAllModel.isBusy) {
@@ -157,7 +156,7 @@ class AllChainNotVoteAdapter(
                                 stateImg.visibility = View.GONE
                                 voteAllModel.txFee?.let { fee ->
                                     BaseData.getAsset(
-                                        (it as CosmosLine).apiName, fee.getAmount(0).denom
+                                        chain.apiName, fee.getAmount(0).denom
                                     )?.let { asset ->
                                         val amount = fee.getAmount(0).amount.toBigDecimal()
                                             .amountHandlerLeft(asset.decimals ?: 6)

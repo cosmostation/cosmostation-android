@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
@@ -222,15 +223,15 @@ class ProposalListFragment : Fragment() {
             }
 
             btnVote.setOnClickListener {
-//                if (selectedChain is ChainFinschia) {
-//                    requireActivity().makeToast(R.string.error_not_support_vote)
-//                    return@setOnClickListener
-//                }
+                if (selectedChain is ChainFinschia) {
+                    requireActivity().makeToast(R.string.error_not_support_vote)
+                    return@setOnClickListener
+                }
 
                 val delegated = selectedChain.grpcFetcher?.delegationAmountSum()
                 val voteThreshold = selectedChain.voteThreshold()
-                if (voteThreshold.isNotEmpty()) {
-                    if (voteThreshold.toBigDecimal() >= delegated) {
+                if (voteThreshold != null) {
+                    if (voteThreshold >= delegated) {
                         requireActivity().makeToast(R.string.error_no_bonding_no_vote)
                         return@setOnClickListener
                     }

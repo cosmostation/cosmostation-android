@@ -20,7 +20,6 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -182,30 +181,6 @@ class TransferTxResultActivity : BaseActivity() {
                         fromChain, account.id, false
                     )
                 }
-//                BaseData.baseAccount?.let { account ->
-//                    if (transferStyle == TransferStyle.WEB3_STYLE) {
-//                        if (fromChain is ChainOkt996Keccak) {
-//                            ApplicationViewModel.shared.loadChainData(
-//                                fromChain as CosmosLine, account.id, false
-//                            )
-//                        } else {
-//                            ApplicationViewModel.shared.loadEvmChainData(
-//                                fromChain as EthereumLine, account.id, false
-//                            )
-//                        }
-//
-//                    } else {
-//                        if (fromChain is EthereumLine) {
-//                            ApplicationViewModel.shared.loadEvmChainData(
-//                                fromChain as EthereumLine, account.id, false
-//                            )
-//                        } else {
-//                            ApplicationViewModel.shared.loadChainData(
-//                                fromChain, account.id, false
-//                            )
-//                        }
-//                    }
-//                }
                 finish()
             }
         }
@@ -254,12 +229,6 @@ class TransferTxResultActivity : BaseActivity() {
                     fromChain.evmRpcFetcher?.getEvmRpc() ?: fromChain.evmRpcURL
                 )
             )
-//            val web3j = if (fromChain is ChainOkt996Keccak) {
-//                Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
-//            } else {
-//                Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
-//            }
-//
             try {
                 val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
                 if (receiptTx.transactionReceipt.isPresent) {

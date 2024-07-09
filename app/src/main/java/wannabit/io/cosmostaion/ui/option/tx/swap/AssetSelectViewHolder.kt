@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.ui.option.tx.swap
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -17,7 +17,7 @@ class AssetSelectViewHolder(
     val context: Context, private val binding: ItemAssetSelectBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(selectedChain: CosmosLine?, asset: Asset, balances: MutableList<CoinProto.Coin>?) {
+    fun bind(selectedChain: BaseChain?, asset: Asset, balances: MutableList<CoinProto.Coin>?) {
         binding.apply {
             tokenImg.setTokenImg(asset)
             tokenName.text = asset.symbol

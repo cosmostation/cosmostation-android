@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.databinding.FragmentNoticeInfoBinding
 
 class NoticeInfoFragment : BottomSheetDialogFragment() {
@@ -125,7 +124,7 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                     }
 
                     NoticeType.TOKEN_GITHUB -> {
-                        val githubUrl = if (selectedChain is EthereumLine) {
+                        val githubUrl = if (selectedChain?.supportEvm == true) {
                             "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/erc20.json"
                         } else {
                             "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw20.json"

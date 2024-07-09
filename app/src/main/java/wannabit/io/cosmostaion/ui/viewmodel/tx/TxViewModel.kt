@@ -33,15 +33,12 @@ import com.kava.incentive.v1beta1.QueryProto.QueryRewardsResponse
 import com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit
 import com.kava.router.v1beta1.TxProto.MsgWithdrawBurn
 import io.grpc.ManagedChannel
-import io.ipfs.multibase.Multibase.Base
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
@@ -189,7 +186,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     fun simulateEvmDelegate(
         toValidatorEthAddress: String?,
         toDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmDelegateTx(
@@ -215,7 +212,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     fun simulateEvmUnDelegate(
         validatorEthAddress: String?,
         toUnDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmUnDelegateTx(
@@ -242,7 +239,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         fromValidatorEthAddress: String?,
         toValidatorEthAddress: String?,
         toReDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmReDelegateTx(
@@ -273,7 +270,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         validatorEthAddress: String?,
         unDelegateAmount: String?,
         height: Long,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmCancelUnStakingTx(
@@ -297,7 +294,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val simulateEvmVote = SingleLiveEvent<Pair<String?, String?>>()
 
     fun simulateEvmVote(
-        proposalId: Long, proposalOption: Long, selectedChain: EthereumLine, selectedFeeInfo: Int
+        proposalId: Long, proposalOption: Long, selectedChain: BaseChain, selectedFeeInfo: Int
     ) = viewModelScope.launch(Dispatchers.IO) {
         val response = txRepository.simulateEvmVoteTx(
             proposalId, proposalOption, selectedChain, selectedFeeInfo
@@ -1413,7 +1410,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgTransfer: MsgTransfer?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, selectedChain?.address)?.let {
             val response = txRepository.broadcastIbcSendTx(
@@ -1429,7 +1426,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgTransfer: MsgTransfer?,
         fee: Fee?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
         txRepository.auth(managedChannel, fromAddress)?.let {
             try {

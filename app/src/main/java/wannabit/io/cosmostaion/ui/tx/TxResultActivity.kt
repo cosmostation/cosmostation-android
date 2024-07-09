@@ -115,18 +115,18 @@ class TxResultActivity : BaseActivity() {
     private fun updateView() {
         binding.apply {
             if (isSuccess) {
-//                if (selectedChain is ChainOktEvm) {
-//                    Handler(Looper.getMainLooper()).postDelayed({
-//                        loading.visibility = View.GONE
-//                        successLayout.visibility = View.VISIBLE
-//                        successHash.text = txHash
-//                    }, 3000)
-//
-//                } else {
-                loading.visibility = View.GONE
-                successLayout.visibility = View.VISIBLE
-                successHash.text = txHash
-//                }
+                if (selectedChain is ChainOktEvm) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        loading.visibility = View.GONE
+                        successLayout.visibility = View.VISIBLE
+                        successHash.text = txHash
+                    }, 3000)
+
+                } else {
+                    loading.visibility = View.GONE
+                    successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
+                }
 
             } else {
                 showError()
@@ -158,10 +158,10 @@ class TxResultActivity : BaseActivity() {
                         startMainActivity()
                     }
 
-//                    TxResultType.NFT -> {
-//                        selectedChain?.cw721Fetched = false
-//                        finish()
-//                    }
+                    TxResultType.NFT -> {
+                        selectedChain?.grpcFetcher?.cw721Fetched = false
+                        finish()
+                    }
 
                     else -> {
                         finish()
@@ -170,15 +170,6 @@ class TxResultActivity : BaseActivity() {
                                 ApplicationViewModel.shared.loadChainData(
                                     chain, account.id, false
                                 )
-//                                if (chain is ChainOktEvm) {
-//                                    ApplicationViewModel.shared.loadEvmChainData(
-//                                        chain, account.id, false
-//                                    )
-//                                } else {
-//                                    ApplicationViewModel.shared.loadChainData(
-//                                        chain, account.id, false
-//                                    )
-//                                }
                             }
                         }
                     }

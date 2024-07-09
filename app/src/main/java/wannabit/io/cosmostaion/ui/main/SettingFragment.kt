@@ -33,7 +33,6 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.allEvmLines
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -123,12 +122,6 @@ class SettingFragment : Fragment() {
     private fun initChainManageCnt() {
         lifecycleScope.launch(Dispatchers.IO) {
             val chainNames: MutableList<String> = mutableListOf()
-            allEvmLines().forEach { chain ->
-                if (!chainNames.contains(chain.name)) {
-                    chainNames.add(chain.name)
-                }
-            }
-
             allChains().forEach { chain ->
                 if (!chainNames.contains(chain.name)) {
                     chainNames.add(chain.name)

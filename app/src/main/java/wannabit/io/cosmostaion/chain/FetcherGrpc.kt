@@ -252,6 +252,49 @@ open class FetcherGrpc(chain: BaseChain) {
         return result
     }
 
+    fun valueAbleRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
+        val result: MutableList<DistributionProto.DelegationDelegatorReward?> = mutableListOf()
+
+        cosmosRewards.forEach { reward ->
+            var eachRewardValue = BigDecimal.ZERO
+            for (i in 0 until reward.rewardCount) {
+                val rewardAmount = reward.getReward(i).amount.toBigDecimal().movePointLeft(18)
+                    .setScale(0, RoundingMode.DOWN)
+                BaseData.getAsset(chain.apiName, reward.getReward(i).denom)?.let { asset ->
+                    val price = BaseData.getPrice(asset.coinGeckoId, true)
+                    val value = price.multiply(rewardAmount).movePointLeft(asset.decimals ?: 6)
+                        .setScale(6, RoundingMode.DOWN)
+                    eachRewardValue = eachRewardValue.add(value)
+
+                    if (eachRewardValue >= BigDecimal("0.1")) {
+                        result.add(reward)
+                        return@forEach
+                    }
+                }
+            }
+        }
+        return result
+    }
+
+    fun compoundAbleRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
+        val result: MutableList<DistributionProto.DelegationDelegatorReward?> = mutableListOf()
+        cosmosRewards.forEach { reward ->
+            reward.rewardList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.let { amount ->
+                val rewardAmount =
+                    amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                    val price = BaseData.getPrice(asset.coinGeckoId, true)
+                    val value = price.multiply(rewardAmount).movePointLeft(asset.decimals ?: 6)
+                        .setScale(6, RoundingMode.DOWN)
+                    if (value >= BigDecimal("0.1")) {
+                        result.add(reward)
+                    }
+                }
+            }
+        }
+        return result
+    }
+
     open fun allStakingDenomAmount(): BigDecimal? {
         return balanceAmount(chain.stakeDenom).add(vestingAmount(chain.stakeDenom))
             ?.add(delegationAmountSum())?.add(unbondingAmountSum())

@@ -205,7 +205,7 @@ class DashboardViewHolder(
 
                 } else {
                     val coinCnt =
-                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" else "1" + " Coins"
+                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
                     val tokenCnt =
                         chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                     if (tokenCnt == 0) {

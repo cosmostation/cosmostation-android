@@ -24,10 +24,10 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappStartFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainClaimFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainVoteFragment
 import wannabit.io.cosmostaion.ui.tx.step.SwapFragment
+import wannabit.io.cosmostaion.ui.tx.step.service.AllChainClaimFragment
 import wannabit.io.cosmostaion.ui.tx.step.service.AllChainCompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.step.service.AllChainVoteFragment
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.net.URLEncoder
 
@@ -58,7 +58,13 @@ class ServiceFragment : Fragment() {
     private fun initView() {
         binding.apply {
             listOf(
-                mintscanView, claimRewardsView, compoundingView, voteView, coinSwapView, dappView, buyView
+                mintscanView,
+                claimRewardsView,
+                compoundingView,
+                voteView,
+                coinSwapView,
+                dappView,
+                buyView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
         }
     }
@@ -107,52 +113,43 @@ class ServiceFragment : Fragment() {
 
             claimRewardsView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-//                    if (account.sortedDisplayEvmLines()
-//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-//                            .none { !it.fetched }
-//                    ) {
-//                        handleOneClickWithDelay(
-//                            AllChainClaimFragment()
-//                        )
-//
-//                    } else {
-//                        requireActivity().makeToast(R.string.str_data_synchronizing)
-//                        return@setOnClickListener
-//                    }
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AllChainClaimFragment()
+                        )
+
+                    } else {
+                        requireActivity().makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
                 }
             }
 
             compoundingView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-//                    if (account.sortedDisplayEvmLines()
-//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-//                            .none { !it.fetched }
-//                    ) {
-//                        handleOneClickWithDelay(
-//                            AllChainCompoundingFragment()
-//                        )
-//
-//                    } else {
-//                        requireActivity().makeToast(R.string.str_data_synchronizing)
-//                        return@setOnClickListener
-//                    }
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AllChainCompoundingFragment()
+                        )
+
+                    } else {
+                        requireActivity().makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
                 }
             }
 
             voteView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-//                    if (account.sortedDisplayEvmLines()
-//                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-//                            .none { !it.fetched }
-//                    ) {
-//                        handleOneClickWithDelay(
-//                            AllChainVoteFragment()
-//                        )
-//
-//                    } else {
-//                        requireActivity().makeToast(R.string.str_data_synchronizing)
-//                        return@setOnClickListener
-//                    }
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AllChainVoteFragment()
+                        )
+
+                    } else {
+                        requireActivity().makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
                 }
             }
 

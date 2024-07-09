@@ -32,17 +32,21 @@ import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.handlerRight
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -57,8 +61,12 @@ import wannabit.io.cosmostaion.data.model.res.SwapVenue
 import wannabit.io.cosmostaion.data.repository.skip.SkipRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.DialogBigLossWarnBinding
 import wannabit.io.cosmostaion.databinding.FragmentSwapBinding
+import wannabit.io.cosmostaion.ui.option.tx.general.ChainFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.ChainListType
+import wannabit.io.cosmostaion.ui.option.tx.general.ChainSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetListener
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectFragment
 import wannabit.io.cosmostaion.ui.option.tx.swap.AssetSelectType
@@ -86,18 +94,18 @@ class SwapFragment : BaseTxFragment() {
 
     private var skipDataJob: Job? = null
 
-    private var allSwapAbleChains: MutableList<CosmosLine>? = mutableListOf()
+    private var allSwapAbleChains: MutableList<BaseChain>? = mutableListOf()
 
-    private var skipChains: MutableList<CosmosLine> = mutableListOf()
+    private var skipChains: MutableList<BaseChain> = mutableListOf()
     private var skipAssets: JsonObject? = null
     private var skipSlippage = "1"
 
-    private var inputCosmosLine: CosmosLine? = null
+    private var inputCosmosChain: BaseChain? = null
     private var inputAssets: MutableList<Asset> = mutableListOf()
     private var inputAssetSelected: Asset? = null
     private var inputAsset: Asset? = null
 
-    private var outputCosmosLine: CosmosLine? = null
+    private var outputCosmosChain: BaseChain? = null
     private var outputAssets: MutableList<Asset> = mutableListOf()
     private var outputAssetSelected: Asset? = null
     private var outputAsset: Asset? = null
@@ -148,40 +156,29 @@ class SwapFragment : BaseTxFragment() {
         }
     }
 
-    private fun initAllKeyData(): MutableList<CosmosLine> {
-        val result = mutableListOf<CosmosLine>()
+    private fun initAllKeyData(): MutableList<BaseChain> {
+        val result = mutableListOf<BaseChain>()
         BaseData.baseAccount?.let { account ->
             account.apply {
-//                if (type == BaseAccountType.MNEMONIC) {
-//                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
-//                        result.add(chain)
-//                    }
-//
-//                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
-//                        result.add(chain)
-//                    }
-//
-//                    result.forEach { chain ->
-//                        if (chain.address?.isEmpty() == true) {
-//                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-//                        }
-//                    }
-//
-//                } else if (type == BaseAccountType.PRIVATE_KEY) {
-//                    allCosmosLines().filter { it.isDefault }.forEach { chain ->
-//                        result.add(chain)
-//                    }
-//
-//                    allEvmLines().filter { it.isDefault && it.supportCosmos }.forEach { chain ->
-//                        result.add(chain)
-//                    }
-//
-//                    result.forEach { chain ->
-//                        if (chain.address?.isEmpty() == true) {
-//                            chain.setInfoWithPrivateKey(privateKey)
-//                        }
-//                    }
-//                }
+                allChains().filter { it.isDefault && it.supportCosmosGrpc && !it.isTestnet }
+                    .forEach { chain ->
+                        result.add(chain)
+                    }
+
+                if (type == BaseAccountType.MNEMONIC) {
+                    result.forEach { chain ->
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                        }
+                    }
+
+                } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    result.forEach { chain ->
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithPrivateKey(privateKey)
+                        }
+                    }
+                }
             }
         }
         return result
@@ -220,7 +217,7 @@ class SwapFragment : BaseTxFragment() {
             outputAmountValue.text = ""
 
             txFee = baseFee()
-            inputCosmosLine?.let { inputLine ->
+            inputCosmosChain?.let { inputLine ->
                 fromAddress.text = inputLine.address
                 inputChainImg.setImageResource(inputLine.logo)
                 inputChain.text = inputLine.name.uppercase()
@@ -232,24 +229,26 @@ class SwapFragment : BaseTxFragment() {
                         inputToken.text = asset.symbol
                     }
 
-                    val inputBalance = inputLine.balanceAmount(inputDenom)
-                    if (txFee?.getAmount(0)?.denom == inputDenom) {
-                        txFee?.getAmount(0)?.amount?.toBigDecimal()?.let { txFeeAmount ->
-                            availableAmount = if (txFeeAmount >= inputBalance) {
-                                BigDecimal.ZERO
-                            } else {
-                                inputBalance.subtract(txFeeAmount)
+                    inputLine.grpcFetcher?.balanceAmount(inputDenom)?.let { inputBalance ->
+                        if (txFee?.getAmount(0)?.denom == inputDenom) {
+                            txFee?.getAmount(0)?.amount?.toBigDecimal()?.let { txFeeAmount ->
+                                availableAmount = if (txFeeAmount >= inputBalance) {
+                                    BigDecimal.ZERO
+                                } else {
+                                    inputBalance.subtract(txFeeAmount)
+                                }
                             }
+
+                        } else {
+                            availableAmount = inputBalance
                         }
-                    } else {
-                        availableAmount = inputBalance
                     }
                     val inputDpAmount = availableAmount.movePointLeft(inputAsset?.decimals ?: 6)
                         .setScale(inputAsset?.decimals ?: 6, RoundingMode.DOWN)
                     inputAvailable.text =
                         formatAmount(inputDpAmount.toPlainString(), inputAsset?.decimals ?: 6)
 
-                    outputCosmosLine?.let { outPutLine ->
+                    outputCosmosChain?.let { outPutLine ->
                         toAddress.text = outPutLine.address
                         outputChainImg.setImageResource(outPutLine.logo)
                         outputChain.text = outPutLine.name.uppercase()
@@ -261,12 +260,12 @@ class SwapFragment : BaseTxFragment() {
                                 outputToken.text = asset.symbol
                             }
 
-                            val outputBalance = outPutLine.balanceAmount(outputDenom)
+                            val outputBalance = outPutLine.grpcFetcher?.balanceAmount(outputDenom)
                             val outputDpAmount =
-                                outputBalance.movePointLeft(outputAsset?.decimals ?: 6)
-                                    .setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
+                                outputBalance?.movePointLeft(outputAsset?.decimals ?: 6)
+                                    ?.setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
                             outputAvailable.text = formatAmount(
-                                outputDpAmount.toPlainString(), outputAsset?.decimals ?: 6
+                                outputDpAmount.toString(), outputAsset?.decimals ?: 6
                             )
                         }
 
@@ -307,66 +306,78 @@ class SwapFragment : BaseTxFragment() {
 
                 val lastSwapSet = Prefs.lastSwapSet
 
-                inputCosmosLine = skipChains.firstOrNull { it.tag == lastSwapSet[0] }
+                inputCosmosChain = skipChains.firstOrNull { it.tag == lastSwapSet[0] }
                     ?: skipChains.firstOrNull { it.tag == "cosmos118" }
-                inputCosmosLine?.let { line ->
+                inputCosmosChain?.let { chain ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
-                        ?.getAsJsonObject(line.chainIdCosmos)?.getAsJsonArray("assets")?.forEach { json ->
-                        BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)
-                            ?.let { asset ->
+                        ?.getAsJsonObject(chain.chainIdCosmos)?.getAsJsonArray("assets")
+                        ?.forEach { json ->
+                            BaseData.getAsset(
+                                chain.apiName, json.asJsonObject.get("denom").asString
+                            )?.let { asset ->
                                 inputAssets.add(asset)
                             }
-                    }
+                        }
                     inputAssetSelected = inputAssets.firstOrNull { it.denom == lastSwapSet[1] }
-                        ?: inputAssets.firstOrNull { it.denom == line.stakeDenom }
+                        ?: inputAssets.firstOrNull { it.denom == chain.stakeDenom }
                 }
 
-                outputCosmosLine = skipChains.firstOrNull { it.tag == lastSwapSet[2] }
+                outputCosmosChain = skipChains.firstOrNull { it.tag == lastSwapSet[2] }
                     ?: skipChains.firstOrNull { it.tag == "neutron118" }
-                outputCosmosLine?.let { line ->
+                outputCosmosChain?.let { chain ->
                     skipAssets?.getAsJsonObject("chain_to_assets_map")
-                        ?.getAsJsonObject(line.chainIdCosmos)?.getAsJsonArray("assets")?.forEach { json ->
-                        BaseData.getAsset(line.apiName, json.asJsonObject.get("denom").asString)
-                            ?.let { asset ->
+                        ?.getAsJsonObject(chain.chainIdCosmos)?.getAsJsonArray("assets")
+                        ?.forEach { json ->
+                            BaseData.getAsset(
+                                chain.apiName, json.asJsonObject.get("denom").asString
+                            )?.let { asset ->
                                 outputAssets.add(asset)
                             }
-                    }
+                        }
                     outputAssetSelected = outputAssets.firstOrNull { it.denom == lastSwapSet[3] }
-                        ?: outputAssets.firstOrNull { it.denom == line.stakeDenom }
+                        ?: outputAssets.firstOrNull { it.denom == chain.stakeDenom }
                 }
             }
 
             skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-                inputCosmosLine?.let { line ->
-//                    try {
-//                        val channel = getChannel(line)
-//                        val loadInputAuthDeferred = async { loadAuth(channel, line.address) }
-//                        val loadInputBalanceDeferred = async { loadBalance(channel, line.address) }
-//
-//                        line.cosmosAuth = loadInputAuthDeferred.await()?.account
-//                        line.cosmosBalances = loadInputBalanceDeferred.await().balancesList
-//                        BaseUtils.onParseVestingAccount(line)
-//                    } catch (e: Exception) {
-//                        if (isAdded) {
-//                            activity?.makeToast(R.string.str_unknown_error)
-//                        }
-//                    }
+                inputCosmosChain?.let { chain ->
+                    chain.grpcFetcher()?.let {
+                        try {
+                            val channel = getChannel(chain)
+                            val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
+                            val loadInputBalanceDeferred =
+                                async { loadBalance(channel, chain.address) }
+
+                            chain.grpcFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                            chain.grpcFetcher?.cosmosBalances =
+                                loadInputBalanceDeferred.await().balancesList
+                            BaseUtils.onParseVestingAccount(chain)
+                        } catch (e: Exception) {
+                            if (isAdded) {
+                                activity?.makeToast(R.string.str_unknown_error)
+                            }
+                        }
+                    }
                 }
 
-                outputCosmosLine?.let { line ->
-//                    try {
-//                        val channel = getChannel(line)
-//                        val loadOutputAuthDeferred = async { loadAuth(channel, line.address) }
-//                        val loadOutputBalanceDeferred = async { loadBalance(channel, line.address) }
-//
-//                        line.cosmosAuth = loadOutputAuthDeferred.await()?.account
-//                        line.cosmosBalances = loadOutputBalanceDeferred.await().balancesList
-//                        BaseUtils.onParseVestingAccount(line)
-//                    } catch (e: Exception) {
-//                        if (isAdded) {
-//                            activity?.makeToast(R.string.str_unknown_error)
-//                        }
-//                    }
+                outputCosmosChain?.let { chain ->
+                    chain.grpcFetcher()?.let {
+                        try {
+                            val channel = getChannel(chain)
+                            val loadOutputAuthDeferred = async { loadAuth(channel, chain.address) }
+                            val loadOutputBalanceDeferred =
+                                async { loadBalance(channel, chain.address) }
+
+                            chain.grpcFetcher?.cosmosAuth = loadOutputAuthDeferred.await()?.account
+                            chain.grpcFetcher?.cosmosBalances =
+                                loadOutputBalanceDeferred.await().balancesList
+                            BaseUtils.onParseVestingAccount(chain)
+                        } catch (e: Exception) {
+                            if (isAdded) {
+                                activity?.makeToast(R.string.str_unknown_error)
+                            }
+                        }
+                    }
                 }
 
                 withContext(Dispatchers.Main) {
@@ -422,9 +433,9 @@ class SwapFragment : BaseTxFragment() {
                                 outputRateAmount.text = formatAmount(swapRate.toString(), 6)
                             }
 
-                            inputCosmosLine?.let { line ->
+                            inputCosmosChain?.let { chain ->
                                 txFee?.let { fee ->
-                                    BaseData.getAsset(line.apiName, fee.getAmount(0).denom)
+                                    BaseData.getAsset(chain.apiName, fee.getAmount(0).denom)
                                         ?.let { feeAsset ->
                                             feeAsset.decimals?.let { decimal ->
                                                 val dpFeeAmount =
@@ -557,18 +568,18 @@ class SwapFragment : BaseTxFragment() {
             btnSwap.updateButtonView(false)
             btnToggle.updateToggleButtonView(false)
 
-            inputCosmosLine?.let { line ->
+            inputCosmosChain?.let { chain ->
                 val skipMsg = msg.msgs[0]
                 toMsg = msg
                 val innerMsg = JSONObject(skipMsg.msg)
 
                 if (skipMsg.msg_type_url == "/ibc.applications.transfer.v1.MsgTransfer") {
                     skipTxViewModel.simulateSkipIbcSend(
-                        getChannel(line), line.address, bindIbcSend(innerMsg), txFee, "", line
+                        getChannel(chain), chain.address, bindIbcSend(innerMsg), txFee, "", chain
                     )
                 } else if (skipMsg.msg_type_url == "/cosmwasm.wasm.v1.MsgExecuteContract") {
                     skipTxViewModel.simulateWasm(
-                        getChannel(line), line.address, bindWasm(innerMsg), txFee, "", line
+                        getChannel(chain), chain.address, bindWasm(innerMsg), txFee, "", chain
                     )
                 }
             }
@@ -578,34 +589,35 @@ class SwapFragment : BaseTxFragment() {
     private fun setUpSimulate() {
         skipTxViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
             binding.apply {
-                inputCosmosLine?.let { line ->
+                inputCosmosChain?.let { chain ->
                     txFee?.let { fee ->
-//                        val gasLimit = (gasInfo.gasUsed.toDouble() * line.gasMultiply()).toLong()
-//                            .toBigDecimal()
-//                        val baseFeePosition = line.getFeeBasePosition()
-//                        val gasRate =
-//                            line.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull {
-//                                it.denom == fee.getAmount(0)?.denom
-//                            }
-//                        val feeCoinAmount =
-//                            gasRate?.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
-//                            .setAmount(feeCoinAmount.toString()).build()
-//                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
-//                            .addAmount(feeCoin).build()
-//
-//                        BaseData.getAsset(line.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
-//                            feeAsset.decimals?.let { decimal ->
-//                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.movePointLeft(decimal)
-//                                    ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
-//                                    txFeeAmount.text = formatAmount(amount.toPlainString(), decimal)
-//                                    txFeeDenom.text = feeAsset.symbol
-//                                }
-//                            }
-//                        }
-//                        btnToggle.updateToggleButtonView(true)
-//                        btnSwap.updateButtonView(true)
+                        val gasLimit = (gasInfo.gasUsed.toDouble() * chain.gasMultiply()).toLong()
+                            .toBigDecimal()
+                        val baseFeePosition = chain.getFeeBasePosition()
+                        val gasRate =
+                            chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull {
+                                it.denom == fee.getAmount(0)?.denom
+                            }
+                        val feeCoinAmount =
+                            gasRate?.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
+                            .setAmount(feeCoinAmount.toString()).build()
+                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                            .addAmount(feeCoin).build()
+
+                        BaseData.getAsset(chain.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
+                            feeAsset.decimals?.let { decimal ->
+                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.movePointLeft(decimal)
+                                    ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                                        txFeeAmount.text =
+                                            formatAmount(amount.toPlainString(), decimal)
+                                        txFeeDenom.text = feeAsset.symbol
+                                    }
+                            }
+                        }
+                        btnToggle.updateToggleButtonView(true)
+                        btnSwap.updateButtonView(true)
                     }
                 }
             }
@@ -637,11 +649,9 @@ class SwapFragment : BaseTxFragment() {
     private fun bindWasm(innerMsg: JSONObject): MutableList<MsgExecuteContract?> {
         val result: MutableList<MsgExecuteContract?> = mutableListOf()
         val jsonDataMsg = ByteString.copyFromUtf8(innerMsg.getJSONObject("msg").toString())
-        val fundCoin =
-            CoinProto.Coin.newBuilder()
-                .setDenom(innerMsg.getJSONArray("funds").getJSONObject(0).getString("denom"))
-                .setAmount(innerMsg.getJSONArray("funds").getJSONObject(0).getString("amount"))
-                .build()
+        val fundCoin = CoinProto.Coin.newBuilder()
+            .setDenom(innerMsg.getJSONArray("funds").getJSONObject(0).getString("denom"))
+            .setAmount(innerMsg.getJSONArray("funds").getJSONObject(0).getString("amount")).build()
 
         val msgExecuteContract =
             MsgExecuteContract.newBuilder().setSender(innerMsg.getString("sender"))
@@ -667,71 +677,78 @@ class SwapFragment : BaseTxFragment() {
             }
 
             inputChainLayout.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    ChainFragment.newInstance(
-//                        skipChains,
-//                        ChainListType.SELECT_INPUT_SWAP,
-//                        object : ChainSelectListener {
-//                            override fun select(chainId: String) {
-//                                try {
-//                                    if (inputCosmosLine?.chainIdCosmos != chainId) {
-//                                        loading.visibility = View.VISIBLE
-//
-//                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-//                                            inputCosmosLine =
-//                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
-//                                            inputAssets.clear()
-//                                            inputCosmosLine?.let { line ->
-//                                                try {
-//                                                    skipAssets?.getAsJsonObject("chain_to_assets_map")
-//                                                        ?.getAsJsonObject(line.chainIdCosmos)
-//                                                        ?.getAsJsonArray("assets")
-//                                                        ?.forEach { json ->
-//                                                            BaseData.getAsset(
-//                                                                line.apiName,
-//                                                                json.asJsonObject.get("denom").asString
-//                                                            )?.let { asset ->
-//                                                                inputAssets.add(asset)
-//                                                            }
-//                                                        }
-//                                                    inputAssetSelected =
-//                                                        inputAssets.firstOrNull { it.denom == line.stakeDenom }
-//
-////                                                    val channel = getChannel(line)
-////                                                    val loadInputAuthDeferred =
-////                                                        async { loadAuth(channel, line.address) }
-////                                                    val loadInputBalanceDeferred =
-////                                                        async { loadBalance(channel, line.address) }
-////
-////                                                    line.cosmosAuth =
-////                                                        loadInputAuthDeferred.await()?.account
-////                                                    line.cosmosBalances =
-////                                                        loadInputBalanceDeferred.await().balancesList
-//                                                    BaseUtils.onParseVestingAccount(line)
-//                                                } catch (e: Exception) {
-//                                                    activity?.makeToast(R.string.str_unknown_error)
-//                                                }
-//                                            }
-//
-//                                            withContext(Dispatchers.Main) {
-//                                                initView()
-//                                            }
-//                                        }
-//                                    }
-//                                } catch (e: Exception) {
-//                                    activity?.makeToast(R.string.str_unknown_error)
-//                                }
-//                            }
-//                        })
-//                )
+                handleOneClickWithDelay(
+                    ChainFragment.newInstance(
+                        skipChains,
+                        ChainListType.SELECT_INPUT_SWAP,
+                        object : ChainSelectListener {
+                            override fun select(chainId: String) {
+                                try {
+                                    if (inputCosmosChain?.chainIdCosmos != chainId) {
+                                        loading.visibility = View.VISIBLE
+
+                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
+                                            inputCosmosChain =
+                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
+                                            inputAssets.clear()
+                                            inputCosmosChain?.let { chain ->
+                                                chain.grpcFetcher()?.let {
+                                                    try {
+                                                        skipAssets?.getAsJsonObject("chain_to_assets_map")
+                                                            ?.getAsJsonObject(chain.chainIdCosmos)
+                                                            ?.getAsJsonArray("assets")
+                                                            ?.forEach { json ->
+                                                                BaseData.getAsset(
+                                                                    chain.apiName,
+                                                                    json.asJsonObject.get("denom").asString
+                                                                )?.let { asset ->
+                                                                    inputAssets.add(asset)
+                                                                }
+                                                            }
+                                                        inputAssetSelected =
+                                                            inputAssets.firstOrNull { it.denom == chain.stakeDenom }
+
+                                                        val channel = getChannel(chain)
+                                                        val loadInputAuthDeferred = async {
+                                                            loadAuth(
+                                                                channel, chain.address
+                                                            )
+                                                        }
+                                                        val loadInputBalanceDeferred = async {
+                                                            loadBalance(
+                                                                channel, chain.address
+                                                            )
+                                                        }
+
+                                                        chain.grpcFetcher?.cosmosAuth =
+                                                            loadInputAuthDeferred.await()?.account
+                                                        chain.grpcFetcher?.cosmosBalances =
+                                                            loadInputBalanceDeferred.await().balancesList
+                                                        BaseUtils.onParseVestingAccount(chain)
+                                                    } catch (e: Exception) {
+                                                        activity?.makeToast(R.string.str_unknown_error)
+                                                    }
+                                                }
+                                            }
+
+                                            withContext(Dispatchers.Main) {
+                                                initView()
+                                            }
+                                        }
+                                    }
+                                } catch (e: Exception) {
+                                    activity?.makeToast(R.string.str_unknown_error)
+                                }
+                            }
+                        })
+                )
             }
 
             inputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(
-                        inputCosmosLine,
+                    AssetSelectFragment.newInstance(inputCosmosChain,
                         inputAssets,
-                        inputCosmosLine?.cosmosBalances,
+                        inputCosmosChain?.grpcFetcher?.cosmosBalances,
                         AssetSelectType.SWAP_INPUT,
                         object : AssetListener {
                             override fun select(denom: String) {
@@ -743,17 +760,17 @@ class SwapFragment : BaseTxFragment() {
             }
 
             btnToggle.setOnClickListener {
-                val tempChain = inputCosmosLine
+                val tempChain = inputCosmosChain
                 val tempAssetList = inputAssets
                 val tempAssetSelected = inputAssetSelected
                 val tempAsset = inputAsset
 
-                inputCosmosLine = outputCosmosLine
+                inputCosmosChain = outputCosmosChain
                 inputAssets = outputAssets
                 inputAssetSelected = outputAssetSelected
                 inputAsset = outputAsset
 
-                outputCosmosLine = tempChain
+                outputCosmosChain = tempChain
                 outputAssets = tempAssetList
                 outputAssetSelected = tempAssetSelected
                 outputAsset = tempAsset
@@ -762,71 +779,77 @@ class SwapFragment : BaseTxFragment() {
             }
 
             outputChainLayout.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    ChainFragment.newInstance(
-//                        skipChains,
-//                        ChainListType.SELECT_OUTPUT_SWAP,
-//                        object : ChainSelectListener {
-//                            override fun select(chainId: String) {
-//                                try {
-//                                    if (outputCosmosLine?.chainIdCosmos != chainId) {
-//                                        loading.visibility = View.VISIBLE
-//
-//                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
-//                                            outputCosmosLine =
-//                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
-//                                            outputAssets.clear()
-//                                            outputCosmosLine?.let { line ->
-//                                                try {
-//                                                    skipAssets?.getAsJsonObject("chain_to_assets_map")
-//                                                        ?.getAsJsonObject(line.chainIdCosmos)
-//                                                        ?.getAsJsonArray("assets")
-//                                                        ?.forEach { json ->
-//                                                            BaseData.getAsset(
-//                                                                line.apiName,
-//                                                                json.asJsonObject.get("denom").asString
-//                                                            )?.let { asset ->
-//                                                                outputAssets.add(asset)
-//                                                            }
-//                                                        }
-//                                                    outputAssetSelected =
-//                                                        outputAssets.firstOrNull { it.denom == line.stakeDenom }
-//
-////                                                    val channel = getChannel(line)
-////                                                    val loadOutputAuthDeferred =
-////                                                        async { loadAuth(channel, line.address) }
-////                                                    val loadOutputBalanceDeferred =
-////                                                        async { loadBalance(channel, line.address) }
-////
-////                                                    line.cosmosAuth =
-////                                                        loadOutputAuthDeferred.await()?.account
-////                                                    line.cosmosBalances =
-////                                                        loadOutputBalanceDeferred.await().balancesList
-//                                                    BaseUtils.onParseVestingAccount(line)
-//                                                } catch (e: Exception) {
-//                                                    activity?.makeToast(R.string.str_unknown_error)
-//                                                }
-//                                            }
-//
-//                                            withContext(Dispatchers.Main) {
-//                                                initView()
-//                                            }
-//                                        }
-//                                    }
-//                                } catch (e: Exception) {
-//
-//                                }
-//                            }
-//                        })
-//                )
+                handleOneClickWithDelay(
+                    ChainFragment.newInstance(skipChains,
+                        ChainListType.SELECT_OUTPUT_SWAP,
+                        object : ChainSelectListener {
+                            override fun select(chainId: String) {
+                                try {
+                                    if (outputCosmosChain?.chainIdCosmos != chainId) {
+                                        loading.visibility = View.VISIBLE
+
+                                        skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
+                                            outputCosmosChain =
+                                                skipChains.firstOrNull { it.chainIdCosmos == chainId }
+                                            outputAssets.clear()
+                                            outputCosmosChain?.let { chain ->
+                                                chain.grpcFetcher()?.let {
+                                                    try {
+                                                        skipAssets?.getAsJsonObject("chain_to_assets_map")
+                                                            ?.getAsJsonObject(chain.chainIdCosmos)
+                                                            ?.getAsJsonArray("assets")
+                                                            ?.forEach { json ->
+                                                                BaseData.getAsset(
+                                                                    chain.apiName,
+                                                                    json.asJsonObject.get("denom").asString
+                                                                )?.let { asset ->
+                                                                    outputAssets.add(asset)
+                                                                }
+                                                            }
+                                                        outputAssetSelected =
+                                                            outputAssets.firstOrNull { it.denom == chain.stakeDenom }
+
+                                                        val channel = getChannel(chain)
+                                                        val loadOutputAuthDeferred = async {
+                                                            loadAuth(
+                                                                channel, chain.address
+                                                            )
+                                                        }
+                                                        val loadOutputBalanceDeferred = async {
+                                                            loadBalance(
+                                                                channel, chain.address
+                                                            )
+                                                        }
+
+                                                        chain.grpcFetcher?.cosmosAuth =
+                                                            loadOutputAuthDeferred.await()?.account
+                                                        chain.grpcFetcher?.cosmosBalances =
+                                                            loadOutputBalanceDeferred.await().balancesList
+                                                        BaseUtils.onParseVestingAccount(chain)
+                                                    } catch (e: Exception) {
+                                                        activity?.makeToast(R.string.str_unknown_error)
+                                                    }
+                                                }
+                                            }
+
+                                            withContext(Dispatchers.Main) {
+                                                initView()
+                                            }
+                                        }
+                                    }
+                                } catch (e: Exception) {
+
+                                }
+                            }
+                        })
+                )
             }
 
             outputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(
-                        outputCosmosLine,
+                    AssetSelectFragment.newInstance(outputCosmosChain,
                         outputAssets,
-                        outputCosmosLine?.cosmosBalances,
+                        outputCosmosChain?.grpcFetcher?.cosmosBalances,
                         AssetSelectType.SWAP_OUTPUT,
                         object : AssetListener {
                             override fun select(denom: String) {
@@ -895,17 +918,17 @@ class SwapFragment : BaseTxFragment() {
                 skipMsg?.let {
                     val innerMsg = JSONObject(skipMsg.msg)
 
-                    inputCosmosLine?.let { line ->
+                    inputCosmosChain?.let { chain ->
                         when (skipMsg.msg_type_url) {
                             "/ibc.applications.transfer.v1.MsgTransfer" -> {
                                 skipTxViewModel.broadcastSkipIbcSend(
-                                    getChannel(line), bindIbcSend(innerMsg), txFee, "", line
+                                    getChannel(chain), bindIbcSend(innerMsg), txFee, "", chain
                                 )
                             }
 
                             "/cosmwasm.wasm.v1.MsgExecuteContract" -> {
                                 skipTxViewModel.broadcastWasm(
-                                    getChannel(line), bindWasm(innerMsg), txFee, "", line
+                                    getChannel(chain), bindWasm(innerMsg), txFee, "", chain
                                 )
                             }
 
@@ -922,9 +945,9 @@ class SwapFragment : BaseTxFragment() {
         return SkipRouteReq(
             amount,
             inputAsset?.denom,
-            inputCosmosLine?.chainIdCosmos,
+            inputCosmosChain?.chainIdCosmos,
             outputAsset?.denom,
-            outputCosmosLine?.chainIdCosmos
+            outputCosmosChain?.chainIdCosmos
         )
     }
 
@@ -950,7 +973,7 @@ class SwapFragment : BaseTxFragment() {
     }
 
     private fun baseFee(): TxProto.Fee {
-        val minFee = inputCosmosLine?.getDefaultFeeCoins(requireContext())?.firstOrNull()
+        val minFee = inputCosmosChain?.getDefaultFeeCoins(requireContext())?.firstOrNull()
         minFee?.let {
             val feeCoin =
                 CoinProto.Coin.newBuilder().setDenom(it.denom).setAmount(it.amount).build()
@@ -1010,7 +1033,7 @@ class SwapFragment : BaseTxFragment() {
                 }
                 putExtra("txResultType", TxResultType.SKIP.toString())
                 putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", inputCosmosLine?.tag)
+                putExtra("selectedChain", inputCosmosChain?.tag)
                 val hash = txResponse.txhash
                 if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                 startActivity(this)

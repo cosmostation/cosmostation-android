@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.edit
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
@@ -11,18 +13,34 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.fadeInAnimation
+import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
-import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 import java.math.BigDecimal
 
 class ChainEditViewHolder(
     val context: Context, private val binding: ItemEditBinding
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val starEvmAddressAnimation = object : Runnable {
+        override fun run() {
+            binding.apply {
+                if (chainAddress.visibility == View.VISIBLE) {
+                    fadeOutAnimation(chainAddress)
+                    fadeInAnimation(chainEvmAddress)
+                } else {
+                    fadeOutAnimation(chainEvmAddress)
+                    fadeInAnimation(chainAddress)
+                }
+            }
+            handler.postDelayed(this, 5000)
+        }
+    }
 
     fun bind(
         baseAccount: BaseAccount,
@@ -35,8 +53,30 @@ class ChainEditViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
             chainLegacy.visibleOrGone(!chain.isDefault)
-            chainPath.visibleOrGone(baseAccount.type == BaseAccountType.MNEMONIC)
-            chainPath.text = chain.getHDPath(baseAccount.lastHDPath)
+
+            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
+                chainAddress.text = chain.address
+                chainEvmAddress.text = chain.evmAddress
+                chainAddress.visibility = View.INVISIBLE
+                chainEvmAddress.visibility = View.VISIBLE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+                handler.postDelayed(starEvmAddressAnimation, 5000)
+
+            } else if (chain.isCosmos()) {
+                chainAddress.text = chain.address
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+
+            } else {
+                chainAddress.text = chain.evmAddress
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+            }
 
             CoroutineScope(Dispatchers.IO).launch {
                 AppDatabase.getInstance().refAddressDao()
@@ -113,7 +153,7 @@ class ChainEditViewHolder(
 
                                 } else {
                                     val coinCnt =
-                                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" else "1" + " Coins"
+                                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
                                     val tokenCnt =
                                         chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                                     if (tokenCnt == 0) {

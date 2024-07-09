@@ -59,8 +59,8 @@ import org.bouncycastle.util.encoders.Base64.toBase64String
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.delegatorRewardDenoms
@@ -932,31 +932,23 @@ object Signer {
 
     private fun generateGrpcPubKeyFromPriv(chain: BaseChain?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        return if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+        return if (chain is ChainInjective) {
+            val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
+                .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+
+        } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             val pubKey =
                 KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
+
         } else {
             val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
         }
-//        return if (line is ChainInjective) {
-//            val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
-//                .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
-//            Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
-//                .setValue(pubKey.toByteString()).build()
-//        } else if (line?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
-//            val pubKey =
-//                KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
-//            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
-//                .setValue(pubKey.toByteString()).build()
-//        } else {
-//            val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
-//            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
-//                .setValue(pubKey.toByteString()).build()
-//        }
     }
 
     private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
@@ -1141,7 +1133,7 @@ object Signer {
         return txRawBuilder.build()
     }
 
-        private fun broadcast(
+    private fun broadcast(
         msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: BaseChain
     ): BroadcastReq {
         (selectedChain as ChainOkt996Secp).apply {
@@ -1322,7 +1314,7 @@ object Signer {
     }
 
     fun dAppSimulateGas(
-        selectedChain: CosmosLine, txBody: TxBody, authInfo: AuthInfo?
+        selectedChain: BaseChain, txBody: TxBody, authInfo: AuthInfo?
     ): AbciProto.GasInfo {
         val channel = getChannel(selectedChain)
         val simulateStub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)

@@ -26,19 +26,15 @@ import org.web3j.crypto.WalletUtils
 import org.web3j.crypto.transaction.type.TransactionType
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
-import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
-import wannabit.io.cosmostaion.common.percentile
-import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -51,7 +47,7 @@ import java.math.BigInteger
 import java.math.RoundingMode
 
 class PopUpEvmSignFragment(
-    private val selectedEvmChain: EthereumLine?,
+    private val selectedEvmChain: BaseChain?,
     private val id: Long,
     private val data: String,
     private val method: String?,
@@ -287,7 +283,7 @@ class PopUpEvmSignFragment(
     }
 
     private fun checkEvmBalance() {
-        val evmAddress = if (selectedEvmChain?.supportCosmos == true) {
+        val evmAddress = if (selectedEvmChain?.supportCosmosGrpc == true) {
             ByteUtils.convertBech32ToEvm(selectedEvmChain.address)
         } else {
             selectedEvmChain?.address

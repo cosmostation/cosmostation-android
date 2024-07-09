@@ -24,8 +24,6 @@ import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
@@ -68,7 +66,7 @@ interface TxRepository {
     suspend fun simulateEvmDelegateTx(
         toValidatorAddress: String?,
         toDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -79,7 +77,7 @@ interface TxRepository {
     suspend fun simulateEvmUnDelegateTx(
         validatorAddress: String?,
         toUnDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -91,7 +89,7 @@ interface TxRepository {
         fromValidatorAddress: String?,
         toValidatorAddress: String?,
         toReDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -103,7 +101,7 @@ interface TxRepository {
         validatorAddress: String?,
         unDelegateAmount: String?,
         height: Long,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -112,7 +110,7 @@ interface TxRepository {
     ): String?
 
     suspend fun simulateEvmVoteTx(
-        proposalId: Long, proposalOption: Long, selectedChain: EthereumLine, selectedFeeInfo: Int
+        proposalId: Long, proposalOption: Long, selectedChain: BaseChain, selectedFeeInfo: Int
     ): Pair<String?, String?>
 
     suspend fun broadcastSendTx(

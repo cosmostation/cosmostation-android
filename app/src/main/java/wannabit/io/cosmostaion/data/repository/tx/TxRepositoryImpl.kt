@@ -41,7 +41,6 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -387,7 +386,7 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun simulateEvmDelegateTx(
         toValidatorAddress: String?,
         toDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?> {
 //        try {
@@ -557,7 +556,7 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun simulateEvmUnDelegateTx(
         validatorAddress: String?,
         toUnDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?> {
 //        try {
@@ -729,7 +728,7 @@ class TxRepositoryImpl : TxRepository {
         fromValidatorAddress: String?,
         toValidatorAddress: String?,
         toReDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?> {
 //        try {
@@ -902,7 +901,7 @@ class TxRepositoryImpl : TxRepository {
         validatorAddress: String?,
         unDelegateAmount: String?,
         height: Long,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?> {
 //        try {
@@ -1073,7 +1072,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateEvmVoteTx(
-        proposalId: Long, proposalOption: Long, selectedChain: EthereumLine, selectedFeeInfo: Int
+        proposalId: Long, proposalOption: Long, selectedChain: BaseChain, selectedFeeInfo: Int
     ): Pair<String?, String?> {
 //        try {
 //            val ecKey = ECKey.fromPrivate(selectedChain.privateKey)

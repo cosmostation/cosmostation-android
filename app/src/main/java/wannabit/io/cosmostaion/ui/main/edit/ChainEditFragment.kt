@@ -95,7 +95,7 @@ class ChainEditFragment : BaseTxFragment() {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
                     allChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address.isEmpty()) {
+                        if (chain.publicKey == null) {
                             chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
                         if (!chain.fetched) {
@@ -105,7 +105,7 @@ class ChainEditFragment : BaseTxFragment() {
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
                     allChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address.isEmpty()) {
+                        if (chain.publicKey == null) {
                             chain.setInfoWithPrivateKey(privateKey)
                         }
                         if (!chain.fetched) {
@@ -182,8 +182,9 @@ class ChainEditFragment : BaseTxFragment() {
                     BaseData.baseAccount?.let { account ->
                         account.reSortChains()
                         mainnetChains = account.allChains.filter { !it.isTestnet }.toMutableList()
+                        toDisplayChains.add("cosmos118")
                         for (chain in mainnetChains) {
-                            if (chain.allValue(true) > BigDecimal.ONE) {
+                            if (chain.allValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
                                 toDisplayChains.add(chain.tag)
                             }
                         }
@@ -193,49 +194,12 @@ class ChainEditFragment : BaseTxFragment() {
                         btnSelect.isEnabled = true
                         backdropLayout.visibility = View.GONE
                         chainEditAdapter.notifyItemRangeChanged(
-                            1, mainnetChains.size + 1, null
+                            1, mainnetChains.size + testnetChains.size + 1, null
                         )
                     }
                 }
             }
-//            btnSelect.setOnClickListener {
-//                toDisplayEvmChains.clear()
-//                toDisplayChains.clear()
-//                if (btnSelect.isEnabled) {
-//                    btnSelect.isEnabled = false
-//
-//                    backdropLayout.visibility = View.VISIBLE
-//                    lifecycleScope.launch(Dispatchers.IO) {
-////                        BaseData.baseAccount?.let { account ->
-////                            account.reSortEvmChains()
-////                            allEvmChains = account.allEvmLineChains
-////                            for (chain in allEvmChains) {
-////                                if (chain.allAssetValue(true) > BigDecimal.ONE) {
-////                                    toDisplayEvmChains.add(chain.tag)
-////                                }
-////                            }
-////
-////                            account.reSortCosmosChains()
-////                            allCosmosChains = account.allCosmosLineChains
-////                            toDisplayChains.add("cosmos118")
-////                            for (chain in allCosmosChains) {
-////                                if (chain.allAssetValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
-////                                    toDisplayChains.add(chain.tag)
-////                                }
-////                            }
-////                        }
-//
-//                        withContext(Dispatchers.Main) {
-//                            btnSelect.isEnabled = true
-//                            backdropLayout.visibility = View.GONE
-//                            chainEditAdapter.notifyItemRangeChanged(
-//                                1, allEvmChains.size + allCosmosChains.size + 1, null
-//                            )
-//                        }
-//                    }
-//                }
-//            }
-//
+
             btnConfirm.setOnClickListener {
                 ApplicationViewModel.shared.walletEdit(toDisplayChains)
                 dismiss()
@@ -257,18 +221,20 @@ class ChainEditFragment : BaseTxFragment() {
                     searchTestnetChains.clear()
                     BaseData.baseAccount?.let { account ->
                         if (StringUtils.isEmpty(newText)) {
-                            searchMainnetChains.addAll(account.allEvmLineChains)
-                            searchTestnetChains.addAll(account.allCosmosLineChains)
+                            searchMainnetChains.addAll(account.allChains.filter { !it.isTestnet })
+                            searchTestnetChains.addAll(account.allChains.filter { it.isTestnet })
 
                         } else {
                             newText?.let { searchTxt ->
-                                searchMainnetChains.addAll(account.allEvmLineChains.filter { chain ->
-                                    chain.name.contains(searchTxt, ignoreCase = true)
-                                })
+                                searchMainnetChains.addAll(account.allChains.filter { !it.isTestnet }
+                                    .filter { chain ->
+                                        chain.name.contains(searchTxt, ignoreCase = true)
+                                    })
 
-                                searchTestnetChains.addAll(account.allCosmosLineChains.filter { chain ->
-                                    chain.name.contains(searchTxt, ignoreCase = true)
-                                })
+                                searchTestnetChains.addAll(account.allChains.filter { it.isTestnet }
+                                    .filter { chain ->
+                                        chain.name.contains(searchTxt, ignoreCase = true)
+                                    })
                             }
                         }
                     }

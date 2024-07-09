@@ -9,8 +9,6 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -58,14 +56,6 @@ data class BaseAccount(
     @IgnoredOnParcel
     @Ignore
     var allChains: MutableList<BaseChain> = mutableListOf()
-
-    @IgnoredOnParcel
-    @Ignore
-    var allEvmLineChains: MutableList<EthereumLine> = mutableListOf()
-
-    @IgnoredOnParcel
-    @Ignore
-    var allCosmosLineChains: MutableList<CosmosLine> = mutableListOf()
 
     fun initAccount() {
         allChains = allChains()

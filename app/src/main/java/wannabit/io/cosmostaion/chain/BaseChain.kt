@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.chain
 import android.content.Context
 import android.net.Uri
 import android.os.Parcelable
-import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.gson.JsonObject
@@ -11,9 +10,24 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -31,7 +45,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -340,9 +353,11 @@ open class BaseChain : Parcelable {
         return null
     }
 
-    fun voteThreshold(): String {
-        return getChainListParam()?.get("voting_threshold")?.asString ?: run {
-            "0"
+    fun voteThreshold(): BigDecimal? {
+        return if (getChainListParam()?.get("voting_threshold")?.isJsonNull == true) {
+            getChainListParam()?.get("voting_threshold")?.asString?.toBigDecimal()
+        } else {
+            return BigDecimal.ZERO
         }
     }
 
@@ -374,8 +389,7 @@ open class BaseChain : Parcelable {
 
                 is ChainOktEvm -> {
                     return evmRpcFetcher?.allAssetValue(isUsd)
-                        ?.add(evmRpcFetcher?.allTokenValue(isUsd))
-                        ?: BigDecimal.ZERO
+                        ?.add(evmRpcFetcher?.allTokenValue(isUsd)) ?: BigDecimal.ZERO
                 }
 
                 else -> {
@@ -394,11 +408,25 @@ open class BaseChain : Parcelable {
 fun allChains(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
+    chains.add(ChainAkash())
+    chains.add(ChainAlthea118())
     chains.add(ChainArchway())
+    chains.add(ChainAssetMantle())
     chains.add(ChainAxelar())
+    chains.add(ChainBand())
+    chains.add(ChainBitcanna())
+    chains.add(ChainBitsong())
+    chains.add(ChainCelestia())
+    chains.add(ChainChihuahua())
+    chains.add(ChainComdex())
+    chains.add(ChainCoreum())
+    chains.add(ChainCryptoorg())
+    chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
+    chains.add(ChainFinschia())
+    chains.add(ChainInjective())
     chains.add(ChainJuno())
     chains.add(ChainKavaEvm())
     chains.add(ChainKava459())
@@ -408,18 +436,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOsmosis())
     chains.add(ChainNeutron())
     chains.add(ChainStargaze())
-//    lines.add(ChainAkash())
-//    lines.add(ChainAlthea118())
-//    lines.add(ChainArchway())
-//    lines.add(ChainAssetMantle())
-//    lines.add(ChainAxelar())
-//    lines.add(ChainBand())
-//    lines.add(ChainBitcanna())
-//    lines.add(ChainBitsong())
-//    lines.add(ChainCelestia())
-//    lines.add(ChainChihuahua())
-//    lines.add(ChainComdex())
-//    lines.add(ChainCoreum())
 //    lines.add(ChainCryptoorg())
 //    lines.add(ChainCudos())
 //    lines.add(ChainDesmos())
@@ -477,6 +493,8 @@ fun allChains(): MutableList<BaseChain> {
 //    lines.add(ChainOkt996Keccak())
 //    lines.add(ChainOkt996Secp())
 
+//    chains.add(ChainCrescent())
+
 //    lines.add(ChainCrescent())
 //    lines.add(ChainEmoney())
 //    lines.add(ChainBinanceBeacon())
@@ -505,8 +523,9 @@ data class AccountKeyType(
 )
 
 val DEFAULT_DISPLAY_CHAIN = mutableListOf(
-//    "cosmos118", "neutron118", "osmosis118", "dydx118", "crypto-org394", "celestia118"
-    "cosmos118", "dymension60"
+    "cosmos118", "ethereum60", "neutron118", "kava60", "osmosis118", "dydx118"
 )
+
+val EVM_BASE_FEE = BigDecimal("588000000000000")
 
 enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, NONE }

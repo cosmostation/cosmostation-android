@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trustwallet.walletconnect.extensions.toHex
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -17,38 +16,6 @@ import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
 class PrivateViewHolder(
     val context: Context, private val binding: ItemPrivateBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-
-    fun evmBind(account: BaseAccount, evmLine: EthereumLine) {
-        binding.apply {
-            privateView.setBackgroundResource(R.drawable.item_bg)
-
-            chainImg.setImageResource(evmLine.logo)
-            chainName.text = evmLine.name.uppercase()
-//            chainPath.text = evmLine.getHDPath(account.lastHDPath)
-            chainPrivateKey.text = "0x" + evmLine.privateKey?.toHex()
-
-            privateView.setOnLongClickListener { view ->
-                val scaleX = view.scaleX
-                val scaleY = view.scaleY
-
-                if (scaleX == 1.0f && scaleY == 1.0f) {
-                    view.animate().scaleX(1.05f).scaleY(1.05f).setDuration(300).start()
-
-                    val handler = Handler()
-                    handler.postDelayed({
-                        view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-                        val clipboard =
-                            context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip =
-                            ClipData.newPlainText("private", "0x" + evmLine.privateKey?.toHex())
-                        clipboard.setPrimaryClip(clip)
-                        context.makeToast(R.string.str_msg_private_copy)
-                    }, 300)
-                }
-                true
-            }
-        }
-    }
 
     fun bind(account: BaseAccount, chain: BaseChain) {
         binding.apply {
@@ -72,7 +39,8 @@ class PrivateViewHolder(
                         view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                         val clipboard =
                             context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip = ClipData.newPlainText("private", "0x" + chain.privateKey?.toHex())
+                        val clip =
+                            ClipData.newPlainText("private", "0x" + chain.privateKey?.toHex())
                         clipboard.setPrimaryClip(clip)
                         context.makeToast(R.string.str_msg_private_copy)
                     }, 300)

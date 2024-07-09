@@ -11,10 +11,8 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -38,7 +36,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
     private var _binding: FragmentCancelUnBondingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: EthereumLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var unBondingEntry: UnBondingEntry
 
     private var selectedFeePosition = 0
@@ -55,7 +53,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: EthereumLine, unBondingEntry: UnBondingEntry?
+            selectedChain: BaseChain, unBondingEntry: UnBondingEntry?
         ): EvmCancelUnStakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -90,7 +88,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", EthereumLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getParcelable("unBondingEntry", UnBondingEntry::class.java)?.let {
@@ -100,7 +98,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? EthereumLine)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getParcelable("unBondingEntry") as? UnBondingEntry)?.let {
@@ -115,20 +113,18 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
             memoView.visibility = View.GONE
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
+            selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
                 ?.let { validator ->
                     validatorName.text = validator.description.moniker
                 }
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
-                        ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
-                    cancelAmount.text =
-                        formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
-                    cancelDenom.text = asset.symbol
-                    cancelDenom.setTextColor(asset.assetColor())
-                }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
+                    ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                cancelAmount.text =
+                    formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
+                cancelDenom.text = asset.symbol
+                cancelDenom.setTextColor(asset.assetColor())
             }
         }
     }
