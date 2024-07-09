@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.usdxAmount
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl

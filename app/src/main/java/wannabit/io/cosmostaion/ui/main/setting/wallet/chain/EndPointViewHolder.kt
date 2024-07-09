@@ -14,8 +14,7 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
@@ -28,7 +27,7 @@ class EndPointViewHolder(
     private var gapTime: Double? = null
 
     fun evmBind(
-        fromChain: EthereumLine?,
+        fromChain: BaseChain?,
         endpoint: JsonObject,
         listener: SettingBottomAdapter.EndpointListener?
     ) {
@@ -38,7 +37,7 @@ class EndPointViewHolder(
 
             val checkTime = System.currentTimeMillis() / 1000.0
             val url = endpoint.get("url").asString
-//            checkImg.goneOrVisible(fromChain?.getEvmRpc() != url)
+            checkImg.goneOrVisible(fromChain?.evmRpcFetcher()?.getEvmRpc() != url)
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -77,7 +76,7 @@ class EndPointViewHolder(
     }
 
     fun bind(
-        fromChain: CosmosLine?,
+        fromChain: BaseChain?,
         endpoint: JsonObject,
         listener: SettingBottomAdapter.EndpointListener?
     ) {
@@ -89,7 +88,7 @@ class EndPointViewHolder(
             val host = endpoint.get("url").asString.split(":")[0].trim()
             val port =
                 endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-//            checkImg.goneOrVisible(fromChain?.getGrpc()?.first != host)
+            checkImg.goneOrVisible(fromChain?.grpcFetcher()?.getGrpc()?.first != host)
 
             CoroutineScope(Dispatchers.IO).launch {
                 val channel = getChannel(host, port)

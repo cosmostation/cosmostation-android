@@ -1035,7 +1035,7 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun getRecipientChannel(): ManagedChannel? {
-        return ManagedChannelBuilder.forAddress(toChain.getGrpc().first, toChain.getGrpc().second)
+        return ManagedChannelBuilder.forAddress(toChain.grpcFetcher()!!.getGrpc().first, toChain.grpcFetcher()!!.getGrpc().second)
             .useTransportSecurity().build()
     }
 

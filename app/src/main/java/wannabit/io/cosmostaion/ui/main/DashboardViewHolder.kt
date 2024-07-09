@@ -268,7 +268,15 @@ class DashboardViewHolder(
                     }
 
                 } else if (chain.isCosmos()) {
-                    if (chain is ChainOkt996Keccak) {
+                    if (chain is ChainOktEvm) {
+                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain is ChainOkt996Keccak) {
                         if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE

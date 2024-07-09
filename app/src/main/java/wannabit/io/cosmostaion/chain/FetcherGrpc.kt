@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -255,5 +256,15 @@ open class FetcherGrpc(chain: BaseChain) {
         return balanceAmount(chain.stakeDenom).add(vestingAmount(chain.stakeDenom))
             ?.add(delegationAmountSum())?.add(unbondingAmountSum())
             ?.add(rewardAmountSum(chain.stakeDenom))
+    }
+
+    fun getGrpc(): Pair<String, Int> {
+        val endPoint = Prefs.getGrpcEndpoint(chain)
+        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
+            val host = endPoint.split(":")[0].trim()
+            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+            return Pair(host, port)
+        }
+        return Pair(chain.grpcHost, chain.grpcPort)
     }
 }

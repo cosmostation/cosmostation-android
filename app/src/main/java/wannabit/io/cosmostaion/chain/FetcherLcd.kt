@@ -22,4 +22,8 @@ open class FetcherLcd(chain: BaseChain) {
     open fun loadValidators(): Job {
         return Job()
     }
+
+    fun getLcd(): String {
+        return chain.lcdUrl
+    }
 }

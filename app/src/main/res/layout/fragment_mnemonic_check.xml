@@ -28,10 +28,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/account_name"
                 style="@style/font_sb_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_check_mnemonic"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,79 +42,33 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/account_name_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_68"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:elevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/account_name"
-                style="@style/font_sb_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
-                android:ellipsize="middle"
-                android:maxLines="1"
-                android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/last_hd_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/last_hd_path"
-                style="@style/font_sb_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_16"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Last HD Path : 1"
-                android:textColor="@color/color_base02"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/phrase_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_30"
+        android:layout_marginTop="@dimen/space_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_name_view">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
-            style="@style/font_sb_14"
+            android:id="@+id/account_path"
+            style="@style/font_sb_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_20"
-            android:text="@string/str_seed_phrase"
-            android:textColor="@color/color_base01"
+            android:textColor="@color/color_base02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/phrase_cnt"
-            style="@style/font_sm_14"
+            style="@style/font_sm_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/space_20"
-            android:textColor="@color/color_base01"
+            android:text="@string/str_msg_copy1"
+            android:textColor="@color/color_base02"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -131,17 +85,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phrase_header" />
-
-    <TextView
-        style="@style/font_sm_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
-        android:text="@string/str_msg_copy1"
-        android:textColor="@color/color_base02"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler" />
 
     <LinearLayout
         android:id="@+id/btn_layout"

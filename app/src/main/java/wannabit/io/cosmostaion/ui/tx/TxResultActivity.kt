@@ -189,8 +189,8 @@ class TxResultActivity : BaseActivity() {
 
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            selectedChain?.let { line ->
-                val stub = newStub(getChannel(line))
+            selectedChain?.let { chain ->
+                val stub = newStub(getChannel(chain))
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
                 stub.getTx(request, object : StreamObserver<ServiceProto.GetTxResponse> {
@@ -204,8 +204,8 @@ class TxResultActivity : BaseActivity() {
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
                         if (isSuccess && fetchCnt > 0) {
-                            getChannel(line).shutdown()
-                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
+                            getChannel(chain).shutdown()
+                            getChannel(chain).awaitTermination(6L, TimeUnit.SECONDS)
                             Handler(Looper.getMainLooper()).postDelayed({
                                 loadHistoryTx()
                             }, 6000)

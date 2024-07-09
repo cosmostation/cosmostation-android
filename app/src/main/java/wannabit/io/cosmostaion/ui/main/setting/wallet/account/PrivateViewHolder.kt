@@ -4,13 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Handler
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.trustwallet.walletconnect.extensions.toHex
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
 
@@ -39,7 +39,8 @@ class PrivateViewHolder(
                         view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                         val clipboard =
                             context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip = ClipData.newPlainText("private", "0x" + evmLine.privateKey?.toHex())
+                        val clip =
+                            ClipData.newPlainText("private", "0x" + evmLine.privateKey?.toHex())
                         clipboard.setPrimaryClip(clip)
                         context.makeToast(R.string.str_msg_private_copy)
                     }, 300)
@@ -49,37 +50,15 @@ class PrivateViewHolder(
         }
     }
 
-    fun bind(account: BaseAccount, line: CosmosLine) {
+    fun bind(account: BaseAccount, chain: BaseChain) {
         binding.apply {
             privateView.setBackgroundResource(R.drawable.item_bg)
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
+            chainPath.text = chain.getHDPath(account.lastHDPath)
+            chainPrivateKey.text = "0x" + chain.privateKey?.toHex()
 
-            chainImg.setImageResource(line.logo)
-            chainName.text = line.name.uppercase()
-//            chainPath.text = line.getHDPath(account.lastHDPath)
-            chainPrivateKey.text = "0x" + line.privateKey?.toHex()
-
-            if (!line.isDefault) {
-                chainLegacy.visibility = View.VISIBLE
-                when (line.tag) {
-                    "okt996_Keccak" -> {
-                        chainTypeBadge.visibility = View.VISIBLE
-                        chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
-                    }
-
-                    "okt996_Secp" -> {
-                        chainTypeBadge.visibility = View.VISIBLE
-                        chainTypeBadge.text = context.getString(R.string.str_secp256k1)
-                    }
-
-                    else -> {
-                        chainTypeBadge.visibility = View.GONE
-                    }
-                }
-
-            } else {
-                chainLegacy.visibility = View.GONE
-                chainTypeBadge.visibility = View.GONE
-            }
+            chainLegacy.visibleOrGone(!chain.isDefault)
 
             privateView.setOnLongClickListener { view ->
                 val scaleX = view.scaleX
@@ -93,7 +72,7 @@ class PrivateViewHolder(
                         view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                         val clipboard =
                             context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip = ClipData.newPlainText("private", "0x" + line.privateKey?.toHex())
+                        val clip = ClipData.newPlainText("private", "0x" + chain.privateKey?.toHex())
                         clipboard.setPrimaryClip(clip)
                         context.makeToast(R.string.str_msg_private_copy)
                     }, 300)

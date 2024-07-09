@@ -13,7 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseKey
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
@@ -168,12 +170,12 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 memoLayout.visibility = View.GONE
 
             } else {
-//                allIbcChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
-//                    ?.let { chain ->
-//                        if (BaseUtils.isValidBechAddress(chain, addressInput)) {
-//                            memoLayout.visibility = View.VISIBLE
-//                        }
-//                    }
+                allChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
+                    ?.let { chain ->
+                        if (BaseUtils.isValidBechAddress(chain, addressInput)) {
+                            memoLayout.visibility = View.VISIBLE
+                        }
+                    }
             }
         }
     }
@@ -186,7 +188,9 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 ) {
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    s: CharSequence?, start: Int, before: Int, count: Int
+                ) {
                     updateView()
                 }
 
@@ -262,12 +266,12 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             return true
 
         } else {
-//            allIbcChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
-//                ?.let { chain ->
-//                    if (BaseUtils.isValidBechAddress(chain, address)) {
-//                        return true
-//                    }
-//                }
+            allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
+                ?.let { chain ->
+                    if (BaseUtils.isValidBechAddress(chain, address)) {
+                        return true
+                    }
+                }
         }
         return false
     }
@@ -279,10 +283,10 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         if (BaseKey.isValidEthAddress(address)) {
             return EthereumLine()
         } else {
-//            allIbcChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
-//                ?.let { chain ->
-//                    return chain
-//                }
+            allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
+                ?.let { chain ->
+                    return chain
+                }
         }
         return null
     }

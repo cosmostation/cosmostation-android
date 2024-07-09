@@ -8,17 +8,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trustwallet.walletconnect.extensions.toHex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -33,8 +35,10 @@ class PrivateCheckFragment : Fragment() {
 
     private lateinit var privateAdapter: PrivateAdapter
 
-    private val allEvmLines: MutableList<EthereumLine> = mutableListOf()
-    private val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
+    private var mainnetChains = mutableListOf<BaseChain>()
+    private var searchMainnetChains = mutableListOf<BaseChain>()
+    private var testnetChains = mutableListOf<BaseChain>()
+    private var searchTestnetChains = mutableListOf<BaseChain>()
 
     companion object {
         @JvmStatic
@@ -59,6 +63,7 @@ class PrivateCheckFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initSearchView()
         setUpClickAction()
     }
 
@@ -79,11 +84,20 @@ class PrivateCheckFragment : Fragment() {
                 )
             }
 
-            if (account.lastHDPath != "0") {
-                lastHdPath.visibility = View.VISIBLE
-                lastHdPath.text = "Last HD Path : " + account.lastHDPath
+            if (account.type == BaseAccountType.MNEMONIC) {
+                accountNameTitle.visibility = View.GONE
+                accountNameView.visibility = View.GONE
+                searchBar.visibility = View.VISIBLE
+                privateCheckTitle.text = account.name
+                privateKeyLayout.visibility = View.GONE
+                tapMsg.visibility = View.GONE
+
             } else {
-                lastHdPath.visibility = View.GONE
+                accountNameTitle.visibility = View.VISIBLE
+                accountNameView.visibility = View.VISIBLE
+                searchBar.visibility = View.GONE
+                privateCheckTitle.text = getString(R.string.str_only_private)
+                recycler.visibility = View.GONE
             }
             accountName.text = account.name
         }
@@ -93,38 +107,27 @@ class PrivateCheckFragment : Fragment() {
     private fun initAllKeyData() {
         account.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-//                if (type == BaseAccountType.MNEMONIC) {
-//                    allEvmLines.addAll(allEvmLines())
-//                    allCosmosLines.addAll(allCosmosLines())
-//
-//                    allEvmLines.forEach { evmLine ->
-//                        if (evmLine.address?.isEmpty() == true) {
-//                            evmLine.setInfoWithSeed(seed, evmLine.setParentPath, lastHDPath)
-//                        }
-//                    }
-//                    allCosmosLines.forEach { line ->
-//                        if (line.address?.isEmpty() == true) {
-//                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-//                        }
-//                    }
-//
-//                } else if (type == BaseAccountType.PRIVATE_KEY) {
-//                    allEvmLines.addAll(allEvmLines())
-//                    allCosmosLines().filter { it.isDefault }.forEach { line ->
-//                        allCosmosLines.add(line)
-//                    }
-//
-//                    for (evmLine in allEvmLines) {
-//                        if (evmLine.address?.isEmpty() == true) {
-//                            evmLine.setInfoWithPrivateKey(privateKey)
-//                        }
-//                    }
-//                    for (line in allCosmosLines) {
-//                        if (line.address?.isEmpty() == true) {
-//                            line.setInfoWithPrivateKey(privateKey)
-//                        }
-//                    }
-//                }
+                val allChains = allChains()
+                if (type == BaseAccountType.MNEMONIC) {
+                    for (chain in allChains) {
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                        }
+                    }
+
+                } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    for (chain in allChains) {
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithPrivateKey(privateKey)
+                        }
+                    }
+                }
+
+                mainnetChains =
+                    allChains.filter { !it.isTestnet && it.tag != "okt996_Secp" }.toMutableList()
+                testnetChains = allChains.filter { it.isTestnet }.toMutableList()
+                searchMainnetChains = mainnetChains
+                searchTestnetChains = testnetChains
 
                 withContext(Dispatchers.Main) {
                     updateView()
@@ -138,21 +141,15 @@ class PrivateCheckFragment : Fragment() {
             btnConfirm.visibleOrGone(account.type == BaseAccountType.PRIVATE_KEY)
 
             if (account.type == BaseAccountType.MNEMONIC) {
-                privateCheckTitle.text = getString(R.string.title_check_private_each_chain)
-                privateKeyLayout.visibility = View.GONE
-                tapMsg.visibility = View.GONE
                 recycler.visibility = View.VISIBLE
-
-                privateAdapter = PrivateAdapter(account, allEvmLines, allCosmosLines)
+                privateAdapter = PrivateAdapter(account, searchMainnetChains, searchTestnetChains)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = privateAdapter
 
             } else {
-                privateCheckTitle.text = getString(R.string.str_only_private)
                 privateKeyLayout.visibility = View.VISIBLE
                 tapMsg.visibility = View.VISIBLE
-                recycler.visibility = View.GONE
                 requireActivity().runOnUiThread {
                     accountPrivateKey.text = "0x" + account.privateKey?.toHex()
                 }
@@ -177,6 +174,48 @@ class PrivateCheckFragment : Fragment() {
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_private_copy)
             }
+        }
+    }
+
+    private fun initSearchView() {
+        binding.apply {
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchMainnetChains.clear()
+                    searchTestnetChains.clear()
+
+                    if (StringUtils.isEmpty(newText)) {
+                        searchMainnetChains.addAll(allChains())
+                        searchTestnetChains.addAll(allChains())
+
+                    } else {
+                        newText?.let { searchTxt ->
+                            searchMainnetChains.addAll(allChains().filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+
+                            searchTestnetChains.addAll(allChains().filter { chain ->
+                                chain.name.contains(searchTxt, ignoreCase = true)
+                            })
+                        }
+                    }
+                    if (searchMainnetChains.isEmpty() && searchTestnetChains.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        privateAdapter.notifyDataSetChanged()
+                    }
+                    return true
+                }
+            })
         }
     }
 

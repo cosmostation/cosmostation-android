@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.option.tx.general
 
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemChainBinding
 
 class ChainViewHolder(

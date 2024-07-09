@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EthereumLine
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
@@ -26,7 +26,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
-    private var fromChain: CosmosLine? = null
+    private var fromChain: BaseChain? = null
     private lateinit var settingType: SettingType
 
     private lateinit var settingAdapter: SettingBottomAdapter
@@ -34,7 +34,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: CosmosLine?, settingType: SettingType
+            fromChain: BaseChain?, settingType: SettingType
         ): SettingBottomFragment {
             val args = Bundle().apply {
                 putParcelable("fromChain", fromChain)
@@ -64,7 +64,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getParcelable("fromChain", CosmosLine::class.java)?.let {
+                    getParcelable("fromChain", BaseChain::class.java)?.let {
                         fromChain = it
                     }
                     getSerializable(
@@ -72,7 +72,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     )?.let { settingType = it }
 
                 } else {
-                    (getParcelable("fromChain") as? CosmosLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getSerializable("settingType") as? SettingType)?.let {
@@ -190,7 +190,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                 }
 
                 SettingType.END_POINT_COSMOS -> {
-                    if (fromChain is EthereumLine) {
+                    if (fromChain?.isEvmCosmos() == true) {
                         selectTitle.text = getString(R.string.title_select_end_point)
                         segmentView.visibility = View.VISIBLE
 

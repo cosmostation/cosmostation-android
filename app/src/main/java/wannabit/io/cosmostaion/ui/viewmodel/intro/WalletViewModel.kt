@@ -15,6 +15,8 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -283,33 +285,61 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
-        chain.grpcFetcher()?.let {
-            when (chain) {
-//            is ChainOkt996Keccak -> {
-//                when (val response = walletRepository.oktAccountInfo(line)) {
-//                    is NetworkResult.Success -> {
-//                        line.oktLcdAccountInfo = response.data
-//                        line.fetched = true
-//                        if (line.fetched) {
-//                            withContext(Dispatchers.Main) {
-//                                _balanceResult.value = line.tag
-//                            }
-//                        }
-//                    }
-//
-//                    is NetworkResult.Error -> {
-//                        line.oktLcdAccountInfo = null
-//                        line.fetched = true
-//                        if (line.fetched) {
-//                            withContext(Dispatchers.Main) {
-//                                _balanceResult.value = line.tag
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+        when (chain) {
+            is ChainOktEvm -> {
+                chain.lcdFetcher()?.let {
+                    when (val response = walletRepository.oktAccountInfo(chain)) {
+                        is NetworkResult.Success -> {
+                            chain.oktFetcher?.lcdAccountInfo = response.data
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
 
-                else -> {
+                        is NetworkResult.Error -> {
+                            chain.oktFetcher?.lcdAccountInfo = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            is ChainOkt996Keccak -> {
+                chain.lcdFetcher()?.let {
+                    when (val response = walletRepository.oktAccountInfo(chain)) {
+                        is NetworkResult.Success -> {
+                            chain.oktFetcher?.lcdAccountInfo = response.data
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+
+                        is NetworkResult.Error -> {
+                            chain.oktFetcher?.lcdAccountInfo = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            else -> {
+                chain.grpcFetcher()?.let {
                     val channel = getChannel(chain)
                     when (val response = walletRepository.balance(channel, chain)) {
                         is NetworkResult.Success -> {
@@ -331,6 +361,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }
+                            } else {
+
                             }
                         }
                     }

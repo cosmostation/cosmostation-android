@@ -2,38 +2,38 @@ package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class PrivateAdapter(
     val account: BaseAccount,
-    private val allEvmLines: MutableList<EthereumLine>,
-    private val allCosmosLines: MutableList<CosmosLine>,
+    private val mainnetChains: MutableList<BaseChain>,
+    private val testnetChains: MutableList<BaseChain>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ETHEREUM_HEADER = 0
-        const val VIEW_TYPE_ETHEREUM_ITEM = 1
-        const val VIEW_TYPE_COSMOS_HEADER = 2
-        const val VIEW_TYPE_COSMOS_ITEM = 3
+        const val VIEW_TYPE_MAINNET_HEADER = 0
+        const val VIEW_TYPE_MAINNET_ITEM = 1
+        const val VIEW_TYPE_TESTNET_HEADER = 2
+        const val VIEW_TYPE_TESTNET_ITEM = 3
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_ETHEREUM_HEADER, VIEW_TYPE_COSMOS_HEADER -> {
+            VIEW_TYPE_MAINNET_HEADER, VIEW_TYPE_TESTNET_HEADER -> {
                 val binding = ItemStickyHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 PrivateHeaderViewHolder(parent.context, binding)
             }
 
-            VIEW_TYPE_ETHEREUM_ITEM, VIEW_TYPE_COSMOS_ITEM -> {
+            VIEW_TYPE_MAINNET_ITEM, VIEW_TYPE_TESTNET_ITEM -> {
                 val binding = ItemPrivateBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -51,27 +51,27 @@ class PrivateAdapter(
             }
 
             is PrivateViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_ETHEREUM_ITEM) {
-                    val evmChain = allEvmLines[position - 1]
-                    holder.evmBind(account, evmChain)
+                if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
+                    val mainnet = mainnetChains[position - 1]
+                    holder.bind(account, mainnet)
 
                 } else {
-                    val line = allCosmosLines[position - (allEvmLines.size + 2)]
-                    holder.bind(account, line)
+                    val testnet = testnetChains[position - (mainnetChains.size + 2)]
+//                    holder.bind(account, testnet)
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_ETHEREUM_HEADER
-        else if (position < allEvmLines.size + 1) VIEW_TYPE_ETHEREUM_ITEM
-        else if (position < allEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
-        else VIEW_TYPE_COSMOS_ITEM
+        return if (position == 0) VIEW_TYPE_MAINNET_HEADER
+        else if (position < mainnetChains.size + 1) VIEW_TYPE_MAINNET_ITEM
+        else if (position < mainnetChains.size + 2) VIEW_TYPE_TESTNET_HEADER
+        else VIEW_TYPE_TESTNET_ITEM
     }
 
     override fun getItemCount(): Int {
-        return allEvmLines.size + allCosmosLines.size + 2
+        return mainnetChains.size + testnetChains.size + 2
     }
 
     inner class PrivateHeaderViewHolder(
@@ -80,12 +80,13 @@ class PrivateAdapter(
 
         fun bind(viewType: Int) {
             binding.apply {
-                if (viewType == VIEW_TYPE_ETHEREUM_HEADER) {
-                    headerTitle.text = context.getString(R.string.str_ethereum_class)
-                    headerCnt.text = allEvmLines.size.toString()
+                if (viewType == VIEW_TYPE_MAINNET_HEADER) {
+                    headerTitle.text = context.getString(R.string.str_mainnet)
+                    headerCnt.text = mainnetChains.size.toString()
+                    headerMsg.visibility = View.VISIBLE
                 } else {
-                    headerTitle.text = context.getString(R.string.str_cosmos_class)
-                    headerCnt.text = allCosmosLines.size.toString()
+                    headerTitle.text = context.getString(R.string.str_testnet)
+                    headerCnt.text = testnetChains.size.toString()
                 }
             }
         }

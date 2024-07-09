@@ -587,7 +587,7 @@ fun dpToPx(context: Context, dp: Int): Int {
 
 fun getChannel(selectedChain: BaseChain): ManagedChannel {
     return ManagedChannelBuilder.forAddress(
-        selectedChain.getGrpc().first, selectedChain.getGrpc().second
+        selectedChain.grpcFetcher()!!.getGrpc().first, selectedChain.grpcFetcher()!!.getGrpc().second
     ).useTransportSecurity().build()
 }
 

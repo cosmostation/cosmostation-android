@@ -109,20 +109,30 @@ class WalletSelectFragment : Fragment() {
 
     private fun initMnemonicView() {
         lifecycleScope.launch(Dispatchers.IO) {
-            mainnetChains = allChains().filter { !it.isTestnet }.toMutableList()
-            testnetChains = allChains().filter { it.isTestnet }.toMutableList()
-            withContext(Dispatchers.Main) {
-                updateView()
+            toAddAccount?.let { account ->
+                account.apply {
+                    allChains = allChains()
+                    mainnetChains = allChains.filter { !it.isTestnet }.toMutableList()
+                    testnetChains = allChains.filter { it.isTestnet }.toMutableList()
+                }
+                withContext(Dispatchers.Main) {
+                    updateView()
+                }
             }
         }
     }
 
     private fun initPKeyAllData() {
         lifecycleScope.launch(Dispatchers.IO) {
-            mainnetChains = allChains().filter { !it.isTestnet }.toMutableList()
-            testnetChains = allChains().filter { it.isTestnet }.toMutableList()
-            withContext(Dispatchers.Main) {
-                updateView()
+            toAddAccount?.let { account ->
+                account.apply {
+                    allChains = allChains()
+                    mainnetChains = allChains().filter { !it.isTestnet }.toMutableList()
+                    testnetChains = allChains().filter { it.isTestnet }.toMutableList()
+                    withContext(Dispatchers.Main) {
+                        updateView()
+                    }
+                }
             }
         }
     }
@@ -134,7 +144,6 @@ class WalletSelectFragment : Fragment() {
                     loading.visibility = View.GONE
                     recycler.visibility = View.VISIBLE
                     btnRestoreWallet.updateButtonView(true)
-
                     hdPath.text = selectHdPath.toString()
 
                     initRecyclerView(account)
@@ -175,10 +184,10 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.supportEvm) {
-                                walletViewModel.evmBalance(chain)
-                            } else {
+                            if (chain.isEvmCosmos() || chain.isCosmos()) {
                                 walletViewModel.balance(chain)
+                            } else {
+                                walletViewModel.evmBalance(chain)
                             }
                         }
                     }
@@ -186,7 +195,7 @@ class WalletSelectFragment : Fragment() {
                 } else {
                     mainnetChains.asSequence().concurrentForEach { chain ->
                         if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
+                            chain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -195,10 +204,10 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.supportEvm) {
-                                walletViewModel.evmBalance(chain)
-                            } else {
+                            if (chain.isEvmCosmos() || chain.isCosmos()) {
                                 walletViewModel.balance(chain)
+                            } else {
+                                walletViewModel.evmBalance(chain)
                             }
                         }
                     }
@@ -268,7 +277,6 @@ class WalletSelectFragment : Fragment() {
 
                     val setHdPath = HdPathSelectFragment {
                         selectHdPath = it
-                        updateView()
                         onInitDataWithSelectedHdPath()
                     }
                     setHdPath.selectedNumber = selectHdPath

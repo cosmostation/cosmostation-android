@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.databinding.ItemEarnBinding
 import wannabit.io.cosmostaion.databinding.ItemEarnStatusBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding

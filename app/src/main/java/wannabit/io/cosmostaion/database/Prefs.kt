@@ -19,7 +19,6 @@ object Prefs {
     private const val PREFERENCES_NAME = "PREFS"
     private const val DB_VERSION = "PRE_DB_VERSION"
     private const val LAST_ACCOUNT = "PRE_LAST_ACCOUNT"
-    private const val DISPLAY_EVM_CHAINS = "PRE_DISPLAY_EVM_CHAINS"
     private const val DISPLAY_CHAINS = "PRE_DISPLAY_CHAINS"
     private const val LAST_PRICE_TIME = "PRE_LAST_PRICE_TIME"
     private const val LAST_CURRENCY = "PRE_CURRENCY"
@@ -68,39 +67,6 @@ object Prefs {
     var lastAccountId: Long
         get() = preference.getLong(LAST_ACCOUNT, -1)
         set(value) = preference.edit().putLong(LAST_ACCOUNT, value).apply()
-
-    fun setDisplayEvmChains(baseAccount: BaseAccount, chainNames: List<String>) {
-        val encoded = try {
-            val jsonString = JSONArray(chainNames).toString()
-            jsonString.toByteArray(Charsets.UTF_8)
-        } catch (e: JSONException) {
-            null
-        }
-
-        if (encoded != null) {
-            val key = "${baseAccount.id} $DISPLAY_EVM_CHAINS"
-            preference.edit().putString(key, String(encoded)).apply()
-        }
-    }
-
-//    fun getDisplayEvmChains(baseAccount: BaseAccount): MutableList<String> {
-//        val key = "${baseAccount.id} $DISPLAY_EVM_CHAINS"
-//        val savedDataString = preference.getString(key, null)
-//
-//        if (!savedDataString.isNullOrEmpty()) {
-//            try {
-//                val jsonArray = JSONArray(savedDataString)
-//                val result = ArrayList<String>()
-//                for (i in 0 until jsonArray.length()) {
-//                    result.add(jsonArray.getString(i))
-//                }
-//                return result
-//            } catch (e: JSONException) {
-//                e.printStackTrace()
-//            }
-//        }
-//        return DEFAULT_DISPLAY_EVM
-//    }
 
     fun setDisplayChains(baseAccount: BaseAccount, chainNames: List<String>) {
         val encoded = try {
@@ -268,7 +234,7 @@ object Prefs {
         return null
     }
 
-    fun setGrpcEndpoint(chain: CosmosLine?, endpoint: String) {
+    fun setGrpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = GRPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
     }

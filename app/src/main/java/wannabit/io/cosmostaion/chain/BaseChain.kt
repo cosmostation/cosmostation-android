@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.chain
 import android.content.Context
 import android.net.Uri
 import android.os.Parcelable
+import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.gson.JsonObject
@@ -30,6 +31,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -350,17 +352,6 @@ open class BaseChain : Parcelable {
 
     open fun assetImg(originSymbol: String): String {
         return ""
-        return CosmostationConstants.CHAIN_BASE_URL + "okc/asset/" + originSymbol.lowercase() + ".png"
-    }
-
-    fun getGrpc(): Pair<String, Int> {
-        val endPoint = Prefs.getGrpcEndpoint(this)
-        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
-            val host = endPoint.split(":")[0].trim()
-            val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            return Pair(host, port)
-        }
-        return Pair(this.grpcHost, this.grpcPort)
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {

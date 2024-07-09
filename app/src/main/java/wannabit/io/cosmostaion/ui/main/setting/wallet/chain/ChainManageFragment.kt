@@ -14,10 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
@@ -29,10 +28,10 @@ class ChainManageFragment : Fragment() {
 
     private lateinit var chainManageAdapter: ChainManageAdapter
 
-    private val allEvmLines: MutableList<EthereumLine> = mutableListOf()
-    private var searchEvmLines: MutableList<EthereumLine> = mutableListOf()
-    private val allCosmosLines: MutableList<CosmosLine> = mutableListOf()
-    private var searchCosmosLines: MutableList<CosmosLine> = mutableListOf()
+    private var mainnetChains = mutableListOf<BaseChain>()
+    private var searchMainnetChains = mutableListOf<BaseChain>()
+    private var testnetChains = mutableListOf<BaseChain>()
+    private var searchTestnetChains = mutableListOf<BaseChain>()
 
     private var isClickable = true
 
@@ -54,21 +53,24 @@ class ChainManageFragment : Fragment() {
     private fun initRecyclerView() {
         binding.recycler.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                for (evmChain in allEvmLines()) {
-                    if (!allEvmLines.any { it.name == evmChain.name }) {
-                        allEvmLines.add(evmChain)
+                allChains().filter { !it.isTestnet && it.isDefault }.forEach { chain ->
+                    if (!mainnetChains.any { it.name == chain.name }) {
+                        mainnetChains.add(chain)
                     }
                 }
-                for (chain in allChains().filter { it.isDefault }) {
-//                    if (!allCosmosLines.any { it.name == chain.name } && !allEvmLines.any { it.name == chain.name }) {
-//                        allCosmosLines.add(chain)
-//                    }
+
+                allChains().filter { it.isTestnet && it.isDefault }.forEach { chain ->
+                    if (!testnetChains.any { it.name == chain.name }) {
+                        testnetChains.add(chain)
+                    }
                 }
-                searchEvmLines.addAll(allEvmLines)
-                searchCosmosLines.addAll(allCosmosLines)
+
+                searchMainnetChains.addAll(mainnetChains)
+                searchTestnetChains.addAll(testnetChains)
 
                 withContext(Dispatchers.Main) {
-                    chainManageAdapter = ChainManageAdapter(searchEvmLines, searchCosmosLines)
+                    chainManageAdapter =
+                        ChainManageAdapter(searchMainnetChains, searchTestnetChains)
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = chainManageAdapter
@@ -81,20 +83,19 @@ class ChainManageFragment : Fragment() {
         }
     }
 
-    private fun selectEndPoint(chain: CosmosLine) {
+    private fun selectEndPoint(chain: BaseChain) {
         if (isClickable) {
             isClickable = false
 
-            val settingType = if (chain is EthereumLine) {
-//                if (chain is ChainOktEvm) { return }
-                if (chain.supportCosmos) {
-                    SettingType.END_POINT_COSMOS
-                } else {
-                    SettingType.END_POINT_EVM
-                }
-            } else {
+            if (chain is ChainOktEvm) return
+            val settingType = if (chain.isEvmCosmos()) {
                 SettingType.END_POINT_COSMOS
+            } else if (chain.supportCosmosGrpc) {
+                SettingType.END_POINT_COSMOS
+            } else {
+                SettingType.END_POINT_EVM
             }
+
             SettingBottomFragment.newInstance(chain, settingType).show(
                 parentFragmentManager, SettingBottomFragment::class.java.name
             )
@@ -121,25 +122,25 @@ class ChainManageFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchEvmLines.clear()
-                    searchCosmosLines.clear()
+                    searchMainnetChains.clear()
+                    searchTestnetChains.clear()
 
                     if (StringUtils.isEmpty(newText)) {
-                        searchEvmLines.addAll(allEvmLines)
-                        searchCosmosLines.addAll(allCosmosLines)
+                        searchMainnetChains.addAll(allChains())
+                        searchTestnetChains.addAll(allChains())
 
                     } else {
                         newText?.let { searchTxt ->
-                            searchEvmLines.addAll(allEvmLines.filter { chain ->
+                            searchMainnetChains.addAll(allChains().filter { chain ->
                                 chain.name.contains(searchTxt, ignoreCase = true)
                             })
 
-                            searchCosmosLines.addAll(allCosmosLines.filter { chain ->
+                            searchTestnetChains.addAll(allChains().filter { chain ->
                                 chain.name.contains(searchTxt, ignoreCase = true)
                             })
                         }
                     }
-                    if (searchEvmLines.isEmpty() && searchCosmosLines.isEmpty()) {
+                    if (searchMainnetChains.isEmpty() && searchTestnetChains.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
                     } else {

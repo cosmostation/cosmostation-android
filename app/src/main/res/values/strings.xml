@@ -11,6 +11,7 @@
     <string name="str_deprecated" translatable="false">Deprecated</string>
     <string name="str_legacy" translatable="false">Legacy</string>
     <string name="str_ethsecp256k1" translatable="false">ethsecp256k1</string>
+    <string name="str_keccak256" translatable="false">keccak256</string>
     <string name="str_secp256k1" translatable="false">secp256k1</string>
     <string name="str_evm" translatable="false">EVM Compat</string>
     <string name="str_available" translatable="false">Available</string>
@@ -400,6 +401,7 @@
     <string name="str_deposit_caution_msg">Send %1$s Network asset ONLY</string>
     <string name="str_reward_address_change_msg">This address is where you receive reward assets.\n<u>Tap here for change reward address.</u> (not recommend)</string>
     <string name="str_already_reward_address_changed_msg">You changed a reward address</string>
+    <string name="str_header_msg">Long press for copy</string>
 
 
     // header
