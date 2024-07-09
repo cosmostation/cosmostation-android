@@ -34,7 +34,6 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -253,9 +252,6 @@ class DashboardFragment : Fragment() {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
                         }
-                        if (isNew) {
-                            PushManager.syncAddresses(Prefs.fcmToken)
-                        }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
@@ -270,9 +266,6 @@ class DashboardFragment : Fragment() {
                             if (!chain.fetched) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
-                        }
-                        if (isNew) {
-                            PushManager.syncAddresses(Prefs.fcmToken)
                         }
                     }
                 }
@@ -526,7 +519,6 @@ class DashboardFragment : Fragment() {
                         initRecyclerView()
                         updateTotalValue()
                         updateSearchView()
-//                        PushManager.syncAddresses(Prefs.fcmToken)
                     }
                 }
             }

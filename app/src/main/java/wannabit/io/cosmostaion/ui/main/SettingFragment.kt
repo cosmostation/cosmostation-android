@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,7 @@ import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportCheckKeyFra
 import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportQrActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.QrImportConfirmListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.qr.WaitingDialog
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.util.Locale
@@ -64,6 +66,8 @@ class SettingFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     private var isClickable = true
+
+    private var waitingDialog: WaitingDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -86,10 +90,24 @@ class SettingFragment : Fragment() {
     private fun initView() {
         binding.apply {
             listOf(
-                accountView, importView, legacyView, chainView, addressBookView,
-                languageView, currencyView, styleView, priceView, alarmView, appLockView, bioView,
-                helpView, homepageView,
-                termView, privacyView, githubView, versionView
+                accountView,
+                importView,
+                legacyView,
+                chainView,
+                addressBookView,
+                languageView,
+                currencyView,
+                styleView,
+                priceView,
+                alarmView,
+                appLockView,
+                bioView,
+                helpView,
+                homepageView,
+                termView,
+                privacyView,
+                githubView,
+                versionView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             updateWalletView()
@@ -102,6 +120,12 @@ class SettingFragment : Fragment() {
                 bioTxt.text = ""
             }
             version.text = "v " + BuildConfig.VERSION_NAME
+
+            if (BaseData.pushRefreshIfNeed()) {
+                PushManager.updateStatus(Prefs.alarmEnable) { _, _ -> }
+            }
+
+            waitingDialog = WaitingDialog.newInstance()
         }
     }
 
@@ -115,7 +139,6 @@ class SettingFragment : Fragment() {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
             }
-            walletViewModel.pushStatus(Prefs.fcmToken)
         }
     }
 
@@ -395,8 +418,8 @@ class SettingFragment : Fragment() {
             legacySwitch.isChecked = Prefs.displayLegacy
             legacySwitch.setSwitchView()
 
+            alarmSwitch.isChecked = Prefs.alarmEnable
             alarmSwitch.setSwitchView()
-            setUpAlarmSwitch()
 
             appLockSwitch.isChecked = Prefs.appLock
             appLockSwitch.setSwitchView()
@@ -441,7 +464,13 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 }
                 setVibrate()
-                syncPushStatus()
+                waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
+                PushManager.updateStatus(isChecked) { _, msg ->
+                    requireActivity().makeToast(msg)
+                    if (waitingDialog?.isVisible == true) {
+                        waitingDialog?.dismissAllowingStateLoss()
+                    }
+                }
             }
 
             appLockSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -489,20 +518,6 @@ class SettingFragment : Fragment() {
             vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
         } else {
             vibrator.vibrate(100)
-        }
-    }
-
-    private fun syncPushStatus() {
-        if (!Prefs.alarmEnable) {
-//            PushManager.syncAddresses(Prefs.fcmToken)
-        }
-        PushManager.updateStatus(binding.alarmSwitch.isChecked, Prefs.fcmToken)
-    }
-
-    private fun setUpAlarmSwitch() {
-        walletViewModel.pushStatusResult.observe(viewLifecycleOwner) {
-            binding.alarmSwitch.isChecked = it
-            Prefs.alarmEnable = it
         }
     }
 

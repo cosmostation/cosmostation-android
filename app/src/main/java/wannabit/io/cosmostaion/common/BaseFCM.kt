@@ -34,23 +34,68 @@ class BaseFCM : FirebaseMessagingService() {
         Prefs.fcmToken = token
     }
 
+    override fun handleIntent(intent: Intent?) {
+//        val new = intent?.apply {
+//            Log.e("Test1234 : ", extras.toString())
+//            val temp = extras?.apply {
+//                remove(Constants.MessageNotificationKeys.ENABLE_NOTIFICATION)
+//                com.google.firebase.messaging.RemoteMessage.Notification
+//
+//                remove(com.google.firebase.messaging.NotificationParams.(Constants.MessageNotificationKeys.ENABLE_NOTIFICATION))
+//            }
+//            replaceExtras(temp)
+//        }
+//        super.handleIntent(new)
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        remoteMessage.notification?.let { notification ->
-            val data = remoteMessage.data
-            val bundle = Bundle()
-            for ((key, value) in data) {
-                bundle.putString(key, value)
-            }
-            makeNotification(notification, bundle, makeAlertIntent(remoteMessage)!!)
+        super.onMessageReceived(remoteMessage)
+        remoteMessage.notification?.let {
+//            sendNotification(it)
         }
     }
 
+//    private fun sendNotification(notification: RemoteMessage.Notification) {
+//        val intent = Intent(this, PushDialogActivity::class.java).apply {
+//            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+//        }
+//        val pendingIntent = PendingIntent.getActivity(
+//            this, 0, intent,
+//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+//        )
+//
+//        val notificationBuilder = NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
+//            .setContentTitle(notification.title)
+//            .setContentText(notification.body)
+//            .setAutoCancel(true)
+//            .setSmallIcon(R.mipmap.ic_launcher)
+//            .setContentIntent(pendingIntent)
+//
+//        val notificationManager =
+//            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        notificationManager.notify(0, notificationBuilder.build())
+//    }
+
+
+//    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+//        remoteMessage.notification?.let { notification ->
+//            val data = remoteMessage.data
+//            val bundle = Bundle()
+//            for ((key, value) in data) {
+//                bundle.putString(key, value)
+//            }
+//            makeNotification(notification, bundle)
+//        }
+//    }
+
     @SuppressLint("RemoteViewLayout")
     private fun makeNotification(
-        notification: RemoteMessage.Notification,
-        bundle: Bundle,
-        intent: Intent
+        notification: RemoteMessage.Notification, bundle: Bundle
     ) {
+        val intent = Intent(this, PushDialogActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        }
+
         val pendingIntent = PendingIntent.getActivity(
             this, Random(System.currentTimeMillis()).nextInt(), intent, PendingIntent.FLAG_IMMUTABLE
         )
@@ -71,8 +116,8 @@ class BaseFCM : FirebaseMessagingService() {
         val notificationBuilder: NotificationCompat.Builder =
             NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification).setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent).setCustomContentView(customNotificationView)
+                .setSound(defaultSoundUri).setContentIntent(pendingIntent)
+                .setCustomContentView(customNotificationView)
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -85,8 +130,7 @@ class BaseFCM : FirebaseMessagingService() {
 
         Glide.with(this).asBitmap().load(image).into(object : CustomTarget<Bitmap>() {
             override fun onResourceReady(
-                resource: Bitmap,
-                transition: Transition<in Bitmap>?
+                resource: Bitmap, transition: Transition<in Bitmap>?
             ) {
                 notificationBuilder.setStyle(
                     NotificationCompat.BigPictureStyle().bigPicture(resource)
@@ -100,10 +144,9 @@ class BaseFCM : FirebaseMessagingService() {
         notificationManager.notify(
             Random(System.currentTimeMillis()).nextInt(), notificationBuilder.build()
         )
-
     }
 
-    private fun makeAlertIntent(remoteMessage: RemoteMessage): Intent? {
+    private fun makeAlertIntent(bundle: Bundle, remoteMessage: RemoteMessage): Intent? {
         return try {
             val intent = Intent(this, PushDialogActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

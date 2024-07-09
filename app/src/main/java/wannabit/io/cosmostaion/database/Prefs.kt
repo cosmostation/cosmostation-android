@@ -42,6 +42,8 @@ object Prefs {
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
+    private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
+    private const val PUSH_NOTI = "PRE_PUSH_NOTI"
 
 
     private val preference =
@@ -197,6 +199,10 @@ object Prefs {
     var foreToBack: Boolean
         get() = preference.getBoolean(FOREGROUND_TO_BACKGROUND, true)
         set(value) = preference.edit().putBoolean(FOREGROUND_TO_BACKGROUND, value).apply()
+
+    var pushLastTime: Long
+        get() = preference.getLong(FCM_SYNC_TIME, 0)
+        set(value) = preference.edit().putLong(FCM_SYNC_TIME, value).apply()
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>

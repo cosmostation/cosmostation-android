@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Price
-import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
 
@@ -31,8 +30,6 @@ interface WalletRepository {
     suspend fun price(currency: String): NetworkResult<List<Price>>
 
     suspend fun usdPrice(): NetworkResult<List<Price>>
-
-    suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>>
 
     suspend fun asset(): NetworkResult<AssetResponse>
 

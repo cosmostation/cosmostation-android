@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -40,8 +41,6 @@ import wannabit.io.cosmostaion.databinding.DialogUpdateAppBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.syncAddresses
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.updateStatus
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitListener
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitSelectFragment
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
@@ -276,10 +275,6 @@ class IntroActivity : AppCompatActivity() {
             }
             val token = task.result
             if (Prefs.fcmToken != token) {
-                if (Prefs.alarmEnable) {
-                    syncAddresses(token)
-                    updateStatus(Prefs.alarmEnable, token)
-                }
                 Prefs.fcmToken = token
             }
         }

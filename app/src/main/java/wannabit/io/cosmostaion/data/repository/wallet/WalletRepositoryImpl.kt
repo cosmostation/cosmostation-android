@@ -58,7 +58,6 @@ import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Price
-import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
@@ -94,12 +93,6 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun usdPrice(): NetworkResult<List<Price>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.price("usd")
-        }
-    }
-
-    override suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>> {
-        return safeApiCall(Dispatchers.IO) {
-            walletApi.pushStatus(fcmToken)
         }
     }
 
