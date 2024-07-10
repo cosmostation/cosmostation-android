@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.swapRewardDenoms
+import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -938,6 +939,13 @@ object Signer {
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
 
+        } else if (chain is ChainArtelaTestnet) {
+            val pubKey = com.artela.crypto.v1.ethsecp256k1.KeysProto.PubKey.newBuilder().setKey(
+                ByteString.copyFrom(ecKey.pubKey)
+            ).build()
+            Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+
         } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             val pubKey =
                 KeysProto.PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
@@ -1000,6 +1008,11 @@ object Signer {
 
             } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
                 com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+                    return Triple(account.address, account.accountNumber, account.sequence)
+                }
+
+            } else if (rawAccount.typeUrl.contains(com.artela.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
+                com.artela.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
                     return Triple(account.address, account.accountNumber, account.sequence)
                 }
 
@@ -1091,6 +1104,8 @@ object Signer {
                 Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
             } else if (it.account.typeUrl.contains("/injective")) {
                 Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
+            } else if (it.account.typeUrl.contains("/artela")) {
+                Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey").build()
             } else {
                 Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
             }
