@@ -44,6 +44,7 @@ object Prefs {
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
     private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
     private const val INJECT_WARN = "PRE_INJECT_WARN"
+    private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
 
 
     private val preference =
@@ -207,6 +208,10 @@ object Prefs {
     var injectWarn: Long
         get() = preference.getLong(INJECT_WARN, 0)
         set(value) = preference.edit().putLong(INJECT_WARN, value).apply()
+
+    var displayTestnet: Boolean
+        get() = preference.getBoolean(DISPLAY_TESTNET, false)
+        set(value) = preference.edit().putBoolean(DISPLAY_TESTNET, value).apply()
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>

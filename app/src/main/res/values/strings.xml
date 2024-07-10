@@ -194,6 +194,7 @@
     <string name="title_add_account">Add account</string>
     <string name="title_import_qr">Import account with QR scan</string>
     <string name="title_legacy_enabled">Enable legacy addresses</string>
+    <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
     <string name="title_address_book">Address book</string>
     <string name="title_general">General</string>

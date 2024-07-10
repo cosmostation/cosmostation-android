@@ -93,6 +93,7 @@ class SettingFragment : Fragment() {
                 accountView,
                 importView,
                 legacyView,
+                testnetView,
                 chainView,
                 addressBookView,
                 languageView,
@@ -418,6 +419,9 @@ class SettingFragment : Fragment() {
             legacySwitch.isChecked = Prefs.displayLegacy
             legacySwitch.setSwitchView()
 
+            testnetSwitch.isChecked = Prefs.displayTestnet
+            testnetSwitch.setSwitchView()
+
             alarmSwitch.isChecked = Prefs.alarmEnable
             alarmSwitch.setSwitchView()
 
@@ -453,6 +457,20 @@ class SettingFragment : Fragment() {
                 }
                 setVibrate()
                 ApplicationViewModel.shared.displayLegacy(Prefs.displayLegacy)
+            }
+
+            testnetSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    testnetSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    Prefs.displayTestnet = true
+                } else {
+                    testnetSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    Prefs.displayTestnet = false
+                }
+                setVibrate()
+                ApplicationViewModel.shared.displayTestnet(Prefs.displayTestnet)
             }
 
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->

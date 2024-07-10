@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -352,14 +353,17 @@ class CommonTransferFragment : BaseTxFragment() {
             BaseData.assets?.forEach { asset ->
                 if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
+                        Log.e("Test1234 : ", asset.chain.toString())
+                        Log.e("Test12345 : ", fromChain.apiName)
+                        Log.e("Test123456 : ", asset.beforeChain(fromChain.apiName).toString())
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
-                    } else if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    } else if (asset.origin_chain == fromChain.apiName && asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
 
                 } else {
-                    if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    if (asset.origin_chain == fromChain.apiName && asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
                 }
@@ -1013,7 +1017,7 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun addRecipientChainIfNotExists(apiName: String?) {
-        allChains().firstOrNull { it.apiName == apiName }?.let { sendAble ->
+        allChains().filter { !it.isTestnet && it.supportCosmosGrpc }.firstOrNull { it.apiName == apiName }?.let { sendAble ->
             if (recipientAbleChains.none { it.apiName == sendAble.apiName }) {
                 recipientAbleChains.add(sendAble)
             }

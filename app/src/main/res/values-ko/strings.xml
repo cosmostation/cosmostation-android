@@ -136,6 +136,7 @@
     <string name="title_add_account">계정 추가</string>
     <string name="title_import_qr">QR로 계정 추가</string>
     <string name="title_legacy_enabled">레거시 주소 활성화</string>
+    <string name="title_testnet_enabled">테스트넷 활성화</string>
     <string name="title_chain">체인 관리</string>
     <string name="title_address_book">주소록 관리</string>
     <string name="title_general">일반</string>

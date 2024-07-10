@@ -476,6 +476,21 @@ class DashboardFragment : Fragment() {
             }
         }
 
+        ApplicationViewModel.shared.displayTestnetResult.observe(viewLifecycleOwner) {
+            ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
+            walletViewModel.price(BaseData.currencyName().lowercase())
+            lifecycleScope.launch(Dispatchers.IO) {
+                baseAccount?.initAccount()
+                baseAccount?.sortedDisplayChains()?.forEach { chain ->
+                    chain.fetched = false
+                }
+                withContext(Dispatchers.Main) {
+                    initData(baseAccount)
+                    updateViewWithLoadedData(baseAccount)
+                }
+            }
+        }
+
         ApplicationViewModel.shared.styleOptionResult.observe(viewLifecycleOwner) { isChanged ->
             if (isChanged) dashAdapter.notifyDataSetChanged()
         }

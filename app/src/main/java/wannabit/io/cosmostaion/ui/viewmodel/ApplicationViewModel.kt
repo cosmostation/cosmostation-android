@@ -81,6 +81,11 @@ class ApplicationViewModel(
         displayLegacyResult.postValue(isDisplay)
     }
 
+    var displayTestnetResult = SingleLiveEvent<Boolean>()
+    fun displayTestnet(isDisplay: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        displayTestnetResult.postValue(isDisplay)
+    }
+
     var styleOptionResult = SingleLiveEvent<Boolean>()
     fun styleOption(isChanged: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         styleOptionResult.postValue(isChanged)

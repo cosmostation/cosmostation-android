@@ -484,7 +484,7 @@ open class BaseChain : Parcelable {
 }
 
 fun allChains(): MutableList<BaseChain> {
-    val chains = mutableListOf<BaseChain>()
+    var chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
     chains.add(ChainAkash())
     chains.add(ChainAltheaEvm())
@@ -588,7 +588,10 @@ fun allChains(): MutableList<BaseChain> {
         }
     }
     if (!Prefs.displayLegacy) {
-        return chains.filter { it.isDefault }.toMutableList()
+        chains = chains.filter { it.isDefault }.toMutableList()
+    }
+    if (!Prefs.displayTestnet) {
+        chains = chains.filter { !it.isTestnet }.toMutableList()
     }
     return chains
 }

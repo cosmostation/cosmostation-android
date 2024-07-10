@@ -168,8 +168,9 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                     SendAssetType.COSMOS_EVM_COIN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
+                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
                             .forEach { refAddress ->
-                                if (refAddress.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
                                     if (Prefs.displayLegacy) {
                                         refAddresses.add(refAddress)
                                     } else {
@@ -215,8 +216,9 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                     SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
+                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
                             .forEach { refAddress ->
-                                if (refAddress.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
                                     if (Prefs.displayLegacy) {
                                         refAddresses.add(refAddress)
                                     } else {
@@ -229,14 +231,19 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     }
                                 }
                             }
+
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                if (addressBook.chainName == toChain.name && !addressBook.address.startsWith(
+                                        "0x"
+                                    ) && addressBook.address.lowercase() != senderAddress.lowercase()
+                                ) {
                                     addressBooks.add(addressBook)
                                 }
                             }
                     }
                 }
+                sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
 
                 withContext(Dispatchers.Main) {
@@ -419,6 +426,12 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         val chainLineMap = allChains().associateBy { it.tag }
         refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId }
             .thenByDescending { chainLineMap[it.chainTag]?.isDefault == true })
+    }
+
+    private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {
+        val accountMap =
+            AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
+        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })
     }
 
     override fun onDestroyView() {
