@@ -43,7 +43,7 @@ object Prefs {
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
     private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
-    private const val PUSH_NOTI = "PRE_PUSH_NOTI"
+    private const val INJECT_WARN = "PRE_INJECT_WARN"
 
 
     private val preference =
@@ -203,6 +203,10 @@ object Prefs {
     var pushLastTime: Long
         get() = preference.getLong(FCM_SYNC_TIME, 0)
         set(value) = preference.edit().putLong(FCM_SYNC_TIME, value).apply()
+
+    var injectWarn: Long
+        get() = preference.getLong(INJECT_WARN, 0)
+        set(value) = preference.edit().putLong(INJECT_WARN, value).apply()
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>

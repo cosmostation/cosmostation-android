@@ -250,6 +250,7 @@
     <string name="title_select_style">Style 선택</string>
     <string name="title_delist">지원 중단 안내</string>
     <string name="title_legacy_path">레거시 경로 지원 중단 안내</string>
+    <string name="title_support_inject">인젝션 지원</string>
 
 
     // msg
@@ -325,6 +326,10 @@
     <string name="str_reward_address_change_msg">이 주소는 리워드 자산을 받는 주소입니다.\n<u>여기를 눌러 리워드 주소를 변경하실 수 있습니다.</u> (권장하지 않음)</string>
     <string name="str_already_reward_address_changed_msg">이미 리워드 주소를 변경하였습니다.</string>
     <string name="str_header_msg">길게 눌러서 복사하실 수 있습니다</string>
+    <string name="str_affect_danger_msg">당신의 자산에 영향을 미칩니다</string>
+    <string name="str_affect_safe_msg">당신의 자산에 영향을 미치지 않습니다</string>
+    <string name="str_dapp_warn_msg">요청하는 사이트를 신뢰하고 그 내용을 완전히 이해하는 경우에만 이 메세지에 서명하세요</string>
+    <string name="str_support_injection_msg">사용자의 편의와 반응속도 개선을 위해 인젝션 방식(EIP-6963)을 지원합니다. 디앱 사용시 데크스탑 지갑 등을 선택하세요.\n데스크탑의 익스텐션 지갑과 동일한 사용자 경험을 느끼실 수 있습니다.\nEVM용 디앱의 경우 EIP-6963 스팩을 지원함으로 편한한 web3 여행을 즐기실 수 있습니다.</string>
 
 
     // error

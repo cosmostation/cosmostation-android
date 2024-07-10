@@ -254,6 +254,7 @@
     <string name="title_select_style">Select style</string>
     <string name="title_delist">サポートの終了</string>
     <string name="title_legacy_path">レガシーパスはサポートされません</string>
+    <string name="title_support_inject">インジェクションをサポート</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -328,6 +329,10 @@
     <string name="str_reward_address_change_msg">このアドレスはリワード資産を受け取るためのアドレスです。\n<u>報酬の住所を変更するにはここをタップしてください。</u> (お勧めしません)</string>
     <string name="str_already_reward_address_changed_msg">すでにリワードアドレスを変更しました。</string>
     <string name="str_header_msg">長押しでコピーします</string>
+    <string name="str_affect_danger_msg">あなたの資産に影響を与えます</string>
+    <string name="str_affect_safe_msg">あなたの資産に影響を与えません</string>
+    <string name="str_dapp_warn_msg">このメッセージに署名するのは、要求しているサイトを信頼し、その内容を完全に理解している場合にのみ行ってください</string>
+    <string name="str_support_injection_msg">ユーザーの利便性と応答速度の改善のために、インジェクション方式（EIP-6963）をサポートしています。DAppを使用する際は、デスクトップウォレットなどを選択してください。\nデスクトップのエクステンションウォレットと同じユーザーエクスペリエンスを体験できます。\nEVM用DAppの場合、EIP-6963仕様をサポートしているため、快適なWeb3の旅をお楽しみいただけます。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

@@ -116,6 +116,18 @@ object BaseData {
         return last < now
     }
 
+    fun setInjectWarn() {
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        Prefs.injectWarn = currentDate.timeInMillis
+    }
+
+    fun getInjectWarn(): Boolean {
+        val last = Prefs.injectWarn
+        val now = Calendar.getInstance().timeInMillis
+        return last < now
+    }
+
     fun currencyName(): String {
         when (Prefs.currency) {
             0 -> return "USD"

@@ -953,7 +953,7 @@ object Signer {
 
     private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        if (selectedChain?.supportEvm == true) {
+        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
             val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
             System.arraycopy(sig.r, 0, sigData, 0, 32)
             System.arraycopy(sig.s, 0, sigData, 32, 32)

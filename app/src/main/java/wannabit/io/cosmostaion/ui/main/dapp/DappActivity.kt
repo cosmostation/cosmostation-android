@@ -7,10 +7,11 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.webkit.JavascriptInterface
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
@@ -20,7 +21,6 @@ import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc
@@ -48,6 +48,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -58,7 +59,6 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
@@ -103,10 +103,6 @@ class DappActivity : BaseActivity() {
 
     private var currentEvmChainId: String? = null
 
-    private var isAnimationInProgress = false
-    private var previousScrollY = 0
-    private lateinit var bottomViewHeightConstraint: ConstraintLayout.LayoutParams
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDappBinding.inflate(layoutInflater)
@@ -129,10 +125,9 @@ class DappActivity : BaseActivity() {
     }
 
     private fun initAllKeyData(): MutableList<BaseChain> {
-        val result = mutableListOf<BaseChain>()
+        val result = allChains()
         lifecycleScope.launch(Dispatchers.IO) {
             initData()
-
             BaseData.baseAccount?.let { account ->
                 account.apply {
                     if (type == BaseAccountType.MNEMONIC) {
@@ -161,9 +156,6 @@ class DappActivity : BaseActivity() {
     private fun setUpDappView() {
         binding.apply {
             setUpBarFunction()
-            bottomViewHeightConstraint = navView.layoutParams as ConstraintLayout.LayoutParams
-            dappWebView.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener())
-
             dappWebView.apply {
                 settings.apply {
                     javaScriptEnabled = true
@@ -200,6 +192,14 @@ class DappActivity : BaseActivity() {
                 dappWebView.loadUrl(intent.getStringExtra("dapp") ?: "")
             }
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (BaseData.getInjectWarn()) {
+                InjectWarnFragment().show(
+                    supportFragmentManager, InjectWarnFragment::class.java.name
+                )
+            }
+        }, 1000)
     }
 
     private fun setUpBarFunction() {
@@ -411,8 +411,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -426,8 +425,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -567,7 +565,6 @@ class DappActivity : BaseActivity() {
         pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         super.onDestroy()
         binding.apply {
-            dappWebView.viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener())
             dappWebView.removeJavascriptInterface("station")
         }
     }
@@ -779,7 +776,7 @@ class DappActivity : BaseActivity() {
 
                     val accountJson = JSONObject()
                     accountJson.put("isKeystone", false)
-                    accountJson.put("isEthermint", false)
+                    accountJson.put("isEthermint", selectChain?.supportEvm)
                     accountJson.put("isLedger", false)
                     BaseData.baseAccount?.let { account ->
                         selectChain = selectedChain(allChains, chainId)
@@ -792,24 +789,32 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainIds" -> {
                     val supportChainIds =
-                        allChains().filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
-                            .map { it.chainIdCosmos }.distinct()
+                        allChains?.filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            ?.map { it.chainIdCosmos }?.distinct()
+                    if (supportChainIds?.isNotEmpty() == true) {
+                        val dataJson = JSONObject()
+                        dataJson.put("official", JSONArray(supportChainIds))
+                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                        appToWebResult(messageJson, dataJson, messageId)
 
-                    val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(supportChainIds))
-                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                    appToWebResult(messageJson, dataJson, messageId)
+                    } else {
+                        appToWebError("Error")
+                    }
                 }
 
                 "cos_supportedChainNames" -> {
-                    val supportChainNames =
-                        allChains().filter { it.supportCosmosGrpc }.map { it.name.lowercase() }
-                            .distinct()
+                    val supportChainNames = allChains?.filter {
+                        it.supportCosmosGrpc && it.chainDappName()?.isNotEmpty() == true
+                    }?.map { it.name.lowercase() }?.distinct()
+                    if (supportChainNames?.isNotEmpty() == true) {
+                        val dataJson = JSONObject()
+                        dataJson.put("official", JSONArray(supportChainNames))
+                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                        appToWebResult(messageJson, dataJson, messageId)
 
-                    val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(supportChainNames))
-                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                    appToWebResult(messageJson, dataJson, messageId)
+                    } else {
+                        appToWebError("Error")
+                    }
                 }
 
                 "cos_disconnect" -> {
@@ -821,9 +826,9 @@ class DappActivity : BaseActivity() {
                 "cos_addChain" -> {
                     val params = messageJson.getJSONObject("params")
                     val supportChainIds =
-                        allChains().filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
-                            .map { it.chainIdCosmos }.distinct()
-                    if (supportChainIds.contains(params.getString("chainId"))) {
+                        allChains?.filter { !it.isTestnet && it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            ?.map { it.chainIdCosmos }?.distinct()
+                    if (supportChainIds?.contains(params.getString("chainId")) == true) {
                         appToWebResult(
                             messageJson, true, messageId
                         )
@@ -837,8 +842,7 @@ class DappActivity : BaseActivity() {
                 "cos_signMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_message")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignMessageRequest(messageJson, messageId, data)
@@ -855,8 +859,7 @@ class DappActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_amino")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -873,8 +876,7 @@ class DappActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_direct")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -926,17 +928,17 @@ class DappActivity : BaseActivity() {
 
                 "wallet_switchEthereumChain" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val evmChainIds = allChains().map { it.chainIdEvm }.distinct()
+                        val evmChainIds = allChains?.map { chain -> chain.chainIdEvm }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
 
-                        if (evmChainIds.contains(chainId)) {
+                        if (evmChainIds?.contains(chainId) == true) {
                             currentEvmChainId = chainId
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
                             val chainNetwork =
-                                allChains().firstOrNull { it.chainIdEvm == chainId }?.name
+                                allChains?.firstOrNull { it.chainIdEvm == chainId }?.name
                             withContext(Dispatchers.Main) {
                                 makeToast("Connected to $chainNetwork network")
                             }
@@ -959,21 +961,17 @@ class DappActivity : BaseActivity() {
                     }
                     selectEvmChain =
                         allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
-//                    rpcUrl = selectEvmChain?.getEvmRpc()
-//                    web3j = Web3j.build(HttpService(rpcUrl))
-//                    appToWebResult(messageJson, currentEvmChainId, messageId)
+                    rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
+                    web3j = Web3j.build(HttpService(rpcUrl))
+                    appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {
-                    if (selectEvmChain?.address?.isNotEmpty() == true) {
-                        val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
-                            selectEvmChain?.address
-                        } else {
-                            ByteUtils.convertBech32ToEvm(selectEvmChain?.address)
-                        }
+                    if (selectEvmChain?.evmAddress?.isNotEmpty() == true) {
                         appToWebResult(
-                            messageJson, JSONArray(listOf(ethAddress)), messageId
+                            messageJson, JSONArray(listOf(selectEvmChain?.evmAddress)), messageId
                         )
+
                     } else {
                         appToWebResult(
                             messageJson, JSONArray(listOf("")), messageId
@@ -1164,7 +1162,8 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1179,19 +1178,15 @@ class DappActivity : BaseActivity() {
                 }
 
                 "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
-                    val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
-                        selectEvmChain?.address
-                    } else {
-                        ByteUtils.convertBech32ToEvm(selectEvmChain?.address)
-                    }
                     val params = messageJson.getJSONArray("params")
-                    if (params.get(0).toString().lowercase() != ethAddress?.lowercase()) {
+                    if (params.get(0).toString()
+                            .lowercase() != selectEvmChain?.evmAddress?.lowercase()
+                    ) {
                         appToWebError(messageJson, messageId, "Wrong address")
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1209,8 +1204,7 @@ class DappActivity : BaseActivity() {
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1401,6 +1395,22 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun emitCloseToWeb() {
+        val responseJson = JSONObject().apply {
+            put("result", JSONArray())
+        }
+        val postMessageJson = JSONObject().apply {
+            put("message", responseJson)
+            put("type", "accountsChanged")
+            put("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
+    }
+
     private fun appToWebResult(messageJson: JSONObject, resultJson: Any?, messageId: String) {
         val responseJson = JSONObject().apply {
             put("result", resultJson)
@@ -1474,38 +1484,6 @@ class DappActivity : BaseActivity() {
                     "window.postMessage(%s);", postMessageJson.toString()
                 ), null
             )
-        }
-    }
-
-    private fun scrollChangedListener() = ViewTreeObserver.OnScrollChangedListener {
-        binding.apply {
-            if (!isAnimationInProgress) {
-                val currentScrollY = dappWebView.scrollY
-                if (currentScrollY < previousScrollY) {
-                    bottomViewHeightConstraint.height = 120
-                    animateTopViewHeight()
-                } else if (currentScrollY > previousScrollY) {
-                    bottomViewHeightConstraint.height = 1
-                    animateTopViewHeight()
-                }
-
-                if (currentScrollY == 0) {
-                    bottomViewHeightConstraint.height = 120
-                    animateTopViewHeight()
-                }
-                previousScrollY = currentScrollY
-            }
-        }
-    }
-
-    private fun animateTopViewHeight() {
-        binding.apply {
-            isAnimationInProgress = true
-            navView.layoutParams = bottomViewHeightConstraint
-            navView.requestLayout()
-            navView.animate().setDuration(200).withEndAction {
-                isAnimationInProgress = false
-            }.start()
         }
     }
 

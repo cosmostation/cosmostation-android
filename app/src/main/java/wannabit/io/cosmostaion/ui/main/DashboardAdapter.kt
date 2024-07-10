@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -60,14 +59,6 @@ class DashboardAdapter(
                     } else {
                         holder.proBind(chain)
                     }
-
-
-
-//                    if (chain.supportEvm) {
-//                        holder.evmBind(chain)
-//                    } else {
-//                        holder.bind(chain)
-//                    }
 
                     holder.itemView.setOnClickListener {
                         listener.nodeDown(chain)

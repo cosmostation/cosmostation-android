@@ -23,23 +23,46 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCrescent
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCudos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
+import wannabit.io.cosmostaion.chain.evmClass.ChainBase
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -48,6 +71,7 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.math.RoundingMode
 
 @Parcelize
@@ -277,6 +301,23 @@ open class BaseChain : Parcelable {
             }
     }
 
+    fun evmSupportEip1559(): Boolean {
+        return getChainListParam()?.get("evm_fee")?.let {
+            it.asJsonObject["eip1559"].asBoolean
+        } ?: run {
+            false
+        }
+    }
+
+    fun evmGasMultiply(): BigInteger? {
+        return if (getChainListParam()?.get("evm_fee")?.isJsonNull == true) {
+            BigInteger("13")
+        } else {
+            (getChainListParam()?.get("evm_fee")?.asJsonObject?.get("simul_gas_multiply")?.asDouble?.toBigDecimal()
+                ?.multiply(BigDecimal(10)))?.toBigInteger()
+        }
+    }
+
     fun isTxFeePayable(c: Context): Boolean {
         getDefaultFeeCoins(c).forEach { fee ->
             if (fee.amount.toBigDecimal() <= grpcFetcher?.balanceAmount(fee.denom)) {
@@ -304,7 +345,10 @@ open class BaseChain : Parcelable {
     }
 
     fun chainDappName(): String? {
-        return getChainListParam()?.get("name_for_dapp")?.asString?.lowercase()
+        getChainListParam()?.get("name_for_dapp")?.let {
+            return it.asString?.lowercase()
+        }
+        return ""
     }
 
     fun isGasSimulable(): Boolean {
@@ -414,6 +458,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAssetMantle())
     chains.add(ChainAxelar())
     chains.add(ChainBand())
+    chains.add(ChainBase())
     chains.add(ChainBitcanna())
     chains.add(ChainBitsong())
     chains.add(ChainCelestia())
@@ -421,48 +466,44 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainComdex())
     chains.add(ChainCoreum())
     chains.add(ChainCryptoorg())
+    chains.add(ChainCudos())
+    chains.add(ChainDesmos())
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
+    chains.add(ChainFetchAi())
+    chains.add(ChainFetchAi60Old())
+    chains.add(ChainFetchAi60Secp())
     chains.add(ChainFinschia())
+    chains.add(ChainGovgen())
+    chains.add(ChainGravityBridge())
     chains.add(ChainInjective())
+    chains.add(ChainIris())
+    chains.add(ChainIxo())
     chains.add(ChainJuno())
     chains.add(ChainKavaEvm())
     chains.add(ChainKava459())
+    chains.add(ChainKava118())
+    chains.add(ChainKi())
+    chains.add(ChainKyve())
+    chains.add(ChainLikeCoin())
+    chains.add(ChainLum880())
+    chains.add(ChainLum118())
+    chains.add(ChainMars())
+    chains.add(ChainMedibloc())
+    chains.add(ChainNeutron())
+    chains.add(ChainNibiru())
+    chains.add(ChainNoble())
+    chains.add(ChainNyx())
     chains.add(ChainOktEvm())
     chains.add(ChainOkt996Keccak())
     chains.add(ChainOkt996Secp())
     chains.add(ChainOsmosis())
-    chains.add(ChainNeutron())
+    chains.add(ChainOptimism())
+    chains.add(ChainPersistence118())
+    chains.add(ChainPersistence750())
     chains.add(ChainStargaze())
-//    lines.add(ChainCryptoorg())
-//    lines.add(ChainCudos())
-//    lines.add(ChainDesmos())
-//    lines.add(ChainDydx())
-//    lines.add(ChainFetchAi())
-//    lines.add(ChainFetchAi60Secp())
-//    lines.add(ChainFetchAi60Old())
-//    lines.add(ChainFinschia())
-//    lines.add(ChainGovgen())
-//    lines.add(ChainGravityBridge())
-//    lines.add(ChainInjective())
-//    lines.add(ChainIris())
-//    lines.add(ChainIxo())
-//    lines.add(ChainJuno())
-//    lines.add(ChainKava459())
-//    lines.add(ChainKava118())
-//    lines.add(ChainKi())
-//    lines.add(ChainKyve())
-//    lines.add(ChainLikeCoin())
-//    lines.add(ChainLum880())
-//    lines.add(ChainLum118())
-//    lines.add(ChainMars())
-//    lines.add(ChainMedibloc())
-//    lines.add(ChainNeutron())
-//    lines.add(ChainNibiru())
-//    lines.add(ChainNoble())
-//    lines.add(ChainNyx())
 //    lines.add(ChainOmniflix())
 //    lines.add(ChainOnomy())
 //    lines.add(ChainOsmosis())
