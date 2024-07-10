@@ -54,12 +54,11 @@ class WalletSelectAdapter(
                 if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
                     val chain = mainnetChains[position - 1]
                     holder.mainnetBind(chain, selectedTags, listener)
-                }
 
-//                } else {
-//                    val line = testnetChains[position - (mainnetChains.size + 2)]
-//                    holder.bind(account, line, selectedTags, listener)
-//                }
+                } else {
+                    val testnet = testnetChains[position - (mainnetChains.size + 2)]
+                    holder.testnetBind(testnet, selectedTags, listener)
+                }
             }
         }
     }

@@ -226,14 +226,12 @@ class ChainEditFragment : BaseTxFragment() {
 
                         } else {
                             newText?.let { searchTxt ->
-                                searchMainnetChains.addAll(account.allChains.filter { !it.isTestnet }
-                                    .filter { chain ->
-                                        chain.name.contains(searchTxt, ignoreCase = true)
+                                searchMainnetChains.addAll(account.allChains.filter { chain ->
+                                        chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet
                                     })
 
-                                searchTestnetChains.addAll(account.allChains.filter { it.isTestnet }
-                                    .filter { chain ->
-                                        chain.name.contains(searchTxt, ignoreCase = true)
+                                searchTestnetChains.addAll(account.allChains.filter { chain ->
+                                        chain.name.contains(searchTxt, ignoreCase = true) && chain.isTestnet
                                     })
                             }
                         }

@@ -52,17 +52,51 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
+import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
+import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBase
+import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
+import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
+import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
+import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
+import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -453,18 +487,24 @@ fun allChains(): MutableList<BaseChain> {
     val chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
     chains.add(ChainAkash())
+    chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
+    chains.add(ChainArbitrum())
     chains.add(ChainArchway())
+    chains.add(ChainAvalanche())
     chains.add(ChainAssetMantle())
     chains.add(ChainAxelar())
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBitcanna())
     chains.add(ChainBitsong())
+    chains.add(ChainBinanceSmart())
+    chains.add(ChainCantoEvm())
     chains.add(ChainCelestia())
     chains.add(ChainChihuahua())
     chains.add(ChainComdex())
     chains.add(ChainCoreum())
+    chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
     chains.add(ChainCudos())
     chains.add(ChainDesmos())
@@ -478,6 +518,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFinschia())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
+    chains.add(ChainHumansEvm())
     chains.add(ChainInjective())
     chains.add(ChainIris())
     chains.add(ChainIxo())
@@ -499,46 +540,39 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOktEvm())
     chains.add(ChainOkt996Keccak())
     chains.add(ChainOkt996Secp())
+    chains.add(ChainOmniflix())
+    chains.add(ChainOnomy())
     chains.add(ChainOsmosis())
     chains.add(ChainOptimism())
+    chains.add(ChainPassage())
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
+    chains.add(ChainPolygon())
+    chains.add(ChainProvenance())
+    chains.add(ChainQuasar())
+    chains.add(ChainQuicksilver())
+    chains.add(ChainRegen())
+    chains.add(ChainRizon())
+    chains.add(ChainSaga())
+    chains.add(ChainSecret529())
+    chains.add(ChainSecret118())
+    chains.add(ChainSei())
+    chains.add(ChainSentinel())
+    chains.add(ChainShentu())
+    chains.add(ChainSommelier())
+    chains.add(ChainStafi())
     chains.add(ChainStargaze())
-//    lines.add(ChainOmniflix())
-//    lines.add(ChainOnomy())
-//    lines.add(ChainOsmosis())
-//    lines.add(ChainPassage())
-//    lines.add(ChainPersistence118())
-//    lines.add(ChainPersistence750())
-//    lines.add(ChainProvenance())
-//    lines.add(ChainQuasar())
-//    lines.add(ChainQuicksilver())
-//    lines.add(ChainRegen())
-//    lines.add(ChainRizon())
-//    lines.add(ChainSaga())
-//    lines.add(ChainSecret529())
-//    lines.add(ChainSecret118())
-//    lines.add(ChainSei())
-//    lines.add(ChainSentinel())
-//    lines.add(ChainShentu())
-//    lines.add(ChainSommelier())
-//    lines.add(ChainStafi())
-//    lines.add(ChainStargaze())
-//    lines.add(ChainStride())
-//    lines.add(ChainTeritori())
-//    lines.add(ChainTerra())
-//    lines.add(ChainUx())
-//    lines.add(ChainXpla())
-//
-//
-//    lines.add(ChainOkt996Keccak())
-//    lines.add(ChainOkt996Secp())
+    chains.add(ChainStride())
+    chains.add(ChainTeritori())
+    chains.add(ChainTerra())
+    chains.add(ChainUx())
+    chains.add(ChainXplaEvm())
+    chains.add(ChainXpla())
 
-//    chains.add(ChainCrescent())
-
-//    lines.add(ChainCrescent())
-//    lines.add(ChainEmoney())
-//    lines.add(ChainBinanceBeacon())
+    chains.add(ChainCosmosTestnet())
+    chains.add(ChainArtelaTestnet())
+    chains.add(ChainNeutronTestnet())
+    chains.add(ChainNillionTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

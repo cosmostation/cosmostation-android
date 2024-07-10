@@ -93,39 +93,39 @@ class DashboardAdapter(
                     }
 
                 } else {
-//                    val line = if (displayEvmLines.isNotEmpty()) {
-//                        displayCosmosLines[position - (displayEvmLines.size + 2)]
-//                    } else {
-//                        displayCosmosLines[position - 1]
-//                    }
-//                    holder.bind(line)
-//                    holder.itemView.setOnClickListener {
-//                        listener.nodeDown(line)
-//                    }
-//
-//                    holder.itemView.setOnLongClickListener { view ->
-//                        if (line.fetched) {
-//                            val scaleX = view.scaleX
-//                            val scaleY = view.scaleY
-//                            val customDialog = QrDialog(context, null, line)
-//
-//                            if (scaleX == 1.0f && scaleY == 1.0f) {
-//                                view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
-//                                val handler = Handler()
-//                                handler.postDelayed({
-//                                    customDialog.show()
-//                                }, 200)
-//                            }
-//
-//                            customDialog.setOnDismissListener {
-//                                view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-//                            }
-//                            true
-//
-//                        } else {
-//                            false
-//                        }
-//                    }
+                    val testnet = displayTestnetChains[position - (displayMainnetChains.size + 2)]
+                    if (Prefs.style == 0) {
+                        holder.testnetBind(testnet)
+                    } else {
+                        holder.testnetProBind(testnet)
+                    }
+                    holder.itemView.setOnClickListener {
+                        listener.nodeDown(testnet)
+                    }
+
+                    holder.itemView.setOnLongClickListener { view ->
+                        if (testnet.fetched) {
+                            val scaleX = view.scaleX
+                            val scaleY = view.scaleY
+                            val customDialog = QrDialog(context, testnet)
+
+                            if (scaleX == 1.0f && scaleY == 1.0f) {
+                                view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                                val handler = Handler()
+                                handler.postDelayed({
+                                    customDialog.show()
+                                }, 200)
+                            }
+
+                            customDialog.setOnDismissListener {
+                                view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                            }
+                            true
+
+                        } else {
+                            false
+                        }
+                    }
                 }
             }
         }

@@ -127,8 +127,8 @@ class WalletSelectFragment : Fragment() {
             toAddAccount?.let { account ->
                 account.apply {
                     allChains = allChains()
-                    mainnetChains = allChains().filter { !it.isTestnet }.toMutableList()
-                    testnetChains = allChains().filter { it.isTestnet }.toMutableList()
+                    mainnetChains = allChains.filter { !it.isTestnet }.toMutableList()
+                    testnetChains = allChains.filter { it.isTestnet }.toMutableList()
                     withContext(Dispatchers.Main) {
                         updateView()
                     }
@@ -173,7 +173,7 @@ class WalletSelectFragment : Fragment() {
                 if (mnemonic.isNotEmpty()) {
                     val wordList = mnemonic.split(" ")
                     val seed = BaseKey.getHDSeed(BaseKey.toEntropy(wordList))
-                    mainnetChains.asSequence().concurrentForEach { chain ->
+                    allChains.asSequence().concurrentForEach { chain ->
                         if (chain.publicKey == null) {
                             chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
@@ -193,7 +193,7 @@ class WalletSelectFragment : Fragment() {
                     }
 
                 } else {
-                    mainnetChains.asSequence().concurrentForEach { chain ->
+                    allChains.asSequence().concurrentForEach { chain ->
                         if (chain.publicKey == null) {
                             chain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
                         }

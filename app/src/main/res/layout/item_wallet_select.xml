@@ -41,7 +41,7 @@
                 android:layout_marginStart="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_16"
                 android:ellipsize="end"
-                android:maxWidth="@dimen/space_120"
+                android:maxWidth="@dimen/space_150"
                 android:maxLines="1"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toEndOf="@+id/chain_img"

@@ -159,7 +159,11 @@ class WalletSelectViewHolder(
                         chainDenom.text = asset.symbol
                         chainDenom.setTextColor(asset.assetColor())
                     }
-                    cnt = chain.grpcFetcher?.cosmosBalances?.count() ?: 0
+                    cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                        BaseData.getAsset(
+                            chain.apiName, it.denom
+                        ) != null
+                    } ?: 0)
 
                 } else if (chain.isCosmos()) {
                     when (chain) {
@@ -187,7 +191,11 @@ class WalletSelectViewHolder(
                                 chainDenom.text = asset.symbol
                                 chainDenom.setTextColor(asset.assetColor())
                             }
-                            cnt = chain.grpcFetcher?.cosmosBalances?.count() ?: 0
+                            cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                                BaseData.getAsset(
+                                    chain.apiName, it.denom
+                                ) != null
+                            } ?: 0)
                         }
                     }
 
@@ -206,6 +214,89 @@ class WalletSelectViewHolder(
                         0
                     }
                 }
+                chainAssetCnt.text = "$cnt Coins"
+
+                selectView.setOnClickListener {
+                    if (selectedTags.contains(chain.tag)) {
+                        selectedTags.removeIf { it == chain.tag }
+                    } else {
+                        selectedTags.add(chain.tag)
+                    }
+                    updateView(chain, selectedTags)
+                    selectListener.select(selectedTags)
+                }
+            }
+        }
+    }
+
+    fun testnetBind(
+        chain: BaseChain,
+        selectedTags: MutableList<String>,
+        selectListener: WalletSelectAdapter.SelectListener
+    ) {
+        binding.apply {
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
+
+            if (chain.isEvmCosmos()) {
+                chainAddress.text = chain.address
+                chainEvmAddress.text = chain.evmAddress
+                chainAddress.visibility = View.INVISIBLE
+                chainEvmAddress.visibility = View.VISIBLE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+                handler.postDelayed(starEvmAddressAnimation, 5000)
+
+            } else {
+                chainAddress.text = chain.address
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+            }
+            updateView(chain, selectedTags)
+
+            if (chain.fetched) {
+                skeletonChainValue.visibility = View.GONE
+                if (chain.isEvmCosmos()) {
+                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainBalance.visibility = View.GONE
+                        chainDenom.visibility = View.GONE
+                        chainAssetCnt.visibility = View.GONE
+                        return
+                    }
+
+                } else if (chain.isCosmos()) {
+                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainBalance.visibility = View.GONE
+                        chainDenom.visibility = View.GONE
+                        chainAssetCnt.visibility = View.GONE
+                        return
+                    }
+                }
+                respondLayout.visibility = View.GONE
+                chainBalance.visibility = View.VISIBLE
+                chainDenom.visibility = View.VISIBLE
+                chainAssetCnt.visibility = View.VISIBLE
+                chainLegacy.visibility = View.GONE
+                chainTypeBadge.visibility = View.GONE
+
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                    val availableAmount =
+                        chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
+                            ?.movePointLeft(asset.decimals ?: 6)
+                    chainBalance.text =
+                        formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                    chainDenom.text = asset.symbol
+                    chainDenom.setTextColor(asset.assetColor())
+                }
+                val cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                    BaseData.getAsset(
+                        chain.apiName, it.denom
+                    ) != null
+                } ?: 0)
                 chainAssetCnt.text = "$cnt Coins"
 
                 selectView.setOnClickListener {

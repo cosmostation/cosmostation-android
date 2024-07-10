@@ -55,7 +55,7 @@ class ChainEditAdapter(
 
                 } else {
                     val testnetChain = testnetChains[position - (mainnetChains.size + 2)]
-//                    holder.bind(account, line, displayChains, listener)
+                    holder.testnetBind(account, testnetChain, selectedChains, listener)
                 }
             }
         }

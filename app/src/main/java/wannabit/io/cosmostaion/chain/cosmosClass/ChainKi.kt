@@ -24,6 +24,7 @@ class ChainKi : BaseChain(), Parcelable {
     )
 
     override var supportCosmosGrpc: Boolean = true
+    override var supportCw20: Boolean = true
     override var stakeDenom: String = "uxki"
     override var accountPrefix: String = "ki"
     override var grpcHost: String = "grpc-ki-chain.cosmostation.io"

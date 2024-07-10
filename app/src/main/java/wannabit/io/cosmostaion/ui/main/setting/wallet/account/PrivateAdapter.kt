@@ -51,14 +51,12 @@ class PrivateAdapter(
             }
 
             is PrivateViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
-                    val mainnet = mainnetChains[position - 1]
-                    holder.bind(account, mainnet)
-
+                val chain = if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
+                    mainnetChains[position - 1]
                 } else {
-                    val testnet = testnetChains[position - (mainnetChains.size + 2)]
-//                    holder.bind(account, testnet)
+                    testnetChains[position - (mainnetChains.size + 2)]
                 }
+                holder.bind(account, chain)
             }
         }
     }
@@ -81,11 +79,11 @@ class PrivateAdapter(
         fun bind(viewType: Int) {
             binding.apply {
                 if (viewType == VIEW_TYPE_MAINNET_HEADER) {
-                    headerTitle.text = context.getString(R.string.str_mainnet)
+                    headerTitle.text = "Mainnet"
                     headerCnt.text = mainnetChains.size.toString()
                     headerMsg.visibility = View.VISIBLE
                 } else {
-                    headerTitle.text = context.getString(R.string.str_testnet)
+                    headerTitle.text = "Testnet"
                     headerCnt.text = testnetChains.size.toString()
                 }
             }

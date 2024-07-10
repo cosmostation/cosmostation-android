@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Handler
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.trustwallet.walletconnect.extensions.toHex
 import wannabit.io.cosmostaion.R

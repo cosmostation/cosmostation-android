@@ -181,6 +181,113 @@ class ChainEditViewHolder(
         }
     }
 
+    fun testnetBind(
+        baseAccount: BaseAccount,
+        chain: BaseChain,
+        displayChains: MutableList<String>,
+        listener: ChainEditAdapter.SelectListener
+    ) {
+        binding.apply {
+            updateView(chain, displayChains)
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
+            chainLegacy.visibleOrGone(!chain.isDefault)
+
+            if (chain.isEvmCosmos()) {
+                chainAddress.text = chain.address
+                chainEvmAddress.text = chain.evmAddress
+                chainAddress.visibility = View.INVISIBLE
+                chainEvmAddress.visibility = View.VISIBLE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+                handler.postDelayed(starEvmAddressAnimation, 5000)
+
+            } else {
+                chainAddress.text = chain.address
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                AppDatabase.getInstance().refAddressDao()
+                    .selectRefAddress(baseAccount.id, chain.tag)?.let { refAddress ->
+                        withContext(Dispatchers.Main) {
+                            if (chain.fetched) {
+                                skeletonChainValue.visibility = View.GONE
+                                skeletonAssetCnt.visibility = View.GONE
+
+                                if (chain.isEvmCosmos()) {
+                                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+                                        return@withContext
+                                    }
+
+                                } else {
+                                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+                                        return@withContext
+                                    }
+                                }
+
+                                if (chain.isCosmos()) {
+                                    val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
+                                    if (chain.supportCw20) {
+                                        val tokenCnt =
+                                            chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                        if (tokenCnt == 0) {
+                                            assetCnt.text = coinCntString
+                                        } else {
+                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                        }
+
+                                    } else if (chain.supportEvm) {
+                                        val tokenCnt =
+                                            chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                        if (tokenCnt == 0) {
+                                            assetCnt.text = coinCntString
+                                        } else {
+                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                        }
+
+                                    } else {
+                                        assetCnt.text = coinCntString
+                                    }
+
+                                } else {
+                                    val coinCnt =
+                                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
+                                    val tokenCnt =
+                                        chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                    if (tokenCnt == 0) {
+                                        assetCnt.text = coinCnt
+                                    } else {
+                                        assetCnt.text = "$tokenCnt Tokens, $coinCnt"
+                                    }
+                                }
+                                chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
+                            }
+                        }
+                    }
+            }
+
+            editView.setOnClickListener {
+                if (displayChains.contains(chain.tag)) {
+                    displayChains.removeIf { it == chain.tag }
+                } else {
+                    displayChains.add(chain.tag)
+                }
+                updateView(chain, displayChains)
+                listener.select(displayChains)
+            }
+        }
+    }
+
     private fun updateView(chain: BaseChain, displayChainLines: MutableList<String>) {
         binding.apply {
             if (displayChainLines.contains(chain.tag)) {

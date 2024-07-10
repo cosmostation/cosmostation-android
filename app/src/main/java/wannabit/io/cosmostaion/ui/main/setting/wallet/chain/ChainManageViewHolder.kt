@@ -50,6 +50,25 @@ class ChainManageViewHolder(
     fun testnetBind(chain: BaseChain) {
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
+
+            if (chain.isEvmCosmos()) {
+                grpcLayout.visibility = View.VISIBLE
+                rpcEndpointType.text = "EVM RPC"
+                grpcEndpointType.text = "GRPC"
+                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                grpcEndpoint.text =
+                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                        ?.getGrpc()?.second
+
+            } else {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "GRPC"
+                rpcEndpoint.text =
+                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                        ?.getGrpc()?.second
+            }
         }
     }
 }
