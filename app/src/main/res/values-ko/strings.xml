@@ -124,6 +124,7 @@
     <string name="str_est_apr">예상 수익률</string>
     <string name="str_mainnet">메인넷</string>
     <string name="str_testnet">테스트넷</string>
+    <string name="str_dev">개발 모드</string>
 
 
     //title

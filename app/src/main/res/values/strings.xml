@@ -167,6 +167,7 @@
     <string name="str_est_apr">Staking APR(est)</string>
     <string name="str_mainnet">Mainnet</string>
     <string name="str_testnet">Testnet</string>
+    <string name="str_dev">Dev mode</string>
 
 
     //title

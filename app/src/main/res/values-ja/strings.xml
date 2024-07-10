@@ -130,6 +130,7 @@
     <string name="str_est_apr">予想収益率</string>
     <string name="str_mainnet">メインネット</string>
     <string name="str_testnet">テストネット</string>
+    <string name="str_dev">開発モード</string>
 
 
     //title

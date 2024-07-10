@@ -12,7 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,8 +42,10 @@ import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.StyleFragment
+import wannabit.io.cosmostaion.ui.main.setting.general.DevDialogActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
@@ -108,7 +110,8 @@ class SettingFragment : Fragment() {
                 termView,
                 privacyView,
                 githubView,
-                versionView
+                versionView,
+                devView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             updateWalletView()
@@ -367,6 +370,11 @@ class SettingFragment : Fragment() {
                     )
                 )
             }
+
+            devView.setOnClickListener {
+                val intent = Intent(requireContext(), DevDialogActivity::class.java)
+                devResultLauncher.launch(intent)
+            }
         }
     }
 
@@ -399,6 +407,32 @@ class SettingFragment : Fragment() {
             }
         }
     }
+
+    private val devResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.getStringExtra("url")?.let { url ->
+                    val uri = Uri.parse(url)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (uri.scheme != null && uri.host != null && Patterns.WEB_URL.matcher(url)
+                                .matches()
+                        ) {
+                            requireActivity().runOnUiThread {
+                                Intent(requireActivity(), DappActivity::class.java).apply {
+                                    putExtra("dapp", url)
+                                    startActivity(this)
+                                }
+                            }
+
+                        } else {
+                            requireActivity().runOnUiThread {
+                                requireActivity().makeToast(url)
+                            }
+                        }
+                    }, 500)
+                }
+            }
+        }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
