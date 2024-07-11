@@ -31,6 +31,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/dapp_not_img"
+                android:layout_width="@dimen/space_12"
+                android:layout_height="@dimen/space_12"
+                android:src="@drawable/icon_not"
+                android:layout_marginEnd="@dimen/space_4"
+                app:layout_constraintTop_toTopOf="@+id/dapp_type_badge"
+                app:layout_constraintBottom_toBottomOf="@id/dapp_type_badge"
+                app:layout_constraintEnd_toStartOf="@+id/dapp_type_badge" />
+
             <TextView
                 android:id="@+id/dapp_type_badge"
                 style="@style/font_sm_8"

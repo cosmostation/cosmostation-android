@@ -469,6 +469,7 @@
     <string name="error_not_support_vote">Vote is not support.</string>
     <string name="error_not_support_chain">Unsupported chain in mobile</string>
     <string name="error_bera_vote_one_proposal">You can only vote for one BeraChain.</string>
+    <string name="error_not_support_dapp">%1$s does not support mobile injection.</string>
 
 
     // tx

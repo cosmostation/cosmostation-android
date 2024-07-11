@@ -373,6 +373,7 @@
     <string name="error_not_support_vote">투표 기능을 지원하지 않습니다.</string>
     <string name="error_not_support_chain">모바일에서 지원하지 않는 체인 입니다.</string>
     <string name="error_bera_vote_one_proposal">베라체인은 한개씩만 투표 가능합니다.</string>
+    <string name="error_not_support_dapp">%1$s는 모바일 인젝션을 지원하지 않습니다.</string>
 
 
     //header

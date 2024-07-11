@@ -77,7 +77,7 @@ class EcoSystemFragment : Fragment() {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
 
-            ecoSystemAdapter = EcoSystemAdapter(selectedChain)
+            ecoSystemAdapter = EcoSystemAdapter(requireContext(), selectedChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = GridLayoutManager(requireContext(), 2)
             recycler.adapter = ecoSystemAdapter

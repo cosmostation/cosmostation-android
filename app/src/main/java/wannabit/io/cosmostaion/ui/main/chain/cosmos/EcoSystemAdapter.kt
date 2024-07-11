@@ -1,15 +1,19 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.ItemEcoSystemBinding
 
 class EcoSystemAdapter(
-    val line: BaseChain
+    val context: Context, val line: BaseChain
 ) : ListAdapter<JsonObject, EcoSystemViewHolder>(EcoSystemDiffCallback()) {
 
     private var onItemClickListener: ((String?) -> Unit)? = null
@@ -25,6 +29,11 @@ class EcoSystemAdapter(
         holder.bind(info)
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
+                val support = info.get("support")?.asBoolean ?: true
+                if (!support) {
+                    context.makeToast(context.getString(R.string.error_not_support_dapp, info["name"].asString ?: ""))
+                    return@setOnClickListener
+                }
                 it(info["link"].asString)
             }
         }

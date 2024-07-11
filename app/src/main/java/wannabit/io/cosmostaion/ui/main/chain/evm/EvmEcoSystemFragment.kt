@@ -77,7 +77,7 @@ class EvmEcoSystemFragment : Fragment() {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
 
-            evmEcoSystemAdapter = EvmEcoSystemAdapter()
+            evmEcoSystemAdapter = EvmEcoSystemAdapter(requireContext())
             recycler.setHasFixedSize(true)
             recycler.layoutManager = GridLayoutManager(requireContext(), 2)
             recycler.adapter = evmEcoSystemAdapter
