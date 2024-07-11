@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.main.setting.general
 
-import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,7 +51,6 @@ object PushManager {
 
         CoroutineScope(Dispatchers.IO).launch {
             val param = pushInfo(enable, Prefs.fcmToken)
-            Log.e("Test1234 : ", param.toString())
             RetrofitInstance.mintscanApi.syncPush(param).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     Prefs.alarmEnable = enable

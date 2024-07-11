@@ -11,6 +11,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushDialogActivity
 
@@ -25,27 +26,64 @@ class BaseFCM : FirebaseMessagingService() {
     }
 
     override fun handleIntent(intent: Intent?) {
-//        Log.e("Test1234 : ", CosmostationApp.instance.appStatus.toString())
         intent?.let {
             Log.e("Test1234 : ", it.extras.toString())
-//            val temp = it.extras?.apply {
-//                val keysToRemove = ArrayList<String>()
-//                for (key in keySet()) {
-//                    if (key.startsWith("gcm.notification.")) {
-//                        keysToRemove.add(key)
+            if (CosmostationApp.instance.appStatus == CosmostationApp.AppStatus.BACKGROUND) {
+                val intent = Intent(this, PushDialogActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                }
+                val pendingIntent = PendingIntent.getActivity(
+                    this,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+                val notificationBuilder = NotificationCompat
+                    .Builder(this, PUSH_CHANNEL_ID)
+                    .setContentTitle("title")
+                    .setContentText("body")
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(pendingIntent)
+
+                val notificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.notify(0, notificationBuilder.build())
+//                val temp = it.extras?.apply {
+//                    val keysToRemove = ArrayList<String>()
+//                    for (key in keySet()) {
+//                        if (key.startsWith("gcm.notification.")) {
+//                            keysToRemove.add(key)
+//                        }
+//                    }
+//                    for (key in keysToRemove) {
+//                        remove(key)
 //                    }
 //                }
-//                for (key in keysToRemove) {
-//                    remove(key)
-//                }
-//            }
 //
-//            // 제거된 extras를 다시 인텐트에 설정
-//            if (temp != null) {
-//                it.replaceExtras(temp)
-//            }
+//                if (temp != null) {
+//                    it.replaceExtras(temp)
+//                }
+
+            } else {
+                super.handleIntent(intent)
+//                val temp = it.extras?.apply {
+//                    val keysToRemove = ArrayList<String>()
+//                    for (key in keySet()) {
+//                        if (key.startsWith("gcm.notification.")) {
+//                            keysToRemove.add(key)
+//                        }
+//                    }
+//                    for (key in keysToRemove) {
+//                        remove(key)
+//                    }
+//                }
+//
+//                if (temp != null) {
+//                    it.replaceExtras(temp)
+//                }
+            }
         }
-        super.handleIntent(intent)
     }
 
 //    override fun handleIntent(intent: Intent?) {
@@ -67,7 +105,6 @@ class BaseFCM : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        Log.e("Test12345 : ", remoteMessage.data.toString())
         remoteMessage.notification?.let {
             sendNotification(it)
         } ?: run {
@@ -81,20 +118,18 @@ class BaseFCM : FirebaseMessagingService() {
     }
 
     private fun sendNotification(notification: RemoteMessage.Notification) {
+        Log.e("Test12345 : ", notification.toString())
         val intent = Intent(this, PushDialogActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notificationBuilder = NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
-            .setContentTitle(notification.title)
-            .setContentText(notification.body)
-            .setAutoCancel(true)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentIntent(pendingIntent)
+        val notificationBuilder =
+            NotificationCompat.Builder(this, PUSH_CHANNEL_ID).setContentTitle(notification.title)
+                .setContentText(notification.body).setAutoCancel(true)
+                .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent)
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

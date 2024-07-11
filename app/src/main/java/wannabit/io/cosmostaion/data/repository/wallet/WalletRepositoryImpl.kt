@@ -36,7 +36,6 @@ import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VAULT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
@@ -328,7 +327,8 @@ class WalletRepositoryImpl : WalletRepository {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(8, TimeUnit.SECONDS)
         val request = QuerySmartContractStateRequest.newBuilder().setAddress(
-            NEUTRON_VAULT_ADDRESS
+            chain.getChainListParam()
+                ?.get("vaults")?.asJsonArray?.get(0)?.asJsonObject?.get("address")?.asString
         ).setQueryData(queryData).build()
 
         return safeApiCall(Dispatchers.IO) {

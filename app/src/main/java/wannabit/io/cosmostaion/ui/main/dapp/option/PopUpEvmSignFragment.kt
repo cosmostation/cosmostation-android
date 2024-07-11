@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.dapp.option
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -324,8 +323,6 @@ class PopUpEvmSignFragment(
                 val gasAmount = BigInteger(
                     gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
                 )
-                Log.e("Test1234 : ", gasAmount.toString())
-                Log.e("Test12345 : ", selectedEvmChain.evmGasMultiply().toString())
                 gasAmount.multiply(selectedEvmChain.evmGasMultiply() ?: BigInteger("13")).divide(
                     BigInteger("10")
                 )
@@ -333,7 +330,6 @@ class PopUpEvmSignFragment(
             } else {
                 BigInteger.valueOf(21000L)
             }
-            Log.e("Test1234 : ", checkedGas.toString())
 
             val ethFeeHistoryRequest = JsonRpcRequest(
                 method = "eth_feeHistory", params = listOf(
@@ -387,7 +383,6 @@ class PopUpEvmSignFragment(
                 }
 
                 val suggestTipValue = soft(rearrangedArray)
-                Log.e("Test1234 : ", suggestTipValue.toString())
                 if (selectedEvmChain.evmSupportEip1559()) {
                     for (i in 0 until 3) {
                         val baseFee = suggestBaseFee[i]

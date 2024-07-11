@@ -322,32 +322,14 @@ class VaultFragment : BaseTxFragment() {
                             selectedChain.grpcFetcher?.cosmosBaseFees,
                             object : BaseFeeAssetSelectListener {
                                 override fun select(denom: String) {
-                                    if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                                        txFee?.let { fee ->
-                                            txFee =
-                                                TxProto.Fee.newBuilder().setGasLimit(fee.gasLimit)
-                                                    .addAmount(
-                                                        CoinProto.Coin.newBuilder()
-                                                            .setDenom(fee.getAmount(0).denom)
-                                                            .setAmount(fee.getAmount(0).amount)
-                                                    ).build()
-                                        }
-
-                                    } else {
-                                        selectedChain.getDefaultFeeCoins(requireContext())
-                                            .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                                val updateFeeCoin =
-                                                    CoinProto.Coin.newBuilder().setDenom(denom)
-                                                        .setAmount(feeCoin.amount).build()
-
-                                                val updateTxFee = TxProto.Fee.newBuilder()
-                                                    .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                                    .addAmount(updateFeeCoin).build()
-
-                                                txFee = updateTxFee
-                                                updateFeeView()
-                                                txSimulate()
-                                            }
+                                    txFee?.let { fee ->
+                                        txFee =
+                                            TxProto.Fee.newBuilder().setGasLimit(fee.gasLimit)
+                                                .addAmount(
+                                                    CoinProto.Coin.newBuilder()
+                                                        .setDenom(fee.getAmount(0).denom)
+                                                        .setAmount(fee.getAmount(0).amount)
+                                                ).build()
                                     }
                                 }
                             })
