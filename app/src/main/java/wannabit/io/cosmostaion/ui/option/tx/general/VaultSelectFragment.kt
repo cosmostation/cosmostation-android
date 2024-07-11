@@ -63,13 +63,13 @@ class VaultSelectFragment : BottomSheetDialogFragment() {
         binding.apply {
             depositView.setOnClickListener {
                 handleOneClickWithDelay(
-                    VaultFragment.newInstance(selectedChain as ChainNeutron, VaultType.DEPOSIT)
+                    VaultFragment.newInstance(selectedChain, VaultType.DEPOSIT)
                 )
             }
 
             withdrawView.setOnClickListener {
                 handleOneClickWithDelay(
-                    VaultFragment.newInstance(selectedChain as ChainNeutron, VaultType.WITHDRAW)
+                    VaultFragment.newInstance(selectedChain, VaultType.WITHDRAW)
                 )
             }
         }

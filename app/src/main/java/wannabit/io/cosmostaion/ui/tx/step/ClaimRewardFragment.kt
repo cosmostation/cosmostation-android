@@ -55,6 +55,7 @@ class ClaimRewardFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var isClickable = true
@@ -320,6 +321,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                     selectedChain.address,
                     claimableRewards,
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -334,7 +336,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             btnGetReward.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateGetRewards(
-                getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txMemo, selectedChain
+                getChannel(selectedChain), selectedChain.address, claimableRewards, txFee, txTip, txMemo, selectedChain
             )
         }
     }

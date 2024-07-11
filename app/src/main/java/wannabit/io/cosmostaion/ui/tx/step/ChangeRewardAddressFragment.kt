@@ -57,6 +57,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var existedAddress = ""
     private var txMemo = ""
@@ -314,6 +315,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
                     selectedChain.address,
                     onBindChangeRewardAddress(),
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -335,6 +337,7 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindChangeRewardAddress(),
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )

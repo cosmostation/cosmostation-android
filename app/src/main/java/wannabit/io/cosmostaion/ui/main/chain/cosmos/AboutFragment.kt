@@ -94,7 +94,7 @@ class AboutFragment : Fragment() {
 
                 val originTime = it.getAsJsonPrimitive("origin_genesis_time")?.asString ?: ""
                 initialTime.text = if (originTime.isEmpty()) {
-                    ""
+                    "-"
                 } else {
                     formatTxTime(
                         requireContext(), originTime

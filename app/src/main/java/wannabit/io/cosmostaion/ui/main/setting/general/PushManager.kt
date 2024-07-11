@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,6 +52,7 @@ object PushManager {
 
         CoroutineScope(Dispatchers.IO).launch {
             val param = pushInfo(enable, Prefs.fcmToken)
+            Log.e("Test1234 : ", param.toString())
             RetrofitInstance.mintscanApi.syncPush(param).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     Prefs.alarmEnable = enable
@@ -68,48 +70,57 @@ object PushManager {
         }
     }
 
-    private fun pushInfo(enable: Boolean, fcmToken: String): PushSyncReq {
+    private suspend fun pushInfo(enable: Boolean, fcmToken: String): PushSyncReq {
         val wallets: MutableList<PushWallet> = mutableListOf()
-        if (enable) {
-            AppDatabase.getInstance().baseAccountDao().selectAll().forEach { account ->
-                val wallet = pushWallet(account)
-                wallets.add(wallet)
+        withContext(Dispatchers.IO) {
+            if (enable) {
+                AppDatabase.getInstance().baseAccountDao().selectAll().forEach { account ->
+                    pushWallet(account)?.let { wallet ->
+                        wallets.add(wallet)
+                    }
+                }
             }
         }
         return PushSyncReq(fcmToken, enable, wallets)
     }
 
-    private fun pushWallet(account: BaseAccount): PushWallet {
-        val pushAccounts: MutableList<PushAccount> = mutableListOf()
-        initAllKeyData().filter { !it.isTestnet }.forEach { chain ->
-            if (chain.isCosmos()) {
-                val pushAccount = PushAccount(chain.apiName, chain.address)
-                pushAccounts.add(pushAccount)
-            } else if (chain.supportEvm) {
-                val pushAccount = PushAccount(chain.apiName, chain.evmAddress)
-                pushAccounts.add(pushAccount)
+    private suspend fun pushWallet(account: BaseAccount): PushWallet? {
+        var pushWallet: PushWallet? = null
+        withContext(Dispatchers.IO) {
+            val pushAccounts: MutableList<PushAccount> = mutableListOf()
+            initAllKeyData().filter { !it.isTestnet }.forEach { chain ->
+                if (chain.isCosmos()) {
+                    val pushAccount = PushAccount(chain.apiName, chain.address)
+                    pushAccounts.add(pushAccount)
+                } else if (chain.supportEvm) {
+                    val pushAccount = PushAccount(chain.apiName, chain.evmAddress)
+                    pushAccounts.add(pushAccount)
+                }
             }
+            pushWallet =  PushWallet(
+                account.id.toString() + account.uuid + account.id.toString(), account.name, pushAccounts
+            )
         }
-        return PushWallet(
-            account.id.toString() + account.uuid + account.id.toString(), account.name, pushAccounts
-        )
+        return pushWallet
     }
 
-    private fun initAllKeyData(): MutableList<BaseChain> {
+    private suspend fun initAllKeyData(): MutableList<BaseChain> {
         val result = allChains()
         BaseData.baseAccount?.let { account ->
-            account.apply {
-                if (type == BaseAccountType.MNEMONIC) {
-                    result.forEach { chain ->
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+            withContext(Dispatchers.IO) {
+                account.apply {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        result.forEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            }
                         }
-                    }
 
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    result.forEach { chain ->
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        result.forEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithPrivateKey(privateKey)
+                            }
                         }
                     }
                 }

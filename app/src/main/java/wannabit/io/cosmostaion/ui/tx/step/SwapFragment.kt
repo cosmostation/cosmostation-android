@@ -115,6 +115,7 @@ class SwapFragment : BaseTxFragment() {
     private var route: SkipRouteResponse? = null
     private var toMsg: SkipMsgResponse? = null
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var isClickable = true
 
@@ -575,11 +576,11 @@ class SwapFragment : BaseTxFragment() {
 
                 if (skipMsg.msg_type_url == "/ibc.applications.transfer.v1.MsgTransfer") {
                     skipTxViewModel.simulateSkipIbcSend(
-                        getChannel(chain), chain.address, bindIbcSend(innerMsg), txFee, "", chain
+                        getChannel(chain), chain.address, bindIbcSend(innerMsg), txFee, txTip, "", chain
                     )
                 } else if (skipMsg.msg_type_url == "/cosmwasm.wasm.v1.MsgExecuteContract") {
                     skipTxViewModel.simulateWasm(
-                        getChannel(chain), chain.address, bindWasm(innerMsg), txFee, "", chain
+                        getChannel(chain), chain.address, bindWasm(innerMsg), txFee, txTip, "", chain
                     )
                 }
             }
@@ -922,13 +923,13 @@ class SwapFragment : BaseTxFragment() {
                         when (skipMsg.msg_type_url) {
                             "/ibc.applications.transfer.v1.MsgTransfer" -> {
                                 skipTxViewModel.broadcastSkipIbcSend(
-                                    getChannel(chain), bindIbcSend(innerMsg), txFee, "", chain
+                                    getChannel(chain), bindIbcSend(innerMsg), txFee, txTip, "", chain
                                 )
                             }
 
                             "/cosmwasm.wasm.v1.MsgExecuteContract" -> {
                                 skipTxViewModel.broadcastWasm(
-                                    getChannel(chain), bindWasm(innerMsg), txFee, "", chain
+                                    getChannel(chain), bindWasm(innerMsg), txFee, txTip, "", chain
                                 )
                             }
 

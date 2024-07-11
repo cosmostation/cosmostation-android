@@ -68,6 +68,7 @@ class MintActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var collateralAsset: Asset? = null
@@ -482,6 +483,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindDepositMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -493,6 +495,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindWithdrawMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -504,6 +507,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindBorrowMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -515,6 +519,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindRepayMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -545,6 +550,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -564,6 +570,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -583,6 +590,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindBorrowMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -602,6 +610,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindRepayMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )

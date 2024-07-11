@@ -21,6 +21,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
+import com.cosmos.tx.v1beta1.TxProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
@@ -59,6 +60,8 @@ class AllChainClaimFragment : BaseTxFragment() {
     private lateinit var allChainClaimAdapter: AllChainClaimAdapter
 
     private var valueAbleRewards: MutableList<ClaimAllModel> = mutableListOf()
+
+    private var txTip: TxProto.Tip? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -290,6 +293,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                         loadAuth(channel, chain.address),
                         claimableRewards,
                         chain.getInitPayableFee(it),
+                        txTip,
                         "",
                         chain
                     )
@@ -315,6 +319,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 loadAuth(channel, valueAbleReward.baseChain.address),
                 valueAbleReward.rewards,
                 valueAbleReward.fee,
+                txTip,
                 "",
                 valueAbleReward.baseChain
             )

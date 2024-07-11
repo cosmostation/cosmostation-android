@@ -67,6 +67,7 @@ class DaoVoteFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var isClickable = true
@@ -336,7 +337,7 @@ class DaoVoteFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcastWasm(
-                    getChannel(selectedChain), onBindWasmVoteMsg(), txFee, txMemo, selectedChain
+                    getChannel(selectedChain), onBindWasmVoteMsg(), txFee, txTip, txMemo, selectedChain
                 )
             }
         }
@@ -355,6 +356,7 @@ class DaoVoteFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindWasmVoteMsg(),
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )

@@ -54,6 +54,7 @@ class CompoundingFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var isClickable = true
@@ -296,6 +297,7 @@ class CompoundingFragment : BaseTxFragment() {
                     claimableRewards,
                     selectedChain.stakeDenom,
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -315,6 +317,7 @@ class CompoundingFragment : BaseTxFragment() {
                 claimableRewards,
                 selectedChain.stakeDenom,
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.data.repository.wallet
 
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
@@ -58,6 +59,10 @@ interface WalletRepository {
     ): NetworkResult<QueryDelegationTotalRewardsResponse>
 
     suspend fun rewardAddress(channel: ManagedChannel, chain: BaseChain): NetworkResult<String>
+
+    suspend fun baseFee(
+        channel: ManagedChannel, chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.DecCoin>>?
 
     suspend fun bondedValidator(
         channel: ManagedChannel

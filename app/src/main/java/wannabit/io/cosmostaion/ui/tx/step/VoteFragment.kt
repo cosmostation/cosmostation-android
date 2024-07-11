@@ -58,6 +58,7 @@ class VoteFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var txMemo = ""
 
@@ -302,6 +303,7 @@ class VoteFragment : BaseTxFragment() {
                     selectedChain.address,
                     toVotes,
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -328,7 +330,7 @@ class VoteFragment : BaseTxFragment() {
                 toVotes?.add(voteMsg)
             }
             txViewModel.simulateVote(
-                getChannel(selectedChain), selectedChain.address, toVotes, txFee, txMemo, selectedChain
+                getChannel(selectedChain), selectedChain.address, toVotes, txFee, txTip, txMemo, selectedChain
             )
         }
     }

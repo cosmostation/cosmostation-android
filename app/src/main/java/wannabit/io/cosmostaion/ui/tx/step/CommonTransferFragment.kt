@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,6 +92,7 @@ class CommonTransferFragment : BaseTxFragment() {
     private var selectedFeePosition = 0
     private var cosmosFeeInfos: MutableList<FeeInfo> = mutableListOf()
     private var cosmosTxFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private val evmGasPrices: List<BigInteger> = listOf(
         BigInteger.valueOf(1500000000),
@@ -353,9 +353,6 @@ class CommonTransferFragment : BaseTxFragment() {
             BaseData.assets?.forEach { asset ->
                 if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
-                        Log.e("Test1234 : ", asset.chain.toString())
-                        Log.e("Test12345 : ", fromChain.apiName)
-                        Log.e("Test123456 : ", asset.beforeChain(fromChain.apiName).toString())
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
                     } else if (asset.origin_chain == fromChain.apiName && asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
@@ -775,13 +772,14 @@ class CommonTransferFragment : BaseTxFragment() {
                                 address,
                                 onBindWasmSend(),
                                 cosmosTxFee,
+                                txTip,
                                 txMemo,
                                 this
                             )
 
                         } else {
                             txViewModel.simulateSend(
-                                getChannel(this), address, onBindSend(), cosmosTxFee, txMemo, this
+                                getChannel(this), address, onBindSend(), cosmosTxFee, txTip, txMemo, this
                             )
                         }
 
@@ -795,6 +793,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 address,
                                 onBindWasmIbcSend(),
                                 cosmosTxFee,
+                                txTip,
                                 txMemo,
                                 this
                             )
@@ -809,6 +808,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 toSendDenom,
                                 toSendAmount,
                                 cosmosTxFee,
+                                txTip,
                                 txMemo,
                                 this
                             )
@@ -910,7 +910,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         if (chainIdCosmos == toChain.chainIdCosmos) {
                             if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                                 txViewModel.broadcastWasm(
-                                    getChannel(this), onBindWasmSend(), cosmosTxFee, txMemo, this
+                                    getChannel(this), onBindWasmSend(), cosmosTxFee, txTip, txMemo, this
                                 )
 
                             } else {
@@ -919,6 +919,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                     this.address,
                                     onBindSend(),
                                     cosmosTxFee,
+                                    txTip,
                                     txMemo,
                                     this
                                 )
@@ -927,7 +928,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         } else {
                             if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                                 txViewModel.broadcastWasm(
-                                    getChannel(this), onBindWasmIbcSend(), cosmosTxFee, txMemo, this
+                                    getChannel(this), onBindWasmIbcSend(), cosmosTxFee, txTip, txMemo, this
                                 )
 
                             } else {
@@ -939,6 +940,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                     toSendDenom,
                                     toSendAmount,
                                     cosmosTxFee,
+                                    txTip,
                                     txMemo,
                                     this
                                 )
@@ -1017,7 +1019,8 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun addRecipientChainIfNotExists(apiName: String?) {
-        allChains().filter { !it.isTestnet && it.supportCosmosGrpc }.firstOrNull { it.apiName == apiName }?.let { sendAble ->
+        allChains().filter { !it.isTestnet && it.supportCosmosGrpc }
+            .firstOrNull { it.apiName == apiName }?.let { sendAble ->
             if (recipientAbleChains.none { it.apiName == sendAble.apiName }) {
                 recipientAbleChains.add(sendAble)
             }
@@ -1039,7 +1042,10 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun getRecipientChannel(): ManagedChannel? {
-        return ManagedChannelBuilder.forAddress(toChain.grpcFetcher()!!.getGrpc().first, toChain.grpcFetcher()!!.getGrpc().second)
+        return ManagedChannelBuilder.forAddress(
+            toChain.grpcFetcher()!!.getGrpc().first,
+            toChain.grpcFetcher()!!.getGrpc().second
+        )
             .useTransportSecurity().build()
     }
 

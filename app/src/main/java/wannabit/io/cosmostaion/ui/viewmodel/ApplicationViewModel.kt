@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cosmos.bank.v1beta1.QueryProto
+import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
@@ -221,13 +222,15 @@ class ApplicationViewModel(
                     val loadRewardDeferred = async { walletRepository.reward(channel, chain) }
                     val loadRewardAddressDeferred =
                         async { walletRepository.rewardAddress(channel, chain) }
+                    val loadFeeMarketDeferred = async { walletRepository.baseFee(channel, chain) }
 
                     val responses = awaitAll(
                         loadBalanceDeferred,
                         loadDelegationDeferred,
                         loadUnBondingDeferred,
                         loadRewardDeferred,
-                        loadRewardAddressDeferred
+                        loadRewardAddressDeferred,
+                        loadFeeMarketDeferred
                     )
 
                     responses.forEach { response ->
@@ -264,12 +267,32 @@ class ApplicationViewModel(
                                     is String -> {
                                         grpcFetcher?.rewardAddress = response.data
                                     }
+
+                                    is MutableList<*> -> {
+                                        (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                            if (BaseData.getAsset(
+                                                    apiName, baseFee.denom
+                                                ) != null
+                                            ) {
+                                                grpcFetcher?.cosmosBaseFees?.add(baseFee)
+                                            }
+                                        }
+                                        grpcFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                -1
+                                            } else {
+                                                0
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
                             is NetworkResult.Error -> {
                                 _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                             }
+
+                            else -> {}
                         }
                     }
 
@@ -280,12 +303,15 @@ class ApplicationViewModel(
                             async { walletRepository.vaultDeposit(channel, this@apply) }
                         val loadVestingDeferred =
                             async { walletRepository.vestingData(channel, this@apply) }
+                        val loadFeeMarketDeferred =
+                            async { walletRepository.baseFee(channel, this@apply) }
 
                         val responses = awaitAll(
                             loadBalanceDeferred,
                             loadTokenInfoDeferred,
                             loadVestingDeferred,
-                            loadVaultDepositDeferred
+                            loadVaultDepositDeferred,
+                            loadFeeMarketDeferred
                         )
 
                         responses.forEach { response ->
@@ -302,6 +328,16 @@ class ApplicationViewModel(
                                             if (response.data.all { it is Token }) {
                                                 grpcFetcher?.tokens =
                                                     response.data as MutableList<Token>
+
+                                            } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                                (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                                    if (BaseData.getAsset(
+                                                            apiName, baseFee.denom
+                                                        ) != null
+                                                    ) {
+                                                        grpcFetcher?.cosmosBaseFees?.add(baseFee)
+                                                    }
+                                                }
                                             }
                                         }
 
@@ -322,6 +358,8 @@ class ApplicationViewModel(
                                 is NetworkResult.Error -> {
                                     _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                                 }
+
+                                else -> {}
                             }
                         }
                     }
@@ -530,14 +568,7 @@ class ApplicationViewModel(
 
                             } else {
                                 val refAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    evmAddress,
-                                    "0",
-                                    "0",
-                                    "0",
-                                    0
+                                    baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
                                 )
                                 BaseData.updateRefAddressesMain(refAddress)
                                 withContext(Dispatchers.Main) {
@@ -665,14 +696,7 @@ class ApplicationViewModel(
 
                         } else {
                             val refAddress = RefAddress(
-                                baseAccountId,
-                                tag,
-                                address,
-                                evmAddress,
-                                "0",
-                                "0",
-                                "0",
-                                0
+                                baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
                             )
                             BaseData.updateRefAddressesMain(refAddress)
                             withContext(Dispatchers.Main) {

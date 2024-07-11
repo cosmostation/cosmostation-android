@@ -263,7 +263,7 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.getAsJsonObject("fee")?.get("base")?.asInt ?: 0
     }
 
-    private fun getFeeBaseGasAmount(): Long {
+    fun getFeeBaseGasAmount(): Long {
         return getChainListParam()?.getAsJsonObject("fee")?.let {
             it.get("init_gas_limit")?.asLong
         } ?: run {
@@ -333,6 +333,14 @@ open class BaseChain : Parcelable {
             ?: run {
                 1.3
             }
+    }
+
+    fun supportFeeMarket(): Boolean? {
+        return if (getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.isJsonNull == true) {
+            false
+        } else {
+            getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.asBoolean
+        }
     }
 
     fun evmSupportEip1559(): Boolean {

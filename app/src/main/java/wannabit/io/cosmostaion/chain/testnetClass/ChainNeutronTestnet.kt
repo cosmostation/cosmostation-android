@@ -6,11 +6,11 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 
 @Parcelize
-class ChainNeutronTestnet : BaseChain(), Parcelable {
+class ChainNeutronTestnet : ChainNeutron(), Parcelable {
 
     override var name: String = "Neutron Testnet"
     override var tag: String = "neutron118_T"

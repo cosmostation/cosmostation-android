@@ -63,6 +63,7 @@ class StakingFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var toCoin: CoinProto.Coin? = null
     private var txMemo = ""
@@ -380,6 +381,7 @@ class StakingFragment : BaseTxFragment() {
                     selectedChain.address,
                     onBindDelegate(),
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -401,6 +403,7 @@ class StakingFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindDelegate(),
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )

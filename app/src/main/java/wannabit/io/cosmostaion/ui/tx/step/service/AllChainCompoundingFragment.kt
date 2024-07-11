@@ -58,6 +58,8 @@ class AllChainCompoundingFragment : BaseTxFragment() {
 
     private var compoundAbleRewards: MutableList<ClaimAllModel> = mutableListOf()
 
+    private var txTip: TxProto.Tip? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -315,6 +317,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                         claimableRewards,
                         chain.stakeDenom,
                         chain.getInitPayableFee(it),
+                        txTip,
                         "",
                         chain
                     )
@@ -342,6 +345,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                 valueAbleReward.rewards,
                 valueAbleReward.baseChain.stakeDenom,
                 valueAbleReward.fee,
+                txTip,
                 "",
                 valueAbleReward.baseChain
             )

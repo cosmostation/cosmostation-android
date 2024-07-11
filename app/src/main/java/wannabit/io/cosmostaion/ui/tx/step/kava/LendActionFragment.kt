@@ -67,6 +67,7 @@ class LendActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var msAsset: Asset? = null
@@ -465,6 +466,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindDepositMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -476,6 +478,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindWithdrawMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -487,6 +490,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindBorrowMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -498,6 +502,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindRepayMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -527,6 +532,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -538,6 +544,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -549,6 +556,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindBorrowMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -560,6 +568,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindRepayMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )

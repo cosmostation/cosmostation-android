@@ -126,7 +126,9 @@ class SettingFragment : Fragment() {
             version.text = "v " + BuildConfig.VERSION_NAME
 
             if (BaseData.pushRefreshIfNeed()) {
-                PushManager.updateStatus(Prefs.alarmEnable) { _, _ -> }
+                lifecycleScope.launch(Dispatchers.IO) {
+                    PushManager.updateStatus(Prefs.alarmEnable) { _, _ -> }
+                }
             }
 
             waitingDialog = WaitingDialog.newInstance()

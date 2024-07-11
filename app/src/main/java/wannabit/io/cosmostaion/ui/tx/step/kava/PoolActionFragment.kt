@@ -65,6 +65,7 @@ class PoolActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var pool1Asset: Asset? = null
@@ -477,6 +478,7 @@ class PoolActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindDepositMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -488,6 +490,7 @@ class PoolActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindWithdrawMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -514,6 +517,7 @@ class PoolActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -533,6 +537,7 @@ class PoolActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )

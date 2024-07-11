@@ -38,7 +38,7 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
 
     private val mViewModelStore = ViewModelStore()
     lateinit var applicationViewModel: ApplicationViewModel
-    private var appStatus: AppStatus? = null
+    var appStatus: AppStatus? = null
 
     var isInBackground: Boolean = true
         private set

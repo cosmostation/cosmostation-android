@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.chain.NeutronFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainNeutron : BaseChain(), Parcelable {
+open class ChainNeutron : BaseChain(), Parcelable {
 
     var neutronFetcher: NeutronFetcher? = null
 

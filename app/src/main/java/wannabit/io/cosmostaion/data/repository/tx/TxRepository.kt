@@ -10,7 +10,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
-import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmos.tx.v1beta1.TxProto.*
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
@@ -118,6 +118,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -127,6 +128,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -140,6 +142,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -149,6 +152,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -158,6 +162,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -167,6 +172,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -176,6 +182,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: MsgDelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -185,6 +192,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: MsgDelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -194,6 +202,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -203,6 +212,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -212,6 +222,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -221,6 +232,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -230,6 +242,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -239,6 +252,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -248,6 +262,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -257,6 +272,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -267,6 +283,7 @@ interface TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -277,6 +294,7 @@ interface TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -286,6 +304,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -295,6 +314,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -304,6 +324,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -313,6 +334,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -322,6 +344,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -331,6 +354,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -340,6 +364,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -349,6 +374,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -358,6 +384,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -367,6 +394,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -376,6 +404,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -385,6 +414,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -394,6 +424,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -403,6 +434,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -412,6 +444,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -421,6 +454,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -430,6 +464,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -439,6 +474,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -448,6 +484,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -457,6 +494,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -466,6 +504,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: MsgBorrow?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -475,6 +514,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: MsgBorrow?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -484,6 +524,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepay: MsgRepay?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -493,6 +534,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepay: MsgRepay?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -502,6 +544,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -511,6 +554,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -520,6 +564,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -529,6 +574,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -538,6 +584,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -547,6 +594,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?
@@ -556,6 +604,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): BroadcastTxResponse?
@@ -565,6 +614,7 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any?

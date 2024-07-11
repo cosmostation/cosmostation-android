@@ -23,6 +23,7 @@ open class FetcherGrpc(chain: BaseChain) {
     var cosmosDelegations = mutableListOf<StakingProto.DelegationResponse>()
     var cosmosUnbondings = mutableListOf<StakingProto.UnbondingDelegation>()
     var cosmosRewards = mutableListOf<DistributionProto.DelegationDelegatorReward>()
+    var cosmosBaseFees = mutableListOf<CoinProto.DecCoin>()
 
     var tokens = mutableListOf<Token>()
     var cw721s = mutableListOf<JsonObject>()

@@ -76,6 +76,8 @@ class AllChainVoteFragment : BaseTxFragment() {
     private lateinit var allChainAllVoteAdapter: AllChainAllVoteAdapter
     private var allChainAllVoteTouchAdapter: AllChainAllVoteTouchAdapter? = null
 
+    private var txTip: TxProto.Tip? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -602,7 +604,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 val simulStub =
                     ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
                 val simulateTx = Signer.genVoteSimulate(
-                    it, toVotes, chain.getInitPayableFee(requireContext()), "", chain
+                    it, toVotes, chain.getInitPayableFee(requireContext()), txTip, "", chain
                 )
                 simulStub.simulate(simulateTx)
             }
@@ -624,7 +626,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 val txStub =
                     ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
                 val broadcastTx = Signer.genVoteBroadcast(
-                    loadAuth(channel, chain.address), toVotes, txFee, "", chain
+                    loadAuth(channel, chain.address), toVotes, txFee, txTip, "", chain
                 )
                 try {
                     onComplete(txStub.broadcastTx(broadcastTx))

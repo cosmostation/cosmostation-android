@@ -5,6 +5,7 @@ import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
 import com.cosmos.base.query.v1beta1.PaginationProto
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse
 import com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub
@@ -192,6 +193,23 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun baseFee(
+        channel: ManagedChannel,
+        chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.DecCoin>>? {
+        return if (chain.supportFeeMarket() == true) {
+            val stub = com.feemarket.feemarket.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.feemarket.feemarket.v1.QueryProto.GasPricesRequest.newBuilder().build()
+            safeApiCall(Dispatchers.IO) {
+                stub.gasPrices(request).pricesList
+            }
+        } else {
+            null
+        }
+    }
+
     override suspend fun bondedValidator(
         channel: ManagedChannel
     ): NetworkResult<MutableList<StakingProto.Validator>> {
@@ -257,11 +275,6 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun erc20Balance(chain: BaseChain, token: Token) {
-//        val web3j = if (line is EthereumLine) {
-//            line.web3j
-//        } else {
-//            Web3j.build(HttpService(line.rpcUrl))
-//        }
         val params: MutableList<Type<*>> = ArrayList()
         params.add(Address(chain.evmAddress))
 

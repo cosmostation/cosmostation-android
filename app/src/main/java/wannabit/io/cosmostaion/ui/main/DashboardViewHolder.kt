@@ -254,7 +254,7 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE

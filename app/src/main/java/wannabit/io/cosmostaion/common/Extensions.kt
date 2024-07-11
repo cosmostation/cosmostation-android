@@ -29,6 +29,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.cosmos.base.v1beta1.CoinProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.squareup.picasso.Picasso
 import io.grpc.ManagedChannel
@@ -587,7 +588,8 @@ fun dpToPx(context: Context, dp: Int): Int {
 
 fun getChannel(selectedChain: BaseChain): ManagedChannel {
     return ManagedChannelBuilder.forAddress(
-        selectedChain.grpcFetcher()!!.getGrpc().first, selectedChain.grpcFetcher()!!.getGrpc().second
+        selectedChain.grpcFetcher()!!.getGrpc().first,
+        selectedChain.grpcFetcher()!!.getGrpc().second
     ).useTransportSecurity().build()
 }
 
@@ -697,5 +699,9 @@ fun jsonRpcResponse(rpcUrl: String, request: JsonRpcRequest): Response {
     val rpcRequest = Request.Builder().url(rpcUrl)
         .post(jsonRequest.toRequestBody("application/json".toMediaTypeOrNull())).build()
     return OkHttpClient().newCall(rpcRequest).execute()
+}
+
+fun CoinProto.DecCoin.getdAmount(): BigDecimal {
+    return amount.toBigDecimal().movePointLeft(18).setScale(18, RoundingMode.DOWN)
 }
 

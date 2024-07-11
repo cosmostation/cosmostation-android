@@ -7,7 +7,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
-import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmos.tx.v1beta1.TxProto.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -1236,13 +1236,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgSend: TxProto.MsgSend?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genSendBroadcast(account, msgSend, fee, memo, selectedChain)
+            val broadcastTx = Signer.genSendBroadcast(account, msgSend, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (e: Exception) {
@@ -1255,13 +1256,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgSend: TxProto.MsgSend?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genSendSimulate(account, msgSend, fee, memo, selectedChain)
+            val simulateTx = Signer.genSendSimulate(account, msgSend, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1286,6 +1288,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1293,7 +1296,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genIbcSendBroadcast(account, msgTransfer, fee, memo, selectedChain)
+                Signer.genIbcSendBroadcast(account, msgTransfer, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1306,6 +1309,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1313,7 +1317,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genIbcSendSimulate(account, msgTransfer, fee, memo, selectedChain)
+                Signer.genIbcSendSimulate(account, msgTransfer, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1326,13 +1330,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genWasmBroadcast(account, msgWasms, fee, memo, selectedChain)
+            val broadcastTx = Signer.genWasmBroadcast(account, msgWasms, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1345,13 +1350,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genWasmSimulate(account, msgWasms, fee, memo, selectedChain)
+            val simulateTx = Signer.genWasmSimulate(account, msgWasms, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1364,6 +1370,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1371,7 +1378,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genDelegateBroadcast(account, msgDelegate, fee, memo, selectedChain)
+                Signer.genDelegateBroadcast(account, msgDelegate, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1384,6 +1391,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1391,7 +1399,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genDelegateSimulate(account, msgDelegate, fee, memo, selectedChain)
+                Signer.genDelegateSimulate(account, msgDelegate, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1404,6 +1412,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1411,7 +1420,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genUnDelegateBroadcast(account, msgUnDelegate, fee, memo, selectedChain)
+                Signer.genUnDelegateBroadcast(account, msgUnDelegate, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1424,6 +1433,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1431,7 +1441,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, memo, selectedChain)
+                Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1444,6 +1454,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1451,7 +1462,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genReDelegateBroadcast(account, msgReDelegate, fee, memo, selectedChain)
+                Signer.genReDelegateBroadcast(account, msgReDelegate, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1464,6 +1475,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1471,7 +1483,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genReDelegateSimulate(account, msgReDelegate, fee, memo, selectedChain)
+                Signer.genReDelegateSimulate(account, msgReDelegate, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1484,6 +1496,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1491,7 +1504,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genCancelUnbondingBroadcast(
-                account, msgCancelUnbondingDelegation, fee, memo, selectedChain
+                account, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
             )
             txStub.broadcastTx(broadcastTx)
 
@@ -1505,6 +1518,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1512,7 +1526,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genCancelUnbondingSimulate(
-                account, msgCancelUnbondingDelegation, fee, memo, selectedChain
+                account, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
             )
             simulStub.simulate(simulateTx)
 
@@ -1526,6 +1540,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1533,7 +1548,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genClaimRewardsBroadcast(account, rewards, fee, memo, selectedChain)
+                Signer.genClaimRewardsBroadcast(account, rewards, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1546,6 +1561,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1553,7 +1569,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genClaimRewardsSimulate(account, rewards, fee, memo, selectedChain)
+                Signer.genClaimRewardsSimulate(account, rewards, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1567,6 +1583,7 @@ class TxRepositoryImpl : TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1574,7 +1591,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genCompoundingBroadcast(
-                account, rewards, stakingDenom, fee, memo, selectedChain
+                account, rewards, stakingDenom, fee, tip, memo, selectedChain
             )
             txStub.broadcastTx(broadcastTx)
 
@@ -1589,6 +1606,7 @@ class TxRepositoryImpl : TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1596,7 +1614,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genCompoundingSimulate(
-                account, rewards, stakingDenom, fee, memo, selectedChain
+                account, rewards, stakingDenom, fee, tip, memo, selectedChain
             )
             simulStub.simulate(simulateTx)
 
@@ -1610,6 +1628,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1617,7 +1636,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx = Signer.genChangeRewardAddressBroadcast(
-                account, msgSetWithdrawAddress, fee, memo, selectedChain
+                account, msgSetWithdrawAddress, fee, tip, memo, selectedChain
             )
             txStub.broadcastTx(broadcastTx)
 
@@ -1631,6 +1650,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1638,7 +1658,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx = Signer.genChangeRewardAddressSimulate(
-                account, msgSetWithdrawAddress, fee, memo, selectedChain
+                account, msgSetWithdrawAddress, fee, tip, memo, selectedChain
             )
             simulStub.simulate(simulateTx)
 
@@ -1652,13 +1672,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<MsgVote?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genVoteBroadcast(account, msgVotes, fee, memo, selectedChain)
+            val broadcastTx = Signer.genVoteBroadcast(account, msgVotes, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1671,13 +1692,14 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<MsgVote?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, memo, selectedChain)
+            val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1690,6 +1712,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1697,7 +1720,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genClaimIncentiveBroadcast(account, incentive, fee, memo, selectedChain)
+                Signer.genClaimIncentiveBroadcast(account, incentive, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1710,6 +1733,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1717,7 +1741,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genClaimIncentiveSimulate(account, incentive, fee, memo, selectedChain)
+                Signer.genClaimIncentiveSimulate(account, incentive, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1730,6 +1754,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1737,7 +1762,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genMintCreateBroadcast(account, msgCreateCDP, fee, memo, selectedChain)
+                Signer.genMintCreateBroadcast(account, msgCreateCDP, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1750,6 +1775,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1757,7 +1783,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genMintCreateSimulate(account, msgCreateCDP, fee, memo, selectedChain)
+                Signer.genMintCreateSimulate(account, msgCreateCDP, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1770,6 +1796,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1777,7 +1804,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genMintDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genMintDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1790,6 +1817,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1797,7 +1825,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genMintDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genMintDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1810,6 +1838,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1817,7 +1846,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genMintWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genMintWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1830,6 +1859,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1837,7 +1867,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1850,6 +1880,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1857,7 +1888,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genMintBorrowBroadcast(account, msgDrawDebt, fee, memo, selectedChain)
+                Signer.genMintBorrowBroadcast(account, msgDrawDebt, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1870,6 +1901,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1877,7 +1909,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, memo, selectedChain)
+                Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1890,6 +1922,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1897,7 +1930,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genMintRepayBroadcast(account, msgRepayDebt, fee, memo, selectedChain)
+                Signer.genMintRepayBroadcast(account, msgRepayDebt, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1910,6 +1943,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1917,7 +1951,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genMintRepaySimulate(account, msgRepayDebt, fee, memo, selectedChain)
+                Signer.genMintRepaySimulate(account, msgRepayDebt, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1930,6 +1964,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1937,7 +1972,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genLendDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genLendDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1950,6 +1985,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1957,7 +1993,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genLendDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genLendDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1970,6 +2006,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -1977,7 +2014,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genLendWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genLendWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1990,6 +2027,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -1997,7 +2035,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -2010,6 +2048,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -2017,7 +2056,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genLendBorrowBroadcast(account, msgBorrow, fee, memo, selectedChain)
+                Signer.genLendBorrowBroadcast(account, msgBorrow, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -2030,6 +2069,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -2037,7 +2077,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genLendBorrowSimulate(account, msgBorrow, fee, memo, selectedChain)
+                Signer.genLendBorrowSimulate(account, msgBorrow, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -2050,6 +2090,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -2057,7 +2098,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genLendRepayBroadcast(account, msgRepay, fee, memo, selectedChain)
+                Signer.genLendRepayBroadcast(account, msgRepay, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -2070,6 +2111,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -2077,7 +2119,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genLendRepaySimulate(account, msgRepay, fee, memo, selectedChain)
+                Signer.genLendRepaySimulate(account, msgRepay, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -2090,6 +2132,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -2097,7 +2140,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genPoolDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genPoolDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -2110,6 +2153,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -2117,7 +2161,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genPoolDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genPoolDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -2130,6 +2174,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -2137,7 +2182,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genPoolWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genPoolWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -2150,6 +2195,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -2157,7 +2203,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -2170,6 +2216,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -2177,7 +2224,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genEarnDepositBroadcast(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genEarnDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -2190,6 +2237,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -2197,7 +2245,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genEarnDepositSimulate(account, msgDeposit, fee, memo, selectedChain)
+                Signer.genEarnDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -2210,6 +2258,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): ServiceProto.BroadcastTxResponse? {
@@ -2217,7 +2266,7 @@ class TxRepositoryImpl : TxRepository {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genEarnWithdrawBroadcast(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genEarnWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -2230,6 +2279,7 @@ class TxRepositoryImpl : TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
         selectedChain: BaseChain?
     ): Any? {
@@ -2237,7 +2287,7 @@ class TxRepositoryImpl : TxRepository {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
-                Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, memo, selectedChain)
+                Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {

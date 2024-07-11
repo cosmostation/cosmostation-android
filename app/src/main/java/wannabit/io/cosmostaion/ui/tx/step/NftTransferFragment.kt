@@ -65,6 +65,7 @@ class NftTransferFragment(
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var toAddress = ""
     private var txMemo = ""
@@ -317,6 +318,7 @@ class NftTransferFragment(
                     getChannel(fromChain),
                     onBindWasmNftSend(),
                     txFee,
+                    txTip,
                     txMemo,
                     fromChain
                 )
@@ -338,6 +340,7 @@ class NftTransferFragment(
                 fromChain.address,
                 onBindWasmNftSend(),
                 txFee,
+                txTip,
                 txMemo,
                 fromChain
             )
