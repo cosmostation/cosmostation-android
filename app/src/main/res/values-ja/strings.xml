@@ -335,6 +335,7 @@
     <string name="str_affect_safe_msg">あなたの資産に影響を与えません</string>
     <string name="str_dapp_warn_msg">このメッセージに署名するのは、要求しているサイトを信頼し、その内容を完全に理解している場合にのみ行ってください</string>
     <string name="str_support_injection_msg">ユーザーの利便性と応答速度の改善のために、インジェクション方式（EIP-6963）をサポートしています。DAppを使用する際は、デスクトップウォレットなどを選択してください。\nデスクトップのエクステンションウォレットと同じユーザーエクスペリエンスを体験できます。\nEVM用DAppの場合、EIP-6963仕様をサポートしているため、快適なWeb3の旅をお楽しみいただけます。</string>
+    <string name="str_fee_tip_msg">Feeとtipは財布ではなくチェー ンに支払われます</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

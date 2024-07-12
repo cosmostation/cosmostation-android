@@ -107,7 +107,11 @@ class DashboardAdapter(
                         if (testnet.fetched) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = QrDialog(context, testnet)
+                            val customDialog = if (testnet.isCosmos() && testnet.supportEvm) {
+                                QrEvmDialog(context, testnet)
+                            } else {
+                                QrDialog(context, testnet)
+                            }
 
                             if (scaleX == 1.0f && scaleY == 1.0f) {
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
