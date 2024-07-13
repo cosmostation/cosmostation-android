@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.databinding.ViewTabItemBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
 import wannabit.io.cosmostaion.ui.option.account.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.option.notice.PushNotificationActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -48,6 +50,32 @@ class MainActivity : BaseActivity() {
         initView()
         setupViewModels()
         setUpClickAction()
+        showPushData()
+    }
+
+    private fun showPushData() {
+        intent.apply {
+            if (getIntExtra("push_type", -1).toString() == "0") {
+                getStringExtra("push_txhash")?.let { txHash ->
+                    getStringExtra("push_network")?.let { network ->
+                        val url = CosmostationConstants.EXPLORER_BASE_TX_URL.replace(
+                            "{apiName}", network
+                        ).replace("{hash}", txHash)
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
+                                putExtra("url", url)
+                                startActivity(this)
+                                overridePendingTransition(
+                                    R.anim.anim_slide_in_bottom,
+                                    R.anim.anim_fade_out
+                                )
+                            }
+                        }, 1000)
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {

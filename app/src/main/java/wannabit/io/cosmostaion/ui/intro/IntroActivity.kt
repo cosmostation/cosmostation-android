@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -128,6 +127,11 @@ class IntroActivity : AppCompatActivity() {
                         } else {
                             Intent(this@IntroActivity, MainActivity::class.java).apply {
                                 BaseData.isBackGround = true
+                                if (intent.extras != null) {
+                                    putExtra("push_type", intent.extras?.getInt("push_type") ?: -1)
+                                    putExtra("push_txhash", intent.extras?.getString("txhash") ?: "")
+                                    putExtra("push_network", intent.extras?.getString("network") ?: "")
+                                }
                                 startActivity(this)
                                 flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

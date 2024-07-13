@@ -16,6 +16,7 @@ object CosmostationConstants {
 
     // explorer & github
     const val EXPLORER_BASE_URL = "https://www.mintscan.io/"
+    const val EXPLORER_BASE_TX_URL = "https://www.mintscan.io/{apiName}/tx/{hash}"
     const val CHAIN_BASE_URL =
         "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
     const val ECO_SYSTEM_URL =
