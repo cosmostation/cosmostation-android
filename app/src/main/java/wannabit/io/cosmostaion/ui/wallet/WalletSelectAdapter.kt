@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectBinding
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectHeaderBinding
+import wannabit.io.cosmostaion.ui.main.DashboardAdapter
 
 class WalletSelectAdapter(
     private val mainnetChains: MutableList<BaseChain>,
@@ -64,19 +65,24 @@ class WalletSelectAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) {
-            VIEW_TYPE_MAINNET_HEADER
-        } else if (position < mainnetChains.size + 1) {
-            VIEW_TYPE_MAINNET_ITEM
-        } else if (position < mainnetChains.size + 2) {
-            VIEW_TYPE_TESTNET_HEADER
+        return if (testnetChains.isNotEmpty()) {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else if (position < mainnetChains.size + 1) DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+            else if (position < mainnetChains.size + 2) DashboardAdapter.VIEW_TYPE_TESTNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_TESTNET_ITEM
+
         } else {
-            VIEW_TYPE_TESTNET_ITEM
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
         }
     }
 
     override fun getItemCount(): Int {
-        return currentList.size + 2
+        return if (testnetChains.isNotEmpty()) {
+            mainnetChains.size + testnetChains.size + 2
+        } else {
+            mainnetChains.size + 1
+        }
     }
 
     inner class WalletSelectHeaderViewHolder(

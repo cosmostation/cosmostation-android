@@ -1,15 +1,14 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
+import wannabit.io.cosmostaion.ui.main.DashboardAdapter
 
 class PrivateAdapter(
     val account: BaseAccount,
@@ -30,7 +29,7 @@ class PrivateAdapter(
                 val binding = ItemStickyHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                PrivateHeaderViewHolder(parent.context, binding)
+                PrivateHeaderViewHolder(binding)
             }
 
             VIEW_TYPE_MAINNET_ITEM, VIEW_TYPE_TESTNET_ITEM -> {
@@ -62,18 +61,28 @@ class PrivateAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_MAINNET_HEADER
-        else if (position < mainnetChains.size + 1) VIEW_TYPE_MAINNET_ITEM
-        else if (position < mainnetChains.size + 2) VIEW_TYPE_TESTNET_HEADER
-        else VIEW_TYPE_TESTNET_ITEM
+        return if (testnetChains.isNotEmpty()) {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else if (position < mainnetChains.size + 1) DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+            else if (position < mainnetChains.size + 2) DashboardAdapter.VIEW_TYPE_TESTNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_TESTNET_ITEM
+
+        } else {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+        }
     }
 
     override fun getItemCount(): Int {
-        return mainnetChains.size + testnetChains.size + 2
+        return if (testnetChains.isNotEmpty()) {
+            mainnetChains.size + testnetChains.size + 2
+        } else {
+            mainnetChains.size + 1
+        }
     }
 
     inner class PrivateHeaderViewHolder(
-        private val context: Context, private val binding: ItemStickyHeaderBinding
+        private val binding: ItemStickyHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(viewType: Int) {

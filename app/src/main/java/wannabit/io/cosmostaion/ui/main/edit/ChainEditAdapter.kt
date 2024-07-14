@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import wannabit.io.cosmostaion.ui.main.DashboardAdapter
 
 class ChainEditAdapter(
     val account: BaseAccount,
@@ -62,14 +63,24 @@ class ChainEditAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_MAINNET_HEADER
-        else if (position < mainnetChains.size + 1) VIEW_TYPE_MAINNET_ITEM
-        else if (position < mainnetChains.size + 2) VIEW_TYPE_TESTNET_HEADER
-        else VIEW_TYPE_TESTNET_ITEM
+        return if (testnetChains.isNotEmpty()) {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else if (position < mainnetChains.size + 1) DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+            else if (position < mainnetChains.size + 2) DashboardAdapter.VIEW_TYPE_TESTNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_TESTNET_ITEM
+
+        } else {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+        }
     }
 
     override fun getItemCount(): Int {
-        return mainnetChains.size + testnetChains.size + 2
+        return if (testnetChains.isNotEmpty()) {
+            mainnetChains.size + testnetChains.size + 2
+        } else {
+            mainnetChains.size + 1
+        }
     }
 
     inner class EditHeaderViewHolder(
