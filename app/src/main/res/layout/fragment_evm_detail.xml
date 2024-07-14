@@ -14,44 +14,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/btn_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="@dimen/space_10"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_token"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:src="@drawable/icon_back" />
+
+                <TextView
+                    android:id="@+id/account_name"
+                    style="@style/font_sb_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01" />
+
+                <ImageView
+                    android:id="@+id/btn_random"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_32" />
+
+            </LinearLayout>
 
             <ImageView
+                android:id="@+id/btn_account"
                 android:layout_width="@dimen/space_28"
                 android:layout_height="@dimen/space_28"
-                android:layout_marginLeft="@dimen/space_20"
-                android:src="@drawable/icon_back" />
+                android:layout_gravity="end"
+                android:layout_marginRight="@dimen/space_20"
+                android:src="@drawable/icon_chrome"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/account_name"
-                style="@style/font_sb_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/space_8"
-                android:textColor="@color/color_base01" />
+            <ImageView
+                android:id="@+id/btn_add_token"
+                android:layout_width="@dimen/space_28"
+                android:layout_height="@dimen/space_28"
+                android:layout_marginRight="@dimen/space_15"
+                android:src="@drawable/icon_add_token_explain"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_account"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/btn_account"
-            android:layout_width="@dimen/space_28"
-            android:layout_height="@dimen/space_28"
-            android:layout_gravity="end"
-            android:layout_marginRight="@dimen/space_20"
-            android:src="@drawable/icon_chrome" />
-
-        <ImageView
-            android:id="@+id/btn_add_token"
-            android:layout_width="@dimen/space_28"
-            android:layout_height="@dimen/space_28"
-            android:layout_gravity="end"
-            android:layout_marginRight="@dimen/space_15"
-            android:src="@drawable/icon_add_token" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 

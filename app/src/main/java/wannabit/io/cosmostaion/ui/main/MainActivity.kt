@@ -51,6 +51,7 @@ class MainActivity : BaseActivity() {
         setupViewModels()
         setUpClickAction()
         showPushData()
+        setUpBg()
     }
 
     private fun showPushData() {
@@ -213,7 +214,7 @@ class MainActivity : BaseActivity() {
                 )
             }
 
-            accountLayout.setOnClickListener {
+            accountImg.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { !it.fetched }) {
                         handleOneClickWithDelay(
@@ -225,6 +226,30 @@ class MainActivity : BaseActivity() {
                     }
                 }
             }
+
+            accountName.setOnClickListener {
+                BaseData.baseAccount?.let { account ->
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AccountSelectFragment()
+                        )
+                    } else {
+                        makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
+                }
+            }
+
+            btnRandom.setOnClickListener {
+                CosmostationApp.instance.setRandomBackgroundImage()
+                binding.parentLayout.setBackgroundResource(Prefs.background)
+            }
+        }
+    }
+
+    private fun setUpBg() {
+        ApplicationViewModel.shared.changeBgResult.observe(this) {
+            binding.parentLayout.setBackgroundResource(Prefs.background)
         }
     }
 
@@ -244,9 +269,9 @@ class MainActivity : BaseActivity() {
 
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) {
-//            BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
-//                it.fetched = false
-//            }
+            BaseData.baseAccount?.sortedDisplayChains()?.forEach {
+                it.fetched = false
+            }
 
             val mainViewPagerAdapter = MainViewPageAdapter(this)
             binding.apply {

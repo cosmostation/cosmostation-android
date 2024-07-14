@@ -747,12 +747,11 @@ class CommonTransferFragment : BaseTxFragment() {
                                                                 .setDenom(denom)
                                                                 .setAmount(feeCoin.amount).build()
 
-                                                        val updateTxFee =
+                                                        cosmosTxFee =
                                                             TxProto.Fee.newBuilder().setGasLimit(
                                                                 BaseConstant.BASE_GAS_AMOUNT.toLong()
                                                             ).addAmount(updateFeeCoin).build()
 
-                                                        cosmosTxFee = updateTxFee
                                                         updateFeeView()
                                                         txSimulate()
                                                     }

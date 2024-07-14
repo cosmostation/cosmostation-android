@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
@@ -51,6 +52,7 @@ class CosmosActivity : BaseActivity() {
             }
             initViewModel()
         }
+        setUpBg()
     }
 
     private fun initViewModel() {
@@ -95,6 +97,12 @@ class CosmosActivity : BaseActivity() {
 
         } catch (e: NoSuchElementException) {
             binding.chainLogo.visibility = View.GONE
+        }
+    }
+
+    private fun setUpBg() {
+        ApplicationViewModel.shared.changeBgResult.observe(this) {
+            binding.parentLayout.setBackgroundResource(Prefs.background)
         }
     }
 

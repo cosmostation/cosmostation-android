@@ -27,11 +27,15 @@
     <TextView
         android:id="@+id/account_name"
         style="@style/font_sb_14"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_10"
         android:layout_marginTop="@dimen/space_15"
+        android:layout_marginEnd="@dimen/space_15"
+        android:maxLines="1"
+        android:ellipsize="middle"
         android:textColor="@color/color_base01"
+        app:layout_constraintEnd_toStartOf="@+id/select_img"
         app:layout_constraintStart_toEndOf="@+id/account_type_img"
         app:layout_constraintTop_toTopOf="parent" />
 

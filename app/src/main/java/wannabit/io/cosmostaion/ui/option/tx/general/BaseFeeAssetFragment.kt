@@ -9,6 +9,7 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 interface BaseFeeAssetSelectListener {
@@ -48,11 +49,16 @@ class BaseFeeAssetFragment(
 
     private fun initRecyclerView() {
         binding.apply {
+            val filteredFeeDatas = baseFeeDatas?.mapNotNull { feeData ->
+                feeData.denom?.let {
+                    BaseData.getAsset(fromChain.apiName, it)?.let { feeData }
+                }
+            }?.toMutableList()
             baseFeeAssetAdapter = BaseFeeAssetAdapter(fromChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = baseFeeAssetAdapter
-            baseFeeAssetAdapter.submitList(baseFeeDatas)
+            baseFeeAssetAdapter.submitList(filteredFeeDatas)
 
             baseFeeAssetAdapter.setOnItemClickListener {
                 listener.select(it)

@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
+import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
@@ -57,6 +58,7 @@ import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
 import java.math.BigDecimal
+
 
 class CosmosDetailFragment : Fragment() {
 
@@ -324,6 +326,15 @@ class CosmosDetailFragment : Fragment() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
+            }
+
+            accountName.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+
+            btnRandom.setOnClickListener {
+                CosmostationApp.instance.setRandomBackgroundImage()
+                ApplicationViewModel.shared.changeBg(Prefs.background)
             }
 
             btnAddToken.setOnClickListener {

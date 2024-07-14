@@ -92,6 +92,11 @@ class ApplicationViewModel(
         styleOptionResult.postValue(isChanged)
     }
 
+    private var _changeBgResult = MutableLiveData<Int>()
+    val changeBgResult: LiveData<Int> get() = _changeBgResult
+    fun changeBg(bg: Int) = viewModelScope.launch(Dispatchers.IO) {
+        _changeBgResult.postValue(bg)
+    }
 
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
