@@ -387,6 +387,9 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
             }
             updateFeeView()
+            if (!fromChain.supportCosmosGrpc) {
+                btnFee.visibility = View.GONE
+            }
         }
     }
 
