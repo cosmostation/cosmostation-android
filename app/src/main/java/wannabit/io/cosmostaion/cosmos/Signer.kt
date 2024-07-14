@@ -989,35 +989,38 @@ object Signer {
         return msgAnys
     }
 
-    fun setTip(position: Int, txFee: Fee?, txTip: Tip?): Tip? {
+    fun setFee(position: Int, txFee: Fee?): Fee? {
         val feeDenom = txFee?.getAmount(0)?.denom
         val feeAmount = txFee?.getAmount(0)?.amount
 
-        var result: Tip? = null
-        when (position) {
-            0 -> result = Tip.newBuilder().setTipper(txTip?.tipper)
-                .addAmount(CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount("0").build())
-                .build()
-
-            1 -> result = Tip.newBuilder().setTipper(txTip?.tipper).addAmount(
-                CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(
-                    feeAmount?.toBigDecimal()?.multiply(BigDecimal("0.2"))
-                        ?.setScale(0, RoundingMode.DOWN).toString()
+        var result: Fee? = null
+        txFee?.gasLimit?.let { gasLimit ->
+            when (position) {
+                0 -> result = Fee.newBuilder().setGasLimit(gasLimit).addAmount(
+                    CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(feeAmount).build()
                 ).build()
-            ).build()
 
-            2 -> result = Tip.newBuilder().setTipper(txTip?.tipper).addAmount(
-                CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(
-                    feeAmount?.toBigDecimal()?.multiply(BigDecimal("0.5"))
-                        ?.setScale(0, RoundingMode.DOWN).toString()
+                1 -> result = Fee.newBuilder().setGasLimit(gasLimit).addAmount(
+                    CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(
+                        feeAmount?.toBigDecimal()?.multiply(BigDecimal("1.2"))
+                            ?.setScale(0, RoundingMode.DOWN).toString()
+                    ).build()
                 ).build()
-            ).build()
 
-            3 -> result = Tip.newBuilder().setTipper(txTip?.tipper).addAmount(
-                CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(feeAmount.toString())
-                    .build()
-            ).build()
+                2 -> result = Fee.newBuilder().setGasLimit(gasLimit).addAmount(
+                    CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(
+                        feeAmount?.toBigDecimal()?.multiply(BigDecimal("1.5"))
+                            ?.setScale(0, RoundingMode.DOWN).toString()
+                    ).build()
+                ).build()
 
+                3 -> result = Fee.newBuilder().setGasLimit(gasLimit).addAmount(
+                    CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(
+                        feeAmount?.toBigDecimal()?.multiply(BigDecimal("2"))
+                            ?.setScale(0, RoundingMode.DOWN).toString()
+                    ).build()
+                ).build()
+            }
         }
         return result
     }

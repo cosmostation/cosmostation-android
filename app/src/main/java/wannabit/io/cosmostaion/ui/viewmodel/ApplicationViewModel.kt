@@ -338,6 +338,13 @@ class ApplicationViewModel(
                                                         grpcFetcher?.cosmosBaseFees?.add(baseFee)
                                                     }
                                                 }
+                                                grpcFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                    if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                        -1
+                                                    } else {
+                                                        0
+                                                    }
+                                                }
                                             }
                                         }
 

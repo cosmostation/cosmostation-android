@@ -367,13 +367,9 @@ class CommonTransferFragment : BaseTxFragment() {
                                     CoinProto.Coin.newBuilder().setDenom(feeDenom)
                                         .setAmount(feeAmount.toString()).build()
                                 ).build()
-                            txTip = TxProto.Tip.newBuilder().setTipper(fromChain.address).addAmount(
-                                CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount("0")
-                                    .build()
-                            ).build()
 
                         } else {
-                            cosmosFeeInfos = getFeeInfos(requireContext())
+                            cosmosFeeInfos = fromChain.getFeeInfos(requireContext())
                             for (i in cosmosFeeInfos.indices) {
                                 val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
                                 feeSegment.addView(
@@ -383,9 +379,9 @@ class CommonTransferFragment : BaseTxFragment() {
                                 )
                                 segmentView.btnTitle.text = cosmosFeeInfos[i].title
                             }
-                            feeSegment.setPosition(getFeeBasePosition(), false)
-                            selectedFeePosition = getFeeBasePosition()
-                            cosmosTxFee = getInitFee(requireContext())
+                            feeSegment.setPosition(fromChain.getFeeBasePosition(), false)
+                            selectedFeePosition = fromChain.getFeeBasePosition()
+                            cosmosTxFee = fromChain.getInitFee(requireContext())
                         }
                     }
                 }
@@ -653,12 +649,8 @@ class CommonTransferFragment : BaseTxFragment() {
                         feeTokenImg.setTokenImg(asset)
                         feeToken.text = asset.symbol
 
-                        var totalFeeAmount = fee.amount.toBigDecimal()
-                        if (txTip?.amountList?.isNotEmpty() == true) {
-                            totalFeeAmount =
-                                totalFeeAmount.add(txTip?.getAmount(0)?.amount?.toBigDecimal())
-                        }
-                        val amount = totalFeeAmount.amountHandlerLeft(asset.decimals ?: 6)
+                        val amount =
+                            fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
                         val price = BaseData.getPrice(asset.coinGeckoId)
                         val value = price.multiply(amount)
 
@@ -674,8 +666,7 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(
-                        fromChain,
+                    TransferAddressFragment.newInstance(fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -714,58 +705,62 @@ class CommonTransferFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
-                    if (cosmosFeeInfos.isEmpty()) {
-                        activity?.makeToast(R.string.str_unknown_error)
-                        return@setOnClickListener
-                    }
-
-                    if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                        handleOneClickWithDelay(
-                            BaseFeeAssetFragment.newInstance(fromChain,
-                                fromChain.grpcFetcher?.cosmosBaseFees,
-                                object : BaseFeeAssetSelectListener {
-                                    override fun select(denom: String) {
-                                        cosmosTxFee?.let { fee ->
-                                            cosmosTxFee =
-                                                TxProto.Fee.newBuilder().setGasLimit(fee.gasLimit)
-                                                    .addAmount(
-                                                        CoinProto.Coin.newBuilder()
-                                                            .setDenom(fee.getAmount(0).denom)
-                                                            .setAmount(fee.getAmount(0).amount)
-                                                    ).build()
-                                        }
-                                    }
-                                })
-                        )
-
-                    } else {
-                        handleOneClickWithDelay(
-                            FeeAssetFragment.newInstance(fromChain,
-                                cosmosFeeInfos[selectedFeePosition].feeDatas.toMutableList(),
-                                sendAssetType,
-                                object : AssetSelectListener {
-                                    override fun select(denom: String) {
-                                        fromChain.apply {
-                                            getDefaultFeeCoins(requireContext()).firstOrNull { it.denom == denom }
-                                                ?.let { feeCoin ->
+                cosmosTxFee?.let { fee ->
+                    if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
+                        if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                            handleOneClickWithDelay(
+                                BaseFeeAssetFragment(fromChain,
+                                    fromChain.grpcFetcher?.cosmosBaseFees,
+                                    object : BaseFeeAssetSelectListener {
+                                        override fun select(denom: String) {
+                                            fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                                ?.let { baseFee ->
+                                                    val feeAmount = baseFee.getdAmount()
+                                                        .multiply(fee.gasLimit.toBigDecimal())
+                                                        ?.setScale(0, RoundingMode.DOWN)
                                                     val updateFeeCoin =
                                                         CoinProto.Coin.newBuilder().setDenom(denom)
-                                                            .setAmount(feeCoin.amount).build()
+                                                            .setAmount(feeAmount.toString()).build()
+                                                    cosmosTxFee = TxProto.Fee.newBuilder()
+                                                        .setGasLimit(fee.gasLimit)
+                                                        .addAmount(updateFeeCoin).build()
 
-                                                    val updateTxFee =
-                                                        TxProto.Fee.newBuilder().setGasLimit(
-                                                            BaseConstant.BASE_GAS_AMOUNT.toLong()
-                                                        ).addAmount(updateFeeCoin).build()
-
-                                                    cosmosTxFee = updateTxFee
                                                     updateFeeView()
                                                     txSimulate()
                                                 }
                                         }
-                                    }
-                                })
-                        )
+                                    })
+                            )
+
+                        } else {
+                            handleOneClickWithDelay(
+                                FeeAssetFragment.newInstance(fromChain,
+                                    cosmosFeeInfos[selectedFeePosition].feeDatas.toMutableList(),
+                                    sendAssetType,
+                                    object : AssetSelectListener {
+                                        override fun select(denom: String) {
+                                            fromChain.apply {
+                                                getDefaultFeeCoins(requireContext()).firstOrNull { it.denom == denom }
+                                                    ?.let { feeCoin ->
+                                                        val updateFeeCoin =
+                                                            CoinProto.Coin.newBuilder()
+                                                                .setDenom(denom)
+                                                                .setAmount(feeCoin.amount).build()
+
+                                                        val updateTxFee =
+                                                            TxProto.Fee.newBuilder().setGasLimit(
+                                                                BaseConstant.BASE_GAS_AMOUNT.toLong()
+                                                            ).addAmount(updateFeeCoin).build()
+
+                                                        cosmosTxFee = updateTxFee
+                                                        updateFeeView()
+                                                        txSimulate()
+                                                    }
+                                            }
+                                        }
+                                    })
+                            )
+                        }
                     }
                 }
             }
@@ -774,16 +769,16 @@ class CommonTransferFragment : BaseTxFragment() {
                 selectedFeePosition = position
                 if (transferStyle == TransferStyle.COSMOS_STYLE) {
                     fromChain.apply {
-                        if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                            txTip = Signer.setTip(selectedFeePosition, cosmosTxFee, txTip)
-
-                        } else {
-                            cosmosTxFee = fromChain.getBaseFee(
-                                requireContext(),
-                                selectedFeePosition,
-                                cosmosTxFee?.getAmount(0)?.denom
-                            )
-                        }
+                        cosmosTxFee =
+                            if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                                Signer.setFee(selectedFeePosition, cosmosTxFee)
+                            } else {
+                                fromChain.getBaseFee(
+                                    requireContext(),
+                                    selectedFeePosition,
+                                    cosmosTxFee?.getAmount(0)?.denom
+                                )
+                            }
                     }
                 }
                 updateFeeView()
@@ -926,11 +921,10 @@ class CommonTransferFragment : BaseTxFragment() {
                                 val feeCoin =
                                     CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
                                         .setAmount(feeCoinAmount.toString()).build()
-
                                 cosmosTxFee =
                                     TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
                                         .addAmount(feeCoin).build()
-                                txTip = Signer.setTip(selectedFeePosition, cosmosTxFee, txTip)
+                                cosmosTxFee = Signer.setFee(selectedFeePosition, cosmosTxFee)
                             }
 
                         } else {

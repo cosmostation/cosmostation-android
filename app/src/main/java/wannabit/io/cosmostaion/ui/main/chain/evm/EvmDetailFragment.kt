@@ -21,7 +21,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
@@ -139,8 +138,7 @@ class EvmDetailFragment : Fragment() {
                 tab.text = when {
                     position == 0 -> "Assets"
                     position == 1 -> "Receive"
-                    position == 2 -> "History"
-                    selectedEvmChain.isEcosystem() && position == 3 -> "Ecosystem"
+                    selectedEvmChain.isEcosystem() && position == 2 -> "Ecosystem"
                     else -> "About"
                 }
             }.attach()
@@ -233,7 +231,6 @@ class EvmDetailFragment : Fragment() {
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
             fragments.add(EvmReceiveFragment.newInstance(selectedEvmChain))
-            fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
 
             if (selectedEvmChain.isEcosystem()) {

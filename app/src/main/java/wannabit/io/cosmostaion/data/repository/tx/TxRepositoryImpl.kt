@@ -280,22 +280,31 @@ class TxRepositoryImpl : TxRepository {
                         resultArray
                     }
 
-                    val tip =
-                        if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
-                            BigInteger.valueOf(1000000000L)
-                        } else {
-                            suggestTipValue[selectedFeeInfo]
-                        }
+                    val tip: BigInteger
+                    val baseFee: BigInteger?
+                    val evmGas: Long
 
-                    val totalPerGas =
-                        if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
-                                500000000L
-                            )
-                        ) {
-                            500000000L + tip.toLong()
+                    if (selectedChain.evmSupportEip1559()) {
+                        tip = suggestTipValue[selectedFeeInfo]
+                        baseFee = suggestBaseFee[selectedFeeInfo]
+                        evmGas = suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+
+                    } else {
+                        tip =
+                            if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
+                                BigInteger.valueOf(1000000000L)
+                            } else {
+                                suggestTipValue[selectedFeeInfo]
+                            }
+                        baseFee = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                500000000L)) {
+                            BigInteger.valueOf(500000000L)
+
                         } else {
-                            suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                            suggestBaseFee[selectedFeeInfo]
                         }
+                        evmGas = suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                    }
 
                     var rawTransaction: RawTransaction? = null
 
@@ -307,7 +316,7 @@ class TxRepositoryImpl : TxRepository {
                             toEthAddress,
                             toSendAmount?.toBigInteger(),
                             tip,
-                            totalPerGas.toBigInteger()
+                            evmGas.toBigInteger()
                         )
 
                     } else if (sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
@@ -319,7 +328,7 @@ class TxRepositoryImpl : TxRepository {
                             BigInteger.ZERO,
                             txData,
                             tip,
-                            totalPerGas.toBigInteger()
+                            evmGas.toBigInteger()
                         )
                     }
 
@@ -327,7 +336,7 @@ class TxRepositoryImpl : TxRepository {
                         rawTransaction, chainID, credentials
                     )
                     val hexValue = Numeric.toHexString(signedMessage)
-                    val feeAmount = gasLimit.multiply(totalPerGas.toBigInteger())
+                    val feeAmount = gasLimit.multiply(evmGas.toBigInteger())
 
                     Pair(hexValue, feeAmount.toString())
 

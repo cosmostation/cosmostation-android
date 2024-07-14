@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.option.tx.general
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,35 +15,16 @@ interface BaseFeeAssetSelectListener {
     fun select(denom: String)
 }
 
-class BaseFeeAssetFragment : BottomSheetDialogFragment() {
+class BaseFeeAssetFragment(
+    private val fromChain: BaseChain,
+    private val baseFeeDatas: MutableList<CoinProto.DecCoin>?,
+    val listener: BaseFeeAssetSelectListener
+) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: BaseChain
-    private var baseFeeDatas: MutableList<CoinProto.DecCoin>? = mutableListOf()
-
     private lateinit var baseFeeAssetAdapter: BaseFeeAssetAdapter
-
-    companion object {
-        @JvmStatic
-        fun newInstance(
-            fromChain: BaseChain,
-            baseFeeDatas: MutableList<CoinProto.DecCoin>?,
-            listener: BaseFeeAssetSelectListener,
-        ): BaseFeeAssetFragment {
-            val args = Bundle().apply {
-                putParcelable("fromChain", fromChain)
-                putSerializable("baseFeeDatas", baseFeeDatas?.toHashSet())
-            }
-            val fragment = BaseFeeAssetFragment()
-            fragment.arguments = args
-            fragment.baseFeeAssetSelectListener = listener
-            return fragment
-        }
-    }
-
-    private var baseFeeAssetSelectListener: BaseFeeAssetSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -61,22 +41,7 @@ class BaseFeeAssetFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         binding.apply {
-            arguments?.apply {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getParcelable("fromChain", BaseChain::class.java)?.let {
-                        fromChain = it
-                    }
-
-                } else {
-                    (getParcelable("fromChain") as? BaseChain)?.let {
-                        fromChain = it
-                    }
-                }
-                val serializableList = arguments?.getSerializable("baseFeeDatas") as? HashSet<*>
-                baseFeeDatas = serializableList?.toList() as MutableList<CoinProto.DecCoin>
-            }
             selectTitle.text = getString(R.string.title_fee_select)
-
             initRecyclerView()
         }
     }
@@ -90,7 +55,7 @@ class BaseFeeAssetFragment : BottomSheetDialogFragment() {
             baseFeeAssetAdapter.submitList(baseFeeDatas)
 
             baseFeeAssetAdapter.setOnItemClickListener {
-                baseFeeAssetSelectListener?.select(it)
+                listener.select(it)
                 dismiss()
             }
         }
