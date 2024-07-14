@@ -14,9 +14,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
 
 
@@ -25,13 +24,13 @@ class QrCodeFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentQrCodeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var qrCodAdapter: QrCodAdapter
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): QrCodeFragment {
+        fun newInstance(selectedChain: BaseChain): QrCodeFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -67,10 +66,10 @@ class QrCodeFragment : BottomSheetDialogFragment() {
 
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }

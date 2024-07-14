@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kava.cdp.v1beta1.GenesisProto
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_MINT_IMG_URL
+import wannabit.io.cosmostaion.chain.evmClass.KAVA_MINT_IMG_URL
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.databinding.ItemOtherMintBinding
 import java.math.BigDecimal

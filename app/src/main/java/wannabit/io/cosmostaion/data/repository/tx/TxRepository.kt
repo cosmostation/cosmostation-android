@@ -10,7 +10,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
-import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmos.tx.v1beta1.TxProto.*
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
@@ -23,8 +23,7 @@ import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
@@ -56,7 +55,7 @@ interface TxRepository {
         toSendAmount: String?,
         selectedToken: Token?,
         sendAssetType: SendAssetType,
-        selectedChain: CosmosLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -67,7 +66,7 @@ interface TxRepository {
     suspend fun simulateEvmDelegateTx(
         toValidatorAddress: String?,
         toDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -78,7 +77,7 @@ interface TxRepository {
     suspend fun simulateEvmUnDelegateTx(
         validatorAddress: String?,
         toUnDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -90,7 +89,7 @@ interface TxRepository {
         fromValidatorAddress: String?,
         toValidatorAddress: String?,
         toReDelegateAmount: String?,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -102,7 +101,7 @@ interface TxRepository {
         validatorAddress: String?,
         unDelegateAmount: String?,
         height: Long,
-        selectedChain: EthereumLine,
+        selectedChain: BaseChain,
         selectedFeeInfo: Int
     ): Pair<String?, String?>
 
@@ -111,10 +110,7 @@ interface TxRepository {
     ): String?
 
     suspend fun simulateEvmVoteTx(
-        proposalId: Long,
-        proposalOption: Long,
-        selectedChain: EthereumLine,
-        selectedFeeInfo: Int
+        proposalId: Long, proposalOption: Long, selectedChain: BaseChain, selectedFeeInfo: Int
     ): Pair<String?, String?>
 
     suspend fun broadcastSendTx(
@@ -122,8 +118,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateSendTx(
@@ -131,12 +128,13 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastOktTx(
-        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: CosmosLine
+        msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
     ): LegacyRes?
 
     suspend fun broadcastIbcSendTx(
@@ -144,8 +142,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateIbcSendTx(
@@ -153,8 +152,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastWasmTx(
@@ -162,8 +162,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateWasmTx(
@@ -171,8 +172,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastDelegateTx(
@@ -180,8 +182,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: MsgDelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateDelegateTx(
@@ -189,8 +192,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDelegate: MsgDelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastUnDelegateTx(
@@ -198,8 +202,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateUnDelegateTx(
@@ -207,8 +212,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastReDelegateTx(
@@ -216,8 +222,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateReDelegateTx(
@@ -225,8 +232,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastCancelUnbondingTx(
@@ -234,8 +242,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateCancelUnbondingTx(
@@ -243,8 +252,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastGetRewardsTx(
@@ -252,8 +262,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateGetRewardsTx(
@@ -261,8 +272,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastCompoundingTx(
@@ -271,8 +283,9 @@ interface TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateCompoundingTx(
@@ -281,8 +294,9 @@ interface TxRepository {
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastChangeRewardAddressTx(
@@ -290,8 +304,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateChangeRewardAddressTx(
@@ -299,8 +314,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastVoteTx(
@@ -308,8 +324,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateVoteTx(
@@ -317,8 +334,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastClaimIncentiveTx(
@@ -326,8 +344,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateClaimIncentiveTx(
@@ -335,8 +354,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         incentive: QueryProto.QueryRewardsResponse,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintCreateTx(
@@ -344,8 +364,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintCreateTx(
@@ -353,8 +374,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgCreateCDP: MsgCreateCDP?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintDepositTx(
@@ -362,8 +384,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintDepositTx(
@@ -371,8 +394,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintWithdrawTx(
@@ -380,8 +404,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintWithdrawTx(
@@ -389,8 +414,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintBorrowTx(
@@ -398,8 +424,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintBorrowTx(
@@ -407,8 +434,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastMintRepayTx(
@@ -416,8 +444,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateMintRepayTx(
@@ -425,8 +454,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendDepositTx(
@@ -434,8 +464,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendDepositTx(
@@ -443,8 +474,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendWithdrawTx(
@@ -452,8 +484,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendWithdrawTx(
@@ -461,8 +494,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendBorrowTx(
@@ -470,8 +504,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: MsgBorrow?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendBorrowTx(
@@ -479,8 +514,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgBorrow: MsgBorrow?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastLendRepayTx(
@@ -488,8 +524,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepay: MsgRepay?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateLendRepayTx(
@@ -497,8 +534,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgRepay: MsgRepay?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastPoolDepositTx(
@@ -506,8 +544,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulatePoolDepositTx(
@@ -515,8 +554,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastPoolWithdrawTx(
@@ -524,8 +564,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulatePoolWithdrawTx(
@@ -533,8 +574,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastEarnDepositTx(
@@ -542,8 +584,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateEarnDepositTx(
@@ -551,8 +594,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 
     suspend fun broadcastEarnWithdrawTx(
@@ -560,8 +604,9 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): BroadcastTxResponse?
 
     suspend fun simulateEarnWithdrawTx(
@@ -569,7 +614,8 @@ interface TxRepository {
         account: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
+        tip: Tip?,
         memo: String,
-        selectedChain: CosmosLine?
+        selectedChain: BaseChain?
     ): Any?
 }

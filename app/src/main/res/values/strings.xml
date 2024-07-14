@@ -11,6 +11,7 @@
     <string name="str_deprecated" translatable="false">Deprecated</string>
     <string name="str_legacy" translatable="false">Legacy</string>
     <string name="str_ethsecp256k1" translatable="false">ethsecp256k1</string>
+    <string name="str_keccak256" translatable="false">keccak256</string>
     <string name="str_secp256k1" translatable="false">secp256k1</string>
     <string name="str_evm" translatable="false">EVM Compat</string>
     <string name="str_available" translatable="false">Available</string>
@@ -151,6 +152,22 @@
     <string name="str_pro">Pro</string>
     <string name="str_permit_request">Permit request</string>
     <string name="str_tx_request">Tx request</string>
+    <string name="str_introduction">Introduction</string>
+    <string name="str_chain_information">Chain information</string>
+    <string name="str_initial_time">Initial issue</string>
+    <string name="str_chain_id">Chain ID</string>
+    <string name="str_chain_id_cosmos">Chain ID (cosmos style)</string>
+    <string name="str_chain_id_evm">Chain ID (evm style)</string>
+    <string name="str_coin_for_gas">Coin for gas</string>
+    <string name="str_network">Network</string>
+    <string name="str_staking_information">Staking information</string>
+    <string name="str_staking_asset">Staking asset</string>
+    <string name="str_unstake_period">Unstake period</string>
+    <string name="str_inflation">Inflation</string>
+    <string name="str_est_apr">Staking APR(est)</string>
+    <string name="str_mainnet">Mainnet</string>
+    <string name="str_testnet">Testnet</string>
+    <string name="str_dev">Dev mode</string>
 
 
     //title
@@ -178,6 +195,7 @@
     <string name="title_add_account">Add account</string>
     <string name="title_import_qr">Import account with QR scan</string>
     <string name="title_legacy_enabled">Enable legacy addresses</string>
+    <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
     <string name="title_address_book">Address book</string>
     <string name="title_general">General</string>
@@ -296,6 +314,7 @@
     <string name="title_select_style">Select style</string>
     <string name="title_delist">Discontinuation of support</string>
     <string name="title_legacy_path">Legacy path will not support</string>
+    <string name="title_support_inject">Support Injection</string>
 
 
     // msg
@@ -307,6 +326,7 @@
     <string name="str_msg_no_token">There are no tokens.</string>
     <string name="str_msg_copy">Tap the card to copy it</string>
     <string name="str_msg_copy1" translatable="false">Tap box for copy</string>
+    <string name="str_msg_copy2">Tap the box for copy</string>
     <string name="str_msg_mnemonic_copy">Tap mnemonic phrases box for copy</string>
     <string name="str_msg_private_copy">PrivateKey copied\nClear your clipboard after paste it!</string>
     <string name="str_msg_address_copied">Address copied</string>
@@ -382,6 +402,14 @@
     <string name="str_delist_msg">The chain you selected will be discontinued from mobile wallets. It can be supported by other wallets or future custom chain services.</string>
     <string name="str_legacy_path_msg">Accounts on the legacy path you selected will be terminated. We strongly recommend that you move your assets to the public path.</string>
     <string name="str_deposit_caution_msg">Send %1$s Network asset ONLY</string>
+    <string name="str_reward_address_change_msg">This address is where you receive reward assets.\n<u>Tap here for change reward address.</u> (not recommend)</string>
+    <string name="str_already_reward_address_changed_msg">You changed a reward address</string>
+    <string name="str_header_msg">Long press for copy</string>
+    <string name="str_affect_danger_msg">Affects your assets</string>
+    <string name="str_affect_safe_msg">Not affects your assets</string>
+    <string name="str_dapp_warn_msg">Only sign this message if you trust the requesting site and fully understand its contents</string>
+    <string name="str_support_injection_msg">To enhance user convenience and response speed, we support the injection method (EIP-6963). When using DApps, please select your desktop wallet, etc.\nYou can experience the same user experience as with the desktop extension wallet.\nFor EVM-based DApps, by supporting the EIP-6963 specification, you can enjoy a seamless web3 experience.</string>
+    <string name="str_fee_tip_msg">Fees and tips are pay to the chain,\nnot to wallet</string>
 
 
     // header
@@ -396,7 +424,7 @@
     <string name="str_reward_address">Reward address</string>
     <string name="str_my_staking">My staking</string>
     <string name="str_my_unstaking">My unstaking</string>
-    <string name="str_voting_period">Voting period proposals</string>
+    <string name="str_voting_period">Live proposals</string>
     <string name="str_vote_proposals">Finished proposals</string>
     <string name="str_my_market_list" translatable="false">My market list</string>
     <string name="str_market_list" translatable="false">Market list</string>
@@ -442,6 +470,7 @@
     <string name="error_not_support_vote">Vote is not support.</string>
     <string name="error_not_support_chain">Unsupported chain in mobile</string>
     <string name="error_bera_vote_one_proposal">You can only vote for one BeraChain.</string>
+    <string name="error_not_support_dapp">%1$s does not support mobile injection.</string>
 
 
     // tx

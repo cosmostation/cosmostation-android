@@ -24,19 +24,44 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_layout"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_62"
+                android:layout_marginTop="@dimen/space_16"
+                app:endIconDrawable="@drawable/icon_clear"
+                app:errorTextColor="@color/color_red"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/color_base01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_view">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/amount_txt"
+                    style="@style/InputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/str_send_amount"
+                    android:inputType="numberDecimal"
+                    android:lines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:id="@+id/available_title"
                 style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_4"
                 android:layout_marginEnd="@dimen/space_6"
-                android:layout_marginTop="@dimen/space_16"
                 android:gravity="end"
                 android:text="@string/str_max_available"
                 android:textColor="@color/color_base02"
                 app:layout_constraintEnd_toStartOf="@+id/available"
-                app:layout_constraintTop_toBottomOf="@+id/top_view" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_layout" />
 
             <TextView
                 android:id="@+id/available"
@@ -61,42 +86,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBaseline_toBaselineOf="@+id/available_title" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_layout"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_62"
-                android:layout_marginTop="@dimen/space_8"
-                app:endIconDrawable="@drawable/icon_clear"
-                app:errorTextColor="@color/color_red"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/color_base01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/available_title">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/amount_txt"
-                    style="@style/InputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/str_send_amount"
-                    android:inputType="numberDecimal"
-                    android:lines="1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/button_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_12"
                 android:layout_marginHorizontal="@dimen/space_16"
                 android:gravity="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_layout">
+                app:layout_constraintTop_toBottomOf="@+id/available">
 
                 <TextView
                     android:id="@+id/invalid_msg"

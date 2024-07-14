@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentNoticeInfoBinding
 
 class NoticeInfoFragment : BottomSheetDialogFragment() {
@@ -18,12 +17,12 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentNoticeInfoBinding? = null
     private val binding get() = _binding!!
 
-    private var selectedChain: CosmosLine? = null
+    private var selectedChain: BaseChain? = null
     private lateinit var noticeType: NoticeType
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine?, noticeType: NoticeType): NoticeInfoFragment {
+        fun newInstance(selectedChain: BaseChain?, noticeType: NoticeType): NoticeInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("noticeType", noticeType)
@@ -51,13 +50,13 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
     private fun initData() {
         arguments?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getParcelable("selectedChain", BaseChain::class.java)?.let { selectedChain = it }
                 getSerializable(
                     "noticeType", NoticeType::class.java
                 )?.let { noticeType = it }
 
             } else {
-                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                (getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (getSerializable("noticeType") as? NoticeType)?.let {
@@ -125,7 +124,7 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                     }
 
                     NoticeType.TOKEN_GITHUB -> {
-                        val githubUrl = if (selectedChain is EthereumLine) {
+                        val githubUrl = if (selectedChain?.supportEvm == true) {
                             "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/erc20.json"
                         } else {
                             "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw20.json"

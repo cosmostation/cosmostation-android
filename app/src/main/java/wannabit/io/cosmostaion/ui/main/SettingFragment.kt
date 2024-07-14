@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +33,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -42,8 +42,10 @@ import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.StyleFragment
+import wannabit.io.cosmostaion.ui.main.setting.general.DevDialogActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
@@ -53,6 +55,7 @@ import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportCheckKeyFra
 import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportQrActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.QrImportConfirmListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.qr.WaitingDialog
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.util.Locale
@@ -65,6 +68,8 @@ class SettingFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     private var isClickable = true
+
+    private var waitingDialog: WaitingDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -87,10 +92,26 @@ class SettingFragment : Fragment() {
     private fun initView() {
         binding.apply {
             listOf(
-                accountView, importView, legacyView, chainView, addressBookView,
-                languageView, currencyView, styleView, priceView, alarmView, appLockView, bioView,
-                helpView, homepageView,
-                termView, privacyView, githubView, versionView
+                accountView,
+                importView,
+                legacyView,
+                testnetView,
+                chainView,
+                addressBookView,
+                languageView,
+                currencyView,
+                styleView,
+                priceView,
+                alarmView,
+                appLockView,
+                bioView,
+                helpView,
+                homepageView,
+                termView,
+                privacyView,
+                githubView,
+                versionView,
+                devView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
 
             updateWalletView()
@@ -103,6 +124,14 @@ class SettingFragment : Fragment() {
                 bioTxt.text = ""
             }
             version.text = "v " + BuildConfig.VERSION_NAME
+
+            if (BaseData.pushRefreshIfNeed()) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    PushManager.updateStatus(Prefs.alarmEnable) { _, _ -> }
+                }
+            }
+
+            waitingDialog = WaitingDialog.newInstance()
         }
     }
 
@@ -116,20 +145,13 @@ class SettingFragment : Fragment() {
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
             }
-            walletViewModel.pushStatus(Prefs.fcmToken)
         }
     }
 
     private fun initChainManageCnt() {
         lifecycleScope.launch(Dispatchers.IO) {
             val chainNames: MutableList<String> = mutableListOf()
-            allEvmLines().forEach { chain ->
-                if (!chainNames.contains(chain.name)) {
-                    chainNames.add(chain.name)
-                }
-            }
-
-            allCosmosLines().forEach { chain ->
+            allChains().forEach { chain ->
                 if (!chainNames.contains(chain.name)) {
                     chainNames.add(chain.name)
                 }
@@ -350,6 +372,11 @@ class SettingFragment : Fragment() {
                     )
                 )
             }
+
+            devView.setOnClickListener {
+                val intent = Intent(requireContext(), DevDialogActivity::class.java)
+                devResultLauncher.launch(intent)
+            }
         }
     }
 
@@ -383,6 +410,32 @@ class SettingFragment : Fragment() {
         }
     }
 
+    private val devResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.getStringExtra("url")?.let { url ->
+                    val uri = Uri.parse(url)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (uri.scheme != null && uri.host != null && Patterns.WEB_URL.matcher(url)
+                                .matches()
+                        ) {
+                            requireActivity().runOnUiThread {
+                                Intent(requireActivity(), DappActivity::class.java).apply {
+                                    putExtra("dapp", url)
+                                    startActivity(this)
+                                }
+                            }
+
+                        } else {
+                            requireActivity().runOnUiThread {
+                                requireActivity().makeToast(url)
+                            }
+                        }
+                    }, 500)
+                }
+            }
+        }
+
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
@@ -402,8 +455,11 @@ class SettingFragment : Fragment() {
             legacySwitch.isChecked = Prefs.displayLegacy
             legacySwitch.setSwitchView()
 
+            testnetSwitch.isChecked = Prefs.displayTestnet
+            testnetSwitch.setSwitchView()
+
+            alarmSwitch.isChecked = Prefs.alarmEnable
             alarmSwitch.setSwitchView()
-            setUpAlarmSwitch()
 
             appLockSwitch.isChecked = Prefs.appLock
             appLockSwitch.setSwitchView()
@@ -439,6 +495,20 @@ class SettingFragment : Fragment() {
                 ApplicationViewModel.shared.displayLegacy(Prefs.displayLegacy)
             }
 
+            testnetSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    testnetSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_on)
+                    Prefs.displayTestnet = true
+                } else {
+                    testnetSwitch.thumbDrawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
+                    Prefs.displayTestnet = false
+                }
+                setVibrate()
+                ApplicationViewModel.shared.displayTestnet(Prefs.displayTestnet)
+            }
+
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     alarmSwitch.thumbDrawable =
@@ -448,7 +518,13 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 }
                 setVibrate()
-                syncPushStatus()
+                waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
+                PushManager.updateStatus(isChecked) { _, msg ->
+                    requireActivity().makeToast(msg)
+                    if (waitingDialog?.isVisible == true) {
+                        waitingDialog?.dismissAllowingStateLoss()
+                    }
+                }
             }
 
             appLockSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -496,20 +572,6 @@ class SettingFragment : Fragment() {
             vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
         } else {
             vibrator.vibrate(100)
-        }
-    }
-
-    private fun syncPushStatus() {
-        if (!Prefs.alarmEnable) {
-//            PushManager.syncAddresses(Prefs.fcmToken)
-        }
-        PushManager.updateStatus(binding.alarmSwitch.isChecked, Prefs.fcmToken)
-    }
-
-    private fun setUpAlarmSwitch() {
-        walletViewModel.pushStatusResult.observe(viewLifecycleOwner) {
-            binding.alarmSwitch.isChecked = it
-            Prefs.alarmEnable = it
         }
     }
 

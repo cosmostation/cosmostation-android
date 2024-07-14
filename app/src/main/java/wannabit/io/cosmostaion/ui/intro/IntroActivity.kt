@@ -40,8 +40,6 @@ import wannabit.io.cosmostaion.databinding.DialogUpdateAppBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.syncAddresses
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager.updateStatus
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitListener
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitSelectFragment
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
@@ -129,6 +127,11 @@ class IntroActivity : AppCompatActivity() {
                         } else {
                             Intent(this@IntroActivity, MainActivity::class.java).apply {
                                 BaseData.isBackGround = true
+                                if (intent.extras != null) {
+                                    putExtra("push_type", intent.extras?.getInt("push_type") ?: -1)
+                                    putExtra("push_txhash", intent.extras?.getString("txhash") ?: "")
+                                    putExtra("push_network", intent.extras?.getString("network") ?: "")
+                                }
                                 startActivity(this)
                                 flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -276,10 +279,6 @@ class IntroActivity : AppCompatActivity() {
             }
             val token = task.result
             if (Prefs.fcmToken != token) {
-                if (Prefs.alarmEnable) {
-                    syncAddresses(token)
-                    updateStatus(Prefs.alarmEnable, token)
-                }
                 Prefs.fcmToken = token
             }
         }

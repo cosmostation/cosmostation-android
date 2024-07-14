@@ -2,28 +2,22 @@ package wannabit.io.cosmostaion.data.repository.wallet
 
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
-import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
-import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
-import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Price
-import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
 
@@ -38,35 +32,37 @@ interface WalletRepository {
 
     suspend fun usdPrice(): NetworkResult<List<Price>>
 
-    suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>>
-
     suspend fun asset(): NetworkResult<AssetResponse>
 
     suspend fun param(): NetworkResult<JsonObject?>
 
-    suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>>
+    suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>>
 
     suspend fun auth(
-        managedChannel: ManagedChannel, line: CosmosLine
+        managedChannel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryProto.QueryAccountResponse?>
 
     suspend fun balance(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryAllBalancesResponse?>
 
     suspend fun delegation(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse>
 
     suspend fun unBonding(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegatorUnbondingDelegationsResponse>
 
     suspend fun reward(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegationTotalRewardsResponse>
 
-    suspend fun rewardAddress(channel: ManagedChannel, line: CosmosLine): NetworkResult<String>
+    suspend fun rewardAddress(channel: ManagedChannel, chain: BaseChain): NetworkResult<String>
+
+    suspend fun baseFee(
+        channel: ManagedChannel, chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.DecCoin>>?
 
     suspend fun bondedValidator(
         channel: ManagedChannel
@@ -83,55 +79,55 @@ interface WalletRepository {
     suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>>
 
     suspend fun cw20Balance(
-        channel: ManagedChannel, line: CosmosLine, token: Token
+        channel: ManagedChannel, chain: BaseChain, token: Token
     )
 
     suspend fun erc20Balance(
-        line: CosmosLine, token: Token
+        chain: BaseChain, token: Token
     )
 
     //neutron
     suspend fun vestingData(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: ChainNeutron
     ): NetworkResult<QuerySmartContractStateResponse>
 
     suspend fun vaultDeposit(
-        channel: ManagedChannel, line: ChainNeutron
+        channel: ManagedChannel, chain: ChainNeutron
     ): NetworkResult<String?>
 
     //lcd
     suspend fun oktAccountInfo(
-        line: CosmosLine
-    ): NetworkResult<OktAccountResponse?>
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
 
     suspend fun oktDeposit(
-        line: CosmosLine
-    ): NetworkResult<OktDepositedResponse?>
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
 
     suspend fun oktWithdraw(
-        line: CosmosLine
-    ): NetworkResult<OktWithdrawResponse?>
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
 
     suspend fun oktToken(
-        line: CosmosLine
-    ): NetworkResult<OktTokenResponse?>
+        chain: BaseChain
+    ): NetworkResult<JsonObject?>
 
-    suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>>
+    suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>>
 
-    suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String>
+    suspend fun evmBalance(chain: BaseChain): NetworkResult<String>
 
     suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
 
     suspend fun cw721TokenIds(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenInfo(
-        channel: ManagedChannel, line: CosmosLine, list: JsonObject, tokenId: String
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject, tokenId: String
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenDetail(
-        line: CosmosLine, contractAddress: String, tokenId: String
+        chain: BaseChain, contractAddress: String, tokenId: String
     ): NetworkResult<JsonObject>
 
     suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>>

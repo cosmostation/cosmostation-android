@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
@@ -23,8 +23,8 @@ class StakingViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        line: CosmosLine,
-        validator: Validator?,
+        chain: BaseChain,
+        validator: Validator,
         delegation: StakingProto.DelegationResponse,
         cnt: Int,
         position: Int,
@@ -41,11 +41,11 @@ class StakingViewHolder(
 
             delegationView.setOnLongClickListener { view ->
                 val rewards =
-                    line.cosmosRewards.filter { it.validatorAddress == delegation.delegation.validatorAddress }
-                if (rewards.isNotEmpty()) {
+                    chain.grpcFetcher?.cosmosRewards?.filter { it.validatorAddress == delegation.delegation.validatorAddress }
+                if (rewards?.isNotEmpty() == true) {
                     val scaleX = view.scaleX
                     val scaleY = view.scaleY
-                    val customDialog = RewardDialog(context, line, rewards.toMutableList())
+                    val customDialog = RewardDialog(context, chain, rewards.toMutableList())
 
                     if (scaleX == 1.0f && scaleY == 1.0f) {
                         view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
@@ -66,89 +66,89 @@ class StakingViewHolder(
                 }
             }
 
-            monikerImg.setMonikerImg(line, validator?.operatorAddress)
-            moniker.text = validator?.description?.moniker
-            if (validator?.jailed == true) {
+            monikerImg.setMonikerImg(chain, validator.operatorAddress)
+            moniker.text = validator.description?.moniker
+            if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
-            } else if (validator?.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
+            } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_inactive)
             } else {
                 jailedImg.visibility = View.GONE
             }
 
-            line.stakeDenom?.let { denom ->
-                BaseData.getAsset(line.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        validator?.tokens?.toBigDecimal()?.movePointLeft(decimal)?.let { vpAmount ->
-                            if (vpAmount < BigDecimal.ONE) {
-                                votingPower.text = formatAmount(vpAmount.toString(), decimal)
-                            } else {
-                                votingPower.text = formatAmount(vpAmount.toString(), 0)
-                            }
+            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    validator.tokens?.toBigDecimal()?.movePointLeft(decimal)?.let { vpAmount ->
+                        if (vpAmount < BigDecimal.ONE) {
+                            votingPower.text = formatAmount(vpAmount.toString(), decimal)
+                        } else {
+                            votingPower.text = formatAmount(vpAmount.toString(), 0)
                         }
+                    }
 
-                        val commissionRate =
-                            validator?.commission?.commissionRates?.rate?.toBigDecimal()
-                                ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
-                        commission.text = formatString("$commissionRate%", 3)
+                    val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
+                        ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                    commission.text = formatString("$commissionRate%", 3)
 
-                        val stakedAmount =
-                            delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
-                        staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
+                    val stakedAmount =
+                        delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
+                    staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
-                        line.cosmosRewards.firstOrNull { it.validatorAddress == validator?.operatorAddress }?.rewardList?.let { rewards ->
-                            rewards.firstOrNull { it.denom == denom }?.let { mainDenomReward ->
+                    chain.grpcFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
+                        rewards.firstOrNull { it.denom == chain.stakeDenom }
+                            ?.let { mainDenomReward ->
                                 val mainDenomRewardAmount =
                                     mainDenomReward.amount.toBigDecimal().movePointLeft(18)
                                         .movePointLeft(decimal).setScale(decimal, RoundingMode.DOWN)
                                 rewardAmount.text =
                                     formatAmount(mainDenomRewardAmount.toPlainString(), decimal)
                             } ?: run {
-                                rewardTitle.text = "Reward"
-                                rewardAmount.text = formatAmount(
-                                    BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
-                                )
-                                estimateReward.text = formatAmount(BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal)
-                                return
-                            }
-
-                            var anotherCnt = 0
-                            rewards.filter { it.denom != denom }.forEach { anotherRewards ->
-                                val anotherAmount =
-                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                        .setScale(0, RoundingMode.DOWN)
-                                if (anotherAmount != BigDecimal.ZERO) {
-                                    anotherCnt += 1
-                                }
-                            }
-                            rewardTitle.text = if (anotherCnt > 0) {
-                                "Reward + $anotherCnt"
-                            } else {
-                                "Reward"
-                            }
-
-                        } ?: run {
                             rewardTitle.text = "Reward"
                             rewardAmount.text = formatAmount(
                                 BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
                             )
+                            estimateReward.text = formatAmount(
+                                BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
+                            )
+                            return
                         }
 
-                        val apr = line.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
-                            ?: "0"
-                        val staked = delegation.balance.amount.toBigDecimal()
-                        val comm = BigDecimal.ONE.subtract(
-                            validator?.commission?.commissionRates?.rate?.toBigDecimal()
-                                ?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+                        var anotherCnt = 0
+                        rewards.filter { it.denom != chain.stakeDenom }.forEach { anotherRewards ->
+                            val anotherAmount =
+                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                    .setScale(0, RoundingMode.DOWN)
+                            if (anotherAmount != BigDecimal.ZERO) {
+                                anotherCnt += 1
+                            }
+                        }
+                        rewardTitle.text = if (anotherCnt > 0) {
+                            "Reward + $anotherCnt"
+                        } else {
+                            "Reward"
+                        }
+
+                    } ?: run {
+                        rewardTitle.text = "Reward"
+                        rewardAmount.text = formatAmount(
+                            BigDecimal.ZERO.movePointLeft(decimal).toPlainString(), decimal
                         )
-                        val est = staked.multiply(apr.toBigDecimal()).multiply(comm)
-                            .setScale(0, RoundingMode.DOWN)
-                            .divide(BigDecimal("12"), 0, RoundingMode.DOWN).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        estimateReward.text = formatAmount(est.toPlainString(), decimal)
                     }
+
+                    val apr = chain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
+                        ?: "0"
+                    val staked = delegation.balance.amount.toBigDecimal()
+                    val comm = BigDecimal.ONE.subtract(
+                        validator.commission?.commissionRates?.rate?.toBigDecimal()
+                            ?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+                    )
+                    val est = staked.multiply(apr.toBigDecimal()).multiply(comm)
+                        .setScale(0, RoundingMode.DOWN)
+                        .divide(BigDecimal("12"), 0, RoundingMode.DOWN).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    estimateReward.text = formatAmount(est.toPlainString(), decimal)
                 }
             }
         }

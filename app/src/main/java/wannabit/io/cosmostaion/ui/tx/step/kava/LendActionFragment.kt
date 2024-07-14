@@ -24,7 +24,7 @@ import com.kava.hard.v1beta1.TxProto.MsgDeposit
 import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.hard.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -57,7 +57,7 @@ class LendActionFragment : BaseTxFragment() {
     private var _binding: FragmentLendActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var lendActionType: LendActionType
     private lateinit var lendMyDeposits: MutableList<CoinProto.Coin>
     private lateinit var lendMyBorrows: MutableList<CoinProto.Coin>
@@ -67,6 +67,7 @@ class LendActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var msAsset: Asset? = null
@@ -78,7 +79,7 @@ class LendActionFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine,
+            selectedChain: BaseChain,
             lendActionType: LendActionType,
             lendMyDeposits: MutableList<CoinProto.Coin>,
             lendMyBorrows: MutableList<CoinProto.Coin>,
@@ -121,7 +122,7 @@ class LendActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -134,7 +135,7 @@ class LendActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getSerializable("lendActionType") as? LendActionType)?.let {
@@ -175,10 +176,11 @@ class LendActionFragment : BaseTxFragment() {
                             lendActionTitle.text = getString(R.string.title_lend_deposit)
                             lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
                             btnLend.text = getString(R.string.str_deposit)
-                            val balanceAmount = selectedChain.balanceAmount(market.denom)
+                            val balanceAmount =
+                                selectedChain.grpcFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                availableAmount = balanceAmount.subtract(feeAmount)
+                                availableAmount = balanceAmount?.subtract(feeAmount)
                             }
                             availableAmount = balanceAmount
                         }
@@ -209,12 +211,13 @@ class LendActionFragment : BaseTxFragment() {
                             borrowedAmount = borrowedAmount.multiply(BigDecimal("1.1"))
                                 .setScale(0, RoundingMode.DOWN)
 
-                            var balanceAmount = selectedChain.balanceAmount(market.denom)
+                            var balanceAmount =
+                                selectedChain.grpcFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                balanceAmount = balanceAmount.subtract(feeAmount)
+                                balanceAmount = balanceAmount?.subtract(feeAmount)
                             }
-                            availableAmount = if (balanceAmount > borrowedAmount) {
+                            availableAmount = if (borrowedAmount < balanceAmount) {
                                 borrowedAmount
                             } else {
                                 balanceAmount
@@ -463,6 +466,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindDepositMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -474,6 +478,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindWithdrawMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -485,6 +490,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindBorrowMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -496,6 +502,7 @@ class LendActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindRepayMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -525,6 +532,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -536,6 +544,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -547,6 +556,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindBorrowMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -558,6 +568,7 @@ class LendActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindRepayMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )

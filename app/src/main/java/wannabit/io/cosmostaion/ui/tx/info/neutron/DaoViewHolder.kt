@@ -11,7 +11,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_MULTI_MODULE
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -27,7 +27,7 @@ class DaoViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        selectedChain: ChainNeutron,
+        selectedChain: BaseChain,
         type: Int,
         proposal: ProposalData?,
         neutronMyVotes: MutableList<ResDaoVoteStatus>?,

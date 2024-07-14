@@ -17,14 +17,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.evmClass.ChainBeraEvm
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
-import wannabit.io.cosmostaion.ui.tx.step.evm.EvmStakingFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class StakeInfoFragment : Fragment() {
@@ -32,7 +28,7 @@ class StakeInfoFragment : Fragment() {
     private var _binding: FragmentStakeInfoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var stakingInfoAdapter: StakingInfoAdapter
 
@@ -40,7 +36,7 @@ class StakeInfoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): StakeInfoFragment {
+        fun newInstance(selectedChain: BaseChain): StakeInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -68,24 +64,24 @@ class StakeInfoFragment : Fragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val rewardAddress = selectedChain.rewardAddress
-                var delegations = selectedChain.cosmosDelegations
-                val validators = selectedChain.cosmosValidators
-                val unBondings = selectedChain.cosmosUnbondings.flatMap { unbonding ->
-                    unbonding.entriesList.map { entry ->
-                        UnBondingEntry(unbonding.validatorAddress, entry)
+                val rewardAddress = selectedChain.grpcFetcher?.rewardAddress ?: ""
+                var delegations = selectedChain.grpcFetcher?.cosmosDelegations ?: mutableListOf()
+                val validators = selectedChain.grpcFetcher?.cosmosValidators ?: mutableListOf()
+                val unBondings = selectedChain.grpcFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                    unBonding.entriesList.map { entry ->
+                        UnBondingEntry(unBonding.validatorAddress, entry)
                     }
-                }.sortedBy { it.entry?.creationHeight }.toMutableList()
+                }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
 
                 val cosmostationValAddress =
                     validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
@@ -101,10 +97,8 @@ class StakeInfoFragment : Fragment() {
                 }
                 delegations = tempDelegations
 
-                val stakingInfoList = delegations + unBondings
-
                 withContext(Dispatchers.Main) {
-                    if (stakingInfoList.isNotEmpty()) {
+                    if (delegations.isNotEmpty() || unBondings.isNotEmpty()) {
                         emptyStake.visibility = View.GONE
                         recycler.visibility = View.VISIBLE
 
@@ -135,21 +129,17 @@ class StakeInfoFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
             }
 
-            btnChangeRewardAddress.setOnClickListener {
-                handleOneClickWithDelay(ChangeRewardAddressWarnFragment.newInstance(selectedChain))
-            }
-
             btnStake.setOnClickListener {
-                if (selectedChain is ChainBeraEvm) {
-                    EvmStakingFragment.newInstance(selectedChain as EthereumLine, null).show(
-                        requireActivity().supportFragmentManager,
-                        EvmStakingFragment::class.java.name
-                    )
-                } else {
-                    StakingFragment.newInstance(selectedChain, null).show(
-                        requireActivity().supportFragmentManager, StakingFragment::class.java.name
-                    )
-                }
+//                if (selectedChain is ChainBeraEvm) {
+//                    EvmStakingFragment.newInstance(selectedChain as EthereumLine, null).show(
+//                        requireActivity().supportFragmentManager,
+//                        EvmStakingFragment::class.java.name
+//                    )
+//                } else {
+                StakingFragment.newInstance(selectedChain, null).show(
+                    requireActivity().supportFragmentManager, StakingFragment::class.java.name
+                )
+//                }
             }
         }
     }

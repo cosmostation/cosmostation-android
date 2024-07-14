@@ -8,9 +8,8 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_COSMOS
-import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_EVM
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
@@ -19,7 +18,6 @@ object Prefs {
     private const val PREFERENCES_NAME = "PREFS"
     private const val DB_VERSION = "PRE_DB_VERSION"
     private const val LAST_ACCOUNT = "PRE_LAST_ACCOUNT"
-    private const val DISPLAY_EVM_CHAINS = "PRE_DISPLAY_EVM_CHAINS"
     private const val DISPLAY_CHAINS = "PRE_DISPLAY_CHAINS"
     private const val LAST_PRICE_TIME = "PRE_LAST_PRICE_TIME"
     private const val LAST_CURRENCY = "PRE_CURRENCY"
@@ -44,6 +42,9 @@ object Prefs {
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
+    private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
+    private const val INJECT_WARN = "PRE_INJECT_WARN"
+    private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
 
 
     private val preference =
@@ -68,39 +69,6 @@ object Prefs {
     var lastAccountId: Long
         get() = preference.getLong(LAST_ACCOUNT, -1)
         set(value) = preference.edit().putLong(LAST_ACCOUNT, value).apply()
-
-    fun setDisplayEvmChains(baseAccount: BaseAccount, chainNames: List<String>) {
-        val encoded = try {
-            val jsonString = JSONArray(chainNames).toString()
-            jsonString.toByteArray(Charsets.UTF_8)
-        } catch (e: JSONException) {
-            null
-        }
-
-        if (encoded != null) {
-            val key = "${baseAccount.id} $DISPLAY_EVM_CHAINS"
-            preference.edit().putString(key, String(encoded)).apply()
-        }
-    }
-
-    fun getDisplayEvmChains(baseAccount: BaseAccount): MutableList<String> {
-        val key = "${baseAccount.id} $DISPLAY_EVM_CHAINS"
-        val savedDataString = preference.getString(key, null)
-
-        if (!savedDataString.isNullOrEmpty()) {
-            try {
-                val jsonArray = JSONArray(savedDataString)
-                val result = ArrayList<String>()
-                for (i in 0 until jsonArray.length()) {
-                    result.add(jsonArray.getString(i))
-                }
-                return result
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }
-        return DEFAULT_DISPLAY_EVM
-    }
 
     fun setDisplayChains(baseAccount: BaseAccount, chainNames: List<String>) {
         val encoded = try {
@@ -132,7 +100,7 @@ object Prefs {
                 e.printStackTrace()
             }
         }
-        return DEFAULT_DISPLAY_COSMOS
+        return DEFAULT_DISPLAY_CHAIN
     }
 
     var lastPriceTime: String
@@ -233,6 +201,18 @@ object Prefs {
         get() = preference.getBoolean(FOREGROUND_TO_BACKGROUND, true)
         set(value) = preference.edit().putBoolean(FOREGROUND_TO_BACKGROUND, value).apply()
 
+    var pushLastTime: Long
+        get() = preference.getLong(FCM_SYNC_TIME, 0)
+        set(value) = preference.edit().putLong(FCM_SYNC_TIME, value).apply()
+
+    var injectWarn: Long
+        get() = preference.getLong(INJECT_WARN, 0)
+        set(value) = preference.edit().putLong(INJECT_WARN, value).apply()
+
+    var displayTestnet: Boolean
+        get() = preference.getBoolean(DISPLAY_TESTNET, false)
+        set(value) = preference.edit().putBoolean(DISPLAY_TESTNET, value).apply()
+
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>
     ) {
@@ -268,21 +248,21 @@ object Prefs {
         return null
     }
 
-    fun setGrpcEndpoint(chain: CosmosLine?, endpoint: String) {
+    fun setGrpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = GRPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
     }
 
-    fun getGrpcEndpoint(chain: CosmosLine): String {
+    fun getGrpcEndpoint(chain: BaseChain): String {
         return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
     }
 
-    fun setEvmRpcEndpoint(chain: CosmosLine?, endpoint: String) {
+    fun setEvmRpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = EVM_RPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
     }
 
-    fun getEvmRpcEndpoint(chain: CosmosLine): String? {
+    fun getEvmRpcEndpoint(chain: BaseChain): String? {
         return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
     }
 }

@@ -109,6 +109,22 @@
     <string name="str_pro">Pro</string>
     <string name="str_permit_request">Permit 요청</string>
     <string name="str_tx_request">Tx 요청</string>
+    <string name="str_introduction">체인 설명</string>
+    <string name="str_chain_information">체인 정보</string>
+    <string name="str_initial_time">최초 가동일</string>
+    <string name="str_chain_id">체인 아이디</string>
+    <string name="str_chain_id_cosmos">체인 아이디 (cosmos 형식)</string>
+    <string name="str_chain_id_evm">체인 아이디 (evm 형식)</string>
+    <string name="str_coin_for_gas">가스용 코인</string>
+    <string name="str_network">네트워크</string>
+    <string name="str_staking_information">스테이킹 정보</string>
+    <string name="str_staking_asset">스테이킹 코인</string>
+    <string name="str_unstake_period">스테이크 해제 기간</string>
+    <string name="str_inflation">인플레이션</string>
+    <string name="str_est_apr">예상 수익률</string>
+    <string name="str_mainnet">메인넷</string>
+    <string name="str_testnet">테스트넷</string>
+    <string name="str_dev">개발 모드</string>
 
 
     //title
@@ -121,6 +137,7 @@
     <string name="title_add_account">계정 추가</string>
     <string name="title_import_qr">QR로 계정 추가</string>
     <string name="title_legacy_enabled">레거시 주소 활성화</string>
+    <string name="title_testnet_enabled">테스트넷 활성화</string>
     <string name="title_chain">체인 관리</string>
     <string name="title_address_book">주소록 관리</string>
     <string name="title_general">일반</string>
@@ -235,6 +252,7 @@
     <string name="title_select_style">Style 선택</string>
     <string name="title_delist">지원 중단 안내</string>
     <string name="title_legacy_path">레거시 경로 지원 중단 안내</string>
+    <string name="title_support_inject">인젝션 지원</string>
 
 
     // msg
@@ -244,6 +262,7 @@
     <string name="str_msg_address_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_mnemonic_copied">클립보드에 복사하였습니다.</string>
     <string name="str_msg_copy">복사하려면 카드를 탭하세요.</string>
+    <string name="str_msg_copy2">박스영역을 눌러서 복사하실 수 있습니다</string>
     <string name="str_msg_mnemonic_copy">복사하려면 니모닉 문구 상자를 탭하세요</string>
     <string name="str_msg_private_copy">클립보드에 복사하였습니다.</string>
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
@@ -306,6 +325,14 @@
     <string name="str_delist_msg">선택하신 체인은 모바일 지갑에서 지원종료 예정입니다. 다른 지갑 또는 차후 커스텀체인 서비스로 지원할 수 있습니다.</string>
     <string name="str_legacy_path_msg">선택하신 레거시 경로의 계정은 지원종료 예정입니다. 퍼블릭 경로로 자산을 옮기 시길 강력히 권장합니다.</string>
     <string name="str_deposit_caution_msg">%1$s 네트워크 자산만 전송가능 합니다</string>
+    <string name="str_reward_address_change_msg">이 주소는 리워드 자산을 받는 주소입니다.\n<u>여기를 눌러 리워드 주소를 변경하실 수 있습니다.</u> (권장하지 않음)</string>
+    <string name="str_already_reward_address_changed_msg">이미 리워드 주소를 변경하였습니다.</string>
+    <string name="str_header_msg">길게 눌러서 복사하실 수 있습니다</string>
+    <string name="str_affect_danger_msg">당신의 자산에 영향을 미칩니다</string>
+    <string name="str_affect_safe_msg">당신의 자산에 영향을 미치지 않습니다</string>
+    <string name="str_dapp_warn_msg">요청하는 사이트를 신뢰하고 그 내용을 완전히 이해하는 경우에만 이 메세지에 서명하세요</string>
+    <string name="str_support_injection_msg">사용자의 편의와 반응속도 개선을 위해 인젝션 방식(EIP-6963)을 지원합니다. 디앱 사용시 데크스탑 지갑 등을 선택하세요.\n데스크탑의 익스텐션 지갑과 동일한 사용자 경험을 느끼실 수 있습니다.\nEVM용 디앱의 경우 EIP-6963 스팩을 지원함으로 편한한 web3 여행을 즐기실 수 있습니다.</string>
+    <string name="str_fee_tip_msg">Fee와 Tip은 지갑이 아닌 체인에 지불됩니다.</string>
 
 
     // error
@@ -347,14 +374,15 @@
     <string name="error_not_support_vote">투표 기능을 지원하지 않습니다.</string>
     <string name="error_not_support_chain">모바일에서 지원하지 않는 체인 입니다.</string>
     <string name="error_bera_vote_one_proposal">베라체인은 한개씩만 투표 가능합니다.</string>
+    <string name="error_not_support_dapp">%1$s는 모바일 인젝션을 지원하지 않습니다.</string>
 
 
     //header
     <string name="str_reward_address">이자 받는 주소</string>
     <string name="str_my_staking">내 스테이킹</string>
     <string name="str_my_unstaking">내 언스테이킹</string>
-    <string name="str_voting_period">투표 진행 목록</string>
-    <string name="str_vote_proposals">투표 완료 목록</string>
+    <string name="str_voting_period">진행중 목록</string>
+    <string name="str_vote_proposals">종료된 목록</string>
 
 
     // tx

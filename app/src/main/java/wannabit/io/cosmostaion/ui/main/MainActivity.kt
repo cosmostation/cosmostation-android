@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.databinding.ViewTabItemBinding
 import wannabit.io.cosmostaion.ui.intro.IntroActivity
 import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
 import wannabit.io.cosmostaion.ui.option.account.AccountSelectFragment
+import wannabit.io.cosmostaion.ui.option.notice.PushNotificationActivity
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -48,6 +50,33 @@ class MainActivity : BaseActivity() {
         initView()
         setupViewModels()
         setUpClickAction()
+        showPushData()
+        setUpBg()
+    }
+
+    private fun showPushData() {
+        intent.apply {
+            if (getIntExtra("push_type", -1).toString() == "0") {
+                getStringExtra("push_txhash")?.let { txHash ->
+                    getStringExtra("push_network")?.let { network ->
+                        val url = CosmostationConstants.EXPLORER_BASE_TX_URL.replace(
+                            "{apiName}", network
+                        ).replace("{hash}", txHash)
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
+                                putExtra("url", url)
+                                startActivity(this)
+                                overridePendingTransition(
+                                    R.anim.anim_slide_in_bottom,
+                                    R.anim.anim_fade_out
+                                )
+                            }
+                        }, 1000)
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -104,10 +133,12 @@ class MainActivity : BaseActivity() {
                         tabBinding.tabIcon.setImageResource(R.drawable.icon_wallet)
                         tabBinding.tabText.text = getString(R.string.str_chains)
                     }
+
                     1 -> {
                         tabBinding.tabIcon.setImageResource(R.drawable.icon_service)
                         tabBinding.tabText.text = getString(R.string.str_service)
                     }
+
                     2 -> {
                         tabBinding.tabIcon.setImageResource(R.drawable.icon_setting)
                         tabBinding.tabText.text = getString(R.string.str_setting)
@@ -154,14 +185,22 @@ class MainActivity : BaseActivity() {
                             this@MainActivity, R.color.color_base01
                         ), PorterDuff.Mode.SRC_IN
                     )
-                    tabText.setTextColor(ContextCompat.getColorStateList(this@MainActivity, R.color.color_base01))
+                    tabText.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this@MainActivity, R.color.color_base01
+                        )
+                    )
                 } else {
                     tabIcon.colorFilter = PorterDuffColorFilter(
                         ContextCompat.getColor(
                             this@MainActivity, R.color.color_base03
                         ), PorterDuff.Mode.SRC_IN
                     )
-                    tabText.setTextColor(ContextCompat.getColorStateList(this@MainActivity, R.color.color_base03))
+                    tabText.setTextColor(
+                        ContextCompat.getColorStateList(
+                            this@MainActivity, R.color.color_base03
+                        )
+                    )
                 }
             }
         }
@@ -175,19 +214,42 @@ class MainActivity : BaseActivity() {
                 )
             }
 
-            accountLayout.setOnClickListener {
+            accountImg.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayCosmosLines().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
-
                     } else {
                         makeToast(R.string.str_data_synchronizing)
                         return@setOnClickListener
                     }
                 }
             }
+
+            accountName.setOnClickListener {
+                BaseData.baseAccount?.let { account ->
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        handleOneClickWithDelay(
+                            AccountSelectFragment()
+                        )
+                    } else {
+                        makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
+                }
+            }
+
+            btnRandom.setOnClickListener {
+                CosmostationApp.instance.setRandomBackgroundImage()
+                binding.parentLayout.setBackgroundResource(Prefs.background)
+            }
+        }
+    }
+
+    private fun setUpBg() {
+        ApplicationViewModel.shared.changeBgResult.observe(this) {
+            binding.parentLayout.setBackgroundResource(Prefs.background)
         }
     }
 
@@ -207,7 +269,7 @@ class MainActivity : BaseActivity() {
 
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) {
-            BaseData.baseAccount?.sortedDisplayCosmosLines()?.forEach {
+            BaseData.baseAccount?.sortedDisplayChains()?.forEach {
                 it.fetched = false
             }
 

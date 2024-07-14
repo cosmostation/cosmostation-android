@@ -16,81 +16,61 @@ import java.util.concurrent.TimeUnit
 object RetrofitInstance {
 
     private val okHttpClient: OkHttpClient by lazy {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
+        val httpLoggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val httpExceptionInterceptor = HttpExceptionInterceptor()
 
-        OkHttpClient.Builder()
-            .addInterceptor(httpExceptionInterceptor)
-            .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .build()
+        OkHttpClient.Builder().addInterceptor(httpExceptionInterceptor)
+            .addInterceptor(httpLoggingInterceptor).connectTimeout(30, TimeUnit.SECONDS).build()
     }
 
-    private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     private val walletRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.WALLET_API_URL)
-            .build()
+        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(okHttpClient).baseUrl(CosmostationConstants.WALLET_API_URL).build()
     }
 
     private val mintScanRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.MINTSCAN_API_URL)
-            .build()
+        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(CosmostationConstants.MINTSCAN_API_URL).build()
     }
 
     private val mintScanJsonRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.MINTSCAN_API_URL)
-            .build()
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(CosmostationConstants.MINTSCAN_API_URL).build()
     }
 
     private val oktRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(ChainOkt996Keccak().lcdUrl)
-            .build()
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(ChainOkt996Keccak().lcdUrl).build()
+    }
+
+    private val oktTxRetrofit: Retrofit by lazy {
+        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(ChainOkt996Keccak().lcdUrl).build()
     }
 
     private val skipRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.SKIP_API_URL)
-            .build()
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(CosmostationConstants.SKIP_API_URL).build()
     }
 
     private val baseRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.CHAIN_BASE_URL)
-            .build()
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(CosmostationConstants.CHAIN_BASE_URL).build()
     }
 
     private val ecoSystemRetrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(okHttpClient)
-            .baseUrl(CosmostationConstants.ECO_SYSTEM_URL)
-            .build()
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(CosmostationConstants.ECO_SYSTEM_URL).build()
     }
 
     val walletApi: WalletApi by lazy {
@@ -107,6 +87,10 @@ object RetrofitInstance {
 
     val oktApi: LcdApi by lazy {
         oktRetrofit.create(LcdApi::class.java)
+    }
+
+    val oktTxApi: LcdApi by lazy {
+        oktTxRetrofit.create(LcdApi::class.java)
     }
 
     val skipApi: SkipApi by lazy {

@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.data.model.res.OktValidatorResponse
+import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemOktSelectValidatorBinding
 
 class OktSelectValidatorAdapter(
-    private val selectedChain: ChainOkt996Keccak
-): ListAdapter<OktValidatorResponse, OktSelectValidatorViewHolder>(OktSelectValidatorDiffCallback()) {
+    private val selectedChain: BaseChain
+): ListAdapter<JsonObject, OktSelectValidatorViewHolder>(OktSelectValidatorDiffCallback()) {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
 
@@ -28,13 +28,13 @@ class OktSelectValidatorAdapter(
         }
     }
 
-    private class OktSelectValidatorDiffCallback : DiffUtil.ItemCallback<OktValidatorResponse>() {
+    private class OktSelectValidatorDiffCallback : DiffUtil.ItemCallback<JsonObject>() {
 
-        override fun areItemsTheSame(oldItem: OktValidatorResponse, newItem: OktValidatorResponse): Boolean {
+        override fun areItemsTheSame(oldItem: JsonObject, newItem: JsonObject): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: OktValidatorResponse, newItem: OktValidatorResponse): Boolean {
+        override fun areContentsTheSame(oldItem: JsonObject, newItem: JsonObject): Boolean {
             return oldItem == newItem
         }
     }

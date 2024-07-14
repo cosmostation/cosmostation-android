@@ -3,13 +3,12 @@ package wannabit.io.cosmostaion.ui.qr
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemQrBinding
 
 class QrCodAdapter(
-    private val account: BaseAccount, private val selectedChain: CosmosLine
+    private val account: BaseAccount, private val selectedChain: BaseChain
 ) : RecyclerView.Adapter<QrCodeViewHolder>() {
 
     companion object {
@@ -24,14 +23,14 @@ class QrCodAdapter(
 
     override fun onBindViewHolder(holder: QrCodeViewHolder, position: Int) {
         when (holder.itemViewType) {
-            VIEW_TYPE_EVM_ITEM -> holder.evmBind(account, selectedChain as EthereumLine)
+            VIEW_TYPE_EVM_ITEM -> holder.evmBind(account, selectedChain)
             else -> holder.bind(account, selectedChain)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (selectedChain is EthereumLine) {
-            if (selectedChain.supportCosmos) {
+        return if (selectedChain.supportEvm) {
+            if (selectedChain.isCosmos()) {
                 when (position) {
                     0 -> VIEW_TYPE_EVM_ITEM
                     else -> VIEW_TYPE_COSMOS_ITEM
@@ -45,8 +44,8 @@ class QrCodAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (selectedChain is EthereumLine) {
-            if (selectedChain.supportCosmos) {
+        return if (selectedChain.supportEvm) {
+            if (selectedChain.isCosmos()) {
                 2
             } else {
                 1

@@ -18,7 +18,7 @@ import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -41,7 +41,7 @@ class TxResultActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTxResultBinding
 
-    private var selectedChain: CosmosLine? = null
+    private var selectedChain: BaseChain? = null
     private var isSuccess: Boolean = false
     private var txHash: String = ""
     private var errorMsg: String = ""
@@ -71,17 +71,11 @@ class TxResultActivity : BaseActivity() {
 
     private fun initView() {
         binding.apply {
-            BaseData.baseAccount?.allCosmosLineChains?.firstOrNull { line ->
-                line.tag == intent.getStringExtra(
+            BaseData.baseAccount?.allChains?.firstOrNull { chain ->
+                chain.tag == intent.getStringExtra(
                     "selectedChain"
                 ).toString()
-            }?.let { selectedChain = it } ?: run {
-                BaseData.baseAccount?.allEvmLineChains?.firstOrNull { evmLine ->
-                    evmLine.tag == intent.getStringExtra(
-                        "selectedChain"
-                    ).toString()
-                }?.let { selectedChain = it }
-            }
+            }?.let { selectedChain = it }
 
             isSuccess = intent.getBooleanExtra("isSuccess", false)
             errorMsg = intent.getStringExtra("errorMsg") ?: ""
@@ -165,7 +159,7 @@ class TxResultActivity : BaseActivity() {
                     }
 
                     TxResultType.NFT -> {
-                        selectedChain?.cw721Fetched = false
+                        selectedChain?.grpcFetcher?.cw721Fetched = false
                         finish()
                     }
 
@@ -173,15 +167,9 @@ class TxResultActivity : BaseActivity() {
                         finish()
                         BaseData.baseAccount?.let { account ->
                             selectedChain?.let { chain ->
-                                if (chain is ChainOktEvm) {
-                                    ApplicationViewModel.shared.loadEvmChainData(
-                                        chain, account.id, false
-                                    )
-                                } else {
-                                    ApplicationViewModel.shared.loadChainData(
-                                        chain, account.id, false
-                                    )
-                                }
+                                ApplicationViewModel.shared.loadChainData(
+                                    chain, account.id, false
+                                )
                             }
                         }
                     }
@@ -192,8 +180,8 @@ class TxResultActivity : BaseActivity() {
 
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            selectedChain?.let { line ->
-                val stub = newStub(getChannel(line))
+            selectedChain?.let { chain ->
+                val stub = newStub(getChannel(chain))
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
                 stub.getTx(request, object : StreamObserver<ServiceProto.GetTxResponse> {
@@ -207,8 +195,8 @@ class TxResultActivity : BaseActivity() {
                     override fun onError(t: Throwable?) {
                         fetchCnt -= 1
                         if (isSuccess && fetchCnt > 0) {
-                            getChannel(line).shutdown()
-                            getChannel(line).awaitTermination(6L, TimeUnit.SECONDS)
+                            getChannel(chain).shutdown()
+                            getChannel(chain).awaitTermination(6L, TimeUnit.SECONDS)
                             Handler(Looper.getMainLooper()).postDelayed({
                                 loadHistoryTx()
                             }, 6000)

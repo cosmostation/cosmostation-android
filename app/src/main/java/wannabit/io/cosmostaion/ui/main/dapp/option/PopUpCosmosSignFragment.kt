@@ -28,7 +28,7 @@ import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import org.bouncycastle.util.encoders.Base64.toBase64String
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -52,7 +52,7 @@ import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class PopUpCosmosSignFragment(
-    private val selectedChain: CosmosLine?,
+    private val selectedChain: BaseChain?,
     private val id: Long,
     private val data: String,
     private val method: String?,
@@ -72,6 +72,7 @@ class PopUpCosmosSignFragment(
 
     private var selectFeePosition = 0
 
+    private var isEditFeeWithDirect: Boolean = true
     private var isChanged = false
     private var isClickable = true
 
@@ -117,9 +118,11 @@ class PopUpCosmosSignFragment(
                 "sign_direct" -> {
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
                     updateJsonData = txJsonObject["doc"].asJsonObject
+                    isEditFeeWithDirect =
+                        txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean ?: true
                     val authInfo =
                         TxProto.AuthInfo.parseFrom(Utils.hexToBytes(updateJsonData["auth_info_bytes"].asString))
-                    if (authInfo.fee.gasLimit > 0 && authInfo.fee.amountList.isNotEmpty()) {
+                    if ((!isEditFeeWithDirect) && authInfo.fee.gasLimit > 0 && authInfo.fee.amountList.isNotEmpty()) {
                         dAppTxFee = authInfo.fee
                     }
                 }
@@ -139,17 +142,21 @@ class PopUpCosmosSignFragment(
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
                 if (method == "sign_direct") {
-                    try {
-                        val channel = getChannel(chain)
-                        val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
-                        val loadInputBalanceDeferred = async { loadBalance(channel, chain.address) }
+                    chain.grpcFetcher()?.let {
+                        try {
+                            val channel = getChannel(chain)
+                            val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
+                            val loadInputBalanceDeferred =
+                                async { loadBalance(channel, chain.address) }
 
-                        chain.cosmosAuth = loadInputAuthDeferred.await()?.account
-                        chain.cosmosBalances = loadInputBalanceDeferred.await().balancesList
-                        BaseUtils.onParseVestingAccount(chain)
-                    } catch (e: Exception) {
-                        if (isAdded) {
-                            activity?.makeToast(R.string.str_unknown_error)
+                            chain.grpcFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                            chain.grpcFetcher?.cosmosBalances =
+                                loadInputBalanceDeferred.await().balancesList
+                            BaseUtils.onParseVestingAccount(chain)
+                        } catch (e: Exception) {
+                            if (isAdded) {
+                                activity?.makeToast(R.string.str_unknown_error)
+                            }
                         }
                     }
                 }
@@ -229,8 +236,8 @@ class PopUpCosmosSignFragment(
                             feeSegment.isSelected = false
                             btnFromDapp.visibility = View.VISIBLE
                             txFee = dAppTxFee
-                            updateSegmentView()
                         }
+                        updateSegmentView()
                         txSimulate()
                     }
 
@@ -249,12 +256,12 @@ class PopUpCosmosSignFragment(
             if (selectFeePosition == -1) {
                 feeSegment.setSelectedBackground(
                     ContextCompat.getColor(
-                        requireContext(), R.color.color_base05
+                        requireContext(), R.color.color_transparent
                     )
                 )
                 feeSegment.setRipple(
                     ContextCompat.getColor(
-                        requireContext(), R.color.color_base05
+                        requireContext(), R.color.color_transparent
                     )
                 )
                 feeSegment.setDivider(
@@ -457,35 +464,34 @@ class PopUpCosmosSignFragment(
             val chainId =
                 txJsonSignDoc.get("chain_id").asString ?: txJsonObject.get("chainName").asString
             BaseData.baseAccount?.let { account ->
-                val selectChain =
-                    account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        ?: account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                selectChain?.let { chain ->
-                    chain.getFeeInfos(requireContext())
-                        .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
-                        ?.let { gasRate ->
-                            val gasLimit =
-                                (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
-                            val feeCoinAmount =
-                                gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+                    .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                    ?.let { chain ->
+                        chain.getFeeInfos(requireContext())
+                            .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+                            ?.let { gasRate ->
+                                val gasLimit =
+                                    (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                                val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
+                                    ?.setScale(0, RoundingMode.UP)
 
-                            if (amounts.size() == 0) {
-                                val jsonObject = JsonObject()
-                                jsonObject.addProperty(
-                                    "amount", feeCoinAmount.toString()
-                                )
-                                jsonObject.addProperty("denom", chain.stakeDenom)
-                                amounts.add(jsonObject)
+                                if (amounts.size() == 0) {
+                                    val jsonObject = JsonObject()
+                                    jsonObject.addProperty(
+                                        "amount", feeCoinAmount.toString()
+                                    )
+                                    jsonObject.addProperty("denom", chain.stakeDenom)
+                                    amounts.add(jsonObject)
 
-                            } else {
-                                val mainDenomFee =
-                                    amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
-                                mainDenomFee?.asJsonObject?.addProperty(
-                                    "amount", feeCoinAmount.toString()
-                                )
+                                } else {
+                                    val mainDenomFee =
+                                        amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
+                                    mainDenomFee?.asJsonObject?.addProperty(
+                                        "amount", feeCoinAmount.toString()
+                                    )
+                                }
                             }
-                        }
-                }
+                    }
             }
         }
         return txJsonSignDoc
@@ -500,15 +506,13 @@ class PopUpCosmosSignFragment(
 
         val chainId = doc["chain_id"].asString
         BaseData.baseAccount?.let { account ->
-            account.allEvmLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                ?: run {
-                    account.allCosmosLineChains.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                }?.let { chain ->
+            account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+                .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }?.let { chain ->
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
                     val simulateGasLimit =
                         (simulateGas.gasUsed.toDouble() * chain.gasMultiply()).toLong()
                     val updateFee = updateFeeWithSimulate(
-                        simulateGasLimit.toBigDecimal(), fee.gasLimit.toBigDecimal(), fee
+                        simulateGasLimit.toBigDecimal(), fee
                     )
                     authInfo = authInfo.toBuilder().setFee(updateFee).build()
                 }
@@ -519,26 +523,17 @@ class PopUpCosmosSignFragment(
     }
 
     private fun updateFeeWithSimulate(
-        simulateGasLimit: BigDecimal, originalGasLimit: BigDecimal, fee: Fee
+        simulateGasLimit: BigDecimal, fee: Fee
     ): Fee? {
         fee.getAmount(0).denom?.let { denom ->
             feeInfos[selectFeePosition].feeDatas.firstOrNull { it.denom == denom }?.let { gasRate ->
-                if (simulateGasLimit > originalGasLimit) {
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(simulateGasLimit)?.setScale(0, RoundingMode.UP)
-                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    return Fee.newBuilder().setGasLimit(simulateGasLimit.toLong())
-                        .addAmount(updateFeeCoin).setPayer(fee.payer).build()
-
-                } else {
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(originalGasLimit)?.setScale(0, RoundingMode.UP)
-                    val updateFeeCoin = CoinProto.Coin.newBuilder().setDenom(denom)
-                        .setAmount(feeCoinAmount.toString()).build()
-                    return Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(updateFeeCoin)
-                        .setPayer(fee.payer).build()
-                }
+                val feeCoinAmount =
+                    gasRate.gasRate?.multiply(simulateGasLimit)?.setScale(0, RoundingMode.UP)
+                val updateFeeCoin =
+                    CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoinAmount.toString())
+                        .build()
+                return Fee.newBuilder().setGasLimit(simulateGasLimit.toLong())
+                    .addAmount(updateFeeCoin).setPayer(fee.payer).build()
             }
         }
         return null

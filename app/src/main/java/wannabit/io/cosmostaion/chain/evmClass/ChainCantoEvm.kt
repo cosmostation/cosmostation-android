@@ -6,32 +6,32 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainCantoEvm : EthereumLine(), Parcelable {
+class ChainCantoEvm : BaseChain(), Parcelable {
 
-    override var supportCosmos: Boolean = true
     override var name: String = "Canto"
     override var tag: String = "canto60"
     override var logo: Int = R.drawable.chain_canto
     override var swipeLogo: Int = R.drawable.chain_swipe_canto
     override var apiName: String = "canto"
-    override var stakeDenom: String? = "acanto"
-
-    override var coinSymbol: String = "CANTO"
-    override var coinGeckoId: String = "canto"
-    override var coinLogo: Int = R.drawable.token_canto
-    override var addressLogo: Int = R.drawable.icon_canto_address
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var accountPrefix: String? = "canto"
-
+    override var supportCosmosGrpc: Boolean = true
+    override var stakeDenom: String = "acanto"
+    override var accountPrefix: String = "canto"
     override var grpcHost: String = "grpc-canto.cosmostation.io"
-    override var rpcUrl: String = "https://rpc-canto-evm.cosmostation.io"
+
+    override var supportEvm: Boolean = true
+    override var coinSymbol: String = "CANTO"
+    override var coinGeckoId: String = "canto"
+    override var coinLogo: Int = R.drawable.token_canto
+    override var addressLogo: Int = R.drawable.icon_canto_address
+    override var evmRpcURL: String = "https://rpc-canto-evm.cosmostation.io"
 }

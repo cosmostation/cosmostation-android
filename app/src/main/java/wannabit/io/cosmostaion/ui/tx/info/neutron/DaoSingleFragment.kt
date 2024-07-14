@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
 import wannabit.io.cosmostaion.common.getChannel
@@ -47,7 +46,7 @@ class DaoSingleFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, neutronMyVotes: MutableList<ResDaoVoteStatus>?
+            selectedChain: ChainNeutron, neutronMyVotes: MutableList<ResDaoVoteStatus>?
         ): DaoSingleFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)

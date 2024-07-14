@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 class ValidatorFragment(
-    private val selectedChain: CosmosLine,
+    private val selectedChain: BaseChain,
     val listener: ValidatorListener
 ) : BottomSheetDialogFragment() {
 
@@ -39,9 +39,9 @@ class ValidatorFragment(
             selectTitle.text = getString(R.string.title_select_validator)
 
             val validators: MutableList<Validator> = mutableListOf()
-            val delegations = selectedChain.cosmosDelegations
-            delegations.forEach { delegation ->
-                selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }?.let { validator ->
+            val delegations = selectedChain.grpcFetcher?.cosmosDelegations
+            delegations?.forEach { delegation ->
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }?.let { validator ->
                     validators.add(validator)
                 }
             }

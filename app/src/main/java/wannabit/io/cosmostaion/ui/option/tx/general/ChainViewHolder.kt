@@ -1,17 +1,17 @@
 package wannabit.io.cosmostaion.ui.option.tx.general
 
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemChainBinding
 
 class ChainViewHolder(
     private val binding: ItemChainBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: CosmosLine) {
+    fun bind(chain: BaseChain) {
         binding.apply {
-            chainImg.setImageResource(line.logo)
-            chainName.text = line.name.uppercase()
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
         }
     }
 }

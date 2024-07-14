@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import java.math.BigDecimal
@@ -28,7 +28,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCommonBottomBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private var swapAssets: MutableList<Asset>? = mutableListOf()
     private var swapBalance: MutableList<CoinProto.Coin>? = mutableListOf()
     private lateinit var assetSelectType: AssetSelectType
@@ -40,7 +40,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine?,
+            selectedChain: BaseChain?,
             swapAssets: MutableList<Asset>?,
             swapBalance: MutableList<CoinProto.Coin>?,
             assetSelectType: AssetSelectType,
@@ -78,14 +78,14 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)?.let {
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)?.let {
                 selectedChain = it
             }
             arguments?.getSerializable(
                 "assetSelectType", AssetSelectType::class.java
             )?.let { assetSelectType = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
             (arguments?.getSerializable("assetSelectType") as? AssetSelectType)?.let {
@@ -122,10 +122,12 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
                 swapAssets?.forEach { asset ->
                     asset.denom?.let { denom ->
-                        val value = selectedChain.balanceValue(denom)
-                        assetValues[denom] = value
-                        val amount = selectedChain.balanceAmount(denom)
-                        assetAmounts[denom] = amount
+                        selectedChain.grpcFetcher?.balanceValue(denom)?.let { value ->
+                            assetValues[denom] = value
+                        }
+                        selectedChain.grpcFetcher?.balanceAmount(denom)?.let { amount ->
+                            assetAmounts[denom] = amount
+                        }
                     }
                 }
 
@@ -181,17 +183,20 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
                         filteredAssets?.forEach { asset ->
                             asset.denom?.let { denom ->
-                                val value = selectedChain.balanceValue(denom)
-                                assetValues[denom] = value
-                                val amount = selectedChain.balanceAmount(denom)
-                                assetAmounts[denom] = amount
+                                selectedChain.grpcFetcher?.balanceValue(denom)?.let { value ->
+                                    assetValues[denom] = value
+                                }
+                                selectedChain.grpcFetcher?.balanceAmount(denom)?.let { amount->
+                                    assetAmounts[denom] = amount
+                                }
                             }
                         }
 
-                        val sortedAssets = filteredAssets?.sortedWith(compareBy<Asset> { it.symbol != "ATOM" }
-                            .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
-                            .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
-                            .thenBy { it.symbol })
+                        val sortedAssets =
+                            filteredAssets?.sortedWith(compareBy<Asset> { it.symbol != "ATOM" }
+                                .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
+                                .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
+                                .thenBy { it.symbol })
 
                         searchAssets.clear()
                         sortedAssets?.let { searchAssets.addAll(it) }

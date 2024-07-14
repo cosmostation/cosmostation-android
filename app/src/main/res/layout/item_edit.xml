@@ -52,12 +52,29 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/chain_path"
-                    style="@style/font_sm_10"
+                    android:id="@+id/chain_address"
+                    style="@style/font_sb_10"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
                     android:layout_marginTop="@dimen/space_4"
+                    android:ellipsize="middle"
                     android:gravity="top"
+                    android:maxWidth="@dimen/space_100"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chain_name" />
+
+                <TextView
+                    android:id="@+id/chain_evm_address"
+                    style="@style/font_sb_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_13"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:ellipsize="middle"
+                    android:gravity="top"
+                    android:maxWidth="@dimen/space_100"
+                    android:maxLines="1"
                     android:textColor="@color/color_base02"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chain_name" />
@@ -67,33 +84,18 @@
                     style="@style/font_sm_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_4"
-                    android:background="@drawable/round_box_edit"
-                    android:letterSpacing="-0.05"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base02"
-                    android:visibility="gone"
-                    android:text="@string/str_legacy"
-                    app:layout_constraintStart_toEndOf="@+id/chain_path"
-                    app:layout_constraintTop_toTopOf="@id/chain_path" />
-
-                <TextView
-                    android:id="@+id/chain_type_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_2"
                     android:background="@drawable/round_box_edit"
                     android:letterSpacing="-0.05"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
-                    android:textAllCaps="false"
+                    android:text="@string/str_legacy"
+                    android:textAllCaps="true"
                     android:textColor="@color/color_base02"
                     android:visibility="gone"
-                    app:layout_constraintStart_toEndOf="@+id/chain_legacy"
-                    app:layout_constraintTop_toTopOf="@id/chain_path" />
+                    app:layout_constraintStart_toEndOf="@+id/chain_name"
+                    app:layout_constraintTop_toTopOf="@+id/chain_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/chain_name"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,10 +111,10 @@
 
                 <TextView
                     android:id="@+id/respond_txt"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Node not responding"
-                    style="@style/font_sb_12"
                     android:textColor="@color/color_red01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -15,45 +15,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/btn_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="@dimen/space_10"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_token"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/space_32"
+                    android:layout_height="@dimen/space_32"
+                    android:src="@drawable/icon_back" />
+
+                <TextView
+                    android:id="@+id/account_name"
+                    style="@style/font_sb_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01" />
+
+                <ImageView
+                    android:id="@+id/btn_random"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_32" />
+
+            </LinearLayout>
 
             <ImageView
+                android:id="@+id/btn_account"
                 android:layout_width="@dimen/space_28"
                 android:layout_height="@dimen/space_28"
-                android:layout_marginLeft="@dimen/space_20"
-                android:src="@drawable/icon_back" />
+                android:layout_gravity="end"
+                android:layout_marginRight="@dimen/space_20"
+                android:src="@drawable/icon_chrome"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/account_name"
-                style="@style/font_sb_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/space_8"
-                android:textColor="@color/color_base01" />
+            <ImageView
+                android:id="@+id/btn_add_token"
+                android:layout_width="@dimen/space_28"
+                android:layout_height="@dimen/space_28"
+                android:layout_marginRight="@dimen/space_15"
+                android:src="@drawable/icon_add_token_explain"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_account"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/btn_account"
-            android:layout_width="@dimen/space_28"
-            android:layout_height="@dimen/space_28"
-            android:layout_gravity="end"
-            android:layout_marginRight="@dimen/space_20"
-            android:src="@drawable/icon_chrome" />
-
-        <ImageView
-            android:id="@+id/btn_add_token"
-            android:layout_width="@dimen/space_28"
-            android:layout_height="@dimen/space_28"
-            android:layout_gravity="end"
-            android:layout_marginRight="@dimen/space_15"
-            android:src="@drawable/icon_add_token_explain"
-            android:visibility="gone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -165,7 +189,7 @@
         android:id="@+id/backdropLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_background_dialog"
+        android:background="@color/color_fab_background_dialog"
         android:elevation="@dimen/space_1"
         android:visibility="gone" />
 
@@ -182,6 +206,20 @@
         fab:menu_labels_position="left"
         fab:menu_labels_style="@style/FabLabelStyle"
         fab:menu_openDirection="up">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_stake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:src="@drawable/icon_stake"
+            app:fab_colorDisabled="@color/color_base08"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:maxImageSize="@dimen/space_100"
+            fab:fab_label="@string/title_stake"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_send"
@@ -203,27 +241,12 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:src="@drawable/icon_receive"
-            android:visibility="gone"
             app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
             app:fab_colorPressed="@color/color_base08"
             app:fab_colorRipple="@color/color_base08"
             app:maxImageSize="@dimen/space_100"
             fab:fab_label="Receive"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_stake"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:src="@drawable/icon_stake"
-            app:fab_colorDisabled="@color/color_base08"
-            app:fab_colorNormal="@color/color_base08"
-            app:fab_colorPressed="@color/color_base08"
-            app:fab_colorRipple="@color/color_base08"
-            app:maxImageSize="@dimen/space_100"
-            fab:fab_label="@string/title_stake"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton

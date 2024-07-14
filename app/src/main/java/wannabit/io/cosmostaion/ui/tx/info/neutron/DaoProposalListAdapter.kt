@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.databinding.ItemDaoProposalBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class DaoProposalListAdapter(
-    val selectedChain: ChainNeutron,
+    val selectedChain: BaseChain,
     private val type: Int,
     private val neutronMyVotes: MutableList<ResDaoVoteStatus>?,
     var listener: CheckListener

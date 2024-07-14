@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.step.service
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -25,10 +24,10 @@ class AllChainCompoundingViewHolder(
             deleteView.setBackgroundResource(R.drawable.cell_bg)
 
             compoundAbleReward.apply {
-                chainImg.setImageResource(cosmosLine.logo)
-                chainName.text = cosmosLine.name.uppercase()
+                chainImg.setImageResource(baseChain.logo)
+                chainName.text = baseChain.name.uppercase()
 
-                if (!cosmosLine.isDefault) {
+                if (!baseChain.isDefault) {
                     chainBadge.visibility = View.VISIBLE
                     chainBadge.text = context.getString(R.string.str_legacy)
                     chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
@@ -43,7 +42,7 @@ class AllChainCompoundingViewHolder(
                 }
 
                 var mainRewardAmount = BigDecimal.ZERO
-                val mainRewardDenom = cosmosLine.stakeDenom
+                val mainRewardDenom = baseChain.stakeDenom
                 rewards.forEach { reward ->
                     reward?.rewardList?.firstOrNull { it.denom == mainRewardDenom }
                         ?.let { rewardCoin ->
@@ -53,25 +52,23 @@ class AllChainCompoundingViewHolder(
                         }
                 }
 
-                mainRewardDenom?.let { denom ->
-                    BaseData.getAsset(cosmosLine.apiName, denom)?.let { asset ->
-                        val price = BaseData.getPrice(asset.coinGeckoId, false)
-                        val value =
-                            price.multiply(mainRewardAmount).movePointLeft(asset.decimals ?: 6)
-                                .setScale(6, RoundingMode.DOWN)
-                        rewardAmount.text = formatAmount(
-                            mainRewardAmount.movePointLeft(asset.decimals ?: 6).toString(),
-                            asset.decimals ?: 6
-                        )
-                        rewardDenom.text = asset.symbol
-                        rewardDenom.setTextColor(asset.assetColor())
-                        rewardValue.text = formatAssetValue(value)
-                    }
+                BaseData.getAsset(baseChain.apiName, mainRewardDenom)?.let { asset ->
+                    val price = BaseData.getPrice(asset.coinGeckoId, false)
+                    val value =
+                        price.multiply(mainRewardAmount).movePointLeft(asset.decimals ?: 6)
+                            .setScale(6, RoundingMode.DOWN)
+                    rewardAmount.text = formatAmount(
+                        mainRewardAmount.movePointLeft(asset.decimals ?: 6).toString(),
+                        asset.decimals ?: 6
+                    )
+                    rewardDenom.text = asset.symbol
+                    rewardDenom.setTextColor(asset.assetColor())
+                    rewardValue.text = formatAssetValue(value)
                 }
 
-                val txFee = fee ?: cosmosLine.getInitPayableFee(context)
+                val txFee = fee ?: baseChain.getInitPayableFee(context)
                 txFee?.let { fee ->
-                    BaseData.getAsset(cosmosLine.apiName, fee.getAmount(0).denom)?.let { asset ->
+                    BaseData.getAsset(baseChain.apiName, fee.getAmount(0).denom)?.let { asset ->
                         val amount = fee.getAmount(0).amount.toBigDecimal()
                             .amountHandlerLeft(asset.decimals ?: 6)
                         val price = BaseData.getPrice(asset.coinGeckoId)

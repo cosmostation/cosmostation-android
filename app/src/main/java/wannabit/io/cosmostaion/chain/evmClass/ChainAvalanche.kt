@@ -6,18 +6,19 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainAvalanche : EthereumLine(), Parcelable {
+class ChainAvalanche : BaseChain(), Parcelable {
 
     override var name: String = "Avalanche"
     override var tag: String = "avalanche60"
     override var logo: Int = R.drawable.chain_avalanche
     override var swipeLogo: Int = R.drawable.chain_swipe_avalanche
-    override var apiName: String = "avalanche"
+    override var apiName: String = "arbitrum"
 
+    override var supportEvm: Boolean = true
     override var coinSymbol: String = "AVAX"
     override var coinGeckoId: String = "avalanche-2"
     override var coinLogo: Int = R.drawable.token_avax
@@ -28,5 +29,5 @@ class ChainAvalanche : EthereumLine(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var rpcUrl: String = "https://avalanche.public-rpc.com"
+    override var evmRpcURL: String = "https://avalanche.public-rpc.com"
 }

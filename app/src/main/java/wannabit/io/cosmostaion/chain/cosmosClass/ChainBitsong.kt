@@ -6,24 +6,25 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainBitsong : CosmosLine(), Parcelable {
+class ChainBitsong : BaseChain(), Parcelable {
 
     override var name: String = "Bitsong"
-    override var tag: String = "bitsong639"
+    override var tag: String = "bitsong118"
     override var logo: Int = R.drawable.chain_bitsong
     override var swipeLogo: Int = R.drawable.chain_swipe_bitsong
     override var apiName: String = "bitsong"
-    override var stakeDenom: String? = "ubtsg"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/639'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
-    override var accountPrefix: String? = "bitsong"
 
+    override var supportCosmosGrpc: Boolean = true
+    override var stakeDenom: String = "ubtsg"
+    override var accountPrefix: String = "bitsong"
     override var grpcHost: String = "grpc-bitsong.cosmostation.io"
 }

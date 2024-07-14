@@ -16,10 +16,8 @@ import androidx.core.content.ContextCompat
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -49,7 +47,7 @@ class EvmStakingFragment : BaseTxFragment() {
     private var _binding: FragmentStakingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: EthereumLine
+    private lateinit var selectedChain: BaseChain
     private var toValidator: StakingProto.Validator? = null
 
     private var selectedFeePosition = 0
@@ -72,7 +70,7 @@ class EvmStakingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: EthereumLine, toValidator: StakingProto.Validator?
+            selectedChain: BaseChain, toValidator: StakingProto.Validator?
         ): EvmStakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -104,12 +102,12 @@ class EvmStakingFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", EthereumLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 toValidator =
                     arguments?.getSerializable("toValidator", StakingProto.Validator::class.java)
             } else {
-                (arguments?.getParcelable("selectedChain") as? EthereumLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 toValidator = arguments?.getSerializable("toValidator") as? StakingProto.Validator?
@@ -124,17 +122,14 @@ class EvmStakingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.cosmosValidators[0]
+                    toValidator = selectedChain.grpcFetcher?.cosmosValidators?.get(0)
                 }
             }
-            selectedChain.stakeDenom?.let { denom ->
-                availableAmount = selectedChain.balanceAmount(denom)
-
-            }
+            availableAmount = selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
             updateValidatorView()
         }
     }
@@ -209,22 +204,20 @@ class EvmStakingFragment : BaseTxFragment() {
                 CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
                     .build()
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        delegateAmountMsg.visibility = View.GONE
-                        delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        delegateAmount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_base01
-                            )
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    delegateAmountMsg.visibility = View.GONE
+                    delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                    delegateAmount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_base01
                         )
-                        delegateDenom.visibility = View.VISIBLE
-                        delegateDenom.text = asset.symbol
-                        delegateDenom.setTextColor(asset.assetColor())
-                    }
+                    )
+                    delegateDenom.visibility = View.VISIBLE
+                    delegateDenom.text = asset.symbol
+                    delegateDenom.setTextColor(asset.assetColor())
                 }
             }
             txSimulate()
@@ -251,13 +244,12 @@ class EvmStakingFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(
-                        selectedChain,
+                    ValidatorDefaultFragment(selectedChain,
                         null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -269,11 +261,9 @@ class EvmStakingFragment : BaseTxFragment() {
                     InsertAmountFragment.newInstance(TxType.DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
-                        selectedChain.stakeDenom?.let { denom ->
-                            BaseData.getAsset(
-                                selectedChain.apiName, denom
-                            )
-                        },
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.stakeDenom
+                        ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
@@ -338,8 +328,8 @@ class EvmStakingFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
-                txViewModel.broadcastEvmDelegate(web3j, evmHexValue)
+//                val web3j = Web3j.build(HttpService(selectedChain.getEvmRpc()))
+//                txViewModel.broadcastEvmDelegate(web3j, evmHexValue)
             }
         }
 

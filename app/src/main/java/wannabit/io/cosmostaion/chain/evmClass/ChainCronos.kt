@@ -6,18 +6,19 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainCronos : EthereumLine(), Parcelable {
+class ChainCronos : BaseChain(), Parcelable {
 
     override var name: String = "Cronos"
     override var tag: String = "cronos60"
     override var logo: Int = R.drawable.chain_cronos
     override var swipeLogo: Int = R.drawable.chain_swipe_cronos
-    override var apiName: String = "cronos"
+    override var apiName: String = "base"
 
+    override var supportEvm: Boolean = true
     override var coinSymbol: String = "CRO"
     override var coinGeckoId: String = "crypto-com-chain"
     override var coinLogo: Int = R.drawable.token_cro
@@ -28,5 +29,5 @@ class ChainCronos : EthereumLine(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var rpcUrl: String = "https://evm.cronos.org"
+    override var evmRpcURL: String = "https://evm.cronos.org"
 }

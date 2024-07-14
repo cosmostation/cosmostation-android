@@ -20,10 +20,10 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.incentive.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.allIncentiveCoins
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -49,12 +49,13 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     private var _binding: FragmentClaimIncentiveBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var incentive: QueryProto.QueryRewardsResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var isClickable = true
@@ -62,7 +63,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine, incentive: QueryProto.QueryRewardsResponse
+            selectedChain: BaseChain, incentive: QueryProto.QueryRewardsResponse
         ): ClaimIncentiveFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -96,13 +97,13 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 arguments?.getSerializable("incentive", QueryProto.QueryRewardsResponse::class.java)
                     ?.let { incentive = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (arguments?.getSerializable("incentive") as? QueryProto.QueryRewardsResponse)?.let {
@@ -316,6 +317,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
                     selectedChain.address,
                     incentive,
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -334,6 +336,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
                 selectedChain.address,
                 incentive,
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )

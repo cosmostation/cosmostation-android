@@ -6,11 +6,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.kava.hard.v1beta1.HardProto.MoneyMarket
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.getLTV
+import wannabit.io.cosmostaion.chain.kavaOraclePrice
+import wannabit.io.cosmostaion.chain.spotMarketId
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getLTV
-import wannabit.io.cosmostaion.common.kavaOraclePrice
-import wannabit.io.cosmostaion.common.spotMarketId
 import wannabit.io.cosmostaion.databinding.ItemLendStatusBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -28,14 +28,19 @@ class LendStatusViewHolder(
     ) {
         binding.apply {
             lendStatusView.setBackgroundResource(R.drawable.item_bg)
-            if (priceFeed == null) { return }
+            if (priceFeed == null) {
+                return
+            }
             var totalDepositValue = BigDecimal.ZERO
             var totalLTVValue = BigDecimal.ZERO
             lendMyDeposits.forEach { coin ->
                 val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
                 val LTV = lendMoneyMarkets.getLTV(coin.denom)
-                val marketPrice = priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
-                val depositValue = coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketPrice).setScale(12, RoundingMode.DOWN)
+                val marketPrice =
+                    priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+                val depositValue =
+                    coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketPrice)
+                        .setScale(12, RoundingMode.DOWN)
                 val ltvValue = depositValue.multiply(LTV)
                 totalDepositValue = totalDepositValue.add(depositValue)
                 totalLTVValue = totalLTVValue.add(ltvValue)
@@ -47,8 +52,11 @@ class LendStatusViewHolder(
             var totalBorrowValue = BigDecimal.ZERO
             lendMyBorrows.forEach { coin ->
                 val decimal = BaseData.assets?.firstOrNull { it.denom == coin.denom }?.decimals ?: 6
-                val marketPrice = priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
-                val borrowValue = coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketPrice).setScale(12, RoundingMode.DOWN)
+                val marketPrice =
+                    priceFeed.kavaOraclePrice(lendMoneyMarkets.spotMarketId(coin.denom))
+                val borrowValue =
+                    coin.amount.toBigDecimal().movePointLeft(decimal).multiply(marketPrice)
+                        .setScale(12, RoundingMode.DOWN)
                 totalBorrowValue = totalBorrowValue.add(borrowValue)
             }
             val remainBorrowable = if (totalLTVValue.subtract(totalBorrowValue) > BigDecimal.ZERO) {

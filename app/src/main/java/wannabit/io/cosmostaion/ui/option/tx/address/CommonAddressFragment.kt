@@ -16,7 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
@@ -31,7 +31,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: CosmosLine
+    private lateinit var fromChain: BaseChain
     private var existAddress = ""
     private lateinit var addressType: AddressType
 
@@ -44,13 +44,13 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: CosmosLine,
+            fromChain: BaseChain,
             existAddress: String,
             addressType: AddressType,
             listener: AddressListener
         ): CommonAddressFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
+                putParcelable("fromChain", fromChain)
                 putString("existAddress", existAddress)
                 putSerializable("addressType", addressType)
             }
@@ -91,15 +91,15 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
-                        "fromChain", CosmosLine::class.java
+                    getParcelable(
+                        "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
                     getSerializable(
                         "addressType", AddressType::class.java
                     )?.let { addressType = it }
 
                 } else {
-                    (getSerializable("fromChain") as? CosmosLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getSerializable("addressType") as? AddressType)?.let {
@@ -168,7 +168,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                     }
 
                     if (addressType == AddressType.REWARD_ADDRESS) {
-                        if (fromChain.rewardAddress.equals(address, true)) {
+                        if (fromChain.grpcFetcher?.rewardAddress.equals(address, true)) {
                             requireContext().makeToast(R.string.error_same_reward_address)
                             return@setOnClickListener
                         }

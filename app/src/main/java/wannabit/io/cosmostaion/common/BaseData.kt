@@ -40,7 +40,8 @@ object BaseData {
     fun lastUpDown(coinGeckoId: String?): BigDecimal {
         val price = prices?.firstOrNull { it.coinGeckoId == coinGeckoId }
         if (price != null) {
-            return (price.daily_price_change_in_percent ?: 0.0).toBigDecimal().setScale(2, RoundingMode.HALF_DOWN)
+            return (price.daily_price_change_in_percent ?: 0.0).toBigDecimal()
+                .setScale(2, RoundingMode.HALF_DOWN)
         }
         return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_DOWN)
     }
@@ -52,7 +53,11 @@ object BaseData {
     fun getLastAccount(): BaseAccount? {
         val id = Prefs.lastAccountId
         val accounts = AppDatabase.getInstance().baseAccountDao().selectAll()
-        val validAccounts = accounts.filter { StringUtils.isNotBlank(it.uuid) && StringUtils.isNotBlank(it.resource) && StringUtils.isNotBlank(it.spec) }
+        val validAccounts = accounts.filter {
+            StringUtils.isNotBlank(it.uuid) && StringUtils.isNotBlank(it.resource) && StringUtils.isNotBlank(
+                it.spec
+            )
+        }
         val findAccount = validAccounts.find { it.id == id }
         return findAccount ?: validAccounts.firstOrNull()
     }
@@ -96,6 +101,30 @@ object BaseData {
         val now = Calendar.getInstance().timeInMillis
         val day: Long = TimeUnit.DAYS.toMillis(1)
         val last = Prefs.swapInfoTime + (day * 3)
+        return last < now
+    }
+
+    fun setLastPushTime() {
+        val now = Calendar.getInstance().timeInMillis
+        Prefs.pushLastTime = now
+    }
+
+    fun pushRefreshIfNeed(): Boolean {
+        val now = System.currentTimeMillis()
+        val min: Long = 60000
+        val last = Prefs.lastPriceTime.toLong() + (min * 60 * 24 * 3)
+        return last < now
+    }
+
+    fun setInjectWarn() {
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        Prefs.injectWarn = currentDate.timeInMillis
+    }
+
+    fun getInjectWarn(): Boolean {
+        val last = Prefs.injectWarn
+        val now = Calendar.getInstance().timeInMillis
         return last < now
     }
 
@@ -150,10 +179,17 @@ object BaseData {
     suspend fun updateRefAddressesMain(refAddress: RefAddress) {
         val refDao = AppDatabase.getInstance().refAddressDao()
 
-        val existRefAddress = refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
+        val existRefAddress =
+            refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
         if (existRefAddress != null) {
             refDao.updateMain(
-                refAddress.lastMainValue, refAddress.lastMainAmount, refAddress.lastCoinCnt, refAddress.accountId, refAddress.chainTag, refAddress.dpAddress, refAddress.evmAddress
+                refAddress.lastMainValue,
+                refAddress.lastMainAmount,
+                refAddress.lastCoinCnt,
+                refAddress.accountId,
+                refAddress.chainTag,
+                refAddress.dpAddress,
+                refAddress.evmAddress
             )
         } else {
             refDao.insert(refAddress)
@@ -163,10 +199,15 @@ object BaseData {
     suspend fun updateRefAddressesToken(refAddress: RefAddress) {
         val refDao = AppDatabase.getInstance().refAddressDao()
 
-        val existRefAddress = refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
+        val existRefAddress =
+            refDao.getRefAddress(refAddress.accountId, refAddress.chainTag, refAddress.dpAddress)
         if (existRefAddress != null) {
             refDao.updateToken(
-                refAddress.lastTokenValue, refAddress.accountId, refAddress.chainTag, refAddress.dpAddress, refAddress.evmAddress
+                refAddress.lastTokenValue,
+                refAddress.accountId,
+                refAddress.chainTag,
+                refAddress.dpAddress,
+                refAddress.evmAddress
             )
         } else {
             refDao.insert(refAddress)

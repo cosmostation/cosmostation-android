@@ -7,10 +7,11 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.webkit.JavascriptInterface
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
@@ -20,7 +21,6 @@ import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc
@@ -51,17 +51,14 @@ import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
@@ -89,10 +86,10 @@ class DappActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDappBinding
 
-    private var allChains: MutableList<CosmosLine>? = mutableListOf()
+    private var allChains: MutableList<BaseChain>? = mutableListOf()
 
-    private var selectChain: CosmosLine? = null
-    private var selectEvmChain: EthereumLine? = null
+    private var selectChain: BaseChain? = null
+    private var selectEvmChain: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
@@ -105,10 +102,6 @@ class DappActivity : BaseActivity() {
     private var processingRequestID: Long? = null
 
     private var currentEvmChainId: String? = null
-
-    private var isAnimationInProgress = false
-    private var previousScrollY = 0
-    private lateinit var bottomViewHeightConstraint: ConstraintLayout.LayoutParams
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,25 +124,22 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun initAllKeyData(): MutableList<CosmosLine> {
-        val result = mutableListOf<CosmosLine>()
+    private fun initAllKeyData(): MutableList<BaseChain> {
+        val result = allChains()
         lifecycleScope.launch(Dispatchers.IO) {
             initData()
-            result.addAll(allCosmosLines())
-            result.addAll(allEvmLines())
-
             BaseData.baseAccount?.let { account ->
                 account.apply {
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
-                            if (chain.address?.isEmpty() == true) {
+                            if (chain.publicKey == null) {
                                 chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         result.forEach { chain ->
-                            if (chain.address?.isEmpty() == true) {
+                            if (chain.publicKey == null) {
                                 chain.setInfoWithPrivateKey(privateKey)
                             }
                         }
@@ -166,9 +156,6 @@ class DappActivity : BaseActivity() {
     private fun setUpDappView() {
         binding.apply {
             setUpBarFunction()
-            bottomViewHeightConstraint = navView.layoutParams as ConstraintLayout.LayoutParams
-            dappWebView.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener())
-
             dappWebView.apply {
                 settings.apply {
                     javaScriptEnabled = true
@@ -205,6 +192,14 @@ class DappActivity : BaseActivity() {
                 dappWebView.loadUrl(intent.getStringExtra("dapp") ?: "")
             }
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (BaseData.getInjectWarn()) {
+                InjectWarnFragment().show(
+                    supportFragmentManager, InjectWarnFragment::class.java.name
+                )
+            }
+        }, 1000)
     }
 
     private fun setUpBarFunction() {
@@ -570,7 +565,6 @@ class DappActivity : BaseActivity() {
         pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         super.onDestroy()
         binding.apply {
-            dappWebView.viewTreeObserver.removeOnScrollChangedListener(scrollChangedListener())
             dappWebView.removeJavascriptInterface("station")
         }
     }
@@ -782,7 +776,7 @@ class DappActivity : BaseActivity() {
 
                     val accountJson = JSONObject()
                     accountJson.put("isKeystone", false)
-                    accountJson.put("isEthermint", false)
+                    accountJson.put("isEthermint", selectChain?.supportEvm)
                     accountJson.put("isLedger", false)
                     BaseData.baseAccount?.let { account ->
                         selectChain = selectedChain(allChains, chainId)
@@ -794,30 +788,33 @@ class DappActivity : BaseActivity() {
                 }
 
                 "cos_supportedChainIds" -> {
-                    val evmSupportIds =
-                        allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
-                            .distinct()
-                    val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
-                        .map { it.chainIdCosmos }.distinct()
-                    val supportChainIds = evmSupportIds.union(cosmosSupportIds)
+                    val supportChainIds =
+                        allChains?.filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            ?.map { it.chainIdCosmos }?.distinct()
+                    if (supportChainIds?.isNotEmpty() == true) {
+                        val dataJson = JSONObject()
+                        dataJson.put("official", JSONArray(supportChainIds))
+                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                        appToWebResult(messageJson, dataJson, messageId)
 
-                    val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(supportChainIds))
-                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                    appToWebResult(messageJson, dataJson, messageId)
+                    } else {
+                        appToWebError("Error")
+                    }
                 }
 
                 "cos_supportedChainNames" -> {
-                    val evmSupportNames =
-                        allEvmLines().filter { it.supportCosmos && it.chainDappName() != null }
-                            .map { it.chainDappName() }.distinct()
-                    val cosmosSupportNames = allCosmosLines().map { it.name.lowercase() }.distinct()
-                    val supportChainNames = evmSupportNames.union(cosmosSupportNames)
+                    val supportChainNames = allChains?.filter {
+                        it.supportCosmosGrpc && it.chainDappName()?.isNotEmpty() == true
+                    }?.map { it.name.lowercase() }?.distinct()
+                    if (supportChainNames?.isNotEmpty() == true) {
+                        val dataJson = JSONObject()
+                        dataJson.put("official", JSONArray(supportChainNames))
+                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                        appToWebResult(messageJson, dataJson, messageId)
 
-                    val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(supportChainNames))
-                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                    appToWebResult(messageJson, dataJson, messageId)
+                    } else {
+                        appToWebError("Error")
+                    }
                 }
 
                 "cos_disconnect" -> {
@@ -828,13 +825,10 @@ class DappActivity : BaseActivity() {
 
                 "cos_addChain" -> {
                     val params = messageJson.getJSONObject("params")
-                    val evmSupportIds =
-                        allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }
-                            .distinct()
-                    val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }
-                        .map { it.chainIdCosmos }.distinct()
-                    val supportChainIds = evmSupportIds.union(cosmosSupportIds)
-                    if (supportChainIds.contains(params.getString("chainId"))) {
+                    val supportChainIds =
+                        allChains?.filter { !it.isTestnet && it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            ?.map { it.chainIdCosmos }?.distinct()
+                    if (supportChainIds?.contains(params.getString("chainId")) == true) {
                         appToWebResult(
                             messageJson, true, messageId
                         )
@@ -926,30 +920,25 @@ class DappActivity : BaseActivity() {
 
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
-                    val address = allChains?.firstOrNull { chain -> chain is EthereumLine }?.address
-                    val ethAddress = if (address?.startsWith("0x") == true) {
-                        address
-                    } else {
-                        ByteUtils.convertBech32ToEvm(address)
-                    }
+                    val address = allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
                     appToWebResult(
-                        messageJson, JSONArray(listOf(ethAddress)), messageId
+                        messageJson, JSONArray(listOf(address)), messageId
                     )
                 }
 
                 "wallet_switchEthereumChain" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val evmChainIds = allEvmLines().map { it.chainIdEvm }.distinct()
+                        val evmChainIds = allChains?.map { chain -> chain.chainIdEvm }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
 
-                        if (evmChainIds.contains(chainId)) {
+                        if (evmChainIds?.contains(chainId) == true) {
                             currentEvmChainId = chainId
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
                             val chainNetwork =
-                                allEvmLines().firstOrNull { it.chainIdEvm == chainId }?.name
+                                allChains?.firstOrNull { it.chainIdEvm == chainId }?.name
                             withContext(Dispatchers.Main) {
                                 makeToast("Connected to $chainNetwork network")
                             }
@@ -971,22 +960,18 @@ class DappActivity : BaseActivity() {
                         currentEvmChainId = "0x1"
                     }
                     selectEvmChain =
-                        allChains?.firstOrNull { chain -> chain is EthereumLine && chain.chainIdEvm == currentEvmChainId } as EthereumLine
-                    rpcUrl = selectEvmChain?.getEvmRpc()
+                        allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
+                    rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {
-                    if (selectEvmChain?.address?.isNotEmpty() == true) {
-                        val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
-                            selectEvmChain?.address
-                        } else {
-                            ByteUtils.convertBech32ToEvm(selectEvmChain?.address)
-                        }
+                    if (selectEvmChain?.evmAddress?.isNotEmpty() == true) {
                         appToWebResult(
-                            messageJson, JSONArray(listOf(ethAddress)), messageId
+                            messageJson, JSONArray(listOf(selectEvmChain?.evmAddress)), messageId
                         )
+
                     } else {
                         appToWebResult(
                             messageJson, JSONArray(listOf("")), messageId
@@ -1193,13 +1178,10 @@ class DappActivity : BaseActivity() {
                 }
 
                 "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
-                    val ethAddress = if (selectEvmChain?.address?.startsWith("0x") == true) {
-                        selectEvmChain?.address
-                    } else {
-                        ByteUtils.convertBech32ToEvm(selectEvmChain?.address)
-                    }
                     val params = messageJson.getJSONArray("params")
-                    if (params.get(0).toString().lowercase() != ethAddress?.lowercase()) {
+                    if (params.get(0).toString()
+                            .lowercase() != selectEvmChain?.evmAddress?.lowercase()
+                    ) {
                         appToWebError(messageJson, messageId, "Wrong address")
                         return
                     }
@@ -1413,6 +1395,22 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun emitCloseToWeb() {
+        val responseJson = JSONObject().apply {
+            put("result", JSONArray())
+        }
+        val postMessageJson = JSONObject().apply {
+            put("message", responseJson)
+            put("type", "accountsChanged")
+            put("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
+    }
+
     private fun appToWebResult(messageJson: JSONObject, resultJson: Any?, messageId: String) {
         val responseJson = JSONObject().apply {
             put("result", resultJson)
@@ -1489,49 +1487,19 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun scrollChangedListener() = ViewTreeObserver.OnScrollChangedListener {
-        binding.apply {
-            if (!isAnimationInProgress) {
-                val currentScrollY = dappWebView.scrollY
-                if (currentScrollY < previousScrollY) {
-                    bottomViewHeightConstraint.height = 120
-                    animateTopViewHeight()
-                } else if (currentScrollY > previousScrollY) {
-                    bottomViewHeightConstraint.height = 1
-                    animateTopViewHeight()
-                }
-
-                if (currentScrollY == 0) {
-                    bottomViewHeightConstraint.height = 120
-                    animateTopViewHeight()
-                }
-                previousScrollY = currentScrollY
-            }
-        }
-    }
-
-    private fun animateTopViewHeight() {
-        binding.apply {
-            isAnimationInProgress = true
-            navView.layoutParams = bottomViewHeightConstraint
-            navView.requestLayout()
-            navView.animate().setDuration(200).withEndAction {
-                isAnimationInProgress = false
-            }.start()
-        }
-    }
-
     private fun pubKeyType(): String {
-        return when (selectChain) {
-            is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
-            is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
-            else -> COSMOS_KEY_TYPE_PUBLIC
+        return if (selectChain is ChainInjective) {
+            INJECTIVE_KEY_TYPE_PUBLIC
+        } else if (selectChain?.supportEvm == true) {
+            ETHERMINT_KEY_TYPE_PUBLIC
+        } else {
+            COSMOS_KEY_TYPE_PUBLIC
         }
     }
 
     private fun selectedChain(
-        classChains: MutableList<CosmosLine>?, chainId: String?
-    ): CosmosLine? {
+        classChains: MutableList<BaseChain>?, chainId: String?
+    ): BaseChain? {
         return classChains?.firstOrNull { chain ->
             (chain.chainIdCosmos.equals(chainId, ignoreCase = true) || chain.name.equals(
                 chainId, ignoreCase = true

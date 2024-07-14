@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.databinding.FragmentVaultSelectBinding
 import wannabit.io.cosmostaion.ui.tx.step.neutron.VaultFragment
@@ -19,13 +18,13 @@ class VaultSelectFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentVaultSelectBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: ChainNeutron
 
     private var isClickable = true
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): VaultSelectFragment {
+        fun newInstance(selectedChain: ChainNeutron): VaultSelectFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -64,13 +63,13 @@ class VaultSelectFragment : BottomSheetDialogFragment() {
         binding.apply {
             depositView.setOnClickListener {
                 handleOneClickWithDelay(
-                    VaultFragment.newInstance(selectedChain as ChainNeutron, VaultType.DEPOSIT)
+                    VaultFragment.newInstance(selectedChain, VaultType.DEPOSIT)
                 )
             }
 
             withdrawView.setOnClickListener {
                 handleOneClickWithDelay(
-                    VaultFragment.newInstance(selectedChain as ChainNeutron, VaultType.WITHDRAW)
+                    VaultFragment.newInstance(selectedChain, VaultType.WITHDRAW)
                 )
             }
         }

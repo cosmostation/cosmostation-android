@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.databinding.ItemEcoSystemBinding
 
 class EvmEcoSystemViewHolder(
@@ -20,6 +21,7 @@ class EvmEcoSystemViewHolder(
             dappTypeBadge.text = info["type"].asString
             dappTitle.text = info["name"].asString
             dappDescription.text = info["description"].asString
+            dappNotImg.goneOrVisible(info.get("support")?.asBoolean ?: true)
         }
     }
 }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
@@ -22,7 +22,7 @@ class EcoSystemFragment : Fragment() {
     private var _binding: FragmentEcoSystemBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var walletViewModel: WalletViewModel
 
@@ -30,7 +30,7 @@ class EcoSystemFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): EcoSystemFragment {
+        fun newInstance(selectedChain: BaseChain): EcoSystemFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -61,10 +61,10 @@ class EcoSystemFragment : Fragment() {
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }
@@ -77,7 +77,7 @@ class EcoSystemFragment : Fragment() {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
 
-            ecoSystemAdapter = EcoSystemAdapter(selectedChain)
+            ecoSystemAdapter = EcoSystemAdapter(requireContext(), selectedChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = GridLayoutManager(requireContext(), 2)
             recycler.adapter = ecoSystemAdapter

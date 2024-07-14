@@ -10,10 +10,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -23,7 +20,8 @@ class ReceiveViewHolder(
     val context: Context,
     private val binding: ItemReceiveBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun evmBind(account: BaseAccount, selectChain: EthereumLine) {
+
+    fun evmBind(account: BaseAccount, selectChain: BaseChain) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
@@ -35,7 +33,7 @@ class ReceiveViewHolder(
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
             chainImg.setImageResource(selectChain.logo)
-            setQrAddress(context, ByteUtils.convertBech32ToEvm(selectChain.address))
+            setQrAddress(context, selectChain.evmAddress)
 
             chainBadge.visibility = View.GONE
             chainTypeBadge.visibility = View.GONE
@@ -44,8 +42,7 @@ class ReceiveViewHolder(
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    "address",
-                    ByteUtils.convertBech32ToEvm(selectChain.address)
+                    "address", selectChain.evmAddress
                 )
                 clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
@@ -53,7 +50,7 @@ class ReceiveViewHolder(
         }
     }
 
-    fun bind(account: BaseAccount, selectChain: CosmosLine) {
+    fun bind(account: BaseAccount, selectChain: BaseChain) {
         binding.apply {
             receiveView.setBackgroundResource(R.drawable.item_bg)
             if (account.type == BaseAccountType.MNEMONIC) {
@@ -78,13 +75,11 @@ class ReceiveViewHolder(
                 chainBadge.text = context.getString(R.string.str_legacy)
                 when (selectChain.tag) {
                     "okt996_Keccak" -> {
-                        chainTypeBadge.text =
-                            context.getString(R.string.str_ethsecp256k1)
+                        chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
                     }
 
                     "okt996_Secp" -> {
-                        chainTypeBadge.text =
-                            context.getString(R.string.str_secp256k1)
+                        chainTypeBadge.text = context.getString(R.string.str_secp256k1)
                     }
 
                     else -> {

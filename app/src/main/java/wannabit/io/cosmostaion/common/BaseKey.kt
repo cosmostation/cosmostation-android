@@ -49,16 +49,11 @@ object BaseKey {
     }
 
     fun getPrivateKey(
-        seed: ByteArray?,
-        parentPaths: List<ChildNumber>,
-        lastPath: String
+        seed: ByteArray?, parentPaths: List<ChildNumber>, lastPath: String
     ): ByteArray? {
         val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
         val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
-            parentPaths,
-            true,
-            true,
-            ChildNumber(Integer.parseInt(lastPath))
+            parentPaths, true, true, ChildNumber(Integer.parseInt(lastPath))
         )
         return deterministicKey.privKeyBytes
     }
@@ -69,9 +64,7 @@ object BaseKey {
     }
 
     fun getAddressFromPubKey(
-        pubKey: ByteArray?,
-        pubKeyType: PubKeyType,
-        prefix: String? = null
+        pubKey: ByteArray?, pubKeyType: PubKeyType, prefix: String? = null
     ): String {
         var result = ""
         when (pubKeyType) {
@@ -86,14 +79,7 @@ object BaseKey {
                 val uncompressedPubKey = ECKey.CURVE.curve.decodePoint(pubKey).getEncoded(false)
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)
-
-                val address = Keys.getAddress(pub)
-                val bytes = ByteUtils.convertBits(address, 8, 5, true)
-                result = if (prefix?.isEmpty() == true) {
-                    "0x" + address.toHex()
-                } else {
-                    Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
-                }
+                result = "0x" + Keys.getAddress(pub).toHex()
             }
 
             else -> return result

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentEarnListBinding
@@ -33,7 +33,7 @@ class EarnListFragment : Fragment() {
 
     private lateinit var earnListAdapter: EarnListAdapter
 
-    private var selectedChain: CosmosLine? = null
+    private var selectedChain: BaseChain? = null
 
     private val myDeposits: MutableList<Coin> = mutableListOf()
 
@@ -41,7 +41,7 @@ class EarnListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): EarnListFragment {
+        fun newInstance(selectedChain: BaseChain): EarnListFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -68,9 +68,9 @@ class EarnListFragment : Fragment() {
 
     private fun initViewModel() {
         selectedChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
         } else {
-            arguments?.getParcelable("selectedChain") as? CosmosLine
+            arguments?.getParcelable("selectedChain") as? BaseChain
         }
 
         val kavaRepository = KavaRepositoryImpl()
@@ -121,7 +121,7 @@ class EarnListFragment : Fragment() {
 
             earnListAdapter.setOnItemClickListener { deposit ->
                 val valOpAddress = deposit.denom.replace("bkava-", "")
-                selectedChain?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
+                selectedChain?.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
                     ?.let { toValidator ->
                         EarnOptionFragment.newInstance(toValidator, deposit, earnClickAction).show(
                             requireActivity().supportFragmentManager,
@@ -138,7 +138,12 @@ class EarnListFragment : Fragment() {
         }
 
         override fun earnWithdraw(withdrawCoin: Coin) {
-            handleOneClickWithDelay(WithdrawEarningFragment.newInstance(selectedChain, withdrawCoin))
+            handleOneClickWithDelay(
+                WithdrawEarningFragment.newInstance(
+                    selectedChain,
+                    withdrawCoin
+                )
+            )
         }
     }
 

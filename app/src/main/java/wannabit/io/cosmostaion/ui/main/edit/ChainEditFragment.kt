@@ -12,8 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.goneOrVisible
@@ -33,13 +32,11 @@ class ChainEditFragment : BaseTxFragment() {
 
     private lateinit var chainEditAdapter: ChainEditAdapter
 
-    private var toDisplayEvmChains: MutableList<String> = mutableListOf()
-    private var allEvmChains: MutableList<EthereumLine> = mutableListOf()
-    private var searchEvmChains: MutableList<EthereumLine> = mutableListOf()
-
+    private var mainnetChains = mutableListOf<BaseChain>()
+    private var searchMainnetChains = mutableListOf<BaseChain>()
+    private var testnetChains = mutableListOf<BaseChain>()
+    private var searchTestnetChains = mutableListOf<BaseChain>()
     private var toDisplayChains: MutableList<String> = mutableListOf()
-    private var allCosmosChains: MutableList<CosmosLine> = mutableListOf()
-    private var searchChains: MutableList<CosmosLine> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -63,14 +60,13 @@ class ChainEditFragment : BaseTxFragment() {
                 account.apply {
                     lifecycleScope.launch(Dispatchers.IO) {
                         sortLine()
-                        allEvmChains.addAll(allEvmLineChains)
-                        searchEvmChains.addAll(allEvmChains)
-                        toDisplayEvmChains.addAll(Prefs.getDisplayEvmChains(account))
+                        mainnetChains.addAll(account.allChains.filter { !it.isTestnet })
+                        searchMainnetChains.addAll(mainnetChains)
 
-                        allCosmosChains.addAll(allCosmosLineChains)
-                        searchChains.addAll(allCosmosChains)
+                        testnetChains.addAll(account.allChains.filter { it.isTestnet })
+                        searchTestnetChains.addAll(testnetChains)
+
                         toDisplayChains.addAll(Prefs.getDisplayChains(account))
-
                         initAllData(account)
 
                         withContext(Dispatchers.Main) {
@@ -78,16 +74,15 @@ class ChainEditFragment : BaseTxFragment() {
                             recycler.layoutManager = LinearLayoutManager(requireContext())
                             chainEditAdapter = ChainEditAdapter(
                                 account,
-                                searchEvmChains,
-                                toDisplayEvmChains,
-                                searchChains,
+                                searchMainnetChains,
+                                searchTestnetChains,
                                 toDisplayChains,
                                 selectClickAction
                             )
                             recycler.adapter = chainEditAdapter
 
-                            btnSelect.updateSelectButtonView(allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched })
-                            progress.goneOrVisible(allEvmChains.none { !it.fetched } && allCosmosChains.none { !it.fetched })
+                            btnSelect.updateSelectButtonView(allChains.none { !it.fetched })
+                            progress.goneOrVisible(allChains.none { !it.fetched })
                         }
                     }
                 }
@@ -99,17 +94,8 @@ class ChainEditFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
-                    allEvmChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                        }
-                        if (!chain.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
-                        }
-                    }
-
-                    allCosmosChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
+                    allChains.asSequence().concurrentForEach { chain ->
+                        if (chain.publicKey == null) {
                             chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
                         if (!chain.fetched) {
@@ -118,17 +104,8 @@ class ChainEditFragment : BaseTxFragment() {
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allEvmChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                        if (!chain.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(chain, id, true)
-                        }
-                    }
-
-                    allCosmosChains.asSequence().concurrentForEach { chain ->
-                        if (chain.address?.isEmpty() == true) {
+                    allChains.asSequence().concurrentForEach { chain ->
+                        if (chain.publicKey == null) {
                             chain.setInfoWithPrivateKey(privateKey)
                         }
                         if (!chain.fetched) {
@@ -152,11 +129,11 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val searchEvmResult = searchEvmChains.filter { it.tag == tag }
+            val searchEvmResult = searchMainnetChains.filter { it.tag == tag }
             val evmIterator = searchEvmResult.iterator()
             while (evmIterator.hasNext()) {
                 val chain = evmIterator.next()
-                val index = searchEvmChains.indexOf(chain)
+                val index = searchMainnetChains.indexOf(chain)
                 if (::chainEditAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
                         chainEditAdapter.notifyItemChanged(index + 1)
@@ -164,20 +141,20 @@ class ChainEditFragment : BaseTxFragment() {
                 }
             }
 
-            val searchResult = searchChains.filter { it.tag == tag }
+            val searchResult = searchTestnetChains.filter { it.tag == tag }
             val iterator = searchResult.iterator()
             while (iterator.hasNext()) {
                 val chain = iterator.next()
-                val index = searchChains.indexOf(chain)
+                val index = searchTestnetChains.indexOf(chain)
                 if (::chainEditAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
-                        chainEditAdapter.notifyItemChanged(index + (searchEvmChains.size + 2))
+                        chainEditAdapter.notifyItemChanged(index + (searchMainnetChains.size + 2))
                     }
                 }
             }
 
             withContext(Dispatchers.Main) {
-                if (searchEvmChains.none { !it.fetched } && searchChains.none { !it.fetched }) {
+                if (searchMainnetChains.none { !it.fetched } && searchTestnetChains.none { !it.fetched }) {
                     binding?.apply {
                         btnSelect.updateSelectButtonView(true)
                         progress.cancelAnimation()
@@ -189,10 +166,6 @@ class ChainEditFragment : BaseTxFragment() {
     }
 
     private val selectClickAction = object : ChainEditAdapter.SelectListener {
-        override fun evmSelect(displayEvmChains: MutableList<String>) {
-            toDisplayEvmChains = displayEvmChains
-        }
-
         override fun select(displayChains: MutableList<String>) {
             toDisplayChains = displayChains
         }
@@ -201,45 +174,34 @@ class ChainEditFragment : BaseTxFragment() {
     private fun setUpClickAction() {
         binding?.apply {
             btnSelect.setOnClickListener {
-                toDisplayEvmChains.clear()
                 toDisplayChains.clear()
-                if (btnSelect.isEnabled) {
-                    btnSelect.isEnabled = false
+                if (btnSelect.isEnabled) btnSelect.isEnabled = false
+                backdropLayout.visibility = View.VISIBLE
 
-                    backdropLayout.visibility = View.VISIBLE
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        BaseData.baseAccount?.let { account ->
-                            account.reSortEvmChains()
-                            allEvmChains = account.allEvmLineChains
-                            for (chain in allEvmChains) {
-                                if (chain.allAssetValue(true) > BigDecimal.ONE) {
-                                    toDisplayEvmChains.add(chain.tag)
-                                }
-                            }
-
-                            account.reSortCosmosChains()
-                            allCosmosChains = account.allCosmosLineChains
-                            toDisplayChains.add("cosmos118")
-                            for (chain in allCosmosChains) {
-                                if (chain.allAssetValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
-                                    toDisplayChains.add(chain.tag)
-                                }
+                lifecycleScope.launch(Dispatchers.IO) {
+                    BaseData.baseAccount?.let { account ->
+                        account.reSortChains()
+                        mainnetChains = account.allChains.filter { !it.isTestnet }.toMutableList()
+                        toDisplayChains.add("cosmos118")
+                        for (chain in mainnetChains) {
+                            if (chain.allValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
+                                toDisplayChains.add(chain.tag)
                             }
                         }
+                    }
 
-                        withContext(Dispatchers.Main) {
-                            btnSelect.isEnabled = true
-                            backdropLayout.visibility = View.GONE
-                            chainEditAdapter.notifyItemRangeChanged(
-                                1, allEvmChains.size + allCosmosChains.size + 1, null
-                            )
-                        }
+                    withContext(Dispatchers.Main) {
+                        btnSelect.isEnabled = true
+                        backdropLayout.visibility = View.GONE
+                        chainEditAdapter.notifyItemRangeChanged(
+                            1, mainnetChains.size + testnetChains.size + 1, null
+                        )
                     }
                 }
             }
 
             btnConfirm.setOnClickListener {
-                ApplicationViewModel.shared.walletEdit(toDisplayEvmChains, toDisplayChains)
+                ApplicationViewModel.shared.walletEdit(toDisplayChains)
                 dismiss()
             }
         }
@@ -255,26 +217,26 @@ class ChainEditFragment : BaseTxFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchEvmChains.clear()
-                    searchChains.clear()
+                    searchMainnetChains.clear()
+                    searchTestnetChains.clear()
                     BaseData.baseAccount?.let { account ->
                         if (StringUtils.isEmpty(newText)) {
-                            searchEvmChains.addAll(account.allEvmLineChains)
-                            searchChains.addAll(account.allCosmosLineChains)
+                            searchMainnetChains.addAll(account.allChains.filter { !it.isTestnet })
+                            searchTestnetChains.addAll(account.allChains.filter { it.isTestnet })
 
                         } else {
                             newText?.let { searchTxt ->
-                                searchEvmChains.addAll(account.allEvmLineChains.filter { chain ->
-                                    chain.name.contains(searchTxt, ignoreCase = true)
-                                })
+                                searchMainnetChains.addAll(account.allChains.filter { chain ->
+                                        chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet
+                                    })
 
-                                searchChains.addAll(account.allCosmosLineChains.filter { chain ->
-                                    chain.name.contains(searchTxt, ignoreCase = true)
-                                })
+                                searchTestnetChains.addAll(account.allChains.filter { chain ->
+                                        chain.name.contains(searchTxt, ignoreCase = true) && chain.isTestnet
+                                    })
                             }
                         }
                     }
-                    if (searchEvmChains.isEmpty() && searchChains.isEmpty()) {
+                    if (searchMainnetChains.isEmpty() && searchTestnetChains.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
                     } else {

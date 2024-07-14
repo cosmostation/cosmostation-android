@@ -6,11 +6,11 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainOptimism : EthereumLine(), Parcelable {
+class ChainOptimism : BaseChain(), Parcelable {
 
     override var name: String = "Optimism"
     override var tag: String = "optimism60"
@@ -18,6 +18,7 @@ class ChainOptimism : EthereumLine(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_swipe_optimism
     override var apiName: String = "optimism"
 
+    override var supportEvm: Boolean = true
     override var coinSymbol: String = "ETH"
     override var coinGeckoId: String = "ethereum"
     override var coinLogo: Int = R.drawable.token_eth_op
@@ -28,5 +29,5 @@ class ChainOptimism : EthereumLine(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var rpcUrl: String = "https://mainnet.optimism.io"
+    override var evmRpcURL: String = "https://mainnet.optimism.io"
 }

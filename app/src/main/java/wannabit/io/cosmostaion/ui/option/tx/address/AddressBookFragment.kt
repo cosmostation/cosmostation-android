@@ -15,11 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -58,8 +54,8 @@ class AddressBookFragment : BottomSheetDialogFragment() {
             listener: AddressBookSelectListener
         ): AddressBookFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
-                putSerializable("toChain", toChain)
+                putParcelable("fromChain", fromChain)
+                putParcelable("toChain", toChain)
                 putString("senderAddress", senderAddress)
                 putSerializable("sendAssetType", sendAssetType)
             }
@@ -88,10 +84,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private fun initData() {
         arguments?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                getSerializable(
+                getParcelable(
                     "fromChain", BaseChain::class.java
                 )?.let { fromChain = it }
-                getSerializable(
+                getParcelable(
                     "toChain", BaseChain::class.java
                 )?.let { toChain = it }
                 getSerializable(
@@ -99,10 +95,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                 )?.let { sendAssetType = it }
 
             } else {
-                (getSerializable("fromChain") as? BaseChain)?.let {
+                (getParcelable("fromChain") as? BaseChain)?.let {
                     fromChain = it
                 }
-                (getSerializable("toChain") as? BaseChain)?.let {
+                (getParcelable("toChain") as? BaseChain)?.let {
                     toChain = it
                 }
                 (getSerializable("sendAssetType") as? SendAssetType)?.let {
@@ -127,29 +123,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if (fromChain is ChainOkt996Keccak) {
-                                    if (refAddress.dpAddress?.startsWith((toChain as ChainOkt996Keccak).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
-                                        if (Prefs.displayLegacy) {
-                                            refAddresses.add(refAddress)
-                                        } else {
-                                            allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                ?.let { chain ->
-                                                    if (chain.isDefault) {
-                                                        refAddresses.add(refAddress)
-                                                    }
-
-                                                } ?: run {
-                                                allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                    ?.let { evmChain ->
-                                                        if (evmChain.isDefault) {
-                                                            refAddresses.add(refAddress)
-                                                        }
-                                                    }
-                                            }
-                                        }
-                                    }
-
-                                } else if ((fromChain as EthereumLine).supportCosmos) {
+                                if (fromChain.supportCosmosGrpc) {
                                     if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )
@@ -158,20 +132,25 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     }
 
                                 } else {
-                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
-                                        refEvmAddresses.add(refAddress)
+                                    if (senderAddress.startsWith("0x")) {
+                                        if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != senderAddress) {
+                                            refEvmAddresses.add(refAddress)
+                                        }
+
+                                    } else {
+                                        if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
+                                                senderAddress
+                                            )
+                                        ) {
+                                            refEvmAddresses.add(refAddress)
+                                        }
                                     }
                                 }
                             }
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (fromChain is ChainOkt996Keccak) {
-                                    if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                        addressBooks.add(addressBook)
-                                    }
-
-                                } else if ((fromChain as EthereumLine).supportCosmos) {
+                                if (fromChain.supportCosmosGrpc) {
                                     if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )
@@ -189,25 +168,18 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                     SendAssetType.COSMOS_EVM_COIN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
+                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
                             .forEach { refAddress ->
-                                if (refAddress.dpAddress?.startsWith((toChain as CosmosLine).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
                                     if (Prefs.displayLegacy) {
                                         refAddresses.add(refAddress)
                                     } else {
-                                        allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                        allChains().firstOrNull { it.tag == refAddress.chainTag }
                                             ?.let { chain ->
                                                 if (chain.isDefault) {
                                                     refAddresses.add(refAddress)
                                                 }
-
-                                            } ?: run {
-                                            allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                ?.let { evmChain ->
-                                                    if (evmChain.isDefault) {
-                                                        refAddresses.add(refAddress)
-                                                    }
-                                                }
-                                        }
+                                            }
                                     }
                                 }
                             }
@@ -244,31 +216,28 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                     SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
+                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
                             .forEach { refAddress ->
-                                if (refAddress.dpAddress?.startsWith((toChain as CosmosLine).accountPrefix + 1) == true && refAddress.dpAddress?.lowercase() != senderAddress.lowercase()) {
+                                if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
                                     if (Prefs.displayLegacy) {
                                         refAddresses.add(refAddress)
                                     } else {
-                                        allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }
+                                        allChains().firstOrNull { it.tag == refAddress.chainTag }
                                             ?.let { chain ->
                                                 if (chain.isDefault) {
                                                     refAddresses.add(refAddress)
                                                 }
-
-                                            } ?: run {
-                                            allEvmLines().firstOrNull { it.tag == refAddress.chainTag }
-                                                ?.let { evmChain ->
-                                                    if (evmChain.isDefault) {
-                                                        refAddresses.add(refAddress)
-                                                    }
-                                                }
-                                        }
+                                            }
                                     }
                                 }
                             }
+
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                if (addressBook.chainName == toChain.name && !addressBook.address.startsWith(
+                                        "0x"
+                                    ) && addressBook.address.lowercase() != senderAddress.lowercase()
+                                ) {
                                     addressBooks.add(addressBook)
                                 }
                             }
@@ -280,36 +249,19 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     when (sendAssetType) {
                         SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
-                            if (fromChain is ChainOkt996Keccak) {
-                                if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
-                                    recycler.visibility = View.GONE
-                                    emptyLayout.visibility = View.VISIBLE
-
-                                } else {
-                                    recycler.visibility = View.VISIBLE
-                                    emptyLayout.visibility = View.GONE
-                                    initCosmosRecyclerView(
-                                        refAddresses, addressBooks
-                                    )
-                                }
-                                segmentView.visibility = View.GONE
+                            if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
                                 evmRecycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
 
                             } else {
-                                if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-                                    evmRecycler.visibility = View.GONE
-                                    emptyLayout.visibility = View.VISIBLE
-
-                                } else {
-                                    evmRecycler.visibility = View.VISIBLE
-                                    emptyLayout.visibility = View.GONE
-                                    initEvmRecyclerView(
-                                        refEvmAddresses, evmAddressBooks
-                                    )
-                                }
-                                segmentView.visibility = View.GONE
-                                recycler.visibility = View.GONE
+                                evmRecycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                initEvmRecyclerView(
+                                    refEvmAddresses, evmAddressBooks
+                                )
                             }
+                            segmentView.visibility = View.GONE
+                            recycler.visibility = View.GONE
                         }
 
                         SendAssetType.COSMOS_EVM_COIN -> {
@@ -471,11 +423,9 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private fun sortRefAddresses(refAddresses: MutableList<RefAddress>) {
         val accountMap =
             AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
-        val cosmosLineMap = allCosmosLines().associateBy { it.tag }
-        val evmLineMap = allEvmLines().associateBy { it.tag }
+        val chainLineMap = allChains().associateBy { it.tag }
         refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId }
-            .thenByDescending { evmLineMap[it.chainTag]?.isDefault == true }
-            .thenByDescending { cosmosLineMap[it.chainTag]?.isDefault == true })
+            .thenByDescending { chainLineMap[it.chainTag]?.isDefault == true })
     }
 
     private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {

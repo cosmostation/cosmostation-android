@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
 import wannabit.io.cosmostaion.databinding.FragmentReceiveBinding
 
 class ReceiveFragment : Fragment() {
@@ -17,13 +16,13 @@ class ReceiveFragment : Fragment() {
     private var _binding: FragmentReceiveBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var receiveAdapter: ReceiveAdapter
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): ReceiveFragment {
+        fun newInstance(selectedChain: BaseChain): ReceiveFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -48,10 +47,10 @@ class ReceiveFragment : Fragment() {
 
     private fun initView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+            arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }

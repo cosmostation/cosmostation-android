@@ -377,6 +377,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/fee_msg"
+                style="@style/font_sm_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_fee_tip_msg"
+                android:textColor="@color/color_base03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/fee_title"
+                app:layout_constraintBottom_toBottomOf="@id/fee_title"/>
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="match_parent"

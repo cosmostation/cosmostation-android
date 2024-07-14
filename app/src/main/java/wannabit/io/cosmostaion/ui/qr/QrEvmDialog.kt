@@ -12,14 +12,13 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.databinding.DialogQrEvmBinding
 
 class QrEvmDialog(
-    context: Context, private val selectedEvmChain: EthereumLine?
+    context: Context, private val selectedChain: BaseChain?
 ) : Dialog(context, R.style.CustomDialogTheme) {
 
     private lateinit var binding: DialogQrEvmBinding
@@ -43,13 +42,13 @@ class QrEvmDialog(
         val barcodeEncoder = BarcodeEncoder()
 
         binding.apply {
-            selectedEvmChain?.let { evmChain ->
+            selectedChain?.let { chain ->
                 ethAddressView.setBackgroundResource(R.drawable.cell_bg)
-                ethAddress.text = ByteUtils.convertBech32ToEvm(evmChain.address)
-                ethChainImg.setImageResource(evmChain.logo)
+                ethAddress.text = chain.evmAddress
+                ethChainImg.setImageResource(chain.logo)
 
                 bitmap = barcodeEncoder.encodeBitmap(
-                    ByteUtils.convertBech32ToEvm(evmChain.address),
+                    chain.evmAddress,
                     BarcodeFormat.QR_CODE,
                     400,
                     400,
@@ -59,14 +58,14 @@ class QrEvmDialog(
                 ethQrView.radius = context.resources.getDimension(R.dimen.space_12)
                 ethQrImg.clipToOutline = true
 
-                chainLogo.setImageResource(evmChain.addressLogo)
-                chainName.text = evmChain.name
-                chainImg.setImageResource(evmChain.logo)
+                chainLogo.setImageResource(chain.addressLogo)
+                chainName.text = chain.name
+                chainImg.setImageResource(chain.logo)
                 addressView.setBackgroundResource(R.drawable.cell_bg)
-                address.text = evmChain.address
+                address.text = chain.address
 
                 bitmap = barcodeEncoder.encodeBitmap(
-                    evmChain.address, BarcodeFormat.QR_CODE, 400, 400, hints
+                    chain.address, BarcodeFormat.QR_CODE, 400, 400, hints
                 )
                 qrImg.setImageBitmap(bitmap)
                 qrView.radius = context.resources.getDimension(R.dimen.space_12)
@@ -80,33 +79,27 @@ class QrEvmDialog(
             ethAddressView.setOnClickListener {
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                selectedEvmChain?.let { evmChain ->
-                    val clip = ClipData.newPlainText(
-                        "address", ByteUtils.convertBech32ToEvm(evmChain.address)
-                    )
-                    clipboard.setPrimaryClip(clip)
-                }
+                val clip = ClipData.newPlainText(
+                    "address", selectedChain?.evmAddress
+                )
+                clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
             }
 
             addressView.setOnClickListener {
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                selectedEvmChain?.let { evmChain ->
-                    val clip = ClipData.newPlainText("address", evmChain.address)
-                    clipboard.setPrimaryClip(clip)
-                }
+                val clip = ClipData.newPlainText("address", selectedChain?.address)
+                clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
             }
 
             btnEthShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                selectedEvmChain?.let { evmChain ->
-                    intent.putExtra(
-                        Intent.EXTRA_TEXT, ByteUtils.convertBech32ToEvm(evmChain.address)
-                    )
-                }
+                intent.putExtra(
+                    Intent.EXTRA_TEXT, selectedChain?.evmAddress
+                )
                 intent.type = "text/plain"
 
                 context.startActivity(Intent.createChooser(intent, "share"))
@@ -115,9 +108,7 @@ class QrEvmDialog(
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                selectedEvmChain?.let { evmChain ->
-                    intent.putExtra(Intent.EXTRA_TEXT, evmChain.address)
-                }
+                intent.putExtra(Intent.EXTRA_TEXT, selectedChain?.address)
                 intent.type = "text/plain"
 
                 context.startActivity(Intent.createChooser(intent, "share"))

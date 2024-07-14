@@ -19,7 +19,7 @@ import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -51,12 +51,13 @@ class WithdrawEarningFragment : BaseTxFragment() {
     private var _binding: FragmentWithdrawEarningBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private var withdrawCoin: Coin? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var toCoin: Coin? = null
     private var txMemo = ""
@@ -68,7 +69,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine?, withdrawCoin: Coin?
+            selectedChain: BaseChain?, withdrawCoin: Coin?
         ): WithdrawEarningFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -102,14 +103,14 @@ class WithdrawEarningFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     withdrawCoin = getSerializable("withdrawCoin", Coin::class.java)
                 }
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     withdrawCoin = getSerializable("withdrawCoin") as? Coin
@@ -159,21 +160,19 @@ class WithdrawEarningFragment : BaseTxFragment() {
             toCoin =
                 Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom).build()
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        removeAmountMsg.visibility = View.GONE
-                        removeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        removeAmount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_base01
-                            )
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    removeAmountMsg.visibility = View.GONE
+                    removeAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                    removeAmount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_base01
                         )
-                        removeDenom.visibility = View.VISIBLE
-                        removeDenom.text = asset.symbol
-                    }
+                    )
+                    removeDenom.visibility = View.VISIBLE
+                    removeDenom.text = asset.symbol
                 }
             }
             txSimulate()
@@ -228,11 +227,9 @@ class WithdrawEarningFragment : BaseTxFragment() {
                     InsertAmountFragment.newInstance(TxType.EARN_WITHDRAW,
                         availableAmount.toString(),
                         toCoin?.amount,
-                        selectedChain.stakeDenom?.let { denom ->
-                            BaseData.getAsset(
-                                selectedChain.apiName, denom
-                            )
-                        },
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.stakeDenom
+                        ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
@@ -316,6 +313,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
                     selectedChain.address,
                     onBindEarnWithdraw(),
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -334,6 +332,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindEarnWithdraw(),
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )

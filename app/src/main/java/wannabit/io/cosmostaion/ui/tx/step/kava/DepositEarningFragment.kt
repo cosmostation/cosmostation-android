@@ -22,7 +22,7 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -58,12 +58,13 @@ class DepositEarningFragment : BaseTxFragment() {
     private var _binding: FragmentDepositEarningBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private var toValidator: Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var toCoin: CoinProto.Coin? = null
     private var txMemo = ""
@@ -75,7 +76,7 @@ class DepositEarningFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine?, toValidator: Validator?
+            selectedChain: BaseChain?, toValidator: Validator?
         ): DepositEarningFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -109,7 +110,7 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     toValidator = getSerializable("toValidator", Validator::class.java)
@@ -117,7 +118,7 @@ class DepositEarningFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     toValidator = getSerializable("toValidator") as? Validator
@@ -132,11 +133,11 @@ class DepositEarningFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.cosmosValidators[0]
+                    toValidator = selectedChain.grpcFetcher?.cosmosValidators?.get(0)
                 }
             }
             updateValidatorView()
@@ -200,21 +201,19 @@ class DepositEarningFragment : BaseTxFragment() {
                 CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
                     .build()
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        addAmountMsg.visibility = View.GONE
-                        addAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        addAmount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_base01
-                            )
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    addAmountMsg.visibility = View.GONE
+                    addAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                    addAmount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_base01
                         )
-                        addDenom.visibility = View.VISIBLE
-                        addDenom.text = asset.symbol
-                    }
+                    )
+                    addDenom.visibility = View.VISIBLE
+                    addDenom.text = asset.symbol
                 }
             }
             txSimulate()
@@ -258,21 +257,21 @@ class DepositEarningFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                selectedChain.stakeDenom?.let { denom ->
-                    val balanceAmount = selectedChain.balanceAmount(denom)
-                    val vestingAmount = selectedChain.vestingAmount(denom)
+                val balanceAmount =
+                    selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
+                val vestingAmount =
+                    selectedChain.grpcFetcher?.vestingAmount(selectedChain.stakeDenom)
 
-                    txFee?.let {
-                        availableAmount = if (it.getAmount(0).denom == denom) {
-                            val feeAmount = it.getAmount(0).amount.toBigDecimal()
-                            if (feeAmount > balanceAmount) {
-                                BigDecimal.ZERO
-                            } else {
-                                balanceAmount.add(vestingAmount).subtract(feeAmount)
-                            }
+                txFee?.let {
+                    availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
+                        val feeAmount = it.getAmount(0).amount.toBigDecimal()
+                        if (feeAmount > balanceAmount) {
+                            BigDecimal.ZERO
                         } else {
-                            balanceAmount.add(vestingAmount)
+                            balanceAmount?.add(vestingAmount)?.subtract(feeAmount)
                         }
+                    } else {
+                        balanceAmount?.add(vestingAmount)
                     }
                 }
             }
@@ -289,7 +288,7 @@ class DepositEarningFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -390,6 +389,7 @@ class DepositEarningFragment : BaseTxFragment() {
                     selectedChain.address,
                     onBindEarnDeposit(),
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -411,6 +411,7 @@ class DepositEarningFragment : BaseTxFragment() {
                 selectedChain.address,
                 onBindEarnDeposit(),
                 txFee,
+                txTip,
                 txMemo,
                 selectedChain
             )
