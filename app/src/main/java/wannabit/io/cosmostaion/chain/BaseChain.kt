@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLava
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
@@ -536,6 +537,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainKava118())
     chains.add(ChainKi())
     chains.add(ChainKyve())
+    chains.add(ChainLava())
     chains.add(ChainLikeCoin())
     chains.add(ChainLum880())
     chains.add(ChainLum118())

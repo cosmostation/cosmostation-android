@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -176,15 +177,54 @@ class ApplicationViewModel(
                 }
 
                 is NetworkResult.Error -> {
-                    when (val balanceResponse = walletRepository.balance(channel, this)) {
-                        is NetworkResult.Success -> {
-                            balanceResponse.data?.balancesList?.let {
-                                grpcFetcher?.cosmosBalances = it
-                            }
-                        }
+                    val loadBalanceDeferred = async { walletRepository.balance(channel, chain) }
+                    val loadRewardAddressDeferred =
+                        async { walletRepository.rewardAddress(channel, chain) }
+                    val loadFeeMarketDeferred = async { walletRepository.baseFee(channel, chain) }
 
-                        is NetworkResult.Error -> {
-                            grpcFetcher?.cosmosBalances = null
+                    val results = awaitAll(
+                        loadBalanceDeferred, loadRewardAddressDeferred, loadFeeMarketDeferred
+                    )
+
+                    results.forEach { result ->
+                        when (result) {
+                            is NetworkResult.Success -> {
+                                when (result.data) {
+                                    is QueryProto.QueryAllBalancesResponse -> {
+                                        result.data.balancesList?.let {
+                                            grpcFetcher?.cosmosBalances = it
+                                        }
+                                    }
+
+                                    is String -> {
+                                        grpcFetcher?.rewardAddress = result.data
+                                    }
+
+                                    is MutableList<*> -> {
+                                        (result.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                            if (BaseData.getAsset(
+                                                    apiName, baseFee.denom
+                                                ) != null
+                                            ) {
+                                                grpcFetcher?.cosmosBaseFees?.add(baseFee)
+                                            }
+                                        }
+                                        grpcFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                -1
+                                            } else {
+                                                0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                            }
+
+                            else -> {}
                         }
                     }
 
@@ -270,6 +310,7 @@ class ApplicationViewModel(
                                     }
 
                                     is String -> {
+                                        Log.e("Test1234 : ", response.data)
                                         grpcFetcher?.rewardAddress = response.data
                                     }
 

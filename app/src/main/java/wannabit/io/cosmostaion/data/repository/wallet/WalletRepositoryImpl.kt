@@ -193,8 +193,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun baseFee(
-        channel: ManagedChannel,
-        chain: BaseChain
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.DecCoin>>? {
         return if (chain.supportFeeMarket() == true) {
             val stub = com.feemarket.feemarket.v1.QueryGrpc.newBlockingStub(channel)
