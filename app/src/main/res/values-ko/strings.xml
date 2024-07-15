@@ -325,7 +325,7 @@
     <string name="str_delist_msg">선택하신 체인은 모바일 지갑에서 지원종료 예정입니다. 다른 지갑 또는 차후 커스텀체인 서비스로 지원할 수 있습니다.</string>
     <string name="str_legacy_path_msg">선택하신 레거시 경로의 계정은 지원종료 예정입니다. 퍼블릭 경로로 자산을 옮기 시길 강력히 권장합니다.</string>
     <string name="str_deposit_caution_msg">%1$s 네트워크 자산만 전송가능 합니다</string>
-    <string name="str_reward_address_change_msg">이 주소는 리워드 자산을 받는 주소입니다.\n<u>여기를 눌러 리워드 주소를 변경하실 수 있습니다.</u> (권장하지 않음)</string>
+    <string name="str_reward_address_change_msg">이 주소는 리워드 자산을 받는 주소입니다.\n<u><b>여기를 눌러 리워드 주소를 변경하실 수 있습니다.</b></u> (권장하지 않음)</string>
     <string name="str_already_reward_address_changed_msg">이미 리워드 주소를 변경하였습니다.</string>
     <string name="str_header_msg">길게 눌러서 복사하실 수 있습니다</string>
     <string name="str_affect_danger_msg">당신의 자산에 영향을 미칩니다</string>

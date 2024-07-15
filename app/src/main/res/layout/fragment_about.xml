@@ -444,7 +444,7 @@
 
                     <TextView
                         android:id="@+id/reward_change_address"
-                        style="@style/font_sb_12"
+                        style="@style/font_sm_12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_16"

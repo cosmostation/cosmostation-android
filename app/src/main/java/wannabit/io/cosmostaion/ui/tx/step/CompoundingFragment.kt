@@ -276,6 +276,7 @@ class CompoundingFragment : BaseTxFragment() {
                                                 txFee = TxProto.Fee.newBuilder()
                                                     .setGasLimit(fee.gasLimit)
                                                     .addAmount(updateFeeCoin).build()
+                                                txFee = Signer.setFee(selectedFeeInfo, txFee)
 
                                                 updateFeeView()
                                                 txSimulate()
@@ -290,14 +291,22 @@ class CompoundingFragment : BaseTxFragment() {
                                 feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                                 object : AssetSelectListener {
                                     override fun select(denom: String) {
-                                        selectedChain.getDefaultFeeCoins(requireContext())
-                                            .firstOrNull { it.denom == denom }?.let { feeCoin ->
+                                        feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
+                                            ?.let { feeCoin ->
+                                                val gasAmount = selectedChain.getFeeBaseGasAmount()
+                                                    .toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
-                                                        .setAmount(feeCoin.amount).build()
-                                                txFee = TxProto.Fee.newBuilder()
-                                                    .setGasLimit(fee.gasLimit)
-                                                    .addAmount(updateFeeCoin).build()
+                                                        .setAmount(
+                                                            feeCoin.gasRate?.multiply(
+                                                                gasAmount
+                                                            )?.setScale(0, RoundingMode.UP)
+                                                                .toString()
+                                                        ).build()
+
+                                                txFee = TxProto.Fee.newBuilder().setGasLimit(
+                                                    selectedChain.getFeeBaseGasAmount()
+                                                ).addAmount(updateFeeCoin).build()
 
                                                 updateFeeView()
                                                 txSimulate()
@@ -312,6 +321,17 @@ class CompoundingFragment : BaseTxFragment() {
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
                 txFee = if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                        it.denom == txFee?.getAmount(0)?.denom
+                    }
+                    val gasAmount = txFee?.gasLimit?.toBigDecimal()
+                    val feeDenom = baseFee?.denom
+                    val feeAmount =
+                        baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+                    txFee = TxProto.Fee.newBuilder().setGasLimit(gasAmount!!.toLong()).addAmount(
+                        CoinProto.Coin.newBuilder().setDenom(feeDenom)
+                            .setAmount(feeAmount.toString()).build()
+                    ).build()
                     Signer.setFee(selectedFeeInfo, txFee)
 
                 } else {

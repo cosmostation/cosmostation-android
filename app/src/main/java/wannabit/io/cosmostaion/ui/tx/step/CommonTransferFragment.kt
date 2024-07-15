@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -727,6 +726,9 @@ class CommonTransferFragment : BaseTxFragment() {
                                                     cosmosTxFee = TxProto.Fee.newBuilder()
                                                         .setGasLimit(fee.gasLimit)
                                                         .addAmount(updateFeeCoin).build()
+                                                    cosmosTxFee = Signer.setFee(
+                                                        selectedFeePosition, cosmosTxFee
+                                                    )
 
                                                     updateFeeView()
                                                     txSimulate()
@@ -743,16 +745,22 @@ class CommonTransferFragment : BaseTxFragment() {
                                     object : AssetSelectListener {
                                         override fun select(denom: String) {
                                             fromChain.apply {
-                                                getDefaultFeeCoins(requireContext()).firstOrNull { it.denom == denom }
+                                                cosmosFeeInfos[selectedFeePosition].feeDatas.firstOrNull { it.denom == denom }
                                                     ?.let { feeCoin ->
+                                                        val gasAmount =
+                                                            getFeeBaseGasAmount().toBigDecimal()
                                                         val updateFeeCoin =
                                                             CoinProto.Coin.newBuilder()
-                                                                .setDenom(denom)
-                                                                .setAmount(feeCoin.amount).build()
+                                                                .setDenom(denom).setAmount(
+                                                                    feeCoin.gasRate?.multiply(
+                                                                        gasAmount
+                                                                    )?.setScale(0, RoundingMode.UP)
+                                                                        .toString()
+                                                                ).build()
 
                                                         cosmosTxFee =
                                                             TxProto.Fee.newBuilder().setGasLimit(
-                                                                BaseConstant.BASE_GAS_AMOUNT.toLong()
+                                                                getFeeBaseGasAmount()
                                                             ).addAmount(updateFeeCoin).build()
 
                                                         updateFeeView()
@@ -773,7 +781,21 @@ class CommonTransferFragment : BaseTxFragment() {
                     fromChain.apply {
                         cosmosTxFee =
                             if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                                val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                                    it.denom == cosmosTxFee?.getAmount(0)?.denom
+                                }
+                                val gasAmount = cosmosTxFee?.gasLimit?.toBigDecimal()
+                                val feeDenom = baseFee?.denom
+                                val feeAmount = baseFee?.getdAmount()?.multiply(gasAmount)
+                                    ?.setScale(0, RoundingMode.DOWN)
+                                cosmosTxFee =
+                                    TxProto.Fee.newBuilder().setGasLimit(gasAmount!!.toLong())
+                                        .addAmount(
+                                            CoinProto.Coin.newBuilder().setDenom(feeDenom)
+                                                .setAmount(feeAmount.toString()).build()
+                                        ).build()
                                 Signer.setFee(selectedFeePosition, cosmosTxFee)
+
                             } else {
                                 fromChain.getBaseFee(
                                     requireContext(),

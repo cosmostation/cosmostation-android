@@ -175,12 +175,7 @@ class TokenFragment : Fragment() {
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain.supportCw20) {
-                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
-                } else {
-                    binding.refresher.isRefreshing = false
-                    return@setOnRefreshListener
-                }
+                ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
             }
         }
     }

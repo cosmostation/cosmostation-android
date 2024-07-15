@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.ui.option.notice.PushNotificationActivity
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.Random
 
 
 class BaseFCM : FirebaseMessagingService() {
@@ -53,7 +54,7 @@ class BaseFCM : FirebaseMessagingService() {
                         putExtra("url", url)
                         val pendingIntent = PendingIntent.getActivity(
                             this@BaseFCM,
-                            0,
+                            Random(System.currentTimeMillis()).nextInt(),
                             this,
                             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                         )
@@ -89,7 +90,7 @@ class BaseFCM : FirebaseMessagingService() {
                                     notificationBuilder.setStyle(
                                         NotificationCompat.BigPictureStyle().bigPicture(resource)
                                     )
-                                    notificationManager.notify(0, notificationBuilder.build())
+                                    notificationManager.notify(Random(System.currentTimeMillis()).nextInt(), notificationBuilder.build())
                                 }
 
                                 override fun onLoadCleared(placeholder: Drawable?) {}
@@ -127,7 +128,7 @@ class BaseFCM : FirebaseMessagingService() {
                 putExtra("url", url)
             }
             val pendingIntent = PendingIntent.getActivity(
-                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                this, Random(System.currentTimeMillis()).nextInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
             val notificationBuilder = NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
@@ -153,7 +154,7 @@ class BaseFCM : FirebaseMessagingService() {
                         notificationBuilder.setStyle(
                             NotificationCompat.BigPictureStyle().bigPicture(resource)
                         )
-                        notificationManager.notify(0, notificationBuilder.build())
+                        notificationManager.notify(Random(System.currentTimeMillis()).nextInt(), notificationBuilder.build())
                     }
 
                     override fun onLoadCleared(placeholder: Drawable?) {}
