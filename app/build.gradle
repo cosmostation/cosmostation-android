@@ -15,11 +15,11 @@ android {
     }
 
     defaultConfig {
-        compileSdk 33
+        compileSdk 34
         buildToolsVersion = "30.0.3"
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 306
         versionName "1.10.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
