@@ -212,6 +212,7 @@ class DappActivity : BaseActivity() {
                         BaseData.appSchemeUrl = ""
                     }
                     finish()
+                    emitCloseToWeb()
                 }
             }
             btnNext.colorFilter = PorterDuffColorFilter(
@@ -229,6 +230,7 @@ class DappActivity : BaseActivity() {
                     BaseData.appSchemeUrl = ""
                 }
                 finish()
+                emitCloseToWeb()
             }
         }
     }

@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 class ChainBitsong : BaseChain(), Parcelable {
 
     override var name: String = "Bitsong"
-    override var tag: String = "bitsong118"
+    override var tag: String = "bitsong639"
     override var logo: Int = R.drawable.chain_bitsong
     override var swipeLogo: Int = R.drawable.chain_swipe_bitsong
     override var apiName: String = "bitsong"

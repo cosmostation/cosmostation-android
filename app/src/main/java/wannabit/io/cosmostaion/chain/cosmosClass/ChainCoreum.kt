@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 class ChainCoreum : BaseChain(), Parcelable {
 
     override var name: String = "Coreum"
-    override var tag: String = "coreum118"
+    override var tag: String = "coreum990"
     override var logo: Int = R.drawable.chain_coreum
     override var swipeLogo: Int = R.drawable.chain_swipe_coreum
     override var apiName: String = "coreum"

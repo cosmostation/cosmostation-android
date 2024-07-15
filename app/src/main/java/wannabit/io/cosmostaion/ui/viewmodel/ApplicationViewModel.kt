@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -310,7 +309,6 @@ class ApplicationViewModel(
                                     }
 
                                     is String -> {
-                                        Log.e("Test1234 : ", response.data)
                                         grpcFetcher?.rewardAddress = response.data
                                     }
 

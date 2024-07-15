@@ -86,59 +86,32 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (chain.isEvmCosmos()) {
-                                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                        respondLayout.visibility = View.VISIBLE
-                                        chainValue.visibility = View.GONE
-                                        assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
-
-                                } else if (chain.isCosmos()) {
-                                    if (chain is ChainOktEvm) {
-                                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                            respondLayout.visibility = View.VISIBLE
-                                            chainValue.visibility = View.GONE
-                                            assetCnt.visibility = View.GONE
-                                            return@withContext
-                                        }
-
-                                    } else if (chain is ChainOkt996Keccak) {
-                                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                            respondLayout.visibility = View.VISIBLE
-                                            chainValue.visibility = View.GONE
-                                            assetCnt.visibility = View.GONE
-                                            return@withContext
-                                        }
-
-                                    } else if (chain.grpcFetcher?.cosmosBalances == null) {
-                                        respondLayout.visibility = View.VISIBLE
-                                        chainValue.visibility = View.GONE
-                                        assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
-
-                                } else {
+                                if (chain is ChainOktEvm) {
                                     if (chain.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
                                         assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
-                                }
 
-                                if (chain.isCosmos()) {
-                                    val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                                    if (chain.supportCw20) {
+                                    } else {
+                                        val coinCntString =
+                                            refAddress.lastCoinCnt.toString() + " Coins"
                                         val tokenCnt =
-                                            chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                            chain.evmRpcFetcher?.evmTokens?.count { it.amount?.toBigDecimal()!! > BigDecimal.ZERO }
                                         if (tokenCnt == 0) {
                                             assetCnt.text = coinCntString
                                         } else {
                                             assetCnt.text = "$tokenCnt Tokens, $coinCntString"
                                         }
+                                    }
 
-                                    } else if (chain.supportEvm) {
+                                } else if (chain.isEvmCosmos()) {
+                                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+
+                                    } else {
+                                        val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
                                         val tokenCnt =
                                             chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                                         if (tokenCnt == 0) {
@@ -146,20 +119,60 @@ class ChainEditViewHolder(
                                         } else {
                                             assetCnt.text = "$tokenCnt Tokens, $coinCntString"
                                         }
+                                    }
+
+                                } else if (chain.isCosmos()) {
+                                    if (chain is ChainOkt996Keccak) {
+                                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                                            respondLayout.visibility = View.VISIBLE
+                                            chainValue.visibility = View.GONE
+                                            assetCnt.visibility = View.GONE
+
+                                        } else {
+                                            val coinCntString =
+                                                refAddress.lastCoinCnt.toString() + " Coins"
+                                            assetCnt.text = coinCntString
+                                        }
 
                                     } else {
-                                        assetCnt.text = coinCntString
+                                        if (chain.grpcFetcher?.cosmosBalances == null) {
+                                            respondLayout.visibility = View.VISIBLE
+                                            chainValue.visibility = View.GONE
+                                            assetCnt.visibility = View.GONE
+
+                                        } else {
+                                            val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
+                                            if (chain.supportCw20) {
+                                                val tokenCnt =
+                                                    chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                                if (tokenCnt == 0) {
+                                                    assetCnt.text = coinCntString
+                                                } else {
+                                                    assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                                                }
+
+                                            } else {
+                                                assetCnt.text = coinCntString
+                                            }
+                                        }
                                     }
 
                                 } else {
-                                    val coinCnt =
-                                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
-                                    val tokenCnt =
-                                        chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                    if (tokenCnt == 0) {
-                                        assetCnt.text = coinCnt
+                                    if (chain.web3j == null) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+
                                     } else {
-                                        assetCnt.text = "$tokenCnt Tokens, $coinCnt"
+                                        val coinCnt =
+                                            if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
+                                        val tokenCnt =
+                                            chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                        if (tokenCnt == 0) {
+                                            assetCnt.text = coinCnt
+                                        } else {
+                                            assetCnt.text = "$tokenCnt Tokens, $coinCnt"
+                                        }
                                     }
                                 }
                                 chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)

@@ -244,7 +244,7 @@ class EvmDetailFragment : Fragment() {
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
 
             if (selectedEvmChain.isEcosystem()) {
-                fragments.add(3, EvmEcoSystemFragment.newInstance(selectedEvmChain))
+                fragments.add(2, EvmEcoSystemFragment.newInstance(selectedEvmChain))
             }
         }
 

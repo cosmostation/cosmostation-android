@@ -16,7 +16,7 @@ class ChainAvalanche : BaseChain(), Parcelable {
     override var tag: String = "avalanche60"
     override var logo: Int = R.drawable.chain_avalanche
     override var swipeLogo: Int = R.drawable.chain_swipe_avalanche
-    override var apiName: String = "arbitrum"
+    override var apiName: String = "avalanche"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "AVAX"
