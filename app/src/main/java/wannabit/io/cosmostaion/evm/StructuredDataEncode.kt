@@ -115,8 +115,11 @@ class StructuredDataEncode(jsonMessageInString: String) {
     }
 
     @Throws(java.lang.RuntimeException::class)
-    fun hashMessage(primaryType: String, data: HashMap<String?, Any?>): ByteArray {
-        return sha3(encodeData(primaryType, data))
+    fun hashMessage(primaryType: String?, data: HashMap<String?, Any?>): ByteArray {
+        primaryType?.let { primary ->
+            return sha3(encodeData(primary, data))
+        }
+        return byteArrayOf()
     }
 
     @Throws(java.lang.RuntimeException::class)

@@ -80,7 +80,7 @@ class PopUpEvmSignFragment(
     private var paramType: String? = ""
 
     private var selectFeePosition = 1
-    private var addedFeePosition = 0
+    private var addedFeePosition = 1
     private var evmGasTitle: MutableList<String> = mutableListOf()
     private var evmGas: MutableList<Triple<BigInteger?, BigInteger?, BigInteger?>> = mutableListOf(
         Triple(
@@ -164,10 +164,20 @@ class PopUpEvmSignFragment(
                 withContext(Dispatchers.Main) {
                     if (signTypedData.contains("to") || signTypedData.contains("gas")) {
                         binding.warnMsg.text = getString(R.string.str_affect_danger_msg)
-                        binding.warnMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_accent_red))
+                        binding.warnMsg.setTextColor(
+                            ContextCompat.getColorStateList(
+                                requireContext(),
+                                R.color.color_accent_red
+                            )
+                        )
                     } else {
                         binding.warnMsg.text = getString(R.string.str_affect_safe_msg)
-                        binding.warnMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_accent_green))
+                        binding.warnMsg.setTextColor(
+                            ContextCompat.getColorStateList(
+                                requireContext(),
+                                R.color.color_accent_green
+                            )
+                        )
                     }
                 }
 
@@ -211,7 +221,12 @@ class PopUpEvmSignFragment(
                     dialogTitle.text = getString(R.string.str_permit_request)
                     feeView.visibility = View.INVISIBLE
                     warnMsg.text = getString(R.string.str_affect_safe_msg)
-                    warnMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_accent_green))
+                    warnMsg.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.color_accent_green
+                        )
+                    )
                     btnConfirm.isEnabled = true
                     initPersonalDataView()
                 }
@@ -219,7 +234,12 @@ class PopUpEvmSignFragment(
                 "eth_sendTransaction" -> {
                     dialogTitle.text = getString(R.string.str_tx_request)
                     warnMsg.text = getString(R.string.str_affect_danger_msg)
-                    warnMsg.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.color_accent_red))
+                    warnMsg.setTextColor(
+                        ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.color_accent_red
+                        )
+                    )
                     feeView.visibility = View.VISIBLE
                     initFee()
                     initTxData()
@@ -236,7 +256,7 @@ class PopUpEvmSignFragment(
                 val txJsonArray = JsonParser.parseString(data).asJsonArray
                 val txJsonObject = Gson().fromJson(txJsonArray[1].asString, JsonObject::class.java)
 
-                val encoder = StructuredDataEncode(Gson().toJson(txJsonObject).trimIndent())
+                val encoder = StructuredDataEncode(Gson().toJson(txJsonObject))
                 val hashStructuredData = encoder.hashStructuredData()
 
                 val signature = Sign.signMessage(
@@ -333,7 +353,7 @@ class PopUpEvmSignFragment(
 
             val ethFeeHistoryRequest = JsonRpcRequest(
                 method = "eth_feeHistory", params = listOf(
-                    20, "pending", listOf(25, 50, 75)
+                    20, "latest", listOf(25, 50, 75)
                 )
             )
             val ethFeeHistoryResponse =

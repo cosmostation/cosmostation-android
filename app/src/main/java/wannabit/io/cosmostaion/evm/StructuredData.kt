@@ -11,16 +11,16 @@ class StructuredData {
     )
 
     class EIP712Domain @JsonCreator constructor(
-        @param:JsonProperty(value = "name") val name: String,
-        @param:JsonProperty(value = "version") val version: String,
-        @param:JsonProperty(value = "chainId") val chainId: String,
-        @param:JsonProperty(value = "verifyingContract") val verifyingContract: String,
+        @param:JsonProperty(value = "name") val name: String?,
+        @param:JsonProperty(value = "version") val version: String?,
+        @param:JsonProperty(value = "chainId") val chainId: String?,
+        @param:JsonProperty(value = "verifyingContract") val verifyingContract: String?,
         @param:JsonProperty(value = "salt") val salt: String?
     )
 
     class EIP712Message @JsonCreator constructor(
         @param:JsonProperty(value = "types") val types: HashMap<String, List<Entry>>,
-        @param:JsonProperty(value = "primaryType") val primaryType: String,
+        @param:JsonProperty(value = "primaryType") val primaryType: String?,
         @param:JsonProperty(value = "message") val message: Any,
         @param:JsonProperty(value = "domain") val domain: EIP712Domain
     ) {

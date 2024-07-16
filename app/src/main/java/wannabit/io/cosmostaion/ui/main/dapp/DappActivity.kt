@@ -936,6 +936,8 @@ class DappActivity : BaseActivity() {
 
                         if (evmChainIds?.contains(chainId) == true) {
                             currentEvmChainId = chainId
+                            selectEvmChain =
+                                allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
