@@ -491,8 +491,15 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                     Prefs.displayLegacy = false
                 }
+                waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
                 setVibrate()
                 ApplicationViewModel.shared.displayLegacy(Prefs.displayLegacy)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (waitingDialog?.isVisible == true) {
+                        waitingDialog?.dismissAllowingStateLoss()
+                    }
+                }, 1000)
             }
 
             testnetSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -505,8 +512,15 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                     Prefs.displayTestnet = false
                 }
+                waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
                 setVibrate()
                 ApplicationViewModel.shared.displayTestnet(Prefs.displayTestnet)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (waitingDialog?.isVisible == true) {
+                        waitingDialog?.dismissAllowingStateLoss()
+                    }
+                }, 500)
             }
 
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->

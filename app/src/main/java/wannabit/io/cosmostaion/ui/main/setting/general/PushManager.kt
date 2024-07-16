@@ -21,26 +21,6 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 
 object PushManager {
     @JvmStatic
-    fun syncAddresses(token: String) {
-        val account = BaseData.baseAccount ?: return
-
-//        if (account.sortedDisplayCosmosLines().isNotEmpty()) {
-//            account.sortedDisplayCosmosLines()
-//                .map { chain -> chain.address?.let { PushAccount(it, chain.name) } }.toMutableList()
-//                .let { accounts ->
-//                    RetrofitInstance.walletApi.syncPushAddress(PushSyncReq(token, accounts))
-//                        .enqueue(object : Callback<Void> {
-//                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                                Prefs.fcmToken = token
-//                            }
-//
-//                            override fun onFailure(call: Call<Void>, t: Throwable) {}
-//                        })
-//                }
-//        }
-    }
-
-    @JvmStatic
     fun updateStatus(
         enable: Boolean, completion: (Boolean, String) -> Unit
     ) {
@@ -86,7 +66,7 @@ object PushManager {
         var pushWallet: PushWallet? = null
         withContext(Dispatchers.IO) {
             val pushAccounts: MutableList<PushAccount> = mutableListOf()
-            initAllKeyData().filter { !it.isTestnet }.forEach { chain ->
+            initAllKeyData(account).filter { !it.isTestnet }.forEach { chain ->
                 if (chain.isCosmos()) {
                     val pushAccount = PushAccount(chain.apiName, chain.address)
                     pushAccounts.add(pushAccount)
@@ -95,30 +75,30 @@ object PushManager {
                     pushAccounts.add(pushAccount)
                 }
             }
-            pushWallet =  PushWallet(
-                account.id.toString() + account.uuid + account.id.toString(), account.name, pushAccounts
+            pushWallet = PushWallet(
+                account.id.toString() + account.uuid + account.id.toString(),
+                account.name,
+                pushAccounts
             )
         }
         return pushWallet
     }
 
-    private suspend fun initAllKeyData(): MutableList<BaseChain> {
+    private suspend fun initAllKeyData(account: BaseAccount): MutableList<BaseChain> {
         val result = allChains()
-        BaseData.baseAccount?.let { account ->
-            withContext(Dispatchers.IO) {
-                account.apply {
-                    if (type == BaseAccountType.MNEMONIC) {
-                        result.forEach { chain ->
-                            if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                            }
+        withContext(Dispatchers.IO) {
+            account.apply {
+                if (type == BaseAccountType.MNEMONIC) {
+                    result.forEach { chain ->
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
+                    }
 
-                    } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        result.forEach { chain ->
-                            if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(privateKey)
-                            }
+                } else if (type == BaseAccountType.PRIVATE_KEY) {
+                    result.forEach { chain ->
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithPrivateKey(privateKey)
                         }
                     }
                 }
