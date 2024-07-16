@@ -298,7 +298,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun vestingData(
-        channel: ManagedChannel, chain: ChainNeutron
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QuerySmartContractStateResponse> {
         val req = AllocationReq(Allocation(chain.address))
         val jsonData = Gson().toJson(req)
@@ -317,7 +317,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun vaultDeposit(
         channel: ManagedChannel,
-        chain: ChainNeutron,
+        chain: BaseChain,
     ): NetworkResult<String?> {
         val req = VotingPowerReq(VotingPower(chain.address))
         val jsonData = Gson().toJson(req)

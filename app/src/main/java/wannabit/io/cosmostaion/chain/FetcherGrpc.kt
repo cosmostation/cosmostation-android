@@ -34,7 +34,7 @@ open class FetcherGrpc(chain: BaseChain) {
         this.chain = chain
     }
 
-    open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal? {
         return if (denom == chain.stakeDenom) {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
                 .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))

@@ -129,8 +129,8 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val searchEvmResult = searchMainnetChains.filter { it.tag == tag }
-            val evmIterator = searchEvmResult.iterator()
+            val searchMainnetResult = searchMainnetChains.filter { it.tag == tag }
+            val evmIterator = searchMainnetResult.iterator()
             while (evmIterator.hasNext()) {
                 val chain = evmIterator.next()
                 val index = searchMainnetChains.indexOf(chain)
@@ -141,8 +141,8 @@ class ChainEditFragment : BaseTxFragment() {
                 }
             }
 
-            val searchResult = searchTestnetChains.filter { it.tag == tag }
-            val iterator = searchResult.iterator()
+            val searchTestnetResult = searchTestnetChains.filter { it.tag == tag }
+            val iterator = searchTestnetResult.iterator()
             while (iterator.hasNext()) {
                 val chain = iterator.next()
                 val index = searchTestnetChains.indexOf(chain)
@@ -227,12 +227,18 @@ class ChainEditFragment : BaseTxFragment() {
                         } else {
                             newText?.let { searchTxt ->
                                 searchMainnetChains.addAll(account.allChains.filter { chain ->
-                                        chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet
-                                    })
+                                    chain.name.contains(
+                                        searchTxt,
+                                        ignoreCase = true
+                                    ) && !chain.isTestnet
+                                })
 
                                 searchTestnetChains.addAll(account.allChains.filter { chain ->
-                                        chain.name.contains(searchTxt, ignoreCase = true) && chain.isTestnet
-                                    })
+                                    chain.name.contains(
+                                        searchTxt,
+                                        ignoreCase = true
+                                    ) && chain.isTestnet
+                                })
                             }
                         }
                     }

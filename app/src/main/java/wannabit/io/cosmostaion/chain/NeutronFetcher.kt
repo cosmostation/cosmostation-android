@@ -10,22 +10,23 @@ class NeutronFetcher(chain: BaseChain) : FetcherGrpc(chain) {
     var neutronDeposited: BigDecimal = BigDecimal.ZERO
     var neutronVesting: VestingData? = null
 
-    override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal {
+    override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal? {
         return if (denom == chain.stakeDenom) {
-            balanceValue(denom, isUsd).add(neutronVestingValue(isUsd))
-                .add(neutronDepositedValue(isUsd))
+            chain.grpcFetcher?.balanceValue(denom, isUsd)?.add(neutronVestingValue(isUsd))
+                ?.add(neutronDepositedValue(isUsd))
         } else {
             balanceValue(denom, isUsd)
         }
     }
 
     override fun allStakingDenomAmount(): BigDecimal {
-        return balanceAmount(chain.stakeDenom).add(neutronVestingAmount()).add(neutronDeposited)
+        return chain.grpcFetcher?.balanceAmount(chain.stakeDenom)?.add(neutronVestingAmount())
+            ?.add(neutronDeposited) ?: BigDecimal.ZERO
     }
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return balanceValueSum(isUsd).add(neutronVestingValue(isUsd))
-            .add(neutronDepositedValue(isUsd))
+        return chain.grpcFetcher?.balanceValueSum(isUsd)?.add(neutronVestingValue(isUsd))
+            ?.add(neutronDepositedValue(isUsd)) ?: BigDecimal.ZERO
     }
 
     fun neutronVestingAmount(): BigDecimal? {

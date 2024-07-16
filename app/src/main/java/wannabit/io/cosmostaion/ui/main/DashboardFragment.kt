@@ -243,11 +243,18 @@ class DashboardFragment : Fragment() {
                             if (chain.publicKey == null) {
                                 chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
-                            if (chain.address.isNotEmpty()) {
-                                withContext(Dispatchers.Main) {
-                                    updateRowData(chain.tag)
+                            if (Prefs.style == 1) {
+                                if (chain.isEth() && chain.evmAddress.isNotEmpty()) {
+                                    withContext(Dispatchers.Main) {
+                                        updateRowData(chain.tag)
+                                    }
+                                } else {
+                                    if (chain.address.isNotEmpty()) {
+                                        updateRowData(chain.tag)
+                                    }
                                 }
                             }
+
                             if (!chain.fetched) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
@@ -258,11 +265,18 @@ class DashboardFragment : Fragment() {
                             if (chain.publicKey == null) {
                                 chain.setInfoWithPrivateKey(privateKey)
                             }
-                            if (chain.address.isNotEmpty()) {
-                                withContext(Dispatchers.Main) {
-                                    updateRowData(chain.tag)
+                            if (Prefs.style == 1) {
+                                if (chain.isEth() && chain.evmAddress.isNotEmpty()) {
+                                    withContext(Dispatchers.Main) {
+                                        updateRowData(chain.tag)
+                                    }
+                                } else {
+                                    if (chain.address.isNotEmpty()) {
+                                        updateRowData(chain.tag)
+                                    }
                                 }
                             }
+
                             if (!chain.fetched) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }

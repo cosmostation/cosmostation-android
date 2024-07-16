@@ -88,11 +88,11 @@ interface WalletRepository {
 
     //neutron
     suspend fun vestingData(
-        channel: ManagedChannel, chain: ChainNeutron
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QuerySmartContractStateResponse>
 
     suspend fun vaultDeposit(
-        channel: ManagedChannel, chain: ChainNeutron
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<String?>
 
     //lcd

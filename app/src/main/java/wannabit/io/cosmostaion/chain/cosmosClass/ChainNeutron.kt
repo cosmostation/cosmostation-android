@@ -44,8 +44,6 @@ open class ChainNeutron : BaseChain(), Parcelable {
 
 const val NEUTRON_VESTING_CONTRACT_ADDRESS =
     "neutron1h6828as2z5av0xqtlh4w9m75wxewapk8z9l2flvzc29zeyzhx6fqgp648z"
-const val NEUTRON_VAULT_ADDRESS =
-    "neutron1qeyjez6a9dwlghf9d6cy44fxmsajztw257586akk6xn6k88x0gus5djz4e"
 
 const val NEUTRON_SINGLE_MODULE = 1
 const val NEUTRON_MULTI_MODULE = 2

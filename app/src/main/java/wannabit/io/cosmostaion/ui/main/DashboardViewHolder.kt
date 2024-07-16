@@ -53,7 +53,7 @@ class DashboardViewHolder(
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
-            assetCnt.visibility = View.VISIBLE
+            skeletonChainValue.visibility = View.VISIBLE
 
             listOf(
                 chainBadge, chainCw20Badge, chainErc20Badge, chainNftBadge, chainDappBadge
@@ -121,32 +121,8 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
 
-                if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
-                    }
-
-                } else if (chain.isCosmos()) {
-                    if (chain is ChainOktEvm) {
-                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            assetCnt.visibility = View.GONE
-                            return
-                        }
-
-                    } else if (chain is ChainOkt996Keccak) {
-                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            assetCnt.visibility = View.GONE
-                            return
-                        }
-
-                    } else if (chain.grpcFetcher?.cosmosBalances == null) {
+                if (chain.isEth()) {
+                    if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE
@@ -154,15 +130,46 @@ class DashboardViewHolder(
                     }
 
                 } else {
-                    if (chain.web3j == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
+                    if (chain.supportEvm) {
+                        if (chain is ChainOktEvm) {
+                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
+
+                        } else {
+                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
+                        }
+
+                    } else {
+                        if (chain is ChainOkt996Keccak) {
+                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
+
+                        } else {
+                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
+                        }
                     }
                 }
                 respondLayout.visibility = View.GONE
                 chainValue.visibility = View.VISIBLE
+                assetCnt.visibility = View.VISIBLE
 
                 if (chain is ChainOkt996Keccak) {
                     assetCnt.text =
@@ -222,6 +229,11 @@ class DashboardViewHolder(
                     chainValue.text = formatAssetValue(chain.allValue(false))
                     chainValue.textSize = 14f
                 }
+
+            } else {
+                skeletonAssetCnt.visibility = View.VISIBLE
+                skeletonChainValue.visibility = View.VISIBLE
+                respondLayout.visibility = View.GONE
             }
         }
     }
@@ -235,6 +247,7 @@ class DashboardViewHolder(
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
+            skeletonChainValue.visibility = View.VISIBLE
             assetCnt.visibility = View.VISIBLE
 
             listOf(
@@ -335,6 +348,11 @@ class DashboardViewHolder(
                     chainValue.text = formatAssetValue(chain.allValue(false))
                     chainValue.textSize = 14f
                 }
+
+            } else {
+                skeletonAssetCnt.visibility = View.VISIBLE
+                skeletonChainValue.visibility = View.VISIBLE
+                respondLayout.visibility = View.GONE
             }
         }
     }
@@ -370,48 +388,50 @@ class DashboardViewHolder(
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
-                skeletonAssetCnt.visibility = View.GONE
 
-                if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                if (chain.isEth()) {
+                    if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
-                    }
-
-                } else if (chain.isCosmos()) {
-                    if (chain is ChainOktEvm) {
-                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            assetCnt.visibility = View.GONE
-                            return
-                        }
-
-                    } else if (chain is ChainOkt996Keccak) {
-                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            assetCnt.visibility = View.GONE
-                            return
-                        }
-
-                    } else if (chain.grpcFetcher?.cosmosBalances == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
                         return
                     }
 
                 } else {
-                    if (chain.web3j == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
+                    if (chain.supportEvm) {
+                        if (chain is ChainOktEvm) {
+                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+
+                        } else {
+                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+                        }
+
+                    } else {
+                        if (chain is ChainOkt996Keccak) {
+                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+
+                        } else {
+                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+                        }
                     }
                 }
+                respondLayout.visibility = View.GONE
+                chainValue.visibility = View.VISIBLE
 
                 if (Prefs.hideValue) {
                     chainValue.text = "✱✱✱✱"
@@ -420,6 +440,11 @@ class DashboardViewHolder(
                     chainValue.text = formatAssetValue(chain.allValue(false))
                     chainValue.textSize = 14f
                 }
+
+            } else {
+                skeletonChainValue.visibility = View.VISIBLE
+                respondLayout.visibility = View.GONE
+                chainValue.visibility = View.GONE
             }
         }
     }
@@ -460,7 +485,6 @@ class DashboardViewHolder(
                     if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
                         return
                     }
 
@@ -468,10 +492,11 @@ class DashboardViewHolder(
                     if (chain.grpcFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
                         return
                     }
                 }
+                respondLayout.visibility = View.GONE
+                chainValue.visibility = View.VISIBLE
 
                 if (Prefs.hideValue) {
                     chainValue.text = "✱✱✱✱"
@@ -480,6 +505,12 @@ class DashboardViewHolder(
                     chainValue.text = formatAssetValue(chain.allValue(false))
                     chainValue.textSize = 14f
                 }
+
+            } else {
+                skeletonChainValue.visibility = View.VISIBLE
+                skeletonAssetCnt.visibility = View.VISIBLE
+                respondLayout.visibility = View.GONE
+                chainValue.visibility = View.GONE
             }
         }
     }

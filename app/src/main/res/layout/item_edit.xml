@@ -37,8 +37,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_8"
-                android:layout_marginEnd="@dimen/space_12"
+                android:layout_marginEnd="@dimen/space_10"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/chain_value_layout"
                 app:layout_constraintStart_toEndOf="@id/chain_img"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -93,9 +94,9 @@
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
                     android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/chain_name"
                     app:layout_constraintStart_toEndOf="@+id/chain_name"
-                    app:layout_constraintTop_toTopOf="@+id/chain_name"
-                    app:layout_constraintBottom_toBottomOf="@+id/chain_name"/>
+                    app:layout_constraintTop_toTopOf="@+id/chain_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

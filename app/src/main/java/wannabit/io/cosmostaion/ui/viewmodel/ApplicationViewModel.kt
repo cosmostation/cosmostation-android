@@ -424,7 +424,11 @@ class ApplicationViewModel(
                         tag,
                         address,
                         ByteUtils.convertBech32ToEvm(address),
-                        grpcFetcher?.allAssetValue(true)?.toPlainString(),
+                        if (this is ChainNeutron) {
+                            neutronFetcher?.allAssetValue(true).toString()
+                        } else {
+                            grpcFetcher?.allAssetValue(true).toString()
+                        },
                         grpcFetcher?.allStakingDenomAmount().toString(),
                         "0",
                         grpcFetcher?.cosmosBalances?.count {

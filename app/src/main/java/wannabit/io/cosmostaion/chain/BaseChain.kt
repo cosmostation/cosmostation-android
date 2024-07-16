@@ -219,6 +219,10 @@ open class BaseChain : Parcelable {
         return supportCosmosGrpc && supportEvm
     }
 
+    fun isEth(): Boolean {
+        return supportEvm && !isCosmos()
+    }
+
     fun getInitFee(c: Context): TxProto.Fee? {
         return if (getDefaultFeeCoins(c).isNotEmpty()) {
             val fee = getDefaultFeeCoins(c).first()
@@ -477,6 +481,12 @@ open class BaseChain : Parcelable {
                 is ChainOktEvm -> {
                     return evmRpcFetcher?.allAssetValue(isUsd)
                         ?.add(evmRpcFetcher?.allTokenValue(isUsd)) ?: BigDecimal.ZERO
+                }
+
+                is ChainNeutron -> {
+                    return neutronFetcher?.allAssetValue(isUsd)
+                        ?.add(grpcFetcher?.allTokenValue(isUsd))
+                        ?: BigDecimal.ZERO
                 }
 
                 else -> {
