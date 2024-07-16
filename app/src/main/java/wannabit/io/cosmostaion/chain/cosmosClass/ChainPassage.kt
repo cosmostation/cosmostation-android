@@ -16,7 +16,7 @@ class ChainPassage : BaseChain(), Parcelable {
     override var tag: String = "passage118"
     override var logo: Int = R.drawable.chain_passage
     override var swipeLogo: Int = R.drawable.chain_swipe_passage
-    override var apiName: String = "osmosis"
+    override var apiName: String = "passage"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
