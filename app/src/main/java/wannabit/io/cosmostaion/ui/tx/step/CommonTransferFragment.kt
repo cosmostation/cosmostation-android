@@ -708,7 +708,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 cosmosTxFee?.let { fee ->
-                    if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
+                    if (transferStyle == TransferStyle.COSMOS_STYLE) {
                         if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             handleOneClickWithDelay(
                                 BaseFeeAssetFragment(fromChain,

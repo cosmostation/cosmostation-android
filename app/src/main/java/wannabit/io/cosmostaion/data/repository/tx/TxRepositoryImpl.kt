@@ -221,7 +221,7 @@ class TxRepositoryImpl : TxRepository {
 
             val request = JsonRpcRequest(
                 method = "eth_feeHistory", params = listOf(
-                    20, "pending", listOf(10, 30, 50, 70, 90)
+                    20, "latest", listOf(25, 50, 75)
                 )
             )
             val jsonRequest = ObjectMapper().writeValueAsString(request)
@@ -272,13 +272,7 @@ class TxRepositoryImpl : TxRepository {
                             }
                         }
                     }
-                    val resultArray = soft(rearrangedArray)
-                    val suggestTipValue = if (resultArray.size > 3) {
-                        val indexToRemove = setOf(3, 4)
-                        resultArray.filterIndexed { index, _ -> index !in indexToRemove }
-                    } else {
-                        resultArray
-                    }
+                    val suggestTipValue = soft(rearrangedArray)
 
                     val tip: BigInteger
                     val baseFee: BigInteger?
@@ -287,7 +281,7 @@ class TxRepositoryImpl : TxRepository {
                     if (selectedChain.evmSupportEip1559()) {
                         tip = suggestTipValue[selectedFeeInfo]
                         baseFee = suggestBaseFee[selectedFeeInfo]
-                        evmGas = suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                        evmGas = baseFee!!.toLong() + tip.toLong()
 
                     } else {
                         tip =
@@ -303,7 +297,7 @@ class TxRepositoryImpl : TxRepository {
                         } else {
                             suggestBaseFee[selectedFeeInfo]
                         }
-                        evmGas = suggestBaseFee[selectedFeeInfo]!!.toLong() + tip.toLong()
+                        evmGas = baseFee!!.toLong() + tip.toLong()
                     }
 
                     var rawTransaction: RawTransaction? = null

@@ -52,7 +52,7 @@ import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class PopUpCosmosSignFragment(
-    private val selectedChain: BaseChain?,
+    var selectedChain: BaseChain?,
     private val id: Long,
     private val data: String,
     private val method: String?,
@@ -72,7 +72,6 @@ class PopUpCosmosSignFragment(
 
     private var selectFeePosition = 0
 
-    private var isEditFeeWithDirect: Boolean = true
     private var isChanged = false
     private var isClickable = true
 
@@ -118,11 +117,9 @@ class PopUpCosmosSignFragment(
                 "sign_direct" -> {
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
                     updateJsonData = txJsonObject["doc"].asJsonObject
-                    isEditFeeWithDirect =
-                        txJsonObject.getAsJsonPrimitive("isEditFee")?.asBoolean ?: true
                     val authInfo =
                         TxProto.AuthInfo.parseFrom(Utils.hexToBytes(updateJsonData["auth_info_bytes"].asString))
-                    if ((!isEditFeeWithDirect) && authInfo.fee.gasLimit > 0 && authInfo.fee.amountList.isNotEmpty()) {
+                    if (authInfo.fee.gasLimit > 0 && authInfo.fee.amountList.isNotEmpty()) {
                         dAppTxFee = authInfo.fee
                     }
                 }
@@ -192,61 +189,86 @@ class PopUpCosmosSignFragment(
 
     private fun initFee() {
         binding.apply {
-            val gasTitle: MutableList<String>
-            selectedChain?.let { chain ->
-                when (method) {
-                    "sign_amino" -> {
-                        gasTitle = mutableListOf(
-                            getString(R.string.str_fixed)
-                        )
-                        val segmentView = ItemDappSegmentedFeeBinding.inflate(layoutInflater)
-                        feeSegment.addView(
-                            segmentView.root,
-                            0,
-                            LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                        )
-                        segmentView.btnTitle.text = gasTitle[0]
-                        selectFeePosition = 0
-                        btnConfirm.isEnabled = true
-                        txFee = dAppTxFee
-                        updateSegmentView()
-                    }
+            lifecycleScope.launch(Dispatchers.IO) {
+                val txJsonObject = JsonParser.parseString(data).asJsonObject
+                val txJsonSignDoc =
+                    txJsonObject.getAsJsonObject("signDoc") ?: txJsonObject.getAsJsonObject("doc")
+                val chainIdJson =
+                    txJsonSignDoc["chain_id"] ?: txJsonSignDoc.getAsJsonObject("chainName")
+                val chainId = chainIdJson.asString
 
-                    "sign_direct" -> {
-                        feeInfos = chain.getFeeInfos(requireContext())
-                        for (i in feeInfos.indices) {
-                            val segmentView = ItemDappSegmentedFeeBinding.inflate(layoutInflater)
-                            feeSegment.addView(
-                                segmentView.root,
-                                i,
-                                LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                            )
-                            segmentView.btnTitle.text = feeInfos[i].title
+                BaseData.baseAccount?.let { account ->
+                    account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+                        .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                        ?.let { chain ->
+                            selectedChain = chain
                         }
+                }
 
-                        if (dAppTxFee == null) {
-                            selectFeePosition = chain.getFeeBasePosition()
-                            feeSegment.setPosition(selectFeePosition, false)
-                            txFee = chain.getInitPayableFee(requireContext())
-                            btnFromDapp.visibility = View.GONE
+                withContext(Dispatchers.Main) {
+                    val gasTitle: MutableList<String>
+                    selectedChain?.let { chain ->
+                        when (method) {
+                            "sign_amino" -> {
+                                gasTitle = mutableListOf(
+                                    getString(R.string.str_fixed)
+                                )
+                                val segmentView =
+                                    ItemDappSegmentedFeeBinding.inflate(layoutInflater)
+                                feeSegment.addView(
+                                    segmentView.root,
+                                    0,
+                                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                                )
+                                segmentView.btnTitle.text = gasTitle[0]
+                                selectFeePosition = 0
+                                btnConfirm.isEnabled = true
+                                txFee = dAppTxFee
+                                updateSegmentView()
+                            }
 
-                        } else {
-                            selectFeePosition = -1
-                            feeSegment.setPosition(selectFeePosition, false)
-                            feeSegment.isSelected = false
-                            btnFromDapp.visibility = View.VISIBLE
-                            txFee = dAppTxFee
+                            "sign_direct" -> {
+                                feeInfos = chain.getFeeInfos(requireContext())
+                                for (i in feeInfos.indices) {
+                                    val segmentView =
+                                        ItemDappSegmentedFeeBinding.inflate(layoutInflater)
+                                    feeSegment.addView(
+                                        segmentView.root,
+                                        i,
+                                        LinearLayout.LayoutParams(
+                                            0,
+                                            dpToPx(requireContext(), 32),
+                                            1f
+                                        )
+                                    )
+                                    segmentView.btnTitle.text = feeInfos[i].title
+                                }
+
+                                if (dAppTxFee == null) {
+                                    selectFeePosition = chain.getFeeBasePosition()
+                                    feeSegment.setPosition(selectFeePosition, false)
+                                    txFee = chain.getInitPayableFee(requireContext())
+                                    btnFromDapp.visibility = View.GONE
+
+                                } else {
+                                    selectFeePosition = -1
+                                    feeSegment.setPosition(selectFeePosition, false)
+                                    feeSegment.isSelected = false
+                                    btnFromDapp.visibility = View.VISIBLE
+                                    txFee = dAppTxFee
+                                }
+                                updateSegmentView()
+                                txSimulate()
+                            }
+
+                            else -> {
+                                initSignMessageDataView(data)
+                                feeView.visibility = View.INVISIBLE
+                            }
                         }
-                        updateSegmentView()
-                        txSimulate()
-                    }
-
-                    else -> {
-                        initSignMessageDataView(data)
-                        feeView.visibility = View.INVISIBLE
+                        updateFeeView()
                     }
                 }
-                updateFeeView()
             }
         }
     }
@@ -508,6 +530,7 @@ class PopUpCosmosSignFragment(
         BaseData.baseAccount?.let { account ->
             account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
                 .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }?.let { chain ->
+                    selectedChain = chain
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
                     val simulateGasLimit =
                         (simulateGas.gasUsed.toDouble() * chain.gasMultiply()).toLong()
