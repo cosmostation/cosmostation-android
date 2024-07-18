@@ -584,7 +584,7 @@ class DappActivity : BaseActivity() {
     ) {
         bundle.getString("data")?.let { data ->
             PopUpCosmosSignFragment(
-                selectChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
+                allChains, selectChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
                 supportFragmentManager, PopUpCosmosSignFragment::class.java.name
             )

@@ -235,17 +235,20 @@ open class BaseChain : Parcelable {
     }
 
     fun getInitPayableFee(c: Context): TxProto.Fee? {
-        var feeCoin: CoinProto.Coin? = null
-        for (i in 0 until getDefaultFeeCoins(c).size) {
-            val minFee = getDefaultFeeCoins(c)[i]
-            if (minFee.amount.toBigDecimal() <= grpcFetcher?.balanceAmount(minFee.denom)) {
-                feeCoin = minFee
-                break
+        grpcFetcher()?.let {
+            var feeCoin: CoinProto.Coin? = null
+            for (i in 0 until getDefaultFeeCoins(c).size) {
+                val minFee = getDefaultFeeCoins(c)[i]
+                if (minFee.amount.toBigDecimal() <= grpcFetcher?.balanceAmount(minFee.denom)) {
+                    feeCoin = minFee
+                    break
+                }
             }
-        }
-        if (feeCoin != null) {
-            return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
-                .build()
+            if (feeCoin != null) {
+                return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount())
+                    .addAmount(feeCoin)
+                    .build()
+            }
         }
         return null
     }

@@ -491,12 +491,14 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                     Prefs.displayLegacy = false
                 }
-                waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
+                if (requireActivity().supportFragmentManager.findFragmentByTag("dialog") == null) {
+                    waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
+                }
                 setVibrate()
                 ApplicationViewModel.shared.displayLegacy(Prefs.displayLegacy)
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    if (waitingDialog?.isVisible == true) {
+                    if (waitingDialog?.isAdded == false) {
                         waitingDialog?.dismissAllowingStateLoss()
                     }
                 }, 1000)
@@ -512,15 +514,18 @@ class SettingFragment : Fragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                     Prefs.displayTestnet = false
                 }
-                waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
+
+                if (requireActivity().supportFragmentManager.findFragmentByTag("dialog") == null) {
+                    waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
+                }
                 setVibrate()
                 ApplicationViewModel.shared.displayTestnet(Prefs.displayTestnet)
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    if (waitingDialog?.isVisible == true) {
+                    if (waitingDialog?.isAdded == true) {
                         waitingDialog?.dismissAllowingStateLoss()
                     }
-                }, 500)
+                }, 1000)
             }
 
             alarmSwitch.setOnCheckedChangeListener { _, isChecked ->

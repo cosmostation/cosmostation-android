@@ -52,6 +52,7 @@ import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class PopUpCosmosSignFragment(
+    private val allChains: MutableList<BaseChain>?,
     var selectedChain: BaseChain?,
     private val id: Long,
     private val data: String,
@@ -100,9 +101,21 @@ class PopUpCosmosSignFragment(
 
     private fun parsingRequest() {
         lifecycleScope.launch(Dispatchers.IO) {
+            val txJsonObject = JsonParser.parseString(data).asJsonObject
+            val txJsonSignDoc =
+                txJsonObject.getAsJsonObject("signDoc") ?: txJsonObject.getAsJsonObject("doc")
+            val chainIdJson =
+                txJsonSignDoc["chain_id"] ?: txJsonSignDoc.getAsJsonObject("chainName")
+            val chainId = chainIdJson.asString
+
+            allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+                ?.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                ?.let { chain ->
+                    selectedChain = chain
+                }
+
             when (method) {
                 "sign_amino" -> {
-                    val txJsonObject = JsonParser.parseString(data).asJsonObject
                     updateJsonData = updateFeeInfoInAminoMessage(txJsonObject)
                     updateJsonData["fee"].asJsonObject?.let { fee ->
                         val feeCoin = CoinProto.Coin.newBuilder()
@@ -115,7 +128,6 @@ class PopUpCosmosSignFragment(
                 }
 
                 "sign_direct" -> {
-                    val txJsonObject = JsonParser.parseString(data).asJsonObject
                     updateJsonData = txJsonObject["doc"].asJsonObject
                     val authInfo =
                         TxProto.AuthInfo.parseFrom(Utils.hexToBytes(updateJsonData["auth_info_bytes"].asString))
@@ -189,86 +201,56 @@ class PopUpCosmosSignFragment(
 
     private fun initFee() {
         binding.apply {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val txJsonObject = JsonParser.parseString(data).asJsonObject
-                val txJsonSignDoc =
-                    txJsonObject.getAsJsonObject("signDoc") ?: txJsonObject.getAsJsonObject("doc")
-                val chainIdJson =
-                    txJsonSignDoc["chain_id"] ?: txJsonSignDoc.getAsJsonObject("chainName")
-                val chainId = chainIdJson.asString
+            val gasTitle: MutableList<String>
+            selectedChain?.let { chain ->
+                when (method) {
+                    "sign_amino" -> {
+                        gasTitle = mutableListOf(
+                            getString(R.string.str_fixed)
+                        )
+                        val segmentView =
+                            ItemDappSegmentedFeeBinding.inflate(layoutInflater)
+                        feeSegment.addView(
+                            segmentView.root,
+                            0,
+                            LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                        )
+                        segmentView.btnTitle.text = gasTitle[0]
+                        selectFeePosition = 0
+                        btnConfirm.isEnabled = true
+                        txFee = dAppTxFee
+                        updateSegmentView()
+                    }
 
-                BaseData.baseAccount?.let { account ->
-                    account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
-                        .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                        ?.let { chain ->
-                            selectedChain = chain
-                        }
-                }
-
-                withContext(Dispatchers.Main) {
-                    val gasTitle: MutableList<String>
-                    selectedChain?.let { chain ->
-                        when (method) {
-                            "sign_amino" -> {
-                                gasTitle = mutableListOf(
-                                    getString(R.string.str_fixed)
+                    "sign_direct" -> {
+                        feeInfos = chain.getFeeInfos(requireContext())
+                        for (i in feeInfos.indices) {
+                            val segmentView =
+                                ItemDappSegmentedFeeBinding.inflate(layoutInflater)
+                            feeSegment.addView(
+                                segmentView.root, i, LinearLayout.LayoutParams(
+                                    0, dpToPx(requireContext(), 32), 1f
                                 )
-                                val segmentView =
-                                    ItemDappSegmentedFeeBinding.inflate(layoutInflater)
-                                feeSegment.addView(
-                                    segmentView.root,
-                                    0,
-                                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                                )
-                                segmentView.btnTitle.text = gasTitle[0]
-                                selectFeePosition = 0
-                                btnConfirm.isEnabled = true
-                                txFee = dAppTxFee
-                                updateSegmentView()
-                            }
-
-                            "sign_direct" -> {
-                                feeInfos = chain.getFeeInfos(requireContext())
-                                for (i in feeInfos.indices) {
-                                    val segmentView =
-                                        ItemDappSegmentedFeeBinding.inflate(layoutInflater)
-                                    feeSegment.addView(
-                                        segmentView.root,
-                                        i,
-                                        LinearLayout.LayoutParams(
-                                            0,
-                                            dpToPx(requireContext(), 32),
-                                            1f
-                                        )
-                                    )
-                                    segmentView.btnTitle.text = feeInfos[i].title
-                                }
-
-                                if (dAppTxFee == null) {
-                                    selectFeePosition = chain.getFeeBasePosition()
-                                    feeSegment.setPosition(selectFeePosition, false)
-                                    txFee = chain.getInitPayableFee(requireContext())
-                                    btnFromDapp.visibility = View.GONE
-
-                                } else {
-                                    selectFeePosition = -1
-                                    feeSegment.setPosition(selectFeePosition, false)
-                                    feeSegment.isSelected = false
-                                    btnFromDapp.visibility = View.VISIBLE
-                                    txFee = dAppTxFee
-                                }
-                                updateSegmentView()
-                                txSimulate()
-                            }
-
-                            else -> {
-                                initSignMessageDataView(data)
-                                feeView.visibility = View.INVISIBLE
-                            }
+                            )
+                            segmentView.btnTitle.text = feeInfos[i].title
                         }
-                        updateFeeView()
+                        selectFeePosition = chain.getFeeBasePosition()
+                        feeSegment.setPosition(selectFeePosition, false)
+                        txFee = chain.getInitPayableFee(requireContext())
+                        if (dAppTxFee != null) {
+                            btnFromDapp.visibility = View.VISIBLE
+                            btnFromDapp.updateButtonViewEnabled(false)
+                        }
+                        updateSegmentView()
+                        txSimulate()
+                    }
+
+                    else -> {
+                        initSignMessageDataView(data)
+                        feeView.visibility = View.INVISIBLE
                     }
                 }
+                updateFeeView()
             }
         }
     }

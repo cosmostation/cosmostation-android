@@ -64,23 +64,27 @@ data class BaseAccount(
 
     fun sortLine() {
         val displayChains = Prefs.getDisplayChains(this)
-        allChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "cosmos118" -> -1
-                o2.tag == "cosmos118" -> 1
-                lastValue(o1.tag) > lastValue(o2.tag) -> -1
-                lastValue(o1.tag) < lastValue(o2.tag) -> 1
-                else -> 0
+        synchronized(allChains) {
+            allChains.sortWith { o1, o2 ->
+                when {
+                    o1.tag == "cosmos118" -> -1
+                    o2.tag == "cosmos118" -> 1
+                    lastValue(o1.tag) > lastValue(o2.tag) -> -1
+                    lastValue(o1.tag) < lastValue(o2.tag) -> 1
+                    else -> 0
+                }
             }
         }
 
-        allChains.sortWith { o1, o2 ->
-            when {
-                o1.tag == "cosmos118" -> -1
-                o2.tag == "cosmos118" -> 1
-                displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
-                displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
-                else -> 0
+        synchronized(allChains) {
+            allChains.sortWith { o1, o2 ->
+                when {
+                    o1.tag == "cosmos118" -> -1
+                    o2.tag == "cosmos118" -> 1
+                    displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
+                    displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
+                    else -> 0
+                }
             }
         }
     }

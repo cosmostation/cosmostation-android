@@ -425,11 +425,10 @@ class PopUpEvmSignFragment(
                 }
 
                 if (paramMaxFeePerGas != null && paramMaxPriorityFeePerGas != null) {
-                    evmGas.add(Triple(BigInteger(
-                        paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16
-                    ),
-                        BigInteger(paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16),
-                        paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
+                    val maxFeePerGas = BigInteger(paramMaxFeePerGas!!.removePrefix("0x"), 16)
+                    val maxPriorityFeePerGas = BigInteger(paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16)
+                    val baseFee = maxFeePerGas.subtract(maxPriorityFeePerGas)
+                    evmGas.add(Triple(baseFee, maxPriorityFeePerGas, paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
                     evmGasTitle.add("From dapp")
                     addedFeePosition = 3
                 }
@@ -438,8 +437,8 @@ class PopUpEvmSignFragment(
             } else {
                 web3j?.ethGasPrice()?.send()?.gasPrice?.let { gasPrice ->
                     evmGas[0] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
-                    evmGas[1] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
-                    evmGas[2] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
+                    evmGas[1] = Triple(gasPrice.multiply(BigInteger.valueOf(12)).divide(BigInteger.valueOf(10)), BigInteger.ZERO, checkedGas)
+                    evmGas[2] = Triple(gasPrice.multiply(BigInteger.valueOf(20)).divide(BigInteger.valueOf(10)), BigInteger.ZERO, checkedGas)
                 }
 
                 if (paramGas != null) {
